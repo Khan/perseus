@@ -1,7 +1,15 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
+
+jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: jest.fn(),
+}));
+const announceMessageMock = announceMessage as jest.MockedFunction<
+    typeof announceMessage
+>;
 
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
@@ -312,8 +320,9 @@ describe("Circle graph screen reader", () => {
         expect(radiusPoint).toHaveAttribute("aria-live", "off");
     });
 
-    test("set aria-live to polite on the radius point when the radius point is interacted with", async () => {
+    test("announces the new radius via WB Announcer when the radius point is moved", async () => {
         // Arrange
+        announceMessageMock.mockClear();
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
@@ -325,11 +334,49 @@ describe("Circle graph screen reader", () => {
         await userEvent.keyboard("{arrowright}");
 
         // Assert
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
+        // Aria-live stays "off" — WB Announcer owns the on-change announcement
+        // for resize, so we must NOT also flip aria-live to "polite" or the
+        // user would hear the radius announced twice.
+        expect(radiusPoint).toHaveAttribute("aria-live", "off");
+        expect(announceMessageMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: expect.stringContaining("Circle resized"),
+            }),
+        );
     });
 
-    test("set aria-live to off on the radius point when the circle is interacted with", async () => {
+    test("passes a debounceThreshold on every per-graph announcement so continuous motion collapses to one trailing announcement", async () => {
         // Arrange
+        announceMessageMock.mockClear();
+        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
+        const radiusPoint = screen.getByTestId(
+            "movable-point__focusable-handle",
+        );
+
+        // Act
+        // Simulate continuous arrow-key motion: three rapid keypresses.
+        act(() => radiusPoint.focus());
+        await userEvent.keyboard("{arrowright}{arrowright}{arrowright}");
+
+        // Assert
+        // Each call must carry a debounceThreshold so WB Announcer can collapse
+        // the burst. We don't assert exact timing here — the mock doesn't
+        // actually debounce; that's WB's responsibility. We just verify every
+        // call passes the option, which is what we control.
+        expect(announceMessageMock).toHaveBeenCalled();
+        for (const call of announceMessageMock.mock.calls) {
+            expect(call[0]).toEqual(
+                expect.objectContaining({
+                    debounceThreshold: expect.any(Number),
+                }),
+            );
+            expect(call[0].debounceThreshold).toBeGreaterThan(0);
+        }
+    });
+
+    test("does not flip the radius point's aria-live when the circle is moved", async () => {
+        // Arrange
+        announceMessageMock.mockClear();
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
         const buttons = await screen.findAllByRole("button");
         const circleGraph = buttons[0];
@@ -338,16 +385,16 @@ describe("Circle graph screen reader", () => {
         );
 
         // Act
-        // move the radius point so that its aria-live is set to polite
+        // move the radius point first (used to flip aria-live to "polite")
         act(() => radiusPoint.focus());
         await userEvent.keyboard("{arrowright}");
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
-
-        // move the circle
+        // then move the circle
         act(() => circleGraph.focus());
         await userEvent.keyboard("{arrowright}");
 
         // Assert
+        // With WB Announcer owning the resize announcement, aria-live should
+        // stay "off" throughout — no flip to "polite", no flip back.
         expect(radiusPoint).toHaveAttribute("aria-live", "off");
     });
 });

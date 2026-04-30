@@ -3,6 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import {useGraphAnnouncer} from "../announcer/use-announcing-reducer";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -46,6 +47,7 @@ export function CircleGraph(props: CircleGraphProps) {
     const {center, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
+    const {announce} = useGraphAnnouncer();
     const [radiusPointAriaLive, setRadiusPointAriaLive] =
         React.useState<AriaLive>("off");
 
@@ -99,8 +101,18 @@ export function CircleGraph(props: CircleGraphProps) {
                 sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
-                    setRadiusPointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
+                    // OQ3 hybrid escape hatch: the central announcer can't
+                    // compute the new radius (that's per-graph math via
+                    // getRadius), so we announce it from the graph component.
+                    // We deliberately do NOT flip ariaLive to "polite" here —
+                    // WB Announcer now owns the on-change announcement, and
+                    // turning on aria-live would double-announce.
+                    // TODO(LEMS-XXXX): replace with a localized string.
+                    const newRadius = vec.dist(center, newRadiusPoint);
+                    announce(
+                        `Circle resized. Radius is now ${srFormatNumber(newRadius, locale)}.`,
+                    );
                 }}
                 constrain={getCircleKeyboardConstraint(
                     center,
