@@ -316,6 +316,21 @@ module.exports = {
                 message:
                     "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
             },
+            {
+                // Ban `expr as Type` casts (TSAsExpression). `as const` is
+                // excluded because it's a const assertion — a distinct
+                // construct that has no `satisfies` equivalent.
+                selector:
+                    "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
+                message:
+                    "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
+            },
+            {
+                // Ban the legacy angle-bracket assertion form: `<Type>expr`.
+                selector: "TSTypeAssertion",
+                message:
+                    "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
+            },
         ],
         "no-restricted-properties": [
             "error",
