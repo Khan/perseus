@@ -190,12 +190,14 @@ const parseStrokeWeight = defaulted(
     () => "medium" as const,
 );
 
+export const parseLockedLabelSize = enumeration("small", "medium", "large");
+
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
     text: string,
     color: parseLockedFigureColor,
-    size: enumeration("small", "medium", "large"),
+    size: parseLockedLabelSize,
 });
 
 const parseLockedPointType = object({
