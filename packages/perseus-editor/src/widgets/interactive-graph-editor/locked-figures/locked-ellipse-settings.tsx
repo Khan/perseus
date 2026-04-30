@@ -5,7 +5,7 @@ import {
     isFailure,
     lockedFigureFillStyles,
     parse,
-    parseLockedFigureFillType,
+    parseLockedFigureFillStyle,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -237,7 +237,7 @@ const LockedEllipseSettings = (props: Props) => {
                         onChange={(value) => {
                             const parsedFillStyle = parse(
                                 value,
-                                parseLockedFigureFillType,
+                                parseLockedFigureFillStyle,
                             );
                             if (isFailure(parsedFillStyle)) {
                                 throw new Error(parsedFillStyle.detail);

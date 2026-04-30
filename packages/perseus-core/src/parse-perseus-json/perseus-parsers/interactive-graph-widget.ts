@@ -176,7 +176,7 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
 
 export const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 
-export const parseLockedFigureFillType = enumeration(
+export const parseLockedFigureFillStyle = enumeration(
     "none",
     "white",
     "translucent",
@@ -239,7 +239,7 @@ const parseLockedEllipseType = object({
     radius: pairOfNumbers,
     angle: number,
     color: parseLockedFigureColor,
-    fillStyle: parseLockedFigureFillType,
+    fillStyle: parseLockedFigureFillStyle,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
@@ -251,7 +251,7 @@ const parseLockedPolygonType = object({
     points: array(pairOfNumbers),
     color: parseLockedFigureColor,
     showVertices: boolean,
-    fillStyle: parseLockedFigureFillType,
+    fillStyle: parseLockedFigureFillStyle,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
