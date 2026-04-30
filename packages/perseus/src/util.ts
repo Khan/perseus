@@ -49,7 +49,7 @@ type TouchHandlers = {
 
 let supportsPassive = false;
 
-type NestedArray<T> = ReadonlyArray<T | NestedArray<T>>
+type NestedArray<T> = ReadonlyArray<T | NestedArray<T>>;
 
 const nestedMap = function <T, M>(
     children: T | NestedArray<T>,
