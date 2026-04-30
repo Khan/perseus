@@ -128,7 +128,6 @@ const createSimpleClass = function (addFunction: any): any {
         },
 
         remove: function () {
-            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             nestedMap(this._elements, (elem) => {
                 if (elem) {
                     elem.remove();
@@ -139,7 +138,6 @@ const createSimpleClass = function (addFunction: any): any {
         },
 
         toFront: function () {
-            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             nestedMap(this._elements, (elem) => {
                 if (_.isFunction(elem.toFront)) {
                     elem.toFront();
