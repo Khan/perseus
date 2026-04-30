@@ -5,8 +5,8 @@
  * The target for labeling question image with answers.
  */
 
-import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import classNames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -14,10 +14,9 @@ import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
-import styles from "./marker_legacy-styles";
+import styles from "./marker.module.css";
 
 import type {IconType} from "../../components/icon";
-import type {CSSProperties} from "aphrodite";
 
 type Props = {
     selected?: string[];
@@ -28,7 +27,7 @@ type Props = {
     // Whether this marker should pulsate to draw user attention.
     showPulsate: boolean;
     answerSide: "top" | "bottom" | "left" | "right";
-    answerStyles?: CSSProperties;
+    answerStyles?: React.CSSProperties;
     showAnswer?: boolean;
     focused: boolean;
     hovered: boolean;
@@ -79,7 +78,7 @@ export default class Marker extends React.Component<Props> {
 
         const selectedAnswers = selected;
 
-        let iconStyles: StyleType;
+        let iconClassName: string | undefined;
 
         const iconNull: IconType = {
             path: "",
@@ -95,42 +94,45 @@ export default class Marker extends React.Component<Props> {
         };
 
         if (showCorrectness) {
-            iconStyles = [
+            iconClassName = classNames(
                 styles.markerGraded,
                 showCorrectness === "correct"
                     ? styles.markerCorrect
                     : styles.markerIncorrect,
                 isOpen && styles.markerSelected,
-            ];
+            );
             args = {
                 ...args,
                 icon: showCorrectness === "correct" ? iconCheck : iconMinus,
             };
         } else if (selectedAnswers && selectedAnswers.length > 0) {
-            iconStyles = [styles.markerFilled, isOpen && styles.markerSelected];
+            iconClassName = classNames(
+                styles.markerFilled,
+                isOpen && styles.markerSelected,
+            );
         } else if (isOpen) {
-            iconStyles = [styles.markerSelected];
+            iconClassName = styles.markerSelected;
             args = {
                 ...args,
                 icon: iconChevronDown,
                 size: 8,
             };
         } else if (showPulsate) {
-            iconStyles = [
+            iconClassName = classNames(
                 styles.markerPulsateBase,
                 this._mounted && shouldReduceMotion()
                     ? showPulsate && styles.markerUnfilledPulsateOnce
                     : showPulsate && styles.markerUnfilledPulsateInfinite,
-            ];
+            );
         }
 
         return (
-            <View
-                style={[styles.markerIcon, iconStyles]}
+            <div
+                className={classNames(styles.markerIcon, iconClassName)}
                 ref={(node) => (this._icon = node)}
             >
                 <Icon {...args} />
-            </View>
+            </div>
         );
     }
 
@@ -153,11 +155,11 @@ export default class Marker extends React.Component<Props> {
 
         return (
             <>
-                <View
-                    style={[
+                <div
+                    className={classNames(
                         styles.marker,
                         active && !markerDisabled && styles.markerActive,
-                    ]}
+                    )}
                     aria-label={
                         markerDisabled
                             ? this.context.strings.correctExcited
@@ -165,7 +167,7 @@ export default class Marker extends React.Component<Props> {
                     }
                 >
                     {this.renderIcon()}
-                </View>
+                </div>
                 {!!selected && showAnswer && (
                     <AnswerPill
                         selectedAnswers={selected}
