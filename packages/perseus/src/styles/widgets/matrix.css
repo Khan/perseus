@@ -55,24 +55,6 @@
     border: none;
     outline: none;
 }
-.perseus-matrix.the-matrix .matrix-bracket,
-.perseus-matrix.the-matrix .matrix-left,
-.perseus-matrix.the-matrix .matrix-right {
-    border-color: #29f139;
-}
-.perseus-matrix.the-matrix .matrix-input {
-    background: #222;
-}
-.perseus-matrix.the-matrix input,
-.perseus-matrix.the-matrix .number-input {
-    background: #666;
-    color: #29f139;
-    font-weight: bold;
-}
-.perseus-matrix.the-matrix input.outside,
-.perseus-matrix.the-matrix .number-input.outside {
-    background: #444;
-}
 body.mobile .perseus-matrix .matrix-input {
     display: table;
 }

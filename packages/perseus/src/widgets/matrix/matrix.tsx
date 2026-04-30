@@ -107,7 +107,6 @@ type DefaultProps = {
 type State = {
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
-    enterTheMatrix: number;
 };
 
 class Matrix extends React.Component<Props, State> implements Widget {
@@ -130,7 +129,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     state: State = {
         cursorPosition: [0, 0],
-        enterTheMatrix: 0,
     };
 
     componentDidMount() {
@@ -205,7 +203,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
     ) => {
         const maxRow = this.props.matrixBoardSize[0];
         const maxCol = this.props.matrixBoardSize[1];
-        let enterTheMatrix = null;
 
         // eslint-disable-next-line react/no-string-refs
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
@@ -235,12 +232,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                 // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
                 nextPath = getInputPath(row, col + 1);
             }
-        } else if (e.key === "Enter") {
-            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-            enterTheMatrix = this.state.enterTheMatrix + 1;
-        } else if (e.key === "Escape") {
-            // @ts-expect-error - TS2322 - Type '0' is not assignable to type 'null'.
-            enterTheMatrix = 0;
         }
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -267,12 +258,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                 // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(valueLength, valueLength);
             }
-        }
-
-        if (enterTheMatrix != null) {
-            this.setState({
-                enterTheMatrix: enterTheMatrix,
-            });
         }
     };
 
@@ -344,7 +329,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const className = classNames({
             "perseus-matrix": true,
             "static-mode": this.props.static,
-            "the-matrix": this.state.enterTheMatrix >= 5,
         });
 
         return (
