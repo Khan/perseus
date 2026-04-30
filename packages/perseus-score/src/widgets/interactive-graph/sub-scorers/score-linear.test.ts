@@ -59,8 +59,8 @@ describe("scoreLinear", () => {
         const userInput: PerseusGraphTypeLinear = {
             type: "linear",
             coords: [
-                [-2, -2],
-                [2, 2],
+                [1, -1],
+                [1, 1],
             ],
         };
         const rubric: PerseusGraphTypeLinear = {
@@ -72,6 +72,6 @@ describe("scoreLinear", () => {
         };
         const score = scoreLinear(userInput, rubric);
 
-        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
