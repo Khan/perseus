@@ -12,7 +12,7 @@ import _ from "underscore";
 
 import {getArrayWithoutDuplicates} from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
-import {bound, boundToEdge, isUnlimitedGraphState} from "../utils";
+import {bound, boundToEdgeAndSnapToGrid, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -974,15 +974,19 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
-            const [xMin, xMax] = state.range[X];
-            const nextRadiusPoint = snap(state.snapStep, [
-                // Constrain to graph range
-                // The +0 is to convert -0 to +0
-                clamp(action.destination[X] + 0, xMin, xMax),
-                state.center[1],
-            ]);
+            // The radius point is locked to the same y as the center.
+            // boundToEdgeAndSnapToGrid handles the x clamp + snap and
+            // also keeps the result on the snap grid for non-aligned
+            // configurations (e.g., snap=2 with range=[0,7]).
+            const nextRadiusPoint = boundToEdgeAndSnapToGrid(
+                [action.destination[X], state.center[1]],
+                state,
+            );
 
-            if (_.isEqual(nextRadiusPoint, state.center)) {
+            // The radius point can't converge with the center.
+            // kvector.equal compares coordinates numerically so a
+            // -0 from the snap math equals +0.
+            if (kvector.equal(nextRadiusPoint, state.center)) {
                 return state;
             }
 
@@ -1142,13 +1146,6 @@ function boundAndSnapToGrid(
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ) {
     return snap(snapStep, bound({snapStep, range, point}));
-}
-
-function boundToEdgeAndSnapToGrid(
-    point: vec.Vector2,
-    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
-) {
-    return snap(snapStep, boundToEdge({range, point}));
 }
 
 function boundAndSnapAngleVertex(

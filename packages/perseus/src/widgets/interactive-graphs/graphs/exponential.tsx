@@ -9,10 +9,10 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import {X, Y, snap} from "../math";
+import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {boundToEdge} from "../utils";
+import {boundToEdgeAndSnapToGrid} from "../utils";
 
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
@@ -187,7 +187,7 @@ export const getExponentialKeyboardConstraint = (
             // before applying its own collision checks. We must predict
             // the clamped position to avoid accepting coords that the
             // reducer will silently reject.
-            const clamped = snap(snapStep, boundToEdge({range, point: coord}));
+            const clamped = boundToEdgeAndSnapToGrid(coord, {snapStep, range});
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
@@ -207,9 +207,9 @@ export const getExponentialKeyboardConstraint = (
             const proposedSide = coord[Y] > asymptoteY;
             if (currentSide !== proposedSide) {
                 const reflectedY = 2 * asymptoteY - otherPoint[Y];
-                const clampedReflectedY = snap(
-                    snapStep,
-                    boundToEdge({range, point: [0, reflectedY]}),
+                const clampedReflectedY = boundToEdgeAndSnapToGrid(
+                    [0, reflectedY],
+                    {snapStep, range},
                 )[Y];
                 if (
                     reflectedY === coord[Y] ||

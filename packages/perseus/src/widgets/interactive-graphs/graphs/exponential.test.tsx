@@ -260,9 +260,10 @@ describe("getExponentialKeyboardConstraint", () => {
     });
 
     it("walks past an x-collision with the other point when moving right", () => {
-        // Arrange — points at [8,3] and [9,6], asymptote at 1.
-        // Moving point 0 right: x=9 shares x with point 1 (skip).
-        // x=10 is at the edge, no collision, valid.
+        // Point 0 is at (8, 3) and the other point at (9, 6). Moving
+        // right by one step would put both points at x=9, which
+        // exponential graphs don't allow, so the move skips ahead to
+        // x=10 — the right edge, which is fine.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
             [8, 3],
             [9, 6],
@@ -281,11 +282,36 @@ describe("getExponentialKeyboardConstraint", () => {
         expect(constraint.right).toEqual([10, 3]);
     });
 
+    it("refuses to move right when the other point sits at the right edge", () => {
+        // The other point is sitting at the right edge, and point 0
+        // is one step inside. Moving right would either land on the
+        // other point's x or clamp to it — there's nowhere valid to
+        // go, so point 0 stays put.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [9, 3],
+            [10, 6],
+        ];
+
+        // Act
+        const constraint = getExponentialKeyboardConstraint(
+            edgeCoords,
+            asymptote,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert — no valid right move, falls back to original position
+        expect(constraint.right).toEqual([9, 3]);
+    });
+
     it("walks past an asymptote when moving up", () => {
-        // Arrange — asymptote at y=8, points at [3,7] and [1,4].
-        // Moving point 0 up: y=8 is the asymptote (skip), y=9 crosses
-        // the asymptote. reflectedY = 2*8-4 = 12 which clamps to 10
-        // under boundToEdge; no collision with clampedY=9 or coord.y=9.
+        // Point 0 is at (3, 7), just below the asymptote at y=8.
+        // Moving up to y=8 isn't allowed (that's the asymptote
+        // itself), and y=9 crosses to the other side. When a move
+        // crosses the asymptote, the other point gets reflected
+        // across it — but in this setup the reflected position
+        // doesn't conflict with point 0, so the move succeeds.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
             [3, 7],
             [1, 4],
@@ -304,12 +330,12 @@ describe("getExponentialKeyboardConstraint", () => {
         expect(constraint.up).toEqual([3, 9]);
     });
 
-    it("stays put when the only path up crosses the asymptote into a reflection collision", () => {
-        // Arrange — asymptote at y=9 (one step from edge).
-        // Point 0 at [3,8], moving up: y=9 is asymptote (skip).
-        // y=10 crosses the asymptote, reflectedY = 2*9-6 = 12 which
-        // clamps to 10 and collides with clampedY=10 (reject).
-        // y=11 and y=12 all clamp to 10 with the same collision.
+    it("refuses to move up across the asymptote when reflection would collide with the other point", () => {
+        // The asymptote sits one step below the top edge (y=9), and
+        // point 0 is just below it at y=8. Moving up means crossing
+        // the asymptote, which flips the other point to the opposite
+        // side — but the flipped position ends up at the same y as
+        // point 0's destination, so no upward move works.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
             [3, 8],
             [1, 6],

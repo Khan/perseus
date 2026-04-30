@@ -281,7 +281,7 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
+    it("rejects a sinusoid move with a destination that clamps onto the other point's x", () => {
         // coords: point 0 at x=8, point 1 at x=10 (at the edge).
         // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
         // which matches point 1's x. The same-x guard rejects it.
@@ -327,7 +327,7 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
+    it("rejects a tangent move with a destination that clamps onto the other point's x", () => {
         // coords: point 0 at x=8, point 1 at x=10 (at the edge).
         // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
         // which matches point 1's x. The same-x guard rejects it.
@@ -2116,7 +2116,7 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-4, -3]);
     });
 
-    it("rejects the move when bounding causes same-y collision", () => {
+    it("rejects a logarithm move with a destination that clamps onto the other point's y", () => {
         // Arrange — point 0 at (-4, -7), point 1 at (-5, 10); moving point 0
         // far beyond the graph range so bounding clamps y to 10, same as
         // point 1's y under boundToEdge.
