@@ -18,7 +18,7 @@
 }
 
 .marker-correct {
-    background: var(--wb-semanticColor-core-foreground-success-strong);
+    background: var(--wb-semanticColor-core-background-success-strong);
 }
 
 .marker-filled {
