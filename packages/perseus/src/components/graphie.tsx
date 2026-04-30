@@ -232,7 +232,6 @@ class Graphie extends React.Component<Props> {
         this._movables = {};
     };
 
-    // @ts-expect-error - TS2322 - Type '(children: readonly any[], options: any) => ReactElement<any, string | JSXElementConstructor<any>> | readonly ReactElement<any, string | JSXElementConstructor<any>>[]' is not assignable to type '(children: readonly any[], arg2: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
     _renderMovables: (
         children: ReadonlyArray<any>,
         arg2: {
@@ -279,7 +278,6 @@ class Graphie extends React.Component<Props> {
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
         let areMovablesOutOfOrder = false;
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         return nestedMap(children, (childDescriptor) => {
             if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes
