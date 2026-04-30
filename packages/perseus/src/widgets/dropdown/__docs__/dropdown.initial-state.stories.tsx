@@ -28,7 +28,7 @@ type Story = StoryObj<typeof DropdownQuestionRenderer>;
 export default {
     title: "Widgets/Dropdown/Visual Regression Tests/Initial State",
     component: DropdownQuestionRenderer,
-    tags: ["!dev"],
+    tags: ["!dev", "!manifest"],
     parameters: {
         docs: {
             description: {

@@ -10,7 +10,7 @@ const NumericInputWidget = getWidget("numeric-input")!;
 const meta: Meta<typeof NumericInputWidget> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Initial State",
     component: NumericInputWidget,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {

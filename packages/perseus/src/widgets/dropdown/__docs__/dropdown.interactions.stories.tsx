@@ -18,7 +18,7 @@ import type {Meta} from "@storybook/react-vite";
  */
 export default {
     title: "Widgets/Dropdown/Visual Regression Tests/Interactions",
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {

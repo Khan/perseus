@@ -11,7 +11,7 @@ registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/EditorPage/Visual Regression Tests",
-    tags: ["!dev"],
+    tags: ["!dev", "!manifest"],
     parameters: {
         docs: {
             description: {

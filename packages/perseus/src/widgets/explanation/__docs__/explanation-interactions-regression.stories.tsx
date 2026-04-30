@@ -9,7 +9,7 @@ import type {Meta} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Explanation/Visual Regression Tests/Interactions",
     component: ServerItemRendererWithDebugUI,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
