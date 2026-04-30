@@ -1,6 +1,6 @@
 import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -443,11 +443,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             // Ensure that any borders are included in
                                             // the provided width.
                                             boxSizing: "border-box",
-                                            backgroundColor: outside
-                                                ? semanticColor.core.background
-                                                      .neutral.subtle
-                                                : semanticColor.core.background
-                                                      .base.default,
+                                            borderWidth: outside
+                                                ? border.width.thin
+                                                : border.width.medium,
                                         } as const;
 
                                         MatrixInput = (
@@ -469,13 +467,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                     ...inputProps.style,
                                                     display: "inline-block",
                                                     padding: 0,
-                                                    backgroundColor: outside
-                                                        ? semanticColor.core
-                                                              .background
-                                                              .neutral.subtle
-                                                        : semanticColor.core
-                                                              .background.base
-                                                              .default,
+                                                    borderWidth: outside
+                                                        ? border.width.thin
+                                                        : border.width.medium,
                                                 },
                                             }).input,
                                         } as const;
