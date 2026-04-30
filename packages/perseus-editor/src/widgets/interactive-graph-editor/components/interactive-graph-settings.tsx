@@ -54,7 +54,7 @@ type Props = {
     /**
      * The labels for the x and y axes.
      */
-    labels: ReadonlyArray<string>;
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.

@@ -348,3 +348,24 @@ export const parseInteractiveGraphWidget = parseWidget(
         fullGraphAriaDescription: optional(string),
     }),
 );
+
+/**
+ * A parser that accepts the type field of an interactive graph.
+ */
+export const interactiveGraphTypeParser = union(constant("angle"))
+    .or(constant("circle"))
+    .or(constant("linear"))
+    .or(constant("linear-system"))
+    .or(constant("none"))
+    .or(constant("point"))
+    .or(constant("polygon"))
+    .or(constant("quadratic"))
+    .or(constant("ray"))
+    .or(constant("segment"))
+    .or(constant("sinusoid"))
+    .or(constant("exponential"))
+    .or(constant("absolute-value"))
+    .or(constant("tangent"))
+    .or(constant("logarithm"))
+    .or(constant("vector"))
+    .parser;
