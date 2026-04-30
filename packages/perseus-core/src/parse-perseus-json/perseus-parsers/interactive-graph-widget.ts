@@ -209,9 +209,11 @@ const parseLockedPointType = object({
     ariaLabel: optional(string),
 });
 
+export const parseLockedLineKind = enumeration("line", "ray", "segment");
+
 const parseLockedLineType = object({
     type: constant("line"),
-    kind: enumeration("line", "ray", "segment"),
+    kind: parseLockedLineKind,
     points: pair(parseLockedPointType, parseLockedPointType),
     color: parseLockedFigureColor,
     lineStyle: parseLockedLineStyle,

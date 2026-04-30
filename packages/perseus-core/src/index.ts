@@ -67,6 +67,7 @@ export {
     parseLockedFigureColor,
     parseLockedFigureFillType,
     parseLockedLabelSize,
+    parseLockedLineKind,
 } from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
 /** @hidden */
 export {interactiveGraphTypeParser} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
