@@ -14,7 +14,7 @@ Three logical changes, executed as separate commits within one PR for review
 clarity and bisect-friendliness:
 
 1. CSS consolidation
-2. `<CoordInputTile>` extraction
+2. `<CoordInputRow>` extraction
 3. `<AsymptoteInput>` extraction
 
 ## Non-goals
@@ -63,9 +63,9 @@ tangent stories.
 
 ---
 
-## Commit 2: `<CoordInputTile>` extraction
+## Commit 2: `<CoordInputRow>` extraction
 
-**Add** [coord-input-tile.tsx](coord-input-tile.tsx):
+**Add** [coord-input-row.tsx](coord-input-row.tsx):
 
 ```tsx
 type Props = {
@@ -97,7 +97,7 @@ top-level positioning — keep spacing/positioning concerns in the parent.
 **Verification:**
 [start-coords-settings.test.tsx](start-coords-settings.test.tsx) covers
 each consumer through the dispatcher. Run after each migration. No new
-unit-test file for `CoordInputTile` — pure presentational, fully covered
+unit-test file for `CoordInputRow` — pure presentational, fully covered
 by parent tests, matching the existing convention (no consumer has its
 own `*.test.tsx`).
 
@@ -162,7 +162,7 @@ this directory:
 - **`Coord` type:** import from `@khanacademy/perseus` (matches existing
   files), not from `@khanacademy/perseus-core`.
 
-### `<CoordInputTile>` label markup
+### `<CoordInputRow>` label markup
 
 Existing files are inconsistent: line/sinusoid/etc. use
 `<BodyText size="medium" weight="bold" tag="span">` (all defaults except
@@ -204,7 +204,7 @@ and existing patterns in this directory tree:
   so `axis` is the more direct prop. Documenting the divergence so it
   doesn't read as inconsistency at review time.
 - **File naming.** New files use kebab-case without the `start-coords-`
-  prefix (`coord-input-tile.tsx`, `asymptote-input.tsx`) because they
+  prefix (`coord-input-row.tsx`, `asymptote-input.tsx`) because they
   are not graph-type-specific. Consistent with sibling non-graph-type
   files in this folder (`util.ts`, `types.ts`).
 
@@ -223,7 +223,7 @@ for `<AsymptoteInput>`:
   it end-to-end.
 
 Default to no new test file unless review surfaces a specific concern.
-`<CoordInputTile>` is purely presentational and clearly doesn't warrant
+`<CoordInputRow>` is purely presentational and clearly doesn't warrant
 its own test.
 
 ## Estimated impact
@@ -231,5 +231,5 @@ its own test.
 - **LOC removed:** ~200 net (3 CSS files, repeated tile/asymptote markup,
   Aphrodite `.tile` blocks)
 - **Files added:** 3 (`start-coords-shared.module.css`,
-  `coord-input-tile.tsx`, `asymptote-input.tsx`)
+  `coord-input-row.tsx`, `asymptote-input.tsx`)
 - **Files deleted:** 3 (per-component CSS modules)

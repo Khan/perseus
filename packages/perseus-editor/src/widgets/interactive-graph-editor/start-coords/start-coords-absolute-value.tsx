@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import CoordInputTile from "./coord-input-tile";
+import CoordInputRow from "./coord-input-row";
 
 import type {Coord} from "@khanacademy/perseus";
 
@@ -17,12 +17,12 @@ const StartCoordsAbsoluteValue = (props: Props) => {
 
     return (
         <>
-            <CoordInputTile
+            <CoordInputRow
                 label="Vertex"
                 coord={vertex}
                 onChange={(value) => onChange([value, arm])}
             />
-            <CoordInputTile
+            <CoordInputRow
                 label="Arm"
                 coord={arm}
                 onChange={(value) => onChange([vertex, value])}

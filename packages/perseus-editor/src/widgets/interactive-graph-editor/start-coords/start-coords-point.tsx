@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import CoordInputTile from "./coord-input-tile";
+import CoordInputRow from "./coord-input-row";
 
 import type {Coord} from "@khanacademy/perseus";
 
@@ -15,7 +15,7 @@ const StartCoordsPoint = (props: Props) => {
     return (
         <>
             {startCoords.map((coord, index) => (
-                <CoordInputTile
+                <CoordInputRow
                     key={index}
                     label={`Point ${index + 1}`}
                     coord={coord}
