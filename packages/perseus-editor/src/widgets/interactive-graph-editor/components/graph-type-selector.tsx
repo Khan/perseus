@@ -1,9 +1,15 @@
-import {interactiveGraphTypeParser, isFailure, isFeatureOn, parse, PerseusGraphType} from "@khanacademy/perseus-core";
+import {
+    interactiveGraphTypeParser,
+    isFailure,
+    isFeatureOn,
+    parse,
+} from "@khanacademy/perseus-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 type GraphTypeSelectorProps = {
     graphType: PerseusGraphType["type"];

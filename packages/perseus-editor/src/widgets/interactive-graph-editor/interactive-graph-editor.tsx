@@ -413,14 +413,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
                                 }
-                                onChange={
-                                    ((type: PerseusGraphType["type"]) => {
-                                        this.props.onChange({
-                                            graph: {type},
-                                            correct: {type},
-                                        });
-                                    })
-                                }
+                                onChange={(type: PerseusGraphType["type"]) => {
+                                    this.props.onChange({
+                                        graph: {type},
+                                        correct: {type},
+                                    });
+                                }}
                                 // TODO(LEMS-3976): clean up feature flag
                                 apiOptions={this.props.apiOptions}
                             />

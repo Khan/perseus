@@ -10,9 +10,9 @@ import {getKeyTranslator} from "../key-handlers/key-translator";
 
 import type {MathFieldInterface} from "../input/mathquill-types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
+import type MathQuill from "mathquill";
 
 import Keypad from "./index";
-import type MathQuill from "mathquill";
 
 export default {
     title: "Math Input/Components/v2 Keypad With Mathquill",
@@ -41,7 +41,11 @@ export function V2KeypadWithMathquill() {
                             // the cursor() and controller() methods, which
                             // exist but aren't part of the published
                             // MathQuill API.
-                            setCursorContext(getCursorContext(_mathField as MathFieldInterface));
+                            setCursorContext(
+                                getCursorContext(
+                                    _mathField as MathFieldInterface,
+                                ),
+                            );
                         },
                     },
                 }),
