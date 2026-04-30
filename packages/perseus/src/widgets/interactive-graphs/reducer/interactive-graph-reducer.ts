@@ -296,6 +296,10 @@ function doMovePointInFigure(
                 newValue: boundAndSnapToGrid(action.destination, state),
             });
 
+            if (coordsOverlap(newCoords)) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,

@@ -1,5 +1,6 @@
 import interactiveGraphWidgetLogic from "../../widgets/interactive-graph";
 import {getDefaultFigureForType} from "../get-default-figure-for-type";
+import {generateTestPerseusRenderer} from "../test-utils";
 
 import type {
     InteractiveGraphWidget,
@@ -10,8 +11,11 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    PerseusGraphType,
+    PerseusGraphTypeAbsoluteValue,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
+    PerseusGraphTypeExponential,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypeLogarithm,
@@ -25,6 +29,7 @@ import type {
     PerseusGraphTypeTangent,
     PerseusGraphTypeVector,
     PerseusInteractiveGraphWidgetOptions,
+    PerseusRenderer,
 } from "../../data-schema";
 
 export function generateInteractiveGraphWidget(
@@ -53,7 +58,7 @@ export function generateInteractiveGraphOptions(
 }
 
 export function generateIGAngleGraph(
-    options?: Partial<PerseusGraphTypeAngle>,
+    options?: Partial<Omit<PerseusGraphTypeAngle, "type">>,
 ): PerseusGraphTypeAngle {
     return {
         type: "angle",
@@ -62,7 +67,7 @@ export function generateIGAngleGraph(
 }
 
 export function generateIGCircleGraph(
-    options?: Partial<PerseusGraphTypeCircle>,
+    options?: Partial<Omit<PerseusGraphTypeCircle, "type">>,
 ): PerseusGraphTypeCircle {
     return {
         type: "circle",
@@ -71,7 +76,7 @@ export function generateIGCircleGraph(
 }
 
 export function generateIGLinearGraph(
-    options?: Partial<PerseusGraphTypeLinear>,
+    options?: Partial<Omit<PerseusGraphTypeLinear, "type">>,
 ): PerseusGraphTypeLinear {
     return {
         type: "linear",
@@ -80,7 +85,7 @@ export function generateIGLinearGraph(
 }
 
 export function generateIGLinearSystemGraph(
-    options?: Partial<PerseusGraphTypeLinearSystem>,
+    options?: Partial<Omit<PerseusGraphTypeLinearSystem, "type">>,
 ): PerseusGraphTypeLinearSystem {
     return {
         type: "linear-system",
@@ -236,4 +241,64 @@ export function generateIGLockedLabel(
         ...getDefaultFigureForType("label"),
         ...options,
     };
+}
+
+export function generateIGExponentialGraph(
+    options?: Partial<Omit<PerseusGraphTypeExponential, "type">>,
+): PerseusGraphTypeExponential {
+    return {
+        type: "exponential",
+        ...options,
+    };
+}
+
+export function generateIGAbsoluteValueGraph(
+    options?: Partial<Omit<PerseusGraphTypeAbsoluteValue, "type">>,
+): PerseusGraphTypeAbsoluteValue {
+    return {
+        type: "absolute-value",
+        ...options,
+    };
+}
+
+export function generateInteractiveGraphQuestion(
+    options?: Partial<PerseusInteractiveGraphWidgetOptions> & {
+        content?: string;
+        isStatic?: boolean;
+    },
+): PerseusRenderer {
+    const {content, isStatic, ...widgetOptions} = options ?? {};
+
+    // The `graph` and `correct` fields share all fields except for
+    // the answers (coords, center, etc.) When only `correct` is provided,
+    // derive `graph` from it by stripping the answer-specific fields.
+    // This allows us to keep our test data more succinct.
+    if (widgetOptions.correct && !widgetOptions.graph) {
+        const {
+            coords: _,
+            coord: __,
+            center: ___,
+            radius: ____,
+            asymptote: _____,
+            match: ______,
+            ...graphConfig
+        } = widgetOptions.correct as Record<string, unknown>;
+        widgetOptions.graph = graphConfig as PerseusGraphType;
+    }
+
+    const optionsWithDefaults = {
+        gridStep: [1, 1] as [number, number],
+        snapStep: [0.5, 0.5] as [number, number],
+        ...widgetOptions,
+    };
+
+    return generateTestPerseusRenderer({
+        content: content ?? "[[☃ interactive-graph 1]]",
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                static: isStatic ?? false,
+                options: generateInteractiveGraphOptions(optionsWithDefaults),
+            }),
+        },
+    });
 }
