@@ -7,8 +7,11 @@
  */
 import {components} from "@khanacademy/perseus";
 import {
+    isFailure,
     lockedFigureColors,
     type LockedLabelType,
+    parse,
+    parseLockedLabelSize,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -166,14 +169,16 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            // eslint-disable-next-line no-restricted-syntax
-                            ((newValue: "small" | "medium" | "large") =>
-                                onChangeProps({
-                                    size: newValue,
-                                })) as any
-                        }
+                        onChange={(newValue) => {
+                            const parsedSize = parse(
+                                newValue,
+                                parseLockedLabelSize,
+                            );
+                            if (isFailure(parsedSize)) {
+                                throw new Error(parsedSize.detail);
+                            }
+                            onChangeProps({size: parsedSize.value});
+                        }}
                         // Placeholder is required, but never gets used since
                         // we have a label for the select.
                         placeholder=""
