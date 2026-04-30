@@ -7,7 +7,7 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 
-import styles from "./start-coords-exponential.module.css";
+import styles from "./start-coords-shared.module.css";
 
 import type {Coord} from "@khanacademy/perseus";
 

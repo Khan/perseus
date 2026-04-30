@@ -6,7 +6,7 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import styles from "./start-coords-tangent.module.css";
+import styles from "./start-coords-shared.module.css";
 import {getTangentEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
@@ -32,7 +32,7 @@ const StartCoordsTangent = (props: Props) => {
             </View>
 
             {/* Points UI */}
-            <View className={styles.tile}>
+            <View className={styles.tileRow}>
                 <BodyText size="medium" weight="bold" tag="span">
                     Point 1:
                 </BodyText>
@@ -43,7 +43,7 @@ const StartCoordsTangent = (props: Props) => {
                     onChange={(value) => onChange([value, startCoords[1]])}
                 />
             </View>
-            <View className={styles.tile}>
+            <View className={styles.tileRow}>
                 <BodyText size="medium" weight="bold" tag="span">
                     Point 2:
                 </BodyText>
