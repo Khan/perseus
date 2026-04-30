@@ -131,17 +131,13 @@ class InputNumber extends React.Component<Props> implements Widget {
         return true;
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    focusInputPath: (arg1: Path) => void = (inputPath) => {
+    focusInputPath: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    blurInputPath: (arg1: Path) => void = (inputPath) => {
+    blurInputPath: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         if (typeof this.refs.input?.blur === "function") {
