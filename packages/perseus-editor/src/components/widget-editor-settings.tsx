@@ -6,6 +6,8 @@ import * as React from "react";
 import {AlignmentSelect} from "./alignment-select";
 import LabeledSwitch from "./labeled-switch";
 
+import "./widget-editor-settings.css";
+
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 interface BestPracticesLink {
@@ -52,7 +54,7 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
     }
 
     return (
-        <View className="perseus-widget-editor-settings">
+        <View className="widget-editor-settings-container">
             {bestPractices && (
                 <View className="best-practices-container">
                     <Link href={bestPractices.url} target="_blank">
