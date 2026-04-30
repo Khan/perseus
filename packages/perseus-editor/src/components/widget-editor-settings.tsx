@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import Link from "@khanacademy/wonder-blocks-link";
-import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {AlignmentSelect} from "./alignment-select";
@@ -8,13 +8,13 @@ import LabeledSwitch from "./labeled-switch";
 
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type BestPractices = {
+interface BestPracticesLink {
     url: string;
     label: string;
-};
+}
 
-type WidgetEditorSettingsProps = {
-    bestPractices?: BestPractices;
+interface WidgetEditorSettingsProps {
+    bestPractices?: BestPracticesLink;
     supportsStaticMode: boolean;
     isStatic: boolean;
     onStaticChange: (value: boolean) => unknown;
@@ -25,7 +25,7 @@ type WidgetEditorSettingsProps = {
     widgetInfo: PerseusWidget;
     onAlignmentChange: (e: React.SyntheticEvent<HTMLSelectElement>) => unknown;
     isEditingDisabled: boolean;
-};
+}
 
 function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
     const {
@@ -52,14 +52,9 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
     }
 
     return (
-        <View
-            style={{
-                paddingInline: spacing.small_12,
-                paddingBlockStart: spacing.small_12,
-            }}
-        >
+        <View className="perseus-widget-editor-settings">
             {bestPractices && (
-                <View style={{marginBlockEnd: sizing.size_060}}>
+                <View className="best-practices-container">
                     <Link href={bestPractices.url} target="_blank">
                         {bestPractices.label}
                     </Link>
