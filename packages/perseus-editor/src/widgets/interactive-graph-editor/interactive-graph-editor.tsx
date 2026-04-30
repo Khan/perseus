@@ -39,11 +39,8 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const InteractiveGraph = InteractiveGraphWidget.widget;
-
-type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 type Range = [min: number, max: number];
 
@@ -213,8 +210,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords:
-                        this.props.graph && getStartCoords(this.props.graph),
+                    startCoords: getStartCoords(this.props.graph),
                 },
                 correct: correct,
             });
