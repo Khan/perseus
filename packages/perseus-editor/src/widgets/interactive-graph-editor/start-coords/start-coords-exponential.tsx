@@ -55,16 +55,12 @@ const StartCoordsExponential = (props: Props) => {
             </View>
             <Strut size={spacing.small_12} />
 
-            {/* Spread coords into a new array on every change so startCoords
-                always gets a new reference. StatefulMafsGraph's useEffect
-                only watches startCoords, so a new reference is required to
-                trigger reinitialization even when only the asymptote
-                changes. (Same reason circle creates a new {center, radius}
-                object on every onChange call.) */}
             <AsymptoteInput
                 axis="y"
                 value={asymptote}
                 onChange={(newY) =>
+                    // Rebuild coords so startCoords gets a new reference;
+                    // StatefulMafsGraph only reinitializes on identity change.
                     onChange({coords: [coords[0], coords[1]], asymptote: newY})
                 }
             />

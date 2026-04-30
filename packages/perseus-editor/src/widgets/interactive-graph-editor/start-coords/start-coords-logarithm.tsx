@@ -66,13 +66,12 @@ const StartCoordsLogarithm = (props: Props) => {
                 </View>
                 <Strut size={spacing.small_12} />
 
-                {/* Spread coords into a new array on every change so
-                    startCoords always gets a new reference (see
-                    StartCoordsExponential for the full rationale). */}
                 <AsymptoteInput
                     axis="x"
                     value={asymptote}
                     onChange={(newX) =>
+                        // Rebuild coords so startCoords gets a new reference;
+                        // StatefulMafsGraph only reinitializes on identity change.
                         onChange({
                             coords: [coords[0], coords[1]],
                             asymptote: newX,
