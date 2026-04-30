@@ -15,6 +15,7 @@ import {
     generateIGLogarithmGraph,
     generateIGTangentGraph,
     generateIGVectorGraph,
+    generateIGAbsoluteValueGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,
@@ -461,17 +462,16 @@ export const tangentQuestionWithDefaultCorrect: PerseusRenderer =
     });
 
 export const absoluteValueQuestion: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withContent(
+    generateInteractiveGraphQuestion({
+        content:
             "**Graph $f(x)=|x|$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
-        )
-        .withAbsoluteValue({
+        correct: generateIGAbsoluteValueGraph({
             coords: [
                 [0, 0],
                 [2, 2],
             ],
-        })
-        .build();
+        }),
+    });
 
 export const questionsAndAnswers: ReadonlyArray<
     [
