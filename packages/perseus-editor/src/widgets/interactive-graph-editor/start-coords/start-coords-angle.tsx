@@ -4,7 +4,7 @@ import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordInputRow from "./coord-input-row";
+import CoordInput from "./coord-input";
 import {getAngleEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
@@ -30,21 +30,21 @@ const StartCoordsAngle = (props: Props) => {
             </View>
 
             {/* Points UI */}
-            <CoordInputRow
+            <CoordInput
                 label="Point 1"
                 coord={startCoords[0]}
                 onChange={(value) =>
                     onChange([value, startCoords[1], startCoords[2]])
                 }
             />
-            <CoordInputRow
+            <CoordInput
                 label="Vertex"
                 coord={startCoords[1]}
                 onChange={(value) =>
                     onChange([startCoords[0], value, startCoords[2]])
                 }
             />
-            <CoordInputRow
+            <CoordInput
                 label="Point 2"
                 coord={startCoords[2]}
                 onChange={(value) =>

@@ -2,7 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import CoordInputRow from "./coord-input-row";
+import CoordInput from "./coord-input";
 import styles from "./start-coords-shared.module.css";
 import {getTangentEquation} from "./util";
 
@@ -29,12 +29,12 @@ const StartCoordsTangent = (props: Props) => {
             </View>
 
             {/* Points UI */}
-            <CoordInputRow
+            <CoordInput
                 label="Point 1"
                 coord={startCoords[0]}
                 onChange={(value) => onChange([value, startCoords[1]])}
             />
-            <CoordInputRow
+            <CoordInput
                 label="Point 2"
                 coord={startCoords[1]}
                 onChange={(value) => onChange([startCoords[0], value])}

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import CoordInputRow from "./coord-input-row";
+import CoordInput from "./coord-input";
 
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 
@@ -14,12 +14,12 @@ const StartCoordsLine = (props: Props) => {
 
     return (
         <>
-            <CoordInputRow
+            <CoordInput
                 label="Point 1"
                 coord={startCoords[0]}
                 onChange={(value) => onChange([value, startCoords[1]])}
             />
-            <CoordInputRow
+            <CoordInput
                 label="Point 2"
                 coord={startCoords[1]}
                 onChange={(value) => onChange([startCoords[0], value])}

@@ -16,7 +16,7 @@ type Props = {
     onChange: (coord: Coord) => void;
 };
 
-const CoordInputRow = (props: Props) => {
+const CoordInput = (props: Props) => {
     const {label, coord, onChange} = props;
 
     return (
@@ -32,4 +32,4 @@ const CoordInputRow = (props: Props) => {
     );
 };
 
-export default CoordInputRow;
+export default CoordInput;
