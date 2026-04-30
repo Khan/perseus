@@ -12,6 +12,7 @@ import type {MathFieldInterface} from "../input/mathquill-types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
 import Keypad from "./index";
+import type MathQuill from "mathquill";
 
 export default {
     title: "Math Input/Components/v2 Keypad With Mathquill",
@@ -32,13 +33,15 @@ export function V2KeypadWithMathquill() {
                 mathFieldWrapperRef.current,
                 "en",
                 mockStrings,
-                // TODO(LEMS-2656): remove TS suppression
-                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (_mathField: MathFieldInterface) => {
-                            setCursorContext(getCursorContext(_mathField));
+                        edit: (_mathField) => {
+                            // Cast to MathFieldInterface to get the types for
+                            // the cursor() and controller() methods, which
+                            // exist but aren't part of the published
+                            // MathQuill API.
+                            setCursorContext(getCursorContext(_mathField as MathFieldInterface));
                         },
                     },
                 }),
