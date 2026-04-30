@@ -174,7 +174,7 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
+export const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 
 const parseLockedFigureFillType = enumeration(
     "none",

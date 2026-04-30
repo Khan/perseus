@@ -1,4 +1,9 @@
-import {lockedFigureColors} from "@khanacademy/perseus-core";
+import {
+    lockedFigureColors,
+    parseLockedFigureColor,
+    parse,
+    isFailure,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -31,9 +36,16 @@ const ColorSelect = (props: Props) => {
                 <Strut size={spacing.xxSmall_6} />
                 <SingleSelect
                     selectedValue={selectedValue}
-                    // TODO(LEMS-2656): remove TS suppression
-                    // eslint-disable-next-line no-restricted-syntax
-                    onChange={onChange as any}
+                    onChange={(value) => {
+                        const parsedColor = parse(
+                            value,
+                            parseLockedFigureColor,
+                        );
+                        if (isFailure(parsedColor)) {
+                            throw new Error(parsedColor.detail);
+                        }
+                        onChange(parsedColor.value);
+                    }}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
