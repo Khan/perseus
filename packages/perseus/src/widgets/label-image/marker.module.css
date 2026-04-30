@@ -48,7 +48,7 @@
 }
 
 .marker-incorrect {
-    background: var(--wb-semanticColor-core-foreground-neutral-default);
+    background: var(--wb-semanticColor-core-background-neutral-default);
 }
 
 @keyframes marker-pulsate {
