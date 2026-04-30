@@ -1,12 +1,10 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, font, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../../../components/coordinate-pair-input";
-
+import CoordInputTile from "./coord-input-tile";
 import {getAngleEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
@@ -32,58 +30,32 @@ const StartCoordsAngle = (props: Props) => {
             </View>
 
             {/* Points UI */}
-            <View style={styles.tile}>
-                <BodyText size="medium" weight="bold" tag="span">
-                    Point 1:
-                </BodyText>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={startCoords[0]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([value, startCoords[1], startCoords[2]])
-                    }
-                />
-            </View>
-            <View style={styles.tile}>
-                <BodyText size="medium" weight="bold" tag="span">
-                    Vertex:
-                </BodyText>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={startCoords[1]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([startCoords[0], value, startCoords[2]])
-                    }
-                />
-            </View>
-            <View style={styles.tile}>
-                <BodyText size="medium" weight="bold" tag="span">
-                    Point 2:
-                </BodyText>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={startCoords[2]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([startCoords[0], startCoords[1], value])
-                    }
-                />
-            </View>
+            <CoordInputTile
+                label="Point 1"
+                coord={startCoords[0]}
+                onChange={(value) =>
+                    onChange([value, startCoords[1], startCoords[2]])
+                }
+            />
+            <CoordInputTile
+                label="Vertex"
+                coord={startCoords[1]}
+                onChange={(value) =>
+                    onChange([startCoords[0], value, startCoords[2]])
+                }
+            />
+            <CoordInputTile
+                label="Point 2"
+                coord={startCoords[2]}
+                onChange={(value) =>
+                    onChange([startCoords[0], startCoords[1], value])
+                }
+            />
         </>
     );
 };
 
 const styles = StyleSheet.create({
-    tile: {
-        backgroundColor: semanticColor.core.background.instructive.subtle,
-        marginTop: spacing.xSmall_8,
-        padding: spacing.small_12,
-        borderRadius: spacing.xSmall_8,
-        flexDirection: "row",
-        alignItems: "center",
-    },
     equationSection: {
         marginTop: spacing.small_12,
     },
