@@ -135,9 +135,9 @@ export const StatefulMafsGraph = React.forwardRef<
     ]);
 
     // If the graph is static and graded, it always displays the correct answer.
-    // This is standard behavior for Perseus widgets (e.g. compare the Radio
-    // widget). When graded is false the widget is a sketchpad and should never
-    // reveal the correct answer, even in static/review mode.
+    // This is standard behavior for Perseus widgets (e.g. compare the Radio widget).
+    // When graded is false the widget is a sketchpad and should never
+    // reveal the correct answer.
     if (props.static && props.correct && props.graded !== false) {
         return (
             <MafsGraph

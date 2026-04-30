@@ -162,7 +162,9 @@ export type Props = {
 class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
     static bestPractices = {
-        url: "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems",
+        // TODO: replace with real best practices
+        // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327
+        url: "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3295281289/Interactive+Graph+Widget#Adding-a-new-Interactive-Graph-Widget",
         label: "Interactive Graph best practices",
     };
     displayName = "InteractiveGraphEditor";

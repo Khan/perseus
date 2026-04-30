@@ -92,6 +92,6 @@ export function AlignmentSelect({
 
 const styles = StyleSheet.create({
     singleSelectShort: {
-        height: 26,
+        height: sizing.size_260,
     },
 });
