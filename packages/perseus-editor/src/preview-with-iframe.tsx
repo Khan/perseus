@@ -39,19 +39,6 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
 
         const {sendData, height} = usePreviewController(iframeRef);
 
-        // Update container height based on iframe content height
-        React.useEffect(() => {
-            if (!containerRef.current) {
-                return;
-            }
-
-            if (!props.seamless) {
-                containerRef.current.style.height = "100%";
-            } else if (height !== null) {
-                containerRef.current.style.height = `${height}px`;
-            }
-        }, [height, props.seamless]);
-
         // Expose sendNewData method via ref
         React.useImperativeHandle(
             ref,
@@ -63,11 +50,19 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
             [sendData],
         );
 
+        // Update container height based on iframe content height
+        let containerHeight = "100%";
+        if (!props.seamless) {
+            containerHeight = "100%";
+        } else if (height !== null) {
+            containerHeight = `${height}px`;
+        }
+
         return (
             <div
                 ref={containerRef}
                 data-testid="preview-with-iframe-container"
-                style={{width: "100%", height: "100%"}}
+                style={{width: "100%", height: containerHeight}}
             >
                 <iframe
                     ref={iframeRef}
