@@ -87,7 +87,7 @@ export type ParentToIframeMessage = PreviewDataMessage;
  * Message from iframe requesting data from parent
  */
 interface PreviewDataRequestMessage extends PreviewMessageBase {
-    type: "request-data";
+    type: "iframe-ready";
 }
 
 /**

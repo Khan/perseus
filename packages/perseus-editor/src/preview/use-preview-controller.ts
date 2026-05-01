@@ -71,7 +71,7 @@ export function usePreviewController(
 
             // Handle the message
             switch (message.type) {
-                case "request-data": {
+                case "iframe-ready": {
                     // Send the pending message (if any)
                     if (pendingDataRef.current) {
                         const contentWindow = iframeRef.current?.contentWindow;

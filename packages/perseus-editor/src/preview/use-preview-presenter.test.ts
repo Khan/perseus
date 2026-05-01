@@ -75,14 +75,14 @@ describe("usePreviewPresenter", () => {
             expect(result.current.hasLintGutter).toBe(true);
         });
 
-        it("sends request-data message on mount", async () => {
+        it("sends iframe-ready message on mount", async () => {
             renderHook(() => usePreviewPresenter());
 
             await waitFor(() => {
                 expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
                     {
                         source: PREVIEW_MESSAGE_SOURCE,
-                        type: "request-data",
+                        type: "iframe-ready",
                     },
                     "/",
                 );
@@ -419,7 +419,7 @@ describe("usePreviewPresenter", () => {
                 result.current.reportHeight(600);
             });
 
-            // 1 request-data + 2 height-updates
+            // 1 iframe-ready + 2 height-updates
             expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(3);
 
             // Check the height update calls
@@ -608,7 +608,7 @@ describe("usePreviewPresenter", () => {
             await waitFor(() => {
                 expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
                     expect.objectContaining({
-                        type: "request-data",
+                        type: "iframe-ready",
                     }),
                     "/",
                 );
