@@ -3,7 +3,10 @@ import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 const {collinear} = geometry;
 
-import type {PerseusGraphTypeRay, PerseusScore} from "@khanacademy/perseus-core";
+import type {
+    PerseusGraphTypeRay,
+    PerseusScore,
+} from "@khanacademy/perseus-core";
 
 export function scoreRay(
     userInput: PerseusGraphTypeRay,
