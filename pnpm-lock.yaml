@@ -220,7 +220,7 @@ importers:
         specifier: 10.3.1
         version: 10.3.1(react@18.2.0)(storybook@10.3.1(@testing-library/dom@10.3.1)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@storybook/addon-mcp':
-        specifier: ^0.6.0
+        specifier: 0.6.0
         version: 0.6.0(storybook@10.3.1(@testing-library/dom@10.3.1)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(typescript@5.9.3)
       '@storybook/react-vite':
         specifier: 10.3.1

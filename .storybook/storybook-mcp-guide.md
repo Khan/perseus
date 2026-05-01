@@ -107,8 +107,8 @@ MCP (Model Context Protocol) is a standard way for AI assistants to connect to e
 **The flow:**
 1. You give Claude Code a prompt (e.g., "Create stories for the dropdown widget")
 2. Claude Code calls the MCP tools on the running Storybook server
-3. Storybook returns project-specific conventions and story metadata
-4. Claude Code writes the code and gives you a preview URL
+3. Storybook returns story authoring guidelines and live preview URLs
+4. Claude Code writes the code following those guidelines and shares the preview URL
 5. You click the link to verify the result in your browser
 
 ### What happens without MCP vs. with MCP
@@ -167,7 +167,7 @@ In `.mdx` files, add the `tags` prop to the `<Meta>` component:
 
 Perseus has specific patterns that are easy to get wrong:
 - **Widget generators** in `packages/perseus-core/src/utils/generators` should be used for test data — not hand-rolled props
-- **Stories live in `__docs__/` directories** within each widget/component folder, not in a central location
+- **New stories go in `__docs__/` directories** within each widget/component folder. Some older stories are colocated directly (e.g., `matrix/matrix.stories.tsx`) but haven't been migrated yet.
 - **The widget data schema is versioned and strict** — inventing props that don't exist will cause type errors or runtime failures
 - There are **~60+ existing story files** across widgets, editors, components, and math-input with established conventions
 

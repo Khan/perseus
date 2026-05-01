@@ -193,17 +193,21 @@ claude mcp add storybook-mcp --transport http http://localhost:6006/mcp --scope 
 | `preview-stories`                   | Get live Storybook URLs to visually verify stories   |
 
 ### Workflow for UI work
-1. Call `get-storybook-story-instructions` to get the latest story authoring guidelines
-2. Write or modify the component and its stories
-3. Call `preview-stories` to get the live Storybook URLs and visually verify each story state
+1. Call `get-storybook-story-instructions` once per session — the guidelines
+   don't change between calls, so there's no need to re-fetch them.
+2. Write or modify the component and its stories.
+3. Call `preview-stories` only after finishing changes, not speculatively
+   during exploration.
+4. Prefer MCP tool calls over crawling raw source files — reading story
+   conventions via MCP is cheaper than navigating through source directories.
 
 ### Perseus-specific rules
 - **Never invent widget props.** Perseus widgets have a strict versioned data
   schema. Always verify against documented stories before using any prop.
 - **Use widget generators for test data.** All widget test data must come from
   `packages/perseus-core/src/utils/generators` — never hand-roll it.
-- **Check for existing stories first.** Stories live in `__docs__/` directories
-  throughout the packages (widgets, components, editors, math-input) — avoid
+- **Check for existing stories first.** New stories go in `__docs__/` directories.
+  Some older stories are colocated directly but haven't been migrated yet — avoid
   duplicating what's already there.
 - **Every new component needs stories** covering each key visual state.
 - **Add `!manifest` to non-component stories.** Documentation pages, visual
