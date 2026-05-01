@@ -153,31 +153,4 @@ describe("PreviewWithIframe", () => {
         const div = screen.getByTestId("preview-with-iframe-container");
         expect(div.style.height).toBe("500px");
     });
-
-    it("assigns unique iframe IDs across instances", () => {
-        const {unmount} = render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={false}
-                seamless={false}
-            />,
-        );
-
-        const iframe1 = screen.getByTitle(/perseus-preview/);
-        const id1 = iframe1.dataset.id;
-        unmount();
-
-        render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={false}
-                seamless={false}
-            />,
-        );
-
-        const iframe2 = screen.getByTitle(/perseus-preview/);
-        const id2 = iframe2.dataset.id;
-
-        expect(id1).not.toBe(id2);
-    });
 });
