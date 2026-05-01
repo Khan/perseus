@@ -50,6 +50,7 @@ describe("Expression AI utils", () => {
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
         const {renderer} = renderQuestion(
+            // eslint-disable-next-line no-restricted-syntax
             expression.question as PerseusRenderer,
         );
         const widget = renderer.findWidgets("expression 1")[0];

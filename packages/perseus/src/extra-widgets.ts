@@ -33,6 +33,7 @@ import Video from "./widgets/video";
 
 import type {WidgetExports} from "./types";
 
+// eslint-disable-next-line no-restricted-syntax
 export default [
     CSProgram,
     Categorizer,

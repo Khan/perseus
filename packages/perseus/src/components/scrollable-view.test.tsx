@@ -40,6 +40,7 @@ const setupScrollableMock = (isScrollable: boolean) => {
     });
 
     // Mock scrollBy with the correct type signature
+    // eslint-disable-next-line no-restricted-syntax
     HTMLElement.prototype.scrollBy = jest.fn(function (
         this: HTMLElement,
         options?: ScrollToOptions | undefined,
@@ -118,9 +119,13 @@ describe("ScrollableView", () => {
     afterEach(() => {
         // Reset JSDOM by clearing all document content
         document.body.innerHTML = "";
+        // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).clientWidth;
+        // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).scrollWidth;
+        // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).scrollLeft;
+        // eslint-disable-next-line no-restricted-syntax
         delete (HTMLElement.prototype as any).scrollBy;
         jest.runOnlyPendingTimers();
         jest.useRealTimers();
@@ -206,6 +211,7 @@ describe("ScrollableView", () => {
 
             // Simulate scrolling to middle
             act(() => {
+                // eslint-disable-next-line no-restricted-syntax
                 (container as any).scrollLeft = 100;
                 // Trigger scroll event
                 container.dispatchEvent(new Event("scroll"));
@@ -237,6 +243,7 @@ describe("ScrollableView", () => {
 
             // Simulate scrolling to end
             act(() => {
+                // eslint-disable-next-line no-restricted-syntax
                 (container as any).scrollLeft = 200; // scrollWidth - clientWidth
                 // Trigger scroll event
                 container.dispatchEvent(new Event("scroll"));
@@ -296,6 +303,7 @@ describe("ScrollableView", () => {
 
             // Simulate scrolling to middle
             act(() => {
+                // eslint-disable-next-line no-restricted-syntax
                 (container as any).scrollLeft = -100; // Negative for RTL
                 // Trigger scroll event
                 container.dispatchEvent(new Event("scroll"));
@@ -317,6 +325,7 @@ describe("ScrollableView", () => {
 
             // Simulate scrolling to the end in RTL (scrollLeft = -200 is the end in RTL)
             act(() => {
+                // eslint-disable-next-line no-restricted-syntax
                 (container as any).scrollLeft = -200; // Maximum negative value (scrollWidth - clientWidth)
                 container.dispatchEvent(new Event("scroll"));
             });

@@ -111,5 +111,6 @@ export function getAvailableTabs(
         tabIds.push("Extras");
     }
 
+    // eslint-disable-next-line no-restricted-syntax
     return tabPanels.filter((tab) => tabIds.includes(tab.id as KeypadPageType));
 }

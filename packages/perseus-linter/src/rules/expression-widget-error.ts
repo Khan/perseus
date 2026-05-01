@@ -2,6 +2,7 @@ import * as KAS from "@khanacademy/kas";
 
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "expression-widget-error",
     severity: Rule.Severity.ERROR,

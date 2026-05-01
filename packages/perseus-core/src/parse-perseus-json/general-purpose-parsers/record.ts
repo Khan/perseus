@@ -13,6 +13,7 @@ export function record<K extends string, V>(
             return ctx.failure("object", rawValue);
         }
 
+        // eslint-disable-next-line no-restricted-syntax
         const result = {} as Record<K, V>;
         const mismatches: Mismatch[] = [];
         for (const [key, value] of Object.entries(rawValue)) {

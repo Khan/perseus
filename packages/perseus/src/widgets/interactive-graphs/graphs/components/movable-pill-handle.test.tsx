@@ -5,6 +5,7 @@ import * as React from "react";
 import {MovablePillHandle} from "./movable-pill-handle";
 
 const defaultProps = {
+    // eslint-disable-next-line no-restricted-syntax
     center: [100, 100] as [number, number],
     active: false,
     focused: false,

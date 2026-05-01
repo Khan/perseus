@@ -64,6 +64,7 @@ const interactiveGraphWidgetLogic: WidgetLogic = {
     // 2. They do not contain a graphie background image
     accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
         const interactiveGraphOptions =
+            // eslint-disable-next-line no-restricted-syntax
             widgetOptions as PerseusInteractiveGraphWidgetOptions;
 
         // Return false (inaccessible) if the interactive graph contains

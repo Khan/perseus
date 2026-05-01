@@ -148,7 +148,7 @@ describe("Zoomable", () => {
         );
 
         // Parent node bounds
-        // eslint-disable-next-line testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
         const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
@@ -185,7 +185,7 @@ describe("Zoomable", () => {
         );
 
         // Parent node bounds
-        // eslint-disable-next-line testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
         const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
@@ -353,7 +353,7 @@ describe("Zoomable", () => {
             );
             componentContainer = container;
 
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 200, height: 200});
 

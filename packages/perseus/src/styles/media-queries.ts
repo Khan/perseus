@@ -27,10 +27,13 @@ const {
 
 export default {
     xs: `@media screen and (max-width: ${pureXsMax})`,
+    // eslint-disable-next-line no-restricted-syntax
     sm: (`@media screen and (min-width: ${pureSmMin}) and ` +
         `(max-width: ${pureSmMax})`) as string,
+    // eslint-disable-next-line no-restricted-syntax
     md: (`@media screen and (min-width: ${pureMdMin}) and ` +
         `(max-width: ${pureMdMax})`) as string,
+    // eslint-disable-next-line no-restricted-syntax
     lg: (`@media screen and (min-width: ${pureLgMin}) and ` +
         `(max-width: ${pureLgMax})`) as string,
     xl: `@media screen and (min-width: ${pureXlMin})`,

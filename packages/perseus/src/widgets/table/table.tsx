@@ -91,6 +91,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     _getAnswersClone(): PerseusTableUserInput {
+        // eslint-disable-next-line no-restricted-syntax
         return JSON.parse(
             JSON.stringify(this.props.userInput),
         ) as PerseusTableUserInput;
@@ -113,6 +114,7 @@ class Table extends React.Component<Props> implements Widget {
     onHeaderChange(index: number, e: any): void {
         const headers = this.props.headers.slice();
         headers[index] = e.content;
+        // eslint-disable-next-line no-restricted-syntax
         this.props.onChange({
             headers: headers,
         } as any);
@@ -132,6 +134,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     focusInputPath(path: FocusPath): void {
+        // eslint-disable-next-line no-restricted-syntax
         const inputID = getRefForPath(path as Path);
         const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
@@ -143,6 +146,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     blurInputPath(path: FocusPath): void {
+        // eslint-disable-next-line no-restricted-syntax
         const inputID = getRefForPath(path as Path);
         const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
@@ -156,6 +160,7 @@ class Table extends React.Component<Props> implements Widget {
     getDOMNodeForPath(
         path: FocusPath,
     ): ReturnType<typeof ReactDOM.findDOMNode> {
+        // eslint-disable-next-line no-restricted-syntax
         const inputID = getRefForPath(path as Path);
         const inputRef = this.answerRefs[inputID];
         return ReactDOM.findDOMNode(inputRef);

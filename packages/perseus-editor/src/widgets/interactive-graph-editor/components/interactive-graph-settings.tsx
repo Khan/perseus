@@ -385,6 +385,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         this.setState(
             {
+                // eslint-disable-next-line no-restricted-syntax
                 rangeTextbox: ranges as [[number, number], [number, number]],
             },
             this.changeGraph,
@@ -437,9 +438,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         this.setState(
             {
+                // eslint-disable-next-line no-restricted-syntax
                 stepTextbox: step as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 gridStepTextbox: gridStep as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 snapStepTextbox: snapStep as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 rangeTextbox: ranges as [[number, number], [number, number]],
             },
             this.changeGraph,
@@ -458,6 +463,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this.setState(
             {
                 gridStepTextbox: gridStep,
+                // eslint-disable-next-line no-restricted-syntax
                 snapStepTextbox: _.map(gridStep, function (step) {
                     return step / 2;
                 }) as [number, number],

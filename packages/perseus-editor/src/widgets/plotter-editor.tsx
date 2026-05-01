@@ -503,6 +503,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
+                {/* eslint-disable-next-line no-restricted-syntax */}
                 <Plotter {...(plotterProps as PropsFor<typeof Plotter>)} />
             </div>
         );

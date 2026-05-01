@@ -21,6 +21,7 @@ export function sanitizePreviewData(
             content.type === "article") &&
         content.data.apiOptions != null
     ) {
+        // eslint-disable-next-line no-restricted-syntax
         return {
             ...content,
             data: {
@@ -31,6 +32,7 @@ export function sanitizePreviewData(
     }
 
     if (content.type === "article-all") {
+        // eslint-disable-next-line no-restricted-syntax
         return {
             ...content,
             data: content.data.map((section) =>

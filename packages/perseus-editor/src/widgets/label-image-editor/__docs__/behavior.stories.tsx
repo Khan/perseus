@@ -26,6 +26,7 @@ export const Default = (): React.ReactNode => {
     const [state, setState] = React.useState({
         multipleAnswers: false,
         hideChoicesFromInstructions: false,
+        // eslint-disable-next-line no-restricted-syntax
         preferredPopoverDirection: "NONE" as PreferredPopoverDirection,
     });
 

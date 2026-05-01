@@ -371,6 +371,7 @@ class GraphSettings extends React.Component<Props, State> {
             // Need to use the cast to number since gridStepFromTickStep
             // can return null or undefined. Ideally in the future let's adjust
             // the code to take this into account.
+            // eslint-disable-next-line no-restricted-syntax
             gridStep[i] = Util.gridStepFromTickStep(step[i], scale) as number;
             snapStep[i] = gridStep[i] / 2;
         }
@@ -407,7 +408,9 @@ class GraphSettings extends React.Component<Props, State> {
 
     changeGraph() {
         const labels = this.state.labelsTextbox;
+        // eslint-disable-next-line no-restricted-syntax
         const range = this.state.rangeTextbox.map(
+            // eslint-disable-next-line no-restricted-syntax
             (range) => range.map(Number) as [number, number],
         ) as Coords;
         const step = _.map(this.state.stepTextbox, Number);

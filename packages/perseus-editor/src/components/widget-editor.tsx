@@ -42,6 +42,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
+    // eslint-disable-next-line no-restricted-syntax
     return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
 
@@ -87,6 +88,7 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
+        // eslint-disable-next-line no-restricted-syntax
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             options: {
@@ -107,7 +109,9 @@ class WidgetEditor extends React.Component<
     };
 
     _handleAlignmentChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
+        // eslint-disable-next-line no-restricted-syntax
         const newAlignment = e.currentTarget.value as Alignment;
+        // eslint-disable-next-line no-restricted-syntax
         const newWidgetInfo = Object.assign(
             {},
             this.state.widgetInfo,

@@ -132,6 +132,7 @@ function getStartUserInput(): PerseusFreeResponseUserInput {
     };
 }
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     name: "free-response",
     accessible: true,

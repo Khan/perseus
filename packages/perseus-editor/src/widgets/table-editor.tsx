@@ -156,6 +156,7 @@ class TableEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div>
+                    {/* eslint-disable-next-line no-restricted-syntax */}
                     <Table {...(tableProps as PropsFor<typeof Table>)} />
                 </div>
             </div>

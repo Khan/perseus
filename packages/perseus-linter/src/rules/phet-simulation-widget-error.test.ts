@@ -6,6 +6,7 @@ describe("radio-widget-error", () => {
     beforeEach(() => {
         // We need to mock URL.canParse() because it is not available
         // in our testing environment.
+        // eslint-disable-next-line no-restricted-syntax
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 

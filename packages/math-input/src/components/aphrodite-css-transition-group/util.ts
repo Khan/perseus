@@ -16,6 +16,7 @@ function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
             result.push(...flatten(item));
         }
     } else {
+        // eslint-disable-next-line no-restricted-syntax
         result.push(list as any);
     }
 
@@ -44,6 +45,7 @@ export function processStyleType(style?: StyleType): {
 
     flatten(style).forEach((child) => {
         // Check for aphrodite internal property
+        // eslint-disable-next-line no-restricted-syntax
         const _definition = (child as any)._definition;
         if (_definition != null) {
             if (shouldInlineStyles) {

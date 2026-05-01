@@ -4,6 +4,7 @@ import InputNumberEditor from "../input-number-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 const meta = {
     title: "Widgets/Input Number/Editor Demo",
     component: InputNumberEditor,

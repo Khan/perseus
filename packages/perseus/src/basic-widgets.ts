@@ -8,6 +8,7 @@ import Radio from "./widgets/radio";
 
 import type {WidgetExports} from "./types";
 
+// eslint-disable-next-line no-restricted-syntax
 export default [
     Radio,
     InputNumber,

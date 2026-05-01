@@ -24,6 +24,7 @@ describe("phet-simulation widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 json: () =>
@@ -33,6 +34,7 @@ describe("phet-simulation widget", () => {
                 ok: true,
             }),
         ) as jest.Mock;
+        // eslint-disable-next-line no-restricted-syntax
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 

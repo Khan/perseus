@@ -58,6 +58,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // GifImage (rendered via SvgImage when gif controls are active)
         // calls fetch() to decode GIF frames. jsdom doesn't provide
         // fetch, so we stub it here.
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,

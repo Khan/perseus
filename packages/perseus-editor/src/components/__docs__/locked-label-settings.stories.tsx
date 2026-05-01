@@ -5,6 +5,7 @@ import LockedLabelSettings from "../../widgets/interactive-graph-editor/locked-f
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Locked Label Settings",
     component: LockedLabelSettings,

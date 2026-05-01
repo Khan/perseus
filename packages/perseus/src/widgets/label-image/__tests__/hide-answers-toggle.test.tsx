@@ -25,6 +25,7 @@ describe("HideAnswersToggle", () => {
                 wrapper: RenderStateRoot,
             },
         );
+        // eslint-disable-next-line no-restricted-syntax
         const toggleSwitch = screen.getByLabelText(
             labelText,
         ) as HTMLInputElement;
@@ -38,6 +39,7 @@ describe("HideAnswersToggle", () => {
             <HideAnswersToggle areAnswersHidden={false} onChange={onChange} />,
             {wrapper: RenderStateRoot},
         );
+        // eslint-disable-next-line no-restricted-syntax
         const toggleSwitchBefore = screen.getByLabelText(
             labelText,
         ) as HTMLInputElement;

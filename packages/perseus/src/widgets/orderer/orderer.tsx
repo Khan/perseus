@@ -39,10 +39,12 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
         return (
             <div
                 className={"card-wrap"}
+                // eslint-disable-next-line no-restricted-syntax
                 style={{width: this.props.width as number}}
             >
                 <div
                     className="card placeholder"
+                    // eslint-disable-next-line no-restricted-syntax
                     style={{height: this.props.width as number}}
                 />
             </div>
@@ -324,11 +326,13 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput
 > satisfies PropsFor<typeof WrappedOrderer>;
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput

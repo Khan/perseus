@@ -28,6 +28,7 @@ const computeMathBounds = (
     // effects on the measurements.
     const textElementHeight = Array.from(textElement?.children ?? []).reduce(
         (maxHeight, child) =>
+            // eslint-disable-next-line no-restricted-syntax
             Math.max(maxHeight, (child as HTMLElement).offsetHeight),
         // @ts-expect-error - TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         textElement?.offsetHeight ?? 0,

@@ -172,6 +172,7 @@ const updateFiles = (
                 sha: oldSha,
                 quote,
                 ref,
+                // eslint-disable-next-line no-restricted-syntax
             } = args.at(-1) as {
                 action: string;
                 sha: string;
@@ -195,6 +196,7 @@ const updateFiles = (
         // Pin unpinned refs (tag/branch → sha # tag)
         UNPINNED_RE.lastIndex = 0;
         content = content.replace(UNPINNED_RE, (match, ...args) => {
+            // eslint-disable-next-line no-restricted-syntax
             const {action, ref, quote} = args.at(-1) as {
                 action: string;
                 ref: string;

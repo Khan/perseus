@@ -1,5 +1,6 @@
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "widget-in-table",
     severity: Rule.Severity.BULK_WARNING,

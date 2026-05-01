@@ -451,6 +451,7 @@ export class LabelImage
             ];
 
         if (marker) {
+            // eslint-disable-next-line no-restricted-syntax
             (ReactDOM.findDOMNode(marker) as HTMLElement).focus();
         }
     }
@@ -771,11 +772,13 @@ const LabelImageWithDependencies = React.forwardRef<
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
 
+// eslint-disable-next-line no-restricted-syntax
 ({}) as WidgetProps<
     PerseusLabelImageWidgetOptions,
     PerseusLabelImageUserInput
 > satisfies PropsFor<typeof LabelImageWithDependencies>;
 
+// eslint-disable-next-line no-restricted-syntax
 ({}) as WidgetProps<
     LabelImagePublicWidgetOptions,
     PerseusLabelImageUserInput

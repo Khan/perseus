@@ -118,6 +118,7 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
                                 // means exact matching. The code happens
                                 // to work because "exact" falls through
                                 // to the correct else branch when scoring
+                                // eslint-disable-next-line no-restricted-syntax
                                 match: newValue as PerseusGraphTypeAngle["match"],
                             },
                         });

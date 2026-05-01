@@ -39,6 +39,7 @@ function deriveExtraKeys(
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
             const isKey = (key: string): key is KeypadKey =>
+                // eslint-disable-next-line no-restricted-syntax
                 KeypadKeys.includes(key as KeypadKey);
 
             for (const variable of expr.getVars()) {
@@ -56,10 +57,12 @@ function deriveExtraKeys(
         }
     }
 
+    // eslint-disable-next-line no-restricted-syntax
     const extraVariables = Object.keys(
         uniqueExtraVariables,
     ).sort() as ReadonlyArray<KeypadKey>;
 
+    // eslint-disable-next-line no-restricted-syntax
     const extraConstants = Object.keys(
         uniqueExtraConstants,
     ).sort() as ReadonlyArray<KeypadKey>;

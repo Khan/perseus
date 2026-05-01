@@ -186,6 +186,7 @@ class EditorPage extends React.Component<Props, State> {
             json: {
                 question: this.props.question,
                 answerArea: this.props.answerArea,
+                // eslint-disable-next-line no-restricted-syntax
                 hints: this.props.hints as Hint[],
             },
         });

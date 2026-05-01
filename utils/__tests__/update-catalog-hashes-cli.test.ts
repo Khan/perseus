@@ -22,6 +22,7 @@ describe("update-catalog-hashes-cli", () => {
         jest.clearAllMocks();
         mockExit = jest
             .spyOn(process, "exit")
+            // eslint-disable-next-line no-restricted-syntax
             .mockImplementation((() => {}) as any);
         mockConsoleLog = jest
             .spyOn(console, "log")

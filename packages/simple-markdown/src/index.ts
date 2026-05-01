@@ -299,7 +299,9 @@ var parserFor = function (
     });
 
     ruleList.sort(function (typeA, typeB) {
+        // eslint-disable-next-line no-restricted-syntax
         var ruleA: ParserRule = rules[typeA] as any;
+        // eslint-disable-next-line no-restricted-syntax
         var ruleB: ParserRule = rules[typeB] as any;
         var orderA = ruleA.order;
         var orderB = ruleB.order;
@@ -522,6 +524,7 @@ var reactElement = function (
         [key: string]: any;
     },
 ): ReactElement {
+    // eslint-disable-next-line no-restricted-syntax
     var element: ReactElement = {
         $$typeof: TYPE_SYMBOL,
         type: type,

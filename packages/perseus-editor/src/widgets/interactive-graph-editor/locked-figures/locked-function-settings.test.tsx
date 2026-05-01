@@ -10,6 +10,7 @@ import LockedFunctionSettings from "./locked-function-settings";
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
+// eslint-disable-next-line no-restricted-syntax
 const defaultProps = {
     ...getDefaultFigureForType("function"),
     onChangeProps: () => {},

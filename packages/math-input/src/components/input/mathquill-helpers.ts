@@ -46,6 +46,7 @@ const ValidLeaves = [
 ];
 
 const mqNodeHasClass = (node: any, className: string): boolean =>
+    // eslint-disable-next-line no-restricted-syntax
     node._el && (node._el as HTMLElement).classList.contains(className);
 
 export function isFraction(node): boolean {

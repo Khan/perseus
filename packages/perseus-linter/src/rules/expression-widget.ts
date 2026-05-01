@@ -20,6 +20,7 @@ const stringToButtonSet = {
  * available in the keypad (desktop learners can use a keyboard,
  * but mobile learners must use the MathInput keypad)
  */
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "expression-widget",
     severity: Rule.Severity.WARNING,

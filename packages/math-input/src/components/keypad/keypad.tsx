@@ -168,6 +168,7 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
                     tabs={availableTabs}
                     selectedTabId={selectedPage}
                     onTabSelected={(newSelectedPage: string) => {
+                        // eslint-disable-next-line no-restricted-syntax
                         setSelectedPage(newSelectedPage as KeypadPageType);
                     }}
                     styles={tabsStyles}

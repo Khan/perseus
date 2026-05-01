@@ -23,6 +23,7 @@ const LineStrokeSelect = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
+                // eslint-disable-next-line no-restricted-syntax
                 onChange={onChange as any}
                 // Placeholder is required, but never gets used.
                 placeholder=""

@@ -70,35 +70,60 @@ export const getWidgetScorer = (type: string): WidgetScorerFunction | null => {
 
 registerWidget(
     "categorizer",
+    // eslint-disable-next-line no-restricted-syntax
     scoreCategorizer as any,
+    // eslint-disable-next-line no-restricted-syntax
     validateCategorizer as any,
 );
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("cs-program", scoreCSProgram as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("deprecated-standin", scoreDeprecatedStandin as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("expression", scoreExpression as any, validateExpression as any);
 registerWidget(
     "free-response",
+    // eslint-disable-next-line no-restricted-syntax
     scoreFreeResponse as any,
+    // eslint-disable-next-line no-restricted-syntax
     validateFreeResponse as any,
 );
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("grapher", scoreGrapher as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("group", scoreGroup as any, validateGroup as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("iframe", scoreIframe as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("input-number", scoreInputNumber as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("interactive-graph", scoreInteractiveGraph as any);
 registerWidget(
     "label-image",
+    // eslint-disable-next-line no-restricted-syntax
     scoreLabelImage as any,
+    // eslint-disable-next-line no-restricted-syntax
     validateLabelImage as any,
 );
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("matcher", scoreMatcher as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("matrix", scoreMatrix as any, validateMatrix as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("mock-widget", scoreMockWidget as any, scoreMockWidget as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("number-line", scoreNumberLine as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("numeric-input", scoreNumericInput as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("orderer", scoreOrderer as any, validateOrderer as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("plotter", scorePlotter as any, validatePlotter as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("radio", scoreRadio as any, validateRadio as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("sorter", scoreSorter as any, validateSorter as any);
+// eslint-disable-next-line no-restricted-syntax
 registerWidget("table", scoreTable as any, validateTable as any);

@@ -78,8 +78,10 @@ export function deriveUserInputFromSerializedState(
     widgetsMap: PerseusWidgetsMap,
 ): UserInputMap {
     const restoredUserInput: UserInputMap = {};
+    // eslint-disable-next-line no-restricted-syntax
     Object.entries(serializedState as any).forEach(([widgetId, props]) => {
         const widgetType = getWidgetTypeByWidgetId(widgetId, widgetsMap);
+        // eslint-disable-next-line no-restricted-syntax
         const widgetExport = Widgets.getWidgetExport(widgetType as string);
 
         if (widgetExport?.getUserInputFromSerializedState) {

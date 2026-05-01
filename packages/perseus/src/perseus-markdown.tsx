@@ -370,7 +370,9 @@ export default {
     parse: parse,
     parseInline: inlineParser,
     reactFor: SimpleMarkdown.reactFor,
+    // eslint-disable-next-line no-restricted-syntax
     ruleOutput: SimpleMarkdown.ruleOutput(rules, "react") as any,
+    // eslint-disable-next-line no-restricted-syntax
     basicOutput: SimpleMarkdown.reactFor(
         SimpleMarkdown.ruleOutput(rules, "react"),
     ) as any,

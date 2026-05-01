@@ -16,6 +16,7 @@ function isCapitalized(word: any) {
     return c === c.toUpperCase();
 }
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "heading-title-case",
     severity: Rule.Severity.GUIDELINE,

@@ -9,7 +9,9 @@ export type OrdererDefaultWidgetOptions = Pick<
 >;
 
 const defaultWidgetOptions: OrdererDefaultWidgetOptions = {
+    // eslint-disable-next-line no-restricted-syntax
     correctOptions: [{content: "$x$"}] as any,
+    // eslint-disable-next-line no-restricted-syntax
     otherOptions: [{content: "$y$"}] as any,
     height: "normal",
     layout: "horizontal",

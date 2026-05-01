@@ -9,6 +9,7 @@ import LockedLabelSettings from "./locked-label-settings";
 import type {Props} from "./locked-label-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
+// eslint-disable-next-line no-restricted-syntax
 const defaultProps = {
     ...getDefaultFigureForType("label"),
     onChangeProps: () => {},

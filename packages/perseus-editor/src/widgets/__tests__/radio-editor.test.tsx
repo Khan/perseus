@@ -91,6 +91,7 @@ describe("radio-editor", () => {
             ];
 
             renderRadioEditor(onChangeMock, {
+                // eslint-disable-next-line no-restricted-syntax
                 choices: choicesWithMissingIds as any,
             });
 
@@ -112,6 +113,7 @@ describe("radio-editor", () => {
             ];
 
             renderRadioEditor(onChangeMock, {
+                // eslint-disable-next-line no-restricted-syntax
                 choices: choicesWithValidIds as any,
             });
 
@@ -127,6 +129,7 @@ describe("radio-editor", () => {
             ];
 
             renderRadioEditor(onChangeMock, {
+                // eslint-disable-next-line no-restricted-syntax
                 choices: choicesWithWhitespaceIds as any,
             });
 
@@ -1432,6 +1435,7 @@ describe("radio-editor", () => {
                 {wrapper: RenderStateRoot},
             );
 
+            // eslint-disable-next-line no-restricted-syntax
             const result = editorRef.current?.ensureValidIds(null as any, 3);
             expect(result).toBe("radio-choice-3");
         });

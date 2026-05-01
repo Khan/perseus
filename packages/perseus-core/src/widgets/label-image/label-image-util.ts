@@ -42,6 +42,7 @@ function getLabelImageMarkerPublicData(
 }
 
 export function isLabelImageAccessible(options: PerseusWidgetOptions): boolean {
+    // eslint-disable-next-line no-restricted-syntax
     const labelImageOptions = options as PerseusLabelImageWidgetOptions;
 
     // Label Images are inaccessible if the image url is not empty and the image alt is empty.

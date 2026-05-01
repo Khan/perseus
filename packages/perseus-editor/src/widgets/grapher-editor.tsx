@@ -95,9 +95,11 @@ class GrapherEditor extends React.Component<Props> {
                 // NOTE(jeremy): This editor doesn't pass in a bunch of
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
+                // eslint-disable-next-line no-restricted-syntax
                 <Grapher {...(graphProps as PropsFor<typeof Grapher>)} />
             );
             equationString = getEquationString(
+                // eslint-disable-next-line no-restricted-syntax
                 graphProps.userInput as GrapherAnswerTypes,
             );
         } else {
