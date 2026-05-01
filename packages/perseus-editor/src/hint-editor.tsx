@@ -11,7 +11,7 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
+import PreviewWithIframe from "./preview-with-iframe";
 import {
     iconCircleArrowDown,
     iconCircleArrowUp,
@@ -203,7 +203,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     };
 
     editor = React.createRef<HintEditor>();
-    frame = React.createRef<React.ElementRef<typeof IframeContentRenderer>>();
+    frame = React.createRef<React.ElementRef<typeof PreviewWithIframe>>();
 
     componentDidMount() {
         this.updatePreview();
@@ -278,7 +278,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
-                        <IframeContentRenderer
+                        <PreviewWithIframe
                             ref={this.frame}
                             isMobile={isMobile}
                             seamless={true}

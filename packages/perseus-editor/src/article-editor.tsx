@@ -28,12 +28,12 @@ import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import {WARNINGS} from "./messages";
+import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
-import type {IframeContentRendererRef} from "./iframe-content-renderer";
+import type {PreviewWithIframeRef} from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageUploader,
@@ -83,7 +83,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     };
 
     // Store refs for preview iframes (keyed by section index or "all")
-    private frameRefs: Record<string, IframeContentRendererRef | null> = {};
+    private frameRefs: Record<string, PreviewWithIframeRef | null> = {};
 
     componentDidMount() {
         this._updateIssues();
@@ -388,7 +388,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                <IframeContentRenderer
+                <PreviewWithIframe
                     ref={(node) => {
                         this.frameRefs[String(i)] = node;
                     }}

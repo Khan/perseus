@@ -7,9 +7,9 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import IssuesPanel from "./components/issues-panel";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
+import PreviewWithIframe from "./preview-with-iframe";
 import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {ItemEditorContext} from "./util/item-editor-context";
 import {detectTexErrors} from "./util/tex-error-detector";
@@ -75,7 +75,7 @@ class ItemEditor extends React.Component<Props, State> {
     static prevWidgets: PerseusWidgetsMap | undefined;
     a11yCheckerTimeoutId: any;
 
-    frame = React.createRef<React.ElementRef<typeof IframeContentRenderer>>();
+    frame = React.createRef<React.ElementRef<typeof PreviewWithIframe>>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -252,7 +252,7 @@ class ItemEditor extends React.Component<Props, State> {
                                     deviceType={this.props.deviceType}
                                     nochrome={true}
                                 >
-                                    <IframeContentRenderer
+                                    <PreviewWithIframe
                                         ref={this.frame}
                                         key={this.props.deviceType}
                                         isMobile={isMobile}
