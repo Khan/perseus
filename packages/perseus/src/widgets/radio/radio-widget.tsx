@@ -186,7 +186,6 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             const linterContext: LinterContextProps = {
                 contentType: "radio",
                 highlightLint: false,
-                paths: [],
                 stack: [],
             };
 
