@@ -28,10 +28,11 @@ LEMS-3946 asks for two deliverables; this is where each lives:
 
 ## Goals & Requirements
 
-Phase 1 left the widget at the **Bronze** accessibility tier. Phase 2 targets **Silver**, which adds two requirements we don't yet meet:
+Per the Phase 1 audit ([Interactive Graph: Screen reader quality notes](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3937763330/Interactive+Graph+Screen+reader+quality+notes)), the widget is currently at the **Bronze** accessibility tier. Phase 2 targets **Silver**, which adds three requirements we don't yet meet:
 
 1. Surface dynamic feedback to SR users when graph state changes (not just re-reading static labels).
 2. Move focus appropriately for keyboard / SR users after input.
+3. Optimize labels on the graphs' labeled elements (core visual trait descriptions).
 
 The work also closes the loop on the Level Access audit and on UXR feedback collected after Phase 1.
 
@@ -90,7 +91,7 @@ This is the *why* behind both [OQ4](#oq4) (instructions-first DOM order) and [OQ
 
 ## WB Announcer Implementation
 
-This area covers the foundational Announcer infrastructure that surfaces dynamic SR feedback when graph state changes — the first of the two Silver-tier requirements above.
+This area covers the foundational Announcer infrastructure that surfaces dynamic SR feedback when graph state changes — the first of the three Silver-tier requirements above.
 
 ### Goals for this area
 
@@ -279,7 +280,7 @@ Today the order inside the graph wrapper is: `description` → `interactiveEleme
 
 ## Focus Trap & Entry/Exit
 
-This area covers the focus trap (Shift + Enter to enter, Escape to exit), the announcement on entry/exit, and the LEMS-2681 focus-jump bug — closing the loop on the second Silver-tier requirement.
+This area covers the focus trap (Shift + Enter to enter, Escape to exit), the announcement on entry/exit, and the LEMS-2681 focus-jump bug — closing the loop on the second of the three Silver-tier requirements.
 
 ### Goals for this area
 
