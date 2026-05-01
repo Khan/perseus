@@ -1,6 +1,7 @@
 import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -286,7 +287,7 @@ export default {
 } satisfies WidgetExports<typeof WrappedMatcher>;
 
 const padding = 5;
-const border = "1px solid #444";
+const border = `1px solid ${semanticColor.core.border.neutral.strong}`;
 
 const styles = StyleSheet.create({
     widget: {
