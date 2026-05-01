@@ -19,6 +19,6 @@ CLAUDE.local.md
 
 # Claude worktrees are created here - we don't want these checked in!
 .claude/worktrees/
-.claude/artifacts/implementation/instructions
+
 # Typedoc generated files (we build these when needed instead of checking them in)
 /docs/*
