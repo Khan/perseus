@@ -398,6 +398,11 @@ export {
     generateInteractiveGraphWidget,
     generateInteractiveGraphQuestion,
 } from "./utils/generators/interactive-graph-widget-generator";
+/** @hidden */
+export {
+    generateMatrixWidget,
+    generateMatrixOptions,
+} from "./utils/generators/matrix-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {
