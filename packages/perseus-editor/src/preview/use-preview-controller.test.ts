@@ -65,7 +65,7 @@ describe("usePreviewController", () => {
     });
 
     describe("sendData", () => {
-        it("stores data as pending if iframe hasn't requested data yet", () => {
+        it("stores data as pending if iframe isn't ready yet", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
@@ -77,7 +77,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
         });
 
-        it("sends only latest data once iframe requests data", () => {
+        it("sends only latest data once iframe is ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData1 = createQuestionPreview();
             const previewData2 = createQuestionPreview({content: "Question 2"});
@@ -267,7 +267,7 @@ describe("usePreviewController", () => {
             );
         });
 
-        it("clears pending data after sending", async () => {
+        it("only sends data once if multiple iframe-ready events are received", async () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
@@ -310,7 +310,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
         });
 
-        it("ignores iframe-ready with no pending data", () => {
+        it("doesn't reply to iframe-ready when there is no pending data", () => {
             renderHook(() => usePreviewController(iframeRef));
 
             act(() => {

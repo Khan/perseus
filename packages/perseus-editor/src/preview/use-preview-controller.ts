@@ -58,7 +58,10 @@ export function usePreviewController(
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
             // Filter by source window - only messages from OUR iframe
-            if (event.source !== iframeRef.current?.contentWindow) {
+            if (
+                iframeRef.current?.contentWindow == null ||
+                event.source !== iframeRef.current?.contentWindow
+            ) {
                 return;
             }
 
