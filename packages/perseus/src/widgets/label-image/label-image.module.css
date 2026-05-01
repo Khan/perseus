@@ -1,0 +1,51 @@
+.image-container {
+    /*
+          Remove the additional height added due to white-spacing, this ensures
+          markers canvas will have the same height as the question image.
+        */
+    display: flex;
+}
+
+.image-interaction-disabled {
+    pointer-events: none;
+}
+
+.instructions {
+    padding-bottom: 1.6rem;
+}
+
+.instructions-caption {
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 2.2rem;
+    padding-bottom: 1.6rem;
+}
+
+.instructions-choice {
+    align-items: center;
+    display: flex;
+    margin: 0.8rem 0;
+}
+
+.instructions-choice:not(:last-child)::after {
+    background: var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: 2px;
+    content: "";
+    display: inline-block;
+    height: 0.2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    position: relative;
+    width: 0.2rem;
+}
+
+.instructions-choices {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.8rem 0;
+}
+
+.markers-canvas {
+    position: relative;
+}

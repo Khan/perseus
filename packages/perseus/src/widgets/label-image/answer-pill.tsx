@@ -1,6 +1,5 @@
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 import {Popper} from "react-popper";
@@ -8,7 +7,9 @@ import {Popper} from "react-popper";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
-const BringToFront: CSSProperties = {
+import styles from "./answer-pill_legacy-styles";
+
+const BringToFront: React.CSSProperties = {
     boxShadow: `0 8px 8px ${semanticColor.core.border.neutral.default}`,
     zIndex: 1000,
 };
@@ -18,7 +19,7 @@ export const AnswerPill = (props: {
     showCorrectness?: "correct" | "incorrect";
     markerRef?: HTMLElement;
     side: "top" | "bottom" | "left" | "right";
-    style?: CSSProperties;
+    style?: React.CSSProperties;
     hovered?: boolean;
     focused?: boolean;
     onClick?: () => void;
@@ -82,17 +83,3 @@ export const AnswerPill = (props: {
         </Popper>
     );
 };
-
-const styles = StyleSheet.create({
-    correct: {
-        backgroundColor: semanticColor.core.background.success.strong,
-    },
-    incorrect: {
-        backgroundColor: semanticColor.core.background.neutral.default,
-    },
-    pill: {
-        // Reset the Pill's default height in order to account
-        // for multi-line pills.
-        height: "auto",
-    },
-});

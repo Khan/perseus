@@ -1,4 +1,3 @@
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Marker from "../marker";
@@ -14,17 +13,8 @@ export default {
     tags: ["!dev"],
 } as Story;
 
-const styles = StyleSheet.create({
-    wrapper: {
-        position: "relative",
-
-        width: 32,
-        height: 32,
-    },
-});
-
 const Wrapper = (props) => (
-    <div className={css(styles.wrapper)}>
+    <div style={{position: "relative", height: "32px", width: "32px"}}>
         <Marker {...props} />
     </div>
 );
