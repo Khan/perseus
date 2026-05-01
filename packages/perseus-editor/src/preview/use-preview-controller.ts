@@ -77,19 +77,17 @@ export function usePreviewController(
                 case "iframe-ready": {
                     // Send the pending message (if any)
                     if (pendingDataRef.current) {
-                        const contentWindow = iframeRef.current?.contentWindow;
-                        if (contentWindow) {
-                            const sanitizedData = sanitizePreviewData(
-                                pendingDataRef.current,
-                            );
+                        const sanitizedData = sanitizePreviewData(
+                            pendingDataRef.current,
+                        );
 
-                            const msg: ParentToIframeMessage = {
-                                source: PREVIEW_MESSAGE_SOURCE,
-                                type: "content-data",
-                                content: sanitizedData,
-                            };
-                            contentWindow.postMessage(msg, "/");
-                        }
+                        const msg: ParentToIframeMessage = {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "content-data",
+                            content: sanitizedData,
+                        };
+                        iframeRef.current.contentWindow.postMessage(msg, "/");
+
                         // Clear the pending data
                         pendingDataRef.current = null;
                     }
@@ -116,15 +114,14 @@ export function usePreviewController(
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
         (data: PreviewContent) => {
-            const contentWindow = iframeRef.current?.contentWindow;
-
-            if (!contentWindow) {
-                return;
-            }
-
             // If iframe hasn't sent request-data yet, store the data
             if (!isIframeReady) {
                 pendingDataRef.current = data;
+                return;
+            }
+
+            const contentWindow = iframeRef.current?.contentWindow;
+            if (!contentWindow) {
                 return;
             }
 
