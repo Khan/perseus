@@ -71,10 +71,10 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-type PreviewDataMessage = PreviewMessageBase & {
+interface PreviewDataMessage extends PreviewMessageBase {
     type: "content-data";
     content: PreviewContent;
-};
+}
 
 /**
  * Union of all messages sent from parent to iframe
@@ -86,17 +86,17 @@ export type ParentToIframeMessage = PreviewDataMessage;
 /**
  * Message from iframe requesting data from parent
  */
-type PreviewDataRequestMessage = PreviewMessageBase & {
+interface PreviewDataRequestMessage extends PreviewMessageBase {
     type: "request-data";
-};
+}
 
 /**
  * Message from iframe reporting its content height
  */
-type PreviewHeightUpdateMessage = PreviewMessageBase & {
+interface PreviewHeightUpdateMessage extends PreviewMessageBase {
     type: "height-update";
     height: number;
-};
+}
 
 /**
  * Union of all messages sent from iframe to parent
