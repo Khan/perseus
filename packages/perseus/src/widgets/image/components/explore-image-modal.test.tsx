@@ -48,7 +48,6 @@ const defaultProps = {
     linterContext: {
         contentType: "",
         highlightLint: false,
-        paths: [],
         stack: ["widget"],
     },
     apiOptions: ApiOptions.defaults,
