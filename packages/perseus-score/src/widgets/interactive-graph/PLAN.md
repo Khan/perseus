@@ -31,8 +31,6 @@ export function scoreX(
 
 PRs 1–14 are purely additive — each one only creates new files and does not touch `score-interactive-graph.ts`. PR 15 wires everything up in a single mechanical change to the dispatcher.
 
-**knip:** PR 1 adds a temporary `ignore` entry to `knip.config.ts` for the sub-scorers folder; PR 15 removes it.
-
 ### PR 1 — `linear-system`
 **Logic (lines 73–97):** Two pairs of collinear checks; accepts lines in either order (swapped).
 **Invalid:** `!userInput.coords || !rubric.coords`
@@ -116,7 +114,6 @@ PRs 1–14 are purely additive — each one only creates new files and does not 
 
 ### PR 15 — Hook up all sub-scorers in `score-interactive-graph.ts`
 Import all 14 sub-scorers and replace each inline if-else block with a single dispatch call. Result: `score-interactive-graph.ts` reduces to: null-input guard, none-type guard, `hasValue` check, and a flat dispatch to 14 sub-scorer calls.
-**Also:** Remove the `packages/perseus-score` ignore entry added in PR 1 from `knip.config.ts`, then run `pnpm knip` to confirm no unused exports remain.
 
 ## Verification
 
