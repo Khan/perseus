@@ -4,6 +4,7 @@ import {mapObject} from "../utils/objective_";
 
 import {
     getCurrentVersion,
+    getDefaultGraded,
     getDefaultWidgetOptions,
     getSupportedAlignments,
 } from "./core-widget-registry";
@@ -30,6 +31,8 @@ export const applyDefaultsToWidget = (
 
     let alignment = oldWidgetInfo.alignment;
 
+    const defaultGraded = getDefaultGraded(type);
+
     // Widgets that support multiple alignments will "lock in" the
     // alignment to the alignment that would be listed first in the
     // select box.
@@ -48,7 +51,7 @@ export const applyDefaultsToWidget = (
         // maintain other info, like type
         ...oldWidgetInfo,
         version,
-        graded: oldWidgetInfo.graded ?? true,
+        graded: oldWidgetInfo.graded ?? defaultGraded,
         alignment,
         static: oldWidgetInfo.static ?? false,
         options,

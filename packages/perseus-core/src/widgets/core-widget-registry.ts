@@ -69,6 +69,11 @@ export function getDefaultWidgetOptions(type: string) {
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
+export function getDefaultGraded(type: string): boolean {
+    // When `defaultGraded` is omitted, match historical apply-defaults behavior.
+    return widgets.get(type)?.defaultGraded ?? true;
+}
+
 export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
