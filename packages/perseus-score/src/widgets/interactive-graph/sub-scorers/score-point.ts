@@ -1,6 +1,9 @@
 import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
-import type {PerseusGraphTypePoint, PerseusScore} from "@khanacademy/perseus-core";
+import type {
+    PerseusGraphTypePoint,
+    PerseusScore,
+} from "@khanacademy/perseus-core";
 
 export function scorePoint(
     userInput: PerseusGraphTypePoint,
