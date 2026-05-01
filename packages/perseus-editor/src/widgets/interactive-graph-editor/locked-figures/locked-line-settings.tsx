@@ -5,7 +5,12 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {vector as kvector} from "@khanacademy/kmath";
-import {getDefaultFigureForType} from "@khanacademy/perseus-core";
+import {
+    getDefaultFigureForType,
+    isFailure,
+    parse,
+    parseLockedLineKind,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -235,11 +240,13 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={
-                        ((value: "line" | "segment" | "ray") =>
-                            onChangeProps({kind: value})) as any
-                    }
+                    onChange={(value) => {
+                        const parsedKind = parse(value, parseLockedLineKind);
+                        if (isFailure(parsedKind)) {
+                            throw new Error(parsedKind.detail);
+                        }
+                        onChangeProps({kind: parsedKind.value});
+                    }}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >

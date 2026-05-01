@@ -1,13 +1,19 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
+import {
+    parseInteractiveGraphType,
+    isFailure,
+    isFeatureOn,
+    parse,
+} from "@khanacademy/perseus-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 type GraphTypeSelectorProps = {
-    graphType: string;
-    onChange: (newGraphType: string) => void;
+    graphType: PerseusGraphType["type"];
+    onChange: (newGraphType: PerseusGraphType["type"]) => void;
     // TODO(LEMS-3976): clean up feature flag
     apiOptions: APIOptionsWithDefaults;
 };
@@ -42,7 +48,13 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     return (
         <SingleSelect
             selectedValue={props.graphType}
-            onChange={props.onChange}
+            onChange={(value) => {
+                const parsedType = parse(value, parseInteractiveGraphType);
+                if (isFailure(parsedType)) {
+                    throw new Error(parsedType.detail);
+                }
+                props.onChange(parsedType.value);
+            }}
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >

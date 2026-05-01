@@ -49,21 +49,18 @@ type TouchHandlers = {
 
 let supportsPassive = false;
 
+type NestedArray<T> = ReadonlyArray<T | NestedArray<T>>;
+
 const nestedMap = function <T, M>(
-    children: T | ReadonlyArray<T>,
+    children: T | NestedArray<T>,
     func: (arg1: T) => M,
-    context: unknown,
-): M | ReadonlyArray<M> {
+): M | NestedArray<M> {
     if (Array.isArray(children)) {
-        // @ts-expect-error - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
         return _.map(children, function (child) {
-            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
     }
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: T | ReadonlyArray<T> is not assignable to T
-    return func.call(context, children);
+    return func(children as T);
 };
 
 /**

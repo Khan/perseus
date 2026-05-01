@@ -174,9 +174,9 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
+export const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 
-const parseLockedFigureFillType = enumeration(
+export const parseLockedFigureFillStyle = enumeration(
     "none",
     "white",
     "translucent",
@@ -190,12 +190,14 @@ const parseStrokeWeight = defaulted(
     () => "medium" as const,
 );
 
+export const parseLockedLabelSize = enumeration("small", "medium", "large");
+
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
     text: string,
     color: parseLockedFigureColor,
-    size: enumeration("small", "medium", "large"),
+    size: parseLockedLabelSize,
 });
 
 const parseLockedPointType = object({
@@ -207,9 +209,11 @@ const parseLockedPointType = object({
     ariaLabel: optional(string),
 });
 
+export const parseLockedLineKind = enumeration("line", "ray", "segment");
+
 const parseLockedLineType = object({
     type: constant("line"),
-    kind: enumeration("line", "ray", "segment"),
+    kind: parseLockedLineKind,
     points: pair(parseLockedPointType, parseLockedPointType),
     color: parseLockedFigureColor,
     lineStyle: parseLockedLineStyle,
@@ -235,7 +239,7 @@ const parseLockedEllipseType = object({
     radius: pairOfNumbers,
     angle: number,
     color: parseLockedFigureColor,
-    fillStyle: parseLockedFigureFillType,
+    fillStyle: parseLockedFigureFillStyle,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
@@ -247,7 +251,7 @@ const parseLockedPolygonType = object({
     points: array(pairOfNumbers),
     color: parseLockedFigureColor,
     showVertices: boolean,
-    fillStyle: parseLockedFigureFillType,
+    fillStyle: parseLockedFigureFillStyle,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
@@ -347,4 +351,26 @@ export const parseInteractiveGraphWidget = parseWidget(
         fullGraphAriaLabel: optional(string),
         fullGraphAriaDescription: optional(string),
     }),
+);
+
+/**
+ * A parser that accepts the type field of an interactive graph.
+ */
+export const parseInteractiveGraphType = enumeration(
+    "angle",
+    "circle",
+    "linear",
+    "linear-system",
+    "none",
+    "point",
+    "polygon",
+    "quadratic",
+    "ray",
+    "segment",
+    "sinusoid",
+    "exponential",
+    "absolute-value",
+    "tangent",
+    "logarithm",
+    "vector",
 );
