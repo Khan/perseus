@@ -181,6 +181,38 @@ export const getLabelPosition = (
 
     return [xLabel, yLabel];
 };
+/**
+ * Calculate the bottom margin needed for the graph container to prevent the
+ * x-axis label from overlapping with content below the graph.
+ *
+ * When the y-range starts at or above 0, the x-axis label can extend below
+ * the graph content area. This function calculates the extra margin needed.
+ * Exported for testing purposes.
+ */
+export const getGraphBottomMargin = (
+    xAxisLabelLocationY: number,
+    graphHeight: number,
+    hasXAxisLabel: boolean,
+    showsAxisLabels: boolean,
+): number => {
+    const baseMargin = 30;
+    if (!showsAxisLabels || !hasXAxisLabel) {
+        return baseMargin;
+    }
+    // The label is vertically centered at xAxisLabelLocationY (via CSS
+    // transform: translate(_, -50%)), so its bottom edge is at approximately
+    // xAxisLabelLocationY + labelHeight/2. We use fontSize (14px) as a
+    // conservative overestimate of labelHeight/2 to ensure the margin
+    // covers the label with a small buffer.
+    const xLabelBottomOverflow = Math.max(
+        0,
+        xAxisLabelLocationY + fontSize - graphHeight,
+    );
+    // Ensure the graph's bottom margin is large enough to prevent
+    // the overflowing label from overlapping with adjacent content.
+    return Math.max(baseMargin, xLabelBottomOverflow);
+};
+
 // Determines whether to show the label for the given tick
 // Currently, the only condition is to hide the label at -tickStep
 // on the y-axis when the y-axis is within the graph bounds
