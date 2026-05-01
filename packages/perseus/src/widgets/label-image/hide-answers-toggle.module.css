@@ -1,3 +1,5 @@
+/* TODO (LEMS-3815): Replace hide-answers-toggle_legacy-styles.js import with this file once
+   Wonder Blocks supports CSS module classNames (pending WB layer fix). */
 .switch-wrapper {
     align-items: center;
     display: flex;

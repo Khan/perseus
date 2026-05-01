@@ -1,3 +1,5 @@
+/* TODO (LEMS-3815): Replace answer-pill_legacy-styles.js import with this file once
+   Wonder Blocks supports CSS module classNames (pending WB layer fix). */
 .correct {
     background-color: var(--wb-semanticColor-core-background-success-strong);
 }
