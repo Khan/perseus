@@ -11,8 +11,6 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {scoreLinear} from "./sub-scorers/score-linear";
-
 import type {
     PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphRubric,
@@ -68,8 +66,27 @@ function scoreInteractiveGraph(
     );
 
     if (userInput.type === rubric.correct.type && hasValue) {
-        if (userInput.type === "linear" && rubric.correct.type === "linear") {
-            return scoreLinear(userInput, rubric.correct);
+        if (
+            userInput.type === "linear" &&
+            rubric.correct.type === "linear" &&
+            userInput.coords != null
+        ) {
+            const guess = userInput.coords;
+            const correct = rubric.correct.coords;
+
+            // If both of the guess points are on the correct line, it's
+            // correct.
+            if (
+                collinear(correct[0], correct[1], guess[0]) &&
+                collinear(correct[0], correct[1], guess[1])
+            ) {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: null,
+                };
+            }
         } else if (
             userInput.type === "linear-system" &&
             rubric.correct.type === "linear-system" &&
