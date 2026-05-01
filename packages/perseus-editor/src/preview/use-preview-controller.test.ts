@@ -77,6 +77,42 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
         });
 
+        it("stores data to send later if the iframe ref isn't set yet", () => {
+            const localIframeRef: React.MutableRefObject<HTMLIFrameElement | null> =
+                {current: null};
+
+            const {result} = renderHook(() =>
+                usePreviewController(localIframeRef),
+            );
+
+            const previewData = createQuestionPreview();
+            act(() => {
+                result.current.sendData(previewData);
+            });
+
+            // Should not post message yet
+            expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
+
+            // iframe is now set
+            localIframeRef.current = iframeRef.current;
+            const requestMessage: IframeToParentMessage = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "iframe-ready",
+            };
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: requestMessage,
+                        source: mockContentWindow,
+                    }),
+                );
+            });
+
+            // Should not post message yet
+            expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
+        });
+
         it("sends only latest data once iframe is ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData1 = createQuestionPreview();
