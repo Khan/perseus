@@ -8,6 +8,7 @@ type StoryArgs = StoryObj<ButtonGroup>;
 
 type Story = Meta<ButtonGroup>;
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Components/Button Group",
 } as Story;
@@ -16,6 +17,7 @@ const HarnassedButtonGroup = (
     props: Pick<React.ComponentProps<typeof ButtonGroup>, "buttons">,
 ) => {
     const [value, updateValue] = React.useState(
+        // eslint-disable-next-line no-restricted-syntax
         null as string | null | undefined,
     );
 

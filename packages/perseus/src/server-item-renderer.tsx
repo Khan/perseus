@@ -100,6 +100,7 @@ export class ServerItemRenderer
     userInput: UserInputMap;
 
     static defaultProps: DefaultProps = {
+        // eslint-disable-next-line no-restricted-syntax
         apiOptions: {} as any, // a deep default is done in `this.update()`
         linterContext: PerseusLinter.linterContextDefault,
         onRendered: (isRendered: boolean) => {},
@@ -194,6 +195,7 @@ export class ServerItemRenderer
             setTimeout(() => {
                 // First, calculate the current keypad height
                 const keypadDomNode: HTMLElement =
+                    // eslint-disable-next-line no-restricted-syntax
                     keypadElement?.getDOMNode() as HTMLElement;
                 const keypadHeight =
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

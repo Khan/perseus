@@ -24,9 +24,11 @@ export const normalizePoints = <A extends Coord[]>(
     coordsList: A,
     noSnap?: boolean,
 ): A =>
+    // eslint-disable-next-line no-restricted-syntax
     coordsList.map(
         (coords) =>
             // maps over [x, y]
+            // eslint-disable-next-line no-restricted-syntax
             coords.map((coord, i) => {
                 const axisRange = range[i];
                 if (noSnap) {
@@ -44,8 +46,10 @@ export const normalizeCoords = <A extends Coord[]>(
     coordsList: A,
     ranges: PerseusInteractiveGraphWidgetOptions["range"],
 ): A =>
+    // eslint-disable-next-line no-restricted-syntax
     coordsList.map<Coord>(
         (coords) =>
+            // eslint-disable-next-line no-restricted-syntax
             coords.map((coord, i) => {
                 return (coord + ranges[i][1]) / size(ranges[i]);
             }) as Coord,

@@ -9,6 +9,7 @@ import Rule from "../rule";
  * content authors of this policy change. This rule ignores
  * markdown images found within other widgets for now.
  */
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-markdown",
     severity: Rule.Severity.WARNING,

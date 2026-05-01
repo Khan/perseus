@@ -34,6 +34,7 @@ export const ZoomImageButton = (props: Props) => {
         event: React.SyntheticEvent<Element>,
         openModal: () => void,
     ) => {
+        // eslint-disable-next-line no-restricted-syntax
         const mouseEvent = event as React.MouseEvent;
         if (mouseEvent.metaKey || mouseEvent.ctrlKey) {
             window.open(imgSrc, "_blank");

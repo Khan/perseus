@@ -138,6 +138,7 @@ export default class TreeTransformer {
         if (TreeTransformer.isNode(n)) {
             // If we were called on a node object, then we handle it
             // this way.
+            // eslint-disable-next-line no-restricted-syntax
             const node = n as TreeNode; // safe cast; we just tested
 
             // Put the node on the stack before recursing on its children
@@ -213,6 +214,7 @@ export default class TreeTransformer {
                 state._indexes.push(index);
                 content += this._traverse(nodes[index], state, f);
                 // Casting to convince TypeScript that this is a number
+                // eslint-disable-next-line no-restricted-syntax
                 index = (state._indexes.pop() as number) + 1;
             }
 
@@ -325,6 +327,7 @@ export class TraversalState {
         }
 
         // The top index is a number because the top container is an array
+        // eslint-disable-next-line no-restricted-syntax
         const index = this._indexes.top() as number;
         if (siblings.length > index + 1) {
             return siblings[index + 1];
@@ -347,6 +350,7 @@ export class TraversalState {
         }
 
         // The top index is a number because the top container is an array
+        // eslint-disable-next-line no-restricted-syntax
         const index = this._indexes.top() as number;
         if (index > 0) {
             return siblings[index - 1];
@@ -364,6 +368,7 @@ export class TraversalState {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (siblings && Array.isArray(siblings)) {
             // top index is a number because top container is an array
+            // eslint-disable-next-line no-restricted-syntax
             const index = this._indexes.top() as number;
             if (siblings.length > index + 1) {
                 return siblings.splice(index + 1, 1)[0];
@@ -398,6 +403,7 @@ export class TraversalState {
         // or object property. This is hard for TypeScript, so we have to do some
         // unsafe casting and be careful when we use which cast version
         if (Array.isArray(parent)) {
+            // eslint-disable-next-line no-restricted-syntax
             const index = this._indexes.top() as number;
             // For an array parent we just splice the new nodes in
             parent.splice(index, 1, ...replacements);
@@ -406,6 +412,7 @@ export class TraversalState {
             this._indexes.pop();
             this._indexes.push(index + replacements.length - 1);
         } else {
+            // eslint-disable-next-line no-restricted-syntax
             const property = this._indexes.top() as string;
             // For an object parent we care how many new nodes there are
             if (replacements.length === 0) {
@@ -429,6 +436,7 @@ export class TraversalState {
     hasPreviousSibling(): boolean {
         return (
             Array.isArray(this._containers.top()) &&
+            // eslint-disable-next-line no-restricted-syntax
             (this._indexes.top() as number) > 0
         );
     }
@@ -453,6 +461,7 @@ export class TraversalState {
         // Since we know that we have a previous sibling, we know that
         // the value on top of the stack is a number, but we have to do
         // this unsafe cast because TypeScript doesn't know that.
+        // eslint-disable-next-line no-restricted-syntax
         const index = this._indexes.pop() as number;
         this._indexes.push(index - 1);
     }

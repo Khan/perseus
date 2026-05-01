@@ -8,6 +8,7 @@ import type {StyleDeclaration} from "aphrodite";
 const {radioBorderColor, checkedColor, circleSize, radioMarginWidth} =
     constants;
 
+// eslint-disable-next-line no-restricted-syntax
 export default StyleSheet.create({
     blankBackground: {
         // TODO(emily): Use WB colors?

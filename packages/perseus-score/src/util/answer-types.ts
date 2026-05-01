@@ -571,6 +571,7 @@ const KhanAnswerTypes = {
                 const score: Score = {
                     empty: guess === "",
                     correct: false,
+                    // eslint-disable-next-line no-restricted-syntax
                     message: null as string | null | undefined,
                     guess: guess,
                 };

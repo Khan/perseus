@@ -288,6 +288,7 @@ describe("number-line widget", () => {
         test("can have its divisions edited", async () => {
             renderQuestion(tickCtrl);
 
+            // eslint-disable-next-line no-restricted-syntax
             let tickCtrlInput: HTMLInputElement = screen.getByRole("textbox", {
                 name: "Number of divisions:",
             }) as HTMLInputElement;
@@ -301,6 +302,7 @@ describe("number-line widget", () => {
                 screen.queryByText("Rendering Error!"),
             ).not.toBeInTheDocument();
 
+            // eslint-disable-next-line no-restricted-syntax
             tickCtrlInput = screen.getByRole("textbox", {
                 name: "Number of divisions:",
             }) as HTMLInputElement;

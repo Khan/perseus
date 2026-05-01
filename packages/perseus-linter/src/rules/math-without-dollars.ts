@@ -4,6 +4,7 @@ import Rule from "../rule";
 // Math and code hold their content directly and do not have text nodes
 // beneath them (unlike the HTML DOM) so this rule automatically does not
 // apply inside $$ or ``.
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-without-dollars",
     severity: Rule.Severity.GUIDELINE,

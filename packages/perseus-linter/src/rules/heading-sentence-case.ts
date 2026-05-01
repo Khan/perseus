@@ -1,5 +1,6 @@
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "heading-sentence-case",
     severity: Rule.Severity.GUIDELINE,

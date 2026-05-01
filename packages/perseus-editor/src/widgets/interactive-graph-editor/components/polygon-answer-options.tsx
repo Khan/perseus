@@ -101,6 +101,7 @@ export default function PolygonAnswerOptions({
                         );
 
                         const updates = {
+                            // eslint-disable-next-line no-restricted-syntax
                             snapTo: newValue as PerseusGraphTypePolygon["snapTo"],
                             coords: null,
                         } as const;
@@ -222,6 +223,7 @@ export default function PolygonAnswerOptions({
                             // means exact matching. The code happens
                             // to work because "exact" falls through
                             // to the correct else branch when scoring
+                            // eslint-disable-next-line no-restricted-syntax
                             match: newValue as PerseusGraphTypePolygon["match"],
                         };
                         onChange({correct: updatedCorrect});

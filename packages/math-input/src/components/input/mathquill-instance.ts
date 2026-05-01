@@ -102,6 +102,7 @@ export function createMathField(
     const baseConfig = createBaseConfig();
     const config = configCallback ? configCallback(baseConfig) : baseConfig;
 
+    // eslint-disable-next-line no-restricted-syntax
     const mathField = mathQuillInstance
         .MathField(container, config)
         .setAriaLabel(strings.mathInputBox)

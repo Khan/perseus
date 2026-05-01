@@ -23,6 +23,7 @@ const ExercisePreviewPage = () => {
 
     // Read iframe configuration from dataset attributes
     React.useEffect(() => {
+        // eslint-disable-next-line no-restricted-syntax
         const iframe = window.frameElement as HTMLIFrameElement | null;
         if (iframe?.dataset.id) {
             setIframeId(iframe.dataset.id);

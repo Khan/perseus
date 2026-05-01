@@ -101,12 +101,14 @@ class RendererDiff extends React.Component<Props> {
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
                     before={
+                        // eslint-disable-next-line no-restricted-syntax
                         filterWidgetInfo(
                             before?.widgets?.[widget],
                             showAlignmentOptions,
                         ) as PerseusWidget
                     }
                     after={
+                        // eslint-disable-next-line no-restricted-syntax
                         filterWidgetInfo(
                             after?.widgets?.[widget],
                             showAlignmentOptions,

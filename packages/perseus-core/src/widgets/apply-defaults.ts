@@ -61,6 +61,7 @@ export function applyDefaultsToWidgets(
     // The cast to PerseusWidgetsMap is needed because TS can't prove that
     // every key in the map will match the associated widget's `type`
     // property.
+    // eslint-disable-next-line no-restricted-syntax
     return mapObject(
         oldWidgetOptions,
         applyDefaultsToWidget,

@@ -49,6 +49,7 @@ export const renderQuestion = (
                 <DependenciesContext.Provider value={dependencies}>
                     <RendererWrapper
                         ref={(node) => (renderer = node)}
+                        // eslint-disable-next-line no-restricted-syntax
                         question={question as any}
                         apiOptions={apiOptions}
                         initialUserInput={initialUserInput}

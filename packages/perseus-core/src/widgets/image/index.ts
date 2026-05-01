@@ -45,6 +45,7 @@ const imageWidgetLogic: WidgetLogic = {
     // This widget's accessibility depends on its widget option: if the image
     // has a background but no alt text, it is not accessible
     accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
+        // eslint-disable-next-line no-restricted-syntax
         const imageOptions = widgetOptions as PerseusImageWidgetOptions;
         const bgImage = imageOptions.backgroundImage;
 

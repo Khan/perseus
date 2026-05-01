@@ -211,6 +211,7 @@ const LockedPolygonSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
+                            // eslint-disable-next-line no-restricted-syntax
                             ((value: LockedFigureFillType) =>
                                 onChangeProps({fillStyle: value})) as any
                         }

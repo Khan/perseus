@@ -228,6 +228,7 @@ describe("grapher-util", () => {
         it("should return null when asymptote is missing", () => {
             const equation = exponential.getEquationString(
                 coords,
+                // eslint-disable-next-line no-restricted-syntax
                 undefined as any,
             );
             expect(equation).toBeNull();
@@ -257,6 +258,7 @@ describe("grapher-util", () => {
             ];
             const equation = logarithm.getEquationString(
                 coords,
+                // eslint-disable-next-line no-restricted-syntax
                 undefined as any,
             );
             expect(equation).toBeNull();

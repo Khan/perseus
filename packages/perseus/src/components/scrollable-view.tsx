@@ -317,6 +317,7 @@ function ScrollControls({
 }
 
 // Create compound component that includes both ScrollableArea and ScrollControls
+// eslint-disable-next-line no-restricted-syntax
 const ScrollableView = ScrollableArea as typeof ScrollableArea & {
     Controls: typeof ScrollControls;
 };

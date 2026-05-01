@@ -282,12 +282,16 @@ export function generateInteractiveGraphQuestion(
             asymptote: _____,
             match: ______,
             ...graphConfig
+            // eslint-disable-next-line no-restricted-syntax
         } = widgetOptions.correct as Record<string, unknown>;
+        // eslint-disable-next-line no-restricted-syntax
         widgetOptions.graph = graphConfig as PerseusGraphType;
     }
 
     const optionsWithDefaults = {
+        // eslint-disable-next-line no-restricted-syntax
         gridStep: [1, 1] as [number, number],
+        // eslint-disable-next-line no-restricted-syntax
         snapStep: [0.5, 0.5] as [number, number],
         ...widgetOptions,
     };

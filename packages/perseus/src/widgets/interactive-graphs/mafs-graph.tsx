@@ -111,6 +111,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     } = props;
     const {type} = state;
     const [width, height] = props.box;
+    // eslint-disable-next-line no-restricted-syntax
     const tickStep = props.step as vec.Vector2;
 
     const uniqueId = React.useId();
@@ -730,6 +731,7 @@ function handleKeyboardEvent(
             // After removing a point blur
             // It would be nice if this could focus on the graph but doing so
             // would trigger the message to prompt a learner to enter keyboard mode
+            // eslint-disable-next-line no-restricted-syntax
             (document.activeElement as HTMLElement).blur();
         } else if (event.shiftKey && event.key === "Enter") {
             dispatch(actions.global.changeInteractionMode("keyboard"));

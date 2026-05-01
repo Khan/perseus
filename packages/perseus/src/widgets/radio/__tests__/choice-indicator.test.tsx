@@ -241,6 +241,7 @@ describe("Radio widget choice indicator", () => {
         `(
             "passes '$expected' to the click handler when 'checked' attribute is '$checked'",
             (args) => {
+                // eslint-disable-next-line no-restricted-syntax
                 const {checked, expected} = args as {
                     checked: boolean;
                     expected: boolean;

@@ -37,6 +37,7 @@ export default function splitPerseusRenderer(
             );
             splitWidgets[id] = {
                 ...widget,
+                // eslint-disable-next-line no-restricted-syntax
                 options: publicWidgetOptionsFun(widget.options as any),
             };
         }

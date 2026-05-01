@@ -54,6 +54,7 @@ describe("Result.assertFailure", () => {
     });
 
     it("narrows types", () => {
+        // eslint-disable-next-line no-restricted-syntax
         const result = failure(42) as Result.Result<number, number>;
         // @ts-expect-error - Property 'detail' does not exist on type 'Success'
         expect(result.detail).toBe(42);
@@ -74,6 +75,7 @@ describe("Result.assertSuccess", () => {
     });
 
     it("narrows types", () => {
+        // eslint-disable-next-line no-restricted-syntax
         const result = success(42) as Result.Result<number, number>;
         // @ts-expect-error - Property 'value' does not exist on type 'Failure'
         expect(result.value).toBe(42);

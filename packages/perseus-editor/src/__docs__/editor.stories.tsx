@@ -73,6 +73,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             warnNoPrompt={false}
                             warnNoWidgets={true}
                             onChange={
+                                // eslint-disable-next-line no-restricted-syntax
                                 ((props: Partial<PerseusRenderer>) => {
                                     action("onChange")(props);
                                     if (props.content) {

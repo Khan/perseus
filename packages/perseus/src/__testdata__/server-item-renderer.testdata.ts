@@ -192,6 +192,7 @@ export const labelImageItem: PerseusItem = {
                 {height: 293, width: 331},
         },
         widgets: {
+            // eslint-disable-next-line no-restricted-syntax
             "label-image 1": {
                 alignment: "default",
                 graded: true,

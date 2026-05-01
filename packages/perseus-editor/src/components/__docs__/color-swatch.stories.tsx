@@ -5,6 +5,7 @@ import ColorSwatch from "../../widgets/interactive-graph-editor/locked-figures/c
 
 import type {Meta} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Color Swatch",
     component: ColorSwatch,

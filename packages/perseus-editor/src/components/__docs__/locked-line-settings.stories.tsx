@@ -5,6 +5,7 @@ import LockedLineSettings from "../../widgets/interactive-graph-editor/locked-fi
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Locked Line Settings",
     component: LockedLineSettings,

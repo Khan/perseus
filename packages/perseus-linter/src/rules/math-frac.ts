@@ -1,5 +1,6 @@
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-frac",
     severity: Rule.Severity.GUIDELINE,

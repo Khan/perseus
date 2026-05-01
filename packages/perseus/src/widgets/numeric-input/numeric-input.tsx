@@ -101,6 +101,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             return (
                 <div className={alignmentClass}>
                     <SimpleKeypadInput
+                        // eslint-disable-next-line no-restricted-syntax
                         ref={inputRef as React.RefObject<SimpleKeypadInput>}
                         value={props.userInput.currentValue}
                         keypadElement={props.keypadElement}

@@ -12,6 +12,7 @@ import ColorSwatch from "./color-swatch";
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+// eslint-disable-next-line no-restricted-syntax
 const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
 
 type Props = {
@@ -31,6 +32,7 @@ const ColorSelect = (props: Props) => {
                 <SingleSelect
                     selectedValue={selectedValue}
                     // TODO(LEMS-2656): remove TS suppression
+                    // eslint-disable-next-line no-restricted-syntax
                     onChange={onChange as any}
                     // Placeholder is required, but never gets used.
                     placeholder=""

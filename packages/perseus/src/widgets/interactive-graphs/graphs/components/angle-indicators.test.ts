@@ -98,8 +98,11 @@ describe("shouldDrawArcOutside", () => {
 
     // TODO: (third) Move this test to the math package
     it("should correctly calculate the angle for the given coordinates", () => {
+        // eslint-disable-next-line no-restricted-syntax
         const point1 = [2, 2] as vec.Vector2;
+        // eslint-disable-next-line no-restricted-syntax
         const point2 = [2, 0] as vec.Vector2;
+        // eslint-disable-next-line no-restricted-syntax
         const vertex = [0, 0] as vec.Vector2;
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
         expect(getClockwiseAngle(coords)).toBe(45);

@@ -647,6 +647,7 @@ function getCorrectUserInput(
     return options.correct;
 }
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput

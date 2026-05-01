@@ -28,6 +28,7 @@ export function getCatalogDepsHash(
         packageJson.dependencies ?? {},
     )) {
         if (version.startsWith("catalog:")) {
+            // eslint-disable-next-line no-restricted-syntax
             const catalogName = version.replace(
                 "catalog:",
                 "",
@@ -48,6 +49,7 @@ export function getCatalogDepsHash(
         packageJson.peerDependencies ?? {},
     )) {
         if (version.startsWith("catalog:")) {
+            // eslint-disable-next-line no-restricted-syntax
             const catalogName = version.replace(
                 "catalog:",
                 "",

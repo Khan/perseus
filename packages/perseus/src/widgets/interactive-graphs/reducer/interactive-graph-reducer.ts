@@ -1242,6 +1242,7 @@ function boundAndSnapAngleEndPoints(
     // We want to subtract or add the snapStep to the lower and upper bounds
     // respectively to ensure that the point is within the bounds of the graph
     // even after snapping to the nearest degree
+    // eslint-disable-next-line no-restricted-syntax
     const angleRange = [
         [range[0][0] + snapStep[0], range[0][1] - snapStep[0]],
         [range[1][0] + snapStep[1], range[1][1] - snapStep[1]],
@@ -1294,6 +1295,7 @@ function boundAndSnapToPolygonAngle(
 ) {
     const startingPoint = coords[index];
 
+    // eslint-disable-next-line no-restricted-syntax
     return calculateAngleSnap(
         destinationPoint,
         range,
@@ -1404,6 +1406,7 @@ function boundAndSnapToSides(
 ) {
     const startingPoint = coords[index];
 
+    // eslint-disable-next-line no-restricted-syntax
     return calculateSideSnap(
         destinationPoint,
         range,
@@ -1480,6 +1483,7 @@ export function calculateSideSnap(
     // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
 
+    // eslint-disable-next-line no-restricted-syntax
     return kvector.add(coords[rel(-1)], offset) as vec.Vector2;
 }
 
@@ -1516,6 +1520,7 @@ function setAtIndex<A extends any[]>(args: {
     newValue: A[number];
 }): A {
     const {array, index, newValue} = args;
+    // eslint-disable-next-line no-restricted-syntax
     const copy: A = [...array] as A;
     copy[index] = newValue;
     return copy;

@@ -17,6 +17,7 @@ const sizeMedium = 600;
 const sizeLarge = 1024;
 const width = 1024;
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Components/Fixed to Responsive",
 } as Story;

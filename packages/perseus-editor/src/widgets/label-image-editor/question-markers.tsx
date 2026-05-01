@@ -51,6 +51,7 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
             return;
         }
 
+        // eslint-disable-next-line no-restricted-syntax
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
 
         // Calculate marker position on the question image as percentage offset

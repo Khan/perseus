@@ -467,7 +467,9 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         // logic between the two 'models'.
         const flip = (coord: Coord): Coord => [coord[1], coord[0]];
         const inverseCoeffs = Exponential.getCoefficients(
+            // eslint-disable-next-line no-restricted-syntax
             _.map(coords, flip) as Coords,
+            // eslint-disable-next-line no-restricted-syntax
             _.map(asymptote, flip) as Coords,
         );
         if (inverseCoeffs) {

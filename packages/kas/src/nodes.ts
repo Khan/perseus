@@ -917,7 +917,7 @@ export class Mul extends Seq {
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var inverses = terms.inverse || [];
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, no-restricted-syntax
         var numbers: Num[] = (terms.number as Num[]) || [];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var others = terms.other || [];
@@ -1044,6 +1044,7 @@ export class Mul extends Seq {
 
             // loop over each additive sequence
             const expanded = _.reduce(
+                // eslint-disable-next-line no-restricted-syntax
                 adds as Add[],
                 function (expanded, add) {
                     // loop over each expanded array of terms
@@ -1055,9 +1056,11 @@ export class Mul extends Seq {
                                 _.map(add.terms, (term) => array.concat(term)),
                             );
                         },
+                        // eslint-disable-next-line no-restricted-syntax
                         [] as Expr[][],
                     );
                 },
+                // eslint-disable-next-line no-restricted-syntax
                 [[]] as Expr[][],
             );
 
@@ -1091,6 +1094,7 @@ export class Mul extends Seq {
         });
 
         const ratObj = _.reduce(
+            // eslint-disable-next-line no-restricted-syntax
             rationals as Rational[],
             (memo, term) => {
                 return {n: memo.n * term.n, d: memo.d * term.d};
@@ -1164,9 +1168,9 @@ export class Mul extends Seq {
                 return "expr";
             }
         });
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, no-restricted-syntax
         let trigs = (groupedPairs.trig as [Trig, Expr][]) || [];
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, no-restricted-syntax
         let logs = (groupedPairs.log as [Log, Expr][]) || [];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const exprs = groupedPairs.expr || [];
@@ -1266,6 +1270,7 @@ export class Mul extends Seq {
         var partitioned = this.partition();
         // `partition` splits the terms into two Seqs - one containing
         // only Nums and the all non-Num nodes.
+        // eslint-disable-next-line no-restricted-syntax
         var numbers = partitioned[0].terms as Num[];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var fold = numbers.length && _.all(numbers, (num) => num.n > 0);
@@ -1507,6 +1512,7 @@ export class Mul extends Seq {
     static fold(expr: Expr): Expr {
         if (expr instanceof Mul) {
             // assuming that this will be second to last
+            // eslint-disable-next-line no-restricted-syntax
             var trigLog = _.find(_.initial(expr.terms), (term) => {
                 return (
                     (term instanceof Trig || term instanceof Log) &&
@@ -1658,6 +1664,7 @@ export class Pow extends Expr {
             return {
                 unit: unit.unit,
                 // Exponents in units should always be integers
+                // eslint-disable-next-line no-restricted-syntax
                 pow: unit.pow * (this.exp as Int).n,
             };
         });
@@ -3624,6 +3631,7 @@ export const parse = function (input: string, options?: ParseOptions) {
         var expr = parser.parse(input).completeParse();
         return {parsed: true, expr: expr};
     } catch (e) {
+        // eslint-disable-next-line no-restricted-syntax
         return {parsed: false, error: (e as Error).message};
     }
 };
@@ -3793,6 +3801,7 @@ export const unitParse = function (input: string) {
             };
         }
     } catch (e) {
+        // eslint-disable-next-line no-restricted-syntax
         return {parsed: false, error: (e as Error).message};
     }
 };

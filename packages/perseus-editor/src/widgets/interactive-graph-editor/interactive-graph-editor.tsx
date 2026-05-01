@@ -410,6 +410,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 }
                                 // TODO(LEMS-2656): remove TS suppression
                                 onChange={
+                                    // eslint-disable-next-line no-restricted-syntax
                                     ((
                                         type: Required<InteractiveGraphProps>["userInput"]["type"],
                                     ) => {

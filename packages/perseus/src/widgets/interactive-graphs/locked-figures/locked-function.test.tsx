@@ -55,7 +55,7 @@ describe("LockedFunction", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access, no-restricted-syntax
         const lockedFunction = container.querySelector(
             ".locked-function",
         ) as SVGGElement;
@@ -93,7 +93,7 @@ describe("LockedFunction", () => {
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access, no-restricted-syntax
         const lockedFunction = container.querySelector(
             ".locked-function",
         ) as SVGGElement;

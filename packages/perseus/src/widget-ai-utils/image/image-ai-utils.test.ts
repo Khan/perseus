@@ -12,6 +12,7 @@ const question = {
             {height: 377, width: 460},
     },
     widgets: {
+        // eslint-disable-next-line no-restricted-syntax
         "image 1": {
             alignment: "block",
             graded: true,
@@ -42,6 +43,7 @@ const question = {
 describe("Image AI utils", () => {
     beforeEach(() => {
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",

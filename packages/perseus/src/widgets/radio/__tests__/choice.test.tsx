@@ -20,6 +20,7 @@ describe("Radio widget choice option", () => {
     `(
         "renders with a $shape indicator when choice $isOrIsNot multi-select",
         (args) => {
+            // eslint-disable-next-line no-restricted-syntax
             const {isMultiSelect, shape} = args as {
                 isMultiSelect: boolean;
                 shape: "circle" | "square";
@@ -45,6 +46,7 @@ describe("Radio widget choice option", () => {
         ${"wrong"}      | ${"proper styling for wrongness"}
         ${undefined}    | ${"no additional styling when not in review mode"}
     `("applies $stylingDescription", (args) => {
+        // eslint-disable-next-line no-restricted-syntax
         const {showCorrectness} = args as {
             showCorrectness: "correct" | "wrong" | undefined;
         };
@@ -77,6 +79,7 @@ describe("Radio widget choice option", () => {
     `(
         "click handler $doesOrDoesNot work when correctness is $showCorrectness",
         (args) => {
+            // eslint-disable-next-line no-restricted-syntax
             const {showCorrectness, callCount} = args as {
                 showCorrectness: "correct" | "wrong" | undefined;
                 callCount: number;

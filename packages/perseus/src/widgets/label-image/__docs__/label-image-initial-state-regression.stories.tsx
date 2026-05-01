@@ -107,7 +107,7 @@ export const IncorrectMarker: Story = {
         imageAlt: "A bar graph with four unlabeled bar lines.",
         choices: ["Trucks", "Vans", "Cars", "SUVs"],
         markers: [
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
             {
                 answers: ["SUVs"],
                 label: "The fourth unlabeled bar line.",

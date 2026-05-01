@@ -95,6 +95,7 @@ class MatrixEditor extends React.Component<Props> {
                     />
                 </div>
                 <div className="perseus-widget-row">
+                    {/* eslint-disable-next-line no-restricted-syntax */}
                     <Matrix {...(matrixProps as PropsFor<typeof Matrix>)} />
                 </div>
                 <div className="perseus-widget-row">

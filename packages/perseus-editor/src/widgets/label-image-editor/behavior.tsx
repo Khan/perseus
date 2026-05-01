@@ -77,6 +77,7 @@ const Behavior = ({
                     value={preferredPopoverDirection}
                     onChange={(e) => {
                         onChange({
+                            // eslint-disable-next-line no-restricted-syntax
                             preferredPopoverDirection: e.target
                                 .value as PreferredPopoverDirection,
                         });

@@ -107,6 +107,7 @@ class ArticleRenderer
             // Wait for the keypad to mount before getting the height
             setTimeout(() => {
                 const keypadDomNode =
+                    // eslint-disable-next-line no-restricted-syntax
                     keypadElement?.getDOMNode() as HTMLElement;
                 const keypadHeight =
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -241,10 +242,12 @@ class ArticleRenderer
                                         this._handleFocusChange(
                                             newFocusPath &&
                                                 [sectionIndex].concat(
+                                                    // eslint-disable-next-line no-restricted-syntax
                                                     newFocusPath as any,
                                                 ),
                                             oldFocusPath &&
                                                 [sectionIndex].concat(
+                                                    // eslint-disable-next-line no-restricted-syntax
                                                     oldFocusPath as any,
                                                 ),
                                         );

@@ -215,11 +215,13 @@ type State = any;
 // The PropsFor<Component> type takes defaultProps into account, which is
 // important because PerseusInteractiveGraphWidgetOptions has optional fields
 // which receive defaults via defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphUserInput
@@ -297,6 +299,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     // So we watch for changes in StatefulMafsGraph and call
                     // getUserInput so we can pass the parent the most up-to-date
                     // user input.
+                    // eslint-disable-next-line no-restricted-syntax
                     this.mafsRef.current?.getUserInput() as PerseusGraphType,
                 ),
         };
@@ -416,6 +419,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             _.map(
+                // eslint-disable-next-line no-restricted-syntax
                 [
                     [
                         [0.25, 0.75],
@@ -547,6 +551,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         angle = (angle * Math.PI) / 180;
         const offset = ((graph.angleOffsetDeg || 0) * Math.PI) / 180;
 
+        // eslint-disable-next-line no-restricted-syntax
         coords = InteractiveGraph.pointsFromNormalized(props, [
             [0.85, 0.5],
             [0.5, 0.5],

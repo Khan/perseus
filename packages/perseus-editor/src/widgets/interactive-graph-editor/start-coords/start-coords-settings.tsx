@@ -114,6 +114,7 @@ const StartCoordsSettingsInner = (props: Props) => {
             // how circle's startCoords packs {center, radius} together. This
             // lets the standard onChange → changeStartCoords path handle
             // everything with no special-casing needed.
+            // eslint-disable-next-line no-restricted-syntax
             const defaultStartCoords = getDefaultGraphStartCoords(
                 props,
                 range,
@@ -128,6 +129,7 @@ const StartCoordsSettingsInner = (props: Props) => {
             );
         }
         case "logarithm": {
+            // eslint-disable-next-line no-restricted-syntax
             const defaultLogarithmCoords = getDefaultGraphStartCoords(
                 props,
                 range,

@@ -145,7 +145,7 @@ describe("Rendering", () => {
                 />
             </Mafs>,
         ).container;
-        // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access, no-restricted-syntax
         let line = container.querySelector(
             ".movable-line",
         ) as HTMLElement | null;
@@ -166,7 +166,7 @@ describe("Rendering", () => {
                 />
             </Mafs>,
         ).container;
-        // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access, no-restricted-syntax
         line = container.querySelector(".movable-line") as HTMLElement | null;
         expect(line?.getAttribute("style")).toContain("cursor: grabbing;");
         // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access

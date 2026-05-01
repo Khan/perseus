@@ -105,6 +105,7 @@ export const definitionItem: PerseusRenderer = generateTestPerseusRenderer({
     },
 });
 
+// eslint-disable-next-line no-restricted-syntax
 export const mockedRandomItem: PerseusRenderer = {
     content: "Mock widgets ==> [[\u2603 radio 1]] [[\u2603 radio 2]]",
     images: {},
