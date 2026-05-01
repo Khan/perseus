@@ -18,8 +18,6 @@ import {usePreviewController} from "./preview/use-preview-controller";
 
 import type {PreviewContent} from "./preview/message-types";
 
-let nextIframeID = 0;
-
 type Props = {
     // The URL that the iframe should load
     url: string;
@@ -38,8 +36,6 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
     (props, ref) => {
         const containerRef = React.useRef<HTMLDivElement>(null);
         const iframeRef = React.useRef<HTMLIFrameElement>(null);
-        // ID is for debugging/logging, not routing (which uses event.source)
-        const [iframeId] = React.useState(() => String(nextIframeID++));
 
         const {sendData, height} = usePreviewController(iframeRef);
 
@@ -75,8 +71,7 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
             >
                 <iframe
                     ref={iframeRef}
-                    title={`perseus-preview-${iframeId}`}
-                    data-id={iframeId}
+                    title={`perseus-preview`}
                     data-mobile={props.isMobile ? "true" : "false"}
                     // The seamless prop is the same as the "nochrome" prop that
                     // gets passed to DeviceFramer. If it is set, then we're going
