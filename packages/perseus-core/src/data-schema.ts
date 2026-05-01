@@ -2173,7 +2173,6 @@ export type PerseusInputNumberWidgetOptions = {
     simplify: "required" | "optional" | "enforced";
     size: "normal" | "small";
     value: string | number;
-    customKeypad?: boolean;
 };
 
 /** Options for the molecule-renderer widget. Renders a molecule via SMILES. */

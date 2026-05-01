@@ -49,6 +49,5 @@ export const parseInputNumberWidget = parseWidget(
             union(number).or(string).or(booleanToString).parser,
             () => 0,
         ),
-        customKeypad: optional(boolean),
     }),
 );
