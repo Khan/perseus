@@ -39,7 +39,6 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {CSSProperties} from "aphrodite";
 
 type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
@@ -555,7 +554,7 @@ export class LabelImage
                 !this.state.hideAnswers &&
                 !isActiveAnswerChoice;
 
-            const adjustPillDistance: CSSProperties = {
+            const adjustPillDistance: React.CSSProperties = {
                 [`margin${
                     markerPosition.charAt(0).toUpperCase() +
                     markerPosition.slice(1)
