@@ -1071,7 +1071,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
       },
       "definition 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "definition": "",
           "static": false,

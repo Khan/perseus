@@ -62,7 +62,7 @@ export type WidgetLogic = {
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: PerseusWidgetOptions) => boolean);
     traverseChildWidgets?: (props: any, traverseRenderer: any) => any;
-
+    defaultGraded?: boolean;
     /**
      * A function that provides a public version of the widget options that can
      * be shared with the client.
