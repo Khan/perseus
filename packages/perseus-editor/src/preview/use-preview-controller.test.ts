@@ -1,9 +1,12 @@
 import {renderHook, act, waitFor} from "@testing-library/react";
 
-import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {
+    createPreviewIframeReadyMessage,
+    PREVIEW_MESSAGE_SOURCE,
+} from "./message-types";
 import {usePreviewController} from "./use-preview-controller";
 
-import type {IframeToParentMessage, PreviewContent} from "./message-types";
+import type {PreviewContent} from "./message-types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
 
@@ -95,15 +98,11 @@ describe("usePreviewController", () => {
 
             // iframe is now set
             localIframeRef.current = iframeRef.current;
-            const requestMessage: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "iframe-ready",
-            };
 
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: requestMessage,
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -127,15 +126,10 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
 
             // Simulate iframe requesting data
-            const requestMessage: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "iframe-ready",
-            };
-
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: requestMessage,
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -161,15 +155,10 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
-            const requestMessage: IframeToParentMessage = {
-                source: PREVIEW_MESSAGE_SOURCE,
-                type: "iframe-ready",
-            };
-
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: requestMessage,
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -200,10 +189,7 @@ describe("usePreviewController", () => {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -274,14 +260,11 @@ describe("usePreviewController", () => {
                 result.current.sendData(previewData);
             });
 
-            // Now iframe requests data
+            // Now iframe tells parent its ready
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -312,14 +295,11 @@ describe("usePreviewController", () => {
                 result.current.sendData(previewData);
             });
 
-            // Iframe requests data
+            // Iframe says its ready
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -333,10 +313,7 @@ describe("usePreviewController", () => {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -349,13 +326,11 @@ describe("usePreviewController", () => {
         it("doesn't reply to iframe-ready when there is no pending data", () => {
             renderHook(() => usePreviewController(iframeRef));
 
+            // Iframe says its ready
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -514,10 +489,7 @@ describe("usePreviewController", () => {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -557,10 +529,7 @@ describe("usePreviewController", () => {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );
@@ -607,10 +576,7 @@ describe("usePreviewController", () => {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "iframe-ready",
-                        },
+                        data: createPreviewIframeReadyMessage(),
                         source: mockContentWindow,
                     }),
                 );

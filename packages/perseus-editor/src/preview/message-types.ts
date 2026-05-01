@@ -84,9 +84,9 @@ export type ParentToIframeMessage = PreviewDataMessage;
 // ---- Iframe → Parent messages ----
 
 /**
- * Message from iframe requesting data from parent
+ * Message from iframe to parent telling it the iframe is ready
  */
-interface PreviewDataRequestMessage extends PreviewMessageBase {
+interface PreviewIframeReadyMessage extends PreviewMessageBase {
     type: "iframe-ready";
 }
 
@@ -102,5 +102,12 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
-    | PreviewDataRequestMessage
+    | PreviewIframeReadyMessage
     | PreviewHeightUpdateMessage;
+
+export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "iframe-ready",
+    };
+}
