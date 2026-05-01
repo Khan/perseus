@@ -23,10 +23,6 @@ const ExercisePreviewPage = () => {
         } else {
             document.body.style.overflow = "hidden";
         }
-
-        return () => {
-            document.body.style.overflow = "hidden";
-        };
     }, [data?.type]);
 
     // Send height updates to parent
