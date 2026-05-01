@@ -1,7 +1,10 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {
+    createPreviewIframeReadyMessage,
+    PREVIEW_MESSAGE_SOURCE,
+} from "./message-types";
 import {isParentToIframeMessage} from "./message-validators";
 
 import type {
@@ -94,11 +97,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
         window.addEventListener("message", handleMessage);
 
         // Tell parent we're ready for data.
-        const requestMessage: IframeToParentMessage = {
-            source: PREVIEW_MESSAGE_SOURCE,
-            type: "iframe-ready",
-        };
-        window.parent.postMessage(requestMessage, "/");
+        window.parent.postMessage(createPreviewIframeReadyMessage(), "/");
 
         return () => {
             window.removeEventListener("message", handleMessage);
