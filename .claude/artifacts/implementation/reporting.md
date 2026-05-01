@@ -1,0 +1,17 @@
+# Report Instructions
+- **Action:** Create the progress report file now (even if empty), before doing any audit research or other work.
+- Create a markdown document in the widget-progress-reports directory (.claude/artifacts/implementation/widget-progress-reports) to record your progress throughout the process.
+  - The filename MUST be "[widget-name]-[workflow-type]-progress-report.md".
+- All steps should be recorded in this file as you progress through the workflow.
+  - Record your process for each step as you are completing the step.
+  - Record your progress for each step as soon as the information becomes available. For instance:
+    - You take action and need to record the action and the results of that action.
+    - You make a decision based upon research you have accumulated.
+    - You make changes to code, and the instructions for that step request the details of those code changes to be in the progress report.
+- Expected output for each step will be given within the instructions for those steps.
+- You MUST NOT change or clean up any progress information in the report unless explicitly told to do so.
+  - The progress report is supposed to be a historical document showing how the workflow progressed.
+  - Changing the contents of the document would interfere with the ability to review how the progress proceeded.
+  - Changes should be appended to the END of the document — never prepended or inserted above existing content.
+  - Steps must appear in ascending numerical order as they are completed (Step 1 first, Step 2 below it, etc.).
+- Each step should be broken out to its own section and identified.
