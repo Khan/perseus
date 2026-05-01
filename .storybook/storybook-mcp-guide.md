@@ -56,7 +56,7 @@ When writing or modifying UI components, Claude Code now has two tools it can us
 
 - **Storybook must be running** on port 6006 for the MCP tools to work. If it's not running, Claude Code will still function normally — it just won't have access to the Storybook tools.
 - **This is local only.** The MCP server registration is per-developer and doesn't affect CI, builds, or other developers.
-- **It doesn't replace testing.** Continue using `pnpm test` for unit tests, Cypress for interaction tests, and the a11y addon for accessibility checks. The MCP tools help the AI write *better* code and stories — they don't run tests.
+- **It doesn't replace testing.** AI assistants should write tests for any feature they implement, not just stories. Continue using `pnpm test` for unit tests, Cypress for interaction tests, and the a11y addon for accessibility checks. The MCP tools help the AI write *better* code and stories — they don't run tests.
 
 ---
 
