@@ -1,6 +1,3 @@
-import $ from "jquery";
-import _ from "underscore";
-
 import * as knumber from "./number";
 
 import type {MathFormat} from "@khanacademy/perseus-core";
@@ -77,9 +74,8 @@ const KhanMath = {
         }
         if (n < 101) {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            return !!$.grep(KhanMath.primes, function (p, i) {
-                return Math.abs(p - n) <= 0.5;
-            }).length;
+            return !!KhanMath.primes.filter((p) => Math.abs(p - n) <= 0.5)
+                .length;
         }
         if (n <= 1 || (n > 2 && n % 2 === 0)) {
             return false;
@@ -104,10 +100,10 @@ const KhanMath = {
         const maxf = Math.sqrt(number);
         for (let f = 2; f <= maxf; f++) {
             if (number % f === 0) {
-                return $.merge(
-                    KhanMath.getPrimeFactorization(f),
-                    KhanMath.getPrimeFactorization(number / f),
-                );
+                return [
+                    ...KhanMath.getPrimeFactorization(f),
+                    ...KhanMath.getPrimeFactorization(number / f),
+                ];
             }
         }
     },
@@ -204,7 +200,7 @@ const KhanMath = {
     // Note: purposively more inclusive than answer-types' predicate.forms
     // That is, it is not necessarily true that interpreted input are numeric
     getNumericFormat: function (text: string): MathFormat | null | undefined {
-        text = $.trim(text);
+        text = text.trim();
         text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
         if (text.match(/^[+-]?\d+$/)) {
             return "integer";
@@ -256,7 +252,10 @@ const KhanMath = {
             }
         }
 
-        if (_(["proper", "improper", "mixed", "fraction"]).contains(format)) {
+        if (
+            format != null &&
+            ["proper", "improper", "mixed", "fraction"].includes(format)
+        ) {
             const fraction = knumber.toFraction(number);
             const numerator = Math.abs(fraction[0]);
             const denominator = fraction[1];
