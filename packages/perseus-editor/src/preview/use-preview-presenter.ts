@@ -96,7 +96,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
         // Tell parent we're ready for data.
         const requestMessage: IframeToParentMessage = {
             source: PREVIEW_MESSAGE_SOURCE,
-            type: "request-data",
+            type: "iframe-ready",
         };
         window.parent.postMessage(requestMessage, "/");
 

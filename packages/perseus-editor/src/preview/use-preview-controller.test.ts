@@ -93,7 +93,7 @@ describe("usePreviewController", () => {
             // Simulate iframe requesting data
             const requestMessage: IframeToParentMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
-                type: "request-data",
+                type: "iframe-ready",
             };
 
             act(() => {
@@ -121,13 +121,13 @@ describe("usePreviewController", () => {
             );
         });
 
-        it("sends data immediately if iframe has already requested data", () => {
+        it("sends data immediately if iframe is already ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
             const requestMessage: IframeToParentMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
-                type: "request-data",
+                type: "iframe-ready",
             };
 
             act(() => {
@@ -166,7 +166,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -228,8 +228,8 @@ describe("usePreviewController", () => {
         });
     });
 
-    describe("receiving request-data message", () => {
-        it("responds to request-data with pending data", async () => {
+    describe("receiving iframe-ready message", () => {
+        it("responds to iframe-ready with pending data", async () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
@@ -244,7 +244,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -282,7 +282,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -299,7 +299,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -310,7 +310,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
         });
 
-        it("ignores request-data with no pending data", () => {
+        it("ignores iframe-ready with no pending data", () => {
             renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
@@ -318,7 +318,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -480,7 +480,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -523,7 +523,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
@@ -573,7 +573,7 @@ describe("usePreviewController", () => {
                     new MessageEvent("message", {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
-                            type: "request-data",
+                            type: "iframe-ready",
                         },
                         source: mockContentWindow,
                     }),
