@@ -12,6 +12,16 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**
+ * The subset of `LinterContextProps` that's meaningful to send across the
+ * preview bridge. The receiver wraps this in `pushContextStack(...)` before
+ * passing it to the renderer, which fills in the `stack`.
+ */
+type PreviewLinterContext = Pick<
+    LinterContextProps,
+    "contentType" | "highlightLint"
+>;
+
+/**
  * Constant identifier for all Perseus preview messages
  */
 export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
@@ -42,7 +52,7 @@ export type QuestionPreviewData = {
     apiOptions: APIOptions;
     initialHintsVisible: number;
     device: DeviceType;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;
     problemNum?: number;
@@ -55,7 +65,7 @@ export type HintPreviewData = {
     hint: Hint;
     pos: number;
     apiOptions: APIOptions;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
 };
 
 /**
@@ -64,7 +74,7 @@ export type HintPreviewData = {
 export type ArticlePreviewData = {
     apiOptions: APIOptions;
     json: PerseusArticle;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
 };
 
