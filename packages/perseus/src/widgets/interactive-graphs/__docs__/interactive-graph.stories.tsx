@@ -16,6 +16,7 @@ import {
     segmentWithAllLockedLineSegmentVariations,
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
+    absoluteValueQuestion,
     exponentialQuestion,
     logarithmQuestion,
     sinusoidQuestion,
@@ -134,6 +135,12 @@ export const Logarithm: Story = {
 export const Tangent: Story = {
     args: {
         item: generateTestPerseusItem({question: tangentQuestion}),
+    },
+};
+
+export const AbsoluteValue: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
     },
 };
 

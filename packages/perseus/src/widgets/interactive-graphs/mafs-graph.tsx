@@ -34,6 +34,7 @@ import GraphLockedLayer from "./graph-locked-layer";
 import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
+import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
@@ -52,11 +53,7 @@ import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
-import {
-    calculateNestedSVGCoords,
-    isUnlimitedGraphState,
-    REMOVE_BUTTON_ID,
-} from "./utils";
+import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
@@ -120,23 +117,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
-
-    // Set up the SVG attributes for the nested SVGs that help lock
-    // the grid and graph elements to the bounds of the graph.
-    const {viewboxX, viewboxY} = calculateNestedSVGCoords(
-        state.range,
-        width,
-        height,
-    );
-    const viewBox = `${viewboxX} ${viewboxY} ${width} ${height}`;
-    const nestedSVGAttributes: React.SVGAttributes<SVGSVGElement> = {
-        width,
-        height,
-        viewBox,
-        preserveAspectRatio: "xMidYMin",
-        x: viewboxX,
-        y: viewboxY,
-    };
 
     const i18n = usePerseusI18n();
     const {strings} = i18n;
@@ -345,8 +325,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             >
                                 {/* Svg definitions to render only once */}
                                 <SvgDefs />
-                                {/* Cartesian grid nested in an SVG to lock to graph bounds */}
-                                <svg {...nestedSVGAttributes}>
+                                {/* Cartesian grid clipped to graph bounds */}
+                                <ClipToGraphBounds>
                                     <Grid
                                         gridStep={props.gridStep}
                                         range={state.range}
@@ -357,7 +337,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         width={width}
                                         height={height}
                                     />
-                                </svg>
+                                </ClipToGraphBounds>
                                 {/* Axis Ticks, Labels, and Arrows */}
                                 {
                                     // Only render the axis ticks and arrows if the markings are set to a full "graph"
@@ -369,14 +349,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         </>
                                     )
                                 }
-                                {/* Locked figures layer nested in SVG to lock to graph bounds*/}
+                                {/* Locked figures clipped to graph bounds */}
                                 {props.lockedFigures.length > 0 && (
-                                    <svg {...nestedSVGAttributes}>
+                                    <ClipToGraphBounds>
                                         <GraphLockedLayer
                                             lockedFigures={props.lockedFigures}
                                             range={state.range}
                                         />
-                                    </svg>
+                                    </ClipToGraphBounds>
                                 )}
                             </Mafs>
                         </View>
@@ -396,27 +376,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
-                                <svg
-                                    {...nestedSVGAttributes}
-                                    style={{
-                                        // We want to allow points to be directly
-                                        // on the edge of the graph, so we need to
-                                        // set overflow to visible. For other
-                                        // graphs, we want to hide the overflow
-                                        // so that the graph can't go way off
-                                        // the edge.
-                                        overflow:
-                                            type === "point"
-                                                ? "visible"
-                                                : "hidden",
-                                    }}
-                                >
-                                    {/* Protractor */}
-                                    {props.showProtractor && <Protractor />}
-                                    {/* Interactive layer */}
-                                    {graph}
-                                </svg>
+                                {/* Protractor clipped to graph bounds */}
+                                {props.showProtractor && (
+                                    <ClipToGraphBounds>
+                                        <Protractor />
+                                    </ClipToGraphBounds>
+                                )}
+                                {/* Interactive layer.*/}
+                                {graph}
                             </Mafs>
                         </View>
                     </View>

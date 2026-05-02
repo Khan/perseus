@@ -87,6 +87,20 @@ const baseCircleGraphState: InteractiveGraphState = {
     radiusPoint: [2, 0],
 };
 
+const baseRayGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "ray",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [5, 5],
+    ],
+};
+
 const baseSinusoidGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "sinusoid",
@@ -323,16 +337,15 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+    it("rejects a sinusoid move with a destination that clamps onto the other point's x", () => {
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         };
 
@@ -345,7 +358,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -370,15 +383,14 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+    it("rejects a tangent move with a destination that clamps onto the other point's x", () => {
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state = generateTangentGraphState({
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         });
 
@@ -391,7 +403,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -440,7 +452,7 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([2, 6]);
     });
 
-    it("constrains points to be at least one snap step within the graph bounds", () => {
+    it("constrains points to the graph edge", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             snapStep: [0.5, 0.5],
@@ -462,7 +474,63 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.type === "segment");
-        expect(updated.coords[0][0]).toEqual([4.5, 7.5]);
+        expect(updated.coords[0][0]).toEqual([5, 8]);
+    });
+
+    it("allows the ray's tail (index 0) to land on the graph edge", () => {
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[0]).toEqual([10, 10]);
+    });
+
+    it("insets the ray's terminal point (index 1) by one snap step", () => {
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(1, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[1]).toEqual([9, 9]);
+    });
+
+    it("keeps linear-system points inset by one snap step", () => {
+        // Linear-system lines have arrows on both ends, so both points
+        // stay on boundAndSnapToGrid (inset).
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(0, 0, [99, 99]),
+        );
+
+        invariant(updated.type === "linear-system");
+        expect(updated.coords[0][0]).toEqual([9, 9]);
     });
 });
 
@@ -1051,7 +1119,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([9, 9]);
+        expect((updated as CircleGraphState).center).toEqual([10, 10]);
     });
 
     it("updates the radius", () => {
@@ -1082,6 +1150,27 @@ describe("moveCenter", () => {
         // make sure the state object is different
         expect(state).not.toBe(updated);
         expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
+    });
+
+    it("rejects the move when the circle is wider than the graph's half-span", () => {
+        // Circle with radius 15 (wider than the graph's half-span of
+        // 10). Moving the center right: newRadiusPoint X would be 16
+        // (out on the right) and the flipped position would be -14
+        // (out on the left). Neither side fits, so the move is
+        // rejected.
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+            radiusPoint: [15, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 0]),
+        );
+
+        // Assert — move rejected; state returned unchanged
+        expect(updated).toBe(state);
     });
 
     it("throws for non-circle graphs", () => {
@@ -2083,17 +2172,18 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-4, -3]);
     });
 
-    it("rejects the move when bounding causes same-y collision", () => {
-        // Arrange — point 0 at (-4, -7), point 1 at (-5, 9); moving point 0
-        // far beyond the graph range so bounding clamps y to 9, same as point 1
+    it("rejects a logarithm move with a destination that clamps onto the other point's y", () => {
+        // Arrange — point 0 at (-4, -7), point 1 at (-5, 10); moving point 0
+        // far beyond the graph range so bounding clamps y to 10, same as
+        // point 1's y under boundToEdge.
         const state = generateLogarithmGraphState({
             coords: [
                 [-4, -7],
-                [-5, 9],
+                [-5, 10],
             ],
         });
 
-        // Act — destination y=15 is clamped to 9 by bounding, colliding with point 1
+        // Act — destination y=15 is clamped to 10 by bounding, colliding with point 1
         const updated = interactiveGraphReducer(
             state,
             actions.logarithm.movePoint(0, [-4, 15]),

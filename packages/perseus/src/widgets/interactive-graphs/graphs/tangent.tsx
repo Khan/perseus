@@ -9,6 +9,7 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -83,20 +84,22 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
-            {segments.map(([segStart, segEnd], i) => (
-                <Plot.OfX
-                    key={`tangent-segment-${i}`}
-                    y={(x) => computeTangent(x, coeffRef.current)}
-                    domain={[segStart, segEnd]}
-                    color={interactiveColor}
-                    svgPathProps={{
-                        // Use aria-hidden to hide the line from screen readers
-                        // so it doesn't read as "image" with no context.
-                        // This is okay because the graph has its own aria-label.
-                        "aria-hidden": true,
-                    }}
-                />
-            ))}
+            <ClipToGraphBounds>
+                {segments.map(([segStart, segEnd], i) => (
+                    <Plot.OfX
+                        key={`tangent-segment-${i}`}
+                        y={(x) => computeTangent(x, coeffRef.current)}
+                        domain={[segStart, segEnd]}
+                        color={interactiveColor}
+                        svgPathProps={{
+                            // Use aria-hidden to hide the line from screen readers
+                            // so it doesn't read as "image" with no context.
+                            // This is okay because the graph has its own aria-label.
+                            "aria-hidden": true,
+                        }}
+                    />
+                ))}
+            </ClipToGraphBounds>
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={

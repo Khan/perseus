@@ -1,7 +1,7 @@
 import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
-import {clampToBox, inset, MIN, size, X, Y} from "./math";
+import {clamp, clampToBox, inset, MIN, size, snap, X, Y} from "./math";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState, UnlimitedGraphState} from "./types";
@@ -66,18 +66,37 @@ export function bound({
     return clampToBox(boundingBox, point);
 }
 
-// Returns the closest point to the given `point` that is within or on the
-// edge of the graph bounds given in `state`.
-export function boundToEdge({
-    range,
-    point,
-}: {
-    range: [Interval, Interval];
-    point: vec.Vector2;
-}): vec.Vector2 {
-    // Use the full range instead of insetting it, allowing points to
-    // be placed on the edge of the graph.
-    return clampToBox(range, point);
+// Snaps `point` to the nearest snap-grid multiple, then clamps the
+// result to the largest snap-grid multiples that lie within `range`.
+//
+// This guarantees the returned coord is both ON the snap grid AND
+// within `range`, even when the snap step doesn't evenly divide
+// `xMax - xMin`. For example, with range=[0,7] and snap=2 the legal
+// grid positions are {0, 2, 4, 6}; a point at x=8 snaps to 8 and then
+// clamps down to the largest in-range multiple, 6.
+//
+// For typical configurations (snap=1, range=[-10,10]), the in-range
+// grid bounds match the range exactly and behavior is unchanged from
+// a naive snap+clampToBox.
+export function boundToEdgeAndSnapToGrid(
+    point: vec.Vector2,
+    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
+): vec.Vector2 {
+    const snapped = snap(snapStep, point);
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const [snapX, snapY] = snapStep;
+    return [
+        clamp(
+            snapped[X],
+            Math.ceil(xMin / snapX) * snapX,
+            Math.floor(xMax / snapX) * snapX,
+        ),
+        clamp(
+            snapped[Y],
+            Math.ceil(yMin / snapY) * snapY,
+            Math.floor(yMax / snapY) * snapY,
+        ),
+    ];
 }
 
 export function isUnlimitedGraphState(

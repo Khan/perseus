@@ -47,7 +47,11 @@ export function Protractor() {
     const draggableRef = useRef<SVGGElement>(null);
     const {dragging} = useDraggable({
         gestureTarget: draggableRef,
-        onMove: setCenter,
+        // Keep the protractor's center inside the graph range on
+        // mouse drag too — without this, the protractor can be
+        // dragged off-graph and "lost." Matches the keyboard
+        // constraint below.
+        onMove: (point) => setCenter(bound({snapStep, range, point})),
         point: center,
         constrainKeyboardMovement: (point) => bound({snapStep, range, point}),
     });
