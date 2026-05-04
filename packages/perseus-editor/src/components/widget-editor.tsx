@@ -214,6 +214,7 @@ class WidgetEditor extends React.Component<
                         widgetInfo={widgetInfo}
                         onAlignmentChange={this._handleAlignmentChange}
                         isEditingDisabled={isEditingDisabled}
+                        apiOptions={this.props.apiOptions}
                     />
                 )}
                 <div
