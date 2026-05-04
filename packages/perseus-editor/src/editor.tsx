@@ -854,6 +854,11 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
+    /**
+     * Returns the current version of the edited {@see {@link PerseusRenderer}}.
+     *
+     * @deprecated Use the {@see {@link Props.onChange}} prop instead.
+     */
     serialize(): PerseusRenderer {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
