@@ -1,6 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyMonospace, BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -41,7 +39,6 @@ const StartCoordsLogarithm = (props: Props) => {
                 {/* Point 1 */}
                 <View className={styles.row}>
                     <BodyText weight="bold">Point 1:</BodyText>
-                    <Strut size={spacing.small_12} />
                     <CoordinatePairInput
                         coord={coords[0]}
                         labels={["x", "y"]}
@@ -50,12 +47,10 @@ const StartCoordsLogarithm = (props: Props) => {
                         }
                     />
                 </View>
-                <Strut size={spacing.small_12} />
 
                 {/* Point 2 */}
                 <View className={styles.row}>
                     <BodyText weight="bold">Point 2:</BodyText>
-                    <Strut size={spacing.small_12} />
                     <CoordinatePairInput
                         coord={coords[1]}
                         labels={["x", "y"]}
@@ -64,7 +59,6 @@ const StartCoordsLogarithm = (props: Props) => {
                         }
                     />
                 </View>
-                <Strut size={spacing.small_12} />
 
                 <AsymptoteInput
                     axis="x"

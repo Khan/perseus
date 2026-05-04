@@ -1,6 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -8,13 +6,13 @@ import ScrolllessNumberTextField from "../../../components/scrollless-number-tex
 
 import styles from "./start-coords-shared.module.css";
 
-type Props = {
+interface AsymptoteInputProps {
     axis: "x" | "y";
     value: number;
     onChange: (value: number) => void;
-};
+}
 
-const AsymptoteInput = (props: Props) => {
+const AsymptoteInput = (props: AsymptoteInputProps) => {
     const {axis, value, onChange} = props;
 
     // Local state so the user can type freely without the field resetting
@@ -39,9 +37,8 @@ const AsymptoteInput = (props: Props) => {
 
     return (
         <BodyText weight="bold" tag="label" className={styles.row}>
-            {`Asymptote ${axis} = `}
-            <Strut size={spacing.small_12} />
-            <View className={styles.textFieldWrapper}>
+            {`Asymptote ${axis} =`}
+            <View className={styles["text-field-wrapper"]}>
                 <ScrolllessNumberTextField
                     value={textState}
                     onChange={handleChange}

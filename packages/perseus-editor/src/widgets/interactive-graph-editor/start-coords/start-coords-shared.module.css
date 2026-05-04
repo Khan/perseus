@@ -1,6 +1,9 @@
 /* We have to use !important until wonder blocks is in the shared layer. */
 /* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
 .tile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--wb-sizing-size_120) !important;
     background-color: var(
         --wb-semanticColor-core-background-instructive-subtle
     ) !important;
@@ -9,10 +12,11 @@
     border-radius: var(--wb-sizing-size_080) !important;
 }
 
-.tileRow {
+.tile-row {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
+    gap: var(--wb-sizing-size_120) !important;
     background-color: var(
         --wb-semanticColor-core-background-instructive-subtle
     ) !important;
@@ -25,10 +29,11 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
+    gap: var(--wb-sizing-size_120) !important;
 }
 
-.textFieldWrapper {
-    width: var(--wb-sizing-size_800) !important;
+.text-field-wrapper {
+    inline-size: var(--wb-sizing-size_800) !important;
 }
 
 .equationSection {
