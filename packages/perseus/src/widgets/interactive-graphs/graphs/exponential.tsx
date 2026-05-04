@@ -1,7 +1,4 @@
-import {
-    coefficients as kmathCoefficients,
-    type ExponentialCoefficient,
-} from "@khanacademy/kmath";
+import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 import {Plot} from "mafs";
 import * as React from "react";
 
@@ -21,7 +18,8 @@ import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {
     getAsymptoteGraphKeyboardConstraint,
-    constrainAsymptoteKeyboardMovement,
+    getAsymptoteHandleCoord,
+    skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
 import type {
@@ -30,6 +28,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {ExponentialCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
@@ -57,17 +56,10 @@ function ExponentialGraph(props: ExponentialGraphProps) {
 
     const {coords, asymptote, snapStep} = graphState;
 
-    // Cache last valid coefficients so the graph doesn't break during
-    // transient invalid states (e.g. mid-drag where points share an x-value).
-    const coeffRef = React.useRef<ExponentialCoefficient>({
-        a: 1,
-        b: 1,
-        c: 0,
-    });
+    // When the asymptote sits between the two points there is no valid
+    // exponential that fits — coeffs will be undefined, and we skip
+    // rendering the curve below.
     const coeffs = getExponentialCoefficients(coords, asymptote);
-    if (coeffs !== undefined) {
-        coeffRef.current = coeffs;
-    }
 
     const asymptoteY = asymptote;
     const yMin = range[1][0];
@@ -86,13 +78,12 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     // The asymptote is a full-width horizontal line.
     const asymptoteLeft: vec.Vector2 = [range[0][0], asymptoteY];
     const asymptoteRight: vec.Vector2 = [range[0][1], asymptoteY];
-    const asymptoteMidX = (range[0][0] + range[0][1]) / 2;
-    const asymptoteMid: vec.Vector2 = [asymptoteMidX, asymptoteY];
+    const handleCoord = getAsymptoteHandleCoord("horizontal", range, asymptote);
 
     const [leftPx, rightPx, midPx] = useTransformVectorsToPixels(
         asymptoteLeft,
         asymptoteRight,
-        asymptoteMid,
+        handleCoord,
     );
 
     return (
@@ -101,30 +92,39 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 start={leftPx}
                 end={rightPx}
                 mid={midPx}
-                point={asymptoteLeft}
+                point={handleCoord}
                 onMove={(newPoint) =>
                     dispatch(actions.exponential.moveCenter(newPoint))
                 }
                 constrainKeyboardMovement={(p) =>
-                    constrainAsymptoteKeyboard(p, coords, snapStep)
+                    skipAsymptoteKeyboardOverPoint(
+                        p,
+                        asymptote,
+                        coords,
+                        handleCoord,
+                        snapStep,
+                        "horizontal",
+                    )
                 }
                 orientation="horizontal"
                 ariaLabel={srExponentialAsymptote}
             >
-                <Plot.OfX
-                    y={(x) => {
-                        const y = computeExponential(x, coeffRef.current);
-                        if (y < yMin - yPadding || y > yMax + yPadding) {
-                            return NaN;
-                        }
-                        return y;
-                    }}
-                    color={interactiveColor}
-                    svgPathProps={{
-                        "aria-hidden": true,
-                        style: {pointerEvents: "none"},
-                    }}
-                />
+                {coeffs !== undefined && (
+                    <Plot.OfX
+                        y={(x) => {
+                            const y = computeExponential(x, coeffs);
+                            if (y < yMin - yPadding || y > yMax + yPadding) {
+                                return NaN;
+                            }
+                            return y;
+                        }}
+                        color={interactiveColor}
+                        svgPathProps={{
+                            "aria-hidden": true,
+                            style: {pointerEvents: "none"},
+                        }}
+                    />
+                )}
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
@@ -153,13 +153,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     );
 }
 
-export const constrainAsymptoteKeyboard = (
-    p: vec.Vector2,
-    coords: ReadonlyArray<Coord>,
-    snapStep: vec.Vector2,
-): vec.Vector2 =>
-    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "horizontal");
-
 export const getExponentialKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     asymptote: number,
@@ -173,7 +166,7 @@ export const getExponentialKeyboardConstraint = (
     right: vec.Vector2;
 } => {
     const otherPoint = coords[1 - pointIndex];
-    const asymptoteY = asymptote;
+    const handleCoord = getAsymptoteHandleCoord("horizontal", range, asymptote);
 
     return getAsymptoteGraphKeyboardConstraint(
         coords,
@@ -191,33 +184,13 @@ export const getExponentialKeyboardConstraint = (
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
-            // Point cannot land on the horizontal asymptote
-            if (coord[Y] === asymptoteY || clampedY === asymptoteY) {
-                return false;
-            }
             // Both points must have different x-values
             if (coord[X] === otherPoint[X] || clampedX === otherPoint[X]) {
                 return false;
             }
-            // When the move crosses the asymptote, the reducer will
-            // reflect the other point. Check that the reflected Y
-            // doesn't collide with the proposed coord's Y.
-            const currentPoint = coords[pointIndex];
-            const currentSide = currentPoint[Y] > asymptoteY;
-            const proposedSide = coord[Y] > asymptoteY;
-            if (currentSide !== proposedSide) {
-                const reflectedY = 2 * asymptoteY - otherPoint[Y];
-                const clampedReflectedY = snap(
-                    snapStep,
-                    bound({snapStep, range, point: [0, reflectedY]}),
-                )[Y];
-                if (
-                    reflectedY === coord[Y] ||
-                    clampedReflectedY === coord[Y] ||
-                    clampedReflectedY === clampedY
-                ) {
-                    return false;
-                }
+            // Point cannot overlap the asymptote's drag handle
+            if (clampedX === handleCoord[X] && clampedY === handleCoord[Y]) {
+                return false;
             }
             return true;
         },

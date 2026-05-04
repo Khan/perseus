@@ -51,7 +51,6 @@ type RendererProps = {
 };
 
 type DefaultProps = {
-    contentPaths?: ReadonlyArray<string>;
     json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
@@ -77,7 +76,6 @@ type State = {
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        contentPaths: [],
         // NOTE(Jeremy):
         json: [{} as any],
         mode: "edit",
@@ -191,7 +189,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

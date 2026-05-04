@@ -1,7 +1,4 @@
-import {
-    coefficients as kmathCoefficients,
-    type LogarithmCoefficient,
-} from "@khanacademy/kmath";
+import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 import {Plot} from "mafs";
 import * as React from "react";
 
@@ -21,7 +18,8 @@ import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {
     getAsymptoteGraphKeyboardConstraint,
-    constrainAsymptoteKeyboardMovement,
+    getAsymptoteHandleCoord,
+    skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
 import type {
@@ -30,6 +28,7 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {LogarithmCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
@@ -57,47 +56,16 @@ function LogarithmGraph(props: LogarithmGraphProps) {
 
     const {coords, asymptote, snapStep} = graphState;
 
-    // Cache last valid coefficients so the graph doesn't break during
-    // transient invalid states (e.g. mid-drag where points share a y-value).
-    const coeffRef = React.useRef<LogarithmCoefficient>({
-        a: 1,
-        b: 1,
-        c: 0,
-    });
+    // When the asymptote sits between the two points there is no valid
+    // logarithm that fits — coeffs will be undefined, and we skip
+    // rendering the curve below.
     const coeffs = getLogarithmCoefficients(coords, asymptote);
-    if (coeffs !== undefined) {
-        coeffRef.current = coeffs;
-    }
 
     const asymptoteX = asymptote;
     const xMin = range[0][0];
     const xMax = range[0][1];
     const yMin = range[1][0];
     const yMax = range[1][1];
-
-    // Determine which side of the asymptote the points are on
-    const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
-
-    // Compute the domain boundary dynamically so the curve always
-    // starts off-screen. Unlike exponential (which uses a y-padding
-    // NaN cutoff because the curve exits horizontally), the logarithm
-    // curve exits vertically — y → ±∞ as x → asymptote. A y-padding
-    // cutoff would end the SVG path near the asymptote, causing a
-    // visible discontinuity. Instead, we solve for the x where the
-    // curve reaches a y-value safely beyond the visible range, so the
-    // SVG path begins off-screen for any coefficient values.
-    //
-    // For f(x) = a * ln(b*x + c), solving y = targetY for x:
-    //   x = (e^(targetY / a) - c) / b
-    const offScreenMargin = 2; // graph units beyond visible edge
-    const {a, b, c} = coeffRef.current;
-    // Near the asymptote, y → -∞ if a > 0, or +∞ if a < 0
-    const targetY = a > 0 ? yMin - offScreenMargin : yMax + offScreenMargin;
-    const computedX = (Math.exp(targetY / a) - c) / b;
-    const computedOffset = Math.abs(computedX - asymptoteX);
-    // Use the computed offset if valid, otherwise fall back to 1e-8
-    const domainOffset =
-        isFinite(computedOffset) && computedOffset > 0 ? computedOffset : 1e-8;
 
     // Aria strings
     const {
@@ -111,13 +79,12 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     // The asymptote is a full-height vertical line.
     const asymptoteBottom: vec.Vector2 = [asymptoteX, yMin];
     const asymptoteTop: vec.Vector2 = [asymptoteX, yMax];
-    const asymptoteMidY = (yMin + yMax) / 2;
-    const asymptoteMid: vec.Vector2 = [asymptoteX, asymptoteMidY];
+    const handleCoord = getAsymptoteHandleCoord("vertical", range, asymptote);
 
     const [bottomPx, topPx, midPx] = useTransformVectorsToPixels(
         asymptoteBottom,
         asymptoteTop,
-        asymptoteMid,
+        handleCoord,
     );
 
     return (
@@ -126,29 +93,34 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 start={bottomPx}
                 end={topPx}
                 mid={midPx}
-                point={asymptoteMid}
+                point={handleCoord}
                 onMove={(newPoint) =>
                     dispatch(actions.logarithm.moveCenter(newPoint))
                 }
                 constrainKeyboardMovement={(p) =>
-                    constrainAsymptoteKeyboard(p, coords, snapStep)
+                    skipAsymptoteKeyboardOverPoint(
+                        p,
+                        asymptote,
+                        coords,
+                        handleCoord,
+                        snapStep,
+                        "vertical",
+                    )
                 }
                 orientation="vertical"
                 ariaLabel={srLogarithmAsymptote}
             >
-                <Plot.OfX
-                    y={(x) => computeLogarithm(coeffRef.current, x)}
-                    color={interactiveColor}
-                    svgPathProps={{
-                        "aria-hidden": true,
-                        style: {pointerEvents: "none"},
-                    }}
-                    domain={
-                        pointsRightOfAsymptote
-                            ? [asymptoteX + domainOffset, xMax]
-                            : [xMin, asymptoteX - domainOffset]
-                    }
-                />
+                {coeffs !== undefined &&
+                    renderLogarithmCurve({
+                        coeffs,
+                        coords,
+                        asymptoteX,
+                        xMin,
+                        xMax,
+                        yMin,
+                        yMax,
+                        interactiveColor,
+                    })}
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
@@ -175,13 +147,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     );
 }
 
-export const constrainAsymptoteKeyboard = (
-    p: vec.Vector2,
-    coords: ReadonlyArray<Coord>,
-    snapStep: vec.Vector2,
-): vec.Vector2 =>
-    constrainAsymptoteKeyboardMovement(p, coords, snapStep, "vertical");
-
 export const getLogarithmKeyboardConstraint = (
     coords: ReadonlyArray<Coord>,
     asymptote: number,
@@ -195,7 +160,7 @@ export const getLogarithmKeyboardConstraint = (
     right: vec.Vector2;
 } => {
     const otherPoint = coords[1 - pointIndex];
-    const asymptoteX = asymptote;
+    const handleCoord = getAsymptoteHandleCoord("vertical", range, asymptote);
 
     return getAsymptoteGraphKeyboardConstraint(
         coords,
@@ -213,10 +178,6 @@ export const getLogarithmKeyboardConstraint = (
             const clampedX = clamped[X];
             const clampedY = clamped[Y];
 
-            // Point cannot land on the vertical asymptote
-            if (coord[X] === asymptoteX || clampedX === asymptoteX) {
-                return false;
-            }
             // Both points must have different x-values
             // (same x makes the coefficient computation degenerate)
             if (coord[X] === otherPoint[X] || clampedX === otherPoint[X]) {
@@ -226,25 +187,9 @@ export const getLogarithmKeyboardConstraint = (
             if (coord[Y] === otherPoint[Y] || clampedY === otherPoint[Y]) {
                 return false;
             }
-            // When the move crosses the asymptote, the reducer will
-            // reflect the other point. Check that the reflected X
-            // doesn't collide with the proposed coord's X.
-            const currentPoint = coords[pointIndex];
-            const currentSide = currentPoint[X] > asymptoteX;
-            const proposedSide = coord[X] > asymptoteX;
-            if (currentSide !== proposedSide) {
-                const reflectedX = 2 * asymptoteX - otherPoint[X];
-                const clampedReflectedX = snap(
-                    snapStep,
-                    bound({snapStep, range, point: [reflectedX, 0]}),
-                )[X];
-                if (
-                    reflectedX === coord[X] ||
-                    clampedReflectedX === coord[X] ||
-                    clampedReflectedX === clampedX
-                ) {
-                    return false;
-                }
+            // Point cannot overlap the asymptote's drag handle
+            if (clampedX === handleCoord[X] && clampedY === handleCoord[Y]) {
+                return false;
             }
             return true;
         },
@@ -263,6 +208,63 @@ const computeLogarithm = function (
     }
     return a * Math.log(arg);
 };
+
+// Compute the domain boundary so the curve starts off-screen. Unlike
+// exponential (which uses a y-padding NaN cutoff because the curve exits
+// horizontally), the logarithm curve exits vertically — y → ±∞ as x →
+// asymptote. A y-padding cutoff would end the SVG path near the asymptote,
+// causing a visible discontinuity. Instead, we solve for the x where the
+// curve reaches a y-value safely beyond the visible range, so the SVG
+// path begins off-screen for any coefficient values.
+//
+// For f(x) = a * ln(b*x + c), solving y = targetY for x:
+//   x = (e^(targetY / a) - c) / b
+function renderLogarithmCurve({
+    coeffs,
+    coords,
+    asymptoteX,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    interactiveColor,
+}: {
+    coeffs: LogarithmCoefficient;
+    coords: ReadonlyArray<Coord>;
+    asymptoteX: number;
+    xMin: number;
+    xMax: number;
+    yMin: number;
+    yMax: number;
+    interactiveColor: string | undefined;
+}): React.ReactNode {
+    const offScreenMargin = 2; // graph units beyond visible edge
+    const {a, b, c} = coeffs;
+    // Near the asymptote, y → -∞ if a > 0, or +∞ if a < 0
+    const targetY = a > 0 ? yMin - offScreenMargin : yMax + offScreenMargin;
+    const computedX = (Math.exp(targetY / a) - c) / b;
+    const computedOffset = Math.abs(computedX - asymptoteX);
+    // Use the computed offset if valid, otherwise fall back to 1e-8
+    const domainOffset =
+        isFinite(computedOffset) && computedOffset > 0 ? computedOffset : 1e-8;
+    const pointsRightOfAsymptote = coords[0][X] > asymptoteX;
+
+    return (
+        <Plot.OfX
+            y={(x) => computeLogarithm(coeffs, x)}
+            color={interactiveColor}
+            svgPathProps={{
+                "aria-hidden": true,
+                style: {pointerEvents: "none"},
+            }}
+            domain={
+                pointsRightOfAsymptote
+                    ? [asymptoteX + domainOffset, xMax]
+                    : [xMin, asymptoteX - domainOffset]
+            }
+        />
+    );
+}
 
 function getLogarithmDescription(
     state: LogarithmGraphState,

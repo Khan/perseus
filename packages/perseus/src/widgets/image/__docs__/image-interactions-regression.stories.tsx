@@ -22,7 +22,7 @@ const earthMoonImageCaption =
 const meta: Meta = {
     title: "Widgets/Image/Visual Regression Tests/Interactions",
     component: ImageWidget,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
