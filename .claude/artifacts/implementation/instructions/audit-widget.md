@@ -31,5 +31,5 @@ grep -r "#[0-9a-fA-F]\{3,6\}" packages/perseus/src/widgets/[widget-name]/
 grep -r "rgba?\([^)]+\)" packages/perseus/src/widgets/[widget-name]/
 
 # Check 4 font attributes
-grep -rE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/widgets/free-response/
+grep -rE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/widgets/[widget-name]/
 ```
