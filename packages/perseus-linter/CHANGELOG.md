@@ -1,5 +1,17 @@
 # @khanacademy/perseus-linter
 
+## 5.0.0
+
+### Major Changes
+
+-   [#3568](https://github.com/Khan/perseus/pull/3568) [`896e869ef5`](https://github.com/Khan/perseus/commit/896e869ef551ad64b1fcfd5ab3e175a2edb5fc32) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused `paths` field from `LinterContextProps` and the corresponding `contentPaths` prop from `EditorPage`, `ArticleEditor`, and `HintEditor`. The field was never read by any linter rule or renderer.
+
+### Patch Changes
+
+-   Updated dependencies [[`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c), [`cf5147d61c`](https://github.com/Khan/perseus/commit/cf5147d61c7cab40f9f987ca952cca0b28e0bbd5)]:
+    -   @khanacademy/perseus-core@26.0.0
+    -   @khanacademy/kmath@2.4.3
+
 ## 4.9.5
 
 ### Patch Changes
