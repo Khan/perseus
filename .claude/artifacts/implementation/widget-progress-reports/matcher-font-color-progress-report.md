@@ -210,6 +210,53 @@ Both uses of `border` (`columnRight.borderLeft` and `columnLabel.borderBottom`) 
 
 ---
 
+## Step 11 — Visual Check
+
+### Figma States Examined
+
+| Node ID | State | Screenshot |
+|---|---|---|
+| `2477:4316` | Matcher (full widget, default) | Retrieved via `get_design_context` — see below |
+| `2477:4274` | `_Base/Header` (header row with column labels) | Visible within full widget screenshot |
+
+### Figma Observations
+
+From the `get_design_context` screenshot and generated code:
+- **Column divider** (`_Base/Data/Key`, `border-r`): `semanticColor.core.border.neutral.strong` (#4a4c53)
+- **Header key cell** (`_Base/Header/Key`, `border-r`): `semanticColor.core.border.neutral.strong` (#4a4c53)
+- **Header row underline** (`_Base/Header`, `border-b`): `semanticColor.core.border.neutral.strong` (#4a4c53)
+
+All three borders use the same token — consistent with our single `const border` constant covering both `columnRight.borderLeft` and `columnLabel.borderBottom`.
+
+### Comparison: Figma vs Storybook
+
+Storybook snapshots confirmed via Chromatic approval. Visual comparison:
+
+| Story | Figma state covered | Match |
+|---|---|---|
+| `DefaultWithLabels` | Full widget with header row | ✅ Both `borderLeft` and `borderBottom` visible |
+| `WithoutLabels` | Widget without header row | ✅ Only `borderLeft` visible — header row hidden |
+| `WithTexLabels` | Header row with TeX label content | ✅ Both borders visible with TeX in labels |
+| `OrderMatters` | Full widget, left column draggable | ✅ Both borders visible |
+
+### Design Gaps
+None. All borders in the widget have Figma coverage.
+
+### States With No Figma Counterpart
+- Graded/scored states — no Matcher-owned styles change on grading; graded appearance is fully in `Sortable` (out of scope for this PR)
+- Hover/focus — no Matcher-owned hover or focus styles exist
+
+### Regression Story Coverage
+
+| Visual state | Covered by story |
+|---|---|
+| Default with labels | ✅ `DefaultWithLabels` |
+| Without labels (column divider only) | ✅ `WithoutLabels` |
+| TeX content in labels | ✅ `WithTexLabels` |
+| Both columns draggable (`orderMatters: true`) | ✅ `OrderMatters` |
+
+---
+
 ## Step 12 — Pre-Push Quality Checks (Colors)
 
 ```
@@ -304,3 +351,23 @@ Both `default` and `thunderblocks` themes approved.
 - **Deviations:** None
 - **Type:** N/A
 - **Recommended Action:** No action needed
+
+---
+
+## Step 15 — Changeset
+
+Changeset added: `patch` — "Convert matcher colors to semantic tokens"
+
+---
+
+## Step 16 — PR Finalization
+
+### PR Title
+`[ColorSync] Convert matcher font and colors to semantic tokens`
+
+### PR Summary
+Part of the ColorSync migration (LEMS-3487) to align Perseus widget colors with the design system's semantic token layer. Adds initial-state regression stories for Chromatic visual coverage, establishing a baseline for future Matcher and Sortable migrations.
+
+### Test Plan
+- [ ] Chromatic diffs show only intentional color changes against the baseline
+- [ ] All checks pass
