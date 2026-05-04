@@ -133,6 +133,9 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
+    /**
+     * asdf
+     */
     // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
 }>;
@@ -857,7 +860,7 @@ class Editor extends React.Component<Props, State> {
     /**
      * Returns the current version of the edited {@link PerseusRenderer}.
      *
-     * @deprecated Use the {@link Props.onChange} prop instead.
+     * @deprecated Use the `Props.onChange` prop instead.
      */
     serialize(): PerseusRenderer {
         // need to serialize the widgets since the state might not be
