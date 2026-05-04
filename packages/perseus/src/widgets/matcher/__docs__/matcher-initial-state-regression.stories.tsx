@@ -43,7 +43,7 @@ const sharedArgs = {
 } satisfies Partial<PerseusMatcherWidgetOptions>;
 
 // Verifies the default state with column labels: both the vertical column
-// divider (borderLeft) and the header row underline (borderBottom) use #444,
+// divider (borderLeft) and the header row underline (borderBottom) render,
 // and fontWeight: "inherit" is applied to the label cells.
 export const DefaultWithLabels: Story = {
     decorators: [matcherRendererDecorator],
@@ -51,7 +51,7 @@ export const DefaultWithLabels: Story = {
 };
 
 // Verifies the no-labels state: header row is hidden so only the vertical
-// column divider (borderLeft using #444) is visible.
+// column divider (borderLeft) is visible.
 export const WithoutLabels: Story = {
     decorators: [matcherRendererDecorator],
     args: {
