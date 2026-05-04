@@ -347,6 +347,10 @@ function doMovePointInFigure(
                 newValue: bounded,
             });
 
+            if (coordsOverlap(newCoords)) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
