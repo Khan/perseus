@@ -71,14 +71,23 @@ export const WithoutLabels: Story = {
     } satisfies Partial<PerseusMatcherWidgetOptions>,
 };
 
-// Verifies TeX rendering in column labels: math content renders correctly
-// inside the label cells alongside the #444 borderBottom.
-export const WithTexLabels: Story = {
+// Verifies TeX rendering in both column labels and item cards. All items use
+// \dfrac so both columns render to the same fraction height, keeping Chromatic
+// snapshots stable.
+export const WithTexContent: Story = {
     decorators: [matcherRendererDecorator],
     args: {
-        labels: ["$f(x)$", "$g(x)$"],
-        left: ["$f(x) = x^2$", "$f(x) = \\sqrt{x}$", "$f(x) = \\dfrac{1}{x}$"],
-        right: ["Parabola opening upward", "Square root curve", "Hyperbola"],
+        labels: ["$f(x)$", "$f'(x)$"],
+        left: [
+            "$f(x) = \\dfrac{1}{x}$",
+            "$f(x) = \\dfrac{1}{x^2}$",
+            "$f(x) = \\dfrac{1}{x^3}$",
+        ],
+        right: [
+            "$f'(x) = -\\dfrac{1}{x^2}$",
+            "$f'(x) = -\\dfrac{2}{x^3}$",
+            "$f'(x) = -\\dfrac{3}{x^4}$",
+        ],
         orderMatters: false,
         padding: true,
     } satisfies Partial<PerseusMatcherWidgetOptions>,
