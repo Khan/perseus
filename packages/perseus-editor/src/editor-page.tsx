@@ -255,9 +255,9 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     /**
-     * Returns the current version of the edited {@see {@link PerseusItem}}.
+     * Returns the current version of the edited {@link PerseusItem}.
      *
-     * @deprecated Use the {@see {@link Props.onChange}} prop instead.
+     * @deprecated Use the {@link Props.onChange} prop instead.
      */
     serialize(): PerseusItem {
         if (this.props.jsonMode) {
