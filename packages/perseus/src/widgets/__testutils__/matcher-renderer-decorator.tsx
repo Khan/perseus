@@ -1,4 +1,7 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateMatcherWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import QuestionRendererForStories from "./question-renderer-for-stories";
@@ -9,10 +12,7 @@ export const matcherRendererDecorator = (_, {args}) => {
             question={generateTestPerseusRenderer({
                 content: "[[☃ matcher 1]]",
                 widgets: {
-                    "matcher 1": {
-                        type: "matcher",
-                        graded: true,
-                        version: {major: 0, minor: 0},
+                    "matcher 1": generateMatcherWidget({
                         options: {
                             labels: ["", ""],
                             left: [],
@@ -21,7 +21,7 @@ export const matcherRendererDecorator = (_, {args}) => {
                             padding: true,
                             ...args,
                         },
-                    },
+                    }),
                 },
             })}
         />
