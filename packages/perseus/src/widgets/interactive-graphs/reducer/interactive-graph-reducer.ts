@@ -1363,7 +1363,6 @@ export function calculateAngleSnap(
     }
 
     const knownSide = magnitude(
-        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         vector(coordsCopy[rel(-1)], coordsCopy[rel(1)]),
     );
 

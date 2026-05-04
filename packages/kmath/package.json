@@ -29,16 +29,10 @@
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
-        "jquery": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
-        "underscore": "catalog:devDeps"
-    },
-    "peerDependencies": {
-        "jquery": "catalog:peerDeps",
-        "underscore": "catalog:peerDeps"
+        "perseus-build-settings": "workspace:*"
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "d7663955f3310f2b"
+        "catalogHash": "e3b0c44298fc1c14"
     }
 }
