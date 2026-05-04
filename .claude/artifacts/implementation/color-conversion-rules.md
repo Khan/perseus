@@ -63,6 +63,26 @@ If the file has no existing `@khanacademy/wonder-blocks-tokens` import, add one.
 
 All tokens are accessed as `semanticColor.[path]`, e.g. `semanticColor.core.foreground.instructive.default`.
 
+### String CSS contexts — use CSS variables instead of JS token values
+
+When a color is set as part of a **CSS string** (e.g. a template literal or `const` string used as a property value, such as `border: \`1px solid ${...}\``), use a CSS variable reference instead of the JS token value:
+
+```typescript
+// ❌ Bakes in the resolved hex — won't respond to theme changes
+const border = `1px solid ${semanticColor.core.border.neutral.strong}`;
+
+// ✅ Dynamic — resolves at runtime per the active theme
+const border = `var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong)`;
+```
+
+**CSS variable naming convention:** `--wb-` prefix + token path with dots replaced by hyphens.
+- `semanticColor.core.border.neutral.strong` → `var(--wb-semanticColor-core-border-neutral-strong)`
+- `border.width.thin` (1px) → `var(--wb-border-width-thin)`
+
+When using CSS variables, the `semanticColor` JS import is no longer needed for that value — remove it if it has no other usages in the file.
+
+> **When does this apply?** Only for values embedded in CSS strings outside of `StyleSheet.create()` property values. Inside Aphrodite objects, using the JS token value is fine because Aphrodite generates the CSS statically.
+
 ### Special cases
 
 - **Focus rings:** `color.blue` → `semanticColor.focus.outer` (outer ring), `color.white` → `semanticColor.focus.inner` (inner gap)
