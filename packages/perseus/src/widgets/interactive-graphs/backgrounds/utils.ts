@@ -187,7 +187,6 @@ export const getLabelPosition = (
  *
  * When the y-range starts at or above 0, the x-axis label can extend below
  * the graph content area. This function calculates the extra margin needed.
- * Exported for testing purposes.
  */
 export const getGraphBottomMargin = (
     xAxisLabelLocationY: number,
