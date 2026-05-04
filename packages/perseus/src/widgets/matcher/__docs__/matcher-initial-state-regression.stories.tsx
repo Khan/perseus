@@ -10,7 +10,7 @@ const MatcherWidget = getWidget("matcher")!;
 const meta: Meta<typeof MatcherWidget> = {
     title: "Widgets/Matcher/Visual Regression Tests/Initial State",
     component: MatcherWidget,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
