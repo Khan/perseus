@@ -254,6 +254,11 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    /**
+     * Returns the current version of the edited {@see {@link PerseusItem}}.
+     *
+     * @deprecated Use the {@see {@link Props.onChange}} prop instead.
+     */
     serialize(): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
