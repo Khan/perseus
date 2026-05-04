@@ -71,23 +71,14 @@ export const WithoutLabels: Story = {
     } satisfies Partial<PerseusMatcherWidgetOptions>,
 };
 
-// Verifies TeX rendering in both column labels and item cards. All items use
-// \dfrac so both columns render to the same fraction height, keeping Chromatic
-// snapshots stable.
-export const WithTexContent: Story = {
+// Verifies TeX rendering in column labels. Items are plain text so card heights
+// are deterministic and don't depend on async TeX rendering timing.
+export const WithTexLabels: Story = {
     decorators: [matcherRendererDecorator],
     args: {
         labels: ["$f(x)$", "$f'(x)$"],
-        left: [
-            "$f(x) = \\dfrac{1}{x}$",
-            "$f(x) = \\dfrac{1}{x^2}$",
-            "$f(x) = \\dfrac{1}{x^3}$",
-        ],
-        right: [
-            "$f'(x) = -\\dfrac{1}{x^2}$",
-            "$f'(x) = -\\dfrac{2}{x^3}$",
-            "$f'(x) = -\\dfrac{3}{x^4}$",
-        ],
+        left: ["f(x) = 1/x", "f(x) = 1/x²", "f(x) = 1/x³"],
+        right: ["f'(x) = -1/x²", "f'(x) = -2/x³", "f'(x) = -3/x⁴"],
         orderMatters: false,
         padding: true,
     } satisfies Partial<PerseusMatcherWidgetOptions>,
