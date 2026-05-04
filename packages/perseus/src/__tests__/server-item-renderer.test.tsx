@@ -501,7 +501,6 @@ describe("server item renderer", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             });
@@ -519,7 +518,6 @@ describe("server item renderer", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: true,
-                    paths: [],
                     stack: [],
                 },
             });
