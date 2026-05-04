@@ -16,7 +16,7 @@ registerAllWidgetsAndEditorsForTesting();
 export default {
     title: "Editors/ArticleEditor/Visual Regression Tests",
     component: ArticleEditor,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {

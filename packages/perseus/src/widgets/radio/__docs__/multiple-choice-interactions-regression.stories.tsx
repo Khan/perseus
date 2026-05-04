@@ -30,7 +30,7 @@ type StoryArgs = {
 export default {
     title: "Widgets/Radio/Visual Regression Tests/Interactions",
     component: ServerItemRendererWithDebugUI,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {

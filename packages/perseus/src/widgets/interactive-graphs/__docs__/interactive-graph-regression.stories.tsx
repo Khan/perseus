@@ -30,7 +30,7 @@ type Story = StoryObj<typeof MafsQuestionRenderer>;
 const meta: Meta<typeof MafsQuestionRenderer> = {
     title: "Widgets/Interactive Graph/Visual Regression Tests",
     component: MafsQuestionRenderer,
-    tags: ["!dev"],
+    tags: ["!dev", "!manifest"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },

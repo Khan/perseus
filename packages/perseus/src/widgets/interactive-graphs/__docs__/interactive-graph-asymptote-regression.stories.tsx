@@ -21,7 +21,7 @@ const meta: Meta<typeof MafsQuestionRenderer> = {
     component: MafsQuestionRenderer,
     // !autodocs: shows individual stories in sidebar without a Docs page
     // (matches radio interactions pattern)
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
