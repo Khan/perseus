@@ -117,3 +117,105 @@ pnpm test   → PASS (2 suites, 11 tests, 3 snapshots)
 ```
 
 > User action required: Run `pnpm storybook` locally and verify all 4 initial state stories render correctly (no spinner stuck, TeX renders, OrderMatters shows both columns as cards).
+
+---
+
+## Step 4 — Chromatic Baseline
+
+Regression stories committed and pushed. Chromatic snapshots approved — baseline established.
+
+---
+
+## Step 5 — Font Conversion
+
+No changes. The only font attribute found in the audit was `fontWeight: "inherit"` (matcher.tsx:315), which is explicitly excluded from tokenization per font-conversion-rules.md (`font-weight: inherit` → Do NOT tokenize).
+
+## Step 6 — Pre-Push Quality Checks (Fonts)
+
+Skipped — no font changes made.
+
+## Step 7 — Push and Review Chromatic Diffs (Fonts)
+
+Skipped — no font changes to push.
+
+---
+
+## Step 8 — Figma Token Lookup
+
+### Figma Page
+- File: `HlLQJqNeMTLenuDfkyzYzE` (Perseus Widgets)
+- Page: Matcher — node `2476:4165`
+- URL: https://www.figma.com/design/HlLQJqNeMTLenuDfkyzYzE/Perseus-Widgets?node-id=2476-4165
+
+### Nodes Examined
+- `2477:4316` — `Matcher` (full widget component)
+- `2477:4274` — `_Base/Header` (column header row)
+
+### `get_variable_defs` Results
+Both nodes returned `semanticColor.core.border.neutral.strong: #4a4c53` as the border token.
+
+### Token Mapping Table
+
+| Hardcoded value | CSS property | Figma state | Target token | Source |
+|---|---|---|---|---|
+| `#444` | `borderLeft`, `borderBottom` (via `const border`) | Matcher / _Base/Header | `semanticColor.core.border.neutral.strong` | Figma |
+
+### Design Gaps
+None — the single color in the audit is fully covered by Figma.
+
+---
+
+## Step 9 — Convert Color Tokens
+
+### Changes Made — `packages/perseus/src/widgets/matcher/matcher.tsx`
+
+**Import added:**
+```diff
++ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+```
+
+**Color converted (line 289):**
+```diff
+- const border = "1px solid #444";
++ const border = `1px solid ${semanticColor.core.border.neutral.strong}`;
+```
+
+Both uses of `border` (`columnRight.borderLeft` and `columnLabel.borderBottom`) are covered by this single constant change.
+
+### Files That Needed Import Added
+- `packages/perseus/src/widgets/matcher/matcher.tsx` — added `semanticColor` import
+
+---
+
+## Step 10 — Semantic Color Check
+
+### Token: `semanticColor.core.border.neutral.strong`
+**File:** `packages/perseus/src/widgets/matcher/matcher.tsx:289`
+**Element:** `const border` — applied to `columnRight.borderLeft` (vertical column divider) and `columnLabel.borderBottom` (horizontal line under column headers)
+
+| Question | Answer | Confidence |
+|---|---|---|
+| What is this element doing? | Structural separator between the two columns and below headers. Always visible, no interaction state. | — |
+| Semantic category — `neutral`? | ✅ Pure organizational divider; no correctness, active, or disabled meaning. | High |
+| Intensity — `strong`? | ✅ Primary structural border of the widget. `subtle` would be invisible as a column divider; `strong` is correct for a prominent, always-visible separator. | High |
+| Namespace — `border`? | ✅ CSS properties are `borderLeft` and `borderBottom`. | High |
+
+**Judgment calls / uncertainty:** None. All four dimensions are confident matches. Token also confirmed by Figma — no table-only mapping was needed.
+
+### Updated Token Mapping Table
+
+| Hardcoded value | CSS property | Figma state | Target token | Source | Semantic check |
+|---|---|---|---|---|---|
+| `#444` | `borderLeft`, `borderBottom` | Matcher / _Base/Header | `semanticColor.core.border.neutral.strong` | Figma | ✅ Confident |
+
+---
+
+## Step 12 — Pre-Push Quality Checks (Colors)
+
+```
+pnpm lint        → PASS
+pnpm tsc         → PASS
+pnpm test        → 3 snapshots updated (border hex #444 → #4a4c53), all tests pass
+```
+
+> User action required: Run `pnpm storybook` and verify the 4 regression stories still render correctly with the new border color.
