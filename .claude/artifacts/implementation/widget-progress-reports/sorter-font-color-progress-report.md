@@ -121,3 +121,25 @@ Created a generator for consistency with the project pattern, even though the op
 - **Deviations:** All skipped per user direction — no font or color changes exist in the sorter widget directory, so baselines and diff review steps are not applicable.
 - **Type:** Intentional (user directed)
 - **Recommended Action:** No action needed
+
+---
+
+## Step 15 — Add a Changeset
+
+Completed by user.
+
+---
+
+## Step 16 — Finalize PR
+
+### PR Title
+`[ColorSync] Add Sorter regression stories and widget generator (LEMS-3500)`
+
+### PR Summary
+Establishes Chromatic baseline coverage for the Sorter widget ahead of the Sortable component color migration. No font or color changes were needed in the widget itself — all styling lives in the Sortable component, which will be migrated in a follow-up PR.
+
+### Test Plan
+- [ ] Chromatic snapshots for Sorter stories are approved
+- [ ] All checks pass
+
+PR created by user.
