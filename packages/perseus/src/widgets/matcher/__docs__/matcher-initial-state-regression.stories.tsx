@@ -55,20 +55,9 @@ export const DefaultWithLabels: Story = {
 export const WithoutLabels: Story = {
     decorators: [matcherRendererDecorator],
     args: {
+        ...sharedArgs,
         labels: ["", ""],
-        left: [
-            "Our Sun will run out of fuel in ~5 billion years",
-            "Plate tectonics will rearrange the continents",
-            "Average global temperatures will rise",
-        ],
-        right: [
-            "Medium-sized stars exist for ~10 billion years",
-            "The current trajectory of tectonic plate movement",
-            "Rapid escalation of greenhouse gas emissions",
-        ],
-        orderMatters: false,
-        padding: true,
-    } satisfies Partial<PerseusMatcherWidgetOptions>,
+    },
 };
 
 // Verifies TeX rendering in column labels. Items are plain text so card heights
@@ -92,5 +81,5 @@ export const OrderMatters: Story = {
     args: {
         ...sharedArgs,
         orderMatters: true,
-    } satisfies Partial<PerseusMatcherWidgetOptions>,
+    },
 };
