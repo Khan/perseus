@@ -2,6 +2,7 @@ import {
     array,
     boolean,
     constant,
+    notANumber,
     number,
     object,
     optional,
@@ -14,8 +15,8 @@ import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import {parseWidget} from "./widget";
 
-const numberOrString = union(number).or(string).parser;
-const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(
+const numberOrStringOrNaN = union(number).or(string).or(notANumber).parser;
+const numeric = pipeParsers(defaulted(numberOrStringOrNaN, () => NaN)).then(
     stringToNumber,
 ).parser;
 
