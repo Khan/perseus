@@ -219,3 +219,88 @@ pnpm test        → 3 snapshots updated (border hex #444 → #4a4c53), all test
 ```
 
 > User action required: Run `pnpm storybook` and verify the 4 regression stories still render correctly with the new border color.
+
+---
+
+## Step 13 — Push and Review Chromatic Diffs (Colors)
+
+Chromatic diffs reviewed and approved. Color change from `#444` to `semanticColor.core.border.neutral.strong` (`#4a4c53`) visible on:
+- `columnRight.borderLeft` — vertical column divider
+- `columnLabel.borderBottom` — horizontal underline below header row
+
+Both `default` and `thunderblocks` themes approved.
+
+**Note:** An additional baseline commit cycle was required (user directed). The original `WithTexLabels` story caused a non-deterministic Chromatic diff due to async `constraints.height` measurement racing against the TeX rendering in the item cards. The story was revised to use plain-text items (TeX only in the column labels), and the baseline was re-established before the color change was re-applied.
+
+---
+
+## Step 14 — Deviation Check
+
+### Step 1 — Audit the Widget
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 2 — Create Regression Stories
+- **Followed as instructed:** Partially
+- **Deviations:**
+  1. **Decorator uses Option B (`ServerItemRendererWithDebugUI`) instead of Option A (`QuestionRendererForStories`).** Per the instructions, Option A is correct for widgets that don't need a "Check answer" button. Since there are no interaction stories, there's no check-answer requirement. The `ServerItemRendererWithDebugUI` adds a "Perseus JSON" accordion at the bottom of every story (visible in the Chromatic baseline).
+  2. **No interactions stories file created.** The instruction template includes a File 3 (interactions). Intentionally skipped because all interaction-state colors (drag highlight `#ffedcd`, card/placeholder styles) live in `Sortable`, which is shared with Sorter and will be migrated in a dedicated follow-up PR.
+  3. **RTL story excluded.** Correctly excluded per the instructions' "Skip RTL stories" guidance — Matcher uses physical CSS properties that don't respond to `direction: rtl`.
+- **Type:** Deviation 1: Unintentional. Deviations 2–3: Intentional (user directed or per instructions).
+- **Recommended Action:** Deviation 1: Document in PR. Changing the decorator now would require another Chromatic baseline reset (story appearance differs between the two renderers). Deviations 2–3: No action needed.
+
+### Step 3 — Pre-Push Quality Checks (Regression Stories)
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 4 — Chromatic Baseline
+- **Followed as instructed:** Yes (with extra baseline commit cycle, user directed)
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Steps 5–7 — Font Conversion, Quality Checks, Chromatic Diffs (Fonts)
+- **Followed as instructed:** Yes — Steps 6–7 correctly skipped (no font changes)
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 8 — Figma Token Lookup
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 9 — Convert Color Tokens
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 10 — Semantic Color Check
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
+
+### Step 11 — Visual Check
+- **Followed as instructed:** No
+- **Deviations:** Step was skipped entirely. Not documented in progress report. The step requires Figma screenshots per state, Storybook screenshots per story, and a side-by-side comparison.
+- **Type:** Unintentional omission
+- **Recommended Action:** Complete retroactively before finalizing the PR. Chromatic approval provides strong confidence that the conversion is correct, but the GATE CHECK requires screenshot documentation. Steps 8 and 10 provide the token-correctness evidence; Step 11 provides the visual-correctness evidence.
+
+### Step 12 — Pre-Push Quality Checks (Colors)
+- **Followed as instructed:** Yes (automated checks passed)
+- **Deviations:** User Storybook verification action not confirmed in progress report
+- **Type:** N/A (user action)
+- **Recommended Action:** No action needed — Chromatic approval serves as equivalent visual confirmation
+
+### Step 13 — Push and Review Chromatic Diffs (Colors)
+- **Followed as instructed:** Yes
+- **Deviations:** None
+- **Type:** N/A
+- **Recommended Action:** No action needed
