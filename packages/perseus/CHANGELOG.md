@@ -1,5 +1,51 @@
 # @khanacademy/perseus
 
+## 77.4.0
+
+### Minor Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
+### Patch Changes
+
+-   Updated dependencies [[`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79)]:
+    -   @khanacademy/perseus-score@8.8.0
+    -   @khanacademy/perseus-core@26.0.1
+    -   @khanacademy/keypad-context@3.2.46
+    -   @khanacademy/kmath@2.4.4
+    -   @khanacademy/math-input@26.4.18
+    -   @khanacademy/perseus-linter@5.0.1
+
+## 77.3.2
+
+### Patch Changes
+
+-   [#3293](https://github.com/Khan/perseus/pull/3293) [`494f287541`](https://github.com/Khan/perseus/commit/494f28754167c1e03a36f66df4b60dd045cf59fb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unused default value for polygon graph point coordinates
+
+*   [#3539](https://github.com/Khan/perseus/pull/3539) [`743ad9d5f4`](https://github.com/Khan/perseus/commit/743ad9d5f4eb73ea9abede96ff85acc99533e2da) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Adjust styling to resolve an axe-core incomplete test result
+
+-   [#3506](https://github.com/Khan/perseus/pull/3506) [`0bf97ee3b6`](https://github.com/Khan/perseus/commit/0bf97ee3b6301c99f8dc5e1a98277dd6cf9e2af8) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add delay to flakey Graphie image regression test
+
+*   [#3415](https://github.com/Khan/perseus/pull/3415) [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing Interactive Graph Builder and refactoring tests/storybook to use more standardized generator patterns.
+
+-   [#3521](https://github.com/Khan/perseus/pull/3521) [`e5ddaef207`](https://github.com/Khan/perseus/commit/e5ddaef207113869a19ed7fc734a547d06a4f478) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allow the asymptote to be placed between points. Also allow for points to be on asymptote line so long as they don't overlap with the drag handle.
+
+*   [#3567](https://github.com/Khan/perseus/pull/3567) [`ce83363534`](https://github.com/Khan/perseus/commit/ce8336353430668ec5eca53e16bb21dacdd7c904) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix interactive graph x-axis label overlapping with content below when y-range starts at 0 or higher
+
+-   [#3435](https://github.com/Khan/perseus/pull/3435) [`dee6ce680c`](https://github.com/Khan/perseus/commit/dee6ce680cb19a7c966b595e1f66a2d5116c70f6) Thanks [@Myranae](https://github.com/Myranae)! - Convert hardcoded color values to semantic tokens for label image
+
+*   [#3538](https://github.com/Khan/perseus/pull/3538) [`8b95cdf6e3`](https://github.com/Khan/perseus/commit/8b95cdf6e31e143fc70978b7aa10fd2e6b935ef2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Storybook MCP addon for AI-assisted UI development
+
+-   [#3524](https://github.com/Khan/perseus/pull/3524) [`1dbd5742dc`](https://github.com/Khan/perseus/commit/1dbd5742dcb0283b824fa21b54dcac0d05bdd375) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that Ray and Linear points cannot overlap
+
+-   Updated dependencies [[`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c), [`896e869ef5`](https://github.com/Khan/perseus/commit/896e869ef551ad64b1fcfd5ab3e175a2edb5fc32), [`cf5147d61c`](https://github.com/Khan/perseus/commit/cf5147d61c7cab40f9f987ca952cca0b28e0bbd5), [`afc4f33090`](https://github.com/Khan/perseus/commit/afc4f33090b5ea023e75706d8c01c30664241584)]:
+    -   @khanacademy/perseus-core@26.0.0
+    -   @khanacademy/perseus-linter@5.0.0
+    -   @khanacademy/kmath@2.4.3
+    -   @khanacademy/math-input@26.4.17
+    -   @khanacademy/keypad-context@3.2.45
+    -   @khanacademy/perseus-score@8.7.1
+
 ## 77.3.1
 
 ### Patch Changes

@@ -27,6 +27,7 @@ import {LegacyGrid} from "./backgrounds/legacy-grid";
 import {
     fontSize,
     fontSizeYAxisLabelMultiplier,
+    getGraphBottomMargin,
     getLabelPosition,
 } from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
@@ -198,6 +199,19 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const marginWithExtraOffset =
         -1 * (yAxisLabelLocation[X] - marginLabelDiff);
 
+    // When the y-range starts at or above 0, the x-axis label can extend
+    // below the graph content area. We dynamically increase the bottom
+    // margin to prevent the label from overlapping with content below.
+    const showsAxisLabels =
+        props.markings === "graph" || props.markings === "axes";
+    const hasXAxisLabel = !!(labels[0] && labels[0].trim());
+    const graphMarginBottom = getGraphBottomMargin(
+        xAxisLabelLocation[Y],
+        height,
+        hasXAxisLabel,
+        showsAxisLabels,
+    );
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -235,7 +249,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         marginLeft: needsExtraMargin
                             ? `${marginWithExtraOffset}px`
                             : `${GRAPH_LEFT_MARGIN}px`,
-                        marginBottom: "30px",
+                        marginBottom: graphMarginBottom,
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
                         width,

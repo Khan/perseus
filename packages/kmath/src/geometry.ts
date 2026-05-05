@@ -7,7 +7,6 @@ import {
     approximateEqual,
     type Coord,
 } from "@khanacademy/perseus-core";
-import _ from "underscore";
 
 import {sum} from "./math";
 import * as knumber from "./number";
@@ -63,7 +62,7 @@ export function intersects(ab: Line, cd: Line): boolean {
         [cd[0], cd[1], ab[1]] as const,
     ];
 
-    const orientations = _.map(triplets, function (triplet) {
+    const orientations = triplets.map(function (triplet) {
         return sign(ccw(...triplet));
     });
 
@@ -111,10 +110,11 @@ export function polygonSidesIntersect(vertices: Coord[]): boolean {
     return false;
 }
 
-export function vector(a, b) {
-    return _.map(_.zip(a, b), function (pair) {
-        return pair[0] - pair[1];
-    });
+export function vector(
+    a: ReadonlyArray<number>,
+    b: ReadonlyArray<number>,
+): number[] {
+    return a.map((val, i) => val - b[i]);
 }
 
 export function reverseVector(vector: Coord): Coord {
@@ -125,43 +125,29 @@ export function reverseVector(vector: Coord): Coord {
 // path (assuming a closed loop, where the last point connects back to the
 // first).
 export function clockwise(points: Coord[]): boolean {
-    const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-    const areas = _.map(segments, function (segment) {
-        const p1 = segment[0];
-        const p2 = segment[1];
+    const rotated = points.slice(1).concat(points.slice(0, 1));
+    const areas = points.map(function (p1, i) {
+        const p2 = rotated[i];
         return (p2[0] - p1[0]) * (p2[1] + p1[1]);
     });
     return sum(areas) > 0;
 }
 
-export function magnitude(v: ReadonlyArray<Coord>): number {
-    return Math.sqrt(
-        _.reduce(
-            v,
-            function (memo, el) {
-                // @ts-expect-error - TS2345 - Argument of type 'Coord' is not assignable to parameter of type 'number'.
-                return memo + Math.pow(el, 2);
-            },
-            0,
-        ),
-    );
+export function magnitude(v: ReadonlyArray<number>): number {
+    return Math.sqrt(v.reduce((memo, el) => memo + el * el, 0));
 }
 
-function dotProduct(a: Coord, b: Coord): number {
-    return _.reduce(
-        _.zip(a, b),
-        function (memo, pair) {
-            return memo + pair[0] * pair[1];
-        },
-        0,
-    );
+function dotProduct(
+    a: ReadonlyArray<number>,
+    b: ReadonlyArray<number>,
+): number {
+    return a.reduce((memo, val, i) => memo + val * b[i], 0);
 }
 
 function sideLengths(coords: ReadonlyArray<Coord>): ReadonlyArray<number> {
-    const segments = _.zip(coords, rotate(coords));
-    return segments.map(function (segment) {
-        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-        return magnitude(vector(...segment));
+    const rotated = rotate(coords);
+    return coords.map(function (coord, i) {
+        return magnitude(vector(coord, rotated[i]));
     });
 }
 
@@ -169,27 +155,21 @@ function sideLengths(coords: ReadonlyArray<Coord>): ReadonlyArray<number> {
 export function angleMeasures(
     coords: ReadonlyArray<Coord>,
 ): ReadonlyArray<number> {
-    const triplets = _.zip(rotate(coords, -1), coords, rotate(coords, 1));
+    const prev = rotate(coords, -1);
+    const next = rotate(coords, 1);
 
-    const offsets = _.map(triplets, function (triplet) {
+    const offsets = coords.map(function (coord, i) {
+        const triplet = [prev[i], coord, next[i]] as const;
         const p = vector(triplet[1], triplet[0]);
         const q = vector(triplet[2], triplet[1]);
-        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'Coord'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         const raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
-        // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
-    const sum = _.reduce(
-        offsets,
-        function (memo, arg) {
-            return memo + arg;
-        },
-        0,
-    );
+    const offsetSum = offsets.reduce((memo, arg) => memo + arg, 0);
 
-    return _.map(offsets, function (offset) {
-        return sum > 0 ? Math.PI - offset : Math.PI + offset;
+    return offsets.map(function (offset) {
+        return offsetSum > 0 ? Math.PI - offset : Math.PI + offset;
     });
 }
 
@@ -231,17 +211,19 @@ export function similar(
         sides = rotate(sides, i);
 
         if (approximateDeepEqual(angles1, angles)) {
-            const sidePairs = _.zip(sides1, sides);
+            const sidePairs = sides1.map(
+                (s, idx) => [s, sides[idx]] as [number, number],
+            );
 
-            const factors = _.map(sidePairs, function (pair) {
+            const factors = sidePairs.map(function (pair) {
                 return pair[0] / pair[1];
             });
 
-            const same = _.all(factors, function (factor) {
+            const same = factors.every(function (factor) {
                 return approximateEqual(factors[0], factor);
             });
 
-            const congruentEnough = _.all(sidePairs, function (pair) {
+            const congruentEnough = sidePairs.every(function (pair) {
                 return knumber.equal(pair[0], pair[1], tolerance);
             });
 

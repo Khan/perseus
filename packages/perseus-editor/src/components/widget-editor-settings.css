@@ -1,0 +1,10 @@
+/* We have to use !important until wonder blocks is in the shared layer. */
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
+.widget-editor-settings-container {
+    padding-inline: var(--wb-sizing-size_120) !important;
+    padding-block-start: var(--wb-sizing-size_120) !important;
+}
+
+.best-practices-container {
+    margin-block-end: var(--wb-sizing-size_060) !important;
+}

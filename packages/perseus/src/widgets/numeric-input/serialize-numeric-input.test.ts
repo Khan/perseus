@@ -95,6 +95,7 @@ describe("NumericInput serialization", () => {
                 "numeric-input 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     answerForms: [],
                     coefficient: false,
                     labelText: "",

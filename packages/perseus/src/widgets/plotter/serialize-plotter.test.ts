@@ -95,6 +95,7 @@ describe("Plotter serialization", () => {
                 "plotter 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     scaleY: 1,
                     maxY: 2,
                     snapsPerLine: 1,

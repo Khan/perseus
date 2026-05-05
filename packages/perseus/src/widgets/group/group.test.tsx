@@ -168,6 +168,7 @@ describe("group widget", () => {
             "group 1": {
                 "radio 1": {
                     alignment: "default",
+                    graded: true,
                     choiceStates: [
                         expectedChoiceState,
                         expectedChoiceState,
@@ -240,6 +241,7 @@ describe("group widget", () => {
                     rightAlign: false,
                     size: "normal",
                     static: false,
+                    graded: true,
                 },
                 "numeric-input 2": {
                     alignment: "default",
@@ -250,6 +252,7 @@ describe("group widget", () => {
                     rightAlign: false,
                     size: "normal",
                     static: false,
+                    graded: true,
                 },
             },
         });

@@ -10,7 +10,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "request-data" as const,
-                id: "test-id",
             };
 
             expect(isIframeToParentMessage(message)).toBe(true);
@@ -20,7 +19,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "height-update" as const,
-                id: "test-id",
                 height: 500,
             };
 
@@ -31,7 +29,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "lint-report" as const,
-                id: "test-id",
                 lintWarnings: [],
             };
 
@@ -55,7 +52,6 @@ describe("message-validators", () => {
         it("returns false for object without source property", () => {
             const message = {
                 type: "request-data",
-                id: "test-id",
             };
 
             expect(isIframeToParentMessage(message)).toBe(false);
@@ -65,7 +61,6 @@ describe("message-validators", () => {
             const message = {
                 source: 123,
                 type: "request-data",
-                id: "test-id",
             };
 
             expect(isIframeToParentMessage(message)).toBe(false);
@@ -75,7 +70,6 @@ describe("message-validators", () => {
             const message = {
                 source: "wrong-source",
                 type: "request-data",
-                id: "test-id",
             };
 
             expect(isIframeToParentMessage(message)).toBe(false);
@@ -105,7 +99,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data" as const,
-                id: "test-id",
                 content: {
                     type: "question" as const,
                     data: {
@@ -138,7 +131,6 @@ describe("message-validators", () => {
         it("returns false for object without source property", () => {
             const message = {
                 type: "content-data",
-                id: "test-id",
                 content: {},
             };
 
@@ -149,7 +141,6 @@ describe("message-validators", () => {
             const message = {
                 source: {nested: "object"},
                 type: "content-data",
-                id: "test-id",
             };
 
             expect(isParentToIframeMessage(message)).toBe(false);
@@ -159,7 +150,6 @@ describe("message-validators", () => {
             const message = {
                 source: "different-source",
                 type: "content-data",
-                id: "test-id",
             };
 
             expect(isParentToIframeMessage(message)).toBe(false);
@@ -186,7 +176,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                id: "test-id",
                 unexpectedProperty: "should-not-break",
             };
 
@@ -199,7 +188,6 @@ describe("message-validators", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "some-type",
-                id: "test-id",
             };
 
             // Both type guards only check source, so this passes both
