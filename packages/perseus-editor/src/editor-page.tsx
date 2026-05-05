@@ -234,6 +234,7 @@ class EditorPage extends React.Component<Props, State> {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: this.state.highlightLint,
+                    stack: [],
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),

@@ -6,8 +6,8 @@
 import type {APIOptions, DeviceType} from "@khanacademy/perseus";
 import type {
     Hint,
-    PerseusArticle,
     PerseusItem,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -29,7 +29,6 @@ interface PreviewMessageBase {
 export type QuestionPreviewData = {
     item: PerseusItem;
     apiOptions: APIOptions;
-    initialHintsVisible: number;
     device: DeviceType;
     linterContext: LinterContextProps;
     reviewMode?: boolean;
@@ -48,13 +47,21 @@ export type HintPreviewData = {
 };
 
 /**
- * Data for article section preview
+ * Data for a single article section preview (used in edit mode for one section)
  */
 export type ArticlePreviewData = {
+    article: PerseusRenderer;
     apiOptions: APIOptions;
-    json: PerseusArticle;
     linterContext: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
+};
+
+/**
+ * Data for article-all preview (used in preview mode to render all sections at once)
+ */
+export type ArticleAllPreviewData = {
+    article: ReadonlyArray<PerseusRenderer>;
+    apiOptions: APIOptions;
 };
 
 /**
@@ -64,7 +71,7 @@ export type PreviewContent =
     | {type: "question"; data: QuestionPreviewData}
     | {type: "hint"; data: HintPreviewData}
     | {type: "article"; data: ArticlePreviewData}
-    | {type: "article-all"; data: ArticlePreviewData[]};
+    | {type: "article-all"; data: ArticleAllPreviewData};
 
 // ---- Parent → Iframe messages ----
 

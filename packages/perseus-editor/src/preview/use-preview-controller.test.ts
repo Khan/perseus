@@ -583,32 +583,17 @@ describe("usePreviewController", () => {
 
             const articleData: PreviewContent = {
                 type: "article-all",
-                data: [
-                    {
-                        json: [{content: "Section 1", widgets: {}, images: {}}],
-                        apiOptions: {
-                            readOnly: true,
-                            onFocusChange: jest.fn(),
-                        } as any,
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                            stack: [],
-                        },
-                    },
-                    {
-                        json: [{content: "Section 2", widgets: {}, images: {}}],
-                        apiOptions: {
-                            isMobile: true,
-                            trackInteraction: jest.fn(),
-                        } as any,
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                            stack: [],
-                        },
-                    },
-                ],
+                data: {
+                    article: [
+                        {content: "Section 1", widgets: {}, images: {}},
+                        {content: "Section 2", widgets: {}, images: {}},
+                    ],
+                    apiOptions: {
+                        readOnly: true,
+                        onFocusChange: jest.fn(),
+                        trackInteraction: jest.fn(),
+                    } as any,
+                },
             };
 
             act(() => {
@@ -618,16 +603,15 @@ describe("usePreviewController", () => {
             const sentMessage = (mockContentWindow.postMessage as jest.Mock)
                 .mock.calls[0][0];
 
-            // Both sections should have apiOptions sanitized
-            expect(sentMessage.content.data).toHaveLength(2);
+            // The shared apiOptions should be sanitized
+            expect(sentMessage.content.data.article).toHaveLength(2);
             expect(
-                sentMessage.content.data[0].apiOptions.onFocusChange,
+                sentMessage.content.data.apiOptions.onFocusChange,
             ).toBeUndefined();
-            expect(sentMessage.content.data[0].apiOptions.readOnly).toBe(true);
             expect(
-                sentMessage.content.data[1].apiOptions.trackInteraction,
+                sentMessage.content.data.apiOptions.trackInteraction,
             ).toBeUndefined();
-            expect(sentMessage.content.data[1].apiOptions.isMobile).toBe(true);
+            expect(sentMessage.content.data.apiOptions.readOnly).toBe(true);
         });
     });
 });
@@ -652,7 +636,6 @@ function createQuestionPreview(overrides?: {
                 readOnly: true,
                 ...overrides?.apiOptions,
             },
-            initialHintsVisible: 0,
             device: {type: "phone"} as any,
             linterContext: {
                 contentType: "exercise",

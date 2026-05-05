@@ -89,7 +89,6 @@ describe("PreviewWithIframe", () => {
                     hints: [],
                 },
                 apiOptions: {},
-                initialHintsVisible: 0,
                 device: "desktop",
                 linterContext: {
                     contentType: "exercise",

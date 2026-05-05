@@ -153,7 +153,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {readOnly: true},
-                    initialHintsVisible: 0,
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -218,13 +217,11 @@ describe("usePreviewPresenter", () => {
             const articleContent: PreviewContent = {
                 type: "article",
                 data: {
-                    json: [
-                        {
-                            content: "# Article Title\n\nArticle content",
-                            widgets: {},
-                            images: {},
-                        },
-                    ],
+                    article: {
+                        content: "# Article Title\n\nArticle content",
+                        widgets: {},
+                        images: {},
+                    },
                     apiOptions: {},
                     linterContext: {
                         contentType: "article",
@@ -253,26 +250,13 @@ describe("usePreviewPresenter", () => {
 
             const articleAllContent: PreviewContent = {
                 type: "article-all",
-                data: [
-                    {
-                        json: [{content: "Section 1", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                            stack: [],
-                        },
-                    },
-                    {
-                        json: [{content: "Section 2", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                            stack: [],
-                        },
-                    },
-                ],
+                data: {
+                    article: [
+                        {content: "Section 1", widgets: {}, images: {}},
+                        {content: "Section 2", widgets: {}, images: {}},
+                    ],
+                    apiOptions: {},
+                },
             };
 
             const message = createContentDataMessage(articleAllContent);
@@ -334,7 +318,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {},
-                    initialHintsVisible: 0,
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -617,7 +600,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {},
-                    initialHintsVisible: 0,
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -670,7 +652,6 @@ describe("usePreviewPresenter", () => {
                             hints: [],
                         },
                         apiOptions: {},
-                        initialHintsVisible: 0,
                         device: {type: "phone"} as any,
                         linterContext: {
                             contentType: "exercise",
@@ -695,7 +676,7 @@ describe("usePreviewPresenter", () => {
                 {
                     type: "article",
                     data: {
-                        json: [{content: "A1", widgets: {}, images: {}}],
+                        article: {content: "A1", widgets: {}, images: {}},
                         apiOptions: {},
                         linterContext: {
                             contentType: "article",
