@@ -1,16 +1,18 @@
 /**
- * Displays the given content in an iframe, isolating it from the parent page.
+ * Displays content in an iframe, isolating it from the parent page and
+ * triggering rendering mobile, if needed.
  *
  * To simulate the environment of content rendered by itself, content previews
- * are rendered inside iframes, where components such as the math keypad work
- * because the body of the document is not the body of the editor. To make this
- * work, this component renders an iframe and communicates with it via the
- * structured `usePreviewController` postMessage protocol.
+ * are rendered inside iframes, where components such as the math keypad and
+ * mobile breakpoints based on media queries work (because the body of the
+ * document is not the body of the editor. To make this work, this component
+ * renders an iframe and communicates with it via the `usePreviewController`
+ * hook and its use of postMessage.
  *
- * This is the new preview iframe component, intended to replace
- * `IframeContentRenderer` once all editors have migrated. It exists alongside
- * the legacy component so that consumers (e.g. khan/frontend's devadmin) can
- * keep using `IframeContentRenderer` until the atomic flip ships.
+ * This is the new preview iframe component, replaces `IframeContentRenderer`
+ * once all editors have migrated. It exists alongside the legacy component so
+ * that consumers can keep using `IframeContentRenderer` until they are all
+ * ported over.
  */
 import * as React from "react";
 
