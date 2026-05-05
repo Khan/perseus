@@ -155,7 +155,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {readOnly: true},
-                    initialHintsVisible: 0,
                     // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
@@ -219,13 +218,11 @@ describe("usePreviewPresenter", () => {
             const articleContent: PreviewContent = {
                 type: "article",
                 data: {
-                    json: [
-                        {
-                            content: "# Article Title\n\nArticle content",
-                            widgets: {},
-                            images: {},
-                        },
-                    ],
+                    article: {
+                        content: "# Article Title\n\nArticle content",
+                        widgets: {},
+                        images: {},
+                    },
                     apiOptions: {},
                     linterContext: {
                         contentType: "article",
@@ -253,24 +250,13 @@ describe("usePreviewPresenter", () => {
 
             const articleAllContent: PreviewContent = {
                 type: "article-all",
-                data: [
-                    {
-                        json: [{content: "Section 1", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                    {
-                        json: [{content: "Section 2", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                ],
+                data: {
+                    article: [
+                        {content: "Section 1", widgets: {}, images: {}},
+                        {content: "Section 2", widgets: {}, images: {}},
+                    ],
+                    apiOptions: {},
+                },
             };
 
             const message = createContentDataMessage(articleAllContent);
@@ -335,7 +321,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {},
-                    initialHintsVisible: 0,
                     // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
@@ -621,7 +606,6 @@ describe("usePreviewPresenter", () => {
                         hints: [],
                     },
                     apiOptions: {},
-                    initialHintsVisible: 0,
                     // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
@@ -675,7 +659,6 @@ describe("usePreviewPresenter", () => {
                             hints: [],
                         },
                         apiOptions: {},
-                        initialHintsVisible: 0,
                         // eslint-disable-next-line no-restricted-syntax
                         device: {type: "phone"} as any,
                         linterContext: {
@@ -699,7 +682,7 @@ describe("usePreviewPresenter", () => {
                 {
                     type: "article",
                     data: {
-                        json: [{content: "A1", widgets: {}, images: {}}],
+                        article: {content: "A1", widgets: {}, images: {}},
                         apiOptions: {},
                         linterContext: {
                             contentType: "article",
