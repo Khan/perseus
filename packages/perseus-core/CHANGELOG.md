@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 26.0.1
+
+### Patch Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
 ## 26.0.0
 
 ### Major Changes
