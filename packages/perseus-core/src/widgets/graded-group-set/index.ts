@@ -18,6 +18,7 @@ const gradedGroupSetWidgetLogic: WidgetLogic = {
     name: "graded-group-set",
     defaultWidgetOptions,
     accessible: true,
+    defaultGraded: false,
     traverseChildWidgets: traverseChildWidgets,
 };
 

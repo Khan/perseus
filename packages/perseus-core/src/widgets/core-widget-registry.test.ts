@@ -8,6 +8,7 @@ const registryFnNames = [
     "getCurrentVersion",
     "getPublicWidgetOptionsFunction",
     "getDefaultWidgetOptions",
+    "getDefaultGraded",
     "getSupportedAlignments",
     "getDefaultAlignment",
 ];

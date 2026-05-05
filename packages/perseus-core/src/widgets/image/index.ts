@@ -57,6 +57,7 @@ const imageWidgetLogic: WidgetLogic = {
 
         return hasBackgroundImage && (hasAltText || isDecorative);
     },
+    defaultGraded: false,
 };
 
 export default imageWidgetLogic;

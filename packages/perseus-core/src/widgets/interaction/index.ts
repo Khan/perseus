@@ -25,6 +25,7 @@ const interactionWidgetLogic: WidgetLogic = {
     name: "interaction",
     defaultWidgetOptions,
     accessible: false,
+    defaultGraded: false,
 };
 
 export default interactionWidgetLogic;

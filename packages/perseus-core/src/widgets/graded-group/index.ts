@@ -22,6 +22,7 @@ const gradedGroupWidgetLogic: WidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
     accessible: true,
+    defaultGraded: false,
     traverseChildWidgets: traverseChildWidgets,
 };
 

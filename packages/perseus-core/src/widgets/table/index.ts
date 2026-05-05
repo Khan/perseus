@@ -29,6 +29,7 @@ const tableWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     getPublicWidgetOptions: getTablePublicWidgetOptions,
     accessible: true,
+    defaultGraded: false,
 };
 
 export default tableWidgetLogic;

@@ -18,6 +18,7 @@ const explanationWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     defaultAlignment: "inline",
     accessible: true,
+    defaultGraded: false,
 };
 
 export default explanationWidgetLogic;

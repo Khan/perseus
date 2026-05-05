@@ -4132,7 +4132,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
     "widgets": {
       "iframe 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "allowFullScreen": false,
           "allowTopNavigation": false,

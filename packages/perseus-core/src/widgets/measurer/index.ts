@@ -31,6 +31,7 @@ const measurerWidgetLogic: WidgetLogic = {
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     accessible: false,
+    defaultGraded: false,
 };
 
 export default measurerWidgetLogic;

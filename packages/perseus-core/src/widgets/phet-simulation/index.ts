@@ -15,6 +15,7 @@ const phetSimulationWidgetLogic: WidgetLogic = {
     name: "phet-simulation",
     defaultWidgetOptions,
     accessible: true,
+    defaultGraded: false,
 };
 
 export default phetSimulationWidgetLogic;

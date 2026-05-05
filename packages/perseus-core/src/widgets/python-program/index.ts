@@ -15,6 +15,7 @@ const pythonProgramWidgetLogic: WidgetLogic = {
     name: "python-program",
     defaultWidgetOptions,
     accessible: true,
+    defaultGraded: false,
 };
 
 export default pythonProgramWidgetLogic;
