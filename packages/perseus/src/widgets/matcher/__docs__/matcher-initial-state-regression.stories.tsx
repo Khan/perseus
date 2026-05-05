@@ -56,7 +56,7 @@ export const WithoutLabels: Story = {
     decorators: [matcherRendererDecorator],
     args: {
         ...sharedArgs,
-        labels: ["", ""],
+        labels: ["q", ""],
     },
 };
 
