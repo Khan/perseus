@@ -303,6 +303,10 @@ Same open scoping check + same template as 1.3.5 against `graphs/segment.tsx` / 
 - **Test flakiness.** WB Announcer mounts a single live region per page. If the test environment doesn't reset the announcer between tests, assertions can leak. Mitigation: `jest.mock` the WB module per test file, reset spies in `beforeEach`.
 - **Scoping ambiguity for linear / segment / ray / linear-system.** If the open scoping question (1.2) reveals the source-side aria-live toggle lives in a shared component (`MovablePoint`, `MovableLine`), the migration may need to touch that shared file — increasing the blast radius and forcing all dependent graphs to verify together. Mitigation: read the source first; split the PR if the shared-component change needs its own review.
 
+### 1.7 QE Strategy
+
+Since this implementation is an improvement on an existing functionality no QE is needed before release. It would, however, would be great to check this as part of a QE pass at the end of the screen reader implementation.
+
 ---
 
 ## Phase 2: Focus, Entry, and Instructions
@@ -435,6 +439,10 @@ Each numbered step is the unit of review. Order is sequential within a single PR
 - Whether `GRAPH_FOCUS_ENTERED` / `GRAPH_FOCUS_EXITED` are reducer actions or direct `useGraphAnnouncer` calls (1.3.7's plug-in surface — defer the call until Phase 2 implementation begins).
 - Final platform-detection signal for Insert + I vs. Fn + Enter + I.
 
+### 2.8 QE Strategy
+
+For QE a simple playtest before release and one QE pass at the end of implementation would be idea.
+
 ---
 
 ## Phase 3: None-type / Static / Locked Figure Messaging
@@ -518,6 +526,10 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 - Exact wording of both new strings — Caitlyn & Darrell.
 - Final wording of the linter warning copy — Caitlyn, with Darrell as final sign-off.
 
+### 3.8 QE Strategy
+
+For QE this should be part of the same play test as part of Phase 2 with a QE pass at the end of the Screen Reader implementation.
+
 ---
 
 ## Phase 4: Per-Question Authoring — `pointLabels`
@@ -591,6 +603,10 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 - **Partial-array fallback correctness** — a partial array must fall back per-index, not collapse to "all or nothing". Cover this in tests.
 - **Localization** — `pointLabels` are author-supplied plain text; they're the author's responsibility to localize, same as `fullGraphAriaLabel` today. Document this clearly in the editor UI helper text.
 
+### 4.7 QE Strategy
+
+Since this implementation is an improvement on an existing functionality no QE is needed before release. It would, however, be beneficial to run a play test on the feature flag piece and run a QE pass at the end of the screen reader implementation.
+
 ---
 
 ## Phase 5: Add Point Disable Rule + Action Bar Polish
@@ -661,6 +677,10 @@ Under Phase 2's flag — Action Bar grouping ships there, and the disable rule i
 - **Reset semantics on undo / remove** — if the user removes the tracked point, `lastAddedPointIndex` must reset; if undo is added later, the tracking needs to participate.
 - **SR users not knowing why button is disabled** — mitigated by `aria-describedby` + the hint string. Verify on the SR matrix.
 
+### 5.7 QE Strategy
+
+For QE this should be part of the same play test as part of Phase 2 with a QE pass at the end of the Screen Reader implementation.
+
 ---
 
 ## Phase 6: Per-Graph Copy Fixes (UXR-Derived)
@@ -726,6 +746,10 @@ Each fix is an independent small PR; **no shared flag.** Each PR is reviewable a
 - **Copy churn during design review** — each PR may go through 1–2 rounds of copy iteration; build slack into the timeline.
 - **Re-running QA per graph type** — there are 6+ graph types in scope; lead with Caitlyn-led iteration, with Darrell as final sign-off, and bundle his sign-off across the umbrella to be efficient with his time.
 - **Math-utility growth** in `useGraphAnnouncer` callers — keep the routing-rule canary in mind: utility functions belong in `screenreader-text.ts` or a per-graph helper, not in the announcer module.
+
+### 6.10 QE Strategy
+
+Since this implementation is an improvement on an existing functionality no QE is needed before release. It would, however, would be great to check this as part of a QE pass at the end of the screen reader implementation.
 
 ---
 
