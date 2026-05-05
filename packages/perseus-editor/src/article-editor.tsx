@@ -51,7 +51,6 @@ type RendererProps = {
 };
 
 type DefaultProps = {
-    contentPaths?: ReadonlyArray<string>;
     json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
@@ -65,17 +64,18 @@ type Props = DefaultProps & {
     imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    /** @deprecated `issues` has no effect. */
     issues?: Issue[];
 } & Changeable.ChangeableProps;
 
 type State = {
     highlightLint: boolean;
-    issues: Issue[];
+    // An array of `Issue`s per section of the article.
+    issues: Issue[][];
 };
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        contentPaths: [],
         // NOTE(Jeremy):
         json: [{} as any],
         mode: "edit",
@@ -94,11 +94,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        // Only update issues if json or issues prop changed
-        if (
-            prevProps.json !== this.props.json ||
-            prevProps.issues !== this.props.issues
-        ) {
+        // Only update issues if json changed
+        if (prevProps.json !== this.props.json) {
             this._updateIssues();
         }
 
@@ -116,9 +113,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 ? this.props.json
                 : [this.props.json];
 
-        // Run linter on all sections and collect issues
-        const allLinterIssues: Issue[] = [];
-        sections.forEach((section) => {
+        const issues = sections.map((section) => {
             const parsed = PerseusMarkdown.parse(section.content ?? "", {});
             const linterContext = {
                 content: section.content,
@@ -143,19 +138,16 @@ export default class ArticleEditor extends React.Component<Props, State> {
                     },
                 ) ?? [];
 
-            allLinterIssues.push(...sectionIssues);
-
             // Detect TeX errors in this section
             const texErrors = detectTexErrors(section.content ?? "");
             const texIssues = texErrors.map((error, index) =>
                 WARNINGS.texError(error.math, error.message, index),
             );
-            allLinterIssues.push(...texIssues);
+
+            return [...texIssues, ...sectionIssues];
         });
 
-        this.setState({
-            issues: [...(this.props.issues ?? []), ...allLinterIssues],
-        });
+        this.setState({issues});
     }
 
     _updatePreviewFrames() {
@@ -197,7 +189,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -232,7 +223,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         <div className="perseus-editor-row" key={i}>
                             <fieldset disabled={editingDisabled}>
                                 <div className="perseus-editor-left-cell">
-                                    <IssuesPanel issues={this.state.issues} />
+                                    <IssuesPanel
+                                        issues={this.state.issues[i]}
+                                    />
                                     <div className="pod-title">
                                         Section {i + 1}
                                         <div

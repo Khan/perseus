@@ -221,6 +221,89 @@ describe("isItemAccessible", () => {
         });
     });
 
+    describe("hints", () => {
+        it("returns false if a hint contains an inaccessible widget", () => {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                hints: [
+                    generateTestPerseusRenderer({
+                        content:
+                            "Here's a hint with a matcher: [[☃ matcher 1]]",
+                        widgets: {
+                            "matcher 1": {
+                                type: "matcher",
+                                options: {
+                                    labels: ["Concepts", "Definitions"],
+                                    left: ["A", "B", "C"],
+                                    right: ["1", "2", "3"],
+                                    orderMatters: false,
+                                    padding: true,
+                                },
+                            },
+                        },
+                    }),
+                ],
+            });
+
+            expect(isItemAccessible(itemData)).toBe(false);
+        });
+
+        it("ignores inaccessible widgets in a hint that are not referenced in the hint content", () => {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                hints: [
+                    generateTestPerseusRenderer({
+                        // "matcher 1" is defined below but not referenced here
+                        content: "Here's a hint with no widgets.",
+                        widgets: {
+                            "matcher 1": {
+                                type: "matcher",
+                                options: {
+                                    labels: ["Concepts", "Definitions"],
+                                    left: ["A", "B", "C"],
+                                    right: ["1", "2", "3"],
+                                    orderMatters: false,
+                                    padding: true,
+                                },
+                            },
+                        },
+                    }),
+                ],
+            });
+
+            expect(isItemAccessible(itemData)).toBe(true);
+        });
+
+        it("returns true if all hint widgets are accessible", () => {
+            const itemData: PerseusItem = generateTestPerseusItem({
+                hints: [
+                    generateTestPerseusRenderer({
+                        content: "Choose an option: [[☃ radio 1]]",
+                        widgets: {
+                            "radio 1": generateRadioWidget({
+                                options: generateRadioOptions({
+                                    choices: [
+                                        {
+                                            id: "0-0-0-0-0",
+                                            content: "Option 1",
+                                            correct: true,
+                                        },
+                                        {
+                                            id: "1-1-1-1-1",
+                                            content: "Option 2",
+                                            correct: false,
+                                        },
+                                    ],
+                                }),
+                            }),
+                        },
+                        images: {},
+                    }),
+                ],
+            });
+
+            expect(isItemAccessible(itemData)).toBe(true);
+        });
+    });
+
     describe("markdown", () => {
         it("should return false if the item markdown contains any inaccessible images", () => {
             const itemData: PerseusItem = {

@@ -41,6 +41,7 @@ const articleContent = `But in other cases, an object may experience a centripet
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
+    tags: ["!manifest"],
     parameters: {
         docs: {
             description: {

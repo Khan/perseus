@@ -1,6 +1,7 @@
 import {
     clampLabelPosition,
     fontSize,
+    getGraphBottomMargin,
     getLabelPosition,
     getLabelTransform,
 } from "./utils";
@@ -228,5 +229,57 @@ describe("clampLabelPosition", () => {
         const expected = [-fontSize * 1.5, -fontSize * 2];
 
         expect(clampLabelPosition(labelPosition, graphInfo)).toEqual(expected);
+    });
+});
+
+describe("getGraphBottomMargin", () => {
+    it("returns the base margin when the x-axis label is within the graph area", () => {
+        // Label Y = 200 (center of a 400px graph), well within bounds
+        expect(getGraphBottomMargin(200, 400, true, true)).toBe(30);
+    });
+
+    it("returns the base margin when y-range starts at 0 (onAxis, small overflow)", () => {
+        // For range [0, N], onAxis label is at Y = height (400).
+        // Overflow = 400 + fontSize - 400 = 14, result = max(30, 14) = 30
+        // The 30px base margin already covers this small overflow.
+        expect(getGraphBottomMargin(400, 400, true, true)).toBe(30);
+    });
+
+    it("returns increased margin for wholly positive y-range (onAxis, clamped label)", () => {
+        // For range [6, 15] onAxis, the label is clamped to
+        // Y = height + fontSize * 1.25 = 417.5
+        // Overflow = 417.5 + 14 - 400 = 31.5, result = max(30, 31.5) = 31.5
+        // The margin just clears the label; the paragraph's own 22px top
+        // margin then provides the visual gap.
+        const clampedY = 400 + fontSize * 1.25;
+        const overflow = clampedY + fontSize - 400;
+        expect(getGraphBottomMargin(clampedY, 400, true, true)).toBe(overflow);
+    });
+
+    it("returns increased margin for alongEdge labels with y-range starting at 0", () => {
+        // For alongEdge with yMin >= 0, the label is at Y = height + 3 * fontSize = 442
+        // Overflow = 442 + 14 - 400 = 56, result = max(30, 56) = 56
+        const alongEdgeY = 400 + 3 * fontSize;
+        const overflow = alongEdgeY + fontSize - 400;
+        expect(getGraphBottomMargin(alongEdgeY, 400, true, true)).toBe(
+            overflow,
+        );
+    });
+
+    it("returns the base margin when there is no x-axis label", () => {
+        // Even with a label position below the graph, no x-axis label
+        // means no extra margin needed
+        expect(getGraphBottomMargin(500, 400, false, true)).toBe(30);
+    });
+
+    it("returns the base margin when axis labels are not shown", () => {
+        // Even with a label position below the graph, if labels
+        // aren't shown (markings = "none"), no extra margin needed
+        expect(getGraphBottomMargin(500, 400, true, false)).toBe(30);
+    });
+
+    it("returns the base margin for negative y-range where label is within bounds", () => {
+        // For range [-10, 10], the label Y = 200 (well within the 400px graph)
+        expect(getGraphBottomMargin(200, 400, true, true)).toBe(30);
     });
 });

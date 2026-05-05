@@ -48,7 +48,6 @@ const baseChoiceStates = [
 const baseLinterContext: LinterContextProps = {
     contentType: "radio",
     highlightLint: false,
-    paths: [],
     stack: [],
 };
 

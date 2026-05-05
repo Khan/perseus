@@ -25,6 +25,7 @@
     box-sizing: border-box; /* Added here to ensure proper sizing in the editor preview */
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
+    position: relative;
     /* The following transform will cause a new reference layer for its descendants,
            which we use to position the indicator and the scroll fade in a fixed place while scrolling.
      */

@@ -21,9 +21,6 @@ export type InputNumberPromptJSON = {
          *   and the learner can try again without penalty.
          * - "enforced" means unsimplified answers are counted as incorrect.
          */
-        // TODO(LEMS-4033): render an intelligible string for simplify; the
-        //  current values ("optional", "required", "enforced") aren't
-        //  self-explanatory.
         simplify: string;
         /** The expected numeric form, e.g. "rational", "decimal" */
         answerType: string;

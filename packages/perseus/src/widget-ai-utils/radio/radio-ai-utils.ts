@@ -40,8 +40,6 @@ export type RadioPromptJSON = {
      * Whether the widget includes a "None of the above" option. When true,
      * the last entry in `options` represents that special choice.
      */
-    // TODO(LEMS-4033): Don't expose this; instead, communicate on the option
-    //  object whether each option is "none of the above".
     hasNoneOfTheAbove: boolean;
 
     /**
