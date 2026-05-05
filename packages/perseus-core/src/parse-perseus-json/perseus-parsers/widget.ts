@@ -6,36 +6,35 @@ import {
     object,
     objectWithAllPropertiesRequired,
     optional,
+    pipeParsers,
     string,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 
 import type {WidgetOptions} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
 /**
- * When `gradedWhenMissing` is set, a missing or null top-level `graded` field
- * parses to that boolean (explicit `true` / `false` in JSON still wins).
- * When omitted, `graded` is optional and omitted from the parse result if
- * absent — matching historical behavior before `applyDefaultsToWidget`.
+ * When `setGradedTo` is provided, `graded` always parses to that boolean.
  */
-function parseGradedField(
-    gradedWhenMissing?: boolean,
-): Parser<boolean | undefined> {
-    if (gradedWhenMissing === undefined) {
+function parseGradedField(setGradedTo?: boolean): Parser<boolean | undefined> {
+    if (setGradedTo === undefined) {
         return optional(boolean);
     }
-    return defaulted(boolean, () => gradedWhenMissing);
+    return pipeParsers(defaulted(optional(boolean), () => undefined)).then(
+        convert(() => setGradedTo),
+    ).parser;
 }
 
 export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
-    gradedWhenMissing?: boolean,
+    setGradedTo?: boolean,
 ): Parser<WidgetOptions<Type, Options>> {
     return objectWithAllPropertiesRequired({
         type: parseType,
         static: optional(boolean),
-        graded: parseGradedField(gradedWhenMissing),
+        graded: parseGradedField(setGradedTo),
         alignment: optional(string),
         options: parseOptions,
         key: optional(nullable(number)),
@@ -56,12 +55,12 @@ export function parseWidgetWithVersion<
     parseVersion: Parser<Version>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
-    gradedWhenMissing?: boolean,
+    setGradedTo?: boolean,
 ): Parser<WidgetOptions<Type, Options>> {
     return objectWithAllPropertiesRequired({
         type: parseType,
         static: optional(boolean),
-        graded: parseGradedField(gradedWhenMissing),
+        graded: parseGradedField(setGradedTo),
         alignment: optional(string),
         options: parseOptions,
         key: optional(nullable(number)),

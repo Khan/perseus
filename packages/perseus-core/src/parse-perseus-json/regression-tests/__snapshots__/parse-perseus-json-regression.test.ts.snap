@@ -36,7 +36,7 @@ Most important, the production possibilities frontier clearly shows the tradeoff
     "widgets": {
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "explanation": "There are two major differences between a budget constraint and a production possibilities frontier. The first is the fact that the budget constraint is a straight line. This is because its slope is given by the relative prices of the two goods. In contrast, the PPF has a curved shape because of the law of the diminishing returns. The second is the absence of specific numbers on the axes of the PPF. There are no specific numbers because we do not know the exact amount of resources this imaginary economy has, nor do we know how many resources it takes to produce healthcare and how many resources it takes to produce education. If this were a real-world example, that data would be available. An additional reason for the lack of numbers is that there is no single way to measure levels of education and healthcare. However, when you think of improvements in education, you can think of accomplishments like more years of school completed, fewer high-school dropouts, and higher scores on standardized tests. When you think of improvements in healthcare, you can think of longer life expectancies, lower levels of infant mortality, and fewer outbreaks of disease.
 
@@ -1359,7 +1359,7 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
       "images": {},
       "widgets": {
         "explanation 1": {
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "Let's check the values of $a$ and $b$ given in the table above.",
             "hidePrompt": "Okay, I'm convinced.",
@@ -2382,7 +2382,7 @@ A certain tungsten filament has a mass of $0.0176\\text{ g}$.
     "widgets": {
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "explanation": "explanation goes here
 
@@ -2401,7 +2401,7 @@ more explanation",
       },
       "explanation 2": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "explanation": "Avogadro's number $= 6.022\\times 10^{23}$",
           "hidePrompt": "Hide Avogadro's number",
@@ -2470,7 +2470,7 @@ more explanation",
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A photograph of several incandescent light bulbs",
           "backgroundImage": {
@@ -2573,7 +2573,7 @@ A certain tungsten filament has a mass of $0.0176\\text{ g}$.
     "widgets": {
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "explanation": "explanation goes here
 
@@ -2592,7 +2592,7 @@ more explanation",
       },
       "explanation 2": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "explanation": "Avogadro's number $= 6.022\\times 10^{23}$",
           "hidePrompt": "Hide Avogadro's number",
@@ -2639,7 +2639,7 @@ more explanation",
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A photograph of several incandescent light bulbs",
           "backgroundImage": {
@@ -2703,7 +2703,7 @@ To find entry $(i,j)$ of the resulting product matrix, we calculate the vector *
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "In general, vector dot product is an operation that takes two vectors of equal dimensions and returns a single real number.
 
@@ -2758,7 +2758,7 @@ The other entries of $\\text{H}$ can be found similarly.
       "widgets": {
         "graded-group 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**What is the appropriate calculation of $\\textbf{H}_{2,1}$?**
 
@@ -3489,7 +3489,7 @@ For more practice, go to [Systems of equations with elimination challenge](/e/sy
       "widgets": {
         "graded-group-set 2": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "gradedGroups": [
               {
@@ -3944,7 +3944,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
       "images": {},
       "widgets": {
         "image 1": {
-          "graded": true,
+          "graded": false,
           "options": {
             "backgroundImage": {
               "height": 215,
@@ -3983,7 +3983,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
     "images": {},
     "widgets": {
       "iframe 1": {
-        "graded": true,
+        "graded": false,
         "options": {
           "allowFullScreen": false,
           "height": "400",
@@ -4046,7 +4046,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
     "widgets": {
       "iframe 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "allowFullScreen": false,
           "allowTopNavigation": false,
@@ -4179,7 +4179,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
       "images": {},
       "widgets": {
         "iframe 1": {
-          "graded": true,
+          "graded": false,
           "options": {
             "allowFullScreen": true,
             "height": "235",
@@ -4262,7 +4262,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "widgets": {
         "image 2": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns8172348:0crwdne8172348:0",
@@ -4311,7 +4311,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns8172402:0crwdne8172402:0",
@@ -4360,7 +4360,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns8172402:0crwdne8172402:0",
@@ -4416,7 +4416,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
     "widgets": {
       "image 2": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "crwdns8172264:0crwdne8172264:0",
@@ -4558,7 +4558,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
     "widgets": {
       "image 2": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "crwdns8172264:0crwdne8172264:0",
@@ -4917,7 +4917,7 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
     "images": {},
     "widgets": {
       "interaction 1": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5116,7 +5116,7 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
     "widgets": {
       "interaction 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5348,7 +5348,7 @@ Next, we'll look at some other representations of functions!",
     },
     "widgets": {
       "interaction 1": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5434,7 +5434,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 2": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5520,7 +5520,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 3": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5606,7 +5606,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 4": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5692,7 +5692,7 @@ Next, we'll look at some other representations of functions!",
         },
       },
       "interaction 5": {
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5832,7 +5832,7 @@ Next, we'll look at some other representations of functions!",
     "widgets": {
       "interaction 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -5920,7 +5920,7 @@ Next, we'll look at some other representations of functions!",
       },
       "interaction 2": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -6008,7 +6008,7 @@ Next, we'll look at some other representations of functions!",
       },
       "interaction 3": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -6096,7 +6096,7 @@ Next, we'll look at some other representations of functions!",
       },
       "interaction 4": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -6184,7 +6184,7 @@ Next, we'll look at some other representations of functions!",
       },
       "interaction 5": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "elements": [
             {
@@ -8838,7 +8838,7 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "options": {
             "alt": "",
             "backgroundImage": {
@@ -8888,7 +8888,7 @@ $\\begin{align}
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "We can move $\\purpleD {B_V}$ to the right in the diagram to get the right angle triangle as shown below.
 
@@ -8906,7 +8906,7 @@ $\\begin{align}
             "widgets": {
               "image 1": {
                 "alignment": "block",
-                "graded": true,
+                "graded": false,
                 "options": {
                   "alt": "",
                   "backgroundImage": {
@@ -10371,7 +10371,7 @@ ___
     "widgets": {
       "definition 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "A trophy awarded each year to the top college football player in the United States",
@@ -10387,7 +10387,7 @@ ___
       },
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Image source: Image provided by Chidi Young under a [Canva license](https://www.canva.com/policies/content-license-agreement/).",
@@ -10405,7 +10405,7 @@ ___
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "",
@@ -10533,7 +10533,7 @@ ___
     "widgets": {
       "definition 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "A trophy awarded each year to the top college football player in the United States",
@@ -10549,7 +10549,7 @@ ___
       },
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Image source: Image provided by Chidi Young under a [Canva license](https://www.canva.com/policies/content-license-agreement/).",
@@ -10567,7 +10567,7 @@ ___
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "",
@@ -11706,7 +11706,7 @@ $x_1\\cdot\\vec{v_1}+x_2\\cdot\\vec{v_2}+...+x_n\\cdot\\vec{v_n}$
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "We learned that for 2-dimensional matrices, the first column is the image of the unit vector $\\left[\\begin{array}{c}1\\\\\\\\0\\end{array}\\right]$ and the second column is the image of the unit vector $\\left[\\begin{array}{c}0\\\\\\\\1\\end{array}\\right]$.
 
@@ -12096,7 +12096,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
         "type": "dropdown",
       },
       "measurer 1": {
-        "graded": true,
+        "graded": false,
         "options": {
           "box": [
             480,
@@ -12203,7 +12203,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
       },
       "measurer 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "box": [
             480,
@@ -12251,7 +12251,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
     "images": {},
     "widgets": {
       "measurer 1": {
-        "graded": true,
+        "graded": false,
         "options": {
           "box": [
             480,
@@ -12295,7 +12295,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
     "widgets": {
       "measurer 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "options": {
           "box": [
             480,
@@ -13847,7 +13847,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
           },
         },
         "image 1": {
-          "graded": true,
+          "graded": false,
           "options": {
             "backgroundImage": {
               "height": 0,
@@ -14187,7 +14187,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns7006580:0crwdne7006580:0",
@@ -14236,7 +14236,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns6998968:0crwdne6998968:0",
@@ -14285,7 +14285,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "alt": "crwdns6996978:0crwdne6996978:0",
@@ -14362,7 +14362,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "crwdns6998746:0crwdne6998746:0",
@@ -14595,7 +14595,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "crwdns6998746:0crwdne6998746:0",
@@ -14792,7 +14792,7 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
       "widgets": {
         "image 1": {
           "alignment": "block",
-          "graded": true,
+          "graded": false,
           "options": {
             "alt": "A right triangle where the base is unknown. The angle on the right side of the base is thirty-seven degrees. The angle on the left side of the base is the right angle. The hypotenuse is two point one.",
             "backgroundImage": {
@@ -14866,7 +14866,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A rectangle that represents the ground. A point is on the top of the rectangle. A helicopter is above the ground with a person parachuting beneath it. The distance from the helicopter to the point is two point one kilometers and is the hypotenuse. The inside angle from the point to the helicopter is thirty-seven degrees.",
           "backgroundImage": {
@@ -15009,7 +15009,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A rectangle that represents the ground. A point is on the top of the rectangle. A helicopter is above the ground with a person parachuting beneath it. The distance from the helicopter to the point is two point one kilometers and is the hypotenuse. The inside angle from the point to the helicopter is thirty-seven degrees.",
           "backgroundImage": {
@@ -15486,7 +15486,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "We can decompose $54$ into $50+4$.",
             "hidePrompt": "Okay, got it",
@@ -15503,7 +15503,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
         },
         "explanation 2": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac15$ is a unit fraction because the numerator (top number) is $1$.",
             "hidePrompt": "Okay, got it",
@@ -15543,7 +15543,7 @@ Let's decompose $\\dfrac59$ into unit fractions.
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "
 
@@ -15564,7 +15564,7 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
         },
         "graded-group 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac59$.**
 
@@ -15681,7 +15681,7 @@ How can we decompose $\\dfrac38$?
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac18+\\dfrac18+\\dfrac18$
 
@@ -15700,7 +15700,7 @@ How can we decompose $\\dfrac38$?
         },
         "graded-group 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Write an expression decomposing $\\dfrac38$ into unit fractions.**
 
@@ -15779,7 +15779,7 @@ How can we decompose $\\dfrac64$?
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14+\\dfrac14$",
             "hidePrompt": "Hide solution",
@@ -15796,7 +15796,7 @@ How can we decompose $\\dfrac64$?
         },
         "graded-group 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Drag the cards to create an expression that is equivalent to $\\dfrac64$.**
 
@@ -15936,7 +15936,7 @@ How can we decompose $\\dfrac64$?
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac29=\\dfrac19+\\dfrac19$",
             "hidePrompt": "Hide solution",
@@ -15953,7 +15953,7 @@ How can we decompose $\\dfrac64$?
         },
         "explanation 2": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13+\\dfrac13$",
             "hidePrompt": "Hide solution",
@@ -15970,7 +15970,7 @@ How can we decompose $\\dfrac64$?
         },
         "explanation 3": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "$\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16=\\dfrac56$
 ",
@@ -15988,7 +15988,7 @@ How can we decompose $\\dfrac64$?
         },
         "explanation 4": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "explanation": "
 
@@ -16011,7 +16011,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         },
         "graded-group 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Which shows $\\dfrac29$ decomposed into unit fractions?**
 
@@ -16073,7 +16073,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         },
         "graded-group 2": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Write an expression showing $\\dfrac53$ decomposed into unit fractions.**
 
@@ -16132,7 +16132,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         },
         "graded-group 3": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**What fraction is equal to $\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16+\\dfrac16$?**
 
@@ -16185,7 +16185,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
         },
         "graded-group 4": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "options": {
             "content": "**Match each fraction to its equivalent expression.**
 
@@ -16681,7 +16681,7 @@ A free body diagram of the **box** is shown below.
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A woman places a box on a shelf and pushes it to the left, sliding it further onto the shelf.",
           "backgroundImage": {
@@ -16717,7 +16717,7 @@ A free body diagram of the **box** is shown below.
       },
       "image 2": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A model shows a square with four arrows pointing out of it. An arrow points down and is labelled F g. Another arrow points up and is labelled F N. Another arrow points left and is labelled F a. Another arrow points right and is labelled F f.",
           "backgroundImage": {
@@ -16881,7 +16881,7 @@ A free body diagram of the **box** is shown below.
     "widgets": {
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A woman places a box on a shelf and pushes it to the left, sliding it further onto the shelf.",
           "backgroundImage": {
@@ -16918,7 +16918,7 @@ A free body diagram of the **box** is shown below.
       },
       "image 2": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "options": {
           "alt": "A model shows a square with four arrows pointing out of it. An arrow points down and is labelled F g. Another arrow points up and is labelled F N. Another arrow points left and is labelled F a. Another arrow points right and is labelled F f.",
           "backgroundImage": {
@@ -18882,7 +18882,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
     "widgets": {
       "definition 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
@@ -18898,7 +18898,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "definition 2": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Life·long (life-long): Lasting your whole life",
@@ -18914,7 +18914,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "definition 3": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Men·tal (men-tull): Having to do with the mind",
@@ -18930,7 +18930,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by [Pxhere](https://pxhere.com/en/photo/1033461)",
@@ -18948,7 +18948,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "Empty swings",
@@ -19099,7 +19099,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
     "widgets": {
       "definition 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
@@ -19115,7 +19115,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "definition 2": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Life·long (life-long): Lasting your whole life",
@@ -19131,7 +19131,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "definition 3": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "definition": "Men·tal (men-tull): Having to do with the mind",
@@ -19147,7 +19147,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by [Pxhere](https://pxhere.com/en/photo/1033461)",
@@ -19165,7 +19165,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "Empty swings",
@@ -19270,7 +19270,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
       "widgets": {
         "explanation 1": {
           "alignment": "default",
-          "graded": true,
+          "graded": false,
           "key": null,
           "options": {
             "explanation": "Suppose we have the polynomial $4x + 2x^6 -7x^3 + 3$.\\n\\nLook for the exponent of the variable in each term.\\n\\n**Term** | $4x$ | $2x^6$ | $-7x^3$ | $3$\\n:- | :-: | :-: | :-: | :-:\\n**Degree** | $1$ | $6$ | $3$ | $0$\\n\\nThe term with the highest degree is $2x^\\\\maroonD{6}$, so the degree of the polynomial is $\\\\maroonD{6}$.",
@@ -19517,7 +19517,7 @@ ___
     "widgets": {
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by the Boston Public Library",
@@ -19535,7 +19535,7 @@ ___
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "A class in 1895",
@@ -19691,7 +19691,7 @@ ___
     "widgets": {
       "explanation 1": {
         "alignment": "default",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "explanation": "Public domain image provided by the Boston Public Library",
@@ -19709,7 +19709,7 @@ ___
       },
       "image 1": {
         "alignment": "block",
-        "graded": true,
+        "graded": false,
         "key": null,
         "options": {
           "alt": "A class in 1895",
