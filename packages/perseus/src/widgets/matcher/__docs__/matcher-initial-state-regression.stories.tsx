@@ -34,7 +34,7 @@ const sharedArgs = {
         "Average global temperatures will rise",
     ],
     right: [
-        "Medium-sized stars exist for ~10 billion years",
+        "Medium-sized stars exist for  about 10 billion years",
         "The current trajectory of tectonic plate movement",
         "Rapid escalation of greenhouse gas emissions",
     ],
