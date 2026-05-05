@@ -19,7 +19,6 @@ jest.mock("./preview/use-preview-controller", () => ({
 
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
-        mockSendData.mockClear();
         mockHeight = null;
     });
 
@@ -36,6 +35,7 @@ describe("PreviewWithIframe", () => {
         expect(iframe).toBeInTheDocument();
         expect(iframe).toHaveAttribute("src", "/preview");
     });
+
     it.each([true, false])(
         "sets data-mobile attribute isMobile is set",
         (isMobile: boolean) => {
