@@ -117,6 +117,7 @@ describe("InteractiveGraph serialization", () => {
                 "interactive-graph 1": {
                     alignment: "default",
                     static: false,
+                    graded: true,
                     labels: ["$x$", "$y$"],
                     labelLocation: "onAxis",
                     range: [

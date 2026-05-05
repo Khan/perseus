@@ -85,6 +85,7 @@ describe("IFrame serialization", () => {
                     allowFullScreen: true,
                     allowTopNavigation: false,
                     static: false,
+                    graded: true,
                 },
             },
             hints: [],
