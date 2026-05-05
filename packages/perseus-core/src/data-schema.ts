@@ -1120,7 +1120,7 @@ export type PerseusGraphTypeAngle = {
     /** Allow Reflex Angles if an "angle" type. default: true */
     allowReflexAngles?: boolean;
     /** The angle offset in degrees if an "angle" type. default: 0 */
-    angleOffsetDeg?: number;
+    angleOffsetDeg: number;
     /** Snap to degree increments if an "angle" type. default: 1 */
     snapDegrees?: number;
     /** How to match the answer. If missing, defaults to exact matching. */
