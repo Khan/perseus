@@ -133,9 +133,6 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
-    /**
-     * asdf
-     */
     // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
 }>;
