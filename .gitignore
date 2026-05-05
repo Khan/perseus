@@ -16,6 +16,7 @@ debug-storybook.log
 # Local development files
 CLAUDE.local.md
 .claude/settings.local.json
+.mcp.json
 
 # Claude worktrees are created here - we don't want these checked in!
 .claude/worktrees/
