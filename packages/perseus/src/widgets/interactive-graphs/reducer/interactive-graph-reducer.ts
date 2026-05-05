@@ -1136,7 +1136,7 @@ function boundAndSnapAngleEndPoints(
         range: [Interval, Interval];
         coords: Coord[];
         snapDegrees?: number;
-        angleOffsetDeg?: number;
+        angleOffsetDeg?: number | null;
         snapStep: vec.Vector2;
     },
     index: number,
