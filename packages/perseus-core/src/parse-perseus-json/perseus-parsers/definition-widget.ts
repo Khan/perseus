@@ -10,4 +10,5 @@ export const parseDefinitionWidget = parseWidget(
         definition: string,
         static: defaulted(boolean, () => false),
     }),
+    false,
 );

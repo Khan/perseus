@@ -177,7 +177,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "explanation 1": {
                 type: "explanation",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     showPrompt: "",
                     hidePrompt: "",
@@ -304,7 +305,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "graded-group 1": {
                 type: "graded-group",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     title: "",
                     content: "",
@@ -323,7 +325,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "graded-group-set 1": {
                 type: "graded-group-set",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     gradedGroups: [
                         {
@@ -346,7 +349,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "iframe 1": {
                 type: "iframe",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     url: "",
                     settings: [],
@@ -367,7 +371,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "image 1": {
                 type: "image",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     backgroundImage: {},
                 },
@@ -401,7 +406,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "interaction 1": {
                 type: "interaction",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     static: false,
                     graph: {
@@ -494,7 +500,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "measurer 1": {
                 type: "measurer",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     image: {},
                     showProtractor: false,
@@ -684,7 +691,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "phet-simulation 1": {
                 type: "phet-simulation",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     url: "",
                     description: "",
@@ -725,6 +733,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "python-program 1": {
                 type: "python-program",
+                graded: false,
                 version: {major: 0, minor: 0},
                 options: {
                     programID: "",
@@ -777,7 +786,8 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "table 1": {
                 type: "table",
-                version: {major: 0, minor: 0},
+                version: { major: 0, minor: 0 },
+                graded: false,
                 options: {
                     headers: [],
                     rows: 0,
@@ -807,7 +817,7 @@ describe("parseWidgetsMap", () => {
             "sequence 1": {
                 type: "sequence",
                 version: {major: 0, minor: 0},
-                graded: true,
+                graded: false,
                 options: {
                     json: [
                         {
@@ -824,7 +834,7 @@ describe("parseWidgetsMap", () => {
             "sequence 1": {
                 type: "deprecated-standin",
                 version: {major: 0, minor: 0},
-                graded: true,
+                graded: false,
                 options: {
                     json: [
                         {

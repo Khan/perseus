@@ -1008,6 +1008,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
         },
       },
       "definition 1": {
+        "graded": false,
         "options": {
           "definition": "",
           "static": false,
@@ -4101,6 +4102,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
     "widgets": {
       "iframe 1": {
         "alignment": "block",
+        "graded": false,
         "options": {
           "allowFullScreen": false,
           "height": "550px",

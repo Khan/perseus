@@ -30,4 +30,5 @@ export const parseMeasurerWidget = parseWidget(
         rulerLength: number,
         box: pair(number, number),
     }),
+    false
 );

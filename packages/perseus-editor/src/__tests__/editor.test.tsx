@@ -142,7 +142,7 @@ describe("Editor", () => {
                 widgets: {
                     "image 1": expect.objectContaining({
                         type: "image",
-                        graded: true,
+                        graded: false,
                         options: expect.objectContaining({
                             caption: "kittens",
                         }),

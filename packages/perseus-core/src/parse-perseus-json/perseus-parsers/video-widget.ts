@@ -14,4 +14,5 @@ export const parseVideoWidget = parseWidget(
         location: string,
         static: optional(boolean),
     }),
+    false
 );

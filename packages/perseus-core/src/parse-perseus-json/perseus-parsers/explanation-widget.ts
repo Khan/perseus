@@ -19,4 +19,5 @@ export const parseExplanationWidget = parseWidget(
         ),
         static: defaulted(boolean, () => false),
     }),
+    false,
 );

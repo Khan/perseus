@@ -49,4 +49,5 @@ export const parseGradedGroupWidgetOptions = object({
 export const parseGradedGroupWidget = parseWidget(
     constant("graded-group"),
     parseGradedGroupWidgetOptions,
+    false
 );

@@ -17,4 +17,5 @@ export const parseTableWidget = parseWidget(
         columns: number,
         answers: defaulted(array(array(string)), () => []),
     }),
+    false
 );

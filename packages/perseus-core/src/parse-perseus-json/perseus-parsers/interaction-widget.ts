@@ -168,4 +168,5 @@ export const parseInteractionWidget = parseWidget(
                 .withBranch("rectangle", parseRectangleElement).parser,
         ),
     }),
+    false
 );

@@ -101,7 +101,7 @@ describe("Table serialization", () => {
                 "table 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
+                    graded: false,
                     headers: ["Column 1", "Column 2"],
                     rows: 2,
                     columns: 2,
