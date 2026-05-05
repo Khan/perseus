@@ -5,7 +5,7 @@ export function generateVideoWidget(
 ): VideoWidget {
     return {
         type: "video",
-        graded: true,
+        graded: false,
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
