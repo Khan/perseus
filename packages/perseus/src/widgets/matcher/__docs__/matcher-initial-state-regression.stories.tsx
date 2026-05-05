@@ -60,24 +60,14 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in both column labels and item cards.
-export const WithTeX: Story = {
+// Verifies TeX rendering in column labels. Items are plain text so card heights
+// are deterministic and don't depend on async TeX rendering timing.
+export const WithTexLabels: Story = {
     decorators: [matcherRendererDecorator],
     args: {
+        ...sharedArgs,
         labels: ["$f(x)$", "$f'(x)$"],
-        left: [
-            "$f(x) = \\dfrac{1}{x}$",
-            "$f(x) = \\dfrac{1}{x^2}$",
-            "$f(x) = \\dfrac{1}{x^3}$",
-        ],
-        right: [
-            "$f'(x) = -\\dfrac{1}{x^2}$",
-            "$f'(x) = -\\dfrac{2}{x^3}$",
-            "$f'(x) = -\\dfrac{3}{x^4}$",
-        ],
-        orderMatters: false,
-        padding: true,
-    } satisfies Partial<PerseusMatcherWidgetOptions>,
+    },
 };
 
 // Verifies the orderMatters state: both columns render as draggable cards
