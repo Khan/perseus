@@ -6,7 +6,6 @@ import PreviewWithIframe from "./preview-with-iframe";
 import type {PreviewContent} from "./preview/message-types";
 import type {PreviewWithIframeRef} from "./preview-with-iframe";
 
-// Mock usePreviewController so we can control its behavior
 const mockSendData = jest.fn();
 let mockHeight: number | null = null;
 
@@ -90,6 +89,7 @@ describe("PreviewWithIframe", () => {
                 },
                 apiOptions: {},
                 device: "desktop",
+                initialHintsVisible: 0,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
