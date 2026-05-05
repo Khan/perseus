@@ -6314,7 +6314,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
           },
           "correct": {
             "allowReflexAngles": false,
-            "angleOffsetDeg": 0,
+            "angleOffsetDeg": null,
             "coords": [
               [
                 6.322005947128351,
@@ -6336,7 +6336,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
           },
           "graph": {
             "allowReflexAngles": false,
-            "angleOffsetDeg": 0,
+            "angleOffsetDeg": null,
             "showAngles": false,
             "snapDegrees": 5,
             "startCoords": [
@@ -6441,7 +6441,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
           },
           "graph": {
             "allowReflexAngles": false,
-            "angleOffsetDeg": 0,
+            "angleOffsetDeg": null,
             "showAngles": false,
             "snapDegrees": 5,
             "startCoords": [
@@ -20677,7 +20677,6 @@ exports[`parseAndMigrateUserInputMap given the data from input-number.ts returns
 exports[`parseAndMigrateUserInputMap given the data from interactive-graph.ts returns the same result as before 1`] = `
 {
   "interactive-graph 1": {
-    "angleOffsetDeg": 0,
     "type": "angle",
   },
   "interactive-graph 10": {
