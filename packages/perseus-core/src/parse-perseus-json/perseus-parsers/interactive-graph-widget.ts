@@ -30,7 +30,7 @@ const parsePerseusGraphTypeAngle = object({
     type: constant("angle"),
     showAngles: optional(boolean),
     allowReflexAngles: optional(boolean),
-    angleOffsetDeg: optional(number),
+    angleOffsetDeg: defaulted(number, () => 0),
     snapDegrees: optional(number),
     match: optional(constant("congruent")),
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),

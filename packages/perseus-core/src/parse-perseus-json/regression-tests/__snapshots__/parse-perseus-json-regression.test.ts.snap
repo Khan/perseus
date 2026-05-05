@@ -6273,6 +6273,235 @@ Next, we'll look at some other representations of functions!",
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-null.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Construct a $130^\\circ$ angle.**
+
+[[☃ interactive-graph 1]]
+
+
+",
+    "images": {
+      "https://ka-perseus-images.s3.amazonaws.com/02564832cdaa56aa507437df41dd13e1fefbe595.png": {
+        "height": 160,
+        "width": 398,
+      },
+      "https://ka-perseus-images.s3.amazonaws.com/37521922ea42bbbf67622075e1ea51e095f37479.png": {
+        "height": 291,
+        "width": 401,
+      },
+    },
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "left": 0,
+            "scale": 1,
+            "url": null,
+          },
+          "correct": {
+            "allowReflexAngles": false,
+            "angleOffsetDeg": 0,
+            "coords": [
+              [
+                6.322005947128351,
+                -9,
+              ],
+              [
+                0,
+                -9,
+              ],
+              [
+                -4.937270536554472,
+                -3.1159901004516657,
+              ],
+            ],
+            "match": "congruent",
+            "showAngles": false,
+            "snapDegrees": 5,
+            "type": "angle",
+          },
+          "graph": {
+            "allowReflexAngles": false,
+            "angleOffsetDeg": 0,
+            "showAngles": false,
+            "snapDegrees": 5,
+            "startCoords": [
+              [
+                7,
+                -9,
+              ],
+              [
+                0,
+                -9,
+              ],
+              [
+                7,
+                -7.60585899672032,
+              ],
+            ],
+            "type": "angle",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [],
+          "markings": "none",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showProtractor": true,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-null.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Construct a $130^\\circ$ angle.**
+
+[[☃ interactive-graph 1]]
+
+
+",
+    "images": {
+      "https://ka-perseus-images.s3.amazonaws.com/02564832cdaa56aa507437df41dd13e1fefbe595.png": {
+        "height": 160,
+        "width": 398,
+      },
+      "https://ka-perseus-images.s3.amazonaws.com/37521922ea42bbbf67622075e1ea51e095f37479.png": {
+        "height": 291,
+        "width": 401,
+      },
+    },
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "left": 0,
+            "scale": 1,
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "graph": {
+            "allowReflexAngles": false,
+            "angleOffsetDeg": 0,
+            "showAngles": false,
+            "snapDegrees": 5,
+            "startCoords": [
+              [
+                7,
+                -9,
+              ],
+              [
+                0,
+                -9,
+              ],
+              [
+                7,
+                -7.60585899672032,
+              ],
+            ],
+            "type": "angle",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [],
+          "markings": "none",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showProtractor": true,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.ts returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -20448,6 +20677,7 @@ exports[`parseAndMigrateUserInputMap given the data from input-number.ts returns
 exports[`parseAndMigrateUserInputMap given the data from interactive-graph.ts returns the same result as before 1`] = `
 {
   "interactive-graph 1": {
+    "angleOffsetDeg": 0,
     "type": "angle",
   },
   "interactive-graph 10": {
