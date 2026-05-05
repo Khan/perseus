@@ -60,13 +60,27 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in column labels. Items are plain text so card heights
-// are deterministic and don't depend on async TeX rendering timing.
-export const WithTexLabels: Story = {
+// Verifies TeX rendering in both column labels and item cards. The 500ms delay
+// gives MathJax time to finish rendering and onMeasure to settle before
+// Chromatic takes its snapshot.
+export const WithTeX: Story = {
     decorators: [matcherRendererDecorator],
+    parameters: {
+        chromatic: {delay: 500},
+    },
     args: {
         ...sharedArgs,
         labels: ["$f(x)$", "$f'(x)$"],
+        left: [
+            "$f(x) = \\dfrac{1}{x}$",
+            "$f(x) = \\dfrac{1}{x^2}$",
+            "$f(x) = \\dfrac{1}{x^3}$",
+        ],
+        right: [
+            "$f'(x) = -\\dfrac{1}{x^2}$",
+            "$f'(x) = -\\dfrac{2}{x^3}$",
+            "$f'(x) = -\\dfrac{3}{x^4}$",
+        ],
     },
 };
 
