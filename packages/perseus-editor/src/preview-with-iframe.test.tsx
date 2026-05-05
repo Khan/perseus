@@ -36,58 +36,37 @@ describe("PreviewWithIframe", () => {
         expect(iframe).toBeInTheDocument();
         expect(iframe).toHaveAttribute("src", "/preview");
     });
+    it.each([true, false])(
+        "sets data-mobile attribute isMobile is set",
+        (isMobile: boolean) => {
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={isMobile}
+                    seamless={false}
+                />,
+            );
 
-    it("sets data-mobile to 'true' when isMobile is true", () => {
-        render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={true}
-                seamless={false}
-            />,
-        );
+            const iframe = screen.getByTitle(/perseus-preview/);
+            expect(iframe.dataset.mobile).toBe(isMobile.toString());
+        },
+    );
 
-        const iframe = screen.getByTitle(/perseus-preview/);
-        expect(iframe.dataset.mobile).toBe("true");
-    });
+    it.each([true, false])(
+        "sets data-lint-gutter attribute when seamless is provided",
+        (seamless: boolean) => {
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={false}
+                    seamless={seamless}
+                />,
+            );
 
-    it("sets data-mobile to 'false' when isMobile is false", () => {
-        render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={false}
-                seamless={false}
-            />,
-        );
-
-        const iframe = screen.getByTitle(/perseus-preview/);
-        expect(iframe.dataset.mobile).toBe("false");
-    });
-
-    it("sets data-lint-gutter to 'true' when seamless is true", () => {
-        render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={false}
-                seamless={true}
-            />,
-        );
-
-        const iframe = screen.getByTitle(/perseus-preview/);
-        expect(iframe.dataset.lintGutter).toBe("true");
-    });
-
-    it("sets data-lint-gutter to 'false' when seamless is false", () => {
-        render(
-            <PreviewWithIframe
-                url="/preview"
-                isMobile={false}
-                seamless={false}
-            />,
-        );
-
-        const iframe = screen.getByTitle(/perseus-preview/);
-        expect(iframe.dataset.lintGutter).toBe("false");
-    });
+            const iframe = screen.getByTitle(/perseus-preview/);
+            expect(iframe.dataset.lintGutter).toBe(seamless.toString());
+        },
+    );
 
     it("delegates sendNewData to usePreviewController's sendData via ref", () => {
         const ref = React.createRef<PreviewWithIframeRef>();
@@ -115,7 +94,6 @@ describe("PreviewWithIframe", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             },
