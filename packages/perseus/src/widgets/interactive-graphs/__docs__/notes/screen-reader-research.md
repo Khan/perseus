@@ -85,7 +85,7 @@ This is the *why* behind both [OQ4](#oq4) (instructions-first DOM order) and [OQ
 ### Other related tickets
 
 - **[LEMS-3943](https://khanacademy.atlassian.net/browse/LEMS-3943)** — Use WB Announcer in Interactive Graph (implementation of the dynamic-update piece).
-- **[LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971)** — umbrella ticket for the Phase 1 quality-notes findings above.
+- **[LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971)** — reference / umbrella ticket for the Phase 1 quality-notes findings above; not an implementation ticket — implementation lives in LEMS-4092–4096.
 
 ---
 
@@ -430,7 +430,7 @@ For the **disable rule**: today the button always dispatches `actions.pointGraph
 
 ## Per-Graph Copy Improvements
 
-This area covers the per-graph-type SR copy refinements identified by UXR. Each item is a small independent fix; they live under the LEMS-2971 umbrella.
+This area covers the per-graph-type SR copy refinements identified by UXR. Each item is a small independent fix. LEMS-2971 is a reference ticket only — implementation lives in LEMS-4092–4096.
 
 ### Goals for this area
 
@@ -442,9 +442,9 @@ Duplicated from [Goals & Requirements](#goals--requirements) for area-specific r
     - Linear system: rephrase intersection so "point" (location) doesn't collide with "point" (interactive dot).
     - Polygon: don't enumerate every vertex when the whole-polygon group is focused; just confirm selection.
     - Sinusoid: re-evaluate exposing extremum/midline/maximum/minimum labels (sighted users don't see these).
-- **Other related tickets:** [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) — umbrella ticket for the Phase 1 quality-notes findings above.
+- **Other related tickets:** [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) — reference / umbrella ticket for the Phase 1 quality-notes findings above; not an implementation ticket — implementation lives in LEMS-4092–4096.
 
-*(No OQs for this area — each item is a direct UXR finding; final copy decisions are tracked under LEMS-2971.)*
+*(No OQs for this area — each item is a direct UXR finding; final copy decisions are tracked under LEMS-2971 (reference ticket).*
 
 ---
 
@@ -524,7 +524,7 @@ Calling these out so reviewers don't expect them in this phase:
 - **Mobile screen reader support** ([LEMS-2949](https://khanacademy.atlassian.net/browse/LEMS-2949)). VoiceOver / TalkBack on touch is broken at a more fundamental level (gesture conflicts) and needs its own investigation.
 - **Locked-figure focus order** (Phase 1 quality note). Touches the locked-figures system; better as a separate spike.
 - **Content-side fixes** (re-authoring questions whose meaning depends on inaccessible background images). Belongs to the Content team.
-- **Graph-type-specific copy review** (sinusoid extremum labels, segment slope direction, polygon translation announcement). These are individually small but each needs design + content sign-off; tracked under [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971).
+- **Graph-type-specific copy review** (sinusoid extremum labels, segment slope direction, polygon translation announcement). These are individually small but each needs design + content sign-off; tracked under [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) (reference ticket).
 - **Removing Ctrl+Shift+Arrow** (see OQ2b). High-risk; recommended as a separate follow-up.
 
 ---
@@ -554,6 +554,4 @@ All open questions are resolved.
 2. Update the implementation tickets with the resolved decisions and a phased rollout plan (feature flag):
     - [LEMS-3206](https://khanacademy.atlassian.net/browse/LEMS-3206) — instructions reordering (OQ4), on-demand repeat shortcut with platform-detected dual binding: Insert + I on Windows, Fn + Enter + I on Mac (OQ2c), `role="figure"` on the outer `View` (OQ6a/b), focus trap on all graphs (OQ1), bounded vs. unlimited instruction text split (OQ2a), keep Ctrl + Shift + Arrow with mode-toggle warning in instructions (OQ2b). Both OQ2b and OQ2c depend on the instructions including the Virtual Cursor / Browse mode toggle warning — implement that string change once and verify both shortcuts in the same QA pass. **Before merging:** confirm final instruction copy with Caitlyn, with Darrell as final sign-off — specifically whether the strings should mention both chords or just the platform-relevant one.
     - [LEMS-3205](https://khanacademy.atlassian.net/browse/LEMS-3205) — none-type graph label and locked-figure traversability messaging (decide whether to extend to static graphs).
-    - File a new ticket for [LEMS-3995](https://khanacademy.atlassian.net/browse/LEMS-3995) — `pointLabels?: string[]` schema field + editor UI + per-index fallback to "Point N" (OQ5).
-    - File a new ticket for the Add Point disable rule (OQ7).
-    - File new tickets as needed for the remaining Level Access bugs ([LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003), [LEMS-2681](https://khanacademy.atlassian.net/browse/LEMS-2681)) and the UXR-derived per-graph copy fixes under [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971).
+    - UXR-derived per-graph copy fixes are tracked via [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) (reference ticket); implementation tickets are LEMS-4092–4096.

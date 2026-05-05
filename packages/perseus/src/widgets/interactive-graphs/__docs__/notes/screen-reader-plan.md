@@ -11,10 +11,15 @@
     - [LEMS-3943](https://khanacademy.atlassian.net/browse/LEMS-3943) — WB Announcer integration (Phase 1).
     - [LEMS-3206](https://khanacademy.atlassian.net/browse/LEMS-3206) — instruction-handling rework (Phase 2).
     - [LEMS-3205](https://khanacademy.atlassian.net/browse/LEMS-3205) — none-type / locked-figure messaging (Phase 3).
-    - [LEMS-3995](https://khanacademy.atlassian.net/browse/LEMS-3995) — `pointLabels` (Phase 4; new ticket likely needed for the editor UI portion).
+    - [LEMS-3995](https://khanacademy.atlassian.net/browse/LEMS-3995) — `pointLabels` (Phase 4; editor UI approach documented in ticket comment).
     - [LEMS-2681](https://khanacademy.atlassian.net/browse/LEMS-2681) — focus jump on Shift + Enter, unlimited polygon (Phase 2).
-    - [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) — UXR-derived per-graph copy umbrella (Phase 6).
-    - **New tickets to file:** Phase 5 Add Point disable rule; Phase 6 per-graph children under LEMS-2971.
+    - [LEMS-2971](https://khanacademy.atlassian.net/browse/LEMS-2971) — reference / umbrella ticket for UXR-derived per-graph copy findings (Phase 6); not an implementation ticket — implementation lives in LEMS-4092–4096.
+    - [LEMS-4097](https://khanacademy.atlassian.net/browse/LEMS-4097) — Add Point disable rule + Action Bar polish (Phase 5).
+    - [LEMS-4092](https://khanacademy.atlassian.net/browse/LEMS-4092) — Phase 6.2: type-aware "moved" announcement for Linear, Segment, Circle.
+    - [LEMS-4093](https://khanacademy.atlassian.net/browse/LEMS-4093) — Phase 6.3: Circle drag handle vs. boundary point distinction.
+    - [LEMS-4094](https://khanacademy.atlassian.net/browse/LEMS-4094) — Phase 6.4: Linear System intersection phrasing.
+    - [LEMS-4095](https://khanacademy.atlassian.net/browse/LEMS-4095) — Phase 6.5: Polygon suppress vertex enumeration on group focus.
+    - [LEMS-4096](https://khanacademy.atlassian.net/browse/LEMS-4096) — Phase 6.6: Sinusoid extremum/midline label re-evaluation (pending design).
 - **Related (deferred):** [LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003), [LEMS-2736](https://khanacademy.atlassian.net/browse/LEMS-2736) (Ctrl + Shift + Arrow conflict — kept-with-warning per OQ2b), [LEMS-2949](https://khanacademy.atlassian.net/browse/LEMS-2949) (mobile SR).
 - **Related PRs:** *(filled as they land — link each PR by phase/ticket)*
 
@@ -36,8 +41,8 @@ This plan turns the decisions in [`screen-reader-research.md`](./screen-reader-r
 | 2 | Focus, Entry, Instructions | LEMS-3206, LEMS-2681 | OQ1, OQ2a, OQ2b, OQ2c, OQ4, OQ6a, OQ6b | Phase 1 |
 | 3 | None-type / Static / Locked Figure Messaging | LEMS-3205 | None-type / locked-figure requirements | Phase 2 |
 | 4 | Per-Question Authoring (`pointLabels`) | LEMS-3995 + new editor ticket | OQ5 | — (parallel to 1–3) |
-| 5 | Add Point Disable Rule + Action Bar Polish | New ticket | OQ7 | Phase 2 |
-| 6 | Per-Graph Copy Fixes | LEMS-2971 + per-graph children | UXR-derived requirements | Phase 1 |
+| 5 | Add Point Disable Rule + Action Bar Polish | LEMS-4097 | OQ7 | Phase 2 |
+| 6 | Per-Graph Copy Fixes | LEMS-2971 (ref only), LEMS-4092–4096 | UXR-derived requirements | Phase 1 |
 
 ### Dependency Graph
 
@@ -517,7 +522,7 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 
 ## Phase 4: Per-Question Authoring — `pointLabels`
 
-**Tickets:** LEMS-3995 (existing) + a new schema/editor ticket to be filed
+**Tickets:** LEMS-3995
 **Implements:** OQ5
 **Depends on:** — (independent of Phases 1–3, can ship in parallel)
 
@@ -590,7 +595,7 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 
 ## Phase 5: Add Point Disable Rule + Action Bar Polish
 
-**Tickets:** New ticket to be filed
+**Tickets:** LEMS-4097
 **Implements:** OQ7
 **Depends on:** Phase 2 (Action Bar grouping ships there; this is the disable-rule layer on top)
 
@@ -660,13 +665,13 @@ Under Phase 2's flag — Action Bar grouping ships there, and the disable rule i
 
 ## Phase 6: Per-Graph Copy Fixes (UXR-Derived)
 
-**Tickets:** LEMS-2971 (umbrella) + per-graph child tickets to be filed
+**Tickets:** LEMS-2971 (reference only — not an implementation ticket), LEMS-4092, LEMS-4093, LEMS-4094, LEMS-4095, LEMS-4096
 **Implements:** "UXR-derived requirements (Phase 1 quality notes)" from sr-research.md
 **Depends on:** Phase 1 (uses Announcer for "moved" messages); coordinates with Phase 4 for the "Point T" fix on point/polygon
 
 ### 6.1 Scope
 
-Per-graph copy fixes broken out by graph type, each independently shippable as a small PR under the LEMS-2971 umbrella. Each subsection below is one PR (or a small stack within a PR if related fixes share files).
+Per-graph copy fixes broken out by graph type, each independently shippable as a small PR. LEMS-2971 is a reference ticket only — it tracks the overall UXR finding but is not itself implemented; the implementation tickets are LEMS-4092–4096. Each subsection below is one PR (or a small stack within a PR if related fixes share files).
 
 These are the items called out in research as "math-heavy or graph-specific" — i.e., they belong in `useGraphAnnouncer` per OQ3's routing rule, not in the central handler.
 
@@ -814,7 +819,7 @@ Restated from `screen-reader-research.md` for plan readers — the spike doc is 
 - **Locked-figure focus order** (Phase 1 quality note) — separate spike; touches the locked-figures system more broadly.
 - **Content-side fixes** — re-authoring questions whose meaning depends on inaccessible background images. Content team owns.
 - **Removing Ctrl + Shift + Arrow** ([LEMS-4003](https://khanacademy.atlassian.net/browse/LEMS-4003), [LEMS-2736](https://khanacademy.atlassian.net/browse/LEMS-2736)) — deferred per OQ2b decision A. Revisit as a separate effort if production SR feedback shows the friction is materially worse than expected.
-- **Graph-type-specific copy review beyond the items in Phase 6** — sinusoid extremum, segment slope direction, polygon translation announcement nuance. Each needs design + content sign-off; tracked under LEMS-2971.
+- **Graph-type-specific copy review beyond the items in Phase 6** — sinusoid extremum, segment slope direction, polygon translation announcement nuance. Each needs design + content sign-off; tracked under LEMS-2971 (reference ticket).
 
 ---
 
@@ -857,10 +862,6 @@ Mirror of `screen-reader-research.md` "Decisions Recorded" — one-line restatem
 
 Concrete pre-implementation steps. Distinct from "Out of Scope" — these are inside-scope but not yet started.
 
-- **File new tickets:**
-    - Phase 4 editor-UI ticket (child of LEMS-3995 if appropriate, otherwise standalone).
-    - Phase 5 Add Point disable rule.
-    - Phase 6 per-graph children under LEMS-2971 (one per planned PR in 6.2–6.6).
 - **Schedule Caitlyn (copy lead) and Darrell (final sign-off) cadence** — get both plugged in before Phase 2 string work starts; Phase 2 has the longest copy review surface.
 - **Update implementation tickets** (LEMS-3206, LEMS-3205, LEMS-3943, LEMS-3995, LEMS-2681) with links to this plan and to their respective phase sections.
 - **Walk this plan through with the team** — lead engineer, designer (Caitlyn), accessibility reviewer (Darrell), PM. Capture any redirections back into the relevant section before kickoff.
