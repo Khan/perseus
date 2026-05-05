@@ -37,5 +37,5 @@ export const parseImageWidget = parseWidget(
         range: optional(pair(pairOfNumbers, pairOfNumbers)),
         box: optional(pairOfNumbers),
     }),
-    false
+    false,
 );

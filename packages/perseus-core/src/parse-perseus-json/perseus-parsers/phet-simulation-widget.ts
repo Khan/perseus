@@ -8,5 +8,5 @@ export const parsePhetSimulationWidget = parseWidget(
         url: string,
         description: string,
     }),
-    false
+    false,
 );

@@ -8,5 +8,5 @@ export const parsePythonProgramWidget = parseWidget(
         programID: string,
         height: number,
     }),
-    false
+    false,
 );

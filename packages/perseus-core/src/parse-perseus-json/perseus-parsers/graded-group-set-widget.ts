@@ -5,6 +5,6 @@ import {parseWidget} from "./widget";
 
 export const parseGradedGroupSetWidget = parseWidget(
     constant("graded-group-set"),
-    object({ gradedGroups: array(parseGradedGroupWidgetOptions) }),
+    object({gradedGroups: array(parseGradedGroupWidgetOptions)}),
     false,
 );

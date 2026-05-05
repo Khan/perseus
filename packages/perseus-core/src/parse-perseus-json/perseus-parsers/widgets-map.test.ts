@@ -177,7 +177,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "explanation 1": {
                 type: "explanation",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     showPrompt: "",
@@ -305,7 +305,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "graded-group 1": {
                 type: "graded-group",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     title: "",
@@ -325,7 +325,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "graded-group-set 1": {
                 type: "graded-group-set",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     gradedGroups: [
@@ -349,7 +349,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "iframe 1": {
                 type: "iframe",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     url: "",
@@ -371,7 +371,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "image 1": {
                 type: "image",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     backgroundImage: {},
@@ -406,7 +406,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "interaction 1": {
                 type: "interaction",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     static: false,
@@ -500,7 +500,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "measurer 1": {
                 type: "measurer",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     image: {},
@@ -691,7 +691,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "phet-simulation 1": {
                 type: "phet-simulation",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     url: "",
@@ -786,7 +786,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "table 1": {
                 type: "table",
-                version: { major: 0, minor: 0 },
+                version: {major: 0, minor: 0},
                 graded: false,
                 options: {
                     headers: [],

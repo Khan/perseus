@@ -23,5 +23,5 @@ export const parseIframeWidget = parseWidget(
         allowTopNavigation: optional(boolean),
         static: defaulted(boolean, () => false),
     }),
-    false
+    false,
 );
