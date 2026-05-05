@@ -11,6 +11,7 @@ const DEFAULT_FEATURE_FLAGS = {
     "interactive-graph-logarithm": false,
     "interactive-graph-exponent": false,
     "interactive-graph-vector": false,
+    "interactive-graph-not-scored": false,
     // ...add new flags here
 };
 

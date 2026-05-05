@@ -46,7 +46,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -89,7 +88,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -120,7 +118,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -151,7 +148,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -184,7 +180,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -208,7 +203,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -238,7 +232,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -265,7 +258,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -278,7 +270,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -318,7 +309,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -341,7 +331,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -351,7 +340,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             };
@@ -403,7 +391,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,
-                                    paths: [],
                                     stack: [],
                                 },
                             },
@@ -419,7 +406,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,
-                                    paths: [],
                                     stack: [],
                                 },
                             },
@@ -440,7 +426,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "article",
                                     highlightLint: false,
-                                    paths: [],
                                     stack: [],
                                 },
                             },
@@ -462,7 +447,6 @@ describe("sanitizePreviewData", () => {
                                     linterContext: {
                                         contentType: "article",
                                         highlightLint: false,
-                                        paths: [],
                                         stack: [],
                                     },
                                 },

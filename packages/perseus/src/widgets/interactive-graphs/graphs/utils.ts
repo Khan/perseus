@@ -435,44 +435,61 @@ export function getAsymptoteGraphKeyboardConstraint(
 }
 
 /**
- * Shared keyboard constraint for asymptote movement (exponential, logarithm).
- * When the next snapped position would land between or on the curve points,
- * snaps past all of them in the direction of travel using a midpoint heuristic.
- *
- * @param orientation - "horizontal" for exponential (asymptote moves on Y-axis),
- *   "vertical" for logarithm (asymptote moves on X-axis).
+ * Position of the asymptote's drag handle in graph-space. For a horizontal
+ * asymptote (exponential), this sits at the midpoint of the x-range on
+ * the asymptote's y-value. For a vertical asymptote (logarithm), it sits
+ * on the asymptote's x-value at the midpoint of the y-range.
  */
-export function constrainAsymptoteKeyboardMovement(
-    p: vec.Vector2,
+export function getAsymptoteHandleCoord(
+    orientation: "horizontal" | "vertical",
+    range: [Interval, Interval],
+    asymptote: number,
+): vec.Vector2 {
+    if (orientation === "horizontal") {
+        const midX = (range[0][0] + range[0][1]) / 2;
+        return [midX, asymptote];
+    }
+    const midY = (range[1][0] + range[1][1]) / 2;
+    return [asymptote, midY];
+}
+
+/**
+ * Keyboard snap + skip for the asymptote drag handle. `useDraggable`'s
+ * function-form constraint expects the returned point to be snap-aligned;
+ * it searches along the direction of travel until the returned point is
+ * far enough from the current asymptote to register as a move. After
+ * snapping, if the proposed position would put the handle on one of the
+ * curve points, we step further in the direction of travel until we find
+ * a valid position (up to 3 attempts).
+ */
+export function skipAsymptoteKeyboardOverPoint(
+    proposed: vec.Vector2,
+    currentAsymptote: number,
     coords: ReadonlyArray<Coord>,
+    handleCoord: vec.Vector2,
     snapStep: vec.Vector2,
     orientation: "horizontal" | "vertical",
 ): vec.Vector2 {
-    const snapped = snap(snapStep, p);
+    const snapped = snap(snapStep, proposed);
+    const moveAxis = orientation === "horizontal" ? 1 : 0;
+    const pinAxis = orientation === "horizontal" ? 0 : 1;
+    const step = snapStep[moveAxis];
+    const dir = Math.sign(snapped[moveAxis] - currentAsymptote);
+    if (dir === 0) {
+        return snapped;
+    }
 
-    // Select the axis: horizontal asymptote constrains on Y, vertical on X
-    const axis = orientation === "horizontal" ? 1 : 0;
-    const otherAxis = orientation === "horizontal" ? 0 : 1;
-    let newVal = snapped[axis];
-    const step = snapStep[axis];
+    const pinValue = handleCoord[pinAxis];
+    const isForbidden = (v: number) =>
+        coords.some((c) => c[pinAxis] === pinValue && c[moveAxis] === v);
 
-    const maxVal = Math.max(coords[0][axis], coords[1][axis]);
-    const minVal = Math.min(coords[0][axis], coords[1][axis]);
-
-    const allGreater = coords[0][axis] > newVal && coords[1][axis] > newVal;
-    const allLesser = coords[0][axis] < newVal && coords[1][axis] < newVal;
-
-    if (!allGreater && !allLesser) {
-        const midpoint = (maxVal + minVal) / 2;
-        if (newVal >= midpoint) {
-            newVal = maxVal + step;
-        } else {
-            newVal = minVal - step;
-        }
+    let value = snapped[moveAxis];
+    for (let i = 0; i < 3 && isForbidden(value); i++) {
+        value += dir * step;
     }
 
     const result: vec.Vector2 = [0, 0];
-    result[axis] = newVal;
-    result[otherAxis] = snapped[otherAxis];
+    result[moveAxis] = value;
+    result[pinAxis] = snapped[pinAxis];
     return result;
 }

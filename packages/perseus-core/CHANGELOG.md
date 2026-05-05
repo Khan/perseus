@@ -1,5 +1,21 @@
 # @khanacademy/perseus-core
 
+## 26.0.1
+
+### Patch Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
+## 26.0.0
+
+### Major Changes
+
+-   [#3517](https://github.com/Khan/perseus/pull/3517) [`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b) Thanks [@benchristel](https://github.com/benchristel)! - Breaking change: The deprecated `violatingWidgets` function has been removed. Callers should use `isItemAccessible` instead. `isItemAccessible` now checks for inaccessible widgets in hints as well as question content.
+
+### Patch Changes
+
+-   [#3415](https://github.com/Khan/perseus/pull/3415) [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing Interactive Graph Builder and refactoring tests/storybook to use more standardized generator patterns.
+
 ## 25.0.0
 
 ### Major Changes

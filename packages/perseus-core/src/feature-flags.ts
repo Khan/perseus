@@ -18,6 +18,7 @@ const PerseusFeatureFlags = [
     "interactive-graph-logarithm", // TODO(LEMS-3976): clean up feature flag
     "interactive-graph-exponent", // TODO(LEMS-3976): clean up feature flag
     "interactive-graph-vector", // TODO(LEMS-3976): clean up feature flag
+    "interactive-graph-not-scored", // TODO(LEMS-3976): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;

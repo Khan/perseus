@@ -1,5 +1,6 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -76,9 +77,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
 
 const styles = StyleSheet.create({
     singleSelectShort: {
-        // Non-standard spacing, but it's the smallest we can go
-        // without running into styling issues with the dropdown.
-        height: 26,
+        height: sizing.size_260,
     },
 });
 

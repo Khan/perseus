@@ -73,7 +73,6 @@ export const WithLintErrors: Story = {
             contentType: "exercise",
             highlightLint: true,
             stack: [],
-            paths: [],
         },
         question: withLintErrors,
     },

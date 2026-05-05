@@ -32,7 +32,7 @@ type Story = StoryObj<typeof RadioQuestionRenderer>;
 export default {
     title: "Widgets/Radio/Visual Regression Tests/Initial State",
     component: RadioQuestionRenderer,
-    tags: ["!dev"],
+    tags: ["!dev", "!manifest"],
     parameters: {
         docs: {
             description: {
