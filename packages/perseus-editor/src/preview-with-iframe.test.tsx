@@ -22,7 +22,7 @@ function buildArticleContent(): PreviewContent {
         type: "article",
         data: {
             apiOptions: ApiOptions.defaults,
-            json: {content: "Hello", widgets: {}, images: {}},
+            article: {content: "Hello", widgets: {}, images: {}},
             linterContext: {
                 contentType: "article",
                 highlightLint: false,
@@ -109,7 +109,6 @@ describe("PreviewWithIframe", () => {
                 },
                 apiOptions: {},
                 device: "desktop",
-                initialHintsVisible: 0,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -130,7 +129,7 @@ describe("PreviewWithIframe", () => {
     });
 
     it("sends content using usePreviewController's sendData", () => {
-        const content: PreviewContent = {
+        const content: Extract<PreviewContent, {type: "question"}> = {
             type: "question",
             data: {
                 item: {
@@ -139,7 +138,6 @@ describe("PreviewWithIframe", () => {
                 },
                 apiOptions: {},
                 device: "desktop",
-                initialHintsVisible: 0,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,

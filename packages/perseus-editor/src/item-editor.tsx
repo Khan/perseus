@@ -215,7 +215,6 @@ class ItemEditor extends React.Component<Props, State> {
                         this.props.deviceType === "phone" ||
                         this.props.deviceType === "tablet",
                 },
-                initialHintsVisible: 0,
                 device: this.props.deviceType,
                 linterContext: {
                     contentType: "exercise",
