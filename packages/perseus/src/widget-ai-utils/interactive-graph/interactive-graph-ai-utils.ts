@@ -10,7 +10,7 @@ type CollinearTuple = readonly [Coord, Coord];
 
 type AngleGraphOptions = {
     type: "angle";
-    angleOffsetDegrees: number | undefined;
+    angleOffsetDegrees?: number | null;
     startCoords?: readonly [Coord, Coord, Coord];
 };
 
@@ -113,7 +113,7 @@ type GraphOptions =
 
 type AngleUserInput = {
     coords?: readonly [Coord, Coord, Coord];
-    angleOffsetDegrees?: number;
+    angleOffsetDegrees?: number | null;
 };
 
 type CircleUserInput = {
