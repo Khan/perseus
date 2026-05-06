@@ -36,19 +36,12 @@ import {detectTexErrors} from "./util/tex-error-detector";
 import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
-    Changeable,
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
+import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
-
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
 
 type DefaultProps = {
     json: PerseusArticle;
@@ -66,7 +59,8 @@ type Props = DefaultProps & {
     previewURL: string;
     /** @deprecated `issues` has no effect. */
     issues?: Issue[];
-} & Changeable.ChangeableProps;
+    onChange: (changes: {json: PerseusArticle}) => void;
+};
 
 type State = {
     highlightLint: boolean;
@@ -108,7 +102,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      */
     _updateIssues() {
         // Get sections array
-        const sections: ReadonlyArray<RendererProps> =
+        const sections: PerseusArticle =
             this.props.json instanceof Array
                 ? this.props.json
                 : [this.props.json];
@@ -172,7 +166,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
+    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
         return {
@@ -196,7 +190,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<RendererProps> {
+    _sections(): ReadonlyArray<PerseusRenderer> {
         const json = this.props.json;
         return json instanceof Array ? json : [json];
     }
@@ -391,10 +385,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
-        i,
-        newProps,
-    ) => {
+    _handleEditorChange: (
+        i: number,
+        newProps: Partial<PerseusRenderer>,
+    ) => void = (i, newProps) => {
         const sections = [...this._sections()];
         sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});
@@ -485,7 +479,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             throw new PerseusError(
                 "Can only get save warnings in edit mode.",
