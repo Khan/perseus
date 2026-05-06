@@ -27,9 +27,8 @@ export default meta;
 
 type Story = StoryObj<typeof MatrixWidget>;
 
-// Verifies the default empty state: only cell (0,0) is white (#fff); all
-// other cells in the 3×3 board are gray (#f3f3f3) because they fall outside
-// the current matrix size.
+// Verifies the default empty state: the only inner cell (0,0) has a medium
+// border; all other cells (outside the active area) have a thin border.
 export const DefaultEmptyMatrix: Story = {
     decorators: [matrixRendererDecorator],
     args: {
@@ -37,9 +36,9 @@ export const DefaultEmptyMatrix: Story = {
     } satisfies Partial<MatrixPublicWidgetOptions>,
 };
 
-// Verifies the partially-filled state: the top-left 2×2 block is white
-// (#fff, inside the active area) and the remaining cells of the 4×4 board
-// are gray (#f3f3f3, outside the active area).
+// Verifies the partially-filled state: the top-left 2×2 block inputs
+// have medium borders; the remaining cells (outside the active area)
+// have a thin border.
 export const PartiallyFilledMatrix: Story = {
     decorators: [matrixRendererDecorator],
     parameters: {
@@ -57,8 +56,7 @@ export const PartiallyFilledMatrix: Story = {
     } satisfies Partial<MatrixPublicWidgetOptions>,
 };
 
-// Verifies the fully-answered state: the board is exactly filled so no cells
-// are outside the active area and all cells show the white (#fff) background.
+// Verifies the fully-answered state: all cells have a medium border.
 export const FullyAnsweredMatrix: Story = {
     decorators: [matrixRendererDecorator],
     parameters: {
