@@ -83,6 +83,22 @@ describe("MovableAsymptote", () => {
         );
     });
 
+    it("focuses the asymptote group when a drag starts so focus leaves any previously-focused element", () => {
+        // Arrange — simulate a touch drag in progress (matches mobile, where
+        // the group does not receive focus naturally from touch input).
+        useDraggable.mockReturnValue({dragging: true});
+
+        // Act
+        render(
+            <Mafs width={200} height={200}>
+                <MovableAsymptote {...defaultProps} />
+            </Mafs>,
+        );
+
+        // Assert
+        expect(screen.getByTestId("movable-asymptote")).toHaveFocus();
+    });
+
     it("renders the same structure for vertical orientation", () => {
         // Arrange, Act
         render(
