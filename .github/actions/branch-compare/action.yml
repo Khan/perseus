@@ -125,12 +125,13 @@ runs:
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
-        # Publish the result as a GitHub Check run rather than a PR comment.
-        # `success` when no diff, `neutral` when changes are detected — neutral
-        # surfaces a yellow info indicator on the PR without blocking merge,
-        # and the rich `summary` body is shown when the reviewer clicks into
-        # the check from the checks list.
-        - name: Publish result as a GitHub Check
+        # Render the result as a job step summary and let the job's natural
+        # success/failure carry the conclusion. The job's auto-check is then
+        # the single source of truth on the PR — no second check row, no
+        # check_suite attribution quirks. Reviewers click the auto-check's
+        # "Details" to land on the workflow run page, where this summary is
+        # rendered.
+        - name: Render summary and set job conclusion
           if: always() && github.event.pull_request != null
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
@@ -139,7 +140,6 @@ runs:
               DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
               CHANGE_DETAILS: ${{ inputs.change-details }}
               ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
-              HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           with:
               github-token: ${{ inputs.github-token }}
               script: |
@@ -151,31 +151,29 @@ runs:
                       .map((l) => l.name);
                   const isAcked = ackLabel !== "" && labels.includes(ackLabel);
 
-                  let conclusion;
-                  let title;
+                  let heading;
+                  let shouldFail = false;
                   if (noChanges) {
-                      conclusion = "success";
-                      title = `${checkName}: No Changes ✅`;
+                      heading = `${checkName}: No Changes ✅`;
                   } else if (isAcked) {
-                      conclusion = "success";
-                      title = `${checkName}: Changes Acknowledged ✅`;
+                      heading = `${checkName}: Changes Acknowledged ✅`;
                   } else if (ackLabel !== "") {
-                      conclusion = "failure";
-                      title = `${checkName}: Changes Detected — Acknowledgement Required ❌`;
+                      heading = `${checkName}: Changes Detected — Acknowledgement Required ❌`;
+                      shouldFail = true;
                   } else {
-                      conclusion = "neutral";
-                      title = `${checkName}: Changes Detected ⚠️`;
+                      // No ack-label-name configured: this caller is using
+                      // the action in informational mode. The job still
+                      // succeeds, but the summary makes the change visible.
+                      heading = `${checkName}: Changes Detected ⚠️`;
                   }
 
-                  // The Checks UI renders `output.title` as a heading above
-                  // the summary, so the summary should NOT repeat the title.
-                  let summary;
+                  const parts = [`## ${heading}`, ""];
+
                   if (noChanges) {
-                      summary = "No differences vs. the base branch.";
+                      parts.push("No differences vs. the base branch.");
                   } else {
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
-                      const parts = [];
                       if (details) {
                           parts.push(details, "");
                       }
@@ -201,15 +199,10 @@ runs:
                           "",
                           "</details>",
                       );
-                      summary = parts.join("\n");
                   }
 
-                  await github.rest.checks.create({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      name: checkName,
-                      head_sha: process.env.HEAD_SHA,
-                      status: "completed",
-                      conclusion,
-                      output: {title, summary},
-                  });
+                  await core.summary.addRaw(parts.join("\n")).write();
+
+                  if (shouldFail) {
+                      core.setFailed(heading);
+                  }
