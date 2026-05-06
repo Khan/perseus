@@ -60,12 +60,15 @@ runs:
               fi
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
+        # Note: We use manual git commands instead of actions/checkout here to
+        # avoid a known GitHub Actions runner bug ("Index was out of range")
+        # that occurs when calling actions/checkout inside the Post step of a
+        # composite action.
         - name: Check out base branch
-          uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-          with:
-              # This checks out the base branch of the PR (the branch the PR
-              # is targeting)
-              ref: ${{ github.event.pull_request.base.ref }}
+          shell: bash
+          run: |
+            git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+            git checkout FETCH_HEAD
 
         - name: Build for base
           shell: bash
