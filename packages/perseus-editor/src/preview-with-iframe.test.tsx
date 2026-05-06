@@ -34,6 +34,20 @@ function buildArticleContent(): PreviewContent {
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
         mockHeight = null;
+        mockSendData.mockClear();
+    });
+
+    it("does not call sendData when content is null", () => {
+        render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+                content={null}
+            />,
+        );
+
+        expect(mockSendData).not.toHaveBeenCalled();
     });
 
     it("renders an iframe with the given URL", () => {

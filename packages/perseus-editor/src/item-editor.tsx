@@ -1,4 +1,4 @@
-import {PerseusMarkdown} from "@khanacademy/perseus";
+import {PerseusMarkdown, ApiOptions} from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import invariant from "tiny-invariant";
@@ -38,7 +38,7 @@ type Props = {
      */
     additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
+    deviceType: DeviceType;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     question?: PerseusRenderer;
@@ -57,6 +57,7 @@ type State = {
     issues: Issue[];
     axeCoreIssues: Issue[];
     showAxeCoreIssues: boolean;
+    previewContent?: QuestionPreviewData;
 };
 
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
@@ -75,7 +76,6 @@ class ItemEditor extends React.Component<Props, State> {
     static prevWidgets: PerseusWidgetsMap | undefined;
     a11yCheckerTimeoutId: any;
 
-    frame = React.createRef<React.ElementRef<typeof PreviewWithIframe>>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -155,7 +155,7 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     triggerPreviewUpdate(newData: QuestionPreviewData) {
-        this.frame.current?.sendNewData(newData);
+        this.setState({previewContent: newData});
     }
 
     // eslint-disable-next-line import/no-deprecated
@@ -188,6 +188,41 @@ class ItemEditor extends React.Component<Props, State> {
         return {
             question: this.questionEditor.current.serialize(),
             answerArea: this.itemExtrasEditor.current.serialize(),
+        };
+    }
+
+    _derivePreviewContent(): QuestionPreviewData | null {
+        if (!this.questionEditor.current || !this.itemExtrasEditor.current) {
+            return null;
+        }
+
+        const question = this.questionEditor.current.serialize();
+        const answerArea = this.itemExtrasEditor.current.serialize();
+
+        return {
+            type: "question",
+            data: {
+                item: {
+                    question,
+                    hints: [],
+                    answerArea,
+                },
+                apiOptions: {
+                    ...ApiOptions.defaults,
+                    ...this.props.apiOptions,
+                    customKeypad:
+                        this.props.deviceType === "phone" ||
+                        this.props.deviceType === "tablet",
+                },
+                initialHintsVisible: 0,
+                device: this.props.deviceType,
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                },
+                reviewMode: true,
+                legacyPerseusLint: this.getSaveWarnings(),
+            },
         };
     }
 
@@ -253,11 +288,11 @@ class ItemEditor extends React.Component<Props, State> {
                                     nochrome={true}
                                 >
                                     <PreviewWithIframe
-                                        ref={this.frame}
                                         key={this.props.deviceType}
                                         isMobile={isMobile}
                                         seamless={true}
                                         url={this.props.previewURL}
+                                        content={this._derivePreviewContent()}
                                     />
                                 </DeviceFramer>
                             </div>

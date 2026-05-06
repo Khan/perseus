@@ -32,7 +32,6 @@ import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
-import type {PreviewWithIframeRef} from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageUploader,
@@ -81,12 +80,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
         issues: [],
     };
 
-    // Store refs for preview iframes (keyed by section index or "all")
-    private frameRefs: Record<string, PreviewWithIframeRef | null> = {};
-
     componentDidMount() {
         this._updateIssues();
-        this._updatePreviewFrames();
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -94,8 +89,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         if (prevProps.json !== this.props.json) {
             this._updateIssues();
         }
-
-        this._updatePreviewFrames();
     }
 
     /**
@@ -103,13 +96,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      * Helper function to be used with componentDidMount and componentDidUpdate.
      */
     _updateIssues() {
-        // Get sections array
-        const sections: PerseusArticle =
-            this.props.json instanceof Array
-                ? this.props.json
-                : [this.props.json];
-
-        const issues = sections.map((section) => {
+        const issues = this._sections().map((section) => {
             const parsed = PerseusMarkdown.parse(section.content ?? "", {});
             const linterContext = {
                 content: section.content,
@@ -144,30 +131,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
 
         this.setState({issues});
-    }
-
-    _updatePreviewFrames() {
-        if (this.props.mode === "preview") {
-            const frameAll = this.frameRefs["all"];
-            if (frameAll) {
-                frameAll.sendNewData({
-                    type: "article-all",
-                    data: this._sections().map((section, i) =>
-                        this._previewDataForSection(section, i),
-                    ),
-                });
-            }
-        } else if (this.props.mode === "edit") {
-            this._sections().forEach((section, i) => {
-                const frame = this.frameRefs[String(i)];
-                if (frame) {
-                    frame.sendNewData({
-                        type: "article",
-                        data: this._previewDataForSection(section, i),
-                    });
-                }
-            });
-        }
     }
 
     _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
@@ -218,6 +181,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         const sections = this._sections();
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const isMobile = this._isMobilePreview();
 
         return (
             <div className="perseus-editor-table">
@@ -309,7 +273,24 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 </div>
 
                                 <div className="editor-preview">
-                                    {this._renderIframePreview(i, true)}
+                                    <DeviceFramer
+                                        deviceType={this.props.screen}
+                                        nochrome={true}
+                                    >
+                                        <PreviewWithIframe
+                                            key={`${String(i)}-${this.props.screen}`}
+                                            isMobile={isMobile}
+                                            seamless={true}
+                                            url={this.props.previewURL}
+                                            content={{
+                                                type: "article" as const,
+                                                data: this._previewDataForSection(
+                                                    section,
+                                                    i,
+                                                ),
+                                            }}
+                                        />
+                                    </DeviceFramer>
                                 </div>
                             </fieldset>
                         </div>,
@@ -361,32 +342,23 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _renderIframePreview(
-        i: number | string,
-        nochrome: boolean,
-    ): React.ReactElement<any> {
-        const isMobile =
-            this.props.screen === "phone" || this.props.screen === "tablet";
-
-        return (
-            <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                <PreviewWithIframe
-                    ref={(node) => {
-                        this.frameRefs[String(i)] = node;
-                    }}
-                    key={this.props.screen}
-                    isMobile={isMobile}
-                    seamless={nochrome}
-                    url={this.props.previewURL}
-                />
-            </DeviceFramer>
-        );
-    }
-
     _renderPreviewMode(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="standalone-preview">
-                {this._renderIframePreview("all", false)}
+                <DeviceFramer deviceType={this.props.screen} nochrome={false}>
+                    <PreviewWithIframe
+                        key={`all-${this.props.screen}`}
+                        isMobile={this._isMobilePreview()}
+                        seamless={false}
+                        url={this.props.previewURL}
+                        content={{
+                            type: "article-all" as const,
+                            data: this._sections().map((section, idx) =>
+                                this._previewDataForSection(section, idx),
+                            ),
+                        }}
+                    />
+                </DeviceFramer>
             </div>
         );
     }
@@ -403,6 +375,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});
     };
+
+    private _isMobilePreview() {
+        return this.props.screen === "phone" || this.props.screen === "tablet";
+    }
 
     _handleMoveSectionEarlier(i: number) {
         if (i === 0) {
