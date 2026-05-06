@@ -298,6 +298,8 @@ const GifImage = (props: Props) => {
     // aspect-ratio derives it so the canvas scales proportionally.
     const displayHeight = !width && height ? height * scale : undefined;
 
+    const aspectRatio = width && height ? `${width} / ${height}` : undefined;
+
     return (
         <>
             {/* Two canvases are needed because there is no canvas API
@@ -319,8 +321,7 @@ const GifImage = (props: Props) => {
                 style={{
                     width: width ? width * scale : undefined,
                     maxWidth: "100%",
-                    aspectRatio:
-                        width && height ? `${width} / ${height}` : undefined,
+                    aspectRatio: aspectRatio,
                     height: displayHeight,
                 }}
             />
