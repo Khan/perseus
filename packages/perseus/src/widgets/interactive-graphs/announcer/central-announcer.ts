@@ -1,6 +1,6 @@
+import type {PerseusStrings} from "../../../strings";
 import type {InteractiveGraphAction} from "../reducer/interactive-graph-action";
 import type {InteractiveGraphState} from "../types";
-import type {PerseusStrings} from "../../../strings";
 
 /**
  * Pure function mapping a dispatched action to an SR announcement string (or
