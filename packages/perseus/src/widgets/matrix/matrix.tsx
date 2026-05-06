@@ -328,6 +328,12 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
         const className = classNames({
             "perseus-matrix": true,
+            // TODO: Come up with static mode designs so that it is clear
+            // that the inputs are disabled.
+            // Context: It seems that the static mode styles stopped working
+            // during a migration a long time ago, so we removed the styles
+            // as part of the Color Sync project. The logic is still here,
+            // so we can update the static mode styles in the future.
             "static-mode": this.props.static,
         });
 
