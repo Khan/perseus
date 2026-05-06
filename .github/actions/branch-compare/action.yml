@@ -109,11 +109,18 @@ runs:
           if: always()
           env:
               GITHUB_TOKEN: ${{ inputs.github-token }}
+              ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
           shell: bash
           run: |
               PR_NUMBER="${{ github.event.pull_request.number }}"
               if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" == "0" ]; then
                   gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
+                  # Drop the ack label too: nothing to acknowledge anymore. If
+                  # a future commit reintroduces a diff, the author will need
+                  # to re-apply the label, which is the desired behaviour.
+                  if [ -n "$ACK_LABEL_NAME" ]; then
+                      gh pr edit "$PR_NUMBER" --remove-label "$ACK_LABEL_NAME" || true
+                  fi
               else
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi

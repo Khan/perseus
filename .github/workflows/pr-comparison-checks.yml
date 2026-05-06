@@ -82,8 +82,11 @@ jobs:
 
     check_item_splitting:
         name: Item splitting
-        # No ack flow for this check yet, so skip on label events entirely.
-        if: github.event.action != 'labeled' && github.event.action != 'unlabeled'
+        # Run on every push event. On label events, run only when the
+        # acknowledgement label is the one being toggled.
+        if: >-
+            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
+            || github.event.label.name == 'item-splitting-change-ack'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
@@ -118,3 +121,4 @@ jobs:
                   path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
                   label-name: item-splitting-change
                   check-name: 🛠️ Item Splitting
+                  ack-label-name: item-splitting-change-ack
