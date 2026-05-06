@@ -190,6 +190,7 @@ const VectorBody = (props: VectorBodyProps) => {
                 start={tailPx}
                 end={lineEndPx}
                 className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
+                style={{stroke: interactiveColor}}
                 testId="movable-vector__line"
             />
             {/* Tail dot — inside the body group so hovering/dragging
