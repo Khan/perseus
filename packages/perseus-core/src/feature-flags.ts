@@ -26,5 +26,12 @@ export function isFeatureOn(
     props: {apiOptions?: {flags?: Record<string, boolean>}},
     flag: string,
 ): boolean {
+    if (
+        flag === "interactive-graph-vector" ||
+        flag === "interactive-graph-not-scored"
+    ) {
+        return true;
+    }
+
     return props.apiOptions?.flags?.[flag] ?? false;
 }
