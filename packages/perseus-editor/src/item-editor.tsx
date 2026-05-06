@@ -7,14 +7,15 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import IssuesPanel from "./components/issues-panel";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
+import PreviewWithIframe from "./preview-with-iframe";
 import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {ItemEditorContext} from "./util/item-editor-context";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
+import type {PreviewContent} from "./preview/message-types";
 import type {
     APIOptions,
     ImageUploader,
@@ -28,6 +29,8 @@ import type {
     PerseusRenderer,
     PerseusItem,
 } from "@khanacademy/perseus-core";
+
+type QuestionPreviewData = Extract<PreviewContent, {type: "question"}>;
 
 type Props = {
     /** Additional templates that the host application would like to display
@@ -72,7 +75,7 @@ class ItemEditor extends React.Component<Props, State> {
     static prevWidgets: PerseusWidgetsMap | undefined;
     a11yCheckerTimeoutId: any;
 
-    frame = React.createRef<IframeContentRenderer>();
+    frame = React.createRef<React.ElementRef<typeof PreviewWithIframe>>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -151,9 +154,9 @@ class ItemEditor extends React.Component<Props, State> {
         this.props.onChange(_(props).extend(newProps));
     };
 
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
+    triggerPreviewUpdate(newData: QuestionPreviewData) {
         this.frame.current?.sendNewData(newData);
-    };
+    }
 
     // eslint-disable-next-line import/no-deprecated
     handleEditorChange: ChangeHandler = (newProps) => {
@@ -249,11 +252,10 @@ class ItemEditor extends React.Component<Props, State> {
                                     deviceType={this.props.deviceType}
                                     nochrome={true}
                                 >
-                                    <IframeContentRenderer
+                                    <PreviewWithIframe
                                         ref={this.frame}
                                         key={this.props.deviceType}
-                                        datasetKey="mobile"
-                                        datasetValue={isMobile}
+                                        isMobile={isMobile}
                                         seamless={true}
                                         url={this.props.previewURL}
                                     />
