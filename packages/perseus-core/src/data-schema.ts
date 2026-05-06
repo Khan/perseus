@@ -32,6 +32,9 @@
 // be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
+// TEMP: testing the schema-change check; revert before merge.
+export type SchemaChangeProbe = "remove-me";
+
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
