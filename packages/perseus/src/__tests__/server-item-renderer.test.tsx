@@ -481,7 +481,6 @@ describe("server item renderer", () => {
                         alignment: "default",
                         currentValue: "-42",
                         static: false,
-                        graded: true,
                         value: "3",
                     },
                 },

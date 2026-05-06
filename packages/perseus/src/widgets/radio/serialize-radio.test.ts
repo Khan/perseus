@@ -15,7 +15,6 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const expectedSerializedRadio = {
     alignment: "default",
-    graded: true,
     numCorrect: 1,
     hasNoneOfTheAbove: false,
     choices: [

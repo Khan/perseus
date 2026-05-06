@@ -124,7 +124,6 @@ describe("LabelImage serialization", () => {
                 "label-image 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     choices: ["One", "Two", "Three"],
                     imageAlt: "Alt text",
                     imageUrl:

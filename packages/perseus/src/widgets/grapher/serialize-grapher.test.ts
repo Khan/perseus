@@ -100,7 +100,6 @@ describe("Grapher serialization", () => {
                 "grapher 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     availableTypes: ["linear"],
                     dependencies: testDependenciesV2,
                     graph: {

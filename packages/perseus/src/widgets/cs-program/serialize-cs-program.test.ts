@@ -80,7 +80,6 @@ describe("CSProgram serialization", () => {
                     settings: [],
                     height: 410,
                     static: false,
-                    graded: true,
                     programID: "6293105639817216",
                     programType: null,
                     showButtons: false,
