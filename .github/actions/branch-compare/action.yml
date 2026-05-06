@@ -1,8 +1,10 @@
 name: "Branch Compare"
 description: >-
-    Compare artifacts between PR branch and base branch. Reports the result
-    via a GitHub Check (success when identical, neutral when changed) and
-    adds/removes a label that mirrors the same state.
+    Compare artifacts between PR branch and base branch. The job concludes
+    as success when identical, as failure when changed (unless the configured
+    acknowledgement label is applied). Adds/removes a "change present" label
+    automatically and clears the acknowledgement label whenever the diff
+    goes empty.
 
 inputs:
     github-token:
@@ -33,14 +35,12 @@ inputs:
         default: ""
     ack-label-name:
         description: >-
-            Optional label name that, when applied to the PR, acknowledges the
-            change and flips the Check from failure to success. When empty
-            (the default), a detected change concludes the Check as `neutral`
-            (informational, non-blocking). When set, a detected change without
-            this label concludes the Check as `failure`; with the label it
-            concludes as `success`.
-        required: false
-        default: ""
+            Label name that, when applied to the PR, acknowledges the change
+            and flips the job from failure to success. A detected change
+            without this label fails the job; with the label it passes. The
+            label is auto-removed when the diff goes empty so a future
+            re-introduction requires a fresh ack.
+        required: true
 
 runs:
     using: "composite"
@@ -109,7 +109,6 @@ runs:
           if: always()
           env:
               GITHUB_TOKEN: ${{ inputs.github-token }}
-              ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
           shell: bash
           run: |
               PR_NUMBER="${{ github.event.pull_request.number }}"
@@ -118,9 +117,7 @@ runs:
                   # Drop the ack label too: nothing to acknowledge anymore. If
                   # a future commit reintroduces a diff, the author will need
                   # to re-apply the label, which is the desired behaviour.
-                  if [ -n "$ACK_LABEL_NAME" ]; then
-                      gh pr edit "$PR_NUMBER" --remove-label "$ACK_LABEL_NAME" || true
-                  fi
+                  gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.ack-label-name }}" || true
               else
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
@@ -144,12 +141,12 @@ runs:
               github-token: ${{ inputs.github-token }}
               script: |
                   const checkName = process.env.CHECK_NAME;
-                  const ackLabel = (process.env.ACK_LABEL_NAME || "").trim();
+                  const ackLabel = process.env.ACK_LABEL_NAME;
                   const noChanges = process.env.DIFF_EXIT_CODE === "0";
 
                   const labels = (context.payload.pull_request?.labels || [])
                       .map((l) => l.name);
-                  const isAcked = ackLabel !== "" && labels.includes(ackLabel);
+                  const isAcked = labels.includes(ackLabel);
 
                   let heading;
                   let shouldFail = false;
@@ -157,14 +154,9 @@ runs:
                       heading = `${checkName}: No Changes ✅`;
                   } else if (isAcked) {
                       heading = `${checkName}: Changes Acknowledged ✅`;
-                  } else if (ackLabel !== "") {
+                  } else {
                       heading = `${checkName}: Changes Detected — Acknowledgement Required ❌`;
                       shouldFail = true;
-                  } else {
-                      // No ack-label-name configured: this caller is using
-                      // the action in informational mode. The job still
-                      // succeeds, but the summary makes the change visible.
-                      heading = `${checkName}: Changes Detected ⚠️`;
                   }
 
                   const parts = [`## ${heading}`, ""];
@@ -177,18 +169,16 @@ runs:
                       if (details) {
                           parts.push(details, "");
                       }
-                      if (ackLabel !== "") {
-                          if (isAcked) {
-                              parts.push(
-                                  `> Acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
-                                  "",
-                              );
-                          } else {
-                              parts.push(
-                                  `> **To acknowledge this change and pass this check, add the \`${ackLabel}\` label to this PR.** The check will re-run automatically.`,
-                                  "",
-                              );
-                          }
+                      if (isAcked) {
+                          parts.push(
+                              `> Acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
+                              "",
+                          );
+                      } else {
+                          parts.push(
+                              `> **To acknowledge this change and pass this check, add the \`${ackLabel}\` label to this PR.** The check will re-run automatically.`,
+                              "",
+                          );
                       }
                       parts.push(
                           "<details><summary>View diff</summary>",
