@@ -376,19 +376,8 @@ export type WidgetOptions<
      */
     static?: boolean;
     /**
-     * Whether a widget is scored.
+     * Whether a widget is scored. Usually true except for IFrame widgets (deprecated).
      * Default: true
-     *
-     * The behavior depends on how the widget decides to implement it.
-     * For example, Interactive Graph will render an ungraded graph
-     * that is still interactive that learners can use to visualize
-     * math.
-     *
-     * Historical uses seem questionable (See LEMS-3958):
-     * - IFrame
-     * - Explanation
-     * - Image
-     * - Transformer (deprecated)
      */
     graded?: boolean;
     /**

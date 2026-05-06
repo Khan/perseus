@@ -146,10 +146,6 @@ export type Props = {
     // Graphs in static mode are not interactive, and their coords are
     // set to those of the "correct" graph in the editor.
     static?: boolean;
-    /**
-     * Whether this widget is graded.
-     */
-    graded?: boolean;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -161,12 +157,6 @@ export type Props = {
  */
 class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
-    static bestPractices = {
-        // TODO: replace with real best practices
-        // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327
-        url: "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3295281289/Interactive+Graph+Widget#Adding-a-new-Interactive-Graph-Widget",
-        label: "Interactive Graph best practices",
-    };
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
@@ -412,7 +402,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             <Id>
                 {(graphId) => (
                     <View>
-                        <LabeledRow label="Answer type" labelSize="medium">
+                        <LabeledRow label="Answer type:">
                             <GraphTypeSelector
                                 graphType={
                                     this.props.graph?.type ??
@@ -494,7 +484,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     onChange={this.changeStartCoords}
                                 />
                             )}
-
                         <InteractiveGraphSRTree
                             graphId={graphId}
                             correct={this.props.correct}

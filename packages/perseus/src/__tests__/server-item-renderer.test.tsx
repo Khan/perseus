@@ -474,18 +474,23 @@ describe("server item renderer", () => {
             const state = renderer.getSerializedState();
 
             // Assert
-            expect(state).toEqual({
-                hints: [{}, {}, {}],
-                question: {
+            expect(state).toMatchInlineSnapshot(`
+                {
+                  "hints": [
+                    {},
+                    {},
+                    {},
+                  ],
+                  "question": {
                     "mock-widget 1": {
-                        alignment: "default",
-                        currentValue: "-42",
-                        static: false,
-                        graded: true,
-                        value: "3",
+                      "alignment": "default",
+                      "currentValue": "-42",
+                      "static": false,
+                      "value": "3",
                     },
-                },
-            });
+                  },
+                }
+            `);
         });
     });
 

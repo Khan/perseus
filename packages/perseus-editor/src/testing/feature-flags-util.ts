@@ -7,7 +7,6 @@ const DEFAULT_FEATURE_FLAGS = {
     "image-widget-upgrade-gif-controls": false,
     "image-widget-upgrade-scale": false,
     "interactive-graph-vector": false,
-    "interactive-graph-not-scored": false,
     // ...add new flags here
 };
 

@@ -265,15 +265,9 @@ export function generateInteractiveGraphQuestion(
     options?: Partial<PerseusInteractiveGraphWidgetOptions> & {
         content?: string;
         isStatic?: boolean;
-        graded?: boolean;
     },
 ): PerseusRenderer {
-    const {
-        content = "[[☃ interactive-graph 1]]",
-        isStatic = false,
-        graded = true,
-        ...widgetOptions
-    } = options ?? {};
+    const {content, isStatic, ...widgetOptions} = options ?? {};
 
     // The `graph` and `correct` fields share all fields except for
     // the answers (coords, center, etc.) When only `correct` is provided,
@@ -299,11 +293,10 @@ export function generateInteractiveGraphQuestion(
     };
 
     return generateTestPerseusRenderer({
-        content: content,
+        content: content ?? "[[☃ interactive-graph 1]]",
         widgets: {
             "interactive-graph 1": generateInteractiveGraphWidget({
-                static: isStatic,
-                graded,
+                static: isStatic ?? false,
                 options: generateInteractiveGraphOptions(optionsWithDefaults),
             }),
         },

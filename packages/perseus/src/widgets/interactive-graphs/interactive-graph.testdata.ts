@@ -1205,6 +1205,3 @@ export const sinusoidWithPiTicks: PerseusRenderer =
         snapStep: [Math.PI / 2, Math.PI],
         correct: generateIGSinusoidGraph(),
     });
-
-export const ungradedQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({graded: false});

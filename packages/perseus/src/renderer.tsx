@@ -549,7 +549,6 @@ class Renderer
             widgetIndex: this._getWidgetIndexById(widgetId),
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
-            graded: widgetInfo?.graded,
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,

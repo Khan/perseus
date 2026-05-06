@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp, max-lines */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {angles, coefficients, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
@@ -9,7 +9,6 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -227,9 +226,6 @@ type State = any;
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 class InteractiveGraph extends React.Component<Props, State> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
     mafsRef = React.createRef<StatefulMafsGraphType>();
 
     static defaultProps: DefaultProps = {
@@ -306,22 +302,16 @@ class InteractiveGraph extends React.Component<Props, State> {
         };
 
         return (
-            <>
-                {this.props.graded === false && (
-                    <p>{this.context.strings.ungradedInteractiveGraph}</p>
-                )}
-                <StatefulMafsGraph
-                    {...mafsProps}
-                    ref={this.mafsRef}
-                    gridStep={gridStep}
-                    snapStep={snapStep}
-                    box={box}
-                    showTooltips={!!this.props.showTooltips}
-                    readOnly={this.props.apiOptions?.readOnly}
-                    widgetId={this.props.widgetId}
-                    graded={this.props.graded}
-                />
-            </>
+            <StatefulMafsGraph
+                {...mafsProps}
+                ref={this.mafsRef}
+                gridStep={gridStep}
+                snapStep={snapStep}
+                box={box}
+                showTooltips={!!this.props.showTooltips}
+                readOnly={this.props.apiOptions?.readOnly}
+                widgetId={this.props.widgetId}
+            />
         );
     }
 
@@ -1003,5 +993,4 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-    supportsUngraded: true,
 } satisfies WidgetExports<typeof InteractiveGraph>;

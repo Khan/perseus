@@ -11,37 +11,22 @@ const LabeledRow = (props: {
     id?: string;
     label: string;
     labelSide?: "start" | "end";
-    labelSize?: "small" | "medium";
     style?: StyleType;
     children: React.ReactNode;
 }) => {
-    const {
-        children,
-        label,
-        labelSide = "left",
-        labelSize = "small",
-        style,
-    } = props;
+    const {children, label, labelSide = "left", style} = props;
 
     return (
         <label className={css(styles.label)}>
             <View style={[styles.row, style]}>
                 {labelSide === "start" || (
-                    <BodyText
-                        size={labelSize === "small" ? "small" : undefined}
-                        tag="span"
-                        style={styles.spaceEnd}
-                    >
+                    <BodyText size="small" tag="span" style={styles.spaceEnd}>
                         {label}
                     </BodyText>
                 )}
                 {children}
                 {labelSide === "end" && (
-                    <BodyText
-                        size={labelSize === "small" ? "small" : undefined}
-                        tag="span"
-                        style={styles.spaceStart}
-                    >
+                    <BodyText size="small" tag="span" style={styles.spaceStart}>
                         {label}
                     </BodyText>
                 )}

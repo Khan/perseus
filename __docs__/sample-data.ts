@@ -4,7 +4,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 // it.
 export const graphExample: PerseusRenderer = {
     content:
-        "An example of a the beautiful **interactive-graph** widget:\n\n[[☃ interactive-graph 1]]",
+        "An example of a the beautiful**interactive-graph** widget:\n\n[[☃ interactive-graph 1]]",
     widgets: {
         "interactive-graph 1": {
             type: "interactive-graph",
