@@ -11,6 +11,7 @@ import {
     getSegmentCoords,
     getSinusoidCoords,
     getTangentCoords,
+    getVectorCoords,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -21,6 +22,7 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
+import StartCoordsAbsoluteValue from "./start-coords-absolute-value";
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsExponential from "./start-coords-exponential";
@@ -55,7 +57,7 @@ const StartCoordsSettingsInner = (props: Props) => {
                 step,
             );
             return (
-                <StartCoordsPoint
+                <StartCoordsAbsoluteValue
                     startCoords={absoluteValueCoords}
                     onChange={onChange}
                 />
@@ -136,6 +138,15 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsLogarithm
                     startCoords={currentLogarithmCoords}
+                    onChange={onChange}
+                />
+            );
+        }
+        case "vector": {
+            const vectorCoords = getVectorCoords(props, range, step);
+            return (
+                <StartCoordsLine
+                    startCoords={vectorCoords}
                     onChange={onChange}
                 />
             );

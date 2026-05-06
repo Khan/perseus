@@ -1,5 +1,99 @@
 # @khanacademy/perseus
 
+## 77.4.0
+
+### Minor Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
+### Patch Changes
+
+-   Updated dependencies [[`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79)]:
+    -   @khanacademy/perseus-score@8.8.0
+    -   @khanacademy/perseus-core@26.0.1
+    -   @khanacademy/keypad-context@3.2.46
+    -   @khanacademy/kmath@2.4.4
+    -   @khanacademy/math-input@26.4.18
+    -   @khanacademy/perseus-linter@5.0.1
+
+## 77.3.2
+
+### Patch Changes
+
+-   [#3293](https://github.com/Khan/perseus/pull/3293) [`494f287541`](https://github.com/Khan/perseus/commit/494f28754167c1e03a36f66df4b60dd045cf59fb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove unused default value for polygon graph point coordinates
+
+*   [#3539](https://github.com/Khan/perseus/pull/3539) [`743ad9d5f4`](https://github.com/Khan/perseus/commit/743ad9d5f4eb73ea9abede96ff85acc99533e2da) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Adjust styling to resolve an axe-core incomplete test result
+
+-   [#3506](https://github.com/Khan/perseus/pull/3506) [`0bf97ee3b6`](https://github.com/Khan/perseus/commit/0bf97ee3b6301c99f8dc5e1a98277dd6cf9e2af8) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add delay to flakey Graphie image regression test
+
+*   [#3415](https://github.com/Khan/perseus/pull/3415) [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing Interactive Graph Builder and refactoring tests/storybook to use more standardized generator patterns.
+
+-   [#3521](https://github.com/Khan/perseus/pull/3521) [`e5ddaef207`](https://github.com/Khan/perseus/commit/e5ddaef207113869a19ed7fc734a547d06a4f478) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allow the asymptote to be placed between points. Also allow for points to be on asymptote line so long as they don't overlap with the drag handle.
+
+*   [#3567](https://github.com/Khan/perseus/pull/3567) [`ce83363534`](https://github.com/Khan/perseus/commit/ce8336353430668ec5eca53e16bb21dacdd7c904) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix interactive graph x-axis label overlapping with content below when y-range starts at 0 or higher
+
+-   [#3435](https://github.com/Khan/perseus/pull/3435) [`dee6ce680c`](https://github.com/Khan/perseus/commit/dee6ce680cb19a7c966b595e1f66a2d5116c70f6) Thanks [@Myranae](https://github.com/Myranae)! - Convert hardcoded color values to semantic tokens for label image
+
+*   [#3538](https://github.com/Khan/perseus/pull/3538) [`8b95cdf6e3`](https://github.com/Khan/perseus/commit/8b95cdf6e31e143fc70978b7aa10fd2e6b935ef2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Storybook MCP addon for AI-assisted UI development
+
+-   [#3524](https://github.com/Khan/perseus/pull/3524) [`1dbd5742dc`](https://github.com/Khan/perseus/commit/1dbd5742dcb0283b824fa21b54dcac0d05bdd375) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that Ray and Linear points cannot overlap
+
+-   Updated dependencies [[`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c), [`896e869ef5`](https://github.com/Khan/perseus/commit/896e869ef551ad64b1fcfd5ab3e175a2edb5fc32), [`cf5147d61c`](https://github.com/Khan/perseus/commit/cf5147d61c7cab40f9f987ca952cca0b28e0bbd5), [`afc4f33090`](https://github.com/Khan/perseus/commit/afc4f33090b5ea023e75706d8c01c30664241584)]:
+    -   @khanacademy/perseus-core@26.0.0
+    -   @khanacademy/perseus-linter@5.0.0
+    -   @khanacademy/kmath@2.4.3
+    -   @khanacademy/math-input@26.4.17
+    -   @khanacademy/keypad-context@3.2.45
+    -   @khanacademy/perseus-score@8.7.1
+
+## 77.3.1
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
+-   Updated dependencies [[`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f)]:
+    -   @khanacademy/math-input@26.4.16
+
+## 77.3.0
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+-   [#3494](https://github.com/Khan/perseus/pull/3494) [`8fb79829d0`](https://github.com/Khan/perseus/commit/8fb79829d0a48c9840cb7baf4e7847bade3d158d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: change asymptote line to dashed for both exponential and logarithm based on user feedback
+
+### Patch Changes
+
+-   [#3523](https://github.com/Khan/perseus/pull/3523) [`c89cdbe2aa`](https://github.com/Khan/perseus/commit/c89cdbe2aacadc20e4b5fb982ff42b113f1f08f4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure the default coords for Exponential and Logarithm are slightly further away from the asymptote.
+
+*   [#3508](https://github.com/Khan/perseus/pull/3508) [`16f7f77ba1`](https://github.com/Khan/perseus/commit/16f7f77ba151b660ccf9ea32a30d936323f408f5) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Give explore modal launcher a label saying it has description
+
+-   [#3496](https://github.com/Khan/perseus/pull/3496) [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add fallback label to Numeric Inputs and a linter warning for missing labels in the editor.
+
+*   [#3511](https://github.com/Khan/perseus/pull/3511) [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused `static` field from PerseusCSProgramWidgetOptions. Callers should update test data that constructs `PerseusCSProgramWidgetOptions` to remove the static field.
+
+-   [#3504](https://github.com/Khan/perseus/pull/3504) [`b8178b52e7`](https://github.com/Khan/perseus/commit/b8178b52e7e9e237c12f58c48cbd1df32ce86bf9) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (a11y) | Add aria-describedby to Explore Image modal
+
+*   [#3488](https://github.com/Khan/perseus/pull/3488) [`3abc5e8277`](https://github.com/Khan/perseus/commit/3abc5e827796c267065b606b6d219d6ca90b74ea) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Free Response] Add visual regression tests
+
+-   [#3493](https://github.com/Khan/perseus/pull/3493) [`11742c2cff`](https://github.com/Khan/perseus/commit/11742c2cff5ffd30ca4bb2676ddbe9fff6c9178e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementing bug fix for jumping MovableLines in the Correct Answer graph in the editor
+
+*   [#3483](https://github.com/Khan/perseus/pull/3483) [`7794943ec7`](https://github.com/Khan/perseus/commit/7794943ec7e4dc450ed57021d26f052a38d7c617) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Numeric Input - update visual regression tests
+
+-   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`4d923417cd`](https://github.com/Khan/perseus/commit/4d923417cdf60113e3dbd057361e3e9c8c1747a6), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`d3ef4dbcc2`](https://github.com/Khan/perseus/commit/d3ef4dbcc2a281c148170a2ab7ab53521e796ed6), [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/perseus-linter@4.9.5
+    -   @khanacademy/perseus-score@8.7.0
+    -   @khanacademy/kas@2.2.2
+    -   @khanacademy/keypad-context@3.2.44
+    -   @khanacademy/kmath@2.4.2
+    -   @khanacademy/math-input@26.4.15
+
 ## 77.2.2
 
 ### Patch Changes

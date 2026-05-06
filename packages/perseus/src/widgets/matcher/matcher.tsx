@@ -286,8 +286,7 @@ export default {
 } satisfies WidgetExports<typeof WrappedMatcher>;
 
 const padding = 5;
-const border = "1px solid #444";
-
+const border = `var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong)`;
 const styles = StyleSheet.create({
     widget: {
         paddingTop: padding,

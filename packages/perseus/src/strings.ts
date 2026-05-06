@@ -129,6 +129,7 @@ export type PerseusStrings = {
     graphKeyboardPrompt: string;
     closePolygon: string;
     openPolygon: string;
+    ungradedInteractiveGraph: string;
     srPointAtCoordinates: ({
         num,
         x,
@@ -389,6 +390,30 @@ export type PerseusStrings = {
         point1Y: string;
         point2X: string;
         point2Y: string;
+    }) => string;
+    srVectorGraph: string;
+    srVectorPoints: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
+    }) => string;
+    srVectorTipPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorGrabHandle: ({
+        tailX,
+        tailY,
+        tipX,
+        tipY,
+    }: {
+        tailX: string;
+        tailY: string;
+        tipX: string;
+        tipY: string;
     }) => string;
     srQuadraticGraph: string;
     srQuadraticFaceUp: string;
@@ -775,6 +800,8 @@ export const strings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    ungradedInteractiveGraph:
+        "Use this graph to check your thinking, but it does not count as your answer.",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
     closePolygon: {
@@ -1032,6 +1059,28 @@ export const strings = {
         context:
             "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
         message: "Through point at %(x)s comma %(y)s.",
+    },
+    srVectorGraph: {
+        context:
+            "Screen reader description for the container containing a Vector in the interactive graph widget.",
+        message: "A vector on a coordinate plane.",
+    },
+    srVectorPoints: {
+        context:
+            "Screen reader description for the tail and tip of a vector in the interactive graph widget.",
+        message:
+            "The tail is at %(tailX)s comma %(tailY)s and the tip is at %(tipX)s comma %(tipY)s.",
+    },
+    srVectorTipPoint: {
+        context:
+            "Aria label for the tip point of a Vector (the point with the arrowhead) in the interactive graph widget.",
+        message: "Tip point at %(x)s comma %(y)s.",
+    },
+    srVectorGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Vector in the interactive graph widget.",
+        message:
+            "Vector from %(tailX)s comma %(tailY)s to %(tipX)s comma %(tipY)s.",
     },
     srQuadraticGraph: {
         context:
@@ -1492,6 +1541,8 @@ export const mockStrings: PerseusStrings = {
     removePoint: "Remove Point",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
+    ungradedInteractiveGraph:
+        "Use this graph to check your thinking, but it does not count as your answer.",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}.`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
@@ -1604,6 +1655,12 @@ export const mockStrings: PerseusStrings = {
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srVectorGraph: "A vector on a coordinate plane.",
+    srVectorPoints: ({tailX, tailY, tipX, tipY}) =>
+        `The tail is at ${tailX} comma ${tailY} and the tip is at ${tipX} comma ${tipY}.`,
+    srVectorTipPoint: ({x, y}) => `Tip point at ${x} comma ${y}.`,
+    srVectorGrabHandle: ({tailX, tailY, tipX, tipY}) =>
+        `Vector from ${tailX} comma ${tailY} to ${tipX} comma ${tipY}.`,
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",

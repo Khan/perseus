@@ -150,6 +150,7 @@ export {
     getSegmentCoords,
     getSinusoidCoords,
     getTangentCoords,
+    getVectorCoords,
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";

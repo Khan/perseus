@@ -92,7 +92,7 @@ export interface RayGraphState extends InteractiveGraphStateCommon {
     coords: PairOfPoints;
 }
 
-interface VectorGraphState extends InteractiveGraphStateCommon {
+export interface VectorGraphState extends InteractiveGraphStateCommon {
     type: "vector";
     coords: PairOfPoints;
 }

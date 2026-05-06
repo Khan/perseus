@@ -19,7 +19,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
             class="default_xu2jcg mafs-graph-container"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -1104,7 +1104,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -1550,7 +1550,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rc: instructions-:rc:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -2002,7 +2002,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rl: unlimited-graph-keyboard-prompt-:rl: instructions-:rl:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -2139,6 +2139,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               <button
                 aria-disabled="false"
                 class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-inlineStyles_16y2sco"
+                data-kind="secondary"
                 id="perseus_mafs_remove_button"
                 tabindex="-1"
                 type="button"
@@ -2261,7 +2262,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="unlimited-graph-keyboard-prompt-:rr: instructions-:rr:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -2405,6 +2406,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               <button
                 aria-disabled="true"
                 class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-disabled_1y6fils-o_O-inlineStyles_1kc2paq"
+                data-kind="secondary"
                 id="perseus_mafs_remove_button"
                 tabindex="-1"
                 type="button"
@@ -2418,6 +2420,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               <button
                 aria-disabled="true"
                 class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba-o_O-disabled_1y6fils-o_O-inlineStyles_1kc2paq"
+                data-kind="secondary"
                 tabindex="-1"
                 type="button"
               >
@@ -2497,7 +2500,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:r4: instructions-:r4:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -2916,7 +2919,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:re: instructions-:re:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -3368,7 +3371,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rm: instructions-:rm:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div
@@ -3735,7 +3738,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rt: instructions-:rt:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="default_xu2jcg-o_O-inlineStyles_11rziql mafs-graph"
               tabindex="0"
             >
               <div

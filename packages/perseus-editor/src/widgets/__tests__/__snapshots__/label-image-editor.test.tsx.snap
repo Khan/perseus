@@ -29,6 +29,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           aria-disabled="false"
           aria-label=""
           class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          data-kind="primary"
           type="button"
         >
           <span
@@ -546,6 +547,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           aria-disabled="false"
           aria-label=""
           class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          data-kind="primary"
           type="button"
         >
           <span
@@ -1063,6 +1065,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           aria-disabled="false"
           aria-label=""
           class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          data-kind="primary"
           type="button"
         >
           <span
@@ -1580,6 +1583,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           aria-disabled="false"
           aria-label=""
           class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          data-kind="primary"
           type="button"
         >
           <span
@@ -2097,6 +2101,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           aria-disabled="false"
           aria-label=""
           class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          data-kind="primary"
           type="button"
         >
           <span

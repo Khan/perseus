@@ -489,6 +489,8 @@ export type WidgetExports<
     version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
+    /** When true, the widget editor shows a "Graded" toggle. */
+    supportsUngraded?: boolean;
 
     getOneCorrectAnswerFromRubric?: (
         rubric: WidgetOptions,
@@ -550,6 +552,7 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     widgetIndex: number;
     alignment: string | null | undefined;
     static: boolean | null | undefined;
+    graded?: boolean | null;
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
     keypadElement?: any;

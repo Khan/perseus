@@ -10,7 +10,7 @@ const FreeResponseWidget = getWidget("free-response")!;
 const meta: Meta = {
     title: "Widgets/Free Response/Visual Regression Tests/Interactions",
     component: FreeResponseWidget,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {

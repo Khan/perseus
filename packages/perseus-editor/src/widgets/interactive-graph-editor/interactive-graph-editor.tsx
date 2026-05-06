@@ -32,6 +32,7 @@ import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import PolygonAnswerOptions from "./components/polygon-answer-options";
 import SegmentCountSelector from "./components/segment-count-selector";
+import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
@@ -145,6 +146,10 @@ export type Props = {
     // Graphs in static mode are not interactive, and their coords are
     // set to those of the "correct" graph in the editor.
     static?: boolean;
+    /**
+     * Whether this widget is graded.
+     */
+    graded?: boolean;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -156,6 +161,12 @@ export type Props = {
  */
 class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
+    static bestPractices = {
+        // TODO: replace with real best practices
+        // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327
+        url: "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3295281289/Interactive+Graph+Widget#Adding-a-new-Interactive-Graph-Widget",
+        label: "Interactive Graph best practices",
+    };
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
@@ -401,7 +412,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             <Id>
                 {(graphId) => (
                     <View>
-                        <LabeledRow label="Answer type:">
+                        <LabeledRow label="Answer type" labelSize="medium">
                             <GraphTypeSelector
                                 graphType={
                                     this.props.graph?.type ??
@@ -457,6 +468,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 onChange={this.props.onChange}
                             />
                         )}
+                        {this.props.correct?.type === "vector" && (
+                            <VectorAnswerOptions
+                                correct={this.props.correct}
+                                onChange={this.props.onChange}
+                            />
+                        )}
                         {this.props.correct?.type === "segment" && (
                             <SegmentCountSelector
                                 correct={this.props.correct}
@@ -477,6 +494,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     onChange={this.changeStartCoords}
                                 />
                             )}
+
                         <InteractiveGraphSRTree
                             graphId={graphId}
                             correct={this.props.correct}

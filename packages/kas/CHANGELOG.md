@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 2.2.2
+
+### Patch Changes
+
+-   [#3503](https://github.com/Khan/perseus/pull/3503) [`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088) Thanks [@benchristel](https://github.com/benchristel)! - Expressions are now compared more thoroughly. Now we always check that the expressions evaluate the same with all variables bound to -1, 0, and 1. We also check more randomly-chosen values: 28 instead of 12.
+
 ## 2.2.1
 
 ### Patch Changes

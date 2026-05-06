@@ -1,5 +1,40 @@
 # @khanacademy/perseus-core
 
+## 26.0.1
+
+### Patch Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
+## 26.0.0
+
+### Major Changes
+
+-   [#3517](https://github.com/Khan/perseus/pull/3517) [`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b) Thanks [@benchristel](https://github.com/benchristel)! - Breaking change: The deprecated `violatingWidgets` function has been removed. Callers should use `isItemAccessible` instead. `isItemAccessible` now checks for inaccessible widgets in hints as well as question content.
+
+### Patch Changes
+
+-   [#3415](https://github.com/Khan/perseus/pull/3415) [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing Interactive Graph Builder and refactoring tests/storybook to use more standardized generator patterns.
+
+## 25.0.0
+
+### Major Changes
+
+-   [#3511](https://github.com/Khan/perseus/pull/3511) [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused `static` field from PerseusCSProgramWidgetOptions. Callers should update test data that constructs `PerseusCSProgramWidgetOptions` to remove the static field.
+
+### Minor Changes
+
+-   [#3441](https://github.com/Khan/perseus/pull/3441) [`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new Vector graph and subcomponents.
+
+*   [#3433](https://github.com/Khan/perseus/pull/3433) [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of initial types and stubs for Vector graph
+
+### Patch Changes
+
+-   [#3434](https://github.com/Khan/perseus/pull/3434) [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of state management logic for new Vector graph
+
+-   Updated dependencies [[`a5b9105c28`](https://github.com/Khan/perseus/commit/a5b9105c288f29181b4ca82eb9f8495f757a9088)]:
+    -   @khanacademy/kas@2.2.2
+
 ## 24.1.1
 
 ### Patch Changes

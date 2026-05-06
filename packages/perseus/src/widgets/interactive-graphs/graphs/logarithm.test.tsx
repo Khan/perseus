@@ -6,10 +6,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    constrainAsymptoteKeyboard,
-    getLogarithmKeyboardConstraint,
-} from "./logarithm";
+import {getLogarithmKeyboardConstraint} from "./logarithm";
 
 import type {InteractiveGraphState} from "../types";
 import type {vec} from "mafs";
@@ -154,6 +151,31 @@ describe("Logarithm graph screen reader", () => {
         );
     });
 
+    it("renders without crashing when the asymptote sits between the curve points", () => {
+        // Arrange, Act — asymptote x=-4.5 sits between points at x=-4 and x=-5.
+        // There is no logarithm curve that fits, so the Plot.OfX is skipped.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLogarithmState,
+                    asymptote: -4.5,
+                }}
+            />,
+        );
+
+        // Assert — asymptote + both points still rendered
+        expect(
+            screen.getByRole("button", {name: /Vertical asymptote/}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: /Point 1/}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: /Point 2/}),
+        ).toBeInTheDocument();
+    });
+
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
         render(
@@ -219,8 +241,10 @@ describe("getLogarithmKeyboardConstraint", () => {
         expect(constraint.up).toEqual([-4, -2]);
     });
 
-    it("skips positions on the asymptote when moving left", () => {
-        // Arrange — point at x=-5, asymptote at x=-6: moving left would hit x=-6 then x=-7
+    it("allows moving onto the asymptote line", () => {
+        // Arrange — point 0 at (-5, -3), asymptote at x=-6. Moving left used
+        // to skip past x=-6; asymptote crossings are now allowed so the
+        // point lands on the asymptote line (off the drag handle's y).
         const nearAsymptoteCoords: [vec.Vector2, vec.Vector2] = [
             [-5, -3],
             [-4, -7],
@@ -235,8 +259,30 @@ describe("getLogarithmKeyboardConstraint", () => {
             range,
         );
 
-        // Assert — skips x=-6 (asymptote) and lands on x=-7
-        expect(constraint.left).toEqual([-7, -3]);
+        // Assert
+        expect(constraint.left).toEqual([-6, -3]);
+    });
+
+    it("skips the position that would land on the asymptote drag handle", () => {
+        // Arrange — handle coord is (asymptote=-4, midY=0). Point 0 at (-4, 1)
+        // moving down to (-4, 0) would land on the handle and is skipped;
+        // the next step (-4, -1) is valid.
+        const onHandleCoords: [vec.Vector2, vec.Vector2] = [
+            [-4, 1],
+            [-5, -7],
+        ];
+
+        // Act
+        const constraint = getLogarithmKeyboardConstraint(
+            onHandleCoords,
+            -4,
+            snapStep,
+            0,
+            range,
+        );
+
+        // Assert
+        expect(constraint.down).toEqual([-4, -1]);
     });
 
     it("skips positions that share y-coordinate with the other point when moving down", () => {
@@ -275,41 +321,12 @@ describe("getLogarithmKeyboardConstraint", () => {
             range,
         );
 
-        // Assert — skips x=-5 (same x as point 1), x=-6 (asymptote),
-        // and x=-7 (reflected other point would collide), lands on x=-8
-        expect(constraint.left).toEqual([-8, -3]);
-    });
-
-    it("stays put when all rightward positions would cause a clamped collision", () => {
-        // Arrange — asymptote at x=8, points at [7,3] and [4,1].
-        // Moving point 0 right: x=8 is the asymptote, x=9 crosses the
-        // asymptote so reflectedX = 2*8-4 = 12 which clamps to 9
-        // (same as clamped coord), and x>=10 all clamp to 9 as well.
-        // No valid rightward position exists, so the point stays put.
-        const edgeCoords: [vec.Vector2, vec.Vector2] = [
-            [7, 3],
-            [4, 1],
-        ];
-        const edgeRange: [vec.Vector2, vec.Vector2] = [
-            [-10, 10],
-            [-10, 10],
-        ];
-
-        // Act
-        const constraint = getLogarithmKeyboardConstraint(
-            edgeCoords,
-            8,
-            snapStep,
-            0,
-            edgeRange,
-        );
-
-        // Assert — no valid right move, falls back to original position
-        expect(constraint.right).toEqual([7, 3]);
+        // Assert — skips x=-5 (same x as point 1) and lands on x=-6
+        expect(constraint.left).toEqual([-6, -3]);
     });
 
     it("rejects positions where the clamped coord collides with the other point", () => {
-        // Arrange — points at [8,3] and [9,1], asymptote at -5.
+        // Arrange — points at [8,3] and [9,1].
         // Moving point 0 right: x=9 shares x with otherPoint (skip).
         // x=10 clamps to 9 (inset max), which also equals otherPoint[X].
         // All further attempts clamp to 9 too. Point stays put.
@@ -325,7 +342,7 @@ describe("getLogarithmKeyboardConstraint", () => {
         // Act
         const constraint = getLogarithmKeyboardConstraint(
             edgeCoords,
-            -5,
+            asymptote,
             snapStep,
             0,
             edgeRange,
@@ -333,51 +350,5 @@ describe("getLogarithmKeyboardConstraint", () => {
 
         // Assert — no valid right move, falls back to original position
         expect(constraint.right).toEqual([8, 3]);
-    });
-});
-
-describe("constrainAsymptoteKeyboard", () => {
-    const snapStep: vec.Vector2 = [1, 1];
-
-    it("allows the asymptote to move freely when not between or on the curve points", () => {
-        // Arrange — points at x=-4 and x=-5, asymptote moving to x=-7 (left of both)
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [-4, -3],
-            [-5, -7],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([-7, 0], coords, snapStep);
-
-        // Assert — x=-7 is valid (left of both points)
-        expect(result).toEqual([-7, 0]);
-    });
-
-    it("snaps the asymptote past both points when it would land between them", () => {
-        // Arrange — points at x=-4 and x=-2, asymptote trying to land at x=-3 (between)
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [-4, -3],
-            [-2, -7],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([-3, 0], coords, snapStep);
-
-        // Assert — snapped to one step past the points
-        expect(result[0] < -4 || result[0] > -2).toBe(true);
-    });
-
-    it("skips an x-value exactly equal to a curve point", () => {
-        // Arrange — points at x=-4 and x=-2, asymptote trying to land exactly at x=-4
-        const coords: [vec.Vector2, vec.Vector2] = [
-            [-4, -3],
-            [-2, -7],
-        ];
-
-        // Act
-        const result = constrainAsymptoteKeyboard([-4, 0], coords, snapStep);
-
-        // Assert — must not land exactly on x=-4
-        expect(result[0]).not.toBe(-4);
     });
 });

@@ -14,7 +14,8 @@ type GraphTypesThatHaveStartCoords =
     | {type: "sinusoid"}
     | {type: "exponential"}
     | {type: "logarithm"}
-    | {type: "tangent"};
+    | {type: "tangent"}
+    | {type: "vector"};
 
 export type StartCoords = Extract<
     PerseusGraphType,

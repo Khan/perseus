@@ -29,6 +29,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
               aria-disabled="false"
               aria-label="Dismiss"
               class="button_vr44p2-o_O-shared_3mvh93-o_O-default_2bjgxj-o_O-inlineStyles_bhsjbl"
+              data-kind="tertiary"
               tabindex="0"
               type="button"
             >

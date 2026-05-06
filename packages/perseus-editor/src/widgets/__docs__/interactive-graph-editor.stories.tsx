@@ -1,4 +1,9 @@
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import {
+    getDefaultAnswerArea,
+    generateInteractiveGraphQuestion,
+    generateIGNoneGraph,
+    generateIGLockedFunction,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {
@@ -12,7 +17,6 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {interactiveGraphQuestionBuilder} from "../../__testdata__/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -27,6 +31,7 @@ import {
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
     exponentialMinimalQuestion,
+    vectorMinimalQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
@@ -121,6 +126,10 @@ export const InteractiveGraphExponential = (): React.ReactElement => {
     );
 };
 
+export const InteractiveGraphVector = (): React.ReactElement => {
+    return <EditorPageWithStorybookPreview question={vectorMinimalQuestion} />;
+};
+
 export const InteractiveGraphSinusoid = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={sinusoidMinimalQuestion} />
@@ -168,10 +177,15 @@ export const InteractiveGraphAngle = (): React.ReactElement => {
 export const InteractiveGraphNone = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
-            question={interactiveGraphQuestionBuilder()
-                .withNoInteractiveFigure()
-                .addLockedFunction("5*sin(x)", {color: "red"})
-                .build()}
+            question={generateInteractiveGraphQuestion({
+                correct: generateIGNoneGraph(),
+                lockedFigures: [
+                    generateIGLockedFunction({
+                        equation: "5*sin(x)",
+                        color: "red",
+                    }),
+                ],
+            })}
         />
     );
 };
@@ -185,17 +199,19 @@ export const LockedFigures = (): React.ReactElement => {
 export const InteractiveGraphZeroBounds = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
-            question={interactiveGraphQuestionBuilder()
-                .withNoInteractiveFigure()
-                .withXRange(0, 10)
-                .withYRange(0, 10)
-                .withShowAxisArrows({
+            question={generateInteractiveGraphQuestion({
+                correct: generateIGNoneGraph(),
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                showAxisArrows: {
                     xMin: false,
                     xMax: true,
                     yMin: false,
                     yMax: true,
-                })
-                .build()}
+                },
+            })}
         />
     );
 };

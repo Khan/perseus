@@ -1,11 +1,6 @@
 import type labelImage from "../../widgets/label-image/label-image";
 import type React from "react";
 
-// TODO(LEMS-4033): These types are weird. We should have separate types for
-// the `Marker` used in widget options and the `UserInputMarker` used in user
-// input, but the runtime values do not correspond directly to either of these
-// types.
-
 /**
  * A marker placed on the image, representing a location the learner must
  * label. Used in the `options` section to describe the marker's identity and
@@ -85,9 +80,6 @@ export type LabelImagePromptJSON = {
          * identifying a location the learner must label.
          */
         markers: BaseMarker[];
-
-        // TODO(LEMS-4033): surface multipleAnswers here; that seems like
-        // important context.
     };
 
     /**

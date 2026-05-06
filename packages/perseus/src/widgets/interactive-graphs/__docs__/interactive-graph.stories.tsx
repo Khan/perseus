@@ -20,6 +20,7 @@ import {
     logarithmQuestion,
     sinusoidQuestion,
     tangentQuestion,
+    vectorQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
@@ -28,6 +29,7 @@ import {
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
+    ungradedQuestion,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -97,6 +99,12 @@ export const UnlimitedPolygon: Story = {
 export const Ray: Story = {
     args: {
         item: generateTestPerseusItem({question: rayQuestion}),
+    },
+};
+
+export const Vector: Story = {
+    args: {
+        item: generateTestPerseusItem({question: vectorQuestion}),
     },
 };
 
@@ -318,6 +326,14 @@ export const AnswerlessSinusoid: Story = {
     args: {
         item: generateTestPerseusItem({
             question: sinusoidQuestion,
+        }),
+    },
+};
+
+export const Ungraded: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: ungradedQuestion,
         }),
     },
 };

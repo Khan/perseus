@@ -40,6 +40,13 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "vector" && initialGraph.type === "vector") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     if (state.type === "polygon" && initialGraph.type === "polygon") {
         // Unless the polygon is closed it is not considered score-able.
         if (state.numSides === "unlimited" && !state.closedPolygon) {

@@ -31,7 +31,7 @@ type Props = {
         end: boolean;
     };
     onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
-    onMoveLine?: (delta: vec.Vector2) => unknown;
+    onMoveLine?: (newStart: vec.Vector2) => unknown;
 };
 
 export const MovableLine = (props: Props) => {
@@ -110,9 +110,9 @@ export const MovableLine = (props: Props) => {
             start={start}
             end={end}
             extend={extend}
-            onMove={(delta) => {
+            onMove={(newStart) => {
                 setAriaLives(["off", "off", "polite"]);
-                onMoveLine(delta);
+                onMoveLine(newStart);
             }}
         />
     );
@@ -141,7 +141,7 @@ type LineProps = {
               start: boolean;
               end: boolean;
           };
-    onMove: (delta: vec.Vector2) => unknown;
+    onMove: (newStart: vec.Vector2) => unknown;
 };
 
 const Line = (props: LineProps) => {
@@ -174,9 +174,7 @@ const Line = (props: LineProps) => {
     const {dragging} = useDraggable({
         gestureTarget: line,
         point: start,
-        onMove: (newPoint) => {
-            onMove(vec.sub(newPoint, start));
-        },
+        onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 

@@ -1,5 +1,37 @@
 # @khanacademy/math-input
 
+## 26.4.18
+
+### Patch Changes
+
+-   Updated dependencies [[`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79)]:
+    -   @khanacademy/perseus-core@26.0.1
+    -   @khanacademy/keypad-context@3.2.46
+
+## 26.4.17
+
+### Patch Changes
+
+-   [#3572](https://github.com/Khan/perseus/pull/3572) [`afc4f33090`](https://github.com/Khan/perseus/commit/afc4f33090b5ea023e75706d8c01c30664241584) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bumped deps
+
+-   Updated dependencies [[`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c)]:
+    -   @khanacademy/perseus-core@26.0.0
+    -   @khanacademy/keypad-context@3.2.45
+
+## 26.4.16
+
+### Patch Changes
+
+-   [#3528](https://github.com/Khan/perseus/pull/3528) [`59caa3f0e2`](https://github.com/Khan/perseus/commit/59caa3f0e259c6d7a3bbe2e09629381cf65bfd7f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating dependencies
+
+## 26.4.15
+
+### Patch Changes
+
+-   Updated dependencies [[`de45286302`](https://github.com/Khan/perseus/commit/de45286302fa65dc387e5572d38cde5e0aff7aae), [`15b0193db5`](https://github.com/Khan/perseus/commit/15b0193db5345a94a44b588a32529bbe32c23ef6), [`b4bb6e2f42`](https://github.com/Khan/perseus/commit/b4bb6e2f42f5deaf72a249407fe7f97ddfa69d3d), [`de2dda0258`](https://github.com/Khan/perseus/commit/de2dda02585321a890cf9dfe0cea367a835df92c)]:
+    -   @khanacademy/perseus-core@25.0.0
+    -   @khanacademy/keypad-context@3.2.44
+
 ## 26.4.14
 
 ### Patch Changes

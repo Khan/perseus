@@ -312,8 +312,6 @@ export {isFeatureOn} from "./feature-flags";
 export {traverse} from "./traversal";
 export {isItemAccessible} from "./accessibility";
 /** @hidden */
-export {violatingWidgets} from "./accessibility";
-/** @hidden */
 export {
     isLabeledSVG,
     getRealImageUrl,
@@ -369,6 +367,15 @@ export {
 } from "./utils/generators/image-widget-generator";
 /** @hidden */
 export {
+    generateLabelImageOptions,
+    generateLabelImageWidget,
+} from "./utils/generators/label-image-widget-generator";
+/** @hidden */
+export {
+    generateMatcherOptions,
+    generateMatcherWidget,
+} from "./utils/generators/matcher-widget-generator";
+export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,
     generateIGCircleGraph,
@@ -383,6 +390,7 @@ export {
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
     generateIGTangentGraph,
+    generateIGVectorGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,
@@ -390,7 +398,10 @@ export {
     generateIGLockedPolygon,
     generateIGLockedFunction,
     generateIGLockedLabel,
+    generateIGExponentialGraph,
+    generateIGAbsoluteValueGraph,
     generateInteractiveGraphWidget,
+    generateInteractiveGraphQuestion,
 } from "./utils/generators/interactive-graph-widget-generator";
 /** @hidden */
 export {

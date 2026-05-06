@@ -598,6 +598,70 @@ describe("StartCoordSettings", () => {
         );
     });
 
+    describe("absolute-value graph", () => {
+        test("labels the start coordinates as Vertex and Arm", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="absolute-value"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Vertex:")).toBeInTheDocument();
+            expect(screen.getByText("Arm:")).toBeInTheDocument();
+            expect(screen.queryByText("Point 1:")).not.toBeInTheDocument();
+            expect(screen.queryByText("Point 2:")).not.toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (point $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+                const startCoords: [Coord, Coord] = [
+                    [0, 0],
+                    [3, 3],
+                ];
+
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="absolute-value"
+                        startCoords={startCoords}
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Act
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                // Assert
+                const expectedCoords = [
+                    [0, 0],
+                    [3, 3],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
+
     describe("point graph", () => {
         test("shows the start coordinates UI: 1 point (default)", () => {
             // Arrange
