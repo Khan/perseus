@@ -127,7 +127,7 @@ export function initializeGraphState(
                 type: graph.type,
                 showAngles: Boolean(graph.showAngles),
                 coords: getAngleCoords({graph, range, step}),
-                angleOffsetDeg: Number(graph.angleOffsetDeg),
+                angleOffsetDeg: graph.angleOffsetDeg ?? 0,
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
             };
@@ -612,7 +612,6 @@ export const getAngleCoords = (params: {
 
     defaultCoords = normalizePoints(range, step, defaultCoords, true);
 
-    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
     const radius = magnitude(vector(...defaultCoords));
 
     // We're adding a placeholder for the third point to appease ts and so that we

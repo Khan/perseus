@@ -187,7 +187,6 @@ type CombinedHintEditorProps = {
     isFirst: boolean;
     hint: Hint;
     pos: number; // position,
-    contentPaths: ReadonlyArray<string>;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
     onMove: (direction: number) => unknown;
@@ -224,7 +223,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 linterContext: {
                     contentType: "hint",
                     highlightLint: this.props.highlightLint,
-                    paths: this.props.contentPaths,
                 },
             },
         });
@@ -417,8 +415,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                             highlightLint={this.props.highlightLint}
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             previewURL={this.props.previewURL}
-                            // TODO(CP-4838): what should be passed here?
-                            contentPaths={[]}
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             widgetIsOpen={this.props.widgetIsOpen}
                         />

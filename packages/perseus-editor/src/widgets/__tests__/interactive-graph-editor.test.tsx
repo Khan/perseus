@@ -76,7 +76,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
@@ -814,7 +814,7 @@ describe("InteractiveGraphEditor", () => {
             },
         );
 
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });

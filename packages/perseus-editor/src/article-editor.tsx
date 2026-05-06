@@ -51,7 +51,6 @@ type RendererProps = {
 };
 
 type DefaultProps = {
-    contentPaths?: ReadonlyArray<string>;
     json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
@@ -77,7 +76,6 @@ type State = {
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        contentPaths: [],
         // NOTE(Jeremy):
         // eslint-disable-next-line no-restricted-syntax
         json: [{} as any],
@@ -192,7 +190,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -461,6 +458,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
+    /**
+     * Returns the current version of the edited {@link PerseusArticle}.
+     *
+     * @deprecated Use the {@link Props.onChange} prop instead.
+     */
     serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {

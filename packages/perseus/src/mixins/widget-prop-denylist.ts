@@ -42,6 +42,7 @@ const denylist = [
     "showSolutions",
     "reviewMode",
     "widgetIndex",
+    "graded",
 ];
 
 export function excludeDenylistKeys(obj: Record<any, any>) {

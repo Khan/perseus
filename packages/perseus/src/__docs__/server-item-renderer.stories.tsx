@@ -51,7 +51,6 @@ export const WithLintingError: Story = {
         linterContext: {
             contentType: "",
             highlightLint: true,
-            paths: [],
             stack: [],
         },
     },
@@ -162,7 +161,6 @@ export const Interactive = () => {
                                 linterContext={{
                                     contentType: "",
                                     highlightLint: true,
-                                    paths: [],
                                     stack: [],
                                 }}
                             />

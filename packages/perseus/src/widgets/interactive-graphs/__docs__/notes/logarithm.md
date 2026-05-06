@@ -64,8 +64,10 @@ User interaction (drag/keyboard)
   (which uses a y-padding NaN cutoff), logarithm relies on the domain offset because the
   curve exits the visible area **vertically** — a y-padding cutoff would end the SVG path
   near the asymptote, causing a visible discontinuity for flatter curves.
-- During transient invalid states (e.g. mid-drag), `coeffRef` provides the last valid
-  coefficients so the curve doesn't break.
+- When the asymptote sits between the two points, no logarithm fits — `getLogarithmCoefficients`
+  returns `undefined` and the `<Plot.OfX>` is not rendered. The asymptote and points remain
+  fully interactive in this state, so the user can recover by dragging anything back to a
+  valid configuration.
 - The curve updates in real time as points or asymptote are dragged.
 
 ### SVG Rendering Order
@@ -100,6 +102,10 @@ applies to the exponential graph.
   - **Active state** (hovered, focused, or dragging): 12px × 22px pill with 6 white grip dots (2×3 grid)
   - **Inactive state** (default): 6px × 16px pill, no grip dots
   - **Focus ring** (keyboard focus only): rounded outline around the handle (not the full line)
+- When a drag starts (pointer or touch), the asymptote group programmatically focuses
+  itself, mirroring `useControlPoint`'s behavior for movable points. This blurs whatever
+  was previously focused (e.g. a movable point), so the focus indicator follows the
+  element the user is currently interacting with.
 - The drag handle retains focus after a mouse drag ends, matching movable point behavior.
   Focus clears only when the user clicks elsewhere or navigates away via keyboard.
 
@@ -107,33 +113,34 @@ applies to the exponential graph.
 
 - The asymptote is constrained to horizontal movement only (Y component ignored).
 - The asymptote snaps to the grid.
-- The asymptote cannot land on either point's x-coordinate.
-- **Snap-through logic:** When the asymptote would land between or on the curve points, it
-  snaps past all points to the other side (one `snapStep` beyond the nearest extreme point
-  in the drag direction).
-- **Direction detection:** Uses the requested mouse position relative to the midpoint between
-  the two curve points (prevents oscillation/flicker from state changes between frames).
-- When the asymptote crosses to the other side of both points, the curve flips direction.
+- The asymptote may be dragged to any x-position, including between the two curve points.
+  When between the points, no valid logarithm fits and the curve disappears (the asymptote
+  and points remain interactive).
+- The asymptote cannot land such that its drag handle (a pill at the y-midpoint of the range,
+  on the asymptote line) would overlap a curve point's coord. This guarantees the handle is
+  always grabbable. Built from `getAsymptoteHandleCoord("vertical", range, asymptote)`.
 
 ### Point Behavior
 
 - Two movable control points define the curve shape along with the asymptote.
-- Points cannot be placed on the asymptote line (`point.x !== asymptoteX`).
-- Both points must have different y-values (prevents degenerate coefficient computation).
-- **Cross-asymptote reflection:** When a point is dragged across the asymptote, the other
-  point is automatically reflected across (`reflectedX = 2 * asymptoteX - otherX`) so both
-  points end up on the same side. A post-reflection guard rejects the move if the reflected
-  point would share the same x-coordinate as the moved point.
+- Points may be placed anywhere along the asymptote line. The only forbidden position is the
+  exact coord of the asymptote drag handle (so the handle stays grabbable).
+- Both points must have different x-values and different y-values (either case is degenerate
+  for the coefficient computation).
 - Invalid moves are rejected gracefully (no crash, no invalid state).
 
 ### Keyboard Navigation
 
-- **Points:** Arrow keys move by snap step. A unified `isValidPosition()` check enforces
-  asymptote and same-y rules with bounded retry (max 3 steps in the move direction). If no
-  valid position exists within 3 steps, the point stays in place.
-- **Asymptote:** Arrow keys move horizontally by snap step. `constrainAsymptoteKeyboard()`
-  applies the same snap-through logic as mouse drag — when the snapped position would land
-  between or on points, it snaps past all points using the midpoint heuristic.
+- **Points:** Arrow keys move by snap step. The shared `getAsymptoteGraphKeyboardConstraint`
+  helper applies an `isValidPosition()` predicate that rejects same-x or same-y collisions
+  with the other point and rejects landing on the asymptote drag handle's coord. If a step
+  lands on a forbidden position, the constraint retries up to 3 snap steps in the same
+  direction. If no valid position exists within 3 steps, the point stays in place.
+- **Asymptote:** Arrow keys move horizontally by snap step. `skipAsymptoteKeyboardOverPoint`
+  snaps the proposed point to the grid (required by `useDraggable`'s function-form
+  constraint), then if the snapped position would put the handle on a point's coord, it
+  steps further in the direction of travel until it finds a valid position (up to 3 extra
+  snap steps).
 
 ### Scoring
 
@@ -159,14 +166,17 @@ applies to the exponential graph.
 - "Logarithm function" appears in the graph type selector, gated by `interactive-graph-logarithm` feature flag.
 - `StartCoordsLogarithm` component provides: two coordinate pair inputs, a single number
   input for asymptote x-position, and equation display showing `y = a * ln(b*x + c)`.
-- Start asymptote validation: the asymptote x-value cannot fall between or on the x-coordinates
-  of the curve's start points (mirrors exponential's y-axis validation but for x-axis).
 - CSS module styling (not Aphrodite), following `start-coords-exponential.module.css` pattern.
 
 ### Mobile
 
 - All interactions (drag points, drag asymptote) work via touch.
 - The 44px transparent hit target on the asymptote ensures adequate touch target size.
+- Focus follows the dragged element on touch as well as pointer drags. Touch input
+  doesn't move DOM focus the way a click does, so both `MovableAsymptote` and
+  `useControlPoint` programmatically focus their group on drag start. Without this
+  the previously focused element (e.g. a movable point) would keep its focus ring
+  while the user dragged the asymptote.
 
 ## Mathematical Model
 
@@ -190,7 +200,11 @@ Where `[a, b, c]` are 3 coefficients derived from 2 movable points and 1 vertica
     - `b = 1 / aExp`
     - `c = -cExp / aExp`
 
-### Validation Guards (returns `undefined` for invalid inputs)
+### When `getLogarithmCoefficients` returns `undefined`
+
+These are the cases where no logarithm fits and the renderer skips `<Plot.OfX>`. The widget
+allows the user to enter these states (asymptote between points is intentionally allowed) —
+they just produce no curve.
 
 - Same y-coordinate on both points (makes `bExp` undefined)
 - A point lying on the asymptote
@@ -273,17 +287,17 @@ Reuses existing action creators (no new action types):
 ### Reducer: `doMovePoint`
 
 1. Snap destination to grid, bound to range.
-2. Reject if point lands on asymptote x-coordinate.
-3. Reject if both points would have the same y-value.
-4. If point crosses asymptote: reflect the other point across (`reflectedX = 2 * asymptoteX - otherX`).
-5. Post-reflection guard: reject if reflected point collides with moved point's x-coordinate.
+2. Reject if both points would have the same x-value (degenerate coefficient computation).
+3. Reject if both points would have the same y-value (degenerate coefficient computation).
+4. Reject if the destination overlaps the asymptote drag handle's coord (so the handle stays
+   grabbable). Handle coord is computed via `getAsymptoteHandleCoord("vertical", range, asymptote)`.
 
 ### Reducer: `doMoveCenter`
 
-1. Extract X component only (horizontal movement).
-2. Snap to grid.
-3. If new position is between or on the curve points: snap past all points to the other side.
-4. Direction determined by comparing requested position to midpoint between curve points.
+1. Extract X component only (horizontal movement) and snap to grid.
+2. Reject if the snapped position equals the current asymptote (no-op).
+3. Reject if the new asymptote's drag handle would land on a point's coord. Future handle
+   coord is computed via `getAsymptoteHandleCoord("vertical", range, newX)`.
 
 ### Defaults
 
@@ -306,14 +320,20 @@ Numbered decisions with rationale for future context.
    for multiple periodic asymptotes), logarithm has one asymptote and the function is defined on
    only one side. No discontinuity workaround needed.
 
-4. **Ref-based coefficient caching** — `coeffRef` stores last valid coefficients as fallback
-   during transient invalid states. Same pattern as tangent and sinusoid.
+4. **Conditional curve rendering when no valid fit** — When the asymptote sits between the
+   two points (or shares a coord with one), `getLogarithmCoefficients` returns `undefined`
+   and `<Plot.OfX>` is skipped. The asymptote and points stay interactive so the user can
+   recover by moving them. This replaces an earlier ref-based caching approach that would
+   keep showing a stale curve in invalid states.
 
 5. **Direct coefficient comparison for scoring** — No canonical normalization needed because
    logarithm has no periodic equivalences. `approximateDeepEqual` on `{a, b, c}` suffices.
 
-6. **Midpoint-based snap-through** — Snap direction uses the midpoint between curve points
-   (not the previous asymptote position) to prevent oscillation when state changes between frames.
+6. **Asymptote-between-points is allowed** — The asymptote can be dragged anywhere along its
+   axis, including between the two control points. Content authors requested this state
+   because it improves the usability of authoring questions about the asymptote. When the
+   asymptote is between the points there is no real exponential/logarithm fit, so the curve
+   simply disappears.
 
 7. **Full-line draggable asymptote** — Uses `useDraggable` + `SVGLine` pattern from `MovableLine`,
    making the entire line interactive. A pill-shaped handle provides visual affordance.
@@ -328,16 +348,27 @@ Numbered decisions with rationale for future context.
 9. **Localized focus ring on drag handle** — Focus ring appears around the drag handle pill
    (not the full asymptote line), consistent with how movable points display focus.
 
-10. **Point cross-asymptote reflection** — When a point crosses the asymptote, the other point
-    is reflected to the same side. Matches Grapher behavior. Replaced the earlier approach of
-    rejecting cross-asymptote moves.
+10. **Point-on-handle is the only forbidden overlap** — Points can sit anywhere along the
+    asymptote line; the only constraint is that a point's coord cannot equal the asymptote
+    drag handle's coord (a single point in graph-space at the midpoint of the y-range, on
+    the asymptote x-value). This keeps the handle grabbable while letting the rest of the
+    asymptote line be a valid landing surface for points. The same rule mirrors in reverse
+    for asymptote moves.
 
-11. **Bounded keyboard constraint retry** — Unified `isValidPosition()` check inside a bounded
-    loop (max 3 steps). Prevents infinite-loop risk and ensures the point stays put if no valid
-    position exists.
+11. **Bounded keyboard skip retry** — Both the point-keyboard predicate and the asymptote
+    keyboard constraint cap their direction-of-travel skip at 3 snap steps. With at most 2
+    curve points blocking, 3 is always sufficient to find a valid position; if none is
+    found, the element stays put.
 
 12. **Drag handle retains focus after drag** — Matches movable point behavior. Auto-blur on drag
     end was implemented and reverted for consistency (see Post-Implementation Fixes).
+
+    **Drag start moves focus to the asymptote** — Complementary to the above: when a drag
+    starts (pointer or touch), `MovableAsymptote` programmatically focuses its group via a
+    `useLayoutEffect` keyed on `dragging`. This mirrors the same pattern in `useControlPoint`
+    and ensures focus follows the element the user is interacting with, including on mobile
+    where touch input does not naturally shift DOM focus. Without this, a previously focused
+    movable point would keep its focus ring during an asymptote drag.
 
 13. **Curve renders between asymptote lines and drag handle** — `Plot.OfX` is rendered as
     `children` of `MovableAsymptote`, placing it between the asymptote lines (white backing +
@@ -371,8 +402,8 @@ Numbered decisions with rationale for future context.
 | Asymptote | Horizontal (y-value) | Vertical (x-value) |
 | Asymptote movement | Vertical only | Horizontal only |
 | Drag handle orientation | Horizontal | Vertical |
-| Point constraint | Same x-values rejected | Same y-values rejected |
-| Cross-asymptote reflection | Y-axis reflection | X-axis reflection |
+| Point degeneracy | Same x-values rejected | Same x-values **and** same y-values rejected |
+| No-curve-fits state | Asymptote between point y-values | Asymptote between point x-values |
 | Coefficient relationship | Inverse of logarithm | Inverse of exponential |
 
 ### vs. Sinusoid

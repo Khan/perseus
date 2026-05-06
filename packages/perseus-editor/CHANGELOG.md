@@ -1,5 +1,79 @@
 # @khanacademy/perseus-editor
 
+## 31.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`4ea67efffa`](https://github.com/Khan/perseus/commit/4ea67efffa97a9092bec1092140be70d36b87cac), [`6da01cb76f`](https://github.com/Khan/perseus/commit/6da01cb76f867bb903fe112e8e80de0371d7338a)]:
+    -   @khanacademy/perseus@77.4.2
+
+## 31.2.0
+
+### Minor Changes
+
+-   [#3571](https://github.com/Khan/perseus/pull/3571) [`4e0193210e`](https://github.com/Khan/perseus/commit/4e0193210e63e57321da963c2eba9ca3f477a852) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Deprecate `serialize()` function on EditorPage, ArticleEditor, and Editor components - use `onChange` prop instead!
+
+*   [#3495](https://github.com/Khan/perseus/pull/3495) [`0dd432126d`](https://github.com/Khan/perseus/commit/0dd432126ddf747c4078bb5cc3cb3dec25b67604) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add usePreviewController and usePreviewPresenter hooks for typed iframe preview communication
+
+-   [#3499](https://github.com/Khan/perseus/pull/3499) [`8860d6a838`](https://github.com/Khan/perseus/commit/8860d6a838890cf1ee5aceaae1b6750039153270) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export preview system hooks and types from @khanacademy/perseus-editor
+
+### Patch Changes
+
+-   [#3580](https://github.com/Khan/perseus/pull/3580) [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove some feature flags related to Interactive Graph Phase 2 (absolute value, tangent, logarithm, and exponent)
+
+-   Updated dependencies [[`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af), [`cf2e061e24`](https://github.com/Khan/perseus/commit/cf2e061e24ee58ba00e23d121da3f9a123484860), [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783), [`138a955dfc`](https://github.com/Khan/perseus/commit/138a955dfcf7ac55aaa702ab7fb4f125d42a2e78)]:
+    -   @khanacademy/perseus@77.4.1
+    -   @khanacademy/perseus-core@26.0.2
+    -   @khanacademy/keypad-context@3.2.47
+    -   @khanacademy/kmath@2.4.5
+    -   @khanacademy/math-input@26.4.19
+    -   @khanacademy/perseus-linter@5.0.2
+    -   @khanacademy/perseus-score@8.8.1
+
+## 31.1.0
+
+### Minor Changes
+
+-   [#3466](https://github.com/Khan/perseus/pull/3466) [`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79) Thanks [@handeyeco](https://github.com/handeyeco)! - Implement "ungraded" InteractiveGraphs: interactive IGs that aren't scored as part of the regular scoring flow
+
+### Patch Changes
+
+-   Updated dependencies [[`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79)]:
+    -   @khanacademy/perseus@77.4.0
+    -   @khanacademy/perseus-score@8.8.0
+    -   @khanacademy/perseus-core@26.0.1
+    -   @khanacademy/keypad-context@3.2.46
+    -   @khanacademy/kmath@2.4.4
+    -   @khanacademy/math-input@26.4.18
+    -   @khanacademy/perseus-linter@5.0.1
+
+## 31.0.0
+
+### Major Changes
+
+-   [#3568](https://github.com/Khan/perseus/pull/3568) [`896e869ef5`](https://github.com/Khan/perseus/commit/896e869ef551ad64b1fcfd5ab3e175a2edb5fc32) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused `paths` field from `LinterContextProps` and the corresponding `contentPaths` prop from `EditorPage`, `ArticleEditor`, and `HintEditor`. The field was never read by any linter rule or renderer.
+
+### Minor Changes
+
+-   [#3532](https://github.com/Khan/perseus/pull/3532) [`3263332fe2`](https://github.com/Khan/perseus/commit/3263332fe250c35310dd2c430958c8c52df26867) Thanks [@benchristel](https://github.com/benchristel)! - The issue panels in the article editor now show only issues for their associated article section. Previously, each panel showed the full set of issues for the entire article.
+
+### Patch Changes
+
+-   [#3543](https://github.com/Khan/perseus/pull/3543) [`51ebddf119`](https://github.com/Khan/perseus/commit/51ebddf11959fc86a433084251c40a78fe5dfaf6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Refactoring Start Coords for efficiency
+
+*   [#3415](https://github.com/Khan/perseus/pull/3415) [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing Interactive Graph Builder and refactoring tests/storybook to use more standardized generator patterns.
+
+-   [#3538](https://github.com/Khan/perseus/pull/3538) [`8b95cdf6e3`](https://github.com/Khan/perseus/commit/8b95cdf6e31e143fc70978b7aa10fd2e6b935ef2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Storybook MCP addon for AI-assisted UI development
+
+-   Updated dependencies [[`494f287541`](https://github.com/Khan/perseus/commit/494f28754167c1e03a36f66df4b60dd045cf59fb), [`743ad9d5f4`](https://github.com/Khan/perseus/commit/743ad9d5f4eb73ea9abede96ff85acc99533e2da), [`0bf97ee3b6`](https://github.com/Khan/perseus/commit/0bf97ee3b6301c99f8dc5e1a98277dd6cf9e2af8), [`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c), [`e5ddaef207`](https://github.com/Khan/perseus/commit/e5ddaef207113869a19ed7fc734a547d06a4f478), [`ce83363534`](https://github.com/Khan/perseus/commit/ce8336353430668ec5eca53e16bb21dacdd7c904), [`dee6ce680c`](https://github.com/Khan/perseus/commit/dee6ce680cb19a7c966b595e1f66a2d5116c70f6), [`896e869ef5`](https://github.com/Khan/perseus/commit/896e869ef551ad64b1fcfd5ab3e175a2edb5fc32), [`cf5147d61c`](https://github.com/Khan/perseus/commit/cf5147d61c7cab40f9f987ca952cca0b28e0bbd5), [`afc4f33090`](https://github.com/Khan/perseus/commit/afc4f33090b5ea023e75706d8c01c30664241584), [`8b95cdf6e3`](https://github.com/Khan/perseus/commit/8b95cdf6e31e143fc70978b7aa10fd2e6b935ef2), [`1dbd5742dc`](https://github.com/Khan/perseus/commit/1dbd5742dcb0283b824fa21b54dcac0d05bdd375)]:
+    -   @khanacademy/perseus@77.3.2
+    -   @khanacademy/perseus-core@26.0.0
+    -   @khanacademy/perseus-linter@5.0.0
+    -   @khanacademy/kmath@2.4.3
+    -   @khanacademy/math-input@26.4.17
+    -   @khanacademy/keypad-context@3.2.45
+    -   @khanacademy/perseus-score@8.7.1
+
 ## 30.4.1
 
 ### Patch Changes

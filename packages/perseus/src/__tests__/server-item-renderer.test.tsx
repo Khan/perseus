@@ -477,23 +477,17 @@ describe("server item renderer", () => {
             const state = renderer.getSerializedState();
 
             // Assert
-            expect(state).toMatchInlineSnapshot(`
-                {
-                  "hints": [
-                    {},
-                    {},
-                    {},
-                  ],
-                  "question": {
+            expect(state).toEqual({
+                hints: [{}, {}, {}],
+                question: {
                     "mock-widget 1": {
-                      "alignment": "default",
-                      "currentValue": "-42",
-                      "static": false,
-                      "value": "3",
+                        alignment: "default",
+                        currentValue: "-42",
+                        static: false,
+                        value: "3",
                     },
-                  },
-                }
-            `);
+                },
+            });
         });
     });
 
@@ -504,7 +498,6 @@ describe("server item renderer", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    paths: [],
                     stack: [],
                 },
             });
@@ -522,7 +515,6 @@ describe("server item renderer", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: true,
-                    paths: [],
                     stack: [],
                 },
             });

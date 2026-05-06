@@ -1,5 +1,28 @@
 # @khanacademy/kmath
 
+## 2.4.5
+
+### Patch Changes
+
+-   Updated dependencies [[`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af), [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783)]:
+    -   @khanacademy/perseus-core@26.0.2
+
+## 2.4.4
+
+### Patch Changes
+
+-   Updated dependencies [[`9a1fd15302`](https://github.com/Khan/perseus/commit/9a1fd15302854ba39943a1474d3d44bb32b20f79)]:
+    -   @khanacademy/perseus-core@26.0.1
+
+## 2.4.3
+
+### Patch Changes
+
+-   [#3534](https://github.com/Khan/perseus/pull/3534) [`cf5147d61c`](https://github.com/Khan/perseus/commit/cf5147d61c7cab40f9f987ca952cca0b28e0bbd5) Thanks [@marnikostman](https://github.com/marnikostman)! - Remove `underscore` and `jquery` as peer and dev dependencies. All usages have been replaced with native JavaScript equivalents.
+
+-   Updated dependencies [[`957970dfdb`](https://github.com/Khan/perseus/commit/957970dfdb8da4ee41f73f42af39c2ee4b12fa3b), [`e21c523f5d`](https://github.com/Khan/perseus/commit/e21c523f5dc6d8b90ecf741e536a5556d340b64c)]:
+    -   @khanacademy/perseus-core@26.0.0
+
 ## 2.4.2
 
 ### Patch Changes

@@ -48,8 +48,6 @@ type Props = {
     additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
     answerArea: PerseusAnswerArea; // related to the question,
-    // TODO(CP-4838): Should this be a required prop?
-    contentPaths?: ReadonlyArray<string>;
     dependencies: PerseusDependenciesV2;
     /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
@@ -233,8 +231,6 @@ class EditorPage extends React.Component<Props, State> {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: this.state.highlightLint,
-                    // TODO(CP-4838): is it okay to use [] as a default?
-                    paths: this.props.contentPaths || [],
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
@@ -255,6 +251,11 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    /**
+     * Returns the current version of the edited {@link PerseusItem}.
+     *
+     * @deprecated Use the {@link Props.onChange} prop instead.
+     */
     serialize(): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;

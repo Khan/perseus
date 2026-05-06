@@ -8,7 +8,7 @@ const meta: Meta = {
     // 👇 Disable auto-generated documentation for this component. This
     // component supports preview in dev mode and isn't meant to be used as a
     // story by itself..
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
 };
 export default meta;
 

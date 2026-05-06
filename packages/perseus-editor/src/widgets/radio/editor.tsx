@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import Link from "@khanacademy/wonder-blocks-link";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
@@ -44,6 +43,10 @@ export interface RadioEditorProps {
  */
 class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
+    static bestPractices = {
+        url: "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems",
+        label: "Multiple choice best practices",
+    };
 
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
@@ -324,12 +327,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         return (
             <div>
-                <Link
-                    href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
-                    target="_blank"
-                >
-                    Multiple choice best practices
-                </Link>
                 <div className="perseus-widget-row">
                     <LabeledSwitch
                         label="Randomize order"

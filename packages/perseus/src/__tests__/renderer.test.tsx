@@ -145,8 +145,6 @@ describe("renderer", () => {
             linterContext: {
                 contentType: "exercise",
                 highlightLint: true,
-                // TODO(CP-4838): is it okay to use [] as a default?
-                paths: [],
                 stack: [],
             },
         } as const;
