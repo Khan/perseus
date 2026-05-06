@@ -8,12 +8,30 @@ describe("number", () => {
         expect(number(3.5, ctx())).toEqual(success(3.5));
     });
 
-    it("accepts Infinity", () => {
-        expect(number(Infinity, ctx())).toEqual(success(Infinity));
+    it("rejects Infinity", () => {
+        // Infinity is converted to null by `JSON.stringify()`, so we can't
+        // generally allow it in data that will be JSONified. Parsers can
+        // opt-in via `union(number).or(constant(Infinity)).parser` if they
+        // are sure to handle nulls.
+        expect(number(Infinity, ctx())).toEqual(
+            parseFailureWith({
+                expected: ["number"],
+                badValue: Infinity,
+            }),
+        );
     });
 
-    it("accepts NaN", () => {
-        expect(number(NaN, ctx())).toEqual(success(NaN));
+    it("rejects NaN", () => {
+        // NaN is converted to null by `JSON.stringify()`, so we can't
+        // generally allow it in data that will be JSONified. Parsers can
+        // opt-in via `union(number).or(notANumber).parser` if they are sure
+        // to handle nulls.
+        expect(number(NaN, ctx())).toEqual(
+            parseFailureWith({
+                expected: ["number"],
+                badValue: NaN,
+            }),
+        );
     });
 
     it("rejects a string", () => {
