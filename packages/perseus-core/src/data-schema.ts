@@ -240,6 +240,8 @@ export type Version = {
     major: number;
     /** The minor part of the version */
     minor: number;
+
+    patch: number;
 };
 
 export type PerseusRenderer = {
