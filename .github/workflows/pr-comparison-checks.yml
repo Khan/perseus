@@ -68,16 +68,23 @@ jobs:
                   label-name: schema-change
                   check-name: 🗄️ Schema Change
                   ack-label-name: schema-change-ack
-                  # Each paragraph is intentionally on a single long line.
-                  # The YAML `|` literal preserves all newlines, so a blank
-                  # line here = `\n\n` in the rendered Markdown (paragraph
-                  # break). Wrapping a paragraph across multiple source lines
-                  # would surface as visible line breaks in the rendered
-                  # check summary.
-                  change-details: |
-                      **Usually this means you need to update the Go parser that Content Platform maintains!!!** Follow these [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4161831001/Releasing+and+deploying+a+data-schema+change+in+Perseus#tl%3Bdr) on how to release. [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
+                  # Folded (`>`) so paragraphs can wrap freely. Two blank
+                  # lines are required for a Markdown paragraph break.
+                  # Markdown links must stay on one line — folding inserts
+                  # spaces between content lines, which would break URLs.
+                  change-details: >
+                      **Usually this means you need to update the Go parser
+                      that Content Platform maintains!!!** Follow these
+                      [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4161831001/Releasing+and+deploying+a+data-schema+change+in+Perseus#tl%3Bdr)
+                      on how to release.
+                      [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
-                      This PR contains critical changes to Perseus that affect published data. Please review the changes and note that you may need to coordinate deployment of these changes with other teams at Khan Academy, especially with #cp-eng to publish a content update.
+
+                      This PR contains critical changes to Perseus that
+                      affect published data. Please review the changes and
+                      note that you may need to coordinate deployment of
+                      these changes with other teams at Khan Academy,
+                      especially with #cp-eng to publish a content update.
 
     check_item_splitting:
         name: Item splitting
