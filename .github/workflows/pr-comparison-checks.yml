@@ -1,16 +1,14 @@
-name: Schema Change Ack
+name: PR Comparison Checks
 
-# Re-runs the schema-change check when the `schema-change-ack` label is added
-# or removed from a PR. The shared `branch-compare` action reads the PR's
-# current labels and concludes the Check accordingly: success when the ack
-# label is present, failure when it isn't and a schema diff exists.
-#
-# Other jobs in `node-ci.yml` are deliberately not retriggered on label
-# events — keep them on push/synchronize only — so this workflow is split
-# out to scope label-event runs to just the schema check.
+# Comparison checks build the PR branch and the base branch separately and
+# diff a specific artifact between the two. They live in their own workflow
+# (separate from `node-ci.yml`) because they need to react to PR metadata
+# changes — specifically `labeled` / `unlabeled` events for the
+# `schema-change-ack` flow — which the rest of CI does not.
+
 on:
     pull_request:
-        types: [labeled, unlabeled]
+        types: [opened, synchronize, reopened, edited, labeled, unlabeled]
 
 permissions:
     contents: read
@@ -19,13 +17,19 @@ permissions:
     checks: write
 
 concurrency:
-    group: schema-change-ack-${{ github.event.pull_request.number }}
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
     cancel-in-progress: true
 
 jobs:
-    re_check_schema:
+    check_schema:
         name: Check for schema changes
-        if: github.event.label.name == 'schema-change-ack'
+        # Run on every push event. On label events, run only when the
+        # acknowledgement label is the one being toggled — other label
+        # changes (including `schema-change` itself, which this action
+        # adds/removes automatically) shouldn't retrigger the check.
+        if: >-
+            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
+            || github.event.label.name == 'schema-change-ack'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
@@ -76,3 +80,42 @@ jobs:
                       coordinate deployment of these changes with other teams
                       at Khan Academy, especially with #cp-eng to publish a
                       content update.
+
+    check_item_splitting:
+        name: Check for item splitting changes
+        # No ack flow for this check yet, so skip on label events entirely.
+        if: github.event.action != 'labeled' && github.event.action != 'unlabeled'
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [24.x]
+        steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
+            - name: Check out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Use branch-compare action to generate item splitting artifacts
+              id: split-item-compare
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: pnpm install && pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  label-name: item-splitting-change
+                  check-name: 🛠️ Item Splitting
