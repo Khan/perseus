@@ -420,6 +420,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
                                     let MatrixInput;
                                     if (this.props.apiOptions.customKeypad) {
+                                        // TODO(LEMS-3686): Use CSS modules after
+                                        // Wonder Blocks supports it instead of
+                                        // inline styles.
                                         const style = {
                                             margin: INPUT_MARGIN,
                                             minWidth: INPUT_WIDTH,
@@ -445,6 +448,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                     } else {
                                         const updatedProps = {
                                             ...inputProps,
+                                            // TODO(LEMS-3686): Use CSS modules after
+                                            // Wonder Blocks supports it instead of
+                                            // inline styles.
                                             style: StyleSheet.create({
                                                 // eslint-disable-next-line react-native/no-unused-styles
                                                 input: {

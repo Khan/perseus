@@ -10,6 +10,7 @@
 .perseus-matrix div.paragraph {
     margin: 0;
 }
+/* The fill behind the matrix input cells */
 .perseus-matrix .matrix-input {
     background: var(--wb-semanticColor-core-background-base-subtle);
     display: inline-block;
@@ -40,20 +41,10 @@
     border-right-width: 2px;
     margin-left: -3px;
 }
+/* Matrix input cell */
 .perseus-matrix input,
 .perseus-matrix .number-input {
-    background: var(--wb-semanticColor-core-background-base-default);
-    border: none;
-    border-radius: 0;
-    box-sizing: border-box;
-    margin: 3px;
-    padding: 0;
     text-align: center;
-}
-.perseus-matrix input:focus,
-.perseus-matrix .number-input:focus {
-    border: none;
-    outline: none;
 }
 body.mobile .perseus-matrix .matrix-input {
     display: table;
