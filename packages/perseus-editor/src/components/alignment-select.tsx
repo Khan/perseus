@@ -51,6 +51,7 @@ export function AlignmentSelect({
                 onChange={(value) => {
                     // Create a synthetic-like event to match the existing
                     // onChange signature expected by WidgetEditor
+                    // eslint-disable-next-line no-restricted-syntax
                     const syntheticEvent = {
                         currentTarget: {value},
                     } as React.ChangeEvent<HTMLSelectElement>;
