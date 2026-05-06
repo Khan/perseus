@@ -21,6 +21,7 @@ export const GifControlsButton = ({
             // changes based on the state it is communicated to assistive
             // technologies. As most screen readers will not announce for
             // changes in content, but might for changes in the aria-label.
+            // Reference: https://sarahmhigley.com/writing/playing-with-state/
             aria-label={
                 isPlaying
                     ? strings.gifPauseButtonLabel
