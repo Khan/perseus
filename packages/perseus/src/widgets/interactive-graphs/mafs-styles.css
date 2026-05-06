@@ -315,7 +315,6 @@
 
 /* Vector graph line styling */
 .MafsView .movable-vector-line {
-    stroke: var(--mafs-blue);
     stroke-width: var(--movable-line-stroke-weight);
     stroke-linecap: round;
 }
