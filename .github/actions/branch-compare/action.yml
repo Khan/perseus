@@ -164,7 +164,7 @@ runs:
                   // the summary, so the summary should NOT repeat the title.
                   let summary;
                   if (noChanges) {
-                      summary = "The compared artifact is identical to the base branch.";
+                      summary = "No differences vs. the base branch.";
                   } else {
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
