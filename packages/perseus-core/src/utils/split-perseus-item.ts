@@ -12,11 +12,11 @@ import type {PerseusItem} from "../data-schema";
  * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
  */
 export default function splitPerseusItem(original: PerseusItem): PerseusItem {
-    const cloned = deepClone(original);
+    const item = deepClone(original);
 
     return {
-        ...cloned,
-        question: splitPerseusRenderer(cloned.question),
+        ...item,
+        question: splitPerseusRenderer(item.question),
         /**
          * We can't include the hints because they often contain the answer.
          *
