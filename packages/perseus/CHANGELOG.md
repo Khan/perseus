@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 77.4.1
+
+### Patch Changes
+
+-   [#3574](https://github.com/Khan/perseus/pull/3574) [`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af) Thanks [@handeyeco](https://github.com/handeyeco)! - Make angleOffsetDeg nullable
+
+*   [#3566](https://github.com/Khan/perseus/pull/3566) [`cf2e061e24`](https://github.com/Khan/perseus/commit/cf2e061e24ee58ba00e23d121da3f9a123484860) Thanks [@Myranae](https://github.com/Myranae)! - Convert matcher colors to semantic tokens
+
+-   [#3580](https://github.com/Khan/perseus/pull/3580) [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove some feature flags related to Interactive Graph Phase 2 (absolute value, tangent, logarithm, and exponent)
+
+*   [#3582](https://github.com/Khan/perseus/pull/3582) [`138a955dfc`](https://github.com/Khan/perseus/commit/138a955dfcf7ac55aaa702ab7fb4f125d42a2e78) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing horizontal overflow issues in GIF images.
+
+*   Updated dependencies [[`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af), [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783)]:
+    -   @khanacademy/perseus-core@26.0.2
+    -   @khanacademy/keypad-context@3.2.47
+    -   @khanacademy/kmath@2.4.5
+    -   @khanacademy/math-input@26.4.19
+    -   @khanacademy/perseus-linter@5.0.2
+    -   @khanacademy/perseus-score@8.8.1
+
 ## 77.4.0
 
 ### Minor Changes
