@@ -1,5 +1,28 @@
 # @khanacademy/perseus-editor
 
+## 31.2.0
+
+### Minor Changes
+
+-   [#3571](https://github.com/Khan/perseus/pull/3571) [`4e0193210e`](https://github.com/Khan/perseus/commit/4e0193210e63e57321da963c2eba9ca3f477a852) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Deprecate `serialize()` function on EditorPage, ArticleEditor, and Editor components - use `onChange` prop instead!
+
+*   [#3495](https://github.com/Khan/perseus/pull/3495) [`0dd432126d`](https://github.com/Khan/perseus/commit/0dd432126ddf747c4078bb5cc3cb3dec25b67604) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add usePreviewController and usePreviewPresenter hooks for typed iframe preview communication
+
+-   [#3499](https://github.com/Khan/perseus/pull/3499) [`8860d6a838`](https://github.com/Khan/perseus/commit/8860d6a838890cf1ee5aceaae1b6750039153270) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export preview system hooks and types from @khanacademy/perseus-editor
+
+### Patch Changes
+
+-   [#3580](https://github.com/Khan/perseus/pull/3580) [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove some feature flags related to Interactive Graph Phase 2 (absolute value, tangent, logarithm, and exponent)
+
+-   Updated dependencies [[`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af), [`cf2e061e24`](https://github.com/Khan/perseus/commit/cf2e061e24ee58ba00e23d121da3f9a123484860), [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783), [`138a955dfc`](https://github.com/Khan/perseus/commit/138a955dfcf7ac55aaa702ab7fb4f125d42a2e78)]:
+    -   @khanacademy/perseus@77.4.1
+    -   @khanacademy/perseus-core@26.0.2
+    -   @khanacademy/keypad-context@3.2.47
+    -   @khanacademy/kmath@2.4.5
+    -   @khanacademy/math-input@26.4.19
+    -   @khanacademy/perseus-linter@5.0.2
+    -   @khanacademy/perseus-score@8.8.1
+
 ## 31.1.0
 
 ### Minor Changes
