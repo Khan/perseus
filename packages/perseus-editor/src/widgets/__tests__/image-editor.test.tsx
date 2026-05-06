@@ -1092,6 +1092,119 @@ describe("image editor", () => {
             // Assert
             expect(onChangeMock).not.toHaveBeenCalled();
         });
+
+        it("should disable the scale inputs when the image size is invalid", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={{
+                        // Missing width and height
+                        url: earthMoonImage.url,
+                    }}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            expect(scaleField).toHaveAttribute("aria-disabled", "true");
+            expect(scaledWidthField).toHaveAttribute("aria-disabled", "true");
+            expect(scaledHeightField).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("should show the warning when the image size is missing", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={{url: earthMoonImage.url}}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("should show the warning when the image size is zero", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={{
+                        url: earthMoonImage.url,
+                        width: 0,
+                        height: 0,
+                    }}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("should enable the scale inputs when the image size is valid", () => {
+            // Arrange, Act
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={{
+                        url: earthMoonImage.url,
+                        width: earthMoonImage.width,
+                        height: earthMoonImage.height,
+                    }}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Assert
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            const scaledWidthField = screen.getByRole("spinbutton", {
+                name: "Scaled Width",
+            });
+            const scaledHeightField = screen.getByRole("spinbutton", {
+                name: "Scaled Height",
+            });
+            expect(scaleField).toHaveAttribute("aria-disabled", "false");
+            expect(scaledWidthField).toHaveAttribute("aria-disabled", "false");
+            expect(scaledHeightField).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("should hide the warning when the image size is valid", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptionsWithScaleFlag}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).not.toBeInTheDocument();
+        });
     });
 
     describe("flags", () => {
