@@ -434,20 +434,24 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _handleAddSectionAfter(i: number) {
         // We do a full serialization here because we
         // might be copying widgets:
-        const sections = {...this.serialize()};
+        const clonedArticle = this.serialize();
+        // Articles are (annoyingly) either a single PerseusRenderer _or_ an
+        // array of them! Would be nice for the article to always be an array!
+        const sections =
+            clonedArticle instanceof Array ? clonedArticle : [clonedArticle];
+
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
-        const newSection =
-            i >= 0
-                ? {
-                      widgets: sections[i].widgets,
-                  }
-                : {};
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'PerseusArticle'.
+        const newSection = {
+            content: "",
+            images: {},
+            widgets: i >= 0 ? sections[i].widgets : {},
+        };
+
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,

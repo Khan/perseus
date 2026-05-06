@@ -145,7 +145,7 @@ class EditorPage extends React.Component<Props, State> {
         // NOTE: It is required to delay the preview update until after the
         // current frame, to allow for ItemEditor to render its widgets.
         // This then enables to serialize the widgets properties correctly,
-        // in order to send data to the preview iframe (IframeContentRenderer).
+        // in order to send data to the preview iframe (PreviewWithIframe).
         // Otherwise, widgets will render in an "empty" state in the preview.
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
         // eslint-disable-next-line no-restricted-syntax
