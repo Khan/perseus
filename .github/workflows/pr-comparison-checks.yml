@@ -21,8 +21,8 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    check_schema:
-        name: Check for schema changes
+    check_schema_change:
+        name: Schema change
         # Run on every push event. On label events, run only when the
         # acknowledgement label is the one being toggled — other label
         # changes (including `schema-change` itself, which this action
@@ -82,7 +82,7 @@ jobs:
                       content update.
 
     check_item_splitting:
-        name: Check for item splitting changes
+        name: Item splitting
         # No ack flow for this check yet, so skip on label events entirely.
         if: github.event.action != 'labeled' && github.event.action != 'unlabeled'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
