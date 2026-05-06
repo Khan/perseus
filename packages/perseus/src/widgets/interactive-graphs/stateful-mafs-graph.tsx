@@ -2,6 +2,7 @@ import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
+import {useAnnouncingReducer} from "./announcer/use-announcing-reducer";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -64,6 +65,7 @@ export const StatefulMafsGraph = React.forwardRef<
         props,
         initializeGraphState,
     );
+    const announcingDispatch = useAnnouncingReducer(state, dispatch);
 
     useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, graph),
@@ -143,10 +145,10 @@ export const StatefulMafsGraph = React.forwardRef<
             <MafsGraph
                 {...props}
                 state={initializeGraphState({...props, graph: props.correct})}
-                dispatch={dispatch}
+                dispatch={announcingDispatch}
             />
         );
     }
 
-    return <MafsGraph {...props} state={state} dispatch={dispatch} />;
+    return <MafsGraph {...props} state={state} dispatch={announcingDispatch} />;
 });
