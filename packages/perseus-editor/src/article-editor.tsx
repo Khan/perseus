@@ -21,18 +21,18 @@ import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.sv
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import {WARNINGS} from "./messages";
+import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
+import type {PreviewWithIframeRef} from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageUploader,
@@ -50,6 +50,7 @@ type DefaultProps = {
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
 };
+
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
     dependencies: PerseusDependenciesV2;
@@ -69,9 +70,7 @@ type State = {
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        // NOTE(Jeremy):
-        // eslint-disable-next-line no-restricted-syntax
-        json: [{} as any],
+        json: [{content: "", widgets: {}, images: {}}],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -81,6 +80,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         highlightLint: true,
         issues: [],
     };
+
+    // Store refs for preview iframes (keyed by section index or "all")
+    private frameRefs: Record<string, PreviewWithIframeRef | null> = {};
 
     componentDidMount() {
         this._updateIssues();
@@ -146,47 +148,54 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _updatePreviewFrames() {
         if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
-                type: "article-all",
-                data: this._sections().map((section, i) => {
-                    return this._apiOptionsForSection(section, i);
-                }),
-            });
+            const frameAll = this.frameRefs["all"];
+            if (frameAll) {
+                frameAll.sendNewData({
+                    type: "article-all",
+                    data: this._sections().map((section, i) =>
+                        this._previewDataForSection(section, i),
+                    ),
+                });
+            }
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
-                    type: "article",
-                    data: this._apiOptionsForSection(section, i),
-                });
+                const frame = this.frameRefs[String(i)];
+                if (frame) {
+                    frame.sendNewData({
+                        type: "article",
+                        data: this._previewDataForSection(section, i),
+                    });
+                }
             });
         }
     }
 
-    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
+    _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
-        return {
-            apiOptions: {
-                ...ApiOptions.defaults,
-                ...this.props.apiOptions,
 
-                // Alignment options are always available in article
-                // editors
-                showAlignmentOptions: true,
-                isArticle: true,
-            },
+        return {
+            apiOptions: this._apiOptionsForPreview(),
             json: section,
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
+                stack: [],
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
+            legacyPerseusLint: editor?.getSaveWarnings() ?? [],
+        };
+    }
+
+    _apiOptionsForPreview(): APIOptions {
+        return {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+
+            // Alignment options are always available in article
+            // editors
+            showAlignmentOptions: true,
+            isArticle: true,
         };
     }
 
@@ -361,11 +370,12 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                <IframeContentRenderer
-                    ref={"frame-" + i}
+                <PreviewWithIframe
+                    ref={(node) => {
+                        this.frameRefs[String(i)] = node;
+                    }}
                     key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
+                    isMobile={isMobile}
                     seamless={nochrome}
                     url={this.props.previewURL}
                 />
@@ -423,7 +433,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _handleAddSectionAfter(i: number) {
         // We do a full serialization here because we
         // might be copying widgets:
-        const sections = _.clone(this.serialize());
+        const sections = {...this.serialize()};
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
