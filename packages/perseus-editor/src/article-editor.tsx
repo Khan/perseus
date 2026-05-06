@@ -87,12 +87,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     componentDidMount() {
         this._updateIssues();
-        // Defer updatePreviewFrames to ensure refs are set
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            this._updatePreviewFrames();
-        }, 0);
+        this._updatePreviewFrames();
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -101,12 +96,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             this._updateIssues();
         }
 
-        // Defer updatePreviewFrames to allow for child renders
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            this._updatePreviewFrames();
-        }, 0);
+        this._updatePreviewFrames();
     }
 
     /**
