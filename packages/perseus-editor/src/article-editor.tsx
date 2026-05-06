@@ -454,7 +454,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     /**
      * Returns the current version of the edited {@link PerseusArticle}.
      *
-     * @deprecated Use the {@link Props.onChange} prop instead.
+     * @deprecated Use the `onChange` prop instead.
      */
     serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
