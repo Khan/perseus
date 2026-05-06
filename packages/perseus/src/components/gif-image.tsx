@@ -294,6 +294,10 @@ const GifImage = (props: Props) => {
         [drawFrame],
     );
 
+    // Only set an explicit height when width is absent; otherwise
+    // aspect-ratio derives it so the canvas scales proportionally.
+    const displayHeight = !width && height ? height * scale : undefined;
+
     return (
         <>
             {/* Two canvases are needed because there is no canvas API
@@ -314,7 +318,10 @@ const GifImage = (props: Props) => {
                 data-testid="gif-canvas"
                 style={{
                     width: width ? width * scale : undefined,
-                    height: height ? height * scale : undefined,
+                    maxWidth: "100%",
+                    aspectRatio:
+                        width && height ? `${width} / ${height}` : undefined,
+                    height: displayHeight,
                 }}
             />
             {/* Base canvas: a hidden canvas that acts as a bridge
