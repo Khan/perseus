@@ -54,3 +54,13 @@ export function getOtherSideLengthWithPreservedAspectRatio(
 
     return (newSideLength * otherSideLength) / sideLength;
 }
+
+/**
+ * Checks if a dimension is invalid. A dimension is valid if it's
+ * a positive, non-infinite number.
+ * @param dimension - The dimension (height or width) to check.
+ * @returns True if the dimension is invalid, false otherwise.
+ */
+export function isInvalidDimension(dimension: number): boolean {
+    return isNaN(dimension) || dimension <= 0 || dimension === Infinity;
+}

@@ -9,7 +9,7 @@ import * as React from "react";
 
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 import styles from "../image-editor.module.css";
-import {wbFieldStyles} from "../utils";
+import {isInvalidDimension, wbFieldStyles} from "../utils";
 
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
@@ -30,7 +30,9 @@ export default function ImageScaleInput({
 }: Props) {
     const width = backgroundImage.width ?? 0;
     const height = backgroundImage.height ?? 0;
-    const hasInvalidDimensions = width === 0 || height === 0;
+    // Dimension needs to be a positive real number.
+    const hasInvalidDimensions =
+        isInvalidDimension(width) || isInvalidDimension(height);
 
     function handleScaleChange(newScale: string) {
         const scaleNum = Number(newScale);
