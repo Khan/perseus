@@ -175,7 +175,7 @@ runs:
                       if (ackLabel !== "") {
                           if (isAcked) {
                               parts.push(
-                                  `> This change has been acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
+                                  `> Acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
                                   "",
                               );
                           } else {
