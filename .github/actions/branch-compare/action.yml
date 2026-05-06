@@ -157,13 +157,15 @@ runs:
                       title = `${checkName}: Changes Detected ⚠️`;
                   }
 
+                  // The Checks UI renders `output.title` as a heading above
+                  // the summary, so the summary should NOT repeat the title.
                   let summary;
                   if (noChanges) {
-                      summary = `### ${checkName}: No Changes ✅\n\nThe compared artifact is identical to the base branch.`;
+                      summary = "The compared artifact is identical to the base branch.";
                   } else {
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
-                      const parts = [`### ${title}`, ""];
+                      const parts = [];
                       if (details) {
                           parts.push(details, "");
                       }
