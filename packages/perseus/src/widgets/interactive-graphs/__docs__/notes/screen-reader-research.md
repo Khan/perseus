@@ -28,7 +28,7 @@ LEMS-3946 asks for two deliverables; this is where each lives:
 
 ## Goals & Requirements
 
-Per the Phase 1 audit ([Interactive Graph: Screen reader quality notes](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3937763330/Interactive+Graph+Screen+reader+quality+notes)), the widget is currently at the **Bronze** accessibility tier. Phase 2 targets **Silver**, which adds three requirements we don't yet meet:
+Per the Phase 1 audit ([Interactive Graph: Screen reader quality notes](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3937763330/Interactive+Graph+Screen+reader+quality+notes)), the widget is currently at the **Bronze** accessibility tier. **Completing all work described in this document will bring Interactive Graph to Silver tier.** Silver adds three requirements we don't yet meet:
 
 1. Surface dynamic feedback to SR users when graph state changes (not just re-reading static labels).
 2. Move focus appropriately for keyboard / SR users after input.
@@ -97,7 +97,7 @@ This area covers the foundational Announcer infrastructure that surfaces dynamic
 
 Duplicated from [Goals & Requirements](#goals--requirements) for area-specific reference:
 
-- **Bronze → Silver requirement:** surface dynamic feedback to SR users when graph state changes (not just re-reading static labels).
+- **Silver tier requirement (achieved on completion):** surface dynamic feedback to SR users when graph state changes (not just re-reading static labels).
 - **Designer's planned updates:**
     - Announce graph entered / exited via the Wonder Blocks `Announcer`. *(Cross-cuts with [Focus Trap & Entry/Exit](#focus-trap--entryexit) — same handler, same announcement.)*
     - Announce dynamic changes (point added, point removed, shape closed, etc.) via WB `Announcer`.
@@ -286,7 +286,7 @@ This area covers the focus trap (Shift + Enter to enter, Escape to exit), the an
 
 Duplicated from [Goals & Requirements](#goals--requirements) for area-specific reference:
 
-- **Bronze → Silver requirement:** move focus appropriately for keyboard / SR users after input.
+- **Silver tier requirement (achieved on completion):** move focus appropriately for keyboard / SR users after input.
 - **Designer's planned updates:**
     - Focus trap. Shift + Enter enters the graph; Escape exits.
     - Announce graph entered / exited via the Wonder Blocks `Announcer`. *(Cross-cuts with [WB Announcer Implementation](#wb-announcer-implementation) — the announcement infrastructure lives there; this area owns the trigger.)*

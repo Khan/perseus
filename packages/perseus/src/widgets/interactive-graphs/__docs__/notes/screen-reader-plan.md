@@ -27,7 +27,7 @@
 
 ## Document Purpose
 
-This plan turns the decisions in [`screen-reader-research.md`](./screen-reader-research.md) into a phased PR roadmap. Audience: the engineer (or engineers) implementing each phase, plus reviewers and PMs tracking rollout. Read top-to-bottom for the rollout sequence and dependency graph; jump to a phase for its files, steps, tests, flag, and risks; consult `screen-reader-research.md` for the *why* behind any decision (the Decisions Log at the bottom of this plan cross-links back).
+This plan turns the decisions in [`screen-reader-research.md`](./screen-reader-research.md) into a phased PR roadmap. **Completing all phases in this plan will bring Interactive Graph from Bronze to Silver accessibility tier** — confirmed with design. Audience: the engineer (or engineers) implementing each phase, plus reviewers and PMs tracking rollout. Read top-to-bottom for the rollout sequence and dependency graph; jump to a phase for its files, steps, tests, flag, and risks; consult `screen-reader-research.md` for the *why* behind any decision (the Decisions Log at the bottom of this plan cross-links back).
 
 ---
 
