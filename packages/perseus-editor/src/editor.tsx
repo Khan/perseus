@@ -26,15 +26,11 @@ import {
     setPerseusClipboardData,
 } from "./util/clipboard";
 
+import type {APIOptions, ImageUploader} from "@khanacademy/perseus";
 import type {
-    APIOptions,
-    ChangeHandler,
-    ImageUploader,
-} from "@khanacademy/perseus";
-import type {
+    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
-    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
@@ -133,8 +129,7 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
+    onChange: (changes: Partial<PerseusRenderer>) => void;
 }>;
 
 type DefaultProps = {
@@ -301,17 +296,10 @@ class Editor extends React.Component<Props, State> {
     _handleWidgetEditorChange: (
         id: string,
         newWidgetInfo: PerseusWidget,
-        cb?: () => unknown,
-        silent?: boolean,
-    ) => void = (
-        id: string,
-        newWidgetInfo: PerseusWidget,
-        cb?: () => unknown,
-        silent?: boolean,
-    ) => {
+    ) => void = (id: string, newWidgetInfo: PerseusWidget) => {
         const widgets = Object.assign({}, this.props.widgets);
         widgets[id] = Object.assign({}, widgets[id], newWidgetInfo);
-        this.props.onChange({widgets}, cb, silent);
+        this.props.onChange({widgets});
     };
 
     _handleWidgetEditorRemove: (id: string) => void = (id: string) => {
@@ -357,14 +345,9 @@ class Editor extends React.Component<Props, State> {
                     width: width,
                     height: height,
                 };
-                props.onChange(
-                    {
-                        images: _.clone(images),
-                    },
-                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                    null, // callback
-                    true, // silent
-                );
+                props.onChange({
+                    images: _.clone(images),
+                });
             });
         });
     };
@@ -789,7 +772,7 @@ class Editor extends React.Component<Props, State> {
 
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
-        this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
+        this.props.onChange({content: newContent});
     };
 
     getSaveWarnings: () => any = () => {
