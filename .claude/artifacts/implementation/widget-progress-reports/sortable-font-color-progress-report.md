@@ -45,3 +45,56 @@ grep -nE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/compon
 ### Fonts to be Tokenized:
 
 None found. No `fontSize`, `fontWeight`, `lineHeight`, or `fontFamily` in any sortable files.
+
+---
+
+## Step 2 — Create Regression Stories
+
+### Research (Gate Check — before creating files)
+
+**Files examined:**
+- `packages/perseus/src/components/sortable.tsx` — main component, full read
+- `packages/perseus/src/components/__docs__/sortable.stories.tsx` — existing stories, no colors or fonts
+- `packages/perseus/src/components/__tests__/sortable.test.tsx` — tests render with `waitForTexRendererToLoad: false`
+- `packages/perseus/src/widgets/free-response/__docs__/free-response-initial-state-regression.stories.tsx` — reference for story pattern
+- `packages/perseus/src/widgets/free-response/__docs__/free-response-interactions-regression.stories.tsx` — reference for interactions pattern
+- `packages/perseus/src/widgets/label-image/__docs__/label-image-initial-state-regression.stories.tsx` — reference for `!manifest` tag
+- `packages/perseus/src/widgets/label-image/__docs__/label-image-interactions-regression.stories.tsx` — reference for `within` + `waitFor` pattern
+
+**Memory consulted:** `feedback_sortable_chromatic_stories.md` — TeX in card items causes non-deterministic Chromatic snapshots (two-step async: TeX load → measurement). Plain text options used instead.
+
+**Adaptations for component vs. widget:**
+- No renderer decorator file needed — Sortable renders directly without QuestionRenderer wrapper
+- No `getWidget("sortable")` — `Sortable` is imported directly
+- Import path for `.storybook/modes`: `../../../../../.storybook/modes` (components/__docs__ is 5 levels from repo root, widgets/__docs__ is 6 levels)
+- `tags: ["!autodocs", "!manifest"]` — consistent with all existing regression stories
+
+**Import path verified:**
+`packages/perseus/src/components/__docs__/` → `../../../../../.storybook/modes` ✓
+
+**Interaction patterns identified:**
+- Dragging state triggered by `onMouseDown` on a card: sets `item.state = ItemState.DRAGGING`
+- `onMouseDown` calls `requestAnimationFrame` before updating state — play function needs `waitFor` to wait for the async state update
+- After dragging state is set, a `Placeholder` renders alongside the dragging card → list goes from 3 items to 4 items
+- `waitFor(() => expect(canvas.getAllByRole("listitem")).toHaveLength(4))` used to confirm rAF + setState completed
+- Mouse held with `userEvent.pointer({target: cards[0], keys: "[MouseLeft>]"})` (no release)
+
+**Story coverage plan:**
+- Initial state:
+  - `HorizontalLayout` — covers card background (#fff) and border (#ddd)
+  - `VerticalLayout` — covers same in vertical orientation
+  - `DisabledState` — covers disabled appearance (transparent border, inherit background)
+- Interactions:
+  - `DraggingCard` — covers dragging (#ffedcd background) AND placeholder (#ddd background, #ccc border)
+
+**Deviation noted:** The workflow template includes a "renderer decorator" file (File 1). This file is not applicable to Sortable since it is a component that renders standalone, not a widget wrapped in a question renderer. Only the two story files are created.
+
+### Files Created
+
+**`packages/perseus/src/components/__docs__/sortable-initial-state-regression.stories.tsx`**
+- `HorizontalLayout` — default horizontal, 3 plain-text items
+- `VerticalLayout` — vertical layout variant
+- `DisabledState` — horizontal with `disabled: true`
+
+**`packages/perseus/src/components/__docs__/sortable-interactions-regression.stories.tsx`**
+- `DraggingCard` — horizontal, holds mousedown on first card; uses `waitFor` to wait for `requestAnimationFrame` + `setState` to apply dragging state and render placeholder
