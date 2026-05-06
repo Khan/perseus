@@ -128,7 +128,12 @@ class EditorPage extends React.Component<Props, State> {
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
-        this.updateRenderer();
+        // Defer updateRenderer to ensure child refs (itemEditor, hintsEditor) are set
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            this.updateRenderer();
+        }, 0);
     }
 
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
@@ -230,6 +235,7 @@ class EditorPage extends React.Component<Props, State> {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: this.state.highlightLint,
+                    stack: [],
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),

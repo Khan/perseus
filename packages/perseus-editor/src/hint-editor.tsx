@@ -4,14 +4,14 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, iconTrash} from "@khanacademy/perseus";
+import {ApiOptions, components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
+import PreviewWithIframe from "./preview-with-iframe";
 import {
     iconCircleArrowDown,
     iconCircleArrowUp,
@@ -203,7 +203,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     };
 
     editor = React.createRef<HintEditor>();
-    frame = React.createRef<IframeContentRenderer>();
+    frame = React.createRef<React.ElementRef<typeof PreviewWithIframe>>();
 
     componentDidMount() {
         this.updatePreview();
@@ -219,10 +219,11 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
             data: {
                 hint: this.props.hint,
                 pos: this.props.pos,
-                apiOptions: this.props.apiOptions,
+                apiOptions: this.props.apiOptions || ApiOptions.defaults,
                 linterContext: {
                     contentType: "hint",
-                    highlightLint: this.props.highlightLint,
+                    highlightLint: this.props.highlightLint || false,
+                    stack: [],
                 },
             },
         });
@@ -277,10 +278,9 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
-                        <IframeContentRenderer
+                        <PreviewWithIframe
                             ref={this.frame}
-                            datasetKey="mobile"
-                            datasetValue={isMobile}
+                            isMobile={isMobile}
                             seamless={true}
                             url={this.props.previewURL}
                         />
