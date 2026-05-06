@@ -36,7 +36,7 @@ describe("PreviewWithIframe", () => {
     });
 
     it.each([true, false])(
-        "sets data-mobile attribute isMobile is set",
+        "sets data-mobile attribute when isMobile is: %s",
         (isMobile: boolean) => {
             render(
                 <PreviewWithIframe
@@ -52,7 +52,7 @@ describe("PreviewWithIframe", () => {
     );
 
     it.each([true, false])(
-        "sets data-lint-gutter attribute when seamless is provided",
+        "sets data-lint-gutter attribute when seamless is: %s",
         (seamless: boolean) => {
             render(
                 <PreviewWithIframe
