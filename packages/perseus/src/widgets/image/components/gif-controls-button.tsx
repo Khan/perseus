@@ -16,6 +16,16 @@ export const GifControlsButton = ({
 
     return (
         <Button
+            // While this might look redundant, it is important to define the
+            // aria-label for this button so when the aria-label dynamically
+            // changes based on the state it is communicated to assistive
+            // technologies. As most screen readers will not announce for
+            // changes in content, but might for changes in the aria-label.
+            aria-label={
+                isPlaying
+                    ? strings.gifPauseButtonLabel
+                    : strings.gifPlayButtonLabel
+            }
             kind="secondary"
             startIcon={isPlaying ? pauseIcon : playIcon}
             onClick={onToggle}
