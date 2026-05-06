@@ -9,10 +9,8 @@ import {PreviewRenderer} from "./preview-renderer";
 import type {PreviewContent} from "../../preview/message-types";
 
 /**
- * Loads the exercise preview frame
- *
- * This is loaded inside the iframe, where it sets up the ExercisePreviewFrame
- * component that handles all communication between the iframe and its parent.
+ * The exercise preview page. This page is loaded inside an iframe and should
+ * only be used to support editor previews in Storybook!
  */
 const ExercisePreviewPage = () => {
     const [previewData, setPreviewData] = React.useState<PreviewContent | null>(
