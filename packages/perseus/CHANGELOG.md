@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 77.4.2
+
+### Patch Changes
+
+-   [#3585](https://github.com/Khan/perseus/pull/3585) [`4ea67efffa`](https://github.com/Khan/perseus/commit/4ea67efffa97a9092bec1092140be70d36b87cac) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix mobile Interactive Graph's asymptote drag not blurring previously focused point
+
+*   [#3589](https://github.com/Khan/perseus/pull/3589) [`6da01cb76f`](https://github.com/Khan/perseus/commit/6da01cb76f867bb903fe112e8e80de0371d7338a) Thanks [@handeyeco](https://github.com/handeyeco)! - Deny graded in denylist
+
 ## 77.4.1
 
 ### Patch Changes
