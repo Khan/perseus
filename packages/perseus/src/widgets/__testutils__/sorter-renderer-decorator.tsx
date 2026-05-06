@@ -9,8 +9,9 @@ import QuestionRendererForStories from "./question-renderer-for-stories";
 
 import type {APIOptions} from "../../types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
 
-export const sorterRendererDecorator = (
+export const sorterRendererDecorator: Decorator = (
     _,
     {
         args,

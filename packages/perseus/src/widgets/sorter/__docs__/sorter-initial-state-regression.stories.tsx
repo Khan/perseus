@@ -12,6 +12,7 @@ const meta: Meta<typeof SorterWidget> = {
     title: "Widgets/Sorter/Visual Regression Tests/Initial State",
     component: SorterWidget,
     tags: ["!autodocs", "!manifest"],
+    decorators: [sorterRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -35,13 +36,11 @@ const horizontalItems = {
 
 // Verifies the default horizontal layout: cards arranged in a row with padding
 export const DefaultHorizontal: Story = {
-    decorators: [sorterRendererDecorator],
     args: horizontalItems,
 };
 
 // Verifies the vertical layout: cards stacked in a column with padding
 export const DefaultVertical: Story = {
-    decorators: [sorterRendererDecorator],
     args: {
         correct: [
             "Longest option in the list",
@@ -65,7 +64,6 @@ export const MobileHorizontal: Story = {
 
 // Verifies horizontal layout with padding disabled: cards rendered without inner spacing
 export const NoPadding: Story = {
-    decorators: [sorterRendererDecorator],
     args: {
         correct: ["Item one", "Item two", "Item three"],
         padding: false,
