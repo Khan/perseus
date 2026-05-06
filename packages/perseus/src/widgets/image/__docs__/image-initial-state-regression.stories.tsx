@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
+import {ApiOptions} from "../../../perseus-api";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
 import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
@@ -16,6 +18,7 @@ import {
 import {
     earthMoonImage,
     frescoImage,
+    gifImageAlt,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -321,5 +324,25 @@ export const ImageWithoutWidthOrHeightLarge: Story = {
     args: {
         backgroundImage: {url: frescoImage.url},
         alt: "Fresco painting",
+    },
+};
+
+export const TallGifImage: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-gif-controls": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {
+            url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
+        },
+        alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
     },
 };
