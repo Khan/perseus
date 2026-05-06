@@ -6,7 +6,6 @@ export * from "./defaulted";
 export * from "./enumeration";
 export * from "./is-plain-object";
 export * from "./nullable";
-export * from "./not-a-number";
 export * from "./number";
 export * from "./object";
 export * from "./optional";
