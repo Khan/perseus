@@ -102,6 +102,10 @@ applies to the exponential graph.
   - **Active state** (hovered, focused, or dragging): 12px × 22px pill with 6 white grip dots (2×3 grid)
   - **Inactive state** (default): 6px × 16px pill, no grip dots
   - **Focus ring** (keyboard focus only): rounded outline around the handle (not the full line)
+- When a drag starts (pointer or touch), the asymptote group programmatically focuses
+  itself, mirroring `useControlPoint`'s behavior for movable points. This blurs whatever
+  was previously focused (e.g. a movable point), so the focus indicator follows the
+  element the user is currently interacting with.
 - The drag handle retains focus after a mouse drag ends, matching movable point behavior.
   Focus clears only when the user clicks elsewhere or navigates away via keyboard.
 
@@ -168,6 +172,11 @@ applies to the exponential graph.
 
 - All interactions (drag points, drag asymptote) work via touch.
 - The 44px transparent hit target on the asymptote ensures adequate touch target size.
+- Focus follows the dragged element on touch as well as pointer drags. Touch input
+  doesn't move DOM focus the way a click does, so both `MovableAsymptote` and
+  `useControlPoint` programmatically focus their group on drag start. Without this
+  the previously focused element (e.g. a movable point) would keep its focus ring
+  while the user dragged the asymptote.
 
 ## Mathematical Model
 
@@ -353,6 +362,13 @@ Numbered decisions with rationale for future context.
 
 12. **Drag handle retains focus after drag** — Matches movable point behavior. Auto-blur on drag
     end was implemented and reverted for consistency (see Post-Implementation Fixes).
+
+    **Drag start moves focus to the asymptote** — Complementary to the above: when a drag
+    starts (pointer or touch), `MovableAsymptote` programmatically focuses its group via a
+    `useLayoutEffect` keyed on `dragging`. This mirrors the same pattern in `useControlPoint`
+    and ensures focus follows the element the user is interacting with, including on mobile
+    where touch input does not naturally shift DOM focus. Without this, a previously focused
+    movable point would keep its focus ring during an asymptote drag.
 
 13. **Curve renders between asymptote lines and drag handle** — `Plot.OfX` is rendered as
     `children` of `MovableAsymptote`, placing it between the asymptote lines (white backing +
