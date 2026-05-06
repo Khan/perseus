@@ -85,6 +85,7 @@ const getRefForPath = function (path: FocusPath) {
 // defaultProps into account, which is important because
 // PerseusMatrixWidgetOptions has optional fields which receive defaults via
 // defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusMatrixWidgetOptions,
     PerseusMatrixUserInput

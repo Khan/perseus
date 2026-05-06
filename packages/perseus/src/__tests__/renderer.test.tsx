@@ -67,6 +67,7 @@ describe("renderer", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -1517,6 +1518,7 @@ describe("isDifferentQuestion", () => {
             },
             problemNum: 0,
         };
+        // eslint-disable-next-line no-restricted-syntax
         expect(isDifferentQuestion(answerful, answerless as any)).toBe(false);
     });
 

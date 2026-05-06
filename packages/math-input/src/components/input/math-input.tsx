@@ -107,6 +107,7 @@ class MathInput extends React.Component<Props, State> {
 
         this._updateInputPadding();
 
+        // eslint-disable-next-line no-restricted-syntax
         this._container = ReactDOM.findDOMNode(this) as HTMLDivElement;
         this._root = this._container.querySelector(".mq-root-block");
         this._root.addEventListener("scroll", this._handleScroll);
@@ -244,6 +245,7 @@ class MathInput extends React.Component<Props, State> {
     }
 
     _updateInputPadding: () => void = () => {
+        // eslint-disable-next-line no-restricted-syntax
         this._container = ReactDOM.findDOMNode(this) as HTMLDivElement;
         this._root = this._container.querySelector(".mq-root-block");
 

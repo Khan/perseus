@@ -7,9 +7,13 @@ import * as UseDraggableModule from "../use-draggable";
 import {MovableAsymptote} from "./movable-asymptote";
 
 const defaultProps = {
+    // eslint-disable-next-line no-restricted-syntax
     start: [-100, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     end: [100, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     mid: [0, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     point: [-10, 0] as [number, number],
     onMove: jest.fn(),
     orientation: "horizontal" as const,

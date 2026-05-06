@@ -45,6 +45,7 @@ describe("LabelImage", function () {
         });
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",

@@ -117,6 +117,7 @@ export const ApiOptions = {
         editorChangeDelay: PropTypes.number,
     }).isRequired,
 
+    // eslint-disable-next-line no-restricted-syntax
     defaults: {
         isArticle: false,
         isMobile: false,

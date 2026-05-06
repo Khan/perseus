@@ -176,7 +176,7 @@ describe("expression mobile", () => {
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
         const mathquillInput =
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
         const span1 = within(mathquillInput).getByText("1");
 
@@ -205,7 +205,7 @@ describe("expression mobile", () => {
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
         const mathquillInput =
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
 
         testNumbers.forEach((num) => {
@@ -236,7 +236,7 @@ describe("expression mobile", () => {
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
         const mathquillInput =
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
         const span4 = within(mathquillInput).getByText("4");
         const span2 = within(mathquillInput).getByText("2");
@@ -268,7 +268,7 @@ describe("expression mobile", () => {
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
         const mathquillInput =
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
         const span4 = within(mathquillInput).getByText("4");
         const spanPlus = within(mathquillInput).getByText("+");
@@ -361,7 +361,7 @@ describe("expression mobile", () => {
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
         const mathquillInstance = MQ(
-            // eslint-disable-next-line testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
             document.getElementsByClassName(
                 "mq-editable-field",
             )[0] as HTMLElement,

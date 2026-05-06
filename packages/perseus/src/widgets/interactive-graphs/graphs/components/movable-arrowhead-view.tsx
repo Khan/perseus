@@ -124,6 +124,7 @@ export const MovableArrowheadView = forwardRef(
                 ref={hitboxRef}
                 className={classes}
                 style={
+                    // eslint-disable-next-line no-restricted-syntax
                     {
                         "--movable-arrowhead-color": interactiveColor,
                         cursor,

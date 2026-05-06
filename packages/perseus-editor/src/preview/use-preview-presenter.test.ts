@@ -15,6 +15,7 @@ describe("usePreviewPresenter", () => {
 
     beforeEach(() => {
         // Mock parent window with postMessage
+        // eslint-disable-next-line no-restricted-syntax
         mockParentWindow = {
             postMessage: jest.fn(),
         } as unknown as Window;
@@ -149,11 +150,13 @@ describe("usePreviewPresenter", () => {
                             widgets: {},
                             images: {},
                         },
+                        // eslint-disable-next-line no-restricted-syntax
                         answerArea: {calculator: false} as any,
                         hints: [],
                     },
                     apiOptions: {readOnly: true},
                     initialHintsVisible: 0,
+                    // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -292,6 +295,7 @@ describe("usePreviewPresenter", () => {
         it("ignores content-data from non-parent source", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
+            // eslint-disable-next-line no-restricted-syntax
             const mockOtherWindow = {
                 postMessage: jest.fn(),
             } as unknown as Window;
@@ -301,6 +305,7 @@ describe("usePreviewPresenter", () => {
                 type: "content-data",
                 content: {
                     type: "question",
+                    // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
             };
@@ -330,11 +335,13 @@ describe("usePreviewPresenter", () => {
                             widgets: {},
                             images: {},
                         },
+                        // eslint-disable-next-line no-restricted-syntax
                         answerArea: {calculator: false} as any,
                         hints: [],
                     },
                     apiOptions: {},
                     initialHintsVisible: 0,
+                    // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -416,6 +423,7 @@ describe("usePreviewPresenter", () => {
             expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(3);
 
             // Check the height update calls
+            // eslint-disable-next-line no-restricted-syntax
             const calls = (mockParentWindow.postMessage as jest.Mock).mock
                 .calls;
             expect(calls[1][0]).toEqual({
@@ -447,6 +455,7 @@ describe("usePreviewPresenter", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
+            // eslint-disable-next-line no-restricted-syntax
             const differentWindow = {} as Window;
 
             const message: ParentToIframeMessage = {
@@ -455,6 +464,7 @@ describe("usePreviewPresenter", () => {
 
                 content: {
                     type: "question",
+                    // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
             };
@@ -613,11 +623,13 @@ describe("usePreviewPresenter", () => {
                 data: {
                     item: {
                         question: {content: "Test", widgets: {}, images: {}},
+                        // eslint-disable-next-line no-restricted-syntax
                         answerArea: {calculator: false} as any,
                         hints: [],
                     },
                     apiOptions: {},
                     initialHintsVisible: 0,
+                    // eslint-disable-next-line no-restricted-syntax
                     device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
@@ -666,11 +678,13 @@ describe("usePreviewPresenter", () => {
                     data: {
                         item: {
                             question: {content: "Q1", widgets: {}, images: {}},
+                            // eslint-disable-next-line no-restricted-syntax
                             answerArea: {calculator: false} as any,
                             hints: [],
                         },
                         apiOptions: {},
                         initialHintsVisible: 0,
+                        // eslint-disable-next-line no-restricted-syntax
                         device: {type: "phone"} as any,
                         linterContext: {
                             contentType: "exercise",

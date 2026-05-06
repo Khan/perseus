@@ -30,6 +30,7 @@ describe("collectActionRefs", () => {
     describe("already-pinned refs (uses: owner/repo@<sha> # <tag>)", () => {
         it("adds action@ref to seen with a null SHA", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@${SHA} # v4.1.0` as any,
             );
 
@@ -44,6 +45,7 @@ Map {
 
         it("adds owner/repo to allRepos", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@${SHA} # v4.1.0` as any,
             );
 
@@ -58,6 +60,7 @@ Set {
 
         it("strips subpath from action when adding to allRepos", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/cache/restore@${SHA} # v3` as any,
             );
 
@@ -72,6 +75,7 @@ Set {
 
         it("skips lines that are YAML comments", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      # uses: actions/checkout@${SHA} # v4.1.0` as any,
             );
 
@@ -83,6 +87,7 @@ Set {
 
         it("handles quoted uses values", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: "actions/checkout@${SHA}" # v4.1.0` as any,
             );
 
@@ -102,6 +107,7 @@ Map {
             // `(?![a-f0-9]{40}(?:\s|"))` only excludes a SHA when followed by
             // whitespace or a quote. Without `\n`, the SHA is matched as a tag.
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@${SHA}\n` as any,
             );
 
@@ -119,6 +125,7 @@ Set {
     describe("unpinned refs (uses: owner/repo@<tag>)", () => {
         it("adds action@ref to seen with a null SHA", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@v4.1.0` as any,
             );
 
@@ -133,6 +140,7 @@ Map {
 
         it("adds owner/repo to allRepos", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@v4.1.0` as any,
             );
 
@@ -149,6 +157,7 @@ Set {
     describe("deduplication", () => {
         it("deduplicates the same action@ref across multiple files", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 `      uses: actions/checkout@v4.1.0` as any,
             );
 
@@ -167,9 +176,11 @@ Map {
         it("deduplicates the same repo across different ref patterns", () => {
             mockReadFileSync
                 .mockReturnValueOnce(
+                    // eslint-disable-next-line no-restricted-syntax
                     `      uses: actions/checkout@${SHA} # v4.1.0` as any,
                 )
                 .mockReturnValueOnce(
+                    // eslint-disable-next-line no-restricted-syntax
                     `      uses: actions/checkout@v4.1.0` as any,
                 );
 
@@ -189,6 +200,7 @@ Set {
     describe("multiple actions in one file", () => {
         it("collects all action refs", () => {
             mockReadFileSync.mockReturnValue(
+                // eslint-disable-next-line no-restricted-syntax
                 [
                     `      uses: actions/checkout@${SHA} # v4.1.0`,
                     `      uses: actions/setup-node@v4`,

@@ -17,8 +17,11 @@ const defaultPolygon = getDefaultFigureForType("polygon");
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
+    // eslint-disable-next-line no-restricted-syntax
     box: [288, 288] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     gridStep: [1, 1] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     snapStep: [1, 1] as [number, number],
     onChange: () => {},
     graph: undefined,
@@ -27,6 +30,7 @@ const baseProps = {
 
 const segmentProps = {
     ...baseProps,
+    // eslint-disable-next-line no-restricted-syntax
     graph: {type: "segment"} as PerseusGraphType,
 };
 

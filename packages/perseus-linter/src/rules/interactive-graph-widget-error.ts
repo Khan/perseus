@@ -2,6 +2,7 @@ import {vector as kvector} from "@khanacademy/kmath";
 
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "interactive-graph-widget-error",
     severity: Rule.Severity.ERROR,

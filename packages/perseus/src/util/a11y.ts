@@ -7,6 +7,7 @@ import {StyleSheet} from "aphrodite";
 
 import type {StyleDeclaration} from "aphrodite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default StyleSheet.create({
     // Make content only visible to screen readers.
     // Both collegeboard.org and Bootstrap 3 use this exact implementation.

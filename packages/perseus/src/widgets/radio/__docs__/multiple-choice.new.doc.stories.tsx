@@ -18,6 +18,7 @@ interface RendererQuestion {
     images: Record<string, any>;
 }
 
+// eslint-disable-next-line no-restricted-syntax
 const meta = {
     title: "Widgets/Radio",
     tags: ["!dev"],

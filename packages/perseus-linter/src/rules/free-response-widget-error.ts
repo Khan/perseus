@@ -11,6 +11,7 @@ import Rule from "../rule";
 // restricted dependency of perseus-linter (circular dependency).
 const rWidgetRule = /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "free-response-widget-error",
     severity: Rule.Severity.ERROR,

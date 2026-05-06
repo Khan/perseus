@@ -39,6 +39,7 @@ describe("Video AI utils", () => {
         const widget = renderer.getWidgetInstance("video 1");
 
         // Act
+        // eslint-disable-next-line no-restricted-syntax
         const json = widget?.getPromptJSON?.() as UnsupportedWidgetPromptJSON;
 
         // Assert

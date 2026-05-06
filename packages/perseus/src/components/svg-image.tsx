@@ -182,6 +182,7 @@ class SvgImage extends React.Component<Props, State> {
             labelDataIsLocalized: false,
             labels: [],
             labelsRendered: {},
+            // eslint-disable-next-line no-restricted-syntax
             range: [[0, 0], [0, 0] as Coord],
         };
     }

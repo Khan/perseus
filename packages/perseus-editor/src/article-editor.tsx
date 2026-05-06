@@ -77,6 +77,7 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         // NOTE(Jeremy):
+        // eslint-disable-next-line no-restricted-syntax
         json: [{} as any],
         mode: "edit",
         screen: "desktop",

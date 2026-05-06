@@ -315,6 +315,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <AnswerOption
                         key={ans.key}
                         considered={ans.considered}
+                        // eslint-disable-next-line no-restricted-syntax
                         expressionProps={expressionProps as any}
                         form={ans.form}
                         simplify={ans.simplify}

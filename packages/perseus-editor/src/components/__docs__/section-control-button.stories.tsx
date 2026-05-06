@@ -9,6 +9,7 @@ type Story = {
     title: string;
 };
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Section Control Button",
 } as Story;

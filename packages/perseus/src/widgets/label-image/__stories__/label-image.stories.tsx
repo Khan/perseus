@@ -110,6 +110,7 @@ export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
     );
 };
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Widgets/Label Image",
     args: {

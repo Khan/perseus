@@ -8,6 +8,7 @@ type Story = {
     title: string;
 };
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Widgets/Video/Video Transcript Link",
     parameters: {

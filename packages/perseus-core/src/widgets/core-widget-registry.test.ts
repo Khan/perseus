@@ -18,6 +18,7 @@ describe("core-widget-registry", () => {
     test.each(registryFnNames)(
         "%s throws when called before registerWidget",
         (fnName) => {
+            // eslint-disable-next-line no-restricted-syntax
             const fn = (CoreWidgetRegistry as any)[fnName];
             expect(() => fn("radio")).toThrow(
                 "Core widget registry accessed before initialization!",
@@ -33,6 +34,7 @@ describe("core-widget-registry", () => {
             };
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         const validRadioWidget = {
             type: "radio",
             options: {
@@ -65,6 +67,7 @@ describe("core-widget-registry", () => {
         });
 
         it("returns the widget unchanged if widget type is unregistered", () => {
+            // eslint-disable-next-line no-restricted-syntax
             const widget = {
                 type: "non-existent-widget",
                 options: {foo: 1},
@@ -84,6 +87,7 @@ describe("core-widget-registry", () => {
 
         it("calls traverseChildWidgets when defined and returns updated widget", () => {
             const widget: PerseusWidget = {
+                // eslint-disable-next-line no-restricted-syntax
                 type: mockWidgetType as any,
                 options: {foo: 1},
             };
