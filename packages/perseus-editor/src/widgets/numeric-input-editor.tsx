@@ -381,6 +381,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     <br />
                     {answerFormButtons.map((format) => {
                         const isSelected = answers[i]["answerForms"]?.includes(
+                            // eslint-disable-next-line no-restricted-syntax
                             format.value as MathFormat,
                         );
                         const kind = isSelected ? "accent" : "transparent";

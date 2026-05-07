@@ -289,6 +289,7 @@ describe("GraphSettings", () => {
         );
 
         // Act
+        // eslint-disable-next-line no-restricted-syntax
         const input = screen.getByRole("textbox") as HTMLInputElement;
         await userEventLib.clear(input);
         await userEventLib.tab();

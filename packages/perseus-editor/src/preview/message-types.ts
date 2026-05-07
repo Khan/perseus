@@ -24,17 +24,6 @@ interface PreviewMessageBase {
 }
 
 /**
- * Base type for messages with iframe ID
- *
- * Note: The ID is primarily used for debugging/logging purposes.
- * Message routing is handled by event.source filtering in the hooks,
- * not by comparing ID strings.
- */
-interface PreviewMessageWithId extends PreviewMessageBase {
-    id: string;
-}
-
-/**
  * Data for question preview (full item with question, answer area, and hints)
  */
 export type QuestionPreviewData = {
@@ -82,10 +71,10 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-type PreviewDataMessage = PreviewMessageWithId & {
+interface PreviewDataMessage extends PreviewMessageBase {
     type: "content-data";
     content: PreviewContent;
-};
+}
 
 /**
  * Union of all messages sent from parent to iframe
@@ -95,32 +84,30 @@ export type ParentToIframeMessage = PreviewDataMessage;
 // ---- Iframe → Parent messages ----
 
 /**
- * Message from iframe requesting data from parent
+ * Message from iframe to parent telling it the iframe is ready
  */
-type PreviewDataRequestMessage = PreviewMessageWithId & {
-    type: "request-data";
-};
+interface PreviewIframeReadyMessage extends PreviewMessageBase {
+    type: "iframe-ready";
+}
 
 /**
  * Message from iframe reporting its content height
  */
-type PreviewHeightUpdateMessage = PreviewMessageWithId & {
+interface PreviewHeightUpdateMessage extends PreviewMessageBase {
     type: "height-update";
     height: number;
-};
-
-/**
- * Message from iframe reporting lint warnings
- */
-type PreviewLintReportMessage = PreviewMessageWithId & {
-    type: "lint-report";
-    lintWarnings: ReadonlyArray<any>;
-};
+}
 
 /**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
-    | PreviewDataRequestMessage
-    | PreviewHeightUpdateMessage
-    | PreviewLintReportMessage;
+    | PreviewIframeReadyMessage
+    | PreviewHeightUpdateMessage;
+
+export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "iframe-ready",
+    };
+}

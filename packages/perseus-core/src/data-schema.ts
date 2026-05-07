@@ -376,8 +376,19 @@ export type WidgetOptions<
      */
     static?: boolean;
     /**
-     * Whether a widget is scored. Usually true except for IFrame widgets (deprecated).
+     * Whether a widget is scored.
      * Default: true
+     *
+     * The behavior depends on how the widget decides to implement it.
+     * For example, Interactive Graph will render an ungraded graph
+     * that is still interactive that learners can use to visualize
+     * math.
+     *
+     * Historical uses seem questionable (See LEMS-3958):
+     * - IFrame
+     * - Explanation
+     * - Image
+     * - Transformer (deprecated)
      */
     graded?: boolean;
     /**
@@ -1120,7 +1131,7 @@ export type PerseusGraphTypeAngle = {
     /** Allow Reflex Angles if an "angle" type. default: true */
     allowReflexAngles?: boolean;
     /** The angle offset in degrees if an "angle" type. default: 0 */
-    angleOffsetDeg?: number;
+    angleOffsetDeg?: number | null;
     /** Snap to degree increments if an "angle" type. default: 1 */
     snapDegrees?: number;
     /** How to match the answer. If missing, defaults to exact matching. */

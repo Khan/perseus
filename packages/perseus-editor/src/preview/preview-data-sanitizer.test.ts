@@ -82,6 +82,7 @@ describe("sanitizePreviewData", () => {
                     answerArea: getDefaultAnswerArea(),
                     hints: [],
                 },
+                // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
                 initialHintsVisible: 0,
                 device: "phone",
@@ -176,6 +177,7 @@ describe("sanitizePreviewData", () => {
             const hintData: HintPreviewData = {
                 hint: {content: "Hint", widgets: {}, images: {}},
                 pos: 1,
+                // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
                 linterContext: {
                     contentType: "exercise",
@@ -228,6 +230,7 @@ describe("sanitizePreviewData", () => {
         it("handles article data with null apiOptions", () => {
             const articleData: ArticlePreviewData = {
                 json: [{content: "Content", widgets: {}, images: {}}],
+                // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
                 linterContext: {
                     contentType: "article",
@@ -336,6 +339,7 @@ describe("sanitizePreviewData", () => {
             };
             const section2: ArticlePreviewData = {
                 json: [{content: "Section 2", widgets: {}, images: {}}],
+                // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
                 linterContext: {
                     contentType: "article",

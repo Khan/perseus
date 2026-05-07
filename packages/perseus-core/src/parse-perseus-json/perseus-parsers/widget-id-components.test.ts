@@ -113,11 +113,13 @@ describe("parseWidgetIdComponents", () => {
         });
 
         it("rejects components with non-string widget type", () => {
+            // eslint-disable-next-line no-restricted-syntax
             const result = parseWidgetIdComponents([123 as any, "1"], ctx());
             expect(result).toEqual(anyFailure);
         });
 
         it("rejects components with non-string number", () => {
+            // eslint-disable-next-line no-restricted-syntax
             const result = parseWidgetIdComponents(["radio", 1 as any], ctx());
             expect(result).toEqual(anyFailure);
         });
@@ -135,6 +137,7 @@ describe("parseWidgetIdComponents", () => {
         });
 
         it("provides appropriate error message for invalid widget type", () => {
+            // eslint-disable-next-line no-restricted-syntax
             const result = parseWidgetIdComponents([123 as any, "1"], ctx());
 
             expect(result).toEqual(

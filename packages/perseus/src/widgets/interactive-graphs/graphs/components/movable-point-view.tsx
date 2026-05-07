@@ -86,6 +86,7 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
             aria-hidden={true}
             ref={hitboxRef}
             className={pointClasses}
+            // eslint-disable-next-line no-restricted-syntax
             style={{"--movable-point-color": interactiveColor, cursor} as any}
             data-testid="movable-point"
             onClick={onClick}

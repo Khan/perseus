@@ -26,6 +26,7 @@ type ObjectSchema = Record<keyof any, Parser<any>>;
 export function objectWithAllPropertiesRequired<S extends ObjectSchema>(
     schema: S,
 ): Parser<{[K in keyof S]: ParsedValue<S[K]>}> {
+    // eslint-disable-next-line no-restricted-syntax
     return object(schema) as any;
 }
 

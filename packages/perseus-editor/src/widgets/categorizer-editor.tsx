@@ -102,6 +102,7 @@ class CategorizerEditor extends React.Component<Props> {
                     via widget-container.jsx that we aren't passing to Categorizer here.
                     See perseus-all-package/types.js#WidgetProps for details. */}
                 <Categorizer
+                    // eslint-disable-next-line no-restricted-syntax
                     {...(categorizerProps as PropsFor<typeof Categorizer>)}
                 />
             </div>

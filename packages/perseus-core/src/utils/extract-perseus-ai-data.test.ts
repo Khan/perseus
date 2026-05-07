@@ -307,6 +307,7 @@ describe("injectWidgets", () => {
                 "radio 1": {
                     choices: [{content: "2"}, {content: "1"}, {content: "3"}],
                     type: "radio" as const,
+                    // eslint-disable-next-line no-restricted-syntax
                     options: {} as any,
                 },
             };

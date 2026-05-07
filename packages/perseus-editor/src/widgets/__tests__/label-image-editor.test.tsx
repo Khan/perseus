@@ -32,6 +32,7 @@ const defaultProps = {
     ],
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
+    // eslint-disable-next-line no-restricted-syntax
     preferredPopoverDirection: "NONE" as PreferredPopoverDirection,
     onChange: jest.fn(),
 };

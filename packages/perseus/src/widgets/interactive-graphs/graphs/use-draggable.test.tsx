@@ -92,7 +92,9 @@ describe("useDraggable", () => {
             width: 200,
             height: 200,
             viewBox: {
+                // eslint-disable-next-line no-restricted-syntax
                 x: [-10, 10] as Interval,
+                // eslint-disable-next-line no-restricted-syntax
                 y: [-10, 10] as Interval,
                 padding: 0,
             },
@@ -121,7 +123,9 @@ describe("useDraggable", () => {
             width: 200,
             height: 200,
             viewBox: {
+                // eslint-disable-next-line no-restricted-syntax
                 x: [-10, 10] as Interval,
+                // eslint-disable-next-line no-restricted-syntax
                 y: [-10, 10] as Interval,
                 padding: 0,
             },
@@ -153,7 +157,9 @@ describe("useDraggable", () => {
             width: 200,
             height: 200,
             viewBox: {
+                // eslint-disable-next-line no-restricted-syntax
                 x: [-10, 10] as Interval,
+                // eslint-disable-next-line no-restricted-syntax
                 y: [-10, 10] as Interval,
                 padding: 0,
             },
@@ -192,7 +198,9 @@ describe("useDraggable", () => {
             width: 200,
             height: 200,
             viewBox: {
+                // eslint-disable-next-line no-restricted-syntax
                 x: [-10, 10] as Interval,
+                // eslint-disable-next-line no-restricted-syntax
                 y: [-10, 10] as Interval,
                 padding: 0,
             },
@@ -282,7 +290,9 @@ describe("useDraggable", () => {
             width: 200,
             height: 200,
             viewBox: {
+                // eslint-disable-next-line no-restricted-syntax
                 x: [-10, 10] as Interval,
+                // eslint-disable-next-line no-restricted-syntax
                 y: [-10, 10] as Interval,
                 padding: 0,
             },

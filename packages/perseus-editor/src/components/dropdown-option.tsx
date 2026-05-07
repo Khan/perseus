@@ -19,6 +19,7 @@ const {Icon} = components;
 const findAndFocusElement = (component?: Element | null) => {
     const DOMNode: Element | Text | null | undefined =
         ReactDOM.findDOMNode(component);
+    // eslint-disable-next-line no-restricted-syntax
     const button = DOMNode as HTMLInputElement;
     // @ts-expect-error - TS2774 - This condition will always return true since this function is always defined. Did you mean to call it instead?
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -70,10 +71,12 @@ class Option extends React.Component<Props> {
 
         if (pressedKey === "ArrowDown" && focusedElement.nextElementSibling) {
             event.preventDefault();
+            // eslint-disable-next-line no-restricted-syntax
             (focusedElement.nextElementSibling as HTMLElement).focus();
         }
         if (pressedKey === "ArrowUp" && focusedElement.previousElementSibling) {
             event.preventDefault();
+            // eslint-disable-next-line no-restricted-syntax
             (focusedElement.previousElementSibling as HTMLElement).focus();
         }
         if (

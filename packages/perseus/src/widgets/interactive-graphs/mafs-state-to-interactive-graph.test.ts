@@ -434,6 +434,7 @@ describe("mafsStateToInteractiveGraph", () => {
         const state = {
             ...commonGraphState,
             type: "absolute-value" as const,
+            // eslint-disable-next-line no-restricted-syntax
             coords: [
                 [1, 2],
                 [3, 4],

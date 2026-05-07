@@ -1,0 +1,130 @@
+name: PR Comparison Checks
+
+# Comparison checks build the PR branch and the base branch separately and
+# diff a specific artifact between the two. They live in their own workflow
+# (separate from `node-ci.yml`) because they need to react to PR metadata
+# changes — specifically `labeled` / `unlabeled` events for the
+# `schema-change-ack` flow — which the rest of CI does not.
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+
+permissions:
+    contents: read
+    pull-requests: write
+    issues: write
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check_schema_change:
+        name: Schema change
+        # Run on every push event. On label events, run only when the
+        # acknowledgement label is the one being toggled — other label
+        # changes (including `schema-change` itself, which this action
+        # adds/removes automatically) shouldn't retrigger the check.
+        if: >-
+            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
+            || github.event.label.name == 'schema-change-ack'
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [24.x]
+        steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
+            - name: Check out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Compare Perseus Schema to base branch
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: |
+                      pnpm install && \
+                      pnpm tsc --declaration --emitDeclarationOnly --removeComments \
+                        --outfile ${{ runner.temp }}/schema.d.ts \
+                        packages/perseus-core/src/data-schema.ts
+                      pnpm prettier --write ${{ runner.temp }}/schema.d.ts
+                  path-to-artifact: ${{ runner.temp }}/schema.d.ts
+                  label-name: schema-change
+                  check-name: 🗄️ Schema Change
+                  ack-label-name: schema-change-ack
+                  # Folded (`>`) so paragraphs can wrap freely. Two blank
+                  # lines are required for a Markdown paragraph break.
+                  # Markdown links must stay on one line — folding inserts
+                  # spaces between content lines, which would break URLs.
+                  change-details: >
+                      **Usually this means you need to update the Go parser
+                      that Content Platform maintains!!!** Follow these
+                      [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4161831001/Releasing+and+deploying+a+data-schema+change+in+Perseus#tl%3Bdr)
+                      on how to release.
+                      [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
+
+
+                      This PR contains critical changes to Perseus that
+                      affect published data. Please review the changes and
+                      note that you may need to coordinate deployment of
+                      these changes with other teams at Khan Academy,
+                      especially with #cp-eng to publish a content update.
+
+    check_item_splitting:
+        name: Item splitting
+        # Run on every push event. On label events, run only when the
+        # acknowledgement label is the one being toggled.
+        if: >-
+            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
+            || github.event.label.name == 'item-splitting-change-ack'
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [24.x]
+        steps:
+            - name: Install uuidgen
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install uuid-runtime
+
+            - name: Check out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Use branch-compare action to generate item splitting artifacts
+              id: split-item-compare
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: pnpm install && pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  label-name: item-splitting-change
+                  check-name: 🛠️ Item Splitting
+                  ack-label-name: item-splitting-change-ack

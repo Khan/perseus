@@ -14,8 +14,11 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
+    // eslint-disable-next-line no-restricted-syntax
     box: [288, 288] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     gridStep: [1, 1] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     snapStep: [1, 1] as [number, number],
     showAxisArrows: {
         xMin: true,
@@ -29,6 +32,7 @@ const baseProps = {
 
 const segmentProps: PropsFor<typeof InteractiveGraphEditor> = {
     ...baseProps,
+    // eslint-disable-next-line no-restricted-syntax
     graph: {type: "segment"} as PerseusGraphType,
 };
 
@@ -72,7 +76,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
@@ -810,7 +814,7 @@ describe("InteractiveGraphEditor", () => {
             },
         );
 
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });

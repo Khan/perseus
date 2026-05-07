@@ -34,6 +34,7 @@ const LineWeightSelect = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
+                // eslint-disable-next-line no-restricted-syntax
                 onChange={(value) => onChange(value as StrokeWeight)}
                 // Placeholder is required, but never gets used.
                 placeholder=""

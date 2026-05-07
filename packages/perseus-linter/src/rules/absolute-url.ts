@@ -2,6 +2,7 @@ import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "absolute-url",
     severity: Rule.Severity.GUIDELINE,

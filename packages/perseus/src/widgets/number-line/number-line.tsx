@@ -125,6 +125,7 @@ const _label = (
     }
 };
 
+// eslint-disable-next-line no-restricted-syntax
 const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {

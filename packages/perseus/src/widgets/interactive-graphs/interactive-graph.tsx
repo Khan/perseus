@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp, max-lines */
 import {angles, coefficients, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
@@ -9,6 +9,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -215,17 +216,22 @@ type State = any;
 // The PropsFor<Component> type takes defaultProps into account, which is
 // important because PerseusInteractiveGraphWidgetOptions has optional fields
 // which receive defaults via defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     InteractiveGraphPublicWidgetOptions,
     PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 class InteractiveGraph extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     mafsRef = React.createRef<StatefulMafsGraphType>();
 
     static defaultProps: DefaultProps = {
@@ -297,21 +303,28 @@ class InteractiveGraph extends React.Component<Props, State> {
                     // So we watch for changes in StatefulMafsGraph and call
                     // getUserInput so we can pass the parent the most up-to-date
                     // user input.
+                    // eslint-disable-next-line no-restricted-syntax
                     this.mafsRef.current?.getUserInput() as PerseusGraphType,
                 ),
         };
 
         return (
-            <StatefulMafsGraph
-                {...mafsProps}
-                ref={this.mafsRef}
-                gridStep={gridStep}
-                snapStep={snapStep}
-                box={box}
-                showTooltips={!!this.props.showTooltips}
-                readOnly={this.props.apiOptions?.readOnly}
-                widgetId={this.props.widgetId}
-            />
+            <>
+                {this.props.graded === false && (
+                    <p>{this.context.strings.ungradedInteractiveGraph}</p>
+                )}
+                <StatefulMafsGraph
+                    {...mafsProps}
+                    ref={this.mafsRef}
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    box={box}
+                    showTooltips={!!this.props.showTooltips}
+                    readOnly={this.props.apiOptions?.readOnly}
+                    widgetId={this.props.widgetId}
+                    graded={this.props.graded}
+                />
+            </>
         );
     }
 
@@ -416,6 +429,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             _.map(
+                // eslint-disable-next-line no-restricted-syntax
                 [
                     [
                         [0.25, 0.75],
@@ -547,6 +561,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         angle = (angle * Math.PI) / 180;
         const offset = ((graph.angleOffsetDeg || 0) * Math.PI) / 180;
 
+        // eslint-disable-next-line no-restricted-syntax
         coords = InteractiveGraph.pointsFromNormalized(props, [
             [0.85, 0.5],
             [0.5, 0.5],
@@ -993,4 +1008,5 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
+    supportsUngraded: true,
 } satisfies WidgetExports<typeof InteractiveGraph>;

@@ -158,7 +158,7 @@ export interface AngleGraphState extends InteractiveGraphStateCommon {
     // Allow Reflex Angles if an "angle" type.  default: false
     allowReflexAngles?: boolean;
     // The angle offset in degrees if an "angle" type. default: 0
-    angleOffsetDeg?: number;
+    angleOffsetDeg?: number | null;
     // Snap to degree increments if an "angle" type. default: 1
     snapDegrees?: number;
     // must have 3 coords - ie [Coord, Coord, Coord]

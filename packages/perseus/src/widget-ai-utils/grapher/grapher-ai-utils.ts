@@ -64,6 +64,7 @@ export const getPromptJSON = (
 ): GrapherPromptJSON => {
     const {userInput} = widgetData;
     const {type, coords} = userInput;
+    // eslint-disable-next-line no-restricted-syntax
     const input = {type, coords} as GrapherAnswerTypes;
 
     if (userInput.type === "logarithm" || userInput.type === "exponential") {

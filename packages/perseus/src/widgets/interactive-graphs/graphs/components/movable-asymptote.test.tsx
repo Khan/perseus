@@ -7,9 +7,13 @@ import * as UseDraggableModule from "../use-draggable";
 import {MovableAsymptote} from "./movable-asymptote";
 
 const defaultProps = {
+    // eslint-disable-next-line no-restricted-syntax
     start: [-100, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     end: [100, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     mid: [0, 0] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     point: [-10, 0] as [number, number],
     onMove: jest.fn(),
     orientation: "horizontal" as const,
@@ -81,6 +85,22 @@ describe("MovableAsymptote", () => {
         expect(screen.getByTestId("movable-asymptote__line")).not.toHaveClass(
             "movable-dragging",
         );
+    });
+
+    it("focuses the asymptote group when a drag starts so focus leaves any previously-focused element", () => {
+        // Arrange — simulate a touch drag in progress (matches mobile, where
+        // the group does not receive focus naturally from touch input).
+        useDraggable.mockReturnValue({dragging: true});
+
+        // Act
+        render(
+            <Mafs width={200} height={200}>
+                <MovableAsymptote {...defaultProps} />
+            </Mafs>,
+        );
+
+        // Assert
+        expect(screen.getByTestId("movable-asymptote")).toHaveFocus();
     });
 
     it("renders the same structure for vertical orientation", () => {

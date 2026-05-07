@@ -370,6 +370,11 @@ export {
     generateLabelImageOptions,
     generateLabelImageWidget,
 } from "./utils/generators/label-image-widget-generator";
+/** @hidden */
+export {
+    generateMatcherOptions,
+    generateMatcherWidget,
+} from "./utils/generators/matcher-widget-generator";
 export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,

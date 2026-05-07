@@ -115,6 +115,7 @@ export function useDraggable(args: Params): DragState {
                     shiftKey,
                 } = state;
 
+                // eslint-disable-next-line no-restricted-syntax
                 const direction = [
                     yDownDirection[X],
                     -yDownDirection[Y],

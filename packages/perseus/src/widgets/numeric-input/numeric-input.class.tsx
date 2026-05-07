@@ -52,6 +52,7 @@ type DefaultProps = Pick<
 // defaultProps into account, which is important because
 // PerseusNumericInputWidgetOptions has optional fields which receive defaults
 // via defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput

@@ -63,6 +63,7 @@ function AngleGraph(props: AngleGraphProps) {
         [centerPoint, endPoints[1]],
     ];
 
+    // eslint-disable-next-line no-restricted-syntax
     const linePixelCoords = [
         useTransformVectorsToPixels(centerPoint, endPoints[0]),
         useTransformVectorsToPixels(centerPoint, endPoints[1]),

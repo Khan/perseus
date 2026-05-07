@@ -15,7 +15,7 @@ import {
     getDefaultFigureForType,
 } from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {waitFor} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
@@ -107,6 +107,7 @@ describe("Interactive Graph", function () {
         );
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
@@ -125,6 +126,7 @@ describe("Interactive Graph", function () {
             it("Should accept the right answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -155,6 +157,7 @@ describe("Interactive Graph", function () {
 
             it("Should render user input predictably", async () => {
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -187,6 +190,7 @@ describe("Interactive Graph", function () {
             it("should reject an incorrect answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -1216,6 +1220,7 @@ describe("Interactive Graph", function () {
             });
         });
 
+        // eslint-disable-next-line no-restricted-syntax
         it.each([
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
@@ -2030,73 +2035,108 @@ describe("Interactive Graph", function () {
             },
         );
     });
-});
 
-describe("getLogarithmEquationString", () => {
-    const InteractiveGraph = InteractiveGraphExports.widget;
+    describe("getLogarithmEquationString", () => {
+        const InteractiveGraph = InteractiveGraphExports.widget;
 
-    function makeProps(coords: [Coord, Coord], asymptote: number) {
-        return {
-            userInput: {
-                type: "logarithm",
-                coords,
-                asymptote,
-            },
-        } as unknown as Parameters<
-            typeof InteractiveGraph.getLogarithmEquationString
-        >[0];
-    }
+        function makeProps(coords: [Coord, Coord], asymptote: number) {
+            // eslint-disable-next-line no-restricted-syntax
+            return {
+                userInput: {
+                    type: "logarithm",
+                    coords,
+                    asymptote,
+                },
+            } as unknown as Parameters<
+                typeof InteractiveGraph.getLogarithmEquationString
+            >[0];
+        }
 
-    it("omits the constant term when asymptote is 0 (c === 0)", () => {
-        // Arrange — asymptote=0 produces c=0
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            0,
-        );
+        it("omits the constant term when asymptote is 0 (c === 0)", () => {
+            // Arrange — asymptote=0 produces c=0
+            const props = makeProps(
+                [
+                    [3, 2],
+                    [5, 4],
+                ],
+                0,
+            );
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
+            // Act
+            const equation = InteractiveGraph.getLogarithmEquationString(props);
 
-        // Assert — should NOT contain "+ 0.000"
-        expect(equation).not.toContain("+ 0.000");
-        expect(equation).toMatch(/ln\(\d+\.\d+x\)/);
+            // Assert — should NOT contain "+ 0.000"
+            expect(equation).not.toContain("+ 0.000");
+            expect(equation).toMatch(/ln\(\d+\.\d+x\)/);
+        });
+
+        it("shows subtracted constant when c < 0", () => {
+            // Arrange — asymptote=2 produces a negative c
+            const props = makeProps(
+                [
+                    [3, 2],
+                    [5, 4],
+                ],
+                2,
+            );
+
+            // Act
+            const equation = InteractiveGraph.getLogarithmEquationString(props);
+
+            // Assert — should contain "x - " for negative c
+            expect(equation).toContain("x - ");
+            expect(equation).not.toContain("x + -");
+        });
+
+        it("shows added constant when c > 0", () => {
+            // Arrange — asymptote=-2 produces a positive c
+            const props = makeProps(
+                [
+                    [3, 2],
+                    [5, 4],
+                ],
+                -2,
+            );
+
+            // Act
+            const equation = InteractiveGraph.getLogarithmEquationString(props);
+
+            // Assert — should contain "x + " for positive c
+            expect(equation).toContain("x + ");
+        });
     });
 
-    it("shows subtracted constant when c < 0", () => {
-        // Arrange — asymptote=2 produces a negative c
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            2,
-        );
+    describe("ungraded interactive graph", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
+        it("renders a 'not graded' message when graded is false", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({graded: false});
+            renderQuestion(question, blankOptions);
 
-        // Assert — should contain "x - " for negative c
-        expect(equation).toContain("x - ");
-        expect(equation).not.toContain("x + -");
-    });
+            // Assert
+            expect(
+                screen.getByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                ),
+            ).toBeInTheDocument();
+        });
 
-    it("shows added constant when c > 0", () => {
-        // Arrange — asymptote=-2 produces a positive c
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            -2,
-        );
+        it("does not render a 'not graded' message when graded is true", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({graded: true});
+            renderQuestion(question, blankOptions);
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
-
-        // Assert — should contain "x + " for positive c
-        expect(equation).toContain("x + ");
+            // Assert
+            expect(
+                screen.queryByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                ),
+            ).not.toBeInTheDocument();
+        });
     });
 });

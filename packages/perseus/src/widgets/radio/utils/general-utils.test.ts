@@ -5,14 +5,17 @@ import type {RadioChoiceWithMetadata} from "../radio-widget";
 
 describe("getChoiceStates", () => {
     const mockChoices: RadioChoiceWithMetadata[] = [
+        // eslint-disable-next-line no-restricted-syntax
         {
             content: "Choice 1",
             correct: true,
         } as RadioChoiceWithMetadata,
+        // eslint-disable-next-line no-restricted-syntax
         {
             content: "Choice 2",
             correct: false,
         } as RadioChoiceWithMetadata,
+        // eslint-disable-next-line no-restricted-syntax
         {
             content: "Choice 3",
             correct: false,

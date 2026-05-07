@@ -273,6 +273,7 @@ export class Graphie {
             };
         let xLabelFormat = options.xLabelFormat || labelFormat;
         let yLabelFormat = options.yLabelFormat || labelFormat;
+        // eslint-disable-next-line no-restricted-syntax
         const realRange = [
             [
                 range[0][0] - (range[0][0] > 0 ? 1 : 0),
@@ -822,6 +823,7 @@ export class Graphie {
 
         // Create <div>
         const wrapper = document.createElement("div");
+        // eslint-disable-next-line no-restricted-syntax
         $(wrapper).css({
             position: "absolute",
             width: width + "px",
@@ -977,6 +979,7 @@ export class Graphie {
         return this.withStyle(style, () => {
             // We cast to GraphieLabelElement because we're augmenting the jQuery
             // element with custom methods (setPosition, processMath, processText)
+            // eslint-disable-next-line no-restricted-syntax
             const $span = $("<span>").addClass(
                 "graphie-label",
             ) as GraphieLabelElement;

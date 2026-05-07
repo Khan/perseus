@@ -201,7 +201,9 @@ const parseWidgetsMapEntry: (
 
         default:
             return parseAndAssign(
+                // eslint-disable-next-line no-restricted-syntax
                 `${type} ${n}` as any,
+                // eslint-disable-next-line no-restricted-syntax
                 parseWidget(constant(type), any) as any,
             );
     }

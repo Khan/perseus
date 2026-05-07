@@ -19,15 +19,19 @@ const fakeFrame = {
 describe("GifImage", () => {
     beforeEach(() => {
         // Make gifuct-js return two fake frames (100ms total loop).
+        // eslint-disable-next-line no-restricted-syntax
         (parseGIF as jest.Mock).mockReturnValue({});
+        // eslint-disable-next-line no-restricted-syntax
         (decompressFrames as jest.Mock).mockReturnValue([fakeFrame, fakeFrame]);
         // jsdom doesn't implement canvas getContext or ImageData.
+        // eslint-disable-next-line no-restricted-syntax
         jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
             putImageData: jest.fn(),
             clearRect: jest.fn(),
             drawImage: jest.fn(),
             imageSmoothingEnabled: true,
         } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,

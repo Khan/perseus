@@ -129,7 +129,7 @@ export const GraphieImageWithScaleFlag: Story = {
 };
 
 /**
- * This Image widget editor has a zero-sized image.
+ * This Image widget editor has an image with missing size.
  */
 export const ImageWithEmptySize: Story = {
     name: "Image With Empty Size (Within Editor Page)",
@@ -138,6 +138,27 @@ export const ImageWithEmptySize: Story = {
         backgroundImage: {url: earthMoonImage.url},
         caption:
             "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
+    },
+};
+
+/**
+ * This Image widget editor has an image with missing size and the scale flag is enabled.
+ */
+export const ImageWithEmptySizeWithScaleFlag: Story = {
+    name: "Image With Empty Size with Scale Flag (Within Editor Page)",
+    decorators: [withinEditorPageDecorator],
+    args: {
+        backgroundImage: {url: earthMoonImage.url},
+        caption:
+            "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
+    },
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-scale": true,
+            }),
+        },
     },
 };
 

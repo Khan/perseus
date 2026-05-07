@@ -30,7 +30,7 @@ const parsePerseusGraphTypeAngle = object({
     type: constant("angle"),
     showAngles: optional(boolean),
     allowReflexAngles: optional(boolean),
-    angleOffsetDeg: optional(number),
+    angleOffsetDeg: optional(nullable(number)),
     snapDegrees: optional(number),
     match: optional(constant("congruent")),
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
@@ -254,6 +254,9 @@ const parseLockedPolygonType = object({
     ariaLabel: optional(string),
 });
 
+const numberOrNegativeInfinity = union(number).or(constant(-Infinity)).parser;
+const numberOrPositiveInfinity = union(number).or(constant(Infinity)).parser;
+
 // Exported for testing.
 export const parseLockedFunctionDomain = defaulted(
     pair(
@@ -262,8 +265,8 @@ export const parseLockedFunctionDomain = defaulted(
         //       will ensure that parsed data is up-to-date, but it is quite
         //       probable that the data is serialized after being parsed. The
         //       widget should therefore account for null values in the domain.
-        defaulted(number, () => -Infinity),
-        defaulted(number, () => Infinity),
+        defaulted(numberOrNegativeInfinity, () => -Infinity),
+        defaulted(numberOrPositiveInfinity, () => Infinity),
     ),
     (): [number, number] => [-Infinity, Infinity],
 );

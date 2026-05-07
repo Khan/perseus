@@ -77,6 +77,7 @@ type State = {
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         // NOTE(Jeremy):
+        // eslint-disable-next-line no-restricted-syntax
         json: [{} as any],
         mode: "edit",
         screen: "desktop",
@@ -457,6 +458,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         });
     }
 
+    /**
+     * Returns the current version of the edited {@link PerseusArticle}.
+     *
+     * @deprecated Use the {@link Props.onChange} prop instead.
+     */
     serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
