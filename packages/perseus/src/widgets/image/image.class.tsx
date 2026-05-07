@@ -51,7 +51,7 @@ interface DefaultProps extends Partial<ImageWidgetProps> {
     linterContext: ImageWidgetProps["linterContext"];
 }
 
-export class ImageWidget
+class ImageWidget
     extends React.Component<ImageWidgetProps>
     implements Widget
 {

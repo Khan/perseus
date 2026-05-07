@@ -1,1 +1,1 @@
-export {default, WrappedSorter} from "./sorter";
+export {default} from "./sorter";

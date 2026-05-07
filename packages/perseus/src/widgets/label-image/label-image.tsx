@@ -764,7 +764,7 @@ export class LabelImage
     }
 }
 
-export const LabelImageWithDependencies = React.forwardRef<
+const LabelImageWithDependencies = React.forwardRef<
     LabelImage,
     Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
 >((props, ref) => {
