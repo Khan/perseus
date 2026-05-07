@@ -11,7 +11,7 @@ const MatrixWidget = getWidget("matrix")!;
 const meta: Meta<typeof MatrixWidget> = {
     title: "Widgets/Matrix/Visual Regression Tests/Initial State",
     component: MatrixWidget,
-    tags: ["!autodocs"],
+    tags: ["!autodocs", "!manifest"],
     decorators: [matrixRendererDecorator],
     parameters: {
         docs: {
