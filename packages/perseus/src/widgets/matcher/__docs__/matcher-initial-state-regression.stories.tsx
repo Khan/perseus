@@ -66,7 +66,7 @@ export const WithoutLabels: Story = {
 export const WithTeX: Story = {
     decorators: [matcherRendererDecorator],
     parameters: {
-        chromatic: {delay: 500},
+        chromatic: {delay: 1000},
     },
     args: {
         ...sharedArgs,
