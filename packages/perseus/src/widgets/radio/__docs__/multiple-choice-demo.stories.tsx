@@ -1,7 +1,6 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
@@ -18,7 +17,6 @@ import {
     singleSelectWithTallMath,
 } from "../__tests__/radio.testdata";
 
-import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
@@ -45,7 +43,7 @@ export default {
         docs: {
             description: {
                 component:
-                    "A new version of the radio widget that allows users to select a single option from a list of choices,\
+                    "A widget that allows users to select a single option from a list of choices,\
                     with improved accessibility and interface features.",
             },
         },
@@ -67,27 +65,13 @@ export default {
     },
     render: (args: StoryArgs) => (
         <ServerItemRendererWithDebugUI
-            item={applyStoryArgs(args)}
-            apiOptions={buildApiOptions(args)}
+            item={{...args.item}}
+            apiOptions={}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
         />
     ),
 } satisfies Meta<StoryArgs>;
-
-const applyStoryArgs = (args: StoryArgs): PerseusItem => {
-    const storyItem = {
-        ...args.item,
-        apiOptions: {
-            flags: getFeatureFlags({"new-radio-widget": true}),
-        },
-    };
-    return storyItem;
-};
-
-const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    flags: getFeatureFlags({"new-radio-widget": true}),
-});
 
 export const SingleSelect = {
     args: {
