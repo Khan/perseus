@@ -16,7 +16,8 @@ import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type WidgetEditorProps = {
+// exported for tests
+export type WidgetEditorProps = {
     // Unserialized props
     id: string;
     onChange: (
@@ -34,7 +35,8 @@ type WidgetEditorState = {
     widgetInfo: PerseusWidget;
 };
 
-const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
+// exported for tests
+export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
