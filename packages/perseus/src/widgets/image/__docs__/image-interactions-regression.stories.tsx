@@ -1,5 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     earthMoonImage,
@@ -10,18 +9,16 @@ import {
     svgImage,
 } from "../utils";
 
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const ImageWidget = getWidget("image")!;
-
-type Story = StoryObj<typeof ImageWidget>;
+type Story = StoryObj<typeof meta>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 
-const meta: Meta = {
+const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests/Interactions",
-    component: ImageWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
