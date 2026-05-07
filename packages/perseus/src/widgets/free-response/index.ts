@@ -1,1 +1,1 @@
-export {default} from "./free-response";
+export {default, FreeResponse} from "./free-response";

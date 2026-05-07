@@ -1,1 +1,1 @@
-export {default} from "./label-image";
+export {default, LabelImageWithDependencies} from "./label-image";

@@ -1,1 +1,1 @@
-export {default} from "./matcher";
+export {default, WrappedMatcher} from "./matcher";

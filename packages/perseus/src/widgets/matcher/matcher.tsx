@@ -274,7 +274,7 @@ function getUserInputFromSerializedState(
     };
 }
 
-const WrappedMatcher = withDependencies(Matcher);
+export const WrappedMatcher = withDependencies(Matcher);
 
 export default {
     name: "matcher",
