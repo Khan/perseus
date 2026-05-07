@@ -4,11 +4,13 @@ import {
     generateIGCircleGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
+    generateIGLockedLabel,
     generateIGLockedLine,
     generateIGLockedPoint,
     generateIGLockedPolygon,
     generateIGLockedVector,
     generateIGNoneGraph,
+    generateIGPolygonGraph,
     generateIGSegmentGraph,
     generateTestPerseusItem,
     splitPerseusItem,
@@ -50,7 +52,7 @@ type Story = StoryObj<typeof MafsQuestionRenderer>;
 const meta: Meta<typeof MafsQuestionRenderer> = {
     title: "Widgets/Interactive Graph/Visual Regression Tests",
     component: MafsQuestionRenderer,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
@@ -72,7 +74,7 @@ function MobileContainerDecorator(Story) {
     );
 }
 
-export const MafsWithCustomAxisLabels: Story = {
+export const CustomAxisLabels: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             labels: ["\\text{Custom $x$ label}", "\\text{Custom $y$ label}"],
@@ -80,7 +82,7 @@ export const MafsWithCustomAxisLabels: Story = {
     },
 };
 
-export const MafsWithFractionalGridStep: Story = {
+export const FractionalGridStep: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             gridStep: [2.571, 3.123],
@@ -88,7 +90,7 @@ export const MafsWithFractionalGridStep: Story = {
     },
 };
 
-export const MafsWithFractionalAxisTicks: Story = {
+export const FractionalAxisTicks: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             step: [1.5, 1.5],
@@ -96,7 +98,7 @@ export const MafsWithFractionalAxisTicks: Story = {
     },
 };
 
-export const MafsWithAxesMarkings: Story = {
+export const AxesMarkings: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             markings: "axes",
@@ -104,7 +106,7 @@ export const MafsWithAxesMarkings: Story = {
     },
 };
 
-export const MafsWithGridMarkings: Story = {
+export const GridMarkings: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             markings: "grid",
@@ -112,7 +114,7 @@ export const MafsWithGridMarkings: Story = {
     },
 };
 
-export const MafsWithNoMarkings: Story = {
+export const NoMarkings: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             markings: "none",
@@ -120,7 +122,7 @@ export const MafsWithNoMarkings: Story = {
     },
 };
 
-export const MafsWithSmallRange: Story = {
+export const SmallRange: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -131,7 +133,7 @@ export const MafsWithSmallRange: Story = {
     },
 };
 
-export const MafsWithLargeRange: Story = {
+export const LargeRange: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -142,7 +144,7 @@ export const MafsWithLargeRange: Story = {
     },
 };
 
-export const MafsWithYAxisAtLeft: Story = {
+export const YAxisAtLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -161,7 +163,7 @@ export const MafsWithYAxisAtLeft: Story = {
     },
 };
 
-export const MafsWithYAxisNearLeft: Story = {
+export const YAxisNearLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -180,7 +182,7 @@ export const MafsWithYAxisNearLeft: Story = {
     },
 };
 
-export const MafsWithYAxisJustOverLeft: Story = {
+export const YAxisJustOverLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -199,7 +201,7 @@ export const MafsWithYAxisJustOverLeft: Story = {
     },
 };
 
-export const MafsWithYAxisOffLeft: Story = {
+export const YAxisOffLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -210,7 +212,7 @@ export const MafsWithYAxisOffLeft: Story = {
     },
 };
 
-export const MafsWithYAxisOffFarLeft: Story = {
+export const YAxisOffFarLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -221,7 +223,7 @@ export const MafsWithYAxisOffFarLeft: Story = {
     },
 };
 
-export const MafsWithYAxisAtRight: Story = {
+export const YAxisAtRight: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -232,7 +234,7 @@ export const MafsWithYAxisAtRight: Story = {
     },
 };
 
-export const MafsWithYAxisOffRight: Story = {
+export const YAxisOffRight: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -243,7 +245,7 @@ export const MafsWithYAxisOffRight: Story = {
     },
 };
 
-export const MafsWithYAxisOffFarRight: Story = {
+export const YAxisOffFarRight: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -254,7 +256,7 @@ export const MafsWithYAxisOffFarRight: Story = {
     },
 };
 
-export const MafsWithXAxisAtBottom: Story = {
+export const XAxisAtBottom: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -265,7 +267,7 @@ export const MafsWithXAxisAtBottom: Story = {
     },
 };
 
-export const MafsWithXAxisNearBottom: Story = {
+export const XAxisNearBottom: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -276,7 +278,7 @@ export const MafsWithXAxisNearBottom: Story = {
     },
 };
 
-export const MafsWithXAxisOffBottom: Story = {
+export const XAxisOffBottom: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -287,7 +289,7 @@ export const MafsWithXAxisOffBottom: Story = {
     },
 };
 
-export const MafsWithXAxisJustOverBottom: Story = {
+export const XAxisJustOverBottom: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -306,7 +308,7 @@ export const MafsWithXAxisJustOverBottom: Story = {
     },
 };
 
-export const MafsWithXAxisAtTop: Story = {
+export const XAxisAtTop: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -317,7 +319,7 @@ export const MafsWithXAxisAtTop: Story = {
     },
 };
 
-export const MafsWithXAxisOffTop: Story = {
+export const XAxisOffTop: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -328,7 +330,7 @@ export const MafsWithXAxisOffTop: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdge: Story = {
+export const LabelsAlongEdge: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -344,7 +346,7 @@ export const MafsWithLabelsAlongEdge: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdgeAtLeft: Story = {
+export const LabelsAlongEdgeAtLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -360,7 +362,7 @@ export const MafsWithLabelsAlongEdgeAtLeft: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
+export const LabelsAlongEdgeJustOverLeft: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -376,7 +378,7 @@ export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdgeAtRight: Story = {
+export const LabelsAlongEdgeAtRight: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -394,7 +396,7 @@ export const MafsWithLabelsAlongEdgeAtRight: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
+export const LabelsAlongEdgeWithCloseToZeroXMin: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -410,24 +412,23 @@ export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
     },
 };
 
-export const MafsWithLabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story =
-    {
-        args: {
-            question: generateInteractiveGraphQuestion({
-                range: [
-                    [-30, 840],
-                    [-2.8, 63],
-                ],
-                step: [200, 10],
-                gridStep: [50, 5],
-                snapStep: [25, 2],
-                labels: ["Time (seconds)", "Distance (meters)"],
-                labelLocation: "alongEdge",
-            }),
-        },
-    };
+export const LabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story = {
+    args: {
+        question: generateInteractiveGraphQuestion({
+            range: [
+                [-30, 840],
+                [-2.8, 63],
+            ],
+            step: [200, 10],
+            gridStep: [50, 5],
+            snapStep: [25, 2],
+            labels: ["Time (seconds)", "Distance (meters)"],
+            labelLocation: "alongEdge",
+        }),
+    },
+};
 
-export const MafsWithLabelsAlongEdgeZoomed: Story = {
+export const LabelsAlongEdgeZoomed: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -445,14 +446,14 @@ export const MafsWithLabelsAlongEdgeZoomed: Story = {
     },
 };
 
-export const MafsInMobileContainer: Story = {
+export const InMobileContainer: Story = {
     args: {
         question: generateInteractiveGraphQuestion(),
     },
     decorators: [MobileContainerDecorator],
 };
 
-export const MafsWithMultipleSegments: Story = {
+export const MultipleSegments: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGSegmentGraph({numSegments: 3}),
@@ -460,7 +461,7 @@ export const MafsWithMultipleSegments: Story = {
     },
 };
 
-export const MafsCircleGraphWithNonsquareRange: Story = {
+export const CircleGraphWithNonsquareRange: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGCircleGraph(),
@@ -476,7 +477,7 @@ export const MafsCircleGraphWithNonsquareRange: Story = {
     decorators: [MobileContainerDecorator],
 };
 
-export const MafsLineGraphWithNonsquareRange: Story = {
+export const LineGraphWithNonsquareRange: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             range: [
@@ -495,7 +496,7 @@ export const MafsLineGraphWithNonsquareRange: Story = {
     },
 };
 
-export const MafsWithLockedPoints: Story = {
+export const LockedPoints: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             lockedFigures: [
@@ -507,7 +508,7 @@ export const MafsWithLockedPoints: Story = {
     },
 };
 
-export const MafsWithLockedLine: Story = {
+export const LockedLine: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             lockedFigures: [
@@ -522,7 +523,7 @@ export const MafsWithLockedLine: Story = {
     },
 };
 
-export const MafsWithProtractor: Story = {
+export const Protractor: Story = {
     args: {
         question: generateInteractiveGraphQuestion({
             correct: generateIGAngleGraph(),
@@ -531,13 +532,13 @@ export const MafsWithProtractor: Story = {
     },
 };
 
-export const MafsWithPiTicks: Story = {
+export const PiTicks: Story = {
     args: {
         question: sinusoidWithPiTicks,
     },
 };
 
-export const MafsWithAnswerlessData: Story = {
+export const AnswerlessData: Story = {
     args: {
         question: (() => {
             const question = generateInteractiveGraphQuestion();
@@ -711,5 +712,52 @@ export const ShowNoArrows: Story = {
 export const Ungraded: Story = {
     args: {
         question: generateInteractiveGraphQuestion({graded: false}),
+    },
+};
+
+// Static graph: when `static` is true, interactive elements use `--static-gray`
+// instead of `--mafs-blue`. This regression story exercises the static-gray
+// color path used by movable points/lines when keyboard interaction is disabled.
+export const StaticGraph: Story = {
+    args: {
+        question: generateInteractiveGraphQuestion({
+            isStatic: true,
+            correct: generateIGPolygonGraph({
+                coords: [
+                    [-3, -2],
+                    [3, -2],
+                    [0, 4],
+                ],
+            }),
+        }),
+    },
+};
+
+// Locked label: covers the `rgba(255, 255, 255, 0.8)` background color used
+// behind locked text labels and the `font.size` token applied via the WB tokens.
+export const LockedLabel: Story = {
+    args: {
+        question: generateInteractiveGraphQuestion({
+            lockedFigures: [
+                generateIGLockedLabel({
+                    coord: [0, 0],
+                    text: "Origin",
+                    color: "blue",
+                    size: "medium",
+                }),
+                generateIGLockedLabel({
+                    coord: [3, -3],
+                    text: "y = x^2",
+                    color: "green",
+                    size: "small",
+                }),
+                generateIGLockedLabel({
+                    coord: [-5, -3],
+                    text: "Large label",
+                    color: "red",
+                    size: "large",
+                }),
+            ],
+        }),
     },
 };
