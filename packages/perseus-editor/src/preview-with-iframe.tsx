@@ -13,9 +13,16 @@
  * once all editors have migrated. It exists alongside the legacy component so
  * that consumers can keep using `IframeContentRenderer` until they are all
  * ported over.
+ *
+ * For backwards compatibility, this component also speaks the legacy
+ * `IframeContentRenderer` wire protocol via `useLegacyPreviewController`,
+ * so it can drive preview frames running an older version of Perseus (one
+ * from before the typed-protocol preview existed). The legacy support is
+ * transitional — see that hook's docs for the deletion trigger.
  */
 import * as React from "react";
 
+import {useLegacyPreviewController} from "./preview/use-legacy-preview-controller";
 import {usePreviewController} from "./preview/use-preview-controller";
 
 import type {PreviewContent} from "./preview/message-types";
@@ -39,7 +46,12 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
         const containerRef = React.useRef<HTMLDivElement>(null);
         const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
-        const {sendData, height} = usePreviewController(iframeRef);
+        const {sendData, height: typedHeight} = usePreviewController(iframeRef);
+        const {
+            iframeId: legacyIframeId,
+            sendData: sendLegacyData,
+            height: legacyHeight,
+        } = useLegacyPreviewController(iframeRef);
 
         // Expose sendNewData method via ref
         React.useImperativeHandle(
@@ -47,10 +59,15 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
             () => ({
                 sendNewData: (data: PreviewContent) => {
                     sendData(data);
+                    sendLegacyData(data);
                 },
             }),
-            [sendData],
+            [sendData, sendLegacyData],
         );
+
+        // Either protocol can populate height; only one will in practice for
+        // a given iframe.
+        const height = typedHeight ?? legacyHeight;
 
         // Update container height based on iframe content height
         let containerHeight = "100%";
@@ -75,6 +92,10 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
                     // to be displaying editor previews and want to leave some room
                     // for lint indicators in the right margin.
                     data-lint-gutter={props.seamless ? "true" : "false"}
+                    // Identifier read by legacy preview frames via
+                    // `window.frameElement.dataset.id`. New typed-protocol
+                    // frames ignore it. See `useLegacyPreviewController`.
+                    data-id={legacyIframeId}
                     style={{width: "100%", height: "100%"}}
                     src={props.url}
                 />

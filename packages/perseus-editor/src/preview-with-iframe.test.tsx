@@ -16,9 +16,22 @@ jest.mock("./preview/use-preview-controller", () => ({
     }),
 }));
 
+const mockSendLegacyData = jest.fn();
+let mockLegacyHeight: number | null = null;
+const mockLegacyIframeId = "legacy-id-7";
+
+jest.mock("./preview/use-legacy-preview-controller", () => ({
+    useLegacyPreviewController: () => ({
+        iframeId: mockLegacyIframeId,
+        sendData: mockSendLegacyData,
+        height: mockLegacyHeight,
+    }),
+}));
+
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
         mockHeight = null;
+        mockLegacyHeight = null;
     });
 
     it("renders an iframe with the given URL", () => {
@@ -67,7 +80,7 @@ describe("PreviewWithIframe", () => {
         },
     );
 
-    it("delegates sendNewData to usePreviewController's sendData via ref", () => {
+    it("delegates sendNewData to both usePreviewController's and useLegacyPreviewController's sendData via ref", () => {
         const ref = React.createRef<PreviewWithIframeRef>();
 
         render(
@@ -101,6 +114,20 @@ describe("PreviewWithIframe", () => {
         ref.current?.sendNewData(data);
 
         expect(mockSendData).toHaveBeenCalledWith(data);
+        expect(mockSendLegacyData).toHaveBeenCalledWith(data);
+    });
+
+    it("sets data-id on the iframe so legacy preview frames can read their assigned id", () => {
+        render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+            />,
+        );
+
+        const iframe = screen.getByTitle(/perseus-preview/);
+        expect(iframe.dataset.id).toBe(mockLegacyIframeId);
     });
 
     it("sets container height to '100%' when seamless is false", () => {
@@ -129,5 +156,21 @@ describe("PreviewWithIframe", () => {
 
         const div = screen.getByTestId("preview-with-iframe-container");
         expect(div.style.height).toBe("500px");
+    });
+
+    it("falls back to the legacy controller's height when the typed protocol hasn't reported one", () => {
+        mockHeight = null;
+        mockLegacyHeight = 320;
+
+        render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={true}
+            />,
+        );
+
+        const div = screen.getByTestId("preview-with-iframe-container");
+        expect(div.style.height).toBe("320px");
     });
 });

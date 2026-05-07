@@ -17,7 +17,6 @@ import * as React from "react";
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
-// @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
 window.iframeDataStore = {};
 
 // This is called once after Perseus is loaded and the iframe
@@ -183,8 +182,7 @@ class IframeContentRenderer extends React.Component<Props> {
 
             // We can't use JSON.stringify/parse for this because the apiOptions
             // includes the function onFocusChange.
-            // @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
-            window.iframeDataStore[this.iframeID] = data;
+            window.iframeDataStore![this.iframeID] = data;
             frame.contentWindow.postMessage(this.iframeID, "*");
         }
     }
