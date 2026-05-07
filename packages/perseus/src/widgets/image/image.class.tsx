@@ -51,10 +51,7 @@ interface DefaultProps extends Partial<ImageWidgetProps> {
     linterContext: ImageWidgetProps["linterContext"];
 }
 
-class ImageWidget
-    extends React.Component<ImageWidgetProps>
-    implements Widget
-{
+class ImageWidget extends React.Component<ImageWidgetProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
