@@ -9,17 +9,17 @@ import type {
     PerseusArticle,
     PerseusItem,
 } from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**
  * The subset of `LinterContextProps` that's meaningful to send across the
  * preview bridge. The receiver wraps this in `pushContextStack(...)` before
  * passing it to the renderer, which fills in the `stack`.
  */
-type PreviewLinterContext = Pick<
-    LinterContextProps,
-    "contentType" | "highlightLint"
->;
+// TODO(jeremy): Remove this type and inline it into the messages that use it.
+type PreviewLinterContext = {
+    contentType: string;
+    highlightLint: boolean;
+};
 
 /**
  * Constant identifier for all Perseus preview messages
