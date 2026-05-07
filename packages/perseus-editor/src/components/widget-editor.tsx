@@ -16,7 +16,8 @@ import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type WidgetEditorProps = {
+// exported for tests
+export type WidgetEditorProps = {
     // Unserialized props
     id: string;
     onChange: (
@@ -34,10 +35,20 @@ type WidgetEditorState = {
     widgetInfo: PerseusWidget;
 };
 
-const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
+// exported for tests
+export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = excludeDenylistKeys(props);
+
+    // This is circumventing an issue with excludeDenylistKeys;
+    // it removes `graded` from WidgetOptions.options (good)
+    // but it's also recursive so it removes `graded`
+    // from the higher-up WidgetOptions (bad)
+    // See: LEMS-4108 and https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1778089642003609
+    // eslint-disable-next-line no-restricted-syntax
+    (filteredProps as any).graded = props.graded;
+
     // eslint-disable-next-line no-restricted-syntax
     return applyDefaultsToWidget(filteredProps as PerseusWidget);
 };
