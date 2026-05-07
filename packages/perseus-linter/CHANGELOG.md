@@ -1,5 +1,17 @@
 # @khanacademy/perseus-linter
 
+## 5.0.3
+
+### Patch Changes
+
+-   [#3546](https://github.com/Khan/perseus/pull/3546) [`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e) Thanks [@nishasy](https://github.com/nishasy)! - Add new lint rule to avoid using `as` and suppress lint errors for existing instances of `as`
+
+-   Updated dependencies [[`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e), [`51dd982ad9`](https://github.com/Khan/perseus/commit/51dd982ad90de4e3ba52dc2cc0443ca3d60b805b)]:
+    -   @khanacademy/kas@2.2.3
+    -   @khanacademy/perseus-core@26.0.3
+    -   @khanacademy/pure-markdown@2.2.8
+    -   @khanacademy/kmath@2.4.6
+
 ## 5.0.2
 
 ### Patch Changes
