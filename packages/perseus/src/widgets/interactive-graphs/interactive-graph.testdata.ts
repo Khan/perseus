@@ -1208,3 +1208,11 @@ export const sinusoidWithPiTicks: PerseusRenderer =
 
 export const ungradedQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({graded: false});
+
+export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
+    markings: "axes",
+    showAxisTicks: {
+        x: false,
+        y: false,
+    },
+});

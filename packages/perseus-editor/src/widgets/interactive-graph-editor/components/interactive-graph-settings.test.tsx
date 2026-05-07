@@ -7,7 +7,11 @@ import {testDependencies} from "../../../testing/test-dependencies";
 
 import InteractiveGraphSettings from "./interactive-graph-settings";
 
-import type {Range, ShowAxisArrows} from "@khanacademy/perseus-core";
+import type {
+    Range,
+    ShowAxisArrows,
+    ShowAxisTicks,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -845,5 +849,81 @@ describe("InteractiveGraphSettings", () => {
                 );
             },
         );
+    });
+
+    describe("Axis tick switches", () => {
+        const defaultShowAxisTicks: ShowAxisTicks = {x: true, y: true};
+
+        it("renders axis tick switches checked by default when option is omitted", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphSettings
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Show x-axis ticks"}),
+            ).toBeChecked();
+            expect(
+                screen.getByRole("switch", {name: "Show y-axis ticks"}),
+            ).toBeChecked();
+        });
+
+        it("fires onChange with x: false when the x-axis switch is toggled", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            render(
+                <InteractiveGraphSettings
+                    onChange={onChange}
+                    showAxisTicks={defaultShowAxisTicks}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Show x-axis ticks"}),
+            );
+
+            // Assert
+            await waitFor(() =>
+                expect(onChange).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        showAxisTicks: {x: false, y: true},
+                    }),
+                    undefined,
+                ),
+            );
+        });
+
+        it("fires onChange with y: false when the y-axis switch is toggled", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            render(
+                <InteractiveGraphSettings
+                    onChange={onChange}
+                    showAxisTicks={defaultShowAxisTicks}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Show y-axis ticks"}),
+            );
+
+            // Assert
+            await waitFor(() =>
+                expect(onChange).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        showAxisTicks: {x: true, y: false},
+                    }),
+                    undefined,
+                ),
+            );
+        });
     });
 });

@@ -44,6 +44,7 @@ describe("MovablePoint", () => {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
     };
 
     const graphConfigContextWithTooltips = {

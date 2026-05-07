@@ -299,6 +299,7 @@ describe("splitPerseusRenderer", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -332,6 +333,7 @@ describe("splitPerseusRenderer", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {

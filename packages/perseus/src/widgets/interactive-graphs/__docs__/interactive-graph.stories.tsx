@@ -30,6 +30,7 @@ import {
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
     ungradedQuestion,
+    noTicks,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -334,6 +335,14 @@ export const Ungraded: Story = {
     args: {
         item: generateTestPerseusItem({
             question: ungradedQuestion,
+        }),
+    },
+};
+
+export const NoTicks: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: noTicks,
         }),
     },
 };

@@ -173,6 +173,7 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
         dispatch: () => {},
         state: {
             type: "segment",

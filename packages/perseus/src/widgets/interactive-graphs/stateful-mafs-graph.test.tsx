@@ -26,6 +26,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
         markings: "graph",
         containerSizeClass: "small",
         onChange: () => {},

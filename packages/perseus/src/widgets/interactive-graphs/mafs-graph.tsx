@@ -90,6 +90,7 @@ export type MafsGraphProps = {
     labels: ReadonlyArray<string>;
     labelLocation?: InteractiveGraphProps["labelLocation"];
     showAxisArrows: InteractiveGraphProps["showAxisArrows"];
+    showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -223,6 +224,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
                 showAxisArrows: props.showAxisArrows,
+                showAxisTicks: props.showAxisTicks,
                 graphDimensionsInPixels: props.box,
                 width,
                 height,

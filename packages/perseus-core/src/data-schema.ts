@@ -47,6 +47,11 @@ export type ShowAxisArrows = {
     yMax: boolean;
 };
 
+export type ShowAxisTicks = {
+    x: boolean;
+    y: boolean;
+};
+
 /**
  * A utility type that constructs a widget map from a "registry interface".
  * The keys of the registry should be the widget type (aka, "categorizer" or
@@ -925,6 +930,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labelLocation?: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /** Whether to show the Protractor tool overlayed on top of the graph */
     showProtractor: boolean;
     /**
