@@ -864,12 +864,8 @@ describe("InteractiveGraphSettings", () => {
             );
 
             // Assert
-            expect(
-                screen.getByRole("switch", {name: "Show x-axis ticks"}),
-            ).toBeChecked();
-            expect(
-                screen.getByRole("switch", {name: "Show y-axis ticks"}),
-            ).toBeChecked();
+            expect(screen.getByRole("switch", {name: "x-axis"})).toBeChecked();
+            expect(screen.getByRole("switch", {name: "y-axis"})).toBeChecked();
         });
 
         it("fires onChange with x: false when the x-axis switch is toggled", async () => {
@@ -884,9 +880,7 @@ describe("InteractiveGraphSettings", () => {
             );
 
             // Act
-            await userEvent.click(
-                screen.getByRole("switch", {name: "Show x-axis ticks"}),
-            );
+            await userEvent.click(screen.getByRole("switch", {name: "x-axis"}));
 
             // Assert
             await waitFor(() =>
@@ -911,9 +905,7 @@ describe("InteractiveGraphSettings", () => {
             );
 
             // Act
-            await userEvent.click(
-                screen.getByRole("switch", {name: "Show y-axis ticks"}),
-            );
+            await userEvent.click(screen.getByRole("switch", {name: "y-axis"}));
 
             // Assert
             await waitFor(() =>

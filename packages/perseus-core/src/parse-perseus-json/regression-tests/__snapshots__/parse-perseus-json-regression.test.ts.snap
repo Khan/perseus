@@ -6378,6 +6378,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": true,
           "showTooltips": false,
           "step": [
@@ -6628,6 +6632,10 @@ $3$ | $8$
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showRuler": false,
@@ -7031,6 +7039,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7393,6 +7405,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7643,6 +7659,10 @@ Locked figures:
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7712,6 +7732,10 @@ Locked figures:
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7771,6 +7795,10 @@ Locked figures:
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7827,6 +7855,10 @@ Locked figures:
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showTooltips": false,
@@ -7885,6 +7917,10 @@ Locked figures:
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7942,6 +7978,10 @@ Locked figures:
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7998,6 +8038,10 @@ Locked figures:
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showTooltips": false,
@@ -8290,6 +8334,10 @@ Locked figures:
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showTooltips": false,
@@ -9251,6 +9299,10 @@ $\\begin{align}
                     "yMax": true,
                     "yMin": true,
                   },
+                  "showAxisTicks": {
+                    "x": true,
+                    "y": true,
+                  },
                   "showProtractor": false,
                   "showRuler": false,
                   "showTooltips": false,
@@ -9528,6 +9580,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
               "yMax": true,
               "yMin": true,
             },
+            "showAxisTicks": {
+              "x": true,
+              "y": true,
+            },
             "showProtractor": false,
             "showTooltips": false,
             "step": [
@@ -9598,6 +9654,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9656,6 +9716,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showTooltips": false,
@@ -9919,6 +9983,10 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "step": [
             1,
@@ -10162,6 +10230,10 @@ Draw the rhombus in the first quadrant.
             "yMax": true,
             "yMin": true,
           },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "snapStep": [
@@ -10383,6 +10455,10 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
             "xMin": true,
             "yMax": true,
             "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
           },
           "showProtractor": false,
           "showRuler": false,

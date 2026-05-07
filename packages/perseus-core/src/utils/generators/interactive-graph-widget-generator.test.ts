@@ -133,6 +133,7 @@ describe("generateInteractiveGraphWidget", () => {
                     yMin: false,
                     yMax: false,
                 },
+                showAxisTicks: {x: true, y: true},
                 showProtractor: true,
                 showTooltips: true,
                 step: [2, 2],

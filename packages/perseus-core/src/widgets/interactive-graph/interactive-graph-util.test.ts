@@ -47,6 +47,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
                 yMin: true,
                 yMax: true,
             },
+            showAxisTicks: {x: true, y: true},
             showProtractor: false,
             step: [1, 1],
             lockedFigures: [],
