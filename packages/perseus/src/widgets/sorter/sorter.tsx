@@ -156,7 +156,7 @@ function getUserInputFromSerializedState(
     };
 }
 
-const WrappedSorter = withDependencies(Sorter);
+export const WrappedSorter = withDependencies(Sorter);
 
 export default {
     name: "sorter",
