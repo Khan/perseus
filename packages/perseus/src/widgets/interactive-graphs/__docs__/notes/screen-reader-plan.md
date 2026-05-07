@@ -33,6 +33,21 @@ This plan turns the decisions in [`screen-reader-research.md`](./screen-reader-r
 
 ## Rollout Overview
 
+### High Level Features
+- Must have:
+    - (Phase 2) Improve overall graph Instructions and add new instruction shortcut command
+    - (Phase 1) Add WB Announcer.
+    - (Phase 4) Allow custom labeling on points.
+    - (Phase 2) Role="figures"
+    - (@Cat to check) Graphs have descriptions linter rule.
+
+- Nice to have:
+    - Improve Locked Figure description (how to traverse)
+    - Trap focus
+    - Improve Action Bar for Unlimited Graphs
+    - Improved instruction per graph type.
+    - Linter rule for locked figures. (Can be complex)
+
 ### Phase List
 
 | # | Phase | Tickets | OQs implemented | Depends on |
