@@ -441,7 +441,7 @@ Each numbered step is the unit of review. Order is sequential within a single PR
 
 ### 2.8 QE Strategy
 
-For QE a simple playtest before release and one QE pass at the end of implementation would be idea.
+Regular check-ins with Caitlyn during implementation to fine tune the instructions during development and once completed a simple playtest before release and one QE pass with Darrell at the end of implementation would be ideal.
 
 ---
 
@@ -528,7 +528,7 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 
 ### 3.8 QE Strategy
 
-For QE this should be part of the same play test as part of Phase 2 with a QE pass at the end of the Screen Reader implementation.
+Regular check-ins with Caitlyn during implementation to fine tune the instructions during development and once completed a simple playtest as part of Phase 2 before release and one QE pass with Darrell at the end of implementation would be ideal.
 
 ---
 
@@ -679,7 +679,7 @@ Under Phase 2's flag — Action Bar grouping ships there, and the disable rule i
 
 ### 5.7 QE Strategy
 
-For QE this should be part of the same play test as part of Phase 2 with a QE pass at the end of the Screen Reader implementation.
+Regular check-ins with Caitlyn during implementation to fine tune the instructions during development and once completed a simple playtest as part of Phase 2 before release and one QE pass with Darrell at the end of implementation would be ideal.
 
 ---
 
