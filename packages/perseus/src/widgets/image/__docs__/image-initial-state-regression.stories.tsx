@@ -39,7 +39,7 @@ const articleContent = `But in other cases, an object may experience a centripet
 
 const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests",
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
