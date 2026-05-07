@@ -9,8 +9,9 @@ import QuestionRendererForStories from "./question-renderer-for-stories";
 
 import type {APIOptions} from "../../types";
 import type {UserInputMap} from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
 
-export const matrixRendererDecorator = (
+export const matrixRendererDecorator: Decorator = (
     _,
     {
         args,
