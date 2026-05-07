@@ -12,6 +12,7 @@ const meta: Meta<typeof MatrixWidget> = {
     title: "Widgets/Matrix/Visual Regression Tests/Initial State",
     component: MatrixWidget,
     tags: ["!autodocs"],
+    decorators: [matrixRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -30,7 +31,6 @@ type Story = StoryObj<typeof MatrixWidget>;
 // Verifies the default empty state: the only inner cell (0,0) has a medium
 // border; all other cells (outside the active area) have a thin border.
 export const DefaultEmptyMatrix: Story = {
-    decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [3, 3],
     } satisfies Partial<MatrixPublicWidgetOptions>,
@@ -40,7 +40,6 @@ export const DefaultEmptyMatrix: Story = {
 // have medium borders; the remaining cells (outside the active area)
 // have a thin border.
 export const PartiallyFilledMatrix: Story = {
-    decorators: [matrixRendererDecorator],
     parameters: {
         initialUserInput: {
             "matrix 1": {
@@ -58,7 +57,6 @@ export const PartiallyFilledMatrix: Story = {
 
 // Verifies the fully-answered state: all cells have a medium border.
 export const FullyAnsweredMatrix: Story = {
-    decorators: [matrixRendererDecorator],
     parameters: {
         initialUserInput: {
             "matrix 1": {
@@ -77,7 +75,6 @@ export const FullyAnsweredMatrix: Story = {
 
 // Verifies that a TeX prefix and suffix render correctly around the matrix grid.
 export const WithPrefixAndSuffix: Story = {
-    decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [2, 2],
         prefix: "Given $A =$",

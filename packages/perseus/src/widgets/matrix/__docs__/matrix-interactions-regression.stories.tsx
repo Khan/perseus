@@ -11,6 +11,7 @@ const meta: Meta<typeof MatrixWidget> = {
     title: "Widgets/Matrix/Visual Regression Tests/Interactions",
     component: MatrixWidget,
     tags: ["!autodocs"],
+    decorators: [matrixRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -31,7 +32,6 @@ type Story = StoryObj<typeof MatrixWidget>;
 // grid become active (white, #fff). Focuses the bottom-right cell (row 2,
 // col 2), which is index 8 in row-major order.
 export const FocusedOutsideCell: Story = {
-    decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [3, 3],
     } satisfies Partial<MatrixPublicWidgetOptions>,
