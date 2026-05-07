@@ -56,10 +56,10 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("initialization", () => {
-        it("initializes with null data", () => {
+        it("initializes with null content", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
             expect(result.current.isMobile).toBe(false);
             expect(result.current.hasLintGutter).toBe(false);
         });
@@ -175,7 +175,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(questionContent);
+            expect(result.current.content).toEqual(questionContent);
         });
 
         it("updates data for hint content", () => {
@@ -209,7 +209,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(hintContent);
+            expect(result.current.content).toEqual(hintContent);
         });
 
         it("updates data for article content", () => {
@@ -242,7 +242,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(articleContent);
+            expect(result.current.content).toEqual(articleContent);
         });
 
         it("updates data for article-all content", () => {
@@ -270,7 +270,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(articleAllContent);
+            expect(result.current.content).toEqual(articleAllContent);
         });
 
         it("ignores content-data from non-parent source", () => {
@@ -301,7 +301,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("updates data multiple times", () => {
@@ -339,7 +339,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content1);
+            expect(result.current.content).toEqual(content1);
 
             const content2: PreviewContent = {
                 type: "hint",
@@ -363,7 +363,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content2);
+            expect(result.current.content).toEqual(content2);
         });
     });
 
@@ -457,7 +457,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores messages without correct source identifier", () => {
@@ -478,7 +478,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores non-Perseus messages", () => {
@@ -497,7 +497,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Should not crash or change state
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores malformed messages", () => {
@@ -512,7 +512,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
 
             act(() => {
                 window.dispatchEvent(
@@ -523,7 +523,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
     });
 
@@ -629,7 +629,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content);
+            expect(result.current.content).toEqual(content);
 
             // 3. Report height
             act(() => {
@@ -710,7 +710,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Should have the last content
-            expect(result.current.data).toEqual(contents[2]);
+            expect(result.current.content).toEqual(contents[2]);
         });
     });
 });
