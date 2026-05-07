@@ -8,7 +8,7 @@ import type {
 // NOTE: the information in mathFormatsForAnswerType is duplicated in
 // score-input-number.ts. I think this is okay because inputNumber is
 // deprecated and the scoring logic will be removed as part of this project.
-export const mathFormatsForAnswerType: Record<
+const mathFormatsForAnswerType: Record<
     PerseusInputNumberAnswerType,
     MathFormat[]
 > = {
