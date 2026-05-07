@@ -23,7 +23,7 @@ import {storybookDependenciesV2} from "../test-dependencies";
 import type {PreviewContent} from "../../preview/message-types";
 
 type Props = {
-    data: PreviewContent;
+    content: PreviewContent;
 };
 
 function PreviewWithKeypad({
@@ -74,12 +74,12 @@ function PreviewWithKeypad({
 /**
  * Renders the appropriate content based on preview data type
  */
-export function PreviewRenderer({data}: Props) {
+export function PreviewRenderer({content}: Props) {
     const i18n = usePerseusI18n();
 
-    if (data.type === "question") {
+    if (content.type === "question") {
         const {item, apiOptions, linterContext, reviewMode, problemNum} =
-            data.data;
+            content.data;
 
         return (
             <PreviewWithKeypad>
@@ -102,8 +102,8 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    if (data.type === "hint") {
-        const {hint, apiOptions, linterContext} = data.data;
+    if (content.type === "hint") {
+        const {hint, apiOptions, linterContext} = content.data;
 
         return (
             <PreviewWithKeypad>
@@ -122,9 +122,9 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    if (data.type === "article") {
+    if (content.type === "article") {
         const {article, apiOptions, legacyPerseusLint, linterContext} =
-            data.data;
+            content.data;
 
         return (
             <PreviewWithKeypad>
@@ -145,8 +145,8 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    if (data.type === "article-all") {
-        const {article, apiOptions} = data.data;
+    if (content.type === "article-all") {
+        const {article, apiOptions} = content.data;
 
         return (
             <PreviewWithKeypad>
