@@ -1,3 +1,5 @@
+import {convertInputNumberOptionsToNumericInput} from "@khanacademy/perseus-core";
+
 import flattenScores from "./util/flatten-scores";
 import getScoreableWidgets from "./util/get-scoreable-widgets";
 import isWidgetScoreable from "./util/is-widget-scoreable";
@@ -36,6 +38,27 @@ export function scorePerseusItem(
     return flattenScores(scores);
 }
 
+/**
+ * @experimental - this is a temporary function for use by the Input Number to
+ * Numeric Input project. It will be removed in a future minor version.
+ */
+// TODO(LEMS-4085): remove this function once the Input Number to Numeric
+//  Input project is complete.
+export function scorePerseusItemWithInputNumberAsNumericInput(
+    perseusRenderData: PerseusRenderer,
+    userInputMap: UserInputMap,
+    locale: string,
+): PerseusScore {
+    const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
+    const scores = scoreWidgetsFunctionalWithInputNumberAsNumericInput(
+        perseusRenderData.widgets,
+        scoreableWidgetIds,
+        userInputMap,
+        locale,
+    );
+    return flattenScores(scores);
+}
+
 export function scoreWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
@@ -65,6 +88,57 @@ export function scoreWidgetsFunctional(
         const score =
             validator?.(userInput, widget.options, locale) ??
             scorer?.(userInput, widget.options, locale);
+        if (score != null) {
+            widgetScores[id] = score;
+        }
+    });
+
+    return widgetScores;
+}
+
+// TODO(LEMS-4085): remove this function once the Input Number to Numeric
+//  Input project is complete.
+export function scoreWidgetsFunctionalWithInputNumberAsNumericInput(
+    widgets: PerseusWidgetsMap,
+    // This is a port of old code, I'm not sure why
+    // we need widgetIds vs the keys of the widgets object
+    widgetIds: ReadonlyArray<string>,
+    userInputMap: UserInputMap,
+    locale: string,
+): {[widgetId: string]: PerseusScore} {
+    const gradedWidgetIds = widgetIds.filter((id) =>
+        isWidgetScoreable(widgets[id]),
+    );
+
+    const widgetScores: Record<string, PerseusScore> = {};
+    gradedWidgetIds.forEach((id) => {
+        const widget = widgets[id]!;
+
+        // TODO(benchristel): Without the explicit type annotation, the type of
+        // userInput would be inferred as `any`. This is because the keys of
+        // userInputMap are strings with a specific format, but `id` is any old
+        // string. Find a way to make this more typesafe.
+        const userInput: UserInput | undefined = userInputMap[id];
+        let widgetType;
+        let widgetOptions;
+        if (widget.type === "input-number") {
+            widgetType = "numeric-input";
+            widgetOptions = convertInputNumberOptionsToNumericInput(
+                widget.options,
+            );
+        } else {
+            widgetType = widget.type;
+            widgetOptions = widget.options;
+        }
+
+        const validator = getWidgetValidator(widgetType);
+        const scorer = getWidgetScorer(widgetType);
+
+        // We do validation (empty checks) first and then scoring. If
+        // validation fails, it's result is itself a PerseusScore.
+        const score =
+            validator?.(userInput, widgetOptions, locale) ??
+            scorer?.(userInput, widgetOptions, locale);
         if (score != null) {
             widgetScores[id] = score;
         }

@@ -5,9 +5,15 @@ import {
     type DropdownWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
+    generateInputNumberWidget,
+    generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
 
-import {scorePerseusItem, scoreWidgetsFunctional} from "./score";
+import {
+    scorePerseusItem,
+    scorePerseusItemWithInputNumberAsNumericInput,
+    scoreWidgetsFunctional,
+} from "./score";
 import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
 
 describe("scoreWidgetsFunctional", () => {
@@ -467,5 +473,197 @@ describe("scorePerseusItem", () => {
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
         });
+    });
+});
+
+describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
+    it("scores a correctly-answered input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "42",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores an incorrectly-answered input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "99",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("scores an empty input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveInvalidInput();
+    });
+
+    it("ignores an input-number widget that does not have a placeholder in the content string", () => {
+        const renderer = {
+            content: "",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+    });
+
+    it("ignores an input-number widget that is not graded", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    graded: false,
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+    });
+
+    it("scores correctly-answered widgets other than input-number", () => {
+        const renderer = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        choices: [{content: "A", correct: true}],
+                    }),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 1,
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores incorrectly-answered widgets other than input-number", () => {
+        const renderer = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        choices: [
+                            {content: "A", correct: true},
+                            {content: "B", correct: false},
+                        ],
+                    }),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 2,
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 });
