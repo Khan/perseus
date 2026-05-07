@@ -28,13 +28,6 @@ type StoryArgs = {
     "reviewMode" | "showSolutions"
 >;
 
-/**
- * This is a story for the new radio widget.
- * It will replace radio.stories.tsx after the feature flag is no longer needed.
- *
- * TODO(LEMS-2994): Clean up this file.
- */
-
 export default {
     title: "Widgets/Radio/Widget Demo",
     component: ServerItemRendererWithDebugUI,
@@ -66,7 +59,6 @@ export default {
     render: (args: StoryArgs) => (
         <ServerItemRendererWithDebugUI
             item={{...args.item}}
-            apiOptions={}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
         />
