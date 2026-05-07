@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 26.0.3
+
+### Patch Changes
+
+-   [#3546](https://github.com/Khan/perseus/pull/3546) [`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e) Thanks [@nishasy](https://github.com/nishasy)! - Add new lint rule to avoid using `as` and suppress lint errors for existing instances of `as`
+
+*   [#3570](https://github.com/Khan/perseus/pull/3570) [`51dd982ad9`](https://github.com/Khan/perseus/commit/51dd982ad90de4e3ba52dc2cc0443ca3d60b805b) Thanks [@benchristel](https://github.com/benchristel)! - The Perseus parsers now guard against NaN and Infinity values in number fields. These values get converted to null by `JSON.stringify`, and previously caused the parsers to be non-idempotent.
+
+*   Updated dependencies [[`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e)]:
+    -   @khanacademy/kas@2.2.3
+    -   @khanacademy/pure-markdown@2.2.8
+
 ## 26.0.2
 
 ### Patch Changes
