@@ -40,9 +40,6 @@ const {getLineEquation, getLineIntersectionString, magnitude, vector} =
 
 const UNLIMITED = "unlimited" as const;
 
-// Sample background image:
-// https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
-
 function numSteps(range: Range, step: number) {
     return Math.floor((range[1] - range[0]) / step);
 }
