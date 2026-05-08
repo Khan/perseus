@@ -39,14 +39,13 @@ This plan turns the decisions in [`screen-reader-research.md`](./screen-reader-r
     - (Phase 1) Add WB Announcer.
     - (Phase 4) Allow custom labeling on points.
     - (Phase 2) Role="figures"
-    - (@Cat to check) Graphs have descriptions linter rule.
+    - New graph linting rules
 
 - Nice to have:
     - Improve Locked Figure description (how to traverse)
     - Trap focus
     - Improve Action Bar for Unlimited Graphs
     - Improved instruction per graph type.
-    - Linter rule for locked figures. (Can be complex)
 
 ### Phase List
 
@@ -112,6 +111,8 @@ Cross-phase file map — every file this plan touches at least once, with the ph
 | `packages/perseus/src/strings.ts` | 1, 2, 3, 4, 5, 6 | New strings each phase. |
 | `packages/perseus-core/src/data-schema.ts` | 4 | Optional `pointLabels?: string[]` on `PerseusGraphTypePoint`, `PerseusGraphTypePolygon`. |
 | `packages/perseus-editor/src/...point-editor.tsx` *(exact path during impl)* | 4 | Per-point label inputs in the point/polygon editor UI. |
+| `packages/perseus-linter/src/rules/interactive-graph-locked-figure-description.ts` *(new)* | 3 | Lint rule: warn when locked figures are present but `fullGraphAriaDescription` is missing or empty. |
+| `packages/perseus-editor/src/...interactive-graph-editor.tsx` *(exact path during impl)* | 3 | Add helper text to `fullGraphAriaDescription` field: "Interactive elements are automatically described for screen reader users. Locked figures are not — use this field to describe them." |
 | `packages/perseus/src/widgets/interactive-graphs/__docs__/a11y.mdx` | every phase | Document new behavior, Announcer module, OQ3 routing rule. |
 | `packages/perseus/src/widgets/interactive-graphs/__docs__/*.stories.tsx` | every phase | Storybook stories that demonstrate new SR behavior. |
 | `packages/perseus/package.json` | 1 | Add `@khanacademy/wonder-blocks-announcer` dependency. |
@@ -472,7 +473,7 @@ Regular check-ins with Caitlyn during implementation to fine tune the instructio
 
 - Explicit "nothing to move" SR-only label for none-type graphs, surfaced on entry so users immediately know the graph is non-interactive.
 - Locked-figure traversability mention in the on-entry description, so SR users know to free-explore (rather than Tab) to reach locked figures.
-- Authoring-time `perseus-linter` rule that warns when a locked figure on an interactive-graph widget has a missing or empty `ariaLabel`. Surfaced from the LEMS-3946 spike comment after initial research landed; complements the runtime traversability prefix (the prefix tells SR users locked figures *exist*; the linter ensures the labels they hear are *meaningful*).
+- Authoring-time `perseus-linter` rule that warns when an interactive-graph widget contains locked figures but has no graph-level description (`fullGraphAriaDescription`). Surfaced from the LEMS-3946 spike comment after initial research landed; complements the runtime traversability prefix (the prefix tells SR users locked figures *exist*; the linter ensures the author has described what those figures are).
 - Decision (pending design): whether to apply the same "nothing to move" treatment to static graphs.
 
 **What this phase does NOT ship:**
@@ -488,7 +489,7 @@ Regular check-ins with Caitlyn during implementation to fine tune the instructio
 |------|--------|
 | `mafs-graph.tsx` | Branch on graph type to render the "nothing to move" sr-only string for none-type graphs; prepend the locked-figure traversability prefix to the description when locked figures are present. |
 | `strings.ts` | Add `srGraphNothingToMove` (none-type / static), `srGraphLockedFiguresTraversable` (the prefix). |
-| `packages/perseus-linter/src/rules/interactive-graph-locked-figure-aria-label.ts` *(new)* + corresponding `.test.ts` | New lint rule that walks each interactive-graph widget's `lockedFigures` array and warns on any entry whose `ariaLabel` is missing or empty. Pattern after existing widget-targeted rules (e.g., `expression-widget-error.ts`). |
+| `packages/perseus-linter/src/rules/interactive-graph-locked-figure-description.ts` *(new)* + corresponding `.test.ts` | New lint rule that checks each interactive-graph widget: if `lockedFigures` is non-empty and `fullGraphAriaDescription` is missing or empty, emit a warning. Pattern after existing widget-targeted rules (e.g., `expression-widget-error.ts`). |
 | `packages/perseus-linter/src/rules/all-rules.ts` | Register the new rule. |
 | `__docs__/a11y.mdx` | Document the new runtime copy, the branching logic, and the new linter rule (so authors know what triggers it and how to fix). |
 
@@ -510,20 +511,21 @@ Regular check-ins with Caitlyn during implementation to fine tune the instructio
 - Open question: do static graphs (read-only but graph-shaped) get the same "nothing to move" treatment as none-type? Pending design from Caitlyn.
 - Implement once design lands. If the answer is yes, extend the 3.3.1 branch to include static; if no, no code change.
 
-#### 3.3.4 Linter rule: locked-figure `ariaLabel` required
+#### 3.3.4 Linter rule: graph description required when locked figures are present
 
 - Add a new rule under `packages/perseus-linter/src/rules/`. Pattern after existing widget-targeted rules (e.g., `expression-widget-error.ts`).
-- Rule walks every interactive-graph widget configuration. For each entry in `lockedFigures` (where present), check that `ariaLabel` is a non-empty string. If `ariaLabel` is missing or empty (`undefined`, `null`, or `""`), emit a warning that names the figure type and its position in the array. Locked figures are not allowed to be unlabeled — there is no "purely decorative" opt-out.
-- Warning copy (proposed; finalize with Caitlyn, with Darrell as final sign-off): `"Locked %(figureType)s at index %(index)s is missing an accessibility label. Add an 'ariaLabel' so screen reader users can perceive it."`
+- Rule checks each interactive-graph widget configuration: if `lockedFigures` is non-empty and `fullGraphAriaDescription` is missing or empty (`undefined`, `null`, or `""`), emit a warning.
+- The editor UI `fullGraphAriaDescription` field should display helper text: `"Interactive elements are automatically described for screen reader users. Locked figures are not — use this field to describe them."`
+- Warning copy (proposed; finalize with Caitlyn, with Darrell as final sign-off): `"This graph has locked figures but no graph description. Add a 'Graph description' so screen reader users can perceive the locked figures."`
 - Register the new rule in `packages/perseus-linter/src/rules/all-rules.ts`.
 
-**Done when:** authoring a question with an unlabeled locked figure surfaces the warning in the lint pass; existing labeled content produces no warnings; the rule is registered and shows up in `all-rules.ts`.
+**Done when:** authoring a graph with locked figures but no description surfaces the warning in the lint pass; graphs with a non-empty description produce no warning; graphs without locked figures are unaffected; the rule is registered and shows up in `all-rules.ts`.
 
 ### 3.4 Tests
 
 - jest assertion: none-type renders `srGraphNothingToMove` in the sr-only description.
 - jest assertion: locked-figure-bearing graphs render the traversability prefix.
-- Linter rule tests: locked figures with non-empty `ariaLabel` produce no warning; missing or empty `ariaLabel` (`undefined`, `null`, `""`) produces the expected warning; multiple unlabeled figures produce one warning per figure (with correct `figureType` and `index` interpolation).
+- Linter rule tests: graph with locked figures and a non-empty `fullGraphAriaDescription` produces no warning; missing or empty `fullGraphAriaDescription` (`undefined`, `null`, `""`) with locked figures present produces the expected warning; graph with no locked figures produces no warning regardless of description.
 - SR-matrix manual verification (focus on whether the new prefix conflicts with existing locked-figure announcements).
 
 ### 3.5 Rollout / Flag
@@ -539,7 +541,7 @@ Under Phase 2's flag — description text is part of the same entry-experience r
 
 - Static-graph treatment: pending design.
 - Exact wording of both new strings — Caitlyn & Darrell.
-- Final wording of the linter warning copy — Caitlyn, with Darrell as final sign-off.
+- Final wording of the linter warning copy and `fullGraphAriaDescription` helper text — Caitlyn, with Darrell as final sign-off.
 
 ### 3.8 QE Strategy
 
