@@ -124,8 +124,20 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  build-command: pnpm install && pnpm build
-                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  # esbuild produces a deliberately non-minified bundle for
+                  # comparison purposes — the production build pipeline
+                  # (rollup + swc + minification) is too noisy for diffs.
+                  # We bundle from source rather than diffing the production
+                  # artifact so we're insulated from build-pipeline drift.
+                  build-command: |
+                      pnpm install
+                      pnpm exec esbuild packages/perseus-core/src/index.item-splitting.ts \
+                        --bundle \
+                        --format=esm \
+                        --platform=neutral \
+                        --target=es2022 \
+                        --outfile=${{ runner.temp }}/item-splitting.bundle.js
+                  path-to-artifact: ${{ runner.temp }}/item-splitting.bundle.js
                   label-name: item-splitting-change
                   check-name: "PR Comparison: 🛠️ Item Splitting"
                   ack-label-name: item-splitting-change-ack
