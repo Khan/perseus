@@ -1,3 +1,4 @@
+import {font} from "@khanacademy/wonder-blocks-tokens";
 import {Text} from "mafs";
 import React from "react";
 
@@ -13,7 +14,7 @@ export const TextLabel = ({children, ...rest}: Props) => (
         size={16}
         svgTextProps={{
             filter: "url(#background)",
-            fontWeight: "bold",
+            fontWeight: font.weight.bold,
         }}
         {...rest}
     >
