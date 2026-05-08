@@ -1,4 +1,3 @@
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
@@ -7,7 +6,11 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {dotPlotter} from "./plotter.testdata";
@@ -167,10 +170,9 @@ describe("plotter widget", () => {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -188,10 +190,9 @@ describe("plotter widget", () => {
             act(() => plotter._testInsertUserInput([15]));
             const userInput = renderer.getUserInputMap();
 
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -208,10 +209,9 @@ describe("plotter widget", () => {
             act(() => plotter._testInsertUserInput([7])); // mock user entering a value
             const userInput = renderer.getUserInputMap();
 
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert

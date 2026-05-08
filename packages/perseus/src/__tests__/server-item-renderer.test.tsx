@@ -4,7 +4,6 @@ import {
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -23,6 +22,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
+import {scorePerseusItemTesting} from "../util/test-utils";
 import {registerWidget} from "../widgets";
 import {MockWidget} from "../widgets/mock-widgets";
 import MockAssetLoadingWidgetExport, {
@@ -588,7 +588,10 @@ describe("server item renderer", () => {
 
             // score user input
             const userInput = renderer.getUserInput();
-            const {score} = scorePerseusItem(answerful.question, userInput, "en");
+            const score = scorePerseusItemTesting(
+                answerful.question,
+                userInput,
+            );
             expect(score).toEqual({
                 type: "points",
                 total: 1,

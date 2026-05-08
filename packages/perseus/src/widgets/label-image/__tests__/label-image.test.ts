@@ -2,7 +2,6 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -1015,10 +1014,9 @@ describe("LabelImage", function () {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 answerfulItem.question,
                 userInput,
-                "en",
             );
 
             // Assert

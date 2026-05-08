@@ -1,5 +1,5 @@
 import {type PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
+import {validateMatrix} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -163,10 +163,9 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert

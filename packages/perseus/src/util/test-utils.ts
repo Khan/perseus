@@ -15,8 +15,8 @@ import type {
 
 /**
  * Thin wrapper around scorePerseusItem for internal testing. Returns the
- * aggregate `score` field; tests that need the per-widget breakdown should
- * call `scorePerseusItem` directly.
+ * aggregate score; tests that need the per-widget breakdown should call
+ * `scorePerseusItem` directly.
  */
 export function scorePerseusItemTesting(
     perseusRenderData: PerseusRenderer,

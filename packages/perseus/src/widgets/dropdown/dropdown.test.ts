@@ -5,7 +5,6 @@ import {
     generateDropdownWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -297,10 +296,9 @@ describe("Dropdown widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const {score} = scorePerseusItem(
+                const score = scorePerseusItemTesting(
                     getAnswerfulItem().question,
                     userInput,
-                    "en",
                 );
 
                 // Assert

@@ -1,4 +1,3 @@
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
@@ -6,7 +5,11 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
@@ -130,10 +133,9 @@ describe("orderer widget", () => {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -150,10 +152,9 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["1", "2", "3"]));
             const userInput = renderer.getUserInputMap();
 
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -170,10 +171,9 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["2", "3", "1"]));
             const userInput = renderer.getUserInputMap();
 
-            const {score} = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
-                "en",
             );
 
             // Assert
