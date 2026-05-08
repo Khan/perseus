@@ -98,7 +98,7 @@ export function scoreWidgetsFunctional(
 
 // TODO(LEMS-4085): remove this function once the Input Number to Numeric
 //  Input project is complete.
-export function scoreWidgetsFunctionalWithInputNumberAsNumericInput(
+function scoreWidgetsFunctionalWithInputNumberAsNumericInput(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
     // we need widgetIds vs the keys of the widgets object
