@@ -170,18 +170,23 @@ runs:
                   } else {
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
+                      // Render the ack label as a link to its label page so
+                      // reviewers can see the real label badge (and the PRs
+                      // currently carrying it) with one click.
+                      const labelUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/labels/${encodeURIComponent(ackLabel)}`;
+                      const ackLabelMd = `[\`${ackLabel}\`](${labelUrl})`;
                       const parts = [];
                       if (details) {
                           parts.push(details, "");
                       }
                       if (isAcked) {
                           parts.push(
-                              `> Acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
+                              `> Acknowledged via the **${ackLabelMd}** label. Remove the label to require re-acknowledgement.`,
                               "",
                           );
                       } else {
                           parts.push(
-                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the \`${ackLabel}\` label to acknowledge. The check will re-run automatically.`,
+                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the ${ackLabelMd} label to acknowledge. The check will re-run automatically.`,
                               "",
                           );
                       }
