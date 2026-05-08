@@ -368,6 +368,10 @@ export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateInputNumberOptions,
+    generateInputNumberWidget,
+} from "./utils/generators/input-number-widget-generator";
 /** @hidden */
 export {
     generateLabelImageOptions,
