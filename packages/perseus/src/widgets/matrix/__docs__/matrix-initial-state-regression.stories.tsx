@@ -1,16 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {matrixRendererDecorator} from "../../__testutils__/matrix-renderer-decorator";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import type {MatrixPublicWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const MatrixWidget = getWidget("matrix")!;
-
-const meta: Meta<typeof MatrixWidget> = {
+const meta: Meta<MatrixPublicWidgetOptions> = {
     title: "Widgets/Matrix/Visual Regression Tests/Initial State",
-    component: MatrixWidget,
     tags: ["!autodocs", "!manifest"],
     decorators: [matrixRendererDecorator],
     parameters: {
@@ -26,14 +22,14 @@ const meta: Meta<typeof MatrixWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof MatrixWidget>;
+type Story = StoryObj<typeof meta>;
 
 // Verifies the default empty state: the only inner cell (0,0) has a medium
 // border; all other cells (outside the active area) have a thin border.
 export const DefaultEmptyMatrix: Story = {
     args: {
         matrixBoardSize: [3, 3],
-    } satisfies Partial<MatrixPublicWidgetOptions>,
+    },
 };
 
 // Verifies the partially-filled state: the top-left 2×2 block inputs
@@ -52,7 +48,7 @@ export const PartiallyFilledMatrix: Story = {
     },
     args: {
         matrixBoardSize: [4, 4],
-    } satisfies Partial<MatrixPublicWidgetOptions>,
+    },
 };
 
 // Verifies the fully-answered state: all cells have a medium border.
@@ -70,7 +66,7 @@ export const FullyAnsweredMatrix: Story = {
     },
     args: {
         matrixBoardSize: [3, 3],
-    } satisfies Partial<MatrixPublicWidgetOptions>,
+    },
 };
 
 // Verifies that a TeX prefix and suffix render correctly around the matrix grid.
@@ -79,7 +75,7 @@ export const WithPrefixAndSuffix: Story = {
         matrixBoardSize: [2, 2],
         prefix: "Given $A =$",
         suffix: "($2 \\times 2$ matrix)",
-    } satisfies Partial<MatrixPublicWidgetOptions>,
+    },
 };
 
 // Verifies that the RTL layout renders the matrix and its prefix/suffix
@@ -90,5 +86,5 @@ export const WithPrefixAndSuffixRightToLeft: Story = {
         matrixBoardSize: [2, 2],
         prefix: "Given $A =$",
         suffix: "($2 \\times 2$ matrix)",
-    } satisfies Partial<MatrixPublicWidgetOptions>,
+    },
 };
