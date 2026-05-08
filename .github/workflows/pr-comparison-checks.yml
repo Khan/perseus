@@ -140,7 +140,7 @@ jobs:
                   # to match is a courtesy, not a correctness requirement.
                   build-command: |
                       pnpm install
-                      pnpm dlx esbuild@0.24.0 packages/perseus-core/src/index.item-splitting.ts \
+                      pnpm exec esbuild packages/perseus-core/src/index.item-splitting.ts \
                         --bundle \
                         --format=esm \
                         --platform=neutral \

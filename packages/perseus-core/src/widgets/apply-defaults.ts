@@ -37,7 +37,7 @@ export const applyDefaultsToWidget = (
         alignment = getSupportedAlignments(type)?.[0];
         if (!alignment) {
             throw new PerseusError(
-                "applyDefaultsToWidget: No default alignment found (TEMP probe)",
+                "applyDefaultsToWidget: No default alignment found",
                 Errors.Internal,
                 {metadata: {widgetType: type}},
             );
