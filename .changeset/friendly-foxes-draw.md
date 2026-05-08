@@ -1,5 +1,4 @@
 ---
-"@khanacademy/perseus": minor
 "@khanacademy/perseus-core": minor
 ---
 

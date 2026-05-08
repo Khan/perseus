@@ -135,7 +135,7 @@ export type PerseusStrings = {
         x,
         y,
     }: {
-        num: number | string;
+        num: number;
         x: string;
         y: string;
     }) => string;
