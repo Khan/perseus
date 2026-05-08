@@ -6996,7 +6996,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "weight": "medium",
             },
             {
-              "color": "orange",
+              "color": "gold",
               "coord": [
                 1,
                 -5,
@@ -7268,7 +7268,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "weight": "medium",
             },
             {
-              "color": "orange",
+              "color": "gold",
               "coord": [
                 1,
                 -5,

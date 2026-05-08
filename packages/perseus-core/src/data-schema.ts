@@ -975,24 +975,24 @@ export type PerseusInteractiveGraphWidgetOptions = {
 
 export const lockedFigureColorNames = [
     "blue",
+    "gold",
     "green",
     "grayH",
     "purple",
     "pink",
-    "orange",
     "red",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
-    blue: "#3D7586",
-    green: "#447A53",
-    grayH: "#3B3D45",
-    purple: "#594094",
-    pink: "#B25071",
-    red: "#D92916",
-    orange: "#946700",
+    blue: "var(--wb-semanticColor-learning-math-foreground-blue)",
+    gold: "var(--wb-semanticColor-learning-math-foreground-gold)",
+    green: "var(--wb-semanticColor-learning-math-foreground-green)",
+    grayH: "var(--wb-semanticColor-learning-math-foreground-grayH)",
+    purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
+    pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
+    red: "var(--wb-semanticColor-learning-math-foreground-red)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
