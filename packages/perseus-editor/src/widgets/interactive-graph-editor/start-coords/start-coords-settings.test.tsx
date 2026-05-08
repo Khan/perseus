@@ -744,21 +744,6 @@ describe("StartCoordSettings", () => {
             },
         );
 
-        test("shows the inline help text about naming points", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="point"
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(screen.getByText(/Name your points/i)).toBeInTheDocument();
-        });
-
         test("renders point name fields when onChangePointLabels is provided", () => {
             // Arrange, Act
             render(

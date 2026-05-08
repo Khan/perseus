@@ -17,7 +17,6 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
@@ -224,12 +223,6 @@ const StartCoordsSettings = (props: Props) => {
             {/* Start coordinates main UI */}
             {isOpen && (
                 <>
-                    {/* Inline help: explain custom point names for screen readers. */}
-                    <BodyText size="small">
-                        Tip: Name your points (e.g., "T") so screen readers
-                        announce them the same way as the question prompt.
-                    </BodyText>
-
                     {/* Start coordinates input */}
                     <StartCoordsSettingsInner {...props} />
 
