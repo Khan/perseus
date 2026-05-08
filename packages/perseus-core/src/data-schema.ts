@@ -1146,6 +1146,17 @@ export type PerseusGraphTypeAngle = {
      * the vertex, while rays BA and BC form the angle.
      */
     startCoords?: [Coord, Coord, Coord];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeCircle = {
@@ -1157,6 +1168,17 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLinear = {
@@ -1165,6 +1187,17 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLinearSystem = {
@@ -1173,6 +1206,17 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeNone = {
@@ -1191,6 +1235,17 @@ export type PerseusGraphTypePoint = {
     startCoords?: Coord[];
     /** Used instead of `coords` in some old graphs that have only one point. */
     coord?: Coord;
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypePolygon = {
@@ -1208,6 +1263,17 @@ export type PerseusGraphTypePolygon = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeQuadratic = {
@@ -1216,6 +1282,17 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: [Coord, Coord, Coord];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeSegment = {
@@ -1229,6 +1306,17 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeSinusoid = {
@@ -1237,6 +1325,17 @@ export type PerseusGraphTypeSinusoid = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeTangent = {
@@ -1245,6 +1344,17 @@ export type PerseusGraphTypeTangent = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeExponential = {
@@ -1258,6 +1368,17 @@ export type PerseusGraphTypeExponential = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLogarithm = {
@@ -1271,6 +1392,17 @@ export type PerseusGraphTypeLogarithm = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1279,6 +1411,17 @@ export type PerseusGraphTypeAbsoluteValue = {
     coords?: [Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord];
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeRay = {
@@ -1287,6 +1430,17 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeVector = {
@@ -1299,6 +1453,17 @@ export type PerseusGraphTypeVector = {
      *  "exact" (default) — both tail and tip must match exactly.
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
+    /**
+     * Custom screen-reader labels for each interactive point.
+     * If provided, pointLabels[i] replaces the default numeric "Point {i+1}"
+     * announcement. Type is string so authors can use letters (e.g., "T") to
+     * match question text, but the editor defaults to the numeric "1", "2", …
+     * — authors override only when they want a letter.
+     *
+     * Example: pointLabels: ["T"] → "Point T at 0 comma 0"
+     *          (instead of the default "Point 1 at 0 comma 0")
+     */
+    pointLabels?: string[];
 };
 
 type AbsoluteValueGraphCorrect = {
