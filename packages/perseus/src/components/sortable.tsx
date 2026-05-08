@@ -8,6 +8,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import AssetContext from "../asset-context";
 import {getDependencies} from "../dependencies";
 import Renderer from "../renderer";
 import Util from "../util";
@@ -450,7 +451,14 @@ type SortableState = {
     items: ReadonlyArray<SortableItem>;
     texRendererLoaded: boolean;
 };
+// Quiescence window after the last onMeasure before we report "settled".
+const SORTABLE_SETTLED_MS = 50;
+let sortableInstanceId = 0;
+
 class Sortable extends React.Component<SortableProps, SortableState> {
+    static contextType = AssetContext;
+    declare context: React.ContextType<typeof AssetContext>;
+
     static defaultProps: DefaultProps = {
         layout: "horizontal",
         padding: true,
@@ -462,6 +470,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         linterContext: PerseusLinter.linterContextDefault,
         waitForTexRendererToLoad: true,
     };
+
+    _assetKey: string = `sortable-${sortableInstanceId++}`;
+    _settledTimer: ReturnType<typeof setTimeout> | null = null;
 
     remeasureItems: () => void = _.debounce(() => {
         this.setState({
@@ -500,13 +511,17 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
     }
 
-    constructor(props: SortableProps) {
-        super(props);
+    constructor(
+        props: SortableProps,
+        context: React.ContextType<typeof AssetContext>,
+    ) {
+        super(props, context);
         // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
             texRendererLoaded: false,
         };
+        context.setAssetStatus(this._assetKey, false);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: SortableProps) {
@@ -547,6 +562,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
+    }
+
+    componentWillUnmount() {
+        if (this._settledTimer != null) {
+            clearTimeout(this._settledTimer);
+            this._settledTimer = null;
+        }
+        this.context.setAssetStatus(this._assetKey, true);
     }
 
     measureItems() {
@@ -600,6 +623,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         this.setState({items}, () => {
             this.props.onMeasure?.({widths: widths, heights: heights});
+            this.context.setAssetStatus(this._assetKey, false);
+            if (this._settledTimer != null) {
+                clearTimeout(this._settledTimer);
+            }
+            this._settledTimer = setTimeout(() => {
+                this._settledTimer = null;
+                this.context.setAssetStatus(this._assetKey, true);
+            }, SORTABLE_SETTLED_MS);
         });
     }
 
