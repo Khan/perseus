@@ -1,5 +1,4 @@
 import {
-    generateInteractiveGraphQuestion,
     generateIGCircleGraph,
     generateIGLinearGraph,
     generateIGPointGraph,
@@ -8,112 +7,97 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {ApiOptions} from "../../../perseus-api";
-import Renderer from "../../../renderer";
-import {mockStrings} from "../../../strings";
-import UserInputManager from "../../../user-input-manager";
+import {themeModes} from "../../../../../../.storybook/modes";
+import {getWidget} from "../../../widgets";
+import {interactiveGraphRendererDecorator} from "../../__testutils__/interactive-graph-renderer-decorator";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
-    const {question} = props;
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={ApiOptions.defaults}
-                />
-            )}
-        </UserInputManager>
-    );
-}
+const InteractiveGraphWidget = getWidget("interactive-graph")!;
 
-type Story = StoryObj<typeof MafsQuestionRenderer>;
-
-const meta: Meta<typeof MafsQuestionRenderer> = {
+const meta: Meta<typeof InteractiveGraphWidget> = {
     title: "Widgets/Interactive Graph/Visual Regression Tests/Interactions",
-    component: MafsQuestionRenderer,
-    // !autodocs: shows individual stories in sidebar without a Docs page
-    // !manifest: keeps these stories out of the component manifest
+    component: InteractiveGraphWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
-        chromatic: {disableSnapshot: false},
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Interactive Graph widget that DO need " +
+                    "some sort of interaction to test (focus, hover, drag), which " +
+                    "will be used with Chromatic. Stories are displayed on their own page.",
+            },
+        },
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
-    decorators: (Story) => (
+    decorators: [
         // Add margin so we can look at individual story canvases for
         // graphs that have axis ticks off the graph.
-        <View style={{marginInlineStart: 32}}>
-            <Story />
-        </View>
-    ),
+        (Story) => (
+            <View style={{marginInlineStart: 32}}>
+                <Story />
+            </View>
+        ),
+    ],
 };
 export default meta;
 
+type Story = StoryObj<typeof InteractiveGraphWidget>;
+
 // ──────────────────────────────────────────────
-// Movable point: hover, focus, and tooltip states
+// Movable point: focus and tooltip states
 // Cover --mafs-blue interactive color, focus-ring stroke, and tooltip
 // (white text on blue background)
 // ──────────────────────────────────────────────
 
-// Focused movable point: tabbing into the graph focuses a point and shows
-// the focus-ring outline (blue stroke) around the point's halo.
+/** Focused movable point: tabbing into the graph focuses a point and shows
+ * the focus-ring outline (blue stroke) around the point's halo. */
 export const PointGraphFocused: Story = {
+    decorators: [interactiveGraphRendererDecorator],
     args: {
-        question: generateInteractiveGraphQuestion({
-            correct: generateIGPointGraph({
-                numPoints: 1,
-                coords: [[0, 0]],
-            }),
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            coords: [[0, 0]],
         }),
-    },
-    play: async ({canvas, userEvent}) => {
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({userEvent}) => {
         await userEvent.tab();
         await userEvent.tab();
     },
 };
 
-// Focused movable point with tooltip: with `showTooltips: true`, focusing the
-// point shows a Wonder Blocks tooltip with white text on the blue background.
-// This exercises the `contentStyle={{color: "white"}}` and the WB blue
-// background color used by the tooltip.
+/** Focused movable point with tooltip: with `showTooltips: true`, focusing the
+ * point shows a Wonder Blocks tooltip with white text on the blue background.
+ * This exercises `contentStyle={{color: "white"}}` and the WB blue background. */
 export const PointGraphFocusedWithTooltip: Story = {
+    decorators: [interactiveGraphRendererDecorator],
     args: {
-        question: generateInteractiveGraphQuestion({
-            correct: generateIGPointGraph({
-                numPoints: 1,
-                coords: [[0, 0]],
-            }),
-            showTooltips: true,
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            coords: [[0, 0]],
         }),
-    },
-    play: async ({canvas, userEvent}) => {
+        showTooltips: true,
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({userEvent}) => {
         await userEvent.tab();
         await userEvent.tab();
     },
 };
 
 // ──────────────────────────────────────────────
-// Movable circle: hover and focus states
-// Cover --mafs-blue fill on hover and focus-ring stroke
+// Movable circle: focus state
+// Covers --mafs-blue stroke on the focus-ring
 // ──────────────────────────────────────────────
 
-// Focused circle: tabbing into a circle graph focuses the circle and shows
-// the focus-ring (blue stroke).
+/** Focused circle: tabbing into a circle graph focuses the circle and shows
+ * the focus-ring (blue stroke). */
 export const CircleGraphFocused: Story = {
+    decorators: [interactiveGraphRendererDecorator],
     args: {
-        question: generateInteractiveGraphQuestion({
-            correct: generateIGCircleGraph({center: [0, 0], radius: 3}),
-        }),
-    },
-    play: async ({canvas, userEvent}) => {
+        correct: generateIGCircleGraph({center: [0, 0], radius: 3}),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({userEvent}) => {
         await userEvent.tab();
         await userEvent.tab();
     },
@@ -125,21 +109,20 @@ export const CircleGraphFocused: Story = {
 // per-vertex focus rings.
 // ──────────────────────────────────────────────
 
-// Focused polygon: tabbing into the polygon focuses the hit-target wrapper
-// and increases the line stroke weight (active state) on all sides.
+/** Focused polygon: tabbing into the polygon focuses the hit-target wrapper
+ * and increases the line stroke weight (active state) on all sides. */
 export const PolygonGraphFocused: Story = {
+    decorators: [interactiveGraphRendererDecorator],
     args: {
-        question: generateInteractiveGraphQuestion({
-            correct: generateIGPolygonGraph({
-                coords: [
-                    [-3, -2],
-                    [3, -2],
-                    [0, 4],
-                ],
-            }),
+        correct: generateIGPolygonGraph({
+            coords: [
+                [-3, -2],
+                [3, -2],
+                [0, 4],
+            ],
         }),
-    },
-    play: async ({canvas, userEvent}) => {
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({userEvent}) => {
         await userEvent.tab();
         await userEvent.tab();
     },
@@ -151,22 +134,22 @@ export const PolygonGraphFocused: Story = {
 // line on keyboard focus.
 // ──────────────────────────────────────────────
 
-// Focused linear graph: tabbing into the line shows the white focus-gap
-// stroke and the blue focus-outline stroke (`stroke: var(--mafs-blue)` and
-// `stroke: white` on the focus-gap layer).
+/** Focused linear graph: tabbing into the line shows the white focus-gap
+ * stroke and the blue focus-outline stroke (`stroke: var(--mafs-blue)` and
+ * `stroke: white` on the focus-gap layer). */
 export const LinearGraphLineFocused: Story = {
+    decorators: [interactiveGraphRendererDecorator],
     args: {
-        question: generateInteractiveGraphQuestion({
-            correct: generateIGLinearGraph({
-                coords: [
-                    [-5, -5],
-                    [5, 5],
-                ],
-            }),
+        correct: generateIGLinearGraph({
+            coords: [
+                [-5, -5],
+                [5, 5],
+            ],
         }),
-    },
-    play: async ({canvas, userEvent}) => {
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({userEvent}) => {
         // Tab through the two endpoint handles to focus the line itself
+        await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
