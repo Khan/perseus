@@ -6,13 +6,7 @@ import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
  */
 type InputNumberPublicWidgetOptions = Pick<
     PerseusInputNumberWidgetOptions,
-    | "answerType"
-    | "inexact"
-    | "maxError"
-    | "rightAlign"
-    | "simplify"
-    | "size"
-    | "customKeypad"
+    "answerType" | "inexact" | "maxError" | "rightAlign" | "simplify" | "size"
 >;
 
 /**
