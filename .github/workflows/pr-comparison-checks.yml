@@ -124,7 +124,9 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  build-command: pnpm install && pnpm build
+                  build-command: |
+                      pnpm install && pnpm build
+                      pnpm prettier --write packages/perseus-core/dist/es/index.item-splitting.js
                   path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
                   label-name: item-splitting-change
                   check-name: "PR Comparison: 🛠️ Item Splitting"
