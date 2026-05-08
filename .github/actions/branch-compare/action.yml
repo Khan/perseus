@@ -186,7 +186,7 @@ runs:
                           );
                       }
                       parts.push(
-                          "<details><summary>View diff</summary>",
+                          "<details open><summary>View diff</summary>",
                           "",
                           "```diff",
                           diff,

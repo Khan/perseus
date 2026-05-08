@@ -67,7 +67,7 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  check-name: 🗄️ Schema Change
+                  check-name: "PR Comparison: 🗄️ Schema Change"
                   ack-label-name: schema-change-ack
                   # Folded (`>`) so paragraphs can wrap freely. Two blank
                   # lines are required for a Markdown paragraph break.
@@ -127,5 +127,5 @@ jobs:
                   build-command: pnpm install && pnpm build
                   path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
                   label-name: item-splitting-change
-                  check-name: 🛠️ Item Splitting
+                  check-name: "PR Comparison: 🛠️ Item Splitting"
                   ack-label-name: item-splitting-change-ack
