@@ -588,7 +588,7 @@ describe("server item renderer", () => {
 
             // score user input
             const userInput = renderer.getUserInput();
-            const score = scorePerseusItem(answerful.question, userInput, "en");
+            const {score} = scorePerseusItem(answerful.question, userInput, "en");
             expect(score).toEqual({
                 type: "points",
                 total: 1,

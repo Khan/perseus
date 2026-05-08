@@ -1015,7 +1015,7 @@ describe("LabelImage", function () {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 answerfulItem.question,
                 userInput,
                 "en",

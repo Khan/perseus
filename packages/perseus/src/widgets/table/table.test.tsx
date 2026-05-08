@@ -73,7 +73,7 @@ describe("table", () => {
 
             const userInput = renderer.getUserInputMap();
             const answerful = generateTableRenderer();
-            const score = scorePerseusItem(answerful, userInput, "en");
+            const {score} = scorePerseusItem(answerful, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly();
         });

@@ -132,7 +132,7 @@ describe("interactive: full vs answerless", () => {
             expect(screen.getByText("Choose 2 answers:")).toBeInTheDocument();
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

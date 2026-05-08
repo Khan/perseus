@@ -68,7 +68,7 @@ describe("categorizer widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
 
         // Act
-        const score = scorePerseusItem(
+        const {score} = scorePerseusItem(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -91,7 +91,7 @@ describe("categorizer widget", () => {
         await userEvent.click(firstItem);
 
         // act
-        const score = scorePerseusItem(
+        const {score} = scorePerseusItem(
             question1,
             renderer.getUserInputMap(),
             "en",
@@ -230,7 +230,7 @@ describe("categorizer widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem("categorizer", options).question,
                 userInput,
                 "en",

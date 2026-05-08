@@ -14,13 +14,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 /**
- * Thin wrapper around scorePerseusItem for internal testing
+ * Thin wrapper around scorePerseusItem for internal testing. Returns the
+ * aggregate `score` field; tests that need the per-widget breakdown should
+ * call `scorePerseusItem` directly.
  */
 export function scorePerseusItemTesting(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
 ): PerseusScore {
-    return scorePerseusItem(perseusRenderData, userInputMap, "en");
+    return scorePerseusItem(perseusRenderData, userInputMap, "en").score;
 }
 
 /**

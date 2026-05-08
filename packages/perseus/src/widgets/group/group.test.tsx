@@ -275,7 +275,7 @@ describe("group widget", () => {
         );
 
         const guess = renderer.getUserInputMap();
-        const score = scorePerseusItem(question1, guess, "en");
+        const {score} = scorePerseusItem(question1, guess, "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();

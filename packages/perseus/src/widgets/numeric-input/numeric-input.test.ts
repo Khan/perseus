@@ -591,7 +591,7 @@ describe("interactive: full vs answerless", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem().question,
                 userInput,
                 "en",

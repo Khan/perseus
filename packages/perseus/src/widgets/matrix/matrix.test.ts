@@ -163,7 +163,7 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
                 "en",

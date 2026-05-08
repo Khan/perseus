@@ -100,7 +100,7 @@ export const useItemRenderer = (
         );
 
         const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(item.question, userInput, "en");
+        const {score} = scorePerseusItem(item.question, userInput, "en");
 
         if (score.type === "points") {
             // Show solutions for selected answers when the user answered the

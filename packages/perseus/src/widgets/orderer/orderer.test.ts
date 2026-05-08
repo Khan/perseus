@@ -130,7 +130,7 @@ describe("orderer widget", () => {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
                 "en",
@@ -150,7 +150,7 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["1", "2", "3"]));
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
                 "en",
@@ -170,7 +170,7 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["2", "3", "1"]));
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
                 "en",

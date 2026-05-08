@@ -297,7 +297,7 @@ describe("Dropdown widget", () => {
                 );
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
+                const {score} = scorePerseusItem(
                     getAnswerfulItem().question,
                     userInput,
                     "en",

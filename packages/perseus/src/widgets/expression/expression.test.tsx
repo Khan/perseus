@@ -614,7 +614,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -645,7 +645,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            const score = scorePerseusItem(
+            const {score} = scorePerseusItem(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
                 "en",
@@ -732,7 +732,7 @@ describe("Expression Widget", function () {
                 act(() => jest.runOnlyPendingTimers());
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
+                const {score} = scorePerseusItem(
                     getFullItem().question,
                     userInput,
                     "en",
