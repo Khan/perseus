@@ -36,7 +36,19 @@ export function scorePerseusItem(
         userInputMap,
         locale,
     );
-    return {score: flattenScores(widgetScores), widgetScores};
+    const score = flattenScores(widgetScores);
+
+    if (score.type === "points") {
+        return {score, widgetScores};
+    } else {
+        // NOTE: We don't reveal widget scores when the overall score is
+        // {type: invalid} so that we don't leak scoring info. If this info
+        // surfaced to the learner's browser, they could take advantage of the
+        // info by leaving the one widget that is invalid in that state and
+        // making multiple attempts on other widgets ({type: invalid} doesn't
+        // count as an attempt, so they'd get free attempts).
+        return {score, widgetScores: {}};
+    }
 }
 
 /**
