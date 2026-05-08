@@ -129,9 +129,10 @@ function MovableCircle(props: {
         useGraphConfig();
     const [focused, setFocused] = React.useState(false);
 
-    // Focus and gesture targets are kept on separate `<g>`s: in Safari,
-    // a focusable SVG group that's also the pointer-capture target leaks
-    // host-page text selection during mouse drag past the graph boundary.
+    // Keeping focus and gesture targets on separate `<g>`s works around a
+    // Safari-specific bug where dragging this group can result in the
+    // selection of page content once the cursor crosses the graph's edge.
+    // Splitting them resolves it and better mirrors `useControlPoint`.
     const focusableHandleRef = useRef<SVGGElement>(null);
     const visibleGroupRef = useRef<SVGGElement>(null);
 
