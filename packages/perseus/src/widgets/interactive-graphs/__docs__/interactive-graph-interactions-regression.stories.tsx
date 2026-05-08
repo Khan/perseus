@@ -146,7 +146,6 @@ export const LinearGraphLineFocused: Story = {
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
-        await userEvent.tab();
     },
 };
 
