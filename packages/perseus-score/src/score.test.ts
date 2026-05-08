@@ -383,7 +383,11 @@ describe("scorePerseusItem", () => {
             images: {},
         };
         json.widgets["dropdown 1"].static = true;
-        const {score} = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
+        const {score} = scorePerseusItem(
+            json,
+            {"dropdown 1": {value: 2}},
+            "en",
+        );
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
