@@ -129,50 +129,80 @@ function MovableCircle(props: {
         useGraphConfig();
     const [focused, setFocused] = React.useState(false);
 
-    const draggableRef = useRef<SVGGElement>(null);
+    // Focus and gesture targets are kept on separate `<g>`s: in Safari,
+    // a focusable SVG group that's also the pointer-capture target leaks
+    // host-page text selection during mouse drag past the graph boundary.
+    const focusableHandleRef = useRef<SVGGElement>(null);
+    const visibleGroupRef = useRef<SVGGElement>(null);
 
-    const {dragging} = useDraggable({
-        gestureTarget: draggableRef,
+    // Keyboard support (on focusableHandleRef)
+    useDraggable({
+        gestureTarget: focusableHandleRef,
         point: center,
         onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
+    // Mouse/Touch support (on the visibleGroupRef)
+    const {dragging} = useDraggable({
+        gestureTarget: visibleGroupRef,
+        point: center,
+        onMove,
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    React.useLayoutEffect(() => {
+        if (dragging && !focused) {
+            focusableHandleRef.current?.focus();
+        }
+    }, [dragging, focused]);
+
     const [centerPx] = useTransformVectorsToPixels(center);
     const [radiiPx] = useTransformDimensionsToPixels([radius, radius]);
 
     return (
-        <g
-            aria-label={ariaLabel}
-            aria-describedby={ariaDescribedBy}
-            aria-live="polite"
-            aria-disabled={disableKeyboardInteraction}
-            ref={draggableRef}
-            role="button"
-            tabIndex={disableKeyboardInteraction ? -1 : 0}
-            className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-        >
-            <ellipse
-                className="focus-ring"
-                cx={centerPx[X]}
-                cy={centerPx[Y]}
-                rx={radiiPx[X] + 3}
-                ry={radiiPx[Y] + 3}
+        <>
+            <g
+                ref={focusableHandleRef}
+                className="movable-circle-focusable-handle"
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
+                role="button"
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-live="polite"
+                aria-disabled={disableKeyboardInteraction}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
             />
-            <ellipse
-                id={id}
-                className="circle"
-                cx={centerPx[X]}
-                cy={centerPx[Y]}
-                rx={radiiPx[X]}
-                ry={radiiPx[Y]}
-                stroke={interactiveColor}
-                data-testid="movable-circle__circle"
-            />
-            <DragHandle center={center} dragging={dragging} focused={focused} />
-        </g>
+            <g
+                aria-hidden={true}
+                ref={visibleGroupRef}
+                className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
+            >
+                <ellipse
+                    className="focus-ring"
+                    cx={centerPx[X]}
+                    cy={centerPx[Y]}
+                    rx={radiiPx[X] + 3}
+                    ry={radiiPx[Y] + 3}
+                />
+                <ellipse
+                    id={id}
+                    className="circle"
+                    cx={centerPx[X]}
+                    cy={centerPx[Y]}
+                    rx={radiiPx[X]}
+                    ry={radiiPx[Y]}
+                    stroke={interactiveColor}
+                    data-testid="movable-circle__circle"
+                />
+                <DragHandle
+                    center={center}
+                    dragging={dragging}
+                    focused={focused}
+                />
+            </g>
+        </>
     );
 }
 

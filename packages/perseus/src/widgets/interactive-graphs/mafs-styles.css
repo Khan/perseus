@@ -211,12 +211,15 @@
     fill: transparent;
 }
 
-.MafsView .movable-circle:focus {
-    outline: none;
+.MafsView
+    .movable-circle-focusable-handle:focus-visible
+    + .movable-circle
+    .focus-ring {
+    visibility: visible;
 }
 
-.MafsView .movable-circle:focus-visible .focus-ring {
-    visibility: visible;
+.MafsView .movable-circle-focusable-handle:focus-visible {
+    outline: none;
 }
 
 .MafsView .movable-circle .movable-circle-handle {

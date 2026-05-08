@@ -76,9 +76,12 @@ describe("Circle graph", () => {
     test("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
         // Arrange
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
-        // Only mock once so it applies just to the circle and not
-        // to the radius point's MovablePoint.
-        useDraggableMock.mockReturnValueOnce({dragging: true});
+        // MovableCircle uses two `useDraggable` calls (keyboard + mouse) —
+        // mock both so they apply to the circle but not the radius point's
+        // MovablePoint that follows.
+        useDraggableMock
+            .mockReturnValueOnce({dragging: true})
+            .mockReturnValueOnce({dragging: true});
         const {container} = render(
             <Mafs width={200} height={200}>
                 <CircleGraph graphState={baseCircleState} dispatch={() => {}} />
@@ -195,13 +198,13 @@ describe("Circle graph screen reader", () => {
         );
     });
 
-    test("should have aria label for circle graph", () => {
+    test("should have aria label for circle graph", async () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
 
         // Act
-        // eslint-disable-next-line testing-library/no-node-access
-        const circleGraph = document.querySelector(".movable-circle");
+        const buttons = await screen.findAllByRole("button");
+        const circleGraph = buttons[0];
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
         );
