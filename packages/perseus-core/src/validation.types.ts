@@ -127,6 +127,22 @@ export type PerseusScore =
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 /**
+ * The result of scoring a Perseus item.
+ *
+ * `score` is the aggregate result across all scoreable widgets in the item
+ * (this is the same value that earlier versions of `scorePerseusItem`
+ * returned directly).
+ *
+ * `widgetScores` is the per-widget breakdown, keyed by widget ID, that was
+ * combined to produce `score`. This lets consumers display feedback for
+ * individual widgets in addition to the overall result.
+ */
+export type PerseusItemScore = {
+    score: PerseusScore;
+    widgetScores: {[widgetId: string]: PerseusScore};
+};
+
+/**
  * The outcome status reported by a self-grading widget (CS Program or IFrame)
  * via postMessage.
  */

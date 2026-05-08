@@ -6,6 +6,7 @@ import isWidgetScoreable from "./util/is-widget-scoreable";
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
+    PerseusItemScore,
     PerseusRenderer,
     PerseusScore,
     PerseusWidgetsMap,
@@ -27,15 +28,15 @@ export function scorePerseusItem(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
-): PerseusScore {
+): PerseusItemScore {
     const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
-    const scores = scoreWidgetsFunctional(
+    const widgetScores = scoreWidgetsFunctional(
         perseusRenderData.widgets,
         scoreableWidgetIds,
         userInputMap,
         locale,
     );
-    return flattenScores(scores);
+    return {score: flattenScores(widgetScores), widgetScores};
 }
 
 /**

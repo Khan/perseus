@@ -314,7 +314,7 @@ describe("scorePerseusItem", () => {
         const userInputMap = {};
 
         // Act:
-        const score = scorePerseusItem(item, userInputMap, "en");
+        const {score} = scorePerseusItem(item, userInputMap, "en");
 
         // Assert:
         expect(score).toHaveInvalidInput();
@@ -323,7 +323,7 @@ describe("scorePerseusItem", () => {
 
     it("should return empty if any validator returns empty", () => {
         // Act
-        const score = scorePerseusItem(
+        const {score} = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -348,7 +348,7 @@ describe("scorePerseusItem", () => {
         // Arrange
 
         // Act
-        const score = scorePerseusItem(
+        const {score} = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -383,7 +383,7 @@ describe("scorePerseusItem", () => {
             images: {},
         };
         json.widgets["dropdown 1"].static = true;
-        const score = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
+        const {score} = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
@@ -391,7 +391,7 @@ describe("scorePerseusItem", () => {
     });
 
     it("should ignore widgets that aren't referenced in content", () => {
-        const score = scorePerseusItem(
+        const {score} = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
@@ -439,7 +439,7 @@ describe("scorePerseusItem", () => {
             },
         };
 
-        const score = scorePerseusItem(item, userInputMap, "en");
+        const {score} = scorePerseusItem(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -468,10 +468,45 @@ describe("scorePerseusItem", () => {
             },
         };
 
-        const score = scorePerseusItem(item, userInputMap, "en");
+        const {score} = scorePerseusItem(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
+        });
+    });
+
+    it("returns per-widget scores in widgetScores keyed by widget ID", () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ dropdown 1]]\n[[☃ dropdown 2]]",
+            widgets: {
+                "dropdown 1": generateBasicDropdown(),
+                "dropdown 2": generateBasicDropdown(),
+            },
+            images: {},
+        };
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {value: 2}, // correct
+            "dropdown 2": {value: 1}, // incorrect
+        };
+
+        // Act
+        const {widgetScores} = scorePerseusItem(item, userInputMap, "en");
+
+        // Assert
+        expect(widgetScores).toEqual({
+            "dropdown 1": {
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            },
+            "dropdown 2": {
+                type: "points",
+                earned: 0,
+                total: 1,
+                message: null,
+            },
         });
     });
 });
