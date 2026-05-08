@@ -988,10 +988,10 @@ export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
     blue: "var(--wb-semanticColor-learning-math-foreground-blue)",
     gold: "var(--wb-semanticColor-learning-math-foreground-gold)",
-    green: "var(--wb-semanticColor-learning-math-foreground-green)",
     grayH: "var(--wb-semanticColor-learning-math-foreground-grayH)",
-    purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
+    green: "var(--wb-semanticColor-learning-math-foreground-green)",
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
+    purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
 } as const;
 
