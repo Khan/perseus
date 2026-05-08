@@ -1,6 +1,8 @@
 import {
     generateIGCircleGraph,
+    generateIGExponentialGraph,
     generateIGLinearGraph,
+    generateIGLogarithmGraph,
     generateIGPointGraph,
     generateIGPolygonGraph,
 } from "@khanacademy/perseus-core";
@@ -8,17 +10,13 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {interactiveGraphRendererDecorator} from "../../__testutils__/interactive-graph-renderer-decorator";
 
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const InteractiveGraphWidget = getWidget("interactive-graph")!;
-
-const meta: Meta<typeof InteractiveGraphWidget> = {
+const meta: Meta<PerseusInteractiveGraphWidgetOptions> = {
     title: "Widgets/Interactive Graph/Visual Regression Tests/Interactions",
-    component: InteractiveGraphWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -39,11 +37,12 @@ const meta: Meta<typeof InteractiveGraphWidget> = {
                 <Story />
             </View>
         ),
+        interactiveGraphRendererDecorator,
     ],
 };
 export default meta;
 
-type Story = StoryObj<typeof InteractiveGraphWidget>;
+type Story = StoryObj<typeof meta>;
 
 // ──────────────────────────────────────────────
 // Movable point: focus and tooltip states
@@ -54,7 +53,6 @@ type Story = StoryObj<typeof InteractiveGraphWidget>;
 /** Focused movable point: tabbing into the graph focuses a point and shows
  * the focus-ring outline (blue stroke) around the point's halo. */
 export const PointGraphFocused: Story = {
-    decorators: [interactiveGraphRendererDecorator],
     args: {
         correct: generateIGPointGraph({
             numPoints: 1,
@@ -71,7 +69,6 @@ export const PointGraphFocused: Story = {
  * point shows a Wonder Blocks tooltip with white text on the blue background.
  * This exercises `contentStyle={{color: "white"}}` and the WB blue background. */
 export const PointGraphFocusedWithTooltip: Story = {
-    decorators: [interactiveGraphRendererDecorator],
     args: {
         correct: generateIGPointGraph({
             numPoints: 1,
@@ -93,7 +90,6 @@ export const PointGraphFocusedWithTooltip: Story = {
 /** Focused circle: tabbing into a circle graph focuses the circle and shows
  * the focus-ring (blue stroke). */
 export const CircleGraphFocused: Story = {
-    decorators: [interactiveGraphRendererDecorator],
     args: {
         correct: generateIGCircleGraph({center: [0, 0], radius: 3}),
     } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
@@ -112,7 +108,6 @@ export const CircleGraphFocused: Story = {
 /** Focused polygon: tabbing into the polygon focuses the hit-target wrapper
  * and increases the line stroke weight (active state) on all sides. */
 export const PolygonGraphFocused: Story = {
-    decorators: [interactiveGraphRendererDecorator],
     args: {
         correct: generateIGPolygonGraph({
             coords: [
@@ -138,7 +133,6 @@ export const PolygonGraphFocused: Story = {
  * stroke and the blue focus-outline stroke (`stroke: var(--mafs-blue)` and
  * `stroke: white` on the focus-gap layer). */
 export const LinearGraphLineFocused: Story = {
-    decorators: [interactiveGraphRendererDecorator],
     args: {
         correct: generateIGLinearGraph({
             coords: [
@@ -153,5 +147,249 @@ export const LinearGraphLineFocused: Story = {
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
+    },
+};
+
+// ──────────────────────────────────────────────
+// Exponential: drag handle states
+//
+// All stories use asymptote at y=0 with coords that place the curve
+// through the center of the graph where the horizontal drag handle sits.
+// This makes the layering between the curve and drag handle visible.
+//
+// Note: `correct` sets the answer; `graph.startCoords` controls the
+// initial rendered position of the graph.
+// ──────────────────────────────────────────────
+
+// Default inactive state: the drag handle pill (small, no grip dots)
+// is visible above the curve line where they overlap.
+export const ExponentialDragHandleDefault: Story = {
+    args: {
+        correct: generateIGExponentialGraph({
+            coords: [
+                [3, 1],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGExponentialGraph({
+            startCoords: {
+                coords: [
+                    [3, 1],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+};
+
+// Focused state: the drag handle pill shows the focus ring and
+// active state (larger pill with grip dots) above the curve line.
+// The asymptote line itself should also be thick (4px) on keyboard
+// focus, matching the hover/drag behavior.
+export const ExponentialDragHandleFocused: Story = {
+    args: {
+        correct: generateIGExponentialGraph({
+            coords: [
+                [3, 1],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGExponentialGraph({
+            startCoords: {
+                coords: [
+                    [3, 1],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Horizontal asymptote/,
+        });
+        asymptote.focus();
+    },
+};
+
+// Point focused: a movable point shows its focus ring while the
+// drag handle remains in the inactive state (small pill, no dots).
+export const ExponentialPointFocusedHandleInactive: Story = {
+    args: {
+        correct: generateIGExponentialGraph({
+            coords: [
+                [3, 1],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGExponentialGraph({
+            startCoords: {
+                coords: [
+                    [3, 1],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const point = canvas.getByRole("button", {
+            name: /^Point 1/,
+        });
+        point.focus();
+    },
+};
+
+// Asymptote focused with the curve away from the drag handle:
+// shows the active drag handle (focus ring + grip dots) with the curve
+// clearly not touching or covering the handle area.
+export const ExponentialDragHandleNoOverlap: Story = {
+    args: {
+        correct: generateIGExponentialGraph({
+            coords: [
+                [3, 1],
+                [5, 2],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGExponentialGraph({
+            startCoords: {
+                coords: [
+                    [3, 1],
+                    [5, 2],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Horizontal asymptote/,
+        });
+        asymptote.focus();
+    },
+};
+
+// ──────────────────────────────────────────────
+// Logarithm: drag handle states
+//
+// All stories use asymptote at x=0 with coords that place the curve
+// near the vertical drag handle at the center of the graph.
+// ──────────────────────────────────────────────
+
+// Default inactive state: the drag handle pill (small, no grip dots)
+// is visible above the curve line where they overlap.
+export const LogarithmDragHandleDefault: Story = {
+    args: {
+        correct: generateIGLogarithmGraph({
+            coords: [
+                [1, 3],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGLogarithmGraph({
+            startCoords: {
+                coords: [
+                    [1, 3],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+};
+
+// Focused state: the drag handle pill shows the focus ring and
+// active state (larger pill with grip dots) above the curve line.
+// The asymptote line itself should also be thick (4px) on keyboard
+// focus, matching the hover/drag behavior.
+export const LogarithmDragHandleFocused: Story = {
+    args: {
+        correct: generateIGLogarithmGraph({
+            coords: [
+                [1, 3],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGLogarithmGraph({
+            startCoords: {
+                coords: [
+                    [1, 3],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Vertical asymptote/,
+        });
+        asymptote.focus();
+    },
+};
+
+// Point focused: a movable point shows its focus ring while the
+// drag handle remains in the inactive state (small pill, no dots).
+export const LogarithmPointFocusedHandleInactive: Story = {
+    args: {
+        correct: generateIGLogarithmGraph({
+            coords: [
+                [1, 3],
+                [5, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGLogarithmGraph({
+            startCoords: {
+                coords: [
+                    [1, 3],
+                    [5, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const point = canvas.getByRole("button", {
+            name: /^Point 1/,
+        });
+        point.focus();
+    },
+};
+
+// Asymptote focused with the curve away from the drag handle:
+// shows the active drag handle (focus ring + grip dots) with the curve
+// clearly not touching or covering the handle area.
+export const LogarithmDragHandleNoOverlap: Story = {
+    args: {
+        correct: generateIGLogarithmGraph({
+            coords: [
+                [1, 3],
+                [2, 5],
+            ],
+            asymptote: 0,
+        }),
+        graph: generateIGLogarithmGraph({
+            startCoords: {
+                coords: [
+                    [1, 3],
+                    [2, 5],
+                ],
+                asymptote: 0,
+            },
+        }),
+    },
+    play: async ({canvas}) => {
+        const asymptote = canvas.getByRole("button", {
+            name: /^Vertical asymptote/,
+        });
+        asymptote.focus();
     },
 };
