@@ -35,7 +35,7 @@ const parsePerseusGraphTypeAngle = object({
     match: optional(constant("congruent")),
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(trio(string, string, string)),
 });
 
 const parsePerseusGraphTypeCircle = object({
@@ -55,7 +55,7 @@ const parsePerseusGraphTypeLinear = object({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeLinearSystem = object({
@@ -97,14 +97,14 @@ const parsePerseusGraphTypeQuadratic = object({
         nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     ),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(trio(string, string, string)),
 });
 
 const parsePerseusGraphTypeRay = object({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeSegment = object({
@@ -140,7 +140,7 @@ const parsePerseusGraphTypeAbsoluteValue = object({
     type: constant("absolute-value"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeTangent = object({
@@ -168,7 +168,7 @@ const parsePerseusGraphTypeVector = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     match: optional(enumeration("exact", "congruent")),
-    pointLabels: optional(array(string)),
+    pointLabels: optional(pair(string, string)),
 });
 
 export const parsePerseusGraphType = discriminatedUnionOn("type")
