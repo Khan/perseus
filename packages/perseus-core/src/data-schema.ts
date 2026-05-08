@@ -2024,7 +2024,7 @@ export type PerseusInteractionMovablePointElementOptions = {
 
 export type PerseusInteractionParametricElementOptions = {
     /** The function for the X coordinate. e.g. "\\cos(t)" */
-    t: string;
+    x: string;
     /** The function for the Y coordinate. e.g. "\\sin(t)" */
     y: string;
     /** The range of points to start plotting */
@@ -2042,8 +2042,10 @@ export type PerseusInteractionParametricElementOptions = {
 export type PerseusInteractionPointElementOptions = {
     /** The color of the point. e.g. "black" */
     color: string;
-    /** The coordinate of the point */
-    coord: [x: number, y: number];
+    /** The X coordinate of the point */
+    coordX: string;
+    /** The Y coordinate of the point */
+    coordY: string;
 };
 
 export type PerseusInteractionRectangleElementOptions = {
