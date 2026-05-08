@@ -54,6 +54,9 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+    // Custom screen-reader labels for each interactive point. When present,
+    // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
+    pointLabels?: string[];
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

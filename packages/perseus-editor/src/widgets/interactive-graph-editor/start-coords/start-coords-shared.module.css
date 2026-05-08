@@ -36,6 +36,10 @@
     inline-size: var(--wb-sizing-size_800) !important;
 }
 
+.point-label-field {
+    inline-size: var(--wb-sizing-size_640) !important;
+}
+
 .equationSection {
     margin-top: var(--wb-sizing-size_120) !important;
 }

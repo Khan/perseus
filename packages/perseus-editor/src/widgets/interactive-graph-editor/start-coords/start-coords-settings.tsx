@@ -17,6 +17,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
@@ -44,10 +45,18 @@ type Props = PerseusGraphType & {
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
+    onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
 };
 
 const StartCoordsSettingsInner = (props: Props) => {
-    const {type, range, step, allowReflexAngles, onChange} = props;
+    const {
+        type,
+        range,
+        step,
+        allowReflexAngles,
+        onChange,
+        onChangePointLabels,
+    } = props;
 
     switch (type) {
         case "absolute-value":
@@ -180,6 +189,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsPoint
                     startCoords={pointCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "angle":
@@ -213,6 +224,12 @@ const StartCoordsSettings = (props: Props) => {
             {/* Start coordinates main UI */}
             {isOpen && (
                 <>
+                    {/* Inline help: explain custom point names for screen readers. */}
+                    <BodyText size="small">
+                        Tip: Name your points (e.g., "T") so screen readers
+                        announce them the same way as the question prompt.
+                    </BodyText>
+
                     {/* Start coordinates input */}
                     <StartCoordsSettingsInner {...props} />
 

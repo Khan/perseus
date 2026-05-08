@@ -195,6 +195,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changePointLabels = (pointLabels: ReadonlyArray<string>) => {
+        if (!this.props.graph?.type) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            pointLabels: [...pointLabels],
+        };
+        this.props.onChange({graph: graph});
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -231,6 +243,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     type: correct.type,
                     startCoords:
                         this.props.graph && getStartCoords(this.props.graph),
+                    ...(this.props.graph &&
+                    "pointLabels" in this.props.graph &&
+                    this.props.graph.pointLabels
+                        ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
                 },
                 correct: correct,
             });
@@ -500,6 +517,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangePointLabels={this.changePointLabels}
                                 />
                             )}
 

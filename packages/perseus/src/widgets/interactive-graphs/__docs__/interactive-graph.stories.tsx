@@ -8,6 +8,7 @@ import {
     linearQuestion,
     linearSystemQuestion,
     pointQuestion,
+    pointWithCustomLabelQuestion,
     polygonQuestion,
     rayQuestion,
     segmentQuestion,
@@ -82,6 +83,20 @@ export const LinearSystem: Story = {
 export const Point: Story = {
     args: {
         item: generateTestPerseusItem({question: pointQuestion}),
+    },
+};
+
+/**
+ * LEMS-3995: A point graph whose interactive point uses a custom
+ * screen-reader label ("T") via `pointLabels`, so the announcement
+ * matches the question prompt ("Plot point T …") instead of the
+ * generic "Point 1 …".
+ */
+export const PointWithCustomLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithCustomLabelQuestion,
+        }),
     },
 };
 
