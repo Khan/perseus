@@ -132,7 +132,7 @@
 
 .MafsView .movable-point-ring {
     r: var(--movable-point-ring-radius);
-    fill: var(--wb-semanticColor-core-background-base-default);
+    fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
 .MafsView .movable-point:hover .movable-point-center {
@@ -338,7 +338,7 @@
 }
 
 .MafsView .movable-pill-handle-dot {
-    fill: var(--wb-semanticColor-core-border-knockout-default);
+    fill: var(--wb-semanticColor-core-foreground-knockout-default);
     r: var(--wb-sizing-size_010);
 }
 
