@@ -181,7 +181,7 @@ runs:
                           );
                       } else {
                           parts.push(
-                              `> **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the \`${ackLabel}\` label to acknowledge. The check will re-run automatically.`,
+                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the \`${ackLabel}\` label to acknowledge. The check will re-run automatically.`,
                               "",
                           );
                       }
