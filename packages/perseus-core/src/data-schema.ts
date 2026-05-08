@@ -2167,17 +2167,19 @@ export type PerseusVideoWidgetOptions = {
     static?: boolean;
 };
 
+export type PerseusInputNumberAnswerType =
+    | "number"
+    | "decimal"
+    | "integer"
+    | "rational"
+    | "improper"
+    | "mixed"
+    | "percent"
+    | "pi";
+
 /** Options for the input-number widget (deprecated; prefer numeric-input). */
 export type PerseusInputNumberWidgetOptions = {
-    answerType?:
-        | "number"
-        | "decimal"
-        | "integer"
-        | "rational"
-        | "improper"
-        | "mixed"
-        | "percent"
-        | "pi";
+    answerType?: PerseusInputNumberAnswerType;
     inexact?: boolean;
     maxError?: number | string;
     rightAlign?: boolean;
