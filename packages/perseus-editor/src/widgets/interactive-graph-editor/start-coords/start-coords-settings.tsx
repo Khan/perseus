@@ -184,12 +184,20 @@ const StartCoordsSettingsInner = (props: Props) => {
                 type === "point"
                     ? getPointCoords(props, range, step)
                     : getPolygonCoords(props, range, step);
+            // Only `point` consumes `pointLabels` at runtime in PR 2 —
+            // polygon's render side wires up in PR 3. Gate the editor
+            // name fields to match so polygon authors don't fill in
+            // values that would silently have no screen-reader effect.
             return (
                 <StartCoordsPoint
                     startCoords={pointCoords}
                     onChange={onChange}
-                    pointLabels={props.pointLabels}
-                    onChangePointLabels={onChangePointLabels}
+                    pointLabels={
+                        type === "point" ? props.pointLabels : undefined
+                    }
+                    onChangePointLabels={
+                        type === "point" ? onChangePointLabels : undefined
+                    }
                 />
             );
         case "angle":

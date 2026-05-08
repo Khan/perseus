@@ -861,6 +861,27 @@ describe("StartCoordSettings", () => {
             expect(screen.getByText("Point 3:")).toBeInTheDocument();
         });
 
+        // Polygon's render side does not consume `pointLabels` until PR 3,
+        // so the editor name fields are intentionally gated off here even
+        // when `onChangePointLabels` is forwarded by the parent editor.
+        test("does NOT render point name fields for polygon graphs", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="polygon"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+        });
+
         test("shows the start coordinates UI: 6 sides", () => {
             // Arrange
 
