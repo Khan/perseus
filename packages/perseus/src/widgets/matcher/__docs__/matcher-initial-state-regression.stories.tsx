@@ -56,14 +56,12 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in both column labels and item cards. The 500ms delay
-// gives MathJax time to finish rendering and onMeasure to settle before
-// Chromatic takes its snapshot.
+// Verifies TeX rendering in both column labels and item cards. Sortable
+// participates in AssetContext, so the renderer's onRendered now waits for
+// MathJax typeset and the post-typeset measurement cascade to settle before
+// Chromatic snapshots — no manual delay required.
 export const WithTeX: Story = {
     decorators: [matcherRendererDecorator],
-    parameters: {
-        chromatic: {delay: 1000},
-    },
     args: {
         ...sharedArgs,
         labels: ["$f(x)$", "$f'(x)$"],
