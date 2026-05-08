@@ -159,7 +159,7 @@ runs:
                       title = `${checkName}: Changes Acknowledged ✅`;
                   } else {
                       conclusion = "failure";
-                      title = `${checkName}: Changes Detected — Acknowledgement Required ❌`;
+                      title = `${checkName}: Changes Detected — Review Required ❌`;
                   }
 
                   // The Checks UI renders `output.title` as a heading above
@@ -181,7 +181,7 @@ runs:
                           );
                       } else {
                           parts.push(
-                              `> **To acknowledge this change and pass this check, add the \`${ackLabel}\` label to this PR.** The check will re-run automatically.`,
+                              `> **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the \`${ackLabel}\` label to acknowledge. The check will re-run automatically.`,
                               "",
                           );
                       }
