@@ -134,10 +134,21 @@ export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
  * `widgetScores` is the per-widget breakdown, keyed by widget ID, that was
  * combined to produce `score`.
  */
-export type PerseusItemScore = {
-    score: PerseusScore;
-    widgetScores: {[widgetId: string]: PerseusScore};
-};
+export type PerseusItemScore =
+    | {
+          score: Extract<PerseusScore, {type: "invalid"}>;
+          // NOTE: We don't reveal widget scores when the overall score is
+          // {type: invalid} so that we don't leak scoring info. If this info
+          // surfaced to the learner's browser, they could take advantage of the
+          // info by leaving the one widget that is invalid in that state and
+          // making multiple attempts on other widgets ({type: invalid} doesn't
+          // count as an attempt, so they'd get free attempts).
+          widgetScores?: never;
+      }
+    | {
+          score: Extract<PerseusScore, {type: "points"}>;
+          widgetScores: {[widgetId: string]: PerseusScore};
+      };
 
 /**
  * The outcome status reported by a self-grading widget (CS Program or IFrame)
