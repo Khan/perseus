@@ -203,8 +203,9 @@ describe("Circle graph screen reader", () => {
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
 
         // Act
-        const buttons = await screen.findAllByRole("button");
-        const circleGraph = buttons[0];
+        const circleGraph = await screen.findByRole("button", {
+            name: "Circle. The center point is at 0 comma 0.",
+        });
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
         );
