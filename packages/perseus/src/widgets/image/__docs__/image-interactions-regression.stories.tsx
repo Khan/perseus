@@ -12,8 +12,6 @@ import {
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = StoryObj<typeof meta>;
-
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 
@@ -32,6 +30,8 @@ const meta: Meta<PerseusImageWidgetOptions> = {
 };
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const LongDescriptionClickedState: Story = {
     decorators: [imageRendererDecorator],
