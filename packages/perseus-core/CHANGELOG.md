@@ -1,5 +1,23 @@
 # @khanacademy/perseus-core
 
+## 26.1.0
+
+### Minor Changes
+
+-   [#3600](https://github.com/Khan/perseus/pull/3600) [`dd984a32ff`](https://github.com/Khan/perseus/commit/dd984a32ff17d05fc65cb6499dbc9fb5fa199781) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add a `scorePerseusItemWithInputNumberAsNumericInput` function for side-by-side testing of the input-number to numeric-input migration.
+
+*   [#3598](https://github.com/Khan/perseus/pull/3598) [`c0761657b2`](https://github.com/Khan/perseus/commit/c0761657b216b445f729eca57804bc2ce6df298c) Thanks [@benchristel](https://github.com/benchristel)! - Export a `convertInputNumberOptionsToNumericInput` function to convert the options for an InputNumber widget to the options for a NumericInput widget.
+
+-   [#3576](https://github.com/Khan/perseus/pull/3576) [`2e48593131`](https://github.com/Khan/perseus/commit/2e48593131e519e7868739d98405c5ca41a66cc2) Thanks [@benchristel](https://github.com/benchristel)! - A new feature flag has been added to `PerseusFeatureFlags`: input-number-to-numeric-input. It is currently a no-op.
+
+### Patch Changes
+
+-   [#3547](https://github.com/Khan/perseus/pull/3547) [`94707116a8`](https://github.com/Khan/perseus/commit/94707116a8292c9b7133cf32083f60b231543285) Thanks [@benchristel](https://github.com/benchristel)! - The unused `customKeypad` option for the input-number widget has been removed. Callers should continue to use `apiOptions.customKeypad` instead.
+
+*   [#3603](https://github.com/Khan/perseus/pull/3603) [`24bfee48d6`](https://github.com/Khan/perseus/commit/24bfee48d6b80a106de4024cb55151ba65d8544b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove feature flags
+
+-   [#3573](https://github.com/Khan/perseus/pull/3573) [`b90d73bcb1`](https://github.com/Khan/perseus/commit/b90d73bcb1fe9a6d1ecb2d91ac33a8302fdf00b4) Thanks [@Myranae](https://github.com/Myranae)! - Create generator and regression stories for Sorter
+
 ## 26.0.3
 
 ### Patch Changes
