@@ -5,6 +5,7 @@ import {vec} from "mafs";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";
+import type {PerseusStrings} from "../../../strings";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {
     PerseusGraphType,
@@ -33,16 +34,21 @@ export type InitializeGraphStateParams = {
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
     graph: PerseusGraphType;
+    strings: PerseusStrings;
+    locale: string;
 };
 
 export function initializeGraphState(
     params: InitializeGraphStateParams,
 ): InteractiveGraphState {
-    const {graph, step, snapStep, range} = params;
+    const {graph, step, snapStep, range, strings, locale} = params;
     const shared = {
         hasBeenInteractedWith: false,
         range,
         snapStep,
+        announcement: null,
+        strings,
+        locale,
     };
     switch (graph.type) {
         case "segment":

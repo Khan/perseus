@@ -10,6 +10,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {srFormatNumber} from "../graphs/screenreader-text";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -506,6 +507,10 @@ function doMovePoint(
                 coords: newCoords,
             };
         case "point": {
+            const snappedPoint = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -513,10 +518,12 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundToEdgeAndSnapToGrid(
-                        action.destination,
-                        state,
-                    ),
+                    newValue: snappedPoint,
+                }),
+                announcement: state.strings.srPointAtCoordinates({
+                    num: action.index + 1,
+                    x: srFormatNumber(snappedPoint[X], state.locale),
+                    y: srFormatNumber(snappedPoint[Y], state.locale),
                 }),
             };
         }

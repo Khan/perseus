@@ -1,6 +1,9 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
+
+import {usePerseusI18n} from "../../components/i18n-context";
 
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
@@ -58,10 +61,13 @@ export const StatefulMafsGraph = React.forwardRef<
     StatefulMafsGraphProps
 >(function StatefulMafsGraphWithRef(props, ref) {
     const {onChange, graph} = props;
+    const {strings, locale} = usePerseusI18n();
+    const latestStringsRef = useLatestRef(strings);
+    const latestLocaleRef = useLatestRef(locale);
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
-        props,
+        {...props, strings, locale},
         initializeGraphState,
     );
 
@@ -77,6 +83,15 @@ export const StatefulMafsGraph = React.forwardRef<
         }
         prevState.current = state;
     }, [onChange, state, graph]);
+
+    useEffect(() => {
+        if (state.announcement) {
+            announceMessage({
+                message: state.announcement,
+                debounceThreshold: 150,
+            });
+        }
+    }, [state.announcement]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -119,7 +134,13 @@ export const StatefulMafsGraph = React.forwardRef<
         // a bug where the graph would be marked "incorrect" during grading
         // even if the user never interacted with it.
         if (latestPropsRef.current !== originalPropsRef.current) {
-            dispatch(reinitialize(latestPropsRef.current));
+            dispatch(
+                reinitialize({
+                    ...latestPropsRef.current,
+                    strings: latestStringsRef.current,
+                    locale: latestLocaleRef.current,
+                }),
+            );
         }
     }, [
         graph.type,
@@ -130,6 +151,8 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
+        latestStringsRef,
+        latestLocaleRef,
         startCoords,
         allowReflexAngles,
     ]);
@@ -142,7 +165,12 @@ export const StatefulMafsGraph = React.forwardRef<
         return (
             <MafsGraph
                 {...props}
-                state={initializeGraphState({...props, graph: props.correct})}
+                state={initializeGraphState({
+                    ...props,
+                    graph: props.correct,
+                    strings,
+                    locale,
+                })}
                 dispatch={dispatch}
             />
         );

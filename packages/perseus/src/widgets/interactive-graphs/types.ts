@@ -1,5 +1,6 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
+import type {PerseusStrings} from "../../strings";
 import type {WidgetProps} from "../../types";
 import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {
@@ -54,6 +55,12 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+    // Screen reader announcement to be spoken after the current action.
+    // null means nothing to announce.
+    announcement: string | null;
+    // i18n strings and locale, passed in via initializeGraphState.
+    strings: PerseusStrings;
+    locale: string;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
