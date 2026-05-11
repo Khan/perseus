@@ -426,6 +426,11 @@ export {
 } from "./utils/generators/radio-widget-generator";
 /** @hidden */
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
+/** @hidden */
+export {
+    generateSorterWidget,
+    generateSorterOptions,
+} from "./utils/generators/sorter-widget-generator";
 
 export {
     getAnswersFromWidgets,
