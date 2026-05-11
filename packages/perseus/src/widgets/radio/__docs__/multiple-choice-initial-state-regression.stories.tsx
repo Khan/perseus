@@ -10,7 +10,6 @@ import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {
@@ -380,10 +379,7 @@ function RadioQuestionRenderer(props: {
         <div dir={rtl ? "rtl" : "ltr"}>
             <ServerItemRenderer
                 item={item}
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({"new-radio-widget": true}),
-                }}
+                apiOptions={{...ApiOptions.defaults}}
                 reviewMode={showSolutions === "all"}
                 showSolutions={showSolutions}
                 dependencies={testDependenciesV2}
