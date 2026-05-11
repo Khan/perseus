@@ -10,6 +10,7 @@ import {spawnSync} from "node:child_process";
 import fs from "node:fs";
 
 import semver from "semver";
+import invariant from "tiny-invariant";
 import yaml from "yaml";
 
 import {updateCatalogHashes} from "./internal/update-catalog-hashes";
@@ -32,20 +33,19 @@ function printHelp() {
 
 function getCatalogMap(doc: yaml.Document, catalogName: string): yaml.YAMLMap {
     const node = doc.getIn(["catalogs", catalogName], true);
-    if (!yaml.isMap(node)) {
-        throw new Error(
+    invariant(
+        yaml.isMap(node),
+        () =>
             `Expected \`catalogs.${catalogName}\` to be a YAML map in pnpm-workspace.yaml`,
-        );
-    }
+    );
     return node;
 }
 
 function getScalarKey(pair: yaml.Pair<unknown, unknown>): string {
-    if (!yaml.isScalar(pair.key) || typeof pair.key.value !== "string") {
-        throw new Error(
-            `Expected key to be a string scalar; got ${JSON.stringify(pair.key)}`,
-        );
-    }
+    invariant(
+        yaml.isScalar(pair.key) && typeof pair.key.value === "string",
+        () => `Non-scalar YAML key: ${JSON.stringify(pair.key)}`,
+    );
     return pair.key.value;
 }
 
@@ -53,11 +53,10 @@ function setScalarValue(
     pair: yaml.Pair<unknown, unknown>,
     value: string,
 ): void {
-    if (!yaml.isScalar(pair.value)) {
-        throw new Error(
-            `Expected value to be a scalar; got ${JSON.stringify(pair.value)}`,
-        );
-    }
+    invariant(
+        yaml.isScalar(pair.value),
+        () => `Non-scalar YAML value: ${JSON.stringify(pair.value)}`,
+    );
     pair.value.value = value;
 }
 
