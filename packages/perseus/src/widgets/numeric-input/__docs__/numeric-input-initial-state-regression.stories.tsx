@@ -1,15 +1,11 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
 
 import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const NumericInputWidget = getWidget("numeric-input")!;
-
-const meta: Meta<typeof NumericInputWidget> = {
+const meta: Meta<PerseusNumericInputWidgetOptions> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Initial State",
-    component: NumericInputWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -25,7 +21,7 @@ const meta: Meta<typeof NumericInputWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof NumericInputWidget>;
+type Story = StoryObj<typeof meta>;
 
 // Verifies the default normal-size input (8rem width) with a pre-filled value
 export const SizeNormal: Story = {
@@ -35,7 +31,7 @@ export const SizeNormal: Story = {
     },
     args: {
         size: "normal",
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
 };
 
 // Verifies the small-size input (4rem width) variant with a pre-filled value
@@ -46,7 +42,7 @@ export const SizeSmall: Story = {
     },
     args: {
         size: "small",
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
 };
 
 // Verifies the right-aligned text input variant with a pre-filled value — the "5" should appear on the right
@@ -58,5 +54,5 @@ export const RightAligned: Story = {
     args: {
         size: "normal",
         rightAlign: true,
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
 };

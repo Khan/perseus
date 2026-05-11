@@ -9,13 +9,11 @@ import {
 import * as React from "react";
 
 import ArticleRenderer from "../../../article-renderer";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {choicesWithMathFont, question} from "../__tests__/radio.testdata";
 
-import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
@@ -57,27 +55,12 @@ export default {
     },
     render: (args: StoryArgs) => (
         <ServerItemRendererWithDebugUI
-            item={applyStoryArgs(args)}
-            apiOptions={buildApiOptions(args)}
+            item={{...args.item}}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
         />
     ),
 } satisfies Meta<StoryArgs>;
-
-const applyStoryArgs = (args: StoryArgs): PerseusItem => {
-    const storyItem = {
-        ...args.item,
-        apiOptions: {
-            flags: getFeatureFlags({"new-radio-widget": true}),
-        },
-    };
-    return storyItem;
-};
-
-const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    flags: getFeatureFlags({"new-radio-widget": true}),
-});
 
 export const GradedGroupWrapper = {
     args: {
@@ -151,10 +134,8 @@ export const ChoiceTextColorInArticle = (): React.ReactNode => {
             }),
         },
     });
-    const apiOptions = {flags: getFeatureFlags({"new-radio-widget": true})};
     return (
         <ArticleRenderer
-            apiOptions={apiOptions}
             json={question}
             dependencies={storybookDependenciesV2}
         />

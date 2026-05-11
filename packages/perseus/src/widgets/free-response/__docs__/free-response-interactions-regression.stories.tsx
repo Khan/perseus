@@ -1,15 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {freeResponseRendererDecorator} from "../../__testutils__/free-response-renderer-decorator";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
-import type {Meta} from "@storybook/react-vite";
+import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const FreeResponseWidget = getWidget("free-response")!;
-
-const meta: Meta = {
+const meta: Meta<PerseusFreeResponseWidgetOptions> = {
     title: "Widgets/Free Response/Visual Regression Tests/Interactions",
-    component: FreeResponseWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -25,9 +22,11 @@ const meta: Meta = {
 };
 export default meta;
 
+type Story = StoryObj<typeof meta>;
+
 // Verifies the over-character-limit state: warning icon displays and the
 // character count text switches to semanticColor.core.foreground.critical.default.
-export const OverCharacterLimit = {
+export const OverCharacterLimit: Story = {
     decorators: [freeResponseRendererDecorator],
     args: {
         allowUnlimitedCharacters: false,
@@ -43,7 +42,7 @@ export const OverCharacterLimit = {
 
 // Verifies the over-character-limit state in RTL layout, including the
 // correct direction of spacing on the warning icon (marginInlineEnd).
-export const RightToLeftOverCharacterLimit = {
+export const RightToLeftOverCharacterLimit: Story = {
     decorators: [freeResponseRendererDecorator, rtlDecorator],
     args: {
         allowUnlimitedCharacters: false,

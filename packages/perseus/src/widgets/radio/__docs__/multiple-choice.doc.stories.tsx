@@ -7,7 +7,6 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import UserInputManager from "../../../user-input-manager";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -227,10 +226,7 @@ function RadioDemo({
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: getFeatureFlags({"new-radio-widget": true}),
-                    }}
+                    apiOptions={{...ApiOptions.defaults}}
                 />
             )}
         </UserInputManager>

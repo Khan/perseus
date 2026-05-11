@@ -207,6 +207,9 @@ export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 /** @hidden */
+export {convertInputNumberOptionsToNumericInput} from "./widgets/input-number/to-numeric-input";
+
+/** @hidden */
 export {
     applyDefaultsToWidgets,
     applyDefaultsToWidget,
@@ -365,6 +368,10 @@ export {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+export {
+    generateInputNumberOptions,
+    generateInputNumberWidget,
+} from "./utils/generators/input-number-widget-generator";
 /** @hidden */
 export {
     generateLabelImageOptions,
@@ -419,6 +426,11 @@ export {
 } from "./utils/generators/radio-widget-generator";
 /** @hidden */
 export {generateVideoWidget} from "./utils/generators/video-widget-generator";
+/** @hidden */
+export {
+    generateSorterWidget,
+    generateSorterOptions,
+} from "./utils/generators/sorter-widget-generator";
 
 export {
     getAnswersFromWidgets,
