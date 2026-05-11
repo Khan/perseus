@@ -7,6 +7,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import * as Dependencies from "../../dependencies";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -267,6 +268,108 @@ describe("input-number", function () {
             expect(score).toHaveBeenAnsweredIncorrectly();
         });
     });
+});
+
+describe("input-number with input-number-to-numeric-input flag on", () => {
+    let userEvent: UserEvent;
+    const apiOptionsWithFlag = {
+        flags: getFeatureFlags({"input-number-to-numeric-input": true}),
+    };
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("renders the NumericInput UI (default aria-label)", () => {
+        // Arrange, Act
+        renderQuestion(question, apiOptionsWithFlag);
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveAccessibleName(
+            "Your answer:",
+        );
+    });
+
+    it("scores a correct answer using the input-number scorer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const textbox = await screen.findByRole("textbox");
+        await userEvent.click(textbox);
+        await userEvent.type(textbox, "1/2");
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores an incorrect answer using the input-number scorer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const textbox = await screen.findByRole("textbox");
+        await userEvent.click(textbox);
+        await userEvent.type(textbox, "0.7");
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it.each([
+        ["rational", 0.3333333333333333, "1/3", "normal" as const],
+        ["percent", 0.5, "50%", "small" as const],
+        ["pi", 241.90263432641407, "77 pi", "normal" as const],
+    ] as const)(
+        "accepts a correct answer when answerType is %s",
+        async (answerType, value, correctAnswer, size) => {
+            // Arrange
+            const item: PerseusRenderer = {
+                content: "[[☃ input-number 1]]",
+                images: {},
+                widgets: {
+                    "input-number 1": {
+                        type: "input-number",
+                        graded: true,
+                        options: {
+                            maxError: 0.1,
+                            inexact: false,
+                            value,
+                            simplify: "optional",
+                            answerType,
+                            size,
+                        },
+                    },
+                },
+            };
+            const {renderer} = renderQuestion(item, apiOptionsWithFlag);
+
+            // Act
+            const textbox = await screen.findByRole("textbox");
+            await userEvent.type(textbox, correctAnswer);
+            const score = scorePerseusItemTesting(
+                item,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        },
+    );
 });
 
 describe("getOneCorrectAnswerFromRubric", () => {

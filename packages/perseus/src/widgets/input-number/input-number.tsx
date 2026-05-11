@@ -1,3 +1,7 @@
+import {
+    convertInputNumberOptionsToNumericInput,
+    isFeatureOn,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -10,6 +14,7 @@ import {withDependencies} from "../../components/with-dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import InputWithExamples from "../numeric-input/input-with-examples";
+import {NumericInput} from "../numeric-input/numeric-input.class";
 
 import type {PerseusStrings} from "../../strings";
 import type {
@@ -86,6 +91,8 @@ class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    numericInputRef = React.createRef<NumericInput>();
+
     static defaultProps: DefaultProps = {
         size: "normal",
         answerType: "number",
@@ -125,6 +132,10 @@ class InputNumber extends React.Component<Props> implements Widget {
     };
 
     focus: () => boolean = () => {
+        if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
+            this.numericInputRef.current?.focus();
+            return true;
+        }
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
@@ -134,6 +145,10 @@ class InputNumber extends React.Component<Props> implements Widget {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     focusInputPath: (arg1: Path) => void = (inputPath) => {
+        if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
+            this.numericInputRef.current?.focusInputPath();
+            return;
+        }
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
@@ -142,6 +157,10 @@ class InputNumber extends React.Component<Props> implements Widget {
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
     blurInputPath: (arg1: Path) => void = (inputPath) => {
+        if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
+            this.numericInputRef.current?.blurInputPath();
+            return;
+        }
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         if (typeof this.refs.input?.blur === "function") {
@@ -191,6 +210,33 @@ class InputNumber extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
+        if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
+            const numericInputOptions = convertInputNumberOptionsToNumericInput(
+                {
+                    value: this.props.value,
+                    simplify: this.props.simplify,
+                    size: this.props.size,
+                    rightAlign: this.props.rightAlign,
+                    answerType: this.props.answerType,
+                    maxError: this.props.maxError,
+                    inexact: this.props.inexact,
+                },
+            );
+
+            return (
+                <NumericInput
+                    {...this.props}
+                    answers={numericInputOptions.answers}
+                    coefficient={numericInputOptions.coefficient}
+                    size={numericInputOptions.size ?? "normal"}
+                    rightAlign={numericInputOptions.rightAlign ?? false}
+                    static={this.props.static ?? false}
+                    labelText=""
+                    ref={this.numericInputRef}
+                />
+            );
+        }
+
         if (this.props.apiOptions.customKeypad) {
             const input = (
                 <SimpleKeypadInput
