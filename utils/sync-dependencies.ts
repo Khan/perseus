@@ -111,8 +111,8 @@ function main(argv: string[]) {
 
     // In our peer dependencies, declare that Perseus will work with any
     // package version compatible with the one we install in dev.
-    for (const pair of peerDepsMap.items) {
-        const pkgName = packageNameOf(pair);
+    for (const peerDepsMapEntry of peerDepsMap.items) {
+        const pkgName = getKey(peerDepsMapEntry);
         if (!clientCatalog.has(pkgName)) {
             throw Error(
                 `Perseus needs ${pkgName} as a peer dep, but the client app doesn't provide it`,
