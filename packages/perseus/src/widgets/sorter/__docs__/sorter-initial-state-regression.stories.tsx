@@ -1,16 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
 import {sorterRendererDecorator} from "../../__testutils__/sorter-renderer-decorator";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const SorterWidget = getWidget("sorter")!;
-
-const meta: Meta<typeof SorterWidget> = {
+const meta: Meta<PerseusSorterWidgetOptions> = {
     title: "Widgets/Sorter/Visual Regression Tests/Initial State",
-    component: SorterWidget,
     tags: ["!autodocs", "!manifest"],
     decorators: [sorterRendererDecorator],
     parameters: {
@@ -26,13 +22,13 @@ const meta: Meta<typeof SorterWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof SorterWidget>;
+type Story = StoryObj<typeof meta>;
 
-const horizontalItems = {
+const horizontalItems: Partial<PerseusSorterWidgetOptions> = {
     correct: ["20 km", "150 km", "500 km", "1200 km"],
     padding: true,
     layout: "horizontal",
-} satisfies Partial<PerseusSorterWidgetOptions>;
+};
 
 // Verifies the default horizontal layout: cards arranged in a row with padding
 export const DefaultHorizontal: Story = {
@@ -50,12 +46,12 @@ export const DefaultVertical: Story = {
         ],
         padding: true,
         layout: "vertical",
-    } satisfies Partial<PerseusSorterWidgetOptions>,
+    },
 };
 
 // Verifies the horizontal layout on mobile: narrower margin between cards (8px vs 5px)
 export const MobileHorizontal: Story = {
-    decorators: [sorterRendererDecorator, mobileDecorator],
+    decorators: [mobileDecorator],
     parameters: {
         apiOptions: {isMobile: true},
     },
@@ -68,5 +64,5 @@ export const NoPadding: Story = {
         correct: ["Item one", "Item two", "Item three"],
         padding: false,
         layout: "horizontal",
-    } satisfies Partial<PerseusSorterWidgetOptions>,
+    },
 };
