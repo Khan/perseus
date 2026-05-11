@@ -2,13 +2,13 @@ import {isFeatureOn} from "./feature-flags";
 
 describe("isFeatureOn", () => {
     it("returns true when the flag is enabled", () => {
-        const props = {apiOptions: {flags: {"new-radio-widget": true}}};
-        expect(isFeatureOn(props, "new-radio-widget")).toBe(true);
+        const props = {apiOptions: {flags: {"widget-feature-flag": true}}};
+        expect(isFeatureOn(props, "widget-feature-flag")).toBe(true);
     });
 
     it("returns false when the flag is disabled", () => {
-        const props = {apiOptions: {flags: {"new-radio-widget": false}}};
-        expect(isFeatureOn(props, "new-radio-widget")).toBe(false);
+        const props = {apiOptions: {flags: {"widget-feature-flag": false}}};
+        expect(isFeatureOn(props, "widget-feature-flag")).toBe(false);
     });
 
     it("returns false when the flag is missing", () => {
@@ -18,11 +18,11 @@ describe("isFeatureOn", () => {
 
     it("returns false when flags is undefined", () => {
         const props = {apiOptions: {}};
-        expect(isFeatureOn(props, "new-radio-widget")).toBe(false);
+        expect(isFeatureOn(props, "widget-feature-flag")).toBe(false);
     });
 
     it("returns false when apiOptions is undefined", () => {
         const props = {};
-        expect(isFeatureOn(props, "new-radio-widget")).toBe(false);
+        expect(isFeatureOn(props, "widget-feature-flag")).toBe(false);
     });
 });

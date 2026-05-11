@@ -3,7 +3,6 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {getWidget} from "../../../widgets";
 import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
@@ -28,11 +27,8 @@ import {
     scienceImageCaption,
 } from "../utils";
 
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
-
-const ImageWidget = getWidget("image")!;
-
-type Story = StoryObj<typeof ImageWidget>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
@@ -41,10 +37,9 @@ const frescsoLongDescription =
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
-const meta: Meta<typeof ImageWidget> = {
+const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests",
-    component: ImageWidget,
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -56,6 +51,8 @@ const meta: Meta<typeof ImageWidget> = {
     },
 };
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Image: Story = {
     decorators: [imageRendererDecorator],
@@ -253,7 +250,6 @@ export const FloatLeftImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-left",
     },
 };
 
@@ -263,7 +259,6 @@ export const FloatRightImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-right",
     },
 };
 
@@ -273,7 +268,6 @@ export const FloatLeftImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-left",
     },
 };
 
@@ -283,7 +277,6 @@ export const FloatRightImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-right",
     },
 };
 

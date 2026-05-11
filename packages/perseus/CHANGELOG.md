@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 77.5.1
+
+### Patch Changes
+
+-   [#3602](https://github.com/Khan/perseus/pull/3602) [`b368a59bfc`](https://github.com/Khan/perseus/commit/b368a59bfcfe98254288bff2b80aea269397c7df) Thanks [@Myranae](https://github.com/Myranae)! - Fix regression story typing
+
+*   [#3603](https://github.com/Khan/perseus/pull/3603) [`24bfee48d6`](https://github.com/Khan/perseus/commit/24bfee48d6b80a106de4024cb55151ba65d8544b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove feature flags
+
+-   [#3613](https://github.com/Khan/perseus/pull/3613) [`6f95004f06`](https://github.com/Khan/perseus/commit/6f95004f06779ff8963e97045309215d559b644d) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Remove extra space in Hint image widget caption and title
+
+*   [#3573](https://github.com/Khan/perseus/pull/3573) [`b90d73bcb1`](https://github.com/Khan/perseus/commit/b90d73bcb1fe9a6d1ecb2d91ac33a8302fdf00b4) Thanks [@Myranae](https://github.com/Myranae)! - Create generator and regression stories for Sorter
+
+-   [#3607](https://github.com/Khan/perseus/pull/3607) [`3713c0c260`](https://github.com/Khan/perseus/commit/3713c0c260a0a42af04371cf77ae204f42d43b00) Thanks [@handeyeco](https://github.com/handeyeco)! - Move some code from InteractiveGraph to get-equation-string
+
+-   Updated dependencies [[`94707116a8`](https://github.com/Khan/perseus/commit/94707116a8292c9b7133cf32083f60b231543285), [`24bfee48d6`](https://github.com/Khan/perseus/commit/24bfee48d6b80a106de4024cb55151ba65d8544b), [`dd984a32ff`](https://github.com/Khan/perseus/commit/dd984a32ff17d05fc65cb6499dbc9fb5fa199781), [`c0761657b2`](https://github.com/Khan/perseus/commit/c0761657b216b445f729eca57804bc2ce6df298c), [`b90d73bcb1`](https://github.com/Khan/perseus/commit/b90d73bcb1fe9a6d1ecb2d91ac33a8302fdf00b4), [`2e48593131`](https://github.com/Khan/perseus/commit/2e48593131e519e7868739d98405c5ca41a66cc2)]:
+    -   @khanacademy/perseus-core@26.1.0
+    -   @khanacademy/perseus-score@8.9.0
+    -   @khanacademy/keypad-context@3.2.49
+    -   @khanacademy/kmath@2.4.7
+    -   @khanacademy/math-input@26.4.21
+    -   @khanacademy/perseus-linter@5.0.4
+
 ## 77.5.0
 
 ### Minor Changes
