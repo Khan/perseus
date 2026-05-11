@@ -40,22 +40,25 @@ function getCatalogMap(doc: yaml.Document, catalogName: string): yaml.YAMLMap {
     return node;
 }
 
-function packageNameOf(pair: yaml.Pair<unknown, unknown>): string {
+function getScalarKey(pair: yaml.Pair<unknown, unknown>): string {
     if (!yaml.isScalar(pair.key) || typeof pair.key.value !== "string") {
         throw new Error(
-            `Expected catalog key to be a string scalar; got ${JSON.stringify(pair.key)}`,
+            `Expected key to be a string scalar; got ${JSON.stringify(pair.key)}`,
         );
     }
     return pair.key.value;
 }
 
-function setVersion(pair: yaml.Pair<unknown, unknown>, version: string): void {
+function setScalarValue(
+    pair: yaml.Pair<unknown, unknown>,
+    value: string,
+): void {
     if (!yaml.isScalar(pair.value)) {
         throw new Error(
-            `Expected catalog value to be a scalar; got ${JSON.stringify(pair.value)}`,
+            `Expected value to be a scalar; got ${JSON.stringify(pair.value)}`,
         );
     }
-    pair.value.value = version;
+    pair.value.value = value;
 }
 
 class Catalog {
@@ -112,13 +115,16 @@ function main(argv: string[]) {
     // In our peer dependencies, declare that Perseus will work with any
     // package version compatible with the one we install in dev.
     for (const peerDepsMapEntry of peerDepsMap.items) {
-        const pkgName = getKey(peerDepsMapEntry);
+        const pkgName = getScalarKey(peerDepsMapEntry);
         if (!clientCatalog.has(pkgName)) {
             throw Error(
                 `Perseus needs ${pkgName} as a peer dep, but the client app doesn't provide it`,
             );
         }
-        setVersion(pair, `^${clientCatalog.minimumVersionOf(pkgName)}`);
+        setScalarValue(
+            peerDepsMapEntry,
+            `^${clientCatalog.minimumVersionOf(pkgName)}`,
+        );
     }
 
     // In development, install the minimum version of each package
@@ -126,11 +132,11 @@ function main(argv: string[]) {
     // accidentally depend on features of the package added after that
     // version.
     for (const pair of devDepsMap.items) {
-        const pkgName = packageNameOf(pair);
+        const pkgName = getScalarKey(pair);
         if (!clientCatalog.has(pkgName)) {
             continue;
         }
-        setVersion(pair, clientCatalog.minimumVersionOf(pkgName));
+        setScalarValue(pair, clientCatalog.minimumVersionOf(pkgName));
     }
 
     fs.writeFileSync(
