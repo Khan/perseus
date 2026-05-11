@@ -516,7 +516,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         context: React.ContextType<typeof AssetContext>,
     ) {
         super(props, context);
-        // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
             texRendererLoaded: false,
