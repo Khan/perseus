@@ -8,7 +8,6 @@ import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../../dependencies";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {clone} from "../../../testing/object-utils";
 import {
     testDependencies,
@@ -360,15 +359,7 @@ describe("Radio Widget", () => {
             };
 
             // Act
-            // Analytics event only exists on the new radio widget.
-            // Please remove once fully released.
-            renderQuestion(
-                question,
-                {flags: getFeatureFlags({"new-radio-widget": true})},
-                undefined,
-                undefined,
-                depsV2,
-            );
+            renderQuestion(question, undefined, undefined, undefined, depsV2);
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -646,15 +637,7 @@ describe("Radio Widget", () => {
             };
 
             // Act
-            // Analytics event only exists on the new radio widget.
-            // Please remove once fully released.
-            renderQuestion(
-                question,
-                {flags: getFeatureFlags({"new-radio-widget": true})},
-                undefined,
-                undefined,
-                depsV2,
-            );
+            renderQuestion(question, undefined, undefined, undefined, depsV2);
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
