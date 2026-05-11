@@ -35,8 +35,7 @@ function getCatalogMap(doc: yaml.Document, catalogName: string): yaml.YAMLMap {
     const node = doc.getIn(["catalogs", catalogName], true);
     invariant(
         yaml.isMap(node),
-        () =>
-            `Expected \`catalogs.${catalogName}\` to be a YAML map in pnpm-workspace.yaml`,
+        `Expected \`catalogs.${catalogName}\` to be a YAML map in pnpm-workspace.yaml`,
     );
     return node;
 }
