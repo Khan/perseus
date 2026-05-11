@@ -10,6 +10,9 @@ import {
     generateIGRayGraph,
     generateIGSegmentGraph,
     generateIGSinusoidGraph,
+    generateTestPerseusRenderer,
+    generateImageWidget,
+    generateImageOptions,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
@@ -17,6 +20,7 @@ import React from "react";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {earthMoonImage} from "../widgets/image/utils";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -136,6 +140,40 @@ export const WithAllInteractiveGraphs: Story = {
                     correct: generateIGSinusoidGraph(),
                 }),
                 replace: false,
+            },
+        ],
+    },
+};
+
+export const ImageWidgetInHint: Story = {
+    // Need to wrap this in a container with the `bibliotron-exercise` class
+    // to show what this would really look like with hint styling in prod.
+    decorators: [
+        (Story) => {
+            return (
+                <div className="bibliotron-exercise">
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    args: {
+        dependencies: storybookDependenciesV2,
+        hints: [
+            {
+                ...generateTestPerseusRenderer({
+                    content: "[[☃ image 1]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                alt: "Earth and Moon",
+                                title: "Earth and Moon",
+                                caption: "Earth and Moon",
+                            }),
+                        }),
+                    },
+                }),
             },
         ],
     },

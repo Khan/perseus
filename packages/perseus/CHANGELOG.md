@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 77.5.0
+
+### Minor Changes
+
+-   [#3597](https://github.com/Khan/perseus/pull/3597) [`a51b5358a0`](https://github.com/Khan/perseus/commit/a51b5358a0d8787b0493ebac24e3d342287fed3f) Thanks [@handeyeco](https://github.com/handeyeco)! - Deprecate excludeDenylistKeys and add workaround for `graded`
+
+### Patch Changes
+
+-   [#3593](https://github.com/Khan/perseus/pull/3593) [`7dd1ff6114`](https://github.com/Khan/perseus/commit/7dd1ff6114a66401c2a71c001e10424d24f9b517) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix blue line on vector when graph becomes interactive after correct answer
+
+*   [#3546](https://github.com/Khan/perseus/pull/3546) [`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e) Thanks [@nishasy](https://github.com/nishasy)! - Add new lint rule to avoid using `as` and suppress lint errors for existing instances of `as`
+
+-   [#3584](https://github.com/Khan/perseus/pull/3584) [`e5e24fb670`](https://github.com/Khan/perseus/commit/e5e24fb670b1ef022310d7341305ac46c7949606) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Improving screen reader experience for pause/play button on image gifs.
+
+-   Updated dependencies [[`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e), [`51dd982ad9`](https://github.com/Khan/perseus/commit/51dd982ad90de4e3ba52dc2cc0443ca3d60b805b)]:
+    -   @khanacademy/kas@2.2.3
+    -   @khanacademy/math-input@26.4.20
+    -   @khanacademy/perseus-core@26.0.3
+    -   @khanacademy/perseus-linter@5.0.3
+    -   @khanacademy/perseus-score@8.8.2
+    -   @khanacademy/pure-markdown@2.2.8
+    -   @khanacademy/simple-markdown@2.2.3
+    -   @khanacademy/keypad-context@3.2.48
+    -   @khanacademy/kmath@2.4.6
+
 ## 77.4.2
 
 ### Patch Changes
