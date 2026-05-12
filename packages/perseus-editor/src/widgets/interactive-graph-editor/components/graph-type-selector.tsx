@@ -1,13 +1,9 @@
-import {
-    parseInteractiveGraphType,
-    isFailure,
-    isFeatureOn,
-    parse,
-} from "@khanacademy/perseus-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
@@ -27,35 +23,30 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     );
 
     return (
-        <SingleSelect
-            selectedValue={props.graphType}
-            onChange={(value) => {
-                const parsedType = parse(value, parseInteractiveGraphType);
-                if (isFailure(parsedType)) {
-                    throw new Error(parsedType.detail);
-                }
-                props.onChange(parsedType.value);
+        <TypedSingleSelect
+            options={{
+                "absolute-value": "Absolute value",
+                none: "None",
+                linear: "Linear function",
+                quadratic: "Quadratic function",
+                sinusoid: "Sinusoid function",
+                exponential: "Exponential function",
+                tangent: "Tangent function",
+                logarithm: "Logarithm function",
+                circle: "Circle",
+                point: "Point(s)",
+                "linear-system": "Linear System",
+                polygon: "Polygon",
+                segment: "Line Segment(s)",
+                ray: "Ray",
+                vector: showVector && "Vector",
+                angle: "Angle",
             }}
+            selectedValue={props.graphType}
+            onChange={props.onChange}
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
-        >
-            <OptionItem value="absolute-value" label="Absolute value" />
-            <OptionItem value="none" label="None" />
-            <OptionItem value="linear" label="Linear function" />
-            <OptionItem value="quadratic" label="Quadratic function" />
-            <OptionItem value="sinusoid" label="Sinusoid function" />
-            <OptionItem value="exponential" label="Exponential function" />
-            <OptionItem value="tangent" label="Tangent function" />
-            <OptionItem value="logarithm" label="Logarithm function" />
-            <OptionItem value="circle" label="Circle" />
-            <OptionItem value="point" label="Point(s)" />
-            <OptionItem value="linear-system" label="Linear System" />
-            <OptionItem value="polygon" label="Polygon" />
-            <OptionItem value="segment" label="Line Segment(s)" />
-            <OptionItem value="ray" label="Ray" />
-            {showVector && <OptionItem value="vector" label="Vector" />}
-            <OptionItem value="angle" label="Angle" />
-        </SingleSelect>
+        />
     );
 };
 
