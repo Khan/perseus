@@ -6,11 +6,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
-import {
-    getAnswerfulItem,
-    getAnswerlessItem,
-    scorePerseusItemTesting,
-} from "../../util/test-utils";
+import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";

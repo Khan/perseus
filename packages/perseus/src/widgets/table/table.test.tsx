@@ -3,10 +3,10 @@ import {
     splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {generateTableRenderer} from "./test-util";
@@ -73,7 +73,7 @@ describe("table", () => {
 
             const userInput = renderer.getUserInputMap();
             const answerful = generateTableRenderer();
-            const score = scorePerseusItemTesting(answerful, userInput);
+            const score = scorePerseusItem(answerful, userInput, "en");
 
             expect(score).toHaveBeenAnsweredCorrectly();
         });
