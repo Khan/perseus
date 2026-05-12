@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
@@ -31,7 +32,7 @@ type Story = StoryObj<typeof RadioQuestionRenderer>;
 export default {
     title: "Widgets/Radio/Visual Regression Tests/Initial State",
     component: RadioQuestionRenderer,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -39,7 +40,7 @@ export default {
                     "Regression tests for the radio widget that do NOT need any interactions to test, which will be used with Chromatic. Stories are all displayed on one page.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
 
@@ -200,6 +201,28 @@ export const SingleSelectWithGraphie = {
     args: {
         item: generateTestPerseusItem({
             question: choicesWithGraphie,
+        }),
+    },
+};
+
+// Verifies the legacy `.choice table` styling: markdown tables inside choice
+// content render with the legacy 1px border. Provides coverage for the
+// hardcoded border color when it is later replaced by a semantic token.
+export const SingleSelectWithTable: Story = {
+    args: {
+        item: generateSimpleRadioItem({
+            choices: [
+                generateRadioChoice(
+                    "| Animal | Legs |\n| --- | --- |\n| Dog | 4 |\n| Spider | 8 |",
+                    {correct: true},
+                ),
+                generateRadioChoice(
+                    "| Animal | Legs |\n| --- | --- |\n| Cat | 4 |\n| Ant | 6 |",
+                ),
+                generateRadioChoice(
+                    "| Animal | Legs |\n| --- | --- |\n| Bird | 2 |\n| Crab | 10 |",
+                ),
+            ],
         }),
     },
 };
