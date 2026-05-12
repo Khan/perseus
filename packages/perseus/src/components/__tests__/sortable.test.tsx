@@ -336,108 +336,104 @@ describe("Sortable AssetContext integration", () => {
     });
 
     it("marks itself loaded after the quiescence window", () => {
-        jest.useFakeTimers();
-        try {
-            // Arrange
-            const {sortable} = renderInContext();
-            const key = setAssetStatus.mock.calls[0][0];
+        // Arrange
+        const {sortable} = renderInContext();
+        const key = setAssetStatus.mock.calls[0][0];
 
-            // Act
-            triggerMeasurement(sortable);
-            act(() => {
-                jest.advanceTimersByTime(50);
-            });
+        // Act
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(50);
+        });
 
-            // Assert
-            expect(setAssetStatus).toHaveBeenLastCalledWith(key, true);
-        } finally {
-            jest.useRealTimers();
-        }
+        // Assert
+        expect(setAssetStatus).toHaveBeenLastCalledWith(key, true);
     });
 
     it("does not mark itself loaded before the quiescence window expires", () => {
-        jest.useFakeTimers();
-        try {
-            // Arrange
-            const {sortable} = renderInContext();
-            const key = setAssetStatus.mock.calls[0][0];
+        // Arrange
+        const {sortable} = renderInContext();
+        const key = setAssetStatus.mock.calls[0][0];
 
-            // Act
-            triggerMeasurement(sortable);
-            act(() => {
-                jest.advanceTimersByTime(49);
-            });
+        // Act
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(49);
+        });
 
-            // Assert
-            expect(setAssetStatus).not.toHaveBeenCalledWith(key, true);
-        } finally {
-            jest.useRealTimers();
-        }
+        // Assert
+        expect(setAssetStatus).not.toHaveBeenCalledWith(key, true);
     });
 
-    it("resets the quiescence timer when a new measurement arrives", () => {
-        jest.useFakeTimers();
-        try {
-            // Arrange
-            const {sortable} = renderInContext();
-            const key = setAssetStatus.mock.calls[0][0];
+    it("does not settle when a new measurement arrives mid-window", () => {
+        // Arrange
+        const {sortable} = renderInContext();
+        const key = setAssetStatus.mock.calls[0][0];
 
-            // Act: first measurement schedules a 50ms timer, then partway
-            // through the window a second measurement arrives, which should
-            // reset the timer to a fresh 50ms window.
-            triggerMeasurement(sortable);
-            act(() => {
-                jest.advanceTimersByTime(30);
-            });
-            triggerMeasurement(sortable);
-            act(() => {
-                jest.advanceTimersByTime(20);
-            });
+        // Act: first measurement schedules a 50ms timer, then partway
+        // through the window a second measurement arrives, which should
+        // reset the timer to a fresh 50ms window. Total clock reaches 50ms,
+        // which would have fired the original timer if reset weren't working.
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(30);
+        });
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(20);
+        });
 
-            // Assert: total clock = 50ms. If reset weren't working, the
-            // original timer would have fired by now and we'd be settled.
-            // With reset working, the new deadline is at 80ms.
-            expect(setAssetStatus).not.toHaveBeenCalledWith(key, true);
-
-            // Act: advance well past the new deadline.
-            act(() => {
-                jest.advanceTimersByTime(100);
-            });
-
-            // Assert: now settled.
-            expect(setAssetStatus).toHaveBeenCalledWith(key, true);
-        } finally {
-            jest.useRealTimers();
-        }
+        // Assert
+        expect(setAssetStatus).not.toHaveBeenCalledWith(key, true);
     });
 
-    it("clears the pending timer and marks itself loaded on unmount", () => {
-        jest.useFakeTimers();
-        try {
-            // Arrange
-            const {sortable, unmount} = renderInContext();
-            const key = setAssetStatus.mock.calls[0][0];
+    it("settles after the new deadline when a measurement resets the timer", () => {
+        // Arrange
+        const {sortable} = renderInContext();
+        const key = setAssetStatus.mock.calls[0][0];
 
-            // Schedule the quiescence timer but unmount before it fires.
-            triggerMeasurement(sortable);
-            setAssetStatus.mockClear();
+        // Act: measurement, partial wait, second measurement resets the
+        // timer, then advance well past the new deadline.
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(30);
+        });
+        triggerMeasurement(sortable);
+        act(() => {
+            jest.advanceTimersByTime(120);
+        });
 
-            // Act
-            unmount();
+        // Assert
+        expect(setAssetStatus).toHaveBeenCalledWith(key, true);
+    });
 
-            // Assert: unmount marks loaded.
-            expect(setAssetStatus).toHaveBeenCalledWith(key, true);
+    it("marks itself loaded on unmount", () => {
+        // Arrange
+        const {sortable, unmount} = renderInContext();
+        const key = setAssetStatus.mock.calls[0][0];
+        triggerMeasurement(sortable);
+        setAssetStatus.mockClear();
 
-            // Act: advance past where the cleared timer would have fired.
-            const callCountAfterUnmount = setAssetStatus.mock.calls.length;
-            act(() => {
-                jest.advanceTimersByTime(100);
-            });
+        // Act
+        unmount();
 
-            // Assert: the cleared timer did not call setAssetStatus again.
-            expect(setAssetStatus).toHaveBeenCalledTimes(callCountAfterUnmount);
-        } finally {
-            jest.useRealTimers();
-        }
+        // Assert
+        expect(setAssetStatus).toHaveBeenCalledWith(key, true);
+    });
+
+    it("clears the pending quiescence timer on unmount", () => {
+        // Arrange: schedule the quiescence timer but unmount before it fires.
+        const {sortable, unmount} = renderInContext();
+        triggerMeasurement(sortable);
+
+        // Act
+        unmount();
+        const callCountAfterUnmount = setAssetStatus.mock.calls.length;
+        act(() => {
+            jest.advanceTimersByTime(100);
+        });
+
+        // Assert: the cleared timer did not call setAssetStatus again.
+        expect(setAssetStatus).toHaveBeenCalledTimes(callCountAfterUnmount);
     });
 });
