@@ -1,5 +1,6 @@
 import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {border} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -107,7 +108,6 @@ type DefaultProps = {
 type State = {
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
-    enterTheMatrix: number;
 };
 
 class Matrix extends React.Component<Props, State> implements Widget {
@@ -130,7 +130,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     state: State = {
         cursorPosition: [0, 0],
-        enterTheMatrix: 0,
     };
 
     componentDidMount() {
@@ -205,7 +204,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
     ) => {
         const maxRow = this.props.matrixBoardSize[0];
         const maxCol = this.props.matrixBoardSize[1];
-        let enterTheMatrix = null;
 
         // eslint-disable-next-line react/no-string-refs
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
@@ -235,12 +233,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                 // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
                 nextPath = getInputPath(row, col + 1);
             }
-        } else if (e.key === "Enter") {
-            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-            enterTheMatrix = this.state.enterTheMatrix + 1;
-        } else if (e.key === "Escape") {
-            // @ts-expect-error - TS2322 - Type '0' is not assignable to type 'null'.
-            enterTheMatrix = 0;
         }
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -267,12 +259,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                 // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(valueLength, valueLength);
             }
-        }
-
-        if (enterTheMatrix != null) {
-            this.setState({
-                enterTheMatrix: enterTheMatrix,
-            });
         }
     };
 
@@ -343,8 +329,13 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
         const className = classNames({
             "perseus-matrix": true,
+            // TODO: Come up with static mode designs so that it is clear
+            // that the inputs are disabled.
+            // Context: It seems that the static mode styles stopped working
+            // during a migration a long time ago, so we removed the styles
+            // as part of the Color Sync project. The logic is still here,
+            // so we can update the static mode styles in the future.
             "static-mode": this.props.static,
-            "the-matrix": this.state.enterTheMatrix >= 5,
         });
 
         return (
@@ -436,6 +427,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
                                     let MatrixInput;
                                     if (this.props.apiOptions.customKeypad) {
+                                        // TODO(LEMS-3686): Use CSS modules after
+                                        // Wonder Blocks supports it instead of
+                                        // inline styles.
                                         const style = {
                                             margin: INPUT_MARGIN,
                                             minWidth: INPUT_WIDTH,
@@ -443,9 +437,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             // Ensure that any borders are included in
                                             // the provided width.
                                             boxSizing: "border-box",
-                                            backgroundColor: outside
-                                                ? "#f3f3f3"
-                                                : "#fff",
+                                            borderWidth: outside
+                                                ? border.width.thin
+                                                : border.width.medium,
                                         } as const;
 
                                         MatrixInput = (
@@ -461,15 +455,18 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                     } else {
                                         const updatedProps = {
                                             ...inputProps,
+                                            // TODO(LEMS-3686): Use CSS modules after
+                                            // Wonder Blocks supports it instead of
+                                            // inline styles.
                                             style: StyleSheet.create({
                                                 // eslint-disable-next-line react-native/no-unused-styles
                                                 input: {
                                                     ...inputProps.style,
                                                     display: "inline-block",
                                                     padding: 0,
-                                                    backgroundColor: outside
-                                                        ? "#f3f3f3"
-                                                        : "#fff",
+                                                    borderWidth: outside
+                                                        ? border.width.thin
+                                                        : border.width.medium,
                                                 },
                                             }).input,
                                         } as const;

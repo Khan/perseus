@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 26.1.1
+
+### Patch Changes
+
+-   [#3525](https://github.com/Khan/perseus/pull/3525) [`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920) Thanks [@nishasy](https://github.com/nishasy)! - Add generator for Matrix widget testdata
+
 ## 26.1.0
 
 ### Minor Changes
