@@ -384,15 +384,23 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // cast to `any`.
                 <InteractiveGraph
                     {...graphProps}
+                    // eslint-disable-next-line no-restricted-syntax
                     graph={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     widgetId={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     widgetIndex={undefined as any}
                     alignment={undefined}
                     problemNum={undefined}
+                    // eslint-disable-next-line no-restricted-syntax
                     onFocus={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     onBlur={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     findWidgets={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     reviewMode={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
                     linterContext={undefined as any}
                     containerSizeClass={sizeClass}
                     apiOptions={{

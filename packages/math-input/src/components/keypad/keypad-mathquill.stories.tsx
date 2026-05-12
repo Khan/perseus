@@ -36,12 +36,13 @@ export function V2KeypadWithMathquill() {
                     ...baseConfig,
                     handlers: {
                         edit: (_mathField) => {
-                            // Cast to MathFieldInterface to get the types for
-                            // the cursor() and controller() methods, which
-                            // exist but aren't part of the published
-                            // MathQuill API.
                             setCursorContext(
                                 getCursorContext(
+                                    // Cast to MathFieldInterface to get the types for
+                                    // the cursor() and controller() methods, which
+                                    // exist but aren't part of the published
+                                    // MathQuill API.
+                                    // eslint-disable-next-line no-restricted-syntax
                                     _mathField as MathFieldInterface,
                                 ),
                             );

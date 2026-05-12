@@ -196,6 +196,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     ...baseConfig,
                     handlers: {
                         edit: debounce((mathQuill) => {
+                            // eslint-disable-next-line no-restricted-syntax
                             const mathField = mathQuill as MathFieldInterface;
                             // This handler is guaranteed to be called on change, but
                             // unlike React it sometimes generates false positives.
@@ -258,6 +259,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
                             // BaseMathQuill doesn't have a typedText method,
                             // so we have to cast here.
+                            // eslint-disable-next-line no-restricted-syntax
                             (mathField as MathFieldInterface).typedText("^");
                         },
                     },

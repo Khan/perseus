@@ -57,6 +57,7 @@ export default function MathquillInput(props: Props) {
 
                             // This cast is needed because `BaseMathQuill`
                             // doesn't have the typedText method.
+                            // eslint-disable-next-line no-restricted-syntax
                             (mathField as MathFieldInterface).typedText("^");
                         },
                     },

@@ -60,6 +60,7 @@ const nestedMap = function <T, M>(
             return nestedMap(child, func);
         });
     }
+    // eslint-disable-next-line no-restricted-syntax
     return func(children as T);
 };
 
