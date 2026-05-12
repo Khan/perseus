@@ -5,6 +5,7 @@ import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
+import {srFormatNumber} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -62,12 +63,10 @@ export const StatefulMafsGraph = React.forwardRef<
 >(function StatefulMafsGraphWithRef(props, ref) {
     const {onChange, graph} = props;
     const {strings, locale} = usePerseusI18n();
-    const latestStringsRef = useLatestRef(strings);
-    const latestLocaleRef = useLatestRef(locale);
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
-        {...props, strings, locale},
+        props,
         initializeGraphState,
     );
 
@@ -85,13 +84,22 @@ export const StatefulMafsGraph = React.forwardRef<
     }, [onChange, state, graph]);
 
     useEffect(() => {
-        if (state.announcement) {
-            announceMessage({
-                message: state.announcement,
-                debounceThreshold: 150,
-            });
+        if (!state.stateChange) {
+            return;
         }
-    }, [state.announcement]);
+
+        let message: string;
+        switch (state.stateChange.type) {
+            case "move-point":
+                message = strings.srPointAtCoordinates({
+                    num: state.stateChange.pointIndex + 1,
+                    x: srFormatNumber(state.stateChange.x, locale),
+                    y: srFormatNumber(state.stateChange.y, locale),
+                });
+                break;
+        }
+        announceMessage({message, debounceThreshold: 150});
+    }, [state.stateChange, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -134,13 +142,7 @@ export const StatefulMafsGraph = React.forwardRef<
         // a bug where the graph would be marked "incorrect" during grading
         // even if the user never interacted with it.
         if (latestPropsRef.current !== originalPropsRef.current) {
-            dispatch(
-                reinitialize({
-                    ...latestPropsRef.current,
-                    strings: latestStringsRef.current,
-                    locale: latestLocaleRef.current,
-                }),
-            );
+            dispatch(reinitialize(latestPropsRef.current));
         }
     }, [
         graph.type,
@@ -151,8 +153,6 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
-        latestStringsRef,
-        latestLocaleRef,
         startCoords,
         allowReflexAngles,
     ]);
@@ -165,12 +165,7 @@ export const StatefulMafsGraph = React.forwardRef<
         return (
             <MafsGraph
                 {...props}
-                state={initializeGraphState({
-                    ...props,
-                    graph: props.correct,
-                    strings,
-                    locale,
-                })}
+                state={initializeGraphState({...props, graph: props.correct})}
                 dispatch={dispatch}
             />
         );

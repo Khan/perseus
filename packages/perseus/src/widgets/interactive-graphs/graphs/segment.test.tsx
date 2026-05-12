@@ -28,6 +28,7 @@ const baseSingleSegmentState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 const baseMultipleSegmentState: InteractiveGraphState = {
@@ -48,6 +49,7 @@ const baseMultipleSegmentState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 const singleGraphOverallLabel = "A line segment on a coordinate plane.";

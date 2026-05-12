@@ -32,6 +32,7 @@ const baseLinearSystemState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 const overallGraphLabel = "Two lines on a coordinate plane.";

@@ -30,6 +30,7 @@ const baseQuadraticState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 const overallGraphLabel = "A parabola on a 4-quadrant coordinate plane.";

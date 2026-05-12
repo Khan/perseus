@@ -26,6 +26,7 @@ const baseAbsoluteValueState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 describe("getAbsoluteValueCoefficients", () => {

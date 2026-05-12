@@ -1,6 +1,5 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusStrings} from "../../strings";
 import type {WidgetProps} from "../../types";
 import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {
@@ -49,18 +48,22 @@ export type InteractiveGraphState =
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
+export type InteractiveGraphStateChange = {
+    type: "move-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
-    // Screen reader announcement to be spoken after the current action.
-    // null means nothing to announce.
-    announcement: string | null;
-    // i18n strings and locale, passed in via initializeGraphState.
-    strings: PerseusStrings;
-    locale: string;
+    // Raw data describing the most recent state change, used to build
+    // screen reader announcements in the component. null means no announcement.
+    stateChange: InteractiveGraphStateChange | null;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

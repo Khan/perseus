@@ -26,6 +26,7 @@ const baseLinearState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
+    stateChange: null,
 };
 
 const overallGraphLabel = "A line on a coordinate plane.";

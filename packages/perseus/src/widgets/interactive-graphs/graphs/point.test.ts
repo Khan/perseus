@@ -18,6 +18,7 @@ describe("getPointGraphDescription", () => {
         showKeyboardInteractionInvitation: false,
         showRemovePointButton: false,
         snapStep: [0, 0] as const,
+        stateChange: null,
     };
 
     it(`returns "No interactive elements" for a graph with no points`, () => {
