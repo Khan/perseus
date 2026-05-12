@@ -39,9 +39,9 @@ export function scorePerseusItem(
     const score = flattenScores(widgetScores);
 
     if (score.type === "invalid") {
-        return {score};
+        return score;
     } else {
-        return {score, widgetScores};
+        return {...score, widgetScores};
     }
 }
 

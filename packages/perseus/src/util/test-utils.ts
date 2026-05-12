@@ -22,7 +22,7 @@ export function scorePerseusItemTesting(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
 ): PerseusScore {
-    return scorePerseusItem(perseusRenderData, userInputMap, "en").score;
+    return scorePerseusItem(perseusRenderData, userInputMap, "en");
 }
 
 /**

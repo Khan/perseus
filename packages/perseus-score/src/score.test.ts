@@ -8,6 +8,7 @@ import {
     generateInputNumberWidget,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
+import invariant from "tiny-invariant";
 
 import {
     scorePerseusItem,
@@ -314,7 +315,7 @@ describe("scorePerseusItem", () => {
         const userInputMap = {};
 
         // Act:
-        const {score} = scorePerseusItem(item, userInputMap, "en");
+        const score = scorePerseusItem(item, userInputMap, "en");
 
         // Assert:
         expect(score).toHaveInvalidInput();
@@ -323,7 +324,7 @@ describe("scorePerseusItem", () => {
 
     it("should return empty if any validator returns empty", () => {
         // Act
-        const {score} = scorePerseusItem(
+        const score = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -348,7 +349,7 @@ describe("scorePerseusItem", () => {
         // Arrange
 
         // Act
-        const {score} = scorePerseusItem(
+        const score = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
                 widgets: {
@@ -371,6 +372,20 @@ describe("scorePerseusItem", () => {
             total: 2,
             earned: 2,
             message: null,
+            widgetScores: {
+                "dropdown 1": {
+                    earned: 1,
+                    message: null,
+                    total: 1,
+                    type: "points",
+                },
+                "dropdown 2": {
+                    earned: 1,
+                    message: null,
+                    total: 1,
+                    type: "points",
+                },
+            },
         });
     });
 
@@ -383,11 +398,7 @@ describe("scorePerseusItem", () => {
             images: {},
         };
         json.widgets["dropdown 1"].static = true;
-        const {score} = scorePerseusItem(
-            json,
-            {"dropdown 1": {value: 2}},
-            "en",
-        );
+        const score = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: false,
@@ -395,7 +406,7 @@ describe("scorePerseusItem", () => {
     });
 
     it("should ignore widgets that aren't referenced in content", () => {
-        const {score} = scorePerseusItem(
+        const score = scorePerseusItem(
             {
                 content: "[[☃ dropdown 1]]",
                 widgets: {
@@ -443,7 +454,7 @@ describe("scorePerseusItem", () => {
             },
         };
 
-        const {score} = scorePerseusItem(item, userInputMap, "en");
+        const score = scorePerseusItem(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -472,7 +483,7 @@ describe("scorePerseusItem", () => {
             },
         };
 
-        const {score} = scorePerseusItem(item, userInputMap, "en");
+        const score = scorePerseusItem(item, userInputMap, "en");
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
@@ -495,10 +506,11 @@ describe("scorePerseusItem", () => {
         };
 
         // Act
-        const {widgetScores} = scorePerseusItem(item, userInputMap, "en");
+        const score = scorePerseusItem(item, userInputMap, "en");
 
         // Assert
-        expect(widgetScores).toEqual({
+        invariant(score.type === "points");
+        expect(score.widgetScores).toEqual({
             "dropdown 1": {
                 type: "points",
                 earned: 1,
