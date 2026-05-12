@@ -27,7 +27,7 @@ const baseLogarithmState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateChange: null,
+    stateAnnouncement: null,
 };
 
 describe("Logarithm graph screen reader", () => {

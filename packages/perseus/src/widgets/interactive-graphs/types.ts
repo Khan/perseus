@@ -48,7 +48,7 @@ export type InteractiveGraphState =
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
-export type InteractiveGraphStateChange = {
+export type InteractiveGraphStateAnnouncement = {
     type: "move-point";
     pointIndex: number;
     x: number;
@@ -63,7 +63,7 @@ export interface InteractiveGraphStateCommon {
     snapStep: vec.Vector2;
     // Raw data describing the most recent state change, used to build
     // screen reader announcements in the component. null means no announcement.
-    stateChange: InteractiveGraphStateChange | null;
+    stateAnnouncement: InteractiveGraphStateAnnouncement | null;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

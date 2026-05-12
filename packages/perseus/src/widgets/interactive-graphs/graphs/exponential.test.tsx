@@ -27,7 +27,7 @@ const baseExponentialState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateChange: null,
+    stateAnnouncement: null,
 };
 
 describe("Exponential graph screen reader", () => {

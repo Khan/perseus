@@ -43,7 +43,7 @@ describe("LockedFunction", () => {
             ],
             hasBeenInteractedWith: false,
             snapStep: [1, 1],
-            stateChange: null,
+            stateAnnouncement: null,
         } satisfies NoneGraphState;
 
         const {container} = render(
@@ -82,7 +82,7 @@ describe("LockedFunction", () => {
             ],
             hasBeenInteractedWith: false,
             snapStep: [1, 1],
-            stateChange: null,
+            stateAnnouncement: null,
         } satisfies NoneGraphState;
 
         const {container} = render(
@@ -118,7 +118,7 @@ describe("LockedFunction", () => {
             ],
             hasBeenInteractedWith: false,
             snapStep: [1, 1],
-            stateChange: null,
+            stateAnnouncement: null,
         } satisfies NoneGraphState;
 
         // Act

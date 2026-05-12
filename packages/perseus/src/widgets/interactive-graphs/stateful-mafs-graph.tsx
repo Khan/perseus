@@ -84,22 +84,22 @@ export const StatefulMafsGraph = React.forwardRef<
     }, [onChange, state, graph]);
 
     useEffect(() => {
-        if (!state.stateChange) {
+        if (!state.stateAnnouncement) {
             return;
         }
 
         let message: string;
-        switch (state.stateChange.type) {
+        switch (state.stateAnnouncement.type) {
             case "move-point":
                 message = strings.srPointAtCoordinates({
-                    num: state.stateChange.pointIndex + 1,
-                    x: srFormatNumber(state.stateChange.x, locale),
-                    y: srFormatNumber(state.stateChange.y, locale),
+                    num: state.stateAnnouncement.pointIndex + 1,
+                    x: srFormatNumber(state.stateAnnouncement.x, locale),
+                    y: srFormatNumber(state.stateAnnouncement.y, locale),
                 });
                 break;
         }
         announceMessage({message, debounceThreshold: 150});
-    }, [state.stateChange, strings, locale]);
+    }, [state.stateAnnouncement, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
