@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 77.5.2
+
+### Patch Changes
+
+-   [#3604](https://github.com/Khan/perseus/pull/3604) [`b633f0d660`](https://github.com/Khan/perseus/commit/b633f0d660799ad1b980932a36e65c3cc15c4baa) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - sets condition to check for user input before setting answerable
+
+*   [#3525](https://github.com/Khan/perseus/pull/3525) [`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920) Thanks [@nishasy](https://github.com/nishasy)! - Convert hardcoded color values to semantic tokens for Matrix
+
+-   [#3621](https://github.com/Khan/perseus/pull/3621) [`38d02fcee5`](https://github.com/Khan/perseus/commit/38d02fcee540879a6aea009b0bee45855dc7c603) Thanks [@handeyeco](https://github.com/handeyeco)! - Use an opaque border around locked labels rather than a transparent background
+
+-   Updated dependencies [[`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920)]:
+    -   @khanacademy/perseus-core@26.1.1
+    -   @khanacademy/keypad-context@3.2.50
+    -   @khanacademy/kmath@2.4.8
+    -   @khanacademy/math-input@26.4.22
+    -   @khanacademy/perseus-linter@5.0.5
+    -   @khanacademy/perseus-score@8.9.1
+
 ## 77.5.1
 
 ### Patch Changes
