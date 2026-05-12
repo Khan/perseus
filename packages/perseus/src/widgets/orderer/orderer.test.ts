@@ -1,3 +1,4 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
@@ -133,9 +134,10 @@ describe("orderer widget", () => {
 
             // Act
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItemTesting(
+            const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -152,9 +154,10 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["1", "2", "3"]));
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItemTesting(
+            const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
+                "en",
             );
 
             // Assert
@@ -171,9 +174,10 @@ describe("orderer widget", () => {
             act(() => orderer.setListValues(["2", "3", "1"]));
             const userInput = renderer.getUserInputMap();
 
-            const score = scorePerseusItemTesting(
+            const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
+                "en",
             );
 
             // Assert

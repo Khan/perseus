@@ -1,3 +1,4 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 // eslint-disable-next-line testing-library/no-manual-cleanup
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -274,7 +275,7 @@ describe("group widget", () => {
         );
 
         const guess = renderer.getUserInputMap();
-        const score = scorePerseusItemTesting(question1, guess);
+        const score = scorePerseusItem(question1, guess, "en");
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();

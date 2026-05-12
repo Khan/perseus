@@ -6,6 +6,7 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
 } from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -613,9 +614,10 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // act
-            const score = scorePerseusItemTesting(
+            const score = scorePerseusItem(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
+                "en",
             );
 
             // Assert
@@ -643,9 +645,10 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            const score = scorePerseusItemTesting(
+            const score = scorePerseusItem(
                 expressionItemMultipleEquivalentAnswers.question,
                 renderer.getUserInputMap(),
+                "en",
             );
             expect(score.type).toBe("points");
             if (score.type === "points") {
@@ -729,9 +732,10 @@ describe("Expression Widget", function () {
                 act(() => jest.runOnlyPendingTimers());
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItemTesting(
+                const score = scorePerseusItem(
                     getFullItem().question,
                     userInput,
+                    "en",
                 );
 
                 // Assert
