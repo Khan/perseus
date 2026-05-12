@@ -38,7 +38,7 @@ const AsymptoteInput = (props: AsymptoteInputProps) => {
     return (
         <BodyText weight="bold" tag="label" className={styles.row}>
             {`Asymptote ${axis} =`}
-            <View className={styles["text-field-wrapper"]}>
+            <View className={styles["text-field-wrapper"]} tag="span">
                 <ScrolllessNumberTextField
                     value={textState}
                     onChange={handleChange}
