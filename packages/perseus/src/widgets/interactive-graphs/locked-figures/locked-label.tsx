@@ -55,13 +55,7 @@ function LockedLabelStrokeFilter() {
     return (
         <svg width="0" height="0" style={{position: "absolute"}}>
             <defs>
-                <filter
-                    id="math-stroke"
-                    x="-5%"
-                    y="-5%"
-                    width="110%"
-                    height="110%"
-                >
+                <filter id="math-stroke">
                     {/* expand edges outward */}
                     <feMorphology
                         operator="dilate"
@@ -71,11 +65,11 @@ function LockedLabelStrokeFilter() {
                     />
 
                     {/* flood with color */}
-                    <feFlood floodColor={color} result={color} />
+                    <feFlood floodColor={color} result="flood" />
 
                     {/* clip the flood to the expanded shape */}
                     <feComposite
-                        in={color}
+                        in="flood"
                         in2="expanded"
                         operator="in"
                         result="outline"
