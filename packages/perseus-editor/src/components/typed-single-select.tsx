@@ -6,9 +6,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 /**
  * An object representing the options of a `<select>` element in HTML.
  * Each property key in the object is a `value` of an option, and each
- * property value is the text that appears in the `<select>` dropdown. If a
- * property value is falsey, the corresponding option is hidden from the
- * dropdown.
+ * property value is the text of that option in the dropdown. If a property
+ * value is falsey, the corresponding option is hidden from the dropdown.
  */
 type SelectOptions<ValueT extends string> = Record<
     ValueT,
