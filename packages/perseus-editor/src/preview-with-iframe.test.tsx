@@ -98,7 +98,8 @@ describe("PreviewWithIframe", () => {
             },
         };
 
-        ref.current?.sendNewData(data);
+        invariant(ref.current);
+        ref.current.sendNewData(data);
 
         expect(mockSendData).toHaveBeenCalledWith(data);
     });
