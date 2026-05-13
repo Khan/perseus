@@ -43,7 +43,7 @@ export function initializeGraphState(
         hasBeenInteractedWith: false,
         range,
         snapStep,
-        stateChange: null,
+        stateAnnouncement: null,
     };
     switch (graph.type) {
         case "segment":

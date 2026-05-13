@@ -519,7 +519,7 @@ function doMovePoint(
                     index: action.index,
                     newValue: snappedPoint,
                 }),
-                stateChange: {
+                stateAnnouncement: {
                     type: "move-point",
                     pointIndex: action.index,
                     x: snappedPoint[X],
