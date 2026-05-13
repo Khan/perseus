@@ -1,10 +1,11 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import PreviewWithIframe from "./preview-with-iframe";
+import {clone} from "./testing/object-utils";
 
 import type {PreviewContent} from "./preview/message-types";
-import type {PreviewWithIframeRef} from "./preview-with-iframe";
 
 const mockSendData = jest.fn();
 let mockHeight: number | null = null;
@@ -15,6 +16,21 @@ jest.mock("./preview/use-preview-controller", () => ({
         height: mockHeight,
     }),
 }));
+
+function buildArticleContent(): PreviewContent {
+    return {
+        type: "article",
+        data: {
+            apiOptions: ApiOptions.defaults,
+            json: {content: "Hello", widgets: {}, images: {}},
+            linterContext: {
+                contentType: "article",
+                highlightLint: false,
+                stack: [],
+            },
+        },
+    };
+}
 
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
@@ -27,6 +43,7 @@ describe("PreviewWithIframe", () => {
                 url="/preview"
                 isMobile={false}
                 seamless={false}
+                content={buildArticleContent()}
             />,
         );
 
@@ -43,6 +60,7 @@ describe("PreviewWithIframe", () => {
                     url="/preview"
                     isMobile={isMobile}
                     seamless={false}
+                    content={buildArticleContent()}
                 />,
             );
 
@@ -59,6 +77,7 @@ describe("PreviewWithIframe", () => {
                     url="/preview"
                     isMobile={false}
                     seamless={seamless}
+                    content={buildArticleContent()}
                 />,
             );
 
@@ -67,18 +86,7 @@ describe("PreviewWithIframe", () => {
         },
     );
 
-    it("delegates sendNewData to usePreviewController's sendData via ref", () => {
-        const ref = React.createRef<PreviewWithIframeRef>();
-
-        render(
-            <PreviewWithIframe
-                ref={ref}
-                url="/preview"
-                isMobile={false}
-                seamless={false}
-            />,
-        );
-
+    it("sends content using usePreviewController's sendData", () => {
         const data: PreviewContent = {
             type: "question",
             data: {
@@ -98,10 +106,61 @@ describe("PreviewWithIframe", () => {
             },
         };
 
-        invariant(ref.current);
-        ref.current.sendNewData(data);
+        render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+                content={data}
+            />,
+        );
 
         expect(mockSendData).toHaveBeenCalledWith(data);
+    });
+
+    it("sends content using usePreviewController's sendData", () => {
+        const content: PreviewContent = {
+            type: "question",
+            data: {
+                item: {
+                    question: {content: "Q", widgets: {}, images: {}},
+                    answerArea: {calculator: false} as any,
+                    hints: [],
+                },
+                apiOptions: {},
+                device: "desktop",
+                initialHintsVisible: 0,
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    stack: [],
+                },
+            },
+        };
+
+        const {rerender} = render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+                content={content}
+            />,
+        );
+
+        const modifiedContent = clone(content);
+        modifiedContent.data.item.question.content = "Abc";
+
+        // Act
+        rerender(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+                content={modifiedContent}
+            />,
+        );
+
+        expect(mockSendData).toHaveBeenCalledWith(modifiedContent);
     });
 
     it("sets container height to '100%' when seamless is false", () => {
@@ -110,6 +169,7 @@ describe("PreviewWithIframe", () => {
                 url="/preview"
                 isMobile={false}
                 seamless={false}
+                content={buildArticleContent()}
             />,
         );
 
@@ -125,6 +185,7 @@ describe("PreviewWithIframe", () => {
                 url="/preview"
                 isMobile={false}
                 seamless={true}
+                content={buildArticleContent()}
             />,
         );
 
