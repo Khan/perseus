@@ -51,13 +51,10 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
             [sendData],
         );
 
-        // Update container height based on iframe content height
-        let containerHeight = "100%";
-        if (!props.seamless) {
-            containerHeight = "100%";
-        } else if (height !== null) {
-            containerHeight = `${height}px`;
-        }
+        // Update container height based on iframe content height if we're in
+        // seamless mode.
+        const containerHeight =
+            props.seamless && height != null ? `${height}px` : "100%";
 
         return (
             <iframe
