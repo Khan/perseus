@@ -14,6 +14,7 @@ declare global {
             }): R;
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
+            // TODO: Delete this unused custom matcher and associated implementation
             toBeHighlighted(): R;
         }
     }

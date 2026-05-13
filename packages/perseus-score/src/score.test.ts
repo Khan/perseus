@@ -1,21 +1,26 @@
 import {
     generateDropdownOptions,
     generateDropdownWidget,
-    type PerseusRenderer,
-    type DropdownWidget,
-    type PerseusWidgetsMap,
-    type UserInputMap,
     generateInputNumberWidget,
     generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
 import {
+    combineScoreWithWidgetScores,
+    onlyInvalidScores,
     scorePerseusItem,
     scorePerseusItemWithInputNumberAsNumericInput,
     scoreWidgetsFunctional,
 } from "./score";
 import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
+
+import type {
+    PerseusRenderer,
+    DropdownWidget,
+    PerseusWidgetsMap,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 describe("scoreWidgetsFunctional", () => {
     it("returns an empty object when there's no widgets", () => {
@@ -755,5 +760,86 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
         );
 
         expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("onlyInvalidScores", () => {
+    it("returns an empty object when given an empty object", () => {
+        expect(onlyInvalidScores({})).toStrictEqual({});
+    });
+
+    it("only includes 'invalid' scores", () => {
+        expect(
+            onlyInvalidScores({
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "invalid", message: null},
+                "dropdown 1": {type: "points", total: 1, earned: 0},
+                "interactive-graph 1": {type: "invalid", message: null},
+            }),
+        ).toStrictEqual({
+            "radio 2": {type: "invalid", message: null},
+            "interactive-graph 1": {type: "invalid", message: null},
+        });
+    });
+});
+
+describe("combineScoreWithWidgetScores", () => {
+    it("should include all widgetScores when overall score is correct", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "points", total: 2, earned: 2},
+            {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "points",
+            total: 2,
+            earned: 2,
+            widgetScores: {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        });
+    });
+
+    it("should include all widgetScores when overall score is incorrect", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "points", total: 2, earned: 1},
+            {
+                "radio 1": {type: "points", total: 1, earned: 0},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "points",
+            total: 2,
+            earned: 1,
+            widgetScores: {
+                "radio 1": {type: "points", total: 1, earned: 0},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        });
+    });
+
+    it("should omit points scores overall score is invalid", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "invalid", message: "SOME_ERROR_CODE"},
+            {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "expression 1": {type: "invalid", message: "SOME_ERROR_CODE"},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "invalid",
+            message: "SOME_ERROR_CODE",
+            widgetScores: {
+                "expression 1": {type: "invalid", message: "SOME_ERROR_CODE"},
+            },
+        });
     });
 });

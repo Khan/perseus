@@ -13,6 +13,52 @@ import type {
     UserInput,
 } from "@khanacademy/perseus-core";
 
+type WidgetScores = {
+    [widgetId: string]: PerseusScore;
+};
+
+type PerseusScoreWithWidgetScores = PerseusScore & {
+    /**
+     * The per-widget scores, keyed by widget ID, that contributed to the
+     * item's overall score (see the `earned` and `total` fields).
+     */
+    widgetScores: WidgetScores;
+};
+
+/**
+ * Filters the given widget `scores` dictionary and returns only widget scores
+ * that are invalid.
+ */
+export function onlyInvalidScores(scores: WidgetScores): WidgetScores {
+    return Object.fromEntries(
+        Object.entries(scores).filter(
+            ([key, value]) => value.type === "invalid",
+        ),
+    );
+}
+
+/**
+ * Combines an overall score with constituent widget scores. Takes into account
+ * if the overall score is invalid and strips out any widget scores that are
+ * not `invalid` to protect against leaking correctness.
+ */
+export function combineScoreWithWidgetScores(
+    score: PerseusScore,
+    widgetScores: WidgetScores,
+): PerseusScoreWithWidgetScores {
+    if (score.type === "invalid") {
+        return {
+            ...score,
+            // When the overall item score is invalid, we only return the
+            // per-widget invalid scores. This prevents exposing correctness
+            // information for widgets that were able to be scored.
+            widgetScores: onlyInvalidScores(widgetScores),
+        };
+    } else {
+        return {...score, widgetScores};
+    }
+}
+
 /**
  * score a Perseus item
  *
@@ -32,13 +78,7 @@ export function scorePerseusItem(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
-): PerseusScore & {
-    /**
-     * The per-widget scores, keyed by widget ID, that contributed to the
-     * item's overall score (see the `earned` and `total` fields).
-     */
-    widgetScores: {[widgetId: string]: PerseusScore};
-} {
+): PerseusScoreWithWidgetScores {
     const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
     const widgetScores = scoreWidgetsFunctional(
         perseusRenderData.widgets,
@@ -46,23 +86,11 @@ export function scorePerseusItem(
         userInputMap,
         locale,
     );
-    const score = flattenScores(widgetScores);
 
-    if (score.type === "invalid") {
-        return {
-            ...score,
-            // When the overall item score is invalid, we only return the
-            // per-widget invalid scores. This prevents exposing correctness
-            // information for widgets that were able to be scored.
-            widgetScores: Object.fromEntries(
-                Object.entries(widgetScores).filter(
-                    ([key, value]) => value.type === "invalid",
-                ),
-            ),
-        };
-    } else {
-        return {...score, widgetScores};
-    }
+    return combineScoreWithWidgetScores(
+        flattenScores(widgetScores),
+        widgetScores,
+    );
 }
 
 /**
@@ -75,7 +103,7 @@ export function scorePerseusItemWithInputNumberAsNumericInput(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
-): PerseusScore {
+): PerseusScoreWithWidgetScores {
     const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
     const scores = scoreWidgetsFunctionalWithInputNumberAsNumericInput(
         perseusRenderData.widgets,
@@ -83,7 +111,7 @@ export function scorePerseusItemWithInputNumberAsNumericInput(
         userInputMap,
         locale,
     );
-    return flattenScores(scores);
+    return combineScoreWithWidgetScores(flattenScores(scores), scores);
 }
 
 export function scoreWidgetsFunctional(
@@ -132,7 +160,7 @@ function scoreWidgetsFunctionalWithInputNumberAsNumericInput(
     widgetIds: ReadonlyArray<string>,
     userInputMap: UserInputMap,
     locale: string,
-): {[widgetId: string]: PerseusScore} {
+): WidgetScores {
     const gradedWidgetIds = widgetIds.filter((id) =>
         isWidgetScoreable(widgets[id]),
     );
