@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
@@ -36,7 +37,7 @@ export default {
                     "Regression tests for the radio widget that DO need some sort of interaction to test, which will be used with Chromatic. Stories are displayed on their own page.",
             },
         },
-        chromatic: {disableSnapshot: false},
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
     args: {
         reviewMode: false,
