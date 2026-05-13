@@ -1,4 +1,5 @@
 import * as React from "react";
+import {isEqual} from "underscore";
 
 import {usePreviewController} from "./preview/use-preview-controller";
 
@@ -46,6 +47,11 @@ function PreviewWithIframe(props: Props) {
 
     const {sendData, height} = usePreviewController(iframeRef);
 
+    // NOTE: The `props.content` is an object and will trigger a re-render of
+    // this component any time its identity changes (regardless of whether it
+    // _actually_ changed). This matches previous behavior from the old
+    // IframeContentRenderer. If performance becomes an issue, we can look at
+    // using React.memo() on this component or some other performance fix.
     React.useEffect(() => {
         sendData(props.content);
     }, [sendData, props.content]);
