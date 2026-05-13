@@ -92,6 +92,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -131,6 +139,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -202,6 +218,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -246,6 +270,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -310,6 +342,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -349,6 +389,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -430,6 +478,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -486,6 +542,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -552,6 +616,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -593,6 +665,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -658,6 +738,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -698,6 +786,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -767,6 +863,14 @@ describe("Grapher widget", () => {
                             earned: 1,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 1,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });
@@ -811,6 +915,14 @@ describe("Grapher widget", () => {
                             earned: 0,
                             total: 1,
                             message: null,
+                            widgetScores: {
+                                "grapher 1": {
+                                    type: "points",
+                                    earned: 0,
+                                    total: 1,
+                                    message: null,
+                                },
+                            },
                         });
                     });
                 });

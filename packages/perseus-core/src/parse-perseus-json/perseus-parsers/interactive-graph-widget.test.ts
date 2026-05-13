@@ -68,6 +68,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -94,6 +95,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -125,6 +127,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -151,6 +154,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -182,6 +186,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -211,6 +216,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -266,6 +272,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },
@@ -292,6 +299,7 @@ describe("parseInteractiveGraphWidget", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     correct: {
                         type: "linear",
                     },

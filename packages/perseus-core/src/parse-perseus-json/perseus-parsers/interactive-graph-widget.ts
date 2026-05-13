@@ -331,6 +331,16 @@ export const parseInteractiveGraphWidget = parseWidget(
                 yMax: true,
             }),
         ),
+        showAxisTicks: defaulted(
+            object({
+                x: boolean,
+                y: boolean,
+            }),
+            () => ({
+                x: true,
+                y: true,
+            }),
+        ),
         // NOTE(benchristel): I copied the default graph from
         // interactive-graph.tsx. See the parse-perseus-json/README.md for
         // an explanation of why we want to duplicate the default here.

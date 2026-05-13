@@ -47,6 +47,11 @@ export type ShowAxisArrows = {
     yMax: boolean;
 };
 
+export type ShowAxisTicks = {
+    x: boolean;
+    y: boolean;
+};
+
 /**
  * A utility type that constructs a widget map from a "registry interface".
  * The keys of the registry should be the widget type (aka, "categorizer" or
@@ -925,6 +930,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labelLocation?: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /** Whether to show the Protractor tool overlayed on top of the graph */
     showProtractor: boolean;
     /**
@@ -975,24 +984,24 @@ export type PerseusInteractiveGraphWidgetOptions = {
 
 export const lockedFigureColorNames = [
     "blue",
+    "gold",
     "green",
     "grayH",
     "purple",
     "pink",
-    "orange",
     "red",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
-    blue: "#3D7586",
-    green: "#447A53",
-    grayH: "#3B3D45",
-    purple: "#594094",
-    pink: "#B25071",
-    red: "#D92916",
-    orange: "#946700",
+    blue: "var(--wb-semanticColor-learning-math-foreground-blue)",
+    gold: "var(--wb-semanticColor-learning-math-foreground-gold)",
+    grayH: "var(--wb-semanticColor-learning-math-foreground-grayH)",
+    green: "var(--wb-semanticColor-learning-math-foreground-green)",
+    pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
+    purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
+    red: "var(--wb-semanticColor-learning-math-foreground-red)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";

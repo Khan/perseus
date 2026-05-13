@@ -161,7 +161,7 @@ const XGridTick = ({
 };
 
 export const AxisTicks = () => {
-    const {tickStep, range} = useGraphConfig();
+    const {tickStep, range, showAxisTicks} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     const [xTickStep, yTickStep] = tickStep;
 
@@ -171,36 +171,40 @@ export const AxisTicks = () => {
 
     return (
         <g className="axis-ticks" role="presentation">
-            <g className="y-axis-ticks">
-                {yGridTicks.map((y) => {
-                    return (
-                        <YGridTick
-                            y={y}
-                            key={`y-grid-tick-${y}`}
-                            range={range}
-                            tickStep={tickStep[Y]}
-                            // Show the tick labels as multiples of pi
-                            // if the tick step is a multiple of pi.
-                            showPi={tickStep[Y] % Math.PI === 0}
-                        />
-                    );
-                })}
-            </g>
-            <g className="x-axis-ticks">
-                {xGridTicks.map((x) => {
-                    return (
-                        <XGridTick
-                            x={x}
-                            key={`x-grid-tick-${x}`}
-                            range={range}
-                            tickStep={tickStep[X]}
-                            // Show the tick labels as multiples of pi
-                            // if the tick step is a multiple of pi.
-                            showPi={tickStep[X] % Math.PI === 0}
-                        />
-                    );
-                })}
-            </g>
+            {showAxisTicks.y && (
+                <g className="y-axis-ticks">
+                    {yGridTicks.map((y) => {
+                        return (
+                            <YGridTick
+                                y={y}
+                                key={`y-grid-tick-${y}`}
+                                range={range}
+                                tickStep={tickStep[Y]}
+                                // Show the tick labels as multiples of pi
+                                // if the tick step is a multiple of pi.
+                                showPi={tickStep[Y] % Math.PI === 0}
+                            />
+                        );
+                    })}
+                </g>
+            )}
+            {showAxisTicks.x && (
+                <g className="x-axis-ticks">
+                    {xGridTicks.map((x) => {
+                        return (
+                            <XGridTick
+                                x={x}
+                                key={`x-grid-tick-${x}`}
+                                range={range}
+                                tickStep={tickStep[X]}
+                                // Show the tick labels as multiples of pi
+                                // if the tick step is a multiple of pi.
+                                showPi={tickStep[X] % Math.PI === 0}
+                            />
+                        );
+                    })}
+                </g>
+            )}
         </g>
     );
 };

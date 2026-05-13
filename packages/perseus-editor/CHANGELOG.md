@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 32.0.0
+
+### Major Changes
+
+-   [#3569](https://github.com/Khan/perseus/pull/3569) [`1bacc63937`](https://github.com/Khan/perseus/commit/1bacc639372cb7f7946a073a537d01af8c5c81c7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Narrow the type of `linterContext` on the preview-bridge message types to just `contentType` and `highlightLint` (removing `paths` and corresponding `contentPaths` prop from `EditorPage`, `ArticleEditor`, and `HintEditor`). The receiving side already builds the rest of the linter context via `pushContextStack`.
+
+### Minor Changes
+
+-   [#3578](https://github.com/Khan/perseus/pull/3578) [`1f0b3084e3`](https://github.com/Khan/perseus/commit/1f0b3084e3c4c1ae21798995c09c5e5ddf6685d4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add `PreviewWithIframe` (to replace legacy `IframeContentRenderer`), a new functional component that uses the typed `usePreviewController` postMessage protocol.
+
+### Patch Changes
+
+-   [#3596](https://github.com/Khan/perseus/pull/3596) [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Update color and font styles to use semantic tokens in Interactive Graph
+
+*   [#3627](https://github.com/Khan/perseus/pull/3627) [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump peer-dependency ranges for Wonder Blocks packages to match the latest versions synced from `khan/frontend`.
+
+*   Updated dependencies [[`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224), [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34), [`ddc5eb2741`](https://github.com/Khan/perseus/commit/ddc5eb2741d008714297fbb7f3e210e192120650), [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5)]:
+    -   @khanacademy/perseus-score@8.10.0
+    -   @khanacademy/perseus-core@26.3.0
+    -   @khanacademy/perseus@77.6.1
+    -   @khanacademy/math-input@26.4.24
+    -   @khanacademy/keypad-context@3.2.52
+    -   @khanacademy/kmath@2.4.10
+    -   @khanacademy/perseus-linter@5.0.7
+
+## 31.3.0
+
+### Minor Changes
+
+-   [#3601](https://github.com/Khan/perseus/pull/3601) [`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for showAxisTicks so content creators are able to toggle axes/numbers in InteractiveGraph
+
+### Patch Changes
+
+-   Updated dependencies [[`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4)]:
+    -   @khanacademy/perseus@77.6.0
+    -   @khanacademy/perseus-core@26.2.0
+    -   @khanacademy/keypad-context@3.2.51
+    -   @khanacademy/kmath@2.4.9
+    -   @khanacademy/math-input@26.4.23
+    -   @khanacademy/perseus-linter@5.0.6
+    -   @khanacademy/perseus-score@8.9.2
+
 ## 31.2.4
 
 ### Patch Changes

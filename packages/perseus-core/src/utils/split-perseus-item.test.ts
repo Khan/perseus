@@ -406,6 +406,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -439,6 +440,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {
