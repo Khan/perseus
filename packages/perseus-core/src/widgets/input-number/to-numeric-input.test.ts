@@ -60,7 +60,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers[0].maxError).toBe(0);
-    })
+    });
 
     it("sets maxError to 0 when inexact is undefined", () => {
         const options: PerseusInputNumberWidgetOptions = {
@@ -72,7 +72,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers[0].maxError).toBe(0);
-    })
+    });
 
     it(`converts the "number" answer type to [integer, decimal, proper, improper, mixed]`, () => {
         const options: PerseusInputNumberWidgetOptions = {

@@ -48,7 +48,9 @@ export function convertInputNumberOptionsToNumericInput(
     };
 }
 
-function getMaxError(inputNumberOptions: PerseusInputNumberWidgetOptions): number | undefined {
+function getMaxError(
+    inputNumberOptions: PerseusInputNumberWidgetOptions,
+): number | undefined {
     if (!inputNumberOptions.inexact) {
         return 0;
     }
