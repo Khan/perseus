@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 26.2.0
+
+### Minor Changes
+
+-   [#3601](https://github.com/Khan/perseus/pull/3601) [`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for showAxisTicks so content creators are able to toggle axes/numbers in InteractiveGraph
+
 ## 26.1.1
 
 ### Patch Changes
