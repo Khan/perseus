@@ -7,6 +7,7 @@ import {
 import * as React from "react";
 
 import {ServerItemRenderer} from "../../server-item-renderer";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 
 import type {APIOptions} from "../../types";
@@ -50,6 +51,43 @@ export const radioRendererDecorator: Decorator = (
             reviewMode={parameters?.showSolutions === "all"}
             showSolutions={parameters?.showSolutions}
             dependencies={testDependenciesV2}
+        />
+    );
+};
+
+export const radioRendererDecoratorWithDebugUI: Decorator = (
+    _,
+    {
+        args,
+        parameters,
+    }: {
+        args: Partial<RadioDefaultWidgetOptions>;
+        parameters?: {
+            apiOptions?: APIOptions;
+            showSolutions?: "all" | "none" | "selected";
+            content?: string;
+            images?: Record<string, PerseusImageDetail>;
+        };
+    },
+) => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: parameters?.content ?? "[[☃ radio 1]]",
+                    images: parameters?.images,
+                    widgets: {
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
+                                ...args,
+                            }),
+                        }),
+                    },
+                }),
+            })}
+            apiOptions={parameters?.apiOptions}
+            reviewMode={parameters?.showSolutions === "all"}
+            showSolutions={parameters?.showSolutions}
         />
     );
 };

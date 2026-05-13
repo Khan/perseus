@@ -4,7 +4,6 @@ import {
     generateRadioWidget,
     generateRadioOptions,
     generateRadioChoice,
-    generateSimpleRadioItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -12,23 +11,36 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {radioRendererDecoratorWithDebugUI} from "../../__testutils__/radio-renderer-decorator";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
-import {choicesWithMathFont, question} from "../__tests__/radio.testdata";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react-vite";
+import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type StoryArgs = {
-    // Story Option
-    item: PerseusItem;
-} & Pick<
-    React.ComponentProps<typeof ServerItemRendererWithDebugUI>,
-    "reviewMode" | "showSolutions"
->;
+const choicesWithMathFont = (options?: {
+    multipleSelect: boolean;
+}): PerseusRadioWidgetOptions => {
+    return {
+        multipleSelect: options?.multipleSelect ?? false,
+        choices: [
+            generateRadioChoice(
+                "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
+            ),
+            generateRadioChoice(
+                "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
+            ),
+            generateRadioChoice(
+                "Only $8$ satisfies the equation $\\sqrt{64}=x$",
+            ),
+            generateRadioChoice(
+                "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
+            ),
+        ],
+    };
+};
 
-export default {
+const meta: Meta<PerseusRadioWidgetOptions> = {
     title: "Widgets/Radio/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -39,35 +51,96 @@ export default {
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
-    args: {
-        reviewMode: false,
-        showSolutions: "none",
-        item: generateTestPerseusItem({
-            question: question,
-        }),
-    } satisfies StoryArgs,
-    argTypes: {
-        showSolutions: {
-            options: ["none", "all", "selected"],
-            control: {
-                type: "select",
-            },
-        },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const ChoiceTextColorInSingleSelect: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: choicesWithMathFont(),
+    parameters: {
+        content:
+            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
     },
-    render: (args: StoryArgs) => (
-        <ServerItemRendererWithDebugUI
-            item={{...args.item}}
-            reviewMode={args.reviewMode}
-            showSolutions={args.showSolutions}
-        />
-    ),
-} satisfies Meta<StoryArgs>;
+    play: async ({canvas, userEvent}) => {
+        const choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+        choiceToClick.blur();
+    },
+};
+
+export const ChoiceTextColorInMultipleSelect: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: choicesWithMathFont({multipleSelect: true}),
+    play: async ({canvas, userEvent}) => {
+        let choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+        choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice D\)/,
+        });
+        await userEvent.click(choiceToClick);
+        choiceToClick.blur();
+    },
+};
+
+export const FocusSingleSelect: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        choices: [
+            generateRadioChoice("Choice 1", {
+                correct: true,
+            }),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4"),
+        ],
+    },
+    play: async ({canvas}) => {
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        choiceToFocus.focus();
+    },
+};
+
+export const FocusMultiSelect: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {correct: true}),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4"),
+        ],
+    },
+    play: async ({canvas}) => {
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice B\)/,
+        });
+        choiceToFocus.focus();
+    },
+};
+
+/* The following stories don't use the Radio args, beacuse they are not
+   directly rendered Radio widgets. These are examples of other environments
+   that Radio can be rendered within. */
 
 export const GradedGroupWrapper = {
-    args: {
-        item: generateTestPerseusItem({
-            question: groupedRadioRationaleQuestion,
-        }),
+    render: function Render() {
+        return (
+            <ServerItemRendererWithDebugUI
+                item={generateTestPerseusItem({
+                    question: groupedRadioRationaleQuestion,
+                })}
+            />
+        );
     },
     play: async ({canvas, userEvent}) => {
         const choiceToClick = canvas.getByRole("button", {
@@ -82,110 +155,40 @@ export const GradedGroupWrapper = {
     },
 };
 
-export const ChoiceTextColorInSingleSelect = {
-    args: {
-        item: generateTestPerseusItem({
-            question: choicesWithMathFont(),
-        }),
-    },
-    play: async ({canvas, userEvent}) => {
-        const choiceToClick = canvas.getByRole("button", {
-            name: /^\(Choice A\)/,
-        });
-        await userEvent.click(choiceToClick);
-        choiceToClick.blur();
-    },
-};
-
-export const ChoiceTextColorInMultipleSelect = {
-    args: {
-        item: generateTestPerseusItem({
-            question: choicesWithMathFont({multipleSelect: true}),
-        }),
-    },
-    play: async ({canvas, userEvent}) => {
-        let choiceToClick = canvas.getByRole("button", {
-            name: /^\(Choice A\)/,
-        });
-        await userEvent.click(choiceToClick);
-        choiceToClick = canvas.getByRole("button", {
-            name: /^\(Choice D\)/,
-        });
-        await userEvent.click(choiceToClick);
-        choiceToClick.blur();
-    },
-};
-
-export const ChoiceTextColorInArticle = (): React.ReactNode => {
-    const question = generateTestPerseusRenderer({
-        content:
-            "Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Force fields have been established on all turbo lifts and crawlways. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod. The bomb had a molecular-decay detonator. Detecting some unusual fluctuations in subspace frequencies.\n\n" +
-            "We're acquainted with the wormhole phenomenon, but this... Is a remarkable piece of bio-electronic engineering by which I see much of the EM spectrum ranging from heat and infrared through radio waves, et cetera, and forgive me if I've said and listened to this a thousand times. This planet's interior heat provides an abundance of geothermal energy. We need to neutralize the homing signal.\n\n" +
-            "A level-two diagnostic was ordered for what system?\n\n[[☃ radio 1]]",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    choices: [
-                        generateRadioChoice("Antimatter containment"),
-                        generateRadioChoice("Warp drive", {correct: true}),
-                        generateRadioChoice("Force fields"),
-                        generateRadioChoice("Reflector dish"),
-                    ],
-                }),
-            }),
-        },
-    });
-    return (
-        <ArticleRenderer
-            json={question}
-            dependencies={storybookDependenciesV2}
-        />
-    );
-};
-ChoiceTextColorInArticle.play = async ({canvas}) => {
-    const choiceToToggle = canvas.getByRole("button", {
-        name: /Warp drive$/,
-    });
-    choiceToToggle.click();
-};
-
-export const FocusSingleSelect = {
-    args: {
-        item: generateSimpleRadioItem({
-            choices: [
-                generateRadioChoice("Choice 1", {
-                    correct: true,
-                }),
-                generateRadioChoice("Choice 2"),
-                generateRadioChoice("Choice 3"),
-                generateRadioChoice("Choice 4"),
-            ],
-        }),
+export const ChoiceTextColorInArticle = {
+    render: function Render() {
+        return (
+            <ArticleRenderer
+                json={generateTestPerseusRenderer({
+                    content:
+                        "Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Force fields have been established on all turbo lifts and crawlways. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod. The bomb had a molecular-decay detonator. Detecting some unusual fluctuations in subspace frequencies.\n\n" +
+                        "We're acquainted with the wormhole phenomenon, but this... Is a remarkable piece of bio-electronic engineering by which I see much of the EM spectrum ranging from heat and infrared through radio waves, et cetera, and forgive me if I've said and listened to this a thousand times. This planet's interior heat provides an abundance of geothermal energy. We need to neutralize the homing signal.\n\n" +
+                        "A level-two diagnostic was ordered for what system?\n\n[[☃ radio 1]]",
+                    widgets: {
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
+                                choices: [
+                                    generateRadioChoice(
+                                        "Antimatter containment",
+                                    ),
+                                    generateRadioChoice("Warp drive", {
+                                        correct: true,
+                                    }),
+                                    generateRadioChoice("Force fields"),
+                                    generateRadioChoice("Reflector dish"),
+                                ],
+                            }),
+                        }),
+                    },
+                })}
+                dependencies={storybookDependenciesV2}
+            />
+        );
     },
     play: async ({canvas}) => {
-        const choiceToFocus = canvas.getByRole("button", {
-            name: /^\(Choice A\)/,
+        const choiceToToggle = canvas.getByRole("button", {
+            name: /Warp drive$/,
         });
-        choiceToFocus.focus();
-    },
-};
-
-export const FocusMultiSelect = {
-    args: {
-        item: generateSimpleRadioItem({
-            multipleSelect: true,
-            choices: [
-                generateRadioChoice("Choice 1", {correct: true}),
-                generateRadioChoice("Choice 2"),
-                generateRadioChoice("Choice 3"),
-                generateRadioChoice("Choice 4"),
-            ],
-        }),
-    },
-    play: async ({canvas}) => {
-        const choiceToFocus = canvas.getByRole("button", {
-            name: /^\(Choice B\)/,
-        });
-        choiceToFocus.focus();
+        choiceToToggle.click();
     },
 };
