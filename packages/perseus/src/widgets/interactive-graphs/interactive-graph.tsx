@@ -24,6 +24,7 @@ import type {
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
     ShowAxisArrows,
+    ShowAxisTicks,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -117,6 +118,10 @@ type InteractiveGraphProps = {
      */
     showAxisArrows: ShowAxisArrows;
     /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
+    /**
      * The type of graph
      */
     graph: PerseusGraphType;
@@ -149,6 +154,7 @@ type DefaultProps = {
     labelLocation: Props["labelLocation"];
     range: Props["range"];
     showAxisArrows: Props["showAxisArrows"];
+    showAxisTicks: Props["showAxisTicks"];
     step: Props["step"];
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
@@ -196,6 +202,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
         step: [1, 1],
         backgroundImage: defaultBackgroundImage,
         markings: "graph",

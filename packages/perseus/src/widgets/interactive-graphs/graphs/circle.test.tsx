@@ -54,6 +54,7 @@ const baseGraphConfigContext: GraphConfig = {
         yMin: true,
         yMax: true,
     },
+    showAxisTicks: {x: true, y: true},
 };
 
 describe("Circle graph", () => {

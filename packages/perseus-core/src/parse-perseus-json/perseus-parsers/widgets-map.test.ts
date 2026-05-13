@@ -238,6 +238,7 @@ describe("parseWidgetsMap", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                 },
             },
         };

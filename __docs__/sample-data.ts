@@ -21,6 +21,7 @@ export const graphExample: PerseusRenderer = {
                     yMin: true,
                     yMax: true,
                 },
+                showAxisTicks: {x: true, y: true},
                 lockedFigures: [
                     {
                         type: "point",
