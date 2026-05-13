@@ -838,7 +838,7 @@ describe("combineScoreWithWidgetScores", () => {
         });
     });
 
-    it("should omit points scores overall score is invalid", () => {
+    it("should omit points scores when overall score is invalid", () => {
         const score = combineScoreWithWidgetScores(
             {type: "invalid", message: "SOME_ERROR_CODE"},
             {
