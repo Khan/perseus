@@ -36,7 +36,6 @@ export type PreviewWithIframeRef = {
 
 const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
     (props, ref) => {
-        const containerRef = React.useRef<HTMLDivElement>(null);
         const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
         const {sendData, height} = usePreviewController(iframeRef);
@@ -61,24 +60,18 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
         }
 
         return (
-            <div
-                ref={containerRef}
-                data-testid="preview-with-iframe-container"
+            <iframe
+                ref={iframeRef}
+                title={`perseus-preview`}
+                data-mobile={props.isMobile ? "true" : "false"}
+                // The seamless prop is the same as the "nochrome" prop that
+                // gets passed to DeviceFramer. If it is set, then we're going
+                // to be displaying editor previews and want to leave some room
+                // for lint indicators in the right margin.
+                data-lint-gutter={props.seamless ? "true" : "false"}
                 style={{width: "100%", height: containerHeight}}
-            >
-                <iframe
-                    ref={iframeRef}
-                    title={`perseus-preview`}
-                    data-mobile={props.isMobile ? "true" : "false"}
-                    // The seamless prop is the same as the "nochrome" prop that
-                    // gets passed to DeviceFramer. If it is set, then we're going
-                    // to be displaying editor previews and want to leave some room
-                    // for lint indicators in the right margin.
-                    data-lint-gutter={props.seamless ? "true" : "false"}
-                    style={{width: "100%", height: "100%"}}
-                    src={props.url}
-                />
-            </div>
+                src={props.url}
+            />
         );
     },
 );

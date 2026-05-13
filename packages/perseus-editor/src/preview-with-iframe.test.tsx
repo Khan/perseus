@@ -113,8 +113,8 @@ describe("PreviewWithIframe", () => {
             />,
         );
 
-        const div = screen.getByTestId("preview-with-iframe-container");
-        expect(div.style.height).toBe("100%");
+        const container = screen.getByTitle(/perseus-preview/);
+        expect(container.style.height).toBe("100%");
     });
 
     it("sets container height from usePreviewController when seamless is true", () => {
@@ -128,7 +128,7 @@ describe("PreviewWithIframe", () => {
             />,
         );
 
-        const div = screen.getByTestId("preview-with-iframe-container");
-        expect(div.style.height).toBe("500px");
+        const container = screen.getByTitle(/perseus-preview/);
+        expect(container.style.height).toBe("500px");
     });
 });
