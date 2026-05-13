@@ -519,12 +519,6 @@ function doMovePoint(
                     index: action.index,
                     newValue: snappedPoint,
                 }),
-                stateAnnouncement: {
-                    type: "move-point",
-                    pointIndex: action.index,
-                    x: snappedPoint[X],
-                    y: snappedPoint[Y],
-                },
             };
         }
         case "sinusoid": {

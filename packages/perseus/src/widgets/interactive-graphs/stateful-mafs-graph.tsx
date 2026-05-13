@@ -98,7 +98,7 @@ export const StatefulMafsGraph = React.forwardRef<
                 });
                 break;
         }
-        announceMessage({message, debounceThreshold: 150});
+        announceMessage({message});
     }, [state.stateAnnouncement, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
