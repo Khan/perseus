@@ -8,7 +8,10 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {radioRendererDecorator} from "../../__testutils__/radio-renderer-decorator";
-import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
+import {
+    narrowViewportDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 import {
     choicesWithGraphieArgs,
     choicesWithGraphieContent,
@@ -27,7 +30,6 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<PerseusRadioWidgetOptions> = {
     title: "Widgets/Radio/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
-    decorators: [radioRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -46,6 +48,7 @@ type Story = StoryObj<typeof meta>;
 // Single Selection Mode
 
 export const SingleSelect: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice("Choice 1", {
@@ -59,6 +62,7 @@ export const SingleSelect: Story = {
 };
 
 export const SingleSelectWithNoneOfTheAbove: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         hasNoneOfTheAbove: true,
         choices: [
@@ -75,6 +79,7 @@ export const SingleSelectWithNoneOfTheAbove: Story = {
 };
 
 export const SingleSelectShowSolutions: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice("Choice 1"),
@@ -93,6 +98,7 @@ export const SingleSelectShowSolutions: Story = {
 };
 
 export const SingleSelectRTL: Story = {
+    decorators: [radioRendererDecorator, rtlDecorator],
     args: {
         choices: [
             generateRadioChoice("Choice 1", {
@@ -103,12 +109,10 @@ export const SingleSelectRTL: Story = {
             generateRadioChoice("Choice 4"),
         ],
     },
-    parameters: {
-        rtl: true,
-    },
 };
 
 export const SingleSelectWithRationale = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice("USS Voyager (NCC-74656)", {
@@ -140,10 +144,12 @@ export const SingleSelectWithRationale = {
 };
 
 export const SingleSelectWithImages: Story = {
+    decorators: [radioRendererDecorator],
     args: choicesWithImagesArgs,
 };
 
 export const SingleSelectWithImagesAndScroll: Story = {
+    decorators: [radioRendererDecorator, narrowViewportDecorator],
     args: {
         choices: [
             generateRadioChoice(
@@ -161,10 +167,10 @@ export const SingleSelectWithImagesAndScroll: Story = {
     parameters: {
         content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
     },
-    decorators: [narrowViewportDecorator],
 };
 
 export const SingleSelectWithLongMathjax: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice(
@@ -179,6 +185,7 @@ export const SingleSelectWithLongMathjax: Story = {
 };
 
 export const SingleSelectWithLongText: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice(
@@ -199,6 +206,7 @@ export const SingleSelectWithLongText: Story = {
 };
 
 export const SingleSelectWithGraphie = {
+    decorators: [radioRendererDecorator],
     args: choicesWithGraphieArgs,
     parameters: {
         content: choicesWithGraphieContent,
@@ -210,6 +218,7 @@ export const SingleSelectWithGraphie = {
 // content render with the legacy 1px border. Provides coverage for the
 // hardcoded border color when it is later replaced by a semantic token.
 export const SingleSelectWithTable: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         choices: [
             generateRadioChoice(
@@ -229,6 +238,7 @@ export const SingleSelectWithTable: Story = {
 // Multi Selection Mode
 
 export const MultiSelect: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -243,6 +253,7 @@ export const MultiSelect: Story = {
 };
 
 export const MultiSelectCountChoices: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
         countChoices: true,
@@ -261,6 +272,7 @@ export const MultiSelectCountChoices: Story = {
 };
 
 export const MultiSelectShowSolutions: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -283,6 +295,7 @@ export const MultiSelectShowSolutions: Story = {
 };
 
 export const MultiSelectRTL: Story = {
+    decorators: [radioRendererDecorator, rtlDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -296,12 +309,10 @@ export const MultiSelectRTL: Story = {
             generateRadioChoice("Choice 4"),
         ],
     },
-    parameters: {
-        rtl: true,
-    },
 };
 
 export const MultiSelectWithLongMathjax: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -319,6 +330,7 @@ export const MultiSelectWithLongMathjax: Story = {
 };
 
 export const MultiSelectWithImagesAndScroll: Story = {
+    decorators: [radioRendererDecorator, narrowViewportDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -338,10 +350,10 @@ export const MultiSelectWithImagesAndScroll: Story = {
     parameters: {
         content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
     },
-    decorators: [narrowViewportDecorator],
 };
 
 export const MultiSelectWithLongText: Story = {
+    decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
         choices: [
@@ -367,7 +379,7 @@ export const MultiSelectWithLongText: Story = {
 
 // This is not using Radio args, since it's actually rendering a GradedGroupSet
 // that's rendering nested Radio widgets.
-export const GradedGroupSetWithScroll = {
+export const GradedGroupSetWithScroll: Story = {
     render: function Render() {
         return (
             <ServerItemRenderer

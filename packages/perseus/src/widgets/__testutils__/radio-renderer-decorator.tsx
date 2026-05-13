@@ -28,31 +28,28 @@ export const radioRendererDecorator: Decorator = (
             showSolutions?: "all" | "none" | "selected";
             content?: string;
             images?: Record<string, PerseusImageDetail>;
-            rtl?: boolean;
         };
     },
 ) => {
     return (
-        <div dir={parameters?.rtl ? "rtl" : "ltr"}>
-            <ServerItemRenderer
-                item={generateTestPerseusItem({
-                    question: generateTestPerseusRenderer({
-                        content: parameters?.content ?? "[[☃ radio 1]]",
-                        images: parameters?.images,
-                        widgets: {
-                            "radio 1": generateRadioWidget({
-                                options: generateRadioOptions({
-                                    ...args,
-                                }),
+        <ServerItemRenderer
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: parameters?.content ?? "[[☃ radio 1]]",
+                    images: parameters?.images,
+                    widgets: {
+                        "radio 1": generateRadioWidget({
+                            options: generateRadioOptions({
+                                ...args,
                             }),
-                        },
-                    }),
-                })}
-                apiOptions={parameters?.apiOptions}
-                reviewMode={parameters?.showSolutions === "all"}
-                showSolutions={parameters?.showSolutions}
-                dependencies={testDependenciesV2}
-            />
-        </div>
+                        }),
+                    },
+                }),
+            })}
+            apiOptions={parameters?.apiOptions}
+            reviewMode={parameters?.showSolutions === "all"}
+            showSolutions={parameters?.showSolutions}
+            dependencies={testDependenciesV2}
+        />
     );
 };
