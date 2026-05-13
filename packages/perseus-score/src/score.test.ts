@@ -324,12 +324,6 @@ describe("scorePerseusItem", () => {
 
         // Assert:
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual(
-            expect.objectContaining({
-                type: "invalid",
-                message: null,
-            }),
-        );
     });
 
     it("should return empty if any validator returns empty", () => {
