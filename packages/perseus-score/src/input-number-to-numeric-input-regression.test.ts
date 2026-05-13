@@ -1,3 +1,5 @@
+import {describe, expect, test} from "@jest/globals";
+
 import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 
 import {
@@ -18,7 +20,7 @@ interface TestCase {
 // - `pbpaste | jq '.jsonPayload.metadata | {userInput: .inputNumberUserInputs, widgets: .inputNumberWidgets}'`
 const cases: TestCase[] = [
     {
-        title: "when inexact: false",
+        title: "when inexact = false",
         userInput: {
             "input-number 1": {
                 currentValue: "6.336",
@@ -68,10 +70,40 @@ const cases: TestCase[] = [
             },
         },
     },
+    {
+        title: "when inexact = false and the correct answer has more than 9 decimal places",
+        userInput: {
+            "input-number 1": {
+                currentValue: "1.123456789",
+            },
+        },
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+                static: false,
+                alignment: "default",
+                options: {
+                    rightAlign: false,
+                    maxError: 0.1,
+                    size: "normal",
+                    inexact: false,
+                    simplify: "required",
+                    // rounds to 1.123456789
+                    value: 1.1234567885,
+                    answerType: "number",
+                },
+                graded: true,
+            },
+        },
+    },
 ];
 
 describe("scoring with input-number converted to numeric-input", () => {
-    it.each(cases)("$title", ({widgets, userInput}) => {
+    test.each(cases)("$title", ({widgets, userInput}) => {
         const content = Object.keys(widgets)
             .map((id) => `[[\u2603 ${id}]]`)
             .join("");
