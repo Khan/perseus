@@ -92,7 +92,6 @@ describe("PreviewWithIframe", () => {
             data: {
                 item: {
                     question: {content: "Q", widgets: {}, images: {}},
-                    answerArea: {calculator: false} as any,
                     hints: [],
                 },
                 apiOptions: {},
@@ -124,7 +123,6 @@ describe("PreviewWithIframe", () => {
             data: {
                 item: {
                     question: {content: "Q", widgets: {}, images: {}},
-                    answerArea: {calculator: false} as any,
                     hints: [],
                 },
                 apiOptions: {},
