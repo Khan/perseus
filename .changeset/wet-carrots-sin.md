@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-[ColorSync] Update Radio widget stories to use best practices
+[ColorSync] Update Radio widget regression stories to use best practices
