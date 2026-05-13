@@ -18,7 +18,7 @@ interface TestCase {
 // - `pbpaste | jq '.jsonPayload.metadata | {userInput: .inputNumberUserInputs, widgets: .inputNumberWidgets}'`
 const cases: TestCase[] = [
     {
-        title: "???",
+        title: "when inexact: false",
         userInput: {
             "input-number 1": {
                 currentValue: "6.336",
