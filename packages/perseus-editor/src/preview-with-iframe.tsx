@@ -1,5 +1,4 @@
 import * as React from "react";
-import {isEqual} from "underscore";
 
 import {usePreviewController} from "./preview/use-preview-controller";
 
