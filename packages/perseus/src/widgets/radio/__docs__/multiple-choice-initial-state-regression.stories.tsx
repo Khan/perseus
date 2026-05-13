@@ -1,26 +1,30 @@
 import {
-    generateTestPerseusItem,
     generateRadioChoice,
+    generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
+import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
+import {ServerItemRenderer} from "../../../server-item-renderer";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {radioRendererDecorator} from "../../__testutils__/radio-renderer-decorator";
 import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
 import {
-    choicesWithGraphie,
-    choicesWithImages,
+    choicesWithGraphieArgs,
+    choicesWithGraphieContent,
+    choicesWithGraphieImages,
+    choicesWithImagesArgs,
     overflowContentInGradedGroupSet,
-    questionWithRationale,
 } from "../__tests__/radio.testdata";
 
-import type {RadioPublicWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * These are visual regression stories for the radio widget.
  */
 
-const meta: Meta<RadioPublicWidgetOptions> = {
+const meta: Meta<PerseusRadioWidgetOptions> = {
     title: "Widgets/Radio/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     decorators: [radioRendererDecorator],
@@ -106,17 +110,37 @@ export const SingleSelectRTL: Story = {
 
 export const SingleSelectWithRationale = {
     args: {
-        question: questionWithRationale,
+        choices: [
+            generateRadioChoice("USS Voyager (NCC-74656)", {
+                rationale: "Commanded by Captain Kathryn Janeway.",
+            }),
+            generateRadioChoice("USS Enterprise (NCC-1701)", {
+                rationale:
+                    "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
+                    "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
+                    "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
+                    "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
+                    '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
+            }),
+            generateRadioChoice("USS Enterprise (NX-01)", {
+                rationale: "Commanded by Captain Jonathan Archer.",
+            }),
+            generateRadioChoice("USS Stargazer (NCC-2893)", {
+                correct: true,
+                rationale:
+                    "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
+            }),
+        ],
     },
     parameters: {
+        content:
+            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
         showSolutions: "all",
     },
 };
 
 export const SingleSelectWithImages: Story = {
-    args: {
-        question: choicesWithImages,
-    },
+    args: choicesWithImagesArgs,
 };
 
 export const SingleSelectWithImagesAndScroll: Story = {
@@ -175,10 +199,10 @@ export const SingleSelectWithLongText: Story = {
 };
 
 export const SingleSelectWithGraphie = {
-    args: {
-        item: generateTestPerseusItem({
-            question: choicesWithGraphie,
-        }),
+    args: choicesWithGraphieArgs,
+    parameters: {
+        content: choicesWithGraphieContent,
+        images: choicesWithGraphieImages,
     },
 };
 
@@ -341,9 +365,18 @@ export const MultiSelectWithLongText: Story = {
 
 // Other rendering contexts
 
-export const GradedGroupSetWithScroll: Story = {
-    args: {
-        question: overflowContentInGradedGroupSet,
+// This is not using Radio args, since it's actually rendering a GradedGroupSet
+// that's rendering nested Radio widgets.
+export const GradedGroupSetWithScroll = {
+    render: function Render() {
+        return (
+            <ServerItemRenderer
+                item={generateTestPerseusItem({
+                    question: overflowContentInGradedGroupSet,
+                })}
+                dependencies={testDependenciesV2}
+            />
+        );
     },
     decorators: [narrowViewportDecorator],
 };

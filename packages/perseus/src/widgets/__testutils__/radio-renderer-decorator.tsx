@@ -10,7 +10,10 @@ import {ServerItemRenderer} from "../../server-item-renderer";
 import {testDependenciesV2} from "../../testing/test-dependencies";
 
 import type {APIOptions} from "../../types";
-import type {RadioDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusImageDetail,
+    RadioDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
 export const radioRendererDecorator: Decorator = (
@@ -24,6 +27,7 @@ export const radioRendererDecorator: Decorator = (
             apiOptions?: APIOptions;
             showSolutions?: "all" | "none" | "selected";
             content?: string;
+            images?: Record<string, PerseusImageDetail>;
             rtl?: boolean;
         };
     },
@@ -34,6 +38,7 @@ export const radioRendererDecorator: Decorator = (
                 item={generateTestPerseusItem({
                     question: generateTestPerseusRenderer({
                         content: parameters?.content ?? "[[☃ radio 1]]",
+                        images: parameters?.images,
                         widgets: {
                             "radio 1": generateRadioWidget({
                                 options: generateRadioOptions({
