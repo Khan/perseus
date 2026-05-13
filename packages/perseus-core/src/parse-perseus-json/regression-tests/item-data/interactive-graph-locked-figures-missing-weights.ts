@@ -163,7 +163,7 @@ export default {
                             type: "label",
                             coord: [1, -5],
                             text: "Graphs are cool",
-                            color: "orange",
+                            color: "gold",
                             size: "medium",
                         },
                     ],

@@ -1480,7 +1480,7 @@ describe("Interactive Graph", function () {
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {
-                    color: "#3B3D45",
+                    color: lockedFigureColors.grayH,
                     domain: [-2, 3],
                     style: "solid",
                 };
