@@ -86,7 +86,7 @@ describe("PreviewWithIframe", () => {
         },
     );
 
-    it("sends content using usePreviewController's sendData", () => {
+    it("sends data again when the content prop changes", () => {
         const data: PreviewContent = {
             type: "question",
             data: {
