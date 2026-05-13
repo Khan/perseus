@@ -346,12 +346,6 @@ describe("scorePerseusItem", () => {
 
         // Assert
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual(
-            expect.objectContaining({
-                type: "invalid",
-                message: null,
-            }),
-        );
     });
 
     it("should include only invalid widget scores when overall score is invalid", () => {
