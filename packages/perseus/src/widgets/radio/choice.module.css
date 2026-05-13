@@ -199,7 +199,7 @@
 }
 
 .choice table {
-    border: 1px solid #ccc;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 /*************************
