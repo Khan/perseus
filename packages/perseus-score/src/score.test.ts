@@ -596,6 +596,14 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
         );
 
         expect(score).toHaveBeenAnsweredCorrectly();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {
+                type: "points",
+                total: 1,
+                earned: 1,
+                message: null,
+            },
+        });
     });
 
     it("scores an incorrectly-answered input-number widget", () => {
@@ -622,6 +630,14 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
         );
 
         expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {
+                type: "points",
+                total: 1,
+                earned: 0,
+                message: null,
+            },
+        });
     });
 
     it("scores an empty input-number widget", () => {
@@ -648,6 +664,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
         );
 
         expect(score).toHaveInvalidInput();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {type: "invalid", message: null},
+        });
     });
 
     it("ignores an input-number widget that does not have a placeholder in the content string", () => {
@@ -674,6 +693,7 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
         );
 
         expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+        expect(score.widgetScores).toStrictEqual({});
     });
 
     it("ignores an input-number widget that is not graded", () => {
