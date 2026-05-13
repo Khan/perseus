@@ -21,12 +21,18 @@ import {usePreviewController} from "./preview/use-preview-controller";
 import type {PreviewContent} from "./preview/message-types";
 
 type Props = {
-    // The URL that the iframe should load
+    /**
+     * The URL that the iframe should load
+     */
     url: string;
-    // Whether the iframe should be displaying in mobile mode
+    /**
+     * Whether the iframe should be displaying in mobile mode
+     */
     isMobile: boolean;
-    // Whether to make the iframe's height match its content's height,
-    // used to prevent scrolling inside the iframe.
+    /**
+     * Whether to make the iframe's height match its content's height, used to
+     * prevent scrolling inside the iframe.
+     */
     seamless: boolean;
 };
 
@@ -60,12 +66,12 @@ const PreviewWithIframe = React.forwardRef<PreviewWithIframeRef, Props>(
             <iframe
                 ref={iframeRef}
                 title={`perseus-preview`}
-                data-mobile={props.isMobile ? "true" : "false"}
+                data-mobile={String(props.isMobile)}
                 // The seamless prop is the same as the "nochrome" prop that
                 // gets passed to DeviceFramer. If it is set, then we're going
                 // to be displaying editor previews and want to leave some room
                 // for lint indicators in the right margin.
-                data-lint-gutter={props.seamless ? "true" : "false"}
+                data-lint-gutter={String(props.seamless)}
                 style={{width: "100%", height: containerHeight}}
                 src={props.url}
             />
