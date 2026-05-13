@@ -319,7 +319,12 @@ describe("scorePerseusItem", () => {
 
         // Assert:
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual({type: "invalid", message: null});
+        expect(score).toEqual(
+            expect.objectContaining({
+                type: "invalid",
+                message: null,
+            }),
+        );
     });
 
     it("should return empty if any validator returns empty", () => {
@@ -342,7 +347,41 @@ describe("scorePerseusItem", () => {
 
         // Assert
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual({type: "invalid", message: null});
+        expect(score).toEqual(
+            expect.objectContaining({
+                type: "invalid",
+                message: null,
+            }),
+        );
+    });
+
+    it("should include only invalid widget scores when overall score is invalid", () => {
+        // Act
+        const score = scorePerseusItem(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 0},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({
+            type: "invalid",
+            message: null,
+            widgetScores: {
+                "dropdown 1": {type: "invalid", message: null},
+            },
+        });
     });
 
     it("should score item if all validators return null", () => {

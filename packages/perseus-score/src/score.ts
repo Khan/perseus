@@ -6,7 +6,6 @@ import isWidgetScoreable from "./util/is-widget-scoreable";
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
 import type {
-    PerseusItemScore,
     PerseusRenderer,
     PerseusScore,
     PerseusWidgetsMap,
@@ -23,12 +22,23 @@ import type {
  * @param perseusRenderData - the full answer data, includes the correct answer
  * @param userInputMap - the user's input for each widget, mapped by ID
  * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
+ *
+ * @returns The full {@link PerseusScore} as well as widget-level scores which
+ * can be used to analyze which parts of the question the learner got correct
+ * vs. incorrect. When the score result is "invalid", only "invalid" widget
+ * scores are included in `widgetScores`.
  */
 export function scorePerseusItem(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,
     locale: string,
-): PerseusItemScore {
+): PerseusScore & {
+    /**
+     * The per-widget scores, keyed by widget ID, that contributed to the
+     * item's overall score (see the `earned` and `total` fields).
+     */
+    widgetScores: {[widgetId: string]: PerseusScore};
+} {
     const scoreableWidgetIds = getScoreableWidgets(perseusRenderData);
     const widgetScores = scoreWidgetsFunctional(
         perseusRenderData.widgets,
@@ -39,7 +49,17 @@ export function scorePerseusItem(
     const score = flattenScores(widgetScores);
 
     if (score.type === "invalid") {
-        return score;
+        return {
+            ...score,
+            // When the overall item score is invalid, we only return the
+            // per-widget invalid scores. This prevents exposing correctness
+            // information for widgets that were able to be scored.
+            widgetScores: Object.fromEntries(
+                Object.entries(widgetScores).filter(
+                    ([key, value]) => value.type === "invalid",
+                ),
+            ),
+        };
     } else {
         return {...score, widgetScores};
     }

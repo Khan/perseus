@@ -127,47 +127,6 @@ export type PerseusScore =
 export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
 
 /**
- * The result of scoring a Perseus item.
- */
-export type PerseusItemScore =
-    | {
-          /** Indicates the input is not ready to score. */
-          type: "invalid";
-          /**
-           * An error code describing why the item cannot be scored yet, or
-           * null for a generic invalid state.
-           */
-          message?: ErrorCode | null;
-          /** When true, suppresses the "almost there" hint. */
-          suppressAlmostThere?: boolean | null | undefined;
-          // NOTE: We don't reveal widget scores when the overall score is
-          // {type: invalid} so that we don't leak scoring info. If this info
-          // surfaced to the learner's browser, they could take advantage of the
-          // info by leaving the one widget that is invalid in that state and
-          // making multiple attempts on other widgets ({type: invalid} doesn't
-          // count as an attempt, so they'd get free attempts).
-      }
-    | {
-          /**
-           * Indicates the item has been scored and points awarded. The score
-           * is considered "correct" when `earned` >= `total`.
-           */
-          type: "points";
-          /** The number of points the learner earned. */
-          earned: number;
-          /** The total possible points for this item. */
-          total: number;
-          /** An optional feedback message to display alongside the score. */
-          message?: string | null | undefined;
-          /**
-           * The per-widget scores, keyed by widget ID, that were combined to
-           * produce the item's overall score (see the `earned` and `total`
-           * fields).
-           */
-          widgetScores: {[widgetId: string]: PerseusScore};
-      };
-
-/**
  * The outcome status reported by a self-grading widget (CS Program or IFrame)
  * via postMessage.
  */

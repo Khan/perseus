@@ -79,6 +79,12 @@ describe("categorizer widget", () => {
             {
               "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
+              "widgetScores": {
+                "categorizer 1": {
+                  "message": "INVALID_SELECTION_ERROR",
+                  "type": "invalid",
+                },
+              },
             }
         `);
     });
@@ -102,6 +108,12 @@ describe("categorizer widget", () => {
             {
               "message": "INVALID_SELECTION_ERROR",
               "type": "invalid",
+              "widgetScores": {
+                "categorizer 1": {
+                  "message": "INVALID_SELECTION_ERROR",
+                  "type": "invalid",
+                },
+              },
             }
         `);
     });
