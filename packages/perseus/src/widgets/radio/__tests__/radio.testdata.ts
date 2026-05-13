@@ -112,9 +112,11 @@ export const choicesWithImagesArgs: PerseusRadioWidgetOptions = {
     ],
 };
 
+export const choicesWithImagesContent: string =
+    "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]";
+
 export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
-    content:
-        "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
+    content: choicesWithImagesContent,
     widgets: {
         "radio 1": generateRadioWidget({
             options: generateRadioOptions(choicesWithImagesArgs),
@@ -421,34 +423,4 @@ export const choicesWithGraphie: PerseusRenderer = {
         },
     }),
     images: choicesWithGraphieImages,
-};
-
-export const choicesWithMathFont = (options?: {
-    multipleSelect: boolean;
-}): PerseusRenderer => {
-    return generateTestPerseusRenderer({
-        content:
-            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    multipleSelect: options?.multipleSelect ?? false,
-                    choices: [
-                        generateRadioChoice(
-                            "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "Only $8$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                    ],
-                }),
-            }),
-        },
-    });
 };

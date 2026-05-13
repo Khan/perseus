@@ -17,6 +17,7 @@ import {
     choicesWithGraphieContent,
     choicesWithGraphieImages,
     choicesWithImagesArgs,
+    choicesWithImagesContent,
     overflowContentInGradedGroupSet,
 } from "../__tests__/radio.testdata";
 
@@ -146,6 +147,9 @@ export const SingleSelectWithRationale = {
 export const SingleSelectWithImages: Story = {
     decorators: [radioRendererDecorator],
     args: choicesWithImagesArgs,
+    parameters: {
+        content: choicesWithImagesContent,
+    },
 };
 
 export const SingleSelectWithImagesAndScroll: Story = {

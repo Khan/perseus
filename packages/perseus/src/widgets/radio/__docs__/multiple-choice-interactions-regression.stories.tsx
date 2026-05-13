@@ -76,6 +76,10 @@ export const ChoiceTextColorInSingleSelect: Story = {
 export const ChoiceTextColorInMultipleSelect: Story = {
     decorators: [radioRendererDecoratorWithDebugUI],
     args: choicesWithMathFont({multipleSelect: true}),
+    parameters: {
+        content:
+            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+    },
     play: async ({canvas, userEvent}) => {
         let choiceToClick = canvas.getByRole("button", {
             name: /^\(Choice A\)/,
