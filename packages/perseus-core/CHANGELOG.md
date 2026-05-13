@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 26.3.0
+
+### Minor Changes
+
+-   [#3608](https://github.com/Khan/perseus/pull/3608) [`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Expose per-widget scoring results from `scorePerseusItem` via a new `widgetScores` field (which is a map from widget ID to that widget's individual `PerseusScore`).
+
+### Patch Changes
+
+-   [#3596](https://github.com/Khan/perseus/pull/3596) [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Update color and font styles to use semantic tokens in Interactive Graph
+
 ## 26.2.0
 
 ### Minor Changes

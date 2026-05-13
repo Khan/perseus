@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 77.6.1
+
+### Patch Changes
+
+-   [#3596](https://github.com/Khan/perseus/pull/3596) [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Update color and font styles to use semantic tokens in Interactive Graph
+
+*   [#3618](https://github.com/Khan/perseus/pull/3618) [`ddc5eb2741`](https://github.com/Khan/perseus/commit/ddc5eb2741d008714297fbb7f3e210e192120650) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove noisy error log about unbinding event handlers.
+
+-   [#3627](https://github.com/Khan/perseus/pull/3627) [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump peer-dependency ranges for Wonder Blocks packages to match the latest versions synced from `khan/frontend`.
+
+-   Updated dependencies [[`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224), [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34), [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5)]:
+    -   @khanacademy/perseus-score@8.10.0
+    -   @khanacademy/perseus-core@26.3.0
+    -   @khanacademy/math-input@26.4.24
+    -   @khanacademy/keypad-context@3.2.52
+    -   @khanacademy/kmath@2.4.10
+    -   @khanacademy/perseus-linter@5.0.7
+
 ## 77.6.0
 
 ### Minor Changes
