@@ -25,11 +25,6 @@ const mathFormatsForAnswerType: Record<
 export function convertInputNumberOptionsToNumericInput(
     inputNumberOptions: PerseusInputNumberWidgetOptions,
 ): PerseusNumericInputWidgetOptions {
-    const maxError =
-        inputNumberOptions.maxError != null
-            ? Number(inputNumberOptions.maxError)
-            : inputNumberOptions.maxError;
-
     const answerForms: MathFormat[] = inputNumberOptions.answerType
         ? mathFormatsForAnswerType[inputNumberOptions.answerType]
         : ["integer", "proper", "improper", "mixed", "decimal"];
@@ -45,10 +40,22 @@ export function convertInputNumberOptionsToNumericInput(
                 value: Number(inputNumberOptions.value),
                 simplify: inputNumberOptions.simplify,
                 message: "",
-                maxError,
+                maxError: getMaxError(inputNumberOptions),
                 strict: true,
                 answerForms,
             },
         ],
     };
+}
+
+function getMaxError(inputNumberOptions: PerseusInputNumberWidgetOptions): number | undefined {
+    if (!inputNumberOptions.inexact) {
+        return 0;
+    }
+
+    if (inputNumberOptions.maxError == null) {
+        return undefined;
+    }
+
+    return Number(inputNumberOptions.maxError);
 }

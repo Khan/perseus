@@ -11,6 +11,11 @@ interface TestCase {
     widgets: PerseusWidgetsMap;
 }
 
+// NOTE: To add a test case to this list:
+// - Go to https://console.cloud.google.com/logs
+// - Search for "side-by-side" in the Perseus service
+// - select "Copy > Copy as JSON"
+// - `pbpaste | jq '.jsonPayload.metadata | {userInput: .inputNumberUserInputs, widgets: .inputNumberWidgets}'`
 const cases: TestCase[] = [
     {
         title: "???",
