@@ -26,7 +26,6 @@ function buildArticleContent(): PreviewContent {
             linterContext: {
                 contentType: "article",
                 highlightLint: false,
-                stack: [],
             },
         },
     };
@@ -100,7 +99,6 @@ describe("PreviewWithIframe", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             },
         };
@@ -131,7 +129,6 @@ describe("PreviewWithIframe", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             },
         };
