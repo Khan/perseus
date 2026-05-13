@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus-score": major
+"@khanacademy/perseus-score": minor
 "@khanacademy/perseus-core": minor
 ---
 
