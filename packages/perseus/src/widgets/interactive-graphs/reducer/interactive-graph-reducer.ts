@@ -506,10 +506,6 @@ function doMovePoint(
                 coords: newCoords,
             };
         case "point": {
-            const snappedPoint = boundToEdgeAndSnapToGrid(
-                action.destination,
-                state,
-            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -517,7 +513,10 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snappedPoint,
+                    newValue: boundToEdgeAndSnapToGrid(
+                        action.destination,
+                        state,
+                    ),
                 }),
             };
         }
