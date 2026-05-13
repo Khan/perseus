@@ -46,7 +46,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -89,7 +88,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -119,7 +117,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -149,7 +146,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -182,7 +178,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -205,7 +200,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -235,7 +229,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -261,7 +254,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
             const section2: ArticlePreviewData = {
@@ -273,7 +265,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -312,7 +303,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -334,7 +324,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
             const section2: ArticlePreviewData = {
@@ -344,7 +333,6 @@ describe("sanitizePreviewData", () => {
                 linterContext: {
                     contentType: "article",
                     highlightLint: false,
-                    stack: [],
                 },
             };
 
@@ -395,7 +383,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,
-                                    stack: [],
                                 },
                             },
                         };
@@ -410,7 +397,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,
-                                    stack: [],
                                 },
                             },
                         };
@@ -430,7 +416,6 @@ describe("sanitizePreviewData", () => {
                                 linterContext: {
                                     contentType: "article",
                                     highlightLint: false,
-                                    stack: [],
                                 },
                             },
                         };
@@ -451,7 +436,6 @@ describe("sanitizePreviewData", () => {
                                     linterContext: {
                                         contentType: "article",
                                         highlightLint: false,
-                                        stack: [],
                                     },
                                 },
                             ],
