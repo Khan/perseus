@@ -66,3 +66,19 @@ export const NoPadding: Story = {
         layout: "horizontal",
     },
 };
+
+// Verifies TeX rendering in card content. Sortable participates in
+// AssetContext, so the renderer's onRendered waits for MathJax typeset and
+// the post-typeset measurement cascade to settle before Chromatic snapshots
+// — no manual delay required.
+export const WithTeX: Story = {
+    args: {
+        correct: [
+            "$f(x) = \\dfrac{1}{x}$",
+            "$f(x) = \\dfrac{1}{x^2}$",
+            "$f(x) = \\dfrac{1}{x^3}$",
+        ],
+        padding: true,
+        layout: "horizontal",
+    },
+};
