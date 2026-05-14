@@ -91,6 +91,5 @@ export const parseNumericInputWidget = parseWidget(
         size: string,
         coefficient: defaulted(boolean, () => false),
         rightAlign: optional(boolean),
-        static: defaulted(boolean, () => false),
     }),
 );

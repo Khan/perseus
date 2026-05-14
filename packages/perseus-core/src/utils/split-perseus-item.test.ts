@@ -227,7 +227,6 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                     },
                 },
             },

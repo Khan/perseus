@@ -1591,8 +1591,6 @@ export type PerseusNumericInputWidgetOptions = {
     coefficient: boolean;
     /** Whether to right-align the text or not */
     rightAlign?: boolean;
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 export type PerseusNumericInputAnswer = {

@@ -31,7 +31,6 @@ describe("generateNumericInputOptions", () => {
         expect(options.coefficient).toBe(false);
         expect(options.labelText).toBe("");
         expect(options.rightAlign).toBe(false);
-        expect(options.static).toBe(false);
     });
 
     it("builds a numeric input options with all props", () => {
@@ -53,7 +52,6 @@ describe("generateNumericInputOptions", () => {
                 coefficient: true,
                 labelText: "Enter your answer",
                 rightAlign: true,
-                static: true,
             });
 
         // Assert
@@ -72,7 +70,6 @@ describe("generateNumericInputOptions", () => {
         expect(options.coefficient).toBe(true);
         expect(options.labelText).toBe("Enter your answer");
         expect(options.rightAlign).toBe(true);
-        expect(options.static).toBe(true);
     });
 
     it("builds a numeric input options with answer generator default", () => {
@@ -220,7 +217,6 @@ describe("generateNumericInputWidget", () => {
                 coefficient: true,
                 labelText: "Enter your answer",
                 rightAlign: true,
-                static: true,
             },
         });
 

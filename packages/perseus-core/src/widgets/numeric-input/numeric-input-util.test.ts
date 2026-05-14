@@ -21,7 +21,6 @@ describe("getNumericInputPublicWidgetOptions", () => {
             size: "Normal",
             coefficient: false,
             rightAlign: false,
-            static: false,
         };
 
         // Act
