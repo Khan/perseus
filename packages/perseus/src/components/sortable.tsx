@@ -523,7 +523,12 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             this._assetKey,
             context.setAssetStatus,
         );
-        context.setAssetStatus(this._assetKey, false);
+        // markUnsettled (not bare setAssetStatus) so the quiescence timer is
+        // armed at mount. If the Sortable never measures — e.g. an empty
+        // options array skips componentDidUpdate's measure path — the timer
+        // still settles the asset after the quiet window, instead of leaving
+        // it stuck at false and blocking the renderer's onRendered forever.
+        this._assetTracker.markUnsettled();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: SortableProps) {
