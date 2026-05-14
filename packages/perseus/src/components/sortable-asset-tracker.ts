@@ -1,5 +1,7 @@
 type SetAssetStatus = (assetKey: string, status: boolean) => void;
 
+// 50ms covers a typical measure → setState → remeasure cascade without
+// adding noticeable delay to Chromatic snapshots downstream.
 const DEFAULT_QUIET_MS = 50;
 
 export class SortableAssetTracker {
