@@ -14,6 +14,7 @@ import Renderer from "../renderer";
 import Util from "../util";
 
 import {PerseusI18nContext} from "./i18n-context";
+import {SortableAssetTracker} from "./sortable-asset-tracker";
 
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -451,8 +452,6 @@ type SortableState = {
     items: ReadonlyArray<SortableItem>;
     texRendererLoaded: boolean;
 };
-// Quiescence window after the last onMeasure before we report "settled".
-const SORTABLE_SETTLED_MS = 50;
 let sortableInstanceId = 0;
 
 class Sortable extends React.Component<SortableProps, SortableState> {
@@ -472,7 +471,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     };
 
     _assetKey: string = `sortable-${sortableInstanceId++}`;
-    _settledTimer: ReturnType<typeof setTimeout> | null = null;
+    _assetTracker: SortableAssetTracker;
 
     remeasureItems: () => void = _.debounce(() => {
         this.setState({
@@ -520,6 +519,10 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             items: Sortable.itemsFromProps(this.props),
             texRendererLoaded: false,
         };
+        this._assetTracker = new SortableAssetTracker(
+            this._assetKey,
+            context.setAssetStatus,
+        );
         context.setAssetStatus(this._assetKey, false);
     }
 
@@ -564,11 +567,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }
 
     componentWillUnmount() {
-        if (this._settledTimer != null) {
-            clearTimeout(this._settledTimer);
-            this._settledTimer = null;
-        }
-        this.context.setAssetStatus(this._assetKey, true);
+        this._assetTracker.markSettled();
     }
 
     measureItems() {
@@ -622,14 +621,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         this.setState({items}, () => {
             this.props.onMeasure?.({widths: widths, heights: heights});
-            this.context.setAssetStatus(this._assetKey, false);
-            if (this._settledTimer != null) {
-                clearTimeout(this._settledTimer);
-            }
-            this._settledTimer = setTimeout(() => {
-                this._settledTimer = null;
-                this.context.setAssetStatus(this._assetKey, true);
-            }, SORTABLE_SETTLED_MS);
+            this._assetTracker.markUnsettled();
         });
     }
 
