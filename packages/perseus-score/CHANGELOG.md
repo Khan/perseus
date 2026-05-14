@@ -1,5 +1,15 @@
 # @khanacademy/perseus-score
 
+## 8.10.1
+
+### Patch Changes
+
+-   [#3629](https://github.com/Khan/perseus/pull/3629) [`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9) Thanks [@benchristel](https://github.com/benchristel)! - Update input-number to numeric-input conversion logic to acccount for `inexact`. When `inexact` is false or undefined, we now set `maxError` to 0.
+
+-   Updated dependencies [[`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9)]:
+    -   @khanacademy/perseus-core@26.3.1
+    -   @khanacademy/kmath@2.4.11
+
 ## 8.10.0
 
 ### Minor Changes
