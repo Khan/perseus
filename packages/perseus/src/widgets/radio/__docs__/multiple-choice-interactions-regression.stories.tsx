@@ -11,8 +11,9 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {radioRendererDecoratorWithDebugUI} from "../../__testutils__/radio-renderer-decorator";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
+
+import {radioRendererDecoratorWithDebugUI} from "./radio-renderer-decorator";
 
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

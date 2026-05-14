@@ -1,5 +1,6 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {matrixRendererDecorator} from "../../__testutils__/matrix-renderer-decorator";
+
+import {matrixRendererDecorator} from "./matrix-renderer-decorator";
 
 import type {MatrixPublicWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

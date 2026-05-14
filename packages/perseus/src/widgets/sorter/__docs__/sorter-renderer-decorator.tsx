@@ -5,9 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "./question-renderer-for-stories";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions} from "../../../types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 

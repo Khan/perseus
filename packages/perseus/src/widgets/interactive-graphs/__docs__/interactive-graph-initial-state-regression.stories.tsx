@@ -19,8 +19,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {interactiveGraphRendererDecorator} from "../../__testutils__/interactive-graph-renderer-decorator";
 import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
+
+import {interactiveGraphRendererDecorator} from "./interactive-graph-renderer-decorator";
 
 import type {
     LockedFigure,

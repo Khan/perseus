@@ -10,7 +10,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {interactiveGraphRendererDecorator} from "../../__testutils__/interactive-graph-renderer-decorator";
+
+import {interactiveGraphRendererDecorator} from "./interactive-graph-renderer-decorator";
 
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

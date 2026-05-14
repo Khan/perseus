@@ -8,7 +8,6 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
@@ -35,6 +34,8 @@ import {
     graphieImage2,
     graphieImage2Alt,
 } from "../utils";
+
+import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

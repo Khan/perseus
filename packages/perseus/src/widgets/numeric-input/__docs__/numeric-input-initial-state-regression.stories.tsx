@@ -1,5 +1,6 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
+
+import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
 import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
