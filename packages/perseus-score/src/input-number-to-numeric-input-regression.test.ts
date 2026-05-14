@@ -18,6 +18,7 @@ interface TestCase {
 // - Search for "side-by-side" in the Perseus service
 // - select "Copy > Copy as JSON"
 // - `pbpaste | jq '.jsonPayload.metadata | {userInput: .inputNumberUserInputs, widgets: .inputNumberWidgets}'`
+// TODO(LEMS-4085): Delete this test file.
 const cases: TestCase[] = [
     {
         title: "when inexact = false",
