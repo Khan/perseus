@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 77.6.2
+
+### Patch Changes
+
+-   [#3623](https://github.com/Khan/perseus/pull/3623) [`1bb975bd5d`](https://github.com/Khan/perseus/commit/1bb975bd5d0cb145e4f3f4830a343d9a066a67b7) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Convert radio font and colors to semantic tokens
+
+*   [#3632](https://github.com/Khan/perseus/pull/3632) [`90f02b5973`](https://github.com/Khan/perseus/commit/90f02b59734758a12bb5832e09cdecdac86ba136) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Update Radio widget regression stories to use best practices
+
+*   Updated dependencies [[`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9)]:
+    -   @khanacademy/perseus-core@26.3.1
+    -   @khanacademy/perseus-score@8.10.1
+    -   @khanacademy/keypad-context@3.2.53
+    -   @khanacademy/kmath@2.4.11
+    -   @khanacademy/math-input@26.4.25
+    -   @khanacademy/perseus-linter@5.0.8
+
 ## 77.6.1
 
 ### Patch Changes
