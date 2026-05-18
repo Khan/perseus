@@ -33,7 +33,6 @@ export function convertInputNumberOptionsToNumericInput(
         coefficient: false,
         rightAlign: inputNumberOptions.rightAlign,
         size: inputNumberOptions.size,
-        static: false,
         answers: [
             {
                 status: "correct",

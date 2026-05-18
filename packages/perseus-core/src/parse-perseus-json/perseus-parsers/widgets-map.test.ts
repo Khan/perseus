@@ -565,7 +565,6 @@ describe("parseWidgetsMap", () => {
                     labelText: "",
                     size: "",
                     coefficient: false,
-                    static: false,
                 },
             },
         };
