@@ -241,7 +241,6 @@ describe("generateNumericInputWidget", () => {
             coefficient: true,
             labelText: "Enter your answer",
             rightAlign: true,
-            static: true,
         });
     });
 
