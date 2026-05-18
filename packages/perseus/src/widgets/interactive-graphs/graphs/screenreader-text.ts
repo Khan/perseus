@@ -3,7 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
-export function getAnnouncerTextForState(
+export function getAnnouncementText(
     state: InteractiveGraphStateAnnouncement,
     strings: PerseusStrings,
     locale: string,

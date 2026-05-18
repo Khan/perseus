@@ -5,7 +5,7 @@ import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import {getAnnouncerTextForState} from "./graphs/screenreader-text";
+import {getAnnouncementText} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -89,7 +89,7 @@ export const StatefulMafsGraph = React.forwardRef<
         }
 
         announceMessage({
-            message: getAnnouncerTextForState(
+            message: getAnnouncementText(
                 state.stateAnnouncement,
                 strings,
                 locale,
