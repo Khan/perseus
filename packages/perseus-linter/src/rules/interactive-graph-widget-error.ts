@@ -2,6 +2,8 @@ import {vector as kvector} from "@khanacademy/kmath";
 
 import Rule from "../rule";
 
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
+
 // eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "interactive-graph-widget-error",
@@ -25,7 +27,16 @@ export default Rule.makeRule({
         }
 
         const issues: Array<any | string> = [];
-        const {correct, graph, lockedFigures} = widget.options;
+        const widgetOptons: PerseusInteractiveGraphWidgetOptions =
+            widget.options;
+        const {correct, graph, lockedFigures, fullGraphAriaDescription} =
+            widgetOptons;
+
+        if (lockedFigures.length > 0 && !fullGraphAriaDescription) {
+            issues.push(
+                "Aria description required when using locked figures. Locked figures aren't automatically described.",
+            );
+        }
 
         for (const figure of lockedFigures ?? []) {
             // A locked line on the graph cannot have length 0.
