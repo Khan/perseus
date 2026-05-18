@@ -134,7 +134,7 @@ Cross-phase file map — every file this plan touches at least once, with the ph
 
 **What ships in this phase:**
 
-- Add `stateAnnouncement: InteractiveGraphStateAnnouncement | null` to `InteractiveGraphStateCommon` in `types.ts`; initialize to `null` in `initialize-graph-state.ts`. This field is how graph reducers signal that an SR announcement is needed — they set it to a typed object carrying raw event data, and the component fires the announcement.
+- Add optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon` in `types.ts`. This field is how graph reducers signal that an SR announcement is needed — they set it to a typed object carrying raw event data, and the component fires the announcement. The field defaults to `undefined` (no initializer needed in `initialize-graph-state.ts`).
 - Add `@khanacademy/wonder-blocks-announcer` as a dependency of `@khanacademy/perseus`.
 - In `stateful-mafs-graph.tsx`, add a `useEffect` that watches `state.stateAnnouncement`. When non-null, it builds the localized message string (using `strings` and `locale` from `usePerseusI18n()`) and calls `announceMessage({message})`. String building happens in the component, not the reducer, so reducers stay locale-free.
 - Migrate the four currently-aria-live graphs — circle, linear, segment, and the unlimited point/polygon variants — off `aria-live` toggles by having their reducers set `stateAnnouncement` instead. Per-graph copy (e.g., circle resize radius, linear point move, polygon vertex move) ships in the same PR as each migration. Paired-migration constraint from OQ3 still applies: the `stateAnnouncement` set and the `setXxxAriaLive("polite")` removal must land in the same PR.
@@ -162,8 +162,7 @@ All paths are relative to the repo root.
 
 | File | Change |
 |------|--------|
-| `packages/perseus/src/widgets/interactive-graphs/types.ts` | Add `InteractiveGraphStateAnnouncement` union type; add `stateAnnouncement: InteractiveGraphStateAnnouncement \| null` to `InteractiveGraphStateCommon`. New type variants are added here alongside each paired migration step. |
-| `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` | Initialize `stateAnnouncement: null` in the base common state object. |
+| `packages/perseus/src/widgets/interactive-graphs/types.ts` | Add `InteractiveGraphStateAnnouncement` union type; add optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon`. New type variants are added here alongside each paired migration step. |
 | `packages/perseus/src/widgets/interactive-graphs/stateful-mafs-graph.tsx` | Import `announceMessage` from `@khanacademy/wonder-blocks-announcer`; add a `useEffect` watching `state.stateAnnouncement`. When non-null, build the localized message (using `strings` / `locale` from `usePerseusI18n()`) and call `announceMessage({message})`. A new `switch` case and string are added here alongside each paired migration step. |
 | `packages/perseus/src/widgets/interactive-graphs/graphs/circle.tsx` | In the radius-point reducer case, set `stateAnnouncement` with the raw resize data. Remove the `setRadiusPointAriaLive("polite")` toggle; leave the `"off"` resets in place. |
 | `packages/perseus/src/widgets/interactive-graphs/graphs/circle.test.tsx` | Replace the existing "aria-live becomes polite on resize" assertions with `announceMessage`-call assertions. |
@@ -188,13 +187,11 @@ Each numbered step is the unit of review — typically one PR. Order is sequenti
 
 **Goal:** add `stateAnnouncement` to graph state and wire up the `announceMessage` call in `stateful-mafs-graph.tsx`, with no observable SR-behavior change (all graphs still use their existing aria-live toggles; no reducer sets `stateAnnouncement` to a non-null value yet).
 
-- Add `InteractiveGraphStateAnnouncement` type and `stateAnnouncement: InteractiveGraphStateAnnouncement | null` to `InteractiveGraphStateCommon` in `types.ts`.
-- Initialize `stateAnnouncement: null` in `initialize-graph-state.ts`.
+- Add `InteractiveGraphStateAnnouncement` type and optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon` in `types.ts`.
 - Add `@khanacademy/wonder-blocks-announcer` to `packages/perseus/package.json` `dependencies`.
-- In `stateful-mafs-graph.tsx`, import `announceMessage`; add a `useEffect` watching `state.stateAnnouncement` that returns early if null, otherwise builds the localized string and calls `announceMessage({message})`.
-- Update all affected tests to include `stateAnnouncement: null` in expected state.
+- In `stateful-mafs-graph.tsx`, import `announceMessage`; add a `useEffect` watching `state.stateAnnouncement` that returns early if `undefined`, otherwise builds the localized string and calls `announceMessage({message})`.
 
-**Done when:** the existing test suite passes unchanged; no aria-live toggles have been removed; `announceMessage` is never called (since no reducer sets `stateAnnouncement` to a non-null value in this step).
+**Done when:** the existing test suite passes unchanged; no aria-live toggles have been removed; `announceMessage` is never called (since no reducer sets `stateAnnouncement` to a non-`undefined` value in this step).
 
 #### 1.3.2 Universal events — add `stateAnnouncement` types for non-graph-specific events (PR 2)
 
@@ -240,8 +237,8 @@ Same open scoping check + same template as 1.3.5 against `graphs/segment.tsx` / 
 
 **Unit (reducer + state):**
 
-- `interactive-graph-reducer.test.ts` — for each universal event, assert `stateAnnouncement` is set to the expected type variant with correct raw data; assert `stateAnnouncement` is `null` on actions that don't produce an announcement.
-- `stateful-mafs-graph.test.tsx` — mock `announceMessage`; assert it is called when `stateAnnouncement` transitions from `null` to a non-null value; assert it is not called when `stateAnnouncement` stays `null`.
+- `interactive-graph-reducer.test.ts` — for each universal event, assert `stateAnnouncement` is set to the expected type variant with correct raw data; assert `stateAnnouncement` is `undefined` on actions that don't produce an announcement.
+- `stateful-mafs-graph.test.tsx` — mock `announceMessage`; assert it is called when `stateAnnouncement` transitions from `undefined` to a non-`undefined` value; assert it is not called when `stateAnnouncement` stays `undefined`.
 
 **Integration (per migrated graph component):**
 
