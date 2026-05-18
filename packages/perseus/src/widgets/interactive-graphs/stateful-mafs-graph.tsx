@@ -1,5 +1,6 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
@@ -97,6 +98,8 @@ export const StatefulMafsGraph = React.forwardRef<
                     y: srFormatNumber(state.stateAnnouncement.y, locale),
                 });
                 break;
+            default:
+                throw new UnreachableCaseError(state.stateAnnouncement.type);
         }
         announceMessage({message});
     }, [state.stateAnnouncement, strings, locale]);
