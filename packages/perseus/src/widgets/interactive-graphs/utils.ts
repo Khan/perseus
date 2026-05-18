@@ -183,7 +183,6 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
                 [-10, 10],
                 [-10, 10],
             ],
-            stateAnnouncement: null,
         },
         widgetId: "test-widget-id",
     };

@@ -28,7 +28,6 @@ const baseVectorState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateAnnouncement: null,
 };
 
 describe("Vector graph screen reader", () => {

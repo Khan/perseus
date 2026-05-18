@@ -25,7 +25,6 @@ const commonGraphState: InteractiveGraphStateCommon = {
         [-9, 9],
     ],
     snapStep: [9, 9],
-    stateAnnouncement: null,
 };
 
 describe("mafsStateToInteractiveGraph", () => {
@@ -82,7 +81,6 @@ describe("mafsStateToInteractiveGraph", () => {
                 [-9, 9],
             ],
             snapStep: [9, 9],
-            stateAnnouncement: null,
         };
 
         const result: PerseusGraphType = mafsStateToInteractiveGraph(

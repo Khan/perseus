@@ -26,7 +26,6 @@ const baseRayState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateAnnouncement: null,
 };
 
 const overallGraphLabel = "A ray on a coordinate plane.";

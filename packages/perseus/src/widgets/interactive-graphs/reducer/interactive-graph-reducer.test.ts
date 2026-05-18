@@ -27,7 +27,6 @@ const baseSegmentGraphState: InteractiveGraphState = {
     ],
     snapStep: [1, 1],
     coords: [],
-    stateAnnouncement: null,
 };
 
 const basePointGraphState: InteractiveGraphState = {
@@ -43,7 +42,6 @@ const basePointGraphState: InteractiveGraphState = {
     focusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
-    stateAnnouncement: null,
 };
 
 const baseUnlimitedPointGraphState: PointGraphState = {
@@ -60,7 +58,6 @@ const baseUnlimitedPointGraphState: PointGraphState = {
     focusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
-    stateAnnouncement: null,
 };
 
 const baseAngleGraphState: InteractiveGraphState = {
@@ -76,7 +73,6 @@ const baseAngleGraphState: InteractiveGraphState = {
         [0, 1],
         [1, 0],
     ],
-    stateAnnouncement: null,
 };
 
 const baseCircleGraphState: InteractiveGraphState = {
@@ -89,7 +85,6 @@ const baseCircleGraphState: InteractiveGraphState = {
     snapStep: [1, 1],
     center: [0, 0],
     radiusPoint: [2, 0],
-    stateAnnouncement: null,
 };
 
 const baseSinusoidGraphState: InteractiveGraphState = {
@@ -104,7 +99,6 @@ const baseSinusoidGraphState: InteractiveGraphState = {
         [0, 0],
         [1, 1],
     ],
-    stateAnnouncement: null,
 };
 
 function generateTangentGraphState(
@@ -122,7 +116,6 @@ function generateTangentGraphState(
             [0, 0],
             [1, 1],
         ],
-        stateAnnouncement: null,
         ...overrides,
     };
 }
@@ -140,7 +133,6 @@ const baseQuadraticGraphState: InteractiveGraphState = {
         [0, 0],
         [1, 1],
     ],
-    stateAnnouncement: null,
 };
 
 const basePolygonGraphState: InteractiveGraphState = {
@@ -164,7 +156,6 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
     closedPolygon: false,
-    stateAnnouncement: null,
 };
 
 const baseUnlimitedPolygonGraphState: PolygonGraphState = {
@@ -185,7 +176,6 @@ const baseUnlimitedPolygonGraphState: PolygonGraphState = {
     coords: [],
     numSides: "unlimited",
     closedPolygon: false,
-    stateAnnouncement: null,
 };
 
 describe("movePointInFigure", () => {
@@ -268,7 +258,6 @@ describe("movePointInFigure", () => {
                 [1, 1],
                 [2, 2],
             ],
-            stateAnnouncement: null,
         };
 
         const updated = interactiveGraphReducer(
@@ -297,7 +286,6 @@ describe("movePointInFigure", () => {
                 [1, 1],
                 [2, 2],
             ],
-            stateAnnouncement: null,
         };
 
         const updated = interactiveGraphReducer(
@@ -1957,7 +1945,6 @@ function generateExponentialGraphState(
             [2, 6],
         ],
         asymptote: 1,
-        stateAnnouncement: null,
         ...overrides,
     };
 }
@@ -2156,7 +2143,6 @@ function generateLogarithmGraphState(
             [-5, -7],
         ],
         asymptote: -6,
-        stateAnnouncement: null,
         ...overrides,
     };
 }
@@ -2176,7 +2162,6 @@ function generateVectorGraphState(
             [0, 0],
             [3, 4],
         ],
-        stateAnnouncement: null,
         ...overrides,
     };
 }

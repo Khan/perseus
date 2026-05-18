@@ -88,7 +88,6 @@ describe("MafsGraph", () => {
                     [-7, 0.5],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const baseMafsGraphProps = baseMafsProps;
@@ -130,7 +129,6 @@ describe("MafsGraph", () => {
                     [-7, 0.5],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const onAnalyticsEventSpy = jest.fn();
@@ -199,7 +197,6 @@ describe("MafsGraph", () => {
                     [-7, 0.5],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -229,7 +226,6 @@ describe("MafsGraph", () => {
                     [7, 0.5],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -255,7 +251,6 @@ describe("MafsGraph", () => {
                 [0, 0],
                 [-7, 0.5],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -285,7 +280,6 @@ describe("MafsGraph", () => {
                     [7, 0.5],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -311,7 +305,6 @@ describe("MafsGraph", () => {
                 [0, 0],
                 [-7, 0.5],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -333,7 +326,6 @@ describe("MafsGraph", () => {
             snapStep: [0.5, 0.5],
             center: [0, 0],
             radiusPoint: [2, 0],
-            stateAnnouncement: null,
         };
 
         render(
@@ -360,7 +352,6 @@ describe("MafsGraph", () => {
                 [0, 0],
                 [1, 1],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -394,7 +385,6 @@ describe("MafsGraph", () => {
                 [-1, 1],
                 [0, 0],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -428,7 +418,6 @@ describe("MafsGraph", () => {
                 [-1, 1],
                 [0, 0],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -461,7 +450,6 @@ describe("MafsGraph", () => {
                 [0, 0],
                 [1, 1],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -487,7 +475,6 @@ describe("MafsGraph", () => {
             ],
             snapStep: [0.5, 0.5],
             coords: [[-7, 0.5]],
-            stateAnnouncement: null,
         };
 
         render(
@@ -521,7 +508,6 @@ describe("MafsGraph", () => {
             ],
             snapStep: [2, 2],
             coords: [[2, 2]],
-            stateAnnouncement: null,
         };
 
         const baseMafsGraphProps = baseMafsProps;
@@ -573,7 +559,6 @@ describe("MafsGraph", () => {
                     [0, 0],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -625,7 +610,6 @@ describe("MafsGraph", () => {
                     [0, 0],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -677,7 +661,6 @@ describe("MafsGraph", () => {
                     [0, 0],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -729,7 +712,6 @@ describe("MafsGraph", () => {
                     [0, 0],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -780,7 +762,6 @@ describe("MafsGraph", () => {
                 [1, 1],
                 [2, 2],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -829,7 +810,6 @@ describe("MafsGraph", () => {
                 [0, 0],
                 [1, 1],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -875,7 +855,6 @@ describe("MafsGraph", () => {
             snapStep: [1, 1],
             center: [1, 0],
             radiusPoint: [0, 0],
-            stateAnnouncement: null,
         };
 
         const expectedRadiusPoint = [2, 0];
@@ -922,7 +901,6 @@ describe("MafsGraph", () => {
                     [1, 0],
                 ],
             ],
-            stateAnnouncement: null,
         };
 
         const expectedCoords = [
@@ -978,7 +956,6 @@ describe("MafsGraph", () => {
                 ],
                 snapStep: [2, 2],
                 coords: [[4, 5]],
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -1021,7 +998,6 @@ describe("MafsGraph", () => {
                 snapTo: "grid",
                 coords: [[4, 5]],
                 closedPolygon: false,
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -1060,7 +1036,6 @@ describe("MafsGraph", () => {
                 ],
                 snapStep: [2, 2],
                 coords: [[9, 9]],
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -1107,7 +1082,6 @@ describe("MafsGraph", () => {
                 snapTo: "grid",
                 coords: [[9, 9]],
                 closedPolygon: false,
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -1158,7 +1132,6 @@ describe("MafsGraph", () => {
                     [6, 7],
                 ],
                 closedPolygon: false,
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {
@@ -1210,7 +1183,6 @@ describe("MafsGraph", () => {
                     [5, 6],
                 ],
                 closedPolygon: false,
-                stateAnnouncement: null,
             };
 
             const baseMafsGraphProps: MafsGraphProps = {

@@ -62,8 +62,8 @@ export interface InteractiveGraphStateCommon {
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
     // Raw data describing the most recent state change, used to build
-    // screen reader announcements in the component. null means no announcement.
-    stateAnnouncement: InteractiveGraphStateAnnouncement | null;
+    // screen reader announcements in the component. Absent means no announcement.
+    stateAnnouncement?: InteractiveGraphStateAnnouncement;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

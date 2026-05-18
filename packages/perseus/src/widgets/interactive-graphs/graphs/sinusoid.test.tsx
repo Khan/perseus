@@ -28,7 +28,6 @@ const baseSinusoidState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateAnnouncement: null,
 };
 
 describe("Sinusoid graph screen reader", () => {

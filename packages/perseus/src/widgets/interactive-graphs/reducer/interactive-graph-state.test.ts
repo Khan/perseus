@@ -19,7 +19,6 @@ const defaultUnlimitedPointState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateAnnouncement: null,
 };
 
 const defaultUnlimitedPolygonState: InteractiveGraphState = {
@@ -40,7 +39,6 @@ const defaultUnlimitedPolygonState: InteractiveGraphState = {
     snapTo: "grid",
     showSides: true,
     showAngles: true,
-    stateAnnouncement: null,
 };
 
 describe("getGradableGraph", () => {
@@ -59,7 +57,6 @@ describe("getGradableGraph", () => {
                 [-10, 10],
             ],
             snapStep: [1, 1],
-            stateAnnouncement: null,
         };
         const initialGraph: PerseusGraphType = {
             type: "segment",
@@ -136,7 +133,6 @@ describe("getGradableGraph", () => {
                 [-5, -7],
             ],
             asymptote: -6,
-            stateAnnouncement: null,
         };
         const initialGraph: PerseusGraphType = {
             type: "logarithm",

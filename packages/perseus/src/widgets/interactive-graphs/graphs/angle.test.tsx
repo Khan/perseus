@@ -27,7 +27,6 @@ const baseAngleState: InteractiveGraphState = {
     ],
     allowReflexAngles: true,
     showAngles: true,
-    stateAnnouncement: null,
 };
 
 function closeTo(x: number) {
@@ -110,7 +109,6 @@ describe("Angle graph screen reader", () => {
                 [0, 0],
                 [1, 1],
             ],
-            stateAnnouncement: null,
         };
 
         render(
@@ -152,7 +150,6 @@ describe("Angle graph screen reader", () => {
                 [0, 6],
             ],
             showAngles: true,
-            stateAnnouncement: null,
         };
 
         render(

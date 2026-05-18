@@ -41,7 +41,6 @@ const baseLimitedPolygonState: InteractiveGraphState = {
     showSides: false,
     snapStep: [1, 1],
     snapTo: "grid",
-    stateAnnouncement: null,
 };
 const baseUnlimitedPolygonStateClosed: InteractiveGraphState = {
     ...baseLimitedPolygonState,

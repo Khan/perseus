@@ -33,7 +33,6 @@ const baseCircleState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    stateAnnouncement: null,
 };
 const baseGraphConfigContext: GraphConfig = {
     range: [
