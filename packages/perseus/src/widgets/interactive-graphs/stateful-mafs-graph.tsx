@@ -1,12 +1,11 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import {srFormatNumber} from "./graphs/screenreader-text";
+import {getAnnouncerTextForState} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -89,19 +88,13 @@ export const StatefulMafsGraph = React.forwardRef<
             return;
         }
 
-        let message: string;
-        switch (state.stateAnnouncement.type) {
-            case "move-point":
-                message = strings.srPointAtCoordinates({
-                    num: state.stateAnnouncement.pointIndex + 1,
-                    x: srFormatNumber(state.stateAnnouncement.x, locale),
-                    y: srFormatNumber(state.stateAnnouncement.y, locale),
-                });
-                break;
-            default:
-                throw new UnreachableCaseError(state.stateAnnouncement.type);
-        }
-        announceMessage({message});
+        announceMessage({
+            message: getAnnouncerTextForState(
+                state.stateAnnouncement,
+                strings,
+                locale,
+            ),
+        });
     }, [state.stateAnnouncement, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
