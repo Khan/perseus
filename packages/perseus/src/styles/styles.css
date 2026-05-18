@@ -369,7 +369,7 @@
     img[src$=".png"],
     img[src$=".svg"],
     .graphie,
-    .mathjax-wrapper {
+    .perseus-block-math .mathjax-wrapper {
         /* This filter is applied to all PNG/SVG images,
            and to the content of Graphie images (text labels, etc.),
            and to any MathJax.
