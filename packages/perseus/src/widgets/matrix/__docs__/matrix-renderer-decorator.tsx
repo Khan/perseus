@@ -1,16 +1,17 @@
 import {
-    generateNumericInputOptions,
-    generateNumericInputWidget,
+    generateMatrixOptions,
+    generateMatrixWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "./question-renderer-for-stories";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions} from "../../../types";
 import type {UserInputMap} from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
 
-export const numericInputRendererDecorator = (
+export const matrixRendererDecorator: Decorator = (
     _,
     {
         args,
@@ -27,12 +28,10 @@ export const numericInputRendererDecorator = (
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
-                content:
-                    parameters?.content ??
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+                content: parameters?.content ?? "[[☃ matrix 1]]",
                 widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
+                    "matrix 1": generateMatrixWidget({
+                        options: generateMatrixOptions({
                             ...args,
                         }),
                     }),

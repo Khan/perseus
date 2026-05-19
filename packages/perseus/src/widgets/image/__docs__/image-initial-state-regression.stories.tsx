@@ -3,7 +3,6 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
     articleDecorator,
@@ -26,6 +25,8 @@ import {
     scienceImageAlt,
     scienceImageCaption,
 } from "../utils";
+
+import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

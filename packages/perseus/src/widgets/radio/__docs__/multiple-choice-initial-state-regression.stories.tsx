@@ -7,7 +7,6 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
-import {radioRendererDecorator} from "../../__testutils__/radio-renderer-decorator";
 import {
     narrowViewportDecorator,
     rtlDecorator,
@@ -20,6 +19,8 @@ import {
     choicesWithImagesContent,
     overflowContentInGradedGroupSet,
 } from "../__tests__/radio.testdata";
+
+import {radioRendererDecorator} from "./radio-renderer-decorator";
 
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
