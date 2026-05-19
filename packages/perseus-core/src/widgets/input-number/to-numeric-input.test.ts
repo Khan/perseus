@@ -208,4 +208,42 @@ describe("convertInputNumberOptionsToNumericInput", () => {
             "mixed",
         ]);
     });
+
+    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has 10 decimal places", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            answerType: undefined,
+            inexact: undefined,
+            value: "0.1231231234",
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+        expect(result.answers).toHaveLength(1);
+        expect(result.answers[0].answerForms).toEqual([
+            "integer",
+            "decimal",
+            "proper",
+            "improper",
+            "mixed",
+        ]);
+    });
+
+    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has fewer than 10 decimal places", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            answerType: undefined,
+            inexact: undefined,
+            value: "0.3",
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+        expect(result.answers).toHaveLength(1);
+        expect(result.answers[0].answerForms).toEqual([
+            "integer",
+            "decimal",
+            "proper",
+            "improper",
+            "mixed",
+        ]);
+    });
 });
