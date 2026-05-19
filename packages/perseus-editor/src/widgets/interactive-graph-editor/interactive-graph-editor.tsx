@@ -196,7 +196,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     };
 
     changePointLabels = (pointLabels: ReadonlyArray<string>) => {
-        const {graph} = this.props;
+        const {graph, correct} = this.props;
         if (!graph?.type) {
             return;
         }
@@ -204,28 +204,36 @@ class InteractiveGraphEditor extends React.Component<Props> {
         // Each graph type's `pointLabels` schema mirrors its `coords` /
         // `startCoords` shape (tuple for fixed-arity, array for variable).
         // Reshape the editor input to match the active graph type.
-        let next: PerseusGraphType;
+        let nextGraph: PerseusGraphType;
+        let nextCorrect: PerseusGraphType = correct;
         switch (graph.type) {
             case "angle":
-            case "quadratic":
-                next = {
-                    ...graph,
-                    pointLabels: [
-                        pointLabels[0] ?? "",
-                        pointLabels[1] ?? "",
-                        pointLabels[2] ?? "",
-                    ],
-                };
+            case "quadratic": {
+                const reshaped: [string, string, string] = [
+                    pointLabels[0] ?? "",
+                    pointLabels[1] ?? "",
+                    pointLabels[2] ?? "",
+                ];
+                nextGraph = {...graph, pointLabels: reshaped};
+                if (correct.type === graph.type) {
+                    nextCorrect = {...correct, pointLabels: reshaped};
+                }
                 break;
+            }
             case "absolute-value":
             case "linear":
             case "ray":
-            case "vector":
-                next = {
-                    ...graph,
-                    pointLabels: [pointLabels[0] ?? "", pointLabels[1] ?? ""],
-                };
+            case "vector": {
+                const reshaped: [string, string] = [
+                    pointLabels[0] ?? "",
+                    pointLabels[1] ?? "",
+                ];
+                nextGraph = {...graph, pointLabels: reshaped};
+                if (correct.type === graph.type) {
+                    nextCorrect = {...correct, pointLabels: reshaped};
+                }
                 break;
+            }
             case "circle":
             case "exponential":
             case "linear-system":
@@ -234,13 +242,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
             case "polygon":
             case "segment":
             case "sinusoid":
-            case "tangent":
-                next = {...graph, pointLabels: [...pointLabels]};
+            case "tangent": {
+                const reshaped = [...pointLabels];
+                nextGraph = {...graph, pointLabels: reshaped};
+                if (correct.type === graph.type) {
+                    nextCorrect = {...correct, pointLabels: reshaped};
+                }
                 break;
+            }
             case "none":
                 return;
         }
-        this.props.onChange({graph: next});
+        this.props.onChange({graph: nextGraph, correct: nextCorrect});
     };
 
     // serialize() is what makes copy/paste work. All the properties included

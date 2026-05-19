@@ -13,13 +13,7 @@ interface CoordInputProps {
     label: string;
     coord: Coord;
     onChange: (coord: Coord) => void;
-    /**
-     * Optional screen-reader name for the point. When provided, an inline
-     * TextField is rendered before the coord pair so authors can override
-     * the default numeric "Point N" announcement (e.g. with "T"). The
-     * `placeholder` reflects the default announcement so authors know what
-     * the screen reader says when no name is entered.
-     */
+    // Custom label for each interactive point that will help with the screen reader.
     pointLabel?: {
         value: string | undefined;
         placeholder: string;
@@ -30,19 +24,35 @@ interface CoordInputProps {
 const CoordInput = (props: CoordInputProps) => {
     const {label, coord, onChange, pointLabel} = props;
 
-    return (
-        <View className={styles["tile-row"]}>
-            <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
-            {pointLabel && (
-                <View className={styles["point-label-field"]}>
-                    <TextField
-                        aria-label={`${label} name`}
-                        value={pointLabel.value ?? ""}
-                        placeholder={pointLabel.placeholder}
-                        onChange={pointLabel.onChange}
+    if (pointLabel) {
+        return (
+            <View className={styles.tile}>
+                <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
+                <View className={styles.inputsRow}>
+                    <BodyText tag="label" className={styles.labelField}>
+                        label
+                        <View className={styles.pointLabelField}>
+                            <TextField
+                                aria-label={`${label} name`}
+                                value={pointLabel.value ?? ""}
+                                placeholder={pointLabel.placeholder}
+                                onChange={pointLabel.onChange}
+                            />
+                        </View>
+                    </BodyText>
+                    <CoordinatePairInput
+                        coord={coord}
+                        labels={["x", "y"]}
+                        onChange={onChange}
                     />
                 </View>
-            )}
+            </View>
+        );
+    }
+
+    return (
+        <View className={styles.tile}>
+            <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
             <CoordinatePairInput
                 coord={coord}
                 labels={["x", "y"]}

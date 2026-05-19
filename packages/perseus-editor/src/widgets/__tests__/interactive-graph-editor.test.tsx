@@ -878,7 +878,7 @@ describe("InteractiveGraphEditor", () => {
         // array for variable-arity). PRs 3–7 do not touch this file, so the
         // handler must already cover every graph type correctly.
 
-        it("reshapes input to a 3-tuple for angle graphs", () => {
+        it("reshapes input to a 3-tuple for angle graphs (graph + correct)", () => {
             // Arrange
             const onChangeMock = jest.fn();
             const ref = React.createRef<InteractiveGraphEditor>();
@@ -902,10 +902,14 @@ describe("InteractiveGraphEditor", () => {
                     type: "angle",
                     pointLabels: ["A", "B", "C"],
                 }),
+                correct: expect.objectContaining({
+                    type: "angle",
+                    pointLabels: ["A", "B", "C"],
+                }),
             });
         });
 
-        it("pads short input to a 2-tuple for linear graphs", () => {
+        it("pads short input to a 2-tuple for linear graphs (graph + correct)", () => {
             // Arrange
             const onChangeMock = jest.fn();
             const ref = React.createRef<InteractiveGraphEditor>();
@@ -929,10 +933,14 @@ describe("InteractiveGraphEditor", () => {
                     type: "linear",
                     pointLabels: ["T", ""],
                 }),
+                correct: expect.objectContaining({
+                    type: "linear",
+                    pointLabels: ["T", ""],
+                }),
             });
         });
 
-        it("preserves the input array for variable-arity point graphs", () => {
+        it("preserves the input array for variable-arity point graphs (graph + correct)", () => {
             // Arrange
             const onChangeMock = jest.fn();
             const ref = React.createRef<InteractiveGraphEditor>();
@@ -956,6 +964,39 @@ describe("InteractiveGraphEditor", () => {
                     type: "point",
                     pointLabels: ["P", "Q"],
                 }),
+                correct: expect.objectContaining({
+                    type: "point",
+                    pointLabels: ["P", "Q"],
+                }),
+            });
+        });
+
+        it("leaves correct untouched when its type differs from graph (LEMS-3903 recovery)", () => {
+            // Arrange — mismatched types (the workaround case)
+            const onChangeMock = jest.fn();
+            const ref = React.createRef<InteractiveGraphEditor>();
+            const correct = {type: "linear" as const};
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    graph={{type: "point"}}
+                    correct={correct}
+                    onChange={onChangeMock}
+                    ref={ref}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            ref.current?.changePointLabels(["P", "Q"]);
+
+            // Assert — graph is reshaped, correct is forwarded unchanged
+            expect(onChangeMock).toHaveBeenCalledWith({
+                graph: expect.objectContaining({
+                    type: "point",
+                    pointLabels: ["P", "Q"],
+                }),
+                correct,
             });
         });
 

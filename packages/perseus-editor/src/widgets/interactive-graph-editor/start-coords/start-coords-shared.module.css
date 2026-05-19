@@ -32,12 +32,26 @@
     gap: var(--wb-sizing-size_120) !important;
 }
 
+.inputs-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.label-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_060) !important;
+}
+
 .text-field-wrapper {
     inline-size: var(--wb-sizing-size_800) !important;
 }
 
 .point-label-field {
-    inline-size: var(--wb-sizing-size_640) !important;
+    inline-size: var(--wb-sizing-size_480) !important;
 }
 
 .equationSection {
