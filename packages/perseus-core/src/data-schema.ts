@@ -990,6 +990,8 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
+    // deprecated
+    "orange",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -1002,6 +1004,9 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
+    // Deprecated: "orange" is the old name for the current "gold" color.
+    // We still have to support this in existing content.
+    orange: "var(--wb-semanticColor-learning-math-foreground-gold)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
