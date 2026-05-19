@@ -9,7 +9,7 @@ import type {
  * For details on the individual options, see the
  * PerseusGroupWidgetOptions type
  */
-type GroupPublicWidgetOptions = PerseusRenderer;
+export type GroupPublicWidgetOptions = PerseusRenderer;
 
 /**
  * Given a PerseusGroupWidgetOptions object, return a new object with only

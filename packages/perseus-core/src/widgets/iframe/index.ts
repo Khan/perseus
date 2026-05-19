@@ -22,7 +22,10 @@ const defaultWidgetOptions: IFrameDefaultWidgetOptions = {
     allowTopNavigation: false,
 };
 
-const iframeWidgetLogic: WidgetLogic = {
+const iframeWidgetLogic: WidgetLogic<
+    PerseusIFrameWidgetOptions,
+    PerseusIFrameWidgetOptions
+> = {
     name: "iframe",
     defaultWidgetOptions,
     getPublicWidgetOptions: getIFramePublicWidgetOptions,
