@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 27.0.0
+
+### Major Changes
+
+-   [#3633](https://github.com/Khan/perseus/pull/3633) [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d) Thanks [@benchristel](https://github.com/benchristel)! - The unused `static` field has been removed from the input-number widget's options.
+
+### Minor Changes
+
+-   [#3605](https://github.com/Khan/perseus/pull/3605) [`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add pointLabels props for interactive graph related types this will be used for custom point labels
+
+*   [#3638](https://github.com/Khan/perseus/pull/3638) [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add optional type params to WidgetLogic type
+
 ## 26.3.1
 
 ### Patch Changes

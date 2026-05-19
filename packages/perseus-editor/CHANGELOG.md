@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 32.0.2
+
+### Patch Changes
+
+-   [#3645](https://github.com/Khan/perseus/pull/3645) [`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   Updated dependencies [[`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a), [`1f56144658`](https://github.com/Khan/perseus/commit/1f56144658d34237c7cd8a36ddd356d9f8796244), [`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f), [`aa023ec494`](https://github.com/Khan/perseus/commit/aa023ec494b32282ebd3ffde7bbfb362680976ad), [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5), [`ca5ec49c99`](https://github.com/Khan/perseus/commit/ca5ec49c9995bd24675bd6fd6966415660a9032c), [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d)]:
+    -   @khanacademy/math-input@26.4.26
+    -   @khanacademy/perseus@77.7.0
+    -   @khanacademy/perseus-core@27.0.0
+    -   @khanacademy/keypad-context@3.2.54
+    -   @khanacademy/kmath@2.4.12
+    -   @khanacademy/perseus-linter@5.0.9
+    -   @khanacademy/perseus-score@8.10.2
+
 ## 32.0.1
 
 ### Patch Changes
