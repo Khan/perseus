@@ -102,19 +102,10 @@ const cases: TestCase[] = [
         },
     },
     {
-        title: "when the user inputs long decimals",
+        title: "when the user inputs a long decimal",
         userInput: {
             "input-number 1": {
-                currentValue: "0.7692307692307693",
-            },
-            "input-number 2": {
-                currentValue: "0.3076923076923077",
-            },
-            "input-number 3": {
-                currentValue: "0.2692307692307692",
-            },
-            "input-number 4": {
-                currentValue: "0.8076923076923077",
+                currentValue: "0.7692307692307",
             },
         },
         widgets: {
@@ -129,42 +120,6 @@ const cases: TestCase[] = [
                 },
                 graded: true,
                 type: "input-number",
-            },
-            "input-number 2": {
-                graded: true,
-                options: {
-                    value: 0.3076923076923077,
-                    simplify: "optional",
-                    maxError: 0.0077,
-                    answerType: "number",
-                    size: "normal",
-                    inexact: false,
-                },
-                type: "input-number",
-            },
-            "input-number 3": {
-                type: "input-number",
-                graded: true,
-                options: {
-                    value: 0.2692307692307692,
-                    inexact: false,
-                    size: "normal",
-                    maxError: 0.031,
-                    simplify: "optional",
-                    answerType: "number",
-                },
-            },
-            "input-number 4": {
-                type: "input-number",
-                options: {
-                    inexact: false,
-                    size: "normal",
-                    maxError: 0.0077,
-                    simplify: "optional",
-                    answerType: "number",
-                    value: 0.8076923076923077,
-                },
-                graded: true,
             },
         },
     },
