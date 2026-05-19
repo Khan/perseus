@@ -89,10 +89,9 @@ export const Point: Story = {
 };
 
 /**
- * LEMS-3995: A point graph whose interactive point uses a custom
- * screen-reader label ("T") via `pointLabels`, so the announcement
- * matches the question prompt ("Plot point T …") instead of the
- * generic "Point 1 …".
+ * A point graph whose interactive point uses a custom screen-reader label ("T")
+ * via `pointLabels`, so the announcement matches the question prompt ("Plot point T …")
+ * instead of the generic "Point 1 …".
  */
 export const PointWithCustomLabel: Story = {
     args: {
@@ -103,7 +102,7 @@ export const PointWithCustomLabel: Story = {
 };
 
 /**
- * LEMS-3995: The same reference question as `PointWithCustomLabel`, but
+ * The same reference question as `PointWithCustomLabel`, but
  * with `pointLabels` omitted so the interactive point falls back to the
  * legacy numeric default — JAWS announces "Point 1 at …" even though
  * the prompt asks for point "T". Kept as a before/after comparison
