@@ -13,11 +13,17 @@ import type {Props as EditorProps} from "../interactive-graph-editor";
 type Props = {
     ariaLabelValue: string;
     ariaDescriptionValue: string;
+    showLockedFigureDescriptionWarning: boolean;
     onChange: (graphProps: Partial<EditorProps>) => void;
 };
 
 export default function InteractiveGraphDescription(props: Props) {
-    const {ariaLabelValue, ariaDescriptionValue, onChange} = props;
+    const {
+        ariaLabelValue,
+        ariaDescriptionValue,
+        showLockedFigureDescriptionWarning,
+        onChange,
+    } = props;
 
     const [isOpen, setIsOpen] = React.useState(true);
 
@@ -76,6 +82,12 @@ export default function InteractiveGraphDescription(props: Props) {
                         }
                         autoResize={true}
                     />
+                    {showLockedFigureDescriptionWarning && (
+                        <BodyText size="xsmall" style={styles.warning}>
+                            Aria description required when using locked figures.
+                            Locked figures aren't automatically described.
+                        </BodyText>
+                    )}
                 </View>
             )}
         </>
@@ -87,6 +99,10 @@ const styles = StyleSheet.create({
         color: semanticColor.core.foreground.neutral.subtle,
         paddingTop: spacing.xxSmall_6,
         paddingBottom: spacing.xxSmall_6,
+    },
+    warning: {
+        color: semanticColor.core.border.critical.default,
+        paddingTop: spacing.xxSmall_6,
     },
     spaceAbove: {
         marginTop: spacing.xxxSmall_4,
