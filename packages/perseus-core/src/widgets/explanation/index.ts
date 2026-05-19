@@ -13,7 +13,7 @@ const defaultWidgetOptions: ExplanationDefaultWidgetOptions = {
     widgets: {},
 };
 
-const explanationWidgetLogic: WidgetLogic<PerseusExplanationWidgetOptions> = {
+const explanationWidgetLogic: WidgetLogic = {
     name: "explanation",
     defaultWidgetOptions,
     defaultAlignment: "inline",

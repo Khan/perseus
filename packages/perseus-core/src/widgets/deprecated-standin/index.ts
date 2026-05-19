@@ -1,6 +1,6 @@
 import type {WidgetLogic} from "../logic-export.types";
 
-const deprecatedStandinWidgetLogic: WidgetLogic<object> = {
+const deprecatedStandinWidgetLogic: WidgetLogic = {
     name: "deprecated-standin",
     accessible: true,
 };

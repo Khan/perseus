@@ -18,7 +18,7 @@ const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
-const gradedGroupWidgetLogic: WidgetLogic<PerseusGradedGroupWidgetOptions> = {
+const gradedGroupWidgetLogic: WidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
     accessible: true,

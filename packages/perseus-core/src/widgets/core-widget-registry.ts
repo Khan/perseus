@@ -221,6 +221,7 @@ export function registerCoreWidgets() {
     ];
 
     widgets.forEach((w) => {
-        registerWidget(w.name, w);
+        // eslint-disable-next-line no-restricted-syntax
+        registerWidget(w.name, w as WidgetLogic<any, any>);
     });
 }

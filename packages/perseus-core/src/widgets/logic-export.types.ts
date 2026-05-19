@@ -54,7 +54,10 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type WidgetLogic<TWidgetOptions, TPublicWidgetOptions = never> = {
+export type WidgetLogic<
+    TWidgetOptions = never,
+    TPublicWidgetOptions = never,
+> = {
     name: string;
     version?: Version;
     defaultWidgetOptions?: any;

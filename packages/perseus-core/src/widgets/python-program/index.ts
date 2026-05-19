@@ -11,11 +11,10 @@ const defaultWidgetOptions: PythonProgramDefaultWidgetOptions = {
     height: 400,
 };
 
-const pythonProgramWidgetLogic: WidgetLogic<PerseusPythonProgramWidgetOptions> =
-    {
-        name: "python-program",
-        defaultWidgetOptions,
-        accessible: true,
-    };
+const pythonProgramWidgetLogic: WidgetLogic = {
+    name: "python-program",
+    defaultWidgetOptions,
+    accessible: true,
+};
 
 export default pythonProgramWidgetLogic;
