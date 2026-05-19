@@ -1,4 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -186,11 +186,7 @@ describe("Circle graph", () => {
 });
 
 describe("Circle graph screen reader", () => {
-    let userEvent: UserEvent;
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -292,8 +288,6 @@ describe("Circle graph screen reader", () => {
             );
         },
     );
-
-
 });
 
 describe("describeCircleGraph", () => {
