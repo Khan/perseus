@@ -1,7 +1,8 @@
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {labelImageRendererDecorator} from "../../__testutils__/label-image-renderer-decorator";
+
+import {labelImageRendererDecorator} from "./label-image-renderer-decorator";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

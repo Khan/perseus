@@ -1,6 +1,7 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {sorterRendererDecorator} from "../../__testutils__/sorter-renderer-decorator";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
+
+import {sorterRendererDecorator} from "./sorter-renderer-decorator";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

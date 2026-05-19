@@ -1,5 +1,6 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {matcherRendererDecorator} from "../../__testutils__/matcher-renderer-decorator";
+
+import {matcherRendererDecorator} from "./matcher-renderer-decorator";
 
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

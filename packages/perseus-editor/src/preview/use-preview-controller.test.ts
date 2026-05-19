@@ -557,7 +557,6 @@ describe("usePreviewController", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -599,7 +598,6 @@ describe("usePreviewController", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                     {
@@ -612,7 +610,6 @@ describe("usePreviewController", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 ],
@@ -667,7 +664,6 @@ function createQuestionPreview(overrides?: {
             linterContext: {
                 contentType: "exercise",
                 highlightLint: false,
-                stack: [],
             },
         },
     };

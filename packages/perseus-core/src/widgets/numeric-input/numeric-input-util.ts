@@ -12,12 +12,11 @@ type NumericInputAnswerPublicData = Pick<
  * For details on the individual options, see the
  * PerseusNumericInputWidgetOptions type
  */
-type NumericInputPublicWidgetOptions = {
+export type NumericInputPublicWidgetOptions = {
     labelText?: PerseusNumericInputWidgetOptions["labelText"];
     size: PerseusNumericInputWidgetOptions["size"];
     coefficient: PerseusNumericInputWidgetOptions["coefficient"];
     rightAlign?: PerseusNumericInputWidgetOptions["rightAlign"];
-    static: PerseusNumericInputWidgetOptions["static"];
     answers: ReadonlyArray<NumericInputAnswerPublicData>;
 };
 

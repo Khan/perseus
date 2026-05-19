@@ -1,3 +1,4 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useState} from "react";
 import {action} from "storybook/actions";
@@ -19,6 +20,20 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Renderers/Server Item Renderer",
     component: ServerItemRendererWithDebugUI,
+    decorators: [
+        (Story) => {
+            return (
+                // The <Lint> components `hoverTarget` style currently uses an
+                // absolutely positioned element that has {right: -40}, which
+                // effectively moves it outside the components bounding box. We
+                // add a margin right here so we can actually see the linter
+                // warnings in any of these stories!
+                <View style={{marginRight: "40px"}}>
+                    <Story />
+                </View>
+            );
+        },
+    ],
     args: {
         title: "Server Item Renderer",
     },

@@ -1,5 +1,43 @@
 # @khanacademy/perseus-score
 
+## 8.10.1
+
+### Patch Changes
+
+-   [#3629](https://github.com/Khan/perseus/pull/3629) [`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9) Thanks [@benchristel](https://github.com/benchristel)! - Update input-number to numeric-input conversion logic to acccount for `inexact`. When `inexact` is false or undefined, we now set `maxError` to 0.
+
+-   Updated dependencies [[`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9)]:
+    -   @khanacademy/perseus-core@26.3.1
+    -   @khanacademy/kmath@2.4.11
+
+## 8.10.0
+
+### Minor Changes
+
+-   [#3608](https://github.com/Khan/perseus/pull/3608) [`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Expose per-widget scoring results from `scorePerseusItem` via a new `widgetScores` field (which is a map from widget ID to that widget's individual `PerseusScore`).
+
+### Patch Changes
+
+-   Updated dependencies [[`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224), [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34)]:
+    -   @khanacademy/perseus-core@26.3.0
+    -   @khanacademy/kmath@2.4.10
+
+## 8.9.2
+
+### Patch Changes
+
+-   Updated dependencies [[`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4)]:
+    -   @khanacademy/perseus-core@26.2.0
+    -   @khanacademy/kmath@2.4.9
+
+## 8.9.1
+
+### Patch Changes
+
+-   Updated dependencies [[`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920)]:
+    -   @khanacademy/perseus-core@26.1.1
+    -   @khanacademy/kmath@2.4.8
+
 ## 8.9.0
 
 ### Minor Changes

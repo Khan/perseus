@@ -11,6 +11,7 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
@@ -90,6 +91,7 @@ export type MafsGraphProps = {
     labels: ReadonlyArray<string>;
     labelLocation?: InteractiveGraphProps["labelLocation"];
     showAxisArrows: InteractiveGraphProps["showAxisArrows"];
+    showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -223,6 +225,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
                 showAxisArrows: props.showAxisArrows,
+                showAxisTicks: props.showAxisTicks,
                 graphDimensionsInPixels: props.box,
                 width,
                 height,
@@ -442,9 +445,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     ? undefined
                                     : "hidden",
                                 textAlign: "center",
-                                backgroundColor: "white",
-                                border: "1px solid #21242C52",
+                                backgroundColor:
+                                    semanticColor.core.background.base.default,
+                                border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
                                 padding: "16px 0",
+                                // offBlack at ~8% — no semantic shadow-with-alpha token; left hardcoded
                                 boxShadow: "0px 8px 8px 0px #21242C14",
 
                                 // This translates the box to the center of the

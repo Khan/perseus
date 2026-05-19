@@ -161,7 +161,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -196,7 +195,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -232,7 +230,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "article",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -263,7 +260,6 @@ describe("usePreviewPresenter", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                     {
@@ -272,7 +268,6 @@ describe("usePreviewPresenter", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 ],
@@ -346,7 +341,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -371,7 +365,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -634,7 +627,6 @@ describe("usePreviewPresenter", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -689,7 +681,6 @@ describe("usePreviewPresenter", () => {
                         linterContext: {
                             contentType: "exercise",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 },
@@ -702,7 +693,6 @@ describe("usePreviewPresenter", () => {
                         linterContext: {
                             contentType: "exercise",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 },
@@ -714,7 +704,6 @@ describe("usePreviewPresenter", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 },

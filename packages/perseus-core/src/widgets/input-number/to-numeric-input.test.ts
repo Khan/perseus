@@ -14,6 +14,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     it("converts maxError to a number when present", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
+            inexact: true,
             maxError: "0.042",
         };
 
@@ -27,6 +28,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             maxError: "42e-3",
+            inexact: true,
         };
 
         const result = convertInputNumberOptionsToNumericInput(options);
@@ -39,12 +41,37 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             maxError: undefined,
+            inexact: true,
         };
 
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers).toHaveLength(1);
         expect(result.answers[0].maxError).toBe(undefined);
+    });
+
+    it("sets maxError to 0 when inexact is false", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            maxError: 0.99,
+            inexact: false,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.answers[0].maxError).toBe(0);
+    });
+
+    it("sets maxError to 0 when inexact is undefined", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            maxError: 0.99,
+            inexact: undefined,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.answers[0].maxError).toBe(0);
     });
 
     it(`converts the "number" answer type to [integer, decimal, proper, improper, mixed]`, () => {

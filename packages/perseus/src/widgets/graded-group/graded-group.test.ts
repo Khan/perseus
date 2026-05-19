@@ -243,7 +243,6 @@ describe("graded-group", () => {
                                         labelText: "",
                                         size: "normal",
                                         coefficient: false,
-                                        static: false,
                                         rightAlign: false,
                                     },
                                 }),

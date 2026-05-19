@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "./question-renderer-for-stories";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 export const freeResponseRendererDecorator = (_, {args, parameters}) => {
     return (

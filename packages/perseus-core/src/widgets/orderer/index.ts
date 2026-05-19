@@ -1,5 +1,6 @@
 import {getOrdererPublicWidgetOptions} from "./orderer-util";
 
+import type {OrdererPublicWidgetOptions} from "./orderer-util";
 import type {PerseusOrdererWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -17,7 +18,10 @@ const defaultWidgetOptions: OrdererDefaultWidgetOptions = {
     layout: "horizontal",
 };
 
-const ordererWidgetLogic: WidgetLogic = {
+const ordererWidgetLogic: WidgetLogic<
+    PerseusOrdererWidgetOptions,
+    OrdererPublicWidgetOptions
+> = {
     name: "orderer",
     defaultWidgetOptions,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,

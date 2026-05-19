@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
@@ -100,7 +101,7 @@ export function MovableAsymptote(props: Props) {
                 start={start}
                 end={end}
                 style={{
-                    stroke: "white",
+                    stroke: semanticColor.core.background.base.default,
                     strokeWidth: "var(--movable-asymptote-stroke-weight)",
                     strokeLinecap: "round",
                 }}

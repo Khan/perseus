@@ -1,5 +1,73 @@
 # @khanacademy/perseus
 
+## 77.6.2
+
+### Patch Changes
+
+-   [#3623](https://github.com/Khan/perseus/pull/3623) [`1bb975bd5d`](https://github.com/Khan/perseus/commit/1bb975bd5d0cb145e4f3f4830a343d9a066a67b7) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Convert radio font and colors to semantic tokens
+
+*   [#3632](https://github.com/Khan/perseus/pull/3632) [`90f02b5973`](https://github.com/Khan/perseus/commit/90f02b59734758a12bb5832e09cdecdac86ba136) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Update Radio widget regression stories to use best practices
+
+*   Updated dependencies [[`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9)]:
+    -   @khanacademy/perseus-core@26.3.1
+    -   @khanacademy/perseus-score@8.10.1
+    -   @khanacademy/keypad-context@3.2.53
+    -   @khanacademy/kmath@2.4.11
+    -   @khanacademy/math-input@26.4.25
+    -   @khanacademy/perseus-linter@5.0.8
+
+## 77.6.1
+
+### Patch Changes
+
+-   [#3596](https://github.com/Khan/perseus/pull/3596) [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Update color and font styles to use semantic tokens in Interactive Graph
+
+*   [#3618](https://github.com/Khan/perseus/pull/3618) [`ddc5eb2741`](https://github.com/Khan/perseus/commit/ddc5eb2741d008714297fbb7f3e210e192120650) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove noisy error log about unbinding event handlers.
+
+-   [#3627](https://github.com/Khan/perseus/pull/3627) [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump peer-dependency ranges for Wonder Blocks packages to match the latest versions synced from `khan/frontend`.
+
+-   Updated dependencies [[`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224), [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34), [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5)]:
+    -   @khanacademy/perseus-score@8.10.0
+    -   @khanacademy/perseus-core@26.3.0
+    -   @khanacademy/math-input@26.4.24
+    -   @khanacademy/keypad-context@3.2.52
+    -   @khanacademy/kmath@2.4.10
+    -   @khanacademy/perseus-linter@5.0.7
+
+## 77.6.0
+
+### Minor Changes
+
+-   [#3601](https://github.com/Khan/perseus/pull/3601) [`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for showAxisTicks so content creators are able to toggle axes/numbers in InteractiveGraph
+
+### Patch Changes
+
+-   Updated dependencies [[`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4)]:
+    -   @khanacademy/perseus-core@26.2.0
+    -   @khanacademy/keypad-context@3.2.51
+    -   @khanacademy/kmath@2.4.9
+    -   @khanacademy/math-input@26.4.23
+    -   @khanacademy/perseus-linter@5.0.6
+    -   @khanacademy/perseus-score@8.9.2
+
+## 77.5.2
+
+### Patch Changes
+
+-   [#3604](https://github.com/Khan/perseus/pull/3604) [`b633f0d660`](https://github.com/Khan/perseus/commit/b633f0d660799ad1b980932a36e65c3cc15c4baa) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - sets condition to check for user input before setting answerable
+
+*   [#3525](https://github.com/Khan/perseus/pull/3525) [`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920) Thanks [@nishasy](https://github.com/nishasy)! - Convert hardcoded color values to semantic tokens for Matrix
+
+-   [#3621](https://github.com/Khan/perseus/pull/3621) [`38d02fcee5`](https://github.com/Khan/perseus/commit/38d02fcee540879a6aea009b0bee45855dc7c603) Thanks [@handeyeco](https://github.com/handeyeco)! - Use an opaque border around locked labels rather than a transparent background
+
+-   Updated dependencies [[`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920)]:
+    -   @khanacademy/perseus-core@26.1.1
+    -   @khanacademy/keypad-context@3.2.50
+    -   @khanacademy/kmath@2.4.8
+    -   @khanacademy/math-input@26.4.22
+    -   @khanacademy/perseus-linter@5.0.5
+    -   @khanacademy/perseus-score@8.9.1
+
 ## 77.5.1
 
 ### Patch Changes

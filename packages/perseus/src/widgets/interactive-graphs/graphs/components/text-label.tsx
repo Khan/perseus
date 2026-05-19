@@ -1,3 +1,4 @@
+import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {Text} from "mafs";
 import React from "react";
 
@@ -13,7 +14,7 @@ export const TextLabel = ({children, ...rest}: Props) => (
         size={16}
         svgTextProps={{
             filter: "url(#background)",
-            fontWeight: "bold",
+            fontWeight: font.weight.bold,
         }}
         {...rest}
     >
@@ -25,7 +26,10 @@ export const SvgDefs = () => (
     <defs>
         {/* This filter is used to create a background for text labels */}
         <filter id="background" x="-5%" width="110%" y="0%" height="100%">
-            <feFlood floodColor="#FFF" floodOpacity="0.64" />
+            <feFlood
+                floodColor={semanticColor.core.background.base.default}
+                floodOpacity="0.64"
+            />
             <feComposite operator="over" in="SourceGraphic" />
         </filter>
     </defs>

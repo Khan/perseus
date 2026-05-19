@@ -21,7 +21,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
         expect(description).toBe(`. Appearance solid gray.`);
     });
 
-    test.each([["red"], ["blue"], ["green"], ["purple"], ["orange"]] as const)(
+    test.each([["red"], ["blue"], ["green"], ["purple"], ["gold"]] as const)(
         `should return a string with a %s color and a solid stroke style`,
         (color: LockedFigureColor) => {
             const description =
