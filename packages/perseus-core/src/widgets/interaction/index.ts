@@ -21,7 +21,7 @@ const defaultWidgetOptions: InteractionDefaultWidgetOptions = {
     elements: [],
 };
 
-const interactionWidgetLogic: WidgetLogic = {
+const interactionWidgetLogic: WidgetLogic<PerseusInteractionWidgetOptions> = {
     name: "interaction",
     defaultWidgetOptions,
     accessible: false,

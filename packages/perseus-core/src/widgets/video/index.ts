@@ -10,7 +10,7 @@ const defaultWidgetOptions: VideoDefaultWidgetOptions = {
     location: "",
 };
 
-const videoWidgetLogic: WidgetLogic = {
+const videoWidgetLogic: WidgetLogic<PerseusVideoWidgetOptions> = {
     name: "video",
     defaultWidgetOptions,
     supportedAlignments: ["block", "wrap-left", "wrap-right", "full-width"],

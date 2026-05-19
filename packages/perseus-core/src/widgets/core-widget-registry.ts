@@ -40,9 +40,9 @@ import type {
 import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets = new Registry<WidgetLogic>("Core widget registry");
+const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
-export function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
 }
 
