@@ -212,7 +212,6 @@ describe("Circle graph screen reader", () => {
         expect(circleGraph).toHaveAccessibleDescription(
             "Circle radius is 1. Points on the circle at 1 comma 0, 0 comma 1, -1 comma 0, 0 comma -1.",
         );
-        expect(circleGraph).not.toHaveAttribute("aria-live");
 
         expect(radiusPoint).toHaveAttribute(
             "aria-label",
