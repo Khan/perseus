@@ -20,7 +20,7 @@ export function getAnnouncementText(
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         default:
-            throw new UnreachableCaseError(state.type);
+            throw new UnreachableCaseError(state);
     }
 }
 
