@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalDialog, ModalPanel} from "@khanacademy/wonder-blocks-modal";
 import {border, sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -30,10 +29,6 @@ interface Props extends SvgImageProps {
 
 export const ZoomedImageView = (props: Props) => {
     const i18n = usePerseusI18n();
-    const scaleFF = isFeatureOn(
-        {apiOptions: props.apiOptions},
-        "image-widget-upgrade-scale",
-    );
 
     const {initialFocusId, onClose, ...svgProps} = props;
     const width = props.width;
@@ -52,16 +47,13 @@ export const ZoomedImageView = (props: Props) => {
         ? Math.max(contentScale, 2)
         : Math.max(contentScale, 1);
 
-    // The scale that SvgImage will actually multiply dimensions by.
-    const effectiveScale = scaleFF ? scale : 1;
-
     // Calculate the maximum available space (account for the modal panel padding).
     const maxAvailableWidth = window.innerWidth - WB_MODAL_PADDING_TOTAL;
     const maxAvailableHeight = window.innerHeight - WB_MODAL_PADDING_TOTAL;
 
     // Calculate the ratio between the available space and the image size.
-    const scaleWidth = maxAvailableWidth / (width * effectiveScale);
-    const scaleHeight = maxAvailableHeight / (height * effectiveScale);
+    const scaleWidth = maxAvailableWidth / (width * scale);
+    const scaleHeight = maxAvailableHeight / (height * scale);
     // Use the smaller ratio to ensure the image fits within the available space,
     // with no scrolling.
     const fitRatio = Math.min(scaleWidth, scaleHeight, 1);
@@ -69,7 +61,7 @@ export const ZoomedImageView = (props: Props) => {
     // Calculate the display width, constrained by the window size.
     // This is used to set the wrapper div's explicit width so the modal
     // doesn't collapse the image.
-    const constrainedDisplayWidth = width * fitRatio * effectiveScale;
+    const constrainedDisplayWidth = width * fitRatio * scale;
 
     return (
         <ModalDialog
@@ -121,7 +113,7 @@ export const ZoomedImageView = (props: Props) => {
                                     // stay the same size relative to the image.
                                     width={width}
                                     height={height}
-                                    scale={effectiveScale}
+                                    scale={scale}
                                 />
                             </div>
                         </div>

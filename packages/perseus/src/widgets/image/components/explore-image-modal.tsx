@@ -8,9 +8,9 @@ import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
 
-import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
+import type {CommonImageProps, GifProps} from "./image-info-area";
 
-type Props = CommonImageProps & ZoomProps & GifProps;
+type Props = CommonImageProps & GifProps;
 
 export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
