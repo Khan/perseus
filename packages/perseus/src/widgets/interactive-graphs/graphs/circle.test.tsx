@@ -208,8 +208,7 @@ describe("Circle graph screen reader", () => {
         );
 
         // Assert
-        // Check aria-label, aria-describedby, and aria-live
-        // for circle and radius point.
+        // Check aria-label and aria-describedby for circle and radius point.
         expect(circleGraph).toHaveAttribute(
             "aria-label",
             "Circle. The center point is at 0 comma 0.",
@@ -217,7 +216,7 @@ describe("Circle graph screen reader", () => {
         expect(circleGraph).toHaveAccessibleDescription(
             "Circle radius is 1. Points on the circle at 1 comma 0, 0 comma 1, -1 comma 0, 0 comma -1.",
         );
-        expect(circleGraph).toHaveAttribute("aria-live", "polite");
+        expect(circleGraph).not.toHaveAttribute("aria-live");
 
         expect(radiusPoint).toHaveAttribute(
             "aria-label",
@@ -226,10 +225,6 @@ describe("Circle graph screen reader", () => {
         expect(radiusPoint).toHaveAccessibleDescription(
             "Points on the circle at 1 comma 0, 0 comma 1, -1 comma 0, 0 comma -1.",
         );
-        // Radius point's aria-live is off by default so that it doesn't
-        // override the circle's aria-live when the circle is moved (since
-        // the radius point also moves when the circle moves).
-        expect(radiusPoint).toHaveAttribute("aria-live", "off");
     });
 
     test("aria label reflects updated values", async () => {
@@ -298,59 +293,7 @@ describe("Circle graph screen reader", () => {
         },
     );
 
-    test("radius point has aria-live off by default", async () => {
-        // Arrange
 
-        // Act
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        // eslint-disable-next-line testing-library/no-node-access
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Assert
-        // Check aria-live for the radius point.
-        expect(radiusPoint).toHaveAttribute("aria-live", "off");
-    });
-
-    test("set aria-live to polite on the radius point when the radius point is interacted with", async () => {
-        // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Act
-        // move the radius point
-        act(() => radiusPoint.focus());
-        await userEvent.keyboard("{arrowright}");
-
-        // Assert
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
-    });
-
-    test("set aria-live to off on the radius point when the circle is interacted with", async () => {
-        // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        const buttons = await screen.findAllByRole("button");
-        const circleGraph = buttons[0];
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Act
-        // move the radius point so that its aria-live is set to polite
-        act(() => radiusPoint.focus());
-        await userEvent.keyboard("{arrowright}");
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
-
-        // move the circle
-        act(() => circleGraph.focus());
-        await userEvent.keyboard("{arrowright}");
-
-        // Assert
-        expect(radiusPoint).toHaveAttribute("aria-live", "off");
-    });
 });
 
 describe("describeCircleGraph", () => {

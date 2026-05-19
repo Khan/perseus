@@ -15,9 +15,44 @@ export function getAnnouncementText(
                 x: srFormatNumber(state.x, locale),
                 y: srFormatNumber(state.y, locale),
             });
+        case "move-radius-point":
+            return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
+        case "move-center":
+            return srCircleCenterLabel(state.x, state.y, strings, locale);
         default:
             throw new UnreachableCaseError(state.type);
     }
+}
+
+export function srCircleRadiusPointLabel(
+    x: number,
+    y: number,
+    centerX: number,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    //const isRadiusOnRight = radiusPoint[X] >= center[X];
+    return x >= centerX
+        ? strings.srCircleRadiusPointRight({
+              radiusPointX: srFormatNumber(x, locale),
+              radiusPointY: srFormatNumber(y, locale),
+          })
+        : strings.srCircleRadiusPointLeft({
+              radiusPointX: srFormatNumber(x, locale),
+              radiusPointY: srFormatNumber(y, locale),
+          });
+}
+
+export function srCircleCenterLabel(
+    x: number,
+    y: number,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    return strings.srCircleShape({
+        centerX: srFormatNumber(x, locale),
+        centerY: srFormatNumber(y, locale),
+    });
 }
 
 export function srFormatNumber(
