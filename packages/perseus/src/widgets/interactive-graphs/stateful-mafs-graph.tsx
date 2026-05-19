@@ -1,7 +1,11 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
+
+import {getAnnouncementText} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -59,6 +63,7 @@ export const StatefulMafsGraph = React.forwardRef<
     StatefulMafsGraphProps
 >(function StatefulMafsGraphWithRef(props, ref) {
     const {onChange, graph} = props;
+    const {strings, locale} = usePerseusI18n();
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -78,6 +83,20 @@ export const StatefulMafsGraph = React.forwardRef<
         }
         prevState.current = state;
     }, [onChange, state, graph]);
+
+    useEffect(() => {
+        if (!state.stateAnnouncement) {
+            return;
+        }
+
+        announceMessage({
+            message: getAnnouncementText(
+                state.stateAnnouncement,
+                strings,
+                locale,
+            ),
+        });
+    }, [state.stateAnnouncement, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
