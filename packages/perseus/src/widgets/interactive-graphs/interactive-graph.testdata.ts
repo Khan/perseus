@@ -1229,3 +1229,84 @@ export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
         y: false,
     },
 });
+
+// Reference question. Three locked points Q, R, S form an
+// incomplete rectangle; the learner drags one interactive point to
+// complete it. The interactive point's screen-reader label is
+// customized to "T" via `pointLabels` so JAWS announces "Point T at …"
+// rather than the default "Point 1 at …".
+export const pointWithCustomLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Three vertices of a rectangle are at $Q(-4, 5)$, $R(4, 5)$, and $S(4, 2)$.\n\n**Plot point $T$ to complete the rectangle.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        lockedFigures: [
+            generateIGLockedPoint({
+                coord: [-4, 5],
+                labels: [
+                    generateIGLockedLabel({text: "Q", coord: [-4.5, 5.5]}),
+                ],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 5],
+                labels: [generateIGLockedLabel({text: "R", coord: [4.5, 5.5]})],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 2],
+                labels: [generateIGLockedLabel({text: "S", coord: [4.5, 1.5]})],
+            }),
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[-4, 2]],
+            pointLabels: ["T"],
+        }),
+    });
+
+// Same reference question as `pointWithCustomLabelQuestion`
+// but with `pointLabels` omitted, so the interactive point falls back to
+// the legacy numeric default. JAWS announces "Point 1 at …" even though
+// the prompt asks the learner to plot point "T" — this is the bug that
+// `pointLabels` was added to fix, kept as a story for before/after comparison.
+export const pointWithDefaultLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Three vertices of a rectangle are at $Q(-4, 5)$, $R(4, 5)$, and $S(4, 2)$.\n\n**Plot point $T$ to complete the rectangle.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        lockedFigures: [
+            generateIGLockedPoint({
+                coord: [-4, 5],
+                labels: [
+                    generateIGLockedLabel({text: "Q", coord: [-4.5, 5.5]}),
+                ],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 5],
+                labels: [generateIGLockedLabel({text: "R", coord: [4.5, 5.5]})],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 2],
+                labels: [generateIGLockedLabel({text: "S", coord: [4.5, 1.5]})],
+            }),
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[-4, 2]],
+        }),
+    });

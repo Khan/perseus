@@ -56,4 +56,29 @@ describe("getPointGraphDescription", () => {
             "Interactive elements: Point 1 at -1.123 comma 3.568.",
         );
     });
+
+    it("uses the custom point label when pointLabels is set", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point T at 0 comma 0.",
+        );
+    });
+
+    it("falls back to numeric defaults for indices without a custom label", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["T"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point T at 0 comma 0. Point 2 at 1 comma 1.",
+        );
+    });
 });

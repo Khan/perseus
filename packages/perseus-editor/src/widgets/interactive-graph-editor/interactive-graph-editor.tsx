@@ -195,6 +195,54 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changePointLabels = (pointLabels: ReadonlyArray<string>) => {
+        const {graph} = this.props;
+        if (!graph?.type) {
+            return;
+        }
+
+        // Each graph type's `pointLabels` schema mirrors its `coords` /
+        // `startCoords` shape (tuple for fixed-arity, array for variable).
+        // Reshape the editor input to match the active graph type.
+        let next: PerseusGraphType;
+        switch (graph.type) {
+            case "angle":
+            case "quadratic":
+                next = {
+                    ...graph,
+                    pointLabels: [
+                        pointLabels[0] ?? "",
+                        pointLabels[1] ?? "",
+                        pointLabels[2] ?? "",
+                    ],
+                };
+                break;
+            case "absolute-value":
+            case "linear":
+            case "ray":
+            case "vector":
+                next = {
+                    ...graph,
+                    pointLabels: [pointLabels[0] ?? "", pointLabels[1] ?? ""],
+                };
+                break;
+            case "circle":
+            case "exponential":
+            case "linear-system":
+            case "logarithm":
+            case "point":
+            case "polygon":
+            case "segment":
+            case "sinusoid":
+            case "tangent":
+                next = {...graph, pointLabels: [...pointLabels]};
+                break;
+            case "none":
+                return;
+        }
+        this.props.onChange({graph: next});
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -231,6 +279,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     type: correct.type,
                     startCoords:
                         this.props.graph && getStartCoords(this.props.graph),
+                    ...(this.props.graph &&
+                    "pointLabels" in this.props.graph &&
+                    this.props.graph.pointLabels
+                        ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
                 },
                 correct: correct,
             });
@@ -498,6 +551,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangePointLabels={this.changePointLabels}
                                 />
                             )}
 

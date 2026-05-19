@@ -7,10 +7,12 @@ import type {Coord} from "@khanacademy/perseus";
 type Props = {
     startCoords: Coord[];
     onChange: (startCoords: Coord[]) => void;
+    pointLabels?: ReadonlyArray<string>;
+    onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
 };
 
 const StartCoordsPoint = (props: Props) => {
-    const {startCoords, onChange} = props;
+    const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
 
     return (
         <>
@@ -24,6 +26,22 @@ const StartCoordsPoint = (props: Props) => {
                         newStartCoords[index] = newCoord;
                         onChange(newStartCoords);
                     }}
+                    pointLabel={
+                        onChangePointLabels && {
+                            value: pointLabels?.[index],
+                            placeholder: `${index + 1}`,
+                            onChange: (newLabel) => {
+                                const next = Array.from(
+                                    {length: startCoords.length},
+                                    (_, i) =>
+                                        i === index
+                                            ? newLabel
+                                            : pointLabels?.[i] ?? "",
+                                );
+                                onChangePointLabels(next);
+                            },
+                        }
+                    }
                 />
             ))}
         </>
