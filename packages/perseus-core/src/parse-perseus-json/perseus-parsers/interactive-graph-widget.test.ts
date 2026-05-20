@@ -311,4 +311,115 @@ describe("parseInteractiveGraphWidget", () => {
             }),
         );
     });
+
+    it("accepts the deprecated 'orange' color on locked figures so existing content keeps rendering", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "point",
+                            coord: [0, 0],
+                            color: "orange",
+                            filled: true,
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "point",
+                            coord: [0, 0],
+                            color: "orange",
+                            filled: true,
+                            labels: [],
+                        },
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("rejects unrecognized color names on locked figures", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "point",
+                            coord: [0, 0],
+                            color: "chartreuse",
+                            filled: true,
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(anyFailure);
+    });
 });
