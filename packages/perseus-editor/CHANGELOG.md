@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 32.0.3
+
+### Patch Changes
+
+-   [#3641](https://github.com/Khan/perseus/pull/3641) [`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Support exising orange locked figures after color migration
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+    -   @khanacademy/keypad-context@3.2.55
+    -   @khanacademy/kmath@2.4.13
+    -   @khanacademy/math-input@26.4.27
+    -   @khanacademy/perseus@77.7.1
+    -   @khanacademy/perseus-linter@5.0.10
+    -   @khanacademy/perseus-score@8.10.3
+
 ## 32.0.2
 
 ### Patch Changes

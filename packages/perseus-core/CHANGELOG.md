@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 27.0.1
+
+### Patch Changes
+
+-   [#3641](https://github.com/Khan/perseus/pull/3641) [`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Support exising orange locked figures after color migration
+
 ## 27.0.0
 
 ### Major Changes

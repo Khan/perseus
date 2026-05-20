@@ -1,5 +1,12 @@
 # @khanacademy/kmath
 
+## 2.4.13
+
+### Patch Changes
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+
 ## 2.4.12
 
 ### Patch Changes
