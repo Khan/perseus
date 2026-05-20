@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 27.0.2
+
+### Patch Changes
+
+-   [#3639](https://github.com/Khan/perseus/pull/3639) [`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce) Thanks [@benchristel](https://github.com/benchristel)! - When scoring input-number widgets using the numeric-input logic, we now disallow decimal and integer input under the following conditions: `answerType` is `number` or not set, `inexact` is not `true`, and the correct answer `value` has more than 10 decimal places. This ensures that learners are not approximating a rational answer with a decimal. It preserves the existing scoring behavior of input-number.
+
 ## 27.0.1
 
 ### Patch Changes
