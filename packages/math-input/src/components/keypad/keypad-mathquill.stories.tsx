@@ -32,13 +32,20 @@ export function V2KeypadWithMathquill() {
                 mathFieldWrapperRef.current,
                 "en",
                 mockStrings,
-                // TODO(LEMS-2656): remove TS suppression
-                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (_mathField: MathFieldInterface) => {
-                            setCursorContext(getCursorContext(_mathField));
+                        edit: (_mathField) => {
+                            setCursorContext(
+                                getCursorContext(
+                                    // Cast to MathFieldInterface to get the types for
+                                    // the cursor() and controller() methods, which
+                                    // exist but aren't part of the published
+                                    // MathQuill API.
+                                    // eslint-disable-next-line no-restricted-syntax
+                                    _mathField as MathFieldInterface,
+                                ),
+                            );
                         },
                     },
                 }),

@@ -62,6 +62,17 @@ export {
     parseAndMigratePerseusRenderer,
     type ParseFailureDetail,
 } from "./parse-perseus-json";
+/** @hidden */
+export {
+    parseLockedFigureColor,
+    parseLockedFigureFillStyle,
+    parseLockedLabelSize,
+    parseLockedLineKind,
+} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
+/** @hidden */
+export {parseInteractiveGraphType} from "./parse-perseus-json/perseus-parsers/interactive-graph-widget";
+/** @hidden */
+export {parse} from "./parse-perseus-json/parse";
 
 export {isSuccess, isFailure} from "./parse-perseus-json/result";
 export {

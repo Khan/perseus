@@ -124,6 +124,7 @@ type InteractiveGraphProps = {
     /**
      * The type of graph
      */
+    // TODO(benchristel): it seems like `graph` is not used. Remove it?
     graph: PerseusGraphType;
     /**
      * The correct answer for this widget.

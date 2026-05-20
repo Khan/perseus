@@ -395,9 +395,7 @@ function getStartUserInput(): PerseusExpressionUserInput {
 function getOneCorrectAnswerFromRubric(
     rubric: PerseusExpressionRubric,
 ): string | null | undefined {
-    // TODO(LEMS-2656): remove TS suppression
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const correctAnswers = (rubric.answerForms || []).filter(
+    const correctAnswers = rubric.answerForms.filter(
         (answerForm) => answerForm.considered === "correct",
     );
     if (correctAnswers.length === 0) {

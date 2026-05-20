@@ -40,11 +40,8 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const InteractiveGraph = InteractiveGraphWidget.widget;
-
-type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 type Range = [min: number, max: number];
 
@@ -54,7 +51,7 @@ export type Props = {
     /**
      * The labels for the x and y axes.
      */
-    labels: ReadonlyArray<string>;
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
@@ -130,10 +127,10 @@ export type Props = {
     correct: PerseusGraphType;
     /**
      * The locked figures to display in the graph area.
-     * Locked figures are graph elements (points, lines, line segmeents,
+     * Locked figures are graph elements (points, lines, line segments,
      * etc.) that are locked in place and not interactive.
      */
-    lockedFigures?: Array<LockedFigure>;
+    lockedFigures: Array<LockedFigure>;
     // Aria-label for the full graph area. Short title for the graph.
     fullGraphAriaLabel?: string;
     // Aria-description for the graph area. Longer description of the graph.
@@ -145,7 +142,7 @@ export type Props = {
     /**
      * The graph to display in the graph area.
      */
-    graph: InteractiveGraphProps["userInput"];
+    graph: PerseusGraphType;
     onChange: (props: Partial<Props>) => void;
     // Whether the graph has been set to static mode.
     // Graphs in static mode are not interactive, and their coords are
@@ -229,8 +226,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords:
-                        this.props.graph && getStartCoords(this.props.graph),
+                    startCoords: getStartCoords(this.props.graph),
                 },
                 correct: correct,
             });
@@ -373,13 +369,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 static: this.props.apiOptions?.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput: correct,
-                handleUserInput: (
-                    newGraph: InteractiveGraphProps["userInput"],
-                ) => {
+                handleUserInput: (newGraph: PerseusGraphType) => {
                     let correct = this.props.correct;
-                    // TODO(benchristel): can we improve the type of onChange
-                    // so this invariant isn't necessary?
-                    invariant(newGraph != null);
                     if (correct.type === newGraph.type) {
                         correct = mergeGraphs(correct, newGraph);
                     } else {
@@ -396,10 +387,28 @@ class InteractiveGraphEditor extends React.Component<Props> {
             graph = (
                 // There are a bunch of props that renderer.jsx passes to widgets via
                 // getWidgetProps() and widget-container.jsx that the editors don't
-                // bother passing.
-                // @ts-expect-error - TS2769 - No overload matches this call.
+                // bother passing. We pass `undefined` for these props and
+                // cast to `any`.
                 <InteractiveGraph
                     {...graphProps}
+                    // eslint-disable-next-line no-restricted-syntax
+                    graph={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    widgetId={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    widgetIndex={undefined as any}
+                    alignment={undefined}
+                    problemNum={undefined}
+                    // eslint-disable-next-line no-restricted-syntax
+                    onFocus={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    onBlur={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    findWidgets={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    reviewMode={undefined as any}
+                    // eslint-disable-next-line no-restricted-syntax
+                    linterContext={undefined as any}
                     containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
@@ -425,18 +434,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
                                 }
-                                // TODO(LEMS-2656): remove TS suppression
-                                onChange={
-                                    // eslint-disable-next-line no-restricted-syntax
-                                    ((
-                                        type: Required<InteractiveGraphProps>["userInput"]["type"],
-                                    ) => {
-                                        this.props.onChange({
-                                            graph: {type},
-                                            correct: {type},
-                                        });
-                                    }) as any
-                                }
+                                onChange={(type: PerseusGraphType["type"]) => {
+                                    this.props.onChange({
+                                        graph: {type},
+                                        correct: {type},
+                                    });
+                                }}
                                 // TODO(LEMS-3976): clean up feature flag
                                 apiOptions={this.props.apiOptions}
                             />

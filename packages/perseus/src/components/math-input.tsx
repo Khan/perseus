@@ -192,12 +192,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 this.__mathFieldWrapperRef,
                 locale,
                 this.props.mathInputStrings,
-                // TODO(LEMS-2656): remove TS suppression
-                // @ts-expect-error: Type 'EditableMathQuill' is not assignable to type 'MathFieldInterface'.
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: debounce((mathField: MathFieldInterface) => {
+                        edit: debounce((mathQuill) => {
+                            // eslint-disable-next-line no-restricted-syntax
+                            const mathField = mathQuill as MathFieldInterface;
                             // This handler is guaranteed to be called on change, but
                             // unlike React it sometimes generates false positives.
                             // One of these is on initialization (with an empty string
@@ -251,12 +251,16 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 $(this.__mathFieldWrapperRef).submit();
                             }
                         },
-                        upOutOf: (mathField: MathFieldInterface) => {
+                        upOutOf: (mathField) => {
                             // This handler is called when the user presses the up
                             // arrow key, but there is nowhere in the expression to go
                             // up to (no numerator or exponent). For ease of use,
                             // interpret this as an attempt to create an exponent.
-                            mathField.typedText("^");
+
+                            // BaseMathQuill doesn't have a typedText method,
+                            // so we have to cast here.
+                            // eslint-disable-next-line no-restricted-syntax
+                            (mathField as MathFieldInterface).typedText("^");
                         },
                     },
                 }),
