@@ -54,6 +54,13 @@
    This is why --perseus-multiple-choice-content-margin is used on the left side,
         but the right side uses --perseus-multiple-choice-spacing.
    Also, in order to account for text direction, the direction is flipped when in RTL mode.
+   NOTE: The variable --mobile-font-scale is set by Frontend in
+        libs/mobile-app-integration/src/font-scale.tsxlibs/mobile-app-integration/src/font-scale.tsx.
+        It is used here to account for a bug in Safari that incorrectly calculates the width of elements
+            that have zoom applied to them.
+        This variable only exists when the page is displayed within the mobile app, and font sizing is active.
+        Since the fade zone depends upon the width of its container, we need to account for the zoom factor
+            in order to correct the Safari bug.
 */
 .choice-list:before {
     background: linear-gradient(
