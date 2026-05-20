@@ -13,6 +13,7 @@ import {
     improperProblem,
     integerProblem,
     mixedProblem,
+    percentFormProblem,
     piProblem,
     properProblem,
     withCoefficient,
@@ -341,6 +342,29 @@ PiExample.parameters = {
     docs: {
         description: {
             story: "Numeric Inputs set to strictly pi mode will only accept answers in terms of π. Approximating pi will result in an incorrect answer and a hint.",
+        },
+    },
+};
+
+export const PercentExample = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        percentFormProblem,
+        "numeric-input 1",
+        args,
+    );
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
+};
+PercentExample.args = percentFormProblem.widgets["numeric-input 1"].options;
+PercentExample.parameters = {
+    docs: {
+        description: {
+            story: 'Numeric Input with "percent" in `answerForms`. Demonstrates that the renderer currently crashes because `NumericExampleStrings` (in utils.ts) is missing a `percent` entry even though `MathFormat` lists it as valid.',
         },
     },
 };

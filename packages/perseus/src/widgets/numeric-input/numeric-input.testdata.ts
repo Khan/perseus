@@ -152,6 +152,25 @@ export const properProblem: PerseusRenderer = generateTestPerseusRenderer({
     },
 });
 
+// Demonstrates the renderer crash when "percent" appears in `answerForms`.
+// `NumericExampleStrings` (in utils.ts) is missing a `percent` entry even though
+// `MathFormat` lists it as valid.
+export const percentFormProblem: PerseusRenderer = generateTestPerseusRenderer({
+    content: "$50\\% =$ [[☃ numeric-input 1]] \n\n‎",
+    widgets: {
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
+                answers: [
+                    generateNumericInputAnswer({
+                        value: 0.5,
+                        answerForms: ["percent"],
+                    }),
+                ],
+            }),
+        }),
+    },
+});
+
 export const percentageProblem: PerseusRenderer = generateTestPerseusRenderer({
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     widgets: {
