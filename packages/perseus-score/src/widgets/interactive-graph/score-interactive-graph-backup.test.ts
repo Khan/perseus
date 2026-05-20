@@ -1,3 +1,5 @@
+// STOPSHIP: don't land this as-is, it needs to be removed
+
 import invariant from "tiny-invariant";
 import _ from "underscore";
 

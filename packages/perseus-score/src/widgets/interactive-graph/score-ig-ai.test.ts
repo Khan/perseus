@@ -1,3 +1,5 @@
+// STOPSHIP: don't land this as-is, it needs to be removed or merged with the real test file
+
 import scoreInteractiveGraph from "./score-interactive-graph";
 
 import type {
