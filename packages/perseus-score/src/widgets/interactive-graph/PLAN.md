@@ -1,3 +1,5 @@
+<!-- STOPSHIP remove this file before landing, it's not useful long-term -->
+
 # Plan: Break Up score-interactive-graph.ts
 
 ## Context
