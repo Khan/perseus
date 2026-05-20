@@ -297,9 +297,9 @@ export const ImageWithScaledSizes: Story = {
 };
 
 /**
- * Images within a markdown table.
+ * Image widgets within a markdown table.
  */
-export const ImagesWithMarkdownTable: Story = {
+export const MarkdownTableWithImageWidgets: Story = {
     render: function Render() {
         return (
             // Limit width so zoom becomes possible.
@@ -307,7 +307,7 @@ export const ImagesWithMarkdownTable: Story = {
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
-                            "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",
+                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
@@ -321,7 +321,32 @@ export const ImagesWithMarkdownTable: Story = {
                                     alt: "Earth and Moon",
                                 }),
                             }),
+                            "image 3": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
+                                }),
+                            }),
                         },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Markdown images within a markdown table.
+ */
+export const MarkdownTableWithMarkdownImages: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        widgets: {},
                     })}
                 />
             </div>
