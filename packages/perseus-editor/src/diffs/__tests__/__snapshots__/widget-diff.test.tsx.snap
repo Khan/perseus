@@ -112,9 +112,18 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
                 <div
                   style="padding-left: 60px;"
                 >
-                  <span>
-                     [ show unmodified ] 
-                  </span>
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+                    data-kind="secondary"
+                    type="button"
+                  >
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                    >
+                      show unmodified
+                    </span>
+                  </button>
                 </div>
               </div>
               <div
@@ -123,9 +132,18 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
                 <div
                   style="padding-left: 60px;"
                 >
-                  <span>
-                     [ show unmodified ] 
-                  </span>
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+                    data-kind="secondary"
+                    type="button"
+                  >
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                    >
+                      show unmodified
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -273,9 +291,18 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
           <div
             style="padding-left: 0px;"
           >
-            <span>
-               [ show unmodified ] 
-            </span>
+            <button
+              aria-disabled="false"
+              class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+              data-kind="secondary"
+              type="button"
+            >
+              <span
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+              >
+                show unmodified
+              </span>
+            </button>
           </div>
         </div>
         <div
@@ -284,9 +311,18 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
           <div
             style="padding-left: 0px;"
           >
-            <span>
-               [ show unmodified ] 
-            </span>
+            <button
+              aria-disabled="false"
+              class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+              data-kind="secondary"
+              type="button"
+            >
+              <span
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+              >
+                show unmodified
+              </span>
+            </button>
           </div>
         </div>
       </div>
