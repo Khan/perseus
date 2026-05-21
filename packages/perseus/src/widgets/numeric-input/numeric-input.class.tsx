@@ -90,6 +90,13 @@ export class NumericInput
         return true;
     };
 
+    // [LEMS-4085] While we cannot find any callers of this method,
+    // adding it is the simplest way to resolve temporary type issues
+    // regarding rendering the Input Number widget as a Numeric Input
+    blur: () => void = () => {
+        this.inputRef.current?.blur();
+    };
+
     focusInputPath: () => void = () => {
         this.inputRef.current?.focus();
     };
