@@ -58,11 +58,9 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                 aria-labelledby=":r82:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -111,7 +109,6 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -160,7 +157,6 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -209,7 +205,6 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -346,11 +341,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 aria-labelledby=":r28:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -412,7 +405,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -461,7 +453,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -510,7 +501,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -638,11 +628,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 aria-labelledby=":r2g:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -704,7 +692,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -753,7 +740,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -802,7 +788,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -930,11 +915,9 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 aria-labelledby=":r20:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -996,7 +979,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1045,7 +1027,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1094,7 +1075,6 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1222,11 +1202,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 aria-labelledby=":r8:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1288,7 +1266,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1337,7 +1314,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1386,7 +1362,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1514,11 +1489,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 aria-labelledby=":rg:"
                 class="choice-list"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1580,7 +1553,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1629,7 +1601,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1678,7 +1649,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice"
-                  role="listitem"
                 >
                   <button
                     aria-disabled="false"
@@ -1806,11 +1776,9 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 aria-labelledby=":r0:"
                 class="choice-list review-answers"
                 data-widget="radio"
-                role="list"
               >
                 <li
                   class="choice is-wrong"
-                  role="listitem"
                 >
                   <button
                     aria-describedby=":r3:-choice-1-rationale"
@@ -1936,7 +1904,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice is-wrong"
-                  role="listitem"
                 >
                   <button
                     aria-describedby=":r3:-choice-2-rationale"
@@ -2033,7 +2000,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice is-correct"
-                  role="listitem"
                 >
                   <button
                     aria-describedby=":r3:-choice-3-rationale"
@@ -2129,7 +2095,6 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                 </li>
                 <li
                   class="choice is-wrong"
-                  role="listitem"
                 >
                   <button
                     aria-describedby=":r3:-choice-4-rationale"

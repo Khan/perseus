@@ -133,12 +133,10 @@ const RadioComponent = ({
                     {instructions}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
-                    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
                     <ul
                         data-widget="radio"
                         aria-labelledby={legendId}
                         className={choiceListClasses}
-                        role="list"
                     >
                         <ChoiceListItems
                             choices={choices}

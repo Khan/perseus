@@ -126,11 +126,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 aria-labelledby=":r1:"
                                 class="choice-list"
                                 data-widget="radio"
-                                role="list"
                               >
                                 <li
                                   class="choice"
-                                  role="listitem"
                                 >
                                   <button
                                     aria-disabled="false"
@@ -179,7 +177,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="choice"
-                                  role="listitem"
                                 >
                                   <button
                                     aria-disabled="false"
@@ -228,7 +225,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="choice"
-                                  role="listitem"
                                 >
                                   <button
                                     aria-disabled="false"
@@ -277,7 +273,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="choice"
-                                  role="listitem"
                                 >
                                   <button
                                     aria-disabled="false"
@@ -326,7 +321,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="choice"
-                                  role="listitem"
                                 >
                                   <button
                                     aria-disabled="false"
