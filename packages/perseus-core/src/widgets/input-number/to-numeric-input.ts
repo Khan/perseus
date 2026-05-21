@@ -2,12 +2,13 @@ import type {
     MathFormat,
     PerseusInputNumberAnswerType,
     PerseusInputNumberWidgetOptions,
-    PerseusNumericInputWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
 } from "../../data-schema";
 
+// FIXME: move to parser, derive return type from parser function type.
 export function convertInputNumberOptionsToNumericInput(
-    inputNumberOptions: PerseusInputNumberWidgetOptions,
-): PerseusNumericInputWidgetOptions {
+    inputNumberOptions: PerseusInputNumberWidgetOptionsV0,
+): PerseusInputNumberWidgetOptions {
     return {
         coefficient: false,
         rightAlign: inputNumberOptions.rightAlign,
@@ -27,7 +28,7 @@ export function convertInputNumberOptionsToNumericInput(
 }
 
 function getMaxError(
-    inputNumberOptions: PerseusInputNumberWidgetOptions,
+    inputNumberOptions: PerseusInputNumberWidgetOptionsV0,
 ): number | undefined {
     if (!inputNumberOptions.inexact) {
         return 0;
@@ -58,7 +59,7 @@ const mathFormatsForAnswerType: Record<
 };
 
 function getAnswerForms(
-    options: PerseusInputNumberWidgetOptions,
+    options: PerseusInputNumberWidgetOptionsV0,
 ): MathFormat[] {
     const value = Number(options.value);
     const {inexact} = options;
