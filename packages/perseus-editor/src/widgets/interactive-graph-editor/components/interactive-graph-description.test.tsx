@@ -33,7 +33,6 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue="Graph Title"
                 ariaDescriptionValue="Graph Description"
-                showLockedFigureDescriptionWarning={false}
                 onChange={jest.fn()}
             />,
             {wrapper: RenderStateRoot},
@@ -59,7 +58,6 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue=""
                 ariaDescriptionValue=""
-                showLockedFigureDescriptionWarning={false}
                 onChange={onChange}
             />,
             {wrapper: RenderStateRoot},
@@ -86,7 +84,6 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue=""
                 ariaDescriptionValue=""
-                showLockedFigureDescriptionWarning={false}
                 onChange={onChange}
             />,
             {wrapper: RenderStateRoot},
@@ -115,7 +112,6 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue="Graph Title"
                 ariaDescriptionValue=""
-                showLockedFigureDescriptionWarning={false}
                 onChange={onChange}
             />,
             {wrapper: RenderStateRoot},
@@ -136,7 +132,6 @@ describe("InteractiveGraphSettings", () => {
             <InteractiveGraphDescription
                 ariaLabelValue=""
                 ariaDescriptionValue="Graph Description"
-                showLockedFigureDescriptionWarning={false}
                 onChange={onChange}
             />,
             {wrapper: RenderStateRoot},
@@ -154,12 +149,11 @@ describe("InteractiveGraphSettings", () => {
         });
     });
 
-    it("can show message about description", () => {
+    it("has a message about description and locked labels", () => {
         render(
             <InteractiveGraphDescription
                 ariaLabelValue=""
                 ariaDescriptionValue=""
-                showLockedFigureDescriptionWarning={true}
                 onChange={jest.fn()}
             />,
             {wrapper: RenderStateRoot},
@@ -170,23 +164,5 @@ describe("InteractiveGraphSettings", () => {
         );
 
         expect(message).toBeInTheDocument();
-    });
-
-    it("can hide message about description", () => {
-        render(
-            <InteractiveGraphDescription
-                ariaLabelValue="Graph Title"
-                ariaDescriptionValue="Graph Description"
-                showLockedFigureDescriptionWarning={false}
-                onChange={jest.fn()}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const message = screen.queryByText(
-            "Aria description required when using locked figures. Locked figures aren't automatically described.",
-        );
-
-        expect(message).not.toBeInTheDocument();
     });
 });

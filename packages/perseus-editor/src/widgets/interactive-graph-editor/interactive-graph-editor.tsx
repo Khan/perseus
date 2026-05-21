@@ -415,14 +415,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             graph = <div className="perseus-error">{this.props.valid}</div>;
         }
 
-        // NOTE(matthewc): this duplicates some logic in `interactiveGraphWidgetLogic.accessible`.
-        // Ideally it wouldn't be duplicated, but the `isAccessible` API doesn't provide
-        // feedback as to why something is inaccessible. It could be in the linter which does
-        // provide specific feedback, but then we don't get the "is accessible" metrics we want
-        const showLockedFigureDescriptionWarning =
-            (this.props.lockedFigures?.length ?? 0) > 0 &&
-            !this.props.fullGraphAriaDescription;
-
         return (
             <Id>
                 {(graphId) => (
@@ -450,9 +442,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription
-                            showLockedFigureDescriptionWarning={
-                                showLockedFigureDescriptionWarning
-                            }
                             ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
                             ariaDescriptionValue={
                                 this.props.fullGraphAriaDescription ?? ""
