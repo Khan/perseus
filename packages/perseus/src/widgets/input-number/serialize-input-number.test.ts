@@ -30,6 +30,7 @@ import type {UserEvent} from "@testing-library/user-event";
  * This API needs to be removed and these tests need to be removed with it.
  */
 describe("InputNumber serialization", () => {
+    // TODO(benchristel): use the shared generator functions here.
     function generateBasicInputNumber(): PerseusItem {
         const question = generateTestPerseusRenderer({
             content: "[[☃ input-number 1]]",
@@ -37,9 +38,25 @@ describe("InputNumber serialization", () => {
                 "input-number 1": {
                     type: "input-number",
                     options: {
-                        value: 42,
-                        simplify: "optional",
+                        answers: [
+                            {
+                                value: 42,
+                                simplify: "optional",
+                                status: "correct",
+                                strict: true,
+                                answerForms: [
+                                    "integer",
+                                    "decimal",
+                                    "proper",
+                                    "improper",
+                                    "mixed",
+                                ],
+                                message: "",
+                                maxError: 0,
+                            },
+                        ],
                         size: "normal",
+                        coefficient: false,
                     },
                 },
             },

@@ -259,6 +259,7 @@ export type PerseusIFrameUserInput = {
 };
 
 /** Scoring rubric for the InputNumber widget. */
+// FIXME: Update this type to reflect the v1 widget options
 export type PerseusInputNumberRubric = {
     /**
      * Constrains which numeric forms are accepted (ie. these don't change the

@@ -2225,9 +2225,11 @@ export type PerseusInputNumberAnswer = {
      * wrong, or ungraded
      */
     message: string;
-    /** The expected answer */
-    value: number;
+    /** The expected answer. May be undefined in answerless (public) widget data. */
+    value?: number;
     /** Whether this answer is "correct", "wrong", or "ungraded" */
+    // FIXME: change this type to `"correct"`. InputNumber widgets should
+    //  always be configured with a single correct answer.
     status: string;
     /**
      * The forms available for this answer.

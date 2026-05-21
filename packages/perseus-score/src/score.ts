@@ -178,9 +178,15 @@ function scoreWidgetsFunctionalWithInputNumberAsNumericInput(
         let widgetOptions;
         if (widget.type === "input-number") {
             widgetType = "numeric-input";
-            widgetOptions = convertInputNumberOptionsToNumericInput(
-                widget.options,
-            );
+            // V0 input-number data (from production logs) must be converted to
+            // V1/numeric-input format before scoring. V1 data already has an
+            // `answers` array and can be passed through as-is.
+            // FIXME: NOOO! This is the wrong direction.
+            widgetOptions =
+                "answers" in widget.options &&
+                Array.isArray(widget.options.answers)
+                    ? widget.options
+                    : convertInputNumberOptionsToNumericInput(widget.options);
         } else {
             widgetType = widget.type;
             widgetOptions = widget.options;

@@ -7,21 +7,19 @@ import _ from "underscore";
 import BlurInput from "../components/blur-input";
 
 import type {ParsedValue} from "@khanacademy/perseus";
-import type {
-    PerseusInputNumberWidgetOptions,
-    InputNumberDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusInputNumberWidgetOptionsV0} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
 type Props = {
     value: number;
-    simplify: PerseusInputNumberWidgetOptions["simplify"];
-    size: PerseusInputNumberWidgetOptions["size"];
-    inexact: PerseusInputNumberWidgetOptions["inexact"];
-    maxError: PerseusInputNumberWidgetOptions["maxError"];
-    answerType: PerseusInputNumberWidgetOptions["answerType"];
-    rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
+    // FIXME: use the V1 widget options
+    simplify: PerseusInputNumberWidgetOptionsV0["simplify"];
+    size: PerseusInputNumberWidgetOptionsV0["size"];
+    inexact: PerseusInputNumberWidgetOptionsV0["inexact"];
+    maxError: PerseusInputNumberWidgetOptionsV0["maxError"];
+    answerType: PerseusInputNumberWidgetOptionsV0["answerType"];
+    rightAlign: PerseusInputNumberWidgetOptionsV0["rightAlign"];
     onChange: (arg1: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];
@@ -40,8 +38,23 @@ type Props = {
 class InputNumberEditor extends React.Component<Props> {
     static widgetName = "input-number" as const;
 
-    static defaultProps: InputNumberDefaultWidgetOptions =
-        inputNumberLogic.defaultWidgetOptions;
+    // FIXME: this was originally
+    // static defaultProps: InputNumberDefaultWidgetOptions =
+    // -        inputNumberLogic.defaultWidgetOptions;
+    // Go back to using defaultWidgetOptions.
+    static defaultProps = {
+        value: 0,
+        simplify: "required" as const,
+        size: "normal" as const,
+        inexact: false,
+        maxError: 0.1,
+        answerType: "number" as const,
+        rightAlign: false,
+    };
+
+    // Keep a reference to the logic so it's accessible from tests/editor
+    // FIXME: I don't think this line is necessary. Delete it.
+    static logic = inputNumberLogic;
 
     input = React.createRef<BlurInput>();
 
@@ -106,8 +119,9 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
-                                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
-                                    simplify: e.target.value,
+                                    // eslint-disable-next-line no-restricted-syntax
+                                    simplify: e.target
+                                        .value as Props["simplify"],
                                 });
                             }}
                         >
@@ -180,8 +194,11 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
-                            this.props.onChange({answerType: e.target.value});
+                            this.props.onChange({
+                                // eslint-disable-next-line no-restricted-syntax
+                                answerType: e.target
+                                    .value as Props["answerType"],
+                            });
                         }}
                         aria-label="Answer type"
                     >
@@ -202,8 +219,10 @@ class InputNumberEditor extends React.Component<Props> {
                         <select
                             value={this.props.size}
                             onChange={(e) => {
-                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
-                                this.props.onChange({size: e.target.value});
+                                this.props.onChange({
+                                    // eslint-disable-next-line no-restricted-syntax
+                                    size: e.target.value as Props["size"],
+                                });
                             }}
                         >
                             <option value="normal">Normal (80px)</option>

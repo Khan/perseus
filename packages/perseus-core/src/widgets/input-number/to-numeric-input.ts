@@ -9,6 +9,8 @@ import type {
 export function convertInputNumberOptionsToNumericInput(
     inputNumberOptions: PerseusInputNumberWidgetOptionsV0,
 ): PerseusInputNumberWidgetOptions {
+    // FIXME: use Number.parseFloat here so "" gets converted to NaN, not 0.
+    const numericValue = Number(inputNumberOptions.value);
     return {
         coefficient: false,
         rightAlign: inputNumberOptions.rightAlign,
@@ -16,7 +18,10 @@ export function convertInputNumberOptionsToNumericInput(
         answers: [
             {
                 status: "correct",
-                value: Number(inputNumberOptions.value),
+                // Use undefined for NaN (e.g. when the original value was a
+                // boolean), since NaN is not a valid JSON value and would fail
+                // to round-trip through JSON serialization.
+                value: Number.isFinite(numericValue) ? numericValue : undefined,
                 simplify: inputNumberOptions.simplify,
                 message: "",
                 maxError: getMaxError(inputNumberOptions),

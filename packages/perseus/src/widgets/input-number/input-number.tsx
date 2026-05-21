@@ -32,13 +32,15 @@ const formExamples: Record<string, FormExampleFunction> = {
         return strings.integerExample;
     },
     proper: function (options, strings) {
-        if (options.simplify === "optional") {
+        // FIXME: remove optional chaining; assert that answers[0] exists.
+        if (options.answers?.[0]?.simplify === "optional") {
             return strings.properExample;
         }
         return strings.simplifiedProperExample;
     },
     improper: function (options, strings) {
-        if (options.simplify === "optional") {
+        // FIXME: remove optional chaining; assert that answers[0] exists.
+        if (options.answers?.[0]?.simplify === "optional") {
             return strings.improperExample;
         }
         return strings.simplifiedImproperExample;
@@ -66,20 +68,12 @@ type Props = ExternalProps & {
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     rightAlign: NonNullable<ExternalProps["rightAlign"]>;
     size: NonNullable<ExternalProps["size"]>;
-    // NOTE(kevinb): This was the only default prop that is listed as
-    // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<ExternalProps["answerType"]>;
     dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = Pick<
     Props,
-    | "answerType"
-    | "apiOptions"
-    | "linterContext"
-    | "rightAlign"
-    | "size"
-    | "userInput"
+    "apiOptions" | "linterContext" | "rightAlign" | "size" | "userInput"
 >;
 
 class InputNumber extends React.Component<Props> implements Widget {
@@ -88,7 +82,6 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     static defaultProps: DefaultProps = {
         size: "normal",
-        answerType: "number",
         rightAlign: false,
         // NOTE(kevinb): renderer.jsx should be provide this so we probably don't
         // need to include it in defaultProps.
@@ -109,7 +102,26 @@ class InputNumber extends React.Component<Props> implements Widget {
     }
 
     shouldShowExamples: () => boolean = () => {
-        return this.props.answerType !== "number";
+        // FIXME: remove optional chaining, assert that answers[0] exists.
+        const answerForms = this.props.answers?.[0]?.answerForms;
+        // Show examples if not the default "number" set
+        // FIXME: this list of default forms should be encoded in one central
+        //  place.
+        const defaultForms = [
+            "integer",
+            "decimal",
+            "proper",
+            "improper",
+            "mixed",
+        ];
+        if (answerForms == null) {
+            return false;
+        }
+        // FIXME: This is wrong; should be a set-equality check.
+        const isDefault =
+            answerForms.length === defaultForms.length &&
+            defaultForms.every((f, i) => answerForms[i] === f);
+        return !isDefault;
     };
 
     handleChange: (arg1: string, arg2: () => void) => void = (newValue, cb) => {
@@ -164,11 +176,11 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     examples(): ReadonlyArray<string> {
         const {strings} = this.context;
-        const type = this.props.answerType;
-        const forms = inputNumberAnswerTypes[type].forms.split(/\s*,\s*/);
+        // FIXME: remove optional chaining. Replace ?? with assertion
+        const answerForms = this.props.answers?.[0]?.answerForms ?? [];
 
-        const examples = forms.map((form) =>
-            formExamples[form](this.props, strings),
+        const examples = answerForms.map(
+            (form) => formExamples[form]?.(this.props, strings) ?? "",
         );
 
         return [strings.yourAnswer].concat(examples);
@@ -179,12 +191,28 @@ class InputNumber extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
+        // FIXME: replace with numeric-input logic
+        const firstAnswer = this.props.answers?.[0];
+        // Derive answerType from answerForms for legacy serialization
+        const answerForms = firstAnswer?.answerForms ?? [];
+        let answerType = "number";
+
+        for (const [type, config] of Object.entries(inputNumberAnswerTypes)) {
+            const forms = config.forms.split(/\s*,\s*/);
+            if (
+                forms.length === answerForms.length &&
+                forms.every((f, i) => answerForms[i] === f)
+            ) {
+                answerType = type;
+                break;
+            }
+        }
         return {
             alignment: this.props.alignment,
             static: this.props.static,
-            simplify: this.props.simplify,
+            simplify: firstAnswer?.simplify,
             size: this.props.size,
-            answerType: this.props.answerType,
+            answerType,
             rightAlign: this.props.rightAlign,
             currentValue: this.props.userInput.currentValue,
         };
@@ -270,12 +298,20 @@ const styles = StyleSheet.create({
 });
 
 function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
-    if (rubric.value == null) {
+    // FIXME: replace with numeric-input logic
+    // V1 options have an `answers` array; V0 rubrics have a top-level `value`.
+    const firstAnswer = Array.isArray(rubric.answers)
+        ? rubric.answers[0]
+        : rubric;
+    if (firstAnswer?.value == null) {
         return;
     }
-    let answerString = String(rubric.value);
-    if (rubric.inexact && rubric.maxError) {
-        answerString += " \u00B1 " + rubric.maxError;
+    let answerString = String(firstAnswer.value);
+    const inexact =
+        firstAnswer.inexact ??
+        (firstAnswer.maxError != null && firstAnswer.maxError !== 0);
+    if (inexact && firstAnswer.maxError) {
+        answerString += " ± " + firstAnswer.maxError;
     }
     return answerString;
 }
@@ -299,7 +335,8 @@ function getStartUserInput(): PerseusInputNumberUserInput {
 function getCorrectUserInput(
     options: PerseusInputNumberWidgetOptions,
 ): PerseusInputNumberUserInput {
-    return {currentValue: options.value.toString()};
+    // FIXME: replace with numeric-input logic
+    return {currentValue: (options.answers[0].value ?? 0).toString()};
 }
 
 const WrappedInputNumber = withDependencies(InputNumber);

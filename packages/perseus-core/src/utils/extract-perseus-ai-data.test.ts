@@ -58,6 +58,7 @@ import type {
     NumericInputWidget,
     ExpressionWidget,
     CategorizerWidget,
+    InputNumberWidget,
 } from "../data-schema";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -830,9 +831,24 @@ describe("injectWidgets", () => {
             "input-number 1": {
                 type: "input-number",
                 options: {
-                    value: 42,
-                    simplify: "required",
+                    answers: [
+                        {
+                            value: 42,
+                            simplify: "required",
+                            status: "correct",
+                            strict: true,
+                            answerForms: [
+                                "integer",
+                                "decimal",
+                                "proper",
+                                "improper",
+                                "mixed",
+                            ],
+                            message: "",
+                        },
+                    ],
                     size: "normal",
+                    coefficient: false,
                 },
             },
             "expression 1": {
@@ -953,14 +969,29 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answer from a input-number widget", () => {
-        const widget = {
+        const widget: InputNumberWidget = {
             type: "input-number",
             options: {
-                value: 42,
-                simplify: "required",
+                answers: [
+                    {
+                        value: 42,
+                        simplify: "required",
+                        status: "correct",
+                        strict: true,
+                        answerForms: [
+                            "integer",
+                            "decimal",
+                            "proper",
+                            "improper",
+                            "mixed",
+                        ],
+                        message: "",
+                    },
+                ],
                 size: "normal",
+                coefficient: false,
             },
-        } as const;
+        };
         const answer = getAnswersFromWidgets({"input-number 1": widget});
         expect(answer).toEqual(["42"]);
     });
@@ -1050,9 +1081,24 @@ describe("getAnswersFromWidgets", () => {
                     "input-number 1": {
                         type: "input-number",
                         options: {
-                            value: 42,
-                            simplify: "required",
+                            answers: [
+                                {
+                                    value: 42,
+                                    simplify: "required" as const,
+                                    status: "correct",
+                                    strict: true,
+                                    answerForms: [
+                                        "integer",
+                                        "decimal",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                    ] as const,
+                                    message: "",
+                                },
+                            ],
                             size: "normal",
+                            coefficient: false,
                         },
                     },
                 },

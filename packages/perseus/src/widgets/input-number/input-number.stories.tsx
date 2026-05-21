@@ -124,12 +124,24 @@ export const Percent = (args: InputNumberOptions): React.ReactElement => {
 };
 Percent.args = question3.widgets["input-number 1"].options;
 
+const answerfulOptions: InputNumberOptions = {
+    answers: [
+        {
+            value: 42,
+            simplify: "optional",
+            status: "correct",
+            strict: true,
+            answerForms: ["integer", "decimal", "proper", "improper", "mixed"],
+            message: "",
+            maxError: 0,
+        },
+    ],
+    size: "normal",
+    coefficient: false,
+};
+
 export const Answerful = (): React.ReactElement => {
-    const item = getAnswerfulItem("input-number", {
-        simplify: "optional",
-        size: "normal",
-        value: 42,
-    });
+    const item = getAnswerfulItem("input-number", answerfulOptions);
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;
@@ -137,11 +149,7 @@ export const Answerful = (): React.ReactElement => {
 };
 
 export const Answerless = (): React.ReactElement => {
-    const item = getAnswerfulItem("input-number", {
-        simplify: "optional",
-        size: "normal",
-        value: 42,
-    });
+    const item = getAnswerfulItem("input-number", answerfulOptions);
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;

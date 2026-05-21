@@ -67,6 +67,20 @@ export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
     }),
 );
 
+// NaN values in input-number data serialize to `null` in JSON, and NaN is not
+// a valid answer value. Accept null and NaN as equivalent to undefined (i.e.,
+// "no value") for the answer value field.
+// FIXME: this seems weird; use optional(number) instead, which disallows NaN.
+const optionalNumberOrNull: Parser<number | undefined> = (rawValue, ctx) => {
+    if (rawValue === undefined || rawValue === null) {
+        return ctx.success(undefined);
+    }
+    if (typeof rawValue === "number" && isNaN(rawValue)) {
+        return ctx.success(undefined);
+    }
+    return number(rawValue, ctx);
+};
+
 const version1 = object({major: constant(1), minor: number});
 export const parseInputNumberWidgetV1 = parseWidgetWithVersion(
     version1,
@@ -75,7 +89,7 @@ export const parseInputNumberWidgetV1 = parseWidgetWithVersion(
         answers: array(
             object({
                 message: defaulted(string, () => ""),
-                value: number,
+                value: optionalNumberOrNull, // FIXME: this seems weird; use optional(number)
                 status: string,
                 answerForms: array(parseMathFormat),
                 strict: defaulted(boolean, () => false),

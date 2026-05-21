@@ -6,6 +6,7 @@ import {parseTex} from "../../util/tex-wrangler";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
+    PerseusInputNumberWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -44,16 +45,56 @@ export const inputNumberAnswerTypes = {
     },
 } as const;
 
+/**
+ * Normalize V1 widget options (with `answers[]`) to V0-style rubric fields so
+ * the existing scoring logic can operate on them unchanged.
+ */
+// FIXME: NO! This is bad!
+function toV0Rubric(
+    rubric: PerseusInputNumberRubric | PerseusInputNumberWidgetOptions,
+): PerseusInputNumberRubric {
+    // V1 format has an `answers` array; V0 format has a top-level `value`.
+    if ("answers" in rubric && Array.isArray(rubric.answers)) {
+        const answer = rubric.answers[0];
+        // Reverse-map answerForms back to an answerType.
+        const formsKey = answer?.answerForms?.join(", ");
+        let answerType: PerseusInputNumberRubric["answerType"] = "number";
+        for (const [type, config] of Object.entries(inputNumberAnswerTypes)) {
+            if (config.forms === formsKey) {
+                // eslint-disable-next-line no-restricted-syntax
+                answerType = type as PerseusInputNumberRubric["answerType"];
+                break;
+            }
+        }
+        return {
+            value: answer?.value ?? 0,
+            simplify: answer?.simplify ?? "required",
+            answerType,
+            inexact:
+                answer?.maxError != null && answer.maxError !== 0
+                    ? true
+                    : undefined,
+            maxError: answer?.maxError,
+        };
+    }
+    // eslint-disable-next-line no-restricted-syntax
+    return rubric as PerseusInputNumberRubric;
+}
+
 function scoreInputNumber(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusInputNumberUserInput | undefined,
-    rubric: PerseusInputNumberRubric,
+    // FIXME: use only PerseusInputNumberRubric here.
+    rawRubric: PerseusInputNumberRubric | PerseusInputNumberWidgetOptions,
     locale?: string,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
+
+    // FIXME: NO NO NO!
+    const rubric = toV0Rubric(rawRubric);
 
     if (rubric.answerType == null) {
         rubric.answerType = "number";

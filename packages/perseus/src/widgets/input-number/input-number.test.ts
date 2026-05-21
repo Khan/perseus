@@ -136,12 +136,24 @@ describe("input-number", function () {
                         graded: true,
                         alignment: "default",
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "optional",
-                            answerType: "rational",
+                            answers: [
+                                {
+                                    value: 0.3333333333333333,
+                                    simplify: "optional",
+                                    status: "correct",
+                                    strict: true,
+                                    answerForms: [
+                                        "integer",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                    ],
+                                    message: "",
+                                    maxError: 0,
+                                },
+                            ],
                             size: "normal",
+                            coefficient: false,
                         },
                     },
                 },
@@ -171,12 +183,24 @@ describe("input-number", function () {
                         graded: true,
                         alignment: "default",
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "required",
-                            answerType: "rational",
+                            answers: [
+                                {
+                                    value: 0.3333333333333333,
+                                    simplify: "required",
+                                    status: "correct",
+                                    strict: true,
+                                    answerForms: [
+                                        "integer",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                    ],
+                                    message: "",
+                                    maxError: 0,
+                                },
+                            ],
                             size: "normal",
+                            coefficient: false,
                         },
                     },
                 },
@@ -188,19 +212,26 @@ describe("input-number", function () {
             // eslint-disable-next-line no-restricted-syntax
             {
                 content:
-                    "A washing machine is being redesigned to handle a greater volume of water.  One part is a pipe with a radius of $3 \\,\\text{cm}$ and a length of $11\\,\\text{cm}$.  It gets replaced with a pipe of radius $4\\,\\text{cm}$, and the same length. \n\n**How many more cubic centimeters of water can the new pipe hold?**\n\n [[\u2603 input-number 1]] $\\text{cm}^3$",
+                    "A washing machine is being redesigned to handle a greater volume of water.  One part is a pipe with a radius of $3 \\,\\text{cm}$ and a length of $11\\,\\text{cm}$.  It gets replaced with a pipe of radius $4\\,\\text{cm}$, and the same length. \n\n**How many more cubic centimeters of water can the new pipe hold?**\n\n [[☃ input-number 1]] $\\text{cm}^3$",
                 images: {},
                 widgets: {
                     "input-number 1": {
                         type: "input-number",
                         graded: true,
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 241.90263432641407,
-                            simplify: "required",
-                            answerType: "pi",
+                            answers: [
+                                {
+                                    value: 241.90263432641407,
+                                    simplify: "required",
+                                    status: "correct",
+                                    strict: true,
+                                    answerForms: ["pi"],
+                                    message: "",
+                                    maxError: 0,
+                                },
+                            ],
                             size: "normal",
+                            coefficient: false,
                         },
                     },
                 },
@@ -219,12 +250,26 @@ describe("input-number", function () {
                         type: "input-number",
                         graded: true,
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.5,
-                            simplify: "optional",
-                            answerType: "percent",
+                            answers: [
+                                {
+                                    value: 0.5,
+                                    simplify: "optional",
+                                    status: "correct",
+                                    strict: true,
+                                    answerForms: [
+                                        "integer",
+                                        "decimal",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                        "percent",
+                                    ],
+                                    message: "",
+                                    maxError: 0,
+                                },
+                            ],
                             size: "small",
+                            coefficient: false,
                         },
                     },
                 },
@@ -373,28 +418,60 @@ describe("focus state", () => {
 
 function getAnswerlessInputNumber() {
     return getAnswerlessItem("input-number", {
-        simplify: "optional",
+        answers: [
+            {
+                value: 42,
+                simplify: "optional",
+                status: "correct",
+                strict: true,
+                answerForms: [
+                    "integer",
+                    "decimal",
+                    "proper",
+                    "improper",
+                    "mixed",
+                ],
+                message: "",
+                maxError: 0,
+            },
+        ],
         size: "normal",
-        value: 42,
+        coefficient: false,
     });
 }
 
 function getAnswerfulInputNumber() {
     return getAnswerfulItem("input-number", {
-        simplify: "optional",
+        answers: [
+            {
+                value: 42,
+                simplify: "optional",
+                status: "correct",
+                strict: true,
+                answerForms: [
+                    "integer",
+                    "decimal",
+                    "proper",
+                    "improper",
+                    "mixed",
+                ],
+                message: "",
+                maxError: 0,
+            },
+        ],
         size: "normal",
-        value: 42,
+        coefficient: false,
     });
 }
 
 it("removes answers from item data", () => {
     expect(
         getAnswerfulInputNumber().question.widgets["input-number 1"].options
-            .value,
+            .answers[0].value,
     ).toBe(42);
     expect(
         getAnswerlessInputNumber().question.widgets["input-number 1"].options
-            .value,
+            .answers[0].value,
     ).toBeUndefined();
 });
 

@@ -6,7 +6,6 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {getPromptJSON} from "./input-number-ai-utils";
 
 import type {
-    InputNumberWidget,
     PerseusRenderer,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
@@ -17,7 +16,6 @@ const question: PerseusRenderer = {
         "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
     images: {},
     widgets: {
-        // eslint-disable-next-line no-restricted-syntax
         "input-number 1": {
             graded: true,
             version: {
@@ -27,15 +25,28 @@ const question: PerseusRenderer = {
             static: false,
             type: "input-number",
             options: {
-                maxError: 0.1,
-                inexact: false,
-                value: 0.5,
-                simplify: "required",
-                answerType: "number",
+                answers: [
+                    {
+                        value: 0.5,
+                        simplify: "required",
+                        status: "correct",
+                        strict: true,
+                        answerForms: [
+                            "integer",
+                            "decimal",
+                            "proper",
+                            "improper",
+                            "mixed",
+                        ],
+                        message: "",
+                        maxError: 0,
+                    },
+                ],
                 size: "normal",
+                coefficient: false,
             },
             alignment: "default",
-        } as InputNumberWidget,
+        },
     },
 };
 
@@ -53,8 +64,7 @@ describe("InputNumber AI utils", () => {
         };
 
         const widgetData: any = {
-            simplify: "optional",
-            answerType: "integer",
+            answers: [{simplify: "optional", answerForms: ["integer"]}],
             userInput,
         };
 
@@ -64,7 +74,7 @@ describe("InputNumber AI utils", () => {
             type: "input-number",
             options: {
                 simplify: "optional",
-                answerType: "integer",
+                answerForms: ["integer"],
             },
             userInput: {
                 value: "123",
@@ -86,13 +96,19 @@ describe("InputNumber AI utils", () => {
         // Assert
         expect(json).toEqual({
             content:
-                "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
+                "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": {
                     type: "input-number",
                     options: {
                         simplify: "required",
-                        answerType: "number",
+                        answerForms: [
+                            "integer",
+                            "decimal",
+                            "proper",
+                            "improper",
+                            "mixed",
+                        ],
                     },
                     userInput: {
                         value: "40",

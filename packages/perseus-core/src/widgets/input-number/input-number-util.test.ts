@@ -4,15 +4,44 @@ import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 
 describe("getInputNumberPublicWidgetOptions", () => {
     it("removes value", () => {
+        // FIXME: reorder properties for consistency
         const original: PerseusInputNumberWidgetOptions = {
-            simplify: "optional",
+            answers: [
+                {
+                    value: 42,
+                    simplify: "optional",
+                    status: "correct",
+                    strict: true,
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                    ],
+                    message: "",
+                },
+            ],
             size: "normal",
-            value: 42,
+            coefficient: false,
         };
 
         expect(getInputNumberPublicWidgetOptions(original)).toEqual({
-            simplify: "optional",
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    simplify: "optional",
+                    status: "correct",
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                    ],
+                },
+            ],
         });
     });
 });
