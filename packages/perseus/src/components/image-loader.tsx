@@ -144,7 +144,6 @@ class ImageLoader extends React.Component<Props, State> {
                     url: src,
                     context: "image_loader:image_url",
                 })}
-                {...imgProps}
                 // Stop the image size from being larger than 100%
                 // when width and height are not explicitly provided.
                 style={{
@@ -162,6 +161,7 @@ class ImageLoader extends React.Component<Props, State> {
                         width: "100%",
                     }),
                 }}
+                {...imgProps}
             />
         );
     };
