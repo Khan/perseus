@@ -27,8 +27,6 @@ const parseMathFormat = enumeration(
     "pi",
 );
 
-const parseSimplify = enumeration("required", "optional", "enforced");
-
 const booleanToString: Parser<string> = (rawValue, ctx) => {
     if (typeof rawValue === "boolean") {
         return ctx.success(String(rawValue));
@@ -77,18 +75,12 @@ export const parseInputNumberWidgetV1 = parseWidgetWithVersion(
         answers: array(
             object({
                 message: defaulted(string, () => ""),
-                // TODO(benchristel): value should never be null or undefined,
-                // but we have some content where it is anyway. If we backfill
-                // the data, simplify this.
                 value: number,
                 status: string,
                 answerForms: array(parseMathFormat),
                 strict: defaulted(boolean, () => false),
                 maxError: optional(number),
-                // TODO(benchristel): simplify should never be a boolean, but we
-                // have some content where it is anyway. If we ever backfill
-                // the data, we should simplify `simplify`.
-                simplify: parseSimplify,
+                simplify: enumeration("required", "optional", "enforced"),
             }),
         ),
         labelText: optional(string),
