@@ -1,3 +1,4 @@
+import Button from "@khanacademy/wonder-blocks-button";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
@@ -67,8 +68,7 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
     render(): React.ReactNode {
         const self = this;
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
-            <div onClick={self.props.onClick} style={{clear: "both"}}>
+            <div style={{clear: "both"}}>
                 {_.map([BEFORE, AFTER], function (side) {
                     return (
                         <div
@@ -82,7 +82,14 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
                                     ),
                                 }}
                             >
-                                <span> [ show unmodified ] </span>
+                                <Button
+                                    size="small"
+                                    kind="secondary"
+                                    actionType="neutral"
+                                    onClick={self.props.onClick}
+                                >
+                                    show unmodified
+                                </Button>
                             </div>
                         </div>
                     );
