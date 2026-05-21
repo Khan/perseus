@@ -146,8 +146,8 @@ class Iframe extends React.Component<Props> implements Widget {
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
-            // eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error
             <iframe
+                title={this.context.strings.embeddedContent}
                 sandbox={sandboxProperties}
                 style={style}
                 src={url}

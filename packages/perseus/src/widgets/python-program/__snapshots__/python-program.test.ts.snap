@@ -23,6 +23,7 @@ exports[`python-program widget should snapshot on mobile: first mobile render 1`
               sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
               src="/python-program/5207287069147136/embedded"
               style="height: 400px; width: 100%;"
+              title="Python program"
             />
           </div>
         </div>
@@ -55,6 +56,7 @@ exports[`python-program widget should snapshot: first render 1`] = `
               sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
               src="/python-program/5207287069147136/embedded"
               style="height: 400px; width: 100%;"
+              title="Python program"
             />
           </div>
         </div>
