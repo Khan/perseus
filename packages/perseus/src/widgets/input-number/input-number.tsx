@@ -202,9 +202,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             return (
                 <NumericInput
                     {...this.props}
-                    answers={numericInputOptions.answers}
-                    coefficient={numericInputOptions.coefficient}
-                    static={this.props.static ?? false}
+                    {...numericInputOptions}
                     labelText=""
                     ref={this.handleInputRef}
                 />

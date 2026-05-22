@@ -364,7 +364,7 @@ PercentExample.args = percentFormProblem.widgets["numeric-input 1"].options;
 PercentExample.parameters = {
     docs: {
         description: {
-            story: 'Numeric Input with "percent" in `answerForms`. Demonstrates that the renderer currently crashes because `NumericExampleStrings` (in utils.ts) is missing a `percent` entry even though `MathFormat` lists it as valid.',
+            story: 'Numeric Input with "percent" in `answerForms`.',
         },
     },
 };
