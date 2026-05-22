@@ -2,12 +2,15 @@ import type {
     MathFormat,
     PerseusInputNumberAnswerType,
     PerseusInputNumberWidgetOptions,
-    PerseusNumericInputWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
 } from "../../data-schema";
 
+// FIXME: move to parser, derive return type from parser function type.
 export function convertInputNumberOptionsToNumericInput(
-    inputNumberOptions: PerseusInputNumberWidgetOptions,
-): PerseusNumericInputWidgetOptions {
+    inputNumberOptions: PerseusInputNumberWidgetOptionsV0,
+): PerseusInputNumberWidgetOptions {
+    // FIXME: use Number.parseFloat here so "" gets converted to NaN, not 0.
+    const numericValue = Number(inputNumberOptions.value);
     return {
         coefficient: false,
         rightAlign: inputNumberOptions.rightAlign,
@@ -15,7 +18,10 @@ export function convertInputNumberOptionsToNumericInput(
         answers: [
             {
                 status: "correct",
-                value: Number(inputNumberOptions.value),
+                // Use undefined for NaN (e.g. when the original value was a
+                // boolean), since NaN is not a valid JSON value and would fail
+                // to round-trip through JSON serialization.
+                value: Number.isFinite(numericValue) ? numericValue : undefined,
                 simplify: inputNumberOptions.simplify,
                 message: "",
                 maxError: getMaxError(inputNumberOptions),
@@ -27,7 +33,7 @@ export function convertInputNumberOptionsToNumericInput(
 }
 
 function getMaxError(
-    inputNumberOptions: PerseusInputNumberWidgetOptions,
+    inputNumberOptions: PerseusInputNumberWidgetOptionsV0,
 ): number | undefined {
     if (!inputNumberOptions.inexact) {
         return 0;
@@ -58,7 +64,7 @@ const mathFormatsForAnswerType: Record<
 };
 
 function getAnswerForms(
-    options: PerseusInputNumberWidgetOptions,
+    options: PerseusInputNumberWidgetOptionsV0,
 ): MathFormat[] {
     const value = Number(options.value);
     const {inexact} = options;

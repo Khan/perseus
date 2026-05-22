@@ -369,6 +369,7 @@ export {
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
 export {
+    generateInputNumberAnswer,
     generateInputNumberOptions,
     generateInputNumberWidget,
 } from "./utils/generators/input-number-widget-generator";

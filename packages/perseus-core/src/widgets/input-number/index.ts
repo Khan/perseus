@@ -6,22 +6,23 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type InputNumberDefaultWidgetOptions = Pick<
     PerseusInputNumberWidgetOptions,
-    | "value"
-    | "simplify"
-    | "size"
-    | "inexact"
-    | "maxError"
-    | "answerType"
-    | "rightAlign"
+    "answers" | "size" | "coefficient" | "rightAlign"
 >;
 
 const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
-    value: 0,
-    simplify: "required",
+    answers: [
+        {
+            value: 0,
+            simplify: "required",
+            status: "correct",
+            strict: true,
+            answerForms: ["integer", "decimal", "proper", "improper", "mixed"],
+            message: "",
+            maxError: 0,
+        },
+    ],
     size: "normal",
-    inexact: false,
-    maxError: 0.1,
-    answerType: "number",
+    coefficient: false,
     rightAlign: false,
 };
 

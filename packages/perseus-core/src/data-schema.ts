@@ -2219,8 +2219,35 @@ export type PerseusInputNumberAnswerType =
     | "percent"
     | "pi";
 
-/** Options for the input-number widget (deprecated; prefer numeric-input). */
-export type PerseusInputNumberWidgetOptions = {
+export type PerseusInputNumberAnswer = {
+    /**
+     * Translatable Display; A description for why this answer is correct,
+     * wrong, or ungraded
+     */
+    message: string;
+    /** The expected answer. May be undefined in answerless (public) widget data. */
+    value?: number;
+    /** Whether this answer is "correct", "wrong", or "ungraded" */
+    // FIXME: change this type to `"correct"`. InputNumber widgets should
+    //  always be configured with a single correct answer.
+    status: string;
+    /**
+     * The forms available for this answer.
+     */
+    answerForms: MathFormat[];
+    /**
+     * Whether we should check the answer strictly against the configured
+     * answerForms (strict = true) or include the set of default answerForms
+     * (strict = false).
+     */
+    strict: boolean;
+    maxError?: number | undefined;
+    /** Unsimplified answers are Ungraded, Accepted, or Wrong. */
+    simplify: PerseusNumericInputSimplify;
+};
+
+// FIXME: move this type to the parser
+export type PerseusInputNumberWidgetOptionsV0 = {
     answerType?: PerseusInputNumberAnswerType;
     inexact?: boolean;
     maxError?: number | string;
@@ -2228,6 +2255,39 @@ export type PerseusInputNumberWidgetOptions = {
     simplify: "required" | "optional" | "enforced";
     size: "normal" | "small";
     value: string | number;
+};
+
+/** Options for the input-number widget (deprecated; prefer numeric-input). */
+export type PerseusInputNumberWidgetOptions = {
+    /**
+     * A list of correct and incorrect answers. Each answer can have a
+     * message explaining why it is correct/incorrect. There may be
+     * multiple correct answers if multiple formats are accepted. For
+     * example, some questions might accept either a fraction or a
+     * decimal as correct.
+     *
+     * The first answer that matches (correct or incorrect) is the scoring
+     * result (so order of answers is very important).
+     */
+    answers: PerseusInputNumberAnswer[];
+    /**
+     * Translatable Text; Text to describe this input. This will be shown to
+     * users using screenreaders.
+     */
+    labelText?: string | undefined;
+    /**
+     * Use size "Normal" for all text boxes, unless there are multiple text
+     * boxes in one line and the answer area is too narrow to fit them.
+     * Options: "normal" or "small"
+     */
+    size: string;
+    /**
+     * A coefficient style number allows the student to use - for -1 and an
+     * empty string to mean 1.
+     */
+    coefficient: boolean;
+    /** Whether to right-align the text or not */
+    rightAlign?: boolean;
 };
 
 /** Options for the molecule-renderer widget. Renders a molecule via SMILES. */

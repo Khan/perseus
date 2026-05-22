@@ -22,8 +22,9 @@ export type InputNumberPromptJSON = {
          * - "enforced" means unsimplified answers are counted as incorrect.
          */
         simplify: string;
-        /** The expected numeric form, e.g. "rational", "decimal" */
-        answerType: string;
+        /** The allowed numeric forms for the answer */
+        // FIXME: use string[] here
+        answerForms: ReadonlyArray<string>;
     };
 
     /**
@@ -39,11 +40,15 @@ export type InputNumberPromptJSON = {
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof inputNumber.widget>,
 ): InputNumberPromptJSON => {
+    // FIXME: ?. is not needed here
+    const firstAnswer = widgetData.answers?.[0];
+    // FIXME: assert that firstAnswer is non-nullish.
     return {
         type: "input-number",
         options: {
-            simplify: widgetData.simplify,
-            answerType: widgetData.answerType,
+            // FIXME: remove nullish checks
+            simplify: firstAnswer?.simplify ?? "",
+            answerForms: firstAnswer?.answerForms ?? [],
         },
         userInput: {
             value: widgetData.userInput.currentValue,

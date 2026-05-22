@@ -3,6 +3,7 @@ import {
     generateDropdownWidget,
     generateInputNumberWidget,
     generateInputNumberOptions,
+    generateInputNumberAnswer,
 } from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
@@ -565,7 +566,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": generateInputNumberWidget({
-                    options: generateInputNumberOptions({value: "42"}),
+                    options: generateInputNumberOptions({
+                        answers: [generateInputNumberAnswer({value: 42})],
+                    }),
                 }),
             },
             images: {},
@@ -599,7 +602,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": generateInputNumberWidget({
-                    options: generateInputNumberOptions({value: "42"}),
+                    options: generateInputNumberOptions({
+                        answers: [generateInputNumberAnswer({value: 42})],
+                    }),
                 }),
             },
             images: {},
@@ -633,7 +638,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": generateInputNumberWidget({
-                    options: generateInputNumberOptions({value: "42"}),
+                    options: generateInputNumberOptions({
+                        answers: [generateInputNumberAnswer({value: 42})],
+                    }),
                 }),
             },
             images: {},
@@ -662,7 +669,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
             content: "",
             widgets: {
                 "input-number 1": generateInputNumberWidget({
-                    options: generateInputNumberOptions({value: "42"}),
+                    options: generateInputNumberOptions({
+                        answers: [generateInputNumberAnswer({value: 42})],
+                    }),
                 }),
             },
             images: {},
@@ -690,7 +699,9 @@ describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
             widgets: {
                 "input-number 1": generateInputNumberWidget({
                     graded: false,
-                    options: generateInputNumberOptions({value: "42"}),
+                    options: generateInputNumberOptions({
+                        answers: [generateInputNumberAnswer({value: 42})],
+                    }),
                 }),
             },
             images: {},

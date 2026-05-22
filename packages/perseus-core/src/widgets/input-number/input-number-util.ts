@@ -1,21 +1,34 @@
-import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
-
-/**
- * For details on the individual options, see the
- * PerseusInputNumberWidgetOptions type
- */
-export type InputNumberPublicWidgetOptions = Pick<
+import type {
+    PerseusInputNumberAnswer,
     PerseusInputNumberWidgetOptions,
-    "answerType" | "inexact" | "maxError" | "rightAlign" | "simplify" | "size"
+} from "../../data-schema";
+
+type InputNumberAnswerPublicData = Pick<
+    PerseusInputNumberAnswer,
+    "answerForms" | "simplify" | "status"
 >;
 
-/**
- * Given a PerseusInputNumberWidgetOptions object, return a new object with only
- * the public options that should be exposed to the client.
- */
+export type InputNumberPublicWidgetOptions = {
+    labelText?: PerseusInputNumberWidgetOptions["labelText"];
+    size: PerseusInputNumberWidgetOptions["size"];
+    coefficient: PerseusInputNumberWidgetOptions["coefficient"];
+    rightAlign?: PerseusInputNumberWidgetOptions["rightAlign"];
+    answers: ReadonlyArray<InputNumberAnswerPublicData>;
+};
+
+function getInputNumberAnswerPublicData(
+    answer: PerseusInputNumberAnswer,
+): InputNumberAnswerPublicData {
+    const {answerForms, simplify, status} = answer;
+    return {answerForms, simplify, status};
+}
+
 export function getInputNumberPublicWidgetOptions(
     options: PerseusInputNumberWidgetOptions,
 ): InputNumberPublicWidgetOptions {
-    const {value: _, ...publicWidgetOptions} = options;
-    return publicWidgetOptions;
+    const {answers, ...publicWidgetOptions} = options;
+    return {
+        ...publicWidgetOptions,
+        answers: answers.map(getInputNumberAnswerPublicData),
+    };
 }

@@ -4,6 +4,9 @@ import {
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 
+// TODO(benchristel): this data is intentionally only used in one test file.
+//  Move it into that file to make it easier to understand the tests.
+
 export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {
         content: "Here's a radio widget: [[\u2603 radio 1]] \n\n",
@@ -79,18 +82,34 @@ export const PerseusItemWithInputNumber = generateTestPerseusItem({
         // eslint-disable-next-line no-restricted-syntax
         images: {} as Record<any, any>,
         widgets: {
+            // TODO(benchristel): I think we could use the generator functions
+            //  for widget data in this file. The tests don't seem to care
+            //  about the specific widget options.
             "input-number 1": {
                 type: "input-number",
                 alignment: "default",
                 static: false,
                 graded: true,
                 options: {
-                    value: 66,
-                    simplify: "required",
+                    answers: [
+                        {
+                            value: 66,
+                            simplify: "required",
+                            status: "correct",
+                            strict: true,
+                            answerForms: [
+                                "integer",
+                                "decimal",
+                                "proper",
+                                "improper",
+                                "mixed",
+                            ],
+                            message: "",
+                            maxError: 0,
+                        },
+                    ],
                     size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                    answerType: "number",
+                    coefficient: false,
                 },
                 version: {
                     major: 0,

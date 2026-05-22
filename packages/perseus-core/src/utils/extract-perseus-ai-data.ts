@@ -118,9 +118,13 @@ export function getAnswersFromWidgets(
             case "input-number":
                 // Answer is the correct value
                 const inputNumber = widget;
-                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                if (inputNumber.options?.value) {
-                    answers.push(inputNumber.options.value.toString());
+                // FIXME: refactor
+                if (inputNumber.options?.answers != null) {
+                    for (const ans of inputNumber.options.answers) {
+                        if (ans.status === "correct" && ans.value != null) {
+                            answers.push(ans.value.toString());
+                        }
+                    }
                 }
                 break;
             case "expression":

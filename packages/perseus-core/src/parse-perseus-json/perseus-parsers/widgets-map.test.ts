@@ -384,11 +384,27 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "input-number 1": {
                 type: "input-number",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
-                    simplify: "required",
+                    answers: [
+                        {
+                            value: 42,
+                            simplify: "required",
+                            status: "correct",
+                            strict: true,
+                            answerForms: [
+                                "integer",
+                                "decimal",
+                                "proper",
+                                "improper",
+                                "mixed",
+                            ],
+                            message: "",
+                            maxError: 0,
+                        },
+                    ],
                     size: "normal",
-                    value: "",
+                    coefficient: false,
                 },
             },
         };

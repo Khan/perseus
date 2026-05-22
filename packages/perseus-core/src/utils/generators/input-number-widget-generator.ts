@@ -1,7 +1,6 @@
-import inputNumberWidgetLogic from "../../widgets/input-number";
-
 import type {
     InputNumberWidget,
+    PerseusInputNumberAnswer,
     PerseusInputNumberWidgetOptions,
 } from "../../data-schema";
 
@@ -19,11 +18,32 @@ export function generateInputNumberWidget(
     };
 }
 
+export function generateInputNumberAnswer(
+    params: Partial<PerseusInputNumberAnswer> = {},
+): PerseusInputNumberAnswer {
+    return {
+        value: 42,
+        simplify: "required",
+        status: "correct",
+        strict: true,
+        answerForms: ["integer", "decimal", "proper", "improper", "mixed"],
+        message: "",
+        maxError: 0,
+        ...params,
+    };
+}
+
 export function generateInputNumberOptions(
     options?: Partial<PerseusInputNumberWidgetOptions>,
 ): PerseusInputNumberWidgetOptions {
+    const defaults: PerseusInputNumberWidgetOptions = {
+        answers: [generateInputNumberAnswer()],
+        size: "normal",
+        coefficient: false,
+    };
+    // FIXME: can we go back to using `inputNumberWidgetLogic.defaultWidgetOptions` here?
     return {
-        ...inputNumberWidgetLogic.defaultWidgetOptions,
+        ...defaults,
         ...options,
     };
 }

@@ -1,6 +1,6 @@
 import {describe, expect, test} from "@jest/globals";
 
-import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 
 import {
     scorePerseusItem,
@@ -10,7 +10,9 @@ import {
 interface TestCase {
     title: string;
     userInput: UserInputMap;
-    widgets: PerseusWidgetsMap;
+    // V0-format widget data from production logs; cast at use site
+    // FIXME: use V0 type from data schema.
+    widgets: Record<string, unknown>;
 }
 
 // NOTE: To add a test case to this list:
@@ -132,7 +134,9 @@ describe("scoring with input-number converted to numeric-input", () => {
             .join("");
 
         const scoringArgs: Parameters<typeof scorePerseusItem> = [
-            {content, widgets, images: {}},
+            // FIXME: remove this cast
+            // eslint-disable-next-line no-restricted-syntax
+            {content, widgets, images: {}} as unknown as PerseusRenderer,
             userInput,
             "en",
         ];
