@@ -92,7 +92,7 @@ class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    // [LEMS-4085] Single ref shared by both the legacy and NumericInput render paths.
+    // TODO(LEMS-4085): Single ref shared by both the legacy and NumericInput render paths.
     // Both targets satisfy `Focusable`, so focus/blur delegation is uniform.
     inputRef: {current: Focusable | null} = {current: null};
 
@@ -191,7 +191,7 @@ class InputNumber extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        // [LEMS-4085] This logic renders the Numeric Input widget instead of the
+        // TODO(LEMS-4085): This logic renders the Numeric Input widget instead of the
         // Input Number widget when the appropriate flag is on. We will want to
         // remove the flag check when we're ready to fully replace Input Number.
         if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
