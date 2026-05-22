@@ -1,4 +1,5 @@
 import Button from "@khanacademy/wonder-blocks-button";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
@@ -77,6 +78,8 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
                         >
                             <div
                                 style={{
+                                    paddingTop: sizing.size_040,
+                                    paddingBottom: sizing.size_040,
                                     paddingLeft: indentationFromDepth(
                                         self.props.depth,
                                     ),
