@@ -1709,7 +1709,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     // Wait for fonts to load before setting label margins,
     // so that the margins are not flakey.
-    if (document.fonts?.status !== "loaded") {
+    if (document.fonts?.status === "loading") {
         setTimeout(() => {
             setLabelMargins(span, size);
         }, 5);
