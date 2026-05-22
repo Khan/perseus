@@ -370,6 +370,33 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
             expect(score).toHaveBeenAnsweredCorrectly();
         },
     );
+
+    it("supports focusing", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const gotFocus = await act(() => renderer.focus());
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveFocus();
+        expect(gotFocus).toBe(true);
+    });
+
+    it("supports blurring", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        await act(() => renderer.focus());
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Act
+        await act(() => renderer.blur());
+
+        // Assert
+        await waitFor(() => {
+            expect(screen.getByRole("textbox")).not.toHaveFocus();
+        });
+    });
 });
 
 describe("getOneCorrectAnswerFromRubric", () => {
