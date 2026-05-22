@@ -28,30 +28,32 @@ const CoordInput = (props: CoordInputProps) => {
         return (
             <View className={styles.tile}>
                 <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
-                <View className={styles.inputsRow}>
-                    <BodyText tag="label" className={styles.labelField}>
-                        label
-                        <View className={styles.pointLabelField}>
-                            <TextField
-                                aria-label={`${label} name`}
-                                value={pointLabel.value ?? ""}
-                                placeholder={pointLabel.placeholder}
-                                onChange={pointLabel.onChange}
-                            />
-                        </View>
-                    </BodyText>
-                    <CoordinatePairInput
-                        coord={coord}
-                        labels={["x", "y"]}
-                        onChange={onChange}
-                    />
-                </View>
+                <CoordinatePairInput
+                    coord={coord}
+                    labels={["x", "y"]}
+                    onChange={onChange}
+                    labelStyle={{
+                        minWidth: 40,
+                        textAlign: "right",
+                    }}
+                />
+                <BodyText tag="label" className={styles.labelField}>
+                    <span className={styles.labelPrefix}>Label</span>
+                    <View className={styles.pointLabelField}>
+                        <TextField
+                            aria-label={`${label} name`}
+                            value={pointLabel.value ?? ""}
+                            placeholder={pointLabel.placeholder}
+                            onChange={pointLabel.onChange}
+                        />
+                    </View>
+                </BodyText>
             </View>
         );
     }
 
     return (
-        <View className={styles.tile}>
+        <View className={styles.tileRow}>
             <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
             <CoordinatePairInput
                 coord={coord}
