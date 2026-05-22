@@ -12,7 +12,7 @@ import * as React from "react";
 
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
-import {getAnswerfulItem} from "../../util/test-utils";
+import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
@@ -82,14 +82,11 @@ const meta: Meta = {
 };
 export default meta;
 
-type Question = PerseusRenderer;
-type InputNumberOptions = PerseusInputNumberWidgetOptions;
-
 const updateWidgetOptions = (
-    question: Question,
+    question: PerseusRenderer,
     widgetId: string,
-    options: InputNumberOptions,
-): Question => {
+    options: PerseusInputNumberWidgetOptions,
+): PerseusRenderer => {
     const widget = question.widgets[widgetId];
     return {
         ...question,
@@ -105,7 +102,9 @@ const updateWidgetOptions = (
     };
 };
 
-export const Rational = (args: InputNumberOptions): React.ReactElement => {
+export const Rational = (
+    args: PerseusInputNumberWidgetOptions,
+): React.ReactElement => {
     const question = updateWidgetOptions(question1, "input-number 1", args);
     return (
         <ServerItemRendererWithDebugUI
@@ -116,7 +115,9 @@ export const Rational = (args: InputNumberOptions): React.ReactElement => {
 };
 Rational.args = question1.widgets["input-number 1"].options;
 
-export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
+export const PiSimplify = (
+    args: PerseusInputNumberWidgetOptions,
+): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);
     return (
         <ServerItemRendererWithDebugUI
@@ -127,7 +128,9 @@ export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
 };
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
-export const Percent = (args: InputNumberOptions): React.ReactElement => {
+export const Percent = (
+    args: PerseusInputNumberWidgetOptions,
+): React.ReactElement => {
     const question = updateWidgetOptions(question3, "input-number 1", args);
     return (
         <ServerItemRendererWithDebugUI
@@ -156,7 +159,7 @@ export const Answerful = (): React.ReactElement => {
 };
 
 export const Answerless = (): React.ReactElement => {
-    const item = getAnswerfulItem("input-number", {
+    const item = getAnswerlessItem("input-number", {
         simplify: "optional",
         size: "normal",
         value: 42,
