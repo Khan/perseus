@@ -222,12 +222,21 @@ export function getPointGraphDescription(
         return strings.srNoInteractiveElements;
     }
 
-    const pointDescriptions = state.coords.map(([x, y], index) =>
-        strings.srPointAtCoordinates({
-            num: state.pointLabels?.[index] || index + 1,
-            x: srFormatNumber(x, locale),
-            y: srFormatNumber(y, locale),
-        }),
+    const pointDescriptions = state.coords.map(
+        (point, index) =>
+            // Share the helper's defensive rules with the MovablePoint handle's aria-label.
+            buildPointAriaLabel(
+                state.pointLabels,
+                index,
+                point,
+                strings,
+                locale,
+            ) ??
+            strings.srPointAtCoordinates({
+                num: index + 1,
+                x: srFormatNumber(point[0], locale),
+                y: srFormatNumber(point[1], locale),
+            }),
     );
 
     return strings.srInteractiveElements({

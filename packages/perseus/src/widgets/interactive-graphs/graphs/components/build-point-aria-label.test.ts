@@ -34,4 +34,22 @@ describe("buildPointAriaLabel", () => {
             buildPointAriaLabel(["A", "B"], 1, [-1, 2], strings, locale),
         ).toBe("Point B at -1 comma 2.");
     });
+
+    it("returns undefined for non-string entries (null, undefined, number) — defensive against malformed hand-authored JSON bypassing the parser", () => {
+        // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+        const labels = [
+            null,
+            undefined,
+            42,
+        ] as unknown as ReadonlyArray<string>;
+        expect(
+            buildPointAriaLabel(labels, 0, [0, 0], strings, locale),
+        ).toBeUndefined();
+        expect(
+            buildPointAriaLabel(labels, 1, [0, 0], strings, locale),
+        ).toBeUndefined();
+        expect(
+            buildPointAriaLabel(labels, 2, [0, 0], strings, locale),
+        ).toBeUndefined();
+    });
 });

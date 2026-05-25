@@ -18,7 +18,8 @@ export function buildPointAriaLabel(
     locale: string,
 ): string | undefined {
     const customLabel = pointLabels?.[index];
-    if (!customLabel) {
+    // Fall back to the numeric default if a non-string slips past the parser.
+    if (typeof customLabel !== "string" || !customLabel) {
         return undefined;
     }
     return strings.srPointAtCoordinates({
