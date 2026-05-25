@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 27.0.3
+
+### Patch Changes
+
+-   [#3659](https://github.com/Khan/perseus/pull/3659) [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove interactive graph phase 2 remaining feature flags: interactive-graph-vector, interactive-graph-not-scored
+
 ## 27.0.2
 
 ### Patch Changes

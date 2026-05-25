@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.4.29
+
+### Patch Changes
+
+-   [#3662](https://github.com/Khan/perseus/pull/3662) [`58ff08bdd0`](https://github.com/Khan/perseus/commit/58ff08bdd0cf40fbb18fdc7a433c71bd19a89f22) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor update to ensure the bg locale always uses CDOT for the multiplication symbol
+
+-   Updated dependencies [[`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f)]:
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/keypad-context@3.2.57
+
 ## 26.4.28
 
 ### Patch Changes
