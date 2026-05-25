@@ -49,11 +49,10 @@ type Props = PerseusGraphType & {
 
 const StartCoordsSettingsInner = (props: Props) => {
     const {
-        allowReflexAngles,
-        pointLabels,
+        type,
         range,
         step,
-        type,
+        allowReflexAngles,
         onChange,
         onChangePointLabels,
     } = props;
@@ -193,7 +192,9 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsPoint
                     startCoords={pointCoords}
                     onChange={onChange}
-                    pointLabels={type === "point" ? pointLabels : undefined}
+                    pointLabels={
+                        type === "point" ? props.pointLabels : undefined
+                    }
                     onChangePointLabels={
                         type === "point" ? onChangePointLabels : undefined
                     }
