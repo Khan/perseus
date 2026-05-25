@@ -8,6 +8,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -180,23 +181,25 @@ function MovableCircle(props: {
                 ref={visibleGroupRef}
                 className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
             >
-                <ellipse
-                    className="focus-ring"
-                    cx={centerPx[X]}
-                    cy={centerPx[Y]}
-                    rx={radiiPx[X] + 3}
-                    ry={radiiPx[Y] + 3}
-                />
-                <ellipse
-                    id={id}
-                    className="circle"
-                    cx={centerPx[X]}
-                    cy={centerPx[Y]}
-                    rx={radiiPx[X]}
-                    ry={radiiPx[Y]}
-                    stroke={interactiveColor}
-                    data-testid="movable-circle__circle"
-                />
+                <ClipToGraphBounds>
+                    <ellipse
+                        className="focus-ring"
+                        cx={centerPx[X]}
+                        cy={centerPx[Y]}
+                        rx={radiiPx[X] + 3}
+                        ry={radiiPx[Y] + 3}
+                    />
+                    <ellipse
+                        id={id}
+                        className="circle"
+                        cx={centerPx[X]}
+                        cy={centerPx[Y]}
+                        rx={radiiPx[X]}
+                        ry={radiiPx[Y]}
+                        stroke={interactiveColor}
+                        data-testid="movable-circle__circle"
+                    />
+                </ClipToGraphBounds>
                 <DragHandle
                     center={center}
                     dragging={dragging}
