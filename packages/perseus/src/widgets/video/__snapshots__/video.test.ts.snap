@@ -32,11 +32,6 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
               class="fixed-to-responsive"
               style="max-width: 1280px; max-height: 720px;"
             >
-              <div
-                class="default_xu2jcg-o_O-srOnly_19bpjuy"
-              >
-                Khan Academy video wrapper
-              </div>
               <iframe
                 allow="autoplay"
                 allowfullscreen=""
@@ -44,6 +39,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 height="720"
                 sandbox="allow-same-origin allow-scripts"
                 src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                title="Khan Academy video wrapper"
                 width="1280"
               />
             </div>
@@ -106,11 +102,6 @@ exports[`video widget should snapshot: first render 1`] = `
               class="fixed-to-responsive"
               style="max-width: 1280px; max-height: 720px;"
             >
-              <div
-                class="default_xu2jcg-o_O-srOnly_19bpjuy"
-              >
-                Khan Academy video wrapper
-              </div>
               <iframe
                 allow="autoplay"
                 allowfullscreen=""
@@ -118,6 +109,7 @@ exports[`video widget should snapshot: first render 1`] = `
                 height="720"
                 sandbox="allow-same-origin allow-scripts"
                 src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                title="Khan Academy video wrapper"
                 width="1280"
               />
             </div>
