@@ -1,3 +1,8 @@
+// Mirrors `input-number.stories.tsx`, but renders every story with the
+// `input-number-to-numeric-input` feature flag enabled — so we can verify the
+// flag-on rendering side-by-side with the existing stories during the
+// migration. This file should be deleted once the flag is removed and
+// numeric-input is the only rendering path.
 import {
     type PerseusRenderer,
     type PerseusInputNumberWidgetOptions,
@@ -5,6 +10,7 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 
@@ -12,16 +18,21 @@ import {question1, question2, question3} from "./input-number.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 
+const apiOptionsWithFlag = {
+    flags: getFeatureFlags({"input-number-to-numeric-input": true}),
+};
+
 const meta: Meta = {
-    title: "Widgets/Input Number",
+    title: "Widgets/Input Number (Numeric Input flag)",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
         docs: {
             description: {
                 component:
-                    "A widget that allows users to input numerical values with specific validation rules,\
-                    supporting basic mathematical responses.",
+                    "Same content as the Input Number stories, but rendered with the \
+                    `input-number-to-numeric-input` feature flag on. Use these to \
+                    visually verify the migration path.",
             },
         },
     },
@@ -98,6 +109,7 @@ export const Rational = (
     return (
         <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({question})}
+            apiOptions={apiOptionsWithFlag}
         />
     );
 };
@@ -110,6 +122,7 @@ export const PiSimplify = (
     return (
         <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({question})}
+            apiOptions={apiOptionsWithFlag}
         />
     );
 };
@@ -122,6 +135,7 @@ export const Percent = (
     return (
         <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({question})}
+            apiOptions={apiOptionsWithFlag}
         />
     );
 };
@@ -136,7 +150,12 @@ export const Answerful = (): React.ReactElement => {
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;
-    return <ServerItemRendererWithDebugUI item={item} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={item}
+            apiOptions={apiOptionsWithFlag}
+        />
+    );
 };
 
 export const Answerless = (): React.ReactElement => {
@@ -148,5 +167,10 @@ export const Answerless = (): React.ReactElement => {
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;
-    return <ServerItemRendererWithDebugUI item={item} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={item}
+            apiOptions={apiOptionsWithFlag}
+        />
+    );
 };
