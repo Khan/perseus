@@ -94,7 +94,8 @@ export const actions = {
         movePoint,
     },
     vector: {
-        moveTip: (destination: vec.Vector2) => movePoint(1, destination),
+        moveTip: (destination: vec.Vector2) =>
+            movePointInFigure(0, 1, destination),
         moveVector: (newStart: vec.Vector2) => moveLine(0, newStart),
     },
 };

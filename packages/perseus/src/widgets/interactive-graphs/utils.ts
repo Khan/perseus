@@ -82,13 +82,21 @@ export function bound({
 // For typical configurations (snap=1, range=[-10,10]), the in-range
 // grid bounds match the range exactly and behavior is unchanged from
 // a naive snap+clampToBox.
+//
+// When snapStep is [0, 0] there is no grid to snap to, so the point
+// is just clamped to the range edges.
 export function boundToEdgeAndSnapToGrid(
     point: vec.Vector2,
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ): vec.Vector2 {
-    const snapped = snap(snapStep, point);
-    const [[xMin, xMax], [yMin, yMax]] = range;
     const [snapX, snapY] = snapStep;
+    const [[xMin, xMax], [yMin, yMax]] = range;
+
+    if (snapX === 0 && snapY === 0) {
+        return [clamp(point[X], xMin, xMax), clamp(point[Y], yMin, yMax)];
+    }
+
+    const snapped = snap(snapStep, point);
     return [
         clamp(
             snapped[X],

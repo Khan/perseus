@@ -301,7 +301,10 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundAndSnapToGrid(action.destination, state),
+                        newValue: boundToEdgeAndSnapToGrid(
+                            action.destination,
+                            state,
+                        ),
                     }),
             });
 
@@ -315,36 +318,13 @@ function doMovePointInFigure(
                 coords: newCoords,
             };
         }
-        case "linear": {
+        case "linear":
+        case "ray":
+        case "vector": {
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.pointIndex,
-                newValue: boundAndSnapToGrid(action.destination, state),
-            });
-
-            if (coordsOverlap(newCoords)) {
-                return state;
-            }
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
-        case "ray": {
-            // The tail (index 0) may sit on the graph edge. The terminal
-            // point (index 1) stays one snap step inside so its handle
-            // doesn't visually cover the arrow glyph, which always
-            // renders just inside the edge.
-            const bounded =
-                action.pointIndex === 0
-                    ? boundToEdgeAndSnapToGrid(action.destination, state)
-                    : boundAndSnapToGrid(action.destination, state);
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue: bounded,
+                newValue: boundToEdgeAndSnapToGrid(action.destination, state),
             });
 
             if (coordsOverlap(newCoords)) {
@@ -371,7 +351,6 @@ function doMovePointInFigure(
         case "tangent":
         case "exponential":
         case "logarithm":
-        case "vector":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -674,7 +653,7 @@ function doMovePoint(
             };
         }
         case "absolute-value": {
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -709,27 +688,6 @@ function doMovePoint(
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
             if (newCoords[0][X] === newCoords[1][X]) {
-                return state;
-            }
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: setAtIndex({
-                    array: state.coords,
-                    index: action.index,
-                    newValue: boundDestination,
-                }),
-            };
-        }
-        case "vector": {
-            const boundDestination = boundAndSnapToGrid(
-                action.destination,
-                state,
-            );
-
-            // Reject the move if the tip would overlap with the tail
-            if (vec.dist(boundDestination, state.coords[0]) === 0) {
                 return state;
             }
 
@@ -1448,15 +1406,22 @@ export function calculateSideSnap(
     return kvector.add(coords[rel(-1)], offset) as vec.Vector2;
 }
 
-// Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
+// Returns the vector from the given point to the snap-aligned top-right
+// corner of the graph.
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
-    const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
+    const topRight = boundToEdgeAndSnapToGrid([Infinity, Infinity], {
+        snapStep,
+        range,
+    });
     return vec.sub(topRight, point);
 }
 
-// Returns the vector from the given point to the bottom-left corner of the graph when snapped to the grid
+// Mirror of maxMove for the bottom-left corner.
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
-    const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
+    const bottomLeft = boundToEdgeAndSnapToGrid([-Infinity, -Infinity], {
+        snapStep,
+        range,
+    });
     return vec.sub(bottomLeft, point);
 }
 

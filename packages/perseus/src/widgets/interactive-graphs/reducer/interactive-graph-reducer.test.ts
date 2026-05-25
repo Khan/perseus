@@ -489,7 +489,7 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0]).toEqual([10, 10]);
     });
 
-    it("insets the ray's terminal point (index 1) by one snap step", () => {
+    it("allows the ray's terminal point (index 1) to land on the graph edge", () => {
         const state: InteractiveGraphState = {...baseRayGraphState};
 
         const updated = interactiveGraphReducer(
@@ -498,12 +498,10 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.type === "ray");
-        expect(updated.coords[1]).toEqual([9, 9]);
+        expect(updated.coords[1]).toEqual([10, 10]);
     });
 
-    it("keeps linear-system points inset by one snap step", () => {
-        // Linear-system lines have arrows on both ends, so both points
-        // stay on boundAndSnapToGrid (inset).
+    it("allows linear-system points to land on the graph edge", () => {
         const state: InteractiveGraphState = {
             hasBeenInteractedWith: false,
             type: "linear-system",
@@ -530,7 +528,31 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.type === "linear-system");
-        expect(updated.coords[0][0]).toEqual([9, 9]);
+        expect(updated.coords[0][0]).toEqual([10, 10]);
+    });
+
+    it("allows linear points to land on the graph edge", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [99, 99]),
+        );
+
+        invariant(updated.type === "linear");
+        expect(updated.coords[0]).toEqual([10, 10]);
     });
 });
 
@@ -601,8 +623,8 @@ describe("moveSegment", () => {
         // Both endpoints move by the same delta — the largest one that
         // keeps the trailing endpoint ([3, 4]) inside the graph bounds.
         expect(updated.coords[0]).toEqual([
-            [7, 7],
-            [9, 9],
+            [8, 8],
+            [10, 10],
         ]);
     });
 
@@ -623,6 +645,56 @@ describe("moveSegment", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("moveLine on a linear graph", () => {
+    it("allows the trailing endpoint to translate to the graph edge", () => {
+        // The line spans (1, 2) to (3, 4). A large body-drag should
+        // shift both endpoints by the same delta until the trailing
+        // endpoint lands on the [-10, 10] edge.
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.moveLine([99, 99]),
+        );
+
+        invariant(updated.type === "linear");
+        expect(updated.coords).toEqual([
+            [8, 8],
+            [10, 10],
+        ]);
+    });
+});
+
+describe("moveRay on a ray graph", () => {
+    it("allows the terminal endpoint to translate to the graph edge", () => {
+        // baseRayGraphState has endpoints at (0, 0) and (5, 5).
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.moveRay([99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords).toEqual([
+            [5, 5],
+            [10, 10],
+        ]);
     });
 });
 
@@ -2525,7 +2597,7 @@ describe("moveVector on a vector graph (body translation)", () => {
     it("preserves the vector's shape when the translation would push a point past the graph bounds", () => {
         // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
         // Requested delta [8, 8] would push tip to [11, 12] (out of bounds);
-        // the largest valid delta keeping tip inside [-9, 9] is [6, 5].
+        // the largest valid delta keeping tip inside [-10, 10] is [7, 6].
         const state = generateVectorGraphState();
 
         // Act
@@ -2537,8 +2609,8 @@ describe("moveVector on a vector graph (body translation)", () => {
         // Assert — both endpoints moved by the same clamped delta
         invariant(updated.type === "vector");
         expect(updated.coords).toEqual([
-            [6, 5],
-            [9, 9],
+            [7, 6],
+            [10, 10],
         ]);
     });
 });

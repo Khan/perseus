@@ -596,4 +596,20 @@ describe("boundToEdgeAndSnapToGrid", () => {
             -0.8, -0.8,
         ]);
     });
+
+    it("clamps without snapping when snapStep is [0, 0]", () => {
+        // No snap grid: polygon free-positioning passes [0, 0] to skip
+        // snapping entirely while still clamping to the range.
+        const snapStep: [number, number] = [0, 0];
+
+        expect(
+            boundToEdgeAndSnapToGrid([3.7, -4.2], {
+                snapStep,
+                range: standardRange,
+            }),
+        ).toEqual([3.7, -4.2]);
+        expect(
+            boundToEdgeAndSnapToGrid([99, -99], {snapStep, range: standardRange}),
+        ).toEqual([10, -10]);
+    });
 });
