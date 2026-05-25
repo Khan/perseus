@@ -1416,7 +1416,8 @@ function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     return vec.sub(topRight, point);
 }
 
-// Mirror of maxMove for the bottom-left corner.
+// Returns the vector from the given point to the snap-aligned bottom-left
+// corner of the graph.
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const bottomLeft = boundToEdgeAndSnapToGrid([-Infinity, -Infinity], {
         snapStep,
