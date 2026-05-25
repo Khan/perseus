@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 32.0.5
+
+### Patch Changes
+
+-   [#3653](https://github.com/Khan/perseus/pull/3653) [`432ec556de`](https://github.com/Khan/perseus/commit/432ec556de606b8e745a556d77c59433809a6253) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some unused jsx-a11y exceptions
+
+*   [#3651](https://github.com/Khan/perseus/pull/3651) [`2610300448`](https://github.com/Khan/perseus/commit/2610300448fe6a1f5e26e84097dbeb6184896550) Thanks [@handeyeco](https://github.com/handeyeco)! - - Use button, not clickable div, in CollapsedRow.
+    -   Remove redundent "role" field on MockWidget.
+
+-   [#3659](https://github.com/Khan/perseus/pull/3659) [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove interactive graph phase 2 remaining feature flags: interactive-graph-vector, interactive-graph-not-scored
+
+-   Updated dependencies [[`58ff08bdd0`](https://github.com/Khan/perseus/commit/58ff08bdd0cf40fbb18fdc7a433c71bd19a89f22), [`033719a753`](https://github.com/Khan/perseus/commit/033719a753b2f12721301e7abd2cff8d63ed9ba6), [`2610300448`](https://github.com/Khan/perseus/commit/2610300448fe6a1f5e26e84097dbeb6184896550), [`8cd7b5a87c`](https://github.com/Khan/perseus/commit/8cd7b5a87c356075cab29c078017bdf63fbd3534), [`3eb135c586`](https://github.com/Khan/perseus/commit/3eb135c586531f1a9b82d9ba853a942819204a88), [`dc421a2643`](https://github.com/Khan/perseus/commit/dc421a2643b686d434c52ba629ab8502c60e4217), [`08fe06e533`](https://github.com/Khan/perseus/commit/08fe06e5335eb23174b9642535f41c914d83023a), [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f), [`cea006d282`](https://github.com/Khan/perseus/commit/cea006d282a4abf8fb1eb2ea8bb2dcea9e315ee5)]:
+    -   @khanacademy/math-input@26.4.29
+    -   @khanacademy/perseus@77.8.0
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/keypad-context@3.2.57
+    -   @khanacademy/kmath@2.4.15
+    -   @khanacademy/perseus-linter@5.0.12
+    -   @khanacademy/perseus-score@8.10.5
+
 ## 32.0.4
 
 ### Patch Changes
