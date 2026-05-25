@@ -5,8 +5,6 @@ const DEFAULT_FEATURE_FLAGS = {
     // Real production flags.
     "image-widget-upgrade-gif-controls": false,
     "image-widget-upgrade-scale": false,
-    "interactive-graph-vector": false,
-    "interactive-graph-not-scored": false,
     "input-number-to-numeric-input": false,
     // ...add new flags here
 };
