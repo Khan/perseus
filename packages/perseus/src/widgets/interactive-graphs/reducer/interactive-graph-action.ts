@@ -235,12 +235,12 @@ function openPolygon(): OpenPolygon {
 export const MOVE_ALL = "move-all";
 export interface MoveAll {
     type: typeof MOVE_ALL;
-    delta: vec.Vector2;
+    newStart: vec.Vector2;
 }
-function moveAll(delta: vec.Vector2): MoveAll {
+function moveAll(newStart: vec.Vector2): MoveAll {
     return {
         type: MOVE_ALL,
-        delta,
+        newStart,
     };
 }
 

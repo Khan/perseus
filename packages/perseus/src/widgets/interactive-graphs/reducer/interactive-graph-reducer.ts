@@ -418,28 +418,21 @@ function doMoveAll(
     action: MoveAll,
 ): InteractiveGraphState {
     const {snapStep, range} = state;
+    const {newStart} = action;
     switch (state.type) {
         case "polygon": {
-            let newCoords: vec.Vector2[];
-            if (state.snapTo === "sides" || state.snapTo === "angles") {
-                const change = getChange(state.coords, action.delta, {
-                    snapStep: [0, 0],
-                    range,
-                });
-
-                newCoords = state.coords.map((point: vec.Vector2) =>
-                    vec.add(point, change),
-                );
-            } else {
-                const change = getChange(state.coords, action.delta, {
-                    snapStep,
-                    range,
-                });
-
-                newCoords = state.coords.map((point: vec.Vector2) =>
-                    snap(snapStep, vec.add(point, change)),
-                );
-            }
+            const useGridSnap =
+                state.snapTo !== "sides" && state.snapTo !== "angles";
+            const desiredDelta = vec.sub(newStart, state.coords[0]);
+            const change = getChange(state.coords, desiredDelta, {
+                snapStep: useGridSnap ? snapStep : [0, 0],
+                range,
+            });
+            const newCoords = state.coords.map((point: vec.Vector2) =>
+                useGridSnap
+                    ? snap(snapStep, vec.add(point, change))
+                    : vec.add(point, change),
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -447,7 +440,6 @@ function doMoveAll(
             };
         }
         default:
-            // MoveAll is not supported for other state types; just ignore it.
             return state;
     }
 }
