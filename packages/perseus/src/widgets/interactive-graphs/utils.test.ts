@@ -609,7 +609,10 @@ describe("boundToEdgeAndSnapToGrid", () => {
             }),
         ).toEqual([3.7, -4.2]);
         expect(
-            boundToEdgeAndSnapToGrid([99, -99], {snapStep, range: standardRange}),
+            boundToEdgeAndSnapToGrid([99, -99], {
+                snapStep,
+                range: standardRange,
+            }),
         ).toEqual([10, -10]);
     });
 });
