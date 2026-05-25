@@ -205,8 +205,18 @@ describe("StatefulMafsGraph", () => {
         rerender(
             <StatefulMafsGraph
                 {...baseProps}
-                graph={{...baseProps.graph, pointLabels: ["T"]}}
-                correct={{...baseProps.correct, pointLabels: ["T"]}}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+                correct={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
             />,
         );
 
