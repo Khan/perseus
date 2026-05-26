@@ -17,6 +17,7 @@ import {
     earthMoonImage,
     frescoImage,
     gifImageAlt,
+    graphieImage,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -338,5 +339,14 @@ export const TallGifImage: Story = {
         alt: gifImageAlt,
         caption: gifImageAlt,
         longDescription: gifImageAlt,
+    },
+};
+
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+        title: "Graphie image",
     },
 };
