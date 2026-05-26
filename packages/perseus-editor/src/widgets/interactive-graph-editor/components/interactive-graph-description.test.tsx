@@ -27,7 +27,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("renders", () => {
+    it("renders", () => {
         // Arrange
         render(
             <InteractiveGraphDescription
@@ -51,7 +51,7 @@ describe("InteractiveGraphSettings", () => {
         expect(descriptionInput).toHaveValue("Graph Description");
     });
 
-    test("calls onChange when the title is changed", async () => {
+    it("calls onChange when the title is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -77,7 +77,7 @@ describe("InteractiveGraphSettings", () => {
         ]);
     });
 
-    test("calls onChange when the description is changed", async () => {
+    it("calls onChange when the description is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -105,7 +105,7 @@ describe("InteractiveGraphSettings", () => {
         ]);
     });
 
-    test("saves undefined when the title is cleared", async () => {
+    it("saves undefined when the title is cleared", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -125,7 +125,7 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).toHaveBeenCalledWith({fullGraphAriaLabel: undefined});
     });
 
-    test("saves undefined when the description is cleared", async () => {
+    it("saves undefined when the description is cleared", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -147,5 +147,22 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).toHaveBeenCalledWith({
             fullGraphAriaDescription: undefined,
         });
+    });
+
+    it("has a message about description and locked labels", () => {
+        render(
+            <InteractiveGraphDescription
+                ariaLabelValue=""
+                ariaDescriptionValue=""
+                onChange={jest.fn()}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const message = screen.getByText(
+            "Aria description required when using locked figures. Locked figures aren't automatically described.",
+        );
+
+        expect(message).toBeInTheDocument();
     });
 });

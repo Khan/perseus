@@ -1,5 +1,4 @@
-import {isLabeledSVG} from "../../utils/util.graphie";
-
+import accessible from "./accessible";
 import {getInteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
 import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
@@ -61,30 +60,7 @@ const interactiveGraphWidgetLogic: WidgetLogic<
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
-    // Function determining if a interactive graph is accessible.
-    // Interactive Graphs are accessible as long as:
-    // 1. They do not contain a protractor
-    // 2. They do not contain a graphie background image
-    accessible: (
-        widgetOptions: PerseusInteractiveGraphWidgetOptions,
-    ): boolean => {
-        // Return false (inaccessible) if the interactive graph contains
-        // a protractor.
-        if (widgetOptions.showProtractor) {
-            return false;
-        }
-
-        // Return false (inaccessible) if the interactive graph contains
-        // a graphie background image.
-        if (
-            widgetOptions.backgroundImage?.url &&
-            isLabeledSVG(widgetOptions.backgroundImage?.url)
-        ) {
-            return false;
-        }
-
-        return true;
-    },
+    accessible,
 };
 
 export default interactiveGraphWidgetLogic;
