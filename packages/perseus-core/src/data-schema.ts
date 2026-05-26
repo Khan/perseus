@@ -1313,7 +1313,7 @@ export type PerseusGraphTypeExponential = {
 export type PerseusGraphTypeLogarithm = {
     type: "logarithm";
     /** Two points along the logarithmic curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The x-value of the vertical asymptote (the line x = asymptote).
      * The curve is defined on only one side of this line.
