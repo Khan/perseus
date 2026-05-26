@@ -52,23 +52,18 @@ function scoreInteractiveGraph(
             (userInput.center && userInput.radius),
     );
 
-    if (userInput.type === "linear" && rubric.correct.type === "linear") {
-        return scoreLinear(userInput, rubric.correct);
-    } else if (
-        userInput.type === "linear-system" &&
-        rubric.correct.type === "linear-system"
+    if (
+        userInput.type === "absolute-value" &&
+        rubric.correct.type === "absolute-value"
     ) {
-        return scoreLinearSystem(userInput, rubric.correct);
+        return scoreAbsoluteValue(userInput, rubric.correct);
+    } else if (userInput.type === "angle" && rubric.correct.type === "angle") {
+        return scoreAngle(userInput, rubric.correct);
     } else if (
-        userInput.type === "quadratic" &&
-        rubric.correct.type === "quadratic"
+        userInput.type === "circle" &&
+        rubric.correct.type === "circle"
     ) {
-        return scoreQuadratic(userInput, rubric.correct);
-    } else if (
-        userInput.type === "sinusoid" &&
-        rubric.correct.type === "sinusoid"
-    ) {
-        return scoreSinusoid(userInput, rubric.correct);
+        return scoreCircle(userInput, rubric.correct);
     } else if (
         userInput.type === "exponential" &&
         rubric.correct.type === "exponential" &&
@@ -76,26 +71,21 @@ function scoreInteractiveGraph(
     ) {
         return scoreExponential(userInput, rubric.correct);
     } else if (
+        userInput.type === "linear" &&
+        rubric.correct.type === "linear"
+    ) {
+        return scoreLinear(userInput, rubric.correct);
+    } else if (
+        userInput.type === "linear-system" &&
+        rubric.correct.type === "linear-system"
+    ) {
+        return scoreLinearSystem(userInput, rubric.correct);
+    } else if (
         userInput.type === "logarithm" &&
         rubric.correct.type === "logarithm" &&
         userInput.asymptote != null
     ) {
         return scoreLogarithm(userInput, rubric.correct);
-    } else if (
-        userInput.type === "absolute-value" &&
-        rubric.correct.type === "absolute-value"
-    ) {
-        return scoreAbsoluteValue(userInput, rubric.correct);
-    } else if (
-        userInput.type === "tangent" &&
-        rubric.correct.type === "tangent"
-    ) {
-        return scoreTangent(userInput, rubric.correct);
-    } else if (
-        userInput.type === "circle" &&
-        rubric.correct.type === "circle"
-    ) {
-        return scoreCircle(userInput, rubric.correct);
     } else if (userInput.type === "point" && rubric.correct.type === "point") {
         return scorePoint(userInput, rubric.correct);
     } else if (
@@ -104,14 +94,27 @@ function scoreInteractiveGraph(
     ) {
         return scorePolygon(userInput, rubric.correct);
     } else if (
+        userInput.type === "quadratic" &&
+        rubric.correct.type === "quadratic"
+    ) {
+        return scoreQuadratic(userInput, rubric.correct);
+    } else if (userInput.type === "ray" && rubric.correct.type === "ray") {
+        return scoreRay(userInput, rubric.correct);
+    } else if (
         userInput.type === "segment" &&
         rubric.correct.type === "segment"
     ) {
         return scoreSegment(userInput, rubric.correct);
-    } else if (userInput.type === "ray" && rubric.correct.type === "ray") {
-        return scoreRay(userInput, rubric.correct);
-    } else if (userInput.type === "angle" && rubric.correct.type === "angle") {
-        return scoreAngle(userInput, rubric.correct);
+    } else if (
+        userInput.type === "sinusoid" &&
+        rubric.correct.type === "sinusoid"
+    ) {
+        return scoreSinusoid(userInput, rubric.correct);
+    } else if (
+        userInput.type === "tangent" &&
+        rubric.correct.type === "tangent"
+    ) {
+        return scoreTangent(userInput, rubric.correct);
     } else if (
         userInput.type === "vector" &&
         rubric.correct.type === "vector"
