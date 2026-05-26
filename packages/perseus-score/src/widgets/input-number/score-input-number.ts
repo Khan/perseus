@@ -1,6 +1,12 @@
-import type {PerseusInputNumberUserInput, PerseusScore,} from "@khanacademy/perseus-core";
-import {convertInputNumberOptionsToNumericInput, PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
-import {scoreNumericInput} from "@khanacademy/perseus-score";
+import {convertInputNumberOptionsToNumericInput} from "@khanacademy/perseus-core";
+
+import scoreNumericInput from "../numeric-input/score-numeric-input";
+
+import type {
+    PerseusInputNumberUserInput,
+    PerseusScore,
+    PerseusInputNumberWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4085): Delete inputNumberAnswerTypes.
 export const inputNumberAnswerTypes = {
@@ -48,7 +54,11 @@ function scoreInputNumber(
     rubric: PerseusInputNumberWidgetOptions,
     locale?: string,
 ): PerseusScore {
-    return scoreNumericInput(userInput, convertInputNumberOptionsToNumericInput(rubric), locale);
+    return scoreNumericInput(
+        userInput,
+        convertInputNumberOptionsToNumericInput(rubric),
+        locale,
+    );
 }
 
 export default scoreInputNumber;
