@@ -208,6 +208,12 @@ export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 /** @hidden */
 export {convertInputNumberOptionsToNumericInput} from "./widgets/input-number/to-numeric-input";
+/** @hidden */
+export {
+    convertGrapherOptionsToInteractiveGraph,
+    convertGrapherUserInputToInteractiveGraph,
+    convertInteractiveGraphUserInputToGrapher,
+} from "./widgets/grapher/to-interactive-graph";
 
 /** @hidden */
 export {

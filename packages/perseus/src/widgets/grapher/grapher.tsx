@@ -3,7 +3,13 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {deepClone, GrapherUtil} from "@khanacademy/perseus-core";
+import {
+    convertGrapherOptionsToInteractiveGraph,
+    convertGrapherUserInputToInteractiveGraph,
+    convertInteractiveGraphUserInputToGrapher,
+    deepClone,
+    GrapherUtil,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import ButtonGroup from "../../components/button-group";
@@ -19,6 +25,7 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+import InteractiveGraph from "../interactive-graphs/interactive-graph";
 
 import {
     DEFAULT_GRAPHER_PROPS,
@@ -534,7 +541,7 @@ class Grapher extends React.Component<Props> implements Widget {
         };
     }
 
-    render(): React.ReactNode {
+    renderLegacyGrapher() {
         const availableTypes = this.props.static
             ? [this.props.correct.type]
             : this.props.availableTypes;
@@ -604,6 +611,32 @@ class Grapher extends React.Component<Props> implements Widget {
                 <FunctionGrapher {...grapherProps} />
                 {availableTypes.length > 1 && typeSelector}
             </div>
+        );
+    }
+
+    render(): React.ReactNode {
+        const interactiveGraphOptions = convertGrapherOptionsToInteractiveGraph(
+            this.props,
+        );
+        if (interactiveGraphOptions == null) {
+            return this.renderLegacyGrapher();
+        }
+        const interactiveGraphUserInput =
+            convertGrapherUserInputToInteractiveGraph(this.props.userInput);
+
+        return (
+            <InteractiveGraph.widget
+                {...this.props}
+                {...interactiveGraphOptions}
+                userInput={interactiveGraphUserInput}
+                handleUserInput={(interactiveGraphUserInput) =>
+                    this.props.handleUserInput(
+                        convertInteractiveGraphUserInputToGrapher(
+                            interactiveGraphUserInput,
+                        ),
+                    )
+                }
+            />
         );
     }
 }
