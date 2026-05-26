@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
-// TODO(scottgrant): Enable the alt-text eslint rule above.
+/* eslint-disable react/no-unsafe */
 
 import * as React from "react";
 
@@ -134,10 +133,14 @@ class ImageLoader extends React.Component<Props, State> {
      */
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps} = this.props;
-        // Destructure to exclude props that shouldn't be on the <img> element
+        // Pull `alt` (and `title`) out of the spread so the static
+        // `jsx-a11y/alt-text` rule can see they're set.
+        const {alt, title, ...restImgProps} = imgProps;
 
         return (
             <img
+                alt={alt}
+                title={title}
                 // Class name makes this img findable in Cypress tests.
                 className="image-loader-img"
                 src={this.props.dependencies.generateUrl({
@@ -161,7 +164,7 @@ class ImageLoader extends React.Component<Props, State> {
                         width: "100%",
                     }),
                 }}
-                {...imgProps}
+                {...restImgProps}
             />
         );
     };

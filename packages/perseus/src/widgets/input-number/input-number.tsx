@@ -1,3 +1,7 @@
+import {
+    convertInputNumberOptionsToNumericInput,
+    isFeatureOn,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -10,9 +14,11 @@ import {withDependencies} from "../../components/with-dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import InputWithExamples from "../numeric-input/input-with-examples";
+import {NumericInput} from "../numeric-input/numeric-input.class";
 
 import type {PerseusStrings} from "../../strings";
 import type {
+    Focusable,
     Path,
     PerseusDependenciesV2,
     Widget,
@@ -86,6 +92,10 @@ class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    // TODO(LEMS-4085): Single ref shared by both the legacy and NumericInput render paths.
+    // Both targets satisfy `Focusable`, so focus/blur delegation is uniform.
+    inputRef: {current: Focusable | null} = {current: null};
+
     static defaultProps: DefaultProps = {
         size: "normal",
         answerType: "number",
@@ -108,6 +118,10 @@ class InputNumber extends React.Component<Props> implements Widget {
         });
     }
 
+    private handleInputRef = (instance: Focusable | null): void => {
+        this.inputRef.current = instance;
+    };
+
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
     };
@@ -125,30 +139,16 @@ class InputNumber extends React.Component<Props> implements Widget {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.inputRef.current?.focus();
         return true;
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    focusInputPath: (arg1: Path) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+    focusInputPath: () => void = () => {
+        this.inputRef.current?.focus();
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    blurInputPath: (arg1: Path) => void = (inputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        if (typeof this.refs.input?.blur === "function") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs.input?.blur();
-        }
+    blurInputPath: () => void = () => {
+        this.inputRef.current?.blur();
     };
 
     getInputPaths: () => ReadonlyArray<Path> = () => {
@@ -191,11 +191,28 @@ class InputNumber extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
+        // TODO(LEMS-4085): This logic renders the Numeric Input widget instead of the
+        // Input Number widget when the appropriate flag is on. We will want to
+        // remove the flag check when we're ready to fully replace Input Number.
+        if (isFeatureOn(this.props, "input-number-to-numeric-input")) {
+            const numericInputOptions = convertInputNumberOptionsToNumericInput(
+                this.props,
+            );
+
+            return (
+                <NumericInput
+                    {...this.props}
+                    {...numericInputOptions}
+                    labelText=""
+                    ref={this.handleInputRef}
+                />
+            );
+        }
+
         if (this.props.apiOptions.customKeypad) {
             const input = (
                 <SimpleKeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
+                    ref={this.handleInputRef}
                     value={this.props.userInput.currentValue}
                     keypadElement={this.props.keypadElement}
                     onChange={this.handleChange}
@@ -226,8 +243,7 @@ class InputNumber extends React.Component<Props> implements Widget {
 
         return (
             <InputWithExamples
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.handleInputRef}
                 value={this.props.userInput.currentValue}
                 onChange={this.handleChange}
                 style={inputStyles}

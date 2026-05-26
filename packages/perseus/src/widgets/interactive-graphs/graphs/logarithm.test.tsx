@@ -325,14 +325,14 @@ describe("getLogarithmKeyboardConstraint", () => {
         expect(constraint.left).toEqual([-6, -3]);
     });
 
-    it("rejects positions where the clamped coord collides with the other point", () => {
-        // Arrange — points at [8,3] and [9,1].
-        // Moving point 0 right: x=9 shares x with otherPoint (skip).
-        // x=10 clamps to 9 (inset max), which also equals otherPoint[X].
-        // All further attempts clamp to 9 too. Point stays put.
+    it("stays put when all rightward positions would cause a y-collision", () => {
+        // Both points start at y=3. Logarithm graphs need their two
+        // points at different y values, and moving right doesn't
+        // change y — so no rightward step works, and point 0 doesn't
+        // move.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
-            [8, 3],
-            [9, 1],
+            [5, 3],
+            [6, 3],
         ];
         const edgeRange: [vec.Vector2, vec.Vector2] = [
             [-10, 10],
@@ -342,13 +342,39 @@ describe("getLogarithmKeyboardConstraint", () => {
         // Act
         const constraint = getLogarithmKeyboardConstraint(
             edgeCoords,
-            asymptote,
+            -5,
             snapStep,
             0,
             edgeRange,
         );
 
         // Assert — no valid right move, falls back to original position
-        expect(constraint.right).toEqual([8, 3]);
+        expect(constraint.right).toEqual([5, 3]);
+    });
+
+    it("walks past the other point's x when moving right to find a valid position", () => {
+        // The other point is at (10, 1), and point 0 is at (8, 3).
+        // Moving point 0 right by one step lands it at (9, 3), which
+        // doesn't conflict with the other point or the asymptote.
+        const edgeCoords: [vec.Vector2, vec.Vector2] = [
+            [8, 3],
+            [10, 1],
+        ];
+        const edgeRange: [vec.Vector2, vec.Vector2] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+
+        // Act
+        const constraint = getLogarithmKeyboardConstraint(
+            edgeCoords,
+            -5,
+            snapStep,
+            0,
+            edgeRange,
+        );
+
+        // Assert — no valid right move, falls back to original position
+        expect(constraint.right).toEqual([9, 3]);
     });
 });

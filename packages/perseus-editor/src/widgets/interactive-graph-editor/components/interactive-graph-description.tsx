@@ -39,6 +39,12 @@ export default function InteractiveGraphDescription(props: Props) {
                         are used by screen readers to describe content to users
                         who may be visually impaired.
                     </BodyText>
+
+                    <BodyText size="xsmall" style={styles.caption}>
+                        Aria description required when using locked figures.
+                        Locked figures aren't automatically described.
+                    </BodyText>
+
                     <BodyText size="medium" weight="bold" tag="label">
                         Title
                         <TextField

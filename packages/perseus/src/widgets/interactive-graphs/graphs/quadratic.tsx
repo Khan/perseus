@@ -5,6 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -82,16 +83,18 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-label={srQuadraticGraph}
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
-            <Plot.OfX
-                y={y}
-                color={interactiveColor}
-                svgPathProps={{
-                    // Use aria-hidden to hide the line from screen readers
-                    // so it doesn't read as "image" with no context.
-                    // This is okay because the graph has its own aria-label.
-                    "aria-hidden": true,
-                }}
-            />
+            <ClipToGraphBounds>
+                <Plot.OfX
+                    y={y}
+                    color={interactiveColor}
+                    svgPathProps={{
+                        // Use aria-hidden to hide the line from screen readers
+                        // so it doesn't read as "image" with no context.
+                        // This is okay because the graph has its own aria-label.
+                        "aria-hidden": true,
+                    }}
+                />
+            </ClipToGraphBounds>
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
                     i + 1,
