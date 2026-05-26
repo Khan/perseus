@@ -47,11 +47,13 @@ const RenderContent = (
             );
         } else {
             return (
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: content,
-                    })}
-                />
+                <div style={{padding: "24px"}}>
+                    <QuestionRendererForStories
+                        question={generateTestPerseusRenderer({
+                            content: content,
+                        })}
+                    />
+                </div>
             );
         }
     };
