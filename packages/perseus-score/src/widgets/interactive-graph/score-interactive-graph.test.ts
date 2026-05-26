@@ -8,6 +8,28 @@ import type {
     PerseusInteractiveGraphRubric,
 } from "@khanacademy/perseus-core";
 
+describe("InteractiveGraph scoring on a 'none' question", () => {
+    it("returns 0 earned / 0 total (ungraded) when both graphs are 'none'", () => {
+        // Arrange
+        const guess: PerseusGraphType = {type: "none"};
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "none"},
+            correct: {type: "none"},
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toEqual({
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        });
+    });
+});
+
 describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         const guess = undefined;
@@ -508,6 +530,68 @@ describe("InteractiveGraph scoring on an angle question", () => {
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
+    });
+});
+
+describe("InteractiveGraph scoring on an angle question: defensive null-coords guards", () => {
+    it("returns invalid when the angle guess satisfies hasValue without coords", () => {
+        // Characterization: hasValue accepts a truthy `coords` OR a truthy
+        // `center && radius`. Smuggling center/radius onto an angle guess
+        // satisfies hasValue while leaving coords undefined, hitting the
+        // defensive `if (!coords)` guard inside the angle branch.
+        const guess = {
+            type: "angle",
+            center: [0, 0],
+            radius: 5,
+        } as unknown as PerseusGraphType;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "angle"},
+            correct: {
+                type: "angle",
+                allowReflexAngles: false,
+                coords: [
+                    [1, 0],
+                    [0, 0],
+                    [0, 1],
+                ],
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
+    it("does not award points when rubric.correct.coords is missing under congruent match", () => {
+        // Characterization: hits the inner `if (!coords)` guard inside the
+        // _.map over [guess, correct]. With a valid guess and missing correct
+        // coords, the mapped angle becomes `false`, approximateEqual fails,
+        // and we fall through to incorrect.
+        const guess: PerseusGraphType = {
+            type: "angle",
+            coords: [
+                [1, 0],
+                [0, 0],
+                [0, 1],
+            ],
+        };
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {type: "angle"},
+            // @ts-expect-error: testing the defensive guard for missing correct.coords
+            correct: {
+                type: "angle",
+                match: "congruent",
+                allowReflexAngles: false,
+            },
+        };
+
+        // Act
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        // Assert
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 });
 
