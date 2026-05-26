@@ -44,7 +44,7 @@ import type {
     PerseusGraphCorrectType,
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
-    PerseusRenderer,
+    PerseusRenderer, PerseusInputNumberWidgetOptions,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -256,79 +256,6 @@ export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     /** An optional message from the iframe to display alongside the score. */
     message?: string | null;
-};
-
-/** Scoring rubric for the InputNumber widget. */
-export type PerseusInputNumberRubric = {
-    /**
-     * Constrains which numeric forms are accepted (ie. these don't change the
-     * correct numerical value - they only restrict which input representation
-     * the scorer accepts as valid).
-     *
-     * Defaults to "number" if unset.
-     *
-     *  - "number"   - Any standard numeric form: integer, decimal, proper
-     *                 fraction, improper fraction, or mixed number (note that
-     *                 "percent" and "pi" are _not_ included in this format).
-     *  - "decimal"  - Decimal notation only (e.g. 1.5)
-     *  - "integer"  - Whole numbers only (e.g. 3, -7)
-     *  - "rational" - Integer, proper fraction, improper fraction, or mixed
-     *                 number — but no decimals
-     *  - "improper" - Integer, proper or improper fraction — mixed numbers
-     *                 like 1 3/4 are rejected
-     *  - "mixed"    - Integer, proper fraction, or mixed number — standalone
-     *                 improper fractions are rejected
-     *  - "percent"  - All numeric forms plus percent notation (e.g. 50%); all
-     *                 number forms are accepted, but the % sign is required
-     *                 when entering the value as a percentage (e.g. 50%)
-     *                 rather than as the equivalent decimal (e.g. 0.5).
-     *  - "pi"       - Expressions involving π or τ (e.g. 3 pi, 5/6 pi, 2 \pi);
-     *                 the user must express the answer as a multiple of pi. 0
-     *                 is accepted literally since 0·π = 0. Decimal
-     *                 approximations within 0.01 of a multiple of π or τ are
-     *                 also accepted. Any fraction with 7 as the denominator
-     *                 (ie. `x/7`) is resolved to a numeric value and compared
-     *                 against the answer (approximating pi).
-     */
-    answerType?:
-        | "number"
-        | "decimal"
-        | "integer"
-        | "rational"
-        | "improper"
-        | "mixed"
-        | "percent"
-        | "pi";
-    /**
-     * When true, approximate answers within `maxError` of the correct
-     * value are accepted.
-     */
-    inexact?: boolean;
-    /**
-     * The maximum allowable deviation from the correct value when
-     * `inexact` is true.
-     *
-     * Legacy content encodes this number as a string (eg. "0.5"), encoding the
-     * values as the `number` type is preferred!
-     */
-    maxError?: number | string;
-    /**
-     * Controls how the scorer handles unsimplified fractions (e.g. 2/4
-     * instead of 1/2) when the numerical value is otherwise correct.
-     *
-     *  - "required"  - The unsimplified answer is treated as not yet
-     *                  submitted: the scorer returns an invalid/empty result
-     *                  with a "needs to be simplified" prompt, so the learner
-     *                  must simplify before their attempt is graded.
-     *  - "optional"  - Unsimplified fractions are accepted as fully correct;
-     *                  simplification is not checked.
-     *  - "enforced"  - Unsimplified fractions are scored as wrong (incorrect,
-     *                  not just unsubmitted), with a "needs to be simplified"
-     *                  message shown alongside the incorrect result.
-     */
-    simplify: "required" | "optional" | "enforced";
-    /** The correct answer value. */
-    value: string | number;
 };
 
 /** User input for the InputNumber widget. */
@@ -628,7 +555,8 @@ export interface RubricRegistry {
     "graded-group": PerseusGradedGroupRubric;
     grapher: PerseusGrapherRubric;
     group: PerseusGroupRubric;
-    "input-number": PerseusInputNumberRubric;
+    // TODO(LEMS-4085): change to PerseusNumericInputRubric;
+    "input-number": PerseusInputNumberWidgetOptions;
     "interactive-graph": PerseusInteractiveGraphRubric;
     "label-image": PerseusLabelImageRubric;
     matcher: PerseusMatcherRubric;
