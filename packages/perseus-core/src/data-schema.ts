@@ -1296,7 +1296,7 @@ export type PerseusGraphTypeTangent = {
 export type PerseusGraphTypeExponential = {
     type: "exponential";
     /** Two points along the exponential curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The y-value of the horizontal asymptote (the line y = asymptote).
      * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
