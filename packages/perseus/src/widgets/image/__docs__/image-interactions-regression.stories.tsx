@@ -135,20 +135,19 @@ export const ZoomClickedState: Story = {
     },
 };
 
-// TODO: Test flaky, commenting until it's fixed
-// export const ZoomClickedWithGraphieImage: Story = {
-//     decorators: [imageRendererDecorator],
-//     args: {
-//         backgroundImage: graphieImage,
-//         alt: "Graphie image",
-//     },
-//     play: async ({canvas, userEvent}) => {
-//         const zoomTrigger = canvas.getByRole("button", {
-//             name: "Make image bigger.",
-//         });
-//         await userEvent.click(zoomTrigger);
-//     },
-// };
+export const ZoomClickedWithGraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+    },
+    play: async ({canvas, userEvent}) => {
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
 
 export const ZoomClickedLargeImage: Story = {
     decorators: [imageRendererDecorator],
