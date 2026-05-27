@@ -294,10 +294,12 @@ function doMovePointInFigure(
                 hasBeenInteractedWith: true,
                 coords: newCoords,
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-segment-point",
+                    segmentIndex: action.figureIndex,
                     pointIndex: action.pointIndex,
                     x: movedSegmentPoint[X],
                     y: movedSegmentPoint[Y],
+                    totalSegments: newCoords.length,
                 },
             };
         }
@@ -327,7 +329,8 @@ function doMovePointInFigure(
                 hasBeenInteractedWith: true,
                 coords: newCoords,
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-linear-system-point",
+                    lineIndex: action.figureIndex,
                     pointIndex: action.pointIndex,
                     x: movedSystemPoint[X],
                     y: movedSystemPoint[Y],
@@ -351,12 +354,20 @@ function doMovePointInFigure(
                 return state;
             }
 
+            const graphType = state.type;
+            const stateAnnouncementType =
+                graphType === "linear"
+                    ? ("move-linear-point" as const)
+                    : graphType === "ray"
+                      ? ("move-ray-point" as const)
+                      : ("move-vector-point" as const);
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: stateAnnouncementType,
                     pointIndex: action.pointIndex,
                     x: newCoord[X],
                     y: newCoord[Y],
@@ -417,12 +428,18 @@ function doMoveLine(
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-point",
-                    pointIndex: 0,
-                    x: constrainedLine[0][X],
-                    y: constrainedLine[0][Y],
-                },
+                stateAnnouncement:
+                    state.type === "segment"
+                        ? {
+                              type: "move-segment-line",
+                              segmentIndex: action.itemIndex,
+                              coords: constrainedLine,
+                          }
+                        : {
+                              type: "move-linear-system-line",
+                              lineIndex: action.itemIndex,
+                              coords: constrainedLine,
+                          },
             };
         }
         case "linear":
@@ -433,16 +450,21 @@ function doMoveLine(
                 newStart,
                 {snapStep, range},
             );
+            const lineGraphType = state.type;
+            const lineAnnouncementType =
+                lineGraphType === "linear"
+                    ? ("move-linear-line" as const)
+                    : lineGraphType === "ray"
+                      ? ("move-ray-line" as const)
+                      : ("move-vector-line" as const);
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
                 stateAnnouncement: {
-                    type: "move-point",
-                    pointIndex: 0,
-                    x: constrainedLine[0][X],
-                    y: constrainedLine[0][Y],
+                    type: lineAnnouncementType,
+                    coords: constrainedLine,
                 },
             };
         }
@@ -524,10 +546,14 @@ function doMovePoint(
             return {
                 ...newState,
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-angle-point",
                     pointIndex: action.index,
                     x: newState.coords[action.index][X],
                     y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
                 },
             };
 
@@ -623,10 +649,11 @@ function doMovePoint(
                     newValue: boundDestination,
                 }),
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-sinusoid-point",
                     pointIndex: action.index,
                     x: boundDestination[X],
                     y: boundDestination[Y],
+                    rootY: state.coords[0][Y],
                 },
             };
         }
@@ -665,7 +692,7 @@ function doMovePoint(
                     newValue: boundDestination,
                 }),
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-exponential-point",
                     pointIndex: action.index,
                     x: boundDestination[X],
                     y: boundDestination[Y],
@@ -714,7 +741,7 @@ function doMovePoint(
                     newValue: boundDestination,
                 }),
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-logarithm-point",
                     pointIndex: action.index,
                     x: boundDestination[X],
                     y: boundDestination[Y],
@@ -744,7 +771,7 @@ function doMovePoint(
                     newValue: boundDestination,
                 }),
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-absolute-value-point",
                     pointIndex: action.index,
                     x: boundDestination[X],
                     y: boundDestination[Y],
@@ -775,7 +802,7 @@ function doMovePoint(
                     newValue: boundDestination,
                 }),
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-tangent-point",
                     pointIndex: action.index,
                     x: boundDestination[X],
                     y: boundDestination[Y],
@@ -799,19 +826,19 @@ function doMovePoint(
                 return state;
             }
 
+            const quadraticNewCoords = setAtIndex({
+                array: state.coords,
+                index: action.index,
+                newValue: boundDestination,
+            });
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                coords: setAtIndex({
-                    array: state.coords,
-                    index: action.index,
-                    newValue: boundDestination,
-                }),
+                coords: quadraticNewCoords,
                 stateAnnouncement: {
-                    type: "move-point",
+                    type: "move-quadratic-point",
                     pointIndex: action.index,
-                    x: boundDestination[X],
-                    y: boundDestination[Y],
+                    coords: quadraticNewCoords,
                 },
             };
         }

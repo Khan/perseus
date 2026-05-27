@@ -69,10 +69,158 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Angle: vertex (index 1) reads with the measured angle; sides (indices 0, 2)
+// read with just coords. The reducer pre-computes the measure since it
+// already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
+// Sinusoid: root (index 0) and peak (index 1) have different labels. The
+// peak's label further branches on whether the peak is above, below, or
+// equal to the root.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+    rootY: number;
+};
+
+// Exponential / Logarithm / Absolute-value / Tangent: per-point labels by
+// index. The graph-specific string is chosen in getAnnouncementText.
+type MoveExponentialPointAnnouncement = {
+    type: "move-exponential-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+type MoveLogarithmPointAnnouncement = {
+    type: "move-logarithm-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+type MoveAbsoluteValuePointAnnouncement = {
+    type: "move-absolute-value-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+type MoveTangentPointAnnouncement = {
+    type: "move-tangent-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Quadratic: announces "Point N at <origin|axis|quadrant>" and appends a
+// vertex annotation when the moved point is the parabola vertex. All 3
+// coords are needed to identify the vertex.
+type MoveQuadraticPointAnnouncement = {
+    type: "move-quadratic-point";
+    pointIndex: number;
+    coords: QuadraticCoords;
+};
+
+// Linear / Ray / Vector: per-point labels by index.
+type MoveLinearPointAnnouncement = {
+    type: "move-linear-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+type MoveRayPointAnnouncement = {
+    type: "move-ray-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+type MoveVectorPointAnnouncement = {
+    type: "move-vector-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Linear-system endpoint: includes the line number for context.
+type MoveLinearSystemPointAnnouncement = {
+    type: "move-linear-system-point";
+    lineIndex: number;
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Segment endpoint: single- vs multi-segment graphs use different strings.
+type MoveSegmentPointAnnouncement = {
+    type: "move-segment-point";
+    segmentIndex: number;
+    pointIndex: number;
+    x: number;
+    y: number;
+    totalSegments: number;
+};
+
+// Grab-handle (whole-line) moves. Each variant carries the line's two
+// endpoints; the per-graph label is chosen in getAnnouncementText.
+type MoveLinearLineAnnouncement = {
+    type: "move-linear-line";
+    coords: PairOfPoints;
+};
+
+type MoveRayLineAnnouncement = {
+    type: "move-ray-line";
+    coords: PairOfPoints;
+};
+
+type MoveVectorLineAnnouncement = {
+    type: "move-vector-line";
+    coords: PairOfPoints;
+};
+
+type MoveSegmentLineAnnouncement = {
+    type: "move-segment-line";
+    segmentIndex: number;
+    coords: PairOfPoints;
+};
+
+type MoveLinearSystemLineAnnouncement = {
+    type: "move-linear-system-line";
+    lineIndex: number;
+    coords: PairOfPoints;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveAnglePointAnnouncement
+    | MoveSinusoidPointAnnouncement
+    | MoveExponentialPointAnnouncement
+    | MoveLogarithmPointAnnouncement
+    | MoveAbsoluteValuePointAnnouncement
+    | MoveTangentPointAnnouncement
+    | MoveQuadraticPointAnnouncement
+    | MoveLinearPointAnnouncement
+    | MoveRayPointAnnouncement
+    | MoveVectorPointAnnouncement
+    | MoveLinearSystemPointAnnouncement
+    | MoveSegmentPointAnnouncement
+    | MoveLinearLineAnnouncement
+    | MoveRayLineAnnouncement
+    | MoveVectorLineAnnouncement
+    | MoveSegmentLineAnnouncement
+    | MoveLinearSystemLineAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

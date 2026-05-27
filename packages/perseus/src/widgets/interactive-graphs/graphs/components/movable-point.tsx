@@ -3,7 +3,6 @@ import * as React from "react";
 import {useControlPoint} from "./use-control-point";
 
 import type {CSSCursor} from "./css-cursor";
-import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
@@ -11,7 +10,6 @@ type Props = {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
-    ariaLive?: AriaLive;
     color?: string;
     constrain?: KeyboardMovementConstraint;
     cursor?: CSSCursor | undefined;
