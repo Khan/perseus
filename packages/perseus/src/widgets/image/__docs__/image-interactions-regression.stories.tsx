@@ -1,8 +1,14 @@
+import * as React from "react";
+
 import {themeModes} from "../../../../../../.storybook/modes";
+import {ApiOptions} from "../../../perseus-api";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 import {
     earthMoonImage,
     extremelyLongDescription,
     frescoImage,
+    gifImageAlt,
     graphieImage,
     portraitImage,
     svgImage,
@@ -174,5 +180,60 @@ export const ZoomClickedLargePortraitImage: Story = {
             name: "Make image bigger.",
         });
         await userEvent.click(zoomTrigger);
+    },
+};
+
+export const LongDescriptionClickedStateWithTallGif: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-gif-controls": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {
+            url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
+        },
+        alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
+    },
+    play: async ({canvas, userEvent}) => {
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image and description",
+        });
+        await userEvent.click(imageTrigger);
+    },
+};
+
+export const ZoomClickedRightToLeft: Story = {
+    decorators: [imageRendererDecorator, rtlDecorator],
+    args: {
+        backgroundImage: frescoImage,
+        alt: "Fresco painting",
+    },
+    play: async ({canvas, userEvent}) => {
+        const zoomTrigger = canvas.getByRole("button", {
+            name: "Make image bigger.",
+        });
+        await userEvent.click(zoomTrigger);
+    },
+};
+
+export const LongDescriptionClickedRightToLeft: Story = {
+    decorators: [imageRendererDecorator, rtlDecorator],
+    args: {
+        backgroundImage: frescoImage,
+        alt: "Fresco painting",
+        longDescription: extremelyLongDescription,
+    },
+    play: async ({canvas, userEvent}) => {
+        const imageTrigger = canvas.getByRole("button", {
+            name: "Explore image and description",
+        });
+        await userEvent.click(imageTrigger);
     },
 };

@@ -21,7 +21,7 @@ export const mobileArticleDecorator: Decorator = (Story) => (
 );
 
 export const rtlDecorator: Decorator = (Story) => (
-    <div style={{direction: "rtl"}}>
+    <div dir="rtl">
         <Story />
     </div>
 );

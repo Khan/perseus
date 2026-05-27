@@ -72,6 +72,16 @@ export const gifImage = {
 export const gifImageAlt =
     "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
 
+// Image converted to a gif - not animated.
+export const nonAnimatedGifImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/cabd2dd6c1be5651e5d25ba2cecc4c28e664eca6.gif",
+    width: 1200,
+    height: 900,
+};
+
+export const nonAnimatedGifImageAlt =
+    "A black and white cat resting on a blanket on a couch, with its eyes closed and arms and legs tucked in.";
+
 export const svgImage = {
     url: "https://cdn.kastatic.org/ka-content-images/419d654792bb1d6a33236538178ba2ed82db4560.svg",
     width: 600,
