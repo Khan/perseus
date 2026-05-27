@@ -80,6 +80,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsLine
                     startCoords={linearCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         // Graphs with startCoords of type CollinearTuple[]

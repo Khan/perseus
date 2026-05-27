@@ -154,6 +154,68 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it(`renders point name fields when onChangePointLabels is provided for ${type}`, () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type={type}
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it(`does NOT render point name fields when onChangePointLabels is omitted for ${type}`, () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type={type}
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it(`calls onChangePointLabels with the schema's 2-tuple shape when a name is typed for ${type}`, async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type={type}
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert — the empty slot must be preserved so the schema
+            // shape stays a 2-tuple even when only one point is named.
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
     });
 
     // startCoords with type CollinearTuple[]

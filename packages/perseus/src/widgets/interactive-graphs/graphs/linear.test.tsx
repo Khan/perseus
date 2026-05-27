@@ -241,6 +241,80 @@ describe("Linear graph screen reader", () => {
     );
 });
 
+describe("Linear graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each endpoint's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseLinearState, pointLabels: ["A", "B"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("falls back to numeric default for indices without a custom label", () => {
+        // Arrange, Act — only the first endpoint is named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseLinearState, pointLabels: ["A"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point 2 at 5 comma 5.");
+    });
+
+    // The editor encodes "only the second endpoint named" as `["", "B"]`.
+    // An empty string at any index must fall back to the numeric default.
+    it("falls back to numeric default for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseLinearState, pointLabels: ["", "B"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point 1 at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("falls back to the numeric default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as string[],
+                }}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point 1 at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+});
+
 describe("describeLinearGraph", () => {
     test("describes a default linear graph", () => {
         // Arrange

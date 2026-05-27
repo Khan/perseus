@@ -3,6 +3,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {buildPointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -31,7 +32,7 @@ type Props = MafsGraphProps<RayGraphState>;
 
 const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: line} = props.graphState;
+    const {coords: line, pointLabels} = props.graphState;
 
     const handleMoveLine = (newStart: vec.Vector2) =>
         dispatch(actions.ray.moveRay(newStart));
@@ -61,8 +62,22 @@ const RayGraph = (props: Props) => {
             <MovableLine
                 points={line}
                 ariaLabels={{
-                    point1AriaLabel: srRayEndpoint,
-                    point2AriaLabel: srRayTerminalPoint,
+                    point1AriaLabel:
+                        buildPointAriaLabel(
+                            pointLabels,
+                            0,
+                            line[0],
+                            strings,
+                            locale,
+                        ) ?? srRayEndpoint,
+                    point2AriaLabel:
+                        buildPointAriaLabel(
+                            pointLabels,
+                            1,
+                            line[1],
+                            strings,
+                            locale,
+                        ) ?? srRayTerminalPoint,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
                 onMoveLine={handleMoveLine}
