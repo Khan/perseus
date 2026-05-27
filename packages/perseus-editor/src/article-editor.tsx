@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /**
  * An article editor. Articles are long-form pieces of content, composed of
  * multiple (Renderer) sections concatenated together.

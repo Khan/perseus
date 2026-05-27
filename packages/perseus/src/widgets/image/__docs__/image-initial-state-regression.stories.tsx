@@ -349,6 +349,15 @@ export const TallGifImage: Story = {
     },
 };
 
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+        title: "Graphie image",
+    },
+};
+
 /**
  * Image widgets within a markdown table.
  */

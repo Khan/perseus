@@ -250,8 +250,7 @@ describe("Zoomable", () => {
         const onClickHandler = jest.fn();
         renderAndWaitToSettle(
             <Zoomable>
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
-                <span onClick={onClickHandler}>Some zoomable text</span>
+                <button onClick={onClickHandler}>Some zoomable text</button>
             </Zoomable>,
         );
 

@@ -1,5 +1,41 @@
 # @khanacademy/math-input
 
+## 26.4.29
+
+### Patch Changes
+
+-   [#3662](https://github.com/Khan/perseus/pull/3662) [`58ff08bdd0`](https://github.com/Khan/perseus/commit/58ff08bdd0cf40fbb18fdc7a433c71bd19a89f22) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor update to ensure the bg locale always uses CDOT for the multiplication symbol
+
+-   Updated dependencies [[`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f)]:
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/keypad-context@3.2.57
+
+## 26.4.28
+
+### Patch Changes
+
+-   Updated dependencies [[`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce)]:
+    -   @khanacademy/perseus-core@27.0.2
+    -   @khanacademy/keypad-context@3.2.56
+
+## 26.4.27
+
+### Patch Changes
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+    -   @khanacademy/keypad-context@3.2.55
+
+## 26.4.26
+
+### Patch Changes
+
+-   [#3645](https://github.com/Khan/perseus/pull/3645) [`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   Updated dependencies [[`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f), [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5), [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d)]:
+    -   @khanacademy/perseus-core@27.0.0
+    -   @khanacademy/keypad-context@3.2.54
+
 ## 26.4.25
 
 ### Patch Changes

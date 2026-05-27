@@ -1707,6 +1707,13 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
+    // Wait for fonts to load before setting label margins,
+    // so that the margins are not flakey.
+    if (document.fonts?.status === "loading") {
+        document.fonts.ready.then(() => setLabelMargins(span, size));
+        return;
+    }
+
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;

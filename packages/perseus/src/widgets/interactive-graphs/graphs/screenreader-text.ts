@@ -1,3 +1,25 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
+import type {InteractiveGraphStateAnnouncement} from "../types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
+
+export function getAnnouncementText(
+    state: InteractiveGraphStateAnnouncement,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    switch (state.type) {
+        case "move-point":
+            return strings.srPointAtCoordinates({
+                num: state.pointIndex + 1,
+                x: srFormatNumber(state.x, locale),
+                y: srFormatNumber(state.y, locale),
+            });
+        default:
+            throw new UnreachableCaseError(state.type);
+    }
+}
+
 export function srFormatNumber(
     a: number,
     locale: string,

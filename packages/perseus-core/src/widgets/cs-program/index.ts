@@ -24,7 +24,10 @@ const defaultWidgetOptions: CSProgramDefaultWidgetOptions = {
     height: DEFAULT_HEIGHT,
 };
 
-const csProgramWidgetLogic: WidgetLogic = {
+const csProgramWidgetLogic: WidgetLogic<
+    PerseusCSProgramWidgetOptions,
+    PerseusCSProgramWidgetOptions
+> = {
     name: "cs-program",
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],

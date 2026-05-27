@@ -12,8 +12,6 @@
 const PerseusFeatureFlags = [
     "image-widget-upgrade-gif-controls", // TODO(LEMS-3914): clean up feature flag
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
-    "interactive-graph-vector", // TODO(LEMS-3976): clean up feature flag
-    "interactive-graph-not-scored", // TODO(LEMS-3976): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;

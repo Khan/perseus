@@ -48,7 +48,6 @@ exports[`server item renderer should snapshot: initial render 1`] = `
                   aria-required="false"
                   class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8"
                   id="mock-widget 1"
-                  role="textbox"
                   type="text"
                   value=""
                 />

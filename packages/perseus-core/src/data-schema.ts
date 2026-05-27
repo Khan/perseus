@@ -990,6 +990,8 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
+    // deprecated
+    "orange",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -1002,6 +1004,9 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
+    // Deprecated: "orange" is the old name for the current "gold" color.
+    // We still have to support this in existing content.
+    orange: "var(--wb-semanticColor-learning-math-foreground-gold)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
@@ -1155,6 +1160,8 @@ export type PerseusGraphTypeAngle = {
      * the vertex, while rays BA and BC form the angle.
      */
     startCoords?: [Coord, Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string, string];
 };
 
 export type PerseusGraphTypeCircle = {
@@ -1166,6 +1173,8 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLinear = {
@@ -1174,6 +1183,8 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeLinearSystem = {
@@ -1182,6 +1193,8 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeNone = {
@@ -1200,6 +1213,8 @@ export type PerseusGraphTypePoint = {
     startCoords?: Coord[];
     /** Used instead of `coords` in some old graphs that have only one point. */
     coord?: Coord;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypePolygon = {
@@ -1217,6 +1232,8 @@ export type PerseusGraphTypePolygon = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeQuadratic = {
@@ -1225,6 +1242,8 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: [Coord, Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string, string];
 };
 
 export type PerseusGraphTypeSegment = {
@@ -1238,6 +1257,8 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeSinusoid = {
@@ -1246,6 +1267,8 @@ export type PerseusGraphTypeSinusoid = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeTangent = {
@@ -1254,6 +1277,8 @@ export type PerseusGraphTypeTangent = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeExponential = {
@@ -1267,6 +1292,8 @@ export type PerseusGraphTypeExponential = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLogarithm = {
@@ -1280,6 +1307,8 @@ export type PerseusGraphTypeLogarithm = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1288,6 +1317,8 @@ export type PerseusGraphTypeAbsoluteValue = {
     coords?: [Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeRay = {
@@ -1296,6 +1327,8 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeVector = {
@@ -1308,6 +1341,8 @@ export type PerseusGraphTypeVector = {
      *  "exact" (default) — both tail and tip must match exactly.
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 type AbsoluteValueGraphCorrect = {

@@ -1,4 +1,33 @@
-import {getPiMultiple, srFormatNumber} from "./screenreader-text";
+import {mockStrings} from "../../../strings";
+
+import {
+    getAnnouncementText,
+    getPiMultiple,
+    srFormatNumber,
+} from "./screenreader-text";
+
+describe("getAnnouncementText", () => {
+    it("returns the correct string for a move-point announcement", () => {
+        const result = getAnnouncementText(
+            {type: "move-point", pointIndex: 0, x: 3, y: 5},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point 1 at 3 comma 5.");
+    });
+
+    it("throws an UnreachableCaseError for an unhandled announcement type", () => {
+        expect(() =>
+            getAnnouncementText(
+                // @ts-expect-error - deliberately passing an unhandled type
+                {type: "unhandled-type"},
+                mockStrings,
+                "en",
+            ),
+        ).toThrow("Unhandled case");
+    });
+});
 
 describe("srFormatNumber", () => {
     it("trivially converts small integers to strings", () => {

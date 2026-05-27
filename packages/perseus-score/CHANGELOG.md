@@ -1,5 +1,39 @@
 # @khanacademy/perseus-score
 
+## 8.10.5
+
+### Patch Changes
+
+-   Updated dependencies [[`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f)]:
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/kmath@2.4.15
+
+## 8.10.4
+
+### Patch Changes
+
+-   [#3639](https://github.com/Khan/perseus/pull/3639) [`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce) Thanks [@benchristel](https://github.com/benchristel)! - When scoring input-number widgets using the numeric-input logic, we now disallow decimal and integer input under the following conditions: `answerType` is `number` or not set, `inexact` is not `true`, and the correct answer `value` has more than 10 decimal places. This ensures that learners are not approximating a rational answer with a decimal. It preserves the existing scoring behavior of input-number.
+
+-   Updated dependencies [[`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce)]:
+    -   @khanacademy/perseus-core@27.0.2
+    -   @khanacademy/kmath@2.4.14
+
+## 8.10.3
+
+### Patch Changes
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+    -   @khanacademy/kmath@2.4.13
+
+## 8.10.2
+
+### Patch Changes
+
+-   Updated dependencies [[`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f), [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5), [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d)]:
+    -   @khanacademy/perseus-core@27.0.0
+    -   @khanacademy/kmath@2.4.12
+
 ## 8.10.1
 
 ### Patch Changes

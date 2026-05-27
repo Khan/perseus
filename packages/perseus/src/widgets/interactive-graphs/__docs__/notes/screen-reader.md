@@ -29,7 +29,8 @@
     - [LEMS-4095](https://khanacademy.atlassian.net/browse/LEMS-4095) — Phase 5: Polygon suppress vertex enumeration on group focus.
     - [LEMS-4096](https://khanacademy.atlassian.net/browse/LEMS-4096) — Phase 5: Sinusoid extremum/midline label re-evaluation (pending design).
 - **Related (deferred):** [LEMS-2736](https://khanacademy.atlassian.net/browse/LEMS-2736) (Ctrl + Shift + Arrow conflict — kept-with-warning per OQ2b), [LEMS-2949](https://khanacademy.atlassian.net/browse/LEMS-2949) (mobile SR).
-- **Related PRs:** *(filled as they land — link each PR by phase/ticket)*
+- **Related PRs:**
+    - [#3619](https://github.com/Khan/perseus/pull/3619) — Phase 1, Step 1.3.1: Initial Announcer infrastructure (LEMS-3943). Adds `stateAnnouncement` to graph state; wires `announceMessage` call in `stateful-mafs-graph.tsx`.
 
 ---
 
@@ -133,60 +134,46 @@ Cross-phase file map — every file this plan touches at least once, with the ph
 
 **What ships in this phase:**
 
-- Build the announcer module directly on `main` under `packages/perseus/src/widgets/interactive-graphs/announcer/`, treating the POC on `catjohnson/lems-3946-prototype` as a working reference for shape, patterns, and pitfalls already surfaced — not a thing we wholesale port. Each piece (central handler, `useGraphAnnouncer` hook, integration into `mafs-graph.tsx`) is rebuilt with fresh tests and review.
-- Add `@khanacademy/wonder-blocks-announcer` as a dependency of `@khanacademy/perseus` and mount the WB `<Announcer>` once per page.
-- Wire the central handler into `mafs-graph.tsx` so it subscribes to reducer actions and fires `announce(...)` for the universal events listed below.
-- Implement `useGraphAnnouncer` so per-graph components in later phases can opt in.
-- Migrate the four currently-aria-live graphs — circle, linear, segment, and the unlimited point/polygon variants — off `aria-live` toggles and onto Announcer calls, in the same PR that adds each Announcer call (the paired-migration constraint from OQ3).
-- Cover the universal central-handler events from sr-research.md's OQ3 routing table: `ADD_POINT`, `REMOVE_POINT`, `CLOSE_POLYGON` / `OPEN_POLYGON`, `DELETE_INTENT`, `CHANGE_INTERACTION_MODE`, `MOVE_ALL`, and generic `MOVE_LINE` (where no slope/intercept context is needed).
-- Add new strings to `strings.ts` for the central events above. Strings for graph-entered / graph-exited and the per-graph math-heavy copy land in their respective phases.
+- Add optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon` in `types.ts`. This field is how graph reducers signal that an SR announcement is needed — they set it to a typed object carrying raw event data, and the component fires the announcement. The field defaults to `undefined` (no initializer needed in `initialize-graph-state.ts`).
+- Add `@khanacademy/wonder-blocks-announcer` as a dependency of `@khanacademy/perseus`.
+- In `stateful-mafs-graph.tsx`, add a `useEffect` that watches `state.stateAnnouncement`. When non-null, it builds the localized message string (using `strings` and `locale` from `usePerseusI18n()`) and calls `announceMessage({message})`. String building happens in the component, not the reducer, so reducers stay locale-free.
+- Migrate the four currently-aria-live graphs — circle, linear, segment, and the unlimited point/polygon variants — off `aria-live` toggles by having their reducers set `stateAnnouncement` instead. Per-graph copy (e.g., circle resize radius, linear point move, polygon vertex move) ships in the same PR as each migration. Paired-migration constraint from OQ3 still applies: the `stateAnnouncement` set and the `setXxxAriaLive("polite")` removal must land in the same PR.
+- Cover the universal events from sr-research.md's OQ3 routing table by adding the corresponding `stateAnnouncement` type variants: `ADD_POINT`, `REMOVE_POINT`, `CLOSE_POLYGON` / `OPEN_POLYGON`, `DELETE_INTENT`, `CHANGE_INTERACTION_MODE`, `MOVE_ALL`, and generic `MOVE_LINE`. New strings and `switch` cases in `stateful-mafs-graph.tsx` are added alongside each type variant as the paired migrations land in steps 1.3.2–1.3.6.
 
 **What this phase does NOT ship:**
 
 - Graph-entered / graph-exited announcements — those depend on the focus trap from Phase 4 and ship there, plugged into the same central handler.
-- Math-heavy per-graph copy (circle resize, linear slope/intercept, sinusoid extremum, polygon angle/side changes, etc.) — those land in Phase 5 via `useGraphAnnouncer` once Phase 1's infrastructure is verified.
 - Insert + I instruction-repeat shortcut — Phase 2.
 - DOM reordering, `role="figure"`, instruction-text rewrite — Phase 2.
 - Focus trap — Phase 4.
 
 **What this phase enables:**
 
-- Phase 4 plugs graph-entered / graph-exited messages into the central handler with no infrastructure work — just new action types or focus-handler hooks and new strings.
-- Phase 5 plugs per-graph math-heavy copy into `useGraphAnnouncer` from each graph's `graphs/<type>.tsx`, with the routing rule (OQ3) as the canary for what stays per-graph vs. moves central.
+- Phase 4 adds `stateAnnouncement` type variants for graph-entered / graph-exited events; the focus trap handler sets them in state. No new infrastructure needed — just new type variants, switch cases, and strings.
+- Phase 5 adds refined `stateAnnouncement` type variants for UXR-derived copy improvements (e.g., slope/intercept-aware linear copy, circle drag-handle vs. boundary-point distinction). The pattern is established in Phase 1 — Phase 5 just adds new type variants and updated strings.
 
 ### 1.2 Files
 
-All paths are relative to the repo root. The POC at `catjohnson/lems-3946-prototype` is a working reference for the new files in `announcer/` and for the wiring sites.
+All paths are relative to the repo root.
 
-**New files:**
-
-| File | Purpose |
-|------|---------|
-| `packages/perseus/src/widgets/interactive-graphs/announcer/central-announcer.ts` | Pure function `getAnnouncementForAction(action, prevState, nextState, strings, locale): string \| null` that maps universal reducer actions to announcement strings. React-free so it is unit-testable as a plain function. POC reference: same path on the POC branch (handles only `ADD_POINT` / `CLOSE_POLYGON` today; Phase 1 expands to the full OQ3 universal-event list). |
-| `packages/perseus/src/widgets/interactive-graphs/announcer/central-announcer.test.ts` | Table-driven tests, one row per central event, asserting the resulting string for representative state transitions. POC reference: same path on the POC branch (~124 lines covering the two POC events) — extend the table for each new event. |
-| `packages/perseus/src/widgets/interactive-graphs/announcer/use-announcing-reducer.ts` | Exports two hooks: `useAnnouncingReducer` (drop-in for `React.useReducer(interactiveGraphReducer, ...)` that runs each dispatched action through `getAnnouncementForAction` and calls `announceMessage` on the result) and `useGraphAnnouncer` (per-graph escape hatch with a 500 ms default `debounceThreshold`). POC reference: same path on the POC branch. |
-| `packages/perseus/src/widgets/interactive-graphs/announcer/use-announcing-reducer.test.ts` | Hook-level tests for `useAnnouncingReducer` and `useGraphAnnouncer`. The POC has no equivalent — these are net-new for Phase 1. |
+**No new files.** This phase adds to existing files only; no new module directory is created.
 
 **Modified files (wiring + paired aria-live migration):**
 
 | File | Change |
 |------|--------|
-| `packages/perseus/src/widgets/interactive-graphs/stateful-mafs-graph.tsx` | Replace `React.useReducer(interactiveGraphReducer, ...)` with `useAnnouncingReducer(...)`. Single-line swap. POC reference: see the diff on the POC branch for the exact call shape. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/circle.tsx` | Adopt `useGraphAnnouncer`. Call `announce(...)` from the radius-point `onMove` callback with the localized "Circle resized. Radius is now N" string. Remove the `setRadiusPointAriaLive("polite")` toggle; leave the `"off"` resets in place. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/circle.test.tsx` | Replace the existing "aria-live becomes polite on resize" assertions with announcer-call assertions. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/polygon.tsx` | Adopt `useGraphAnnouncer` in both the limited and unlimited polygon code paths. Replace each `setAriaLives([..., "polite", ...])` toggle with an `announce(...)` call. Keep the `pointsOffArray` resets. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/polygon.test.tsx` | Replace the four `aria-live` assertion blocks with announcer-call assertions, one per dispatch path. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx` *(if it carries an aria-live toggle — verify during implementation)* | Same migration pattern: `useGraphAnnouncer`, replace the aria-live toggle with `announce(...)`. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/linear.test.tsx` | Replace the `expectedAriaLive` assertions with announcer-call assertions. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx` *(verify during implementation, same caveat as linear)* | Same migration pattern. |
-| `packages/perseus/src/widgets/interactive-graphs/graphs/segment.test.tsx` | Replace `aria-live` assertions with announcer-call assertions. |
-| `packages/perseus/src/strings.ts` | Add new central-event strings (`srGraphPointAdded`, `srGraphPointRemoved`, `srGraphPolygonClosed`, `srGraphPolygonOpened`, `srGraphPointDeleted`, `srGraphKeyboardModeEntered`, `srGraphKeyboardModeExited`, `srGraphTranslated`, `srLineMoved`); plus per-graph migration strings for the four migrated graph types. |
+| `packages/perseus/src/widgets/interactive-graphs/types.ts` | Add `InteractiveGraphStateAnnouncement` union type; add optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon`. New type variants are added here alongside each paired migration step. |
+| `packages/perseus/src/widgets/interactive-graphs/stateful-mafs-graph.tsx` | Import `announceMessage` from `@khanacademy/wonder-blocks-announcer`; add a `useEffect` watching `state.stateAnnouncement`. When non-null, build the localized message (using `strings` / `locale` from `usePerseusI18n()`) and call `announceMessage({message})`. A new `switch` case and string are added here alongside each paired migration step. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/circle.tsx` | In the radius-point reducer case, set `stateAnnouncement` with the raw resize data. Remove the `setRadiusPointAriaLive("polite")` toggle; leave the `"off"` resets in place. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/circle.test.tsx` | Replace the existing "aria-live becomes polite on resize" assertions with `announceMessage`-call assertions. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/polygon.tsx` | In both the limited and unlimited polygon reducer cases, set `stateAnnouncement` on vertex moves. Replace each `setAriaLives([..., "polite", ...])` toggle. Keep the `pointsOffArray` resets. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/polygon.test.tsx` | Replace the four `aria-live` assertion blocks with `announceMessage`-call assertions, one per dispatch path. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx` *(verify during implementation)* | If it carries an aria-live toggle: set `stateAnnouncement` in the reducer on point moves; remove the toggle. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/linear.test.tsx` | Replace `expectedAriaLive` assertions with `announceMessage`-call assertions. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx` *(verify during implementation)* | Same pattern as linear. |
+| `packages/perseus/src/widgets/interactive-graphs/graphs/segment.test.tsx` | Replace `aria-live` assertions with `announceMessage`-call assertions. |
+| `packages/perseus/src/strings.ts` | New strings added alongside each paired migration step, not upfront. |
 | `packages/perseus/package.json` | Add `@khanacademy/wonder-blocks-announcer` to `dependencies`. |
-
-**Out-of-scope on the POC, not touched in Phase 1:**
-
-- `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` and `.../interactive-graph-question-builder.ts` are heavily rewritten on the POC branch (~2,500 lines combined) — that work is unrelated to the announcer foundation and stays out of Phase 1 PRs.
-- The POC's unrelated reducer / polygon-default-points fix — out of scope; investigate separately if needed.
 
 **Open scoping question for implementation:**
 
@@ -196,44 +183,41 @@ All paths are relative to the repo root. The POC at `catjohnson/lems-3946-protot
 
 Each numbered step is the unit of review — typically one PR. Order is sequential.
 
-#### 1.3.1 Foundation — announcer module + dormant wiring (PR 1)
+#### 1.3.1 Foundation — `stateAnnouncement` field + dormant wiring (PR 1) — **shipped as [#3619](https://github.com/Khan/perseus/pull/3619)**
 
-**Goal:** land the announcer module and swap `useAnnouncingReducer` into `stateful-mafs-graph.tsx`, with the central handler returning `null` for every action. Validates the integration with zero observable SR-behavior change.
+**Goal:** add `stateAnnouncement` to graph state and wire up the `announceMessage` call in `stateful-mafs-graph.tsx`, with no observable SR-behavior change (all graphs still use their existing aria-live toggles; no reducer sets `stateAnnouncement` to a non-null value yet).
 
-- Add `@khanacademy/wonder-blocks-announcer` to `packages/perseus/package.json` `dependencies`. Match the version pin used elsewhere in the monorepo.
-- Create `announcer/central-announcer.ts` with `getAnnouncementForAction(action, prevState, nextState, strings, locale): string | null`. Body is `default: return null`.
-- Create `announcer/use-announcing-reducer.ts` exporting `useAnnouncingReducer` and `useGraphAnnouncer`.
-- Create `announcer/central-announcer.test.ts`: table-driven, one row per action type, all asserting `null`.
-- Create `announcer/use-announcing-reducer.test.ts`: integration tests.
-- Edit `stateful-mafs-graph.tsx`: import `useAnnouncingReducer`, replace the `React.useReducer(interactiveGraphReducer, props, initializeGraphState)` call.
+- Add `InteractiveGraphStateAnnouncement` type and optional `stateAnnouncement?: InteractiveGraphStateAnnouncement` to `InteractiveGraphStateCommon` in `types.ts`.
+- Add `@khanacademy/wonder-blocks-announcer` to `packages/perseus/package.json` `dependencies`.
+- In `stateful-mafs-graph.tsx`, import `announceMessage`; add a `useEffect` watching `state.stateAnnouncement` that returns early if `undefined`, otherwise builds the localized string and calls `announceMessage({message})`.
 
-**Done when:** the existing test suite passes unchanged; no SR-behavior change is observable.
+**Done when:** the existing test suite passes unchanged; no aria-live toggles have been removed; `announceMessage` is never called (since no reducer sets `stateAnnouncement` to a non-`undefined` value in this step).
 
-#### 1.3.2 Central events — universal action → string mapping (PR 2)
+#### 1.3.2 Universal events — add `stateAnnouncement` types for non-graph-specific events (PR 2)
 
-**Goal:** implement central-handler cases for every universal event in OQ3's routing table that does not depend on Phase 4 (focus trap). Graph-entered / graph-exited are deliberately deferred — Phase 4 plugs them into the same handler.
+**Goal:** for every universal event in OQ3's routing table that doesn't depend on Phase 4, update the relevant reducer cases to set `stateAnnouncement`; add the corresponding type variants, `switch` cases in `stateful-mafs-graph.tsx`, and `strings.ts` entries. Graph-entered / graph-exited are deliberately deferred to Phase 4.
 
 Events: `ADD_POINT`, `REMOVE_POINT`, `CLOSE_POLYGON` / `OPEN_POLYGON`, `DELETE_INTENT`, `CHANGE_INTERACTION_MODE`, `MOVE_ALL`, `MOVE_LINE` (generic only).
 
-Files: `announcer/central-announcer.ts`, `announcer/central-announcer.test.ts`, `packages/perseus/src/strings.ts`.
+Files: `types.ts` (new type variants), `reducer/interactive-graph-reducer.ts` (set `stateAnnouncement` in each case), `stateful-mafs-graph.tsx` (new `switch` cases), `strings.ts`.
 
-**Routing-rule canary:** do not import `getRadius`, `getSlopeStringForLine`, `getClockwiseAngle`, or any math utility into `central-announcer.ts`. If a case starts wanting one, that announcement belongs per-graph and should defer to Phase 5.
+**Routing-rule canary:** `stateAnnouncement` type variants for these events carry only raw data. Do not pre-compute slope, intercept, angle, or other math-heavy values in the reducer. If building the announcement string requires a math utility, that announcement belongs in a Phase 5 per-graph step.
 
-**Done when:** every universal event speaks via WB Announcer; per-graph aria-live toggles still drive math-heavy copy untouched.
+**Done when:** every universal event causes `announceMessage` to fire; per-graph aria-live toggles still drive math-heavy copy untouched.
 
 #### 1.3.3 Paired migration — Circle radius point (PR 3)
 
-Adopt `useGraphAnnouncer` in `circle.tsx`. Remove the `setRadiusPointAriaLive("polite")` toggle. Update `circle.test.tsx`. SR-matrix verify (no double-announce).
+In `circle.tsx`'s reducer, set `stateAnnouncement` with the raw resize data on radius-point moves. Remove the `setRadiusPointAriaLive("polite")` toggle (leave the `"off"` resets). Add the type variant to `types.ts`; add the `switch` case and string to `stateful-mafs-graph.tsx` / `strings.ts`. Update `circle.test.tsx`. SR-matrix verify (no double-announce).
 
 #### 1.3.4 Paired migration — Polygon vertices (PR 4)
 
-Two `setAriaLives` toggle sites in `polygon.tsx` (limited and unlimited code paths). Same template as 1.3.3. Update `polygon.test.tsx`.
+Two `setAriaLives` toggle sites in `polygon.tsx` (limited and unlimited code paths). Set `stateAnnouncement` in each reducer case; remove the toggles. Add the corresponding type variants, `switch` cases, and strings. Update `polygon.test.tsx`.
 
 #### 1.3.5 Paired migration — Linear (PR 5)
 
 **Open scoping check at PR start:** confirm `graphs/linear.tsx` actually carries a `setXxxAriaLive` toggle in source. If the toggle is in source, migrate as below. If it lives only in shared-component props or is already off, defer entirely to Phase 5.
 
-Replace the aria-live toggle with `announce(strings.srLinearPointMoved({...}))`. **Generic message only** — slope/intercept-aware copy is math-heavy and stays per-graph for Phase 5. Update `linear.test.tsx`.
+Set `stateAnnouncement` in the reducer on point moves; remove the toggle. **Generic message only** — slope/intercept-aware copy is math-heavy and stays per-graph for Phase 5. Add the type variant, `switch` case, and string. Update `linear.test.tsx`.
 
 #### 1.3.6 Paired migration — Segment (and possibly ray, linear-system) (PR 6)
 
@@ -244,21 +228,21 @@ Same open scoping check + same template as 1.3.5 against `graphs/segment.tsx` / 
 **Goal:** confirm Phase 1 is stable and Phase 4 has a known plug-in surface for graph-entered / graph-exited.
 
 - Audit: `grep -rn 'setXxxAriaLive("polite")' graphs/`. Every remaining site is either deferred to Phase 5 or out of scope.
-- Confirm Phase 4's plug-in surface: `useAnnouncingReducer` already routes any future action through the central handler, so adding a `GRAPH_FOCUS_ENTERED` / `GRAPH_FOCUS_EXITED` action type in Phase 4 plugs in with one switch case each. If Phase 4 instead wants to call `announce(...)` directly from its focus handler, `useGraphAnnouncer` is already exported.
+- Confirm Phase 4's plug-in surface: Phase 4 adds `stateAnnouncement` type variants for graph-entered / graph-exited events and a `switch` case in `stateful-mafs-graph.tsx`. No new infrastructure needed.
 - Update Storybook a11y stories; update `__docs__/a11y.mdx`.
 
-**Done when:** every Phase-1-targeted aria-live toggle is migrated; no direct `aria-live` usage remains for the migrated graphs; the announcer module is documented; Phase 4 has a documented plug-in path.
+**Done when:** every Phase-1-targeted aria-live toggle is migrated; no direct `aria-live` usage remains for the migrated graphs; Phase 4 has a documented plug-in path.
 
 ### 1.4 Tests
 
-**Unit (per file in `announcer/`):**
+**Unit (reducer + state):**
 
-- `central-announcer.test.ts` — table-driven, one row per `InteractiveGraphAction` type.
-- `use-announcing-reducer.test.ts` — `useAnnouncingReducer` keeps state in lockstep with `interactiveGraphReducer`; `announceMessage` is not called when the central handler returns `null`; debounce and per-call override work.
+- `interactive-graph-reducer.test.ts` — for each universal event, assert `stateAnnouncement` is set to the expected type variant with correct raw data; assert `stateAnnouncement` is `undefined` on actions that don't produce an announcement.
+- `stateful-mafs-graph.test.tsx` — mock `announceMessage`; assert it is called when `stateAnnouncement` transitions from `undefined` to a non-`undefined` value; assert it is not called when `stateAnnouncement` stays `undefined`.
 
 **Integration (per migrated graph component):**
 
-- For each of `circle.test.tsx`, `polygon.test.tsx`, and linear / segment / ray / linear-system files where applicable: replace existing `aria-live` assertions with announcer-call assertions. Add a regression test per migrated graph asserting the aria-live state is **not** flipped to `"polite"`.
+- For each of `circle.test.tsx`, `polygon.test.tsx`, and linear / segment / ray / linear-system files where applicable: replace existing `aria-live` assertions with `announceMessage`-call assertions. Add a regression test per migrated graph asserting the aria-live state is **not** flipped to `"polite"`.
 
 **Manual SR matrix:**
 
@@ -277,9 +261,8 @@ Same open scoping check + same template as 1.3.5 against `graphs/segment.tsx` / 
 ### 1.6 Risks
 
 - **Doubled announcements** if a paired migration adds the Announcer call but misses the aria-live removal. Mitigation: paired-migration constraint enforced by test.
-- **Queue thrashing on busy pages.** `useGraphAnnouncer`'s 500 ms debounce mitigates per-stream thrashing.
 - **Localization correctness.** New strings carry interpolated values; they need ICU plurals or value formatting where applicable.
-- **Dispatch identity churn.** `useAnnouncingReducer` uses `useCallback` with `[strings, locale]` deps — confirm no consumer relies on dispatch identity across language toggles.
+- **`stateAnnouncement` object identity.** The `useEffect` fires on reference changes only. Reducers must always produce a new object reference when setting `stateAnnouncement` — never mutate in place. This is the standard Redux/useReducer immutability rule, but worth calling out explicitly.
 - **Test flakiness.** WB Announcer mounts a single live region per page; mock the WB module per test file and reset spies in `beforeEach`.
 - **Scoping ambiguity for linear / segment / ray / linear-system.** If the source-side aria-live toggle lives in a shared component, the migration may need to touch that shared file — increasing the blast radius.
 

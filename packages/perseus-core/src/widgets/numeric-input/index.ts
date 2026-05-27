@@ -1,5 +1,6 @@
 import {getNumericInputPublicWidgetOptions} from "./numeric-input-util";
 
+import type {NumericInputPublicWidgetOptions} from "./numeric-input-util";
 import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -26,7 +27,10 @@ const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
     rightAlign: false,
 };
 
-const numericInputWidgetLogic: WidgetLogic = {
+const numericInputWidgetLogic: WidgetLogic<
+    PerseusNumericInputWidgetOptions,
+    NumericInputPublicWidgetOptions
+> = {
     name: "numeric-input",
     defaultWidgetOptions,
     defaultAlignment: "inline-block",

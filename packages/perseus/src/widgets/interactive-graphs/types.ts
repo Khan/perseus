@@ -48,12 +48,22 @@ export type InteractiveGraphState =
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
+export type InteractiveGraphStateAnnouncement = {
+    type: "move-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+    // Raw data describing the most recent state change, used to build
+    // screen reader announcements in the component. Absent means no announcement.
+    stateAnnouncement?: InteractiveGraphStateAnnouncement;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
