@@ -32,6 +32,12 @@ const RenderContent = (
     content: string,
     asArticle: boolean,
 ): (() => React.JSX.Element) => {
+    /*
+        These regression tests are focused on how the renderer handles non-widget content.
+        Therefore, the "widgets" and "images" properties in the JSON object are empty.
+        Tests for how the renderer handles content within a widget should be tested in
+            the regression tests for those widgets.
+     */
     return function Render() {
         if (asArticle) {
             const json = {
