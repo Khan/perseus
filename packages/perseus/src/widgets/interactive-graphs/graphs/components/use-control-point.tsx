@@ -8,6 +8,7 @@ import {srFormatNumber} from "../screenreader-text";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";
+import {TextLabel} from "./text-label";
 
 import type {CSSCursor} from "./css-cursor";
 import type {AriaLive} from "../../types";
@@ -138,18 +139,29 @@ export function useControlPoint(params: Params): Return {
         />
     );
     const visiblePoint = (
-        <MovablePointView
-            cursor={cursor}
-            onClick={() => {
-                onClick();
-                focusableHandleRef.current?.focus();
-            }}
-            point={point}
-            dragging={dragging}
-            focused={focused}
-            ref={visiblePointRef}
-            showFocusRing={focused}
-        />
+        <>
+            <MovablePointView
+                cursor={cursor}
+                onClick={() => {
+                    onClick();
+                    focusableHandleRef.current?.focus();
+                }}
+                point={point}
+                dragging={dragging}
+                focused={focused}
+                ref={visiblePointRef}
+                showFocusRing={focused}
+            />
+            {/* PROTOTYPE: label every movable point with A/B/C... by sequence. */}
+            <TextLabel
+                x={point[X]}
+                y={point[Y]}
+                attach="ne"
+                attachDistance={12}
+            >
+                {String.fromCharCode(64 + sequenceNumber)}
+            </TextLabel>
+        </>
     );
 
     return {
