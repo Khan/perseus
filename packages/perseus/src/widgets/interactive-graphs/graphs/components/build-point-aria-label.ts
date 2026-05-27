@@ -4,11 +4,10 @@ import type {PerseusStrings} from "../../../../strings";
 import type {vec} from "mafs";
 
 /**
- * Build a screen-reader aria-label for an interactive point using a
- * caller-supplied custom label (e.g. "T") in place of the numeric default.
- * Returns `undefined` when no custom label is set for this index — callers
- * should fall back to the existing numeric "Point N" announcement built
- * inside `useControlPoint`.
+ * Returns a screen-reader aria-label for an interactive point using a
+ * custom label (e.g. "T"). Returns `undefined` when no custom label
+ * is set so callers can fall back to the default label (e.g. "Point 1",
+ * "Point 2", ...) built by `useControlPoint`.
  */
 export function buildPointAriaLabel(
     pointLabels: ReadonlyArray<string> | undefined,

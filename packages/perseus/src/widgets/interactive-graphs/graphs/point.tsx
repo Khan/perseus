@@ -224,7 +224,6 @@ export function getPointGraphDescription(
 
     const pointDescriptions = state.coords.map(
         (point, index) =>
-            // Share the helper's defensive rules with the MovablePoint handle's aria-label.
             buildPointAriaLabel(
                 state.pointLabels,
                 index,
