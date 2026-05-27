@@ -1249,6 +1249,24 @@ describe("moveCenter", () => {
         expect(updated).toBe(state);
     });
 
+    it("sets stateAnnouncement with the new center position", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-center",
+            x: 1,
+            y: 1,
+        });
+    });
+
     it("throws for non-circle graphs", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
@@ -1338,6 +1356,26 @@ describe("doMoveRadiusPoint", () => {
         expect(state).not.toBe(updated);
         // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([2, 0]);
+    });
+
+    it("sets stateAnnouncement with the radius point position and radius", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([3, 0]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-radius-point",
+            x: 3,
+            y: 0,
+            centerX: 0,
+            radius: 3,
+        });
     });
 
     it("throws for non-circle graphs", () => {

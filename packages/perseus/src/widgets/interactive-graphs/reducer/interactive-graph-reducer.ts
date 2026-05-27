@@ -867,6 +867,11 @@ function doMoveCenter(
                 hasBeenInteractedWith: true,
                 center: constrainedCenter,
                 radiusPoint: newRadiusPoint,
+                stateAnnouncement: {
+                    type: "move-center",
+                    x: constrainedCenter[X],
+                    y: constrainedCenter[Y],
+                },
             };
         }
         case "exponential": {
@@ -956,6 +961,13 @@ function doMoveRadiusPoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 radiusPoint: nextRadiusPoint,
+                stateAnnouncement: {
+                    type: "move-radius-point",
+                    x: nextRadiusPoint[X],
+                    y: nextRadiusPoint[Y],
+                    centerX: state.center[X],
+                    radius: vec.dist(state.center, nextRadiusPoint),
+                },
             };
         }
         default:
