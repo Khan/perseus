@@ -11,6 +11,7 @@ import {
     pointWithCustomLabelQuestion,
     pointWithDefaultLabelQuestion,
     polygonQuestion,
+    polygonWithCustomLabelsQuestion,
     rayQuestion,
     segmentQuestion,
     segmentWithLockedPointsQuestion,
@@ -119,6 +120,21 @@ export const PointWithDefaultLabel: Story = {
 export const Polygon: Story = {
     args: {
         item: generateTestPerseusItem({question: polygonQuestion}),
+    },
+};
+
+/**
+ * A polygon graph whose vertices use custom screen-reader
+ * labels ("A", "B", "C") via `pointLabels`, so the announcements
+ * match the question prompt instead of the generic "Point 1/2/3 …".
+ * Open with the Storybook a11y addon (or VoiceOver / JAWS) to verify
+ * each vertex announces "Point A / B / C at …".
+ */
+export const PolygonWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: polygonWithCustomLabelsQuestion,
+        }),
     },
 };
 

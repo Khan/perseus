@@ -861,13 +861,7 @@ describe("StartCoordSettings", () => {
             expect(screen.getByText("Point 3:")).toBeInTheDocument();
         });
 
-        // Polygon's render side does not consume `pointLabels` until PR 3,
-        // so the editor name fields are intentionally gated off here even
-        // when `onChangePointLabels` is forwarded by the parent editor.
-        // TODO(LEMS-3995, PR 3): flip this assertion to `toBeInTheDocument()`
-        // when the `type === "point"` gate in start-coords-settings.tsx is
-        // widened to include polygon.
-        it("does NOT render point name fields for polygon graphs", () => {
+        it("renders point name fields when onChangePointLabels is provided", () => {
             // Arrange, Act
             render(
                 <StartCoordsSettings
@@ -881,8 +875,58 @@ describe("StartCoordSettings", () => {
 
             // Assert
             expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 3 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="polygon"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
                 screen.queryByRole("textbox", {name: "Point 1 name"}),
             ).not.toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels when a point name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="polygon"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "A");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "A",
+                "",
+                "",
+            ]);
         });
 
         it("shows the start coordinates UI: 6 sides", () => {
