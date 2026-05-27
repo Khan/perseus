@@ -96,16 +96,16 @@ describe("graded-group", () => {
             renderQuestion(question1);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[0],
+                screen.getAllByRole("radio", {name: /True/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[2],
+                screen.getAllByRole("radio", {name: /True/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[3],
+                screen.getAllByRole("radio", {name: /True/})[3],
             );
 
             // Act
@@ -123,16 +123,16 @@ describe("graded-group", () => {
             renderQuestion(question1);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
+                screen.getAllByRole("radio", {name: /False/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
+                screen.getAllByRole("radio", {name: /False/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[3],
+                screen.getAllByRole("radio", {name: /False/})[3],
             );
 
             // Act
@@ -152,7 +152,7 @@ describe("graded-group", () => {
             renderQuestion(question1);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
 
             // Act
@@ -301,16 +301,16 @@ describe("graded-group", () => {
             renderQuestion(question1, apiOptions);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[0],
+                screen.getAllByRole("radio", {name: /True/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[2],
+                screen.getAllByRole("radio", {name: /True/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[3],
+                screen.getAllByRole("radio", {name: /True/})[3],
             );
             act(() => jest.runOnlyPendingTimers());
 
@@ -331,16 +331,16 @@ describe("graded-group", () => {
             renderQuestion(question1, apiOptions);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
+                screen.getAllByRole("radio", {name: /False/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
+                screen.getAllByRole("radio", {name: /False/})[2],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[3],
+                screen.getAllByRole("radio", {name: /False/})[3],
             );
             act(() => jest.runOnlyPendingTimers());
 
@@ -359,10 +359,10 @@ describe("graded-group", () => {
             renderQuestion(question1, apiOptions);
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
+                screen.getAllByRole("radio", {name: /False/})[0],
             );
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
+                screen.getAllByRole("radio", {name: /False/})[1],
             );
             act(() => jest.runOnlyPendingTimers());
 
@@ -374,7 +374,7 @@ describe("graded-group", () => {
             ).toBeVisible();
 
             await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
+                screen.getAllByRole("radio", {name: /False/})[2],
             );
             act(() => jest.runOnlyPendingTimers());
 

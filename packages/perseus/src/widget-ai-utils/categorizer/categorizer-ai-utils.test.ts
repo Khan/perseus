@@ -83,8 +83,8 @@ describe("Categorizer AI utils", () => {
         const {renderer} = renderQuestion(randomizedQuestion);
 
         // act
-        await userEvent.click(screen.getAllByRole("button")[0]);
-        await userEvent.click(screen.getAllByRole("button")[5]);
+        await userEvent.click(screen.getAllByRole("radio")[0]);
+        await userEvent.click(screen.getAllByRole("radio")[5]);
 
         const json = renderer.getPromptJSON();
 
