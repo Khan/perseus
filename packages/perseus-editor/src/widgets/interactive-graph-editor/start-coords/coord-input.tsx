@@ -14,17 +14,16 @@ interface CoordInputProps {
     coord: Coord;
     onChange: (coord: Coord) => void;
     // Custom label for each interactive point that will help with the screen reader.
-    pointLabel?: {
-        value: string | undefined;
-        placeholder: string;
-        onChange: (newLabel: string) => void;
-    };
+    pointLabel?: string;
+    onPointLabelChange?: (newLabel: string) => void;
 }
 
 const CoordInput = (props: CoordInputProps) => {
-    const {label, coord, onChange, pointLabel} = props;
+    const {label, coord, onChange, pointLabel, onPointLabelChange} = props;
 
-    if (pointLabel) {
+    if (onPointLabelChange) {
+        const placeholder = label.match(/\d+$/)?.[0] ?? label;
+
         return (
             <View className={styles.tile}>
                 <BodyText weight="bold" tag="span">{`${label}:`}</BodyText>
@@ -42,9 +41,9 @@ const CoordInput = (props: CoordInputProps) => {
                     <View className={styles.pointLabelField}>
                         <TextField
                             aria-label={`${label} name`}
-                            value={pointLabel.value ?? ""}
-                            placeholder={pointLabel.placeholder}
-                            onChange={pointLabel.onChange}
+                            value={pointLabel ?? ""}
+                            placeholder={placeholder}
+                            onChange={onPointLabelChange}
                         />
                     </View>
                 </BodyText>

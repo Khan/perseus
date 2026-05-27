@@ -26,21 +26,19 @@ const StartCoordsPoint = (props: Props) => {
                         newStartCoords[index] = newCoord;
                         onChange(newStartCoords);
                     }}
-                    pointLabel={
-                        onChangePointLabels && {
-                            value: pointLabels?.[index],
-                            placeholder: `${index + 1}`,
-                            onChange: (newLabel) => {
-                                const next = Array.from(
-                                    {length: startCoords.length},
-                                    (_, i) =>
-                                        i === index
-                                            ? newLabel
-                                            : pointLabels?.[i] ?? "",
-                                );
-                                onChangePointLabels(next);
-                            },
-                        }
+                    pointLabel={pointLabels?.[index]}
+                    onPointLabelChange={
+                        onChangePointLabels &&
+                        ((newLabel) => {
+                            const next = Array.from(
+                                {length: startCoords.length},
+                                (_, i) =>
+                                    i === index
+                                        ? newLabel
+                                        : pointLabels?.[i] ?? "",
+                            );
+                            onChangePointLabels(next);
+                        })
                     }
                 />
             ))}
