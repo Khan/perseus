@@ -143,6 +143,57 @@ describe("ItemFlipbookModel", () => {
         );
     });
 
+    it("pages to the previous item", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+
+        model.nextItem();
+        model.previousItem();
+
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "hi",
+                    }),
+                }),
+            ),
+        )
+    })
+
+    it("calls the observer when paging to the previous item", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+
+        model.nextItem();
+        model.previousItem();
+
+        expect(observer).toHaveBeenCalledTimes(3);
+    });
+
+    it("doesn't page beyond the beginning of the item list", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+        `);
+
+        model.previousItem();
+
+        expect(model.present().selectedItemNumber).toEqual("1");
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "hi",
+                    }),
+                }),
+            ),
+        );
+    });
+
     it("clamps the selectedItemNumber when items are removed from the list", () => {
         model.setTextareaValue(`
             {"question":{"content":"1"}}

@@ -32,6 +32,7 @@ export interface ViewModel {
      */
     selectedItemNumber: string;
     nextItem: () => void;
+    previousItem: () => void;
 
     /**
      * The data that should be rendered for the currently selected item.

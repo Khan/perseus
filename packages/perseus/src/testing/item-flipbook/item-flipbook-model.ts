@@ -24,6 +24,7 @@ export class ItemFlipbookModel {
             selectedItemNumber: this.getSelectedItemNumber(),
             itemSelection: this.getSelectedItem(),
             nextItem: this.nextItem,
+            previousItem: this.previousItem,
         };
     }
 
@@ -37,6 +38,11 @@ export class ItemFlipbookModel {
         this.targetItemIndex = this.clampItemIndex(this.targetItemIndex + 1);
         this.observer();
     };
+
+    previousItem = () => {
+        this.targetItemIndex = this.clampItemIndex(this.targetItemIndex - 1);
+        this.observer();
+    }
 
     private clampItemIndex(newIndex: number): number {
         return clamp(newIndex, 0, this.getMaxItemIndex());
