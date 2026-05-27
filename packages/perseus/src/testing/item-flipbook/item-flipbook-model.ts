@@ -28,7 +28,7 @@ export class ItemFlipbookModel {
     };
 
     getSelectedItem(): PerseusItemSelection {
-        const [first] = this.textareaValue.split("\n");
+        const [first] = this.textareaValue.split("\n").filter(nonblank);
 
         if (!first) {
             return noItem();
@@ -41,4 +41,8 @@ export class ItemFlipbookModel {
 
         return item(parseResult.value);
     }
+}
+
+function nonblank(s: string): boolean {
+    return s.trim() !== "";
 }

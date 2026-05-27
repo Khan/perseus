@@ -68,4 +68,20 @@ describe("ItemFlipbookModel", () => {
             }),
         );
     });
+
+    it("parses multiple newline-separated items, ignoring extra whitespace", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "hi",
+                    }),
+                }),
+            ),
+        );
+    });
 });
