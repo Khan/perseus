@@ -1,18 +1,20 @@
 import scoreInputNumber from "./score-input-number";
 
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberWidgetOptions,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
 
+// TODO(LEMS-4085): Delete these tests; scoreInputNumber will be replaced by scoreNumericInput.
 describe("scoreInputNumber", () => {
     it("scores undefined user input as invalid", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 1,
             simplify: "optional",
             answerType: "percent",
+            size: "normal",
         };
 
         const userInput = undefined;
@@ -23,12 +25,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores correct answer correctly", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 1,
             simplify: "optional",
             answerType: "percent",
+            size: "normal",
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -41,12 +44,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 1,
             simplify: "optional",
             answerType: "percent",
+            size: "normal",
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -59,12 +63,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 1,
             simplify: "optional",
             answerType: "percent",
+            size: "normal",
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -83,11 +88,12 @@ describe("scoreInputNumber", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
             simplify: "required",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -110,12 +116,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
             simplify: "required",
             answerType: "pi",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -128,9 +135,10 @@ describe("scoreInputNumber", () => {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             value: "2^{-2}-3",
             simplify: "optional",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {currentValue: "x+1"};
@@ -144,12 +152,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("should not consider commas as a decimal separator in the EN locale", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 16,
             simplify: "optional",
             answerType: "number",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -162,12 +171,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("should reject European decimal format in EN locale", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,
             simplify: "optional",
             answerType: "decimal",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -182,12 +192,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider commas as the decimal separator in the FR locale", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,
             simplify: "optional",
             answerType: "decimal",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -201,12 +212,13 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider decimals as the thousands separator in FR locale", () => {
-        const rubric: PerseusInputNumberRubric = {
+        const rubric: PerseusInputNumberWidgetOptions = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,
             simplify: "optional",
             answerType: "decimal",
+            size: "normal",
         };
 
         const userInput: PerseusInputNumberUserInput = {

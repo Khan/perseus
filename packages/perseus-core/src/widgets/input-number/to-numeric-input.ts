@@ -5,6 +5,8 @@ import type {
     PerseusNumericInputWidgetOptions,
 } from "../../data-schema";
 
+// TODO(LEMS-4085): move this function to the input-number widget parser; it
+//  should only be used there by the end of this project.
 export function convertInputNumberOptionsToNumericInput(
     inputNumberOptions: PerseusInputNumberWidgetOptions,
 ): PerseusNumericInputWidgetOptions {
