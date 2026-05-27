@@ -1,8 +1,15 @@
+import {
+    generateImageOptions,
+    generateImageWidget,
+    generateTestPerseusRenderer,
+    type PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
     articleDecorator,
@@ -18,6 +25,7 @@ import {
     frescoImage,
     gifImageAlt,
     graphieImage,
+    graphieImageAlt,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -29,7 +37,6 @@ import {
 
 import {imageRendererDecorator} from "./image-renderer-decorator";
 
-import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const earthMoonImageCaption =
@@ -348,5 +355,63 @@ export const GraphieImage: Story = {
         backgroundImage: graphieImage,
         alt: "Graphie image",
         title: "Graphie image",
+    },
+};
+
+/**
+ * Image widgets within a markdown table.
+ */
+export const MarkdownTableWithImageWidgets: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content:
+                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco painting",
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                }),
+                            }),
+                            "image 3": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Markdown images within a markdown table.
+ */
+export const MarkdownTableWithMarkdownImages: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        widgets: {},
+                    })}
+                />
+            </div>
+        );
     },
 };

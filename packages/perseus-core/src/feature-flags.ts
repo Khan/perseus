@@ -11,7 +11,6 @@
  */
 const PerseusFeatureFlags = [
     "image-widget-upgrade-gif-controls", // TODO(LEMS-3914): clean up feature flag
-    "image-widget-upgrade-scale", // TODO(LEMS-3912): clean up feature flag
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
 ] as const;
 
