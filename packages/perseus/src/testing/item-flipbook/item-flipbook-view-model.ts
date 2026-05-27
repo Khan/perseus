@@ -27,6 +27,13 @@ export interface ViewModel {
     setTextareaValue: (newValue: string) => void;
 
     /**
+     * The 1-indexed number of the selected item, formatted for display in an
+     * input box.
+     */
+    selectedItemNumber: string;
+    nextItem: () => void;
+
+    /**
      * The data that should be rendered for the currently selected item.
      * Either:
      * - a PerseusItem

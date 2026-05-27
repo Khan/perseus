@@ -17,6 +17,10 @@ describe("ItemFlipbookModel", () => {
         expect(model.present().textareaValue).toBe("");
     });
 
+    it("displays a selected item number, which is initially 1", () => {
+        expect(model.present().selectedItemNumber).toBe("1");
+    });
+
     it("has no perseus items initially", () => {
         expect(model.present().itemSelection).toEqual(noItem());
     });
@@ -33,6 +37,7 @@ describe("ItemFlipbookModel", () => {
 
     it("displays a JSON parse error when the user enters a non-JSON value", () => {
         model.setTextareaValue("hello");
+
         expect(model.present().itemSelection).toEqual(
             parseError(`Unexpected token 'h', "hello" is not valid JSON`),
         );
@@ -40,6 +45,7 @@ describe("ItemFlipbookModel", () => {
 
     it("displays a Perseus parse error when the user enters a non-Perseus JSON value", () => {
         model.setTextareaValue(`{"question":{"content":999}}`);
+
         expect(model.present().itemSelection).toEqual(
             parseError(
                 `At (root).question.content -- expected string, but got 999`,
@@ -49,6 +55,7 @@ describe("ItemFlipbookModel", () => {
 
     it("displays the first Perseus item when one can be parsed from the input", () => {
         model.setTextareaValue(`{"question":{"content":"hi"}}`);
+
         expect(model.present().itemSelection).toEqual(
             item({
                 question: {
@@ -74,11 +81,89 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"hi"}}
             {"question":{"content":"bye"}}
         `);
+
         expect(model.present().itemSelection).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
                         content: "hi",
+                    }),
+                }),
+            ),
+        );
+    });
+
+    it("pages to the next item", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+
+        model.nextItem();
+
+        expect(model.present().selectedItemNumber).toEqual("2");
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "bye",
+                    }),
+                }),
+            ),
+        );
+    });
+
+    it("calls the observer when paging to the next item", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+
+        model.nextItem();
+
+        expect(observer).toHaveBeenCalledTimes(2);
+    });
+
+    it("doesn't page beyond the end of the item list", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+        `);
+
+        model.nextItem();
+
+        expect(model.present().selectedItemNumber).toEqual("1");
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "hi",
+                    }),
+                }),
+            ),
+        );
+    });
+
+    it("clamps the selectedItemNumber when items are removed from the list", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `);
+
+        model.nextItem(); // select item 2
+        model.nextItem(); // select item 3
+
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+        `);
+
+        expect(model.present().selectedItemNumber).toEqual("2");
+        expect(model.present().itemSelection).toEqual(
+            item(
+                expect.objectContaining({
+                    question: expect.objectContaining({
+                        content: "2",
                     }),
                 }),
             ),
