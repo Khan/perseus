@@ -162,7 +162,6 @@ function MovableCircle(props: {
                 role="button"
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
-                aria-live="polite"
                 aria-disabled={disableKeyboardInteraction}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}

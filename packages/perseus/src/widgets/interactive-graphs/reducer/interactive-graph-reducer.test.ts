@@ -554,6 +554,143 @@ describe("movePointInFigure", () => {
         invariant(updated.type === "linear");
         expect(updated.coords[0]).toEqual([10, 10]);
     });
+
+    it("sets stateAnnouncement to a move-segment-point with totalSegments=1 for a single segment", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [5, 5],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(0, 1, [6, 6]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-segment-point",
+            segmentIndex: 0,
+            pointIndex: 1,
+            x: 6,
+            y: 6,
+            totalSegments: 1,
+        });
+    });
+
+    it("sets stateAnnouncement to a move-segment-point with totalSegments=2 for multi-segment graphs", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [0, 0],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(1, 0, [-6, -6]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-segment-point",
+            segmentIndex: 1,
+            pointIndex: 0,
+            x: -6,
+            y: -6,
+            totalSegments: 2,
+        });
+    });
+
+    it("sets stateAnnouncement to a move-linear-system-point with the line index", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(1, 0, [-3, -3]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-linear-system-point",
+            lineIndex: 1,
+            pointIndex: 0,
+            x: -3,
+            y: -3,
+        });
+    });
+
+    it("sets stateAnnouncement to a move-linear-point on linear endpoints", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-linear-point",
+            pointIndex: 0,
+            x: -3,
+            y: 2,
+        });
+    });
+
+    it("sets stateAnnouncement to a move-ray-point on ray endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(1, [4, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-ray-point",
+            pointIndex: 1,
+            x: 4,
+            y: 4,
+        });
+    });
 });
 
 describe("moveSegment", () => {
@@ -646,6 +783,27 @@ describe("moveSegment", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-segment-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [4, 0],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-line");
+        expect(updated.stateAnnouncement.segmentIndex).toBe(0);
+        expect(updated.stateAnnouncement.coords).toHaveLength(2);
+    });
 });
 
 describe("moveLine on a linear graph", () => {
@@ -678,6 +836,30 @@ describe("moveLine on a linear graph", () => {
             [10, 10],
         ]);
     });
+
+    it("sets stateAnnouncement to a move-linear-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.moveLine([-3, 3]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-linear-line");
+        expect(updated.stateAnnouncement.coords).toHaveLength(2);
+    });
 });
 
 describe("moveRay on a ray graph", () => {
@@ -695,6 +877,20 @@ describe("moveRay on a ray graph", () => {
             [5, 5],
             [10, 10],
         ]);
+    });
+
+    it("sets stateAnnouncement to a move-ray-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.moveRay([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-line");
+        expect(updated.stateAnnouncement.coords).toHaveLength(2);
     });
 });
 
@@ -761,6 +957,25 @@ describe("movePoint on a point graph", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointIndex: 0,
+            x: 3,
+            y: 4,
+        });
     });
 });
 
@@ -851,6 +1066,32 @@ describe("movePoint on an angle graph", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("sets stateAnnouncement to a move-angle-point with the measured angle for the vertex", () => {
+        // Use a wider-spaced angle so moving the vertex doesn't pull the
+        // side points too close (which would reject the move).
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(1, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(1);
+        expect(updated.stateAnnouncement.y).toBe(1);
+        expect(typeof updated.stateAnnouncement.angleMeasure === "number").toBe(
+            true,
+        );
     });
 });
 
@@ -1051,6 +1292,24 @@ describe("movePoint on a polygon graph", () => {
             3.1344697042830383, -2.1621978801515374,
         ]);
     });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [2, 3]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointIndex: 0,
+            x: 2,
+            y: 3,
+        });
+    });
 });
 
 describe("movePoint on a quadratic graph", () => {
@@ -1086,6 +1345,23 @@ describe("movePoint on a quadratic graph", () => {
 
         invariant(updated.type === "quadratic");
         expect(updated.coords[0]).toEqual([-5, 5]);
+    });
+
+    it("sets stateAnnouncement to a move-quadratic-point with the updated coords", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.quadratic.movePoint(0, [-2, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        // Updated coords are passed so the text helper can identify the
+        // parabola's vertex annotation.
+        expect(updated.stateAnnouncement.coords[0]).toEqual([-2, 4]);
     });
 });
 
@@ -2248,6 +2524,22 @@ describe("movePoint on an exponential graph", () => {
         expect(updated.coords[0]).toEqual([0, 3]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
+
+    it("sets stateAnnouncement to a move-exponential-point with the new position", () => {
+        const state = generateExponentialGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-2, 3]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-exponential-point",
+            pointIndex: 0,
+            x: -2,
+            y: 3,
+        });
+    });
 });
 
 describe("moveCenter on an exponential graph (asymptote)", () => {
@@ -2471,6 +2763,22 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-4, -3]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
+
+    it("sets stateAnnouncement to a move-logarithm-point with the new position", () => {
+        const state = generateLogarithmGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-logarithm-point",
+            pointIndex: 0,
+            x: -3,
+            y: 4,
+        });
+    });
 });
 
 describe("moveCenter on a logarithm graph (asymptote)", () => {
@@ -2597,6 +2905,22 @@ describe("moveTip on a vector graph", () => {
         invariant(updated.type === "vector");
         expect(updated.coords[1]).toEqual([3, 4]);
     });
+
+    it("sets stateAnnouncement to a move-vector-point on the tip", () => {
+        const state = generateVectorGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([4, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-vector-point",
+            pointIndex: 1,
+            x: 4,
+            y: 4,
+        });
+    });
 });
 
 describe("moveVector on a vector graph (body translation)", () => {
@@ -2650,5 +2974,121 @@ describe("moveVector on a vector graph (body translation)", () => {
             [7, 6],
             [10, 10],
         ]);
+    });
+
+    it("sets stateAnnouncement to a move-vector-line with the new endpoints", () => {
+        const state = generateVectorGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-vector-line");
+        expect(updated.stateAnnouncement.coords).toHaveLength(2);
+    });
+});
+
+describe("movePoint on a sinusoid graph", () => {
+    it("sets stateAnnouncement to a move-sinusoid-point with rootY for the peak's max/min branch", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(1, [2, 3]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-sinusoid-point",
+            pointIndex: 1,
+            x: 2,
+            y: 3,
+            rootY: 0,
+        });
+    });
+});
+
+describe("movePoint on an absolute-value graph", () => {
+    it("sets stateAnnouncement to a move-absolute-value-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "absolute-value",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(1, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-absolute-value-point",
+            pointIndex: 1,
+            x: 3,
+            y: 4,
+        });
+    });
+});
+
+describe("movePoint on a tangent graph", () => {
+    it("sets stateAnnouncement to a move-tangent-point with the new position", () => {
+        const state = generateTangentGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(1, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-tangent-point",
+            pointIndex: 1,
+            x: 3,
+            y: 4,
+        });
+    });
+});
+
+describe("moveLine on a linear-system graph", () => {
+    it("sets stateAnnouncement to a move-linear-system-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.moveLine(1, [-4, -4]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-linear-system-line",
+        );
+        expect(updated.stateAnnouncement.lineIndex).toBe(1);
+        expect(updated.stateAnnouncement.coords).toHaveLength(2);
     });
 });
