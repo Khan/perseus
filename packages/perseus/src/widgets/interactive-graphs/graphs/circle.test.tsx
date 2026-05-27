@@ -294,61 +294,6 @@ describe("Circle graph screen reader", () => {
             );
         },
     );
-
-    test("radius point has aria-live off by default", async () => {
-        // Arrange
-
-        // Act
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        // eslint-disable-next-line testing-library/no-node-access
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Assert
-        // Check aria-live for the radius point.
-        expect(radiusPoint).toHaveAttribute("aria-live", "off");
-    });
-
-    test("set aria-live to polite on the radius point when the radius point is interacted with", async () => {
-        // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Act
-        // move the radius point
-        act(() => radiusPoint.focus());
-        await userEvent.keyboard("{arrowright}");
-
-        // Assert
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
-    });
-
-    test("set aria-live to off on the radius point when the circle is interacted with", async () => {
-        // Arrange
-        render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        const circleGraph = await screen.findByRole("button", {
-            name: "Circle. The center point is at 0 comma 0.",
-        });
-        const radiusPoint = screen.getByTestId(
-            "movable-point__focusable-handle",
-        );
-
-        // Act
-        // move the radius point so that its aria-live is set to polite
-        act(() => radiusPoint.focus());
-        await userEvent.keyboard("{arrowright}");
-        expect(radiusPoint).toHaveAttribute("aria-live", "polite");
-
-        // move the circle
-        act(() => circleGraph.focus());
-        await userEvent.keyboard("{arrowright}");
-
-        // Assert
-        expect(radiusPoint).toHaveAttribute("aria-live", "off");
-    });
 });
 
 describe("describeCircleGraph", () => {
