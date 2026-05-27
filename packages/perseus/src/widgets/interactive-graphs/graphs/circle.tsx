@@ -73,8 +73,6 @@ export function CircleGraph(props: CircleGraphProps) {
         >
             <MovableCircle
                 id={circleId}
-                // Focusable circle aria label reads with every update
-                // because of the aria-live property in the circle <g>.
                 ariaLabel={srCircleShape}
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${radiusId} ${outerPointsId}`}
