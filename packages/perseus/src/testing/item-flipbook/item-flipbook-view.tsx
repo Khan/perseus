@@ -13,8 +13,8 @@ export function ItemFlipbookView({viewModel}: ViewProps) {
     return (
         <>
             <textarea
-                value={viewModel.textareaValue}
-                onChange={(e) => viewModel.setTextareaValue(e.target.value)}
+                value={viewModel.itemJsonInput.value}
+                onChange={viewModel.itemJsonInput.onChange}
             />
             <ItemDisplayView itemDisplay={viewModel.itemDisplay} />
         </>

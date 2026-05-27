@@ -2,7 +2,7 @@ import {isFailure} from "@khanacademy/perseus-core";
 
 import {clamp} from "../../widgets/interactive-graphs/math";
 
-import {item, noItem, parseError} from "./item-flipbook-view-model";
+import {InputField, item, noItem, parseError} from "./item-flipbook-view-model";
 import {safeParsePerseusItem} from "./safe-parse-perseus-item";
 
 import type {ItemDisplay, ViewModel} from "./item-flipbook-view-model";
@@ -19,8 +19,7 @@ export class ItemFlipbookModel {
 
     present(): ViewModel {
         return {
-            textareaValue: this.textareaValue,
-            setTextareaValue: this.setTextareaValue,
+            itemJsonInput: this.presentItemJsonInput(),
             selectedItemNumber: this.getSelectedItemNumber(),
             itemDisplay: this.getSelectedItem(),
             nextItem: this.nextItem,
@@ -42,6 +41,13 @@ export class ItemFlipbookModel {
     previousItem = () => {
         this.targetItemIndex = this.clampItemIndex(this.targetItemIndex - 1);
         this.observer();
+    }
+
+    private presentItemJsonInput(): InputField {
+        return {
+            value: this.textareaValue,
+            onChange: (e) => this.setTextareaValue(e.target.value),
+        }
     }
 
     private clampItemIndex(newIndex: number): number {

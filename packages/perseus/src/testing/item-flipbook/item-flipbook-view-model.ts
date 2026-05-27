@@ -18,13 +18,19 @@ export function item(item: PerseusItem): Item {
     return {status: "item", item};
 }
 
+export interface InputFieldChangeEvent {
+    target: {
+        value: string;
+    }
+}
+
+export interface InputField {
+    value: string;
+    onChange: (event: InputFieldChangeEvent) => void;
+}
+
 export interface ViewModel {
-    /**
-     * The text the user has entered into the textarea.
-     * This is supposed to be a sequence of JSON objects separated by newlines.
-     */
-    textareaValue: string;
-    setTextareaValue: (newValue: string) => void;
+    itemJsonInput: InputField;
 
     /**
      * The 1-indexed number of the selected item, formatted for display in an

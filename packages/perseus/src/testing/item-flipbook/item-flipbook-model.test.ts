@@ -14,7 +14,7 @@ describe("ItemFlipbookModel", () => {
     });
 
     it("has a text field, which is initially empty", () => {
-        expect(model.present().textareaValue).toBe("");
+        expect(model.present().itemJsonInput.value).toBe("");
     });
 
     it("displays a selected item number, which is initially 1", () => {
@@ -27,7 +27,7 @@ describe("ItemFlipbookModel", () => {
 
     it("lets the user enter stuff in the text field", () => {
         model.setTextareaValue("hello");
-        expect(model.present().textareaValue).toBe("hello");
+        expect(model.present().itemJsonInput.value).toBe("hello");
     });
 
     it("calls the observer when the textarea value changes", () => {
