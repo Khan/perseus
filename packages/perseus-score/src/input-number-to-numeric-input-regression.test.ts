@@ -101,6 +101,28 @@ const cases: TestCase[] = [
             },
         },
     },
+    {
+        title: "when the user inputs a long decimal",
+        userInput: {
+            "input-number 1": {
+                currentValue: "0.7692307692307",
+            },
+        },
+        widgets: {
+            "input-number 1": {
+                options: {
+                    maxError: 0.031,
+                    simplify: "optional",
+                    answerType: "number",
+                    inexact: false,
+                    size: "normal",
+                    value: 0.7692307692307693,
+                },
+                graded: true,
+                type: "input-number",
+            },
+        },
+    },
 ];
 
 describe("scoring with input-number converted to numeric-input", () => {

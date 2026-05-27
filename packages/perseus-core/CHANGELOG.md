@@ -1,5 +1,35 @@
 # @khanacademy/perseus-core
 
+## 27.0.3
+
+### Patch Changes
+
+-   [#3659](https://github.com/Khan/perseus/pull/3659) [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove interactive graph phase 2 remaining feature flags: interactive-graph-vector, interactive-graph-not-scored
+
+## 27.0.2
+
+### Patch Changes
+
+-   [#3639](https://github.com/Khan/perseus/pull/3639) [`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce) Thanks [@benchristel](https://github.com/benchristel)! - When scoring input-number widgets using the numeric-input logic, we now disallow decimal and integer input under the following conditions: `answerType` is `number` or not set, `inexact` is not `true`, and the correct answer `value` has more than 10 decimal places. This ensures that learners are not approximating a rational answer with a decimal. It preserves the existing scoring behavior of input-number.
+
+## 27.0.1
+
+### Patch Changes
+
+-   [#3641](https://github.com/Khan/perseus/pull/3641) [`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Support exising orange locked figures after color migration
+
+## 27.0.0
+
+### Major Changes
+
+-   [#3633](https://github.com/Khan/perseus/pull/3633) [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d) Thanks [@benchristel](https://github.com/benchristel)! - The unused `static` field has been removed from the input-number widget's options.
+
+### Minor Changes
+
+-   [#3605](https://github.com/Khan/perseus/pull/3605) [`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add pointLabels props for interactive graph related types this will be used for custom point labels
+
+*   [#3638](https://github.com/Khan/perseus/pull/3638) [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add optional type params to WidgetLogic type
+
 ## 26.3.1
 
 ### Patch Changes

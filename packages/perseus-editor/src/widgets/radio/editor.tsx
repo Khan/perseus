@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";

@@ -109,9 +109,8 @@ const PolygonGraph = (props: Props) => {
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
         point: dragReferencePoint,
-        onMove: (newPoint) => {
-            const delta = vec.sub(newPoint, dragReferencePoint);
-            dispatch(actions.polygon.moveAll(delta));
+        onMove: (newStart) => {
+            dispatch(actions.polygon.moveAll(newStart));
         },
         constrainKeyboardMovement: constrain,
     });

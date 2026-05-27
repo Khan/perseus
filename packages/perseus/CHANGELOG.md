@@ -1,5 +1,82 @@
 # @khanacademy/perseus
 
+## 77.8.0
+
+### Minor Changes
+
+-   [#3649](https://github.com/Khan/perseus/pull/3649) [`033719a753`](https://github.com/Khan/perseus/commit/033719a753b2f12721301e7abd2cff8d63ed9ba6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Render input-number widgets using NumericInput when the `input-number-to-numeric-input` flag is on. Add the missing `percent` entry to NumericInput's example strings.
+
+*   [#3514](https://github.com/Khan/perseus/pull/3514) [`08fe06e533`](https://github.com/Khan/perseus/commit/08fe06e5335eb23174b9642535f41c914d83023a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allowing all appropriate graph types to have points placed on the graph edge.
+
+### Patch Changes
+
+-   [#3651](https://github.com/Khan/perseus/pull/3651) [`2610300448`](https://github.com/Khan/perseus/commit/2610300448fe6a1f5e26e84097dbeb6184896550) Thanks [@handeyeco](https://github.com/handeyeco)! - - Use button, not clickable div, in CollapsedRow.
+    -   Remove redundent "role" field on MockWidget.
+
+*   [#3663](https://github.com/Khan/perseus/pull/3663) [`8cd7b5a87c`](https://github.com/Khan/perseus/commit/8cd7b5a87c356075cab29c078017bdf63fbd3534) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix jumping/drift when dragging an Interactive Graph polygon on mobile. The polygon now dispatches the anchor's absolute target position rather than a delta computed against potentially-stale render state (mirrors the MovableLine fix in #3493).
+
+-   [#3655](https://github.com/Khan/perseus/pull/3655) [`3eb135c586`](https://github.com/Khan/perseus/commit/3eb135c586531f1a9b82d9ba853a942819204a88) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert clickable span into a button (within a test)
+
+*   [#3657](https://github.com/Khan/perseus/pull/3657) [`dc421a2643`](https://github.com/Khan/perseus/commit/dc421a2643b686d434c52ba629ab8502c60e4217) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor fixes for A11Y
+
+-   [#3659](https://github.com/Khan/perseus/pull/3659) [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove interactive graph phase 2 remaining feature flags: interactive-graph-vector, interactive-graph-not-scored
+
+*   [#3616](https://github.com/Khan/perseus/pull/3616) [`cea006d282`](https://github.com/Khan/perseus/commit/cea006d282a4abf8fb1eb2ea8bb2dcea9e315ee5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Resolve several Safari-based issues for the Interactive Graph's Circle graph
+
+*   Updated dependencies [[`58ff08bdd0`](https://github.com/Khan/perseus/commit/58ff08bdd0cf40fbb18fdc7a433c71bd19a89f22), [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f)]:
+    -   @khanacademy/math-input@26.4.29
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/keypad-context@3.2.57
+    -   @khanacademy/kmath@2.4.15
+    -   @khanacademy/perseus-linter@5.0.12
+    -   @khanacademy/perseus-score@8.10.5
+
+## 77.7.2
+
+### Patch Changes
+
+-   Updated dependencies [[`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce)]:
+    -   @khanacademy/perseus-core@27.0.2
+    -   @khanacademy/perseus-score@8.10.4
+    -   @khanacademy/keypad-context@3.2.56
+    -   @khanacademy/kmath@2.4.14
+    -   @khanacademy/math-input@26.4.28
+    -   @khanacademy/perseus-linter@5.0.11
+
+## 77.7.1
+
+### Patch Changes
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+    -   @khanacademy/keypad-context@3.2.55
+    -   @khanacademy/kmath@2.4.13
+    -   @khanacademy/math-input@26.4.27
+    -   @khanacademy/perseus-linter@5.0.10
+    -   @khanacademy/perseus-score@8.10.3
+
+## 77.7.0
+
+### Minor Changes
+
+-   [#3637](https://github.com/Khan/perseus/pull/3637) [`aa023ec494`](https://github.com/Khan/perseus/commit/aa023ec494b32282ebd3ffde7bbfb362680976ad) Thanks [@handeyeco](https://github.com/handeyeco)! - Deprecate EditorJsonify
+
+### Patch Changes
+
+-   [#3645](https://github.com/Khan/perseus/pull/3645) [`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+*   [#3619](https://github.com/Khan/perseus/pull/3619) [`1f56144658`](https://github.com/Khan/perseus/commit/1f56144658d34237c7cd8a36ddd356d9f8796244) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding new Announcer functionality to Interactive Graph.
+
+-   [#3622](https://github.com/Khan/perseus/pull/3622) [`ca5ec49c99`](https://github.com/Khan/perseus/commit/ca5ec49c9995bd24675bd6fd6966415660a9032c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Apply color filter to images and math when in dark mode
+
+-   Updated dependencies [[`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a), [`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f), [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5), [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d)]:
+    -   @khanacademy/math-input@26.4.26
+    -   @khanacademy/perseus-core@27.0.0
+    -   @khanacademy/keypad-context@3.2.54
+    -   @khanacademy/kmath@2.4.12
+    -   @khanacademy/perseus-linter@5.0.9
+    -   @khanacademy/perseus-score@8.10.2
+
 ## 77.6.2
 
 ### Patch Changes

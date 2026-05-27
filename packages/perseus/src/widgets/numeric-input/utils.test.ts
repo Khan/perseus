@@ -125,6 +125,10 @@ describe("shouldShowExamples", () => {
                 simplify: "optional",
             },
             {
+                name: "percent",
+                simplify: "optional",
+            },
+            {
                 name: "pi",
                 simplify: "required",
             },
