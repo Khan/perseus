@@ -38,6 +38,7 @@ import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -196,64 +197,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
     };
 
     changePointLabels = (pointLabels: ReadonlyArray<string>) => {
-        const {graph, correct} = this.props;
-        if (!graph?.type) {
-            return;
+        const next = reshapePointLabelsForGraphType(
+            pointLabels,
+            this.props.graph,
+            this.props.correct,
+        );
+        if (next) {
+            this.props.onChange(next);
         }
-
-        // Each graph type's `pointLabels` schema mirrors its `coords` /
-        // `startCoords` shape (tuple for fixed-arity, array for variable).
-        // Reshape the editor input to match the active graph type.
-        let nextGraph: PerseusGraphType;
-        let nextCorrect: PerseusGraphType = correct;
-        switch (graph.type) {
-            case "angle":
-            case "quadratic": {
-                const reshaped: [string, string, string] = [
-                    pointLabels[0] ?? "",
-                    pointLabels[1] ?? "",
-                    pointLabels[2] ?? "",
-                ];
-                nextGraph = {...graph, pointLabels: reshaped};
-                if (correct.type === graph.type) {
-                    nextCorrect = {...correct, pointLabels: reshaped};
-                }
-                break;
-            }
-            case "absolute-value":
-            case "linear":
-            case "ray":
-            case "vector": {
-                const reshaped: [string, string] = [
-                    pointLabels[0] ?? "",
-                    pointLabels[1] ?? "",
-                ];
-                nextGraph = {...graph, pointLabels: reshaped};
-                if (correct.type === graph.type) {
-                    nextCorrect = {...correct, pointLabels: reshaped};
-                }
-                break;
-            }
-            case "circle":
-            case "exponential":
-            case "linear-system":
-            case "logarithm":
-            case "point":
-            case "polygon":
-            case "segment":
-            case "sinusoid":
-            case "tangent": {
-                const reshaped = [...pointLabels];
-                nextGraph = {...graph, pointLabels: reshaped};
-                if (correct.type === graph.type) {
-                    nextCorrect = {...correct, pointLabels: reshaped};
-                }
-                break;
-            }
-            case "none":
-                return;
-        }
-        this.props.onChange({graph: nextGraph, correct: nextCorrect});
     };
 
     // serialize() is what makes copy/paste work. All the properties included
