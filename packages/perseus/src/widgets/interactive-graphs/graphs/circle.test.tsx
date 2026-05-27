@@ -74,7 +74,7 @@ describe("Circle graph", () => {
         );
     });
 
-    test("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
+    it("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
         // Arrange
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
         // MovableCircle uses two `useDraggable` calls (keyboard + mouse) —
@@ -97,7 +97,7 @@ describe("Circle graph", () => {
         expect(hairlines).toHaveLength(2);
     });
 
-    test("Shows hairlines when focused via keyboard and 'markings' are NOT set to 'none'", async () => {
+    it("Shows hairlines when focused via keyboard and 'markings' are NOT set to 'none'", async () => {
         // Arrange
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
         const {container} = render(
@@ -119,7 +119,7 @@ describe("Circle graph", () => {
         expect(hairlines).toHaveLength(2);
     });
 
-    test("Shows hairlines when focused via click and 'markings' are NOT set to 'none'", async () => {
+    it("Shows hairlines when focused via click and 'markings' are NOT set to 'none'", async () => {
         // Arrange
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
         const {container} = render(
@@ -140,7 +140,7 @@ describe("Circle graph", () => {
         expect(hairlines).toHaveLength(2);
     });
 
-    test("Hairlines do NOT show when not dragging and not focused", () => {
+    it("Hairlines do NOT show when not dragging and not focused", () => {
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
         const {container} = render(
             <Mafs width={200} height={200}>
@@ -153,7 +153,7 @@ describe("Circle graph", () => {
         expect(hairLines).toHaveLength(0);
     });
 
-    test("Hairlines do NOT show when dragging and 'markings' are set to 'none'", () => {
+    it("Hairlines do NOT show when dragging and 'markings' are set to 'none'", () => {
         const graphStateContext = {...baseGraphConfigContext};
         graphStateContext.markings = "none";
         useGraphConfigMock.mockReturnValue(graphStateContext);
@@ -169,7 +169,7 @@ describe("Circle graph", () => {
         expect(hairLines).toHaveLength(0);
     });
 
-    test("Hairlines do NOT show when focused and 'markings' are set to 'none'", async () => {
+    it("Hairlines do NOT show when focused and 'markings' are set to 'none'", async () => {
         const graphStateContext = {...baseGraphConfigContext};
         graphStateContext.markings = "none";
         useGraphConfigMock.mockReturnValue(graphStateContext);
@@ -197,7 +197,7 @@ describe("Circle graph screen reader", () => {
         );
     });
 
-    test("should have aria label for circle graph", async () => {
+    it("should have aria label for circle graph", async () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
 
@@ -228,7 +228,7 @@ describe("Circle graph screen reader", () => {
         );
     });
 
-    test("aria label reflects updated values", async () => {
+    it("aria label reflects updated values", async () => {
         // Arrange
 
         // Act
@@ -297,7 +297,7 @@ describe("Circle graph screen reader", () => {
 });
 
 describe("describeCircleGraph", () => {
-    test("describes a default circle", () => {
+    it("describes a default circle", () => {
         // Arrange
 
         // Act
@@ -323,7 +323,7 @@ describe("describeCircleGraph", () => {
         );
     });
 
-    test("describes a circle with updated values", () => {
+    it("describes a circle with updated values", () => {
         // Arrange
 
         // Act
