@@ -50,6 +50,13 @@ const frescsoLongDescription =
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
+const bioContent1 =
+    "Prophase (sometimes divided into prophase and prometaphase):";
+const bioContent2 =
+    "Chromosomes: In prophase, the chromosomes condense, forming the characteristic “X” shape that is often shown in diagrams. Each “X” is a duplicated chromosome. The two sides of the “X” are called sister chromatids, and they are attached at a point called the centromere. Even though the chromosome has been copied at this point of the cell cycle, as long as the two copies (sister chromatids) are attached, they are considered a single chromosome.";
+const bioContent3 =
+    "The nucleolus (a structure inside the nucleus where ribosomes are made) disappears during prophase. The mitotic spindle begins to form during prophase, starting at regions called centrosomes. These regions contain the material needed for building the spindle, and also function to regulate the spindle throughout mitosis.";
+
 const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
@@ -492,70 +499,103 @@ export const MarkdownTableWithMarkdownImages: Story = {
 };
 
 /**
- * Two image widgets in the same article, one floated left and one floated
- * right, to catch regressions in how floated images interact within a single
- * article layout.
+ * Image widgets in every alignment we render in articles — wrap-left,
+ * wrap-right, block, and full-width — all in the same article so
+ * regressions in any one alignment surface in a single snapshot.
  */
-export const FloatLeftAndFloatRightImagesInSameArticle: Story = {
+export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
         return (
             <div className="framework-perseus perseus-article">
-                <div className="paragraph">
-                    <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
-                        <QuestionRendererForStories
-                            question={generateTestPerseusRenderer({
-                                content: "[[☃ image 1]]",
-                                widgets: {
-                                    "image 1": generateImageWidget({
-                                        options: generateImageOptions({
-                                            backgroundImage: scienceImage,
-                                            alt: scienceImageAlt,
-                                            caption: scienceImageCaption,
-                                        }),
-                                    }),
-                                },
-                            })}
-                        />
-                    </div>
-                    <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
-                        <QuestionRendererForStories
-                            question={generateTestPerseusRenderer({
-                                content: "[[☃ image 1]]",
-                                widgets: {
-                                    "image 1": generateImageWidget({
-                                        options: generateImageOptions({
-                                            backgroundImage: earthMoonImage,
-                                            alt: "Earth and Moon",
-                                            caption: earthMoonImageCaption,
-                                        }),
-                                    }),
-                                },
-                            })}
-                        />
-                    </div>
-                    Prophase (sometimes divided into prophase and prometaphase)
-                    is the first stage of mitosis, the process by which a
-                    eukaryotic cell separates the chromosomes in its cell
-                    nucleus into two identical sets in two daughter nuclei.
-                </div>
-                <div className="paragraph">
-                    Chromosomes: In prophase, the chromosomes condense, forming
-                    the characteristic “X” shape that is often shown in
-                    diagrams. Each “X” is a duplicated chromosome. The two sides
-                    of the “X” are called sister chromatids, and they are
-                    attached at a point called the centromere. Even though the
-                    chromosome has been copied at this point of the cell cycle,
-                    as long as the two copies (sister chromatids) are attached,
-                    they are considered a single chromosome.
-                </div>
-                <div className="paragraph">
-                    The nucleolus (a structure inside the nucleus where
-                    ribosomes are made) disappears during prophase. The mitotic
-                    spindle begins to form during prophase, starting at regions
-                    called centrosomes. These regions contain the material
-                    needed for building the spindle, and also function to
-                    regulate the spindle throughout mitosis.
-                </div>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                alignment: "wrap-left",
+                                options: generateImageOptions({
+                                    backgroundImage: scienceImage,
+                                    alt: scienceImageAlt,
+                                    caption: scienceImageCaption,
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                alignment: "wrap-right",
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                    caption: earthMoonImageCaption,
+                                }),
+                            }),
+                            "image 3": generateImageWidget({
+                                alignment: "block",
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco image - block",
+                                }),
+                            }),
+                            "image 4": generateImageWidget({
+                                alignment: "full-width",
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco image - full-width",
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Image widgets in every alignment we render in articles — wrap-left,
+ * wrap-right, block, and full-width — all in the same article so
+ * regressions in any one alignment surface in a single snapshot.
+ * Mobile version of `AllAlignmentsInSameArticle`.
+ */
+export const AllAlignmentsInSameArticleMobile: Story = {
+    render: function Render() {
+        return (
+            <div className="framework-perseus perseus-mobile perseus-article">
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                alignment: "wrap-left",
+                                options: generateImageOptions({
+                                    backgroundImage: scienceImage,
+                                    alt: scienceImageAlt,
+                                    caption: scienceImageCaption,
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                alignment: "wrap-right",
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                    caption: earthMoonImageCaption,
+                                }),
+                            }),
+                            "image 3": generateImageWidget({
+                                alignment: "block",
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco image - block",
+                                }),
+                            }),
+                            "image 4": generateImageWidget({
+                                alignment: "full-width",
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco image - full-width",
+                                }),
+                            }),
+                        },
+                    })}
+                />
             </div>
         );
     },
