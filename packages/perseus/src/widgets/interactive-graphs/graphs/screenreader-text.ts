@@ -31,7 +31,6 @@ export function srCircleRadiusPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    //const isRadiusOnRight = radiusPoint[X] >= center[X];
     return x >= centerX
         ? strings.srCircleRadiusPointRight({
               radiusPointX: srFormatNumber(x, locale),
