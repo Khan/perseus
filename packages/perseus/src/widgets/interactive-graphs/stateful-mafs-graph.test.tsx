@@ -1,3 +1,4 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
@@ -5,10 +6,17 @@ import React from "react";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 
+import {initializeGraphState} from "./reducer/initialize-graph-state";
+import {MOVE_POINT_IN_FIGURE} from "./reducer/interactive-graph-action";
+import * as GraphReducer from "./reducer/interactive-graph-reducer";
 import {StatefulMafsGraph} from "./stateful-mafs-graph";
 
 import type {StatefulMafsGraphProps} from "./stateful-mafs-graph";
 import type {UserEvent} from "@testing-library/user-event";
+
+jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: jest.fn(),
+}));
 
 function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
     return {
@@ -26,6 +34,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
         markings: "graph",
         containerSizeClass: "small",
         onChange: () => {},
@@ -50,6 +59,10 @@ describe("StatefulMafsGraph", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
     });
 
     it("renders", () => {
@@ -121,6 +134,45 @@ describe("StatefulMafsGraph", () => {
         // Assert: there should be 4 movable points. If there are 2 points, it
         // means we are still rendering a single segment.
         expect(screen.getAllByTestId("movable-point").length).toBe(4);
+    });
+
+    it("calls announceMessage when stateAnnouncement changes, not when undefined", async () => {
+        // Arrange
+        const props = getBaseStatefulMafsGraphProps();
+        const baseState = initializeGraphState(props);
+
+        // Spy before render so useReducer captures the mock. Returns a state
+        // with stateAnnouncement only for point-move dispatches; all other
+        // dispatches (range, snapStep, reinitialize) get the base state.
+        jest.spyOn(GraphReducer, "interactiveGraphReducer").mockImplementation(
+            (_state, action) =>
+                action.type === MOVE_POINT_IN_FIGURE
+                    ? {
+                          ...baseState,
+                          stateAnnouncement: {
+                              type: "move-point" as const,
+                              pointIndex: 0,
+                              x: 3,
+                              y: 5,
+                          },
+                      }
+                    : baseState,
+        );
+
+        render(<StatefulMafsGraph {...props} />);
+
+        // stateAnnouncement is undefined on initial render — no announcement
+        expect(jest.mocked(announceMessage)).not.toHaveBeenCalled();
+
+        // Act: tab to focus a point, then move it
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.keyboard("{arrowup}");
+
+        // Assert: announceMessage fired once stateAnnouncement was set
+        expect(jest.mocked(announceMessage)).toHaveBeenCalledWith({
+            message: expect.any(String),
+        });
     });
 
     it("re-renders when the number of sides on a polygon graph changes", () => {

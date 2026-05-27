@@ -1,6 +1,7 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {freeResponseRendererDecorator} from "../../__testutils__/free-response-renderer-decorator";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
+
+import {freeResponseRendererDecorator} from "./free-response-renderer-decorator";
 
 import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

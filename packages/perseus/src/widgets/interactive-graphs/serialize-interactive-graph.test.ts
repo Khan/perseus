@@ -66,6 +66,7 @@ describe("InteractiveGraph serialization", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                     },
                 },
             },
@@ -129,6 +130,7 @@ describe("InteractiveGraph serialization", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     step: [1, 1],
                     backgroundImage: {
                         url: null,

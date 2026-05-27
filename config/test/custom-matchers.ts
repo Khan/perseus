@@ -14,7 +14,6 @@ declare global {
             }): R;
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
-            toBeHighlighted(): R;
         }
     }
 }
@@ -120,32 +119,5 @@ expect.extend({
         }
 
         return {pass: true, message: () => ""};
-    },
-
-    // [Perseus-specific] Asserts that the given DOM element is somewhere
-    // within a highlighted widget
-    toBeHighlighted(el: HTMLElement) {
-        let parent = el.parentElement;
-        while (parent != null) {
-            if (
-                parent.tagName.toLowerCase() === "div" &&
-                parent.classList.contains("perseus-widget-container")
-            ) {
-                if (parent.classList.contains("widget-highlight")) {
-                    return {pass: true, message: () => ""};
-                }
-
-                return {
-                    pass: false,
-                    message: () => `Element is not highlighted`,
-                };
-            }
-            parent = parent.parentElement;
-        }
-
-        return {
-            pass: false,
-            message: () => `Element does not appear to be a part of a widget`,
-        };
     },
 });

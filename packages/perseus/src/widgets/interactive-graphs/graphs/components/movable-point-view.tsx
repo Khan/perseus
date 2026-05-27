@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -119,7 +120,9 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
                     opened={true}
                     backgroundColor={wbColorName}
                     content={pointTooltipContent}
-                    contentStyle={{color: "white"}}
+                    contentStyle={{
+                        color: semanticColor.core.foreground.knockout.default,
+                    }}
                 >
                     {svgForPoint}
                 </Tooltip>

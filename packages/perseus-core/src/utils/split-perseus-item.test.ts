@@ -227,7 +227,6 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                     },
                 },
             },
@@ -244,7 +243,6 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                         rightAlign: false,
                         answers: [
                             {
@@ -406,6 +404,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -439,6 +438,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {

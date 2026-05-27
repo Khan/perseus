@@ -4,19 +4,19 @@
  */
 .MafsView {
     --mafs-bg: transparent;
-    --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
+    --mafs-fg: var(--wb-semanticColor-core-foreground-neutral-strong);
 
     /* Grid lines */
-    --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
+    --mafs-line-color: var(--wb-semanticColor-core-border-neutral-subtle);
 
     /* Axis lines */
     --mafs-axis-stroke-width: 2px;
 
-    --mafs-blue: #1865f2; /* WB color.blue */
-    --mafs-red: #d92916; /* WB color.red */
-    --mafs-green: #00a60e; /* WB color.green */
-    --mafs-violet: #9059ff; /* WB color.purple */
-    --mafs-yellow: #ffb100; /* WB color.gold */
+    --mafs-blue: var(--wb-semanticColor-core-foreground-instructive-default);
+    --mafs-red: var(--wb-semanticColor-core-foreground-critical-default);
+    --mafs-green: var(--wb-semanticColor-core-foreground-success-default);
+    --mafs-violet: var(--wb-semanticColor-mastery-primary);
+    --mafs-yellow: var(--wb-semanticColor-core-foreground-warning-default);
     /* Note: offBlack50 is not the best for contrast. However, this color needs
     to be distinguishable from our regular interactive blue so it is clear that
     the element is not interactive, even though the visual elements (e.g.
@@ -24,7 +24,7 @@
     looks the same as our WB blue in grayscale. We had to make a call here, and
     we decided to make it lighter and more distinguishable even if it sacrifices
     color contrast. (Nisha 2025) */
-    --static-gray: #909296 /* WB color.offBlack50 */;
+    --static-gray: var(--wb-semanticColor-core-foreground-disabled-strong);
 
     /* overridden on a per-point basis */
     --movable-point-color: var(--mafs-blue);
@@ -82,7 +82,7 @@
 }
 
 .MafsView .movable-line:focus-visible .movable-line-focus-outline-gap {
-    stroke: white;
+    stroke: var(--wb-semanticColor-focus-inner);
     stroke-width: 6px;
 }
 
@@ -126,12 +126,13 @@
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
     opacity: 0.25;
+    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
     filter: drop-shadow(0 5px 5px #0008);
 }
 
 .MafsView .movable-point-ring {
     r: var(--movable-point-ring-radius);
-    fill: #fff;
+    fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
 .MafsView .movable-point:hover .movable-point-center {
@@ -211,21 +212,24 @@
     fill: transparent;
 }
 
-.MafsView .movable-circle:focus {
-    outline: none;
-}
-
-.MafsView .movable-circle:focus-visible .focus-ring {
+.MafsView
+    .movable-circle-focusable-handle:focus-visible
+    + .movable-circle
+    .focus-ring {
     visibility: visible;
 }
 
+.MafsView .movable-circle-focusable-handle:focus-visible {
+    outline: none;
+}
+
 .MafsView .movable-circle .movable-circle-handle {
-    stroke: #fff;
+    stroke: var(--wb-semanticColor-core-border-knockout-default);
     stroke-width: 2px;
 }
 
 .MafsView .movable-circle .movable-circle-handle-dot {
-    fill: #fff;
+    fill: var(--wb-semanticColor-core-foreground-knockout-default);
     r: 1.25px;
 }
 
@@ -269,11 +273,12 @@
 }
 
 .MafsView .movable-arrowhead-ring {
-    stroke: #fff;
+    stroke: var(--wb-semanticColor-core-border-knockout-default);
     stroke-width: 5px;
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%;
+    /* offBlack16 shadow — no semantic shadow-with-alpha token; left hardcoded */
     filter: drop-shadow(0 1px 4px rgba(33, 36, 44, 0.16));
 }
 
@@ -327,6 +332,7 @@
 
 .MafsView .movable-pill-handle-halo {
     opacity: 0.25;
+    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
     filter: drop-shadow(0 5px 5px #0008);
 }
 
@@ -335,7 +341,7 @@
 }
 
 .MafsView .movable-pill-handle-dot {
-    fill: var(--wb-semanticColor-core-border-knockout-default);
+    fill: var(--wb-semanticColor-core-foreground-knockout-default);
     r: var(--wb-sizing-size_010);
 }
 
@@ -346,7 +352,7 @@
 }
 
 .MafsView pattern g {
-    stroke: rgba(33, 36, 44, 0.32);
+    stroke: var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 .MafsView .angle-arc-interactive {
@@ -362,13 +368,13 @@
 .MafsView .axis-tick-label {
     /* There is a bug in the MathJax font for Safari, so we use KaTeX */
     font-family: "KaTeX_Main", "Mafs-MJXTEX", sans-serif;
-    stroke: #fff;
+    stroke: var(--wb-semanticColor-core-border-knockout-default);
     stroke-width: 5px;
     paint-order: stroke fill;
 }
 
 .MafsView .axis-tick {
-    stroke: black;
+    stroke: var(--wb-semanticColor-core-foreground-neutral-strong);
     stroke-width: 1px;
 }
 

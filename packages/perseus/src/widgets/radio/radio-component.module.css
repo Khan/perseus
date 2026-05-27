@@ -147,7 +147,7 @@
     line-height: 1.25;
     font-family: inherit;
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--wb-font-weight-bold);
     margin-block-end: var(--wb-sizing-size_160);
 }
 

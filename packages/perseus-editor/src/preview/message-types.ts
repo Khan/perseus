@@ -9,7 +9,17 @@ import type {
     PerseusArticle,
     PerseusItem,
 } from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+
+/**
+ * The subset of `LinterContextProps` that's meaningful to send across the
+ * preview bridge. The receiver wraps this in `pushContextStack(...)` before
+ * passing it to the renderer, which fills in the `stack`.
+ */
+// TODO(jeremy): Remove this type and inline it into the messages that use it.
+type PreviewLinterContext = {
+    contentType: string;
+    highlightLint: boolean;
+};
 
 /**
  * Constant identifier for all Perseus preview messages
@@ -31,7 +41,7 @@ export type QuestionPreviewData = {
     apiOptions: APIOptions;
     initialHintsVisible: number;
     device: DeviceType;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;
     problemNum?: number;
@@ -44,7 +54,7 @@ export type HintPreviewData = {
     hint: Hint;
     pos: number;
     apiOptions: APIOptions;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
 };
 
 /**
@@ -53,7 +63,7 @@ export type HintPreviewData = {
 export type ArticlePreviewData = {
     apiOptions: APIOptions;
     json: PerseusArticle;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
 };
 

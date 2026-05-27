@@ -1,25 +1,14 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-
 type GraphTypeSelectorProps = {
     graphType: string;
     onChange: (newGraphType: string) => void;
-    // TODO(LEMS-3976): clean up feature flag
-    apiOptions: APIOptionsWithDefaults;
 };
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
-    // TODO(LEMS-3976): clean up feature flag
-    const showVector = isFeatureOn(
-        {apiOptions: props.apiOptions},
-        "interactive-graph-vector",
-    );
-
     return (
         <SingleSelect
             selectedValue={props.graphType}
@@ -41,7 +30,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="polygon" label="Polygon" />
             <OptionItem value="segment" label="Line Segment(s)" />
             <OptionItem value="ray" label="Ray" />
-            {showVector && <OptionItem value="vector" label="Vector" />}
+            <OptionItem value="vector" label="Vector" />
             <OptionItem value="angle" label="Angle" />
         </SingleSelect>
     );

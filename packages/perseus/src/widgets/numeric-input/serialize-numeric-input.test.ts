@@ -38,7 +38,6 @@ describe("NumericInput serialization", () => {
                     type: "numeric-input",
                     options: {
                         coefficient: false,
-                        static: false,
                         answers: [
                             {
                                 status: "correct",

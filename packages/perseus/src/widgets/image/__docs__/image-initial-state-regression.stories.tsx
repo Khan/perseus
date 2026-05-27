@@ -3,7 +3,6 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     mobileDecorator,
     articleDecorator,
@@ -18,6 +17,7 @@ import {
     earthMoonImage,
     frescoImage,
     gifImageAlt,
+    graphieImage,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -26,6 +26,8 @@ import {
     scienceImageAlt,
     scienceImageCaption,
 } from "../utils";
+
+import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -337,5 +339,14 @@ export const TallGifImage: Story = {
         alt: gifImageAlt,
         caption: gifImageAlt,
         longDescription: gifImageAlt,
+    },
+};
+
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+        title: "Graphie image",
     },
 };

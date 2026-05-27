@@ -16,6 +16,7 @@ import {
     type AxisLabelLocation,
     interactiveGraphLogic,
     type ShowAxisArrows,
+    type ShowAxisTicks,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -69,6 +70,10 @@ export type Props = {
      * Whether the graph is bounded on the x and y axes.
      */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -206,6 +211,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "showTooltips",
             "range",
             "showAxisArrows",
+            "showAxisTicks",
             "gridStep",
             "snapStep",
             "lockedFigures",
@@ -350,6 +356,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 box: this.props.box,
                 range: this.props.range,
                 showAxisArrows: this.props.showAxisArrows,
+                showAxisTicks: this.props.showAxisTicks,
                 labels: this.props.labels,
                 labelLocation: this.props.labelLocation,
                 step: this.props.step,
@@ -430,8 +437,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         });
                                     }) as any
                                 }
-                                // TODO(LEMS-3976): clean up feature flag
-                                apiOptions={this.props.apiOptions}
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription
@@ -509,6 +514,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             box={getInteractiveBoxFromSizeClass(sizeClass)}
                             range={this.props.range}
                             showAxisArrows={this.props.showAxisArrows}
+                            showAxisTicks={this.props.showAxisTicks}
                             labels={this.props.labels}
                             labelLocation={this.props.labelLocation}
                             step={this.props.step}

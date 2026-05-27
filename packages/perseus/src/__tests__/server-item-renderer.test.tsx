@@ -594,6 +594,14 @@ describe("server item renderer", () => {
                 total: 1,
                 earned: 1,
                 message: null,
+                widgetScores: {
+                    "radio 1": {
+                        type: "points",
+                        total: 1,
+                        earned: 1,
+                        message: null,
+                    },
+                },
             });
 
             // rerender with answerful data post-attempt

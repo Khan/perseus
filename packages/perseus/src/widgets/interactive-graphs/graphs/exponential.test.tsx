@@ -309,10 +309,11 @@ describe("getExponentialKeyboardConstraint", () => {
         expect(constraint.right).toEqual([3, 3]);
     });
 
-    it("rejects positions where the clamped coord collides with the other point's x", () => {
-        // Arrange — point 0 at x=8, point 1 at x=9 (graph edge).
-        // Moving right: x=9 shares x with point 1, x=10 clamps to 9.
-        // No valid right move — falls back to original position.
+    it("walks past an x-collision with the other point when moving right", () => {
+        // Point 0 is at (8, 3) and the other point at (9, 6). Moving
+        // right by one step would put both points at x=9, which
+        // exponential graphs don't allow, so the move skips ahead to
+        // x=10 — the right edge, which is fine.
         const edgeCoords: [vec.Vector2, vec.Vector2] = [
             [8, 3],
             [9, 6],
@@ -327,7 +328,7 @@ describe("getExponentialKeyboardConstraint", () => {
             range,
         );
 
-        // Assert
-        expect(constraint.right).toEqual([8, 3]);
+        // Assert — walks past x=9 and lands at x=10 (graph edge)
+        expect(constraint.right).toEqual([10, 3]);
     });
 });

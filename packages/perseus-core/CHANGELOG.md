@@ -1,5 +1,81 @@
 # @khanacademy/perseus-core
 
+## 27.0.3
+
+### Patch Changes
+
+-   [#3659](https://github.com/Khan/perseus/pull/3659) [`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove interactive graph phase 2 remaining feature flags: interactive-graph-vector, interactive-graph-not-scored
+
+## 27.0.2
+
+### Patch Changes
+
+-   [#3639](https://github.com/Khan/perseus/pull/3639) [`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce) Thanks [@benchristel](https://github.com/benchristel)! - When scoring input-number widgets using the numeric-input logic, we now disallow decimal and integer input under the following conditions: `answerType` is `number` or not set, `inexact` is not `true`, and the correct answer `value` has more than 10 decimal places. This ensures that learners are not approximating a rational answer with a decimal. It preserves the existing scoring behavior of input-number.
+
+## 27.0.1
+
+### Patch Changes
+
+-   [#3641](https://github.com/Khan/perseus/pull/3641) [`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Support exising orange locked figures after color migration
+
+## 27.0.0
+
+### Major Changes
+
+-   [#3633](https://github.com/Khan/perseus/pull/3633) [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d) Thanks [@benchristel](https://github.com/benchristel)! - The unused `static` field has been removed from the input-number widget's options.
+
+### Minor Changes
+
+-   [#3605](https://github.com/Khan/perseus/pull/3605) [`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add pointLabels props for interactive graph related types this will be used for custom point labels
+
+*   [#3638](https://github.com/Khan/perseus/pull/3638) [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add optional type params to WidgetLogic type
+
+## 26.3.1
+
+### Patch Changes
+
+-   [#3629](https://github.com/Khan/perseus/pull/3629) [`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9) Thanks [@benchristel](https://github.com/benchristel)! - Update input-number to numeric-input conversion logic to acccount for `inexact`. When `inexact` is false or undefined, we now set `maxError` to 0.
+
+## 26.3.0
+
+### Minor Changes
+
+-   [#3608](https://github.com/Khan/perseus/pull/3608) [`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Expose per-widget scoring results from `scorePerseusItem` via a new `widgetScores` field (which is a map from widget ID to that widget's individual `PerseusScore`).
+
+### Patch Changes
+
+-   [#3596](https://github.com/Khan/perseus/pull/3596) [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Update color and font styles to use semantic tokens in Interactive Graph
+
+## 26.2.0
+
+### Minor Changes
+
+-   [#3601](https://github.com/Khan/perseus/pull/3601) [`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for showAxisTicks so content creators are able to toggle axes/numbers in InteractiveGraph
+
+## 26.1.1
+
+### Patch Changes
+
+-   [#3525](https://github.com/Khan/perseus/pull/3525) [`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920) Thanks [@nishasy](https://github.com/nishasy)! - Add generator for Matrix widget testdata
+
+## 26.1.0
+
+### Minor Changes
+
+-   [#3600](https://github.com/Khan/perseus/pull/3600) [`dd984a32ff`](https://github.com/Khan/perseus/commit/dd984a32ff17d05fc65cb6499dbc9fb5fa199781) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add a `scorePerseusItemWithInputNumberAsNumericInput` function for side-by-side testing of the input-number to numeric-input migration.
+
+*   [#3598](https://github.com/Khan/perseus/pull/3598) [`c0761657b2`](https://github.com/Khan/perseus/commit/c0761657b216b445f729eca57804bc2ce6df298c) Thanks [@benchristel](https://github.com/benchristel)! - Export a `convertInputNumberOptionsToNumericInput` function to convert the options for an InputNumber widget to the options for a NumericInput widget.
+
+-   [#3576](https://github.com/Khan/perseus/pull/3576) [`2e48593131`](https://github.com/Khan/perseus/commit/2e48593131e519e7868739d98405c5ca41a66cc2) Thanks [@benchristel](https://github.com/benchristel)! - A new feature flag has been added to `PerseusFeatureFlags`: input-number-to-numeric-input. It is currently a no-op.
+
+### Patch Changes
+
+-   [#3547](https://github.com/Khan/perseus/pull/3547) [`94707116a8`](https://github.com/Khan/perseus/commit/94707116a8292c9b7133cf32083f60b231543285) Thanks [@benchristel](https://github.com/benchristel)! - The unused `customKeypad` option for the input-number widget has been removed. Callers should continue to use `apiOptions.customKeypad` instead.
+
+*   [#3603](https://github.com/Khan/perseus/pull/3603) [`24bfee48d6`](https://github.com/Khan/perseus/commit/24bfee48d6b80a106de4024cb55151ba65d8544b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Remove feature flags
+
+-   [#3573](https://github.com/Khan/perseus/pull/3573) [`b90d73bcb1`](https://github.com/Khan/perseus/commit/b90d73bcb1fe9a6d1ecb2d91ac33a8302fdf00b4) Thanks [@Myranae](https://github.com/Myranae)! - Create generator and regression stories for Sorter
+
 ## 26.0.3
 
 ### Patch Changes

@@ -1,3 +1,13 @@
+import {
+    generateIGLockedEllipse,
+    generateIGLockedLine,
+    generateIGLockedPoint,
+    generateIGLockedPolygon,
+    generateIGPolygonGraph,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
+} from "@khanacademy/perseus-core";
+
 import {expectPass, expectWarning} from "../__tests__/test-utils";
 import Rule from "../rule";
 
@@ -10,31 +20,18 @@ describe("interactive-graph-widget-error", () => {
         "[[☃ interactive-graph 1]]",
         {
             widgets: {
-                "interactive-graph 1": {
-                    options: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
                         lockedFigures: [
-                            {
-                                type: "line",
+                            generateIGLockedLine({
                                 points: [
-                                    {
-                                        type: "point",
-                                        coord: [0, 0],
-                                        color: "grayH",
-                                        filled: true,
-                                        labels: [],
-                                    },
-                                    {
-                                        type: "point",
-                                        coord: [0, 0],
-                                        color: "grayH",
-                                        filled: true,
-                                        labels: [],
-                                    },
+                                    generateIGLockedPoint({coord: [0, 0]}),
+                                    generateIGLockedPoint({coord: [0, 0]}),
                                 ],
-                            },
+                            }),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         },
         {
@@ -49,20 +46,19 @@ describe("interactive-graph-widget-error", () => {
         "[[☃ interactive-graph 1]]",
         {
             widgets: {
-                "interactive-graph 1": {
-                    options: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
                         lockedFigures: [
-                            {
-                                type: "polygon",
+                            generateIGLockedPolygon({
                                 points: [
                                     [0, 0],
                                     [0, 0],
                                     [0, 0],
                                 ],
-                            },
+                            }),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         },
         {
@@ -77,22 +73,13 @@ describe("interactive-graph-widget-error", () => {
         "[[☃ interactive-graph 1]]",
         {
             widgets: {
-                "interactive-graph 1": {
-                    options: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
                         lockedFigures: [
-                            {
-                                type: "ellipse",
-                                center: [0, 0],
-                                radius: [-1, -1],
-                                color: "grayH",
-                                fillStyle: "none",
-                                strokeStyle: "solid",
-                                weight: "medium",
-                                labels: [],
-                            },
+                            generateIGLockedEllipse({radius: [-1, -1]}),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         },
         {
@@ -107,22 +94,13 @@ describe("interactive-graph-widget-error", () => {
         "[[☃ interactive-graph 1]]",
         {
             widgets: {
-                "interactive-graph 1": {
-                    options: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
                         lockedFigures: [
-                            {
-                                type: "ellipse",
-                                center: [0, 0],
-                                radius: [0, 0],
-                                color: "grayH",
-                                fillStyle: "none",
-                                strokeStyle: "solid",
-                                weight: "medium",
-                                labels: [],
-                            },
+                            generateIGLockedEllipse({radius: [0, 0]}),
                         ],
-                    },
-                },
+                    }),
+                }),
             },
         },
         {
@@ -137,15 +115,14 @@ describe("interactive-graph-widget-error", () => {
         "[[☃ interactive-graph 1]]",
         {
             widgets: {
-                "interactive-graph 1": {
-                    options: {
-                        correct: {
-                            type: "polygon",
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        correct: generateIGPolygonGraph({
                             numSides: "unlimited",
                             coords: undefined,
-                        },
-                    },
-                },
+                        }),
+                    }),
+                }),
             },
         },
         {
@@ -157,58 +134,34 @@ describe("interactive-graph-widget-error", () => {
     // Pass when no errors are detected
     expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
         widgets: {
-            "interactive-graph 1": {
-                options: {
-                    correct: {
-                        type: "polygon",
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
                         numSides: "unlimited",
                         coords: [
                             [0, 0],
                             [2, 0],
                             [1, 1],
                         ],
-                    },
+                    }),
                     lockedFigures: [
-                        {
-                            type: "line",
+                        generateIGLockedLine({
                             points: [
-                                {
-                                    type: "point",
-                                    coord: [0, 0],
-                                    color: "grayH",
-                                    filled: true,
-                                    labels: [],
-                                },
-                                {
-                                    type: "point",
-                                    coord: [2, 3],
-                                    color: "grayH",
-                                    filled: true,
-                                    labels: [],
-                                },
+                                generateIGLockedPoint({coord: [0, 0]}),
+                                generateIGLockedPoint({coord: [2, 3]}),
                             ],
-                        },
-                        {
-                            type: "polygon",
+                        }),
+                        generateIGLockedPolygon({
                             points: [
                                 [0, 0],
                                 [0, 2],
                                 [1, 1],
                             ],
-                        },
-                        {
-                            type: "ellipse",
-                            center: [0, 0],
-                            radius: [2, 2],
-                            color: "grayH",
-                            fillStyle: "none",
-                            strokeStyle: "solid",
-                            weight: "medium",
-                            labels: [],
-                        },
+                        }),
+                        generateIGLockedEllipse({radius: [2, 2]}),
                     ],
-                },
-            },
+                }),
+            }),
         },
     });
 });

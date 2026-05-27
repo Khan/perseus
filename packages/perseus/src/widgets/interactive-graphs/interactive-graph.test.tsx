@@ -1480,7 +1480,7 @@ describe("Interactive Graph", function () {
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {
-                    color: "#3B3D45",
+                    color: lockedFigureColors.grayH,
                     domain: [-2, 3],
                     style: "solid",
                 };
@@ -2033,6 +2033,80 @@ describe("Interactive Graph", function () {
                 expect(axisArrows[0]).toHaveAttribute("transform", transform);
             },
         );
+    });
+
+    describe("axis ticks", () => {
+        it("renders both axis tick groups by default", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(2);
+            expect(ticks2.length).toBe(2);
+        });
+
+        it("hides only the x-axis tick group when showAxisTicks.x is false", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    showAxisTicks: {x: false, y: true},
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(1);
+            expect(ticks2.length).toBe(1);
+        });
+
+        it("hides only the y-axis tick group when showAxisTicks.y is false", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    showAxisTicks: {x: true, y: false},
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(1);
+            expect(ticks2.length).toBe(1);
+        });
+
+        it("hides both tick groups when both axes are off (markings stays 'graph')", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    markings: "graph",
+                    showAxisTicks: {x: false, y: false},
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.queryAllByText("9");
+            const ticks2 = screen.queryAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(0);
+            expect(ticks2.length).toBe(0);
+        });
     });
 
     describe("ungraded interactive graph", () => {

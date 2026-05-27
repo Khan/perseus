@@ -122,13 +122,13 @@ runs:
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
-        # Render the result as a job step summary and let the job's natural
-        # success/failure carry the conclusion. The job's auto-check is then
-        # the single source of truth on the PR — no second check row, no
-        # check_suite attribution quirks. Reviewers click the auto-check's
-        # "Details" to land on the workflow run page, where this summary is
-        # rendered.
-        - name: Render summary and set job conclusion
+        # Publish the result as a custom GitHub Check run. The job itself
+        # always succeeds; the custom Check carries the meaningful pass/fail.
+        # That keeps the PR's checks list to a single red row when a change
+        # is detected, and clicking the row lands directly on a page that
+        # renders the title + rich summary (rather than the workflow logs,
+        # where reviewers struggle to find the Summary tab).
+        - name: Publish result as a GitHub Check
           if: always() && github.event.pull_request != null
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
@@ -137,6 +137,7 @@ runs:
               DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
               CHANGE_DETAILS: ${{ inputs.change-details }}
               ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
+              HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           with:
               github-token: ${{ inputs.github-token }}
               script: |
@@ -148,40 +149,49 @@ runs:
                       .map((l) => l.name);
                   const isAcked = labels.includes(ackLabel);
 
-                  let heading;
-                  let shouldFail = false;
+                  let conclusion;
+                  let title;
                   if (noChanges) {
-                      heading = `${checkName}: No Changes ✅`;
+                      conclusion = "success";
+                      title = `${checkName}: No Changes ✅`;
                   } else if (isAcked) {
-                      heading = `${checkName}: Changes Acknowledged ✅`;
+                      conclusion = "success";
+                      title = `${checkName}: Changes Acknowledged ✅`;
                   } else {
-                      heading = `${checkName}: Changes Detected — Acknowledgement Required ❌`;
-                      shouldFail = true;
+                      conclusion = "failure";
+                      title = `${checkName}: Changes Detected — Review Required ❌`;
                   }
 
-                  const parts = [`## ${heading}`, ""];
-
+                  // The Checks UI renders `output.title` as a heading above
+                  // the summary, so the summary should NOT repeat the title.
+                  let summary;
                   if (noChanges) {
-                      parts.push("No differences vs. the base branch.");
+                      summary = "No differences vs. the base branch.";
                   } else {
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
+                      // Render the ack label as a link to its label page so
+                      // reviewers can see the real label badge (and the PRs
+                      // currently carrying it) with one click.
+                      const labelUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/labels/${encodeURIComponent(ackLabel)}`;
+                      const ackLabelMd = `[\`${ackLabel}\`](${labelUrl})`;
+                      const parts = [];
                       if (details) {
                           parts.push(details, "");
                       }
                       if (isAcked) {
                           parts.push(
-                              `> Acknowledged via the **\`${ackLabel}\`** label. Remove the label to require re-acknowledgement.`,
+                              `> Acknowledged via the **${ackLabelMd}** label. Remove the label to require re-acknowledgement.`,
                               "",
                           );
                       } else {
                           parts.push(
-                              `> **To acknowledge this change and pass this check, add the \`${ackLabel}\` label to this PR.** The check will re-run automatically.`,
+                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the ${ackLabelMd} label to acknowledge. The check will re-run automatically.`,
                               "",
                           );
                       }
                       parts.push(
-                          "<details><summary>View diff</summary>",
+                          "<details open><summary>View diff</summary>",
                           "",
                           "```diff",
                           diff,
@@ -189,10 +199,15 @@ runs:
                           "",
                           "</details>",
                       );
+                      summary = parts.join("\n");
                   }
 
-                  await core.summary.addRaw(parts.join("\n")).write();
-
-                  if (shouldFail) {
-                      core.setFailed(heading);
-                  }
+                  await github.rest.checks.create({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: checkName,
+                      head_sha: process.env.HEAD_SHA,
+                      status: "completed",
+                      conclusion,
+                      output: {title, summary},
+                  });

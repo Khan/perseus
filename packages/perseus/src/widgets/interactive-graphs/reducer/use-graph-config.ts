@@ -3,6 +3,7 @@ import React, {createContext} from "react";
 import type {
     AxisLabelLocation,
     ShowAxisArrows,
+    ShowAxisTicks,
     MarkingsType,
 } from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
@@ -22,6 +23,7 @@ export type GraphConfig = {
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
     showAxisArrows: ShowAxisArrows;
+    showAxisTicks: ShowAxisTicks;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -47,6 +49,7 @@ const defaultGraphConfig: GraphConfig = {
         yMin: true,
         yMax: true,
     },
+    showAxisTicks: {x: true, y: true},
 };
 
 export const GraphConfigContext =

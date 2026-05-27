@@ -47,6 +47,11 @@ export type ShowAxisArrows = {
     yMax: boolean;
 };
 
+export type ShowAxisTicks = {
+    x: boolean;
+    y: boolean;
+};
+
 /**
  * A utility type that constructs a widget map from a "registry interface".
  * The keys of the registry should be the widget type (aka, "categorizer" or
@@ -925,6 +930,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labelLocation?: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /** Whether to show the Protractor tool overlayed on top of the graph */
     showProtractor: boolean;
     /**
@@ -975,24 +984,29 @@ export type PerseusInteractiveGraphWidgetOptions = {
 
 export const lockedFigureColorNames = [
     "blue",
+    "gold",
     "green",
     "grayH",
     "purple",
     "pink",
-    "orange",
     "red",
+    // deprecated
+    "orange",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
-    blue: "#3D7586",
-    green: "#447A53",
-    grayH: "#3B3D45",
-    purple: "#594094",
-    pink: "#B25071",
-    red: "#D92916",
-    orange: "#946700",
+    blue: "var(--wb-semanticColor-learning-math-foreground-blue)",
+    gold: "var(--wb-semanticColor-learning-math-foreground-gold)",
+    grayH: "var(--wb-semanticColor-learning-math-foreground-grayH)",
+    green: "var(--wb-semanticColor-learning-math-foreground-green)",
+    pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
+    purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
+    red: "var(--wb-semanticColor-learning-math-foreground-red)",
+    // Deprecated: "orange" is the old name for the current "gold" color.
+    // We still have to support this in existing content.
+    orange: "var(--wb-semanticColor-learning-math-foreground-gold)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
@@ -1146,6 +1160,8 @@ export type PerseusGraphTypeAngle = {
      * the vertex, while rays BA and BC form the angle.
      */
     startCoords?: [Coord, Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string, string];
 };
 
 export type PerseusGraphTypeCircle = {
@@ -1157,6 +1173,8 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLinear = {
@@ -1165,6 +1183,8 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeLinearSystem = {
@@ -1173,6 +1193,8 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeNone = {
@@ -1191,6 +1213,8 @@ export type PerseusGraphTypePoint = {
     startCoords?: Coord[];
     /** Used instead of `coords` in some old graphs that have only one point. */
     coord?: Coord;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypePolygon = {
@@ -1208,6 +1232,8 @@ export type PerseusGraphTypePolygon = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeQuadratic = {
@@ -1216,6 +1242,8 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: [Coord, Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string, string];
 };
 
 export type PerseusGraphTypeSegment = {
@@ -1229,6 +1257,8 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeSinusoid = {
@@ -1237,6 +1267,8 @@ export type PerseusGraphTypeSinusoid = {
     coords?: Coord[] | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeTangent = {
@@ -1245,6 +1277,8 @@ export type PerseusGraphTypeTangent = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeExponential = {
@@ -1258,6 +1292,8 @@ export type PerseusGraphTypeExponential = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeLogarithm = {
@@ -1271,6 +1307,8 @@ export type PerseusGraphTypeLogarithm = {
     asymptote?: number | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: string[];
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1279,6 +1317,8 @@ export type PerseusGraphTypeAbsoluteValue = {
     coords?: [Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord];
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeRay = {
@@ -1287,6 +1327,8 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     /** The initial coordinates the graph renders with. */
     startCoords?: CollinearTuple;
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 export type PerseusGraphTypeVector = {
@@ -1299,6 +1341,8 @@ export type PerseusGraphTypeVector = {
      *  "exact" (default) — both tail and tip must match exactly.
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
+    /** Custom label for each interactive point that will help with the screen reader. */
+    pointLabels?: [string, string];
 };
 
 type AbsoluteValueGraphCorrect = {
@@ -1582,8 +1626,6 @@ export type PerseusNumericInputWidgetOptions = {
     coefficient: boolean;
     /** Whether to right-align the text or not */
     rightAlign?: boolean;
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 export type PerseusNumericInputAnswer = {

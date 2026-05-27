@@ -5,6 +5,41 @@ import type {
     PerseusNumericInputWidgetOptions,
 } from "../../data-schema";
 
+export function convertInputNumberOptionsToNumericInput(
+    inputNumberOptions: PerseusInputNumberWidgetOptions,
+): PerseusNumericInputWidgetOptions {
+    return {
+        coefficient: false,
+        rightAlign: inputNumberOptions.rightAlign,
+        size: inputNumberOptions.size,
+        answers: [
+            {
+                status: "correct",
+                value: Number(inputNumberOptions.value),
+                simplify: inputNumberOptions.simplify,
+                message: "",
+                maxError: getMaxError(inputNumberOptions),
+                strict: true,
+                answerForms: getAnswerForms(inputNumberOptions),
+            },
+        ],
+    };
+}
+
+function getMaxError(
+    inputNumberOptions: PerseusInputNumberWidgetOptions,
+): number | undefined {
+    if (!inputNumberOptions.inexact) {
+        return 0;
+    }
+
+    if (inputNumberOptions.maxError == null) {
+        return undefined;
+    }
+
+    return Number(inputNumberOptions.maxError);
+}
+
 // NOTE: the information in mathFormatsForAnswerType is duplicated in
 // score-input-number.ts. I think this is okay because inputNumber is
 // deprecated and the scoring logic will be removed as part of this project.
@@ -22,33 +57,25 @@ const mathFormatsForAnswerType: Record<
     pi: ["pi"],
 };
 
-export function convertInputNumberOptionsToNumericInput(
-    inputNumberOptions: PerseusInputNumberWidgetOptions,
-): PerseusNumericInputWidgetOptions {
-    const maxError =
-        inputNumberOptions.maxError != null
-            ? Number(inputNumberOptions.maxError)
-            : inputNumberOptions.maxError;
+function getAnswerForms(
+    options: PerseusInputNumberWidgetOptions,
+): MathFormat[] {
+    const value = Number(options.value);
+    const {inexact} = options;
+    const precision = 1e10;
+    const rounded = Math.round(value * precision) / precision;
 
-    const answerForms: MathFormat[] = inputNumberOptions.answerType
-        ? mathFormatsForAnswerType[inputNumberOptions.answerType]
-        : ["integer", "proper", "improper", "mixed", "decimal"];
+    const answerType = options.answerType ?? "number";
+    if (answerType === "number" && !inexact && !equalFloats(rounded, value)) {
+        // Disallow decimal answers when the correct answer has more than 10
+        // decimal places. This is for compatibility with legacy input-number
+        // behavior.
+        return ["proper", "improper", "mixed"];
+    }
 
-    return {
-        coefficient: false,
-        rightAlign: inputNumberOptions.rightAlign,
-        size: inputNumberOptions.size,
-        static: false,
-        answers: [
-            {
-                status: "correct",
-                value: Number(inputNumberOptions.value),
-                simplify: inputNumberOptions.simplify,
-                message: "",
-                maxError,
-                strict: true,
-                answerForms,
-            },
-        ],
-    };
+    return mathFormatsForAnswerType[answerType];
+}
+
+function equalFloats(a: number, b: number): boolean {
+    return Math.abs(a - b) < Math.pow(2, -42);
 }

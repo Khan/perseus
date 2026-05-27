@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Link from "@khanacademy/wonder-blocks-link";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -9,7 +8,6 @@ import LabeledSwitch from "./labeled-switch";
 
 import "./widget-editor-settings.css";
 
-import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 interface BestPracticesLink {
@@ -29,8 +27,6 @@ interface WidgetEditorSettingsProps {
     widgetInfo: PerseusWidget;
     onAlignmentChange: (e: React.SyntheticEvent<HTMLSelectElement>) => unknown;
     isEditingDisabled: boolean;
-    // TODO(LEMS-3976): clean up feature flag
-    apiOptions: APIOptions;
 }
 
 function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
@@ -46,8 +42,6 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
         widgetInfo,
         onAlignmentChange,
         isEditingDisabled,
-        // TODO(LEMS-3976): clean up feature flag
-        apiOptions,
     } = props;
 
     const hasControls =
@@ -58,12 +52,6 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
     if (!bestPractices && !hasControls) {
         return null;
     }
-
-    // TODO(LEMS-3976): clean up feature flag
-    const notScoredFeatureEnabled = isFeatureOn(
-        {apiOptions: apiOptions},
-        "interactive-graph-not-scored",
-    );
 
     return (
         <View className="widget-editor-settings-container">
@@ -85,7 +73,7 @@ function WidgetEditorSettings(props: WidgetEditorSettingsProps) {
                             style={{marginBlockEnd: sizing.size_060}}
                         />
                     )}
-                    {notScoredFeatureEnabled && supportsGradedToggle && (
+                    {supportsGradedToggle && (
                         <LabeledSwitch
                             label="Interactive but ungraded"
                             checked={!isGraded}

@@ -113,7 +113,10 @@ export const PolygonAngle = ({
                     y="0%"
                     height="100%"
                 >
-                    <feFlood floodColor="#FFF" floodOpacity="0.5" />
+                    <feFlood
+                        floodColor={semanticColor.core.background.base.default}
+                        floodOpacity="0.5"
+                    />
                     <feComposite operator="over" in="SourceGraphic" />
                 </filter>
             </defs>
@@ -245,7 +248,10 @@ export const Angle = ({
                     y="0%"
                     height="100%"
                 >
-                    <feFlood floodColor="#FFF" floodOpacity="0.5" />
+                    <feFlood
+                        floodColor={semanticColor.core.background.base.default}
+                        floodOpacity="0.5"
+                    />
                     <feComposite operator="over" in="SourceGraphic" />
                 </filter>
             </defs>

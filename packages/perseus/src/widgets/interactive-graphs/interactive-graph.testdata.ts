@@ -15,6 +15,7 @@ import {
     generateIGLogarithmGraph,
     generateIGTangentGraph,
     generateIGVectorGraph,
+    generateIGAbsoluteValueGraph,
     generateIGLockedPoint,
     generateIGLockedLine,
     generateIGLockedVector,
@@ -458,6 +459,18 @@ export const tangentQuestion: PerseusRenderer =
 export const tangentQuestionWithDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
         correct: generateIGTangentGraph(),
+    });
+
+export const absoluteValueQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Graph $f(x)=|x|$ in the interactive widget.**\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        }),
     });
 
 export const questionsAndAnswers: ReadonlyArray<
@@ -1208,3 +1221,11 @@ export const sinusoidWithPiTicks: PerseusRenderer =
 
 export const ungradedQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({graded: false});
+
+export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
+    markings: "axes",
+    showAxisTicks: {
+        x: false,
+        y: false,
+    },
+});

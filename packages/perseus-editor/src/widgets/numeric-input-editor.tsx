@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {KhanMath} from "@khanacademy/kmath";
 import {
     components,

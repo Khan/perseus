@@ -16,6 +16,7 @@ import {
     segmentWithAllLockedLineSegmentVariations,
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
+    absoluteValueQuestion,
     exponentialQuestion,
     logarithmQuestion,
     sinusoidQuestion,
@@ -30,6 +31,7 @@ import {
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
     ungradedQuestion,
+    noTicks,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -135,6 +137,12 @@ export const Logarithm: Story = {
 export const Tangent: Story = {
     args: {
         item: generateTestPerseusItem({question: tangentQuestion}),
+    },
+};
+
+export const AbsoluteValue: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
     },
 };
 
@@ -334,6 +342,14 @@ export const Ungraded: Story = {
     args: {
         item: generateTestPerseusItem({
             question: ungradedQuestion,
+        }),
+    },
+};
+
+export const NoTicks: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: noTicks,
         }),
     },
 };

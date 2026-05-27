@@ -54,6 +54,7 @@ const baseGraphConfigContext: GraphConfig = {
         yMin: true,
         yMax: true,
     },
+    showAxisTicks: {x: true, y: true},
 };
 
 describe("Circle graph", () => {
@@ -76,9 +77,12 @@ describe("Circle graph", () => {
     test("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
         // Arrange
         useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
-        // Only mock once so it applies just to the circle and not
-        // to the radius point's MovablePoint.
-        useDraggableMock.mockReturnValueOnce({dragging: true});
+        // MovableCircle uses two `useDraggable` calls (keyboard + mouse) —
+        // mock both so they apply to the circle but not the radius point's
+        // MovablePoint that follows.
+        useDraggableMock
+            .mockReturnValueOnce({dragging: true})
+            .mockReturnValueOnce({dragging: true});
         const {container} = render(
             <Mafs width={200} height={200}>
                 <CircleGraph graphState={baseCircleState} dispatch={() => {}} />
@@ -125,7 +129,9 @@ describe("Circle graph", () => {
         );
 
         // Act
-        const circleGraph = screen.getAllByRole("button")[0];
+        const circleGraph = await screen.findByRole("button", {
+            name: "Circle. The center point is at 0 comma 0.",
+        });
         await userEvent.click(circleGraph);
 
         // Act
@@ -195,13 +201,14 @@ describe("Circle graph screen reader", () => {
         );
     });
 
-    test("should have aria label for circle graph", () => {
+    test("should have aria label for circle graph", async () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
 
         // Act
-        // eslint-disable-next-line testing-library/no-node-access
-        const circleGraph = document.querySelector(".movable-circle");
+        const circleGraph = await screen.findByRole("button", {
+            name: "Circle. The center point is at 0 comma 0.",
+        });
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
         );
@@ -247,8 +254,9 @@ describe("Circle graph screen reader", () => {
                 }}
             />,
         );
-        const buttons = await screen.findAllByRole("button");
-        const circleGraph = buttons[0];
+        const circleGraph = await screen.findByRole("button", {
+            name: "Circle. The center point is at 2 comma 3.",
+        });
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
         );
@@ -331,8 +339,9 @@ describe("Circle graph screen reader", () => {
     test("set aria-live to off on the radius point when the circle is interacted with", async () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseCircleState} />);
-        const buttons = await screen.findAllByRole("button");
-        const circleGraph = buttons[0];
+        const circleGraph = await screen.findByRole("button", {
+            name: "Circle. The center point is at 0 comma 0.",
+        });
         const radiusPoint = screen.getByTestId(
             "movable-point__focusable-handle",
         );

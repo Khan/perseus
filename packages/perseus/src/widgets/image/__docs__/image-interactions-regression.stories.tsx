@@ -1,5 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import {
     earthMoonImage,
     extremelyLongDescription,
@@ -8,6 +7,8 @@ import {
     portraitImage,
     svgImage,
 } from "../utils";
+
+import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

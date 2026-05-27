@@ -3,6 +3,7 @@ import {
     isLabelImageAccessible,
 } from "./label-image-util";
 
+import type {LabelImagePublicWidgetOptions} from "./label-image-util";
 import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -29,7 +30,10 @@ const defaultWidgetOptions: LabelImageDefaultWidgetOptions = {
     hideChoicesFromInstructions: false,
 };
 
-const labelImageWidgetLogic: WidgetLogic = {
+const labelImageWidgetLogic: WidgetLogic<
+    PerseusLabelImageWidgetOptions,
+    LabelImagePublicWidgetOptions
+> = {
     name: "label-image",
     defaultWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
