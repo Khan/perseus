@@ -4,7 +4,7 @@ export type NoItem = {status: "no-item"};
 export type ParseError = {status: "parse-error"; message: string};
 export type Item = {status: "item"; item: PerseusItem};
 
-export type PerseusItemSelection = NoItem | ParseError | Item;
+export type ItemDisplay = NoItem | ParseError | Item;
 
 export function noItem(): NoItem {
     return {status: "no-item"};
@@ -34,12 +34,6 @@ export interface ViewModel {
     nextItem: () => void;
     previousItem: () => void;
 
-    /**
-     * The data that should be rendered for the currently selected item.
-     * Either:
-     * - a PerseusItem
-     * - a perseus parser error or JSON parse error
-     * - a placeholder indicating that no item was selected.
-     */
-    itemSelection: PerseusItemSelection;
+    /** The data that should be rendered for the currently selected item. */
+    itemDisplay: ItemDisplay;
 }

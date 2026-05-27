@@ -22,7 +22,7 @@ describe("ItemFlipbookModel", () => {
     });
 
     it("has no perseus items initially", () => {
-        expect(model.present().itemSelection).toEqual(noItem());
+        expect(model.present().itemDisplay).toEqual(noItem());
     });
 
     it("lets the user enter stuff in the text field", () => {
@@ -38,7 +38,7 @@ describe("ItemFlipbookModel", () => {
     it("displays a JSON parse error when the user enters a non-JSON value", () => {
         model.setTextareaValue("hello");
 
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             parseError(`Unexpected token 'h', "hello" is not valid JSON`),
         );
     });
@@ -46,7 +46,7 @@ describe("ItemFlipbookModel", () => {
     it("displays a Perseus parse error when the user enters a non-Perseus JSON value", () => {
         model.setTextareaValue(`{"question":{"content":999}}`);
 
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             parseError(
                 `At (root).question.content -- expected string, but got 999`,
             ),
@@ -56,7 +56,7 @@ describe("ItemFlipbookModel", () => {
     it("displays the first Perseus item when one can be parsed from the input", () => {
         model.setTextareaValue(`{"question":{"content":"hi"}}`);
 
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item({
                 question: {
                     content: "hi",
@@ -82,7 +82,7 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"bye"}}
         `);
 
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
@@ -102,7 +102,7 @@ describe("ItemFlipbookModel", () => {
         model.nextItem();
 
         expect(model.present().selectedItemNumber).toEqual("2");
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
@@ -132,7 +132,7 @@ describe("ItemFlipbookModel", () => {
         model.nextItem();
 
         expect(model.present().selectedItemNumber).toEqual("1");
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
@@ -152,7 +152,7 @@ describe("ItemFlipbookModel", () => {
         model.nextItem();
         model.previousItem();
 
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
@@ -183,7 +183,7 @@ describe("ItemFlipbookModel", () => {
         model.previousItem();
 
         expect(model.present().selectedItemNumber).toEqual("1");
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({
@@ -210,7 +210,7 @@ describe("ItemFlipbookModel", () => {
         `);
 
         expect(model.present().selectedItemNumber).toEqual("2");
-        expect(model.present().itemSelection).toEqual(
+        expect(model.present().itemDisplay).toEqual(
             item(
                 expect.objectContaining({
                     question: expect.objectContaining({

@@ -5,7 +5,7 @@ import {clamp} from "../../widgets/interactive-graphs/math";
 import {item, noItem, parseError} from "./item-flipbook-view-model";
 import {safeParsePerseusItem} from "./safe-parse-perseus-item";
 
-import type {PerseusItemSelection, ViewModel} from "./item-flipbook-view-model";
+import type {ItemDisplay, ViewModel} from "./item-flipbook-view-model";
 
 export function createItemFlipbookModel(observer: () => void) {
     return new ItemFlipbookModel(observer);
@@ -22,7 +22,7 @@ export class ItemFlipbookModel {
             textareaValue: this.textareaValue,
             setTextareaValue: this.setTextareaValue,
             selectedItemNumber: this.getSelectedItemNumber(),
-            itemSelection: this.getSelectedItem(),
+            itemDisplay: this.getSelectedItem(),
             nextItem: this.nextItem,
             previousItem: this.previousItem,
         };
@@ -60,7 +60,7 @@ export class ItemFlipbookModel {
         return this.textareaValue.split("\n").filter(nonblank);
     }
 
-    private getSelectedItem(): PerseusItemSelection {
+    private getSelectedItem(): ItemDisplay {
         const selectedJson = this.getItemJsonDocuments()[this.targetItemIndex];
 
         if (!selectedJson) {
