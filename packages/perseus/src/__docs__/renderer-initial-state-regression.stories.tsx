@@ -10,11 +10,12 @@ import ArticleRenderer from "../article-renderer";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj;
 
-const meta: Meta = {
+const meta: Meta<PerseusRenderer> = {
     title: "Renderers/Visual Regression Tests",
     tags: ["!manifest"],
     parameters: {
