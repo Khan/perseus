@@ -525,6 +525,10 @@ function doMovePoint(
                 coords: newCoords,
             };
         case "point": {
+            const newCoord = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -532,11 +536,14 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundToEdgeAndSnapToGrid(
-                        action.destination,
-                        state,
-                    ),
+                    newValue: newCoord,
                 }),
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointIndex: action.index,
+                    x: newCoord[X],
+                    y: newCoord[Y],
+                },
             };
         }
         case "sinusoid": {

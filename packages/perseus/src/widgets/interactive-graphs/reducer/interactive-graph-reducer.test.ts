@@ -762,6 +762,25 @@ describe("movePoint on a point graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointIndex: 0,
+            x: 3,
+            y: 4,
+        });
+    });
 });
 
 describe("movePoint on an angle graph", () => {
