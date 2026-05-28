@@ -37,6 +37,8 @@ export interface ViewModel {
      * input box.
      */
     selectedItemNumber: string;
+    /** The number of items, formatted for display. */
+    totalItems: string;
     nextItem: () => void;
     previousItem: () => void;
 

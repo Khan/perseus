@@ -21,6 +21,10 @@ describe("ItemFlipbookModel", () => {
         expect(model.present().selectedItemNumber).toBe("1");
     });
 
+    it("displays the total number of items, which is initially 0", () => {
+        expect(model.present().totalItems).toBe("0");
+    });
+
     it("has no perseus items initially", () => {
         expect(model.present().itemDisplay).toEqual(noItem());
     });
@@ -91,6 +95,15 @@ describe("ItemFlipbookModel", () => {
                 }),
             ),
         );
+    });
+
+    it("displays the total number of items", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"hi"}}
+            {"question":{"content":"bye"}}
+        `);
+
+        expect(model.present().totalItems).toBe("2");
     });
 
     it("pages to the next item", () => {

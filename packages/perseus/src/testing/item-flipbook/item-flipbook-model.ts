@@ -19,8 +19,9 @@ export class ItemFlipbookModel {
     present(): ViewModel {
         return {
             itemJsonInput: this.presentItemJsonInput(),
-            selectedItemNumber: this.getSelectedItemNumber(),
-            itemDisplay: this.getSelectedItem(),
+            selectedItemNumber: this.presentSelectedItemNumber(),
+            totalItems: this.presentTotalItems(),
+            itemDisplay: this.presentItemDisplay(),
             nextItem: this.nextItem,
             previousItem: this.previousItem,
         };
@@ -64,7 +65,7 @@ export class ItemFlipbookModel {
         return this.textareaValue.split("\n").filter(nonblank);
     }
 
-    private getSelectedItem(): ItemDisplay {
+    private presentItemDisplay(): ItemDisplay {
         const selectedJson = this.getItemJsonDocuments()[this.targetItemIndex];
 
         if (!selectedJson) {
@@ -79,8 +80,12 @@ export class ItemFlipbookModel {
         return item(parseResult.value);
     }
 
-    private getSelectedItemNumber(): string {
+    private presentSelectedItemNumber(): string {
         return String(this.targetItemIndex + 1);
+    }
+
+    private presentTotalItems(): string {
+        return String(this.getNumberOfItems());
     }
 }
 
