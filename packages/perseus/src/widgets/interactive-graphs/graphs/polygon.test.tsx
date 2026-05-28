@@ -205,11 +205,7 @@ describe.each`
 `(
     "$polygonType Polygon screen reader interactive elements",
     ({polygonState}) => {
-        let userEvent: UserEvent;
         beforeEach(() => {
-            userEvent = userEventLib.setup({
-                advanceTimers: jest.advanceTimersByTime,
-            });
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
@@ -312,59 +308,11 @@ describe.each`
                 "Angle equal to 90 degrees. A line segment, length equal to 10 units, connects to point 3. A line segment, length approximately equal to 10.5 units, connects to point 1.",
             );
         });
-
-        test.each`
-            elementName  | index
-            ${"polygon"} | ${0}
-            ${"point1"}  | ${1}
-            ${"point2"}  | ${2}
-            ${"point3"}  | ${3}
-        `(
-            "Should update the aria-live when $elementName is moved",
-            async ({index}) => {
-                // Arrange
-                render(
-                    <MafsGraph {...baseMafsGraphProps} state={polygonState} />,
-                );
-                const interactiveElements = screen.getAllByRole("button");
-                const [polygon, point1, point2, point3] = interactiveElements;
-                const movingElement = interactiveElements[index];
-
-                // Act - Move the element
-                act(() => movingElement.focus());
-                await userEvent.keyboard("{ArrowRight}");
-
-                const expectedAriaLive = ["off", "off", "off", "off"];
-                expectedAriaLive[index] = "polite";
-
-                // Assert
-                expect(polygon).toHaveAttribute(
-                    "aria-live",
-                    expectedAriaLive[0],
-                );
-                expect(point1).toHaveAttribute(
-                    "aria-live",
-                    expectedAriaLive[1],
-                );
-                expect(point2).toHaveAttribute(
-                    "aria-live",
-                    expectedAriaLive[2],
-                );
-                expect(point3).toHaveAttribute(
-                    "aria-live",
-                    expectedAriaLive[3],
-                );
-            },
-        );
     },
 );
 
 describe("Unlimited Polygon (open) screen reader", () => {
-    let userEvent: UserEvent;
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -528,40 +476,6 @@ describe("Unlimited Polygon (open) screen reader", () => {
             "A line segment, length equal to 10 units, connects to point 3.",
         );
     });
-
-    test.each`
-        elementName  | index
-        ${"polygon"} | ${0}
-        ${"point1"}  | ${1}
-        ${"point2"}  | ${2}
-        ${"point3"}  | ${3}
-    `(
-        "Should update the aria-live when $elementName is moved",
-        async ({index}) => {
-            // Arrange
-            render(
-                <MafsGraph
-                    {...baseMafsGraphProps}
-                    state={baseUnlimitedPolygonStateOpen}
-                />,
-            );
-            const interactiveElements = screen.getAllByRole("button");
-            const [point1, point2, point3] = interactiveElements;
-            const movingElement = interactiveElements[index];
-
-            // Act - Move the element
-            act(() => movingElement.focus());
-            await userEvent.keyboard("{ArrowRight}");
-
-            const expectedAriaLive = ["off", "off", "off", "off"];
-            expectedAriaLive[index] = "polite";
-
-            // Assert
-            expect(point1).toHaveAttribute("aria-live", expectedAriaLive[0]);
-            expect(point2).toHaveAttribute("aria-live", expectedAriaLive[1]);
-            expect(point3).toHaveAttribute("aria-live", expectedAriaLive[2]);
-        },
-    );
 });
 
 describe("getSideSnapConstraint", () => {

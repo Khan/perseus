@@ -53,6 +53,35 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    it("returns a polygon summary string with each vertex for a move-polygon announcement", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-polygon",
+                coords: [
+                    [0, 0],
+                    [3, 0],
+                    [3, 4],
+                ],
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe(
+            "A polygon with 3 points. Point 1 at 0 comma 0. Point 2 at 3 comma 0. Point 3 at 3 comma 4.",
+        );
+    });
+
+    it("uses the singular polygon label when the polygon has one vertex", () => {
+        const result = getAnnouncementText(
+            {type: "move-polygon", coords: [[1, 2]]},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("A polygon with 1 point. Point 1 at 1 comma 2.");
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(

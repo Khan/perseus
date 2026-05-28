@@ -437,6 +437,10 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                },
             };
         }
         default:
@@ -523,6 +527,12 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointIndex: action.index,
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
             return {
