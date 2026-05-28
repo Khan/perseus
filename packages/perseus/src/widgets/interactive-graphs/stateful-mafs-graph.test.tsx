@@ -175,6 +175,61 @@ describe("StatefulMafsGraph", () => {
         });
     });
 
+    it("re-renders aria-labels and the SR-tree description when pointLabels changes", () => {
+        // Arrange: render a point graph with no custom labels
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {
+                type: "point",
+                numPoints: 1,
+                coords: [[0, 0]],
+            },
+            correct: {
+                type: "point",
+                numPoints: 1,
+                coords: [[0, 0]],
+            },
+        };
+        const {rerender} = render(<StatefulMafsGraph {...baseProps} />);
+
+        // Initial: default numeric "Point 1 at..." announcement is present
+        // on both the focusable handle (aria-label) and the SR-tree summary.
+        expect(
+            screen.getByLabelText("Point 1 at 0 comma 0."),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText("Interactive elements: Point 1 at 0 comma 0."),
+        ).toBeInTheDocument();
+
+        // Act: rerender with a custom label on the only point.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+                correct={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+
+        // Assert: both surfaces flip to "Point T at..." on the same render,
+        // confirming the reinitialize effect picked up the pointLabels change.
+        expect(
+            screen.getByLabelText("Point T at 0 comma 0."),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText("Interactive elements: Point T at 0 comma 0."),
+        ).toBeInTheDocument();
+    });
+
     it("re-renders when the number of sides on a polygon graph changes", () => {
         // Arrange: render a polygon graph with three sides
         const threeSidesProps: StatefulMafsGraphProps = {

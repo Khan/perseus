@@ -8,6 +8,8 @@ import {
     linearQuestion,
     linearSystemQuestion,
     pointQuestion,
+    pointWithCustomLabelQuestion,
+    pointWithDefaultLabelQuestion,
     polygonQuestion,
     rayQuestion,
     segmentQuestion,
@@ -83,6 +85,34 @@ export const LinearSystem: Story = {
 export const Point: Story = {
     args: {
         item: generateTestPerseusItem({question: pointQuestion}),
+    },
+};
+
+/**
+ * A point graph whose interactive point uses a custom screen-reader label ("T")
+ * via `pointLabels`, so the announcement matches the question prompt ("Plot point T …")
+ * instead of the generic "Point 1 …".
+ */
+export const PointWithCustomLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithCustomLabelQuestion,
+        }),
+    },
+};
+
+/**
+ * The same reference question as `PointWithCustomLabel`, but
+ * with `pointLabels` omitted so the interactive point falls back to the
+ * legacy numeric default — JAWS announces "Point 1 at …" even though
+ * the prompt asks for point "T". Kept as a before/after comparison
+ * against `PointWithCustomLabel`.
+ */
+export const PointWithDefaultLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithDefaultLabelQuestion,
+        }),
     },
 };
 
