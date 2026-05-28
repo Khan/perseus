@@ -20,7 +20,7 @@ describe("ItemFlipbookModel", () => {
     });
 
     it("displays a selected item number, which is initially 0", () => {
-        expect(model.present().selectedItemNumber).toBe("0");
+        expect(model.present().selectedItemNumber.value).toBe("0");
     });
 
     it("displays the total number of items, which is initially 0", () => {
@@ -114,7 +114,7 @@ describe("ItemFlipbookModel", () => {
 
         // Assert
         const {selectedItemNumber, itemDisplay} = model.present();
-        expect(selectedItemNumber).toEqual("2");
+        expect(selectedItemNumber.value).toEqual("2");
         invariant(isItem(itemDisplay));
         expect(itemDisplay.item.question.content).toBe("bye");
     });
@@ -140,7 +140,7 @@ describe("ItemFlipbookModel", () => {
 
         // Assert
         const {selectedItemNumber, itemDisplay} = model.present();
-        expect(selectedItemNumber).toEqual("1");
+        expect(selectedItemNumber.value).toEqual("1");
         invariant(isItem(itemDisplay));
         expect(itemDisplay.item.question.content).toBe("hi");
     });
@@ -150,7 +150,7 @@ describe("ItemFlipbookModel", () => {
 
         model.nextItem();
 
-        expect(model.present().selectedItemNumber).toEqual("0");
+        expect(model.present().selectedItemNumber.value).toEqual("0");
     });
 
     it("pages to the previous item", () => {
@@ -187,7 +187,7 @@ describe("ItemFlipbookModel", () => {
         model.previousItem();
 
         const {selectedItemNumber, itemDisplay} = model.present();
-        expect(selectedItemNumber).toEqual("1");
+        expect(selectedItemNumber.value).toEqual("1");
         invariant(isItem(itemDisplay));
         expect(itemDisplay.item.question.content).toBe("hi");
     });
@@ -208,7 +208,7 @@ describe("ItemFlipbookModel", () => {
         `);
 
         const {selectedItemNumber, itemDisplay} = model.present();
-        expect(selectedItemNumber).toEqual("2");
+        expect(selectedItemNumber.value).toEqual("2");
         invariant(isItem(itemDisplay));
         expect(itemDisplay.item.question.content).toBe("2");
     });
@@ -231,6 +231,43 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"3"}}
         `);
 
-        expect(model.present().selectedItemNumber).toBe("3");
+        expect(model.present().selectedItemNumber.value).toBe("3");
+    });
+
+    it("does not update selectedItemNumber on a request for an invalid number", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `)
+
+        model.requestItemNumber("9");
+
+        expect(model.present().selectedItemNumber.value).toBe("1");
+    })
+
+    it("does not update selectedItemNumber on a request for a non-numeric value", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `)
+
+        model.requestItemNumber("asdf");
+
+        expect(model.present().selectedItemNumber.value).toBe("1");
+    });
+
+    it("updates selectedItemNumber on a valid request", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `)
+
+        model.requestItemNumber("3");
+
+        expect(model.present().selectedItemNumber.value).toBe("3");
+        expect(observer).toHaveBeenCalledTimes(2);
     });
 });

@@ -40,7 +40,7 @@ export interface ViewModel {
      * The 1-indexed number of the selected item, formatted for display in an
      * input box.
      */
-    selectedItemNumber: string;
+    selectedItemNumber: InputField;
     /** The number of items, formatted for display. */
     totalItems: string;
     nextItem: () => void;

@@ -47,6 +47,15 @@ export class ItemFlipbookModel {
         this.observer();
     };
 
+    requestItemNumber = (requested: string) => {
+        const requestedIndex = Number.parseInt(requested, 10) - 1;
+        console.log(requestedIndex)
+        if (this.clampItemIndex(requestedIndex) === requestedIndex) {
+            this.targetItemIndex = requestedIndex;
+            this.observer();
+        }
+    }
+
     private getItemIndex(): number {
         return this.clampItemIndex(this.targetItemIndex);
     }
@@ -91,7 +100,14 @@ export class ItemFlipbookModel {
         return item(parseResult.value, key);
     }
 
-    private presentSelectedItemNumber(): string {
+    private presentSelectedItemNumber(): InputField {
+        return {
+            value: this.presentSelectedItemNumberValue(),
+            onChange: (e) => this.requestItemNumber(e.target.value),
+        }
+    }
+
+    private presentSelectedItemNumberValue(): string {
         if (this.getNumberOfItems() === 0) {
             return "0";
         }
