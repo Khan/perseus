@@ -1025,6 +1025,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -1038,6 +1039,7 @@ export type LockedLineType = {
     showPoint1: boolean;
     showPoint2: boolean;
     weight: StrokeWeight;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

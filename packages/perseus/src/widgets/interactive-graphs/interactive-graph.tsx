@@ -284,6 +284,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                     box={box}
                     showTooltips={!!this.props.showTooltips}
                     readOnly={this.props.apiOptions?.readOnly}
+                    onLockedFigureSelectionChange={
+                        this.props.apiOptions?.selectionCallback
+                    }
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
                 />

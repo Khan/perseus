@@ -40,6 +40,7 @@ export type StatefulMafsGraphProps = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: (userInput: PerseusGraphType) => void;
+    onLockedFigureSelectionChange?: (index: number | null) => void;
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
