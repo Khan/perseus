@@ -89,6 +89,9 @@ export class ItemFlipbookModel {
     }
 
     private presentSelectedItemNumber(): string {
+        if (this.getNumberOfItems() === 0) {
+            return "0";
+        }
         return String(this.targetItemIndex + 1);
     }
 

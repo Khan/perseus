@@ -1,6 +1,7 @@
-import {ItemFlipbookModel} from "./item-flipbook-model";
-import {isItem, item, noItem, parseError} from "./item-flipbook-view-model";
 import invariant from "tiny-invariant";
+
+import {ItemFlipbookModel} from "./item-flipbook-model";
+import {isItem, noItem, parseError} from "./item-flipbook-view-model";
 
 describe("ItemFlipbookModel", () => {
     let model: ItemFlipbookModel;
@@ -18,8 +19,8 @@ describe("ItemFlipbookModel", () => {
         expect(model.present().itemJsonInput.value).toBe("");
     });
 
-    it("displays a selected item number, which is initially 1", () => {
-        expect(model.present().selectedItemNumber).toBe("1");
+    it("displays a selected item number, which is initially 0", () => {
+        expect(model.present().selectedItemNumber).toBe("0");
     });
 
     it("displays the total number of items, which is initially 0", () => {
@@ -144,12 +145,12 @@ describe("ItemFlipbookModel", () => {
         expect(itemDisplay.item.question.content).toBe("hi");
     });
 
-    it("doesn't page beyond item number 1 when there are no items", () => {
+    it("doesn't page beyond item number 0 when there are no items", () => {
         model.setTextareaValue("");
 
         model.nextItem();
 
-        expect(model.present().selectedItemNumber).toEqual("1");
+        expect(model.present().selectedItemNumber).toEqual("0");
     });
 
     it("pages to the previous item", () => {
