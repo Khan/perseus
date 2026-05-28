@@ -57,10 +57,11 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in both column labels and item cards. Sortable
-// participates in AssetContext, so the renderer's onRendered now waits for
-// MathJax typeset and the post-typeset measurement cascade to settle before
-// Chromatic snapshots — no manual delay required.
+// Verifies TeX rendering in both column labels and item cards. Matcher
+// coordinates AssetContext, marking itself settled once both columns have
+// measured at heights consistent with the shared constraint — so Chromatic
+// snapshots only fire after the measurement cascade settles, no manual
+// delay required.
 export const WithTeX: Story = {
     decorators: [matcherRendererDecorator],
     args: {

@@ -68,10 +68,10 @@ export const NoPadding: Story = {
     },
 };
 
-// Verifies TeX rendering in card content. Sortable participates in
-// AssetContext, so the renderer's onRendered waits for MathJax typeset and
-// the post-typeset measurement cascade to settle before Chromatic snapshots
-// — no manual delay required.
+// Verifies TeX rendering in card content. Sorter coordinates AssetContext,
+// marking itself settled once Sortable has produced its first measurement
+// after the post-typeset measurement cascade — so Chromatic snapshots only
+// fire after measurement settles, no manual delay required.
 export const WithTeX: Story = {
     args: {
         correct: [
