@@ -2,7 +2,6 @@ import * as React from "react";
 import {useReducer, useRef} from "react";
 
 import {createItemFlipbookModel} from "./item-flipbook-model";
-
 import {ItemFlipbookView} from "./item-flipbook-view";
 
 export function ItemFlipbook() {

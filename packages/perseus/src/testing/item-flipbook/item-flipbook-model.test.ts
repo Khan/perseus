@@ -1,5 +1,6 @@
 import {ItemFlipbookModel} from "./item-flipbook-model";
-import {item, noItem, parseError} from "./item-flipbook-view-model";
+import {isItem, item, noItem, parseError} from "./item-flipbook-view-model";
+import invariant from "tiny-invariant";
 
 describe("ItemFlipbookModel", () => {
     let model: ItemFlipbookModel;
@@ -60,24 +61,24 @@ describe("ItemFlipbookModel", () => {
     it("displays the first Perseus item when one can be parsed from the input", () => {
         model.setTextareaValue(`{"question":{"content":"hi"}}`);
 
-        expect(model.present().itemDisplay).toEqual(
-            item({
-                question: {
-                    content: "hi",
-                    widgets: {},
-                    images: {},
-                },
-                answerArea: {
-                    calculator: false,
-                    financialCalculatorMonthlyPayment: false,
-                    financialCalculatorTimeToPayOff: false,
-                    financialCalculatorTotalAmount: false,
-                    periodicTable: false,
-                    periodicTableWithKey: false,
-                },
-                hints: [],
-            }),
-        );
+        const {itemDisplay} = model.present();
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item).toEqual({
+            question: {
+                content: "hi",
+                widgets: {},
+                images: {},
+            },
+            answerArea: {
+                calculator: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTimeToPayOff: false,
+                financialCalculatorTotalAmount: false,
+                periodicTable: false,
+                periodicTableWithKey: false,
+            },
+            hints: [],
+        });
     });
 
     it("parses multiple newline-separated items, ignoring extra whitespace", () => {
@@ -86,15 +87,10 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"bye"}}
         `);
 
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "hi",
-                    }),
-                }),
-            ),
-        );
+        const {itemDisplay} = model.present();
+
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("hi");
     });
 
     it("displays the total number of items", () => {
@@ -112,18 +108,14 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"bye"}}
         `);
 
+        // Act
         model.nextItem();
 
-        expect(model.present().selectedItemNumber).toEqual("2");
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "bye",
-                    }),
-                }),
-            ),
-        );
+        // Assert
+        const {selectedItemNumber, itemDisplay} = model.present();
+        expect(selectedItemNumber).toEqual("2");
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("bye");
     });
 
     it("calls the observer when paging to the next item", () => {
@@ -142,18 +134,14 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"hi"}}
         `);
 
+        // Act
         model.nextItem();
 
-        expect(model.present().selectedItemNumber).toEqual("1");
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "hi",
-                    }),
-                }),
-            ),
-        );
+        // Assert
+        const {selectedItemNumber, itemDisplay} = model.present();
+        expect(selectedItemNumber).toEqual("1");
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("hi");
     });
 
     it("doesn't page beyond item number 1 when there are no items", () => {
@@ -173,16 +161,10 @@ describe("ItemFlipbookModel", () => {
         model.nextItem();
         model.previousItem();
 
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "hi",
-                    }),
-                }),
-            ),
-        )
-    })
+        const {itemDisplay} = model.present();
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("hi");
+    });
 
     it("calls the observer when paging to the previous item", () => {
         model.setTextareaValue(`
@@ -203,16 +185,10 @@ describe("ItemFlipbookModel", () => {
 
         model.previousItem();
 
-        expect(model.present().selectedItemNumber).toEqual("1");
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "hi",
-                    }),
-                }),
-            ),
-        );
+        const {selectedItemNumber, itemDisplay} = model.present();
+        expect(selectedItemNumber).toEqual("1");
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("hi");
     });
 
     it("clamps the selectedItemNumber when items are removed from the list", () => {
@@ -230,15 +206,9 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"2"}}
         `);
 
-        expect(model.present().selectedItemNumber).toEqual("2");
-        expect(model.present().itemDisplay).toEqual(
-            item(
-                expect.objectContaining({
-                    question: expect.objectContaining({
-                        content: "2",
-                    }),
-                }),
-            ),
-        );
+        const {selectedItemNumber, itemDisplay} = model.present();
+        expect(selectedItemNumber).toEqual("2");
+        invariant(isItem(itemDisplay));
+        expect(itemDisplay.item.question.content).toBe("2");
     });
 });

@@ -2,7 +2,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export type NoItem = {status: "no-item"};
 export type ParseError = {status: "parse-error"; message: string};
-export type Item = {status: "item"; item: PerseusItem};
+export type Item = {status: "item"; item: PerseusItem; key: string};
 
 export type ItemDisplay = NoItem | ParseError | Item;
 
@@ -14,14 +14,18 @@ export function parseError(message: string): ParseError {
     return {status: "parse-error", message};
 }
 
-export function item(item: PerseusItem): Item {
-    return {status: "item", item};
+export function item(item: PerseusItem, key: string): Item {
+    return {status: "item", item, key};
+}
+
+export function isItem(itemDisplay: ItemDisplay): itemDisplay is Item {
+    return itemDisplay.status === "item";
 }
 
 export interface InputFieldChangeEvent {
     target: {
         value: string;
-    }
+    };
 }
 
 export interface InputField {
