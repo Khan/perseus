@@ -1310,3 +1310,30 @@ export const pointWithDefaultLabelQuestion: PerseusRenderer =
             coords: [[-4, 2]],
         }),
     });
+
+export const polygonWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertices $A$, $B$, and $C$ to form a triangle with a right angle at vertex $B$.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        correct: generateIGPolygonGraph({
+            snapTo: "grid",
+            match: "congruent",
+            numSides: 3,
+            showAngles: true,
+            showSides: true,
+            coords: [
+                [-2, -1],
+                [2, -1],
+                [2, 3],
+            ],
+            pointLabels: ["A", "B", "C"],
+        }),
+    });
