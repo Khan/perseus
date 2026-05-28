@@ -10,6 +10,9 @@ export function safeParsePerseusItem(
     data: unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
     try {
+        // parseAndMigratePerseusItem throws if `data` is a string that is
+        // not well-formed JSON. We catch the error and convert it to a
+        // `Failure` value so it is uniform with the parser `Result`.
         return parseAndMigratePerseusItem(data);
     } catch (e) {
         const error = convertCaughtValueToError(e);
