@@ -8,12 +8,12 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
 import {
     getQuadraticPointString,
     getQuadraticVertexString,
-    getQuadraticXIntercepts,
-} from "./utils";
+    srFormatNumber,
+} from "./screenreader-text";
+import {getQuadraticXIntercepts} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {Coord} from "../../../interactive2/types";
@@ -123,6 +123,12 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                                 actions.quadratic.movePoint(i, destination),
                             )
                         }
+                        // Move announcements come from the WB Announcer via
+                        // stateAnnouncement; disable aria-live here to avoid
+                        // the focusable handle double-announcing.
+                        // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                        // dropped from useControlPoint.
+                        ariaLive="off"
                     />
                 );
             })}

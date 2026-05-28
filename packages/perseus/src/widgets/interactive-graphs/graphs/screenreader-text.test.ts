@@ -53,6 +53,83 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    describe("move-quadratic-point announcements", () => {
+        // Composes the point label (quadrant-aware) with the vertex
+        // string when a vertex exists; vertex is null when the
+        // parabola degenerates to a line.
+        it("uses the point-quadrant label and appends the vertex string for a quadrant vertex", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-quadratic-point",
+                    pointIndex: 0,
+                    x: -2,
+                    y: 4,
+                    vertex: [1, -1],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 1 on parabola in quadrant 2 at -2 comma 4. Vertex is in quadrant 4.",
+            );
+        });
+
+        it("uses the point-axis label when the moved point lies on an axis", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-quadratic-point",
+                    pointIndex: 1,
+                    x: 3,
+                    y: 0,
+                    vertex: [0, 0],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 2 on parabola at 3 comma 0. Vertex is at the origin.",
+            );
+        });
+
+        it("uses the point-origin label when the moved point is at the origin", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-quadratic-point",
+                    pointIndex: 2,
+                    x: 0,
+                    y: 0,
+                    vertex: [0, 2],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 3 on parabola at the origin. Vertex is on the Y-axis.",
+            );
+        });
+
+        it("omits the vertex string when the parabola degenerates to a line", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-quadratic-point",
+                    pointIndex: 0,
+                    x: -2,
+                    y: -2,
+                    vertex: null,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 1 on parabola in quadrant 3 at -2 comma -2.",
+            );
+        });
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(

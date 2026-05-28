@@ -710,6 +710,12 @@ function doMovePoint(
                 return state;
             }
 
+            // When a === 0 the parabola degenerates to a line and has
+            // no vertex; otherwise it's (-b/2a, c - b²/4a).
+            const [a, b, c] = QuadraticCoefficients;
+            const vertex: Coord | null =
+                a === 0 ? null : [-b / (2 * a), c - (b * b) / (4 * a)];
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -718,6 +724,13 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-quadratic-point",
+                    pointIndex: action.index,
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                    vertex,
+                },
             };
         }
         default:

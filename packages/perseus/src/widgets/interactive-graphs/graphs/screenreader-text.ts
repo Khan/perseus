@@ -2,6 +2,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {Coord} from "@khanacademy/perseus-core";
 
 export function getAnnouncementText(
     state: InteractiveGraphStateAnnouncement,
@@ -19,9 +20,30 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
+        case "move-quadratic-point":
+            return srQuadraticPointLabel(state, strings, locale);
         default:
             throw new UnreachableCaseError(state);
     }
+}
+
+function srQuadraticPointLabel(
+    state: {pointIndex: number; x: number; y: number; vertex: Coord | null},
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const pointString = getQuadraticPointString(
+        state.pointIndex + 1,
+        [state.x, state.y],
+        strings,
+        locale,
+    );
+    // When vertex is null the parabola is degenerate (a line) — no
+    // vertex string to append.
+    if (state.vertex === null) {
+        return pointString;
+    }
+    return `${pointString} ${getQuadraticVertexString(state.vertex, strings)}`;
 }
 
 export function srCircleRadiusPointLabel(
@@ -52,6 +74,87 @@ export function srCircleCenterLabel(
         centerX: srFormatNumber(x, locale),
         centerY: srFormatNumber(y, locale),
     });
+}
+
+type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
+
+function getCoordQuadrant(coord: Coord): GraphLocations {
+    const [unroundedX, unroundedY] = coord;
+    const x = Number(unroundedX.toFixed(3));
+    const y = Number(unroundedY.toFixed(3));
+
+    if (x === 0 && y === 0) {
+        return "origin";
+    }
+
+    if (y === 0) {
+        return "x-axis";
+    }
+
+    if (x === 0) {
+        return "y-axis";
+    }
+
+    if (x > 0 && y > 0) {
+        return 1;
+    }
+
+    if (x < 0 && y > 0) {
+        return 2;
+    }
+
+    if (x < 0 && y < 0) {
+        return 3;
+    }
+
+    return 4;
+}
+
+export function getQuadraticVertexString(
+    vertex: Coord,
+    strings: PerseusStrings,
+): string {
+    const location = getCoordQuadrant(vertex);
+
+    switch (location) {
+        case "origin":
+            return strings.srQuadraticGraphVertexOrigin;
+        case "x-axis":
+            return strings.srQuadraticGraphVertexXAxis;
+        case "y-axis":
+            return strings.srQuadraticGraphVertexYAxis;
+        default:
+            return strings.srQuadraticGraphVertexQuadrant({quadrant: location});
+    }
+}
+
+export function getQuadraticPointString(
+    pointNumber,
+    coord: Coord,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const location = getCoordQuadrant(coord);
+    const [x, y] = coord;
+
+    switch (location) {
+        case "origin":
+            return strings.srQuadraticPointOrigin({pointNumber: pointNumber});
+        case "x-axis":
+        case "y-axis":
+            return strings.srQuadraticPointAxis({
+                pointNumber: pointNumber,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
+        default:
+            return strings.srQuadraticPointQuadrant({
+                pointNumber: pointNumber,
+                quadrant: location,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
+    }
 }
 
 export function srFormatNumber(
