@@ -483,7 +483,19 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            return newState;
+            return {
+                ...newState,
+                stateAnnouncement: {
+                    type: "move-angle-point",
+                    pointIndex: action.index,
+                    x: newState.coords[action.index][X],
+                    y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
+                },
+            };
 
         case "polygon":
             let newValue: vec.Vector2;

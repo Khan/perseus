@@ -852,6 +852,49 @@ describe("movePoint on an angle graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-angle-point with the measured angle for the vertex", () => {
+        // Use a wider-spaced angle so moving the vertex doesn't pull the
+        // side points too close (which would reject the move).
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(1, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(1);
+        expect(updated.stateAnnouncement.y).toBe(1);
+        expect(typeof updated.stateAnnouncement.angleMeasure).toBe("number");
+    });
+
+    it("sets stateAnnouncement to a move-angle-point when moving a side point", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 5]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+    });
 });
 
 describe("movePoint on a polygon graph", () => {

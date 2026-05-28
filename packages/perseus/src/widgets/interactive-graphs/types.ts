@@ -69,10 +69,22 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Angle graph: vertex (index 1) reads with the measured angle; sides
+// (indices 0, 2) read with just coords. The reducer pre-computes the
+// measure since it already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveAnglePointAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

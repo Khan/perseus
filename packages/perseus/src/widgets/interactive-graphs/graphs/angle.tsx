@@ -131,6 +131,12 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(1, destination))
                 }
                 ariaLabel={srAngleVertex}
+                // Move announcements come from the WB Announcer via
+                // stateAnnouncement; disable aria-live here to avoid
+                // the focusable handle double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                // dropped from useControlPoint.
+                ariaLive="off"
             />
             {/* side 1 */}
             <MovablePoint
@@ -145,6 +151,12 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(0, destination))
                 }
                 ariaLabel={srAngleEndingSide}
+                // Move announcements come from the WB Announcer via
+                // stateAnnouncement; disable aria-live here to avoid
+                // the focusable handle double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                // dropped from useControlPoint.
+                ariaLive="off"
             />
             {/* side 2 */}
             <MovablePoint
@@ -159,6 +171,12 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(2, destination))
                 }
                 ariaLabel={srAngleStartingSide}
+                // Move announcements come from the WB Announcer via
+                // stateAnnouncement; disable aria-live here to avoid
+                // the focusable handle double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                // dropped from useControlPoint.
+                ariaLive="off"
             />
             <SRDescInSVG id={descriptionId}>
                 {srAngleGraphAriaDescription}
