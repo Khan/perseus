@@ -239,19 +239,19 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"1"}}
             {"question":{"content":"2"}}
             {"question":{"content":"3"}}
-        `)
+        `);
 
         model.requestItemNumber("9");
 
         expect(model.present().selectedItemNumber.value).toBe("1");
-    })
+    });
 
     it("does not update selectedItemNumber on a request for a non-numeric value", () => {
         model.setTextareaValue(`
             {"question":{"content":"1"}}
             {"question":{"content":"2"}}
             {"question":{"content":"3"}}
-        `)
+        `);
 
         model.requestItemNumber("asdf");
 
@@ -263,7 +263,7 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"1"}}
             {"question":{"content":"2"}}
             {"question":{"content":"3"}}
-        `)
+        `);
 
         model.requestItemNumber("3");
 

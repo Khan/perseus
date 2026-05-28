@@ -4,7 +4,7 @@ import {useId, useState} from "react";
 import {ServerItemRendererWithDebugUI} from "../server-item-renderer-with-debug-ui";
 
 import type {ItemDisplay, ViewModel} from "./item-flipbook-view-model";
-import {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 interface ViewProps {
     viewModel: ViewModel;
@@ -79,30 +79,36 @@ function ItemDisplayView({itemDisplay}: ItemDisplayViewProps) {
 }
 
 interface EditableControlledInputProps {
-    id: string
-    onChange: PropsFor<"input">["onChange"]
-    value: string
-    style: PropsFor<"input">["style"]
+    id: string;
+    onChange: PropsFor<"input">["onChange"];
+    value: string;
+    style: PropsFor<"input">["style"];
 }
 
-type EditableControlledInputState = {state: "editing", value: string} | {state: "controlled"};
+type EditableControlledInputState =
+    | {state: "editing"; value: string}
+    | {state: "controlled"};
 
 function EditableControlledInput(props: EditableControlledInputProps) {
-    const [state, setState] = useState<EditableControlledInputState>({state: "controlled"});
+    const [state, setState] = useState<EditableControlledInputState>({
+        state: "controlled",
+    });
 
-    return <input
-        id={props.id}
-        value={state.state === "editing" ? state.value : props.value}
-        onChange={(e) => {
-            setState({state: "editing", value: e.target.value})
-            props.onChange?.(e);
-        }}
-        onFocus={() => {
-            setState({state: "editing", value: props.value});
-        }}
-        onBlur={() => {
-            setState({state: "controlled"});
-        }}
-        style={props.style}
-    />
+    return (
+        <input
+            id={props.id}
+            value={state.state === "editing" ? state.value : props.value}
+            onChange={(e) => {
+                setState({state: "editing", value: e.target.value});
+                props.onChange?.(e);
+            }}
+            onFocus={() => {
+                setState({state: "editing", value: props.value});
+            }}
+            onBlur={() => {
+                setState({state: "controlled"});
+            }}
+            style={props.style}
+        />
+    );
 }
