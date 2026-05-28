@@ -1,14 +1,18 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {question1} from "../explanation.testdata";
+import {
+    question1,
+    imageInContent,
+    tableInContent,
+    videoInContent,
+} from "../explanation.testdata";
 
-import type {Meta} from "@storybook/react-vite";
+import {explanationRendererDecorator} from "./explanation-renderer-decorator";
 
-const meta: Meta = {
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
+const meta: Meta<PerseusExplanationWidgetOptions> = {
     title: "Widgets/Explanation/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -23,15 +27,86 @@ const meta: Meta = {
 
 export default meta;
 
-export const ClickedState = {
+type Story = StoryObj<typeof meta>;
+
+const clickedExample = question1.widgets["explanation 1"]?.options;
+
+export const ClickedState: Story = {
+    decorators: [explanationRendererDecorator],
     args: {
-        item: generateTestPerseusItem({
-            question: question1,
-        }),
+        hidePrompt: clickedExample.hidePrompt,
+        explanation: clickedExample.explanation,
+        showPrompt: clickedExample.showPrompt,
+    },
+    parameters: {
+        content: question1.content,
     },
     play: async ({canvas, userEvent}) => {
         const explanationTrigger = canvas.getByRole("button", {
-            name: "Explanation",
+            name: clickedExample.showPrompt,
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
+
+const imageExample = imageInContent.widgets["explanation 1"]?.options;
+
+export const ImageInContent: Story = {
+    decorators: [explanationRendererDecorator],
+    args: {
+        hidePrompt: imageExample.hidePrompt,
+        explanation: imageExample.explanation,
+        showPrompt: imageExample.showPrompt,
+    },
+    parameters: {
+        content: imageInContent.content,
+        widgets: imageExample.widgets,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: imageExample.showPrompt,
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
+
+const tableExample = tableInContent.widgets["explanation 1"]?.options;
+
+export const TableInContent: Story = {
+    decorators: [explanationRendererDecorator],
+    args: {
+        hidePrompt: tableExample.hidePrompt,
+        explanation: tableExample.explanation,
+        showPrompt: tableExample.showPrompt,
+    },
+    parameters: {
+        content: tableInContent.content,
+        widgets: tableExample.widgets,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: tableExample.showPrompt,
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
+
+const videoExample = videoInContent.widgets["explanation 1"]?.options;
+
+export const VideoInContent: Story = {
+    decorators: [explanationRendererDecorator],
+    args: {
+        hidePrompt: videoExample.hidePrompt,
+        explanation: videoExample.explanation,
+        showPrompt: videoExample.showPrompt,
+    },
+    parameters: {
+        content: videoInContent.content,
+        widgets: videoExample.widgets,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: videoExample.showPrompt,
         });
         await userEvent.click(explanationTrigger);
     },

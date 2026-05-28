@@ -1,6 +1,8 @@
 import {
     generateExplanationOptions,
     generateExplanationWidget,
+    generateImageOptions,
+    generateImageWidget,
     generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -94,6 +96,89 @@ export const wideButton: PerseusRenderer = generateTestPerseusRenderer({
                 `,
                 showPrompt:
                     "These appear to be some kind of power-wave-guide conduits which allow them to work collectively as they perform ship functions.",
+            }),
+        }),
+    },
+});
+
+export const imageInContent: PerseusRenderer = generateTestPerseusRenderer({
+    content: `It appears that cats and tribbles share the same "cuteness" gene as tribbles."
+                \n\n[[\u2603 explanation 1]]`,
+    widgets: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
+                hidePrompt: "Hide this cuteness",
+                explanation: `Fur, purring, and lovability are all connected to their DNA.\n\n[[\u2603 image 1]]`,
+                showPrompt: "Show a cute cat",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: {
+                                url: "https://cdn.kastatic.org/ka-content-images/cabd2dd6c1be5651e5d25ba2cecc4c28e664eca6.gif",
+                            },
+                            caption: "Cat emulating a tribble",
+                            alt: "Cat sleeping on a couch",
+                        }),
+                    }),
+                },
+            }),
+        }),
+    },
+});
+
+export const tableInContent: PerseusRenderer = generateTestPerseusRenderer({
+    content: `An evaluation of the classes of Federation ships involved in the tachyon blockade during the Klingon Civil
+                War reveals wide range of starship types capable of engaging in complex tactical efforts.
+                \n\n[[\u2603 explanation 1]]`,
+    widgets: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
+                hidePrompt: "Hide starship table",
+                showPrompt: "Starship class breakdown",
+                explanation: `Starship name | Vessel class |
+- | -
+USS Ahwahnee | Cheyenne
+USS Ajax | Apollo
+USS Aries | Renaissance
+USS Charleston | Excelsior
+USS Enterprise-D | Galaxy
+USS Excalibur | Ambassador
+USS Goddard | Korolev
+USS Hathaway | Constellation
+USS Hood | Excelsior
+USS Merrimack | Nebula
+USS Sutherland | Nebula
+USS Thomas Paine | New Orleans
+USS Tian An Men | Miranda
+USS Trieste | Merced`,
+            }),
+        }),
+    },
+});
+
+export const videoInContent: PerseusRenderer = generateTestPerseusRenderer({
+    content: `Warp energy efficiency has improved significantly!
+                A simple remodulization of the warp field was all that was needed.
+                \n\n[[\u2603 explanation 1]]`,
+    widgets: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
+                hidePrompt: "Close tutorial",
+                explanation: `Excerpt from Starfleet Academy Warp Fields 101 course:\n\n[[\u2603 video 1]]`,
+                showPrompt: "Show Warp Field tutorial",
+                widgets: {
+                    "video 1": {
+                        type: "video",
+                        static: false,
+                        graded: false,
+                        alignment: "block",
+                        options: {
+                            location:
+                                "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
+                            static: false,
+                        },
+                    },
+                },
             }),
         }),
     },
