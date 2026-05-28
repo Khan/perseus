@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 27.1.0
+
+### Minor Changes
+
+-   [#3640](https://github.com/Khan/perseus/pull/3640) [`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2) Thanks [@handeyeco](https://github.com/handeyeco)! - Update isAccessible for IG to check for description when using LockedFigures
+
+*   [#3667](https://github.com/Khan/perseus/pull/3667) [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6) Thanks [@benchristel](https://github.com/benchristel)! - Use the `numeric-input` scoring code to score `input-number` widgets. This changes behavior in only one case: when the input-number widget's answer is between 0 and 1 and the answerType is `"number"`, user inputs formatted as percentages are accepted as correct. Previously, percentage inputs were never accepted when answerType was `"number"`.
+
+-   [#3642](https://github.com/Khan/perseus/pull/3642) [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Remove scale flag and old sizing logic (make scale feature permanent)
+
 ## 27.0.3
 
 ### Patch Changes
