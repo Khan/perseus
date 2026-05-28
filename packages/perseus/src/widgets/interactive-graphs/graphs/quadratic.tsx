@@ -13,7 +13,7 @@ import {
     getQuadraticVertexString,
     srFormatNumber,
 } from "./screenreader-text";
-import {getQuadraticXIntercepts} from "./utils";
+import {getQuadraticVertex, getQuadraticXIntercepts} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {Coord} from "../../../interactive2/types";
@@ -215,7 +215,7 @@ export function describeQuadraticGraph(
     const coeffs = getQuadraticCoefficients(state.coords);
     const [a, b, c] = coeffs ?? [0, 0, 0];
 
-    const vertex: Coord = [-b / (2 * a), c - (b * b) / (4 * a)];
+    const vertex = getQuadraticVertex([a, b, c]);
     const xIntercepts = getQuadraticXIntercepts(a, b, c);
 
     // Aria label strings
@@ -228,7 +228,9 @@ export function describeQuadraticGraph(
     // Only describe vertex if the quadratic graph is not a line.
     // (Undefined means the quadratic graph is a line and has no vertex.)
     const srQuadraticVertex =
-        a !== 0 ? getQuadraticVertexString(vertex, strings) : undefined;
+        vertex === undefined
+            ? undefined
+            : getQuadraticVertexString(vertex, strings);
     // Undefined means the quadratic graph has no x-intercepts,
     // such as when the graph is a horizontal line.
     const srQuadraticXIntercepts =

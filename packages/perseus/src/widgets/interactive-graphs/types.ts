@@ -79,7 +79,7 @@ type MoveQuadraticPointAnnouncement = {
     pointIndex: number;
     x: number;
     y: number;
-    vertex: Coord | null;
+    vertex: Coord | undefined;
 };
 
 export type InteractiveGraphStateAnnouncement =

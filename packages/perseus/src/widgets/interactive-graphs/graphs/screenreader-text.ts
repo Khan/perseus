@@ -28,7 +28,12 @@ export function getAnnouncementText(
 }
 
 function srQuadraticPointLabel(
-    state: {pointIndex: number; x: number; y: number; vertex: Coord | null},
+    state: {
+        pointIndex: number;
+        x: number;
+        y: number;
+        vertex?: Coord;
+    },
     strings: PerseusStrings,
     locale: string,
 ): string {
@@ -38,9 +43,9 @@ function srQuadraticPointLabel(
         strings,
         locale,
     );
-    // When vertex is null the parabola is degenerate (a line) — no
+    // When vertex is undefined the parabola is degenerate (a line) — no
     // vertex string to append.
-    if (state.vertex === null) {
+    if (state.vertex === undefined) {
         return pointString;
     }
     return `${pointString} ${getQuadraticVertexString(state.vertex, strings)}`;

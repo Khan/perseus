@@ -6,6 +6,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
+import type {QuadraticCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -158,6 +159,22 @@ export function getQuadraticXIntercepts(
     }
 
     return [x1, x2];
+}
+
+/**
+ * Calculate the vertex of a quadratic from its coefficients.
+ *
+ * When a === 0 the parabola degenerates to a line and has no vertex, so
+ * we return undefined; otherwise the vertex is (-b/2a, c - b²/4a).
+ */
+export function getQuadraticVertex(
+    coeffs: QuadraticCoefficient,
+): Coord | undefined {
+    const [a, b, c] = coeffs;
+    if (a === 0) {
+        return undefined;
+    }
+    return [-b / (2 * a), c - (b * b) / (4 * a)];
 }
 
 /**

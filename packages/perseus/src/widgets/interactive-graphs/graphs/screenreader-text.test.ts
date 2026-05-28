@@ -55,7 +55,7 @@ describe("getAnnouncementText", () => {
 
     describe("move-quadratic-point announcements", () => {
         // Composes the point label (quadrant-aware) with the vertex
-        // string when a vertex exists; vertex is null when the
+        // string when a vertex exists; vertex is undefined when the
         // parabola degenerates to a line.
         it("uses the point-quadrant label and appends the vertex string for a quadrant vertex", () => {
             const result = getAnnouncementText(
@@ -118,7 +118,7 @@ describe("getAnnouncementText", () => {
                     pointIndex: 0,
                     x: -2,
                     y: -2,
-                    vertex: null,
+                    vertex: undefined,
                 },
                 mockStrings,
                 "en",
