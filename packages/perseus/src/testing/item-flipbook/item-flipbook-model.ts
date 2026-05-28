@@ -34,7 +34,6 @@ export class ItemFlipbookModel {
 
     setTextareaValue = (newValue: string) => {
         this.textareaValue = newValue;
-        this.targetItemIndex = this.clampItemIndex(this.targetItemIndex);
         this.observer();
     };
 
@@ -47,6 +46,10 @@ export class ItemFlipbookModel {
         this.targetItemIndex = this.clampItemIndex(this.targetItemIndex - 1);
         this.observer();
     };
+
+    private getItemIndex(): number {
+        return this.clampItemIndex(this.targetItemIndex);
+    }
 
     private presentItemJsonInput(): InputField {
         return {
@@ -71,7 +74,7 @@ export class ItemFlipbookModel {
     }
 
     private presentItemDisplay(): ItemDisplay {
-        const selectedJson = this.getItemJsonDocuments()[this.targetItemIndex];
+        const selectedJson = this.getItemJsonDocuments()[this.getItemIndex()];
 
         if (!selectedJson) {
             return noItem();
@@ -84,7 +87,7 @@ export class ItemFlipbookModel {
 
         // The key determines when we remount the view.
         // Remount if the JSON or item number changes.
-        const key = selectedJson + this.targetItemIndex;
+        const key = selectedJson + this.getItemIndex();
         return item(parseResult.value, key);
     }
 
@@ -92,7 +95,7 @@ export class ItemFlipbookModel {
         if (this.getNumberOfItems() === 0) {
             return "0";
         }
-        return String(this.targetItemIndex + 1);
+        return String(this.getItemIndex() + 1);
     }
 
     private presentTotalItems(): string {

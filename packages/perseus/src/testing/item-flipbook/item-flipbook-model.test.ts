@@ -212,4 +212,25 @@ describe("ItemFlipbookModel", () => {
         invariant(isItem(itemDisplay));
         expect(itemDisplay.item.question.content).toBe("2");
     });
+
+    it("preserves the selectedItemNumber when items are removed and then re-added", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `);
+
+        model.nextItem(); // select item 2
+        model.nextItem(); // select item 3
+
+        model.setTextareaValue("");
+
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `);
+
+        expect(model.present().selectedItemNumber).toBe("3");
+    });
 });
