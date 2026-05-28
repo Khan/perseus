@@ -1053,6 +1053,52 @@ describe("movePoint on a polygon graph", () => {
     });
 });
 
+describe("movePoint on a sinusoid graph", () => {
+    it("sets stateAnnouncement to a move-sinusoid-point when moving the root", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(1);
+        expect(updated.stateAnnouncement.y).toBe(1);
+        // otherY is the peak's y, unchanged from the starting state
+        expect(updated.stateAnnouncement.otherY).toBe(3);
+    });
+
+    it("sets stateAnnouncement to a move-sinusoid-point when moving the peak", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(1, [3, -4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(3);
+        expect(updated.stateAnnouncement.y).toBe(-4);
+        // otherY is the root's y, unchanged from the starting state
+        expect(updated.stateAnnouncement.otherY).toBe(0);
+    });
+});
+
 describe("movePoint on a quadratic graph", () => {
     it("moves a point", () => {
         const state: InteractiveGraphState = baseQuadraticGraphState;

@@ -19,9 +19,33 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
+        case "move-sinusoid-point":
+            return srSinusoidPointLabel(state, strings, locale);
         default:
             throw new UnreachableCaseError(state);
     }
+}
+
+function srSinusoidPointLabel(
+    state: {pointIndex: number; x: number; y: number; otherY: number},
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const formatted = {
+        x: srFormatNumber(state.x, locale),
+        y: srFormatNumber(state.y, locale),
+    };
+    // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
+    // label depends on its y relative to the root's y.
+    if (state.pointIndex === 0) {
+        return strings.srSinusoidRootPoint(formatted);
+    }
+    if (state.y === state.otherY) {
+        return strings.srSinusoidFlatPoint(formatted);
+    }
+    return state.y > state.otherY
+        ? strings.srSinusoidMaxPoint(formatted)
+        : strings.srSinusoidMinPoint(formatted);
 }
 
 export function srCircleRadiusPointLabel(

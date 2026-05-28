@@ -69,10 +69,22 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Sinusoid graph: peak (index 1) reads as max/min/flat depending on
+// its y vs the root's y. We pass otherY so the screen reader text can
+// pick the right label without recomputing it from the reducer.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+    otherY: number;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveSinusoidPointAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
