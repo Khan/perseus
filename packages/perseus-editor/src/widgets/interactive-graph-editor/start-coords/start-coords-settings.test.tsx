@@ -324,6 +324,75 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — two segments × two endpoints = four name fields
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 1 name"}),
+            ).toHaveLength(2);
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 2 name"}),
+            ).toHaveLength(2);
+        });
+
+        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the flat per-segment array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const seg2Point1NameInput = screen.getAllByRole("textbox", {
+                name: "Point 1 name",
+            })[1];
+            await userEvent.type(seg2Point1NameInput, "T");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "",
+                "",
+                "T",
+                "",
+            ]);
+        });
     });
 
     // startCoords with type CollinearTuple[]
@@ -400,6 +469,72 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — two lines × two endpoints = four name fields
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 1 name"}),
+            ).toHaveLength(2);
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 2 name"}),
+            ).toHaveLength(2);
+        });
+
+        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the flat per-line array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const line1Point1NameInput = screen.getAllByRole("textbox", {
+                name: "Point 1 name",
+            })[0];
+            await userEvent.type(line1Point1NameInput, "T");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "T",
+                "",
+                "",
+                "",
+            ]);
+        });
     });
 
     describe("circle graph", () => {

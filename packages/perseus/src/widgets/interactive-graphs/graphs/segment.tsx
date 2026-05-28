@@ -5,6 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {buildPointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -33,11 +34,13 @@ export function renderSegmentGraph(
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
-    const {coords: segments} = graphState;
+    const {coords: segments, pointLabels} = graphState;
     const {strings, locale} = usePerseusI18n();
     const segmentUniqueId = React.useId();
     const lengthDescriptionId = segmentUniqueId + "-length";
     const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
+    const buildLabel = (index: number, point: vec.Vector2) =>
+        buildPointAriaLabel(pointLabels, index, point, strings, locale);
 
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1
@@ -135,18 +138,22 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                             );
                         }}
                         ariaLabels={{
-                            point1AriaLabel: formatSegment(
-                                1,
-                                segment[0][X],
-                                segment[0][Y],
-                                i + 1,
-                            ),
-                            point2AriaLabel: formatSegment(
-                                2,
-                                segment[1][X],
-                                segment[1][Y],
-                                i + 1,
-                            ),
+                            point1AriaLabel:
+                                buildLabel(i * 2, segment[0]) ??
+                                formatSegment(
+                                    1,
+                                    segment[0][X],
+                                    segment[0][Y],
+                                    i + 1,
+                                ),
+                            point2AriaLabel:
+                                buildLabel(i * 2 + 1, segment[1]) ??
+                                formatSegment(
+                                    2,
+                                    segment[1][X],
+                                    segment[1][Y],
+                                    i + 1,
+                                ),
                             grabHandleAriaLabel: strings.srSegmentGrabHandle({
                                 point1X: srFormatNumber(segment[0][X], locale),
                                 point1Y: srFormatNumber(segment[0][Y], locale),

@@ -1,12 +1,9 @@
-import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+
+import CoordInput from "./coord-input";
 
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 
@@ -14,12 +11,22 @@ type Props = {
     type: "linear-system" | "segment";
     startCoords: CollinearTuple[];
     onChange: (startCoords: CollinearTuple[]) => void;
+    pointLabels?: ReadonlyArray<string>;
+    onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
 };
 
 const StartCoordsMultiline = (props: Props) => {
-    const {startCoords, type, onChange} = props;
+    const {startCoords, type, onChange, pointLabels, onChangePointLabels} =
+        props;
 
     const graphName = type === "segment" ? "Segment" : "Line";
+    const updatePointLabel = (flatIndex: number, newLabel: string) => {
+        const totalPoints = startCoords.length * 2;
+        const next = Array.from({length: totalPoints}, (_, i) =>
+            i === flatIndex ? newLabel : pointLabels?.[i] ?? "",
+        );
+        onChangePointLabels?.(next);
+    };
 
     return (
         <>
@@ -35,48 +42,39 @@ const StartCoordsMultiline = (props: Props) => {
                     }
                     expanded={true}
                 >
-                    <View style={styles.nestedTile}>
-                        <BodyText size="medium" weight="bold" tag="span">
-                            Point 1:
-                        </BodyText>
-                        <Strut size={spacing.small_12} />
-                        <CoordinatePairInput
-                            coord={coordPair[0]}
-                            labels={["x", "y"]}
-                            onChange={(value) => {
-                                const newCoords = [...startCoords];
-                                newCoords[i] = [value, coordPair[1]];
-                                onChange(newCoords);
-                            }}
-                        />
-                    </View>
-                    <View style={styles.nestedTile}>
-                        <BodyText size="medium" weight="bold" tag="span">
-                            Point 2:
-                        </BodyText>
-                        <Strut size={spacing.small_12} />
-                        <CoordinatePairInput
-                            coord={coordPair[1]}
-                            labels={["x", "y"]}
-                            onChange={(value) => {
-                                const newCoords = [...startCoords];
-                                newCoords[i] = [coordPair[0], value];
-                                onChange(newCoords);
-                            }}
-                        />
-                    </View>
+                    <CoordInput
+                        label="Point 1"
+                        coord={coordPair[0]}
+                        onChange={(value) => {
+                            const newCoords = [...startCoords];
+                            newCoords[i] = [value, coordPair[1]];
+                            onChange(newCoords);
+                        }}
+                        pointLabel={pointLabels?.[i * 2]}
+                        onPointLabelChange={
+                            onChangePointLabels &&
+                            ((newLabel) => updatePointLabel(i * 2, newLabel))
+                        }
+                    />
+                    <CoordInput
+                        label="Point 2"
+                        coord={coordPair[1]}
+                        onChange={(value) => {
+                            const newCoords = [...startCoords];
+                            newCoords[i] = [coordPair[0], value];
+                            onChange(newCoords);
+                        }}
+                        pointLabel={pointLabels?.[i * 2 + 1]}
+                        onPointLabelChange={
+                            onChangePointLabels &&
+                            ((newLabel) =>
+                                updatePointLabel(i * 2 + 1, newLabel))
+                        }
+                    />
                 </PerseusEditorAccordion>
             ))}
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    nestedTile: {
-        paddingBottom: spacing.small_12,
-        flexDirection: "row",
-        alignItems: "center",
-    },
-});
 
 export default StartCoordsMultiline;

@@ -337,6 +337,159 @@ describe("Segment graph screen reader", () => {
     );
 });
 
+describe("Segment graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels on a single-segment graph", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseSingleSegmentState,
+                    pointLabels: ["A", "B"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const [point1, , point2] = interactiveElements;
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("uses custom pointLabels on a multi-segment graph", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseMultipleSegmentState,
+                    pointLabels: ["A", "B", "C", "D"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const seg1Point1 = interactiveElements[0];
+        const seg1Point2 = interactiveElements[2];
+        const seg2Point1 = interactiveElements[3];
+        const seg2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(seg1Point1).toHaveAttribute(
+            "aria-label",
+            "Point A at -5 comma 5.",
+        );
+        expect(seg1Point2).toHaveAttribute(
+            "aria-label",
+            "Point B at 5 comma 5.",
+        );
+        expect(seg2Point1).toHaveAttribute(
+            "aria-label",
+            "Point C at -5 comma -5.",
+        );
+        expect(seg2Point2).toHaveAttribute(
+            "aria-label",
+            "Point D at 5 comma -5.",
+        );
+    });
+
+    it("falls back to the per-segment default for indices without a custom label", () => {
+        // Arrange, Act — only the first segment's endpoints are named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseMultipleSegmentState,
+                    pointLabels: ["A", "B"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const seg1Point1 = interactiveElements[0];
+        const seg2Point1 = interactiveElements[3];
+        const seg2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(seg1Point1).toHaveAttribute(
+            "aria-label",
+            "Point A at -5 comma 5.",
+        );
+        expect(seg2Point1).toHaveAttribute(
+            "aria-label",
+            "Endpoint 1 on segment 2 at -5 comma -5.",
+        );
+        expect(seg2Point2).toHaveAttribute(
+            "aria-label",
+            "Endpoint 2 on segment 2 at 5 comma -5.",
+        );
+    });
+
+    it("falls back to the per-segment default for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseMultipleSegmentState,
+                    pointLabels: ["", "", "C", "D"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const seg1Point1 = interactiveElements[0];
+        const seg1Point2 = interactiveElements[2];
+        const seg2Point1 = interactiveElements[3];
+        const seg2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(seg1Point1).toHaveAttribute(
+            "aria-label",
+            "Endpoint 1 on segment 1 at -5 comma 5.",
+        );
+        expect(seg1Point2).toHaveAttribute(
+            "aria-label",
+            "Endpoint 2 on segment 1 at 5 comma 5.",
+        );
+        expect(seg2Point1).toHaveAttribute(
+            "aria-label",
+            "Point C at -5 comma -5.",
+        );
+        expect(seg2Point2).toHaveAttribute(
+            "aria-label",
+            "Point D at 5 comma -5.",
+        );
+    });
+
+    it("falls back to the per-segment default for truthy non-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseSingleSegmentState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as string[],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const [point1, , point2] = interactiveElements;
+
+        // Assert
+        expect(point1).toHaveAttribute(
+            "aria-label",
+            "Endpoint 1 at -5 comma 5.",
+        );
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+});
+
 describe("getSegmentGraphDescription", () => {
     test("describes a single segment", () => {
         // Arrange

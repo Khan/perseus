@@ -300,6 +300,146 @@ describe("Linear System graph screen reader", () => {
     });
 });
 
+describe("Linear System graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels for each endpoint across both lines", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["A", "B", "C", "D"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const line1Point1 = interactiveElements[0];
+        const line1Point2 = interactiveElements[2];
+        const line2Point1 = interactiveElements[3];
+        const line2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(line1Point1).toHaveAttribute(
+            "aria-label",
+            "Point A at -5 comma 5.",
+        );
+        expect(line1Point2).toHaveAttribute(
+            "aria-label",
+            "Point B at 5 comma 5.",
+        );
+        expect(line2Point1).toHaveAttribute(
+            "aria-label",
+            "Point C at -5 comma -5.",
+        );
+        expect(line2Point2).toHaveAttribute(
+            "aria-label",
+            "Point D at 5 comma -5.",
+        );
+    });
+
+    it("falls back to the per-line default for indices without a custom label", () => {
+        // Arrange, Act — only the first two endpoints (line 1) named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["A", "B"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const line1Point1 = interactiveElements[0];
+        const line2Point1 = interactiveElements[3];
+        const line2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(line1Point1).toHaveAttribute(
+            "aria-label",
+            "Point A at -5 comma 5.",
+        );
+        expect(line2Point1).toHaveAttribute(
+            "aria-label",
+            "Point 1 on line 2 at -5 comma -5.",
+        );
+        expect(line2Point2).toHaveAttribute(
+            "aria-label",
+            "Point 2 on line 2 at 5 comma -5.",
+        );
+    });
+
+    // The editor encodes "only the line-2 endpoints named" as
+    // ["", "", "C", "D"]. Empty strings must fall back to the per-line default.
+    it("falls back to the per-line default for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["", "", "C", "D"],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const line1Point1 = interactiveElements[0];
+        const line1Point2 = interactiveElements[2];
+        const line2Point1 = interactiveElements[3];
+        const line2Point2 = interactiveElements[5];
+
+        // Assert
+        expect(line1Point1).toHaveAttribute(
+            "aria-label",
+            "Point 1 on line 1 at -5 comma 5.",
+        );
+        expect(line1Point2).toHaveAttribute(
+            "aria-label",
+            "Point 2 on line 1 at 5 comma 5.",
+        );
+        expect(line2Point1).toHaveAttribute(
+            "aria-label",
+            "Point C at -5 comma -5.",
+        );
+        expect(line2Point2).toHaveAttribute(
+            "aria-label",
+            "Point D at 5 comma -5.",
+        );
+    });
+
+    it("falls back to the per-line default for truthy non-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B", "C", "D"] as unknown as string[],
+                }}
+            />,
+        );
+        const interactiveElements = screen.getAllByRole("button");
+        const line1Point1 = interactiveElements[0];
+        const line1Point2 = interactiveElements[2];
+
+        // Assert
+        expect(line1Point1).toHaveAttribute(
+            "aria-label",
+            "Point 1 on line 1 at -5 comma 5.",
+        );
+        expect(line1Point2).toHaveAttribute(
+            "aria-label",
+            "Point B at 5 comma 5.",
+        );
+    });
+});
+
 describe("getLinearSystemGraphDescription", () => {
     test("describes a default linear system graph", () => {
         // Arrange

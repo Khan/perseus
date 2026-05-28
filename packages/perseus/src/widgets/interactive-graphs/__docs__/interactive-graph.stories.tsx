@@ -7,6 +7,7 @@ import {
     circleQuestion,
     linearQuestion,
     linearSystemQuestion,
+    linearSystemWithCustomLabelsQuestion,
     linearWithCustomLabelsQuestion,
     pointQuestion,
     pointWithCustomLabelQuestion,
@@ -16,6 +17,7 @@ import {
     rayQuestion,
     rayWithCustomLabelsQuestion,
     segmentQuestion,
+    segmentWithCustomLabelsQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
     segmentWithAllLockedLineSegmentVariations,
@@ -95,6 +97,19 @@ export const LinearWithCustomLabels: Story = {
 export const LinearSystem: Story = {
     args: {
         item: generateTestPerseusItem({question: linearSystemQuestion}),
+    },
+};
+
+/**
+ * A linear system whose four interactive endpoints are named "A", "B", "C",
+ * "D" via `pointLabels` (flat across both lines), so JAWS announces "Point
+ * A / B / C / D at …" instead of the default "Point N on line N at …".
+ */
+export const LinearSystemWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearSystemWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -188,6 +203,20 @@ export const Vector: Story = {
 export const Segment: Story = {
     args: {
         item: generateTestPerseusItem({question: segmentQuestion}),
+    },
+};
+
+/**
+ * A segment graph with two segments whose endpoints are named "A", "B",
+ * "C", "D" via `pointLabels` (flat across all segments), so JAWS announces
+ * "Point A / B / C / D at …" instead of the per-segment "Endpoint N on
+ * segment N at …" defaults.
+ */
+export const SegmentWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithCustomLabelsQuestion,
+        }),
     },
 };
 
