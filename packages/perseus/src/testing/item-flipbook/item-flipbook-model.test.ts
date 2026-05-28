@@ -143,6 +143,14 @@ describe("ItemFlipbookModel", () => {
         );
     });
 
+    it("doesn't page beyond item number 1 when there are no items", () => {
+        model.setTextareaValue("");
+
+        model.nextItem();
+
+        expect(model.present().selectedItemNumber).toEqual("1");
+    });
+
     it("pages to the previous item", () => {
         model.setTextareaValue(`
             {"question":{"content":"hi"}}

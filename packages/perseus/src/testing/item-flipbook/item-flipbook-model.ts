@@ -2,10 +2,9 @@ import {isFailure} from "@khanacademy/perseus-core";
 
 import {clamp} from "../../widgets/interactive-graphs/math";
 
+import type {ItemDisplay, ViewModel} from "./item-flipbook-view-model";
 import {InputField, item, noItem, parseError} from "./item-flipbook-view-model";
 import {safeParsePerseusItem} from "./safe-parse-perseus-item";
-
-import type {ItemDisplay, ViewModel} from "./item-flipbook-view-model";
 
 export function createItemFlipbookModel(observer: () => void) {
     return new ItemFlipbookModel(observer);
@@ -51,11 +50,10 @@ export class ItemFlipbookModel {
     }
 
     private clampItemIndex(newIndex: number): number {
-        return clamp(newIndex, 0, this.getMaxItemIndex());
-    }
-
-    private getMaxItemIndex() {
-        return this.getNumberOfItems() - 1;
+        if (this.getNumberOfItems() === 0) {
+            return 0;
+        }
+        return clamp(newIndex, 0, this.getNumberOfItems() - 1);
     }
 
     private getNumberOfItems(): number {
