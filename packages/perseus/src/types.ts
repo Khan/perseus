@@ -189,6 +189,7 @@ export type APIOptions = Readonly<{
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    selectionCallback?: (index: number | null) => void;
     /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.

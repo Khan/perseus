@@ -47,6 +47,8 @@ import {
     floatingPointIssueQuestion,
     ungradedQuestion,
     noTicks,
+    selectableLockedFiguresQuestion,
+    selectableLockedTriangleQuestion,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -375,6 +377,38 @@ export const LockedPoints: Story = {
         item: generateTestPerseusItem({
             question: segmentWithLockedPointsQuestion,
         }),
+    },
+};
+
+export const SelectableLockedFigures: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: selectableLockedFiguresQuestion,
+        }),
+        apiOptions: {
+            ...defaultApiOptions,
+            selectionCallback: (index) => {
+                // TODO: Remove after selectable locked figure prototype debugging.
+                // eslint-disable-next-line no-console
+                console.log("selectionCallback", index);
+            },
+        },
+    },
+};
+
+export const SelectableLockedTriangle: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: selectableLockedTriangleQuestion,
+        }),
+        apiOptions: {
+            ...defaultApiOptions,
+            selectionCallback: (index) => {
+                // TODO: Remove after selectable locked figure prototype debugging.
+                // eslint-disable-next-line no-console
+                console.log("selectionCallback", index);
+            },
+        },
     },
 };
 

@@ -130,6 +130,20 @@
     filter: drop-shadow(0 5px 5px #0008);
 }
 
+.MafsView .locked-point-selection-halo {
+    opacity: 0.25;
+    /* Match the existing movable point halo treatment. */
+    filter: drop-shadow(0 5px 5px #0008);
+}
+
+.MafsView .locked-line-selection-halo {
+    opacity: 0.25;
+    stroke-width: 16px;
+    stroke-linecap: round;
+    /* Match the existing movable point halo treatment. */
+    filter: drop-shadow(0 5px 5px #0008);
+}
+
 .MafsView .movable-point-ring {
     r: var(--movable-point-ring-radius);
     fill: var(--wb-semanticColor-core-border-knockout-default);

@@ -426,6 +426,115 @@ export const noneQuestion: PerseusRenderer = generateInteractiveGraphQuestion({
     ],
 });
 
+export const selectableLockedFiguresQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content: "Select a locked figure.\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            // Two selectable points + one non-selectable point.
+            generateIGLockedPoint({
+                coord: [-6, 6],
+                color: "green",
+                filled: true,
+                selectable: true,
+            }),
+            generateIGLockedPoint({
+                coord: [-2, 6],
+                color: "purple",
+                filled: false,
+                selectable: true,
+            }),
+            generateIGLockedPoint({
+                coord: [2, 6],
+                color: "grayH",
+                filled: true,
+            }),
+            // Two selectable line segments + one non-selectable segment.
+            generateIGLockedLine({
+                kind: "segment",
+                color: "green",
+                points: [
+                    generateIGLockedPoint({coord: [-7, 1], color: "green"}),
+                    generateIGLockedPoint({coord: [-1, -3], color: "green"}),
+                ],
+                selectable: true,
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "purple",
+                points: [
+                    generateIGLockedPoint({coord: [1, 1], color: "purple"}),
+                    generateIGLockedPoint({coord: [7, -3], color: "purple"}),
+                ],
+                selectable: true,
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "grayH",
+                points: [
+                    generateIGLockedPoint({coord: [-4, -7], color: "grayH"}),
+                    generateIGLockedPoint({coord: [4, -7], color: "grayH"}),
+                ],
+            }),
+        ],
+    });
+
+// A triangle with selectable vertices and sides. Vertices are placed after
+// sides so points win the click at each shared endpoint (§6).
+export const selectableLockedTriangleQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Select a vertex or side of the triangle.\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [2, 1], color: "blue"}),
+                    generateIGLockedPoint({coord: [8, 1], color: "blue"}),
+                ],
+                selectable: true,
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [8, 1], color: "blue"}),
+                    generateIGLockedPoint({coord: [5, 7], color: "blue"}),
+                ],
+                selectable: true,
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [5, 7], color: "blue"}),
+                    generateIGLockedPoint({coord: [2, 1], color: "blue"}),
+                ],
+                selectable: true,
+            }),
+            generateIGLockedPoint({
+                coord: [2, 1],
+                color: "blue",
+                filled: true,
+                selectable: true,
+            }),
+            generateIGLockedPoint({
+                coord: [8, 1],
+                color: "blue",
+                filled: true,
+                selectable: true,
+            }),
+            generateIGLockedPoint({
+                coord: [5, 7],
+                color: "blue",
+                filled: true,
+                selectable: true,
+            }),
+        ],
+    });
+
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
         correct: generateIGSinusoidGraph(),

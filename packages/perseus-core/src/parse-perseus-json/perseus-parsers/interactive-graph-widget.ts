@@ -231,6 +231,7 @@ const parseLockedPointType = object({
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
     filled: boolean,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -244,6 +245,7 @@ const parseLockedLineType = object({
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
     weight: parseStrokeWeight,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
