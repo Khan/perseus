@@ -10,6 +10,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -577,7 +578,9 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-point",
-                    pointIndex: action.index,
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
                     x: newCoord[X],
                     y: newCoord[Y],
                 },

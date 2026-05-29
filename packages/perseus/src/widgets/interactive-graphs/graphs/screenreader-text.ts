@@ -11,7 +11,7 @@ export function getAnnouncementText(
     switch (state.type) {
         case "move-point":
             return strings.srPointAtCoordinates({
-                num: state.pointIndex + 1,
+                num: state.pointLabel, // TODO(LEMS-4206): fix num -> pointLabel
                 x: srFormatNumber(state.x, locale),
                 y: srFormatNumber(state.y, locale),
             });

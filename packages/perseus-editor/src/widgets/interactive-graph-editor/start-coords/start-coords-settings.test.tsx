@@ -1,6 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -18,6 +18,7 @@ const defaultProps = {
         [-10, 10],
     ] satisfies [Range, Range],
     step: [1, 1] satisfies [number, number],
+    onChangePointLabels: () => {},
 };
 describe("StartCoordSettings", () => {
     let userEvent: UserEvent;
@@ -154,6 +155,76 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it(`renders point name fields when onChangePointLabels is provided for ${type}`, () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type={type}
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it(`${type}: calls onChangePointLabels with the schema's 2-tuple shape when a name is typed`, async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type={type}
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert — the empty slot must be preserved so the schema
+            // shape stays a 2-tuple even when only one point is named.
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
+    });
+
+    describe("vector graph", () => {
+        it("shows the start coordinates UI without point name fields", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="vector"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — coord inputs render
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            // Assert — vector is intentionally excluded from custom labels
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("textbox", {name: "Point 2 name"}),
+            ).not.toBeInTheDocument();
+        });
     });
 
     // startCoords with type CollinearTuple[]
@@ -253,6 +324,63 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — two segments × two endpoints = four name fields
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 1 name"}),
+            ).toHaveLength(2);
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 2 name"}),
+            ).toHaveLength(2);
+        });
+
+        it("calls onChangePointLabels with the flat per-segment array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act — scope the query to segment 2's accordion region so the
+            // "Point 1 name" textbox we pick is unambiguously its first
+            // endpoint. PerseusEditorAccordion renders each section as a
+            // `role="region"` labelled by the header text, so the region's
+            // accessible name is exactly the "Segment 2" header.
+            const seg2Region = screen.getByRole("region", {name: "Segment 2"});
+            const seg2Point1NameInput = within(seg2Region).getByRole(
+                "textbox",
+                {name: "Point 1 name"},
+            );
+            await userEvent.type(seg2Point1NameInput, "T");
+
+            // Assert — flat array shape is [seg1.p1, seg1.p2, seg2.p1, seg2.p2].
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "",
+                "",
+                "T",
+                "",
+            ]);
+        });
     });
 
     // startCoords with type CollinearTuple[]
@@ -329,6 +457,61 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — two lines × two endpoints = four name fields
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 1 name"}),
+            ).toHaveLength(2);
+            expect(
+                screen.getAllByRole("textbox", {name: "Point 2 name"}),
+            ).toHaveLength(2);
+        });
+
+        it("calls onChangePointLabels with the flat per-line array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act — scope the query to line 1's accordion region so the
+            // "Point 1 name" textbox we pick is unambiguously its first
+            // endpoint. PerseusEditorAccordion renders each section as a
+            // `role="region"` labelled by the header text, so the region's
+            // accessible name is exactly the "Line 1" header.
+            const line1Region = screen.getByRole("region", {name: "Line 1"});
+            const line1Point1NameInput = within(line1Region).getByRole(
+                "textbox",
+                {name: "Point 1 name"},
+            );
+            await userEvent.type(line1Point1NameInput, "T");
+
+            // Assert — flat array shape is [line1.p1, line1.p2, line2.p1, line2.p2].
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "T",
+                "",
+                "",
+                "",
+            ]);
+        });
     });
 
     describe("circle graph", () => {
@@ -766,24 +949,6 @@ describe("StartCoordSettings", () => {
             ).toBeInTheDocument();
         });
 
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="point"
-                    numPoints={2}
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
-        });
-
         it("calls onChangePointLabels when a point name is typed", async () => {
             // Arrange
             const onChangePointLabelsMock = jest.fn();
@@ -883,23 +1048,6 @@ describe("StartCoordSettings", () => {
             expect(
                 screen.getByRole("textbox", {name: "Point 3 name"}),
             ).toBeInTheDocument();
-        });
-
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="polygon"
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
         });
 
         it("calls onChangePointLabels when a point name is typed", async () => {

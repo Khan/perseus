@@ -4,6 +4,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -36,11 +37,12 @@ type LinearSystemGraphProps = MafsGraphProps<LinearSystemGraphState>;
 
 const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines} = props.graphState;
+    const {coords: lines, pointLabels} = props.graphState;
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const intersectionId = `${id}-intersection`;
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     const intersectionPoint = geometry.getLineIntersection(lines[0], lines[1]);
     const intersectionDescription = intersectionPoint
@@ -97,18 +99,22 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     // from MovableLine / useControlPoint.
                     ariaLive="off"
                     ariaLabels={{
-                        point1AriaLabel: strings.srLinearSystemPoint({
-                            lineNumber: i + 1,
-                            pointSequence: 1,
-                            x: srFormatNumber(line[0][0], locale),
-                            y: srFormatNumber(line[0][1], locale),
-                        }),
-                        point2AriaLabel: strings.srLinearSystemPoint({
-                            lineNumber: i + 1,
-                            pointSequence: 2,
-                            x: srFormatNumber(line[1][0], locale),
-                            y: srFormatNumber(line[1][1], locale),
-                        }),
+                        point1AriaLabel:
+                            buildLabel(i * 2, line[0]) ??
+                            strings.srLinearSystemPoint({
+                                lineNumber: i + 1,
+                                pointSequence: 1,
+                                x: srFormatNumber(line[0][0], locale),
+                                y: srFormatNumber(line[0][1], locale),
+                            }),
+                        point2AriaLabel:
+                            buildLabel(i * 2 + 1, line[1]) ??
+                            strings.srLinearSystemPoint({
+                                lineNumber: i + 1,
+                                pointSequence: 2,
+                                x: srFormatNumber(line[1][0], locale),
+                                y: srFormatNumber(line[1][1], locale),
+                            }),
                         grabHandleAriaLabel: strings.srLinearSystemGrabHandle({
                             lineNumber: i + 1,
                             point1X: srFormatNumber(line[0][0], locale),

@@ -39,8 +39,7 @@ export function reshapePointLabelsForGraphType(
         }
         case "absolute-value":
         case "linear":
-        case "ray":
-        case "vector": {
+        case "ray": {
             const reshaped = toPair(pointLabels);
             nextGraph = {...graph, pointLabels: reshaped};
             if (correct.type === graph.type) {
@@ -64,6 +63,7 @@ export function reshapePointLabelsForGraphType(
             }
             break;
         }
+        case "vector":
         case "none":
             return null;
     }
