@@ -33,19 +33,22 @@ import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import StartCoordsTangent from "./start-coords-tangent";
+import StartCoordsVector from "./start-coords-vector";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
-type Props = PerseusGraphType & {
+interface StartCoordsSettingsProps {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
-    onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
-};
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
+
+type Props = PerseusGraphType & StartCoordsSettingsProps;
 
 const StartCoordsSettingsInner = (props: Props) => {
     const {
@@ -80,7 +83,7 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsLine
                     startCoords={linearCoords}
                     onChange={onChange}
-                    pointLabels={props.pointLabels}
+                    pointLabels={props.pointLabels ?? []}
                     onChangePointLabels={onChangePointLabels}
                 />
             );
@@ -157,7 +160,7 @@ const StartCoordsSettingsInner = (props: Props) => {
         case "vector": {
             const vectorCoords = getVectorCoords(props, range, step);
             return (
-                <StartCoordsLine
+                <StartCoordsVector
                     startCoords={vectorCoords}
                     onChange={onChange}
                 />

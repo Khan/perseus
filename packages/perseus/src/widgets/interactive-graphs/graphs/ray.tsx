@@ -52,6 +52,13 @@ const RayGraph = (props: Props) => {
         srRayGrabHandle,
     } = describeRayGraph(props.graphState, {strings, locale});
 
+    const point1AriaLabel =
+        buildPointAriaLabel(pointLabels, 0, line[0], strings, locale) ??
+        srRayEndpoint;
+    const point2AriaLabel =
+        buildPointAriaLabel(pointLabels, 1, line[1], strings, locale) ??
+        srRayTerminalPoint;
+
     // Ray graphs only have one line
     return (
         <g
@@ -62,22 +69,8 @@ const RayGraph = (props: Props) => {
             <MovableLine
                 points={line}
                 ariaLabels={{
-                    point1AriaLabel:
-                        buildPointAriaLabel(
-                            pointLabels,
-                            0,
-                            line[0],
-                            strings,
-                            locale,
-                        ) ?? srRayEndpoint,
-                    point2AriaLabel:
-                        buildPointAriaLabel(
-                            pointLabels,
-                            1,
-                            line[1],
-                            strings,
-                            locale,
-                        ) ?? srRayTerminalPoint,
+                    point1AriaLabel,
+                    point2AriaLabel,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
                 onMoveLine={handleMoveLine}

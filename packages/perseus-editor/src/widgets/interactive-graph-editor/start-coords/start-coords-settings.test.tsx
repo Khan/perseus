@@ -18,6 +18,7 @@ const defaultProps = {
         [-10, 10],
     ] satisfies [Range, Range],
     step: [1, 1] satisfies [number, number],
+    onChangePointLabels: () => {},
 };
 describe("StartCoordSettings", () => {
     let userEvent: UserEvent;
@@ -176,24 +177,7 @@ describe("StartCoordSettings", () => {
             ).toBeInTheDocument();
         });
 
-        it(`does NOT render point name fields when onChangePointLabels is omitted for ${type}`, () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type={type}
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
-        });
-
-        it(`calls onChangePointLabels with the schema's 2-tuple shape when a name is typed for ${type}`, async () => {
+        it(`${type}: calls onChangePointLabels with the schema's 2-tuple shape when a name is typed`, async () => {
             // Arrange
             const onChangePointLabelsMock = jest.fn();
             render(
@@ -215,6 +199,31 @@ describe("StartCoordSettings", () => {
             // Assert — the empty slot must be preserved so the schema
             // shape stays a 2-tuple even when only one point is named.
             expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
+    });
+
+    describe("vector graph", () => {
+        it("shows the start coordinates UI without point name fields", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="vector"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — coord inputs render
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            // Assert — vector is intentionally excluded from custom labels
+            expect(
+                screen.queryByRole("textbox", {name: "Point 1 name"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("textbox", {name: "Point 2 name"}),
+            ).not.toBeInTheDocument();
         });
     });
 
@@ -828,24 +837,6 @@ describe("StartCoordSettings", () => {
             ).toBeInTheDocument();
         });
 
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="point"
-                    numPoints={2}
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
-        });
-
         it("calls onChangePointLabels when a point name is typed", async () => {
             // Arrange
             const onChangePointLabelsMock = jest.fn();
@@ -945,23 +936,6 @@ describe("StartCoordSettings", () => {
             expect(
                 screen.getByRole("textbox", {name: "Point 3 name"}),
             ).toBeInTheDocument();
-        });
-
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="polygon"
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
         });
 
         it("calls onChangePointLabels when a point name is typed", async () => {

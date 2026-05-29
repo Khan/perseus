@@ -1,3 +1,7 @@
+import {
+    generateIGLinearGraph,
+    generateInteractiveGraphQuestion,
+} from "@khanacademy/perseus-core";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -5,6 +9,7 @@ import * as React from "react";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
@@ -250,11 +255,12 @@ describe("Linear graph pointLabels", () => {
 
     it("uses custom pointLabels in each endpoint's accessible name", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLinearState, pointLabels: ["A", "B"]}}
-            />,
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    pointLabels: ["A", "B"],
+                }),
+            }),
         );
         const [point1, , point2] = screen.getAllByRole("button");
 
@@ -265,11 +271,13 @@ describe("Linear graph pointLabels", () => {
 
     it("falls back to numeric default for indices without a custom label", () => {
         // Arrange, Act — only the first endpoint is named
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLinearState, pointLabels: ["A"]}}
-            />,
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    // eslint-disable-next-line no-restricted-syntax -- short array tests the missing-index fallback
+                    pointLabels: ["A"] as unknown as [string, string],
+                }),
+            }),
         );
         const [point1, , point2] = screen.getAllByRole("button");
 
@@ -282,11 +290,12 @@ describe("Linear graph pointLabels", () => {
     // An empty string at any index must fall back to the numeric default.
     it("falls back to numeric default for explicit empty-string entries", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLinearState, pointLabels: ["", "B"]}}
-            />,
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    pointLabels: ["", "B"],
+                }),
+            }),
         );
         const [point1, , point2] = screen.getAllByRole("button");
 
@@ -297,15 +306,13 @@ describe("Linear graph pointLabels", () => {
 
     it("falls back to the numeric default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLinearState,
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
                     // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
+                    pointLabels: [42, "B"] as unknown as [string, string],
+                }),
+            }),
         );
         const [point1, , point2] = screen.getAllByRole("button");
 
