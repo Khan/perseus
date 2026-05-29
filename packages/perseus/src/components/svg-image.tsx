@@ -18,14 +18,14 @@ import {ZoomImageButton} from "./zoom-image-button";
 
 import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
-import type {APIOptions, Dimensions} from "../types";
+import type {APIOptions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 
 function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
 }
 
-function defaultPreloader(dimensions: Dimensions) {
+function spinner() {
     return (
         <span
             style={{
@@ -58,7 +58,7 @@ export type Props = {
     };
     height?: number;
     /**
-     * When the DOM updates to replace the preloader with the image, or
+     * When the DOM updates to replace the spinner with the image, or
      * vice-versa, we trigger this callback.
      */
     onUpdate: () => void;
@@ -67,7 +67,6 @@ export type Props = {
      * is set.
      */
     overrideAriaHidden?: boolean;
-    preloader?: (dimensions: Dimensions) => React.ReactNode;
     /**
      * By default, this component attempts to be responsive whenever
      * possible (specifically, when width and height are passed in).
@@ -454,18 +453,6 @@ class SvgImage extends React.Component<Props, State> {
             );
         }
 
-        // If preloader is undefined, we use the default. If it's
-        // null, there will be no preloader in use.
-        const preloaderBaseFunc =
-            this.props.preloader === undefined
-                ? defaultPreloader
-                : this.props.preloader;
-
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const preloader = preloaderBaseFunc
-            ? () => preloaderBaseFunc(dimensions)
-            : null;
-
         // *********** Normal/Non-Graphie images ***********
 
         if (!Util.isLabeledSVG(imageSrc)) {
@@ -485,7 +472,7 @@ class SvgImage extends React.Component<Props, State> {
                                 <ImageLoader
                                     src={imageSrc}
                                     imgProps={imageProps}
-                                    preloader={preloader}
+                                    preloader={spinner}
                                     onUpdate={this.handleUpdate}
                                 />
                                 {extraGraphie}
@@ -538,7 +525,7 @@ class SvgImage extends React.Component<Props, State> {
             return (
                 <ImageLoader
                     src={imageSrc}
-                    preloader={preloader}
+                    preloader={spinner}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
                 />
@@ -598,7 +585,7 @@ class SvgImage extends React.Component<Props, State> {
                         src={imageUrl}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
-                        preloader={preloader}
+                        preloader={spinner}
                         imgProps={imageProps}
                     />
                     {graphie}
@@ -635,7 +622,7 @@ class SvgImage extends React.Component<Props, State> {
                     src={imageUrl}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
-                    preloader={preloader}
+                    preloader={spinner}
                     imgProps={imageProps}
                 />
                 {graphie}

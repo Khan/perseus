@@ -24,8 +24,7 @@ export function sanitizeApiOptions(
         answerableCallback: __,
         getAnotherHint: ___,
         interactionCallback: ____,
-        imagePreloader: _____,
-        trackInteraction: ______,
+        trackInteraction: _____,
         baseElements: _______,
         nativeKeypadProxy: ________,
         // Remove React nodes (placeholders)
