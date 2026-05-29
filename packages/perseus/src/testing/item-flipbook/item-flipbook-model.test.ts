@@ -234,7 +234,7 @@ describe("ItemFlipbookModel", () => {
         expect(model.present().selectedItemNumber.value).toBe("3");
     });
 
-    it("does not update selectedItemNumber on a request for an invalid number", () => {
+    it("clamps selectedItemNumber on a request for a too-high number", () => {
         model.setTextareaValue(`
             {"question":{"content":"1"}}
             {"question":{"content":"2"}}
@@ -242,6 +242,19 @@ describe("ItemFlipbookModel", () => {
         `);
 
         model.requestItemNumber("9");
+
+        expect(model.present().selectedItemNumber.value).toBe("3");
+    });
+
+    it("clamps selectedItemNumber on a request for a too-low number", () => {
+        model.setTextareaValue(`
+            {"question":{"content":"1"}}
+            {"question":{"content":"2"}}
+            {"question":{"content":"3"}}
+        `);
+        model.nextItem(); // select item 2
+
+        model.requestItemNumber("0");
 
         expect(model.present().selectedItemNumber.value).toBe("1");
     });

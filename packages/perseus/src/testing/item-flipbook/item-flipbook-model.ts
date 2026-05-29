@@ -49,10 +49,11 @@ export class ItemFlipbookModel {
 
     requestItemNumber = (requested: string) => {
         const requestedIndex = Number.parseInt(requested, 10) - 1;
-        if (this.clampItemIndex(requestedIndex) === requestedIndex) {
-            this.targetItemIndex = requestedIndex;
-            this.observer();
+        if (Number.isNaN(requestedIndex)) {
+            return;
         }
+        this.targetItemIndex = this.clampItemIndex(requestedIndex);
+        this.observer();
     };
 
     private getItemIndex(): number {
