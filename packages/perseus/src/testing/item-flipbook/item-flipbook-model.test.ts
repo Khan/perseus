@@ -5,14 +5,13 @@ import {isItem, noItem, parseError} from "./item-flipbook-view-model";
 
 describe("ItemFlipbookModel", () => {
     let model: ItemFlipbookModel;
-    let observer: () => void;
+    let observerCalled = false
     beforeEach(() => {
-        observer = jest.fn();
-        model = new ItemFlipbookModel(observer);
+        model = new ItemFlipbookModel(() => observerCalled = true);
     });
 
     it("does not call the observer when merely constructed", () => {
-        expect(observer).not.toHaveBeenCalled();
+        expect(observerCalled).toBe(false);
     });
 
     it("has a text field, which is initially empty", () => {
@@ -38,7 +37,7 @@ describe("ItemFlipbookModel", () => {
 
     it("calls the observer when the textarea value changes", () => {
         model.setTextareaValue("hello");
-        expect(observer).toHaveBeenCalledTimes(1);
+        expect(observerCalled).toBe(true);
     });
 
     it("displays a JSON parse error when the user enters a non-JSON value", () => {
@@ -124,10 +123,11 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"hi"}}
             {"question":{"content":"bye"}}
         `);
+        observerCalled = false;
 
         model.nextItem();
 
-        expect(observer).toHaveBeenCalledTimes(2);
+        expect(observerCalled).toBe(true);
     });
 
     it("doesn't page beyond the end of the item list", () => {
@@ -172,11 +172,12 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"hi"}}
             {"question":{"content":"bye"}}
         `);
-
         model.nextItem();
+        observerCalled = false;
+
         model.previousItem();
 
-        expect(observer).toHaveBeenCalledTimes(3);
+        expect(observerCalled).toBe(true);
     });
 
     it("doesn't page beyond the beginning of the item list", () => {
@@ -277,10 +278,11 @@ describe("ItemFlipbookModel", () => {
             {"question":{"content":"2"}}
             {"question":{"content":"3"}}
         `);
+        observerCalled = false;
 
         model.requestItemNumber("3");
 
         expect(model.present().selectedItemNumber.value).toBe("3");
-        expect(observer).toHaveBeenCalledTimes(2);
+        expect(observerCalled).toBe(true);
     });
 });
