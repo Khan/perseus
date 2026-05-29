@@ -1311,6 +1311,63 @@ export const pointWithDefaultLabelQuestion: PerseusRenderer =
         }),
     });
 
+// Linear graph with the two endpoints named "A" and "B" via `pointLabels`,
+// so JAWS announces "Point A at …" / "Point B at …" instead of the default
+// "Point 1 at …" / "Point 2 at …" when navigating the endpoints.
+export const linearWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag points $A$ and $B$ so the line passes through both labeled points.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGLinearGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Ray graph with the endpoint named "A" and the through point named "B"
+// via `pointLabels`. The default "Endpoint at …" / "Through point at …"
+// semantic labels are overridden so the SR announcement matches the
+// prompt's naming convention.
+export const rayWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the ray so its endpoint is at point $A$ and it passes through point $B$.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGRayGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
 export const polygonWithCustomLabelsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:

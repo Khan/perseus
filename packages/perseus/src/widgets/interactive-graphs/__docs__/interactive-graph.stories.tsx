@@ -7,12 +7,14 @@ import {
     circleQuestion,
     linearQuestion,
     linearSystemQuestion,
+    linearWithCustomLabelsQuestion,
     pointQuestion,
     pointWithCustomLabelQuestion,
     pointWithDefaultLabelQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
     rayQuestion,
+    rayWithCustomLabelsQuestion,
     segmentQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
@@ -74,6 +76,19 @@ export const Circle: Story = {
 export const Linear: Story = {
     args: {
         item: generateTestPerseusItem({question: linearQuestion}),
+    },
+};
+
+/**
+ * A linear graph whose two endpoints are named "A" and "B" via `pointLabels`,
+ * so JAWS announces "Point A at …" / "Point B at …" instead of the default
+ * "Point 1 at …" / "Point 2 at …".
+ */
+export const LinearWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -147,6 +162,20 @@ export const UnlimitedPolygon: Story = {
 export const Ray: Story = {
     args: {
         item: generateTestPerseusItem({question: rayQuestion}),
+    },
+};
+
+/**
+ * A ray whose endpoint and through point are named "A" and "B" via
+ * `pointLabels`. The default semantic "Endpoint at …" / "Through point at …"
+ * labels are overridden so the SR announcement matches the prompt's
+ * naming convention.
+ */
+export const RayWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: rayWithCustomLabelsQuestion,
+        }),
     },
 };
 

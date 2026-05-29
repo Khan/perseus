@@ -3,6 +3,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {buildPointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -32,7 +33,7 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {dispatch} = props;
-    const {coords: line} = props.graphState;
+    const {coords: line, pointLabels} = props.graphState;
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -60,7 +61,23 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
         >
             <MovableLine
                 key={0}
-                ariaLabels={{grabHandleAriaLabel: srLinearGrabHandle}}
+                ariaLabels={{
+                    grabHandleAriaLabel: srLinearGrabHandle,
+                    point1AriaLabel: buildPointAriaLabel(
+                        pointLabels,
+                        0,
+                        line[0],
+                        strings,
+                        locale,
+                    ),
+                    point2AriaLabel: buildPointAriaLabel(
+                        pointLabels,
+                        1,
+                        line[1],
+                        strings,
+                        locale,
+                    ),
+                }}
                 ariaDescribedBy={`${interceptDescriptionId} ${slopeDescriptionId}`}
                 points={line}
                 onMoveLine={(newStart) => {
