@@ -101,7 +101,7 @@ const StartCoordsSettingsInner = (props: Props) => {
                     type={type}
                     startCoords={multiLineCoords}
                     onChange={onChange}
-                    pointLabels={props.pointLabels}
+                    pointLabels={props.pointLabels ?? []}
                     onChangePointLabels={onChangePointLabels}
                 />
             );

@@ -7,15 +7,15 @@ import CoordInput from "./coord-input";
 
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 
-type Props = {
+interface StartCoordsMultilineProps {
     type: "linear-system" | "segment";
     startCoords: CollinearTuple[];
     onChange: (startCoords: CollinearTuple[]) => void;
-    pointLabels?: ReadonlyArray<string>;
-    onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
-};
+    pointLabels: ReadonlyArray<string>;
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
 
-const StartCoordsMultiline = (props: Props) => {
+const StartCoordsMultiline = (props: StartCoordsMultilineProps) => {
     const {startCoords, type, onChange, pointLabels, onChangePointLabels} =
         props;
 
@@ -23,9 +23,9 @@ const StartCoordsMultiline = (props: Props) => {
     const updatePointLabel = (flatIndex: number, newLabel: string) => {
         const totalPoints = startCoords.length * 2;
         const next = Array.from({length: totalPoints}, (_, i) =>
-            i === flatIndex ? newLabel : pointLabels?.[i] ?? "",
+            i === flatIndex ? newLabel : pointLabels[i] ?? "",
         );
-        onChangePointLabels?.(next);
+        onChangePointLabels(next);
     };
 
     return (
@@ -50,10 +50,9 @@ const StartCoordsMultiline = (props: Props) => {
                             newCoords[i] = [value, coordPair[1]];
                             onChange(newCoords);
                         }}
-                        pointLabel={pointLabels?.[i * 2]}
-                        onPointLabelChange={
-                            onChangePointLabels &&
-                            ((newLabel) => updatePointLabel(i * 2, newLabel))
+                        pointLabel={pointLabels[i * 2]}
+                        onPointLabelChange={(newLabel) =>
+                            updatePointLabel(i * 2, newLabel)
                         }
                     />
                     <CoordInput
@@ -64,11 +63,9 @@ const StartCoordsMultiline = (props: Props) => {
                             newCoords[i] = [coordPair[0], value];
                             onChange(newCoords);
                         }}
-                        pointLabel={pointLabels?.[i * 2 + 1]}
-                        onPointLabelChange={
-                            onChangePointLabels &&
-                            ((newLabel) =>
-                                updatePointLabel(i * 2 + 1, newLabel))
+                        pointLabel={pointLabels[i * 2 + 1]}
+                        onPointLabelChange={(newLabel) =>
+                            updatePointLabel(i * 2 + 1, newLabel)
                         }
                     />
                 </PerseusEditorAccordion>

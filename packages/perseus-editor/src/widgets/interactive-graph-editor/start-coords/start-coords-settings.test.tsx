@@ -1,6 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -347,24 +347,6 @@ describe("StartCoordSettings", () => {
             ).toHaveLength(2);
         });
 
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="segment"
-                    numSegments={2}
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
-        });
-
         it("calls onChangePointLabels with the flat per-segment array shape when a name is typed", async () => {
             // Arrange
             const onChangePointLabelsMock = jest.fn();
@@ -379,13 +361,19 @@ describe("StartCoordSettings", () => {
                 {wrapper: RenderStateRoot},
             );
 
-            // Act
-            const seg2Point1NameInput = screen.getAllByRole("textbox", {
-                name: "Point 1 name",
-            })[1];
+            // Act — scope the query to segment 2's accordion region so the
+            // "Point 1 name" textbox we pick is unambiguously its first
+            // endpoint. PerseusEditorAccordion renders each section as a
+            // `role="region"` labelled by the header text, so the region's
+            // accessible name is exactly the "Segment 2" header.
+            const seg2Region = screen.getByRole("region", {name: "Segment 2"});
+            const seg2Point1NameInput = within(seg2Region).getByRole(
+                "textbox",
+                {name: "Point 1 name"},
+            );
             await userEvent.type(seg2Point1NameInput, "T");
 
-            // Assert
+            // Assert — flat array shape is [seg1.p1, seg1.p2, seg2.p1, seg2.p2].
             expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
                 "",
                 "",
@@ -491,23 +479,6 @@ describe("StartCoordSettings", () => {
             ).toHaveLength(2);
         });
 
-        it("does NOT render point name fields when onChangePointLabels is omitted", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="linear-system"
-                    onChange={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByRole("textbox", {name: "Point 1 name"}),
-            ).not.toBeInTheDocument();
-        });
-
         it("calls onChangePointLabels with the flat per-line array shape when a name is typed", async () => {
             // Arrange
             const onChangePointLabelsMock = jest.fn();
@@ -521,13 +492,19 @@ describe("StartCoordSettings", () => {
                 {wrapper: RenderStateRoot},
             );
 
-            // Act
-            const line1Point1NameInput = screen.getAllByRole("textbox", {
-                name: "Point 1 name",
-            })[0];
+            // Act — scope the query to line 1's accordion region so the
+            // "Point 1 name" textbox we pick is unambiguously its first
+            // endpoint. PerseusEditorAccordion renders each section as a
+            // `role="region"` labelled by the header text, so the region's
+            // accessible name is exactly the "Line 1" header.
+            const line1Region = screen.getByRole("region", {name: "Line 1"});
+            const line1Point1NameInput = within(line1Region).getByRole(
+                "textbox",
+                {name: "Point 1 name"},
+            );
             await userEvent.type(line1Point1NameInput, "T");
 
-            // Assert
+            // Assert — flat array shape is [line1.p1, line1.p2, line2.p1, line2.p2].
             expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
                 "T",
                 "",

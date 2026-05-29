@@ -355,12 +355,16 @@ describe("Segment graph pointLabels", () => {
                 }}
             />,
         );
-        const interactiveElements = screen.getAllByRole("button");
-        const [point1, , point2] = interactiveElements;
+        const point1 = screen.getByRole("button", {
+            name: "Point A at -5 comma 5.",
+        });
+        const point2 = screen.getByRole("button", {
+            name: "Point B at 5 comma 5.",
+        });
 
         // Assert
-        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+        expect(point1).toBeInTheDocument();
+        expect(point2).toBeInTheDocument();
     });
 
     it("uses custom pointLabels on a multi-segment graph", () => {
@@ -374,29 +378,24 @@ describe("Segment graph pointLabels", () => {
                 }}
             />,
         );
-        const interactiveElements = screen.getAllByRole("button");
-        const seg1Point1 = interactiveElements[0];
-        const seg1Point2 = interactiveElements[2];
-        const seg2Point1 = interactiveElements[3];
-        const seg2Point2 = interactiveElements[5];
+        const seg1Point1 = screen.getByRole("button", {
+            name: "Point A at -5 comma 5.",
+        });
+        const seg1Point2 = screen.getByRole("button", {
+            name: "Point B at 5 comma 5.",
+        });
+        const seg2Point1 = screen.getByRole("button", {
+            name: "Point C at -5 comma -5.",
+        });
+        const seg2Point2 = screen.getByRole("button", {
+            name: "Point D at 5 comma -5.",
+        });
 
-        // Assert
-        expect(seg1Point1).toHaveAttribute(
-            "aria-label",
-            "Point A at -5 comma 5.",
-        );
-        expect(seg1Point2).toHaveAttribute(
-            "aria-label",
-            "Point B at 5 comma 5.",
-        );
-        expect(seg2Point1).toHaveAttribute(
-            "aria-label",
-            "Point C at -5 comma -5.",
-        );
-        expect(seg2Point2).toHaveAttribute(
-            "aria-label",
-            "Point D at 5 comma -5.",
-        );
+        // Assert — each interactive endpoint gets its custom label
+        expect(seg1Point1).toBeInTheDocument();
+        expect(seg1Point2).toBeInTheDocument();
+        expect(seg2Point1).toBeInTheDocument();
+        expect(seg2Point2).toBeInTheDocument();
     });
 
     it("falls back to the per-segment default for indices without a custom label", () => {
@@ -410,24 +409,21 @@ describe("Segment graph pointLabels", () => {
                 }}
             />,
         );
-        const interactiveElements = screen.getAllByRole("button");
-        const seg1Point1 = interactiveElements[0];
-        const seg2Point1 = interactiveElements[3];
-        const seg2Point2 = interactiveElements[5];
+        const seg1Point1 = screen.getByRole("button", {
+            name: "Point A at -5 comma 5.",
+        });
+        const seg2Point1 = screen.getByRole("button", {
+            name: "Endpoint 1 on segment 2 at -5 comma -5.",
+        });
+        const seg2Point2 = screen.getByRole("button", {
+            name: "Endpoint 2 on segment 2 at 5 comma -5.",
+        });
 
-        // Assert
-        expect(seg1Point1).toHaveAttribute(
-            "aria-label",
-            "Point A at -5 comma 5.",
-        );
-        expect(seg2Point1).toHaveAttribute(
-            "aria-label",
-            "Endpoint 1 on segment 2 at -5 comma -5.",
-        );
-        expect(seg2Point2).toHaveAttribute(
-            "aria-label",
-            "Endpoint 2 on segment 2 at 5 comma -5.",
-        );
+        // Assert — segment 1 uses the custom label; segment 2 falls back
+        // to the per-segment default.
+        expect(seg1Point1).toBeInTheDocument();
+        expect(seg2Point1).toBeInTheDocument();
+        expect(seg2Point2).toBeInTheDocument();
     });
 
     it("falls back to the per-segment default for explicit empty-string entries", () => {
@@ -441,29 +437,24 @@ describe("Segment graph pointLabels", () => {
                 }}
             />,
         );
-        const interactiveElements = screen.getAllByRole("button");
-        const seg1Point1 = interactiveElements[0];
-        const seg1Point2 = interactiveElements[2];
-        const seg2Point1 = interactiveElements[3];
-        const seg2Point2 = interactiveElements[5];
+        const seg1Point1 = screen.getByRole("button", {
+            name: "Endpoint 1 on segment 1 at -5 comma 5.",
+        });
+        const seg1Point2 = screen.getByRole("button", {
+            name: "Endpoint 2 on segment 1 at 5 comma 5.",
+        });
+        const seg2Point1 = screen.getByRole("button", {
+            name: "Point C at -5 comma -5.",
+        });
+        const seg2Point2 = screen.getByRole("button", {
+            name: "Point D at 5 comma -5.",
+        });
 
         // Assert
-        expect(seg1Point1).toHaveAttribute(
-            "aria-label",
-            "Endpoint 1 on segment 1 at -5 comma 5.",
-        );
-        expect(seg1Point2).toHaveAttribute(
-            "aria-label",
-            "Endpoint 2 on segment 1 at 5 comma 5.",
-        );
-        expect(seg2Point1).toHaveAttribute(
-            "aria-label",
-            "Point C at -5 comma -5.",
-        );
-        expect(seg2Point2).toHaveAttribute(
-            "aria-label",
-            "Point D at 5 comma -5.",
-        );
+        expect(seg1Point1).toBeInTheDocument();
+        expect(seg1Point2).toBeInTheDocument();
+        expect(seg2Point1).toBeInTheDocument();
+        expect(seg2Point2).toBeInTheDocument();
     });
 
     it("falls back to the per-segment default for truthy non-string entries", () => {
@@ -478,15 +469,17 @@ describe("Segment graph pointLabels", () => {
                 }}
             />,
         );
-        const interactiveElements = screen.getAllByRole("button");
-        const [point1, , point2] = interactiveElements;
+        const point1 = screen.getByRole("button", {
+            name: "Endpoint 1 at -5 comma 5.",
+        });
+        const point2 = screen.getByRole("button", {
+            name: "Point B at 5 comma 5.",
+        });
 
-        // Assert
-        expect(point1).toHaveAttribute(
-            "aria-label",
-            "Endpoint 1 at -5 comma 5.",
-        );
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+        // Assert — index 0 is a non-string and falls back to the default;
+        // index 1 is a usable string and overrides.
+        expect(point1).toBeInTheDocument();
+        expect(point2).toBeInTheDocument();
     });
 });
 

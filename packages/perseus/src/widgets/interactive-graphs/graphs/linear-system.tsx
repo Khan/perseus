@@ -4,7 +4,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
-import {buildPointAriaLabel} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -42,8 +42,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const intersectionId = `${id}-intersection`;
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     const intersectionPoint = geometry.getLineIntersection(lines[0], lines[1]);
     const intersectionDescription = intersectionPoint
