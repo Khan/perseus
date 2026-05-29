@@ -216,6 +216,8 @@ export type APIOptions = Readonly<{
      * Function that takes dimensions and returns a React component
      * to display while an image is loading.
      */
+    // FIXME: remove imagePreloader and all code that handles non-undefined values of imagePreloader.
+    //  Client code no longer passes it.
     imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
     /**
      * A function that is called when the user has interacted with a widget. It
