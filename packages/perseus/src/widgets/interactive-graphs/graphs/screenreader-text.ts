@@ -19,9 +19,34 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
+        case "move-ray-point": {
+            const x = srFormatNumber(state.x, locale);
+            const y = srFormatNumber(state.y, locale);
+            // Index 0 is the ray's endpoint; index 1 is a point the ray
+            // passes through. They use different labels.
+            return state.pointIndex === 0
+                ? strings.srRayEndpoint({x, y})
+                : strings.srRayTerminalPoint({x, y});
+        }
+        case "move-ray-line":
+            return strings.srRayGrabHandle(
+                formatLineEndpoints(state.coords, locale),
+            );
         default:
             throw new UnreachableCaseError(state);
     }
+}
+
+function formatLineEndpoints(
+    coords: readonly [readonly [number, number], readonly [number, number]],
+    locale: string,
+): {point1X: string; point1Y: string; point2X: string; point2Y: string} {
+    return {
+        point1X: srFormatNumber(coords[0][0], locale),
+        point1Y: srFormatNumber(coords[0][1], locale),
+        point2X: srFormatNumber(coords[1][0], locale),
+        point2Y: srFormatNumber(coords[1][1], locale),
+    };
 }
 
 export function srCircleRadiusPointLabel(

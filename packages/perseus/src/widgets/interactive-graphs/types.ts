@@ -69,10 +69,28 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Ray endpoint keyboard move (doMovePointInFigure). The endpoint (index 0)
+// and the terminal point (index 1) use different labels, chosen by index.
+type MoveRayPointAnnouncement = {
+    type: "move-ray-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Whole-ray keyboard drag (doMoveLine). Carries both endpoints so the
+// announcement can describe the ray they run through.
+type MoveRayLineAnnouncement = {
+    type: "move-ray-line";
+    coords: PairOfPoints;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveRayPointAnnouncement
+    | MoveRayLineAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

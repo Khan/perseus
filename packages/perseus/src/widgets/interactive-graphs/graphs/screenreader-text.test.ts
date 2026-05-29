@@ -53,6 +53,44 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    it("returns the endpoint label for a move-ray-point announcement at index 0", () => {
+        const result = getAnnouncementText(
+            {type: "move-ray-point", pointIndex: 0, x: -3, y: 2},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Endpoint at -3 comma 2.");
+    });
+
+    it("returns the terminal-point label for a move-ray-point announcement at index 1", () => {
+        const result = getAnnouncementText(
+            {type: "move-ray-point", pointIndex: 1, x: 5, y: 6},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Through point at 5 comma 6.");
+    });
+
+    it("returns the grab-handle label for a move-ray-line announcement", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-ray-line",
+                coords: [
+                    [-3, 3],
+                    [2, 8],
+                ],
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe(
+            "Ray with endpoint -3 comma 3 going through point 2 comma 8.",
+        );
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(

@@ -1,5 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
+import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
@@ -11,7 +10,6 @@ import {getBaseMafsGraphPropsForTests} from "../utils";
 import {describeRayGraph} from "./ray";
 
 import type {InteractiveGraphState} from "../types";
-import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseRayState: InteractiveGraphState = {
@@ -30,12 +28,8 @@ const baseRayState: InteractiveGraphState = {
 
 const overallGraphLabel = "A ray on a coordinate plane.";
 
-describe("Linear graph screen reader", () => {
-    let userEvent: UserEvent;
+describe("Ray graph screen reader", () => {
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -124,37 +118,6 @@ describe("Linear graph screen reader", () => {
             "Through point at 3 comma 3.",
         );
     });
-
-    test.each`
-        elementName     | index
-        ${"point1"}     | ${0}
-        ${"grabHandle"} | ${1}
-        ${"point2"}     | ${2}
-    `(
-        "Should update the aria-live when $elementName is moved",
-        async ({index}) => {
-            // Arrange
-            render(<MafsGraph {...baseMafsGraphProps} state={baseRayState} />);
-            const interactiveElements = screen.getAllByRole("button");
-            const [point1, grabHandle, point2] = interactiveElements;
-            const movingElement = interactiveElements[index];
-
-            // Act - Move the element
-            act(() => movingElement.focus());
-            await userEvent.keyboard("{ArrowRight}");
-
-            const expectedAriaLive = ["off", "off", "off"];
-            expectedAriaLive[index] = "polite";
-
-            // Assert
-            expect(point1).toHaveAttribute("aria-live", expectedAriaLive[0]);
-            expect(grabHandle).toHaveAttribute(
-                "aria-live",
-                expectedAriaLive[1],
-            );
-            expect(point2).toHaveAttribute("aria-live", expectedAriaLive[2]);
-        },
-    );
 });
 
 describe("describeRayGraph", () => {
