@@ -3,6 +3,7 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
 import Sortable from "../../components/sortable";
+import {withAssetContext} from "../../components/with-asset-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
@@ -22,6 +23,8 @@ import type {
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
     dependencies: PerseusDependenciesV2;
+    setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    assetKey: string;
 };
 
 type DefaultProps = {
@@ -32,7 +35,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class Sorter extends React.Component<Props> implements Widget {
+export class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {
@@ -53,11 +56,29 @@ class Sorter extends React.Component<Props> implements Widget {
                 widgetId: this.props.widgetId,
             },
         });
+        // Register as unsettled; we'll flip to settled on first onMeasure.
+        // An empty options list won't fire onMeasure, so settle immediately
+        // in that case to avoid hanging the renderer's onRendered.
+        this._setAssetStatus(this.props.userInput.options.length === 0);
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        // Settle on unmount so a tear-down mid-cascade doesn't block the
+        // renderer's onRendered indefinitely.
+        this._setAssetStatus(true);
     }
+
+    onMeasure: () => void = () => {
+        // Sorter has no constraint distribution, so Sortable's first
+        // measurement is authoritative. Settle on each call (idempotent);
+        // the renderer's _fullyRendered is a one-way latch.
+        this._setAssetStatus(true);
+    };
+
+    _setAssetStatus: (loaded: boolean) => void = (loaded) => {
+        this.props.setAssetStatus(this.props.assetKey, loaded);
+    };
 
     handleChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
         if (!this._isMounted) {
@@ -102,7 +123,12 @@ class Sorter extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {
+            userInput,
+            setAssetStatus: _,
+            assetKey: __,
+            ...rest
+        } = this.props;
         return {
             ...rest,
             changed: userInput.changed,
@@ -122,6 +148,7 @@ class Sorter extends React.Component<Props> implements Widget {
                     margin={marginPx}
                     padding={this.props.padding}
                     onChange={this.handleChange}
+                    onMeasure={this.onMeasure}
                     linterContext={this.props.linterContext}
                     // eslint-disable-next-line react/no-string-refs
                     ref="sortable"
@@ -156,7 +183,7 @@ function getUserInputFromSerializedState(
     };
 }
 
-const WrappedSorter = withDependencies(Sorter);
+const WrappedSorter = withAssetContext(withDependencies(Sorter), "sorter");
 
 export default {
     name: "sorter",

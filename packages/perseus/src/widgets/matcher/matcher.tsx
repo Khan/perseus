@@ -7,6 +7,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
+import {withAssetContext} from "../../components/with-asset-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
@@ -33,6 +34,8 @@ type Props = WidgetProps<
     PerseusMatcherUserInput
 > & {
     dependencies: PerseusDependenciesV2;
+    setAssetStatus: (assetKey: string, loaded: boolean) => void;
+    assetKey: string;
 };
 
 type DefaultProps = {
@@ -72,6 +75,9 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         texRendererLoaded: false,
     };
 
+    _leftStable: boolean = false;
+    _rightStable: boolean = false;
+
     componentDidMount(): void {
         this.props.dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
@@ -81,7 +87,30 @@ export class Matcher extends React.Component<Props, State> implements Widget {
                 widgetId: this.props.widgetId,
             },
         });
+        // Register as unsettled; we'll flip to settled once both columns have
+        // measured at heights consistent with the shared constraint.
+        this._setAssetStatus(false);
+        // A column with no options never fires onMeasure — mark it stable up
+        // front so a single-sided matcher (or a fully empty one) can still
+        // settle.
+        if (this.props.userInput.left.length === 0) {
+            this._leftStable = true;
+        }
+        if (this.props.userInput.right.length === 0) {
+            this._rightStable = true;
+        }
+        this._maybeSettle();
     }
+
+    componentWillUnmount(): void {
+        // Settle on unmount so a tear-down mid-cascade doesn't block the
+        // renderer's onRendered indefinitely.
+        this._setAssetStatus(true);
+    }
+
+    _setAssetStatus: (loaded: boolean) => void = (loaded) => {
+        this.props.setAssetStatus(this.props.assetKey, loaded);
+    };
 
     changeAndTrack: () => void = () => {
         const nextUserInput = this._getUserInputFromSortable();
@@ -89,14 +118,42 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
+    // A side is considered "stable" once its measurement matches the shared
+    // constraint — meaning further re-measurement of that side won't push
+    // the constraint to change. Settling requires both sides stable (see
+    // _maybeSettle). The check is intentionally not symmetric with the
+    // *opposite* side's state; it just verifies "this measurement won't
+    // drive future change."
     onMeasureLeft: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
+        const currentConstraint = _.max([
+            this.state.leftHeight,
+            this.state.rightHeight,
+        ]);
         this.setState({leftHeight: height});
+        if (height === currentConstraint && currentConstraint > 0) {
+            this._leftStable = true;
+            this._maybeSettle();
+        }
     };
 
     onMeasureRight: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
+        const currentConstraint = _.max([
+            this.state.leftHeight,
+            this.state.rightHeight,
+        ]);
         this.setState({rightHeight: height});
+        if (height === currentConstraint && currentConstraint > 0) {
+            this._rightStable = true;
+            this._maybeSettle();
+        }
+    };
+
+    _maybeSettle: () => void = () => {
+        if (this._leftStable && this._rightStable) {
+            this._setAssetStatus(true);
+        }
     };
 
     _getUserInputFromSortable: () => PerseusMatcherUserInput = () => {
@@ -274,7 +331,7 @@ function getUserInputFromSerializedState(
     };
 }
 
-const WrappedMatcher = withDependencies(Matcher);
+const WrappedMatcher = withAssetContext(withDependencies(Matcher), "matcher");
 
 export default {
     name: "matcher",
