@@ -2,6 +2,7 @@ import {srFormatNumber} from "../screenreader-text";
 
 import type {PerseusStrings} from "../../../../strings";
 import type {vec} from "mafs";
+// temp for znd testing
 
 /**
  * Returns a screen-reader aria-label for an interactive point using a
