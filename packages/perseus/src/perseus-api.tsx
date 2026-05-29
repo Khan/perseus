@@ -97,24 +97,6 @@ export const ApiOptions = {
 
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
-
-        // Whether this Renderer is allowed to auto-scroll the rest of the
-        // page. For example, if this is enabled, the most recently used
-        // radio widget will attempt to keep the "selected" answer in view
-        // after entering review mode.
-        //
-        // Defaults to `false`.
-        canScrollPage: PropTypes.bool,
-        // The value in milliseconds by which the local state of content
-        // in a editor is delayed before propagated to a prop. For example,
-        // when text is typed in the text area of an Editor component,
-        // there will be a delay equal to the value of `editorChangeDelay`
-        // before the change is propagated. This is added for better
-        // responsiveness of the editor when used in certain contexts such
-        // as StructuredItem exercises where constant re-rendering for each
-        // keystroke caused text typed in the text area to appear in it
-        // only after a good few seconds.
-        editorChangeDelay: PropTypes.number,
     }).isRequired,
 
     // eslint-disable-next-line no-restricted-syntax
@@ -135,8 +117,6 @@ export const ApiOptions = {
             },
         },
         setDrawingAreaAvailable: function () {},
-        canScrollPage: false,
-        editorChangeDelay: 0,
     } as APIOptionsWithDefaults,
 } as const;
 

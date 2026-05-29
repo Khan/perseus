@@ -251,34 +251,11 @@ export type APIOptions = Readonly<{
      * Previously handled by `Khan.scratchpad.enable/disable`
      * @deprecated setDrawingAreaAvailable is not used in frontend code.
      */
+    // FIXME: remove setDrawingAreaAvailable. Remove code branches that handle
+    // non-undefined values of setDrawingAreaAvailable.
     setDrawingAreaAvailable?: (arg1: boolean) => unknown;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
-    // TODO(benchristel): Remove canScrollPage
-    /**
-     * Whether this Renderer is allowed to auto-scroll the rest of the
-     * page. For example, if this is enabled, the most recently used
-     * radio widget will attempt to keep the "selected" answer in view
-     * after entering review mode.
-     *
-     * Defaults to `false`.
-     * @deprecated canScrollPage has no effect.
-     */
-    canScrollPage?: boolean;
-    // TODO(benchristel): Remove editorChangeDelay
-    /**
-     * The value in milliseconds by which the local state of content
-     * in a editor is delayed before propagated to a prop. For example,
-     * when text is typed in the text area of an Editor component,
-     * there will be a delay equal to the value of `editorChangeDelay`
-     * before the change is propagated. This is added for better
-     * responsiveness of the editor when used in certain contexts such
-     * as StructuredItem exercises where constant re-rendering for each
-     * keystroke caused text typed in the text area to appear in it
-     * only after a good few seconds.
-     * @deprecated editorChangeDelay has no effect.
-     */
-    editorChangeDelay?: number;
     /**
      * Feature flags that can be passed from consuming application.
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
@@ -432,8 +409,6 @@ export interface PerseusDependenciesV2 {
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
-        canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
