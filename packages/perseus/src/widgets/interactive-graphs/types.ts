@@ -50,7 +50,7 @@ export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 type MovePointAnnouncement = {
     type: "move-point";
-    pointIndex: number;
+    pointLabel: string;
     x: number;
     y: number;
 };
