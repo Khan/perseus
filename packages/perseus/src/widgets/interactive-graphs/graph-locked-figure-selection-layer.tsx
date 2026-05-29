@@ -11,9 +11,24 @@ import type {
     LockedPointType,
 } from "@khanacademy/perseus-core";
 
-type SelectionLayerProps = {
+/**
+ * Which channel is asking for an indicator to be drawn. This is *only* a
+ * styling token handed to the dumb indicator primitives below — they render
+ * the matching appearance without knowing why they're being drawn. The
+ * channel semantics (which figure, precedence, when to show) live entirely in
+ * `resolveIndicators` and the callers, not in the primitives.
+ *
+ * - `selection`: the user has selected this figure (widget → host output).
+ * - `spotlight`: the host is calling this figure out (host → widget input).
+ */
+type IndicatorVariant = "selection" | "spotlight";
+
+type IndicatorTarget = {figureIndex: number; variant: IndicatorVariant};
+
+type IndicatorLayerProps = {
     lockedFigures: ReadonlyArray<LockedFigure>;
     selectedFigureIndex: number | null;
+    spotlightedFigureIndex?: number | null;
 };
 
 type HitTargetLayerProps = {
@@ -21,23 +36,84 @@ type HitTargetLayerProps = {
     onToggle: (figureIndex: number) => void;
 };
 
-export function GraphLockedFigureSelectionLayer(props: SelectionLayerProps) {
-    const {lockedFigures, selectedFigureIndex} = props;
+/**
+ * Resolve the two channel inputs into the indicators to draw.
+ *
+ * Cardinality: at most one indicator per channel, so the result holds zero,
+ * one, or two targets.
+ *
+ * Precedence: when the same figure is both selected and spotlighted, selection
+ * wins and the spotlight is suppressed — we never stack two indicators on a
+ * single figure. (Two different figures can each show their own indicator.)
+ */
+export function resolveIndicators(
+    selectedFigureIndex: number | null,
+    spotlightedFigureIndex: number | null | undefined,
+): ReadonlyArray<IndicatorTarget> {
+    const targets: IndicatorTarget[] = [];
 
-    if (selectedFigureIndex == null) {
-        return null;
+    if (selectedFigureIndex != null) {
+        targets.push({figureIndex: selectedFigureIndex, variant: "selection"});
     }
 
-    const selectedFigure = lockedFigures[selectedFigureIndex];
-
-    if (selectedFigure == null || !isSelectableFigure(selectedFigure)) {
-        return null;
+    if (
+        spotlightedFigureIndex != null &&
+        spotlightedFigureIndex !== selectedFigureIndex
+    ) {
+        targets.push({
+            figureIndex: spotlightedFigureIndex,
+            variant: "spotlight",
+        });
     }
 
-    if (selectedFigure.type === "point") {
-        return <LockedPointSelectionHalo figure={selectedFigure} />;
-    }
-    return <LockedLineSegmentSelectionHalo figure={selectedFigure} />;
+    return targets;
+}
+
+/**
+ * Draws the selection and/or spotlight indicators. This layer owns the channel
+ * semantics; it picks figures via `resolveIndicators` and dispatches on figure
+ * *shape* (point vs. segment) to the appropriate indicator primitive, handing
+ * each one the variant for styling.
+ */
+export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
+    const {lockedFigures, selectedFigureIndex, spotlightedFigureIndex} = props;
+
+    return (
+        <>
+            {resolveIndicators(selectedFigureIndex, spotlightedFigureIndex).map(
+                ({figureIndex, variant}) => {
+                    const figure = lockedFigures[figureIndex];
+
+                    // The index may be stale (figure removed) or name a figure
+                    // shape the indicator can't draw yet. Drawability is gated on
+                    // *shape*, not on whether the figure is user-selectable: the
+                    // host may spotlight any figure.
+                    if (figure == null) {
+                        return null;
+                    }
+                    if (figure.type === "point") {
+                        return (
+                            <LockedPointIndicator
+                                key={`locked-figure-indicator-${figureIndex}`}
+                                figure={figure}
+                                variant={variant}
+                            />
+                        );
+                    }
+                    if (figure.type === "line" && figure.kind === "segment") {
+                        return (
+                            <LockedLineSegmentIndicator
+                                key={`locked-figure-indicator-${figureIndex}`}
+                                figure={figure}
+                                variant={variant}
+                            />
+                        );
+                    }
+                    return null;
+                },
+            )}
+        </>
+    );
 }
 
 export function GraphLockedFigureHitTargetLayer(props: HitTargetLayerProps) {
@@ -83,25 +159,16 @@ export function GraphLockedFigureHitTargetLayer(props: HitTargetLayerProps) {
     );
 }
 
-function isSelectableFigure(
-    figure: LockedFigure,
-): figure is LockedPointType | LockedLineType {
-    if (figure.type === "point") {
-        return !!figure.selectable;
-    }
-    if (figure.type === "line") {
-        return figure.kind === "segment" && !!figure.selectable;
-    }
-    return false;
-}
-
-function LockedPointSelectionHalo(props: {figure: LockedPointType}) {
+function LockedPointIndicator(props: {
+    figure: LockedPointType;
+    variant: IndicatorVariant;
+}) {
     const [[x, y]] = useTransformVectorsToPixels(props.figure.coord);
 
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
             <circle
-                className="locked-point-selection-halo"
+                className={`locked-point-indicator locked-point-indicator--${props.variant}`}
                 cx={x}
                 cy={y}
                 r={TARGET_SIZE / 3}
@@ -111,7 +178,10 @@ function LockedPointSelectionHalo(props: {figure: LockedPointType}) {
     );
 }
 
-function LockedLineSegmentSelectionHalo(props: {figure: LockedLineType}) {
+function LockedLineSegmentIndicator(props: {
+    figure: LockedLineType;
+    variant: IndicatorVariant;
+}) {
     const {points, color} = props.figure;
     const [start, end] = useTransformVectorsToPixels(
         points[0].coord,
@@ -121,7 +191,7 @@ function LockedLineSegmentSelectionHalo(props: {figure: LockedLineType}) {
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
             <line
-                className="locked-line-selection-halo"
+                className={`locked-line-indicator locked-line-indicator--${props.variant}`}
                 x1={start[X]}
                 y1={start[Y]}
                 x2={end[X]}

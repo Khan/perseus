@@ -1,4 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
@@ -409,6 +412,79 @@ export const SelectableLockedTriangle: Story = {
                 console.log("selectionCallback", index);
             },
         },
+    },
+};
+
+/**
+ * The host (some external surface — a side panel, transcript, hint, control,
+ * etc.) can "spotlight" a locked figure by setting
+ * `apiOptions.spotlightedLockedFigureIndex`. This is host-driven and has no
+ * user interaction: the named figure is simply called out.
+ *
+ * Things to try with the buttons below (which stand in for the host):
+ * - Spotlight the gray point or gray segment: those are NOT user-selectable,
+ *   yet the host can still call them out — spotlight is independent of
+ *   selectability.
+ * - Spotlight a figure, then click that same figure to select it: the
+ *   spotlight disappears because selection takes precedence on a shared figure.
+ * - Spotlight one figure and select a different one: both indicators show.
+ */
+export const SpotlightedLockedFigure: Story = {
+    render: function Render() {
+        const [spotlightedLockedFigureIndex, setSpotlightedLockedFigureIndex] =
+            React.useState<number | null>(2);
+
+        const choices: ReadonlyArray<{label: string; index: number | null}> = [
+            {label: "Spotlight: none", index: null},
+            {label: "Point 0 — green (selectable)", index: 0},
+            {label: "Point 2 — gray (not selectable)", index: 2},
+            {label: "Segment 4 — purple (selectable)", index: 4},
+            {label: "Segment 5 — gray (not selectable)", index: 5},
+        ];
+
+        return (
+            <View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        gap: 8,
+                        marginBottom: 16,
+                    }}
+                >
+                    {choices.map(({label, index}) => (
+                        <Button
+                            key={label}
+                            kind={
+                                spotlightedLockedFigureIndex === index
+                                    ? "primary"
+                                    : "secondary"
+                            }
+                            size="small"
+                            onClick={() =>
+                                setSpotlightedLockedFigureIndex(index)
+                            }
+                        >
+                            {label}
+                        </Button>
+                    ))}
+                </View>
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: selectableLockedFiguresQuestion,
+                    })}
+                    apiOptions={{
+                        ...defaultApiOptions,
+                        spotlightedLockedFigureIndex,
+                        selectionCallback: (index) => {
+                            // TODO: Remove after spotlight prototype debugging.
+                            // eslint-disable-next-line no-console
+                            console.log("selectionCallback", index);
+                        },
+                    }}
+                />
+            </View>
+        );
     },
 };
 

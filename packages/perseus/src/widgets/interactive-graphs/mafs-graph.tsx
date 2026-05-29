@@ -33,7 +33,7 @@ import {
 } from "./backgrounds/utils";
 import {
     GraphLockedFigureHitTargetLayer,
-    GraphLockedFigureSelectionLayer,
+    GraphLockedFigureIndicatorLayer,
 } from "./graph-locked-figure-selection-layer";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
@@ -98,6 +98,13 @@ export type MafsGraphProps = {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     onLockedFigureSelectionChange?: (index: number | null) => void;
+    /**
+     * Host-driven spotlight: the index of a locked figure the host wants
+     * called out, or null/undefined for none. This is a controlled input
+     * (host → widget), the inverse of the selection callback. It is not part
+     * of locked-figure content and is never serialized.
+     */
+    spotlightedLockedFigureIndex?: number | null;
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
@@ -113,6 +120,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         fullGraphAriaLabel,
         fullGraphAriaDescription,
         onLockedFigureSelectionChange,
+        spotlightedLockedFigureIndex,
         widgetId,
     } = props;
     const {type} = state;
@@ -137,6 +145,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const disableInteraction = readOnly || !!props.static;
     const lockedFigureSelectionEnabled =
         state.type === "none" && !disableInteraction;
+    // The selection is a positional index into `props.lockedFigures`. It stays
+    // valid if the locked figures don't change, or if the locked figures only
+    // get appended to. If figures are ever removed or reordered, this index can
+    // silently point at the wrong figure (or nothing) without re-notifying the
+    // host, and we would need to reconcile it against the list (or give figures
+    // stable IDs).
     const [selectedLockedFigureIndex, setSelectedLockedFigureIndex] =
         React.useState<number | null>(null);
     const lastNotifiedSelectionRef = React.useRef<number | null>(null);
@@ -423,16 +437,24 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                             lockedFigures={props.lockedFigures}
                                             range={state.range}
                                         />
-                                        {lockedFigureSelectionEnabled && (
-                                            <GraphLockedFigureSelectionLayer
-                                                lockedFigures={
-                                                    props.lockedFigures
-                                                }
-                                                selectedFigureIndex={
-                                                    selectedLockedFigureIndex
-                                                }
-                                            />
-                                        )}
+                                        {/*
+                                          Indicators for both channels. The
+                                          spotlight (host-driven) has no
+                                          interaction, so it renders for any
+                                          graph type; selection only feeds in
+                                          when selection is enabled.
+                                        */}
+                                        <GraphLockedFigureIndicatorLayer
+                                            lockedFigures={props.lockedFigures}
+                                            selectedFigureIndex={
+                                                lockedFigureSelectionEnabled
+                                                    ? selectedLockedFigureIndex
+                                                    : null
+                                            }
+                                            spotlightedFigureIndex={
+                                                spotlightedLockedFigureIndex
+                                            }
+                                        />
                                     </ClipToGraphBounds>
                                 )}
                             </Mafs>

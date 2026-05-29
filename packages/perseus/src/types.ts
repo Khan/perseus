@@ -191,6 +191,14 @@ export type APIOptions = Readonly<{
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
     selectionCallback?: (index: number | null) => void;
     /**
+     * Host-driven spotlight for the interactive-graph widget: the index of a
+     * locked figure the host wants called out, or null for none. This is the
+     * inverse of `selectionCallback` — a controlled value flowing host →
+     * widget, rather than a callback flowing widget → host. The host owns
+     * keeping the index valid against the current `lockedFigures`.
+     */
+    spotlightedLockedFigureIndex?: number | null;
+    /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.
      */

@@ -287,6 +287,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                     onLockedFigureSelectionChange={
                         this.props.apiOptions?.selectionCallback
                     }
+                    spotlightedLockedFigureIndex={
+                        this.props.apiOptions?.spotlightedLockedFigureIndex
+                    }
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
                 />

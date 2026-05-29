@@ -130,18 +130,33 @@
     filter: drop-shadow(0 5px 5px #0008);
 }
 
-.MafsView .locked-point-selection-halo {
+/*
+ * Indicator primitives, shared by both the selection (user-driven) and
+ * spotlight (host-driven) channels. The base class carries the common
+ * treatment; the per-variant modifier differentiates the two.
+ */
+.MafsView .locked-point-indicator {
     opacity: 0.25;
     /* Match the existing movable point halo treatment. */
     filter: drop-shadow(0 5px 5px #0008);
 }
 
-.MafsView .locked-line-selection-halo {
+.MafsView .locked-line-indicator {
     opacity: 0.25;
     stroke-width: 16px;
     stroke-linecap: round;
     /* Match the existing movable point halo treatment. */
     filter: drop-shadow(0 5px 5px #0008);
+}
+
+/*
+ * The spotlight is host-driven rather than the user's own selection, so it
+ * reads differently. Exact treatment is a design-open styling decision; for
+ * now it's a slightly stronger emphasis than selection.
+ */
+.MafsView .locked-point-indicator--spotlight,
+.MafsView .locked-line-indicator--spotlight {
+    opacity: 0.5;
 }
 
 .MafsView .movable-point-ring {
