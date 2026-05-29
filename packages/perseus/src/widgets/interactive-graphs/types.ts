@@ -69,10 +69,30 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Linear-system endpoint keyboard move (doMovePointInFigure). Carries the
+// line index so the announcement can say which of the system's lines moved.
+type MoveLinearSystemPointAnnouncement = {
+    type: "move-linear-system-point";
+    lineIndex: number;
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Whole-line keyboard drag (doMoveLine) for a linear-system line. Carries the
+// line index and both endpoints so the announcement can describe that line.
+type MoveLinearSystemLineAnnouncement = {
+    type: "move-linear-system-line";
+    lineIndex: number;
+    coords: PairOfPoints;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveLinearSystemPointAnnouncement
+    | MoveLinearSystemLineAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

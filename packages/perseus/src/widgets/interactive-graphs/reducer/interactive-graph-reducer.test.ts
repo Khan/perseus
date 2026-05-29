@@ -531,6 +531,41 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([10, 10]);
     });
 
+    it("sets stateAnnouncement to a move-linear-system-point with the line index", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(1, 0, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-linear-system-point",
+            lineIndex: 1,
+            pointIndex: 0,
+            x: -3,
+            y: 2,
+        });
+    });
+
     it("allows linear points to land on the graph edge", () => {
         const state: InteractiveGraphState = {
             hasBeenInteractedWith: false,
@@ -676,6 +711,44 @@ describe("moveLine on a linear graph", () => {
         expect(updated.coords).toEqual([
             [8, 8],
             [10, 10],
+        ]);
+    });
+});
+
+describe("moveLine on a linear-system graph", () => {
+    it("sets stateAnnouncement to a move-linear-system-line with the line index and new endpoints", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.moveLine(1, [-3, -4]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-linear-system-line",
+        );
+        expect(updated.stateAnnouncement.lineIndex).toBe(1);
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [-3, -4],
+            [7, -4],
         ]);
     });
 });
