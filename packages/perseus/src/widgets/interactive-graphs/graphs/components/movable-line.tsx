@@ -25,10 +25,9 @@ type Props = {
     };
     // Extra graph information to be read by screen readers
     ariaDescribedBy?: string;
-    // When set, overrides the internally-managed aria-live for the line and
-    // both endpoints. The linear graph passes "off" because its moves are
-    // announced through the WB Announcer instead.
-    // TODO(LEMS-4189): Remove once every line graph emits its move through
+    // Temporary property to override the internally-managed aria-live for the line and
+    // both endpoints.
+    // TODO(LEMS-4189): Remove once every line-like graph emits its move through
     // the WB Announcer and the internal aria-live state machine is deleted.
     ariaLive?: AriaLive;
     /* Extends the line to the edge of the graph with an arrow */
