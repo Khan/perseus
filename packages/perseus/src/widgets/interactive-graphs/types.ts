@@ -69,10 +69,28 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Vector point keyboard move (doMovePointInFigure). The tail (index 0) uses
+// the generic point label; the tip (index 1) has a dedicated label.
+type MoveVectorPointAnnouncement = {
+    type: "move-vector-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Whole-vector keyboard drag (doMoveLine). Carries the tail and tip so the
+// announcement can describe the vector between them.
+type MoveVectorLineAnnouncement = {
+    type: "move-vector-line";
+    coords: PairOfPoints;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveVectorPointAnnouncement
+    | MoveVectorLineAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

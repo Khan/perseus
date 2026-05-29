@@ -318,9 +318,37 @@ function doMovePointInFigure(
                 coords: newCoords,
             };
         }
-        case "linear":
-        case "ray":
         case "vector": {
+            // TODO(LEMS-4189): Temporary duplication of logic between linear/ray
+            // until we move all graphs to use WB Announcer.
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.pointIndex,
+                newValue,
+            });
+
+            if (coordsOverlap(newCoords)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-vector-point",
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
+            };
+        }
+        case "linear":
+        case "ray": {
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.pointIndex,
@@ -393,9 +421,27 @@ function doMoveLine(
                 coords: newCoords,
             };
         }
-        case "linear":
-        case "ray":
         case "vector": {
+            // TODO(LEMS-4189): Temporary duplication of logic between linear/ray
+            // until we move all graphs to use WB Announcer.
+            const constrainedLine = constrainShapePreservingMove(
+                state.coords,
+                newStart,
+                {snapStep, range},
+            );
+            return {
+                ...state,
+                type: state.type,
+                hasBeenInteractedWith: true,
+                coords: constrainedLine,
+                stateAnnouncement: {
+                    type: "move-vector-line",
+                    coords: constrainedLine,
+                },
+            };
+        }
+        case "linear":
+        case "ray": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,

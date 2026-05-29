@@ -2616,6 +2616,25 @@ describe("moveTip on a vector graph", () => {
         invariant(updated.type === "vector");
         expect(updated.coords[1]).toEqual([3, 4]);
     });
+
+    it("sets stateAnnouncement to a move-vector-point for the tip", () => {
+        // Arrange
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-vector-point",
+            pointIndex: 1,
+            x: 5,
+            y: 6,
+        });
+    });
 });
 
 describe("moveVector on a vector graph (body translation)", () => {
@@ -2668,6 +2687,24 @@ describe("moveVector on a vector graph (body translation)", () => {
         expect(updated.coords).toEqual([
             [7, 6],
             [10, 10],
+        ]);
+    });
+
+    it("sets stateAnnouncement to a move-vector-line with the new endpoints", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [2,1]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([2, 1]),
+        );
+
+        // Assert
+        invariant(updated.stateAnnouncement?.type === "move-vector-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [2, 1],
+            [5, 5],
         ]);
     });
 });

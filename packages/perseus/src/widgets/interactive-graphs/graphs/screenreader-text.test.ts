@@ -53,6 +53,42 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    it("returns the generic point label for a move-vector-point at the tail (index 0)", () => {
+        const result = getAnnouncementText(
+            {type: "move-vector-point", pointIndex: 0, x: -1, y: 2},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point 1 at -1 comma 2.");
+    });
+
+    it("returns the tip label for a move-vector-point at the tip (index 1)", () => {
+        const result = getAnnouncementText(
+            {type: "move-vector-point", pointIndex: 1, x: 5, y: 6},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Tip point at 5 comma 6.");
+    });
+
+    it("returns the grab-handle label for a move-vector-line announcement", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-vector-line",
+                coords: [
+                    [2, 1],
+                    [5, 5],
+                ],
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Vector from 2 comma 1 to 5 comma 5.");
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(
