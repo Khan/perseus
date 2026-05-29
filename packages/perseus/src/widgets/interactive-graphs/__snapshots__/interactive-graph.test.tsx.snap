@@ -13,7 +13,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -1087,7 +1087,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         . 
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -1523,7 +1523,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -1965,7 +1965,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -2215,7 +2215,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -2443,7 +2443,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         . 
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -2852,7 +2852,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -3294,7 +3294,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"
@@ -3651,7 +3651,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg mafs-graph-container"

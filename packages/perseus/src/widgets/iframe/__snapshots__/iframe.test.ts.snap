@@ -15,7 +15,7 @@ exports[`iframe widget should snapshot on mobile: first mobile render 1`] = `
         Try matching the target image
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <iframe
             allowfullscreen=""
@@ -46,7 +46,7 @@ exports[`iframe widget should snapshot: first render 1`] = `
         Try matching the target image
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <iframe
             allowfullscreen=""

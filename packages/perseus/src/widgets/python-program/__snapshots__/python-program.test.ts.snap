@@ -13,7 +13,7 @@ exports[`python-program widget should snapshot on mobile: first mobile render 1`
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg-o_O-container_1s1lg5o"
@@ -46,7 +46,7 @@ exports[`python-program widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_xu2jcg-o_O-container_1s1lg5o"

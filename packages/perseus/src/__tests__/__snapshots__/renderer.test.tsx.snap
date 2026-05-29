@@ -343,7 +343,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
       >
         The total number of boxes the forklift can carry is 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div
             class="default_xu2jcg"
@@ -428,7 +428,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
       >
         The total number of boxes the forklift can carry is 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div
             class="default_xu2jcg"
@@ -513,7 +513,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
       >
         The total number of boxes the forklift can carry is 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div
             class="default_xu2jcg"
@@ -597,7 +597,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             style="padding-top: 8px; padding-bottom: 8px;"

@@ -13,7 +13,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-wrap-left"
+          class="perseus-widget-container widget-wrap-left"
         >
           <figure
             class="perseus-image-widget"
@@ -97,7 +97,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-wrap-right"
+          class="perseus-widget-container widget-wrap-right"
         >
           <figure
             class="perseus-image-widget"
@@ -280,7 +280,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
               class="paragraph"
             >
               <div
-                class="perseus-widget-container widget-nohighlight widget-block"
+                class="perseus-widget-container widget-block"
               >
                 <figure
                   class="perseus-image-widget"
@@ -454,7 +454,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-wrap-left"
+          class="perseus-widget-container widget-wrap-left"
         >
           <figure
             class="perseus-image-widget"
@@ -538,7 +538,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-wrap-right"
+          class="perseus-widget-container widget-wrap-right"
         >
           <figure
             class="perseus-image-widget"
@@ -721,7 +721,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
               class="paragraph"
             >
               <div
-                class="perseus-widget-container widget-nohighlight widget-block"
+                class="perseus-widget-container widget-block"
               >
                 <figure
                   class="perseus-image-widget"
