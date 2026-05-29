@@ -17,32 +17,42 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
+import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 import {earthMoonImage} from "../widgets/image/utils";
+
+import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta<typeof HintsRenderer> = {
-    title: "Renderers/Hints Renderer",
+    title: "Renderers/Hints Renderer/Visual Regression Tests/Initial State",
     component: HintsRenderer,
+    tags: ["!autodocs", "!manifest"],
     decorators: [
         (Story) => {
             return (
-                <View style={{left: 80}}>
+                <View style={{paddingLeft: 80}}>
                     <Story />
                 </View>
             );
         },
     ],
-    argTypes: {
-        hintsVisible: {
-            control: {min: 0},
-            defaultValue: 3,
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Hints renderer that do NOT " +
+                    "need any interactions to test, which will be used with " +
+                    "Chromatic.",
+            },
         },
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
 
@@ -51,6 +61,7 @@ export default meta;
 type Story = StoryObj<typeof HintsRenderer>;
 
 export const Interactive: Story = {
+    decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -77,6 +88,7 @@ export const Interactive: Story = {
 };
 
 export const WithAllInteractiveGraphs: Story = {
+    decorators: [bibliotronExerciseDecorator],
     args: {
         apiOptions: defaultApiOptions,
         dependencies: storybookDependenciesV2,
@@ -148,15 +160,7 @@ export const WithAllInteractiveGraphs: Story = {
 export const ImageWidgetInHint: Story = {
     // Need to wrap this in a container with the `bibliotron-exercise` class
     // to show what this would really look like with hint styling in prod.
-    decorators: [
-        (Story) => {
-            return (
-                <div className="bibliotron-exercise">
-                    <Story />
-                </div>
-            );
-        },
-    ],
+    decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -176,5 +180,13 @@ export const ImageWidgetInHint: Story = {
                 }),
             },
         ],
+    },
+};
+
+export const ExplanationWidgetInHint: Story = {
+    decorators: [bibliotronExerciseDecorator],
+    args: {
+        dependencies: storybookDependenciesV2,
+        hints: [{...ipsumExample, replace: false}],
     },
 };
