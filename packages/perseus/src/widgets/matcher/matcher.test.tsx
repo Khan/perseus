@@ -1,5 +1,6 @@
 import {
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
@@ -31,6 +32,13 @@ describe("matcher widget", () => {
 
         jest.useRealTimers();
 
+        // Replace the real TeX dependency with a synchronous stub. Real TeX
+        // uses MathJax, which doesn't render reliably in jsdom and would
+        // leave Matcher stuck on its loading spinner (since it waits for
+        // `onRender` to fire before rendering its items). The stub fulfills
+        // the same contract — calling `onRender` once the component mounts —
+        // so the rest of the production code thinks TeX is ready and
+        // proceeds normally.
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
@@ -214,6 +222,148 @@ describe("matcher widget", () => {
 
             // Assert
             expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+
+    describe("AssetContext tracking", () => {
+        it("marks left column stable on mount when left options are empty", () => {
+            // Arrange
+            const question = generateTestPerseusRenderer({
+                content: "[[☃ matcher 1]]",
+                widgets: {
+                    "matcher 1": {
+                        type: "matcher",
+                        options: {
+                            labels: ["", ""],
+                            padding: true,
+                            orderMatters: false,
+                            left: [],
+                            right: ["a", "b"],
+                        },
+                    },
+                },
+            });
+
+            // Act
+            const {renderer} = renderQuestion(question);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+
+            // Assert
+            expect(matcher._leftStable).toBe(true);
+            expect(matcher._rightStable).toBe(false);
+        });
+
+        it("marks both columns stable on mount when both are empty", () => {
+            // Arrange
+            const question = generateTestPerseusRenderer({
+                content: "[[☃ matcher 1]]",
+                widgets: {
+                    "matcher 1": {
+                        type: "matcher",
+                        options: {
+                            labels: ["", ""],
+                            padding: true,
+                            orderMatters: false,
+                            left: [],
+                            right: [],
+                        },
+                    },
+                },
+            });
+
+            // Act
+            const {renderer} = renderQuestion(question);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+
+            // Assert
+            expect(matcher._leftStable).toBe(true);
+            expect(matcher._rightStable).toBe(true);
+        });
+
+        it("does not mark sides stable on first onMeasure when heights differ from initial constraint", () => {
+            // Arrange — fresh render; matcher state is leftHeight=0, rightHeight=0
+            // before any measurement. currentConstraint = max(0, 0) = 0.
+            const {renderer} = renderQuestion(question1);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            // Force-reset stability flags (the natural cascade may have already
+            // started by the time we get here).
+            matcher._leftStable = false;
+            matcher._rightStable = false;
+
+            // Act — fire onMeasureLeft with a non-zero height against the zero
+            // initial constraint. height (74) !== currentConstraint (0).
+            act(() => {
+                matcher.onMeasureLeft({heights: [74, 74, 74], widths: []});
+            });
+
+            // Assert — first cycle is not stable; the `currentConstraint > 0`
+            // guard prevents premature settlement.
+            expect(matcher._leftStable).toBe(false);
+        });
+
+        it("receives an asset key prefixed with 'matcher-' from the HOC", () => {
+            // Arrange, Act
+            const {renderer} = renderQuestion(question1);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+
+            // Assert
+            expect(matcher.props.assetKey).toMatch(/^matcher-/);
+        });
+
+        it("generates a unique asset key per matcher instance", () => {
+            // Arrange, Act — render the same question twice to compare keys
+            // across separate Matcher instances.
+            const {renderer: firstRenderer} = renderQuestion(question1);
+            const firstMatcher: Matcher =
+                firstRenderer.findWidgets("matcher 1")[0];
+            const {renderer: secondRenderer} = renderQuestion(question1);
+            const secondMatcher: Matcher =
+                secondRenderer.findWidgets("matcher 1")[0];
+
+            // Assert
+            expect(firstMatcher.props.assetKey).not.toBe(
+                secondMatcher.props.assetKey,
+            );
+        });
+
+        it("settles the asset on unmount", () => {
+            // Arrange
+            const {renderer, unmount} = renderQuestion(question1);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            const setAssetStatusSpy = jest.spyOn(matcher, "_setAssetStatus");
+
+            // Act
+            unmount();
+
+            // Assert
+            expect(setAssetStatusSpy).toHaveBeenCalledWith(true);
+        });
+
+        it("marks both sides stable and settles the asset when measurements match the constraint", () => {
+            // Arrange — get the matcher and prep its state to simulate
+            // a converged constraint (post-cycle-1).
+            const {renderer} = renderQuestion(question1);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            const setAssetStatusSpy = jest.spyOn(matcher, "_setAssetStatus");
+            matcher._leftStable = false;
+            matcher._rightStable = false;
+            act(() => {
+                matcher.setState({leftHeight: 74, rightHeight: 74});
+            });
+
+            // Act — fire both onMeasures with heights matching the constraint,
+            // mirroring what cycle 2 of the natural cascade looks like.
+            act(() => {
+                matcher.onMeasureLeft({heights: [74, 74, 74], widths: []});
+            });
+            act(() => {
+                matcher.onMeasureRight({heights: [74, 74, 74], widths: []});
+            });
+
+            // Assert — both sides now stable, settle was triggered.
+            expect(matcher._leftStable).toBe(true);
+            expect(matcher._rightStable).toBe(true);
+            expect(setAssetStatusSpy).toHaveBeenCalledWith(true);
         });
     });
 });
