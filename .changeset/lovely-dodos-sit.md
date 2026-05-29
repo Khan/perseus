@@ -4,4 +4,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-[Image] Remove scale flag and old sizing logic (make scale feature permanent)
+[Interactive Graph] Wire pointLabels through line and ray graphs for custom points label

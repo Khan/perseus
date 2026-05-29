@@ -1229,3 +1229,168 @@ export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
         y: false,
     },
 });
+
+// Reference question. Three locked points Q, R, S form an
+// incomplete rectangle; the learner drags one interactive point to
+// complete it. The interactive point's screen-reader label is
+// customized to "T" via `pointLabels` so JAWS announces "Point T at …"
+// rather than the default "Point 1 at …".
+export const pointWithCustomLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Three vertices of a rectangle are at $Q(-4, 5)$, $R(4, 5)$, and $S(4, 2)$.\n\n**Plot point $T$ to complete the rectangle.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        lockedFigures: [
+            generateIGLockedPoint({
+                coord: [-4, 5],
+                labels: [
+                    generateIGLockedLabel({text: "Q", coord: [-4.5, 5.5]}),
+                ],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 5],
+                labels: [generateIGLockedLabel({text: "R", coord: [4.5, 5.5]})],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 2],
+                labels: [generateIGLockedLabel({text: "S", coord: [4.5, 1.5]})],
+            }),
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[-4, 2]],
+            pointLabels: ["T"],
+        }),
+    });
+
+// Same reference question as `pointWithCustomLabelQuestion`
+// but with `pointLabels` omitted, so the interactive point falls back to
+// the legacy numeric default. JAWS announces "Point 1 at …" even though
+// the prompt asks the learner to plot point "T" — this is the bug that
+// `pointLabels` was added to fix, kept as a story for before/after comparison.
+export const pointWithDefaultLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Three vertices of a rectangle are at $Q(-4, 5)$, $R(4, 5)$, and $S(4, 2)$.\n\n**Plot point $T$ to complete the rectangle.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        lockedFigures: [
+            generateIGLockedPoint({
+                coord: [-4, 5],
+                labels: [
+                    generateIGLockedLabel({text: "Q", coord: [-4.5, 5.5]}),
+                ],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 5],
+                labels: [generateIGLockedLabel({text: "R", coord: [4.5, 5.5]})],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 2],
+                labels: [generateIGLockedLabel({text: "S", coord: [4.5, 1.5]})],
+            }),
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[-4, 2]],
+        }),
+    });
+
+// Linear graph with the two endpoints named "A" and "B" via `pointLabels`,
+// so JAWS announces "Point A at …" / "Point B at …" instead of the default
+// "Point 1 at …" / "Point 2 at …" when navigating the endpoints.
+export const linearWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag points $A$ and $B$ so the line passes through both labeled points.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGLinearGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Ray graph with the endpoint named "A" and the through point named "B"
+// via `pointLabels`. The default "Endpoint at …" / "Through point at …"
+// semantic labels are overridden so the SR announcement matches the
+// prompt's naming convention.
+export const rayWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the ray so its endpoint is at point $A$ and it passes through point $B$.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGRayGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+export const polygonWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertices $A$, $B$, and $C$ to form a triangle with a right angle at vertex $B$.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        correct: generateIGPolygonGraph({
+            snapTo: "grid",
+            match: "congruent",
+            numSides: 3,
+            showAngles: true,
+            showSides: true,
+            coords: [
+                [-2, -1],
+                [2, -1],
+                [2, 3],
+            ],
+            pointLabels: ["A", "B", "C"],
+        }),
+    });

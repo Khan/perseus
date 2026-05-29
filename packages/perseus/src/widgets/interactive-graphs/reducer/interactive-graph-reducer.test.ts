@@ -762,6 +762,71 @@ describe("movePoint on a point graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "T",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        // The editor encodes "only the second point labeled" as ["", "B"];
+        // the reducer must keep the unlabeled slot on its numeric default
+        // (stringified to match the announcement payload contract).
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
 });
 
 describe("movePoint on an angle graph", () => {
@@ -1249,6 +1314,24 @@ describe("moveCenter", () => {
         expect(updated).toBe(state);
     });
 
+    it("sets stateAnnouncement with the new center position", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-center",
+            x: 1,
+            y: 1,
+        });
+    });
+
     it("throws for non-circle graphs", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
@@ -1338,6 +1421,26 @@ describe("doMoveRadiusPoint", () => {
         expect(state).not.toBe(updated);
         // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([2, 0]);
+    });
+
+    it("sets stateAnnouncement with the radius point position and radius", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([3, 0]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-radius-point",
+            x: 3,
+            y: 0,
+            centerX: 0,
+            radius: 3,
+        });
     });
 
     it("throws for non-circle graphs", () => {

@@ -138,7 +138,8 @@ export type PerseusStrings = {
         x,
         y,
     }: {
-        num: number;
+        // TODO(LEMS-4206) rename to pointLabel an request for new translation
+        num: number | string;
         x: string;
         y: string;
     }) => string;

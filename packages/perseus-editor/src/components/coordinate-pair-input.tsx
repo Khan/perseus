@@ -15,11 +15,16 @@ type Props = {
     labels?: [string, string];
     error?: boolean;
     style?: StyleType;
+    // TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite
+    labelStyle?: StyleType;
     onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, labels, error, style, onChange} = props;
+    const {coord, labels, error, style, labelStyle, onChange} = props;
+
+    const xLabel = labels ? labels[0] : "x coord";
+    const yLabel = labels ? labels[1] : "y coord";
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -56,7 +61,12 @@ const CoordinatePairInput = (props: Props) => {
     return (
         <View style={[styles.row, style]}>
             <BodyText tag="label" style={styles.row}>
-                {labels ? labels[0] : "x coord"}
+                {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
+                {labelStyle != null ? (
+                    <View style={labelStyle}>{xLabel}</View>
+                ) : (
+                    xLabel
+                )}
 
                 <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
@@ -71,7 +81,12 @@ const CoordinatePairInput = (props: Props) => {
             <Strut size={spacing.medium_16} />
 
             <BodyText tag="label" style={styles.row}>
-                {labels ? labels[1] : "y coord"}
+                {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
+                {labelStyle != null ? (
+                    <View style={labelStyle}>{yLabel}</View>
+                ) : (
+                    yLabel
+                )}
 
                 <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
