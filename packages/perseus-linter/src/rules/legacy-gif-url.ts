@@ -32,14 +32,17 @@ export default Rule.makeRule({
         }
 
         // Legacy gifs hosted on the old S3 bucket don't render in the editor
-        // iframe, so we encourage content creators to use the CDN URL instead.
+        // iframe, so we encourage content creators to use the CDN URL instead
+        // or confirm that the image displays correctly in the published content.
         if (
             getHostname(url) === LEGACY_HOSTNAME &&
             url.toLowerCase().endsWith(".gif")
         ) {
             return `Legacy gif URL:
-gifs hosted at ${LEGACY_HOSTNAME} won't appear in the editor preview.
-Use a https://cdn.kastatic.org/ka-perseus-images/ URL instead.`;
+gifs hosted at ${LEGACY_HOSTNAME} might not appear in the editor preview,
+but can still be viewed in the published content. Please use a
+cdn.kastatic.org/ka-perseus-images/ URL instead or confirm the
+image displays correctly in the published content.`;
         }
     },
 });
