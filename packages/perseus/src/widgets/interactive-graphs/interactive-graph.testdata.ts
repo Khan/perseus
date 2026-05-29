@@ -1347,14 +1347,7 @@ export const rayWithCustomLabelsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:
             "**Drag the ray so its endpoint is at point $A$ and it passes through point $B$.**\n\n[[☃ interactive-graph 1]]",
-        markings: "graph",
-        gridStep: [1, 1],
         snapStep: [1, 1],
-        step: [1, 1],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
         correct: generateIGRayGraph({
             startCoords: [
                 [-5, 5],
@@ -1365,6 +1358,73 @@ export const rayWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B"],
+        }),
+    });
+
+// Linear-system graph with each endpoint named via `pointLabels` (flat
+// across both lines: [line1.p1, line1.p2, line2.p1, line2.p2]) so JAWS
+// announces "Point A/B/C/D at …" instead of "Point N on line N at …".
+export const linearSystemWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the endpoints so line 1 passes through $A$ and $B$, and line 2 passes through $C$ and $D$.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGLinearSystemGraph({
+            startCoords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        }),
+    });
+
+// Segment graph with each endpoint named via `pointLabels` (flat across all
+// segments: [seg1.p1, seg1.p2, seg2.p1, seg2.p2]) so JAWS announces
+// "Point A/B/C/D at …" instead of the per-segment defaults.
+export const segmentWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the endpoints so segment 1 connects $A$ to $B$ and segment 2 connects $C$ to $D$.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGSegmentGraph({
+            numSegments: 2,
+            startCoords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
         }),
     });
 

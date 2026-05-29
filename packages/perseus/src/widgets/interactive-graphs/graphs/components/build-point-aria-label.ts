@@ -1,3 +1,4 @@
+import {usePerseusI18n} from "../../../../components/i18n-context";
 import {srFormatNumber} from "../screenreader-text";
 
 import type {PerseusStrings} from "../../../../strings";
@@ -24,6 +25,10 @@ export function resolvePointLabel(
  * custom label (e.g. "T"). Returns `undefined` when no custom label
  * is set so callers can fall back to the default label (e.g. "Point 1",
  * "Point 2", ...) built by `useControlPoint`.
+ *
+ * TODO(LEMS-3995): Prefer the `usePointAriaLabel` hook below in new code.
+ * Existing callers in `polygon.tsx`, `point.tsx`, `ray.tsx`, and `linear.tsx`
+ * should migrate to the hook in a follow-up PR.
  */
 export function buildPointAriaLabel(
     pointLabels: ReadonlyArray<string> | undefined,
@@ -43,4 +48,17 @@ export function buildPointAriaLabel(
         x: srFormatNumber(point[0], locale),
         y: srFormatNumber(point[1], locale),
     });
+}
+
+/**
+ * Hook that returns a point aria-label builder bound to the current locale
+ * and the given `pointLabels`. Returns `undefined` for points without a
+ * custom label so callers can fall back to default labels.
+ */
+export function usePointAriaLabel(
+    pointLabels: ReadonlyArray<string> | undefined,
+) {
+    const {strings, locale} = usePerseusI18n();
+    return (index: number, point: vec.Vector2) =>
+        buildPointAriaLabel(pointLabels, index, point, strings, locale);
 }
