@@ -1,7 +1,6 @@
 import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
 // MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
 // error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
 // appears to be a bug introduced in TS 5.6. If you are curious about this, try
