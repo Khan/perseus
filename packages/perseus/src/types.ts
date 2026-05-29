@@ -244,16 +244,6 @@ export type APIOptions = Readonly<{
     isMobile?: boolean;
     /** Indicates whether or not to use mobile app styling. */
     isMobileApp?: boolean;
-    // TODO(benchristel): Remove setDrawingAreaAvailable
-    /** A function, called with a bool indicating whether use of the
-     * drawing area (scratchpad) should be allowed/disallowed.
-     *
-     * Previously handled by `Khan.scratchpad.enable/disable`
-     * @deprecated setDrawingAreaAvailable is not used in frontend code.
-     */
-    // FIXME: remove setDrawingAreaAvailable. Remove code branches that handle
-    // non-undefined values of setDrawingAreaAvailable.
-    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
     /**
@@ -415,9 +405,6 @@ export type APIOptionsWithDefaults = Readonly<
         editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
-        setDrawingAreaAvailable: NonNullable<
-            APIOptions["setDrawingAreaAvailable"]
-        >;
         showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
     }
 >;

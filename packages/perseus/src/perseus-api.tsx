@@ -90,11 +90,6 @@ export const ApiOptions = {
         // Indicates whether or not to use mobile app styling.
         isMobileApp: PropTypes.bool,
 
-        // A function, called with a bool indicating whether use of the
-        // drawing area (scratchpad) should be allowed/disallowed.
-        // Previously handled by `Khan.scratchpad.enable/disable`
-        setDrawingAreaAvailable: PropTypes.func,
-
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
     }).isRequired,
@@ -116,7 +111,6 @@ export const ApiOptions = {
                 return <a {...rest}>{children}</a>;
             },
         },
-        setDrawingAreaAvailable: function () {},
     } as APIOptionsWithDefaults,
 } as const;
 
