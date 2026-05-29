@@ -53,6 +53,34 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    it("returns the generic point label for a move-linear-point announcement", () => {
+        const result = getAnnouncementText(
+            {type: "move-linear-point", pointIndex: 1, x: 5, y: 6},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point 2 at 5 comma 6.");
+    });
+
+    it("returns the grab-handle label for a move-linear-line announcement", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-linear-line",
+                coords: [
+                    [-3, 3],
+                    [-1, 5],
+                ],
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe(
+            "Line going through point -3 comma 3 and point -1 comma 5.",
+        );
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(
