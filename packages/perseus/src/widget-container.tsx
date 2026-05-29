@@ -18,7 +18,6 @@ import type {WidgetProps} from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
-    shouldHighlight: boolean;
     type: string; // widget type/name,
     id: string; // widget id
     widgetProps: WidgetProps<any, PerseusWidgetOptions>;
@@ -80,8 +79,6 @@ class WidgetContainer extends React.Component<Props, State> {
     render(): React.ReactNode {
         let className = classNames({
             "perseus-widget-container": true,
-            "widget-highlight": this.props.shouldHighlight,
-            "widget-nohighlight": !this.props.shouldHighlight,
             // HACK(matthewc): perseus-widget-container is setting a font-size
             // but we want the definition prompt to match the surrounding font
             // I'm sorry, but there's a time crunch
