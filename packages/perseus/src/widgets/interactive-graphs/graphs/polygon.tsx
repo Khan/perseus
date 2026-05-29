@@ -20,7 +20,10 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
-import {buildPointAriaLabel} from "./components/build-point-aria-label";
+import {
+    buildPointAriaLabel,
+    usePointAriaLabel,
+} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -190,8 +193,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     } = statefulProps.graphState;
     const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const pointsOffArray = Array(points.length).fill("off");
     // When moving an element, set its aria-live to "polite" and the others
@@ -427,8 +429,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
     const {coords, closedPolygon, pointLabels} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+    const buildLabel = usePointAriaLabel(pointLabels);
     const {interactiveColor} = useGraphConfig();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
