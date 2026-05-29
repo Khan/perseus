@@ -226,15 +226,6 @@ export type APIOptions = Readonly<{
      * input components.
      */
     customKeypad?: boolean;
-    /**
-     * If this is provided, it is called instead of appending an instance
-     * of `math-input`'s keypad to the body. This is used by the native
-     * apps so they can have the keypad be defined on the native side.
-     * It is called with an function that, when called, blurs the input,
-     * and is expected to return an object of the shape
-     * keypadElementPropType from math-input/src/prop-types.js.
-     */
-    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     /** Indicates whether or not to use mobile styling. */
     isMobile?: boolean;
     /** Indicates whether or not to use mobile app styling. */
