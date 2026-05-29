@@ -477,6 +477,36 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([5, 8]);
     });
 
+    it("sets stateAnnouncement to a move-segment-point with the segment index and total", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(1, 0, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-segment-point",
+            segmentIndex: 1,
+            pointIndex: 0,
+            x: -3,
+            y: 2,
+            totalSegments: 2,
+        });
+    });
+
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
         const state: InteractiveGraphState = {...baseRayGraphState};
 
@@ -645,6 +675,29 @@ describe("moveSegment", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("sets stateAnnouncement to a move-segment-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [6, -1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [6, -1],
+            [8, 1],
+        ]);
     });
 });
 

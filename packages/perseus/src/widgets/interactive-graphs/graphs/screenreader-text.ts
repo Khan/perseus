@@ -19,6 +19,30 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
+        case "move-segment-point": {
+            const x = srFormatNumber(state.x, locale);
+            const y = srFormatNumber(state.y, locale);
+            // Single- vs multi-segment graphs use different endpoint labels.
+            return state.totalSegments === 1
+                ? strings.srSingleSegmentGraphEndpointAriaLabel({
+                      endpointNumber: state.pointIndex + 1,
+                      x,
+                      y,
+                  })
+                : strings.srMultipleSegmentGraphEndpointAriaLabel({
+                      endpointNumber: state.pointIndex + 1,
+                      indexOfSegment: state.segmentIndex + 1,
+                      x,
+                      y,
+                  });
+        }
+        case "move-segment-line":
+            return strings.srSegmentGrabHandle({
+                point1X: srFormatNumber(state.coords[0][0], locale),
+                point1Y: srFormatNumber(state.coords[0][1], locale),
+                point2X: srFormatNumber(state.coords[1][0], locale),
+                point2Y: srFormatNumber(state.coords[1][1], locale),
+            });
         default:
             throw new UnreachableCaseError(state);
     }

@@ -53,6 +53,56 @@ describe("getAnnouncementText", () => {
         expect(result).toBe("Circle. The center point is at 3 comma 4.");
     });
 
+    it("uses the single-segment endpoint label when there is one segment", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-segment-point",
+                segmentIndex: 0,
+                pointIndex: 0,
+                x: -3,
+                y: 2,
+                totalSegments: 1,
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Endpoint 1 at -3 comma 2.");
+    });
+
+    it("includes the segment number for a move-segment-point with multiple segments", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-segment-point",
+                segmentIndex: 1,
+                pointIndex: 0,
+                x: -3,
+                y: 2,
+                totalSegments: 2,
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Endpoint 1 on segment 2 at -3 comma 2.");
+    });
+
+    it("returns the grab-handle label for a move-segment-line announcement", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-segment-line",
+                coords: [
+                    [6, -1],
+                    [8, 1],
+                ],
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Segment from 6 comma -1 to 8 comma 1.");
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(

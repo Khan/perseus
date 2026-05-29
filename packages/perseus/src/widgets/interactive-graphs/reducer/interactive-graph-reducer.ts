@@ -269,6 +269,10 @@ function doMovePointInFigure(
 ): InteractiveGraphState {
     switch (state.type) {
         case "segment": {
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.figureIndex,
@@ -276,10 +280,7 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
+                        newValue,
                     }),
             });
 
@@ -291,6 +292,14 @@ function doMovePointInFigure(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-segment-point",
+                    segmentIndex: action.figureIndex,
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                    totalSegments: state.coords.length,
+                },
             };
         }
         case "linear-system": {
@@ -369,7 +378,35 @@ function doMoveLine(
     const {newStart} = action;
 
     switch (state.type) {
-        case "segment":
+        case "segment": {
+            // TODO(LEMS-4189): Temporary duplication of logic with linear-system
+            // until we move all graphs to use WB Announcer.
+            if (action.itemIndex === undefined) {
+                throw new Error("Please provide index of line to move");
+            }
+            const currentLine = state.coords[action.itemIndex];
+            const constrainedLine = constrainShapePreservingMove(
+                currentLine,
+                newStart,
+                {snapStep, range},
+            );
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.itemIndex,
+                newValue: constrainedLine,
+            });
+
+            return {
+                ...state,
+                type: state.type,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-segment-line",
+                    coords: constrainedLine,
+                },
+            };
+        }
         case "linear-system": {
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");

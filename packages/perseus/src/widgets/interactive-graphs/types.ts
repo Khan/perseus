@@ -69,10 +69,31 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Segment endpoint keyboard move (doMovePointInFigure). Single- and
+// multi-segment graphs use different labels, so totalSegments is carried
+// alongside the segment and endpoint indices.
+type MoveSegmentPointAnnouncement = {
+    type: "move-segment-point";
+    segmentIndex: number;
+    pointIndex: number;
+    x: number;
+    y: number;
+    totalSegments: number;
+};
+
+// Whole-segment keyboard drag (doMoveLine). Carries both endpoints so the
+// announcement can describe the segment between them.
+type MoveSegmentLineAnnouncement = {
+    type: "move-segment-line";
+    coords: PairOfPoints;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MoveSegmentPointAnnouncement
+    | MoveSegmentLineAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
