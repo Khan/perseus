@@ -81,7 +81,7 @@ export const videoInContent: PerseusRenderer = generateTestPerseusRenderer({
 });
 
 export const imageInContent: PerseusRenderer = generateTestPerseusRenderer({
-    content: `It appears that cats and tribbles share the same "cuteness" gene as tribbles."
+    content: `It appears that cats and tribbles share the same "cuteness" gene."
                 \n\n[[☃ explanation 1]]`,
     widgets: {
         "explanation 1": generateExplanationWidget({
