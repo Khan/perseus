@@ -711,6 +711,51 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="sinusoid"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="sinusoid"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert — the empty slot must be preserved so the schema
+            // shape stays a 2-tuple even when only one point is named.
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
     });
 
     describe("quadratic graph", () => {
@@ -779,6 +824,247 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields for all three points when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="quadratic"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 3 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema's 3-tuple shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="quadratic"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 2 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert — the empty slots must be preserved so the schema
+            // shape stays a 3-tuple even when only one point is named.
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "",
+                "T",
+                "",
+            ]);
+        });
+    });
+
+    describe("tangent graph", () => {
+        it("shows the start coordinates UI", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="tangent"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+        });
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="tangent"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="tangent"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
+    });
+
+    describe("exponential graph", () => {
+        it("shows the start coordinates UI", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="exponential"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+        });
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="exponential"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="exponential"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 2 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["", "T"]);
+        });
+    });
+
+    describe("logarithm graph", () => {
+        it("shows the start coordinates UI", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="logarithm"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+        });
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="logarithm"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema array shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="logarithm"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Point 1 name",
+            });
+            await userEvent.type(nameInput, "T");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["T", ""]);
+        });
     });
 
     describe("absolute-value graph", () => {
