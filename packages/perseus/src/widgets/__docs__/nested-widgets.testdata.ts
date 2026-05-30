@@ -48,7 +48,7 @@ export const gradedGroupWithRadioAndExplanation: PerseusRenderer =
                                 showPrompt: "Show explanation",
                                 hidePrompt: "Hide explanation",
                                 explanation:
-                                    "Picard commanded the USS Stargazer (NCC-2893) before taking command of the USS Enterprise (NCC-1701-D).",
+                                    "Captain Picard commanded the USS Stargazer (NCC-2893) before taking command of the USS Enterprise (NCC-1701-D).",
                             }),
                         }),
                     },

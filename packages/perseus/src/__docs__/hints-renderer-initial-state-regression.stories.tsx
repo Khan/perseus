@@ -158,8 +158,6 @@ export const WithAllInteractiveGraphs: Story = {
 };
 
 export const ImageWidgetInHint: Story = {
-    // Need to wrap this in a container with the `bibliotron-exercise` class
-    // to show what this would really look like with hint styling in prod.
     decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
