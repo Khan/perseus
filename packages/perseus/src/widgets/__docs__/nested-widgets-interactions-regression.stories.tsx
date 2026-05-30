@@ -1,12 +1,20 @@
 import {themeModes} from "../../../../../.storybook/modes";
-import {imageInContent} from "../explanation/explanation.testdata";
-
 import {explanationRendererDecorator} from "../explanation/__docs__/explanation-renderer-decorator";
 
-import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
+import {
+    gradedGroupWithRadioAndExplanation,
+    imageInContent,
+    videoInContent,
+} from "./nested-widgets.testdata";
+
+import type {
+    GradedGroupWidget,
+    PerseusExplanationWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<PerseusExplanationWidgetOptions> = {
+const meta: Meta = {
     title: "Widgets/Nested Widgets/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {
@@ -17,16 +25,52 @@ const meta: Meta<PerseusExplanationWidgetOptions> = {
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
+        controls: {disable: true},
     },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type GradedGroupStory = StoryObj<GradedGroupWidget["options"]>;
+type ExplanationStory = StoryObj<PerseusExplanationWidgetOptions>;
+
+export const GradedGroupExplanationClicked: GradedGroupStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: gradedGroupWithRadioAndExplanation,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Show explanation",
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
+
+const videoExample = videoInContent.widgets["explanation 1"]?.options;
+
+export const VideoInContent: ExplanationStory = {
+    decorators: [explanationRendererDecorator],
+    args: {
+        hidePrompt: videoExample.hidePrompt,
+        explanation: videoExample.explanation,
+        showPrompt: videoExample.showPrompt,
+    },
+    parameters: {
+        content: videoInContent.content,
+        widgets: videoExample.widgets,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: videoExample.showPrompt,
+        });
+        await userEvent.click(explanationTrigger);
+    },
+};
 
 const imageExample = imageInContent.widgets["explanation 1"]?.options;
 
-export const ImageInContent: Story = {
+export const ImageInContent: ExplanationStory = {
     decorators: [explanationRendererDecorator],
     args: {
         hidePrompt: imageExample.hidePrompt,

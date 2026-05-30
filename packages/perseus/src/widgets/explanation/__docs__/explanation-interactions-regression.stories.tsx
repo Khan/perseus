@@ -1,10 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {
-    question1,
-    imageInContent,
-    tableInContent,
-    videoInContent,
-} from "../explanation.testdata";
+import {question1, tableInContent} from "../explanation.testdata";
 
 import {explanationRendererDecorator} from "./explanation-renderer-decorator";
 
@@ -49,27 +44,6 @@ export const ClickedState: Story = {
     },
 };
 
-const imageExample = imageInContent.widgets["explanation 1"]?.options;
-
-export const ImageInContent: Story = {
-    decorators: [explanationRendererDecorator],
-    args: {
-        hidePrompt: imageExample.hidePrompt,
-        explanation: imageExample.explanation,
-        showPrompt: imageExample.showPrompt,
-    },
-    parameters: {
-        content: imageInContent.content,
-        widgets: imageExample.widgets,
-    },
-    play: async ({canvas, userEvent}) => {
-        const explanationTrigger = canvas.getByRole("button", {
-            name: imageExample.showPrompt,
-        });
-        await userEvent.click(explanationTrigger);
-    },
-};
-
 const tableExample = tableInContent.widgets["explanation 1"]?.options;
 
 export const TableInContent: Story = {
@@ -86,27 +60,6 @@ export const TableInContent: Story = {
     play: async ({canvas, userEvent}) => {
         const explanationTrigger = canvas.getByRole("button", {
             name: tableExample.showPrompt,
-        });
-        await userEvent.click(explanationTrigger);
-    },
-};
-
-const videoExample = videoInContent.widgets["explanation 1"]?.options;
-
-export const VideoInContent: Story = {
-    decorators: [explanationRendererDecorator],
-    args: {
-        hidePrompt: videoExample.hidePrompt,
-        explanation: videoExample.explanation,
-        showPrompt: videoExample.showPrompt,
-    },
-    parameters: {
-        content: videoInContent.content,
-        widgets: videoExample.widgets,
-    },
-    play: async ({canvas, userEvent}) => {
-        const explanationTrigger = canvas.getByRole("button", {
-            name: videoExample.showPrompt,
         });
         await userEvent.click(explanationTrigger);
     },

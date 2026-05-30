@@ -29,7 +29,7 @@ const meta: Meta<typeof HintsRenderer> = {
                 component:
                     "Regression tests for the Hints renderer that DO need " +
                     "some sort of interaction to test, which will be used with " +
-                    "Chromatic. Stories are displayed on their own page.",
+                    "Chromatic.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -40,9 +40,6 @@ export default meta;
 
 type Story = StoryObj<typeof HintsRenderer>;
 
-const ipsumExplanationOptions =
-    ipsumExample.widgets["explanation 1"]?.options;
-
 export const ExplanationWidgetInHint: Story = {
     decorators: [bibliotronExerciseDecorator],
     args: {
@@ -50,8 +47,10 @@ export const ExplanationWidgetInHint: Story = {
         hints: [{...ipsumExample, replace: false}],
     },
     play: async ({canvas, userEvent}) => {
+        const buttonText =
+            ipsumExample.widgets["explanation 1"]?.options.showPrompt;
         const explanationTrigger = canvas.getByRole("button", {
-            name: ipsumExplanationOptions.showPrompt,
+            name: buttonText,
         });
         await userEvent.click(explanationTrigger);
     },

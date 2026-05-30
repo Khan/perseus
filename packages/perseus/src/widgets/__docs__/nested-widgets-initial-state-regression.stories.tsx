@@ -1,15 +1,12 @@
 import {themeModes} from "../../../../../.storybook/modes";
-import {gradedGroupWithRadioAndExplanation} from "./nested-widgets.testdata";
-import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
 
-import type {GradedGroupWidget, PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
+import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
+import {gradedGroupWithRadioAndExplanation} from "./nested-widgets.testdata";
+
+import type {GradedGroupWidget} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type NestedWidgetStoryArgs =
-    | PerseusExplanationWidgetOptions
-    | GradedGroupWidget["options"];
-
-const meta: Meta<NestedWidgetStoryArgs> = {
+const meta: Meta = {
     title: "Widgets/Nested Widgets/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
@@ -28,9 +25,9 @@ const meta: Meta<NestedWidgetStoryArgs> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type GradedGroupStory = StoryObj<GradedGroupWidget["options"]>;
 
-export const GradedGroupWithRadioAndExplanation: Story = {
+export const GradedGroupWithRadioAndExplanation: GradedGroupStory = {
     decorators: [articleRendererDecorator],
     parameters: {
         question: gradedGroupWithRadioAndExplanation,
