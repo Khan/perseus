@@ -1129,6 +1129,52 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields when onChangePointLabels is provided", () => {
+            // Arrange, Act — labels read as `Vertex name` / `Arm name`
+            // because CoordInput derives aria-label from each row's
+            // semantic heading.
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="absolute-value"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Vertex name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Arm name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema's 2-tuple shape when a name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="absolute-value"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Vertex name",
+            });
+            await userEvent.type(nameInput, "V");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["V", ""]);
+        });
     });
 
     describe("point graph", () => {
@@ -1540,5 +1586,102 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        it("renders point name fields for all three points when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="angle"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert — CoordInput's aria-label derives from each row's
+            // heading: "Point 1 name" / "Vertex name" / "Point 2 name".
+            expect(
+                screen.getByRole("textbox", {name: "Point 1 name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Vertex name"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Point 2 name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with the schema's 3-tuple shape when the vertex name is typed", async () => {
+            // Arrange
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="angle"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act — the vertex maps to coords index 1.
+            const nameInput = screen.getByRole("textbox", {
+                name: "Vertex name",
+            });
+            await userEvent.type(nameInput, "V");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith([
+                "",
+                "V",
+                "",
+            ]);
+        });
+    });
+
+    describe("circle graph pointLabels", () => {
+        it("renders the radius point label field when onChangePointLabels is provided", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={() => {}}
+                    onChangePointLabels={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Radius point name"}),
+            ).toBeInTheDocument();
+        });
+
+        it("calls onChangePointLabels with a 1-element array when the radius point label is typed", async () => {
+            // Arrange — the schema is `string[]` and circle only labels
+            // the radius point (index 0), so a single-element array is
+            // the expected emitted shape.
+            const onChangePointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={() => {}}
+                    onChangePointLabels={onChangePointLabelsMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const nameInput = screen.getByRole("textbox", {
+                name: "Radius point name",
+            });
+            await userEvent.type(nameInput, "R");
+
+            // Assert
+            expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["R"]);
+        });
     });
 });

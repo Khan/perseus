@@ -70,6 +70,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsAbsoluteValue
                     startCoords={absoluteValueCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         // Graphs with startCoords of type CollinearTuple
@@ -113,6 +115,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsCircle
                     startCoords={{center: circleCoords.center, radius}}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "sinusoid":
@@ -215,6 +219,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                     startCoords={angleCoords}
                     allowReflexAngles={allowReflexAngles}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         default:
