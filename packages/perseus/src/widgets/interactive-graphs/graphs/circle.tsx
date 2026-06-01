@@ -34,11 +34,9 @@ import type {
 export function renderCircleGraph(
     state: CircleGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getCircleGraphDescription(state, i18n),
     };
 }
 
@@ -256,7 +254,7 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     return result;
 }
 
-function getCircleGraphDescription(
+export function getCircleGraphDescription(
     state: CircleGraphState,
     i18n: I18nContextType,
 ) {

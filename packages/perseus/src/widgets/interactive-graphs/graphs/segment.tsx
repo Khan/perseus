@@ -23,11 +23,9 @@ import type {vec} from "mafs";
 export function renderSegmentGraph(
     state: SegmentGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getSegmentGraphDescription(state, i18n),
     };
 }
 

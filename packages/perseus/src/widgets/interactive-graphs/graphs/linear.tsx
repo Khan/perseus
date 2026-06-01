@@ -21,11 +21,9 @@ import type {vec} from "mafs";
 export function renderLinearGraph(
     state: LinearGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getLinearGraphDescription(state, i18n),
     };
 }
 
@@ -98,7 +96,7 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
     );
 };
 
-function getLinearGraphDescription(
+export function getLinearGraphDescription(
     state: LinearGraphState,
     i18n: I18nContextType,
 ) {

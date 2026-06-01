@@ -26,11 +26,9 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function renderTangentGraph(
     state: TangentGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <TangentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getTangentDescription(state, i18n),
     };
 }
 
@@ -294,7 +292,7 @@ function getPlotSegments(
     return segments;
 }
 
-function getTangentDescription(
+export function getTangentDescription(
     state: TangentGraphState,
     i18n: I18nContextType,
 ): string {

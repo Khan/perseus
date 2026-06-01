@@ -25,14 +25,9 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function renderAbsoluteValueGraph(
     state: AbsoluteValueGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <AbsoluteValueGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getAbsoluteValueDescription(
-            state,
-            i18n,
-        ),
     };
 }
 
@@ -173,7 +168,7 @@ export const getAbsoluteValueKeyboardConstraint = (
     };
 };
 
-function getAbsoluteValueDescription(
+export function getAbsoluteValueDescription(
     state: AbsoluteValueGraphState,
     i18n: I18nContextType,
 ): string {
