@@ -5,9 +5,9 @@ import {isItem, noItem, parseError} from "./item-flipbook-view-model";
 
 describe("ItemFlipbookModel", () => {
     let model: ItemFlipbookModel;
-    let observerCalled = false
+    let observerCalled = false;
     beforeEach(() => {
-        model = new ItemFlipbookModel(() => observerCalled = true);
+        model = new ItemFlipbookModel(() => (observerCalled = true));
     });
 
     it("does not call the observer when merely constructed", () => {
