@@ -20,16 +20,16 @@
     "source": "src/index.ts",
     "exports": {
         ".": {
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "source": "./src/index.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js"
         },
         "./strings": {
-            "import": "./dist/es/strings.js",
-            "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
-            "source": "./src/strings.ts"
+            "source": "./src/strings.ts",
+            "import": "./dist/es/strings.js",
+            "require": "./dist/strings.js"
         },
         "./styles.css": "./dist/index.css"
     },
