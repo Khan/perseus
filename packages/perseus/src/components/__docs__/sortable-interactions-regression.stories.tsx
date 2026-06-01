@@ -1,4 +1,4 @@
-import {waitFor, within} from "storybook/test";
+import {expect, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../.storybook/modes";
 import Sortable from "../sortable";
