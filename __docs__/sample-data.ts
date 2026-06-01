@@ -83,13 +83,15 @@ export const graphExample: PerseusRenderer = {
                         color: "gold",
                         weight: "thick",
                         fillStyle: "translucent",
-                        points: [
-                            [7, -3],
-                            [8, -5],
-                            [4, -7],
-                            [0, -7],
-                            [2, -3],
-                        ],
+                        points: {
+                            coord: [
+                                [7, -3],
+                                [8, -5],
+                                [4, -7],
+                                [0, -7],
+                                [2, -3],
+                            ],
+                        },
                         showVertices: false,
                         strokeStyle: "solid",
                     },

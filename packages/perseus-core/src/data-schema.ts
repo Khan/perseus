@@ -1075,9 +1075,13 @@ export type LockedEllipseType = {
     ariaLabel?: string;
 };
 
+export type LockedPolygonPointType = {
+    coord: Coord[];
+};
+
 export type LockedPolygonType = {
     type: "polygon";
-    points: Coord[];
+    points: LockedPolygonPointType;
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;

@@ -66,6 +66,7 @@ const LockedPolygonSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
+    const coords = points.coord;
 
     /**
      * Generate the prepopulated aria label for the polygon,
@@ -74,11 +75,11 @@ const LockedPolygonSettings = (props: Props) => {
     async function getPrepopulatedAriaLabel() {
         const visiblelabel = await joinLabelsAsSpokenMath(labels);
 
-        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
+        let str = `Polygon${visiblelabel} with ${coords.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
         const pointsList = await Promise.all(
-            points.map(async ([x, y]) => {
+            coords.map(async ([x, y]) => {
                 // Ensure negative values are read correctly within aria labels.
                 const spokenX = await generateSpokenMathDetails(`$${x}$`);
                 const spokenY = await generateSpokenMathDetails(`$${y}$`);
@@ -115,7 +116,7 @@ const LockedPolygonSettings = (props: Props) => {
         switch (movement) {
             case "up":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x, y + 1]),
+                    points: {coord: coords.map(([x, y]) => [x, y + 1])},
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] + 1],
@@ -124,7 +125,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "down":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x, y - 1]),
+                    points: {coord: coords.map(([x, y]) => [x, y - 1])},
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] - 1],
@@ -133,7 +134,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "left":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x - 1, y]),
+                    points: {coord: coords.map(([x, y]) => [x - 1, y])},
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] - 1, label.coord[1]],
@@ -142,7 +143,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "right":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x + 1, y]),
+                    points: {coord: coords.map(([x, y]) => [x + 1, y])},
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] + 1, label.coord[1]],
@@ -182,7 +183,7 @@ const LockedPolygonSettings = (props: Props) => {
                         size="medium"
                         weight="bold"
                         tag="span"
-                    >{`Polygon, ${points.length} sides`}</BodyText>
+                    >{`Polygon, ${coords.length} sides`}</BodyText>
                     <Strut size={spacing.xSmall_8} />
                     <PolygonSwatch
                         color={color}
@@ -267,7 +268,7 @@ const LockedPolygonSettings = (props: Props) => {
                 containerStyle={styles.pointAccordionContainer}
                 panelStyle={styles.pointAccordionPanel}
             >
-                {points.map((point, index) => {
+                {coords.map((point, index) => {
                     const pointLabel = String.fromCharCode(65 + index);
 
                     return (
@@ -285,26 +286,28 @@ const LockedPolygonSettings = (props: Props) => {
                                 coord={point}
                                 labels={["x", "y"]}
                                 onChange={(newValue: Coord) => {
-                                    const newPoints = [...points];
-                                    newPoints[index] = newValue;
-                                    props.onChangeProps({points: newPoints});
+                                    const newCoords = [...coords];
+                                    newCoords[index] = newValue;
+                                    props.onChangeProps({
+                                        points: {coord: newCoords},
+                                    });
                                 }}
                             />
                             {
                                 // Only show the minus (delete) buttons if there are
                                 // more than 3 points. 3 points is the minimum number
                                 // of points for a polygon (triangle).
-                                points.length > 3 && (
+                                coords.length > 3 && (
                                     <IconButton
                                         aria-label={`Delete polygon point ${pointLabel}`}
                                         icon={minusCircle}
                                         kind="tertiary"
                                         actionType="destructive"
                                         onClick={() => {
-                                            const newPoints = [...points];
-                                            newPoints.splice(index, 1);
+                                            const newCoords = [...coords];
+                                            newCoords.splice(index, 1);
                                             props.onChangeProps({
-                                                points: newPoints,
+                                                points: {coord: newCoords},
                                             });
                                         }}
                                         style={styles.icon}
@@ -320,7 +323,7 @@ const LockedPolygonSettings = (props: Props) => {
                         startIcon={plusCircle}
                         onClick={() => {
                             props.onChangeProps({
-                                points: [...points, [0, 0]],
+                                points: {coord: [...coords, [0, 0]]},
                             });
                         }}
                     >
@@ -402,10 +405,10 @@ const LockedPolygonSettings = (props: Props) => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
                         coord: [
-                            points[0][0],
+                            coords[0][0],
                             // Additional vertical offset for each
                             // label so they don't overlap.
-                            points[0][1] - labels.length,
+                            coords[0][1] - labels.length,
                         ],
                         // Default to the same color as the ellipse
                         color: color,

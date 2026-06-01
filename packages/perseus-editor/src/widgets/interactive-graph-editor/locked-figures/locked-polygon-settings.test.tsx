@@ -46,12 +46,14 @@ describe("LockedPolygonSettings", () => {
         render(
             <LockedPolygonSettings
                 {...defaultProps}
-                points={[
-                    [0, 0],
-                    [1, 1],
-                    [2, 2],
-                    [1, -1],
-                ]}
+                points={{
+                    coord: [
+                        [0, 0],
+                        [1, 1],
+                        [2, 2],
+                        [1, -1],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -118,12 +120,14 @@ describe("LockedPolygonSettings", () => {
         render(
             <LockedPolygonSettings
                 {...defaultProps}
-                points={[
-                    [0, 0],
-                    [1, 1],
-                    [2, 2],
-                    [1, -1],
-                ]}
+                points={{
+                    coord: [
+                        [0, 0],
+                        [1, 1],
+                        [2, 2],
+                        [1, -1],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -184,12 +188,14 @@ describe("LockedPolygonSettings", () => {
                 {...defaultProps}
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
-                points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
-                ]}
+                points={{
+                    coord: [
+                        [1, 1],
+                        [2, 1],
+                        [2, 2],
+                        [1, 2],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -203,12 +209,14 @@ describe("LockedPolygonSettings", () => {
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, 1]}],
-            points: [
-                [1, 2],
-                [2, 2],
-                [2, 3],
-                [1, 3],
-            ],
+            points: {
+                coord: [
+                    [1, 2],
+                    [2, 2],
+                    [2, 3],
+                    [1, 3],
+                ],
+            },
         });
     });
 
@@ -227,12 +235,14 @@ describe("LockedPolygonSettings", () => {
                 {...defaultProps}
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
-                points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
-                ]}
+                points={{
+                    coord: [
+                        [1, 1],
+                        [2, 1],
+                        [2, 2],
+                        [1, 2],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -246,12 +256,14 @@ describe("LockedPolygonSettings", () => {
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, -1]}],
-            points: [
-                [1, 0],
-                [2, 0],
-                [2, 1],
-                [1, 1],
-            ],
+            points: {
+                coord: [
+                    [1, 0],
+                    [2, 0],
+                    [2, 1],
+                    [1, 1],
+                ],
+            },
         });
     });
 
@@ -270,12 +282,14 @@ describe("LockedPolygonSettings", () => {
                 {...defaultProps}
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
-                points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
-                ]}
+                points={{
+                    coord: [
+                        [1, 1],
+                        [2, 1],
+                        [2, 2],
+                        [1, 2],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -289,12 +303,14 @@ describe("LockedPolygonSettings", () => {
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [-1, 0]}],
-            points: [
-                [0, 1],
-                [1, 1],
-                [1, 2],
-                [0, 2],
-            ],
+            points: {
+                coord: [
+                    [0, 1],
+                    [1, 1],
+                    [1, 2],
+                    [0, 2],
+                ],
+            },
         });
     });
 
@@ -313,12 +329,14 @@ describe("LockedPolygonSettings", () => {
                 {...defaultProps}
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
-                points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
-                ]}
+                points={{
+                    coord: [
+                        [1, 1],
+                        [2, 1],
+                        [2, 2],
+                        [1, 2],
+                    ],
+                }}
             />,
             {
                 wrapper: RenderStateRoot,
@@ -332,12 +350,14 @@ describe("LockedPolygonSettings", () => {
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [1, 0]}],
-            points: [
-                [2, 1],
-                [3, 1],
-                [3, 2],
-                [2, 2],
-            ],
+            points: {
+                coord: [
+                    [2, 1],
+                    [3, 1],
+                    [3, 2],
+                    [2, 2],
+                ],
+            },
         });
     });
 
@@ -407,7 +427,7 @@ describe("LockedPolygonSettings", () => {
                 render(
                     <LockedPolygonSettings
                         {...defaultProps}
-                        points={startingCoords}
+                        points={{coord: startingCoords}}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -433,7 +453,7 @@ describe("LockedPolygonSettings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    points: expectedCoords,
+                    points: {coord: expectedCoords},
                     labels: [
                         {
                             ...defaultLabel,
@@ -542,11 +562,13 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [1, 0],
-                        [1, 1],
-                    ]}
+                    points={{
+                        coord: [
+                            [0, 0],
+                            [1, 0],
+                            [1, 1],
+                        ],
+                    }}
                     labels={[
                         {
                             ...defaultLabel,
@@ -630,11 +652,13 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={{
+                        coord: [
+                            [0, 0],
+                            [0, 1],
+                            [1, 1],
+                        ],
+                    }}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                 />,
@@ -663,11 +687,13 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={{
+                        coord: [
+                            [0, 0],
+                            [0, 1],
+                            [1, 1],
+                        ],
+                    }}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[
@@ -703,11 +729,13 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={{
+                        coord: [
+                            [0, 0],
+                            [0, 1],
+                            [1, 1],
+                        ],
+                    }}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[

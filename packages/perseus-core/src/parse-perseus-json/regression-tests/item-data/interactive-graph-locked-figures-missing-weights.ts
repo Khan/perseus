@@ -139,11 +139,13 @@ export default {
                         },
                         {
                             type: "polygon",
-                            points: [
-                                [-8, -7],
-                                [-8, -3],
-                                [-4, -3],
-                            ],
+                            points: {
+                                coord: [
+                                    [-8, -7],
+                                    [-8, -3],
+                                    [-4, -3],
+                                ],
+                            },
                             color: "pink",
                             showVertices: false,
                             fillStyle: "none",

@@ -75,11 +75,13 @@ describe("getDefaultFigureForType", () => {
         const figure = getDefaultFigureForType("polygon");
         expect(figure).toEqual({
             type: "polygon",
-            points: [
-                [0, 2],
-                [-1, 0],
-                [1, 0],
-            ],
+            points: {
+                coord: [
+                    [0, 2],
+                    [-1, 0],
+                    [1, 0],
+                ],
+            },
             color: "grayH",
             showVertices: false,
             fillStyle: "none",

@@ -264,12 +264,14 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 ariaLabel: "Ellipse D",
             }),
             generateIGLockedPolygon({
-                points: [
-                    [-9, 4],
-                    [-6, 4],
-                    [-6, 1],
-                    [-9, 1],
-                ],
+                points: {
+                    coord: [
+                        [-9, 4],
+                        [-6, 4],
+                        [-6, 1],
+                        [-9, 1],
+                    ],
+                },
                 color: "pink",
                 labels: [
                     generateIGLockedLabel({
