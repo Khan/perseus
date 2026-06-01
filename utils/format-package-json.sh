@@ -18,9 +18,9 @@ pushd "$SCRIPT_DIR/.." > /dev/null 2>&1 || exit
 # writing to a temp file and then overwriting the original file to avoid
 # truncation errors (especially in the face of failures in the processing
 # pipeline).
-for dir in ./packages/*; do
+for pkg in ./packages/*/package.json; do
+    dir="$(dirname "$pkg")"
     echo "$dir"
-    PKG_NAME="$(basename "$dir")"
 
     jq --indent 4 ". | {
         name: .name,
@@ -33,7 +33,8 @@ for dir in ./packages/*; do
         },
         repository: {
             type: \"git\",
-            url: \"https://github.com/Khan/$PKG_NAME.git\"
+            url: \"https://github.com/Khan/perseus.git\",
+            directory: \"${dir#./}\",
         },
         bugs: {
             url: \"https://github.com/Khan/perseus/issues\",
@@ -41,11 +42,19 @@ for dir in ./packages/*; do
         module: .module,
         main: .main,
         source: .source,
+        types: .types,
+        exports: (.exports | if . then map_values(
+            if type == \"object\"
+            then {types: .types, source: .source, import: .import, require: .require}
+            else . end
+        ) else . end),
+        files: .files,
         scripts: (.scripts // {}),
         dependencies: (.dependencies // {}),
         devDependencies: .devDependencies,
         peerDependencies: .peerDependencies,
-        keywords: (.keywords // [])
-    }" "$dir/package.json" > "$dir/package.out.json"
+        keywords: .keywords,
+        khan: .khan
+    } | with_entries(select(.value != null))" "$dir/package.json" > "$dir/package.out.json"
     mv "$dir/package.out.json" "$dir/package.json"
 done
