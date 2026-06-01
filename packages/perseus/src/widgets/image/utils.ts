@@ -69,6 +69,12 @@ export const gifImage = {
     height: 285,
 };
 
+export const tallGifImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
+    width: 360,
+    height: 640,
+};
+
 export const gifImageAlt =
     "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
 
