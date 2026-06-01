@@ -1,15 +1,13 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
-import {freeResponseRendererDecorator} from "../../__testutils__/free-response-renderer-decorator";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
+import {freeResponseRendererDecorator} from "./free-response-renderer-decorator";
+
+import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const FreeResponseWidget = getWidget("free-response")!;
-
-const meta: Meta<typeof FreeResponseWidget> = {
+const meta: Meta<PerseusFreeResponseWidgetOptions> = {
     title: "Widgets/Free Response/Visual Regression Tests/Initial State",
-    component: FreeResponseWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -25,7 +23,7 @@ const meta: Meta<typeof FreeResponseWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof FreeResponseWidget>;
+type Story = StoryObj<typeof meta>;
 
 // Verifies the default state with a character count displayed using
 // semanticColor.core.foreground.neutral.default and font.size.small.

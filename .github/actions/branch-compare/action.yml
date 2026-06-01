@@ -1,5 +1,10 @@
 name: "Branch Compare"
-description: "Compare artifacts between PR branch and base branch"
+description: >-
+    Compare artifacts between PR branch and base branch. The job concludes
+    as success when identical, as failure when changed (unless the configured
+    acknowledgement label is applied). Adds/removes a "change present" label
+    automatically and clears the acknowledgement label whenever the diff
+    goes empty.
 
 inputs:
     github-token:
@@ -16,9 +21,26 @@ inputs:
     label-name:
         description: "The name of the label to add or remove based on the diff result"
         required: true
-    comment-title:
+    check-name:
         description: >-
-            The term to include in the title of comments made by this action.
+            The name to use for the GitHub Check run that surfaces the
+            comparison result on the PR.
+        required: true
+    change-details:
+        description: >-
+            Optional Markdown body shown in the Check's summary when changes
+            are detected, before the diff. Use this to call out follow-ups
+            reviewers should perform (e.g. coordinating a downstream release).
+        required: false
+        default: ""
+    ack-label-name:
+        description: >-
+            Label name that, when applied to the PR, acknowledges the change
+            and flips the job from failure to success. A detected change
+            without this label fails the job; with the label it passes. The
+            label is auto-removed when the diff goes empty so a future
+            re-introduction requires a fresh ack.
+        required: true
 
 runs:
     using: "composite"
@@ -38,12 +60,15 @@ runs:
               fi
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
+        # Note: We use manual git commands instead of actions/checkout here to
+        # avoid a known GitHub Actions runner bug ("Index was out of range")
+        # that occurs when calling actions/checkout inside the Post step of a
+        # composite action.
         - name: Check out base branch
-          uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-          with:
-              # This checks out the base branch of the PR (the branch the PR
-              # is targeting)
-              ref: ${{ github.event.pull_request.base.ref }}
+          shell: bash
+          run: |
+              git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+              git checkout FETCH_HEAD
 
         - name: Build for base
           shell: bash
@@ -89,57 +114,100 @@ runs:
               PR_NUMBER="${{ github.event.pull_request.number }}"
               if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" == "0" ]; then
                   gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
+                  # Drop the ack label too: nothing to acknowledge anymore. If
+                  # a future commit reintroduces a diff, the author will need
+                  # to re-apply the label, which is the desired behaviour.
+                  gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.ack-label-name }}" || true
               else
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
-        - name: Find comment
-          uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
-          id: find-comment
+        # Publish the result as a custom GitHub Check run. The job itself
+        # always succeeds; the custom Check carries the meaningful pass/fail.
+        # That keeps the PR's checks list to a single red row when a change
+        # is detected, and clicking the row lands directly on a page that
+        # renders the title + rich summary (rather than the workflow logs,
+        # where reviewers struggle to find the Summary tab).
+        - name: Publish result as a GitHub Check
+          if: always() && github.event.pull_request != null
+          uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+          env:
+              CHECK_NAME: ${{ inputs.check-name }}
+              DIFF_EXIT_CODE: ${{ steps.compare-artifacts.outputs.diff-exit-code }}
+              DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
+              CHANGE_DETAILS: ${{ inputs.change-details }}
+              ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
+              HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           with:
-              issue-number: ${{ github.event.pull_request.number }}
-              comment-author: "github-actions[bot]"
-              body-includes: "Comment ID: ${{ inputs.comment-title }}"
+              github-token: ${{ inputs.github-token }}
+              script: |
+                  const checkName = process.env.CHECK_NAME;
+                  const ackLabel = process.env.ACK_LABEL_NAME;
+                  const noChanges = process.env.DIFF_EXIT_CODE === "0";
 
-        - name: Create or update comment - success
-          if: steps.compare-artifacts.outputs.diff-exit-code == '0'
-          uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
-          with:
-              issue-number: ${{ github.event.pull_request.number }}
-              comment-id: ${{ steps.find-comment.outputs.comment-id}}
-              edit-mode: replace
-              body: |
-                  # ${{ inputs.comment-title }}: No Changes ✅
+                  const labels = (context.payload.pull_request?.labels || [])
+                      .map((l) => l.name);
+                  const isAcked = labels.includes(ackLabel);
 
-                  <!---
-                  Comment ID: ${{ inputs.comment-title }}
-                  -->
+                  let conclusion;
+                  let title;
+                  if (noChanges) {
+                      conclusion = "success";
+                      title = `${checkName}: No Changes ✅`;
+                  } else if (isAcked) {
+                      conclusion = "success";
+                      title = `${checkName}: Changes Acknowledged ✅`;
+                  } else {
+                      conclusion = "failure";
+                      title = `${checkName}: Changes Detected — Review Required ❌`;
+                  }
 
-        - name: Create or update comment - failure
-          if: steps.compare-artifacts.outputs.diff-exit-code != '0'
-          uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
-          with:
-              issue-number: ${{ github.event.pull_request.number }}
-              comment-id: ${{ steps.find-comment.outputs.comment-id}}
-              edit-mode: replace
-              body: |
-                  # ${{ inputs.comment-title }}: Changes Detected ⚠️
+                  // The Checks UI renders `output.title` as a heading above
+                  // the summary, so the summary should NOT repeat the title.
+                  let summary;
+                  if (noChanges) {
+                      summary = "No differences vs. the base branch.";
+                  } else {
+                      const details = (process.env.CHANGE_DETAILS || "").trim();
+                      const diff = process.env.DIFF_CONTENT || "";
+                      // Render the ack label as a link to its label page so
+                      // reviewers can see the real label badge (and the PRs
+                      // currently carrying it) with one click.
+                      const labelUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/labels/${encodeURIComponent(ackLabel)}`;
+                      const ackLabelMd = `[\`${ackLabel}\`](${labelUrl})`;
+                      const parts = [];
+                      if (details) {
+                          parts.push(details, "");
+                      }
+                      if (isAcked) {
+                          parts.push(
+                              `> Acknowledged via the **${ackLabelMd}** label. Remove the label to require re-acknowledgement.`,
+                              "",
+                          );
+                      } else {
+                          parts.push(
+                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the ${ackLabelMd} label to acknowledge. The check will re-run automatically.`,
+                              "",
+                          );
+                      }
+                      parts.push(
+                          "<details open><summary>View diff</summary>",
+                          "",
+                          "```diff",
+                          diff,
+                          "```",
+                          "",
+                          "</details>",
+                      );
+                      summary = parts.join("\n");
+                  }
 
-                  **Usually this means you need to update the Go parser 
-                  that Content Platform maintains!!!**
-                  Follow these [steps](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4161831001/Releasing+and+deploying+a+data-schema+change+in+Perseus#tl%3Bdr) on how to release.
-                  [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
-
-                  This PR contains critical changes to Perseus that affect published data.
-                  Please review the changes and note that you may need to
-                  coordinate deployment of these changes with other teams
-                  at Khan Academy, especially with #cp-eng to publish a
-                  content update.
-
-                  ```diff
-                  ${{ steps.compare-artifacts.outputs.diff-content }}
-                  ```
-
-                  <!---
-                  Comment ID: ${{ inputs.comment-title }}
-                  -->
+                  await github.rest.checks.create({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: checkName,
+                      head_sha: process.env.HEAD_SHA,
+                      status: "completed",
+                      conclusion,
+                      output: {title, summary},
+                  });

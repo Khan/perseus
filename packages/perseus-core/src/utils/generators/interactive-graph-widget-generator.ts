@@ -265,9 +265,15 @@ export function generateInteractiveGraphQuestion(
     options?: Partial<PerseusInteractiveGraphWidgetOptions> & {
         content?: string;
         isStatic?: boolean;
+        graded?: boolean;
     },
 ): PerseusRenderer {
-    const {content, isStatic, ...widgetOptions} = options ?? {};
+    const {
+        content = "[[☃ interactive-graph 1]]",
+        isStatic = false,
+        graded = true,
+        ...widgetOptions
+    } = options ?? {};
 
     // The `graph` and `correct` fields share all fields except for
     // the answers (coords, center, etc.) When only `correct` is provided,
@@ -282,21 +288,26 @@ export function generateInteractiveGraphQuestion(
             asymptote: _____,
             match: ______,
             ...graphConfig
+            // eslint-disable-next-line no-restricted-syntax
         } = widgetOptions.correct as Record<string, unknown>;
+        // eslint-disable-next-line no-restricted-syntax
         widgetOptions.graph = graphConfig as PerseusGraphType;
     }
 
     const optionsWithDefaults = {
+        // eslint-disable-next-line no-restricted-syntax
         gridStep: [1, 1] as [number, number],
+        // eslint-disable-next-line no-restricted-syntax
         snapStep: [0.5, 0.5] as [number, number],
         ...widgetOptions,
     };
 
     return generateTestPerseusRenderer({
-        content: content ?? "[[☃ interactive-graph 1]]",
+        content: content,
         widgets: {
             "interactive-graph 1": generateInteractiveGraphWidget({
-                static: isStatic ?? false,
+                static: isStatic,
+                graded,
                 options: generateInteractiveGraphOptions(optionsWithDefaults),
             }),
         },

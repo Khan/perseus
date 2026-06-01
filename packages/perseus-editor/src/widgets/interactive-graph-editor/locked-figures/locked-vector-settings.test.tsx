@@ -9,6 +9,7 @@ import LockedVectorSettings from "./locked-vector-settings";
 import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
+// eslint-disable-next-line no-restricted-syntax
 const defaultProps = {
     ...getDefaultFigureForType("vector"),
     onChangeProps: () => {},
@@ -194,6 +195,7 @@ describe("Locked Vector Settings", () => {
             );
 
             // Act
+            // eslint-disable-next-line no-restricted-syntax
             const coordInputs = screen.getAllByRole(
                 "spinbutton",
             ) as HTMLInputElement[];

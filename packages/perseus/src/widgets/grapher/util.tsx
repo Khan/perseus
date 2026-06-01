@@ -35,6 +35,7 @@ export const getEquationString = (plot: GrapherAnswerTypes): string => {
         const result = handler.getEquationString(
             plot.coords,
             // some graph types don't have this
+            // eslint-disable-next-line no-restricted-syntax
             (plot as any).asymptote,
         );
         return result || "";

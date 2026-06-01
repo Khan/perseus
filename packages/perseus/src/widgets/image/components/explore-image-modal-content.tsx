@@ -12,12 +12,11 @@ import {isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
-import type {CommonImageProps, ZoomProps, GifProps} from "./image-info-area";
+import type {CommonImageProps, GifProps} from "./image-info-area";
 
 const MODAL_HEIGHT = 568;
 
 type Props = CommonImageProps &
-    ZoomProps &
     GifProps & {
         captionId: string;
         longDescId: string;
@@ -34,7 +33,6 @@ export default function ExploreImageModalContent({
     box,
     labels,
     range,
-    zoomSize,
     captionId,
     longDescId,
 }: Props) {
@@ -45,13 +43,10 @@ export default function ExploreImageModalContent({
         return null;
     }
 
-    const scaleFF = isFeatureOn({apiOptions}, "image-widget-upgrade-scale");
     const gifControlsFF = isFeatureOn(
         {apiOptions},
         "image-widget-upgrade-gif-controls",
     );
-
-    const [zoomWidth, zoomHeight] = zoomSize;
 
     const imageIsGif = isGif(backgroundImage.url);
     const imageIsSvg = isSvg(backgroundImage.url);
@@ -73,32 +68,21 @@ export default function ExploreImageModalContent({
     let height: number | undefined = backgroundImage.height;
     let width: number | undefined = backgroundImage.width;
 
-    // Contain the image to the modal dimensions:
-    // - Shrink image to the modal height if it's taller than the modal.
-    // - Keep image its original size if it's shorter than the modal.
-    // - Maintain the image's aspect ratio.
-    height = Math.min(MODAL_HEIGHT, zoomHeight);
-    // bgWidth / bgHeight = X / height
-    // => X = (bgWidth / bgHeight) * height
-    width = (zoomWidth / zoomHeight) * height;
+    // If we know what the original image size is, use it to compute the
+    // image size for the modal with the scale applied.
+    if (backgroundImage.height && backgroundImage.width) {
+        // Pass in the original width and height into SVGImage so that
+        // it calculates graphie label sizes correctly.
+        width = backgroundImage.width;
+        height = backgroundImage.height;
 
-    if (scaleFF) {
-        // If we know what the original image size is, use it to compute the
-        // image size for the modal with the scale applied.
-        if (backgroundImage.height && backgroundImage.width) {
-            // Pass in the original width and height into SVGImage so that
-            // it calculates graphie label sizes correctly.
-            width = backgroundImage.width;
-            height = backgroundImage.height;
-
-            // The part that we need to calculate is the scale that we want
-            // to pass into SVGImage alongside the original dimensions in order
-            // to get our image to the size it should be within the modal.
-            // We don't want the scale to cause the image to be larger
-            // than the modal height, so we cap it here.
-            const maxScale = MODAL_HEIGHT / backgroundImage.height;
-            scale = Math.min(scale, maxScale);
-        }
+        // The part that we need to calculate is the scale that we want
+        // to pass into SVGImage alongside the original dimensions in order
+        // to get our image to the size it should be within the modal.
+        // We don't want the scale to cause the image to be larger
+        // than the modal height, so we cap it here.
+        const maxScale = MODAL_HEIGHT / backgroundImage.height;
+        scale = Math.min(scale, maxScale);
     }
 
     return (
@@ -114,7 +98,7 @@ export default function ExploreImageModalContent({
                             alt={caption === alt ? "" : alt}
                             width={width}
                             height={height}
-                            scale={scaleFF ? scale : 1}
+                            scale={scale}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,

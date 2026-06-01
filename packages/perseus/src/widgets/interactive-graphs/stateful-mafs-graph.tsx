@@ -1,7 +1,11 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
+
+import {getAnnouncementText} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -45,7 +49,9 @@ export type StatefulMafsGraphProps = {
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
     showAxisArrows: InteractiveGraphProps["showAxisArrows"];
+    showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
+    graded?: boolean | null;
 };
 
 export type StatefulMafsGraphType = {
@@ -57,6 +63,7 @@ export const StatefulMafsGraph = React.forwardRef<
     StatefulMafsGraphProps
 >(function StatefulMafsGraphWithRef(props, ref) {
     const {onChange, graph} = props;
+    const {strings, locale} = usePerseusI18n();
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -76,6 +83,20 @@ export const StatefulMafsGraph = React.forwardRef<
         }
         prevState.current = state;
     }, [onChange, state, graph]);
+
+    useEffect(() => {
+        if (!state.stateAnnouncement) {
+            return;
+        }
+
+        announceMessage({
+            message: getAnnouncementText(
+                state.stateAnnouncement,
+                strings,
+                locale,
+            ),
+        });
+    }, [state.stateAnnouncement, strings, locale]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -109,6 +130,7 @@ export const StatefulMafsGraph = React.forwardRef<
         graph.type === "angle" ? graph.allowReflexAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
     const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
+    const pointLabels = "pointLabels" in graph ? graph.pointLabels : undefined;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -131,11 +153,14 @@ export const StatefulMafsGraph = React.forwardRef<
         latestPropsRef,
         startCoords,
         allowReflexAngles,
+        pointLabels,
     ]);
 
-    // If the graph is static, it always displays the correct answer. This is
-    // standard behavior for Perseus widgets (e.g. compare the Radio widget).
-    if (props.static && props.correct) {
+    // If the graph is static and graded, it always displays the correct answer.
+    // This is standard behavior for Perseus widgets (e.g. compare the Radio widget).
+    // When graded is false the widget is a sketchpad and should never
+    // reveal the correct answer.
+    if (props.static && props.correct && props.graded !== false) {
         return (
             <MafsGraph
                 {...props}

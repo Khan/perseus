@@ -38,6 +38,7 @@ export const Demo = (): React.ReactElement => {
                     setArticle(value.json);
                 }}
                 previewURL={storybookPreviewUrl}
+                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -73,6 +74,7 @@ export const WithAllFlags = (): React.ReactElement => {
                     setArticle(value.json);
                 }}
                 previewURL={storybookPreviewUrl}
+                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -95,6 +97,7 @@ export const PreviewMode = (): React.ReactElement => {
                     /* Preview doesn't support editing */
                 }}
                 previewURL={storybookPreviewUrl}
+                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -117,6 +120,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
             json={[comprehensiveQuestion]}
             onChange={() => {}}
             previewURL={storybookPreviewUrl}
+            // eslint-disable-next-line no-restricted-syntax
             ref={articleEditorRef as any}
         />
     );

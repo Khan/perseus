@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {KhanMath} from "@khanacademy/kmath";
 import {
     components,
@@ -381,6 +380,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     <br />
                     {answerFormButtons.map((format) => {
                         const isSelected = answers[i]["answerForms"]?.includes(
+                            // eslint-disable-next-line no-restricted-syntax
                             format.value as MathFormat,
                         );
                         const kind = isSelected ? "accent" : "transparent";

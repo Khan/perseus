@@ -65,6 +65,7 @@ class Link extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         highlighted: false,
         href: DEFAULT_HREF,
+        // eslint-disable-next-line no-restricted-syntax
         style: [] as Array<CSSProperties>,
         element: "a",
     };

@@ -305,7 +305,9 @@ class Renderer
             );
         }
 
-        this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
+        if (this.props.userInput) {
+            this.props.apiOptions?.answerableCallback?.(this._isAnswerable());
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -549,6 +551,7 @@ class Renderer
             widgetIndex: this._getWidgetIndexById(widgetId),
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
+            graded: widgetInfo?.graded,
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,

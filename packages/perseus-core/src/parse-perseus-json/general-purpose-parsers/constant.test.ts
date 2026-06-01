@@ -10,6 +10,11 @@ describe("constant()", function () {
         expect(fooParser("foo", ctx())).toEqual(success("foo"));
     });
 
+    it("treats NaN as equal to NaN", () => {
+        const nanParser = constant(NaN);
+        expect(nanParser(NaN, ctx())).toEqual(success(NaN));
+    });
+
     it("rejects any other value", () => {
         expect(fooParser("bar", ctx())).toEqual(
             parseFailureWith({

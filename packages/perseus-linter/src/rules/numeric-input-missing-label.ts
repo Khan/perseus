@@ -1,5 +1,6 @@
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "numeric-input-missing-label",
     severity: Rule.Severity.WARNING,

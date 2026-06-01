@@ -273,6 +273,7 @@ export class Graphie {
             };
         let xLabelFormat = options.xLabelFormat || labelFormat;
         let yLabelFormat = options.yLabelFormat || labelFormat;
+        // eslint-disable-next-line no-restricted-syntax
         const realRange = [
             [
                 range[0][0] - (range[0][0] > 0 ? 1 : 0),
@@ -822,6 +823,7 @@ export class Graphie {
 
         // Create <div>
         const wrapper = document.createElement("div");
+        // eslint-disable-next-line no-restricted-syntax
         $(wrapper).css({
             position: "absolute",
             width: width + "px",
@@ -977,6 +979,7 @@ export class Graphie {
         return this.withStyle(style, () => {
             // We cast to GraphieLabelElement because we're augmenting the jQuery
             // element with custom methods (setPosition, processMath, processText)
+            // eslint-disable-next-line no-restricted-syntax
             const $span = $("<span>").addClass(
                 "graphie-label",
             ) as GraphieLabelElement;
@@ -1704,6 +1707,13 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
+    // Wait for fonts to load before setting label margins,
+    // so that the margins are not flakey.
+    if (document.fonts?.status === "loading") {
+        document.fonts.ready.then(() => setLabelMargins(span, size));
+        return;
+    }
+
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;

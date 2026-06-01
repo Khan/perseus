@@ -106,6 +106,7 @@ class Categorizer extends React.Component<Props, State> implements Widget {
         if (this.props.randomizeItems) {
             indexedItems = shuffle(
                 indexedItems,
+                // eslint-disable-next-line no-restricted-syntax
                 this.props.problemNum as number,
             );
         }

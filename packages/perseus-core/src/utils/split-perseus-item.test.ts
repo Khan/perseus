@@ -227,7 +227,6 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                     },
                 },
             },
@@ -244,7 +243,6 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                         rightAlign: false,
                         answers: [
                             {
@@ -354,6 +352,7 @@ describe("splitPerseusItem", () => {
             // calling the upgrader here so I don't
             // bog down the test with default properties
             widgets: applyDefaultsToWidgets({
+                // eslint-disable-next-line no-restricted-syntax
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
@@ -405,6 +404,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -438,6 +438,7 @@ describe("splitPerseusItem", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {
@@ -507,6 +508,7 @@ describe("splitPerseusItem", () => {
                 "radio 1": {
                     type: "radio",
                     version: {major: 0, minor: 0},
+                    // eslint-disable-next-line no-restricted-syntax
                     options: v0RadioOptions as any,
                 },
             },

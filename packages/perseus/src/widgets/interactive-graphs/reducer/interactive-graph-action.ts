@@ -94,7 +94,8 @@ export const actions = {
         movePoint,
     },
     vector: {
-        moveTip: (destination: vec.Vector2) => movePoint(1, destination),
+        moveTip: (destination: vec.Vector2) =>
+            movePointInFigure(0, 1, destination),
         moveVector: (newStart: vec.Vector2) => moveLine(0, newStart),
     },
 };
@@ -234,12 +235,12 @@ function openPolygon(): OpenPolygon {
 export const MOVE_ALL = "move-all";
 export interface MoveAll {
     type: typeof MOVE_ALL;
-    delta: vec.Vector2;
+    newStart: vec.Vector2;
 }
-function moveAll(delta: vec.Vector2): MoveAll {
+function moveAll(newStart: vec.Vector2): MoveAll {
     return {
         type: MOVE_ALL,
-        delta,
+        newStart,
     };
 }
 

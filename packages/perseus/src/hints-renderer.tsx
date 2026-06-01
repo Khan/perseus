@@ -105,6 +105,7 @@ class HintsRenderer extends React.Component<Props, State> {
                     return;
                 }
 
+                // eslint-disable-next-line no-restricted-syntax
                 const domNode = ReactDOM.findDOMNode(ref) as HTMLElement | null;
 
                 // Only focus if we have a valid DOM node that supports focus

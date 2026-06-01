@@ -41,6 +41,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
             // We have to cast the result here to PerseusWidgetsMap manually
             // because TypeScript gets confused by Object.fromEntries() (it
             // can't map that the id matches the object in the entry).
+            // eslint-disable-next-line no-restricted-syntax
             widgets: Object.fromEntries(
                 Object.entries(itemData.question.widgets).filter(([id]) =>
                     widgetIdsInUse.includes(id),
@@ -54,6 +55,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
             const hintWidgetIdsInUse = getWidgetIdsFromContent(hint.content);
             return {
                 ...hint,
+                // eslint-disable-next-line no-restricted-syntax
                 widgets: Object.fromEntries(
                     Object.entries(hint.widgets).filter(([id]) =>
                         hintWidgetIdsInUse.includes(id),

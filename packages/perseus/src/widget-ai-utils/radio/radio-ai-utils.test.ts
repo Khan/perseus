@@ -18,6 +18,7 @@ const shuffledQuestion: PerseusRenderer = {
     content: "[[\u2603 radio 1]]",
     images: {},
     widgets: {
+        // eslint-disable-next-line no-restricted-syntax
         "radio 1": {
             graded: true,
             version: {
@@ -149,6 +150,7 @@ describe("Radio AI utils", () => {
             await userEvent.click(radioInput!);
 
             const json = renderer.getPromptJSON();
+            // eslint-disable-next-line no-restricted-syntax
             const widgetJSON = json.widgets["radio 1"] as RadioPromptJSON;
 
             // Assert
@@ -159,6 +161,7 @@ describe("Radio AI utils", () => {
             // make sure the text from the prompt is in
             // the text for the UI at a given index
             listItems.forEach((li, i) => {
+                // eslint-disable-next-line no-restricted-syntax
                 const uiText = li.textContent as string;
                 const promptText = widgetJSON.options[i].value;
                 expect(uiText.includes(promptText)).toBe(true);
@@ -202,6 +205,7 @@ describe("Radio AI utils", () => {
         };
 
         // Act
+        // eslint-disable-next-line no-restricted-syntax
         const resultJSON = getPromptJSON(widgetData, undefined as any);
 
         // Assert

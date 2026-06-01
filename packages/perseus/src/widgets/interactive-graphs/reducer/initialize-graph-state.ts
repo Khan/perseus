@@ -43,6 +43,7 @@ export function initializeGraphState(
         hasBeenInteractedWith: false,
         range,
         snapStep,
+        pointLabels: "pointLabels" in graph ? graph.pointLabels : undefined,
     };
     switch (graph.type) {
         case "segment":
@@ -127,7 +128,7 @@ export function initializeGraphState(
                 type: graph.type,
                 showAngles: Boolean(graph.showAngles),
                 coords: getAngleCoords({graph, range, step}),
-                angleOffsetDeg: Number(graph.angleOffsetDeg),
+                angleOffsetDeg: graph.angleOffsetDeg ?? 0,
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
             };

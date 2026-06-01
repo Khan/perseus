@@ -125,6 +125,7 @@ describe("deriveExtraKeys", () => {
 
         expect(
             deriveExtraKeys(
+                // eslint-disable-next-line no-restricted-syntax
                 answerlessWidgetOptions as PerseusExpressionWidgetOptions,
             ),
         ).toEqual(["PI"]);

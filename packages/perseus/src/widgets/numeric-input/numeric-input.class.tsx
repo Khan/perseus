@@ -52,6 +52,7 @@ type DefaultProps = Pick<
 // defaultProps into account, which is important because
 // PerseusNumericInputWidgetOptions has optional fields which receive defaults
 // via defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput
@@ -87,6 +88,13 @@ export class NumericInput
     focus: () => boolean = () => {
         this.inputRef.current?.focus();
         return true;
+    };
+
+    // TODO(LEMS-4085): While we cannot find any callers of this method,
+    // adding it is the simplest way to resolve temporary type issues
+    // regarding rendering the Input Number widget as a Numeric Input
+    blur: () => void = () => {
+        this.inputRef.current?.blur();
     };
 
     focusInputPath: () => void = () => {

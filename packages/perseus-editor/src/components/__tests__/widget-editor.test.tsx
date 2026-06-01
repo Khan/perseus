@@ -6,9 +6,10 @@ import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import WidgetEditor from "../widget-editor";
+import WidgetEditor, {_upgradeWidgetInfo} from "../widget-editor";
 
-import type {Alignment} from "@khanacademy/perseus-core";
+import type {WidgetEditorProps} from "../widget-editor";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("WidgetEditor", () => {
@@ -37,7 +38,7 @@ describe("WidgetEditor", () => {
                 "getSupportedAlignments",
             ).mockReturnValue(["block", "inline", "full-width"]);
 
-            const {container} = render(
+            render(
                 <WidgetEditor
                     id="radio 1"
                     type="radio"
@@ -58,10 +59,9 @@ describe("WidgetEditor", () => {
             // Assert
             // Even though getSupportedAlignments returns multiple alignments,
             // the dropdown should NOT be shown because showAlignmentOptions is false
-            const alignmentDropdown =
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelector("select.alignment");
-            expect(alignmentDropdown).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("combobox", {name: "Alignment"}),
+            ).not.toBeInTheDocument();
         });
 
         it("should display alignment dropdown when widget supports multiple alignments", () => {
@@ -91,9 +91,10 @@ describe("WidgetEditor", () => {
             );
 
             // Assert
-            const dropdown = screen.getByRole("combobox");
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
             expect(dropdown).toBeInTheDocument();
-            expect(dropdown).toHaveClass("alignment");
         });
 
         it("should NOT display alignment dropdown when widget supports only one alignment", () => {
@@ -123,45 +124,9 @@ describe("WidgetEditor", () => {
             );
 
             // Assert
-            expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
-        });
-
-        it("should display all alignment options in the dropdown", () => {
-            // Arrange
-            const alignments: readonly Alignment[] = [
-                "block",
-                "inline",
-                "full-width",
-            ];
-            jest.spyOn(
-                CoreWidgetRegistry,
-                "getSupportedAlignments",
-            ).mockReturnValue(alignments);
-
-            render(
-                <WidgetEditor
-                    id="image 1"
-                    type="image"
-                    alignment="block"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
-                    onChange={() => {}}
-                    onRemove={() => {}}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        showAlignmentOptions: true,
-                    }}
-                />,
-            );
-
-            // Assert
-            const options = screen.getAllByRole("option");
-            expect(options).toHaveLength(3);
-            expect(options[0]).toHaveTextContent("block");
-            expect(options[1]).toHaveTextContent("inline");
-            expect(options[2]).toHaveTextContent("full-width");
+            expect(
+                screen.queryByRole("combobox", {name: "Alignment"}),
+            ).not.toBeInTheDocument();
         });
 
         it("should call onChange when alignment is changed", async () => {
@@ -191,8 +156,12 @@ describe("WidgetEditor", () => {
             );
 
             // Act
-            const dropdown = screen.getByRole("combobox");
-            await userEvent.selectOptions(dropdown, "inline");
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
+            await userEvent.click(dropdown);
+            const option = screen.getByRole("option", {name: "inline"});
+            await userEvent.click(option);
 
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
@@ -229,8 +198,71 @@ describe("WidgetEditor", () => {
             );
 
             // Assert
-            const dropdown = screen.getByRole("combobox");
-            expect(dropdown).toBeDisabled();
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
+            expect(dropdown).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("_upgradeWidgetInfo", () => {
+        it("runs data through the denylist", () => {
+            const options: PerseusDefinitionWidgetOptions = {
+                togglePrompt: "Neat prompt",
+                definition: "Cool definition",
+                static: false,
+            };
+
+            const props: WidgetEditorProps = {
+                id: "definition 1",
+                onChange: () => {},
+                onRemove: () => {},
+                apiOptions: {},
+                type: "definition",
+                options,
+            };
+
+            // problemNum is in the denylist,
+            // so we want to make sure it's removed
+            const dirtyProps = {...props, problemNum: 42};
+
+            const output = _upgradeWidgetInfo(dirtyProps);
+
+            // make sure we filter as expected
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onChange).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onRemove).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).apiOptions).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).problemNum).toBeUndefined();
+
+            // make sure we're not filtering too much
+            expect(output.type).toBe("definition");
+            expect(output.options).toEqual(options);
+        });
+
+        it("passes graded through", () => {
+            const options: PerseusDefinitionWidgetOptions = {
+                togglePrompt: "Neat prompt",
+                definition: "Cool definition",
+                static: false,
+            };
+
+            const props: WidgetEditorProps = {
+                id: "definition 1",
+                onChange: () => {},
+                onRemove: () => {},
+                apiOptions: {},
+                type: "definition",
+                options,
+                graded: true,
+            };
+
+            const output = _upgradeWidgetInfo(props);
+
+            expect(output.graded).toBe(true);
         });
     });
 });

@@ -1,5 +1,6 @@
 const CDOT_ONLY = [
     "az",
+    "bg",
     "cs",
     "da",
     "de",

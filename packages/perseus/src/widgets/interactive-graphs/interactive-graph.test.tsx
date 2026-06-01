@@ -15,7 +15,7 @@ import {
     getDefaultFigureForType,
 } from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {waitFor} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
@@ -28,7 +28,6 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
-import InteractiveGraphExports from "./interactive-graph";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -107,6 +106,7 @@ describe("Interactive Graph", function () {
         );
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
@@ -125,6 +125,7 @@ describe("Interactive Graph", function () {
             it("Should accept the right answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -155,6 +156,7 @@ describe("Interactive Graph", function () {
 
             it("Should render user input predictably", async () => {
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -187,6 +189,7 @@ describe("Interactive Graph", function () {
             it("should reject an incorrect answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
+                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -1216,6 +1219,7 @@ describe("Interactive Graph", function () {
             });
         });
 
+        // eslint-disable-next-line no-restricted-syntax
         it.each([
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
@@ -1476,7 +1480,7 @@ describe("Interactive Graph", function () {
                     .spyOn(Plot, "OfX")
                     .mockReturnValue(<div>OfX</div>);
                 const expectedParameters = {
-                    color: "#3B3D45",
+                    color: lockedFigureColors.grayH,
                     domain: [-2, 3],
                     style: "solid",
                 };
@@ -2030,73 +2034,112 @@ describe("Interactive Graph", function () {
             },
         );
     });
-});
 
-describe("getLogarithmEquationString", () => {
-    const InteractiveGraph = InteractiveGraphExports.widget;
+    describe("axis ticks", () => {
+        it("renders both axis tick groups by default", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                }),
+                blankOptions,
+            );
 
-    function makeProps(coords: [Coord, Coord], asymptote: number) {
-        return {
-            userInput: {
-                type: "logarithm",
-                coords,
-                asymptote,
-            },
-        } as unknown as Parameters<
-            typeof InteractiveGraph.getLogarithmEquationString
-        >[0];
-    }
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
 
-    it("omits the constant term when asymptote is 0 (c === 0)", () => {
-        // Arrange — asymptote=0 produces c=0
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            0,
-        );
+            // Assert
+            expect(ticks1.length).toBe(2);
+            expect(ticks2.length).toBe(2);
+        });
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
+        it("hides only the x-axis tick group when showAxisTicks.x is false", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    showAxisTicks: {x: false, y: true},
+                }),
+                blankOptions,
+            );
 
-        // Assert — should NOT contain "+ 0.000"
-        expect(equation).not.toContain("+ 0.000");
-        expect(equation).toMatch(/ln\(\d+\.\d+x\)/);
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(1);
+            expect(ticks2.length).toBe(1);
+        });
+
+        it("hides only the y-axis tick group when showAxisTicks.y is false", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    showAxisTicks: {x: true, y: false},
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.getAllByText("9");
+            const ticks2 = screen.getAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(1);
+            expect(ticks2.length).toBe(1);
+        });
+
+        it("hides both tick groups when both axes are off (markings stays 'graph')", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                    markings: "graph",
+                    showAxisTicks: {x: false, y: false},
+                }),
+                blankOptions,
+            );
+
+            const ticks1 = screen.queryAllByText("9");
+            const ticks2 = screen.queryAllByText("-9");
+
+            // Assert
+            expect(ticks1.length).toBe(0);
+            expect(ticks2.length).toBe(0);
+        });
     });
 
-    it("shows subtracted constant when c < 0", () => {
-        // Arrange — asymptote=2 produces a negative c
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            2,
-        );
+    describe("ungraded interactive graph", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
+        it("renders a 'not graded' message when graded is false", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({graded: false});
+            renderQuestion(question, blankOptions);
 
-        // Assert — should contain "x - " for negative c
-        expect(equation).toContain("x - ");
-        expect(equation).not.toContain("x + -");
-    });
+            // Assert
+            expect(
+                screen.getByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                ),
+            ).toBeInTheDocument();
+        });
 
-    it("shows added constant when c > 0", () => {
-        // Arrange — asymptote=-2 produces a positive c
-        const props = makeProps(
-            [
-                [3, 2],
-                [5, 4],
-            ],
-            -2,
-        );
+        it("does not render a 'not graded' message when graded is true", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({graded: true});
+            renderQuestion(question, blankOptions);
 
-        // Act
-        const equation = InteractiveGraph.getLogarithmEquationString(props);
-
-        // Assert — should contain "x + " for positive c
-        expect(equation).toContain("x + ");
+            // Assert
+            expect(
+                screen.queryByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                ),
+            ).not.toBeInTheDocument();
+        });
     });
 });

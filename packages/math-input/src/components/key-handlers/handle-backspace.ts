@@ -50,6 +50,7 @@ function handleBackspaceInRootIndex(
         selectNode(grandparent, cursor);
 
         const rootIsEmpty =
+            // eslint-disable-next-line no-restricted-syntax
             (grandparent.blocks[1]._el as HTMLElement).textContent === "";
 
         if (rootIsEmpty) {

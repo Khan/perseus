@@ -14,8 +14,11 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
+    // eslint-disable-next-line no-restricted-syntax
     box: [288, 288] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     gridStep: [1, 1] as [number, number],
+    // eslint-disable-next-line no-restricted-syntax
     snapStep: [1, 1] as [number, number],
     showAxisArrows: {
         xMin: true,
@@ -29,6 +32,7 @@ const baseProps = {
 
 const segmentProps: PropsFor<typeof InteractiveGraphEditor> = {
     ...baseProps,
+    // eslint-disable-next-line no-restricted-syntax
     graph: {type: "segment"} as PerseusGraphType,
 };
 
@@ -44,7 +48,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("should render", async () => {
+    it("should render", async () => {
         // Arrange
 
         // Act
@@ -60,7 +64,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("changing the graph should call onChange", async () => {
+    it("changing the graph should call onChange", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -72,7 +76,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
@@ -85,7 +89,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("displays error message when `valid` prop is a string", async () => {
+    it("displays error message when `valid` prop is a string", async () => {
         // Arrange
 
         // Act
@@ -105,7 +109,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("uses default graph type if one is not provided", async () => {
+    it("uses default graph type if one is not provided", async () => {
         // Arrange
 
         // Act
@@ -121,7 +125,7 @@ describe("InteractiveGraphEditor", () => {
         expect(otherType).not.toBeInTheDocument();
     });
 
-    test("uses provided graph type if one is provided", async () => {
+    it("uses provided graph type if one is provided", async () => {
         // Arrange
 
         // Act
@@ -145,7 +149,7 @@ describe("InteractiveGraphEditor", () => {
         expect(screen.getByText("Polygon")).toBeInTheDocument();
     });
 
-    test("Includes point-specific settings when graph type is 'point'", async () => {
+    it("Includes point-specific settings when graph type is 'point'", async () => {
         // Arrange
 
         // Act
@@ -166,7 +170,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("Includes polygon-specific settings when graph type is 'polygon'", async () => {
+    it("Includes polygon-specific settings when graph type is 'polygon'", async () => {
         // Arrange
 
         // Act
@@ -195,7 +199,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("Includes segment-specific settings when graph type is 'segment'", async () => {
+    it("Includes segment-specific settings when graph type is 'segment'", async () => {
         // Arrange
 
         // Act
@@ -216,7 +220,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("Includes angle-specific settings when graph type is 'angle'", async () => {
+    it("Includes angle-specific settings when graph type is 'angle'", async () => {
         // Arrange
 
         // Act
@@ -237,7 +241,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("Calls onChange when the number of points is changed", async () => {
+    it("Calls onChange when the number of points is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -268,7 +272,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when the number of sides is changed", async () => {
+    it("Calls onChange when the number of sides is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -309,7 +313,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Snap to' is changed", async () => {
+    it("Calls onChange when 'Snap to' is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -345,7 +349,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Show angle measures' is changed", async () => {
+    it("Calls onChange when 'Show angle measures' is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -384,7 +388,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Show side measures' is changed", async () => {
+    it("Calls onChange when 'Show side measures' is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -423,7 +427,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Number of segments' is changed", async () => {
+    it("Calls onChange when 'Number of segments' is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -463,7 +467,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Student answer must' for polygon is changed", async () => {
+    it("Calls onChange when 'Student answer must' for polygon is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -498,7 +502,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when 'Student answer must' for angle is changed", async () => {
+    it("Calls onChange when 'Student answer must' for angle is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -533,7 +537,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("changes number of segments when segment prop changes", async () => {
+    it("changes number of segments when segment prop changes", async () => {
         // Arrange
 
         // Act
@@ -560,7 +564,7 @@ describe("InteractiveGraphEditor", () => {
         expect(await screen.findAllByTestId("movable-line")).toHaveLength(4);
     });
 
-    test("getSaveWarnings returns an error when the graph is invalid", async () => {
+    it("getSaveWarnings returns an error when the graph is invalid", async () => {
         // Arrange
         const ref = React.createRef<InteractiveGraphEditor>();
 
@@ -593,7 +597,7 @@ describe("InteractiveGraphEditor", () => {
         ]);
     });
 
-    test("getSaveWarnings is empty if there are no errors", async () => {
+    it("getSaveWarnings is empty if there are no errors", async () => {
         // Arrange
         const ref = React.createRef<InteractiveGraphEditor>();
 
@@ -618,7 +622,7 @@ describe("InteractiveGraphEditor", () => {
         expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
 
-    test("calls changeStartCoords when the startCoords are changed", async () => {
+    it("calls changeStartCoords when the startCoords are changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -652,7 +656,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("should not render start coords UI for point graphs with unlimited points", async () => {
+    it("should not render start coords UI for point graphs with unlimited points", async () => {
         // Arrange
 
         // Act
@@ -675,7 +679,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render start coords UI for polygon graphs with unlimited sides", async () => {
+    it("should not render start coords UI for polygon graphs with unlimited sides", async () => {
         // Arrange
 
         // Act
@@ -698,7 +702,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render start coords UI for polygon graphs with non-grid snapTo (angles)", async () => {
+    it("should not render start coords UI for polygon graphs with non-grid snapTo (angles)", async () => {
         // Arrange
 
         // Act
@@ -721,7 +725,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render start coords UI for polygon graphs with non-grid snapTo (sides)", async () => {
+    it("should not render start coords UI for polygon graphs with non-grid snapTo (sides)", async () => {
         // Arrange
 
         // Act
@@ -744,7 +748,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render start coords UI for a static graph", async () => {
+    it("should not render start coords UI for a static graph", async () => {
         // Arrange
 
         // Act
@@ -768,7 +772,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("shows description section", () => {
+    it("shows description section", () => {
         // Arrange
 
         // Act
@@ -785,7 +789,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
-    test("should render for none-type graphs", () => {
+    it("should render for none-type graphs", () => {
         render(
             <InteractiveGraphEditor
                 {...segmentProps}
@@ -798,7 +802,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("displays a 'None' answer type option", async () => {
+    it("displays a 'None' answer type option", async () => {
         render(
             <InteractiveGraphEditor
                 {...baseProps}
@@ -810,12 +814,12 @@ describe("InteractiveGraphEditor", () => {
             },
         );
 
-        const dropdown = await screen.findByLabelText("Answer type:");
+        const dropdown = await screen.findByLabelText("Answer type");
         await userEvent.click(dropdown);
         expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 
-    test("fixes a `correct` prop with the wrong graph type, defaulting it to `graph`", () => {
+    it("fixes a `correct` prop with the wrong graph type, defaulting it to `graph`", () => {
         // This behavior is a workaround for the AX editor, which passes
         // answerless data to the editor in question stems. The value of
         // `correct` always defaults to `{type: "linear"}` when answerless

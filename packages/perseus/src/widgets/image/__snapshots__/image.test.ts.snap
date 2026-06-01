@@ -168,7 +168,7 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -183,7 +183,7 @@ exports[`image widget - isMobile(false) flags when scale flag is enabled zoom vi
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -198,7 +198,7 @@ exports[`image widget - isMobile(false) flags when scale flag is enabled zoom vi
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -213,7 +213,7 @@ exports[`image widget - isMobile(false) flags when scale flag is enabled zoom vi
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2.5"
@@ -228,7 +228,7 @@ exports[`image widget - isMobile(false) flags when scale flag is enabled zoom vi
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -243,7 +243,7 @@ exports[`image widget - isMobile(false) flags when scale flag is enabled zoom vi
 </div>
 `;
 
-exports[`image widget - isMobile(false) flags when scale flag is enabled zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(false) scale zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -609,7 +609,7 @@ exports[`image widget - isMobile(true) custom alignment should render image with
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should equal to 1 when image scale is keep scale at 1 (scale: 1) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -624,7 +624,7 @@ exports[`image widget - isMobile(true) flags when scale flag is enabled zoom vie
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should equal to 2 when SVG scale is keep scale at 2 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -639,7 +639,7 @@ exports[`image widget - isMobile(true) flags when scale flag is enabled zoom vie
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should greater than 1 when image scale is keep scale above 1 (scale: 2) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"
@@ -654,7 +654,7 @@ exports[`image widget - isMobile(true) flags when scale flag is enabled zoom vie
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should greater than 2 when SVG scale is keep scale above 2 (scale: 2.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2.5"
@@ -669,7 +669,7 @@ exports[`image widget - isMobile(true) flags when scale flag is enabled zoom vie
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should less than 1 when image scale is scale up to 1 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="1"
@@ -684,7 +684,7 @@ exports[`image widget - isMobile(true) flags when scale flag is enabled zoom vie
 </div>
 `;
 
-exports[`image widget - isMobile(true) flags when scale flag is enabled zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
+exports[`image widget - isMobile(true) scale zoom view should less than 2 when SVG scale is scale up to 2 (scale: 0.5) 1`] = `
 <div
   class="fixed-to-responsive svg-image"
   data-scale="2"

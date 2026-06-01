@@ -1,11 +1,16 @@
 import {
-    type PerseusRenderer,
     generateRadioWidget,
     generateTestPerseusRenderer,
     generateRadioOptions,
     generateRadioChoice,
     generateSimpleRadioQuestion,
     generateGradedGroupSetWidget,
+} from "@khanacademy/perseus-core";
+
+import type {
+    PerseusRenderer,
+    PerseusRadioWidgetOptions,
+    PerseusImageDetail,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -60,90 +65,61 @@ export const questionAndAnswer: [
     ReadonlyArray<number>,
 ] = [question, 2, [0, 1, 3]];
 
-export const questionWithRationale: PerseusRenderer =
-    generateTestPerseusRenderer({
-        content:
-            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    choices: [
-                        generateRadioChoice("USS Voyager (NCC-74656)", {
-                            rationale: "Commanded by Captain Kathryn Janeway.",
-                        }),
-                        generateRadioChoice("USS Enterprise (NCC-1701)", {
-                            rationale:
-                                "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
-                                "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
-                                "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
-                                "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
-                                '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
-                        }),
-                        generateRadioChoice("USS Enterprise (NX-01)", {
-                            rationale: "Commanded by Captain Jonathan Archer.",
-                        }),
-                        generateRadioChoice("USS Stargazer (NCC-2893)", {
-                            correct: true,
-                            rationale:
-                                "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
-                        }),
-                    ],
-                }),
-            }),
-        },
-    });
+export const choicesWithImagesArgs: PerseusRadioWidgetOptions = {
+    choices: [
+        generateRadioChoice(
+            "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
+            {
+                rationale:
+                    "The markdown only has single lines between each item, so they should be treated as one complete line.",
+            },
+        ),
+        generateRadioChoice(
+            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+            {
+                rationale:
+                    "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+            },
+        ),
+        generateRadioChoice(
+            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+            {
+                rationale:
+                    "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+            },
+        ),
+        generateRadioChoice(
+            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+            {
+                rationale:
+                    "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+            },
+        ),
+        generateRadioChoice(
+            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+            {
+                rationale:
+                    "The markdown only has an image (no text), so nothing should be adjusted.",
+            },
+        ),
+        generateRadioChoice(
+            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+            {
+                rationale:
+                    "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+            },
+        ),
+    ],
+};
+
+export const choicesWithImagesContent: string =
+    "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]";
 
 export const choicesWithImages: PerseusRenderer = generateTestPerseusRenderer({
-    content:
-        "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
+    content: choicesWithImagesContent,
     widgets: {
         "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                choices: [
-                    generateRadioChoice(
-                        "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                        {
-                            rationale:
-                                "The markdown only has single lines between each item, so they should be treated as one complete line.",
-                        },
-                    ),
-                    generateRadioChoice(
-                        "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        {
-                            rationale:
-                                "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
-                        },
-                    ),
-                    generateRadioChoice(
-                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                        {
-                            rationale:
-                                "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
-                        },
-                    ),
-                    generateRadioChoice(
-                        "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                        {
-                            rationale:
-                                "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
-                        },
-                    ),
-                    generateRadioChoice(
-                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        {
-                            rationale:
-                                "The markdown only has an image (no text), so nothing should be adjusted.",
-                        },
-                    ),
-                    generateRadioChoice(
-                        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                        {
-                            rationale:
-                                "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
-                        },
-                    ),
-                ],
-            }),
+            options: generateRadioOptions(choicesWithImagesArgs),
         }),
     },
 });
@@ -408,70 +384,43 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
     },
 };
 
+export const choicesWithGraphieContent: string =
+    "The double number line shows that it takes $4$ hours for Karin to fold $28$ paper cranes.\n\n" +
+    "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
+    "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
+    "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
+    "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]";
+
+export const choicesWithGraphieArgs: PerseusRadioWidgetOptions = {
+    choices: [
+        generateRadioChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+            {correct: true},
+        ),
+        generateRadioChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
+        ),
+    ],
+};
+
+export const choicesWithGraphieImages: Record<string, PerseusImageDetail> = {
+    "web+graphie://ka-perseus-graphie.s3.amazonaws.com/def25e9c056a6f782f5a8492ae55ee85670f0ab7":
+        {
+            width: 398,
+            height: 80,
+        },
+    "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2b86af8e76b455f59e53a25a1b577b35a5414216":
+        {width: 398, height: 80},
+};
+
 export const choicesWithGraphie: PerseusRenderer = {
     ...generateTestPerseusRenderer({
-        content:
-            "The double number line shows that it takes $4$ hours for Karin to fold $28$ paper cranes.\n\n" +
-            "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
-            "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
-            "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
-            "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]",
+        content: choicesWithGraphieContent,
         widgets: {
             "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    choices: [
-                        generateRadioChoice(
-                            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
-                            {correct: true},
-                        ),
-                        generateRadioChoice(
-                            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
-                        ),
-                    ],
-                }),
+                options: generateRadioOptions(choicesWithGraphieArgs),
             }),
         },
     }),
-    images: {
-        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/def25e9c056a6f782f5a8492ae55ee85670f0ab7":
-            {
-                width: 398,
-                height: 80,
-            },
-        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2b86af8e76b455f59e53a25a1b577b35a5414216":
-            {
-                width: 398,
-                height: 80,
-            },
-    },
-};
-
-export const choicesWithMathFont = (options?: {
-    multipleSelect: boolean;
-}): PerseusRenderer => {
-    return generateTestPerseusRenderer({
-        content:
-            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    multipleSelect: options?.multipleSelect ?? false,
-                    choices: [
-                        generateRadioChoice(
-                            "Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "Only $-8$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "Only $8$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                        generateRadioChoice(
-                            "No value of $x$ satisfies the equation $\\sqrt{64}=x$",
-                        ),
-                    ],
-                }),
-            }),
-        },
-    });
+    images: choicesWithGraphieImages,
 };

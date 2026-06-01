@@ -120,7 +120,6 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                     },
                 },
             },
@@ -137,7 +136,6 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        static: false,
                         rightAlign: false,
                         answers: [
                             {
@@ -247,6 +245,7 @@ describe("splitPerseusRenderer", () => {
             // calling the upgrader here so I don't
             // bog down the test with default properties
             widgets: applyDefaultsToWidgets({
+                // eslint-disable-next-line no-restricted-syntax
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
@@ -298,6 +297,7 @@ describe("splitPerseusRenderer", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -331,6 +331,7 @@ describe("splitPerseusRenderer", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {

@@ -6,6 +6,7 @@ import ScrolllessNumberTextField from "../scrollless-number-text-field";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Scrollless Number Text Field",
     component: ScrolllessNumberTextField,

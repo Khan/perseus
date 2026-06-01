@@ -16,7 +16,6 @@ import {
     type WidgetExports,
     type WidgetProps,
 } from "../../types";
-import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
 import VideoTranscriptLink from "./video-transcript-link";
@@ -109,12 +108,8 @@ class Video extends React.Component<Props> implements Widget {
                     // any changes cause a re-rendering of the frame.
                     key={location + this.props.alignment}
                 >
-                    <View style={a11y.srOnly}>
-                        {this.context.strings.videoWrapper}
-                    </View>
-
-                    {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                     <iframe
+                        title={this.context.strings.videoWrapper}
                         className="perseus-video-widget"
                         sandbox="allow-same-origin allow-scripts"
                         width={DEFAULT_WIDTH}

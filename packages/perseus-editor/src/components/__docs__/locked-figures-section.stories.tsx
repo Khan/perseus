@@ -9,6 +9,7 @@ import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Editors/Components/Locked Figures Section",
     component: LockedFiguresSection,

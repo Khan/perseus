@@ -7,15 +7,23 @@ import {
     circleQuestion,
     linearQuestion,
     linearSystemQuestion,
+    linearSystemWithCustomLabelsQuestion,
+    linearWithCustomLabelsQuestion,
     pointQuestion,
+    pointWithCustomLabelQuestion,
+    pointWithDefaultLabelQuestion,
     polygonQuestion,
+    polygonWithCustomLabelsQuestion,
     rayQuestion,
+    rayWithCustomLabelsQuestion,
     segmentQuestion,
+    segmentWithCustomLabelsQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
     segmentWithAllLockedLineSegmentVariations,
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
+    absoluteValueQuestion,
     exponentialQuestion,
     logarithmQuestion,
     sinusoidQuestion,
@@ -29,6 +37,8 @@ import {
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
+    ungradedQuestion,
+    noTicks,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -71,9 +81,35 @@ export const Linear: Story = {
     },
 };
 
+/**
+ * A linear graph whose two endpoints are named "A" and "B" via `pointLabels`,
+ * so JAWS announces "Point A at …" / "Point B at …" instead of the default
+ * "Point 1 at …" / "Point 2 at …".
+ */
+export const LinearWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const LinearSystem: Story = {
     args: {
         item: generateTestPerseusItem({question: linearSystemQuestion}),
+    },
+};
+
+/**
+ * A linear system whose four interactive endpoints are named "A", "B", "C",
+ * "D" via `pointLabels` (flat across both lines), so JAWS announces "Point
+ * A / B / C / D at …" instead of the default "Point N on line N at …".
+ */
+export const LinearSystemWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearSystemWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -83,9 +119,52 @@ export const Point: Story = {
     },
 };
 
+/**
+ * A point graph whose interactive point uses a custom screen-reader label ("T")
+ * via `pointLabels`, so the announcement matches the question prompt ("Plot point T …")
+ * instead of the generic "Point 1 …".
+ */
+export const PointWithCustomLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithCustomLabelQuestion,
+        }),
+    },
+};
+
+/**
+ * The same reference question as `PointWithCustomLabel`, but
+ * with `pointLabels` omitted so the interactive point falls back to the
+ * legacy numeric default — JAWS announces "Point 1 at …" even though
+ * the prompt asks for point "T". Kept as a before/after comparison
+ * against `PointWithCustomLabel`.
+ */
+export const PointWithDefaultLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithDefaultLabelQuestion,
+        }),
+    },
+};
+
 export const Polygon: Story = {
     args: {
         item: generateTestPerseusItem({question: polygonQuestion}),
+    },
+};
+
+/**
+ * A polygon graph whose vertices use custom screen-reader
+ * labels ("A", "B", "C") via `pointLabels`, so the announcements
+ * match the question prompt instead of the generic "Point 1/2/3 …".
+ * Open with the Storybook a11y addon (or VoiceOver / JAWS) to verify
+ * each vertex announces "Point A / B / C at …".
+ */
+export const PolygonWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: polygonWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -101,6 +180,20 @@ export const Ray: Story = {
     },
 };
 
+/**
+ * A ray whose endpoint and through point are named "A" and "B" via
+ * `pointLabels`. The default semantic "Endpoint at …" / "Through point at …"
+ * labels are overridden so the SR announcement matches the prompt's
+ * naming convention.
+ */
+export const RayWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: rayWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Vector: Story = {
     args: {
         item: generateTestPerseusItem({question: vectorQuestion}),
@@ -110,6 +203,20 @@ export const Vector: Story = {
 export const Segment: Story = {
     args: {
         item: generateTestPerseusItem({question: segmentQuestion}),
+    },
+};
+
+/**
+ * A segment graph with two segments whose endpoints are named "A", "B",
+ * "C", "D" via `pointLabels` (flat across all segments), so JAWS announces
+ * "Point A / B / C / D at …" instead of the per-segment "Endpoint N on
+ * segment N at …" defaults.
+ */
+export const SegmentWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -134,6 +241,12 @@ export const Logarithm: Story = {
 export const Tangent: Story = {
     args: {
         item: generateTestPerseusItem({question: tangentQuestion}),
+    },
+};
+
+export const AbsoluteValue: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
     },
 };
 
@@ -325,6 +438,22 @@ export const AnswerlessSinusoid: Story = {
     args: {
         item: generateTestPerseusItem({
             question: sinusoidQuestion,
+        }),
+    },
+};
+
+export const Ungraded: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: ungradedQuestion,
+        }),
+    },
+};
+
+export const NoTicks: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: noTicks,
         }),
     },
 };

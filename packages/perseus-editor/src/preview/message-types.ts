@@ -9,7 +9,17 @@ import type {
     PerseusArticle,
     PerseusItem,
 } from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+
+/**
+ * The subset of `LinterContextProps` that's meaningful to send across the
+ * preview bridge. The receiver wraps this in `pushContextStack(...)` before
+ * passing it to the renderer, which fills in the `stack`.
+ */
+// TODO(jeremy): Remove this type and inline it into the messages that use it.
+type PreviewLinterContext = {
+    contentType: string;
+    highlightLint: boolean;
+};
 
 /**
  * Constant identifier for all Perseus preview messages
@@ -24,17 +34,6 @@ interface PreviewMessageBase {
 }
 
 /**
- * Base type for messages with iframe ID
- *
- * Note: The ID is primarily used for debugging/logging purposes.
- * Message routing is handled by event.source filtering in the hooks,
- * not by comparing ID strings.
- */
-interface PreviewMessageWithId extends PreviewMessageBase {
-    id: string;
-}
-
-/**
  * Data for question preview (full item with question, answer area, and hints)
  */
 export type QuestionPreviewData = {
@@ -42,7 +41,7 @@ export type QuestionPreviewData = {
     apiOptions: APIOptions;
     initialHintsVisible: number;
     device: DeviceType;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;
     problemNum?: number;
@@ -55,7 +54,7 @@ export type HintPreviewData = {
     hint: Hint;
     pos: number;
     apiOptions: APIOptions;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
 };
 
 /**
@@ -64,7 +63,7 @@ export type HintPreviewData = {
 export type ArticlePreviewData = {
     apiOptions: APIOptions;
     json: PerseusArticle;
-    linterContext: LinterContextProps;
+    linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
 };
 
@@ -82,10 +81,10 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-type PreviewDataMessage = PreviewMessageWithId & {
+interface PreviewDataMessage extends PreviewMessageBase {
     type: "content-data";
     content: PreviewContent;
-};
+}
 
 /**
  * Union of all messages sent from parent to iframe
@@ -95,32 +94,30 @@ export type ParentToIframeMessage = PreviewDataMessage;
 // ---- Iframe → Parent messages ----
 
 /**
- * Message from iframe requesting data from parent
+ * Message from iframe to parent telling it the iframe is ready
  */
-type PreviewDataRequestMessage = PreviewMessageWithId & {
-    type: "request-data";
-};
+interface PreviewIframeReadyMessage extends PreviewMessageBase {
+    type: "iframe-ready";
+}
 
 /**
  * Message from iframe reporting its content height
  */
-type PreviewHeightUpdateMessage = PreviewMessageWithId & {
+interface PreviewHeightUpdateMessage extends PreviewMessageBase {
     type: "height-update";
     height: number;
-};
-
-/**
- * Message from iframe reporting lint warnings
- */
-type PreviewLintReportMessage = PreviewMessageWithId & {
-    type: "lint-report";
-    lintWarnings: ReadonlyArray<any>;
-};
+}
 
 /**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
-    | PreviewDataRequestMessage
-    | PreviewHeightUpdateMessage
-    | PreviewLintReportMessage;
+    | PreviewIframeReadyMessage
+    | PreviewHeightUpdateMessage;
+
+export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "iframe-ready",
+    };
+}

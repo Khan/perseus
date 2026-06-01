@@ -168,6 +168,7 @@ export default function LockedLabelSettings(props: Props) {
                         selectedValue={size}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
+                            // eslint-disable-next-line no-restricted-syntax
                             ((newValue: "small" | "medium" | "large") =>
                                 onChangeProps({
                                     size: newValue,

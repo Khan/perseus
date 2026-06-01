@@ -12,7 +12,6 @@ import {
     earthMoonImage,
     frescoImage,
 } from "../../../../perseus/src/widgets/image/utils";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
@@ -32,13 +31,6 @@ const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
 
 const apiOptions = ApiOptions.defaults;
-
-const apiOptionsWithScaleFlag = {
-    ...apiOptions,
-    flags: getFeatureFlags({
-        "image-widget-upgrade-scale": true,
-    }),
-};
 
 const ImageEditorWithDependencies = (props: PropsFor<typeof ImageEditor>) => {
     return (
@@ -124,8 +116,13 @@ describe("image editor", () => {
             />,
         );
 
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
+        const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+        const widthField = screen.getByRole("spinbutton", {
+            name: "Scaled Width",
+        });
+        const heightField = screen.getByRole("spinbutton", {
+            name: "Scaled Height",
+        });
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -135,6 +132,7 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
+        expect(scaleField).toBeInTheDocument();
         expect(widthField).toBeInTheDocument();
         expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
@@ -143,6 +141,7 @@ describe("image editor", () => {
         expect(captionField).toBeInTheDocument();
         expect(titleField).toBeInTheDocument();
 
+        expect(scaleField).toHaveValue(1);
         expect(widthField).toHaveValue(earthMoonImage.width);
         expect(heightField).toHaveValue(earthMoonImage.height);
         expect(urlField).toHaveValue(earthMoonImage.url);
@@ -171,8 +170,13 @@ describe("image editor", () => {
             />,
         );
 
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
+        const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+        const widthField = screen.getByRole("spinbutton", {
+            name: "Scaled Width",
+        });
+        const heightField = screen.getByRole("spinbutton", {
+            name: "Scaled Height",
+        });
         const urlField = screen.getByRole("textbox", {name: "Image URL"});
         const altField = screen.getByRole("textbox", {name: "Alt text"});
         const longDescriptionField = screen.getByRole("textbox", {
@@ -182,6 +186,7 @@ describe("image editor", () => {
         const titleField = screen.getByRole("textbox", {name: "Title"});
 
         // Assert
+        expect(scaleField).toBeInTheDocument();
         expect(widthField).toBeInTheDocument();
         expect(heightField).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
@@ -193,6 +198,7 @@ describe("image editor", () => {
         expect(widthField).toHaveValue(earthMoonImage.width);
         expect(heightField).toHaveValue(earthMoonImage.height);
         expect(urlField).toHaveValue(earthMoonImage.url);
+        expect(scaleField).toHaveValue(1);
 
         // All other fields should have value "" if undefined
         expect(altField).toHaveValue("");
@@ -231,12 +237,7 @@ describe("image editor", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={{
-                    ...apiOptions,
-                    flags: getFeatureFlags({
-                        "image-widget-upgrade-scale": true,
-                    }),
-                }}
+                apiOptions={apiOptions}
                 // frescoImage is very large (1698 x 955)
                 backgroundImage={frescoImage}
                 onChange={() => {}}
@@ -251,16 +252,11 @@ describe("image editor", () => {
         ).toBeInTheDocument();
     });
 
-    it("should note render warning for smaller image", () => {
+    it("should not render warning for smaller image", () => {
         // Arrange, Act
         render(
             <ImageEditorWithDependencies
-                apiOptions={{
-                    ...apiOptions,
-                    flags: getFeatureFlags({
-                        "image-widget-upgrade-scale": true,
-                    }),
-                }}
+                apiOptions={apiOptions}
                 // earthMoonImage is small (400 x 225)
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
@@ -318,26 +314,6 @@ describe("image editor", () => {
 
         // Assert
         expect(screen.getByAltText("Preview: No alt text")).toBeInTheDocument();
-    });
-
-    it("should show the image dimensions if the image size is known", () => {
-        // Arrange
-
-        // Act
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-            />,
-        );
-
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
-
-        // Assert
-        expect(widthField).toHaveValue(400);
-        expect(heightField).toHaveValue(225);
     });
 
     it("should call onChange with the new image url", async () => {
@@ -425,95 +401,7 @@ describe("image editor", () => {
         expect(screen.queryByText(nonKhanImageWarning)).not.toBeInTheDocument();
     });
 
-    {
-        /* Skipping tests for the temporarily disabled sizing feature.
-            We can unskip if needed, or remove them entirely when
-            scaling is fully released and sizing is no longer disabled.
-        */
-    }
-
-    it.skip("should call onChange with resized image when width is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        widthField.focus();
-        await userEvent.clear(widthField);
-        await userEvent.paste("300");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 300,
-                height: 600,
-            },
-        });
-    });
-
-    it.skip("should call onChange with resized image when height is changed", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={{
-                    url: earthMoonImage.url,
-                    // Using easier to verify side lengths.
-                    width: 100,
-                    height: 200,
-                }}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
-        heightField.focus();
-        await userEvent.clear(heightField);
-        await userEvent.paste("100");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 50,
-                height: 100,
-            },
-        });
-    });
-
-    it("should have disabled width and height inputs when the sizing feature is disabled", () => {
-        // Arrange, Act
-        render(
-            <ImageEditorWithDependencies
-                apiOptions={apiOptions}
-                backgroundImage={earthMoonImage}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        const widthField = screen.getByRole("spinbutton", {name: "Width"});
-        const heightField = screen.getByRole("spinbutton", {name: "Height"});
-        expect(widthField).toHaveAttribute("aria-disabled", "true");
-        expect(heightField).toHaveAttribute("aria-disabled", "true");
-    });
-
-    it("should call onChange with original image size when reset to original size is clicked", async () => {
+    it("should call onChange with original image size when recalculate natural size is clicked", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -530,7 +418,7 @@ describe("image editor", () => {
 
         // Act
         const resetToOriginalSizeButton = screen.getByRole("button", {
-            name: "Reset to original size",
+            name: "Recalculate natural size",
         });
         await userEvent.click(resetToOriginalSizeButton);
 
@@ -540,7 +428,7 @@ describe("image editor", () => {
         });
     });
 
-    it("should not call onChange when reset to original size is clicked and the image size is already the original size", async () => {
+    it("should not call onChange when recalculate natural size is clicked and the image size is already the original size", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -553,7 +441,7 @@ describe("image editor", () => {
 
         // Act
         const resetToOriginalSizeButton = screen.getByRole("button", {
-            name: "Reset to original size",
+            name: "Recalculate natural size",
         });
         await userEvent.click(resetToOriginalSizeButton);
 
@@ -889,7 +777,7 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
+                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
@@ -921,7 +809,7 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
+                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     scale={2}
                     onChange={onChangeMock}
@@ -947,7 +835,7 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
+                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
@@ -971,7 +859,7 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
+                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
@@ -997,7 +885,7 @@ describe("image editor", () => {
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
+                    apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
@@ -1025,7 +913,7 @@ describe("image editor", () => {
                 const onChangeMock = jest.fn();
                 render(
                     <ImageEditorWithDependencies
-                        apiOptions={apiOptionsWithScaleFlag}
+                        apiOptions={apiOptions}
                         backgroundImage={earthMoonImage}
                         scale={1}
                         onChange={onChangeMock}
@@ -1045,74 +933,21 @@ describe("image editor", () => {
             },
         );
 
-        it("should call onChange with original image size when Recalculate natural size is clicked", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            render(
-                <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
-                    backgroundImage={{
-                        url: earthMoonImage.url,
-                        width: earthMoonImage.width / 2,
-                        height: earthMoonImage.height / 2,
-                    }}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            // Act
-            const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate natural size",
-            });
-            await userEvent.click(resetToOriginalSizeButton);
-
-            // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                backgroundImage: earthMoonImage,
-            });
-        });
-
-        it("should not call onChange when reset to original size is clicked and the image size is already the original size", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            render(
-                <ImageEditorWithDependencies
-                    apiOptions={apiOptionsWithScaleFlag}
-                    backgroundImage={earthMoonImage}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            // Act
-            const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate natural size",
-            });
-            await userEvent.click(resetToOriginalSizeButton);
-
-            // Assert
-            expect(onChangeMock).not.toHaveBeenCalled();
-        });
-    });
-
-    describe("flags", () => {
-        it("should render the scale inputs when the scale flag is enabled", () => {
+        it("should disable the scale inputs when the image size is invalid", () => {
             // Arrange, Act
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={{
-                        ...apiOptions,
-                        flags: getFeatureFlags({
-                            "image-widget-upgrade-scale": true,
-                        }),
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        // Missing width and height
+                        url: earthMoonImage.url,
                     }}
-                    backgroundImage={earthMoonImage}
-                    scale={1}
                     onChange={onChangeMock}
                 />,
             );
 
-            // Assert - make sure new inputs are rendered
+            // Assert
             const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
             const scaledWidthField = screen.getByRole("spinbutton", {
                 name: "Scaled Width",
@@ -1120,66 +955,95 @@ describe("image editor", () => {
             const scaledHeightField = screen.getByRole("spinbutton", {
                 name: "Scaled Height",
             });
-            const resetToOriginalSizeButton = screen.getByRole("button", {
-                name: "Recalculate natural size",
-            });
-            expect(scaleField).toBeInTheDocument();
-            expect(scaledWidthField).toBeInTheDocument();
-            expect(scaledHeightField).toBeInTheDocument();
-            expect(resetToOriginalSizeButton).toBeInTheDocument();
-
-            // Make sure old inputs are not rendered
-            const widthField = screen.queryByRole("spinbutton", {
-                name: "Width",
-            });
-            const heightField = screen.queryByRole("spinbutton", {
-                name: "Height",
-            });
-            expect(widthField).not.toBeInTheDocument();
-            expect(heightField).not.toBeInTheDocument();
+            expect(scaleField).toHaveAttribute("aria-disabled", "true");
+            expect(scaledWidthField).toHaveAttribute("aria-disabled", "true");
+            expect(scaledHeightField).toHaveAttribute("aria-disabled", "true");
         });
 
-        it("should render the scale inputs when the scale flag is enabled", () => {
+        it("should show the warning when the image size is missing", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{url: earthMoonImage.url}}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("should show the warning when the image size is zero", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        url: earthMoonImage.url,
+                        width: 0,
+                        height: 0,
+                    }}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it("should enable the scale inputs when the image size is valid", () => {
             // Arrange, Act
             const onChangeMock = jest.fn();
             render(
                 <ImageEditorWithDependencies
-                    apiOptions={{
-                        ...apiOptions,
-                        flags: getFeatureFlags({
-                            "image-widget-upgrade-scale": false,
-                        }),
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        url: earthMoonImage.url,
+                        width: earthMoonImage.width,
+                        height: earthMoonImage.height,
                     }}
-                    backgroundImage={earthMoonImage}
                     onChange={onChangeMock}
                 />,
             );
 
-            // Assert - make sure old inputs are rendered
-            const widthField = screen.getByRole("spinbutton", {name: "Width"});
-            const heightField = screen.getByRole("spinbutton", {
-                name: "Height",
-            });
-            expect(widthField).toBeInTheDocument();
-            expect(heightField).toBeInTheDocument();
-
-            // Make sure new inputs are not rendered
-            const scaleField = screen.queryByRole("spinbutton", {
-                name: "Scale",
-            });
-            const scaledWidthField = screen.queryByRole("spinbutton", {
+            // Assert
+            const scaleField = screen.getByRole("spinbutton", {name: "Scale"});
+            const scaledWidthField = screen.getByRole("spinbutton", {
                 name: "Scaled Width",
             });
-            const scaledHeightField = screen.queryByRole("spinbutton", {
+            const scaledHeightField = screen.getByRole("spinbutton", {
                 name: "Scaled Height",
             });
-            const resetToOriginalSizeButton = screen.queryByRole("button", {
-                name: "Recalculate natural size",
-            });
-            expect(scaleField).not.toBeInTheDocument();
-            expect(scaledWidthField).not.toBeInTheDocument();
-            expect(scaledHeightField).not.toBeInTheDocument();
-            expect(resetToOriginalSizeButton).not.toBeInTheDocument();
+            expect(scaleField).toHaveAttribute("aria-disabled", "false");
+            expect(scaledWidthField).toHaveAttribute("aria-disabled", "false");
+            expect(scaledHeightField).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("should hide the warning when the image size is valid", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByText(
+                    'Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.',
+                ),
+            ).not.toBeInTheDocument();
         });
     });
 });

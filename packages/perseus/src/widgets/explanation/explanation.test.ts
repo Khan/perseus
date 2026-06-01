@@ -225,6 +225,7 @@ describe("Explanation", function () {
     it("does NOT use transitions when matchMedia is not available", async () => {
         const fakeWindow = Object.create(window);
         fakeWindow.matchMedia = undefined;
+        // eslint-disable-next-line no-restricted-syntax
         jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
         renderQuestion(question1);
 

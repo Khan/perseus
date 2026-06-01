@@ -37,9 +37,11 @@ export function getWidgetSubType(
     switch (widgetType) {
         case "interactive-graph":
             const graphOptions =
+                // eslint-disable-next-line no-restricted-syntax
                 widgetOptions as PerseusInteractiveGraphWidgetOptions;
             return graphOptions.graph?.type ?? null;
         case "radio":
+            // eslint-disable-next-line no-restricted-syntax
             const radioOptions = widgetOptions as PerseusRadioWidgetOptions;
             return radioOptions.multipleSelect
                 ? "multiple-select"

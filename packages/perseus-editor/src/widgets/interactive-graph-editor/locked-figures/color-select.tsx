@@ -1,4 +1,4 @@
-import {lockedFigureColors} from "@khanacademy/perseus-core";
+import {lockedFigureColorNames} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -12,7 +12,10 @@ import ColorSwatch from "./color-swatch";
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
+// Get all the possible colors to put in the dropdown,
+// except for the deprecated "orange" color.
+const possibleColors: Exclude<LockedFigureColor, "orange">[] =
+    lockedFigureColorNames.filter((color) => color !== "orange");
 
 type Props = {
     selectedValue: LockedFigureColor;
@@ -29,8 +32,11 @@ const ColorSelect = (props: Props) => {
                 color
                 <Strut size={spacing.xxSmall_6} />
                 <SingleSelect
-                    selectedValue={selectedValue}
+                    selectedValue={
+                        selectedValue === "orange" ? "gold" : selectedValue
+                    }
                     // TODO(LEMS-2656): remove TS suppression
+                    // eslint-disable-next-line no-restricted-syntax
                     onChange={onChange as any}
                     // Placeholder is required, but never gets used.
                     placeholder=""

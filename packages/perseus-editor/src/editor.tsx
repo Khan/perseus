@@ -369,7 +369,8 @@ class Editor extends React.Component<Props, State> {
         let content = this.state.textAreaValue || "";
         const dataTransfer =
             "dataTransfer" in e
-                ? (e.dataTransfer as DataTransfer | null)
+                ? // eslint-disable-next-line no-restricted-syntax
+                  (e.dataTransfer as DataTransfer | null)
                 : null;
 
         if (!dataTransfer || !imageUploader) {
@@ -854,6 +855,11 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
+    /**
+     * Returns the current version of the edited {@link PerseusRenderer}.
+     *
+     * @deprecated Use the `Props.onChange` prop instead.
+     */
     serialize(): PerseusRenderer {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
@@ -917,6 +923,7 @@ class Editor extends React.Component<Props, State> {
                     const match = Util.rWidgetParts.exec(pieces[i]);
                     if (match != null) {
                         const id = match[1];
+                        // eslint-disable-next-line no-restricted-syntax
                         const type = match[2] as PerseusWidget["type"];
 
                         const selected = false;
@@ -969,6 +976,7 @@ class Editor extends React.Component<Props, State> {
             );
 
             if (!this.props.immutableWidgets) {
+                // eslint-disable-next-line no-restricted-syntax
                 const widgetNodes = Object.values(widgets) as React.ReactNode;
                 widgetsAndTemplates = (
                     <div className="perseus-editor-widgets">

@@ -1,15 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
-import {labelImageRendererDecorator} from "../../__testutils__/label-image-renderer-decorator";
+
+import {labelImageRendererDecorator} from "./label-image-renderer-decorator";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const LabelImageWidget = getWidget("label-image")!;
-
-const meta: Meta<typeof LabelImageWidget> = {
+const meta: Meta<PerseusLabelImageWidgetOptions> = {
     title: "Widgets/Label Image/Visual Regression Tests/Initial State",
-    component: LabelImageWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -24,7 +21,7 @@ const meta: Meta<typeof LabelImageWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof LabelImageWidget>;
+type Story = StoryObj<typeof meta>;
 
 // Verifies the default unanswered state: all markers visible and pulsating,
 // no answers selected, text choices hidden from instructions.
@@ -65,7 +62,7 @@ export const DefaultUnanswered: Story = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: true,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
 };
 
 // Verifies choices shown in the instructions section (hideChoicesFromInstructions: false),
@@ -88,7 +85,7 @@ export const WithChoicesInInstructions: Story = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: false,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
 };
 
 // Verifies the incorrect marker state: marker dot renders with neutral
@@ -107,7 +104,7 @@ export const IncorrectMarker: Story = {
         imageAlt: "A bar graph with four unlabeled bar lines.",
         choices: ["Trucks", "Vans", "Cars", "SUVs"],
         markers: [
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
             {
                 answers: ["SUVs"],
                 label: "The fourth unlabeled bar line.",
@@ -118,5 +115,5 @@ export const IncorrectMarker: Story = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: true,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
 };

@@ -1,3 +1,59 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
+import type {InteractiveGraphStateAnnouncement} from "../types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
+
+export function getAnnouncementText(
+    state: InteractiveGraphStateAnnouncement,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    switch (state.type) {
+        case "move-point":
+            return strings.srPointAtCoordinates({
+                num: state.pointLabel, // TODO(LEMS-4206): fix num -> pointLabel
+                x: srFormatNumber(state.x, locale),
+                y: srFormatNumber(state.y, locale),
+            });
+        case "move-radius-point":
+            return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
+        case "move-center":
+            return srCircleCenterLabel(state.x, state.y, strings, locale);
+        default:
+            throw new UnreachableCaseError(state);
+    }
+}
+
+export function srCircleRadiusPointLabel(
+    x: number,
+    y: number,
+    centerX: number,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    return x >= centerX
+        ? strings.srCircleRadiusPointRight({
+              radiusPointX: srFormatNumber(x, locale),
+              radiusPointY: srFormatNumber(y, locale),
+          })
+        : strings.srCircleRadiusPointLeft({
+              radiusPointX: srFormatNumber(x, locale),
+              radiusPointY: srFormatNumber(y, locale),
+          });
+}
+
+export function srCircleCenterLabel(
+    x: number,
+    y: number,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    return strings.srCircleShape({
+        centerX: srFormatNumber(x, locale),
+        centerY: srFormatNumber(y, locale),
+    });
+}
+
 export function srFormatNumber(
     a: number,
     locale: string,

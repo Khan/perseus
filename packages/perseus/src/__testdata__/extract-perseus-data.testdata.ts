@@ -76,6 +76,7 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
 export const PerseusItemWithInputNumber = generateTestPerseusItem({
     question: {
         content: "$6 \\text{ tens}+6 \\text { ones} =$ \n[[☃ input-number 1]]",
+        // eslint-disable-next-line no-restricted-syntax
         images: {} as Record<any, any>,
         widgets: {
             "input-number 1": {
@@ -103,21 +104,27 @@ export const PerseusItemWithInputNumber = generateTestPerseusItem({
             replace: false,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\goldD6$ ",
+            // eslint-disable-next-line no-restricted-syntax
             images: {} as Record<any, any>,
+            // eslint-disable-next-line no-restricted-syntax
             widgets: {} as Record<any, any>,
         },
         {
             replace: false,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{60}+\\goldD6$ ",
+            // eslint-disable-next-line no-restricted-syntax
             images: {} as Record<any, any>,
+            // eslint-disable-next-line no-restricted-syntax
             widgets: {} as Record<any, any>,
         },
         {
             replace: false,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{6}\\goldD6$ ",
+            // eslint-disable-next-line no-restricted-syntax
             images: {} as Record<any, any>,
+            // eslint-disable-next-line no-restricted-syntax
             widgets: {} as Record<any, any>,
         },
     ],

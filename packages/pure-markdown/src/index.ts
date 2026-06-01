@@ -138,6 +138,7 @@ export const pureMarkdownRules = {
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
     columns: {
         order: -2,
+        // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.blockRegex(
             /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
         ) as any,
@@ -170,6 +171,7 @@ export const pureMarkdownRules = {
     titledTable: {
         // process immediately before nptables
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
+        // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any,
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
@@ -190,6 +192,7 @@ export const pureMarkdownRules = {
     },
     widget: {
         order: SimpleMarkdown.defaultRules.link.order - 0.75,
+        // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.inlineRegex(rWidgetRule) as any,
         parse: (capture: any, parse: any, state: any): any => {
             return {
@@ -199,6 +202,7 @@ export const pureMarkdownRules = {
         },
     },
     blockMath: {
+        // eslint-disable-next-line no-restricted-syntax
         order: (SimpleMarkdown.defaultRules.codeBlock.order + 0.5) as any,
         match: blockMathMatch,
         parse: (capture: any, parse: any, state: any): any => {
@@ -218,6 +222,7 @@ export const pureMarkdownRules = {
     },
     unescapedDollar: {
         order: SimpleMarkdown.defaultRules.link.order - 0.24,
+        // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.inlineRegex(/^(?!\\)\$/) as any,
         parse: (capture: any, parse: any, state: any): any => {
             return {};
@@ -278,6 +283,7 @@ export const pureMarkdownRules = {
         // libraries, for instance CommonMark also splits up blockquotes with
         // empty lines into multiple blockquotes:
         // https://spec.commonmark.org/0.28/#example-205
+        // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.blockRegex(
             /^ *>[^\n]+(\n( *>)?[^\n]+)*\n{2,}/,
         ) as any,

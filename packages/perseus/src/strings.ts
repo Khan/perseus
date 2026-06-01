@@ -114,6 +114,9 @@ export type PerseusStrings = {
     videoTranscript: string;
     somethingWrong: string;
     videoWrapper: string;
+    pythonProgram: string;
+    computerScienceProgram: string;
+    embeddedContent: string;
     mathInputTitle: string;
     mathInputDescription: string;
     sin: string;
@@ -129,12 +132,14 @@ export type PerseusStrings = {
     graphKeyboardPrompt: string;
     closePolygon: string;
     openPolygon: string;
+    ungradedInteractiveGraph: string;
     srPointAtCoordinates: ({
         num,
         x,
         y,
     }: {
-        num: number;
+        // TODO(LEMS-4206) rename to pointLabel an request for new translation
+        num: number | string;
         x: string;
         y: string;
     }) => string;
@@ -786,6 +791,9 @@ export const strings = {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
+    pythonProgram: "Python program",
+    computerScienceProgram: "Computer science program",
+    embeddedContent: "Embedded content",
     mathInputTitle: "mathematics keyboard",
     mathInputDescription:
         "Use keyboard/mouse to interact with math-based input fields",
@@ -799,6 +807,8 @@ export const strings = {
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
+    ungradedInteractiveGraph:
+        "Use this graph to check your thinking, but it does not count as your answer.",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
     closePolygon: {
@@ -1519,6 +1529,9 @@ export const mockStrings: PerseusStrings = {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
+    pythonProgram: "Python program",
+    computerScienceProgram: "Computer science program",
+    embeddedContent: "Embedded content",
     mathInputTitle: "mathematics keyboard",
     mathInputDescription:
         "Use keyboard/mouse to interact with math-based input fields",
@@ -1538,6 +1551,8 @@ export const mockStrings: PerseusStrings = {
     removePoint: "Remove Point",
     closePolygon: "Close shape",
     openPolygon: "Re-open shape",
+    ungradedInteractiveGraph:
+        "Use this graph to check your thinking, but it does not count as your answer.",
     srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}.`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",

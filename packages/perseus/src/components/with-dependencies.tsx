@@ -23,6 +23,7 @@ export function withDependencies<
 
         return (
             <WrappedComponent
+                // eslint-disable-next-line no-restricted-syntax
                 {...(props as P)}
                 dependencies={dependencies}
                 ref={ref}

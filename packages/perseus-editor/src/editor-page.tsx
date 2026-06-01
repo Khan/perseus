@@ -184,6 +184,7 @@ class EditorPage extends React.Component<Props, State> {
             json: {
                 question: this.props.question,
                 answerArea: this.props.answerArea,
+                // eslint-disable-next-line no-restricted-syntax
                 hints: this.props.hints as Hint[],
             },
         });
@@ -250,6 +251,11 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    /**
+     * Returns the current version of the edited {@link PerseusItem}.
+     *
+     * @deprecated Use the {@link Props.onChange} prop instead.
+     */
     serialize(): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
