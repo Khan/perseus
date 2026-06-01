@@ -24,8 +24,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    gifImageAlt,
     tallGifImage,
+    tallGifImageAlt,
     graphieImage,
     graphieImageAlt,
     portraitImage,
@@ -343,9 +343,9 @@ export const TallGifImage: Story = {
     },
     args: {
         backgroundImage: tallGifImage,
-        alt: gifImageAlt,
-        caption: gifImageAlt,
-        longDescription: gifImageAlt,
+        alt: tallGifImageAlt,
+        caption: tallGifImageAlt,
+        longDescription: tallGifImageAlt,
     },
     play: async ({canvasElement}) => {
         const canvas = within(canvasElement);

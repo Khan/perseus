@@ -75,6 +75,9 @@ export const tallGifImage = {
     height: 640,
 };
 
+export const tallGifImageAlt =
+    "A surreal illustration of Earth with a faucet attached, draining resources, above a wallet filled with currency, against a red background.";
+
 export const gifImageAlt =
     "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
 
