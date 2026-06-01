@@ -91,6 +91,10 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                                 this.props.trackInteraction();
                                 setActiveDefinitionId(this.props.widgetId);
                             }}
+                            aria-label={`Click for the definition of: ${this.props.togglePrompt}`}
+                            aria-expanded={
+                                activeDefinitionId === this.props.widgetId
+                            }
                         >
                             {() => (
                                 <span className={styles.definition}>
