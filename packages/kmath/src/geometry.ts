@@ -212,7 +212,7 @@ export function similar(
 
         if (approximateDeepEqual(angles1, angles)) {
             const sidePairs = sides1.map(
-                (s, idx) => [s, sides[idx]] as [number, number],
+                (s, idx) => [s, sides[idx]] satisfies [number, number],
             );
 
             const factors = sidePairs.map(function (pair) {

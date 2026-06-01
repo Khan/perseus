@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
@@ -9,7 +8,6 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
-import {Log} from "../../logging/log";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
@@ -39,10 +37,12 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
         return (
             <div
                 className={"card-wrap"}
+                // eslint-disable-next-line no-restricted-syntax
                 style={{width: this.props.width as number}}
             >
                 <div
                     className="card placeholder"
+                    // eslint-disable-next-line no-restricted-syntax
                     style={{height: this.props.width as number}}
                 />
             </div>
@@ -183,14 +183,7 @@ class Card extends React.Component<CardProps, CardState> {
     }
 
     componentWillUnmount() {
-        // Event handlers should be unbound before component unmounting, but
-        // just in case...
         if (this.mouseMoveUpBound) {
-            Log.error(
-                "Removing an element with bound event handlers.",
-                Errors.Internal,
-            );
-
             this.unbindMouseMoveUp();
             Util.resetTouchHandlers();
         }
@@ -324,11 +317,13 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput
 > satisfies PropsFor<typeof WrappedOrderer>;
 
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput

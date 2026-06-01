@@ -17,6 +17,7 @@ describe("usePreviewController", () => {
 
     beforeEach(() => {
         // Create mock content window with postMessage
+        // eslint-disable-next-line no-restricted-syntax
         mockContentWindow = {
             postMessage: jest.fn(),
         } as unknown as Window;
@@ -28,6 +29,7 @@ describe("usePreviewController", () => {
         };
 
         // Create ref pointing to mock iframe
+        // eslint-disable-next-line no-restricted-syntax
         iframeRef = {current: mockIframe as any};
     });
 
@@ -202,6 +204,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(previewData);
             });
 
+            // eslint-disable-next-line no-restricted-syntax
             const sentMessage = (mockContentWindow.postMessage as jest.Mock)
                 .mock.calls[0][0];
 
@@ -401,6 +404,7 @@ describe("usePreviewController", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
+            // eslint-disable-next-line no-restricted-syntax
             const differentWindow = {} as Window;
 
             act(() => {
@@ -553,7 +557,6 @@ describe("usePreviewController", () => {
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
-                        stack: [],
                     },
                 },
             };
@@ -564,6 +567,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(2);
 
             // Verify second message contains hint data
+            // eslint-disable-next-line no-restricted-syntax
             const secondCall = (mockContentWindow.postMessage as jest.Mock).mock
                 .calls[1][0];
             expect(secondCall.content.type).toBe("hint");
@@ -586,6 +590,7 @@ describe("usePreviewController", () => {
                 data: [
                     {
                         json: [{content: "Section 1", widgets: {}, images: {}}],
+                        // eslint-disable-next-line no-restricted-syntax
                         apiOptions: {
                             readOnly: true,
                             onFocusChange: jest.fn(),
@@ -593,11 +598,11 @@ describe("usePreviewController", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                     {
                         json: [{content: "Section 2", widgets: {}, images: {}}],
+                        // eslint-disable-next-line no-restricted-syntax
                         apiOptions: {
                             isMobile: true,
                             trackInteraction: jest.fn(),
@@ -605,7 +610,6 @@ describe("usePreviewController", () => {
                         linterContext: {
                             contentType: "article",
                             highlightLint: false,
-                            stack: [],
                         },
                     },
                 ],
@@ -615,6 +619,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(articleData);
             });
 
+            // eslint-disable-next-line no-restricted-syntax
             const sentMessage = (mockContentWindow.postMessage as jest.Mock)
                 .mock.calls[0][0];
 
@@ -645,6 +650,7 @@ function createQuestionPreview(overrides?: {
                     widgets: {},
                     images: {},
                 },
+                // eslint-disable-next-line no-restricted-syntax
                 answerArea: {calculator: false} as any,
                 hints: [],
             },
@@ -653,11 +659,11 @@ function createQuestionPreview(overrides?: {
                 ...overrides?.apiOptions,
             },
             initialHintsVisible: 0,
+            // eslint-disable-next-line no-restricted-syntax
             device: {type: "phone"} as any,
             linterContext: {
                 contentType: "exercise",
                 highlightLint: false,
-                stack: [],
             },
         },
     };

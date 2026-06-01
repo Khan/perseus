@@ -3,11 +3,10 @@ const DEFAULT_FEATURE_FLAGS = {
     "perseus-test-flag-1": false,
     "perseus-test-flag-2": false,
     // Real production flags.
-    "new-radio-widget": false,
     "image-widget-upgrade-gif-controls": false,
-    "image-widget-upgrade-scale": false,
     "interactive-graph-vector": false,
     "interactive-graph-not-scored": false,
+    "input-number-to-numeric-input": false,
     // ...add new flags here
 };
 

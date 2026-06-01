@@ -1,6 +1,7 @@
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export default {
+    // eslint-disable-next-line no-restricted-syntax
     question: {
         content: "[[☃ input-number 1]] [[☃ input-number 2]]",
         images: {},
@@ -34,5 +35,6 @@ export default {
     answerArea: {
         calculator: false,
     },
+    // eslint-disable-next-line no-restricted-syntax
     hints: [] as ReadonlyArray<any>,
 };

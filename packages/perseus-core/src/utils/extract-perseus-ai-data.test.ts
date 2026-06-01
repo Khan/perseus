@@ -307,6 +307,7 @@ describe("injectWidgets", () => {
                 "radio 1": {
                     choices: [{content: "2"}, {content: "1"}, {content: "3"}],
                     type: "radio" as const,
+                    // eslint-disable-next-line no-restricted-syntax
                     options: {} as any,
                 },
             };
@@ -824,7 +825,6 @@ describe("injectWidgets", () => {
                     labelText: "Enter a number",
                     size: "normal",
                     coefficient: false,
-                    static: false,
                 },
             },
             "input-number 1": {
@@ -1017,7 +1017,6 @@ describe("getAnswersFromWidgets", () => {
                 labelText: "Enter a number",
                 size: "normal",
                 coefficient: false,
-                static: false,
             },
         };
         const answer = getAnswersFromWidgets({"numeric-input 1": widget});

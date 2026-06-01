@@ -40,9 +40,9 @@ import type {
 import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets = new Registry<WidgetLogic>("Core widget registry");
+const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
-export function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
 }
 
@@ -221,6 +221,7 @@ export function registerCoreWidgets() {
     ];
 
     widgets.forEach((w) => {
-        registerWidget(w.name, w);
+        // eslint-disable-next-line no-restricted-syntax
+        registerWidget(w.name, w as WidgetLogic<any, any>);
     });
 }

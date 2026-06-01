@@ -9,7 +9,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../../../perseus/src/testing/feature-flags-util";
 import {
     earthMoonImage,
     graphieImage,
@@ -110,26 +109,7 @@ export const GraphieImage: Story = {
 };
 
 /**
- * This Image widget editor has a graphie image, and the scale flag is enabled.
- */
-export const GraphieImageWithScaleFlag: Story = {
-    name: "Graphie Image with Scale Flag (Within Editor Page)",
-    decorators: [withinEditorPageDecorator],
-    args: {
-        backgroundImage: graphieImage,
-    },
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-scale": true,
-            }),
-        },
-    },
-};
-
-/**
- * This Image widget editor has a zero-sized image.
+ * This Image widget editor has an image with missing size.
  */
 export const ImageWithEmptySize: Story = {
     name: "Image With Empty Size (Within Editor Page)",

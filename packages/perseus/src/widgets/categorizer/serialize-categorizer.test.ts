@@ -91,7 +91,6 @@ describe("Categorizer serialization", () => {
                 "categorizer 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     categories: ["one", "two", "three"],
                     items: ["uno", "dos", "tres"],
                     randomizeItems: true,

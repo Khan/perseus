@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
@@ -63,6 +64,16 @@ export function MovableAsymptote(props: Props) {
         constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
     });
 
+    // When a touch drag starts the asymptote group does not naturally receive
+    // focus, so any previously focused element (e.g. a movable point) keeps
+    // its focus styling. Focus the group on drag so focus follows the last
+    // element the user interacted with — matches `useControlPoint`.
+    React.useLayoutEffect(() => {
+        if (dragging && !focused) {
+            groupRef.current?.focus();
+        }
+    }, [dragging, focused]);
+
     return (
         <g
             ref={groupRef}
@@ -90,7 +101,7 @@ export function MovableAsymptote(props: Props) {
                 start={start}
                 end={end}
                 style={{
-                    stroke: "white",
+                    stroke: semanticColor.core.background.base.default,
                     strokeWidth: "var(--movable-asymptote-stroke-weight)",
                     strokeLinecap: "round",
                 }}

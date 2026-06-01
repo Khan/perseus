@@ -394,36 +394,20 @@ This string appears below the graph in the Content Editor to help authors see th
 
 ### 9. Implement scoring
 
-**File:** `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts`
+Create a sub-scorer at `packages/perseus-score/src/widgets/interactive-graph/sub-scorers/score-vector-sum.ts` exporting `scoreVectorSum(userInput, rubric)`. It's typed against `PerseusGraphTypeVectorSum` directly (not the union), so type-specific fields are accessible without further narrowing. Return `{type: "invalid", message: null}` for incomplete input, otherwise `{type: "points", earned, total: 1, message: null}`. Add a sibling `score-vector-sum.test.ts` following the pattern of other sub-scorer tests.
 
-Add a new branch to `scoreInteractiveGraph()`. The function returns `{type: "points", earned: 0 | 1, total: 1, message: null}`:
+Then wire it into the dispatcher at `score-interactive-graph.ts` by adding an import and an `else if` branch (both kept in alphabetical order by graph type):
 
 ```typescript
 } else if (
     userInput.type === "vector-sum" &&
-    rubric.correct.type === "vector-sum" &&
-    userInput.coords != null &&
-    rubric.correct.coords != null
+    rubric.correct.type === "vector-sum"
 ) {
-    const correct = approximateDeepEqual(
-        [...userInput.coords].sort(),
-        [...rubric.correct.coords].sort(),
-    );
-    return {
-        type: "points",
-        earned: correct ? 1 : 0,
-        total: 1,
-        message: null,
-    };
+    return scoreVectorSum(userInput, rubric.correct);
+}
 ```
 
-Available scoring utilities in this file and nearby:
-- `approximateEqual(a, b)` — floating-point equality for scalars
-- `approximateDeepEqual(a, b)` — floating-point equality for nested structures
-- `geometry.collinear(p1, p2, p3)` — check collinearity
-- `geometry.similar(polygon1, polygon2, tolerance)` — polygon similarity
-- `getSinusoidCoefficients()`, `getQuadraticCoefficients()` — shape coefficient extractors
-- `canonicalSineCoefficients()` — normalize sinusoid for comparison
+Keep the dispatcher branch a thin guard — all comparison logic belongs in the sub-scorer. Useful utilities for sub-scorers: `approximateEqual`, `approximateDeepEqual`, `geometry.collinear`, `geometry.similar`, `getSinusoidCoefficients`, `getQuadraticCoefficients`, `canonicalSineCoefficients`.
 
 ---
 

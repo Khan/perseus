@@ -38,7 +38,6 @@ describe("NumericInput serialization", () => {
                     type: "numeric-input",
                     options: {
                         coefficient: false,
-                        static: false,
                         answers: [
                             {
                                 status: "correct",
@@ -95,7 +94,6 @@ describe("NumericInput serialization", () => {
                 "numeric-input 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     answerForms: [],
                     coefficient: false,
                     labelText: "",

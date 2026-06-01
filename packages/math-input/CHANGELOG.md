@@ -1,5 +1,109 @@
 # @khanacademy/math-input
 
+## 26.4.30
+
+### Patch Changes
+
+-   Updated dependencies [[`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2), [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6), [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237)]:
+    -   @khanacademy/perseus-core@27.1.0
+    -   @khanacademy/keypad-context@3.2.58
+
+## 26.4.29
+
+### Patch Changes
+
+-   [#3662](https://github.com/Khan/perseus/pull/3662) [`58ff08bdd0`](https://github.com/Khan/perseus/commit/58ff08bdd0cf40fbb18fdc7a433c71bd19a89f22) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor update to ensure the bg locale always uses CDOT for the multiplication symbol
+
+-   Updated dependencies [[`c69e69a523`](https://github.com/Khan/perseus/commit/c69e69a523b942628b6c1cbe824c1521e878646f)]:
+    -   @khanacademy/perseus-core@27.0.3
+    -   @khanacademy/keypad-context@3.2.57
+
+## 26.4.28
+
+### Patch Changes
+
+-   Updated dependencies [[`33e55752df`](https://github.com/Khan/perseus/commit/33e55752df5dcec46ed53f73fa85d07d96ba6cce)]:
+    -   @khanacademy/perseus-core@27.0.2
+    -   @khanacademy/keypad-context@3.2.56
+
+## 26.4.27
+
+### Patch Changes
+
+-   Updated dependencies [[`e8ee170764`](https://github.com/Khan/perseus/commit/e8ee170764aad3efc6c67867cabf43bdcf4b0606)]:
+    -   @khanacademy/perseus-core@27.0.1
+    -   @khanacademy/keypad-context@3.2.55
+
+## 26.4.26
+
+### Patch Changes
+
+-   [#3645](https://github.com/Khan/perseus/pull/3645) [`68d9e6c074`](https://github.com/Khan/perseus/commit/68d9e6c074d5a66402976296c0299983b65db84a) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   Updated dependencies [[`20281f8c3d`](https://github.com/Khan/perseus/commit/20281f8c3d4652e8673fcf2ccda7b8ca58f6e02f), [`135eaf6c33`](https://github.com/Khan/perseus/commit/135eaf6c330bd3b5092bda458d2b90d450e7d9a5), [`0238831094`](https://github.com/Khan/perseus/commit/02388310944ab6bd959d465014d15386bcf9854d)]:
+    -   @khanacademy/perseus-core@27.0.0
+    -   @khanacademy/keypad-context@3.2.54
+
+## 26.4.25
+
+### Patch Changes
+
+-   Updated dependencies [[`1a7796fb62`](https://github.com/Khan/perseus/commit/1a7796fb626834f3f1f4f40c7feba543530b45c9)]:
+    -   @khanacademy/perseus-core@26.3.1
+    -   @khanacademy/keypad-context@3.2.53
+
+## 26.4.24
+
+### Patch Changes
+
+-   [#3627](https://github.com/Khan/perseus/pull/3627) [`7d5357bbea`](https://github.com/Khan/perseus/commit/7d5357bbeab4b2516059a7f5b837f39bbe5149f5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump peer-dependency ranges for Wonder Blocks packages to match the latest versions synced from `khan/frontend`.
+
+-   Updated dependencies [[`8f1e3b582e`](https://github.com/Khan/perseus/commit/8f1e3b582edd92f57eb4855891f62a5ed51b2224), [`1557738e37`](https://github.com/Khan/perseus/commit/1557738e377f63638bccee26c9d7e2f339998b34)]:
+    -   @khanacademy/perseus-core@26.3.0
+    -   @khanacademy/keypad-context@3.2.52
+
+## 26.4.23
+
+### Patch Changes
+
+-   Updated dependencies [[`bb59b5af6a`](https://github.com/Khan/perseus/commit/bb59b5af6a86cea2c63697d58dd4b1247ee5c9e4)]:
+    -   @khanacademy/perseus-core@26.2.0
+    -   @khanacademy/keypad-context@3.2.51
+
+## 26.4.22
+
+### Patch Changes
+
+-   Updated dependencies [[`48afa54cfa`](https://github.com/Khan/perseus/commit/48afa54cfad3237bbaaa852f554e3018a05c2920)]:
+    -   @khanacademy/perseus-core@26.1.1
+    -   @khanacademy/keypad-context@3.2.50
+
+## 26.4.21
+
+### Patch Changes
+
+-   Updated dependencies [[`94707116a8`](https://github.com/Khan/perseus/commit/94707116a8292c9b7133cf32083f60b231543285), [`24bfee48d6`](https://github.com/Khan/perseus/commit/24bfee48d6b80a106de4024cb55151ba65d8544b), [`dd984a32ff`](https://github.com/Khan/perseus/commit/dd984a32ff17d05fc65cb6499dbc9fb5fa199781), [`c0761657b2`](https://github.com/Khan/perseus/commit/c0761657b216b445f729eca57804bc2ce6df298c), [`b90d73bcb1`](https://github.com/Khan/perseus/commit/b90d73bcb1fe9a6d1ecb2d91ac33a8302fdf00b4), [`2e48593131`](https://github.com/Khan/perseus/commit/2e48593131e519e7868739d98405c5ca41a66cc2)]:
+    -   @khanacademy/perseus-core@26.1.0
+    -   @khanacademy/keypad-context@3.2.49
+
+## 26.4.20
+
+### Patch Changes
+
+-   [#3546](https://github.com/Khan/perseus/pull/3546) [`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e) Thanks [@nishasy](https://github.com/nishasy)! - Add new lint rule to avoid using `as` and suppress lint errors for existing instances of `as`
+
+-   Updated dependencies [[`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e), [`51dd982ad9`](https://github.com/Khan/perseus/commit/51dd982ad90de4e3ba52dc2cc0443ca3d60b805b)]:
+    -   @khanacademy/perseus-core@26.0.3
+    -   @khanacademy/keypad-context@3.2.48
+
+## 26.4.19
+
+### Patch Changes
+
+-   Updated dependencies [[`1f4e2b5105`](https://github.com/Khan/perseus/commit/1f4e2b510579ef49811044af56170d7770c447af), [`e5e93e1dab`](https://github.com/Khan/perseus/commit/e5e93e1dab22c2f4f77d351f8cf425e827fc4783)]:
+    -   @khanacademy/perseus-core@26.0.2
+    -   @khanacademy/keypad-context@3.2.47
+
 ## 26.4.18
 
 ### Patch Changes

@@ -136,6 +136,7 @@ function migrateV0ToV1(
         version: {major: 1, minor: 0},
         options: {
             times: options.times,
+            // eslint-disable-next-line no-restricted-syntax
             buttonSets: options.buttonSets as any,
             functions: options.functions,
             buttonsVisible: options.buttonsVisible,

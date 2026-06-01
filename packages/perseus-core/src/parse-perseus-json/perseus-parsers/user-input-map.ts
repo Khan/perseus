@@ -164,6 +164,7 @@ const parseUserInputMapEntry: (
 
         default:
             // For unknown widget types, accept any input
+            // eslint-disable-next-line no-restricted-syntax
             return parseAndAssign(`${type} ${n}` as any, any);
     }
 };

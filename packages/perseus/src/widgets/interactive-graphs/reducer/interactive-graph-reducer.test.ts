@@ -87,6 +87,20 @@ const baseCircleGraphState: InteractiveGraphState = {
     radiusPoint: [2, 0],
 };
 
+const baseRayGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "ray",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [5, 5],
+    ],
+};
+
 const baseSinusoidGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "sinusoid",
@@ -323,16 +337,15 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a sinusoid move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+    it("rejects a sinusoid move with a destination that clamps onto the other point's x", () => {
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         };
 
@@ -345,7 +358,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -370,15 +383,14 @@ describe("movePointInFigure", () => {
         ]);
     });
 
-    it("rejects a tangent move when bounding clamps the point to the same x as the other point", () => {
-        // coords: point 0 at x=8, point 1 at x=9.
-        // Moving point 0 to [15, 5] clamps to [9, 5] (range max 10,
-        // snap 1 → effective max 9), which matches point 1's x.
-        // The same-x guard should reject this move entirely.
+    it("rejects a tangent move with a destination that clamps onto the other point's x", () => {
+        // coords: point 0 at x=8, point 1 at x=10 (at the edge).
+        // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),
+        // which matches point 1's x. The same-x guard rejects it.
         const state = generateTangentGraphState({
             coords: [
                 [8, 1],
-                [9, 2],
+                [10, 2],
             ],
         });
 
@@ -391,7 +403,7 @@ describe("movePointInFigure", () => {
         expect(updated.hasBeenInteractedWith).toBe(false);
         expect(updated.coords).toEqual([
             [8, 1],
-            [9, 2],
+            [10, 2],
         ]);
     });
 
@@ -440,7 +452,7 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([2, 6]);
     });
 
-    it("constrains points to be at least one snap step within the graph bounds", () => {
+    it("constrains points to the graph edge", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             snapStep: [0.5, 0.5],
@@ -462,7 +474,85 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.type === "segment");
-        expect(updated.coords[0][0]).toEqual([4.5, 7.5]);
+        expect(updated.coords[0][0]).toEqual([5, 8]);
+    });
+
+    it("allows the ray's tail (index 0) to land on the graph edge", () => {
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[0]).toEqual([10, 10]);
+    });
+
+    it("allows the ray's terminal point (index 1) to land on the graph edge", () => {
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(1, [99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords[1]).toEqual([10, 10]);
+    });
+
+    it("allows linear-system points to land on the graph edge", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(0, 0, [99, 99]),
+        );
+
+        invariant(updated.type === "linear-system");
+        expect(updated.coords[0][0]).toEqual([10, 10]);
+    });
+
+    it("allows linear points to land on the graph edge", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [99, 99]),
+        );
+
+        invariant(updated.type === "linear");
+        expect(updated.coords[0]).toEqual([10, 10]);
     });
 });
 
@@ -533,8 +623,8 @@ describe("moveSegment", () => {
         // Both endpoints move by the same delta — the largest one that
         // keeps the trailing endpoint ([3, 4]) inside the graph bounds.
         expect(updated.coords[0]).toEqual([
-            [7, 7],
-            [9, 9],
+            [8, 8],
+            [10, 10],
         ]);
     });
 
@@ -555,6 +645,56 @@ describe("moveSegment", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("moveLine on a linear graph", () => {
+    it("allows the trailing endpoint to translate to the graph edge", () => {
+        // The line spans (1, 2) to (3, 4). A large body-drag should
+        // shift both endpoints by the same delta until the trailing
+        // endpoint lands on the [-10, 10] edge.
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.moveLine([99, 99]),
+        );
+
+        invariant(updated.type === "linear");
+        expect(updated.coords).toEqual([
+            [8, 8],
+            [10, 10],
+        ]);
+    });
+});
+
+describe("moveRay on a ray graph", () => {
+    it("allows the terminal endpoint to translate to the graph edge", () => {
+        // baseRayGraphState has endpoints at (0, 0) and (5, 5).
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.moveRay([99, 99]),
+        );
+
+        invariant(updated.type === "ray");
+        expect(updated.coords).toEqual([
+            [5, 5],
+            [10, 10],
+        ]);
     });
 });
 
@@ -621,6 +761,71 @@ describe("movePoint on a point graph", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "T",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        // The editor encodes "only the second point labeled" as ["", "B"];
+        // the reducer must keep the unlabeled slot on its numeric default
+        // (stringified to match the announcement payload contract).
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
     });
 });
 
@@ -1023,6 +1228,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).center).toEqual([1, 1]);
     });
 
@@ -1051,7 +1257,8 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([9, 9]);
+        // eslint-disable-next-line no-restricted-syntax
+        expect((updated as CircleGraphState).center).toEqual([10, 10]);
     });
 
     it("updates the radius", () => {
@@ -1066,6 +1273,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([3, 1]);
     });
 
@@ -1081,7 +1289,47 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
+    });
+
+    it("rejects the move when the circle is wider than the graph's half-span", () => {
+        // Circle with radius 15 (wider than the graph's half-span of
+        // 10). Moving the center right: newRadiusPoint X would be 16
+        // (out on the right) and the flipped position would be -14
+        // (out on the left). Neither side fits, so the move is
+        // rejected.
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+            radiusPoint: [15, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 0]),
+        );
+
+        // Assert — move rejected; state returned unchanged
+        expect(updated).toBe(state);
+    });
+
+    it("sets stateAnnouncement with the new center position", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-center",
+            x: 1,
+            y: 1,
+        });
     });
 
     it("throws for non-circle graphs", () => {
@@ -1108,6 +1356,7 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([5, 0]);
     });
 
@@ -1138,6 +1387,7 @@ describe("doMoveRadiusPoint", () => {
         // make sure the state object is different
         expect(state).not.toBe(updated);
         // Assert: the x-coordinate snaps to the nearest multiple of 2.
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([-4, 0]);
     });
 
@@ -1153,6 +1403,7 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([10, 0]);
     });
 
@@ -1168,7 +1419,28 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
+        // eslint-disable-next-line no-restricted-syntax
         expect((updated as CircleGraphState).radiusPoint).toEqual([2, 0]);
+    });
+
+    it("sets stateAnnouncement with the radius point position and radius", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            center: [0, 0],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([3, 0]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-radius-point",
+            x: 3,
+            y: 0,
+            centerX: 0,
+            radius: 3,
+        });
     });
 
     it("throws for non-circle graphs", () => {
@@ -1192,21 +1464,25 @@ describe("doDeleteIntent", () => {
             interactionMode: "mouse",
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.blurPoint(),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -1224,21 +1500,25 @@ describe("doDeleteIntent", () => {
             interactionMode: "mouse",
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.blurPoint(),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -1256,28 +1536,33 @@ describe("doDeleteIntent", () => {
         };
 
         // Add some points
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([3, 3]),
         ) as PointGraphState;
 
         // Focus a point
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.focusPoint(0),
         ) as PointGraphState;
 
         // Fire a delete intent
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -1295,28 +1580,33 @@ describe("doDeleteIntent", () => {
         };
 
         // Add some points
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([3, 3]),
         ) as PolygonGraphState;
 
         // Focus a point
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.focusPoint(0),
         ) as PolygonGraphState;
 
         // Fire a delete intent
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -1807,6 +2097,7 @@ describe("unlimited points", () => {
             ...baseUnlimitedPointGraphState,
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         const stateAfterAddingPoint = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([8, 10]),
@@ -1820,21 +2111,25 @@ describe("unlimited points", () => {
             ...baseUnlimitedPointGraphState,
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([3, 3]),
         ) as PointGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.removePoint(1),
@@ -1853,6 +2148,7 @@ describe("unlimited polygon", () => {
             ...baseUnlimitedPolygonGraphState,
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         const stateAfterAddingPoint = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([8, 10]),
@@ -1866,21 +2162,25 @@ describe("unlimited polygon", () => {
             ...baseUnlimitedPolygonGraphState,
         };
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([3, 3]),
         ) as PolygonGraphState;
 
+        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.removePoint(1),
@@ -2146,17 +2446,18 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-4, -3]);
     });
 
-    it("rejects the move when bounding causes same-y collision", () => {
-        // Arrange — point 0 at (-4, -7), point 1 at (-5, 9); moving point 0
-        // far beyond the graph range so bounding clamps y to 9, same as point 1
+    it("rejects a logarithm move with a destination that clamps onto the other point's y", () => {
+        // Arrange — point 0 at (-4, -7), point 1 at (-5, 10); moving point 0
+        // far beyond the graph range so bounding clamps y to 10, same as
+        // point 1's y under boundToEdge.
         const state = generateLogarithmGraphState({
             coords: [
                 [-4, -7],
-                [-5, 9],
+                [-5, 10],
             ],
         });
 
-        // Act — destination y=15 is clamped to 9 by bounding, colliding with point 1
+        // Act — destination y=15 is clamped to 10 by bounding, colliding with point 1
         const updated = interactiveGraphReducer(
             state,
             actions.logarithm.movePoint(0, [-4, 15]),
@@ -2399,7 +2700,7 @@ describe("moveVector on a vector graph (body translation)", () => {
     it("preserves the vector's shape when the translation would push a point past the graph bounds", () => {
         // Arrange — tail at [0,0], tip at [3,4], range [-10,10]
         // Requested delta [8, 8] would push tip to [11, 12] (out of bounds);
-        // the largest valid delta keeping tip inside [-9, 9] is [6, 5].
+        // the largest valid delta keeping tip inside [-10, 10] is [7, 6].
         const state = generateVectorGraphState();
 
         // Act
@@ -2411,8 +2712,8 @@ describe("moveVector on a vector graph (body translation)", () => {
         // Assert — both endpoints moved by the same clamped delta
         invariant(updated.type === "vector");
         expect(updated.coords).toEqual([
-            [6, 5],
-            [9, 9],
+            [7, 6],
+            [10, 10],
         ]);
     });
 });

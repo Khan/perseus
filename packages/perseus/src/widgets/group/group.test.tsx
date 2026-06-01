@@ -28,6 +28,7 @@ describe("group widget", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -168,7 +169,6 @@ describe("group widget", () => {
             "group 1": {
                 "radio 1": {
                     alignment: "default",
-                    graded: true,
                     choiceStates: [
                         expectedChoiceState,
                         expectedChoiceState,
@@ -241,7 +241,6 @@ describe("group widget", () => {
                     rightAlign: false,
                     size: "normal",
                     static: false,
-                    graded: true,
                 },
                 "numeric-input 2": {
                     alignment: "default",
@@ -252,7 +251,6 @@ describe("group widget", () => {
                     rightAlign: false,
                     size: "normal",
                     static: false,
-                    graded: true,
                 },
             },
         });
@@ -286,6 +284,10 @@ describe("group widget", () => {
             message: null,
             total: 3,
             type: "points",
+            widgetScores: {
+                "group 1": {type: "points", total: 1, earned: 1, message: null},
+                "group 2": {type: "points", total: 2, earned: 2, message: null},
+            },
         });
         expect(guess).toEqual({
             "group 1": {

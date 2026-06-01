@@ -33,21 +33,32 @@ import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import StartCoordsTangent from "./start-coords-tangent";
+import StartCoordsVector from "./start-coords-vector";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
-type Props = PerseusGraphType & {
+interface StartCoordsSettingsProps {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
-};
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
+
+type Props = PerseusGraphType & StartCoordsSettingsProps;
 
 const StartCoordsSettingsInner = (props: Props) => {
-    const {type, range, step, allowReflexAngles, onChange} = props;
+    const {
+        type,
+        range,
+        step,
+        allowReflexAngles,
+        onChange,
+        onChangePointLabels,
+    } = props;
 
     switch (type) {
         case "absolute-value":
@@ -72,6 +83,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsLine
                     startCoords={linearCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         // Graphs with startCoords of type CollinearTuple[]
@@ -88,6 +101,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                     type={type}
                     startCoords={multiLineCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "circle":
@@ -114,6 +129,7 @@ const StartCoordsSettingsInner = (props: Props) => {
             // how circle's startCoords packs {center, radius} together. This
             // lets the standard onChange → changeStartCoords path handle
             // everything with no special-casing needed.
+            // eslint-disable-next-line no-restricted-syntax
             const defaultStartCoords = getDefaultGraphStartCoords(
                 props,
                 range,
@@ -128,6 +144,7 @@ const StartCoordsSettingsInner = (props: Props) => {
             );
         }
         case "logarithm": {
+            // eslint-disable-next-line no-restricted-syntax
             const defaultLogarithmCoords = getDefaultGraphStartCoords(
                 props,
                 range,
@@ -145,7 +162,7 @@ const StartCoordsSettingsInner = (props: Props) => {
         case "vector": {
             const vectorCoords = getVectorCoords(props, range, step);
             return (
-                <StartCoordsLine
+                <StartCoordsVector
                     startCoords={vectorCoords}
                     onChange={onChange}
                 />
@@ -178,6 +195,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsPoint
                     startCoords={pointCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "angle":

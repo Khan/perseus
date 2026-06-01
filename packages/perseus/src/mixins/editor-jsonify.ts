@@ -2,6 +2,10 @@ import _ from "underscore";
 
 import {excludeDenylistKeys} from "./widget-prop-denylist";
 
+/**
+ * @deprecated do not use EditorJsonify
+ * See LEMS-4108 for more details
+ */
 const EditorJsonify = {
     serialize: function (): any {
         // Omit props that get passed to all widgets

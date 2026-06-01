@@ -1,10 +1,12 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
 
+import {buildPointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
@@ -79,6 +81,8 @@ function PointGraph(props: Props) {
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch} = statefulProps;
+    const {pointLabels} = statefulProps.graphState;
+    const {strings, locale} = usePerseusI18n();
 
     return (
         <>
@@ -87,6 +91,19 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
+                    // The point graph's move announcements come from the WB
+                    // Announcer via stateAnnouncement; disable aria-live here
+                    // to avoid the focusable handle double-announcing.
+                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                    // dropped from useControlPoint.
+                    ariaLive="off"
+                    ariaLabel={buildPointAriaLabel(
+                        pointLabels,
+                        i,
+                        point,
+                        strings,
+                        locale,
+                    )}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -98,7 +115,8 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
 
 function UnlimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch, graphConfig, pointsRef, top, left} = statefulProps;
-    const {coords} = statefulProps.graphState;
+    const {coords, pointLabels} = statefulProps.graphState;
+    const {strings, locale} = usePerseusI18n();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
     // at the original click location, which would add an unwanted new point. We track drag
@@ -154,6 +172,19 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
+                    // The point graph's move announcements come from the WB
+                    // Announcer via stateAnnouncement; disable aria-live here
+                    // to avoid the focusable handle double-announcing.
+                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                    // dropped from useControlPoint.
+                    ariaLive="off"
+                    ariaLabel={buildPointAriaLabel(
+                        pointLabels,
+                        i,
+                        point,
+                        strings,
+                        locale,
+                    )}
                     onDragStart={() => {
                         dragEndCallbackTimer.clear();
                         setIsCurrentlyDragging(true);
@@ -191,12 +222,20 @@ export function getPointGraphDescription(
         return strings.srNoInteractiveElements;
     }
 
-    const pointDescriptions = state.coords.map(([x, y], index) =>
-        strings.srPointAtCoordinates({
-            num: index + 1,
-            x: srFormatNumber(x, locale),
-            y: srFormatNumber(y, locale),
-        }),
+    const pointDescriptions = state.coords.map(
+        (point, index) =>
+            buildPointAriaLabel(
+                state.pointLabels,
+                index,
+                point,
+                strings,
+                locale,
+            ) ??
+            strings.srPointAtCoordinates({
+                num: index + 1,
+                x: srFormatNumber(point[0], locale),
+                y: srFormatNumber(point[1], locale),
+            }),
     );
 
     return strings.srInteractiveElements({

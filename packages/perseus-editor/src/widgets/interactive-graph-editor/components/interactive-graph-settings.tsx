@@ -21,11 +21,13 @@ import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
+import AxisTickSwitches from "./axis-tick-switches";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     AxisLabelLocation,
     ShowAxisArrows,
+    ShowAxisTicks,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -70,6 +72,10 @@ type Props = {
      * Whether the graph is bounded (no axis arrows) on the x and y axes.
      */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -124,6 +130,7 @@ type State = {
     stepTextbox: [x: number, y: number];
     rangeTextbox: [x: Range, y: Range];
     showAxisArrowsSwitches: ShowAxisArrows;
+    showAxisTicksSwitches: ShowAxisTicks;
     backgroundImage: PerseusImageBackground;
 };
 
@@ -143,6 +150,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             stepTextbox: props.step,
             rangeTextbox: props.range,
             showAxisArrowsSwitches: props.showAxisArrows,
+            showAxisTicksSwitches: props.showAxisTicks,
             backgroundImage: {...props.backgroundImage},
         };
     }
@@ -181,6 +189,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             yMin: true,
             yMax: true,
         },
+        showAxisTicks: {x: true, y: true},
     };
 
     componentDidMount() {
@@ -385,6 +394,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         this.setState(
             {
+                // eslint-disable-next-line no-restricted-syntax
                 rangeTextbox: ranges as [[number, number], [number, number]],
             },
             this.changeGraph,
@@ -398,6 +408,16 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         this.setState(
             {showAxisArrowsSwitches: newShowAxisArrows},
+            this.changeGraph,
+        );
+    };
+
+    changeShowAxisTicks = (axis: keyof ShowAxisTicks) => {
+        const newShowAxisTicks = {...this.state.showAxisTicksSwitches};
+        newShowAxisTicks[axis] = !newShowAxisTicks[axis];
+
+        this.setState(
+            {showAxisTicksSwitches: newShowAxisTicks},
             this.changeGraph,
         );
     };
@@ -437,9 +457,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         this.setState(
             {
+                // eslint-disable-next-line no-restricted-syntax
                 stepTextbox: step as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 gridStepTextbox: gridStep as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 snapStepTextbox: snapStep as [number, number],
+                // eslint-disable-next-line no-restricted-syntax
                 rangeTextbox: ranges as [[number, number], [number, number]],
             },
             this.changeGraph,
@@ -458,6 +482,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this.setState(
             {
                 gridStepTextbox: gridStep,
+                // eslint-disable-next-line no-restricted-syntax
                 snapStepTextbox: _.map(gridStep, function (step) {
                     return step / 2;
                 }) as [number, number],
@@ -473,6 +498,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             range.map((value) => Number(value)),
         );
         const showAxisArrows = this.state.showAxisArrowsSwitches;
+        const showAxisTicks = this.state.showAxisTicksSwitches;
         const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
@@ -498,6 +524,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 labelLocation: labelLocation,
                 range: range,
                 showAxisArrows: showAxisArrows,
+                showAxisTicks: showAxisTicks,
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -608,6 +635,14 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     this.state.showAxisArrowsSwitches
                                 }
                                 onChange={this.changeShowAxisArrows}
+                                disabled={
+                                    this.props.apiOptions?.editingDisabled ??
+                                    false
+                                }
+                            />
+                            <AxisTickSwitches
+                                showAxisTicks={this.state.showAxisTicksSwitches}
+                                onChange={this.changeShowAxisTicks}
                                 disabled={
                                     this.props.apiOptions?.editingDisabled ??
                                     false

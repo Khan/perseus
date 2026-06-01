@@ -1,5 +1,6 @@
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "double-spacing-after-terminal",
     severity: Rule.Severity.BULK_WARNING,

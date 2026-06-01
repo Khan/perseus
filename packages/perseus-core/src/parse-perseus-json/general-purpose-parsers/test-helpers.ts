@@ -25,5 +25,6 @@ export function parseFailureWith(
  * For use in typetests only.)
  */
 export function summon<T>(): T {
+    // eslint-disable-next-line no-restricted-syntax
     return "fake summoned value" as any;
 }

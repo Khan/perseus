@@ -36,6 +36,7 @@ function PreviewWithKeypad({
         isMobile,
     }) => React.ReactNode;
 }) {
+    // eslint-disable-next-line no-restricted-syntax
     const iframe = window.frameElement as HTMLIFrameElement | null;
     const isMobile = iframe?.dataset.mobile === "true";
     const hasLintGutter = iframe?.dataset.lintGutter === "true";

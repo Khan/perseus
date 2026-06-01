@@ -1,15 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
-import {numericInputRendererDecorator} from "../../__testutils__/numeric-input-renderer-decorator";
+
+import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
 import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const NumericInputWidget = getWidget("numeric-input")!;
-
-const meta: Meta<typeof NumericInputWidget> = {
+const meta: Meta<PerseusNumericInputWidgetOptions> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Interactions",
-    component: NumericInputWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -23,7 +20,7 @@ const meta: Meta<typeof NumericInputWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof NumericInputWidget>;
+type Story = StoryObj<typeof meta>;
 
 /** Verifies the focused input state (medium border width) when no answer forms are set — no tooltip appears */
 export const Focus: Story = {
@@ -33,7 +30,7 @@ export const Focus: Story = {
     },
     args: {
         size: "normal",
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
     play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
@@ -59,7 +56,7 @@ export const With1Tooltip: Story = {
                 maxError: 0,
             },
         ],
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
     play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
@@ -85,7 +82,7 @@ export const WithMultipleTooltips: Story = {
                 maxError: 0,
             },
         ],
-    } satisfies Partial<PerseusNumericInputWidgetOptions>,
+    },
     play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();

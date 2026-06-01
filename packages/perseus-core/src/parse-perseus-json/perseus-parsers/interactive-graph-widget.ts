@@ -30,11 +30,12 @@ const parsePerseusGraphTypeAngle = object({
     type: constant("angle"),
     showAngles: optional(boolean),
     allowReflexAngles: optional(boolean),
-    angleOffsetDeg: optional(number),
+    angleOffsetDeg: optional(nullable(number)),
     snapDegrees: optional(number),
     match: optional(constant("congruent")),
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    pointLabels: optional(trio(string, string, string)),
 });
 
 const parsePerseusGraphTypeCircle = object({
@@ -47,12 +48,14 @@ const parsePerseusGraphTypeCircle = object({
             radius: number,
         }),
     ),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeLinear = object({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeLinearSystem = object({
@@ -60,6 +63,7 @@ const parsePerseusGraphTypeLinearSystem = object({
     // TODO(benchristel): default coords to empty array?
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeNone = object({
@@ -72,6 +76,7 @@ const parsePerseusGraphTypePoint = object({
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
     coord: optional(pairOfNumbers),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypePolygon = object({
@@ -83,6 +88,7 @@ const parsePerseusGraphTypePolygon = object({
     match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
     coords: optional(nullable(array(pairOfNumbers))),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeQuadratic = object({
@@ -91,12 +97,14 @@ const parsePerseusGraphTypeQuadratic = object({
         nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     ),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    pointLabels: optional(trio(string, string, string)),
 });
 
 const parsePerseusGraphTypeRay = object({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeSegment = object({
@@ -105,12 +113,14 @@ const parsePerseusGraphTypeSegment = object({
     numSegments: optional(number),
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeSinusoid = object({
     type: constant("sinusoid"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeExponential = object({
@@ -123,18 +133,21 @@ const parsePerseusGraphTypeExponential = object({
             asymptote: number,
         }),
     ),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeAbsoluteValue = object({
     type: constant("absolute-value"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
+    pointLabels: optional(pair(string, string)),
 });
 
 const parsePerseusGraphTypeTangent = object({
     type: constant("tangent"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeLogarithm = object({
@@ -147,6 +160,7 @@ const parsePerseusGraphTypeLogarithm = object({
             asymptote: number,
         }),
     ),
+    pointLabels: optional(array(string)),
 });
 
 const parsePerseusGraphTypeVector = object({
@@ -254,6 +268,9 @@ const parseLockedPolygonType = object({
     ariaLabel: optional(string),
 });
 
+const numberOrNegativeInfinity = union(number).or(constant(-Infinity)).parser;
+const numberOrPositiveInfinity = union(number).or(constant(Infinity)).parser;
+
 // Exported for testing.
 export const parseLockedFunctionDomain = defaulted(
     pair(
@@ -262,8 +279,8 @@ export const parseLockedFunctionDomain = defaulted(
         //       will ensure that parsed data is up-to-date, but it is quite
         //       probable that the data is serialized after being parsed. The
         //       widget should therefore account for null values in the domain.
-        defaulted(number, () => -Infinity),
-        defaulted(number, () => Infinity),
+        defaulted(numberOrNegativeInfinity, () => -Infinity),
+        defaulted(numberOrPositiveInfinity, () => Infinity),
     ),
     (): [number, number] => [-Infinity, Infinity],
 );
@@ -326,6 +343,16 @@ export const parseInteractiveGraphWidget = parseWidget(
                 xMax: true,
                 yMin: true,
                 yMax: true,
+            }),
+        ),
+        showAxisTicks: defaulted(
+            object({
+                x: boolean,
+                y: boolean,
+            }),
+            () => ({
+                x: true,
+                y: true,
             }),
         ),
         // NOTE(benchristel): I copied the default graph from

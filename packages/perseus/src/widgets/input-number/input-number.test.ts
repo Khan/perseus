@@ -7,6 +7,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import * as Dependencies from "../../dependencies";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -115,6 +116,7 @@ describe("input-number", function () {
 
     describe.each([
         [
+            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
@@ -149,6 +151,7 @@ describe("input-number", function () {
             "0.4",
         ],
         [
+            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
@@ -183,6 +186,7 @@ describe("input-number", function () {
             "0.4",
         ],
         [
+            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "A washing machine is being redesigned to handle a greater volume of water.  One part is a pipe with a radius of $3 \\,\\text{cm}$ and a length of $11\\,\\text{cm}$.  It gets replaced with a pipe of radius $4\\,\\text{cm}$, and the same length. \n\n**How many more cubic centimeters of water can the new pipe hold?**\n\n [[\u2603 input-number 1]] $\\text{cm}^3$",
@@ -206,6 +210,7 @@ describe("input-number", function () {
             "76 pi",
         ],
         [
+            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     'Akshat works in a hospital lab.\n\nTo project blood quantities, he wants to know the probability that more than $1$ of the next $7$ donors will have type-A blood. From his previous work, Sorin knows that $\\dfrac14$ of donors have type-A blood.\n\nAkshat uses a computer to produce many samples that simulate the next $7$ donors. The first $8$ samples are shown in the table below where "$\\text{\\red{A}}$" represents a donor *with* type-A blood, and "$\\text{\\blue{Z}}$" represents a donor *without* type-A blood.\n\n**Based on the samples below, estimate the probability that  more than $1$ of the next $7$ donors will have type-A blood.** If necessary, round your answer to the nearest hundredth. [[\u2603 input-number 1]]\n\n*Note: This a small sample to practice with. A larger sample could give a much better estimate.*\n\n | Sample |\n:-: | :-: | \n$1$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n$2$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$3$ | $\\text{\\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$4$ | $\\text{\\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$5$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\red{A}}$\n$6$ | $\\text{\\blue{Z}, \\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$7$ | $\\text{\\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}}$\n$8$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n\n',
@@ -261,6 +266,135 @@ describe("input-number", function () {
 
             // Assert
             expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+});
+
+describe("input-number with input-number-to-numeric-input flag on", () => {
+    let userEvent: UserEvent;
+    const apiOptionsWithFlag = {
+        flags: getFeatureFlags({"input-number-to-numeric-input": true}),
+    };
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("renders the NumericInput UI (default aria-label)", () => {
+        // Arrange, Act
+        renderQuestion(question, apiOptionsWithFlag);
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveAccessibleName(
+            "Your answer:",
+        );
+    });
+
+    it("scores a correct answer using the input-number scorer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const textbox = await screen.findByRole("textbox");
+        await userEvent.click(textbox);
+        await userEvent.type(textbox, "1/2");
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores an incorrect answer using the input-number scorer", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const textbox = await screen.findByRole("textbox");
+        await userEvent.click(textbox);
+        await userEvent.type(textbox, "0.7");
+        const score = scorePerseusItemTesting(
+            question,
+            renderer.getUserInputMap(),
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it.each([
+        ["rational", 0.3333333333333333, "1/3", "normal" as const],
+        ["percent", 0.5, "50%", "small" as const],
+        ["pi", 241.90263432641407, "77 pi", "normal" as const],
+    ] as const)(
+        "accepts a correct answer when answerType is %s",
+        async (answerType, value, correctAnswer, size) => {
+            // Arrange
+            const item: PerseusRenderer = {
+                content: "[[☃ input-number 1]]",
+                images: {},
+                widgets: {
+                    "input-number 1": {
+                        type: "input-number",
+                        graded: true,
+                        options: {
+                            maxError: 0.1,
+                            inexact: false,
+                            value,
+                            simplify: "optional",
+                            answerType,
+                            size,
+                        },
+                    },
+                },
+            };
+            const {renderer} = renderQuestion(item, apiOptionsWithFlag);
+
+            // Act
+            const textbox = await screen.findByRole("textbox");
+            await userEvent.type(textbox, correctAnswer);
+            const score = scorePerseusItemTesting(
+                item,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        },
+    );
+
+    it("supports focusing", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+
+        // Act
+        const gotFocus = await act(() => renderer.focus());
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveFocus();
+        expect(gotFocus).toBe(true);
+    });
+
+    it("supports blurring", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        await act(() => renderer.focus());
+        expect(screen.getByRole("textbox")).toHaveFocus();
+
+        // Act
+        await act(() => renderer.blur());
+
+        // Assert
+        await waitFor(() => {
+            expect(screen.getByRole("textbox")).not.toHaveFocus();
         });
     });
 });

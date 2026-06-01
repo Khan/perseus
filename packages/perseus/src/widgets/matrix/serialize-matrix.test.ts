@@ -94,7 +94,6 @@ describe("Matrix serialization", () => {
                 "matrix 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     matrixBoardSize: [2, 2],
                     prefix: "",
                     suffix: "",

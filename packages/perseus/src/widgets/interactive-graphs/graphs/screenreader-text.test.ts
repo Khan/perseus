@@ -1,4 +1,119 @@
-import {getPiMultiple, srFormatNumber} from "./screenreader-text";
+import {mockStrings} from "../../../strings";
+
+import {
+    getAnnouncementText,
+    getPiMultiple,
+    srCircleCenterLabel,
+    srCircleRadiusPointLabel,
+    srFormatNumber,
+} from "./screenreader-text";
+
+describe("getAnnouncementText", () => {
+    it("returns the correct string for a move-point announcement with a numeric default label", () => {
+        const result = getAnnouncementText(
+            {type: "move-point", pointLabel: "1", x: 3, y: 5},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point 1 at 3 comma 5.");
+    });
+
+    it("returns the correct string for a move-point announcement with a custom pointLabel", () => {
+        const result = getAnnouncementText(
+            {type: "move-point", pointLabel: "T", x: 3, y: 5},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point T at 3 comma 5.");
+    });
+
+    it("returns the correct string for a move-radius-point announcement when point is to the right", () => {
+        const result = getAnnouncementText(
+            {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe(
+            "Right radius endpoint at 2 comma 0. Circle radius is 2.",
+        );
+    });
+
+    it("returns the correct string for a move-radius-point announcement when point is to the left", () => {
+        const result = getAnnouncementText(
+            {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe(
+            "Left radius endpoint at -2 comma 0. Circle radius is 2.",
+        );
+    });
+
+    it("returns the correct string for a move-center announcement", () => {
+        const result = getAnnouncementText(
+            {type: "move-center", x: 3, y: 4},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Circle. The center point is at 3 comma 4.");
+    });
+
+    it("throws an UnreachableCaseError for an unhandled announcement type", () => {
+        expect(() =>
+            getAnnouncementText(
+                // @ts-expect-error - deliberately passing an unhandled type
+                {type: "unhandled-type"},
+                mockStrings,
+                "en",
+            ),
+        ).toThrow("Unhandled case");
+    });
+});
+
+describe("srCircleRadiusPointLabel", () => {
+    it("returns the right-side label when x is greater than centerX", () => {
+        expect(srCircleRadiusPointLabel(3, 0, 0, mockStrings, "en")).toBe(
+            "Right radius endpoint at 3 comma 0.",
+        );
+    });
+
+    it("returns the right-side label when x equals centerX", () => {
+        expect(srCircleRadiusPointLabel(0, 0, 0, mockStrings, "en")).toBe(
+            "Right radius endpoint at 0 comma 0.",
+        );
+    });
+
+    it("returns the left-side label when x is less than centerX", () => {
+        expect(srCircleRadiusPointLabel(-3, 0, 0, mockStrings, "en")).toBe(
+            "Left radius endpoint at -3 comma 0.",
+        );
+    });
+
+    it("formats coordinates through srFormatNumber", () => {
+        expect(srCircleRadiusPointLabel(Math.PI, 0, 0, mockStrings, "en")).toBe(
+            "Right radius endpoint at 1π comma 0.",
+        );
+    });
+});
+
+describe("srCircleCenterLabel", () => {
+    it("returns the circle center description", () => {
+        expect(srCircleCenterLabel(2, 3, mockStrings, "en")).toBe(
+            "Circle. The center point is at 2 comma 3.",
+        );
+    });
+
+    it("formats coordinates through srFormatNumber", () => {
+        expect(srCircleCenterLabel(Math.PI, 0, mockStrings, "en")).toBe(
+            "Circle. The center point is at 1π comma 0.",
+        );
+    });
+});
 
 describe("srFormatNumber", () => {
     it("trivially converts small integers to strings", () => {

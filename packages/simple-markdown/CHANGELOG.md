@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 2.2.3
+
+### Patch Changes
+
+-   [#3546](https://github.com/Khan/perseus/pull/3546) [`651efcc50b`](https://github.com/Khan/perseus/commit/651efcc50bbd7c03549ba4b62a53b49c0dbff12e) Thanks [@nishasy](https://github.com/nishasy)! - Add new lint rule to avoid using `as` and suppress lint errors for existing instances of `as`
+
 ## 2.2.2
 
 ### Patch Changes

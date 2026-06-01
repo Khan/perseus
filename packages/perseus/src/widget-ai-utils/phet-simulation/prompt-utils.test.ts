@@ -25,6 +25,7 @@ const question1: PerseusRenderer = {
 
 describe("PhET Simulation AI utils", () => {
     beforeEach(() => {
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 json: () =>
@@ -34,6 +35,7 @@ describe("PhET Simulation AI utils", () => {
                 ok: true,
             }),
         ) as jest.Mock;
+        // eslint-disable-next-line no-restricted-syntax
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 

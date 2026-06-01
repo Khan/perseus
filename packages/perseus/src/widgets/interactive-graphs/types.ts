@@ -48,12 +48,44 @@ export type InteractiveGraphState =
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
+type MovePointAnnouncement = {
+    type: "move-point";
+    pointLabel: string;
+    x: number;
+    y: number;
+};
+
+type MoveRadiusPointAnnouncement = {
+    type: "move-radius-point";
+    x: number;
+    y: number;
+    centerX: number;
+    radius: number;
+};
+
+type MoveCenterAnnouncement = {
+    type: "move-center";
+    x: number;
+    y: number;
+};
+
+export type InteractiveGraphStateAnnouncement =
+    | MovePointAnnouncement
+    | MoveRadiusPointAnnouncement
+    | MoveCenterAnnouncement;
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
+    // Custom screen-reader labels for each interactive point. When present,
+    // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
+    pointLabels?: string[];
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+    // Raw data describing the most recent state change, used to build
+    // screen reader announcements in the component. Absent means no announcement.
+    stateAnnouncement?: InteractiveGraphStateAnnouncement;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
@@ -158,7 +190,7 @@ export interface AngleGraphState extends InteractiveGraphStateCommon {
     // Allow Reflex Angles if an "angle" type.  default: false
     allowReflexAngles?: boolean;
     // The angle offset in degrees if an "angle" type. default: 0
-    angleOffsetDeg?: number;
+    angleOffsetDeg?: number | null;
     // Snap to degree increments if an "angle" type. default: 1
     snapDegrees?: number;
     // must have 3 coords - ie [Coord, Coord, Coord]

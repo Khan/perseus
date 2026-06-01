@@ -12,6 +12,7 @@ export const mockImageLoading = (options?: {
     const originalImage = window.Image;
 
     const mockImage = jest.fn(() => {
+        // eslint-disable-next-line no-restricted-syntax
         const img = {
             naturalWidth: options?.naturalWidth,
             naturalHeight: options?.naturalHeight,
@@ -25,6 +26,7 @@ export const mockImageLoading = (options?: {
             }
         }, 0);
 
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(""),
@@ -35,6 +37,7 @@ export const mockImageLoading = (options?: {
         return img;
     });
 
+    // eslint-disable-next-line no-restricted-syntax
     window.Image = mockImage as any;
 
     return () => {

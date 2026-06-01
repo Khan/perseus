@@ -361,3 +361,20 @@
 .perseus-widget-editor-content .perseus-editor-accordion h2 {
     padding-top: 0;
 }
+
+/*****************************
+ * GLOBAL DARK MODE SETTINGS *
+ *****************************/
+[data-wb-theme$="-dark"] .framework-perseus {
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie,
+    .perseus-block-math .mathjax-wrapper {
+        /* This filter is applied to all PNG/SVG images,
+           and to the content of Graphie images (text labels, etc.),
+           and to any MathJax.
+           It leaves JPEGs & GIFs untouched.
+        */
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+}

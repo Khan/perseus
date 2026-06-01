@@ -74,6 +74,7 @@ export const isWrongAnswerSupported = (
         widgetIds.length !== 0 &&
         widgetIds.every((widgetId) =>
             SUPPORTED_WIDGETS.includes(
+                // eslint-disable-next-line no-restricted-syntax
                 getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
             ),
         )
@@ -86,6 +87,7 @@ export const shouldHaveIndividualAnswer = (
     widgetMap: PerseusWidgetsMap,
 ): boolean => {
     return INDIVIDUAL_ANSWER_WIDGETS.includes(
+        // eslint-disable-next-line no-restricted-syntax
         getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
     );
 };
@@ -115,6 +117,7 @@ export const getCorrectAnswerForWidgetId = (
 ): string | null | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
     const widgetMap = itemData.question.widgets;
+    // eslint-disable-next-line no-restricted-syntax
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidgetExport(widgetType);
@@ -127,6 +130,7 @@ export const isWidgetIdInContent = (
     perseusItem: PerseusItem,
     widgetId: string,
 ): boolean => {
+    // eslint-disable-next-line no-restricted-syntax
     return perseusItem.question.content.indexOf(widgetId as string) !== -1;
 };
 

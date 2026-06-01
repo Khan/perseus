@@ -133,6 +133,7 @@ const LockedLineSettings = (props: Props) => {
         newPointProps: Partial<LockedPointType>,
         index: 0 | 1,
     ) {
+        // eslint-disable-next-line no-restricted-syntax
         const newPoints = [...points] as [LockedPointType, LockedPointType];
         newPoints[index] = {
             ...points[index],
@@ -237,6 +238,7 @@ const LockedLineSettings = (props: Props) => {
                     selectedValue={kind}
                     // TODO(LEMS-2656): remove TS suppression
                     onChange={
+                        // eslint-disable-next-line no-restricted-syntax
                         ((value: "line" | "segment" | "ray") =>
                             onChangeProps({kind: value})) as any
                     }
@@ -261,6 +263,7 @@ const LockedLineSettings = (props: Props) => {
                 <LineStrokeSelect
                     selectedValue={lineStyle}
                     onChange={
+                        // eslint-disable-next-line no-restricted-syntax
                         ((value: "solid" | "dashed") =>
                             onChangeProps({lineStyle: value})) as any
                     }

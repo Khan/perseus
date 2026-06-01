@@ -10,8 +10,8 @@
  * This blocks things that we know don't need to be serialized.
  */
 /**
- * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState
+ * @deprecated do not use the denylist
+ * See LEMS-4108 for more details
  */
 const denylist = [
     // standard props "added" by react
@@ -42,8 +42,13 @@ const denylist = [
     "showSolutions",
     "reviewMode",
     "widgetIndex",
+    "graded",
 ];
 
+/**
+ * @deprecated do not use the denylist
+ * See LEMS-4108 for more details
+ */
 export function excludeDenylistKeys(obj: Record<any, any>) {
     if (obj == null) {
         return obj;

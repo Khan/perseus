@@ -74,6 +74,22 @@ describe("parseAndMigratePerseusItem", () => {
             expect(result2.value).toEqual(result.value);
         });
 
+        it("round-trips through JSON", async () => {
+            const result = await getParseResult();
+            assertSuccess(result);
+
+            const result2 = parse(
+                JSON.parse(JSON.stringify(result.value)),
+                parsePerseusItem,
+            );
+
+            expect(result2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
+        });
+
         it("parses the data with answer information removed", async () => {
             const result = await getParseResult();
             assertSuccess(result);
@@ -155,6 +171,22 @@ describe("parseAndMigratePerseusArticle", () => {
             assertSuccess(result);
 
             const result2 = parse(result.value, parsePerseusArticle);
+
+            expect(result2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
+        });
+
+        it("round-trips through JSON", async () => {
+            const result = await getParseResult();
+            assertSuccess(result);
+
+            const result2 = parse(
+                JSON.parse(JSON.stringify(result.value)),
+                parsePerseusArticle,
+            );
 
             expect(result2).toEqual(anySuccess);
             // Narrow the type. This assertion should always pass due to the

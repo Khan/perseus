@@ -1,11 +1,8 @@
-import {isLabeledSVG} from "../../utils/util.graphie";
-
+import accessible from "./accessible";
 import {getInteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
 
-import type {
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusWidgetOptions,
-} from "../../data-schema";
+import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
 export type InteractiveGraphDefaultWidgetOptions = Pick<
@@ -18,6 +15,7 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
     | "backgroundImage"
     | "markings"
     | "showAxisArrows"
+    | "showAxisTicks"
     | "showTooltips"
     | "showProtractor"
     | "graph"
@@ -43,6 +41,7 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
         yMin: true,
         yMax: true,
     },
+    showAxisTicks: {x: true, y: true},
     showTooltips: false,
     showProtractor: false,
     graph: {
@@ -54,35 +53,14 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     },
 };
 
-const interactiveGraphWidgetLogic: WidgetLogic = {
+const interactiveGraphWidgetLogic: WidgetLogic<
+    PerseusInteractiveGraphWidgetOptions,
+    InteractiveGraphPublicWidgetOptions
+> = {
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
-    // Function determining if a interactive graph is accessible.
-    // Interactive Graphs are accessible as long as:
-    // 1. They do not contain a protractor
-    // 2. They do not contain a graphie background image
-    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
-        const interactiveGraphOptions =
-            widgetOptions as PerseusInteractiveGraphWidgetOptions;
-
-        // Return false (inaccessible) if the interactive graph contains
-        // a protractor.
-        if (interactiveGraphOptions.showProtractor) {
-            return false;
-        }
-
-        // Return false (inaccessible) if the interactive graph contains
-        // a graphie background image.
-        if (
-            interactiveGraphOptions.backgroundImage?.url &&
-            isLabeledSVG(interactiveGraphOptions.backgroundImage?.url)
-        ) {
-            return false;
-        }
-
-        return true;
-    },
+    accessible,
 };
 
 export default interactiveGraphWidgetLogic;

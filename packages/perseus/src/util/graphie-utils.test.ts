@@ -78,6 +78,7 @@ describe("graphie utils", () => {
         const nonLocalizedUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
 
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn((url) => {
             // Localized URL fails
             if (url === typicalCase.expectedLocalizedUrl) {
@@ -129,6 +130,7 @@ describe("graphie utils", () => {
         const jiptLocalizedUrl =
             "https://ka-perseus-graphie.s3.amazonaws.com/en-pt/ccefe63aa1bd05f1d11123f72790a49378d2e42b-data.json";
 
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn((url) => {
             // JIPT localized URL succeeds
             if (url === jiptLocalizedUrl) {

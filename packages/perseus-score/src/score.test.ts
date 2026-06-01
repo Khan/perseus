@@ -1,14 +1,26 @@
 import {
     generateDropdownOptions,
     generateDropdownWidget,
-    type PerseusRenderer,
-    type DropdownWidget,
-    type PerseusWidgetsMap,
-    type UserInputMap,
+    generateInputNumberWidget,
+    generateInputNumberOptions,
 } from "@khanacademy/perseus-core";
+import invariant from "tiny-invariant";
 
-import {scorePerseusItem, scoreWidgetsFunctional} from "./score";
+import {
+    combineScoreWithWidgetScores,
+    onlyInvalidScores,
+    scorePerseusItem,
+    scorePerseusItemWithInputNumberAsNumericInput,
+    scoreWidgetsFunctional,
+} from "./score";
 import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
+
+import type {
+    PerseusRenderer,
+    DropdownWidget,
+    PerseusWidgetsMap,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 describe("scoreWidgetsFunctional", () => {
     it("returns an empty object when there's no widgets", () => {
@@ -312,7 +324,6 @@ describe("scorePerseusItem", () => {
 
         // Assert:
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual({type: "invalid", message: null});
     });
 
     it("should return empty if any validator returns empty", () => {
@@ -335,7 +346,35 @@ describe("scorePerseusItem", () => {
 
         // Assert
         expect(score).toHaveInvalidInput();
-        expect(score).toEqual({type: "invalid", message: null});
+    });
+
+    it("should include only invalid widget scores when overall score is invalid", () => {
+        // Act
+        const score = scorePerseusItem(
+            {
+                content: "[[☃ dropdown 1]] [[☃ dropdown 2]]",
+                widgets: {
+                    "dropdown 1": generateBasicDropdown(),
+                    "dropdown 2": generateBasicDropdown(),
+                },
+                images: {},
+            },
+            {
+                "dropdown 1": {value: 0},
+                "dropdown 2": {value: 1},
+            },
+            "en",
+        );
+
+        // Assert
+        expect(score).toHaveInvalidInput();
+        expect(score).toEqual({
+            type: "invalid",
+            message: null,
+            widgetScores: {
+                "dropdown 1": {type: "invalid", message: null},
+            },
+        });
     });
 
     it("should score item if all validators return null", () => {
@@ -365,6 +404,20 @@ describe("scorePerseusItem", () => {
             total: 2,
             earned: 2,
             message: null,
+            widgetScores: {
+                "dropdown 1": {
+                    earned: 1,
+                    message: null,
+                    total: 1,
+                    type: "points",
+                },
+                "dropdown 2": {
+                    earned: 1,
+                    message: null,
+                    total: 1,
+                    type: "points",
+                },
+            },
         });
     });
 
@@ -466,6 +519,335 @@ describe("scorePerseusItem", () => {
 
         expect(score).toHaveBeenAnsweredCorrectly({
             shouldHavePoints: true,
+        });
+    });
+
+    it("returns per-widget scores in widgetScores keyed by widget ID", () => {
+        // Arrange
+        const item: PerseusRenderer = {
+            content: "[[☃ dropdown 1]]\n[[☃ dropdown 2]]",
+            widgets: {
+                "dropdown 1": generateBasicDropdown(),
+                "dropdown 2": generateBasicDropdown(),
+            },
+            images: {},
+        };
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {value: 2}, // correct
+            "dropdown 2": {value: 1}, // incorrect
+        };
+
+        // Act
+        const score = scorePerseusItem(item, userInputMap, "en");
+
+        // Assert
+        invariant(score.type === "points");
+        expect(score.widgetScores).toEqual({
+            "dropdown 1": {
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            },
+            "dropdown 2": {
+                type: "points",
+                earned: 0,
+                total: 1,
+                message: null,
+            },
+        });
+    });
+});
+
+describe("scorePerseusItemWithInputNumberAsNumericInput", () => {
+    it("scores a correctly-answered input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "42",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {
+                type: "points",
+                total: 1,
+                earned: 1,
+                message: null,
+            },
+        });
+    });
+
+    it("scores an incorrectly-answered input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "99",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {
+                type: "points",
+                total: 1,
+                earned: 0,
+                message: null,
+            },
+        });
+    });
+
+    it("scores an empty input-number widget", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveInvalidInput();
+        expect(score.widgetScores).toStrictEqual({
+            "input-number 1": {type: "invalid", message: null},
+        });
+    });
+
+    it("ignores an input-number widget that does not have a placeholder in the content string", () => {
+        const renderer = {
+            content: "",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+        expect(score.widgetScores).toStrictEqual({});
+    });
+
+    it("ignores an input-number widget that is not graded", () => {
+        const renderer = {
+            content: "[[☃ input-number 1]]",
+            widgets: {
+                "input-number 1": generateInputNumberWidget({
+                    graded: false,
+                    options: generateInputNumberOptions({value: "42"}),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap = {
+            "input-number 1": {
+                currentValue: "",
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+    });
+
+    it("scores correctly-answered widgets other than input-number", () => {
+        const renderer = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        choices: [{content: "A", correct: true}],
+                    }),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 1,
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores incorrectly-answered widgets other than input-number", () => {
+        const renderer = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        choices: [
+                            {content: "A", correct: true},
+                            {content: "B", correct: false},
+                        ],
+                    }),
+                }),
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {
+            "dropdown 1": {
+                value: 2,
+            },
+        };
+
+        const score = scorePerseusItemWithInputNumberAsNumericInput(
+            renderer,
+            userInputMap,
+            "en",
+        );
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+});
+
+describe("onlyInvalidScores", () => {
+    it("returns an empty object when given an empty object", () => {
+        expect(onlyInvalidScores({})).toStrictEqual({});
+    });
+
+    it("only includes 'invalid' scores", () => {
+        expect(
+            onlyInvalidScores({
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "invalid", message: null},
+                "dropdown 1": {type: "points", total: 1, earned: 0},
+                "interactive-graph 1": {type: "invalid", message: null},
+            }),
+        ).toStrictEqual({
+            "radio 2": {type: "invalid", message: null},
+            "interactive-graph 1": {type: "invalid", message: null},
+        });
+    });
+});
+
+describe("combineScoreWithWidgetScores", () => {
+    it("should include all widgetScores when overall score is correct", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "points", total: 2, earned: 2},
+            {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "points",
+            total: 2,
+            earned: 2,
+            widgetScores: {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        });
+    });
+
+    it("should include all widgetScores when overall score is incorrect", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "points", total: 2, earned: 1},
+            {
+                "radio 1": {type: "points", total: 1, earned: 0},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "points",
+            total: 2,
+            earned: 1,
+            widgetScores: {
+                "radio 1": {type: "points", total: 1, earned: 0},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        });
+    });
+
+    it("should omit points scores when overall score is invalid", () => {
+        const score = combineScoreWithWidgetScores(
+            {type: "invalid", message: "SOME_ERROR_CODE"},
+            {
+                "radio 1": {type: "points", total: 1, earned: 1},
+                "expression 1": {type: "invalid", message: "SOME_ERROR_CODE"},
+                "radio 2": {type: "points", total: 1, earned: 1},
+            },
+        );
+
+        expect(score).toStrictEqual({
+            type: "invalid",
+            message: "SOME_ERROR_CODE",
+            widgetScores: {
+                "expression 1": {type: "invalid", message: "SOME_ERROR_CODE"},
+            },
         });
     });
 });

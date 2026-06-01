@@ -1,17 +1,14 @@
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
-import {labelImageRendererDecorator} from "../../__testutils__/label-image-renderer-decorator";
+
+import {labelImageRendererDecorator} from "./label-image-renderer-decorator";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const LabelImageWidget = getWidget("label-image")!;
-
-const meta: Meta<typeof LabelImageWidget> = {
+const meta: Meta<PerseusLabelImageWidgetOptions> = {
     title: "Widgets/Label Image/Visual Regression Tests/Interactions",
-    component: LabelImageWidget,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -20,7 +17,9 @@ const meta: Meta<typeof LabelImageWidget> = {
 
 export default meta;
 
-const barGraphArgs = {
+type Story = StoryObj<typeof meta>;
+
+const barGraphArgs: Partial<PerseusLabelImageWidgetOptions> = {
     imageUrl:
         "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
     imageWidth: 415,
@@ -55,11 +54,11 @@ const barGraphArgs = {
     ],
     multipleAnswers: false,
     hideChoicesFromInstructions: true,
-} satisfies Partial<PerseusLabelImageWidgetOptions>;
+};
 
 // Verifies the marker open/selected state: clicking a marker button opens the
 // answer choices dropdown and shows the active marker styling.
-export const MarkerOpened = {
+export const MarkerOpened: Story = {
     decorators: [labelImageRendererDecorator],
     args: barGraphArgs,
     play: async ({canvasElement, userEvent}) => {
@@ -72,7 +71,7 @@ export const MarkerOpened = {
 // Verifies the post-interaction marker state: after selecting an answer and
 // closing the dropdown, all markers render as white circles (not the default
 // pulsing blue).
-export const AnswerSelected = {
+export const AnswerSelected: Story = {
     decorators: [labelImageRendererDecorator],
     args: barGraphArgs,
     play: async ({canvasElement, userEvent}) => {
@@ -93,7 +92,7 @@ export const AnswerSelected = {
 // clicking Check, the marker and answer pill render in green (success.strong).
 // Uses a single marker to avoid needing to fill all markers before checking.
 // Check is clicked twice due to a server-side scoring quirk in Storybook.
-export const CorrectAnswerGraded = {
+export const CorrectAnswerGraded: Story = {
     decorators: [labelImageRendererDecorator],
     args: {
         imageUrl:
@@ -112,7 +111,7 @@ export const CorrectAnswerGraded = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: true,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
 
@@ -138,7 +137,7 @@ export const CorrectAnswerGraded = {
 // showCorrectness is runtime UI state injected by the renderer, not part of
 // PerseusLabelImageMarker schema, so the marker requires a type cast.
 // The play function selects an answer so the pill becomes visible.
-export const IncorrectAnswerWithPill = {
+export const IncorrectAnswerWithPill: Story = {
     decorators: [labelImageRendererDecorator],
     args: {
         imageUrl:
@@ -148,7 +147,7 @@ export const IncorrectAnswerWithPill = {
         imageAlt: "A bar graph with four unlabeled bar lines.",
         choices: ["Trucks", "Vans", "Cars", "SUVs"],
         markers: [
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
             {
                 answers: ["SUVs"],
                 label: "The fourth unlabeled bar line.",
@@ -159,7 +158,7 @@ export const IncorrectAnswerWithPill = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: true,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
 
@@ -178,7 +177,7 @@ export const IncorrectAnswerWithPill = {
 // Verifies that math choices render correctly inside an open marker dropdown.
 // The math choices are only visible after opening a marker, so we capture
 // the open state here.
-export const MathChoicesVisible = {
+export const MathChoicesVisible: Story = {
     decorators: [labelImageRendererDecorator],
     args: {
         imageUrl:
@@ -220,7 +219,7 @@ export const MathChoicesVisible = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: true,
-    } satisfies Partial<PerseusLabelImageWidgetOptions>,
+    },
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
         const marker = canvas.getByLabelText("The fourth unlabeled bar line.");

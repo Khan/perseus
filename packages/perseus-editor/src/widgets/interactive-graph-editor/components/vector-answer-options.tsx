@@ -29,6 +29,7 @@ export default function VectorAnswerOptions({correct, onChange}: Props) {
                     onChange({
                         correct: {
                             ...correct,
+                            // eslint-disable-next-line no-restricted-syntax
                             match: newValue as PerseusGraphTypeVector["match"],
                         },
                     });

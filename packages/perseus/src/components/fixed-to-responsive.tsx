@@ -115,6 +115,7 @@ class FixedToResponsive extends React.Component<Props, State> {
 
         // Prevent child components from growing (aka "the Peter Pan effect")
         // and maintain the aspect ratio.
+        // eslint-disable-next-line no-restricted-syntax
         const style = {
             maxWidth: width,
             maxHeight: height,

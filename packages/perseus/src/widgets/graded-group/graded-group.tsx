@@ -103,6 +103,7 @@ type State = {
 // PropsFor<Component> type takes defaultProps into account, which is important
 // because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
 // via defaultProps.
+// eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
     Empty
@@ -408,6 +409,7 @@ export class GradedGroup
                                     initializeUserInput,
                                 }) => {
                                     // we did a check above to make sure hints exists
+                                    // eslint-disable-next-line no-restricted-syntax
                                     const {content, widgets, images} = this
                                         .props.hint as PerseusRenderer;
                                     return (

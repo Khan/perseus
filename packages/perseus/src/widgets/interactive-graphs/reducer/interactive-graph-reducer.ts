@@ -10,12 +10,13 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
 } from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
-import {bound, boundToEdge, isUnlimitedGraphState} from "../utils";
+import {bound, boundToEdgeAndSnapToGrid, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -268,7 +269,31 @@ function doMovePointInFigure(
     action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "segment":
+        case "segment": {
+            const newCoords = updateAtIndex({
+                array: state.coords,
+                index: action.figureIndex,
+                update: (tuple) =>
+                    setAtIndex({
+                        array: tuple,
+                        index: action.pointIndex,
+                        newValue: boundToEdgeAndSnapToGrid(
+                            action.destination,
+                            state,
+                        ),
+                    }),
+            });
+
+            const coordsToCheck = newCoords[action.figureIndex];
+            if (coordsOverlap(coordsToCheck)) {
+                return state;
+            }
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
+        }
         case "linear-system": {
             const newCoords = updateAtIndex({
                 array: state.coords,
@@ -277,7 +302,10 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundAndSnapToGrid(action.destination, state),
+                        newValue: boundToEdgeAndSnapToGrid(
+                            action.destination,
+                            state,
+                        ),
                     }),
             });
 
@@ -292,11 +320,12 @@ function doMovePointInFigure(
             };
         }
         case "linear":
-        case "ray": {
+        case "ray":
+        case "vector": {
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.pointIndex,
-                newValue: boundAndSnapToGrid(action.destination, state),
+                newValue: boundToEdgeAndSnapToGrid(action.destination, state),
             });
 
             if (coordsOverlap(newCoords)) {
@@ -323,7 +352,6 @@ function doMovePointInFigure(
         case "tangent":
         case "exponential":
         case "logarithm":
-        case "vector":
             throw new Error(
                 `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -391,28 +419,21 @@ function doMoveAll(
     action: MoveAll,
 ): InteractiveGraphState {
     const {snapStep, range} = state;
+    const {newStart} = action;
     switch (state.type) {
         case "polygon": {
-            let newCoords: vec.Vector2[];
-            if (state.snapTo === "sides" || state.snapTo === "angles") {
-                const change = getChange(state.coords, action.delta, {
-                    snapStep: [0, 0],
-                    range,
-                });
-
-                newCoords = state.coords.map((point: vec.Vector2) =>
-                    vec.add(point, change),
-                );
-            } else {
-                const change = getChange(state.coords, action.delta, {
-                    snapStep,
-                    range,
-                });
-
-                newCoords = state.coords.map((point: vec.Vector2) =>
-                    snap(snapStep, vec.add(point, change)),
-                );
-            }
+            const useGridSnap =
+                state.snapTo !== "sides" && state.snapTo !== "angles";
+            const desiredDelta = vec.sub(newStart, state.coords[0]);
+            const change = getChange(state.coords, desiredDelta, {
+                snapStep: useGridSnap ? snapStep : [0, 0],
+                range,
+            });
+            const newCoords = state.coords.map((point: vec.Vector2) =>
+                useGridSnap
+                    ? snap(snapStep, vec.add(point, change))
+                    : vec.add(point, change),
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -420,7 +441,6 @@ function doMoveAll(
             };
         }
         default:
-            // MoveAll is not supported for other state types; just ignore it.
             return state;
     }
 }
@@ -481,7 +501,7 @@ function doMovePoint(
                     action.index,
                 );
             } else {
-                newValue = boundAndSnapToGrid(action.destination, state);
+                newValue = boundToEdgeAndSnapToGrid(action.destination, state);
             }
 
             const newCoords = setAtIndex({
@@ -506,6 +526,10 @@ function doMovePoint(
                 coords: newCoords,
             };
         case "point": {
+            const newCoord = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -513,17 +537,25 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundToEdgeAndSnapToGrid(
-                        action.destination,
-                        state,
-                    ),
+                    newValue: newCoord,
                 }),
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newCoord[X],
+                    y: newCoord[Y],
+                },
             };
         }
         case "sinusoid": {
             // First, we need to make sure to bound the new coordinates to the graph range
             const destination = action.destination;
-            const boundDestination = boundAndSnapToGrid(destination, state);
+            const boundDestination = boundToEdgeAndSnapToGrid(
+                destination,
+                state,
+            );
 
             // Then, we need to verify that the new coordinates are not on the same
             // vertical line. If they are, then we don't want to move the point
@@ -544,7 +576,7 @@ function doMovePoint(
             };
         }
         case "exponential": {
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -580,7 +612,7 @@ function doMovePoint(
             };
         }
         case "logarithm": {
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -623,7 +655,7 @@ function doMovePoint(
             };
         }
         case "absolute-value": {
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -647,7 +679,7 @@ function doMovePoint(
             };
         }
         case "tangent": {
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -671,33 +703,12 @@ function doMovePoint(
                 }),
             };
         }
-        case "vector": {
-            const boundDestination = boundAndSnapToGrid(
-                action.destination,
-                state,
-            );
-
-            // Reject the move if the tip would overlap with the tail
-            if (vec.dist(boundDestination, state.coords[0]) === 0) {
-                return state;
-            }
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: setAtIndex({
-                    array: state.coords,
-                    index: action.index,
-                    newValue: boundDestination,
-                }),
-            };
-        }
         case "quadratic": {
             // Set up the new coords and check if the quadratic coefficients are valid
             const newCoords: QuadraticCoords = [...state.coords];
 
             // Bind the new destination to the graph range/snapStep and then get the quadratic coefficients
-            const boundDestination = boundAndSnapToGrid(
+            const boundDestination = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -733,7 +744,7 @@ function doMoveCenter(
     switch (state.type) {
         case "circle": {
             // Constrain the center of the circle to the chart range
-            const constrainedCenter = boundAndSnapToGrid(
+            const constrainedCenter = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
             );
@@ -758,6 +769,11 @@ function doMoveCenter(
                 const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
                     newRadiusPoint[X] = possibleNewX;
+                } else {
+                    // Circle is wider than the graph's half-span, so
+                    // neither side of the new center fits the radius
+                    // handle within range. Reject the move.
+                    return state;
                 }
             }
 
@@ -766,6 +782,11 @@ function doMoveCenter(
                 hasBeenInteractedWith: true,
                 center: constrainedCenter,
                 radiusPoint: newRadiusPoint,
+                stateAnnouncement: {
+                    type: "move-center",
+                    x: constrainedCenter[X],
+                    y: constrainedCenter[Y],
+                },
             };
         }
         case "exponential": {
@@ -835,15 +856,19 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
-            const [xMin, xMax] = state.range[X];
-            const nextRadiusPoint = snap(state.snapStep, [
-                // Constrain to graph range
-                // The +0 is to convert -0 to +0
-                clamp(action.destination[X] + 0, xMin, xMax),
-                state.center[1],
-            ]);
+            // The radius point is locked to the same y as the center.
+            // boundToEdgeAndSnapToGrid handles the x clamp + snap and
+            // also keeps the result on the snap grid for non-aligned
+            // configurations (e.g., snap=2 with range=[0,7]).
+            const nextRadiusPoint = boundToEdgeAndSnapToGrid(
+                [action.destination[X], state.center[1]],
+                state,
+            );
 
-            if (_.isEqual(nextRadiusPoint, state.center)) {
+            // The radius point can't converge with the center.
+            // kvector.equal compares coordinates numerically so a
+            // -0 from the snap math equals +0.
+            if (kvector.equal(nextRadiusPoint, state.center)) {
                 return state;
             }
 
@@ -851,6 +876,13 @@ function doMoveRadiusPoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 radiusPoint: nextRadiusPoint,
+                stateAnnouncement: {
+                    type: "move-radius-point",
+                    x: nextRadiusPoint[X],
+                    y: nextRadiusPoint[Y],
+                    centerX: state.center[X],
+                    radius: vec.dist(state.center, nextRadiusPoint),
+                },
             };
         }
         default:
@@ -1005,13 +1037,6 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
-function boundToEdgeAndSnapToGrid(
-    point: vec.Vector2,
-    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
-) {
-    return snap(snapStep, boundToEdge({range, point}));
-}
-
 function boundAndSnapAngleVertex(
     {
         range,
@@ -1136,7 +1161,7 @@ function boundAndSnapAngleEndPoints(
         range: [Interval, Interval];
         coords: Coord[];
         snapDegrees?: number;
-        angleOffsetDeg?: number;
+        angleOffsetDeg?: number | null;
         snapStep: vec.Vector2;
     },
     index: number,
@@ -1151,6 +1176,7 @@ function boundAndSnapAngleEndPoints(
     // We want to subtract or add the snapStep to the lower and upper bounds
     // respectively to ensure that the point is within the bounds of the graph
     // even after snapping to the nearest degree
+    // eslint-disable-next-line no-restricted-syntax
     const angleRange = [
         [range[0][0] + snapStep[0], range[0][1] - snapStep[0]],
         [range[1][0] + snapStep[1], range[1][1] - snapStep[1]],
@@ -1203,6 +1229,7 @@ function boundAndSnapToPolygonAngle(
 ) {
     const startingPoint = coords[index];
 
+    // eslint-disable-next-line no-restricted-syntax
     return calculateAngleSnap(
         destinationPoint,
         range,
@@ -1312,6 +1339,7 @@ function boundAndSnapToSides(
 ) {
     const startingPoint = coords[index];
 
+    // eslint-disable-next-line no-restricted-syntax
     return calculateSideSnap(
         destinationPoint,
         range,
@@ -1388,18 +1416,27 @@ export function calculateSideSnap(
     // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
 
+    // eslint-disable-next-line no-restricted-syntax
     return kvector.add(coords[rel(-1)], offset) as vec.Vector2;
 }
 
-// Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
+// Returns the vector from the given point to the snap-aligned top-right
+// corner of the graph.
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
-    const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
+    const topRight = boundToEdgeAndSnapToGrid([Infinity, Infinity], {
+        snapStep,
+        range,
+    });
     return vec.sub(topRight, point);
 }
 
-// Returns the vector from the given point to the bottom-left corner of the graph when snapped to the grid
+// Returns the vector from the given point to the snap-aligned bottom-left
+// corner of the graph.
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
-    const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
+    const bottomLeft = boundToEdgeAndSnapToGrid([-Infinity, -Infinity], {
+        snapStep,
+        range,
+    });
     return vec.sub(bottomLeft, point);
 }
 
@@ -1424,6 +1461,7 @@ function setAtIndex<A extends any[]>(args: {
     newValue: A[number];
 }): A {
     const {array, index, newValue} = args;
+    // eslint-disable-next-line no-restricted-syntax
     const copy: A = [...array] as A;
     copy[index] = newValue;
     return copy;

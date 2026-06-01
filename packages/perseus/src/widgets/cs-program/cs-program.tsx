@@ -176,8 +176,8 @@ class CSProgram extends React.Component<Props> implements Widget {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <div className={css(styleContainer && styles.container)}>
-                {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                 <iframe
+                    title={this.context.strings.computerScienceProgram}
                     sandbox={sandboxOptions}
                     src={url}
                     style={style}

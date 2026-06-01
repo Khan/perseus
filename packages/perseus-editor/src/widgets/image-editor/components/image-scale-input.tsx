@@ -2,13 +2,14 @@ import {Util} from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyMonospace} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 import styles from "../image-editor.module.css";
-import {wbFieldStyles} from "../utils";
+import {isInvalidDimension, wbFieldStyles} from "../utils";
 
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
@@ -29,6 +30,9 @@ export default function ImageScaleInput({
 }: Props) {
     const width = backgroundImage.width ?? 0;
     const height = backgroundImage.height ?? 0;
+    // Dimension needs to be a positive real number.
+    const hasInvalidDimensions =
+        isInvalidDimension(width) || isInvalidDimension(height);
 
     function handleScaleChange(newScale: string) {
         const scaleNum = Number(newScale);
@@ -51,6 +55,11 @@ export default function ImageScaleInput({
             return;
         }
 
+        // Avoid dividing by zero.
+        if (width === 0) {
+            return;
+        }
+
         const newScale = newScaledWidthNum / width;
 
         onChange({
@@ -63,6 +72,11 @@ export default function ImageScaleInput({
 
         // Height needs to be a positive number.
         if (isNaN(newScaledHeightNum) || newScaledHeightNum <= 0) {
+            return;
+        }
+
+        // Avoid dividing by zero.
+        if (height === 0) {
             return;
         }
 
@@ -122,6 +136,16 @@ export default function ImageScaleInput({
 
             <div className={styles.horizontalLine} />
 
+            {hasInvalidDimensions && (
+                <Banner
+                    kind="warning"
+                    text='Image size is invalid. Please use the "Recalculate natural size" button to enable scaling.'
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // supports it instead of inline styles.
+                    styles={{root: {marginBottom: sizing.size_080}}}
+                />
+            )}
+
             <LabeledField
                 label="Scale"
                 description="Use 1 to display image at original size."
@@ -130,6 +154,7 @@ export default function ImageScaleInput({
                         value={scale.toString()}
                         min={0}
                         onChange={handleScaleChange}
+                        disabled={hasInvalidDimensions}
                     />
                 }
                 styles={wbFieldStyles}
@@ -142,6 +167,7 @@ export default function ImageScaleInput({
                             value={(width * scale).toString()}
                             min={0}
                             onChange={handleScaledWidthChange}
+                            disabled={hasInvalidDimensions}
                         />
                     }
                     styles={wbFieldStyles}
@@ -154,6 +180,7 @@ export default function ImageScaleInput({
                             value={(height * scale).toString()}
                             min={0}
                             onChange={handleScaledHeightChange}
+                            disabled={hasInvalidDimensions}
                         />
                     }
                     styles={wbFieldStyles}

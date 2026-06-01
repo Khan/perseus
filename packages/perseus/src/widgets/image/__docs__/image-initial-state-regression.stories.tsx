@@ -1,8 +1,15 @@
+import {
+    generateImageOptions,
+    generateImageWidget,
+    generateTestPerseusRenderer,
+    type PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
+import {ApiOptions} from "../../../perseus-api";
+import {getFeatureFlags} from "../../../testing/feature-flags-util";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
     articleDecorator,
@@ -16,6 +23,9 @@ import {
 import {
     earthMoonImage,
     frescoImage,
+    gifImageAlt,
+    graphieImage,
+    graphieImageAlt,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -25,11 +35,9 @@ import {
     scienceImageCaption,
 } from "../utils";
 
+import {imageRendererDecorator} from "./image-renderer-decorator";
+
 import type {Meta, StoryObj} from "@storybook/react-vite";
-
-const ImageWidget = getWidget("image")!;
-
-type Story = StoryObj<typeof ImageWidget>;
 
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
@@ -38,10 +46,9 @@ const frescsoLongDescription =
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
-const meta: Meta<typeof ImageWidget> = {
+const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests",
-    component: ImageWidget,
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -53,6 +60,8 @@ const meta: Meta<typeof ImageWidget> = {
     },
 };
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Image: Story = {
     decorators: [imageRendererDecorator],
@@ -250,7 +259,6 @@ export const FloatLeftImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-left",
     },
 };
 
@@ -260,7 +268,6 @@ export const FloatRightImageWithinArticle: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-right",
     },
 };
 
@@ -270,7 +277,6 @@ export const FloatLeftImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-left",
     },
 };
 
@@ -280,7 +286,6 @@ export const FloatRightImageWithinArticleMobile: Story = {
         backgroundImage: scienceImage,
         alt: scienceImageAlt,
         caption: scienceImageCaption,
-        alignment: "wrap-right",
     },
 };
 
@@ -321,5 +326,92 @@ export const ImageWithoutWidthOrHeightLarge: Story = {
     args: {
         backgroundImage: {url: frescoImage.url},
         alt: "Fresco painting",
+    },
+};
+
+export const TallGifImage: Story = {
+    decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-gif-controls": true,
+            }),
+        },
+    },
+    args: {
+        backgroundImage: {
+            url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
+        },
+        alt: gifImageAlt,
+        caption: gifImageAlt,
+        longDescription: gifImageAlt,
+    },
+};
+
+export const GraphieImage: Story = {
+    decorators: [imageRendererDecorator],
+    args: {
+        backgroundImage: graphieImage,
+        alt: "Graphie image",
+        title: "Graphie image",
+    },
+};
+
+/**
+ * Image widgets within a markdown table.
+ */
+export const MarkdownTableWithImageWidgets: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content:
+                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
+                        widgets: {
+                            "image 1": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: frescoImage,
+                                    alt: "Fresco painting",
+                                }),
+                            }),
+                            "image 2": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: earthMoonImage,
+                                    alt: "Earth and Moon",
+                                }),
+                            }),
+                            "image 3": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
+                                }),
+                            }),
+                        },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Markdown images within a markdown table.
+ */
+export const MarkdownTableWithMarkdownImages: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        widgets: {},
+                    })}
+                />
+            </div>
+        );
     },
 };

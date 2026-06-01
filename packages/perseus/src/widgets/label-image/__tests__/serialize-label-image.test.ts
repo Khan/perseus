@@ -89,6 +89,7 @@ describe("LabelImage serialization", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -124,7 +125,6 @@ describe("LabelImage serialization", () => {
                 "label-image 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     choices: ["One", "Two", "Three"],
                     imageAlt: "Alt text",
                     imageUrl:

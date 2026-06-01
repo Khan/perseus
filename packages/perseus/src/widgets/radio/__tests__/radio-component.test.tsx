@@ -34,6 +34,7 @@ const getComponentProps = (props?: overrideProps) => {
         reviewMode = false,
     } = props || {};
     const choices = {...baseChoiceValues, ...choiceOverrides};
+    // eslint-disable-next-line no-restricted-syntax
     return {
         choices: [choices],
         onChoiceChange,
@@ -123,6 +124,7 @@ describe("Radio widget UI component", () => {
                 expectedCorrectness: "correct" | "wrong" | undefined;
             };
             const {reviewMode, isCorrect, expectedCorrectness} =
+                // eslint-disable-next-line no-restricted-syntax
                 args as testArgs;
             const choiceOverrides = {correct: isCorrect};
             const props = getComponentProps({
@@ -222,6 +224,7 @@ describe("Radio widget UI component", () => {
                 isCorrect: boolean;
                 expectedLabel: string;
             };
+            // eslint-disable-next-line no-restricted-syntax
             const {reviewMode, isCorrect, expectedLabel} = args as testArgs;
             const choiceOverrides = {correct: isCorrect};
             const props = getComponentProps({

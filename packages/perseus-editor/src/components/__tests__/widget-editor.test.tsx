@@ -6,8 +6,10 @@ import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import WidgetEditor from "../widget-editor";
+import WidgetEditor, {_upgradeWidgetInfo} from "../widget-editor";
 
+import type {WidgetEditorProps} from "../widget-editor";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("WidgetEditor", () => {
@@ -200,6 +202,67 @@ describe("WidgetEditor", () => {
                 name: "Alignment",
             });
             expect(dropdown).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("_upgradeWidgetInfo", () => {
+        it("runs data through the denylist", () => {
+            const options: PerseusDefinitionWidgetOptions = {
+                togglePrompt: "Neat prompt",
+                definition: "Cool definition",
+                static: false,
+            };
+
+            const props: WidgetEditorProps = {
+                id: "definition 1",
+                onChange: () => {},
+                onRemove: () => {},
+                apiOptions: {},
+                type: "definition",
+                options,
+            };
+
+            // problemNum is in the denylist,
+            // so we want to make sure it's removed
+            const dirtyProps = {...props, problemNum: 42};
+
+            const output = _upgradeWidgetInfo(dirtyProps);
+
+            // make sure we filter as expected
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onChange).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onRemove).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).apiOptions).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).problemNum).toBeUndefined();
+
+            // make sure we're not filtering too much
+            expect(output.type).toBe("definition");
+            expect(output.options).toEqual(options);
+        });
+
+        it("passes graded through", () => {
+            const options: PerseusDefinitionWidgetOptions = {
+                togglePrompt: "Neat prompt",
+                definition: "Cool definition",
+                static: false,
+            };
+
+            const props: WidgetEditorProps = {
+                id: "definition 1",
+                onChange: () => {},
+                onRemove: () => {},
+                apiOptions: {},
+                type: "definition",
+                options,
+                graded: true,
+            };
+
+            const output = _upgradeWidgetInfo(props);
+
+            expect(output.graded).toBe(true);
         });
     });
 });

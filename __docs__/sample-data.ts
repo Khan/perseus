@@ -21,6 +21,7 @@ export const graphExample: PerseusRenderer = {
                     yMin: true,
                     yMax: true,
                 },
+                showAxisTicks: {x: true, y: true},
                 lockedFigures: [
                     {
                         type: "point",
@@ -79,7 +80,7 @@ export const graphExample: PerseusRenderer = {
                     {
                         type: "polygon",
                         labels: [],
-                        color: "orange",
+                        color: "gold",
                         weight: "thick",
                         fillStyle: "translucent",
                         points: [

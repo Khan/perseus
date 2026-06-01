@@ -309,6 +309,7 @@ export function injectWidgets(
                 // '[[☃ Radio 1]]' ->
                 //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
+                // eslint-disable-next-line no-restricted-syntax
                 const radioProps = widgetProps?.[widgetID] as
                     | PerseusRadioWidgetOptions
                     | null

@@ -64,6 +64,7 @@ type UsePreviewPresenterResult = {
 export function usePreviewPresenter(): UsePreviewPresenterResult {
     const [data, setData] = React.useState<PreviewContent | null>(null);
 
+    // eslint-disable-next-line no-restricted-syntax
     const iframe = window.frameElement as HTMLIFrameElement | null;
     if (iframe == null) {
         throw new Error("usePreviewPresenter must be used within an iframe");

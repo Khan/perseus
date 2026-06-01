@@ -16,6 +16,7 @@ import {
     type AxisLabelLocation,
     interactiveGraphLogic,
     type ShowAxisArrows,
+    type ShowAxisTicks,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -37,6 +38,7 @@ import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -69,6 +71,10 @@ export type Props = {
      * Whether the graph is bounded on the x and y axes.
      */
     showAxisArrows: ShowAxisArrows;
+    /**
+     * Whether to show tick marks and tick numbers per axis.
+     */
+    showAxisTicks: ShowAxisTicks;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -190,6 +196,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changePointLabels = (pointLabels: ReadonlyArray<string>) => {
+        const next = reshapePointLabelsForGraphType(
+            pointLabels,
+            this.props.graph,
+            this.props.correct,
+        );
+        if (next) {
+            this.props.onChange(next);
+        }
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -206,6 +223,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "showTooltips",
             "range",
             "showAxisArrows",
+            "showAxisTicks",
             "gridStep",
             "snapStep",
             "lockedFigures",
@@ -225,6 +243,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     type: correct.type,
                     startCoords:
                         this.props.graph && getStartCoords(this.props.graph),
+                    ...(this.props.graph &&
+                    "pointLabels" in this.props.graph &&
+                    this.props.graph.pointLabels
+                        ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
                 },
                 correct: correct,
             });
@@ -350,6 +373,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 box: this.props.box,
                 range: this.props.range,
                 showAxisArrows: this.props.showAxisArrows,
+                showAxisTicks: this.props.showAxisTicks,
                 labels: this.props.labels,
                 labelLocation: this.props.labelLocation,
                 step: this.props.step,
@@ -420,6 +444,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 }
                                 // TODO(LEMS-2656): remove TS suppression
                                 onChange={
+                                    // eslint-disable-next-line no-restricted-syntax
                                     ((
                                         type: Required<InteractiveGraphProps>["userInput"]["type"],
                                     ) => {
@@ -429,8 +454,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         });
                                     }) as any
                                 }
-                                // TODO(LEMS-3976): clean up feature flag
-                                apiOptions={this.props.apiOptions}
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription
@@ -492,6 +515,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangePointLabels={this.changePointLabels}
                                 />
                             )}
 
@@ -508,6 +532,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             box={getInteractiveBoxFromSizeClass(sizeClass)}
                             range={this.props.range}
                             showAxisArrows={this.props.showAxisArrows}
+                            showAxisTicks={this.props.showAxisTicks}
                             labels={this.props.labels}
                             labelLocation={this.props.labelLocation}
                             step={this.props.step}

@@ -239,6 +239,7 @@ describe("server item renderer", () => {
         // Act
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
+        // eslint-disable-next-line no-restricted-syntax
         const widget = mockedWidget as MockAssetLoadingWidget;
         act(() => widget.setAssetStatus?.("ABC", true));
 
@@ -327,6 +328,7 @@ describe("server item renderer", () => {
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
             keypadElementDOMNode.getBoundingClientRect = () =>
+                // eslint-disable-next-line no-restricted-syntax
                 ({
                     height: 250,
                 }) as DOMRect;
@@ -396,6 +398,7 @@ describe("server item renderer", () => {
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
             keypadElementDOMNode.getBoundingClientRect = () =>
+                // eslint-disable-next-line no-restricted-syntax
                 ({
                     height: 250,
                 }) as DOMRect;
@@ -481,7 +484,6 @@ describe("server item renderer", () => {
                         alignment: "default",
                         currentValue: "-42",
                         static: false,
-                        graded: true,
                         value: "3",
                     },
                 },
@@ -592,6 +594,14 @@ describe("server item renderer", () => {
                 total: 1,
                 earned: 1,
                 message: null,
+                widgetScores: {
+                    "radio 1": {
+                        type: "points",
+                        total: 1,
+                        earned: 1,
+                        message: null,
+                    },
+                },
             });
 
             // rerender with answerful data post-attempt

@@ -8,7 +8,6 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
-import {imageRendererDecorator} from "../../__testutils__/image-renderer-decorator";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
@@ -35,6 +34,8 @@ import {
     graphieImage2,
     graphieImage2Alt,
 } from "../utils";
+
+import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -188,24 +189,6 @@ export const LargeImageWithNoSizeSaved: Story = {
     },
 };
 
-export const LargeImageWithNoSizeSavedScaleFlag: Story = {
-    decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-scale": true,
-            }),
-        },
-    },
-    args: {
-        backgroundImage: {url: frescoImage.url},
-        alt: "Fresco painting",
-        longDescription:
-            "This is a *very* long description of the fresco painting.",
-    },
-};
-
 export const SmallImageWithNoSizeSaved: Story = {
     decorators: [imageRendererDecorator],
     args: {
@@ -218,36 +201,8 @@ export const SmallImageWithNoSizeSaved: Story = {
     },
 };
 
-export const SmallImageWithNoSizeSavedScaleFlag: Story = {
+export const LargeSVGImageWithNoSizeSaved: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-scale": true,
-            }),
-        },
-    },
-    args: {
-        backgroundImage: {url: earthMoonImage.url},
-        alt: "Earth and Moon",
-        title: "Hello world. Testing this with a super duper extra long, longest title",
-        caption: earthMoonImageCaption,
-        longDescription:
-            "This is a *very* long description of the earth and moon.",
-    },
-};
-
-export const LargeSVGImageWithNoSizeSavedScaleFlag: Story = {
-    decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-scale": true,
-            }),
-        },
-    },
     args: {
         backgroundImage: {url: svgImage.url},
         alt: "Fresco painting",
@@ -255,93 +210,11 @@ export const LargeSVGImageWithNoSizeSavedScaleFlag: Story = {
     },
 };
 
-// TODO(LEMS-3912): Remove this story after we turn on and remove the
-// image-widget-upgrade-scale feature flag.
-/**
- * Images with different sizes.
- *
- * The sizes are different when rendering inside the item.
- * However, when clicked, the image should be zoomed to the original size,
- * if the original is big enough to allow zooming. The fresco images
- * support zooming, but the earth and moon image does not. The fresco
- * images take up the full available width of the "explore image" modal,
- * whereas the earth and moon image is takes up a smaller width because
- * its original width is smaller.
- */
-export const ImageWithDifferentSizes: Story = {
-    render: function Render() {
-        return (
-            // Limit width so zoom becomes possible.
-            <div style={{width: 600}}>
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]",
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 2": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: {
-                                        url: frescoImage.url,
-                                        width: 400,
-                                        height: 225,
-                                    },
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 3": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: {
-                                        url: frescoImage.url,
-                                        width: 200,
-                                        height: 112,
-                                    },
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 4": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 5": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    alt: graphieImageAlt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                        },
-                    })}
-                />
-            </div>
-        );
-    },
-};
-
-/**
- * Different sizes using the scale prop, behind feature flag.
- */
+/* Different sizes using the scale prop. */
 export const ImageWithScaledSizes: Story = {
     render: function Render() {
         return (
             <QuestionRendererForStories
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    flags: getFeatureFlags({
-                        "image-widget-upgrade-scale": true,
-                    }),
-                }}
                 question={generateTestPerseusRenderer({
                     content:
                         "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
@@ -424,9 +297,9 @@ export const ImageWithScaledSizes: Story = {
 };
 
 /**
- * Images within a markdown table.
+ * Image widgets within a markdown table.
  */
-export const ImagesWithMarkdownTable: Story = {
+export const MarkdownTableWithImageWidgets: Story = {
     render: function Render() {
         return (
             // Limit width so zoom becomes possible.
@@ -434,7 +307,7 @@ export const ImagesWithMarkdownTable: Story = {
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content:
-                            "| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |",
+                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
                         widgets: {
                             "image 1": generateImageWidget({
                                 options: generateImageOptions({
@@ -448,7 +321,32 @@ export const ImagesWithMarkdownTable: Story = {
                                     alt: "Earth and Moon",
                                 }),
                             }),
+                            "image 3": generateImageWidget({
+                                options: generateImageOptions({
+                                    backgroundImage: graphieImage,
+                                    alt: graphieImageAlt,
+                                }),
+                            }),
                         },
+                    })}
+                />
+            </div>
+        );
+    },
+};
+
+/**
+ * Markdown images within a markdown table.
+ */
+export const MarkdownTableWithMarkdownImages: Story = {
+    render: function Render() {
+        return (
+            // Limit width so zoom becomes possible.
+            <div style={{width: 600}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        widgets: {},
                     })}
                 />
             </div>

@@ -66,6 +66,7 @@ describe("InteractiveGraph serialization", () => {
                             yMin: true,
                             yMax: true,
                         },
+                        showAxisTicks: {x: true, y: true},
                     },
                 },
             },
@@ -117,7 +118,6 @@ describe("InteractiveGraph serialization", () => {
                 "interactive-graph 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     labels: ["$x$", "$y$"],
                     labelLocation: "onAxis",
                     range: [
@@ -130,6 +130,7 @@ describe("InteractiveGraph serialization", () => {
                         yMin: true,
                         yMax: true,
                     },
+                    showAxisTicks: {x: true, y: true},
                     step: [1, 1],
                     backgroundImage: {
                         url: null,

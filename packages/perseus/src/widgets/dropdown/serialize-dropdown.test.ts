@@ -93,7 +93,6 @@ describe("Dropdown serialization", () => {
                 "dropdown 1": {
                     alignment: "default",
                     static: false,
-                    graded: true,
                     choices: ["Correct", "Incorrect"],
                     dependencies: testDependenciesV2,
                     placeholder: "Choose",

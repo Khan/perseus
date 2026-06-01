@@ -160,6 +160,7 @@ const runAxeCore = (
         ? axeCoreStorybookOptions
         : axeCoreEditorOptions;
     log("Axe Core options: ", options);
+    // eslint-disable-next-line no-restricted-syntax
     const previewWindow = document.querySelector(
         previewIframeSelector,
     ) as HTMLIFrameElement | null;

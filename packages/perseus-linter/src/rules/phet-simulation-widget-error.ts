@@ -2,6 +2,7 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 
 import Rule from "../rule";
 
+// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "phet-simulation-widget-error",
     severity: Rule.Severity.ERROR,
