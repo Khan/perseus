@@ -21,7 +21,7 @@ const meta: Meta<PerseusRenderer> = {
     parameters: {
         docs: {
             description: {
-                component: "Examples of graphics in dark mode.",
+                component: "Examples of non-widget content.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -29,55 +29,52 @@ const meta: Meta<PerseusRenderer> = {
 };
 export default meta;
 
-const RenderContent = (
-    content: string,
-    asArticle: boolean,
-): (() => React.JSX.Element) => {
-    /*
-        These regression tests are focused on how the renderer handles non-widget content.
-        Therefore, the "widgets" and "images" properties in the JSON object are empty.
-        Tests for how the renderer handles content within a widget should be tested in
-            the regression tests for those widgets.
-     */
+const RenderArticleContent = (content: string): (() => React.JSX.Element) => {
     return function Render() {
-        if (asArticle) {
-            const json = {
-                content,
-                widgets: {},
-                images: {},
-            };
-            return (
-                <ArticleRenderer
-                    json={json}
-                    dependencies={storybookDependenciesV2}
+        /*
+            These regression tests are focused on how the renderer handles non-widget content.
+            Therefore, the "widgets" and "images" properties in the JSON object are empty.
+            Tests for how the renderer handles content within a widget should be tested in
+                the regression tests for those widgets.
+         */
+        const json = {
+            content,
+            widgets: {},
+            images: {},
+        };
+        return (
+            <ArticleRenderer
+                json={json}
+                dependencies={storybookDependenciesV2}
+            />
+        );
+    };
+};
+
+const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
+    return function Render() {
+        return (
+            <div style={{padding: "24px"}}>
+                <QuestionRendererForStories
+                    question={generateTestPerseusRenderer({content})}
                 />
-            );
-        } else {
-            return (
-                <div style={{padding: "24px"}}>
-                    <QuestionRendererForStories
-                        question={generateTestPerseusRenderer({
-                            content: content,
-                        })}
-                    />
-                </div>
-            );
-        }
+            </div>
+        );
     };
 };
 
 export const ArticleRegularText: Story = {
-    render: RenderContent(regularTextContent, true),
+    render: RenderArticleContent(regularTextContent),
 };
 
 export const ArticleLists: Story = {
-    render: RenderContent(listsContent, true),
+    render: RenderArticleContent(listsContent),
 };
 
 export const ExerciseRegularText: Story = {
-    render: RenderContent(regularTextContent, false),
+    render: RenderExerciseContent(regularTextContent),
 };
 
 export const ExerciseLists: Story = {
-    render: RenderContent(listsContent, false),
+    render: RenderExerciseContent(listsContent),
 };
