@@ -10,6 +10,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -437,6 +438,11 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                    pointLabels: state.pointLabels,
+                },
             };
         }
         default:
@@ -523,8 +529,20 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
+            const newCoord = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -532,11 +550,16 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundToEdgeAndSnapToGrid(
-                        action.destination,
-                        state,
-                    ),
+                    newValue: newCoord,
                 }),
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newCoord[X],
+                    y: newCoord[Y],
+                },
             };
         }
         case "sinusoid": {

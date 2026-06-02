@@ -50,7 +50,7 @@ export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 type MovePointAnnouncement = {
     type: "move-point";
-    pointIndex: number;
+    pointLabel: string;
     x: number;
     y: number;
 };
@@ -80,14 +80,27 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
+// announcement can list each point's new coordinates, plus any author-supplied
+// custom labels so each vertex is announced by its label when one is set.
+type MovePolygonAnnouncement = {
+    type: "move-polygon";
+    coords: ReadonlyArray<Coord>;
+    pointLabels?: ReadonlyArray<string>;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
-    | MoveSinusoidPointAnnouncement;
+    | MoveSinusoidPointAnnouncement
+    | MovePolygonAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
+    // Custom screen-reader labels for each interactive point. When present,
+    // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
+    pointLabels?: string[];
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units

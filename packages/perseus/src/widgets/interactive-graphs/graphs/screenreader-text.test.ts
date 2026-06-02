@@ -9,48 +9,117 @@ import {
 } from "./screenreader-text";
 
 describe("getAnnouncementText", () => {
-    it("returns the correct string for a move-point announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-point", pointIndex: 0, x: 3, y: 5},
-            mockStrings,
-            "en",
-        );
+    describe("move-point", () => {
+        it("returns the correct string with a numeric default label", () => {
+            const result = getAnnouncementText(
+                {type: "move-point", pointLabel: "1", x: 3, y: 5},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Point 1 at 3 comma 5.");
+            expect(result).toBe("Point 1 at 3 comma 5.");
+        });
+
+        it("returns the correct string with a custom pointLabel", () => {
+            const result = getAnnouncementText(
+                {type: "move-point", pointLabel: "T", x: 3, y: 5},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 3 comma 5.");
+        });
     });
 
-    it("returns the correct string for a move-radius-point announcement when point is to the right", () => {
-        const result = getAnnouncementText(
-            {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
-            mockStrings,
-            "en",
-        );
+    describe("move-radius-point", () => {
+        it("returns the correct string when point is to the right", () => {
+            const result = getAnnouncementText(
+                {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe(
-            "Right radius endpoint at 2 comma 0. Circle radius is 2.",
-        );
+            expect(result).toBe(
+                "Right radius endpoint at 2 comma 0. Circle radius is 2.",
+            );
+        });
+
+        it("returns the correct string when point is to the left", () => {
+            const result = getAnnouncementText(
+                {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Left radius endpoint at -2 comma 0. Circle radius is 2.",
+            );
+        });
     });
 
-    it("returns the correct string for a move-radius-point announcement when point is to the left", () => {
-        const result = getAnnouncementText(
-            {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
-            mockStrings,
-            "en",
-        );
+    describe("move-center", () => {
+        it("returns the correct string", () => {
+            const result = getAnnouncementText(
+                {type: "move-center", x: 3, y: 4},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe(
-            "Left radius endpoint at -2 comma 0. Circle radius is 2.",
-        );
+            expect(result).toBe("Circle. The center point is at 3 comma 4.");
+        });
     });
 
-    it("returns the correct string for a move-center announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-center", x: 3, y: 4},
-            mockStrings,
-            "en",
-        );
+    describe("move-polygon", () => {
+        it("returns a polygon summary string with each vertex", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-polygon",
+                    coords: [
+                        [0, 0],
+                        [3, 0],
+                        [3, 4],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Circle. The center point is at 3 comma 4.");
+            expect(result).toBe(
+                "A polygon with 3 points. Point 1 at 0 comma 0. Point 2 at 3 comma 0. Point 3 at 3 comma 4.",
+            );
+        });
+
+        it("uses the singular polygon label when the polygon has one vertex", () => {
+            const result = getAnnouncementText(
+                {type: "move-polygon", coords: [[1, 2]]},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "A polygon with 1 point. Point 1 at 1 comma 2.",
+            );
+        });
+
+        it("announces each vertex by its custom label, falling back to the numeric default for empty slots", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-polygon",
+                    coords: [
+                        [0, 0],
+                        [3, 0],
+                        [3, 4],
+                    ],
+                    pointLabels: ["A", "", "C"],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "A polygon with 3 points. Point A at 0 comma 0. Point 2 at 3 comma 0. Point C at 3 comma 4.",
+            );
+        });
     });
 
     describe("move-sinusoid-point announcements", () => {

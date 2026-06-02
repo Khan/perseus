@@ -38,6 +38,7 @@ import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -195,6 +196,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    changePointLabels = (pointLabels: ReadonlyArray<string>) => {
+        const next = reshapePointLabelsForGraphType(
+            pointLabels,
+            this.props.graph,
+            this.props.correct,
+        );
+        if (next) {
+            this.props.onChange(next);
+        }
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -231,6 +243,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     type: correct.type,
                     startCoords:
                         this.props.graph && getStartCoords(this.props.graph),
+                    ...(this.props.graph &&
+                    "pointLabels" in this.props.graph &&
+                    this.props.graph.pointLabels
+                        ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
                 },
                 correct: correct,
             });
@@ -498,6 +515,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     range={this.props.range}
                                     step={this.props.step}
                                     onChange={this.changeStartCoords}
+                                    onChangePointLabels={this.changePointLabels}
                                 />
                             )}
 

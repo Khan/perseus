@@ -123,6 +123,8 @@ export function useControlPoint(params: Params): Return {
             role="button"
             aria-describedby={ariaDescribedBy}
             aria-label={pointAriaLabel}
+            // TODO(LEMS-4189): Remove aria-live once every interactive graph
+            // type emits its move through the WB Announcer.
             aria-live={ariaLive}
             aria-disabled={disableKeyboardInteraction}
             onFocus={(event) => {

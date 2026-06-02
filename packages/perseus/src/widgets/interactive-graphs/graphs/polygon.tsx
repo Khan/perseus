@@ -20,6 +20,10 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
+import {
+    buildPointAriaLabel,
+    usePointAriaLabel,
+} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -37,7 +41,6 @@ import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
-    AriaLive,
     Dispatch,
     InteractiveGraphElementSuite,
     InteractiveGraphProps,
@@ -185,20 +188,12 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         range,
         snapTo = "grid",
         snapStep,
+        pointLabels,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
-    const pointsOffArray = Array(points.length).fill("off");
-    // When moving an element, set its aria-live to "polite" and the others
-    // to "off". Otherwise, other connected elements that move at the same
-    // time might override the currently focused element's aria live.
-    const [ariaLives, setAriaLives] = React.useState<Array<AriaLive>>([
-        // First one represents the aria-live value for the polygon itself.
-        "off",
-        // The rest represent the points.
-        ...pointsOffArray,
-    ]);
 
     const lines = getLines(points);
 
@@ -296,7 +291,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     // Required for lines to darken on focus
                     onFocus: () => {
                         setFocusVisible(hasFocusVisible(polygonRef.current));
-                        setAriaLives(() => ["polite", ...pointsOffArray]);
                     },
                     // Required for line weighting to update on blur. Without this,
                     // the user has to hover over the shape for it to update
@@ -308,7 +302,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     "aria-label": srPolygonGraphPoints
                         ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
                         : srPolygonElementsNum,
-                    "aria-live": ariaLives[0],
                     "aria-disabled": disableKeyboardInteraction,
                 }}
             />
@@ -334,7 +327,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     <g key={"point-" + i}>
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
-                            ariaLive={ariaLives[i + 1]}
+                            ariaLabel={buildLabel(i, point)}
+                            // Move announcements come from the WB Announcer
+                            // via stateAnnouncement; disable aria-live here
+                            // to avoid the focusable handle double-announcing.
+                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                            // dropped from useControlPoint.
+                            ariaLive="off"
                             constrain={getKeyboardMovementConstraintForPoint(
                                 points,
                                 i,
@@ -361,13 +360,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                     );
                                     lastMoveTimeRef.current = now;
                                 }
-                            }}
-                            onFocus={() => {
-                                const newPointAriaLives = [...pointsOffArray];
-                                newPointAriaLives[i] = "polite";
-                                // Whole polygon is "off", and the current
-                                // point is "polite".
-                                setAriaLives(["off", ...newPointAriaLives]);
                             }}
                         />
                         {angleDegree && (
@@ -420,8 +412,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
 const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
-    const {coords, closedPolygon} = statefulProps.graphState;
+    const {coords, closedPolygon, pointLabels} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const {interactiveColor} = useGraphConfig();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
@@ -436,13 +429,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
     const polygonPointsId = id + "-points";
-
-    // When moving an element, set its aria-live to "polite" and the others
-    // to "off". Otherwise, other connected elements that move at the same
-    // time might override the currently focused element's aria live.
-    const pointsOffArray = Array(points.length).fill("off");
-    const [ariaLives, setAriaLives] =
-        React.useState<Array<AriaLive>>(pointsOffArray);
 
     // If the polygon is closed, return a LimitedPolygon component.
     if (closedPolygon) {
@@ -546,7 +532,13 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     <g key={"point-" + i}>
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${sideIds}`}
-                            ariaLive={ariaLives[i]}
+                            ariaLabel={buildLabel(i, point)}
+                            // Move announcements come from the WB Announcer
+                            // via stateAnnouncement; disable aria-live here
+                            // to avoid the focusable handle double-announcing.
+                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                            // dropped from useControlPoint.
+                            ariaLive="off"
                             point={point}
                             sequenceNumber={i + 1}
                             onDragStart={() => {
@@ -567,11 +559,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             }}
                             onFocus={() => {
                                 dispatch(actions.polygon.focusPoint(i));
-                                const newPointAriaLives = [...pointsOffArray];
-                                newPointAriaLives[i] = "polite";
-                                // Whole polygon is "off", and the current
-                                // point is "polite".
-                                setAriaLives([...newPointAriaLives]);
                             }}
                             onClick={() => {
                                 // If the point being clicked is the first point and
@@ -679,7 +666,9 @@ function describePolygonGraph(
     markings: InteractiveGraphProps["markings"],
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
-    const {coords} = state;
+    const {coords, pointLabels} = state;
+    const buildLabel = (index: number, point: vec.Vector2) =>
+        buildPointAriaLabel(pointLabels, index, point, strings, locale);
     const isCoordinatePlane = markings === "axes" || markings === "graph";
     const hasOnePoint = coords.length === 1;
 
@@ -698,13 +687,16 @@ function describePolygonGraph(
     // If the graph is not on a coordinate plane, we should not include
     // the points' coordinates in the description.
     if (isCoordinatePlane) {
-        const pointsString = coords.map((coord, i) => {
-            return strings.srPointAtCoordinates({
-                num: i + 1,
-                x: srFormatNumber(coord[0], locale),
-                y: srFormatNumber(coord[1], locale),
-            });
-        });
+        const pointsString = coords.map(
+            (coord, i) =>
+                // Share the helper's defensive rules with the MovablePoint handle's aria-label.
+                buildLabel(i, coord) ??
+                strings.srPointAtCoordinates({
+                    num: i + 1,
+                    x: srFormatNumber(coord[0], locale),
+                    y: srFormatNumber(coord[1], locale),
+                }),
+        );
         srPolygonGraphPoints = pointsString.join(" ");
     }
 

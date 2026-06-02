@@ -218,3 +218,90 @@ describe("Absolute value graph screen reader", () => {
         expect(points[1]).toHaveAccessibleName("Point on arm at 3 comma 5.");
     });
 });
+
+// TODO(LEMS-3995, post-PR-7): route the absolute-value SR-tree summary through buildPointAriaLabel once new locale string keys land.
+describe("Absolute value graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseAbsoluteValueState, pointLabels: ["A", "B"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for indices without a custom label", () => {
+        // Arrange, Act — only the vertex is named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseAbsoluteValueState, pointLabels: ["A"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point on arm at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    // The editor encodes "only the arm point named" as `["", "B"]`.
+    // An empty string at any index must fall back to the semantic default.
+    it("falls back to the default semantic label for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseAbsoluteValueState, pointLabels: ["", "B"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Vertex point at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseAbsoluteValueState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as string[],
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Vertex point at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+});
