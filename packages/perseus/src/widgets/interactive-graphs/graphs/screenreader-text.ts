@@ -23,6 +23,8 @@ export function getAnnouncementText(
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         case "move-sinusoid-point":
             return srSinusoidPointLabel(state, strings, locale);
+        case "move-angle-point":
+            return srAnglePointLabel(state, strings, locale);
         case "move-polygon":
             return srPolygonLabel(
                 state.coords,
@@ -71,6 +73,42 @@ function srSinusoidPointLabel(
     return state.y > state.otherY
         ? strings.srSinusoidMaxPoint(formatted)
         : strings.srSinusoidMinPoint(formatted);
+}
+
+function srAnglePointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        angleMeasure: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the side/vertex semantics, matching
+    // the static aria-label behavior in angle.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the switch statements below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+
+    // Coord layout in angle graphs: [endingSide, vertex, startingSide].
+    switch (state.pointIndex) {
+        case 0:
+            return strings.srAngleEndingSide({x, y});
+        case 1:
+            return strings.srAngleVertexWithAngleMeasure({
+                x,
+                y,
+                angleMeasure: srFormatNumber(state.angleMeasure, locale),
+            });
+        default:
+            return strings.srAngleStartingSide({x, y});
+    }
 }
 
 function srPolygonLabel(

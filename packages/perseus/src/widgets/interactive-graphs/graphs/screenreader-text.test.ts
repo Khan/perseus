@@ -215,6 +215,101 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-angle-point", () => {
+        // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
+        // side labels include their coords; the vertex also includes the
+        // measured angle.
+        it("uses the ending-side label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: 2,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 2, ending side at 2 comma 0.");
+        });
+
+        it("uses the vertex label with angle measure for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 0,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+            );
+        });
+
+        it("uses the starting-side label for index 2", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 2,
+                    pointLabel: 3,
+                    x: 0,
+                    y: 2,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 3, starting side at 0 comma 2.");
+        });
+
+        it("uses the custom label, overriding the side/vertex wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: 2,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 2 comma 0.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): To allow custom labels for angle points so
+        // we can angle measures.
+        it("uses the custom label for the vertex, dropping the angle measure", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 1,
+                    pointLabel: "V",
+                    x: 0,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point V at 0 comma 0.");
+        });
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(

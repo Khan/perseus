@@ -98,3 +98,33 @@ export const wideButton: PerseusRenderer = generateTestPerseusRenderer({
         }),
     },
 });
+
+export const tableInContent: PerseusRenderer = generateTestPerseusRenderer({
+    content: `An evaluation of the classes of Federation ships involved in the tachyon blockade during the Klingon Civil
+                War reveals wide range of starship types capable of engaging in complex tactical efforts.
+                \n\n[[\u2603 explanation 1]]`,
+    widgets: {
+        "explanation 1": generateExplanationWidget({
+            options: generateExplanationOptions({
+                hidePrompt: "Hide starship table",
+                showPrompt: "Starship class breakdown",
+                explanation: `Starship name | Vessel class |
+- | -
+USS Ahwahnee | Cheyenne
+USS Ajax | Apollo
+USS Aries | Renaissance
+USS Charleston | Excelsior
+USS Enterprise-D | Galaxy
+USS Excalibur | Ambassador
+USS Goddard | Korolev
+USS Hathaway | Constellation
+USS Hood | Excelsior
+USS Merrimack | Nebula
+USS Sutherland | Nebula
+USS Thomas Paine | New Orleans
+USS Tian An Men | Miranda
+USS Trieste | Merced`,
+            }),
+        }),
+    },
+});
