@@ -7,7 +7,27 @@ import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-export const explanationRendererDecorator = (_, {args, parameters}) => {
+import type {APIOptions} from "../../../types";
+import type {
+    ExplanationDefaultWidgetOptions,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
+
+export const explanationRendererDecorator: Decorator = (
+    _,
+    {
+        args,
+        parameters,
+    }: {
+        args: Partial<ExplanationDefaultWidgetOptions>;
+        parameters?: {
+            apiOptions?: APIOptions;
+            content?: string;
+            widgets?: PerseusWidgetsMap;
+        };
+    },
+) => {
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
