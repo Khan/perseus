@@ -46,15 +46,15 @@ exports[`graded group set widget should snapshot 1`] = `
                   <button
                     aria-current="true"
                     aria-label="Problem 1a"
-                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
+                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
                     >
                       <div
-                        class="default_xu2jcg-o_O-indicatorDotActive_xgych8"
+                        class="default_7zhre1-o_O-indicatorDotActive_xgych8"
                       />
                     </div>
                   </button>
@@ -65,12 +65,12 @@ exports[`graded group set widget should snapshot 1`] = `
                   <button
                     aria-current="false"
                     aria-label="Problem 1b"
-                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
+                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
                     />
                   </button>
                 </li>
@@ -80,12 +80,12 @@ exports[`graded group set widget should snapshot 1`] = `
                   <button
                     aria-current="false"
                     aria-label="Problem 1c"
-                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
                     role="button"
                     type="button"
                   >
                     <div
-                      class="default_xu2jcg-o_O-indicatorDot_1ppx7bq"
+                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
                     />
                   </button>
                 </li>

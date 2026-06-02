@@ -5,6 +5,7 @@ import {
     type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import {expect, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
@@ -25,6 +26,8 @@ import {
     frescoImage,
     gifImage,
     gifImageAlt,
+    tallGifImage,
+    tallGifImageAlt,
     graphieImage,
     graphieImageAlt,
     nonAnimatedGifImage,
@@ -351,12 +354,23 @@ export const TallGifImage: Story = {
         },
     },
     args: {
-        backgroundImage: {
-            url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
-        },
-        alt: gifImageAlt,
-        caption: gifImageAlt,
-        longDescription: gifImageAlt,
+        backgroundImage: tallGifImage,
+        alt: tallGifImageAlt,
+        caption: tallGifImageAlt,
+        longDescription: tallGifImageAlt,
+    },
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        // Wait until GifImage has decoded the GIF and drawn frame 0 onto the
+        // canvas. drawFrame(0) sets canvas.width to the GIF's native width,
+        // which is reflected back to the HTML attribute — so getAttribute
+        // goes from null/"0" to a positive string once the frame is drawn.
+        await waitFor(() => {
+            const gifCanvas = canvas.getByTestId("gif-canvas");
+            expect(
+                Number(gifCanvas.getAttribute("width") ?? "0"),
+            ).toBeGreaterThan(0);
+        });
     },
 };
 

@@ -8,11 +8,16 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {
+    srCircleCenterLabel,
+    srCircleRadiusPointLabel,
+    srFormatNumber,
+} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
@@ -21,7 +26,6 @@ import {
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {
-    AriaLive,
     CircleGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
@@ -44,11 +48,10 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radiusPoint, snapStep} = graphState;
+    const {center, pointLabels, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
-    const [radiusPointAriaLive, setRadiusPointAriaLive] =
-        React.useState<AriaLive>("off");
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     const radius = getRadius(graphState);
     const id = React.useId();
@@ -73,34 +76,33 @@ export function CircleGraph(props: CircleGraphProps) {
         >
             <MovableCircle
                 id={circleId}
-                // Focusable circle aria label reads with every update
-                // because of the aria-live property in the circle <g>.
                 ariaLabel={srCircleShape}
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${radiusId} ${outerPointsId}`}
                 center={center}
                 radius={radius}
                 onMove={(c) => {
-                    setRadiusPointAriaLive("off");
                     dispatch(actions.circle.moveCenter(c));
                 }}
             />
             <MovablePoint
-                // Radius point aria label reads with every update.
-                ariaLabel={`${srCircleRadiusPoint} ${srCircleRadius}`}
+                // Radius point aria label reads with every update. The
+                // schema `pointLabels?: string[]` is interpreted for
+                // circle as `[radiusPointLabel]` — only the radius point
+                // (a `MovablePoint`) is labelable. The center is a
+                // `MovableCircle` whose announcement describes the whole
+                // shape ("Circle. The center point is at X comma Y.") and is not
+                // overridden.
+                ariaLabel={
+                    buildLabel(0, radiusPoint) ??
+                    `${srCircleRadiusPoint} ${srCircleRadius}`
+                }
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
-                // The radius point's aria-live property is set to "off" when
-                // the circle is moved, so that it doesn't override the circle's
-                // aria-live (since the point is moved along with the circle).
-                // When the radius point is moved, the aria-live is set to
-                // "polite" so that the radius is read out.
-                ariaLive={radiusPointAriaLive}
                 point={radiusPoint}
                 sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
-                    setRadiusPointAriaLive("polite");
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
                 constrain={getCircleKeyboardConstraint(
@@ -171,7 +173,6 @@ function MovableCircle(props: {
                 role="button"
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
-                aria-live="polite"
                 aria-disabled={disableKeyboardInteraction}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
@@ -326,23 +327,22 @@ export function describeCircleGraph(
     const {strings, locale} = i18n;
     const {center, radiusPoint} = state;
     const radius = getRadius(state);
-    const isRadiusOnRight = radiusPoint[X] >= center[X];
 
     // Aria label strings
     const srCircleGraph = strings.srCircleGraph;
-    const srCircleShape = strings.srCircleShape({
-        centerX: srFormatNumber(center[0], locale),
-        centerY: srFormatNumber(center[1], locale),
-    });
-    const srCircleRadiusPoint = isRadiusOnRight
-        ? strings.srCircleRadiusPointRight({
-              radiusPointX: srFormatNumber(radiusPoint[0], locale),
-              radiusPointY: srFormatNumber(radiusPoint[1], locale),
-          })
-        : strings.srCircleRadiusPointLeft({
-              radiusPointX: srFormatNumber(radiusPoint[0], locale),
-              radiusPointY: srFormatNumber(radiusPoint[1], locale),
-          });
+    const srCircleShape = srCircleCenterLabel(
+        center[0],
+        center[1],
+        strings,
+        locale,
+    );
+    const srCircleRadiusPoint = srCircleRadiusPointLabel(
+        radiusPoint[0],
+        radiusPoint[1],
+        center[0],
+        strings,
+        locale,
+    );
     const srCircleRadius = strings.srCircleRadius({
         radius,
     });

@@ -20,6 +20,10 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
+import {
+    buildPointAriaLabel,
+    usePointAriaLabel,
+} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -185,9 +189,11 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         range,
         snapTo = "grid",
         snapStep,
+        pointLabels,
     } = statefulProps.graphState;
     const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const pointsOffArray = Array(points.length).fill("off");
     // When moving an element, set its aria-live to "polite" and the others
@@ -334,6 +340,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     <g key={"point-" + i}>
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
+                            ariaLabel={buildLabel(i, point)}
                             ariaLive={ariaLives[i + 1]}
                             constrain={getKeyboardMovementConstraintForPoint(
                                 points,
@@ -420,8 +427,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
 const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
-    const {coords, closedPolygon} = statefulProps.graphState;
+    const {coords, closedPolygon, pointLabels} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const {interactiveColor} = useGraphConfig();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
@@ -546,6 +554,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                     <g key={"point-" + i}>
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${sideIds}`}
+                            ariaLabel={buildLabel(i, point)}
                             ariaLive={ariaLives[i]}
                             point={point}
                             sequenceNumber={i + 1}
@@ -679,7 +688,9 @@ function describePolygonGraph(
     markings: InteractiveGraphProps["markings"],
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
-    const {coords} = state;
+    const {coords, pointLabels} = state;
+    const buildLabel = (index: number, point: vec.Vector2) =>
+        buildPointAriaLabel(pointLabels, index, point, strings, locale);
     const isCoordinatePlane = markings === "axes" || markings === "graph";
     const hasOnePoint = coords.length === 1;
 
@@ -698,13 +709,16 @@ function describePolygonGraph(
     // If the graph is not on a coordinate plane, we should not include
     // the points' coordinates in the description.
     if (isCoordinatePlane) {
-        const pointsString = coords.map((coord, i) => {
-            return strings.srPointAtCoordinates({
-                num: i + 1,
-                x: srFormatNumber(coord[0], locale),
-                y: srFormatNumber(coord[1], locale),
-            });
-        });
+        const pointsString = coords.map(
+            (coord, i) =>
+                // Share the helper's defensive rules with the MovablePoint handle's aria-label.
+                buildLabel(i, coord) ??
+                strings.srPointAtCoordinates({
+                    num: i + 1,
+                    x: srFormatNumber(coord[0], locale),
+                    y: srFormatNumber(coord[1], locale),
+                }),
+        );
         srPolygonGraphPoints = pointsString.join(" ");
     }
 

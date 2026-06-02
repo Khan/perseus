@@ -185,6 +185,8 @@ const Line = (props: LineProps) => {
                 tabIndex={disableKeyboardInteraction ? -1 : 0}
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
+                // TODO(LEMS-4189): Remove aria-live once every interactive
+                // graph type emits its move through the WB Announcer.
                 aria-live={ariaLive}
                 aria-disabled={disableKeyboardInteraction}
                 className="movable-line"

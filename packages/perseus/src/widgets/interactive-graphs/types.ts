@@ -48,15 +48,37 @@ export type InteractiveGraphState =
 
 export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
-export type InteractiveGraphStateAnnouncement = {
+type MovePointAnnouncement = {
     type: "move-point";
-    pointIndex: number;
+    pointLabel: string;
     x: number;
     y: number;
 };
 
+type MoveRadiusPointAnnouncement = {
+    type: "move-radius-point";
+    x: number;
+    y: number;
+    centerX: number;
+    radius: number;
+};
+
+type MoveCenterAnnouncement = {
+    type: "move-center";
+    x: number;
+    y: number;
+};
+
+export type InteractiveGraphStateAnnouncement =
+    | MovePointAnnouncement
+    | MoveRadiusPointAnnouncement
+    | MoveCenterAnnouncement;
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
+    // Custom screen-reader labels for each interactive point. When present,
+    // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
+    pointLabels?: string[];
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
