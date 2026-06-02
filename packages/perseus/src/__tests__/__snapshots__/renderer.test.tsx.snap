@@ -346,7 +346,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_7zhre1"
           >
             <label
               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
@@ -355,7 +355,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
             >
               <button
                 aria-controls=":r4:"
@@ -389,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -431,7 +431,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_7zhre1"
           >
             <label
               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
@@ -440,7 +440,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
             >
               <button
                 aria-controls=":r7:"
@@ -474,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -516,7 +516,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_7zhre1"
           >
             <label
               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
@@ -525,7 +525,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_j210b4 perseus-dropdown"
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
             >
               <button
                 aria-controls=":r1:"
@@ -559,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_18b4l55-o_O-inlineStyles_ih2lny"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_ih2lny"
                 />
               </button>
             </div>
@@ -603,11 +603,11 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
+              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
             >
               <div
-                class="default_xu2jcg-o_O-containerInner_1lza62o"
+                class="default_7zhre1-o_O-containerInner_1lza62o"
               >
                 <span
                   aria-label="info"
@@ -616,10 +616,10 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
                   role="img"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_1dntbm4"
+                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_14mmd26"
+                    class="default_7zhre1-o_O-labelContainer_14mmd26"
                   >
                     <div
                       class="labelTypography_1y1267m"

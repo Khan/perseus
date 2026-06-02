@@ -26,7 +26,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_7zhre1"
           >
             <div
               class="fixed-to-responsive"
@@ -44,14 +44,14 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
               />
             </div>
             <div
-              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+              class="default_7zhre1-o_O-transcriptLink_18xwqfz"
             >
               <span
                 class="text_f1191h"
               />
               <div
                 aria-hidden="true"
-                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+                class="default_7zhre1-o_O-inlineStyles_sc01dy"
               />
               <a
                 class="shared_1y1t15t-o_O-rest_19jgcvc visited-no-recolor"
@@ -96,7 +96,7 @@ exports[`video widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_7zhre1"
           >
             <div
               class="fixed-to-responsive"
@@ -114,14 +114,14 @@ exports[`video widget should snapshot: first render 1`] = `
               />
             </div>
             <div
-              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+              class="default_7zhre1-o_O-transcriptLink_18xwqfz"
             >
               <span
                 class="text_f1191h"
               />
               <div
                 aria-hidden="true"
-                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+                class="default_7zhre1-o_O-inlineStyles_sc01dy"
               />
               <a
                 class="shared_1y1t15t-o_O-rest_19jgcvc visited-no-recolor"
