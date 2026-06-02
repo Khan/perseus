@@ -960,6 +960,26 @@ describe("movePoint on an angle graph", () => {
         invariant(updated.stateAnnouncement?.type === "move-angle-point");
         expect(updated.stateAnnouncement.pointIndex).toBe(0);
     });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+            pointLabels: ["T", "V", "S"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 5]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("T");
+    });
 });
 
 describe("movePoint on a polygon graph", () => {

@@ -27,12 +27,26 @@ export function getAnnouncementText(
 }
 
 function srAnglePointLabel(
-    state: {pointIndex: number; x: number; y: number; angleMeasure: number},
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        angleMeasure: number;
+    },
     strings: PerseusStrings,
     locale: string,
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the side/vertex semantics, matching
+    // the static aria-label behavior in angle.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the switch statements below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+
     // Coord layout in angle graphs: [endingSide, vertex, startingSide].
     switch (state.pointIndex) {
         case 0:

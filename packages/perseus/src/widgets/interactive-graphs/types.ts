@@ -75,6 +75,7 @@ type MoveCenterAnnouncement = {
 type MoveAnglePointAnnouncement = {
     type: "move-angle-point";
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
     angleMeasure: number;
