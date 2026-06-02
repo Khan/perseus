@@ -10,10 +10,13 @@ import {
     linearSystemWithCustomLabelsQuestion,
     linearWithCustomLabelsQuestion,
     pointQuestion,
+    pointWithAutoVisibleLabelsQuestion,
     pointWithCustomLabelQuestion,
+    pointWithCustomVisibleLabelsQuestion,
     pointWithDefaultLabelQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
+    polygonWithVisibleLabelsQuestion,
     rayQuestion,
     rayWithCustomLabelsQuestion,
     segmentQuestion,
@@ -185,6 +188,34 @@ export const PointWithDefaultLabel: Story = {
     },
 };
 
+/**
+ * A point graph with `showLabels: true` and no `pointLabels`. The three
+ * interactive points are auto-labelled "A", "B", "C" on the canvas — labels
+ * track each point as the learner drags it. Demonstrates the opt-in
+ * visible-labels behaviour with zero authoring overhead.
+ */
+export const PointWithAutoVisibleLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithAutoVisibleLabelsQuestion,
+        }),
+    },
+};
+
+/**
+ * A point graph with both `showLabels: true` AND author-supplied
+ * `pointLabels: ["P", "Q", "R"]`. The custom strings win over the
+ * auto A/B/C fallback, so the visible labels on the canvas match the
+ * names in the prompt exactly.
+ */
+export const PointWithCustomVisibleLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithCustomVisibleLabelsQuestion,
+        }),
+    },
+};
+
 export const Polygon: Story = {
     args: {
         item: generateTestPerseusItem({question: polygonQuestion}),
@@ -202,6 +233,23 @@ export const PolygonWithCustomLabels: Story = {
     args: {
         item: generateTestPerseusItem({
             question: polygonWithCustomLabelsQuestion,
+        }),
+    },
+};
+
+/**
+ * A polygon graph with `showLabels: true` and no `pointLabels`. Each vertex
+ * is auto-labelled "A", "B", "C", "D" on the canvas — visible to sighted
+ * learners and reflected in the screen-reader announcement
+ * ("Point A / B / C / D at …"). Demonstrates that the `showLabels` opt-in
+ * works for non-`point` graph types via the shared `getEffectivePointLabels`
+ * helper. Pair this with `PointWithAutoVisibleLabels` to verify the
+ * cross-type wiring.
+ */
+export const PolygonWithVisibleLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: polygonWithVisibleLabelsQuestion,
         }),
     },
 };

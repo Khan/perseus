@@ -11,6 +11,7 @@ import {
 } from "../../../components/i18n-context";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import {
     calculateAngleSnap,
@@ -185,6 +186,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {
         showAngles,
         showSides,
+        showLabels,
         range,
         snapTo = "grid",
         snapStep,
@@ -192,7 +194,12 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     } = statefulProps.graphState;
     const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        points.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const id = React.useId();
 
     const lines = getLines(points);
@@ -343,6 +350,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             )}
                             point={point}
                             sequenceNumber={i + 1}
+                            label={
+                                showLabels ? effectiveLabels?.[i] : undefined
+                            }
                             onMove={(destination: vec.Vector2) => {
                                 const now = Date.now();
                                 const targetFPS = 40;
@@ -412,9 +422,15 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
 
 const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
-    const {coords, closedPolygon, pointLabels} = statefulProps.graphState;
+    const {coords, closedPolygon, pointLabels, showLabels} =
+        statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const {interactiveColor} = useGraphConfig();
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
@@ -541,6 +557,9 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             ariaLive="off"
                             point={point}
                             sequenceNumber={i + 1}
+                            label={
+                                showLabels ? effectiveLabels?.[i] : undefined
+                            }
                             onDragStart={() => {
                                 dragEndCallbackTimer.clear();
                                 setIsCurrentlyDragging(true);
@@ -666,9 +685,14 @@ function describePolygonGraph(
     markings: InteractiveGraphProps["markings"],
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
-    const {coords, pointLabels} = state;
+    const {coords, pointLabels, showLabels} = state;
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
     const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+        buildPointAriaLabel(effectiveLabels, index, point, strings, locale);
     const isCoordinatePlane = markings === "axes" || markings === "graph";
     const hasOnePoint = coords.length === 1;
 

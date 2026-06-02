@@ -34,6 +34,11 @@ type Params = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
+    /**
+     * Visible text label rendered next to the point (e.g. "A", "B", "T").
+     * When omitted, no label is drawn.
+     */
+    label?: string;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onDragStart?: (() => unknown) | undefined;
     onDragEnd?: (() => unknown) | undefined;
@@ -60,6 +65,7 @@ export function useControlPoint(params: Params): Return {
         cursor,
         forwardedRef = noop,
         sequenceNumber = 1,
+        label,
         onMove = noop,
         onDragStart = noop,
         onDragEnd = noop,
@@ -152,15 +158,24 @@ export function useControlPoint(params: Params): Return {
                 ref={visiblePointRef}
                 showFocusRing={focused}
             />
-            {/* PROTOTYPE: label every movable point with A/B/C... by sequence. */}
-            <TextLabel
-                x={point[X]}
-                y={point[Y]}
-                attach="ne"
-                attachDistance={12}
-            >
-                {String.fromCharCode(64 + sequenceNumber)}
-            </TextLabel>
+            {label != null && label !== "" && (
+                // The visible label is purely decorative; the focusable handle
+                // above already carries the equivalent text in its aria-label,
+                // so we hide this from the a11y tree to avoid double-announce.
+                <g
+                    aria-hidden="true"
+                    data-testid="movable-point__visible-label"
+                >
+                    <TextLabel
+                        x={point[X]}
+                        y={point[Y]}
+                        attach="ne"
+                        attachDistance={12}
+                    >
+                        {label}
+                    </TextLabel>
+                </g>
+            )}
         </>
     );
 

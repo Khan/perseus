@@ -371,6 +371,76 @@ describe("MovablePoint", () => {
         expect(focusSpy).toHaveBeenCalled();
     });
 
+    describe("visible label", () => {
+        it("does NOT render a label when `label` prop is omitted", () => {
+            // Arrange, Act
+            mockGraphConfig(baseGraphConfigContext);
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} />
+                </Mafs>,
+            );
+
+            // Assert
+            expect(screen.queryByText("A")).not.toBeInTheDocument();
+        });
+
+        it("renders the provided label next to the point", () => {
+            // Arrange, Act
+            mockGraphConfig(baseGraphConfigContext);
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} label="A" />
+                </Mafs>,
+            );
+
+            // Assert
+            expect(screen.getByText("A")).toBeInTheDocument();
+        });
+
+        it("hides the visible label from the a11y tree to avoid double-announcing alongside the button's aria-label", () => {
+            // Arrange, Act
+            mockGraphConfig(baseGraphConfigContext);
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} label="A" />
+                </Mafs>,
+            );
+
+            // Assert
+            expect(
+                screen.getByTestId("movable-point__visible-label"),
+            ).toHaveAttribute("aria-hidden", "true");
+        });
+
+        it("renders an author-supplied label string verbatim", () => {
+            // Arrange, Act
+            mockGraphConfig(baseGraphConfigContext);
+            render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} label="P" />
+                </Mafs>,
+            );
+
+            // Assert
+            expect(screen.getByText("P")).toBeInTheDocument();
+        });
+
+        it("does NOT render a label when `label` is the empty string", () => {
+            // Arrange, Act
+            mockGraphConfig(baseGraphConfigContext);
+            const {container} = render(
+                <Mafs width={200} height={200}>
+                    <MovablePoint point={[0, 0]} sequenceNumber={1} label="" />
+                </Mafs>,
+            );
+
+            // Assert: no <text> element was emitted by the TextLabel.
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            expect(container.querySelectorAll("text")).toHaveLength(0);
+        });
+    });
+
     describe("accessibility", () => {
         it("uses the default sequence number when ariaLabel and sequence number are not provided", () => {
             render(

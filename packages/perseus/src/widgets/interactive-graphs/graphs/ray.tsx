@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -32,7 +33,7 @@ type Props = MafsGraphProps<RayGraphState>;
 
 const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: line, pointLabels} = props.graphState;
+    const {coords: line, pointLabels, showLabels} = props.graphState;
 
     const handleMoveLine = (newStart: vec.Vector2) =>
         dispatch(actions.ray.moveRay(newStart));
@@ -40,7 +41,8 @@ const RayGraph = (props: Props) => {
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(showLabels, pointLabels, 2);
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
 
@@ -70,6 +72,11 @@ const RayGraph = (props: Props) => {
                     point2AriaLabel,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
+                pointLabels={
+                    showLabels
+                        ? [effectiveLabels?.[0], effectiveLabels?.[1]]
+                        : undefined
+                }
                 // The ray graph's move announcements come from the WB
                 // Announcer via stateAnnouncement; disable aria-live here to
                 // avoid the focusable handles double-announcing.

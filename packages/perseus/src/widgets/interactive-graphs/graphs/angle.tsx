@@ -5,6 +5,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -54,6 +55,7 @@ function AngleGraph(props: AngleGraphProps) {
     const {
         coords,
         pointLabels,
+        showLabels,
         showAngles,
         range,
         allowReflexAngles,
@@ -63,7 +65,12 @@ function AngleGraph(props: AngleGraphProps) {
     // [2]=starting side. The MovablePoints below are rendered in a
     // different order (vertex first), so each call site indexes pointLabels
     // by the coords slot it is bound to.
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // Break the coords into the two end points and the center point
     const endPoints: [vec.Vector2, vec.Vector2] = [coords[0], coords[2]];
@@ -143,6 +150,7 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(1, destination))
                 }
                 ariaLabel={buildLabel(1, coords[1]) ?? srAngleVertex}
+                label={showLabels ? effectiveLabels?.[1] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.
@@ -163,6 +171,7 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(0, destination))
                 }
                 ariaLabel={buildLabel(0, coords[0]) ?? srAngleEndingSide}
+                label={showLabels ? effectiveLabels?.[0] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.
@@ -183,6 +192,7 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(2, destination))
                 }
                 ariaLabel={buildLabel(2, coords[2]) ?? srAngleStartingSide}
+                label={showLabels ? effectiveLabels?.[2] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.

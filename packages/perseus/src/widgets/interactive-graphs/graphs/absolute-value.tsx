@@ -6,6 +6,7 @@ import {
     type I18nContextType,
 } from "../../../components/i18n-context";
 import {X, Y} from "../math/coordinates";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -46,8 +47,13 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     const id = React.useId();
     const descriptionId = id + "-description";
 
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showLabels, snapStep} = graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // Cache last valid coefficients to protect against transient invalid
     // states that can occur mid-drag (e.g., both points on the same x).
@@ -97,6 +103,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                         snapStep,
                         i,
                     )}
+                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onMove={(destination) =>
                         dispatch(
                             actions.absoluteValue.movePoint(i, destination),

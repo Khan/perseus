@@ -37,6 +37,7 @@ const parsePerseusGraphTypeAngle = object({
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(trio(string, string, string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeCircle = object({
@@ -50,6 +51,7 @@ const parsePerseusGraphTypeCircle = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLinear = object({
@@ -57,6 +59,7 @@ const parsePerseusGraphTypeLinear = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLinearSystem = object({
@@ -65,6 +68,7 @@ const parsePerseusGraphTypeLinearSystem = object({
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeNone = object({
@@ -78,6 +82,7 @@ const parsePerseusGraphTypePoint = object({
     startCoords: optional(array(pairOfNumbers)),
     coord: optional(pairOfNumbers),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypePolygon = object({
@@ -90,6 +95,7 @@ const parsePerseusGraphTypePolygon = object({
     startCoords: optional(array(pairOfNumbers)),
     coords: optional(nullable(array(pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeQuadratic = object({
@@ -99,6 +105,7 @@ const parsePerseusGraphTypeQuadratic = object({
     ),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(trio(string, string, string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeRay = object({
@@ -106,6 +113,7 @@ const parsePerseusGraphTypeRay = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeSegment = object({
@@ -115,6 +123,7 @@ const parsePerseusGraphTypeSegment = object({
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeSinusoid = object({
@@ -122,6 +131,7 @@ const parsePerseusGraphTypeSinusoid = object({
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeExponential = object({
@@ -135,6 +145,7 @@ const parsePerseusGraphTypeExponential = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeAbsoluteValue = object({
@@ -142,6 +153,7 @@ const parsePerseusGraphTypeAbsoluteValue = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeTangent = object({
@@ -149,6 +161,7 @@ const parsePerseusGraphTypeTangent = object({
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLogarithm = object({
@@ -162,6 +175,7 @@ const parsePerseusGraphTypeLogarithm = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeVector = object({

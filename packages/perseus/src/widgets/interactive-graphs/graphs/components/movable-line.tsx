@@ -35,6 +35,14 @@ type Props = {
         start: boolean;
         end: boolean;
     };
+    /**
+     * Visible on-canvas labels for the two endpoints, indexed [start, end].
+     * Each entry is forwarded to the corresponding endpoint's `useControlPoint`;
+     * undefined/empty entries render no label. See `point-labels.ts`.
+     */
+    pointLabels?: Readonly<
+        [start: string | undefined, end: string | undefined]
+    >;
     onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveLine?: (newStart: vec.Vector2) => unknown;
 };
@@ -46,6 +54,7 @@ export const MovableLine = (props: Props) => {
         ariaDescribedBy,
         ariaLive,
         extend,
+        pointLabels,
         onMoveLine = () => {},
         onMovePoint = () => {},
     } = props;
@@ -86,6 +95,7 @@ export const MovableLine = (props: Props) => {
             ariaLive: point1AriaLive,
             point: start,
             sequenceNumber: 1,
+            label: pointLabels?.[0],
             onMove: (p) => {
                 setAriaLives(["polite", "off", "off"]);
                 onMovePoint(0, p);
@@ -103,6 +113,7 @@ export const MovableLine = (props: Props) => {
             ariaLive: point2AriaLive,
             point: end,
             sequenceNumber: 2,
+            label: pointLabels?.[1],
             onMove: (p) => {
                 setAriaLives(["off", "polite", "off"]);
                 onMovePoint(1, p);

@@ -7,6 +7,7 @@ import {
     type I18nContextType,
 } from "../../../components/i18n-context";
 import {X, Y} from "../math";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdgeAndSnapToGrid} from "../utils";
@@ -56,8 +57,13 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const id = React.useId();
     const descriptionId = id + "-description";
 
-    const {coords, pointLabels, asymptote, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showLabels, asymptote, snapStep} = graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // When the asymptote sits between the two points there is no valid
     // exponential that fits — coeffs will be undefined, and we skip
@@ -150,6 +156,7 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                         i,
                         range,
                     )}
+                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onMove={(destination) =>
                         dispatch(actions.exponential.movePoint(i, destination))
                     }
