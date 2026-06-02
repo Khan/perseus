@@ -69,10 +69,20 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
+// announcement can list each point's new coordinates, plus any author-supplied
+// custom labels so each vertex is announced by its label when one is set.
+type MovePolygonAnnouncement = {
+    type: "move-polygon";
+    coords: ReadonlyArray<Coord>;
+    pointLabels?: ReadonlyArray<string>;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
-    | MoveCenterAnnouncement;
+    | MoveCenterAnnouncement
+    | MovePolygonAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

@@ -438,6 +438,11 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                    pointLabels: state.pointLabels,
+                },
             };
         }
         default:
@@ -524,6 +529,14 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
             const newCoord = boundToEdgeAndSnapToGrid(

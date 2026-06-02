@@ -940,6 +940,80 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 1]);
     });
 
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "A",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 0,
+            y: 1,
+        });
+    });
+
     it("rejects the move if it would cause sides of the polygon to intersect with grid snapping", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
@@ -1114,6 +1188,57 @@ describe("movePoint on a polygon graph", () => {
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([
             3.1344697042830383, -2.1621978801515374,
+        ]);
+    });
+
+    it("sets stateAnnouncement to a move-polygon with the new vertex coords on moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-polygon");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [1, 1],
+            [1, 3],
+            [3, 3],
+            [3, 1],
+        ]);
+    });
+
+    it("carries custom pointLabels in the move-polygon announcement on moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-polygon");
+        expect(updated.stateAnnouncement.pointLabels).toEqual([
+            "A",
+            "B",
+            "C",
+            "D",
         ]);
     });
 });
