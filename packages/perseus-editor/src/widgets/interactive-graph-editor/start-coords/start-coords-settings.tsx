@@ -15,8 +15,6 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import * as React from "react";
 
@@ -31,6 +29,7 @@ import StartCoordsLogarithm from "./start-coords-logarithm";
 import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
+import styles from "./start-coords-shared.module.css";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import StartCoordsTangent from "./start-coords-tangent";
 import StartCoordsVector from "./start-coords-vector";
@@ -122,6 +121,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsSinusoid
                     startCoords={sinusoidCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "exponential": {
@@ -140,6 +141,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsExponential
                     startCoords={currentStartCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         }
@@ -156,6 +159,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsLogarithm
                     startCoords={currentLogarithmCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         }
@@ -174,6 +179,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsTangent
                     startCoords={tangentCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         case "quadratic":
@@ -182,6 +189,8 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsQuadratic
                     startCoords={quadraticCoords}
                     onChange={onChange}
+                    pointLabels={props.pointLabels ?? []}
+                    onChangePointLabels={onChangePointLabels}
                 />
             );
         // Graphs with startCoords of type ReadonlyArray<Coord>
@@ -234,19 +243,24 @@ const StartCoordsSettings = (props: Props) => {
                     <StartCoordsSettingsInner {...props} />
 
                     {/* Button to reset to default */}
-                    <Strut size={spacing.small_12} />
-                    <Button
-                        startIcon={arrowCounterClockwise}
-                        kind="tertiary"
-                        size="small"
-                        onClick={() => {
-                            onChange(
-                                getDefaultGraphStartCoords(props, range, step),
-                            );
-                        }}
-                    >
-                        Use default start coordinates
-                    </Button>
+                    <View className={styles.resetButton}>
+                        <Button
+                            startIcon={arrowCounterClockwise}
+                            kind="tertiary"
+                            size="small"
+                            onClick={() => {
+                                onChange(
+                                    getDefaultGraphStartCoords(
+                                        props,
+                                        range,
+                                        step,
+                                    ),
+                                );
+                            }}
+                        >
+                            Use default start coordinates
+                        </Button>
+                    </View>
                 </>
             )}
         </View>

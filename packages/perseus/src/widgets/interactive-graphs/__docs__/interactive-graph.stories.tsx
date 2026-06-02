@@ -25,9 +25,14 @@ import {
     segmentWithAllLockedRayVariations,
     absoluteValueQuestion,
     exponentialQuestion,
+    exponentialWithCustomLabelsQuestion,
     logarithmQuestion,
+    logarithmWithCustomLabelsQuestion,
+    quadraticWithCustomLabelsQuestion,
     sinusoidQuestion,
+    sinusoidWithCustomLabelsQuestion,
     tangentQuestion,
+    tangentWithCustomLabelsQuestion,
     vectorQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
@@ -226,9 +231,37 @@ export const Exponential: Story = {
     },
 };
 
+/**
+ * An exponential graph whose two curve points are named "A" and "B" via
+ * `pointLabels`, so JAWS announces "Point A / B at …" instead of the
+ * default "Point 1 / 2 at …". The asymptote handle's announcement is
+ * unaffected — `pointLabels` only covers the curve's control points.
+ */
+export const ExponentialWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: exponentialWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Sinusoid: Story = {
     args: {
         item: generateTestPerseusItem({question: sinusoidQuestion}),
+    },
+};
+
+/**
+ * A sinusoid whose midline intersection and extremum are named "A" and "B"
+ * via `pointLabels`. Overrides the default "Midline intersection at …" /
+ * "Maximum point at …" semantic labels so the SR announcement matches the
+ * prompt's naming convention.
+ */
+export const SinusoidWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: sinusoidWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -238,9 +271,49 @@ export const Logarithm: Story = {
     },
 };
 
+/**
+ * A logarithm whose two curve points are named "A" and "B" via
+ * `pointLabels`, so JAWS announces "Point A / B at …" instead of the
+ * default "Point 1 / 2 at …". The vertical asymptote handle's
+ * announcement is unaffected.
+ */
+export const LogarithmWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: logarithmWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Tangent: Story = {
     args: {
         item: generateTestPerseusItem({question: tangentQuestion}),
+    },
+};
+
+/**
+ * A tangent whose inflection point and control point are named "A" and "B"
+ * via `pointLabels`. Overrides the default "Inflection point" / "Control
+ * point" semantic labels.
+ */
+export const TangentWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: tangentWithCustomLabelsQuestion,
+        }),
+    },
+};
+
+/**
+ * A quadratic whose three control points are named "A", "B", "C" via
+ * `pointLabels`. Overrides the default "Point N on parabola …" labels so
+ * the SR announcement matches the prompt's naming convention.
+ */
+export const QuadraticWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: quadraticWithCustomLabelsQuestion,
+        }),
     },
 };
 
