@@ -6,6 +6,7 @@ import {
     type I18nContextType,
 } from "../../../components/i18n-context";
 import {X, Y} from "../math/coordinates";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -47,8 +48,13 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     // Destructure the coordinates from the graph state
     // Note: The order of the coordinates is important:
     // The coords[0] is the root and the coords[1] is the first peak
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showLabels, snapStep} = graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // The coefficients are used to calculate the sinusoid equation, plot the graph, and to indicate
     // to content creators the currently selected "correct answer" in the Content Editor.
@@ -107,6 +113,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                         snapStep,
                         i,
                     )}
+                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onMove={(destination) =>
                         dispatch(actions.sinusoid.movePoint(i, destination))
                     }

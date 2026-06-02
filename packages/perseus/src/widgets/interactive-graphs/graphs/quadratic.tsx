@@ -2,6 +2,7 @@ import {Plot, vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -45,11 +46,16 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords, pointLabels, snapStep} = graphState;
+    const {coords, pointLabels, showLabels, snapStep} = graphState;
     const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const id = React.useId();
     const quadraticDirectionId = id + "-direction";
     const quadraticVertexId = id + "-vertex";
@@ -123,6 +129,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                             snapStep,
                             i,
                         )}
+                        label={showLabels ? effectiveLabels?.[i] : undefined}
                         onMove={(destination) =>
                             dispatch(
                                 actions.quadratic.movePoint(i, destination),

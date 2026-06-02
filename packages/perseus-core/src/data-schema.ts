@@ -1162,6 +1162,12 @@ export type PerseusGraphTypeAngle = {
     startCoords?: [Coord, Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string, string];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeCircle = {
@@ -1175,6 +1181,12 @@ export type PerseusGraphTypeCircle = {
     };
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeLinear = {
@@ -1185,6 +1197,12 @@ export type PerseusGraphTypeLinear = {
     startCoords?: CollinearTuple;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeLinearSystem = {
@@ -1195,6 +1213,12 @@ export type PerseusGraphTypeLinearSystem = {
     startCoords?: CollinearTuple[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeNone = {
@@ -1215,6 +1239,12 @@ export type PerseusGraphTypePoint = {
     coord?: Coord;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypePolygon = {
@@ -1234,6 +1264,12 @@ export type PerseusGraphTypePolygon = {
     startCoords?: Coord[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeQuadratic = {
@@ -1244,6 +1280,12 @@ export type PerseusGraphTypeQuadratic = {
     startCoords?: [Coord, Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string, string];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeSegment = {
@@ -1259,6 +1301,12 @@ export type PerseusGraphTypeSegment = {
     startCoords?: CollinearTuple[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeSinusoid = {
@@ -1269,6 +1317,12 @@ export type PerseusGraphTypeSinusoid = {
     startCoords?: Coord[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeTangent = {
@@ -1279,6 +1333,12 @@ export type PerseusGraphTypeTangent = {
     startCoords?: Coord[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeExponential = {
@@ -1294,6 +1354,12 @@ export type PerseusGraphTypeExponential = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeLogarithm = {
@@ -1309,6 +1375,12 @@ export type PerseusGraphTypeLogarithm = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1319,6 +1391,12 @@ export type PerseusGraphTypeAbsoluteValue = {
     startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeRay = {
@@ -1329,6 +1407,12 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /**
+     * When true, render a visible label (A, B, C, …) next to each interactive
+     * point on the graph. If `pointLabels[i]` is provided, that string is used
+     * instead of the auto-generated letter. Opt-in; defaults to off.
+     */
+    showLabels?: boolean;
 };
 
 export type PerseusGraphTypeVector = {

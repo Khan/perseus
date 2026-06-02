@@ -8,6 +8,7 @@ import {srFormatNumber} from "../screenreader-text";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";
+import {TextLabel} from "./text-label";
 
 import type {CSSCursor} from "./css-cursor";
 import type {AriaLive} from "../../types";
@@ -33,6 +34,11 @@ type Params = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
+    /**
+     * Visible text label rendered next to the point (e.g. "A", "B", "T").
+     * When omitted, no label is drawn.
+     */
+    label?: string;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onDragStart?: (() => unknown) | undefined;
     onDragEnd?: (() => unknown) | undefined;
@@ -59,6 +65,7 @@ export function useControlPoint(params: Params): Return {
         cursor,
         forwardedRef = noop,
         sequenceNumber = 1,
+        label,
         onMove = noop,
         onDragStart = noop,
         onDragEnd = noop,
@@ -138,18 +145,38 @@ export function useControlPoint(params: Params): Return {
         />
     );
     const visiblePoint = (
-        <MovablePointView
-            cursor={cursor}
-            onClick={() => {
-                onClick();
-                focusableHandleRef.current?.focus();
-            }}
-            point={point}
-            dragging={dragging}
-            focused={focused}
-            ref={visiblePointRef}
-            showFocusRing={focused}
-        />
+        <>
+            <MovablePointView
+                cursor={cursor}
+                onClick={() => {
+                    onClick();
+                    focusableHandleRef.current?.focus();
+                }}
+                point={point}
+                dragging={dragging}
+                focused={focused}
+                ref={visiblePointRef}
+                showFocusRing={focused}
+            />
+            {label != null && label !== "" && (
+                // The visible label is purely decorative; the focusable handle
+                // above already carries the equivalent text in its aria-label,
+                // so we hide this from the a11y tree to avoid double-announce.
+                <g
+                    aria-hidden="true"
+                    data-testid="movable-point__visible-label"
+                >
+                    <TextLabel
+                        x={point[X]}
+                        y={point[Y]}
+                        attach="ne"
+                        attachDistance={12}
+                    >
+                        {label}
+                    </TextLabel>
+                </g>
+            )}
+        </>
     );
 
     return {
