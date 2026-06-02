@@ -9,48 +9,305 @@ import {
 } from "./screenreader-text";
 
 describe("getAnnouncementText", () => {
-    it("returns the correct string for a move-point announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-point", pointIndex: 0, x: 3, y: 5},
-            mockStrings,
-            "en",
-        );
+    describe("move-point", () => {
+        it("returns the correct string with a numeric default label", () => {
+            const result = getAnnouncementText(
+                {type: "move-point", pointLabel: "1", x: 3, y: 5},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Point 1 at 3 comma 5.");
+            expect(result).toBe("Point 1 at 3 comma 5.");
+        });
+
+        it("returns the correct string with a custom pointLabel", () => {
+            const result = getAnnouncementText(
+                {type: "move-point", pointLabel: "T", x: 3, y: 5},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 3 comma 5.");
+        });
     });
 
-    it("returns the correct string for a move-radius-point announcement when point is to the right", () => {
-        const result = getAnnouncementText(
-            {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
-            mockStrings,
-            "en",
-        );
+    describe("move-radius-point", () => {
+        it("returns the correct string when point is to the right", () => {
+            const result = getAnnouncementText(
+                {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe(
-            "Right radius endpoint at 2 comma 0. Circle radius is 2.",
-        );
+            expect(result).toBe(
+                "Right radius endpoint at 2 comma 0. Circle radius is 2.",
+            );
+        });
+
+        it("returns the correct string when point is to the left", () => {
+            const result = getAnnouncementText(
+                {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Left radius endpoint at -2 comma 0. Circle radius is 2.",
+            );
+        });
     });
 
-    it("returns the correct string for a move-radius-point announcement when point is to the left", () => {
-        const result = getAnnouncementText(
-            {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
-            mockStrings,
-            "en",
-        );
+    describe("move-center", () => {
+        it("returns the correct string", () => {
+            const result = getAnnouncementText(
+                {type: "move-center", x: 3, y: 4},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe(
-            "Left radius endpoint at -2 comma 0. Circle radius is 2.",
-        );
+            expect(result).toBe("Circle. The center point is at 3 comma 4.");
+        });
     });
 
-    it("returns the correct string for a move-center announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-center", x: 3, y: 4},
-            mockStrings,
-            "en",
-        );
+    describe("move-polygon", () => {
+        it("returns a polygon summary string with each vertex", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-polygon",
+                    coords: [
+                        [0, 0],
+                        [3, 0],
+                        [3, 4],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Circle. The center point is at 3 comma 4.");
+            expect(result).toBe(
+                "A polygon with 3 points. Point 1 at 0 comma 0. Point 2 at 3 comma 0. Point 3 at 3 comma 4.",
+            );
+        });
+
+        it("uses the singular polygon label when the polygon has one vertex", () => {
+            const result = getAnnouncementText(
+                {type: "move-polygon", coords: [[1, 2]]},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "A polygon with 1 point. Point 1 at 1 comma 2.",
+            );
+        });
+
+        it("announces each vertex by its custom label, falling back to the numeric default for empty slots", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-polygon",
+                    coords: [
+                        [0, 0],
+                        [3, 0],
+                        [3, 4],
+                    ],
+                    pointLabels: ["A", "", "C"],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "A polygon with 3 points. Point A at 0 comma 0. Point 2 at 3 comma 0. Point C at 3 comma 4.",
+            );
+        });
+    });
+
+    describe("move-sinusoid-point", () => {
+        // Coord layout: [root(0), peak(1)]. The root always uses the
+        // root label; the peak uses max/min/flat based on its y vs the
+        // root's y (passed in as otherY).
+        it("uses the root label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: 1,
+                    y: 1,
+                    otherY: 3,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Midline intersection at 1 comma 1.");
+        });
+
+        it("uses the max-point label for the peak when y is above the root", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: 3,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Maximum point at 2 comma 3.");
+        });
+
+        it("uses the min-point label for the peak when y is below the root", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: -3,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Minimum point at 2 comma -3.");
+        });
+
+        it("uses the flat-point label for the peak when y equals the root's y", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: 0,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Line through point at 2 comma 0.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): To allow custom labels for sinusoid points so
+        // we can keep the root/peak wording.
+        it("uses the custom label, overriding the root/peak wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: 1,
+                    y: 1,
+                    otherY: 3,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 1 comma 1.");
+        });
+    });
+
+    describe("move-angle-point", () => {
+        // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
+        // side labels include their coords; the vertex also includes the
+        // measured angle.
+        it("uses the ending-side label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: 2,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 2, ending side at 2 comma 0.");
+        });
+
+        it("uses the vertex label with angle measure for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 0,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+            );
+        });
+
+        it("uses the starting-side label for index 2", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 2,
+                    pointLabel: 3,
+                    x: 0,
+                    y: 2,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 3, starting side at 0 comma 2.");
+        });
+
+        it("uses the custom label, overriding the side/vertex wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: 2,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 2 comma 0.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): To allow custom labels for angle points so
+        // we can angle measures.
+        it("uses the custom label for the vertex, dropping the angle measure", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-angle-point",
+                    pointIndex: 1,
+                    pointLabel: "V",
+                    x: 0,
+                    y: 0,
+                    angleMeasure: 90,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point V at 0 comma 0.");
+        });
     });
 
     describe("move-quadratic-point announcements", () => {

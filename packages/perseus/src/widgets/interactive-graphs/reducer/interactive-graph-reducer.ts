@@ -10,6 +10,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -438,6 +439,11 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                    pointLabels: state.pointLabels,
+                },
             };
         }
         default:
@@ -484,7 +490,28 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            return newState;
+            // A custom author label (when set) overrides the side/vertex
+            // wording in the announcement. resolvePointLabel returns the
+            // 1-indexed number when no custom label is set, so narrow to
+            // just the string case here.
+            const resolvedAngleLabel = resolvePointLabel(
+                state.pointLabels,
+                action.index,
+            );
+            return {
+                ...newState,
+                stateAnnouncement: {
+                    type: "move-angle-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvedAngleLabel,
+                    x: newState.coords[action.index][X],
+                    y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
+                },
+            };
 
         case "polygon":
             let newValue: vec.Vector2;
@@ -524,8 +551,20 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
+            const newCoord = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -533,11 +572,16 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundToEdgeAndSnapToGrid(
-                        action.destination,
-                        state,
-                    ),
+                    newValue: newCoord,
                 }),
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newCoord[X],
+                    y: newCoord[Y],
+                },
             };
         }
         case "sinusoid": {
@@ -564,6 +608,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-sinusoid-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: newCoords[action.index][X],
+                    y: newCoords[action.index][Y],
+                    otherY: newCoords[1 - action.index][Y],
+                },
             };
         }
         case "exponential": {

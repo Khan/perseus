@@ -9,13 +9,23 @@ import {getQuadraticEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 
-type Props = {
+interface StartCoordsQuadraticProps {
     startCoords: [Coord, Coord, Coord];
     onChange: (startCoords: [Coord, Coord, Coord]) => void;
-};
+    pointLabels: ReadonlyArray<string>;
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
 
-const StartCoordsQuadratic = (props: Props) => {
-    const {startCoords, onChange} = props;
+const StartCoordsQuadratic = (props: StartCoordsQuadraticProps) => {
+    const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
+    const updatePointLabel = (index: number, newLabel: string) => {
+        const next: [string, string, string] = [
+            index === 0 ? newLabel : pointLabels[0] ?? "",
+            index === 1 ? newLabel : pointLabels[1] ?? "",
+            index === 2 ? newLabel : pointLabels[2] ?? "",
+        ];
+        onChangePointLabels(next);
+    };
 
     return (
         <>
@@ -34,6 +44,8 @@ const StartCoordsQuadratic = (props: Props) => {
                 onChange={(value) =>
                     onChange([value, startCoords[1], startCoords[2]])
                 }
+                pointLabel={pointLabels[0]}
+                onPointLabelChange={(newLabel) => updatePointLabel(0, newLabel)}
             />
             <CoordInput
                 label="Point 2"
@@ -41,6 +53,8 @@ const StartCoordsQuadratic = (props: Props) => {
                 onChange={(value) =>
                     onChange([startCoords[0], value, startCoords[2]])
                 }
+                pointLabel={pointLabels[1]}
+                onPointLabelChange={(newLabel) => updatePointLabel(1, newLabel)}
             />
             <CoordInput
                 label="Point 3"
@@ -48,6 +62,8 @@ const StartCoordsQuadratic = (props: Props) => {
                 onChange={(value) =>
                     onChange([startCoords[0], startCoords[1], value])
                 }
+                pointLabel={pointLabels[2]}
+                onPointLabelChange={(newLabel) => updatePointLabel(2, newLabel)}
             />
         </>
     );

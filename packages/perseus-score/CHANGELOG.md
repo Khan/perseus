@@ -1,5 +1,57 @@
 # @khanacademy/perseus-score
 
+## 8.11.1
+
+### Patch Changes
+
+-   Updated dependencies [[`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224), [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf)]:
+    -   @khanacademy/perseus-core@27.2.0
+    -   @khanacademy/kmath@2.4.17
+
+## 8.11.0
+
+### Minor Changes
+
+-   [#3667](https://github.com/Khan/perseus/pull/3667) [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6) Thanks [@benchristel](https://github.com/benchristel)! - Use the `numeric-input` scoring code to score `input-number` widgets. This changes behavior in only one case: when the input-number widget's answer is between 0 and 1 and the answerType is `"number"`, user inputs formatted as percentages are accepted as correct. Previously, percentage inputs were never accepted when answerType was `"number"`.
+
+### Patch Changes
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy quadratic scoring into score-quadratic.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy logarithm scoring into score-logarithm.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Refactor main IG scorer to use new sub-scorers
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy absolute-value scoring into score-absolute-value.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy angle scoring into score-angle.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy point scoring into score-point.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy circle scoring into score-circle.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy exponential scoring into score-exponential.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy linear scoring into score-linear.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy sinusoid scoring into score-sinusoid.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy linear system scoring into score-linear-system.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy ray scoring into score-ray.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy segment scoring into score-segment.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy tangent scoring into score-tangent.ts
+
+-   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy polygon scoring into score-polygon.ts
+
+*   [#3666](https://github.com/Khan/perseus/pull/3666) [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy vector scoring into score-vector.ts
+
+*   Updated dependencies [[`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2), [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6), [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237)]:
+    -   @khanacademy/perseus-core@27.1.0
+    -   @khanacademy/kmath@2.4.16
+
 ## 8.10.5
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -44,10 +45,11 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords, snapStep} = graphState;
+    const {coords, pointLabels, snapStep} = graphState;
     const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const quadraticDirectionId = id + "-direction";
     const quadraticVertexId = id + "-vertex";
@@ -110,7 +112,10 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 return (
                     <MovablePoint
                         key={"point-" + i}
-                        ariaLabel={`${srQuadraticPoint}${srVertex}`}
+                        ariaLabel={
+                            buildLabel(i, coord) ??
+                            `${srQuadraticPoint}${srVertex}`
+                        }
                         point={coord}
                         sequenceNumber={i + 1}
                         constrain={getQuadraticKeyboardConstraint(

@@ -50,7 +50,7 @@ export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 type MovePointAnnouncement = {
     type: "move-point";
-    pointIndex: number;
+    pointLabel: string;
     x: number;
     y: number;
 };
@@ -82,14 +82,52 @@ type MoveQuadraticPointAnnouncement = {
     vertex: Coord | undefined;
 };
 
+// Sinusoid graph: peak (index 1) reads as max/min/flat depending on
+// its y vs the root's y. We pass otherY so the screen reader text can
+// pick the right label without recomputing it from the reducer.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    otherY: number;
+};
+
+// Angle graph: vertex (index 1) reads with the measured angle; sides
+// (indices 0, 2) read with just coords. The reducer pre-computes the
+// measure since it already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
+// Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
+// announcement can list each point's new coordinates, plus any author-supplied
+// custom labels so each vertex is announced by its label when one is set.
+type MovePolygonAnnouncement = {
+    type: "move-polygon";
+    coords: ReadonlyArray<Coord>;
+    pointLabels?: ReadonlyArray<string>;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
-    | MoveQuadraticPointAnnouncement;
-
+    | MoveQuadraticPointAnnouncement
+    | MoveSinusoidPointAnnouncement
+    | MoveAnglePointAnnouncement
+    | MovePolygonAnnouncement;
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
+    // Custom screen-reader labels for each interactive point. When present,
+    // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
+    pointLabels?: string[];
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
