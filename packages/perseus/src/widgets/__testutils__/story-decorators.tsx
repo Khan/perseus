@@ -23,7 +23,7 @@ export const mobileArticleDecorator: Decorator = (Story) => (
 // Set `dir="rtl"` on both the wrapper and `<html>` so portaled content
 // (e.g. Wonder Blocks modal) inherits RTL.
 // CSS `direction` inherits through the DOM tree, not the React tree, so
-// portals not properly inherit the RTL direction without the HTML mutation.
+// portals don't properly inherit the RTL direction without the HTML mutation.
 const RtlWrapper = ({children}: {children: React.ReactNode}) => {
     React.useEffect(() => {
         const html = document.documentElement;
