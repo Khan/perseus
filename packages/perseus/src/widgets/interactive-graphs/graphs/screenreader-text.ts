@@ -36,7 +36,13 @@ export function getAnnouncementText(
 }
 
 function srSinusoidPointLabel(
-    state: {pointIndex: number; x: number; y: number; otherY: number},
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        otherY: number;
+    },
     strings: PerseusStrings,
     locale: string,
 ): string {
@@ -44,6 +50,16 @@ function srSinusoidPointLabel(
         x: srFormatNumber(state.x, locale),
         y: srFormatNumber(state.y, locale),
     };
+    // A custom author label overrides the root/peak semantics, matching
+    // the static aria-label behavior in sinusoid.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({
+            num: state.pointLabel,
+            ...formatted,
+        });
+    }
     // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
     // label depends on its y relative to the root's y.
     if (state.pointIndex === 0) {

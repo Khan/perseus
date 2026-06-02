@@ -1287,6 +1287,44 @@ describe("movePoint on a sinusoid graph", () => {
         // otherY is the root's y, unchanged from the starting state
         expect(updated.stateAnnouncement.otherY).toBe(0);
     });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+            pointLabels: ["T", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("T");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+            pointLabels: ["", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
 });
 
 describe("movePoint on a quadratic graph", () => {

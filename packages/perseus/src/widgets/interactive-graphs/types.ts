@@ -75,6 +75,7 @@ type MoveCenterAnnouncement = {
 type MoveSinusoidPointAnnouncement = {
     type: "move-sinusoid-point";
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
     otherY: number;

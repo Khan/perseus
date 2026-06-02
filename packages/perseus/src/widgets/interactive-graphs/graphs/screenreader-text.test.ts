@@ -131,6 +131,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 0,
+                    pointLabel: 1,
                     x: 1,
                     y: 1,
                     otherY: 3,
@@ -147,6 +148,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
+                    pointLabel: 2,
                     x: 2,
                     y: 3,
                     otherY: 0,
@@ -163,6 +165,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
+                    pointLabel: 2,
                     x: 2,
                     y: -3,
                     otherY: 0,
@@ -179,6 +182,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
+                    pointLabel: 2,
                     x: 2,
                     y: 0,
                     otherY: 0,
@@ -188,6 +192,26 @@ describe("getAnnouncementText", () => {
             );
 
             expect(result).toBe("Line through point at 2 comma 0.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): To allow custom labels for sinusoid points so
+        // we can keep the root/peak wording.
+        it("uses the custom label, overriding the root/peak wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: 1,
+                    y: 1,
+                    otherY: 3,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 1 comma 1.");
         });
     });
 
