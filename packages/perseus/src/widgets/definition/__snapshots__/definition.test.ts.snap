@@ -30,7 +30,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
             aria-controls=":r0:"
             aria-expanded="false"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
             id=":r0:-anchor"
             type="button"
           >
@@ -78,7 +78,7 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
             aria-controls=":r2:"
             aria-expanded="true"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
             id=":r2:-anchor"
             type="button"
           >
