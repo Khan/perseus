@@ -56,4 +56,58 @@ describe("getPointGraphDescription", () => {
             "Interactive elements: Point 1 at -1.123 comma 3.568.",
         );
     });
+
+    it("uses the custom point label when pointLabels is set", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point T at 0 comma 0.",
+        );
+    });
+
+    it("falls back to numeric defaults for indices without a custom label", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["T"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point T at 0 comma 0. Point 2 at 1 comma 1.",
+        );
+    });
+
+    it(`encodes "only the second point labeled" as ["", "T"] and announces "Point 1 ... Point T ..."`, () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "T"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
+        );
+    });
+
+    it("falls back to the numeric default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+            pointLabels: [42, "T"] as unknown as string[],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
+        );
+    });
 });

@@ -43,8 +43,8 @@
 .base:hover,
 .base:focus,
 :has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
-    outline-offset: var(--wb-sizing-size_020);
-    outline-width: var(--wb-sizing-size_020);
+    outline-offset: var(--wb-border-width-medium);
+    outline-width: var(--wb-border-width-medium);
 }
 
 /* button is checked */

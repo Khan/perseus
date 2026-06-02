@@ -31,7 +31,7 @@ export const FocusedState = {
     },
     play: async ({canvas}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "the Pequots",
+            name: "Definition of: the Pequots",
         });
         definitionTrigger.focus();
     },
@@ -45,7 +45,7 @@ export const ClickedState = {
     },
     play: async ({canvas, userEvent}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "the Pequots",
+            name: "Definition of: the Pequots",
         });
         await userEvent.click(definitionTrigger);
     },

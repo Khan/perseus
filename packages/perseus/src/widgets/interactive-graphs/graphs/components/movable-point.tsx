@@ -11,6 +11,8 @@ type Props = {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
+    // TODO(LEMS-4189): Remove ariaLive once every interactive graph type
+    // emits its move through the WB Announcer.
     ariaLive?: AriaLive;
     color?: string;
     constrain?: KeyboardMovementConstraint;

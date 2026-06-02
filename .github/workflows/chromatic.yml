@@ -54,6 +54,7 @@ jobs:
                   buildScriptName: "build:storybook"
                   autoAcceptChanges: "main"
                   onlyStoryFiles: "**/*-regression.stories.tsx"
+                  exitOnceUploaded: true
                   # NOTE: We cannot enable `onlyChanged` because it is
                   # incompatible with `onlyStoryFiles` which we use above.
                   # onlyChanged: true # Enable TurboSnap!

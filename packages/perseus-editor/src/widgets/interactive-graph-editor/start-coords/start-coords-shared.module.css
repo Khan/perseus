@@ -32,8 +32,25 @@
     gap: var(--wb-sizing-size_120) !important;
 }
 
+.label-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_060) !important;
+}
+
+.label-prefix {
+    display: inline-block !important;
+    min-inline-size: var(--wb-sizing-size_400) !important;
+    text-align: right !important;
+}
+
 .text-field-wrapper {
     inline-size: var(--wb-sizing-size_800) !important;
+}
+
+.point-label-field {
+    inline-size: var(--wb-sizing-size_640) !important;
 }
 
 .equationSection {
@@ -50,4 +67,8 @@
     padding-left: var(--wb-sizing-size_080) !important;
     padding-right: var(--wb-sizing-size_080) !important;
     font-size: var(--wb-font-size-xSmall) !important;
+}
+
+.reset-button {
+    margin-top: var(--wb-sizing-size_120) !important;
 }

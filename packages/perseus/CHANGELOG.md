@@ -1,5 +1,69 @@
 # @khanacademy/perseus
 
+## 77.10.0
+
+### Minor Changes
+
+-   [#3672](https://github.com/Khan/perseus/pull/3672) [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through line and ray graphs for custom points label
+
+*   [#3696](https://github.com/Khan/perseus/pull/3696) [`0833037482`](https://github.com/Khan/perseus/commit/08330374821667e7ae2221aab166589dced85ab6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through curve graphs (quadratic, sinusoid, tangent, exponential, logarithm) for custom points label
+
+-   [#3669](https://github.com/Khan/perseus/pull/3669) [`623a29ebc5`](https://github.com/Khan/perseus/commit/623a29ebc570741fff733a8e1aaaa8685886bc7d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through polygon graphs for custom points label
+
+*   [#3673](https://github.com/Khan/perseus/pull/3673) [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through linear-system and segment graphs for custom points label
+
+-   [#3643](https://github.com/Khan/perseus/pull/3643) [`70575e72ca`](https://github.com/Khan/perseus/commit/70575e72ca30d6c8e3dcd9354c2ce6c71d3e12cc) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire `pointLabels` through point graphs so authors can provide custom screen-reader labels (e.g. "T") that match the question prompt instead of the generic "Point 1". Adds an inline name field next to each coordinate row in the editor under "Start coordinates", a one-line author tip, and the underlying state/helper plumbing reusable by the remaining graph types in follow-up PRs (LEMS-3995).
+
+*   [#3697](https://github.com/Khan/perseus/pull/3697) [`551f687046`](https://github.com/Khan/perseus/commit/551f687046de02f2199e1488ae6fb92e27f9b534) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through special-shape graphs (angle, circle, absolute-value)
+
+### Patch Changes
+
+-   [#3661](https://github.com/Khan/perseus/pull/3661) [`ad739d77c9`](https://github.com/Khan/perseus/commit/ad739d77c9124266b13e77949212f5ef1b60b0ad) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Renderer] Add regression stories for text
+
+*   [#3644](https://github.com/Khan/perseus/pull/3644) [`4358b33694`](https://github.com/Khan/perseus/commit/4358b33694a2d531073038b879ec84ce985889e4) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Address a bug in Safari that causes the fade zone to partially overlay choice content
+
+-   [#3707](https://github.com/Khan/perseus/pull/3707) [`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit f89b0c2a550bdefe04d9a9dc2d17b2c401c0e797
+
+*   [#3702](https://github.com/Khan/perseus/pull/3702) [`f058f83b49`](https://github.com/Khan/perseus/commit/f058f83b495ac0faf50265252a99d0b06404e485) Thanks [@Evelas78](https://github.com/Evelas78)! - Added a label to define what the definition widget button does for screenreaders
+
+-   [#3682](https://github.com/Khan/perseus/pull/3682) [`3c8712c329`](https://github.com/Khan/perseus/commit/3c8712c3292220489476170863396872f56613d2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix screen reader text for point graph to include the pointLabel, custom point label
+
+*   [#3694](https://github.com/Khan/perseus/pull/3694) [`9e818db282`](https://github.com/Khan/perseus/commit/9e818db282d3d0594f7fa84228ce3cfac490cc17) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Refactor linear, point, polygon, and ray graphs to use usePointAriaLabel instead of buildPointAriaLabel
+
+-   [#3674](https://github.com/Khan/perseus/pull/3674) [`625791bd32`](https://github.com/Khan/perseus/commit/625791bd32ebe10a477aedc3c593209892c149b3) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Point graph events.
+
+-   Updated dependencies [[`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136), [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224), [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf)]:
+    -   @khanacademy/math-input@26.4.31
+    -   @khanacademy/perseus-core@27.2.0
+    -   @khanacademy/keypad-context@3.2.59
+    -   @khanacademy/kmath@2.4.17
+    -   @khanacademy/perseus-linter@5.0.14
+    -   @khanacademy/perseus-score@8.11.1
+
+## 77.9.0
+
+### Minor Changes
+
+-   [#3642](https://github.com/Khan/perseus/pull/3642) [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Remove scale flag and old sizing logic (make scale feature permanent)
+
+### Patch Changes
+
+-   [#3665](https://github.com/Khan/perseus/pull/3665) [`9deb75be8b`](https://github.com/Khan/perseus/commit/9deb75be8b0300e7e9b87d800114af7a919af8c8) Thanks [@handeyeco](https://github.com/handeyeco)! - Comment out two flaky Chromatic tests
+
+*   [#3660](https://github.com/Khan/perseus/pull/3660) [`4e74d94fc0`](https://github.com/Khan/perseus/commit/4e74d94fc0356d6769e7750ad301e3c9c6b08bc8) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Make Graphie wait for fonts to load before calculating margins
+
+-   [#3652](https://github.com/Khan/perseus/pull/3652) [`bb54314662`](https://github.com/Khan/perseus/commit/bb543146628f673a605893586813b146e0bc4f46) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove a11y lint warning in perseus-api.tsx
+
+*   [#3646](https://github.com/Khan/perseus/pull/3646) [`e2e2132ab1`](https://github.com/Khan/perseus/commit/e2e2132ab1e85329d23587acfe7669ae7bc35ce7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Circle events.
+
+*   Updated dependencies [[`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`202290e1f7`](https://github.com/Khan/perseus/commit/202290e1f7bd4666a5a65be4e77fdae6157e661f), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2), [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d)]:
+    -   @khanacademy/perseus-score@8.11.0
+    -   @khanacademy/perseus-linter@5.0.13
+    -   @khanacademy/perseus-core@27.1.0
+    -   @khanacademy/keypad-context@3.2.58
+    -   @khanacademy/kmath@2.4.16
+    -   @khanacademy/math-input@26.4.30
+
 ## 77.8.0
 
 ### Minor Changes

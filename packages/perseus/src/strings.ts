@@ -138,7 +138,8 @@ export type PerseusStrings = {
         x,
         y,
     }: {
-        num: number;
+        // TODO(LEMS-4206) rename to pointLabel an request for new translation
+        num: number | string;
         x: string;
         y: string;
     }) => string;
@@ -632,6 +633,7 @@ export type PerseusStrings = {
     imageResetZoomAriaLabel: string;
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
+    definitionIdentifier: ({word}: {word: string}) => string;
 };
 
 /**
@@ -1383,6 +1385,7 @@ export const strings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: "Definition of: %(word)",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1792,6 +1795,7 @@ export const mockStrings: PerseusStrings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: ({word}) => `Definition of: ${word}`,
 };
 
 // This type helps us make sure all error codes are mapped to strings

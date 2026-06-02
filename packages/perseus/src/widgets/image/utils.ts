@@ -2,7 +2,7 @@ import {isLabeledSVG} from "@khanacademy/perseus-core";
 
 export function isGif(url: string): boolean {
     // Trying to do this the "right way" by loading in the image and counting
-    // frames would ad more complexity than we need here. With our CDN's filename
+    // frames would add more complexity than we need here. With our CDN's filename
     // structure, we can assume that all .gif images will have a URL ending in .gif.
     return url.endsWith(".gif");
 }
@@ -68,6 +68,15 @@ export const gifImage = {
     width: 500,
     height: 285,
 };
+
+export const tallGifImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
+    width: 360,
+    height: 640,
+};
+
+export const tallGifImageAlt =
+    "A surreal illustration of Earth with a faucet attached, draining resources, above a wallet filled with currency, against a red background.";
 
 export const gifImageAlt =
     "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";

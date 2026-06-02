@@ -30,7 +30,7 @@ const baseRayState: InteractiveGraphState = {
 
 const overallGraphLabel = "A ray on a coordinate plane.";
 
-describe("Linear graph screen reader", () => {
+describe("Ray graph screen reader", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -155,6 +155,89 @@ describe("Linear graph screen reader", () => {
             expect(point2).toHaveAttribute("aria-live", expectedAriaLive[2]);
         },
     );
+});
+
+describe("Ray graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels and overrides the semantic Endpoint / Through point defaults", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseRayState, pointLabels: ["A", "B"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+        expect(
+            screen.queryByLabelText("Endpoint at -5 comma 5."),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByLabelText("Through point at 5 comma 5."),
+        ).not.toBeInTheDocument();
+    });
+
+    it("falls back to the semantic Endpoint / Through point labels for indices without a custom label", () => {
+        // Arrange, Act — only the endpoint is named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseRayState, pointLabels: ["A"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute(
+            "aria-label",
+            "Through point at 5 comma 5.",
+        );
+    });
+
+    // The editor encodes "only the through point named" as `["", "B"]`.
+    // An empty string at any index must fall back to the semantic default.
+    it("falls back to the semantic default for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseRayState, pointLabels: ["", "B"]}}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("falls back to the semantic default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseRayState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as string[],
+                }}
+            />,
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
 });
 
 describe("describeRayGraph", () => {
