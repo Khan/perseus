@@ -26,6 +26,11 @@ type Props = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
+    /**
+     * Visible text label rendered next to the point (e.g. "A", "B", "T").
+     * When omitted, no label is drawn.
+     */
+    label?: string;
     onBlur?: (event: React.FocusEvent) => unknown;
     onClick?: () => unknown;
     onDragStart?: () => unknown;

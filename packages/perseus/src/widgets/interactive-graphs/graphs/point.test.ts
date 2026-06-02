@@ -82,6 +82,51 @@ describe("getPointGraphDescription", () => {
         );
     });
 
+    it("announces auto A/B/C labels when showLabels is true and pointLabels is omitted (matches what sighted learners see)", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            showLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point A at 0 comma 0. Point B at 1 comma 1. Point C at 2 comma 2.",
+        );
+    });
+
+    it("prefers author pointLabels over auto labels when showLabels is true and both are present", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            showLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["P", "Q"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point P at 0 comma 0. Point Q at 1 comma 1.",
+        );
+    });
+
+    it("fills aria gaps with auto letters when showLabels is true and pointLabels is partial", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            showLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["P"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point P at 0 comma 0. Point B at 1 comma 1.",
+        );
+    });
+
     it(`encodes "only the second point labeled" as ["", "T"] and announces "Point 1 ... Point T ..."`, () => {
         const state: PointGraphState = {
             ...baseState,
