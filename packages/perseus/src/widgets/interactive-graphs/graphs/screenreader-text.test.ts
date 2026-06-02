@@ -10,7 +10,7 @@ import {
 
 describe("getAnnouncementText", () => {
     describe("move-point", () => {
-        it("returns the correct string for a move-point announcement with a numeric default label", () => {
+        it("returns the correct string with a numeric default label", () => {
             const result = getAnnouncementText(
                 {type: "move-point", pointLabel: "1", x: 3, y: 5},
                 mockStrings,
@@ -20,7 +20,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at 3 comma 5.");
         });
 
-        it("returns the correct string for a move-point announcement with a custom pointLabel", () => {
+        it("returns the correct string with a custom pointLabel", () => {
             const result = getAnnouncementText(
                 {type: "move-point", pointLabel: "T", x: 3, y: 5},
                 mockStrings,
@@ -32,7 +32,7 @@ describe("getAnnouncementText", () => {
     });
 
     describe("move-radius-point", () => {
-        it("returns the correct string for a move-radius-point announcement when point is to the right", () => {
+        it("returns the correct string when point is to the right", () => {
             const result = getAnnouncementText(
                 {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
                 mockStrings,
@@ -44,7 +44,7 @@ describe("getAnnouncementText", () => {
             );
         });
 
-        it("returns the correct string for a move-radius-point announcement when point is to the left", () => {
+        it("returns the correct string when point is to the left", () => {
             const result = getAnnouncementText(
                 {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
                 mockStrings,
@@ -58,7 +58,7 @@ describe("getAnnouncementText", () => {
     });
 
     describe("move-center", () => {
-        it("returns the correct string for a move-center announcement", () => {
+        it("returns the correct string", () => {
             const result = getAnnouncementText(
                 {type: "move-center", x: 3, y: 4},
                 mockStrings,
@@ -70,7 +70,7 @@ describe("getAnnouncementText", () => {
     });
 
     describe("move-polygon", () => {
-        it("returns a polygon summary string with each vertex for a move-polygon announcement", () => {
+        it("returns a polygon summary string with each vertex", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-polygon",
