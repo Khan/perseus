@@ -48,7 +48,7 @@ export const ExplanationWidgetInHint: Story = {
     },
     play: async ({canvas, userEvent}) => {
         const buttonText =
-            ipsumExample.widgets["explanation 1"]?.options.showPrompt;
+            ipsumExample.widgets["explanation 1"].options.showPrompt;
         const explanationTrigger = canvas.getByRole("button", {
             name: buttonText,
         });

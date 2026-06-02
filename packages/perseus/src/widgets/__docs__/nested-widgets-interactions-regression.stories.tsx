@@ -47,7 +47,7 @@ export const GradedGroupExplanationClicked: GradedGroupStory = {
     },
 };
 
-const videoExample = videoInContent.widgets["explanation 1"]?.options;
+const videoExample = videoInContent.widgets["explanation 1"].options;
 
 export const VideoInContent: ExplanationStory = {
     decorators: [explanationRendererDecorator],
@@ -68,7 +68,7 @@ export const VideoInContent: ExplanationStory = {
     },
 };
 
-const imageExample = imageInContent.widgets["explanation 1"]?.options;
+const imageExample = imageInContent.widgets["explanation 1"].options;
 
 export const ImageInContent: ExplanationStory = {
     decorators: [explanationRendererDecorator],

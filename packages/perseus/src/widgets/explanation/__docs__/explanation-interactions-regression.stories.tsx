@@ -24,7 +24,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const clickedExample = question1.widgets["explanation 1"]?.options;
+const clickedExample = question1.widgets["explanation 1"].options;
 
 export const ClickedState: Story = {
     decorators: [explanationRendererDecorator],
@@ -44,7 +44,7 @@ export const ClickedState: Story = {
     },
 };
 
-const tableExample = tableInContent.widgets["explanation 1"]?.options;
+const tableExample = tableInContent.widgets["explanation 1"].options;
 
 export const TableInContent: Story = {
     decorators: [explanationRendererDecorator],
