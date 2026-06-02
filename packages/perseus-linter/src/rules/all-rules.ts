@@ -18,6 +18,7 @@ import ImageWidgetEmptySize from "./image-widget-empty-size";
 import InaccessibleWidget from "./inaccessible-widget";
 import InteractiveGraphWidgetError from "./interactive-graph-widget-error";
 import LabelImageWidgetError from "./label-image-widget-error";
+import LegacyGifUrl from "./legacy-gif-url";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
 import MatcherWidgetError from "./matcher-widget-error";
@@ -75,6 +76,7 @@ export default [
     ImageSpacesAroundUrls,
     ImageWidgetAltText,
     ImageWidgetEmptySize,
+    LegacyGifUrl,
     InaccessibleWidget,
     RadioWidgetError,
     ExpressionWidgetError,
