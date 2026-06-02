@@ -122,7 +122,7 @@ describe("getAnnouncementText", () => {
         });
     });
 
-    describe("move-sinusoid-point announcements", () => {
+    describe("move-sinusoid-point", () => {
         // Coord layout: [root(0), peak(1)]. The root always uses the
         // root label; the peak uses max/min/flat based on its y vs the
         // root's y (passed in as otherY).
