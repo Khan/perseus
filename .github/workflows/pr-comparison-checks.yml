@@ -16,13 +16,14 @@ permissions:
     issues: write
     checks: write
 
-concurrency:
-    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-    cancel-in-progress: true
-
 jobs:
     check_schema_change:
         name: Schema change
+        # Scope concurrency to this job (not the whole workflow) so toggling
+        # one check's ack label can't cancel the other check's in-flight run.
+        concurrency:
+            group: ${{ github.workflow }}-schema-change-${{ github.event.pull_request.number || github.ref }}
+            cancel-in-progress: true
         # Run on every push event. On label events, run only when the
         # acknowledgement label is the one being toggled — other label
         # changes (including `schema-change` itself, which this action
@@ -89,6 +90,11 @@ jobs:
 
     check_item_splitting:
         name: Item splitting
+        # Scope concurrency to this job (not the whole workflow) so toggling
+        # one check's ack label can't cancel the other check's in-flight run.
+        concurrency:
+            group: ${{ github.workflow }}-item-splitting-${{ github.event.pull_request.number || github.ref }}
+            cancel-in-progress: true
         # Run on every push event. On label events, run only when the
         # acknowledgement label is the one being toggled.
         if: >-
