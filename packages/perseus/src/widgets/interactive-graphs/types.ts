@@ -69,6 +69,18 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Sinusoid graph: peak (index 1) reads as max/min/flat depending on
+// its y vs the root's y. We pass otherY so the screen reader text can
+// pick the right label without recomputing it from the reducer.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    otherY: number;
+};
+
 // Angle graph: vertex (index 1) reads with the measured angle; sides
 // (indices 0, 2) read with just coords. The reducer pre-computes the
 // measure since it already imports the angle helpers.
@@ -94,6 +106,7 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveSinusoidPointAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 export interface InteractiveGraphStateCommon {

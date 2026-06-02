@@ -122,6 +122,99 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-sinusoid-point", () => {
+        // Coord layout: [root(0), peak(1)]. The root always uses the
+        // root label; the peak uses max/min/flat based on its y vs the
+        // root's y (passed in as otherY).
+        it("uses the root label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: 1,
+                    y: 1,
+                    otherY: 3,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Midline intersection at 1 comma 1.");
+        });
+
+        it("uses the max-point label for the peak when y is above the root", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: 3,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Maximum point at 2 comma 3.");
+        });
+
+        it("uses the min-point label for the peak when y is below the root", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: -3,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Minimum point at 2 comma -3.");
+        });
+
+        it("uses the flat-point label for the peak when y equals the root's y", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 2,
+                    y: 0,
+                    otherY: 0,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Line through point at 2 comma 0.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): To allow custom labels for sinusoid points so
+        // we can keep the root/peak wording.
+        it("uses the custom label, overriding the root/peak wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-sinusoid-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: 1,
+                    y: 1,
+                    otherY: 3,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at 1 comma 1.");
+        });
+    });
+
     describe("move-angle-point", () => {
         // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
         // side labels include their coords; the vertex also includes the

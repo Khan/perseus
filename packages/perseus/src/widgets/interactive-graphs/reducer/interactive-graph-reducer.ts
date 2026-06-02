@@ -607,6 +607,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-sinusoid-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: newCoords[action.index][X],
+                    y: newCoords[action.index][Y],
+                    otherY: newCoords[1 - action.index][Y],
+                },
             };
         }
         case "exponential": {
