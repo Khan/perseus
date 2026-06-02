@@ -1,5 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+import {resolvePointLabel} from "./components/build-point-aria-label";
+
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
@@ -20,7 +22,12 @@ export function getAnnouncementText(
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         case "move-polygon":
-            return srPolygonLabel(state.coords, strings, locale);
+            return srPolygonLabel(
+                state.coords,
+                state.pointLabels,
+                strings,
+                locale,
+            );
         default:
             throw new UnreachableCaseError(state);
     }
@@ -28,13 +35,16 @@ export function getAnnouncementText(
 
 function srPolygonLabel(
     coords: ReadonlyArray<readonly [number, number]>,
+    pointLabels: ReadonlyArray<string> | undefined,
     strings: PerseusStrings,
     locale: string,
 ): string {
     const pointsString = coords
         .map(([x, y], i) =>
             strings.srPointAtCoordinates({
-                num: i + 1,
+                // Use the author's custom label when set, otherwise the
+                // 1-indexed default ("Point 1", "Point 2", …).
+                num: resolvePointLabel(pointLabels, i),
                 x: srFormatNumber(x, locale),
                 y: srFormatNumber(y, locale),
             }),

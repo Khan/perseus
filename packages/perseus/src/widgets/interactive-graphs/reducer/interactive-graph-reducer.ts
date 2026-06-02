@@ -441,6 +441,7 @@ function doMoveAll(
                 stateAnnouncement: {
                     type: "move-polygon",
                     coords: newCoords,
+                    pointLabels: state.pointLabels,
                 },
             };
         }
@@ -530,7 +531,9 @@ function doMovePoint(
                 coords: newCoords,
                 stateAnnouncement: {
                     type: "move-point",
-                    pointIndex: action.index,
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
                     x: newValue[X],
                     y: newValue[Y],
                 },

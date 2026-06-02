@@ -958,7 +958,57 @@ describe("movePoint on a polygon graph", () => {
 
         expect(updated.stateAnnouncement).toEqual({
             type: "move-point",
-            pointIndex: 0,
+            pointLabel: "1",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "A",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
             x: 0,
             y: 1,
         });
@@ -1163,6 +1213,32 @@ describe("movePoint on a polygon graph", () => {
             [1, 3],
             [3, 3],
             [3, 1],
+        ]);
+    });
+
+    it("carries custom pointLabels in the move-polygon announcement on moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-polygon");
+        expect(updated.stateAnnouncement.pointLabels).toEqual([
+            "A",
+            "B",
+            "C",
+            "D",
         ]);
     });
 });
