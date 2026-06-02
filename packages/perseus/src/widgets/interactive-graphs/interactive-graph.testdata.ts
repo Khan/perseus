@@ -1576,3 +1576,58 @@ export const logarithmWithCustomLabelsQuestion: PerseusRenderer =
             pointLabels: ["A", "B"],
         }),
     });
+
+// Angle graph with all three handles named via `pointLabels`. The array
+// is indexed by `coords` order: [0]=ending side, [1]=vertex, [2]=starting
+// side. JAWS will announce "Point A / B / C at …" in coord order while
+// the visual DOM order is vertex first (it stays focusable first).
+export const angleWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertex $B$ and the rays through points $A$ and $C$ so the angle measures 90°.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGAngleGraph({
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            showAngles: true,
+            allowReflexAngles: true,
+            pointLabels: ["A", "B", "C"],
+        }),
+    });
+
+// Absolute-value graph with the vertex named "V" and the arm point named
+// "A" via `pointLabels`. Overrides the default "Vertex point at …" /
+// "Point on arm at …" labels.
+export const absoluteValueWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertex $V$ to the origin and the arm point $A$ so the slope is 1.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["V", "A"],
+        }),
+    });
+
+// Circle graph with the radius point named "R" via `pointLabels`. The
+// schema array for circle is interpreted as `[radiusPointLabel]` — only
+// the radius point (a `MovablePoint`) is labelable. The center is a
+// `MovableCircle` whose announcement describes the whole shape and is
+// not overridden.
+export const circleWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the radius point $R$ so the circle has radius 3.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGCircleGraph({
+            center: [0, 0],
+            radius: 3,
+            pointLabels: ["R"],
+        }),
+    });

@@ -24,6 +24,9 @@ import {
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     absoluteValueQuestion,
+    absoluteValueWithCustomLabelsQuestion,
+    angleWithCustomLabelsQuestion,
+    circleWithCustomLabelsQuestion,
     exponentialQuestion,
     exponentialWithCustomLabelsQuestion,
     logarithmQuestion,
@@ -74,9 +77,39 @@ export const Angle: Story = {
     },
 };
 
+/**
+ * An angle whose vertex and two side points are named "B", "A", and "C"
+ * via `pointLabels`. The schema array is indexed by `coords`:
+ * `[endingSide, vertex, startingSide]`. Overrides the default "Point 1,
+ * vertex …" / "Point 2, ending side …" / "Point 3, starting side …"
+ * announcements so JAWS reads the prompt's letter names instead.
+ */
+export const AngleWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: angleWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Circle: Story = {
     args: {
         item: generateTestPerseusItem({question: circleQuestion}),
+    },
+};
+
+/**
+ * A circle whose radius point is named "R" via `pointLabels`. Schema
+ * `string[]` for circle is interpreted as `[radiusPointLabel]` — only
+ * the radius point (a `MovablePoint`) is labelable. The center is a
+ * `MovableCircle` whose announcement describes the whole shape and is
+ * intentionally not overridden.
+ */
+export const CircleWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: circleWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -320,6 +353,20 @@ export const QuadraticWithCustomLabels: Story = {
 export const AbsoluteValue: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
+    },
+};
+
+/**
+ * An absolute value graph whose vertex and arm point are named "V" and
+ * "A" via `pointLabels`. Overrides the default "Vertex point at …" /
+ * "Point on arm at …" semantic labels so the SR announcement matches
+ * the prompt's naming convention.
+ */
+export const AbsoluteValueWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: absoluteValueWithCustomLabelsQuestion,
+        }),
     },
 };
 
