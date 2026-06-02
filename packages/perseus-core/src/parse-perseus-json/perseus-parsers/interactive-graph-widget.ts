@@ -263,6 +263,8 @@ const parseLockedPolygonPointType = object({
 const parseLockedPolygonPointsType = union(
     array(parseLockedPolygonPointType),
 ).or(
+    // Normalize legacy representation of points as Coord[] to
+    // LockedPolygonPointType[].
     pipeParsers(array(pairOfNumbers)).then(
         convert((coords) => coords.map((coord) => ({coord}))),
     ).parser,
