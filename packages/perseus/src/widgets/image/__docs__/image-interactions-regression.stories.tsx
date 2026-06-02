@@ -6,10 +6,11 @@ import {
     earthMoonImage,
     extremelyLongDescription,
     frescoImage,
-    gifImageAlt,
     graphieImage,
     portraitImage,
     svgImage,
+    tallGifImage,
+    tallGifImageAlt,
 } from "../utils";
 
 import {imageRendererDecorator} from "./image-renderer-decorator";
@@ -192,12 +193,10 @@ export const LongDescriptionClickedStateWithTallGif: Story = {
         },
     },
     args: {
-        backgroundImage: {
-            url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
-        },
-        alt: gifImageAlt,
-        caption: gifImageAlt,
-        longDescription: gifImageAlt,
+        backgroundImage: tallGifImage,
+        alt: tallGifImageAlt,
+        caption: tallGifImageAlt,
+        longDescription: tallGifImageAlt,
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {
