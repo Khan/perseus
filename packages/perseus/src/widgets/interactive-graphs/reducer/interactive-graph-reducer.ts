@@ -489,7 +489,28 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            return newState;
+            // A custom author label (when set) overrides the side/vertex
+            // wording in the announcement. resolvePointLabel returns the
+            // 1-indexed number when no custom label is set, so narrow to
+            // just the string case here.
+            const resolvedAngleLabel = resolvePointLabel(
+                state.pointLabels,
+                action.index,
+            );
+            return {
+                ...newState,
+                stateAnnouncement: {
+                    type: "move-angle-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvedAngleLabel,
+                    x: newState.coords[action.index][X],
+                    y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
+                },
+            };
 
         case "polygon":
             let newValue: vec.Vector2;

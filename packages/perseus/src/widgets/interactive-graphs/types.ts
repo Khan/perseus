@@ -69,6 +69,18 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Angle graph: vertex (index 1) reads with the measured angle; sides
+// (indices 0, 2) read with just coords. The reducer pre-computes the
+// measure since it already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
 // Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
 // announcement can list each point's new coordinates, plus any author-supplied
 // custom labels so each vertex is announced by its label when one is set.
@@ -82,8 +94,8 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
-
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // Custom screen-reader labels for each interactive point. When present,
