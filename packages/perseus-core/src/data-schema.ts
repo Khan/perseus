@@ -1076,12 +1076,12 @@ export type LockedEllipseType = {
 };
 
 export type LockedPolygonPointType = {
-    coord: Coord[];
+    coord: Coord;
 };
 
 export type LockedPolygonType = {
     type: "polygon";
-    points: LockedPolygonPointType;
+    points: LockedPolygonPointType[];
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;

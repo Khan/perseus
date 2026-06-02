@@ -66,7 +66,9 @@ const LockedPolygonSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
-    const coords = points.coord;
+    const coords = points.map((point) => point.coord);
+    const coordsToPoints = (coords: Coord[]) =>
+        coords.map((coord) => ({coord}));
 
     /**
      * Generate the prepopulated aria label for the polygon,
@@ -116,7 +118,7 @@ const LockedPolygonSettings = (props: Props) => {
         switch (movement) {
             case "up":
                 onChangeProps({
-                    points: {coord: coords.map(([x, y]) => [x, y + 1])},
+                    points: coordsToPoints(coords.map(([x, y]) => [x, y + 1])),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] + 1],
@@ -125,7 +127,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "down":
                 onChangeProps({
-                    points: {coord: coords.map(([x, y]) => [x, y - 1])},
+                    points: coordsToPoints(coords.map(([x, y]) => [x, y - 1])),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] - 1],
@@ -134,7 +136,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "left":
                 onChangeProps({
-                    points: {coord: coords.map(([x, y]) => [x - 1, y])},
+                    points: coordsToPoints(coords.map(([x, y]) => [x - 1, y])),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] - 1, label.coord[1]],
@@ -143,7 +145,7 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "right":
                 onChangeProps({
-                    points: {coord: coords.map(([x, y]) => [x + 1, y])},
+                    points: coordsToPoints(coords.map(([x, y]) => [x + 1, y])),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] + 1, label.coord[1]],
@@ -289,7 +291,7 @@ const LockedPolygonSettings = (props: Props) => {
                                     const newCoords = [...coords];
                                     newCoords[index] = newValue;
                                     props.onChangeProps({
-                                        points: {coord: newCoords},
+                                        points: coordsToPoints(newCoords),
                                     });
                                 }}
                             />
@@ -307,7 +309,9 @@ const LockedPolygonSettings = (props: Props) => {
                                             const newCoords = [...coords];
                                             newCoords.splice(index, 1);
                                             props.onChangeProps({
-                                                points: {coord: newCoords},
+                                                points: coordsToPoints(
+                                                    newCoords,
+                                                ),
                                             });
                                         }}
                                         style={styles.icon}
@@ -323,7 +327,7 @@ const LockedPolygonSettings = (props: Props) => {
                         startIcon={plusCircle}
                         onClick={() => {
                             props.onChangeProps({
-                                points: {coord: [...coords, [0, 0]]},
+                                points: coordsToPoints([...coords, [0, 0]]),
                             });
                         }}
                     >

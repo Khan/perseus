@@ -77,13 +77,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
         case "polygon":
             return {
                 type: "polygon",
-                points: {
-                    coord: [
-                        [0, 2],
-                        [-1, 0],
-                        [1, 0],
-                    ],
-                },
+                points: [{coord: [0, 2]}, {coord: [-1, 0]}, {coord: [1, 0]}],
                 color: DEFAULT_COLOR,
                 showVertices: false,
                 fillStyle: "none",

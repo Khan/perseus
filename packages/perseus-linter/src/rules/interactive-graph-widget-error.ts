@@ -38,7 +38,7 @@ export default Rule.makeRule({
 
             // A locked polygon can't have all coordinates be the same.
             if (figure.type === "polygon") {
-                const coords = figure.points.coord;
+                const coords = figure.points.map((point) => point.coord);
                 if (
                     // If every point is the same as the first point,
                     // then all the points are the same.

@@ -50,13 +50,11 @@ describe("interactive-graph-widget-error", () => {
                     options: generateInteractiveGraphOptions({
                         lockedFigures: [
                             generateIGLockedPolygon({
-                                points: {
-                                    coord: [
-                                        [0, 0],
-                                        [0, 0],
-                                        [0, 0],
-                                    ],
-                                },
+                                points: [
+                                    {coord: [0, 0]},
+                                    {coord: [0, 0]},
+                                    {coord: [0, 0]},
+                                ],
                             }),
                         ],
                     }),
@@ -154,13 +152,11 @@ describe("interactive-graph-widget-error", () => {
                             ],
                         }),
                         generateIGLockedPolygon({
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [0, 2],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [0, 2]},
+                                {coord: [1, 1]},
+                            ],
                         }),
                         generateIGLockedEllipse({radius: [2, 2]}),
                     ],

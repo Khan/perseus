@@ -861,38 +861,28 @@ export const segmentWithLockedPolygons: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [-3, 4],
-                        [-5, 1],
-                        [-1, 1],
-                    ],
-                },
+                points: [{coord: [-3, 4]}, {coord: [-5, 1]}, {coord: [-1, 1]}],
             }),
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [1, 4],
-                        [4, 4],
-                        [4, 1],
-                        [1, 1],
-                    ],
-                },
+                points: [
+                    {coord: [1, 4]},
+                    {coord: [4, 4]},
+                    {coord: [4, 1]},
+                    {coord: [1, 1]},
+                ],
                 color: "green",
                 showVertices: true,
                 fillStyle: "translucent",
                 strokeStyle: "dashed",
             }),
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [0, -1],
-                        [-2, -3],
-                        [-1, -5],
-                        [1, -5],
-                        [2, -3],
-                    ],
-                },
+                points: [
+                    {coord: [0, -1]},
+                    {coord: [-2, -3]},
+                    {coord: [-1, -5]},
+                    {coord: [1, -5]},
+                    {coord: [2, -3]},
+                ],
                 color: "purple",
                 showVertices: false,
                 fillStyle: "solid",
@@ -906,24 +896,12 @@ export const segmentWithLockedPolygonWhite: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [0, 3],
-                        [-3, 0],
-                        [3, 0],
-                    ],
-                },
+                points: [{coord: [0, 3]}, {coord: [-3, 0]}, {coord: [3, 0]}],
                 color: "green",
                 fillStyle: "white",
             }),
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [-5, 0],
-                        [-3, -1],
-                        [3, -1],
-                    ],
-                },
+                points: [{coord: [-5, 0]}, {coord: [-3, -1]}, {coord: [3, -1]}],
                 color: "pink",
                 fillStyle: "translucent",
             }),
@@ -1021,14 +999,12 @@ export const staticGraphQuestion: PerseusRenderer =
                 color: "blue",
             }),
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [-9, 4],
-                        [-6, 4],
-                        [-6, 1],
-                        [-9, 1],
-                    ],
-                },
+                points: [
+                    {coord: [-9, 4]},
+                    {coord: [-6, 4]},
+                    {coord: [-6, 1]},
+                    {coord: [-9, 1]},
+                ],
                 color: "pink",
             }),
         ],
@@ -1061,14 +1037,12 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
                     color: "blue",
                 }),
                 generateIGLockedPolygon({
-                    points: {
-                        coord: [
-                            [-9, 4],
-                            [-6, 4],
-                            [-6, 1],
-                            [-9, 1],
-                        ],
-                    },
+                    points: [
+                        {coord: [-9, 4]},
+                        {coord: [-6, 4]},
+                        {coord: [-6, 1]},
+                        {coord: [-9, 1]},
+                    ],
                     color: "pink",
                 }),
             ],
@@ -1182,13 +1156,7 @@ export const graphWithLabeledPolygon: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: {
-                    coord: [
-                        [0, 0],
-                        [4, 0],
-                        [2, 4],
-                    ],
-                },
+                points: [{coord: [0, 0]}, {coord: [4, 0]}, {coord: [2, 4]}],
                 labels: [generateIGLockedLabel({text: "E", coord: [0, 0]})],
             }),
         ],

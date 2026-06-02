@@ -14,7 +14,7 @@ import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle, weight} = props;
-    const coords = points.coord;
+    const coords = points.map((point) => point.coord);
 
     const hasAria = !!props.ariaLabel;
 

@@ -410,13 +410,11 @@ describe("parseInteractiveGraphWidget", () => {
                     lockedFigures: [
                         {
                             type: "polygon",
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [1, 0],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
                             color: "blue",
                             showVertices: false,
                             fillStyle: "none",
@@ -456,13 +454,11 @@ describe("parseInteractiveGraphWidget", () => {
                     lockedFigures: [
                         {
                             type: "polygon",
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [1, 0],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
                             color: "blue",
                             showVertices: false,
                             fillStyle: "none",
@@ -545,13 +541,11 @@ describe("parseInteractiveGraphWidget", () => {
                     lockedFigures: [
                         {
                             type: "polygon",
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [1, 0],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
                             color: "blue",
                             showVertices: false,
                             fillStyle: "none",

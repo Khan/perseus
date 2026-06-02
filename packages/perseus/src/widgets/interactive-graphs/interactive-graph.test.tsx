@@ -1235,13 +1235,11 @@ describe("Interactive Graph", function () {
                     generateInteractiveGraphQuestion({
                         lockedFigures: [
                             generateIGLockedPolygon({
-                                points: {
-                                    coord: [
-                                        [0, 0],
-                                        [0, 1],
-                                        [1, 1],
-                                    ],
-                                },
+                                points: [
+                                    {coord: [0, 0]},
+                                    {coord: [0, 1]},
+                                    {coord: [1, 1]},
+                                ],
                                 weight: weight,
                             }),
                         ],
@@ -1353,13 +1351,11 @@ describe("Interactive Graph", function () {
                 generateInteractiveGraphQuestion({
                     lockedFigures: [
                         generateIGLockedPolygon({
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [0, 1],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [0, 1]},
+                                {coord: [1, 1]},
+                            ],
                             ariaLabel: "Polygon A",
                         }),
                     ],
@@ -1383,13 +1379,11 @@ describe("Interactive Graph", function () {
                 generateInteractiveGraphQuestion({
                     lockedFigures: [
                         generateIGLockedPolygon({
-                            points: {
-                                coord: [
-                                    [0, 0],
-                                    [0, 1],
-                                    [1, 1],
-                                ],
-                            },
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [0, 1]},
+                                {coord: [1, 1]},
+                            ],
                         }),
                     ],
                 });

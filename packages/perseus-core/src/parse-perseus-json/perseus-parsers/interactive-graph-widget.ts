@@ -256,14 +256,24 @@ const parseLockedEllipseType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedPolygonPointsType = union(
-    object({
-        coord: array(pairOfNumbers),
-    }),
-).or(
-    pipeParsers(array(pairOfNumbers)).then(convert((coord) => ({coord})))
-        .parser,
-).parser;
+const parseLockedPolygonPointType = object({
+    coord: pairOfNumbers,
+});
+
+const parseLockedPolygonPointsType = union(array(parseLockedPolygonPointType))
+    .or(
+        pipeParsers(array(pairOfNumbers)).then(
+            convert((coords) => coords.map((coord) => ({coord}))),
+        ).parser,
+    )
+    .or(
+        pipeParsers(
+            object({
+                coord: array(pairOfNumbers),
+            }),
+        ).then(convert(({coord}) => coord.map((point) => ({coord: point}))))
+            .parser,
+    ).parser;
 
 const parseLockedPolygonType = object({
     type: constant("polygon"),

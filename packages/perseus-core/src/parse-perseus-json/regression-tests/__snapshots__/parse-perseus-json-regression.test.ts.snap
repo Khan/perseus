@@ -6971,22 +6971,26 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "color": "pink",
               "fillStyle": "none",
               "labels": [],
-              "points": {
-                "coord": [
-                  [
+              "points": [
+                {
+                  "coord": [
                     -8,
                     -7,
                   ],
-                  [
+                },
+                {
+                  "coord": [
                     -8,
                     -3,
                   ],
-                  [
+                },
+                {
+                  "coord": [
                     -4,
                     -3,
                   ],
-                ],
-              },
+                },
+              ],
               "showVertices": false,
               "strokeStyle": "solid",
               "type": "polygon",
@@ -7249,22 +7253,26 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "color": "pink",
               "fillStyle": "none",
               "labels": [],
-              "points": {
-                "coord": [
-                  [
+              "points": [
+                {
+                  "coord": [
                     -8,
                     -7,
                   ],
-                  [
+                },
+                {
+                  "coord": [
                     -8,
                     -3,
                   ],
-                  [
+                },
+                {
+                  "coord": [
                     -4,
                     -3,
                   ],
-                ],
-              },
+                },
+              ],
               "showVertices": false,
               "strokeStyle": "solid",
               "type": "polygon",
