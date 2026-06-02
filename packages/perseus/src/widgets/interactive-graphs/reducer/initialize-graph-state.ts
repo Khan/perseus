@@ -43,6 +43,7 @@ export function initializeGraphState(
         hasBeenInteractedWith: false,
         range,
         snapStep,
+        pointLabels: "pointLabels" in graph ? graph.pointLabels : undefined,
     };
     switch (graph.type) {
         case "segment":

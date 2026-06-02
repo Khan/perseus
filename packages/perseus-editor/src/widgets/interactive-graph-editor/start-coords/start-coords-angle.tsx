@@ -11,14 +11,31 @@ import type {Coord} from "@khanacademy/perseus";
 
 type AngleCoords = [Coord, Coord, Coord];
 
-type Props = {
+interface StartCoordsAngleProps {
     startCoords: AngleCoords;
     allowReflexAngles?: boolean;
     onChange: (startCoords: AngleCoords) => void;
-};
+    pointLabels: ReadonlyArray<string>;
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
 
-const StartCoordsAngle = (props: Props) => {
-    const {startCoords, allowReflexAngles, onChange} = props;
+const StartCoordsAngle = (props: StartCoordsAngleProps) => {
+    const {
+        startCoords,
+        allowReflexAngles,
+        onChange,
+        pointLabels,
+        onChangePointLabels,
+    } = props;
+    const updatePointLabel = (index: number, newLabel: string) => {
+        const next: [string, string, string] = [
+            index === 0 ? newLabel : pointLabels[0] ?? "",
+            index === 1 ? newLabel : pointLabels[1] ?? "",
+            index === 2 ? newLabel : pointLabels[2] ?? "",
+        ];
+        onChangePointLabels(next);
+    };
+
     return (
         <>
             {/* Current equation */}
@@ -29,13 +46,16 @@ const StartCoordsAngle = (props: Props) => {
                 </BodyMonospace>
             </View>
 
-            {/* Points UI */}
+            {/* Points UI — indexed to match `coords`:
+                [0]=ending side, [1]=vertex, [2]=starting side. */}
             <CoordInput
                 label="Point 1"
                 coord={startCoords[0]}
                 onChange={(value) =>
                     onChange([value, startCoords[1], startCoords[2]])
                 }
+                pointLabel={pointLabels[0]}
+                onPointLabelChange={(newLabel) => updatePointLabel(0, newLabel)}
             />
             <CoordInput
                 label="Vertex"
@@ -43,6 +63,8 @@ const StartCoordsAngle = (props: Props) => {
                 onChange={(value) =>
                     onChange([startCoords[0], value, startCoords[2]])
                 }
+                pointLabel={pointLabels[1]}
+                onPointLabelChange={(newLabel) => updatePointLabel(1, newLabel)}
             />
             <CoordInput
                 label="Point 2"
@@ -50,6 +72,8 @@ const StartCoordsAngle = (props: Props) => {
                 onChange={(value) =>
                     onChange([startCoords[0], startCoords[1], value])
                 }
+                pointLabel={pointLabels[2]}
+                onPointLabelChange={(newLabel) => updatePointLabel(2, newLabel)}
             />
         </>
     );

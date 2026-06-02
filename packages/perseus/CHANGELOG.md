@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 77.9.0
+
+### Minor Changes
+
+-   [#3642](https://github.com/Khan/perseus/pull/3642) [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Remove scale flag and old sizing logic (make scale feature permanent)
+
+### Patch Changes
+
+-   [#3665](https://github.com/Khan/perseus/pull/3665) [`9deb75be8b`](https://github.com/Khan/perseus/commit/9deb75be8b0300e7e9b87d800114af7a919af8c8) Thanks [@handeyeco](https://github.com/handeyeco)! - Comment out two flaky Chromatic tests
+
+*   [#3660](https://github.com/Khan/perseus/pull/3660) [`4e74d94fc0`](https://github.com/Khan/perseus/commit/4e74d94fc0356d6769e7750ad301e3c9c6b08bc8) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Make Graphie wait for fonts to load before calculating margins
+
+-   [#3652](https://github.com/Khan/perseus/pull/3652) [`bb54314662`](https://github.com/Khan/perseus/commit/bb543146628f673a605893586813b146e0bc4f46) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove a11y lint warning in perseus-api.tsx
+
+*   [#3646](https://github.com/Khan/perseus/pull/3646) [`e2e2132ab1`](https://github.com/Khan/perseus/commit/e2e2132ab1e85329d23587acfe7669ae7bc35ce7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Circle events.
+
+*   Updated dependencies [[`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`202290e1f7`](https://github.com/Khan/perseus/commit/202290e1f7bd4666a5a65be4e77fdae6157e661f), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2), [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d), [`899b92fdc7`](https://github.com/Khan/perseus/commit/899b92fdc7dbbceabec6b64fc6649edb126fdf4d)]:
+    -   @khanacademy/perseus-score@8.11.0
+    -   @khanacademy/perseus-linter@5.0.13
+    -   @khanacademy/perseus-core@27.1.0
+    -   @khanacademy/keypad-context@3.2.58
+    -   @khanacademy/kmath@2.4.16
+    -   @khanacademy/math-input@26.4.30
+
 ## 77.8.0
 
 ### Minor Changes

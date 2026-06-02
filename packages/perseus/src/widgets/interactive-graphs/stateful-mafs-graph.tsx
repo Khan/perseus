@@ -130,6 +130,7 @@ export const StatefulMafsGraph = React.forwardRef<
         graph.type === "angle" ? graph.allowReflexAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
     const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
+    const pointLabels = "pointLabels" in graph ? graph.pointLabels : undefined;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -152,6 +153,7 @@ export const StatefulMafsGraph = React.forwardRef<
         latestPropsRef,
         startCoords,
         allowReflexAngles,
+        pointLabels,
     ]);
 
     // If the graph is static and graded, it always displays the correct answer.

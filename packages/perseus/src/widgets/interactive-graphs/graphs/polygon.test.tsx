@@ -478,6 +478,130 @@ describe("Unlimited Polygon (open) screen reader", () => {
     });
 });
 
+describe.each`
+    polygonType             | polygonState
+    ${"Limited"}            | ${baseLimitedPolygonState}
+    ${"Unlimited (closed)"} | ${baseUnlimitedPolygonStateClosed}
+    ${"Unlimited (open)"}   | ${baseUnlimitedPolygonStateOpen}
+`("$polygonType Polygon pointLabels", ({polygonState}) => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...polygonState, pointLabels: ["A", "B", "C"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 3 comma -2."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma 4."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point C at -3 comma -2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to numeric default for indices without a custom label", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...polygonState, pointLabels: ["A"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 3 comma -2."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point 2 at 0 comma 4."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point 3 at -3 comma -2."}),
+        ).toBeInTheDocument();
+    });
+
+    // The editor produces a full-length array like ["", "B", ""] when an
+    // author names only one vertex; explicit empty strings must fall back
+    // to the numeric default for that index, same as missing entries.
+    it("treats explicit empty-string entries as numeric defaults", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...polygonState, pointLabels: ["", "B", ""]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point 1 at 3 comma -2."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma 4."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point 3 at -3 comma -2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("uses custom pointLabels in the interactive elements description", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...polygonState, pointLabels: ["A", "B", "C"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByText(
+                "Interactive elements: A polygon with 3 points. Point A at 3 comma -2. Point B at 0 comma 4. Point C at -3 comma -2.",
+            ),
+        ).toBeInTheDocument();
+    });
+
+    // Defense-in-depth against malformed hand-authored JSON that bypasses the
+    // parser. Locks in that the focusable handle and the SR-tree summary share
+    // the helper's fallback rule for non-string entries.
+    it("falls back to numeric default for truthy non-string entries on both the handle and the summary", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...polygonState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B", "C"] as unknown as string[],
+                }}
+            />,
+        );
+
+        // Assert — handle path (per-point MovablePoint aria-label)
+        expect(
+            screen.getByRole("button", {name: "Point 1 at 3 comma -2."}),
+        ).toBeInTheDocument();
+        // Assert — summary path (InteractiveGraphSRTree)
+        expect(
+            screen.getByText(
+                "Interactive elements: A polygon with 3 points. Point 1 at 3 comma -2. Point B at 0 comma 4. Point C at -3 comma -2.",
+            ),
+        ).toBeInTheDocument();
+    });
+});
+
 describe("getSideSnapConstraint", () => {
     it("should find the next available coordinate to maintain a whole length sides", () => {
         const range: PolygonGraphState["range"] = [

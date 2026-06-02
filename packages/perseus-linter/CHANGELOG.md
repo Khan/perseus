@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.0.13
+
+### Patch Changes
+
+-   [#3650](https://github.com/Khan/perseus/pull/3650) [`202290e1f7`](https://github.com/Khan/perseus/commit/202290e1f7bd4666a5a65be4e77fdae6157e661f) Thanks [@handeyeco](https://github.com/handeyeco)! - Refactor interactive-graph-widget-error.test.ts to use IG generators
+
+-   Updated dependencies [[`3d273354ee`](https://github.com/Khan/perseus/commit/3d273354ee034abfbda4fa395bdbae2ae097c3e2), [`2c1a5a4a7b`](https://github.com/Khan/perseus/commit/2c1a5a4a7b690258f9537a33154ef2f7f8090aa6), [`471e3f65ef`](https://github.com/Khan/perseus/commit/471e3f65ef07ad4d09d886e77aa271d61b304237)]:
+    -   @khanacademy/perseus-core@27.1.0
+    -   @khanacademy/kmath@2.4.16
+
 ## 5.0.12
 
 ### Patch Changes

@@ -762,6 +762,71 @@ describe("movePoint on a point graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "T",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        // The editor encodes "only the second point labeled" as ["", "B"];
+        // the reducer must keep the unlabeled slot on its numeric default
+        // (stringified to match the announcement payload contract).
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
 });
 
 describe("movePoint on an angle graph", () => {

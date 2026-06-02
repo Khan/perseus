@@ -1341,8 +1341,6 @@ export type PerseusGraphTypeVector = {
      *  "exact" (default) — both tail and tip must match exactly.
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
-    /** Custom label for each interactive point that will help with the screen reader. */
-    pointLabels?: [string, string];
 };
 
 type AbsoluteValueGraphCorrect = {

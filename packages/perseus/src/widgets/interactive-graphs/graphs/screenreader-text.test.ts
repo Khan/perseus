@@ -9,14 +9,24 @@ import {
 } from "./screenreader-text";
 
 describe("getAnnouncementText", () => {
-    it("returns the correct string for a move-point announcement", () => {
+    it("returns the correct string for a move-point announcement with a numeric default label", () => {
         const result = getAnnouncementText(
-            {type: "move-point", pointIndex: 0, x: 3, y: 5},
+            {type: "move-point", pointLabel: "1", x: 3, y: 5},
             mockStrings,
             "en",
         );
 
         expect(result).toBe("Point 1 at 3 comma 5.");
+    });
+
+    it("returns the correct string for a move-point announcement with a custom pointLabel", () => {
+        const result = getAnnouncementText(
+            {type: "move-point", pointLabel: "T", x: 3, y: 5},
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point T at 3 comma 5.");
     });
 
     it("returns the correct string for a move-radius-point announcement when point is to the right", () => {
