@@ -13,24 +13,14 @@ Perseus is Khan Academy's educational content rendering system that powers all e
 ### Development
 ```bash
 pnpm storybook             # Launch Storybook documentation
-pnpm test                  # Run tests
+pnpm tesc                  # Run tests for changed files
 ```
 
 ### Code Quality
 ```bash
-pnpm lint                  # Run ESLint
-pnpm lint --fix            # Auto-fix linting issues
-pnpm prettier . --check    # Check Prettier formatting
-pnpm prettier . --write    # Auto-format code
+pnpm fixc                  # Run linter and autofix formatting
 pnpm tsc                   # Type-check all packages
 pnpm knip                  # Find unused files, exports, and dependencies
-```
-
-### Testing Specific Packages
-```bash
-pnpm --filter perseus test                   # Test main perseus package
-pnpm --filter perseus-editor test            # Test editor package
-pnpm test packages/perseus/src/widgets/radio # Test specific widget
 ```
 
 ## Key Directories
@@ -110,27 +100,8 @@ describe("WidgetComponent", () => {
 ## Deployment Notes
 
 ### Before Submitting PR
-1. Run full test suite: `pnpm test`
-2. Check types: `pnpm build:types`
-3. Lint and format: `pnpm lint --fix && pnpm prettier . --write`
+1. Run tests: `pnpm tesc`
+2. Check types: `pnpm tsc`
+3. Lint and format: `pnpm fixc`
 4. Test in Storybook: `pnpm storybook`
 5. Verify accessibility compliance
-
-### Common Pre-commit Failures
-- ESLint errors (unused imports, console statements)
-- Prettier formatting (spacing, quotes, semicolons)
-- TypeScript type errors
-- Missing accessibility documentation
-- Test failures
-
-## Additional Resources
-
-- **Storybook**: Interactive component documentation and testing
-- **Perseus Architecture**: See `__docs__/introduction.mdx` for detailed overview
-- **Widget Gallery**: Browse existing widgets in Storybook for patterns
-- **Accessibility Guidelines**: Each widget should have `a11y.mdx` documentation
-- **Khan Academy Design System**: Wonder Blocks components for consistent UI
-
----
-
-*This document is maintained for AI assistants. For human developers, see the main README.md files in each package.*

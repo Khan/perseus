@@ -20,6 +20,8 @@
 
 ## Widget Implementation Pattern
 
+Widgets must be implemented as **functional components**.
+
 ```typescript
 // Export interface following WidgetExports<T> pattern
 export default {
@@ -36,28 +38,16 @@ All widgets must implement proper focus management for accessibility.
 
 ## Common Issues & Solutions
 
-### Math Rendering (TeX)
-- Use `$...$` for inline math, `$$...$$` for display math
-- For complex expressions, use `\dfrac` instead of `\frac`
-- Test math rendering in different contexts (articles, exercises, hints)
-
 ### Widget State Management
-- Use `useState` for local component state
-- Props flow down from parent renderer
-- Call `onChange` to notify parent of state changes
-- Implement proper serialization for persistent state
+- Use `useState` or `useReducer` for local UI state that doesn't represent user input
+- User input state must not be stored locally — emit changes via `onChange` and receive state via the `userInput` prop
+- The props type should be derived from `WidgetProps<...>` and the widget options type in `data-schema.ts`
 
 ### Mobile Considerations
 - All widgets must work on mobile devices
 - Support touch interactions
 - Consider on-screen keypad for math inputs
 - Test with different screen sizes using Storybook
-
-### Performance Optimization
-- Use `React.memo()` for expensive components
-- Implement `useMemo()` for complex calculations
-- Avoid unnecessary re-renders in widget hierarchies
-- Profile performance with React DevTools
 
 ## Debugging Tips
 
@@ -67,14 +57,6 @@ All widgets must implement proper focus management for accessibility.
 - Verify accessibility with Storybook a11y addon
 - Check mobile layouts with device frame addon
 
-### Console Debugging
-```typescript
-// Temporary debugging (remove before commit)
-console.log("Widget state:", this.state);
-console.log("Props received:", this.props);
-```
-
 ### Error Boundaries
-- Widgets are wrapped in error boundaries
+- Widgets are wrapped in error boundaries by their parent component
 - Check browser console for widget-specific errors
-- Implement graceful fallbacks for failed widgets

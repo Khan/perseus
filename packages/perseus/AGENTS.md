@@ -10,10 +10,6 @@ Make sure Storybook is running:
 ```bash
 pnpm storybook
 ```
-Then register the MCP server with Claude Code:
-```bash
-claude mcp add storybook-mcp --transport http http://localhost:6006/mcp --scope project
-```
 
 ## Available MCP Tools
 
@@ -41,7 +37,7 @@ claude mcp add storybook-mcp --transport http http://localhost:6006/mcp --scope 
 - **Check for existing stories first.** New stories go in `__docs__/` directories.
   Some older stories are colocated directly but haven't been migrated yet — avoid
   duplicating what's already there.
-- **Every new component needs stories** covering each key visual state.
+- **Every new widget needs stories** covering each key visual state.
 - **Add `!manifest` to non-component stories.** Documentation pages, visual
   regression tests (`*-regression.stories.tsx`), a11y docs, and dev utilities
   should include `"!manifest"` in their tags to keep them out of the component
