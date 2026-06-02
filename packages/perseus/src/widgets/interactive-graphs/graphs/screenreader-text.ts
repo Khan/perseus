@@ -1,5 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+import {resolvePointLabel} from "./components/build-point-aria-label";
+
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
@@ -21,6 +23,13 @@ export function getAnnouncementText(
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         case "move-angle-point":
             return srAnglePointLabel(state, strings, locale);
+        case "move-polygon":
+            return srPolygonLabel(
+                state.coords,
+                state.pointLabels,
+                strings,
+                locale,
+            );
         default:
             throw new UnreachableCaseError(state);
     }
@@ -60,6 +69,30 @@ function srAnglePointLabel(
         default:
             return strings.srAngleStartingSide({x, y});
     }
+}
+
+function srPolygonLabel(
+    coords: ReadonlyArray<readonly [number, number]>,
+    pointLabels: ReadonlyArray<string> | undefined,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const pointsString = coords
+        .map(([x, y], i) =>
+            strings.srPointAtCoordinates({
+                // Use the author's custom label when set, otherwise the
+                // 1-indexed default ("Point 1", "Point 2", …).
+                num: resolvePointLabel(pointLabels, i),
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            }),
+        )
+        .join(" ");
+    const elementsLabel =
+        coords.length === 1
+            ? strings.srPolygonElementsOne
+            : strings.srPolygonElementsNum({num: coords.length});
+    return `${elementsLabel} ${pointsString}`;
 }
 
 export function srCircleRadiusPointLabel(

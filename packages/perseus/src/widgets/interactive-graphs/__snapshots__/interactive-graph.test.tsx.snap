@@ -1228,7 +1228,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                         <polygon
                           aria-disabled="false"
                           aria-label="A polygon with 3 points."
-                          aria-live="off"
                           class="movable-polygon"
                           fill-opacity="0.15"
                           points="3.5 2 2.5 4 1.5 2"
@@ -1654,7 +1653,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                         <polygon
                           aria-disabled="false"
                           aria-label="A polygon with 3 points."
-                          aria-live="off"
                           class="movable-polygon"
                           fill-opacity="0.15"
                           points="3 -2 0 3 -3 -2"
@@ -2557,7 +2555,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         <polygon
                           aria-disabled="false"
                           aria-label="A polygon with 3 points."
-                          aria-live="off"
                           class="movable-polygon"
                           fill-opacity="0.15"
                           points="5.5 2 1.5 5 1.5 2"
@@ -2983,7 +2980,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         <polygon
                           aria-disabled="false"
                           aria-label="A polygon with 3 points."
-                          aria-live="off"
                           class="movable-polygon"
                           fill-opacity="0.15"
                           points="-6 -7 1 -4 -3 -4"
@@ -3782,7 +3778,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         <polygon
                           aria-disabled="false"
                           aria-label="A polygon with 4 points."
-                          aria-live="off"
                           class="movable-polygon"
                           fill-opacity="0.15"
                           points="-5 0 4 15 4 0 1 3"
