@@ -9,8 +9,8 @@ import {
     graphieImage,
     portraitImage,
     svgImage,
-    tallGifImage,
-    tallGifImageAlt,
+    animatedGifPortrait,
+    animatedGifPortraitAlt,
 } from "../utils";
 
 import {imageRendererDecorator} from "./image-renderer-decorator";
@@ -182,7 +182,7 @@ export const ZoomClickedLargePortraitImage: Story = {
     },
 };
 
-export const LongDescriptionClickedStateWithTallGif: Story = {
+export const LongDescriptionClickedStateWithTallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
     parameters: {
         apiOptions: {
@@ -193,10 +193,10 @@ export const LongDescriptionClickedStateWithTallGif: Story = {
         },
     },
     args: {
-        backgroundImage: tallGifImage,
-        alt: tallGifImageAlt,
-        caption: tallGifImageAlt,
-        longDescription: tallGifImageAlt,
+        backgroundImage: animatedGifPortrait,
+        alt: animatedGifPortraitAlt,
+        caption: animatedGifPortraitAlt,
+        longDescription: animatedGifPortraitAlt,
     },
     play: async ({canvas, userEvent}) => {
         const imageTrigger = canvas.getByRole("button", {

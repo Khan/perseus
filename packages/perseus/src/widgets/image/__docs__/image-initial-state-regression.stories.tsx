@@ -24,14 +24,14 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    gifImage,
-    gifImageAlt,
-    tallGifImage,
-    tallGifImageAlt,
+    animatedGifLandscape,
+    animatedGifLandscapeAlt,
+    animatedGifPortrait,
+    animatedGifPortraitAlt,
     graphieImage,
     graphieImageAlt,
-    nonAnimatedGifImage,
-    nonAnimatedGifImageAlt,
+    nonAnimatedGif,
+    nonAnimatedGifAlt,
     portraitImage,
     portraitImageCaption,
     portraitImageLongDescription,
@@ -343,7 +343,7 @@ export const ImageWithoutWidthOrHeightLarge: Story = {
     },
 };
 
-export const TallGifImage: Story = {
+export const TallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
     parameters: {
         apiOptions: {
@@ -354,10 +354,10 @@ export const TallGifImage: Story = {
         },
     },
     args: {
-        backgroundImage: tallGifImage,
-        alt: tallGifImageAlt,
-        caption: tallGifImageAlt,
-        longDescription: tallGifImageAlt,
+        backgroundImage: animatedGifPortrait,
+        alt: animatedGifPortraitAlt,
+        caption: animatedGifPortraitAlt,
+        longDescription: animatedGifPortraitAlt,
     },
     play: async ({canvasElement}) => {
         const canvas = within(canvasElement);
@@ -419,7 +419,7 @@ export const PngImage: Story = {
     },
 };
 
-export const MobileGifImage: Story = {
+export const MobileAnimatedGif: Story = {
     decorators: [imageRendererDecorator, mobileDecorator],
     parameters: {
         apiOptions: {
@@ -430,13 +430,13 @@ export const MobileGifImage: Story = {
         },
     },
     args: {
-        backgroundImage: gifImage,
-        alt: gifImageAlt,
-        caption: gifImageAlt,
+        backgroundImage: animatedGifLandscape,
+        alt: animatedGifLandscapeAlt,
+        caption: animatedGifLandscapeAlt,
     },
 };
 
-export const NonAnimatedGifImage: Story = {
+export const NonAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
     parameters: {
         apiOptions: {
@@ -447,8 +447,8 @@ export const NonAnimatedGifImage: Story = {
         },
     },
     args: {
-        backgroundImage: nonAnimatedGifImage,
-        alt: nonAnimatedGifImageAlt,
+        backgroundImage: nonAnimatedGif,
+        alt: nonAnimatedGifAlt,
     },
 };
 

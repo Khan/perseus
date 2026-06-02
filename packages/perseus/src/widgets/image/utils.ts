@@ -63,32 +63,32 @@ export const graphieImageAlt =
 export const graphieImage2Alt =
     "A picture graph shows the horizontal axis labeled Number of insects and the vertical axis labeled Types of insects. Each type of insect is listed along the vertical axis from bottom to top as follows: Beetle, Cricket, Ant, Mosquito, and Bee. The number of insects for each type of insect is represented by the number of pictures of ladybugs plotted on the graph. Beetle is represented by 5 pictures of ladybugs, Cricket is represented by 4 pictures of ladybugs, Ant is represented by 3 pictures of ladybugs, Mosquito is represented by 6 pictures of ladybugs, and Bee is represented by 3 pictures of ladybugs.";
 
-export const gifImage = {
+export const animatedGifLandscape = {
     url: "https://cdn.kastatic.org/ka-content-images/79affe6b539eb0e163aa96b42160e53cad4b2097.gif",
     width: 500,
     height: 285,
 };
 
-export const tallGifImage = {
+export const animatedGifLandscapeAlt =
+    "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
+
+export const animatedGifPortrait = {
     url: "https://cdn.kastatic.org/ka-content-images/1e6f6fd4de01058c3d548b7a942bd9e76d565fa3.gif",
     width: 360,
     height: 640,
 };
 
-export const tallGifImageAlt =
+export const animatedGifPortraitAlt =
     "A surreal illustration of Earth with a faucet attached, draining resources, above a wallet filled with currency, against a red background.";
 
-export const gifImageAlt =
-    "A person on a skateboard moves back and forth across a concrete structure that forms the shape of a U.";
-
 // Image converted to a gif - not animated.
-export const nonAnimatedGifImage = {
+export const nonAnimatedGif = {
     url: "https://cdn.kastatic.org/ka-content-images/cabd2dd6c1be5651e5d25ba2cecc4c28e664eca6.gif",
     width: 1200,
     height: 900,
 };
 
-export const nonAnimatedGifImageAlt =
+export const nonAnimatedGifAlt =
     "A black and white cat resting on a blanket on a couch, with its eyes closed and arms and legs tucked in.";
 
 export const svgImage = {
