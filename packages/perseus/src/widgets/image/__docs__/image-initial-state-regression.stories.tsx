@@ -424,6 +424,14 @@ export const MobileGifImage: Story = {
 
 export const NonAnimatedGifImage: Story = {
     decorators: [imageRendererDecorator],
+    parameters: {
+        apiOptions: {
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "image-widget-upgrade-gif-controls": true,
+            }),
+        },
+    },
     args: {
         backgroundImage: nonAnimatedGifImage,
         alt: nonAnimatedGifImageAlt,
