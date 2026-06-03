@@ -3,9 +3,9 @@ import * as React from "react";
 
 type PerseusFlags = Record<(typeof PerseusFeatureFlags)[number], boolean>;
 
-export const defaultFeatureFlags: PerseusFlags = Object.fromEntries(
+export const defaultFeatureFlags = Object.fromEntries(
     PerseusFeatureFlags.map((flag) => [flag, false]),
-) as PerseusFlags;
+) satisfies PerseusFlags;
 
 export const StorybookFeatureFlagsContext =
     React.createContext<PerseusFlags>(defaultFeatureFlags);
