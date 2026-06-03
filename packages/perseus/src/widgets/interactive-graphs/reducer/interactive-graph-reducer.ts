@@ -270,40 +270,7 @@ function doMovePointInFigure(
     action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "segment": {
-            const newValue = boundToEdgeAndSnapToGrid(
-                action.destination,
-                state,
-            );
-            const newCoords = updateAtIndex({
-                array: state.coords,
-                index: action.figureIndex,
-                update: (tuple) =>
-                    setAtIndex({
-                        array: tuple,
-                        index: action.pointIndex,
-                        newValue,
-                    }),
-            });
-
-            const coordsToCheck = newCoords[action.figureIndex];
-            if (coordsOverlap(coordsToCheck)) {
-                return state;
-            }
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-segment-point",
-                    segmentIndex: action.figureIndex,
-                    pointIndex: action.pointIndex,
-                    x: newValue[X],
-                    y: newValue[Y],
-                    totalSegments: state.coords.length,
-                },
-            };
-        }
+        case "segment":
         case "linear-system": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
@@ -324,23 +291,37 @@ function doMovePointInFigure(
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
+
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-point",
+                          segmentIndex: action.figureIndex,
+                          pointIndex: action.pointIndex,
+                          x: newValue[X],
+                          y: newValue[Y],
+                          totalSegments: state.coords.length,
+                      }
+                    : {
+                          type: "move-linear-system-point",
+                          lineIndex: action.figureIndex,
+                          pointIndex: action.pointIndex,
+                          // pointLabels is a flat array across both lines,
+                          // indexed by lineIndex * 2 + pointIndex (matching
+                          // linear-system.tsx).
+                          pointLabel: resolvePointLabel(
+                              state.pointLabels,
+                              action.figureIndex * 2 + action.pointIndex,
+                          ),
+                          x: newValue[X],
+                          y: newValue[Y],
+                      };
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-linear-system-point",
-                    lineIndex: action.figureIndex,
-                    pointIndex: action.pointIndex,
-                    // pointLabels is a flat array across both lines, indexed by
-                    // lineIndex * 2 + pointIndex (matching linear-system.tsx).
-                    pointLabel: resolvePointLabel(
-                        state.pointLabels,
-                        action.figureIndex * 2 + action.pointIndex,
-                    ),
-                    x: newValue[X],
-                    y: newValue[Y],
-                },
+                stateAnnouncement,
             };
         }
         case "ray":
@@ -444,38 +425,8 @@ function doMoveLine(
     const {newStart} = action;
 
     switch (state.type) {
-        case "segment": {
-            // TODO(LEMS-4189): Temporary duplication of logic with linear-system
-            // until we move all graphs to use WB Announcer.
-            if (action.itemIndex === undefined) {
-                throw new Error("Please provide index of line to move");
-            }
-            const currentLine = state.coords[action.itemIndex];
-            const constrainedLine = constrainShapePreservingMove(
-                currentLine,
-                newStart,
-                {snapStep, range},
-            );
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.itemIndex,
-                newValue: constrainedLine,
-            });
-
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-segment-line",
-                    coords: constrainedLine,
-                },
-            };
-        }
+        case "segment":
         case "linear-system": {
-            // TODO(LEMS-4189): Temporary duplication of logic with segment
-            // until we move all graphs to use WB Announcer.
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
@@ -491,16 +442,24 @@ function doMoveLine(
                 newValue: constrainedLine,
             });
 
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-line",
+                          coords: constrainedLine,
+                      }
+                    : {
+                          type: "move-linear-system-line",
+                          lineIndex: action.itemIndex,
+                          coords: constrainedLine,
+                      };
+
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-linear-system-line",
-                    lineIndex: action.itemIndex,
-                    coords: constrainedLine,
-                },
+                stateAnnouncement,
             };
         }
         case "ray":

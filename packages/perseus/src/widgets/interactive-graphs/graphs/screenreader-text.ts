@@ -21,23 +21,8 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
-        case "move-segment-point": {
-            const x = srFormatNumber(state.x, locale);
-            const y = srFormatNumber(state.y, locale);
-            // Single- vs multi-segment graphs use different endpoint labels.
-            return state.totalSegments === 1
-                ? strings.srSingleSegmentGraphEndpointAriaLabel({
-                      endpointNumber: state.pointIndex + 1,
-                      x,
-                      y,
-                  })
-                : strings.srMultipleSegmentGraphEndpointAriaLabel({
-                      endpointNumber: state.pointIndex + 1,
-                      indexOfSegment: state.segmentIndex + 1,
-                      x,
-                      y,
-                  });
-        }
+        case "move-segment-point":
+            return srSegmentPointLabel(state, strings, locale);
         case "move-segment-line":
             return strings.srSegmentGrabHandle({
                 point1X: srFormatNumber(state.coords[0][0], locale),
@@ -165,6 +150,34 @@ function srAnglePointLabel(
         default:
             return strings.srAngleStartingSide({x, y});
     }
+}
+
+function srSegmentPointLabel(
+    state: {
+        segmentIndex: number;
+        pointIndex: number;
+        totalSegments: number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // Single- vs multi-segment graphs use different endpoint labels.
+    return state.totalSegments === 1
+        ? strings.srSingleSegmentGraphEndpointAriaLabel({
+              endpointNumber: state.pointIndex + 1,
+              x,
+              y,
+          })
+        : strings.srMultipleSegmentGraphEndpointAriaLabel({
+              endpointNumber: state.pointIndex + 1,
+              indexOfSegment: state.segmentIndex + 1,
+              x,
+              y,
+          });
 }
 
 function srLinearSystemPointLabel(
