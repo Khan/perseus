@@ -68,7 +68,7 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  check-name: "PR Comparison: 🗄️ Schema Change"
+                  check-name: "PR Comparison: Schema Change"
                   ack-label-name: schema-change-ack
                   # Folded (`>`) so paragraphs can wrap freely. Two blank
                   # lines are required for a Markdown paragraph break.
@@ -154,5 +154,5 @@ jobs:
                         --outfile=${{ runner.temp }}/item-splitting.bundle.js
                   path-to-artifact: ${{ runner.temp }}/item-splitting.bundle.js
                   label-name: item-splitting-change
-                  check-name: "PR Comparison: 🛠️ Item Splitting"
+                  check-name: "PR Comparison: Item Splitting"
                   ack-label-name: item-splitting-change-ack
