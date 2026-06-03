@@ -1,13 +1,11 @@
 import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
-import ImagePreview from "../../components/image-preview";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
 import RadioImageEditor from "./radio-image-editor";
@@ -236,48 +234,24 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                         paddingBlockEnd: sizing.size_120,
                     }}
                 >
-                    {image.url ? (
-                        <LabeledField
-                            label="Preview"
-                            field={
-                                <ImagePreview
-                                    src={image.url}
-                                    alt={`Preview: ${image.altText ?? "No alt text"}`}
-                                    width={image.width}
-                                    height={image.height}
-                                />
-                            }
-                        />
-                    ) : (
-                        <BodyText
-                            style={{
-                                color: semanticColor.core.foreground.critical
-                                    .default,
-                            }}
-                        >
-                            Missing image URL
-                        </BodyText>
-                    )}
-                    <div style={{marginTop: sizing.size_160}}>
-                        <RadioImageEditor
-                            imageUrl={image.url}
-                            imageAltText={image.altText}
-                            imageWidth={image.width}
-                            imageHeight={image.height}
-                            onSave={(imageUrl, imageAltText, width, height) => {
-                                handleUpdateImage(
-                                    imageIndex,
-                                    imageUrl,
-                                    imageAltText,
-                                    width,
-                                    height,
-                                );
-                            }}
-                            onDelete={() => {
-                                handleDeleteImageConfirmation(imageIndex);
-                            }}
-                        />
-                    </div>
+                    <RadioImageEditor
+                        imageUrl={image.url}
+                        imageAltText={image.altText}
+                        imageWidth={image.width}
+                        imageHeight={image.height}
+                        onSave={(imageUrl, imageAltText, width, height) => {
+                            handleUpdateImage(
+                                imageIndex,
+                                imageUrl,
+                                imageAltText,
+                                width,
+                                height,
+                            );
+                        }}
+                        onDelete={() => {
+                            handleDeleteImageConfirmation(imageIndex);
+                        }}
+                    />
                 </PerseusEditorAccordion>
             )) ?? null}
         </>

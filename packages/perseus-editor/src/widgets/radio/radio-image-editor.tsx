@@ -1,9 +1,12 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
+
+import ImagePreview from "../../components/image-preview";
 
 import styles from "./radio-editor.module.css";
 
@@ -14,7 +17,6 @@ interface RadioImageEditorProps {
     imageAltText: string;
     imageWidth?: number;
     imageHeight?: number;
-    containerClassName?: string;
     onSave: (
         imageUrl: string,
         imageAltText: string,
@@ -29,7 +31,6 @@ export default function RadioImageEditor({
     imageAltText,
     imageWidth,
     imageHeight,
-    containerClassName,
     onSave,
     onDelete,
 }: RadioImageEditorProps): React.ReactElement {
@@ -46,7 +47,36 @@ export default function RadioImageEditor({
     }
 
     return (
-        <div className={containerClassName}>
+        <div>
+            {/* Preview */}
+            {imageUrl ? (
+                <LabeledField
+                    label="Preview"
+                    field={
+                        <ImagePreview
+                            src={imageUrl}
+                            alt={`Preview: ${imageAltText ?? "No alt text"}`}
+                            width={imageWidth}
+                            height={imageHeight}
+                        />
+                    }
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // styles are moved to a different layer.
+                    styles={{root: {marginBlockEnd: sizing.size_160}}}
+                />
+            ) : (
+                <BodyText
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // styles are moved to a different layer.
+                    style={{
+                        color: semanticColor.core.foreground.critical.default,
+                        marginBlockEnd: sizing.size_160,
+                    }}
+                >
+                    Missing image URL
+                </BodyText>
+            )}
+
             {/* Image URL textarea */}
             <BodyText
                 size="small"
@@ -86,7 +116,7 @@ export default function RadioImageEditor({
                 autoResize={true}
             />
 
-            {/* Save and delete buttons */}
+            {/* Delete button */}
             <span className={styles.buttonRow}>
                 <Button
                     size="small"
