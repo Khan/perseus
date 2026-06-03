@@ -74,6 +74,10 @@ type MoveCenterAnnouncement = {
 type MoveLinearSystemPointAnnouncement = {
     type: "move-linear-system-point";
     lineIndex: number;
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
 };
 
 // Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
@@ -91,6 +95,7 @@ type MoveRayPointAnnouncement = {
 type MoveLinearSystemLineAnnouncement = {
     type: "move-linear-system-line";
     lineIndex: number;
+    coords: PairOfPoints;
 };
 
 // Whole-ray keyboard drag. Carries both endpoints so the
