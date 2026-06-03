@@ -21,15 +21,8 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
-        case "move-vector-point": {
-            const x = srFormatNumber(state.x, locale);
-            const y = srFormatNumber(state.y, locale);
-            // Index 0 is the vector's tail (generic point label); index 1 is
-            // the tip, which has a dedicated label.
-            return state.pointIndex === 0
-                ? strings.srPointAtCoordinates({num: 1, x, y})
-                : strings.srVectorTipPoint({x, y});
-        }
+        case "move-vector-point":
+            return srVectorPointLabel(state, strings, locale);
         case "move-vector-line":
             return strings.srVectorGrabHandle({
                 tailX: srFormatNumber(state.coords[0][0], locale),
@@ -173,6 +166,24 @@ function srRayPointLabel(
     return state.pointIndex === 0
         ? strings.srRayEndpoint({x, y})
         : strings.srRayTerminalPoint({x, y});
+}
+
+function srVectorPointLabel(
+    state: {
+        pointIndex: number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // Index 0 is the vector's tail (generic point label); index 1 is the tip,
+    // which has a dedicated label.
+    return state.pointIndex === 0
+        ? strings.srPointAtCoordinates({num: 1, x, y})
+        : strings.srVectorTipPoint({x, y});
 }
 
 function srPolygonLabel(
