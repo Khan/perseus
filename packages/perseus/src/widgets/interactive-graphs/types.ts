@@ -69,6 +69,23 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
+// (index 1) use different labels, chosen by index.
+type MoveRayPointAnnouncement = {
+    type: "move-ray-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Whole-ray keyboard drag. Carries both endpoints so the
+// announcement can describe the ray they run through.
+type MoveRayLineAnnouncement = {
+    type: "move-ray-line";
+    coords: PairOfPoints;
+};
+
 // Whole-line keyboard drag for the linear graph. Carries both
 // endpoints so the announcement can describe the line they run through.
 type MoveLinearLineAnnouncement = {
@@ -100,7 +117,7 @@ type MoveAnglePointAnnouncement = {
     angleMeasure: number;
 };
 
-// Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
+// Whole-polygon keyboard drag. Carries every vertex so the
 // announcement can list each point's new coordinates, plus any author-supplied
 // custom labels so each vertex is announced by its label when one is set.
 type MovePolygonAnnouncement = {
@@ -113,10 +130,13 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveRayPointAnnouncement
+    | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // Custom screen-reader labels for each interactive point. When present,
