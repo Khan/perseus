@@ -63,6 +63,7 @@ import type {Coord} from "../../../interactive2/types";
 import type {
     AngleGraphState,
     InteractiveGraphState,
+    InteractiveGraphStateAnnouncement,
     PairOfPoints,
 } from "../types";
 import type {QuadraticCoords} from "@khanacademy/kmath";
@@ -333,9 +334,11 @@ function doMovePointInFigure(
                 },
             };
         }
+        case "ray":
         case "linear": {
-            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
-            // until we move all graphs to use WB Announcer.
+            // Ray and linear share identical endpoint-move logic; only the
+            // screen reader announcement differs.
+            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
@@ -350,21 +353,39 @@ function doMovePointInFigure(
                 return state;
             }
 
+            // Determine the correct state announcement
+            // by the graph type.
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "ray"
+                    ? {
+                          type: "move-ray-point",
+                          pointIndex: action.pointIndex,
+                          pointLabel: resolvePointLabel(
+                              state.pointLabels,
+                              action.pointIndex,
+                          ),
+                          x: newValue[X],
+                          y: newValue[Y],
+                      }
+                    : {
+                          type: "move-point",
+                          pointLabel: String(
+                              resolvePointLabel(
+                                  state.pointLabels,
+                                  action.pointIndex,
+                              ),
+                          ),
+                          x: newValue[X],
+                          y: newValue[Y],
+                      };
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.pointIndex),
-                    ),
-                    x: newValue[X],
-                    y: newValue[Y],
-                },
+                stateAnnouncement,
             };
         }
-        case "ray":
         case "vector": {
             const newCoords = setAtIndex({
                 array: state.coords,
@@ -467,26 +488,28 @@ function doMoveLine(
                 coords: newCoords,
             };
         }
+        case "ray":
         case "linear": {
-            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
-            // until we move all graphs to use WB Announcer.
+            // Ray and linear share identical whole-line move logic; only the
+            // screen reader announcement differs.
+            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
                 {snapStep, range},
             );
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "ray"
+                    ? {type: "move-ray-line", coords: constrainedLine}
+                    : {type: "move-linear-line", coords: constrainedLine};
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
-                stateAnnouncement: {
-                    type: "move-linear-line",
-                    coords: constrainedLine,
-                },
+                stateAnnouncement,
             };
         }
-        case "ray":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,

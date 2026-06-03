@@ -31,6 +31,12 @@ export function getAnnouncementText(
                 point2X: srFormatNumber(state.coords[1][0], locale),
                 point2Y: srFormatNumber(state.coords[1][1], locale),
             });
+        case "move-ray-point":
+            return srRayPointLabel(state, strings, locale);
+        case "move-ray-line":
+            return strings.srRayGrabHandle(
+                formatLineEndpoints(state.coords, locale),
+            );
         case "move-linear-line":
             return strings.srLinearGrabHandle(
                 formatLineEndpoints(state.coords, locale),
@@ -163,6 +169,32 @@ function srLinearSystemPointLabel(
         x,
         y,
     });
+}
+
+function srRayPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the endpoint/through-point semantics,
+    // matching the static aria-label behavior in ray.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Index 0 is the ray's endpoint; index 1 is a point the ray passes
+    // through. They use different labels.
+    return state.pointIndex === 0
+        ? strings.srRayEndpoint({x, y})
+        : strings.srRayTerminalPoint({x, y});
 }
 
 function srPolygonLabel(
