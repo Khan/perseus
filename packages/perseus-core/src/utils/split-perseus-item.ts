@@ -14,8 +14,6 @@ import type {PerseusItem} from "../data-schema";
 export default function splitPerseusItem(original: PerseusItem): PerseusItem {
     const item = deepClone(original);
 
-    console.log("Test affecting item splitting");
-
     return {
         ...item,
         question: splitPerseusRenderer(item.question),
