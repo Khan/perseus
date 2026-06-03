@@ -175,6 +175,11 @@ export type InitializeWidgetOptionsParams = {
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
+    // When set, componentDidUpdate will move the textarea cursor to this
+    // position after the next render commits. Used by paste and widget-insert
+    // handlers to restore the cursor to a sensible position once React has
+    // re-rendered the textarea with the new content value. See componentDidUpdate.
+    _pendingCursorPos: number | null = null;
     widgetIds: any | null | undefined;
 
     underlay = React.createRef<HTMLDivElement>();
@@ -257,6 +262,14 @@ class Editor extends React.Component<Props, State> {
                 textarea.value = this.props.content;
             }
             this.lastUserValue = null;
+        }
+
+        // If a handler (paste, widget insert) requested a specific cursor
+        // position to be applied after the controlled-component re-render,
+        // do that now.
+        if (this._pendingCursorPos != null && textarea) {
+            Util.textarea.moveCursor(textarea, this._pendingCursorPos);
+            this._pendingCursorPos = null;
         }
 
         // This can't be in componentWillReceiveProps because that's happening
@@ -564,20 +577,16 @@ class Editor extends React.Component<Props, State> {
 
             // See componentDidUpdate() for how this flag is used
             this.lastUserValue = this.state.textAreaValue;
-            this.props.onChange(
-                {
-                    content: newContent,
-                    widgets: {
-                        ...safeWidgetData,
-                        ...this.getWidgetsReferencedIn(newContent),
-                    },
+            // After React commits the new content, place the cursor at the end
+            // of what we just pasted in.
+            this._pendingCursorPos = selectionStart + safeText.length;
+            this.props.onChange({
+                content: newContent,
+                widgets: {
+                    ...safeWidgetData,
+                    ...this.getWidgetsReferencedIn(newContent),
                 },
-                () => {
-                    const expectedCursorPosition =
-                        selectionStart + safeText.length;
-                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
-                },
-            );
+            });
         };
 
     _safeWidgetNameMapping: (widgetData: {
@@ -705,24 +714,13 @@ class Editor extends React.Component<Props, State> {
 
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
-        this.props.onChange(
-            {
-                content: newContent,
-                widgets: newWidgets,
-            },
-            () => {
-                if (!this.textarea.current) {
-                    return;
-                }
-
-                Util.textarea.moveCursor(
-                    this.textarea.current,
-                    // We want to put the cursor after the widget
-                    // and after any added newlines
-                    newContent.length - postlude.length,
-                );
-            },
-        );
+        // After React commits the new content, place the cursor after the
+        // newly-inserted widget syntax (and any added newlines).
+        this._pendingCursorPos = newContent.length - postlude.length;
+        this.props.onChange({
+            content: newContent,
+            widgets: newWidgets,
+        });
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
