@@ -78,6 +78,17 @@ type MoveVectorPointAnnouncement = {
     y: number;
 };
 
+// Linear-system endpoint keyboard move. Carries the
+// line index so the announcement can say which of the system's lines moved.
+type MoveLinearSystemPointAnnouncement = {
+    type: "move-linear-system-point";
+    lineIndex: number;
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
 // (index 1) use different labels, chosen by index.
 type MoveRayPointAnnouncement = {
@@ -92,6 +103,14 @@ type MoveRayPointAnnouncement = {
 // announcement can describe the vector between them.
 type MoveVectorLineAnnouncement = {
     type: "move-vector-line";
+    coords: PairOfPoints;
+};
+
+// Whole-line keyboard drag for a linear-system line. Carries the
+// line index and both endpoints so the announcement can describe that line.
+type MoveLinearSystemLineAnnouncement = {
+    type: "move-linear-system-line";
+    lineIndex: number;
     coords: PairOfPoints;
 };
 
@@ -148,6 +167,8 @@ export type InteractiveGraphStateAnnouncement =
     | MoveCenterAnnouncement
     | MoveVectorPointAnnouncement
     | MoveVectorLineAnnouncement
+    | MoveLinearSystemPointAnnouncement
+    | MoveLinearSystemLineAnnouncement
     | MoveRayPointAnnouncement
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
