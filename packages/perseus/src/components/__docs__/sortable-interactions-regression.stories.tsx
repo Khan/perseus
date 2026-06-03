@@ -1,4 +1,4 @@
-import {expect, waitFor, within} from "storybook/test";
+import {expect, fn, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../.storybook/modes";
 import Sortable from "../sortable";
@@ -23,6 +23,7 @@ export const DraggingCard = {
         layout: "horizontal",
         options: ["Apple", "Banana", "Cherry"],
         waitForTexRendererToLoad: false,
+        onMeasure: fn(),
     },
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);

@@ -220,3 +220,61 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 2. **Category fit?** `warning` — **imprecise semantic fit.** A card being dragged is not a warning or cautionary state. The token was chosen by hex proximity only (`#ffedcd` ≈ `#FFECC2` = `fadedGold24`). No `active` or `in-progress` interaction token exists in the current semantic palette. ⚠️ Lower confidence — flagged as a design gap in Step 8.
 3. **Intensity fit?** `default` — `fadedGold24` (a medium gold tint) maps to `background.warning.default`. The token hex value matches the original hex closely. Confident match on intensity given the category choice.
 4. **Namespace fit?** `background` property → `background` namespace. ✅
+
+---
+
+## Step 11 — Visual Check
+
+### Figma Screenshots
+
+No Figma design exists for Sortable (it is a component, not a widget and does not have a page in the Perseus Widgets Figma file). All states are design gaps — no Figma vs. Storybook comparison is possible.
+
+### Story Fix (discovered during this step)
+
+**File:** `packages/perseus/src/components/__docs__/sortable-interactions-regression.stories.tsx`
+
+**Issue:** Storybook 10 requires explicit `fn()` spy declarations for callback props used during `play` functions. The `DraggingCard` story's play function triggers `onMeasure` (called after Sortable measures card dimensions during a drag), causing a "We detected that you use an implicit action arg while playing of your story" error.
+
+**Fix:** Added `fn` to the `storybook/test` import and `onMeasure: fn()` to `DraggingCard.args`.
+
+### Storybook Screenshots
+
+All 4 stories rendered correctly after the fix:
+
+| Story | Result |
+|---|---|
+| `HorizontalLayout` | ✅ White card backgrounds, light gray borders |
+| `VerticalLayout` | ✅ Same treatment, stacked vertically |
+| `DisabledState` | ✅ No borders visible, backgrounds inherit from page |
+| `DraggingCard` | ✅ First card renders with gold/warning background; remaining cards white with border |
+
+**DraggingCard detail:** The `waitFor` confirmed 4 list items (dragging card + placeholder). The dragging card and placeholder share the same visual position (no `mousemove` — only `mousedown` held), so 3 distinct visual positions are shown. The gold background confirms `semanticColor.core.background.warning.default` is resolving correctly.
+
+### Design Gaps (all states — no Figma coverage)
+
+> **Design gap:** `card` (default) — no Figma state found. Tokens chosen from mapping table.
+
+> **Design gap:** `placeholder` — no Figma state found. Token chosen from mapping table.
+
+> **Design gap:** `dragging` — no Figma state found. Token chosen from mapping table (hex proximity to `fadedGold24`).
+
+> **Design gap:** `disabled` — not converted (uses CSS keywords `inherit` and `transparent`, not color values).
+
+### Regression Story Coverage
+
+| Visual state | Converted color(s) | Covered by story |
+|---|---|---|
+| Card default | `background`, `border` | ✅ `HorizontalLayout`, `VerticalLayout` |
+| Placeholder | `background`, `border` | ✅ `DraggingCard` (4th list item) |
+| Dragging | `background` | ✅ `DraggingCard` (gold card) |
+| Disabled | none (CSS keywords, not converted) | ✅ `DisabledState` |
+
+All converted colors are covered by at least one regression story.
+
+---
+
+## Step 12 — Pre-Push Quality Checks — Colors
+
+- `pnpm lint` — PASS
+- `pnpm tsc` — PASS
+- `pnpm test` — PASS (223 passed, 9 snapshots passed)
