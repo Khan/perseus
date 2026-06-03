@@ -50,6 +50,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 
     render(): React.ReactNode {
         return (
+            // eslint-disable-next-line jsx-a11y/no-redundant-roles -- role="list" is intentional: Safari+VoiceOver strips list semantics from <ul> with list-style:none, so explicit role restores them
             <ul
                 // reduntantly add class name for use in .css files--
                 //   the styles object key gets hashed
