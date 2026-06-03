@@ -1,12 +1,8 @@
-import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
 
 import styles from "./radio-editor.module.css";
@@ -14,10 +10,10 @@ import styles from "./radio-editor.module.css";
 // Flexible props to work for both the "add image" tile and
 // the "edit image" accordion cases.
 interface RadioImageEditorProps {
-    initialImageUrl: string;
-    initialImageAltText: string;
-    initialImageWidth?: number;
-    initialImageHeight?: number;
+    imageUrl: string;
+    imageAltText: string;
+    imageWidth?: number;
+    imageHeight?: number;
     containerClassName?: string;
     onSave: (
         imageUrl: string,
@@ -25,97 +21,32 @@ interface RadioImageEditorProps {
         width?: number,
         height?: number,
     ) => void;
-    onClose?: () => void;
-    onDelete?: () => void;
+    onDelete: () => void;
 }
 
 export default function RadioImageEditor({
-    initialImageUrl,
-    initialImageAltText,
-    initialImageWidth,
-    initialImageHeight,
+    imageUrl,
+    imageAltText,
+    imageWidth,
+    imageHeight,
     containerClassName,
     onSave,
-    onClose,
     onDelete,
 }: RadioImageEditorProps): React.ReactElement {
-    const [imageUrl, setImageUrl] = React.useState(initialImageUrl);
-    const [imageAltText, setImageAltText] = React.useState(initialImageAltText);
-    const [imageWidth, setImageWidth] = React.useState(initialImageWidth);
-    const [imageHeight, setImageHeight] = React.useState(initialImageHeight);
-
-    // Keep the image URL and alt text in sync with changes.
-    React.useEffect(() => {
-        setImageUrl(initialImageUrl ?? "");
-        setImageAltText(initialImageAltText ?? "");
-        setImageWidth(initialImageWidth);
-        setImageHeight(initialImageHeight);
-    }, [
-        initialImageUrl,
-        initialImageAltText,
-        initialImageWidth,
-        initialImageHeight,
-    ]);
-
     const uniqueId = React.useId();
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
-    // Fetch image dimensions when URL changes, this will be used for the
-    // proper display of the preview on the left side of the editor
-    React.useEffect(() => {
-        async function fetchDimensions() {
-            if (!imageUrl) {
-                setImageWidth(undefined);
-                setImageHeight(undefined);
-                return;
-            }
-
-            try {
-                const size = await Util.getImageSizeModern(imageUrl);
-                setImageWidth(size[0]);
-                setImageHeight(size[1]);
-            } catch (error) {
-                // If we can't get dimensions, that's okay - the image will
-                // still render, just without responsive sizing
-                setImageWidth(undefined);
-                setImageHeight(undefined);
-            }
-        }
-
-        // Only fetch if URL changed and we don't already have dimensions
-        if (imageUrl !== initialImageUrl) {
-            void fetchDimensions();
-        }
-    }, [imageUrl, initialImageUrl]);
-
-    function handleClose() {
-        setImageUrl("");
-        setImageAltText("");
-        setImageWidth(undefined);
-        setImageHeight(undefined);
-        onClose?.();
+    function handleUrlChange(value: string) {
+        onSave(value, imageAltText, imageWidth, imageHeight);
     }
 
-    function handleSave() {
-        onSave(imageUrl, imageAltText, imageWidth, imageHeight);
-        handleClose();
+    function handleAltTextChange(value: string) {
+        onSave(imageUrl, value, imageWidth, imageHeight);
     }
 
     return (
         <div className={containerClassName}>
-            {/* Close button */}
-            {onClose && (
-                <IconButton
-                    aria-label="Close"
-                    icon={xIcon}
-                    size="small"
-                    kind="tertiary"
-                    onClick={handleClose}
-                    style={{position: "absolute", top: 4, right: 4}}
-                />
-            )}
-
             {/* Image URL textarea */}
             <BodyText
                 size="small"
@@ -131,7 +62,7 @@ export default function RadioImageEditor({
                 value={imageUrl}
                 placeholder="cdn.kastatic.org/..."
                 onChange={(value) => {
-                    setImageUrl(value);
+                    handleUrlChange(value);
                 }}
                 style={{marginBlockEnd: sizing.size_080}}
                 autoResize={true}
@@ -151,38 +82,20 @@ export default function RadioImageEditor({
                 id={imageAltTextTextAreaId}
                 value={imageAltText}
                 placeholder="Example: Graph of a linear function..."
-                onChange={(value) => {
-                    setImageAltText(value);
-                }}
+                onChange={(value) => handleAltTextChange(value)}
                 autoResize={true}
             />
 
             {/* Save and delete buttons */}
             <span className={styles.buttonRow}>
-                {onDelete && (
-                    <Button
-                        size="small"
-                        kind="tertiary"
-                        startIcon={trashIcon}
-                        style={{alignSelf: "flex-start"}}
-                        onClick={onDelete}
-                    >
-                        Delete this image
-                    </Button>
-                )}
-                <Spring />
                 <Button
                     size="small"
-                    disabled={
-                        imageUrl === initialImageUrl &&
-                        imageAltText === initialImageAltText
-                    }
-                    style={{
-                        alignSelf: "flex-start",
-                    }}
-                    onClick={handleSave}
+                    kind="tertiary"
+                    startIcon={trashIcon}
+                    style={{alignSelf: "flex-start"}}
+                    onClick={onDelete}
                 >
-                    Save image
+                    Delete this image
                 </Button>
             </span>
         </div>

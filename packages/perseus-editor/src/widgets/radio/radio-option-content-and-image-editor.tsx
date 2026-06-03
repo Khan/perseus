@@ -10,7 +10,6 @@ import * as React from "react";
 import ImagePreview from "../../components/image-preview";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
-import styles from "./radio-editor.module.css";
 import RadioImageEditor from "./radio-image-editor";
 import {
     setMarkdownContentFromImageProxy,
@@ -49,9 +48,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     const [images, setImages] = React.useState<
         {url: string; altText: string; width?: number; height?: number}[]
     >([]);
-
-    // States for adding an image
-    const [addingImage, setAddingImage] = React.useState(false);
 
     React.useEffect(() => {
         const [proxiedContent, parsedImages] = setImageProxyFromMarkdownContent(
@@ -210,40 +206,17 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
             />
 
             {/* Add image button */}
-            {!addingImage && (
-                <Button
-                    startIcon={plusIcon}
-                    size="small"
-                    kind="tertiary"
-                    style={{alignSelf: "flex-start"}}
-                    onClick={() => {
-                        setAddingImage(true);
-                    }}
-                >
-                    Add image
-                </Button>
-            )}
-
-            {/* "Add image" tile */}
-            {addingImage && (
-                <RadioImageEditor
-                    initialImageUrl=""
-                    initialImageAltText=""
-                    containerClassName={styles.imageEditorContainer}
-                    onSave={(imageUrl, imageAltText, width, height) => {
-                        handleAddImage(
-                            choiceIndex,
-                            imageUrl,
-                            imageAltText,
-                            width,
-                            height,
-                        );
-                    }}
-                    onClose={() => {
-                        setAddingImage(false);
-                    }}
-                />
-            )}
+            <Button
+                startIcon={plusIcon}
+                size="small"
+                kind="tertiary"
+                style={{alignSelf: "flex-start"}}
+                onClick={() => {
+                    handleAddImage(choiceIndex, "", "", undefined, undefined);
+                }}
+            >
+                Add image
+            </Button>
 
             {/* Image editor accordions */}
             {images?.map((image, imageIndex) => (
@@ -263,23 +236,34 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                         paddingBlockEnd: sizing.size_120,
                     }}
                 >
-                    <LabeledField
-                        label="Preview"
-                        field={
-                            <ImagePreview
-                                src={image.url}
-                                alt={`Preview: ${image.altText ?? "No alt text"}`}
-                                width={image.width}
-                                height={image.height}
-                            />
-                        }
-                    />
+                    {image.url ? (
+                        <LabeledField
+                            label="Preview"
+                            field={
+                                <ImagePreview
+                                    src={image.url}
+                                    alt={`Preview: ${image.altText ?? "No alt text"}`}
+                                    width={image.width}
+                                    height={image.height}
+                                />
+                            }
+                        />
+                    ) : (
+                        <BodyText
+                            style={{
+                                color: semanticColor.core.foreground.critical
+                                    .default,
+                            }}
+                        >
+                            Missing image URL
+                        </BodyText>
+                    )}
                     <div style={{marginTop: sizing.size_160}}>
                         <RadioImageEditor
-                            initialImageUrl={image.url}
-                            initialImageAltText={image.altText}
-                            initialImageWidth={image.width}
-                            initialImageHeight={image.height}
+                            imageUrl={image.url}
+                            imageAltText={image.altText}
+                            imageWidth={image.width}
+                            imageHeight={image.height}
                             onSave={(imageUrl, imageAltText, width, height) => {
                                 handleUpdateImage(
                                     imageIndex,
