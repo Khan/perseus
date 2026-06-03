@@ -300,6 +300,9 @@ importers:
       cypress-wait-until:
         specifier: ^3.0.1
         version: 3.0.1
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
