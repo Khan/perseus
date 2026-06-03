@@ -1,5 +1,9 @@
 import * as React from "react";
-import {Button, TooltipLinkList, WithTooltip} from "storybook/internal/components";
+import {
+    Button,
+    TooltipLinkList,
+    WithTooltip,
+} from "storybook/internal/components";
 import {useGlobals} from "storybook/manager-api";
 
 import PerseusFeatureFlags from "../packages/perseus-core/src/feature-flags";
@@ -23,7 +27,6 @@ export function FeatureFlagsToolbar() {
             title: (
                 <span style={{display: "flex", alignItems: "center", gap: 6}}>
                     <span
-                        aria-hidden="true"
                         style={{
                             width: 14,
                             textAlign: "center",
