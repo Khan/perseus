@@ -1,6 +1,7 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
-import {expressionRendererDecorator} from "../../__testutils__/expression-renderer-decorator";
+
+import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -54,8 +55,7 @@ export const WithVisibleLabel: Story = {
 };
 
 // Verifies the mobile input (KeypadInputWithInterface / KeypadInput) renders
-// correctly — captures the hardcoded white background and neutral border that
-// need color token migration
+// correctly in the mobile keypad context — background and border use semantic tokens
 export const MobileInputDefault: Story = {
     decorators: [expressionRendererDecorator],
     args: {

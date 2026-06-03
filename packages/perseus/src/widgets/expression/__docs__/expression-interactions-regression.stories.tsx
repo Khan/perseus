@@ -2,7 +2,8 @@ import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {getWidget} from "../../../widgets";
-import {expressionRendererDecorator} from "../../__testutils__/expression-renderer-decorator";
+
+import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -28,6 +29,11 @@ export default meta;
 
 type Story = StoryObj<typeof ExpressionWidget>;
 
+async function openKeypad(canvas: any, userEvent: any) {
+    const openButton = canvas.getByRole("button", {name: "open math keypad"});
+    await userEvent.click(openButton);
+}
+
 // Args shared across all keypad tab stories — configures all four tabs:
 // Numbers (always), Operators (prealgebra/logarithms), Geometry (trig),
 // Extras (extraKeys)
@@ -50,9 +56,9 @@ export const FocusedInput: Story = {
         times: false,
         extraKeys: [],
     } satisfies Partial<PerseusExpressionWidgetOptions>,
-    play: async ({canvas}) => {
+    play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
-        mathInput.focus();
+        await userEvent.click(mathInput);
     },
 };
 
@@ -62,10 +68,7 @@ export const KeypadOpenNumbersTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.click(openButton);
+        await openKeypad(canvas, userEvent);
     },
 };
 
@@ -75,10 +78,7 @@ export const KeypadOpenOperatorsTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.click(openButton);
+        await openKeypad(canvas, userEvent);
 
         // The keypad popout renders into a React portal outside the canvas
         const operatorsTab = within(document.body).getByLabelText("Operators");
@@ -92,10 +92,7 @@ export const KeypadOpenGeometryTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.click(openButton);
+        await openKeypad(canvas, userEvent);
 
         // The keypad popout renders into a React portal outside the canvas
         const geometryTab = within(document.body).getByLabelText("Geometry");
@@ -109,10 +106,7 @@ export const KeypadOpenExtrasTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.click(openButton);
+        await openKeypad(canvas, userEvent);
 
         // The keypad popout renders into a React portal outside the canvas
         const extrasTab = within(document.body).getByLabelText("Extras");

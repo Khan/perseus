@@ -5,9 +5,23 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "./question-renderer-for-stories";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-export const expressionRendererDecorator = (_, {args, parameters}) => {
+import type {APIOptions} from "../../../types";
+
+export const expressionRendererDecorator = (
+    _,
+    {
+        args,
+        parameters,
+    }: {
+        args: Record<string, unknown>;
+        parameters?: {
+            content?: string;
+            apiOptions?: APIOptions;
+        };
+    },
+) => {
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
