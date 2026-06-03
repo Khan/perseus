@@ -68,6 +68,12 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
                     point2AriaLabel: buildLabel(1, line[1]),
                 }}
                 ariaDescribedBy={`${interceptDescriptionId} ${slopeDescriptionId}`}
+                // The linear graph's move announcements come from the WB
+                // Announcer via stateAnnouncement; disable aria-live here to
+                // avoid the focusable handles double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
+                // from MovableLine / useControlPoint.
+                ariaLive="off"
                 points={line}
                 onMoveLine={(newStart) => {
                     dispatch(actions.linear.moveLine(newStart));

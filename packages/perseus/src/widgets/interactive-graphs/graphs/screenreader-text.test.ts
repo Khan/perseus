@@ -411,6 +411,26 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-linear-line", () => {
+        it("returns the grab-handle label for a move-linear-line announcement", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-linear-line",
+                    coords: [
+                        [-3, 3],
+                        [-1, 5],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Line going through point -3 comma 3 and point -1 comma 5.",
+            );
+        });
+    });
+
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
         expect(() =>
             getAnnouncementText(
