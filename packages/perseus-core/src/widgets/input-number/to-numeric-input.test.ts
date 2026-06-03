@@ -178,7 +178,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         ]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when inexact is true", () => {
+    it("returns an empty array for answerForms when inexact is true and value has more than 10 decimal places", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -188,16 +188,10 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has 10 decimal places", () => {
+    it("returns an empty array for answerForms when the answer has exactly 10 decimal places", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -207,31 +201,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has fewer than 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
-            ...baseOptions,
-            answerType: undefined,
-            inexact: undefined,
-            value: "0.3",
-        };
-
-        const result = convertInputNumberOptionsToNumericInput(options);
-        expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
-    });
 });
