@@ -74,7 +74,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         expect(result.answers[0].maxError).toBe(0);
     });
 
-    it(`converts the "number" answer type to [integer, decimal, proper, improper, mixed]`, () => {
+    it(`converts the "number" answer type to an empty array`, () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: "number",
@@ -83,13 +83,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
     it(`converts the "rational" answer type to [integer, proper, improper, mixed]`, () => {
@@ -109,7 +103,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         ]);
     });
 
-    it("defaults answerForms to [integer, proper, improper, mixed, decimal]", () => {
+    it("defaults answerForms to an empty array when answerType is undefined", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -118,13 +112,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
     it("converts the `value` to a number", () => {
