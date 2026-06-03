@@ -254,7 +254,7 @@ class MathInput extends React.Component<Props, State> {
         this._root.style.padding =
             `${padding.paddingTop}px ${padding.paddingRight}px` +
             ` ${padding.paddingBottom}px ${padding.paddingLeft}px`;
-        // TODO: When Aphrodite is removed, evaluate whether this can be
+        // TODO(LEMS-4238): When Aphrodite is removed, evaluate whether this can be
         // expressed as a font token instead of a raw imperative DOM style.
         this._root.style.fontSize = `${fontSizePt}pt`;
     };
