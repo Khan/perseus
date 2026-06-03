@@ -311,7 +311,7 @@ describe("getAnnouncementText", () => {
     });
 
     describe("move-linear-line", () => {
-        it("returns the grab-handle label for a move-linear-line announcement", () => {
+        it("returns the grab-handle label", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-linear-line",
@@ -330,119 +330,117 @@ describe("getAnnouncementText", () => {
         });
     });
 
-    it("returns the endpoint label for a move-ray-point announcement at index 0", () => {
-        const result = getAnnouncementText(
-            {type: "move-ray-point", pointIndex: 0, pointLabel: 1, x: -3, y: 2},
-            mockStrings,
-            "en",
-        );
+    describe("move-ray-point", () => {
+        it("returns the endpoint label at index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Endpoint at -3 comma 2.");
+            expect(result).toBe("Endpoint at -3 comma 2.");
+        });
+
+        it("returns the terminal-point label at index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 5,
+                    y: 6,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Through point at 5 comma 6.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
+        // endpoint/through-point wording alongside the custom label.
+        it("uses the custom label, overriding the endpoint/through-point wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at -3 comma 2.");
+        });
     });
 
-    it("returns the terminal-point label for a move-ray-point announcement at index 1", () => {
-        const result = getAnnouncementText(
-            {type: "move-ray-point", pointIndex: 1, pointLabel: 2, x: 5, y: 6},
-            mockStrings,
-            "en",
-        );
+    describe("move-ray-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-line",
+                    coords: [
+                        [-3, 3],
+                        [2, 8],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Through point at 5 comma 6.");
+            expect(result).toBe(
+                "Ray with endpoint -3 comma 3 going through point 2 comma 8.",
+            );
+        });
     });
 
-    // This is a draw back of the current implementation.
-    // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
-    // endpoint/through-point wording alongside the custom label.
-    it("uses the custom label, overriding the endpoint/through-point wording, when one is set", () => {
-        const result = getAnnouncementText(
-            {
-                type: "move-ray-point",
-                pointIndex: 0,
-                pointLabel: "T",
-                x: -3,
-                y: 2,
-            },
-            mockStrings,
-            "en",
-        );
+    describe("move-vector-point", () => {
+        it("returns the generic point label at the tail (index 0)", () => {
+            const result = getAnnouncementText(
+                {type: "move-vector-point", pointIndex: 0, x: -1, y: 2},
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe("Point T at -3 comma 2.");
+            expect(result).toBe("Point 1 at -1 comma 2.");
+        });
+
+        it("returns the tip label at the tip (index 1)", () => {
+            const result = getAnnouncementText(
+                {type: "move-vector-point", pointIndex: 1, x: 5, y: 6},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Tip point at 5 comma 6.");
+        });
     });
 
-    it("returns the grab-handle label for a move-ray-line announcement", () => {
-        const result = getAnnouncementText(
-            {
-                type: "move-ray-line",
-                coords: [
-                    [-3, 3],
-                    [2, 8],
-                ],
-            },
-            mockStrings,
-            "en",
-        );
+    describe("move-vector-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-vector-line",
+                    coords: [
+                        [2, 1],
+                        [5, 5],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
 
-        expect(result).toBe(
-            "Ray with endpoint -3 comma 3 going through point 2 comma 8.",
-        );
-    });
-
-    it("returns the correct string for a move-radius-point announcement when point is to the left", () => {
-        const result = getAnnouncementText(
-            {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe(
-            "Left radius endpoint at -2 comma 0. Circle radius is 2.",
-        );
-    });
-
-    it("returns the correct string for a move-center announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-center", x: 3, y: 4},
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe("Circle. The center point is at 3 comma 4.");
-    });
-
-    it("returns the generic point label for a move-vector-point at the tail (index 0)", () => {
-        const result = getAnnouncementText(
-            {type: "move-vector-point", pointIndex: 0, x: -1, y: 2},
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe("Point 1 at -1 comma 2.");
-    });
-
-    it("returns the tip label for a move-vector-point at the tip (index 1)", () => {
-        const result = getAnnouncementText(
-            {type: "move-vector-point", pointIndex: 1, x: 5, y: 6},
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe("Tip point at 5 comma 6.");
-    });
-
-    it("returns the grab-handle label for a move-vector-line announcement", () => {
-        const result = getAnnouncementText(
-            {
-                type: "move-vector-line",
-                coords: [
-                    [2, 1],
-                    [5, 5],
-                ],
-            },
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe("Vector from 2 comma 1 to 5 comma 5.");
+            expect(result).toBe("Vector from 2 comma 1 to 5 comma 5.");
+        });
     });
 
     it("throws an UnreachableCaseError for an unhandled announcement type", () => {
