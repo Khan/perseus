@@ -779,6 +779,10 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-quadratic-point",
                     pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
                     x: boundDestination[X],
                     y: boundDestination[Y],
                     vertex,

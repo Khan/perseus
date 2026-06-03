@@ -319,6 +319,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
+                    pointLabel: 1,
                     x: -2,
                     y: 4,
                     vertex: [1, -1],
@@ -337,6 +338,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 1,
+                    pointLabel: 2,
                     x: 3,
                     y: 0,
                     vertex: [0, 0],
@@ -355,6 +357,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 2,
+                    pointLabel: 3,
                     x: 0,
                     y: 0,
                     vertex: [0, 2],
@@ -373,6 +376,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
+                    pointLabel: 1,
                     x: -2,
                     y: -2,
                     vertex: undefined,
@@ -384,6 +388,26 @@ describe("getAnnouncementText", () => {
             expect(result).toBe(
                 "Point 1 on parabola in quadrant 3 at -2 comma -2.",
             );
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): Allow custom labels for quadratic points so we
+        // can keep the quadrant/vertex wording alongside the custom label.
+        it("uses the custom label, overriding the quadrant/vertex wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-quadratic-point",
+                    pointIndex: 0,
+                    pointLabel: "A",
+                    x: -2,
+                    y: 4,
+                    vertex: [1, -1],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point A at -2 comma 4.");
         });
     });
 

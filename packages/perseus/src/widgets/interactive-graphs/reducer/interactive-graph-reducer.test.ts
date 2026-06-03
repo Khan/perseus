@@ -1471,6 +1471,46 @@ describe("movePoint on a quadratic graph", () => {
         invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
         expect(updated.stateAnnouncement.vertex).toBeUndefined();
     });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["A", "B", "C"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.quadratic.movePoint(0, [-2, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("A");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B", "C"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.quadratic.movePoint(0, [-2, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
 });
 
 describe("doChangeSnapStep", () => {

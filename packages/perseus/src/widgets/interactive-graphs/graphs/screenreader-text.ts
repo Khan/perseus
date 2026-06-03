@@ -43,6 +43,7 @@ export function getAnnouncementText(
 function srQuadraticPointLabel(
     state: {
         pointIndex: number;
+        pointLabel: string | number;
         x: number;
         y: number;
         vertex?: Coord;
@@ -50,6 +51,17 @@ function srQuadraticPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
+    // A custom author label overrides the quadrant/vertex semantics, matching
+    // the static aria-label behavior in quadratic.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({
+            num: state.pointLabel,
+            x: srFormatNumber(state.x, locale),
+            y: srFormatNumber(state.y, locale),
+        });
+    }
     const pointString = getQuadraticPointString(
         state.pointIndex + 1,
         [state.x, state.y],

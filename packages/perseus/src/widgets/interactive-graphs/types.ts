@@ -77,6 +77,7 @@ type MoveCenterAnnouncement = {
 type MoveQuadraticPointAnnouncement = {
     type: "move-quadratic-point";
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
     vertex: Coord | undefined;
