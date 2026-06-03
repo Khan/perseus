@@ -956,7 +956,7 @@ const styles = StyleSheet.create({
     },
 
     dragging: {
-        background: semanticColor.core.background.warning.default,
+        background: semanticColor.core.background.warning.subtle,
         opacity: 0.8,
     },
 
