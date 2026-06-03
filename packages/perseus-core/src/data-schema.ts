@@ -1828,6 +1828,10 @@ export type PerseusRadioChoice = {
 /** Options for the sorter widget. Cards to arrange into the correct order. */
 export type PerseusSorterWidgetOptions = {
     /**
+     * Test Change
+     */
+    name: string;
+    /**
      * Translatable Text; The correct answer (in the correct order). The user
      * will see the cards in a randomized order.
      */
