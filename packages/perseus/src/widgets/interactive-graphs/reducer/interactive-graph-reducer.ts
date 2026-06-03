@@ -292,29 +292,29 @@ function doMovePointInFigure(
                 return state;
             }
 
+            // pointLabels is a flat array across all lines/segments, indexed
+            // by figureIndex * 2 + pointIndex (matching the render side).
+            const sharedAnnouncement = {
+                pointIndex: action.pointIndex,
+                pointLabel: resolvePointLabel(
+                    state.pointLabels,
+                    action.figureIndex * 2 + action.pointIndex,
+                ),
+                x: newValue[X],
+                y: newValue[Y],
+            };
             const stateAnnouncement: InteractiveGraphStateAnnouncement =
                 state.type === "segment"
                     ? {
                           type: "move-segment-point",
                           segmentIndex: action.figureIndex,
-                          pointIndex: action.pointIndex,
-                          x: newValue[X],
-                          y: newValue[Y],
                           totalSegments: state.coords.length,
+                          ...sharedAnnouncement,
                       }
                     : {
                           type: "move-linear-system-point",
                           lineIndex: action.figureIndex,
-                          pointIndex: action.pointIndex,
-                          // pointLabels is a flat array across both lines,
-                          // indexed by lineIndex * 2 + pointIndex (matching
-                          // linear-system.tsx).
-                          pointLabel: resolvePointLabel(
-                              state.pointLabels,
-                              action.figureIndex * 2 + action.pointIndex,
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
+                          ...sharedAnnouncement,
                       };
 
             return {

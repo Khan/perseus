@@ -156,6 +156,7 @@ function srSegmentPointLabel(
     state: {
         segmentIndex: number;
         pointIndex: number;
+        pointLabel: string | number;
         totalSegments: number;
         x: number;
         y: number;
@@ -165,6 +166,13 @@ function srSegmentPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the endpoint semantics, matching
+    // the static aria-label behavior in segment.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
     // Single- vs multi-segment graphs use different endpoint labels.
     return state.totalSegments === 1
         ? strings.srSingleSegmentGraphEndpointAriaLabel({

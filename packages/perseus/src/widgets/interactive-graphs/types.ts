@@ -76,6 +76,7 @@ type MoveSegmentPointAnnouncement = {
     type: "move-segment-point";
     segmentIndex: number;
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
     totalSegments: number;

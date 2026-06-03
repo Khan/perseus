@@ -501,10 +501,65 @@ describe("movePointInFigure", () => {
             type: "move-segment-point",
             segmentIndex: 1,
             pointIndex: 0,
+            // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
+            pointLabel: 3,
             x: -3,
             y: 2,
             totalSegments: 2,
         });
+    });
+
+    it("carries the custom pointLabel from the flattened index when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            // Flat across both segments: [seg0pt0, seg0pt1, seg1pt0, seg1pt1].
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        // Move segment 0, point 1 → flat index 0 * 2 + 1 = 1 → "B".
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("B");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            pointLabels: ["A", "", "C", "D"],
+        };
+
+        // Move segment 0, point 1 → flat index 1, which is empty → default.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(2);
     });
 
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
