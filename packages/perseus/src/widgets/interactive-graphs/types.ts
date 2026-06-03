@@ -74,6 +74,8 @@ type MoveCenterAnnouncement = {
 type MoveVectorPointAnnouncement = {
     type: "move-vector-point";
     pointIndex: number;
+    x: number;
+    y: number;
 };
 
 // Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
