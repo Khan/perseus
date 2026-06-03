@@ -1082,6 +1082,7 @@ export type LockedPolygonType = {
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     weight: StrokeWeight;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

@@ -48,7 +48,7 @@ describe("resolveIndicators", () => {
         // Arrange, Act
         const targets = resolveIndicators(3, 3);
 
-        // Assert: selection wins; never two indicators on one figure.
+        // Assert
         expect(targets).toEqual([{figureIndex: 3, variant: "selection"}]);
     });
 });

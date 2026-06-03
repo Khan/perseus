@@ -98,12 +98,7 @@ export type MafsGraphProps = {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     onLockedFigureSelectionChange?: (index: number | null) => void;
-    /**
-     * Host-driven spotlight: the index of a locked figure the host wants
-     * called out, or null/undefined for none. This is a controlled input
-     * (host → widget), the inverse of the selection callback. It is not part
-     * of locked-figure content and is never serialized.
-     */
+    // Host-driven spotlight: index of a locked figure to call out, or null.
     spotlightedLockedFigureIndex?: number | null;
     readOnly: boolean;
     static: boolean | null | undefined;
@@ -145,12 +140,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const disableInteraction = readOnly || !!props.static;
     const lockedFigureSelectionEnabled =
         state.type === "none" && !disableInteraction;
-    // The selection is a positional index into `props.lockedFigures`. It stays
-    // valid if the locked figures don't change, or if the locked figures only
-    // get appended to. If figures are ever removed or reordered, this index can
-    // silently point at the wrong figure (or nothing) without re-notifying the
-    // host, and we would need to reconcile it against the list (or give figures
-    // stable IDs).
+    // Positional index into props.lockedFigures; not reconciled if the array changes.
     const [selectedLockedFigureIndex, setSelectedLockedFigureIndex] =
         React.useState<number | null>(null);
     const lastNotifiedSelectionRef = React.useRef<number | null>(null);
@@ -445,13 +435,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                             lockedFigures={props.lockedFigures}
                                             range={state.range}
                                         />
-                                        {/*
-                                          Indicators for both channels. The
-                                          spotlight (host-driven) has no
-                                          interaction, so it renders for any
-                                          graph type; selection only feeds in
-                                          when selection is enabled.
-                                        */}
+                                        {/* Indicators for selection and host spotlight. */}
                                         <GraphLockedFigureIndicatorLayer
                                             lockedFigures={props.lockedFigures}
                                             selectedFigureIndex={

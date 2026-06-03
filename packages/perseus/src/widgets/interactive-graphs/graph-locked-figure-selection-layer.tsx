@@ -6,21 +6,14 @@ import {X, Y} from "./math";
 import {TARGET_SIZE} from "./utils";
 
 import type {
+    Coord,
     LockedFigure,
     LockedLineType,
     LockedPointType,
+    LockedPolygonType,
 } from "@khanacademy/perseus-core";
 
-/**
- * Which channel is asking for an indicator to be drawn. This is *only* a
- * styling token handed to the dumb indicator primitives below — they render
- * the matching appearance without knowing why they're being drawn. The
- * channel semantics (which figure, precedence, when to show) live entirely in
- * `resolveIndicators` and the callers, not in the primitives.
- *
- * - `selection`: the user has selected this figure (widget → host output).
- * - `spotlight`: the host is calling this figure out (host → widget input).
- */
+// Styling token for an indicator: user selection vs. host spotlight.
 type IndicatorVariant = "selection" | "spotlight";
 
 type IndicatorTarget = {figureIndex: number; variant: IndicatorVariant};
@@ -36,16 +29,7 @@ type HitTargetLayerProps = {
     onToggle: (figureIndex: number) => void;
 };
 
-/**
- * Resolve the two channel inputs into the indicators to draw.
- *
- * Cardinality: at most one indicator per channel, so the result holds zero,
- * one, or two targets.
- *
- * Precedence: when the same figure is both selected and spotlighted, selection
- * wins and the spotlight is suppressed — we never stack two indicators on a
- * single figure. (Two different figures can each show their own indicator.)
- */
+// At most one indicator per channel; selection wins when a figure is both.
 export function resolveIndicators(
     selectedFigureIndex: number | null,
     spotlightedFigureIndex: number | null | undefined,
@@ -69,12 +53,7 @@ export function resolveIndicators(
     return targets;
 }
 
-/**
- * Draws the selection and/or spotlight indicators. This layer owns the channel
- * semantics; it picks figures via `resolveIndicators` and dispatches on figure
- * *shape* (point vs. segment) to the appropriate indicator primitive, handing
- * each one the variant for styling.
- */
+// Draws the selection and/or spotlight indicators, dispatching on figure shape.
 export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
     const {lockedFigures, selectedFigureIndex, spotlightedFigureIndex} = props;
 
@@ -84,10 +63,7 @@ export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
                 ({figureIndex, variant}) => {
                     const figure = lockedFigures[figureIndex];
 
-                    // The index may be stale (figure removed) or name a figure
-                    // shape the indicator can't draw yet. Drawability is gated on
-                    // *shape*, not on whether the figure is user-selectable: the
-                    // host may spotlight any figure.
+                    // May be stale, or a shape with no indicator.
                     if (figure == null) {
                         return null;
                     }
@@ -109,6 +85,15 @@ export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
                             />
                         );
                     }
+                    if (figure.type === "polygon") {
+                        return (
+                            <LockedPolygonIndicator
+                                key={`locked-figure-indicator-${figureIndex}`}
+                                figure={figure}
+                                variant={variant}
+                            />
+                        );
+                    }
                     return null;
                 },
             )}
@@ -119,10 +104,24 @@ export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
 export function GraphLockedFigureHitTargetLayer(props: HitTargetLayerProps) {
     const {lockedFigures, onToggle} = props;
 
-    // Hit-priority order (§6): line segments are rendered first so points
-    // (rendered last) paint on top and win clicks at a shared vertex.
+    // Paint polygons, then segments, then points, so smaller targets win
+    // clicks at a shared spot.
     return (
         <g aria-hidden={true}>
+            {lockedFigures.map((figure, index) => {
+                if (figure.type !== "polygon" || !figure.selectable) {
+                    return null;
+                }
+
+                return (
+                    <LockedPolygonHitTarget
+                        key={`locked-polygon-hit-target-${index}`}
+                        figure={figure}
+                        figureIndex={index}
+                        onToggle={onToggle}
+                    />
+                );
+            })}
             {lockedFigures.map((figure, index) => {
                 if (
                     figure.type !== "line" ||
@@ -159,11 +158,38 @@ export function GraphLockedFigureHitTargetLayer(props: HitTargetLayerProps) {
     );
 }
 
+// Phosphor "pencil-bold" glyph (viewBox 0 0 256 256); writing tip at ~(28, 228).
+const PENCIL_PATH =
+    "M230.14,70.54,185.46,25.85a20,20,0,0,0-28.29,0L33.86,149.17A19.85,19.85,0,0,0,28,163.31V208a20,20,0,0,0,20,20H92.69a19.86,19.86,0,0,0,14.14-5.86L230.14,98.82a20,20,0,0,0,0-28.28ZM93,180l71-71,11,11-71,71ZM76,163,65,152l71-71,11,11ZM52,173l15.51,15.51h0L83,204H52ZM192,103,153,64l18.34-18.34,39,39Z";
+const PENCIL_TIP_X = 28;
+const PENCIL_TIP_Y = 228;
+const PENCIL_SCALE = 0.12; // 256 * 0.12 ≈ 31px tall
+const PENCIL_GAP = 8; // px gap between tip and target
+// Khanmigo brand color; no Wonder Blocks token resolves to it.
+const PENCIL_COLOR = "#5753FA";
+
+// The Khanmigo pencil, tip pointing just off (x, y) in pixel space.
+function SpotlightPencil(props: {x: number; y: number}) {
+    return (
+        <g
+            transform={`translate(${props.x + PENCIL_GAP}, ${props.y - PENCIL_GAP}) scale(${PENCIL_SCALE}) translate(${-PENCIL_TIP_X}, ${-PENCIL_TIP_Y})`}
+            style={{fill: PENCIL_COLOR}}
+        >
+            <path d={PENCIL_PATH} />
+        </g>
+    );
+}
+
 function LockedPointIndicator(props: {
     figure: LockedPointType;
     variant: IndicatorVariant;
 }) {
     const [[x, y]] = useTransformVectorsToPixels(props.figure.coord);
+    const isSpotlight = props.variant === "spotlight";
+    // Spotlight uses the fixed brand color; selection uses the figure's color.
+    const markColor = isSpotlight
+        ? PENCIL_COLOR
+        : lockedFigureColors[props.figure.color];
 
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
@@ -172,8 +198,9 @@ function LockedPointIndicator(props: {
                 cx={x}
                 cy={y}
                 r={TARGET_SIZE / 3}
-                style={{fill: lockedFigureColors[props.figure.color]}}
+                style={{fill: markColor}}
             />
+            {isSpotlight && <SpotlightPencil x={x} y={y} />}
         </g>
     );
 }
@@ -187,6 +214,11 @@ function LockedLineSegmentIndicator(props: {
         points[0].coord,
         points[1].coord,
     );
+    const isSpotlight = props.variant === "spotlight";
+    const markColor = isSpotlight ? PENCIL_COLOR : lockedFigureColors[color];
+    // Point the pencil at the segment's midpoint.
+    const midX = (start[X] + end[X]) / 2;
+    const midY = (start[Y] + end[Y]) / 2;
 
     return (
         <g aria-hidden={true} style={{pointerEvents: "none"}}>
@@ -196,8 +228,61 @@ function LockedLineSegmentIndicator(props: {
                 y1={start[Y]}
                 x2={end[X]}
                 y2={end[Y]}
-                style={{stroke: lockedFigureColors[color]}}
+                style={{stroke: markColor}}
             />
+            {isSpotlight && <SpotlightPencil x={midX} y={midY} />}
+        </g>
+    );
+}
+
+// Edges of a closed polygon (last wraps to first).
+function polygonEdges(
+    points: ReadonlyArray<Coord>,
+): ReadonlyArray<[Coord, Coord]> {
+    return points.map((start, index) => [
+        start,
+        points[(index + 1) % points.length],
+    ]);
+}
+
+// Topmost vertex, rightmost on ties.
+function pencilAnchorVertex(points: ReadonlyArray<Coord>): Coord {
+    return points.reduce((best, point) => {
+        if (point[Y] < best[Y]) {
+            return point;
+        }
+        if (point[Y] === best[Y] && point[X] > best[X]) {
+            return point;
+        }
+        return best;
+    });
+}
+
+function LockedPolygonIndicator(props: {
+    figure: LockedPolygonType;
+    variant: IndicatorVariant;
+}) {
+    const {points, color} = props.figure;
+    const pixelPoints = useTransformVectorsToPixels(...points);
+    const isSpotlight = props.variant === "spotlight";
+    const markColor = isSpotlight ? PENCIL_COLOR : lockedFigureColors[color];
+    const anchor = pencilAnchorVertex(pixelPoints);
+
+    return (
+        <g aria-hidden={true} style={{pointerEvents: "none"}}>
+            {polygonEdges(pixelPoints).map(([start, end], index) => (
+                // One <line> per side.
+                <line
+                    key={`locked-polygon-indicator-side-${index}`}
+                    className={`locked-line-indicator locked-line-indicator--${props.variant}`}
+                    x1={start[X]}
+                    y1={start[Y]}
+                    x2={end[X]}
+                    y2={end[Y]}
+                    style={{stroke: markColor}}
+                />
+            ))}
+            {isSpotlight && <SpotlightPencil x={anchor[X]} y={anchor[Y]} />}
         </g>
     );
 }
@@ -257,6 +342,37 @@ function LockedLineSegmentHitTarget(props: {
                 stroke: "transparent",
                 strokeWidth: TARGET_SIZE,
                 strokeLinecap: "round",
+                pointerEvents: "all",
+            }}
+        />
+    );
+}
+
+function LockedPolygonHitTarget(props: {
+    figure: LockedPolygonType;
+    figureIndex: number;
+    onToggle: (figureIndex: number) => void;
+}) {
+    const {points} = props.figure;
+    const pixelPoints = useTransformVectorsToPixels(...points);
+
+    // The whole interior is the hit target.
+    const pointsAttr = pixelPoints
+        .map((point) => `${point[X]},${point[Y]}`)
+        .join(" ");
+
+    return (
+        <polygon
+            aria-hidden={true}
+            className="locked-polygon-hit-target"
+            points={pointsAttr}
+            onClick={(event) => {
+                event.stopPropagation();
+                props.onToggle(props.figureIndex);
+            }}
+            style={{
+                cursor: "pointer",
+                fill: "transparent",
                 pointerEvents: "all",
             }}
         />
