@@ -561,9 +561,80 @@ describe("movePointInFigure", () => {
             type: "move-linear-system-point",
             lineIndex: 1,
             pointIndex: 0,
+            // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
+            pointLabel: 3,
             x: -3,
             y: 2,
         });
+    });
+
+    it("carries the custom pointLabel from the flattened index when one is set", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            // Flat across both lines: [line0pt0, line0pt1, line1pt0, line1pt1].
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        // Move line 0, point 1 → flat index 0 * 2 + 1 = 1 → "B".
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-linear-system-point",
+        );
+        expect(updated.stateAnnouncement.pointLabel).toBe("B");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear-system",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            pointLabels: ["A", "", "C", "D"],
+        };
+
+        // Move line 0, point 1 → flat index 1, which is empty → default.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linearSystem.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-linear-system-point",
+        );
+        expect(updated.stateAnnouncement.pointLabel).toBe(2);
     });
 
     it("allows linear points to land on the graph edge", () => {

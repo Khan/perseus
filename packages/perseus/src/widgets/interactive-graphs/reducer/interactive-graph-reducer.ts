@@ -322,6 +322,12 @@ function doMovePointInFigure(
                     type: "move-linear-system-point",
                     lineIndex: action.figureIndex,
                     pointIndex: action.pointIndex,
+                    // pointLabels is a flat array across both lines, indexed by
+                    // lineIndex * 2 + pointIndex (matching linear-system.tsx).
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.figureIndex * 2 + action.pointIndex,
+                    ),
                     x: newValue[X],
                     y: newValue[Y],
                 },

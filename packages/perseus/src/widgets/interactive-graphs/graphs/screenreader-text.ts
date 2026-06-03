@@ -22,12 +22,7 @@ export function getAnnouncementText(
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         case "move-linear-system-point":
-            return strings.srLinearSystemPoint({
-                lineNumber: state.lineIndex + 1,
-                pointSequence: state.pointIndex + 1,
-                x: srFormatNumber(state.x, locale),
-                y: srFormatNumber(state.y, locale),
-            });
+            return srLinearSystemPointLabel(state, strings, locale);
         case "move-linear-system-line":
             return strings.srLinearSystemGrabHandle({
                 lineNumber: state.lineIndex + 1,
@@ -140,6 +135,34 @@ function srAnglePointLabel(
         default:
             return strings.srAngleStartingSide({x, y});
     }
+}
+
+function srLinearSystemPointLabel(
+    state: {
+        lineIndex: number;
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the line/point semantics, matching
+    // the static aria-label behavior in linear-system.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    return strings.srLinearSystemPoint({
+        lineNumber: state.lineIndex + 1,
+        pointSequence: state.pointIndex + 1,
+        x,
+        y,
+    });
 }
 
 function srPolygonLabel(

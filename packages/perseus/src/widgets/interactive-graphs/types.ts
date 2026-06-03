@@ -75,6 +75,7 @@ type MoveLinearSystemPointAnnouncement = {
     type: "move-linear-system-point";
     lineIndex: number;
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
 };
