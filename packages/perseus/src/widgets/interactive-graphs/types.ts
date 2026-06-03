@@ -69,11 +69,12 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
-// Ray endpoint keyboard move. The endpoint (index 0)
-// and the terminal point (index 1) use different labels, chosen by index.
+// Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
+// (index 1) use different labels, chosen by index.
 type MoveRayPointAnnouncement = {
     type: "move-ray-point";
     pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
 };

@@ -332,7 +332,7 @@ describe("getAnnouncementText", () => {
 
     it("returns the endpoint label for a move-ray-point announcement at index 0", () => {
         const result = getAnnouncementText(
-            {type: "move-ray-point", pointIndex: 0, x: -3, y: 2},
+            {type: "move-ray-point", pointIndex: 0, pointLabel: 1, x: -3, y: 2},
             mockStrings,
             "en",
         );
@@ -342,12 +342,31 @@ describe("getAnnouncementText", () => {
 
     it("returns the terminal-point label for a move-ray-point announcement at index 1", () => {
         const result = getAnnouncementText(
-            {type: "move-ray-point", pointIndex: 1, x: 5, y: 6},
+            {type: "move-ray-point", pointIndex: 1, pointLabel: 2, x: 5, y: 6},
             mockStrings,
             "en",
         );
 
         expect(result).toBe("Through point at 5 comma 6.");
+    });
+
+    // This is a draw back of the current implementation.
+    // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
+    // endpoint/through-point wording alongside the custom label.
+    it("uses the custom label, overriding the endpoint/through-point wording, when one is set", () => {
+        const result = getAnnouncementText(
+            {
+                type: "move-ray-point",
+                pointIndex: 0,
+                pointLabel: "T",
+                x: -3,
+                y: 2,
+            },
+            mockStrings,
+            "en",
+        );
+
+        expect(result).toBe("Point T at -3 comma 2.");
     });
 
     it("returns the grab-handle label for a move-ray-line announcement", () => {

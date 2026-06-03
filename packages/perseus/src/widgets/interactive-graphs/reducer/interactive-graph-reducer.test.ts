@@ -512,9 +512,40 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement).toEqual({
             type: "move-ray-point",
             pointIndex: 1,
+            pointLabel: 2,
             x: -3,
             y: 2,
         });
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+            pointLabels: ["A", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("A");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
     });
 
     it("allows linear-system points to land on the graph edge", () => {

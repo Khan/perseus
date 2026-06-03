@@ -346,6 +346,10 @@ function doMovePointInFigure(
                     ? {
                           type: "move-ray-point",
                           pointIndex: action.pointIndex,
+                          pointLabel: resolvePointLabel(
+                              state.pointLabels,
+                              action.pointIndex,
+                          ),
                           x: newValue[X],
                           y: newValue[Y],
                       }
