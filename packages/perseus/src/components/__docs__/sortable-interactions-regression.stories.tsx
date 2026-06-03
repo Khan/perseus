@@ -58,8 +58,9 @@ export const PlaceholderVisible = {
         await waitFor(() =>
             expect(canvas.getAllByRole("listitem")).toHaveLength(4),
         );
-        // Fire mousemove on document — Sortable's Draggable listens there, not
-        // on the card element. userEvent.pointer({coords}) does not reach it.
+        // Sortable's Draggable binds mousemove on document directly; userEvent
+        // does not dispatch events that reach document-level native listeners.
+        // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseMove(document, {
             clientX: cardRect.right + 150,
             clientY: cardRect.top + 20,
