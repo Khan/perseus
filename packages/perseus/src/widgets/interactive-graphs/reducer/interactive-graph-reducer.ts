@@ -425,6 +425,8 @@ function doMoveLine(
             };
         }
         case "linear": {
+            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
+            // until we move all graphs to use WB Announcer.
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
