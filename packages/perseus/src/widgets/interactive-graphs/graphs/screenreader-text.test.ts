@@ -310,16 +310,6 @@ describe("getAnnouncementText", () => {
         });
     });
 
-    it("returns the generic point label for a move-linear-point announcement", () => {
-        const result = getAnnouncementText(
-            {type: "move-linear-point", pointIndex: 1, x: 5, y: 6},
-            mockStrings,
-            "en",
-        );
-
-        expect(result).toBe("Point 2 at 5 comma 6.");
-    });
-
     it("returns the grab-handle label for a move-linear-line announcement", () => {
         const result = getAnnouncementText(
             {

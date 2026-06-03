@@ -341,8 +341,10 @@ function doMovePointInFigure(
                 hasBeenInteractedWith: true,
                 coords: newCoords,
                 stateAnnouncement: {
-                    type: "move-linear-point",
-                    pointIndex: action.pointIndex,
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
                     x: newValue[X],
                     y: newValue[Y],
                 },

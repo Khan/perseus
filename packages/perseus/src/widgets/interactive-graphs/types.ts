@@ -69,15 +69,6 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
-// Linear endpoint keyboard move (doMovePointInFigure). Uses the generic
-// "Point N at X comma Y" copy, keyed by the endpoint's index.
-type MoveLinearPointAnnouncement = {
-    type: "move-linear-point";
-    pointIndex: number;
-    x: number;
-    y: number;
-};
-
 // Whole-line keyboard drag (doMoveLine) for the linear graph. Carries both
 // endpoints so the announcement can describe the line they run through.
 type MoveLinearLineAnnouncement = {
@@ -122,7 +113,6 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
-    | MoveLinearPointAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
     | MoveAnglePointAnnouncement

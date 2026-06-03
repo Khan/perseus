@@ -21,14 +21,6 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
-        case "move-linear-point":
-            // Linear endpoints share the generic "Point N at X comma Y" copy
-            // used by their aria-label.
-            return strings.srPointAtCoordinates({
-                num: state.pointIndex + 1,
-                x: srFormatNumber(state.x, locale),
-                y: srFormatNumber(state.y, locale),
-            });
         case "move-linear-line":
             return strings.srLinearGrabHandle(
                 formatLineEndpoints(state.coords, locale),
