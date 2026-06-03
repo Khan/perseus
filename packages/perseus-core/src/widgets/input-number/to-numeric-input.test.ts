@@ -203,5 +203,4 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         expect(result.answers).toHaveLength(1);
         expect(result.answers[0].answerForms).toEqual([]);
     });
-
 });
