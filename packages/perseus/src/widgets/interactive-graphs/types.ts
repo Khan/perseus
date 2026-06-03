@@ -69,7 +69,7 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
-// Vector point keyboard move (doMovePointInFigure). The tail (index 0) uses
+// Vector point keyboard move. The tail (index 0) uses
 // the generic point label; the tip (index 1) has a dedicated label.
 type MoveVectorPointAnnouncement = {
     type: "move-vector-point";
@@ -88,7 +88,7 @@ type MoveRayPointAnnouncement = {
     y: number;
 };
 
-// Whole-vector keyboard drag (doMoveLine). Carries the tail and tip so the
+// Whole-vector keyboard drag. Carries the tail and tip so the
 // announcement can describe the vector between them.
 type MoveVectorLineAnnouncement = {
     type: "move-vector-line";
