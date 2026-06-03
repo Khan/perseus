@@ -1,4 +1,3 @@
-import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -44,41 +43,18 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     // States for updating content and images
     const [proxiedContent, setProxiedContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
-        {url: string; altText: string; width?: number; height?: number}[]
+        {url: string; altText: string}[]
     >([]);
 
+    // Parse the content into easy-to-read proxies plus the list of images.
+    // This is cheap and synchronous; image dimensions are fetched per-image
+    // inside RadioImageEditor, keyed on the URL.
     React.useEffect(() => {
         const [proxiedContent, parsedImages] = setImageProxyFromMarkdownContent(
             content ?? "",
         );
         setProxiedContent(proxiedContent);
-
-        // Set images immediately without dimensions so they render right away
         setImages(parsedImages);
-
-        // Fetch dimensions for all images asynchronously,
-        // to prevent image from overflowing its container in editor previews
-        async function fetchAllDimensions() {
-            const imagesWithDimensions = await Promise.all(
-                parsedImages.map(async (image) => {
-                    try {
-                        const size = await Util.getImageSizeModern(image.url);
-                        return {
-                            ...image,
-                            width: size[0],
-                            height: size[1],
-                        };
-                    } catch (error) {
-                        // If we can't get dimensions, return image without them
-                        return image;
-                    }
-                }),
-            );
-            // Update images with dimensions once fetched
-            setImages(imagesWithDimensions);
-        }
-
-        void fetchAllDimensions();
     }, [content]);
 
     // Add the image markdown at the end of the content.
@@ -86,8 +62,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         choiceIndex: number,
         imageUrl: string,
         imageAltText: string,
-        width?: number,
-        height?: number,
     ) => {
         const newContent = `${content}\n![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
@@ -109,11 +83,9 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         imageIndex: number,
         url: string,
         altText: string,
-        width?: number,
-        height?: number,
     ) => {
         const newImages = [...images];
-        newImages[imageIndex] = {url, altText, width, height};
+        newImages[imageIndex] = {url, altText};
         setImages(newImages);
 
         const newContent = setMarkdownContentFromImageProxy(
@@ -210,7 +182,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                 kind="tertiary"
                 style={{alignSelf: "flex-start"}}
                 onClick={() => {
-                    handleAddImage(choiceIndex, "", "", undefined, undefined);
+                    handleAddImage(choiceIndex, "", "");
                 }}
             >
                 Add image
@@ -237,15 +209,11 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                     <RadioImageEditor
                         imageUrl={image.url}
                         imageAltText={image.altText}
-                        imageWidth={image.width}
-                        imageHeight={image.height}
-                        onSave={(imageUrl, imageAltText, width, height) => {
+                        onSave={(imageUrl, imageAltText) => {
                             handleUpdateImage(
                                 imageIndex,
                                 imageUrl,
                                 imageAltText,
-                                width,
-                                height,
                             );
                         }}
                         onDelete={() => {

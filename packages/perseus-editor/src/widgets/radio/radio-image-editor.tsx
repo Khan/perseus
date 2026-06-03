@@ -1,3 +1,4 @@
+import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
@@ -15,22 +16,13 @@ import styles from "./radio-editor.module.css";
 interface RadioImageEditorProps {
     imageUrl: string;
     imageAltText: string;
-    imageWidth?: number;
-    imageHeight?: number;
-    onSave: (
-        imageUrl: string,
-        imageAltText: string,
-        width?: number,
-        height?: number,
-    ) => void;
+    onSave: (imageUrl: string, imageAltText: string) => void;
     onDelete: () => void;
 }
 
 export default function RadioImageEditor({
     imageUrl,
     imageAltText,
-    imageWidth,
-    imageHeight,
     onSave,
     onDelete,
 }: RadioImageEditorProps): React.ReactElement {
@@ -38,12 +30,50 @@ export default function RadioImageEditor({
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
+    // Dimensions are needed to keep the preview from overflowing its
+    // container.
+    const [dimensions, setDimensions] = React.useState<{
+        width?: number;
+        height?: number;
+    }>({});
+
+    // Fetch the image's dimensions whenever its URL changes. Editing alt text
+    // doesn't touch `imageUrl`, so typing alt text never triggers a re-fetch.
+    React.useEffect(() => {
+        if (!imageUrl) {
+            setDimensions({});
+            return;
+        }
+
+        let cancelled = false;
+        async function fetchDimensions() {
+            try {
+                const size = await Util.getImageSizeModern(imageUrl);
+                if (!cancelled) {
+                    setDimensions({width: size[0], height: size[1]});
+                }
+            } catch (error) {
+                // If we can't get dimensions, render without them.
+                if (!cancelled) {
+                    setDimensions({});
+                }
+            }
+        }
+
+        void fetchDimensions();
+
+        // Cleanup function to cancel the fetch if the component unmounts.
+        return () => {
+            cancelled = true;
+        };
+    }, [imageUrl]);
+
     function handleUrlChange(value: string) {
-        onSave(value, imageAltText, imageWidth, imageHeight);
+        onSave(value, imageAltText);
     }
 
     function handleAltTextChange(value: string) {
-        onSave(imageUrl, value, imageWidth, imageHeight);
+        onSave(imageUrl, value);
     }
 
     return (
@@ -56,8 +86,8 @@ export default function RadioImageEditor({
                         <ImagePreview
                             src={imageUrl}
                             alt={`Preview: ${imageAltText ?? "No alt text"}`}
-                            width={imageWidth}
-                            height={imageHeight}
+                            width={dimensions.width}
+                            height={dimensions.height}
                         />
                     }
                     // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
