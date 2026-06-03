@@ -247,17 +247,17 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 No Figma design exists for Sortable (it is a component, not a widget and does not have a page in the Perseus Widgets Figma file). All states are design gaps — no Figma vs. Storybook comparison is possible.
 
-### Story Fix (discovered during this step)
+### Story Fixes (discovered during this step)
 
 **File:** `packages/perseus/src/components/__docs__/sortable-interactions-regression.stories.tsx`
 
-**Issue:** Storybook 10 requires explicit `fn()` spy declarations for callback props used during `play` functions. The `DraggingCard` story's play function triggers `onMeasure` (called after Sortable measures card dimensions during a drag), causing a "We detected that you use an implicit action arg while playing of your story" error.
+**Fix 1 — implicit action arg:** Storybook 10 requires explicit `fn()` spy declarations for callback props used during `play` functions. The `DraggingCard` story's play function triggers `onMeasure`, causing a "We detected that you use an implicit action arg while playing of your story" error. Fixed by adding `fn` to the `storybook/test` import and `onMeasure: fn()` to `DraggingCard.args` (and `PlaceholderVisible.args`).
 
-**Fix:** Added `fn` to the `storybook/test` import and `onMeasure: fn()` to `DraggingCard.args`.
+**Fix 2 — PlaceholderVisible story (added post-Step 11):** Added a second interaction story to expose the placeholder color directly. `DraggingCard` holds the mouse in place — the dragging card sits on top of the placeholder at the same position, so the placeholder is occluded. `PlaceholderVisible` fires `fireEvent.mouseMove(document, ...)` after the drag starts to move the card away, revealing the gray placeholder slot. `userEvent.pointer` (with and without an explicit target) was tested and did not reach Sortable's `document.addEventListener("mousemove", ...)` listener; `fireEvent` is necessary here, suppressed with `eslint-disable-next-line testing-library/prefer-user-event`.
 
 ### Storybook Screenshots
 
-All 4 stories rendered correctly after the fix:
+All 5 stories rendered correctly:
 
 | Story | Result |
 |---|---|
@@ -265,8 +265,9 @@ All 4 stories rendered correctly after the fix:
 | `VerticalLayout` | ✅ Same treatment, stacked vertically |
 | `DisabledState` | ✅ No borders visible, backgrounds inherit from page |
 | `DraggingCard` | ✅ First card renders with gold/warning background; remaining cards white with border |
+| `PlaceholderVisible` | ✅ Apple card offset away from its original slot; gray placeholder clearly visible in original position |
 
-**DraggingCard detail:** The `waitFor` confirmed 4 list items (dragging card + placeholder). The dragging card and placeholder share the same visual position (no `mousemove` — only `mousedown` held), so 3 distinct visual positions are shown. The gold background confirms `semanticColor.core.background.warning.default` is resolving correctly.
+**DraggingCard detail:** The `waitFor` confirmed 4 list items (dragging card + placeholder). The dragging card and placeholder share the same visual position (no `mousemove` — only `mousedown` held), so 3 distinct visual positions are shown. The gold background confirms `semanticColor.core.background.warning.subtle` is resolving correctly.
 
 ### Design Gaps (all states — no Figma coverage)
 
@@ -283,7 +284,7 @@ All 4 stories rendered correctly after the fix:
 | Visual state | Converted color(s) | Covered by story |
 |---|---|---|
 | Card default | `background`, `border` | ✅ `HorizontalLayout`, `VerticalLayout` |
-| Placeholder | `background`, `border` | ✅ `DraggingCard` (4th list item) |
+| Placeholder | `background`, `border` | ✅ `PlaceholderVisible` (gray slot clearly exposed after card moves) |
 | Dragging | `background` | ✅ `DraggingCard` (gold card) |
 | Disabled | none (CSS keywords, not converted) | ✅ `DisabledState` |
 
@@ -296,3 +297,9 @@ All converted colors are covered by at least one regression story.
 - `pnpm lint` — PASS
 - `pnpm tsc` — PASS
 - `pnpm test` — PASS (223 passed, 9 snapshots passed)
+
+---
+
+## Step 13 — Commit, Push, and Chromatic Diff Review
+
+_Pending user commit and push._
