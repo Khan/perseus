@@ -69,7 +69,7 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
-// Whole-line keyboard drag (doMoveLine) for the linear graph. Carries both
+// Whole-line keyboard drag for the linear graph. Carries both
 // endpoints so the announcement can describe the line they run through.
 type MoveLinearLineAnnouncement = {
     type: "move-linear-line";
