@@ -18,7 +18,7 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
-import {earthMoonImage, gifImage, graphieImage} from "./utils";
+import {earthMoonImage, animatedGifLandscape, graphieImage} from "./utils";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -540,7 +540,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1083,7 +1083,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1129,7 +1129,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1156,7 +1156,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1192,7 +1192,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1215,7 +1215,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },
@@ -1244,7 +1244,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
-                            backgroundImage: gifImage,
+                            backgroundImage: animatedGifLandscape,
                         }),
                     }),
                 },

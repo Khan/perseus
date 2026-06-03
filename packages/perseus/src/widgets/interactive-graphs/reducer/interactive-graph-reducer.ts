@@ -327,7 +327,37 @@ function doMovePointInFigure(
                 },
             };
         }
-        case "linear":
+        case "linear": {
+            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
+            // until we move all graphs to use WB Announcer.
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.pointIndex,
+                newValue,
+            });
+
+            if (coordsOverlap(newCoords)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
+            };
+        }
         case "ray":
         case "vector": {
             const newCoords = setAtIndex({
@@ -431,7 +461,25 @@ function doMoveLine(
                 coords: newCoords,
             };
         }
-        case "linear":
+        case "linear": {
+            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
+            // until we move all graphs to use WB Announcer.
+            const constrainedLine = constrainShapePreservingMove(
+                state.coords,
+                newStart,
+                {snapStep, range},
+            );
+            return {
+                ...state,
+                type: state.type,
+                hasBeenInteractedWith: true,
+                coords: constrainedLine,
+                stateAnnouncement: {
+                    type: "move-linear-line",
+                    coords: constrainedLine,
+                },
+            };
+        }
         case "ray":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
@@ -475,6 +523,11 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                    pointLabels: state.pointLabels,
+                },
             };
         }
         default:
@@ -521,7 +574,28 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            return newState;
+            // A custom author label (when set) overrides the side/vertex
+            // wording in the announcement. resolvePointLabel returns the
+            // 1-indexed number when no custom label is set, so narrow to
+            // just the string case here.
+            const resolvedAngleLabel = resolvePointLabel(
+                state.pointLabels,
+                action.index,
+            );
+            return {
+                ...newState,
+                stateAnnouncement: {
+                    type: "move-angle-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvedAngleLabel,
+                    x: newState.coords[action.index][X],
+                    y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
+                },
+            };
 
         case "polygon":
             let newValue: vec.Vector2;
@@ -561,6 +635,14 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
             const newCoord = boundToEdgeAndSnapToGrid(
@@ -610,6 +692,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-sinusoid-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: newCoords[action.index][X],
+                    y: newCoords[action.index][Y],
+                    otherY: newCoords[1 - action.index][Y],
+                },
             };
         }
         case "exponential": {

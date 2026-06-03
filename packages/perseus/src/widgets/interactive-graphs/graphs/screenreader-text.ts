@@ -1,5 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+import {resolvePointLabel} from "./components/build-point-aria-label";
+
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
@@ -34,9 +36,134 @@ export function getAnnouncementText(
                 point2X: srFormatNumber(state.coords[1][0], locale),
                 point2Y: srFormatNumber(state.coords[1][1], locale),
             });
+        case "move-linear-line":
+            return strings.srLinearGrabHandle(
+                formatLineEndpoints(state.coords, locale),
+            );
+        case "move-sinusoid-point":
+            return srSinusoidPointLabel(state, strings, locale);
+        case "move-angle-point":
+            return srAnglePointLabel(state, strings, locale);
+        case "move-polygon":
+            return srPolygonLabel(
+                state.coords,
+                state.pointLabels,
+                strings,
+                locale,
+            );
         default:
             throw new UnreachableCaseError(state);
     }
+}
+
+function formatLineEndpoints(
+    coords: readonly [readonly [number, number], readonly [number, number]],
+    locale: string,
+): {point1X: string; point1Y: string; point2X: string; point2Y: string} {
+    return {
+        point1X: srFormatNumber(coords[0][0], locale),
+        point1Y: srFormatNumber(coords[0][1], locale),
+        point2X: srFormatNumber(coords[1][0], locale),
+        point2Y: srFormatNumber(coords[1][1], locale),
+    };
+}
+
+function srSinusoidPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        otherY: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const formatted = {
+        x: srFormatNumber(state.x, locale),
+        y: srFormatNumber(state.y, locale),
+    };
+    // A custom author label overrides the root/peak semantics, matching
+    // the static aria-label behavior in sinusoid.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({
+            num: state.pointLabel,
+            ...formatted,
+        });
+    }
+    // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
+    // label depends on its y relative to the root's y.
+    if (state.pointIndex === 0) {
+        return strings.srSinusoidRootPoint(formatted);
+    }
+    if (state.y === state.otherY) {
+        return strings.srSinusoidFlatPoint(formatted);
+    }
+    return state.y > state.otherY
+        ? strings.srSinusoidMaxPoint(formatted)
+        : strings.srSinusoidMinPoint(formatted);
+}
+
+function srAnglePointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        angleMeasure: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the side/vertex semantics, matching
+    // the static aria-label behavior in angle.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the switch statements below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+
+    // Coord layout in angle graphs: [endingSide, vertex, startingSide].
+    switch (state.pointIndex) {
+        case 0:
+            return strings.srAngleEndingSide({x, y});
+        case 1:
+            return strings.srAngleVertexWithAngleMeasure({
+                x,
+                y,
+                angleMeasure: srFormatNumber(state.angleMeasure, locale),
+            });
+        default:
+            return strings.srAngleStartingSide({x, y});
+    }
+}
+
+function srPolygonLabel(
+    coords: ReadonlyArray<readonly [number, number]>,
+    pointLabels: ReadonlyArray<string> | undefined,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const pointsString = coords
+        .map(([x, y], i) =>
+            strings.srPointAtCoordinates({
+                // Use the author's custom label when set, otherwise the
+                // 1-indexed default ("Point 1", "Point 2", …).
+                num: resolvePointLabel(pointLabels, i),
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            }),
+        )
+        .join(" ");
+    const elementsLabel =
+        coords.length === 1
+            ? strings.srPolygonElementsOne
+            : strings.srPolygonElementsNum({num: coords.length});
+    return `${elementsLabel} ${pointsString}`;
 }
 
 export function srCircleRadiusPointLabel(

@@ -1,19 +1,18 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {question1, wideButton} from "../explanation.testdata";
 
+import {explanationRendererDecorator} from "./explanation-renderer-decorator";
+
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * This is a visual regression story for the Explanation widget.
  */
 
-const meta: Meta = {
+const meta: Meta<PerseusExplanationWidgetOptions> = {
     title: "Widgets/Explanation/Visual Regression Tests/Initial State",
-    component: ServerItemRendererWithDebugUI,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -28,16 +27,32 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof meta>;
 
-export const Question1: Story = {
+const simpleExample = question1.widgets["explanation 1"]?.options;
+
+export const SimpleExample: Story = {
+    decorators: [explanationRendererDecorator],
     args: {
-        item: generateTestPerseusItem({question: question1}),
+        hidePrompt: simpleExample.hidePrompt,
+        explanation: simpleExample.explanation,
+        showPrompt: simpleExample.showPrompt,
+    },
+    parameters: {
+        content: question1.content,
     },
 };
 
+const wideExample = wideButton.widgets["explanation 1"]?.options;
+
 export const WideButton: Story = {
+    decorators: [explanationRendererDecorator],
     args: {
-        item: generateTestPerseusItem({question: wideButton}),
+        hidePrompt: wideExample.hidePrompt,
+        explanation: wideExample.explanation,
+        showPrompt: wideExample.showPrompt,
+    },
+    parameters: {
+        content: wideButton.content,
     },
 };

@@ -3,7 +3,7 @@
 exports[`mobile keypad should not render the keypad when not active 1`] = `
 <div>
   <div
-    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
+    class="default_7zhre1-o_O-keypadContainer_1jsjomm"
   />
 </div>
 `;
@@ -11,19 +11,19 @@ exports[`mobile keypad should not render the keypad when not active 1`] = `
 exports[`mobile keypad should render keypad when active 1`] = `
 <div>
   <div
-    class="default_xu2jcg-o_O-keypadContainer_1jsjomm"
+    class="default_7zhre1-o_O-keypadContainer_1jsjomm"
   >
     <div
-      class="default_xu2jcg inlineStyles_6alflt"
+      class="default_7zhre1 inlineStyles_6alflt"
     >
       <div
-        class="default_xu2jcg wrapper "
+        class="default_7zhre1 wrapper "
       >
         <div
-          class="default_xu2jcg-o_O-inlineStyles_1fwxya8"
+          class="default_7zhre1-o_O-inlineStyles_1fwxya8"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_ls0e43"
+            class="default_7zhre1-o_O-inlineStyles_ls0e43"
           >
             <button
               aria-disabled="false"
@@ -40,26 +40,26 @@ exports[`mobile keypad should render keypad when active 1`] = `
           </div>
         </div>
         <div
-          class="default_xu2jcg-o_O-inlineStyles_1hoepsr"
+          class="default_7zhre1-o_O-inlineStyles_1hoepsr"
         >
           <div
             aria-label="Keypad"
-            class="default_xu2jcg keypad-grid fractions-grid"
+            class="default_7zhre1 keypad-grid fractions-grid"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+              class="default_7zhre1-o_O-inlineStyles_1c2q4k1"
               data-testid="NUM_1"
             >
               <button
                 aria-label="1"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -78,19 +78,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_4h080i"
+              class="default_7zhre1-o_O-inlineStyles_4h080i"
               data-testid="NUM_2"
             >
               <button
                 aria-label="2"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -109,19 +109,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+              class="default_7zhre1-o_O-inlineStyles_ei5lhv"
               data-testid="NUM_3"
             >
               <button
                 aria-label="3"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -140,19 +140,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+              class="default_7zhre1-o_O-inlineStyles_1drshe8"
               data-testid="NUM_4"
             >
               <button
                 aria-label="4"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -171,19 +171,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+              class="default_7zhre1-o_O-inlineStyles_1j1cer"
               data-testid="NUM_5"
             >
               <button
                 aria-label="5"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -202,19 +202,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+              class="default_7zhre1-o_O-inlineStyles_1qj00wi"
               data-testid="NUM_6"
             >
               <button
                 aria-label="6"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -233,19 +233,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+              class="default_7zhre1-o_O-inlineStyles_1o7q2hf"
               data-testid="NUM_7"
             >
               <button
                 aria-label="7"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -264,19 +264,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+              class="default_7zhre1-o_O-inlineStyles_11fd5hs"
               data-testid="NUM_8"
             >
               <button
                 aria-label="8"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -295,19 +295,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+              class="default_7zhre1-o_O-inlineStyles_mr6jkh"
               data-testid="NUM_9"
             >
               <button
                 aria-label="9"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -326,19 +326,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+              class="default_7zhre1-o_O-inlineStyles_xra0eu"
               data-testid="NUM_0"
             >
               <button
                 aria-label="0"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -357,19 +357,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+              class="default_7zhre1-o_O-inlineStyles_6bvuz9"
               data-testid="DECIMAL"
             >
               <button
                 aria-label="Decimal"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       data-testid="period-decimal"
@@ -389,19 +389,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+              class="default_7zhre1-o_O-inlineStyles_l02gwk"
               data-testid="NEGATIVE"
             >
               <button
                 aria-label="Negative"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -422,19 +422,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+              class="default_7zhre1-o_O-inlineStyles_ma0as6"
               data-testid="PERCENT"
             >
               <button
                 aria-label="Percent"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -455,19 +455,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_771h91"
+              class="default_7zhre1-o_O-inlineStyles_771h91"
               data-testid="PI"
             >
               <button
                 aria-label="Pi"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -486,19 +486,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_yucc9g"
+              class="default_7zhre1-o_O-inlineStyles_yucc9g"
               data-testid="FRAC"
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -519,19 +519,19 @@ exports[`mobile keypad should render keypad when active 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1pnuemq"
+              class="default_7zhre1-o_O-inlineStyles_1pnuemq"
               data-testid="BACKSPACE"
             >
               <button
                 aria-label="Delete"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
