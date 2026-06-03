@@ -10,6 +10,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -318,8 +319,9 @@ function doMovePointInFigure(
                 coords: newCoords,
             };
         }
-        case "ray": {
-            // TODO(LEMS-4189): Temporary duplication of logic between linear/vector
+        case "ray":
+        case "linear": {
+            // TODO(LEMS-4189): Temporary duplication of logic between vector
             // until we move all graphs to use WB Announcer.
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
@@ -340,14 +342,15 @@ function doMovePointInFigure(
                 hasBeenInteractedWith: true,
                 coords: newCoords,
                 stateAnnouncement: {
-                    type: "move-ray-point",
-                    pointIndex: action.pointIndex,
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
                     x: newValue[X],
                     y: newValue[Y],
                 },
             };
         }
-        case "linear":
         case "vector": {
             const newCoords = setAtIndex({
                 array: state.coords,
@@ -421,8 +424,9 @@ function doMoveLine(
                 coords: newCoords,
             };
         }
-        case "ray": {
-            // TODO(LEMS-4189): Temporary duplication of logic between linear/vector
+        case "ray":
+        case "linear": {
+            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
             // until we move all graphs to use WB Announcer.
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
@@ -435,12 +439,11 @@ function doMoveLine(
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
                 stateAnnouncement: {
-                    type: "move-ray-line",
+                    type: "move-linear-line",
                     coords: constrainedLine,
                 },
             };
         }
-        case "linear":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
@@ -483,6 +486,11 @@ function doMoveAll(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-polygon",
+                    coords: newCoords,
+                    pointLabels: state.pointLabels,
+                },
             };
         }
         default:
@@ -529,7 +537,28 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            return newState;
+            // A custom author label (when set) overrides the side/vertex
+            // wording in the announcement. resolvePointLabel returns the
+            // 1-indexed number when no custom label is set, so narrow to
+            // just the string case here.
+            const resolvedAngleLabel = resolvePointLabel(
+                state.pointLabels,
+                action.index,
+            );
+            return {
+                ...newState,
+                stateAnnouncement: {
+                    type: "move-angle-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvedAngleLabel,
+                    x: newState.coords[action.index][X],
+                    y: newState.coords[action.index][Y],
+                    angleMeasure: getClockwiseAngle(
+                        newState.coords,
+                        newState.allowReflexAngles ?? false,
+                    ),
+                },
+            };
 
         case "polygon":
             let newValue: vec.Vector2;
@@ -569,6 +598,14 @@ function doMovePoint(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         case "point": {
             const newCoord = boundToEdgeAndSnapToGrid(
@@ -586,7 +623,9 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-point",
-                    pointIndex: action.index,
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.index),
+                    ),
                     x: newCoord[X],
                     y: newCoord[Y],
                 },
@@ -616,6 +655,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-sinusoid-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: newCoords[action.index][X],
+                    y: newCoords[action.index][Y],
+                    otherY: newCoords[1 - action.index][Y],
+                },
             };
         }
         case "exponential": {

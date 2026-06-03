@@ -8,6 +8,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
@@ -47,9 +48,10 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radiusPoint, snapStep} = graphState;
+    const {center, pointLabels, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     const radius = getRadius(graphState);
     const id = React.useId();
@@ -84,8 +86,17 @@ export function CircleGraph(props: CircleGraphProps) {
                 }}
             />
             <MovablePoint
-                // Radius point aria label reads with every update.
-                ariaLabel={`${srCircleRadiusPoint} ${srCircleRadius}`}
+                // Radius point aria label reads with every update. The
+                // schema `pointLabels?: string[]` is interpreted for
+                // circle as `[radiusPointLabel]` — only the radius point
+                // (a `MovablePoint`) is labelable. The center is a
+                // `MovableCircle` whose announcement describes the whole
+                // shape ("Circle. The center point is at X comma Y.") and is not
+                // overridden.
+                ariaLabel={
+                    buildLabel(0, radiusPoint) ??
+                    `${srCircleRadiusPoint} ${srCircleRadius}`
+                }
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
                 point={radiusPoint}

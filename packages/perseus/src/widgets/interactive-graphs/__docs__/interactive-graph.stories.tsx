@@ -7,23 +7,35 @@ import {
     circleQuestion,
     linearQuestion,
     linearSystemQuestion,
+    linearSystemWithCustomLabelsQuestion,
+    linearWithCustomLabelsQuestion,
     pointQuestion,
     pointWithCustomLabelQuestion,
     pointWithDefaultLabelQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
     rayQuestion,
+    rayWithCustomLabelsQuestion,
     segmentQuestion,
+    segmentWithCustomLabelsQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
     segmentWithAllLockedLineSegmentVariations,
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     absoluteValueQuestion,
+    absoluteValueWithCustomLabelsQuestion,
+    angleWithCustomLabelsQuestion,
+    circleWithCustomLabelsQuestion,
     exponentialQuestion,
+    exponentialWithCustomLabelsQuestion,
     logarithmQuestion,
+    logarithmWithCustomLabelsQuestion,
+    quadraticWithCustomLabelsQuestion,
     sinusoidQuestion,
+    sinusoidWithCustomLabelsQuestion,
     tangentQuestion,
+    tangentWithCustomLabelsQuestion,
     vectorQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
@@ -65,9 +77,39 @@ export const Angle: Story = {
     },
 };
 
+/**
+ * An angle whose vertex and two side points are named "B", "A", and "C"
+ * via `pointLabels`. The schema array is indexed by `coords`:
+ * `[endingSide, vertex, startingSide]`. Overrides the default "Point 1,
+ * vertex …" / "Point 2, ending side …" / "Point 3, starting side …"
+ * announcements so JAWS reads the prompt's letter names instead.
+ */
+export const AngleWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: angleWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Circle: Story = {
     args: {
         item: generateTestPerseusItem({question: circleQuestion}),
+    },
+};
+
+/**
+ * A circle whose radius point is named "R" via `pointLabels`. Schema
+ * `string[]` for circle is interpreted as `[radiusPointLabel]` — only
+ * the radius point (a `MovablePoint`) is labelable. The center is a
+ * `MovableCircle` whose announcement describes the whole shape and is
+ * intentionally not overridden.
+ */
+export const CircleWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: circleWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -77,9 +119,35 @@ export const Linear: Story = {
     },
 };
 
+/**
+ * A linear graph whose two endpoints are named "A" and "B" via `pointLabels`,
+ * so JAWS announces "Point A at …" / "Point B at …" instead of the default
+ * "Point 1 at …" / "Point 2 at …".
+ */
+export const LinearWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const LinearSystem: Story = {
     args: {
         item: generateTestPerseusItem({question: linearSystemQuestion}),
+    },
+};
+
+/**
+ * A linear system whose four interactive endpoints are named "A", "B", "C",
+ * "D" via `pointLabels` (flat across both lines), so JAWS announces "Point
+ * A / B / C / D at …" instead of the default "Point N on line N at …".
+ */
+export const LinearSystemWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: linearSystemWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -150,6 +218,20 @@ export const Ray: Story = {
     },
 };
 
+/**
+ * A ray whose endpoint and through point are named "A" and "B" via
+ * `pointLabels`. The default semantic "Endpoint at …" / "Through point at …"
+ * labels are overridden so the SR announcement matches the prompt's
+ * naming convention.
+ */
+export const RayWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: rayWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Vector: Story = {
     args: {
         item: generateTestPerseusItem({question: vectorQuestion}),
@@ -162,9 +244,37 @@ export const Segment: Story = {
     },
 };
 
+/**
+ * A segment graph with two segments whose endpoints are named "A", "B",
+ * "C", "D" via `pointLabels` (flat across all segments), so JAWS announces
+ * "Point A / B / C / D at …" instead of the per-segment "Endpoint N on
+ * segment N at …" defaults.
+ */
+export const SegmentWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Exponential: Story = {
     args: {
         item: generateTestPerseusItem({question: exponentialQuestion}),
+    },
+};
+
+/**
+ * An exponential graph whose two curve points are named "A" and "B" via
+ * `pointLabels`, so JAWS announces "Point A / B at …" instead of the
+ * default "Point 1 / 2 at …". The asymptote handle's announcement is
+ * unaffected — `pointLabels` only covers the curve's control points.
+ */
+export const ExponentialWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: exponentialWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -174,9 +284,37 @@ export const Sinusoid: Story = {
     },
 };
 
+/**
+ * A sinusoid whose midline intersection and extremum are named "A" and "B"
+ * via `pointLabels`. Overrides the default "Midline intersection at …" /
+ * "Maximum point at …" semantic labels so the SR announcement matches the
+ * prompt's naming convention.
+ */
+export const SinusoidWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: sinusoidWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const Logarithm: Story = {
     args: {
         item: generateTestPerseusItem({question: logarithmQuestion}),
+    },
+};
+
+/**
+ * A logarithm whose two curve points are named "A" and "B" via
+ * `pointLabels`, so JAWS announces "Point A / B at …" instead of the
+ * default "Point 1 / 2 at …". The vertical asymptote handle's
+ * announcement is unaffected.
+ */
+export const LogarithmWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: logarithmWithCustomLabelsQuestion,
+        }),
     },
 };
 
@@ -186,9 +324,49 @@ export const Tangent: Story = {
     },
 };
 
+/**
+ * A tangent whose inflection point and control point are named "A" and "B"
+ * via `pointLabels`. Overrides the default "Inflection point" / "Control
+ * point" semantic labels.
+ */
+export const TangentWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: tangentWithCustomLabelsQuestion,
+        }),
+    },
+};
+
+/**
+ * A quadratic whose three control points are named "A", "B", "C" via
+ * `pointLabels`. Overrides the default "Point N on parabola …" labels so
+ * the SR announcement matches the prompt's naming convention.
+ */
+export const QuadraticWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: quadraticWithCustomLabelsQuestion,
+        }),
+    },
+};
+
 export const AbsoluteValue: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
+    },
+};
+
+/**
+ * An absolute value graph whose vertex and arm point are named "V" and
+ * "A" via `pointLabels`. Overrides the default "Vertex point at …" /
+ * "Point on arm at …" semantic labels so the SR announcement matches
+ * the prompt's naming convention.
+ */
+export const AbsoluteValueWithCustomLabels: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: absoluteValueWithCustomLabelsQuestion,
+        }),
     },
 };
 

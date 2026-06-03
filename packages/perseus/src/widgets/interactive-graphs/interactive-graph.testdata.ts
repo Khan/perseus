@@ -1311,6 +1311,123 @@ export const pointWithDefaultLabelQuestion: PerseusRenderer =
         }),
     });
 
+// Linear graph with the two endpoints named "A" and "B" via `pointLabels`,
+// so JAWS announces "Point A at …" / "Point B at …" instead of the default
+// "Point 1 at …" / "Point 2 at …" when navigating the endpoints.
+export const linearWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag points $A$ and $B$ so the line passes through both labeled points.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGLinearGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Ray graph with the endpoint named "A" and the through point named "B"
+// via `pointLabels`. The default "Endpoint at …" / "Through point at …"
+// semantic labels are overridden so the SR announcement matches the
+// prompt's naming convention.
+export const rayWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the ray so its endpoint is at point $A$ and it passes through point $B$.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGRayGraph({
+            startCoords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            coords: [
+                [-5, 5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Linear-system graph with each endpoint named via `pointLabels` (flat
+// across both lines: [line1.p1, line1.p2, line2.p1, line2.p2]) so JAWS
+// announces "Point A/B/C/D at …" instead of "Point N on line N at …".
+export const linearSystemWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the endpoints so line 1 passes through $A$ and $B$, and line 2 passes through $C$ and $D$.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGLinearSystemGraph({
+            startCoords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        }),
+    });
+
+// Segment graph with each endpoint named via `pointLabels` (flat across all
+// segments: [seg1.p1, seg1.p2, seg2.p1, seg2.p2]) so JAWS announces
+// "Point A/B/C/D at …" instead of the per-segment defaults.
+export const segmentWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the endpoints so segment 1 connects $A$ to $B$ and segment 2 connects $C$ to $D$.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGSegmentGraph({
+            numSegments: 2,
+            startCoords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        }),
+    });
+
 export const polygonWithCustomLabelsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:
@@ -1335,5 +1452,182 @@ export const polygonWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 3],
             ],
             pointLabels: ["A", "B", "C"],
+        }),
+    });
+
+// Quadratic graph with each control point named via `pointLabels` so JAWS
+// announces "Point A/B/C at …" instead of the per-point "Point N on
+// parabola …" default.
+export const quadraticWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the three control points $A$, $B$, and $C$ so the parabola opens upward with its vertex at $B$.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGQuadraticGraph({
+            coords: [
+                [-5, 5],
+                [0, -5],
+                [5, 5],
+            ],
+            pointLabels: ["A", "B", "C"],
+        }),
+    });
+
+// Sinusoid graph with the midline intersection named $A$ and the extremum
+// named $B$ via `pointLabels`. The default "Midline intersection" /
+// "Maximum point" semantic labels are overridden.
+export const sinusoidWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag point $A$ to the midline intersection and point $B$ to the first maximum.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGSinusoidGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Tangent graph with the inflection point named $A$ and the control point
+// named $B$ via `pointLabels`. Overrides the default "Inflection point" /
+// "Control point" semantic labels.
+export const tangentWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag point $A$ to the inflection point and point $B$ a quarter-period to the right.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGTangentGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Exponential graph with both curve points named via `pointLabels`. The
+// asymptote handle's announcement is unaffected (custom labels only cover
+// the curve points).
+export const exponentialWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag points $A$ and $B$ so the curve passes through both labeled points above the horizontal asymptote.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGExponentialGraph({
+            coords: [
+                [0, 3],
+                [1, 6],
+            ],
+            asymptote: 1,
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Logarithm graph with both curve points named via `pointLabels`. The
+// vertical asymptote handle's announcement is unaffected.
+export const logarithmWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag points $A$ and $B$ so the curve passes through both labeled points to the right of the vertical asymptote.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        correct: generateIGLogarithmGraph({
+            coords: [
+                [-4, -3],
+                [-5, -7],
+            ],
+            asymptote: -6,
+            pointLabels: ["A", "B"],
+        }),
+    });
+
+// Angle graph with all three handles named via `pointLabels`. The array
+// is indexed by `coords` order: [0]=ending side, [1]=vertex, [2]=starting
+// side. JAWS will announce "Point A / B / C at …" in coord order while
+// the visual DOM order is vertex first (it stays focusable first).
+export const angleWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertex $B$ and the rays through points $A$ and $C$ so the angle measures 90°.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGAngleGraph({
+            coords: [
+                [-1, 1],
+                [0, 0],
+                [1, 1],
+            ],
+            showAngles: true,
+            allowReflexAngles: true,
+            pointLabels: ["A", "B", "C"],
+        }),
+    });
+
+// Absolute-value graph with the vertex named "V" and the arm point named
+// "A" via `pointLabels`. Overrides the default "Vertex point at …" /
+// "Point on arm at …" labels.
+export const absoluteValueWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the vertex $V$ to the origin and the arm point $A$ so the slope is 1.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["V", "A"],
+        }),
+    });
+
+// Circle graph with the radius point named "R" via `pointLabels`. The
+// schema array for circle is interpreted as `[radiusPointLabel]` — only
+// the radius point (a `MovablePoint`) is labelable. The center is a
+// `MovableCircle` whose announcement describes the whole shape and is
+// not overridden.
+export const circleWithCustomLabelsQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Drag the radius point $R$ so the circle has radius 3.**\n\n[[☃ interactive-graph 1]]",
+        snapStep: [1, 1],
+        correct: generateIGCircleGraph({
+            center: [0, 0],
+            radius: 3,
+            pointLabels: ["R"],
         }),
     });

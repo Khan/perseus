@@ -65,6 +65,7 @@ configureSort({
         },
         editors: null,
         widgets: {
+            "nested widgets": null,
             "**": {
                 docs: null,
                 accessibility: null,

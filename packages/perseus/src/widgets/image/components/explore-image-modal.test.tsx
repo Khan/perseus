@@ -11,7 +11,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {earthMoonImage, gifImage} from "../utils";
+import {earthMoonImage, animatedGifLandscape} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
@@ -271,7 +271,7 @@ describe("ExploreImageModal", () => {
             // Arrange, Act
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithGifControls,
             });
 
@@ -305,7 +305,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithGifControls,
             });
 
@@ -326,7 +326,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 isGifPlaying: false,
                 apiOptions: apiOptionsWithGifControls,
             });
@@ -344,7 +344,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithGifControls,
             });
 
@@ -364,7 +364,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithGifControls,
             });
 
@@ -396,7 +396,7 @@ describe("ExploreImageModal", () => {
 
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithFeatureFlag,
             });
 
@@ -419,7 +419,7 @@ describe("ExploreImageModal", () => {
 
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 apiOptions: apiOptionsWithFeatureFlag,
             });
 

@@ -3,6 +3,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -32,9 +33,10 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {dispatch} = props;
-    const {coords: line} = props.graphState;
+    const {coords: line, pointLabels} = props.graphState;
 
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
     const interceptDescriptionId = id + "-intercept";
@@ -60,8 +62,18 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
         >
             <MovableLine
                 key={0}
-                ariaLabels={{grabHandleAriaLabel: srLinearGrabHandle}}
+                ariaLabels={{
+                    grabHandleAriaLabel: srLinearGrabHandle,
+                    point1AriaLabel: buildLabel(0, line[0]),
+                    point2AriaLabel: buildLabel(1, line[1]),
+                }}
                 ariaDescribedBy={`${interceptDescriptionId} ${slopeDescriptionId}`}
+                // The linear graph's move announcements come from the WB
+                // Announcer via stateAnnouncement; disable aria-live here to
+                // avoid the focusable handles double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
+                // from MovableLine / useControlPoint.
+                ariaLive="off"
                 points={line}
                 onMoveLine={(newStart) => {
                     dispatch(actions.linear.moveLine(newStart));
