@@ -11,13 +11,22 @@ import type {Coord} from "@khanacademy/perseus";
 
 type SinusoidCoords = [Coord, Coord];
 
-type Props = {
+interface StartCoordsSinusoidProps {
     startCoords: SinusoidCoords;
     onChange: (startCoords: SinusoidCoords) => void;
-};
+    pointLabels: ReadonlyArray<string>;
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
 
-const StartCoordsSinusoid = (props: Props) => {
-    const {startCoords, onChange} = props;
+const StartCoordsSinusoid = (props: StartCoordsSinusoidProps) => {
+    const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
+    const updatePointLabel = (index: number, newLabel: string) => {
+        const next: [string, string] = [
+            index === 0 ? newLabel : pointLabels[0] ?? "",
+            index === 1 ? newLabel : pointLabels[1] ?? "",
+        ];
+        onChangePointLabels(next);
+    };
 
     return (
         <>
@@ -34,11 +43,15 @@ const StartCoordsSinusoid = (props: Props) => {
                 label="Point 1"
                 coord={startCoords[0]}
                 onChange={(value) => onChange([value, startCoords[1]])}
+                pointLabel={pointLabels[0]}
+                onPointLabelChange={(newLabel) => updatePointLabel(0, newLabel)}
             />
             <CoordInput
                 label="Point 2"
                 coord={startCoords[1]}
                 onChange={(value) => onChange([startCoords[0], value])}
+                pointLabel={pointLabels[1]}
+                onPointLabelChange={(newLabel) => updatePointLabel(1, newLabel)}
             />
         </>
     );

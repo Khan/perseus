@@ -1,9 +1,14 @@
+import {
+    generateIGLinearGraph,
+    generateInteractiveGraphQuestion,
+} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
@@ -199,6 +204,82 @@ describe("Linear graph screen reader", () => {
             "Line going through point -2 comma 3 and point 3 comma 3.",
         );
         expect(point2).toHaveAttribute("aria-label", "Point 2 at 3 comma 3.");
+    });
+});
+
+describe("Linear graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each endpoint's accessible name", () => {
+        // Arrange, Act
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    pointLabels: ["A", "B"],
+                }),
+            }),
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("falls back to numeric default for indices without a custom label", () => {
+        // Arrange, Act — only the first endpoint is named
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    // eslint-disable-next-line no-restricted-syntax -- short array tests the missing-index fallback
+                    pointLabels: ["A"] as unknown as [string, string],
+                }),
+            }),
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point 2 at 5 comma 5.");
+    });
+
+    // The editor encodes "only the second endpoint named" as `["", "B"]`.
+    // An empty string at any index must fall back to the numeric default.
+    it("falls back to numeric default for explicit empty-string entries", () => {
+        // Arrange, Act
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    pointLabels: ["", "B"],
+                }),
+            }),
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point 1 at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+    });
+
+    it("falls back to the numeric default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        renderQuestion(
+            generateInteractiveGraphQuestion({
+                correct: generateIGLinearGraph({
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as [string, string],
+                }),
+            }),
+        );
+        const [point1, , point2] = screen.getAllByRole("button");
+
+        // Assert
+        expect(point1).toHaveAttribute("aria-label", "Point 1 at -5 comma 5.");
+        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
     });
 });
 

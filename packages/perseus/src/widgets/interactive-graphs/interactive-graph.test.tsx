@@ -2141,5 +2141,24 @@ describe("Interactive Graph", function () {
                 ),
             ).not.toBeInTheDocument();
         });
+
+        it("does not render a 'not graded' message when graph type is 'none'", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({
+                // normally would show the "not graded" text
+                graded: false,
+                // but shouldn't because of the "none" type
+                correct: generateIGNoneGraph(),
+            });
+
+            renderQuestion(question, blankOptions);
+
+            // Assert
+            expect(
+                screen.queryByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                ),
+            ).not.toBeInTheDocument();
+        });
     });
 });
