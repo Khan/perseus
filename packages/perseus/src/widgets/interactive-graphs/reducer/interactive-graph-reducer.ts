@@ -321,10 +321,8 @@ function doMovePointInFigure(
             };
         }
         case "ray":
-        case "linear": {
-            // Ray and linear share identical endpoint-move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
+        case "linear":
+        case "vector": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
@@ -341,64 +339,41 @@ function doMovePointInFigure(
 
             // Determine the correct state announcement
             // by the graph type.
-            const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {
-                          type: "move-ray-point",
-                          pointIndex: action.pointIndex,
-                          pointLabel: resolvePointLabel(
-                              state.pointLabels,
-                              action.pointIndex,
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      }
-                    : {
-                          type: "move-point",
-                          pointLabel: String(
-                              resolvePointLabel(
-                                  state.pointLabels,
-                                  action.pointIndex,
-                              ),
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      };
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement,
-            };
-        }
-        case "vector": {
-            // TODO(LEMS-4189): Temporary duplication of logic between linear/ray
-            // until we move all graphs to use WB Announcer.
-            const newValue = boundToEdgeAndSnapToGrid(
-                action.destination,
-                state,
-            );
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue,
-            });
-
-            if (coordsOverlap(newCoords)) {
-                return state;
+            let stateAnnouncement: InteractiveGraphStateAnnouncement;
+            if (state.type === "ray") {
+                stateAnnouncement = {
+                    type: "move-ray-point",
+                    pointIndex: action.pointIndex,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else if (state.type === "vector") {
+                stateAnnouncement = {
+                    type: "move-vector-point",
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else {
+                stateAnnouncement = {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
             }
 
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-vector-point",
-                    pointIndex: action.pointIndex,
-                    x: newValue[X],
-                    y: newValue[Y],
-                },
+                stateAnnouncement,
             };
         }
         case "circle":
@@ -458,44 +433,29 @@ function doMoveLine(
             };
         }
         case "ray":
-        case "linear": {
-            // Ray and linear share identical whole-line move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
+        case "linear":
+        case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
                 {snapStep, range},
             );
-            const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {type: "move-ray-line", coords: constrainedLine}
-                    : {type: "move-linear-line", coords: constrainedLine};
+
+            const stateAnnouncement: InteractiveGraphStateAnnouncement = {
+                type:
+                    state.type === "ray"
+                        ? "move-ray-line"
+                        : state.type === "vector"
+                          ? "move-vector-line"
+                          : "move-linear-line",
+                coords: constrainedLine,
+            };
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
                 stateAnnouncement,
-            };
-        }
-        case "vector": {
-            // TODO(LEMS-4189): Temporary duplication of logic between linear/ray
-            // until we move all graphs to use WB Announcer.
-            const constrainedLine = constrainShapePreservingMove(
-                state.coords,
-                newStart,
-                {snapStep, range},
-            );
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: constrainedLine,
-                stateAnnouncement: {
-                    type: "move-vector-line",
-                    coords: constrainedLine,
-                },
             };
         }
         default:
