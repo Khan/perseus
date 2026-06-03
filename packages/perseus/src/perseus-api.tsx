@@ -20,7 +20,7 @@
  *    selectable element.
  *  * spotlightedLockedFigureIndex: Host-driven spotlight for the
  *    interactive-graph widget. The index of a locked figure to call out, or
- *    null for none. The inverse of selectionCallback (host → widget input).
+ *    null for none.
  *  * answerableCallback: Called with the current `answerability` of the
  *    problem, e.g. whether all required fields have input.
  *  * getAnotherHint: If provided, a button is rendered at the bottom of the

@@ -280,6 +280,7 @@ const parseLockedPolygonType = object({
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });

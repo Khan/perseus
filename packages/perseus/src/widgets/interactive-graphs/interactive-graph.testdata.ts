@@ -479,8 +479,7 @@ export const selectableLockedFiguresQuestion: PerseusRenderer =
         ],
     });
 
-// A triangle with selectable vertices and sides. Vertices are placed after
-// sides so points win the click at each shared endpoint (§6).
+// A triangle with selectable vertices and sides.
 export const selectableLockedTriangleQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:
@@ -531,6 +530,89 @@ export const selectableLockedTriangleQuestion: PerseusRenderer =
                 color: "blue",
                 filled: true,
                 selectable: true,
+            }),
+        ],
+    });
+
+// A spotlightable triangle: sides are segments, vertices are points.
+export const spotlightableLockedTriangleQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "A triangle whose sides and vertices can be spotlighted.\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGNoneGraph(),
+        markings: "axes",
+        lockedFigures: [
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [2, 1], color: "blue"}),
+                    generateIGLockedPoint({coord: [8, 1], color: "blue"}),
+                ],
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [8, 1], color: "blue"}),
+                    generateIGLockedPoint({coord: [5, 7], color: "blue"}),
+                ],
+            }),
+            generateIGLockedLine({
+                kind: "segment",
+                color: "blue",
+                points: [
+                    generateIGLockedPoint({coord: [5, 7], color: "blue"}),
+                    generateIGLockedPoint({coord: [2, 1], color: "blue"}),
+                ],
+            }),
+            generateIGLockedPoint({coord: [2, 1], color: "blue", filled: true}),
+            generateIGLockedPoint({coord: [8, 1], color: "blue", filled: true}),
+            generateIGLockedPoint({coord: [5, 7], color: "blue", filled: true}),
+        ],
+    });
+
+// A single polygon, selectable as a whole.
+export const selectableLockedPolygonQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content: "Select the polygon.\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGNoneGraph(),
+        markings: "axes",
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [5, 7],
+                    [8, 5],
+                    [7, 1],
+                    [3, 1],
+                    [2, 5],
+                ],
+                color: "green",
+                showVertices: true,
+                fillStyle: "translucent",
+                selectable: true,
+            }),
+        ],
+    });
+
+// A spotlightable polygon.
+export const spotlightablePolygonQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "A polygon that can be spotlighted.\n\n[[☃ interactive-graph 1]]",
+        correct: generateIGNoneGraph(),
+        markings: "axes",
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [2, 6],
+                    [8, 6],
+                    [7, 1],
+                    [3, 1],
+                ],
+                color: "green",
+                showVertices: true,
+                fillStyle: "translucent",
             }),
         ],
     });
