@@ -1,5 +1,45 @@
 # @khanacademy/perseus
 
+## 77.10.0
+
+### Minor Changes
+
+-   [#3672](https://github.com/Khan/perseus/pull/3672) [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through line and ray graphs for custom points label
+
+*   [#3696](https://github.com/Khan/perseus/pull/3696) [`0833037482`](https://github.com/Khan/perseus/commit/08330374821667e7ae2221aab166589dced85ab6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through curve graphs (quadratic, sinusoid, tangent, exponential, logarithm) for custom points label
+
+-   [#3669](https://github.com/Khan/perseus/pull/3669) [`623a29ebc5`](https://github.com/Khan/perseus/commit/623a29ebc570741fff733a8e1aaaa8685886bc7d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through polygon graphs for custom points label
+
+*   [#3673](https://github.com/Khan/perseus/pull/3673) [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through linear-system and segment graphs for custom points label
+
+-   [#3643](https://github.com/Khan/perseus/pull/3643) [`70575e72ca`](https://github.com/Khan/perseus/commit/70575e72ca30d6c8e3dcd9354c2ce6c71d3e12cc) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire `pointLabels` through point graphs so authors can provide custom screen-reader labels (e.g. "T") that match the question prompt instead of the generic "Point 1". Adds an inline name field next to each coordinate row in the editor under "Start coordinates", a one-line author tip, and the underlying state/helper plumbing reusable by the remaining graph types in follow-up PRs (LEMS-3995).
+
+*   [#3697](https://github.com/Khan/perseus/pull/3697) [`551f687046`](https://github.com/Khan/perseus/commit/551f687046de02f2199e1488ae6fb92e27f9b534) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through special-shape graphs (angle, circle, absolute-value)
+
+### Patch Changes
+
+-   [#3661](https://github.com/Khan/perseus/pull/3661) [`ad739d77c9`](https://github.com/Khan/perseus/commit/ad739d77c9124266b13e77949212f5ef1b60b0ad) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Renderer] Add regression stories for text
+
+*   [#3644](https://github.com/Khan/perseus/pull/3644) [`4358b33694`](https://github.com/Khan/perseus/commit/4358b33694a2d531073038b879ec84ce985889e4) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Address a bug in Safari that causes the fade zone to partially overlay choice content
+
+-   [#3707](https://github.com/Khan/perseus/pull/3707) [`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit f89b0c2a550bdefe04d9a9dc2d17b2c401c0e797
+
+*   [#3702](https://github.com/Khan/perseus/pull/3702) [`f058f83b49`](https://github.com/Khan/perseus/commit/f058f83b495ac0faf50265252a99d0b06404e485) Thanks [@Evelas78](https://github.com/Evelas78)! - Added a label to define what the definition widget button does for screenreaders
+
+-   [#3682](https://github.com/Khan/perseus/pull/3682) [`3c8712c329`](https://github.com/Khan/perseus/commit/3c8712c3292220489476170863396872f56613d2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix screen reader text for point graph to include the pointLabel, custom point label
+
+*   [#3694](https://github.com/Khan/perseus/pull/3694) [`9e818db282`](https://github.com/Khan/perseus/commit/9e818db282d3d0594f7fa84228ce3cfac490cc17) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Refactor linear, point, polygon, and ray graphs to use usePointAriaLabel instead of buildPointAriaLabel
+
+-   [#3674](https://github.com/Khan/perseus/pull/3674) [`625791bd32`](https://github.com/Khan/perseus/commit/625791bd32ebe10a477aedc3c593209892c149b3) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Point graph events.
+
+-   Updated dependencies [[`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136), [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224), [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf)]:
+    -   @khanacademy/math-input@26.4.31
+    -   @khanacademy/perseus-core@27.2.0
+    -   @khanacademy/keypad-context@3.2.59
+    -   @khanacademy/kmath@2.4.17
+    -   @khanacademy/perseus-linter@5.0.14
+    -   @khanacademy/perseus-score@8.11.1
+
 ## 77.9.0
 
 ### Minor Changes

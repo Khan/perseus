@@ -268,9 +268,12 @@ class InteractiveGraph extends React.Component<Props, State> {
                 ),
         };
 
+        const showUngradedText =
+            this.props.graded === false && this.props.graph.type !== "none";
+
         return (
             <>
-                {this.props.graded === false && (
+                {showUngradedText && (
                     <p>{this.context.strings.ungradedInteractiveGraph}</p>
                 )}
                 <StatefulMafsGraph

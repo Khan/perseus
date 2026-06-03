@@ -172,6 +172,95 @@ describe("Angle graph screen reader", () => {
     });
 });
 
+// TODO(LEMS-3995, post-PR-7): route the angle SR-tree summary through buildPointAriaLabel once new locale string keys land.
+describe("Angle graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    // pointLabels is indexed by `coords`: [0]=ending side, [1]=vertex,
+    // [2]=starting side. The MovablePoints are rendered in a different
+    // DOM order (vertex first), but each assertion just queries by
+    // accessible name.
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={{...baseAngleState, pointLabels: ["A", "B", "C"]}}
+                dispatch={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point A at -1 comma 1."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point C at 1 comma 1."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for indices without a custom label", () => {
+        // Arrange, Act — only the vertex (index 1) is named
+        render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={{...baseAngleState, pointLabels: ["", "B", ""]}}
+                dispatch={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point 2, ending side at -1 comma 1.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point 3, starting side at 1 comma 1.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={{
+                    ...baseAngleState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B", "C"] as unknown as string[],
+                }}
+                dispatch={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point 2, ending side at -1 comma 1.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point C at 1 comma 1."}),
+        ).toBeInTheDocument();
+    });
+});
+
 describe("getAngleSideConstraint", () => {
     it("prevents vertical movement given a vertical side of an angle", () => {
         const side: vec.Vector2 = [0, 5];

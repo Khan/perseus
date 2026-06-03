@@ -18,8 +18,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    gifImage,
-    gifImageAlt,
+    animatedGifLandscape,
+    animatedGifLandscapeAlt,
     graphieImage,
     graphieImageAlt,
     portraitImage,
@@ -172,10 +172,10 @@ export const GifImage: Story = {
         },
     },
     args: {
-        backgroundImage: gifImage,
-        alt: gifImageAlt,
-        caption: gifImageAlt,
-        longDescription: gifImageAlt,
+        backgroundImage: animatedGifLandscape,
+        alt: animatedGifLandscapeAlt,
+        caption: animatedGifLandscapeAlt,
+        longDescription: animatedGifLandscapeAlt,
     },
 };
 

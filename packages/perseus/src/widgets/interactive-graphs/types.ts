@@ -50,7 +50,7 @@ export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 type MovePointAnnouncement = {
     type: "move-point";
-    pointIndex: number;
+    pointLabel: string;
     x: number;
     y: number;
 };
@@ -74,6 +74,14 @@ type MoveCenterAnnouncement = {
 type MoveVectorPointAnnouncement = {
     type: "move-vector-point";
     pointIndex: number;
+};
+
+// Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
+// (index 1) use different labels, chosen by index.
+type MoveRayPointAnnouncement = {
+    type: "move-ray-point";
+    pointIndex: number;
+    pointLabel: string | number;
     x: number;
     y: number;
 };
@@ -85,12 +93,65 @@ type MoveVectorLineAnnouncement = {
     coords: PairOfPoints;
 };
 
+// Whole-ray keyboard drag. Carries both endpoints so the
+// announcement can describe the ray they run through.
+type MoveRayLineAnnouncement = {
+    type: "move-ray-line";
+    coords: PairOfPoints;
+};
+
+// Whole-line keyboard drag for the linear graph. Carries both
+// endpoints so the announcement can describe the line they run through.
+type MoveLinearLineAnnouncement = {
+    type: "move-linear-line";
+    coords: PairOfPoints;
+};
+
+// Sinusoid graph: peak (index 1) reads as max/min/flat depending on
+// its y vs the root's y. We pass otherY so the screen reader text can
+// pick the right label without recomputing it from the reducer.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    otherY: number;
+};
+
+// Angle graph: vertex (index 1) reads with the measured angle; sides
+// (indices 0, 2) read with just coords. The reducer pre-computes the
+// measure since it already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
+// Whole-polygon keyboard drag. Carries every vertex so the
+// announcement can list each point's new coordinates, plus any author-supplied
+// custom labels so each vertex is announced by its label when one is set.
+type MovePolygonAnnouncement = {
+    type: "move-polygon";
+    coords: ReadonlyArray<Coord>;
+    pointLabels?: ReadonlyArray<string>;
+};
+
 export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
     | MoveVectorPointAnnouncement
-    | MoveVectorLineAnnouncement;
+    | MoveVectorLineAnnouncement
+    | MoveRayPointAnnouncement
+    | MoveRayLineAnnouncement
+    | MoveLinearLineAnnouncement
+    | MoveSinusoidPointAnnouncement
+    | MoveAnglePointAnnouncement
+    | MovePolygonAnnouncement;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;

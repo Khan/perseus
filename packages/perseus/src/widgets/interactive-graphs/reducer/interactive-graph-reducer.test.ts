@@ -501,6 +501,53 @@ describe("movePointInFigure", () => {
         expect(updated.coords[1]).toEqual([10, 10]);
     });
 
+    it("sets stateAnnouncement to a move-ray-point with the new position", () => {
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(1, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-ray-point",
+            pointIndex: 1,
+            pointLabel: 2,
+            x: -3,
+            y: 2,
+        });
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+            pointLabels: ["A", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("A");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseRayGraphState,
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+
     it("allows linear-system points to land on the graph edge", () => {
         const state: InteractiveGraphState = {
             hasBeenInteractedWith: false,
@@ -553,6 +600,84 @@ describe("movePointInFigure", () => {
 
         invariant(updated.type === "linear");
         expect(updated.coords[0]).toEqual([10, 10]);
+    });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: -3,
+            y: 2,
+        });
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["A", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("A");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.movePoint(0, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 });
 
@@ -678,6 +803,33 @@ describe("moveLine on a linear graph", () => {
             [10, 10],
         ]);
     });
+
+    it("sets stateAnnouncement to a move-linear-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            hasBeenInteractedWith: false,
+            type: "linear",
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.linear.moveLine([-3, 3]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-linear-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [-3, 3],
+            [-1, 5],
+        ]);
+    });
 });
 
 describe("moveRay on a ray graph", () => {
@@ -694,6 +846,22 @@ describe("moveRay on a ray graph", () => {
         expect(updated.coords).toEqual([
             [5, 5],
             [10, 10],
+        ]);
+    });
+
+    it("sets stateAnnouncement to a move-ray-line with the new endpoints", () => {
+        // baseRayGraphState has endpoints at (0, 0) and (5, 5).
+        const state: InteractiveGraphState = {...baseRayGraphState};
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.ray.moveRay([-3, 3]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-ray-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [-3, 3],
+            [2, 8],
         ]);
     });
 });
@@ -776,7 +944,53 @@ describe("movePoint on a point graph", () => {
 
         expect(updated.stateAnnouncement).toEqual({
             type: "move-point",
-            pointIndex: 0,
+            pointLabel: "1",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+            pointLabels: ["T"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "T",
+            x: 3,
+            y: 4,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        // The editor encodes "only the second point labeled" as ["", "B"];
+        // the reducer must keep the unlabeled slot on its numeric default
+        // (stringified to match the announcement payload contract).
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["", "B"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [3, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
             x: 3,
             y: 4,
         });
@@ -871,6 +1085,69 @@ describe("movePoint on an angle graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("sets stateAnnouncement to a move-angle-point with the measured angle for the vertex", () => {
+        // Use a wider-spaced angle so moving the vertex doesn't pull the
+        // side points too close (which would reject the move).
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(1, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(1);
+        expect(updated.stateAnnouncement.y).toBe(1);
+        expect(typeof updated.stateAnnouncement.angleMeasure).toBe("number");
+    });
+
+    it("sets stateAnnouncement to a move-angle-point when moving a side point", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 5]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+            pointLabels: ["T", "V", "S"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 5]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-angle-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("T");
+    });
 });
 
 describe("movePoint on a polygon graph", () => {
@@ -892,6 +1169,80 @@ describe("movePoint on a polygon graph", () => {
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 1]);
+    });
+
+    it("sets stateAnnouncement to a move-point with the new position", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("uses the custom pointLabel in the move-point announcement", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "A",
+            x: 0,
+            y: 1,
+        });
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-point",
+            pointLabel: "1",
+            x: 0,
+            y: 1,
+        });
     });
 
     it("rejects the move if it would cause sides of the polygon to intersect with grid snapping", () => {
@@ -1069,6 +1420,141 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([
             3.1344697042830383, -2.1621978801515374,
         ]);
+    });
+
+    it("sets stateAnnouncement to a move-polygon with the new vertex coords on moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-polygon");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [1, 1],
+            [1, 3],
+            [3, 3],
+            [3, 1],
+        ]);
+    });
+
+    it("carries custom pointLabels in the move-polygon announcement on moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-polygon");
+        expect(updated.stateAnnouncement.pointLabels).toEqual([
+            "A",
+            "B",
+            "C",
+            "D",
+        ]);
+    });
+});
+
+describe("movePoint on a sinusoid graph", () => {
+    it("sets stateAnnouncement to a move-sinusoid-point when moving the root", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(1);
+        expect(updated.stateAnnouncement.y).toBe(1);
+        // otherY is the peak's y, unchanged from the starting state
+        expect(updated.stateAnnouncement.otherY).toBe(3);
+    });
+
+    it("sets stateAnnouncement to a move-sinusoid-point when moving the peak", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(1, [3, -4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(3);
+        expect(updated.stateAnnouncement.y).toBe(-4);
+        // otherY is the root's y, unchanged from the starting state
+        expect(updated.stateAnnouncement.otherY).toBe(0);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+            pointLabels: ["T", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("T");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [0, 0],
+                [2, 3],
+            ],
+            pointLabels: ["", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [1, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
     });
 });
 

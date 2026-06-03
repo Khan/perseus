@@ -300,6 +300,131 @@ describe("Linear System graph screen reader", () => {
     });
 });
 
+describe("Linear System graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels for each endpoint across both lines", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["A", "B", "C", "D"],
+                }}
+            />,
+        );
+        const line1Point1 = screen.getByRole("button", {
+            name: "Point A at -5 comma 5.",
+        });
+        const line1Point2 = screen.getByRole("button", {
+            name: "Point B at 5 comma 5.",
+        });
+        const line2Point1 = screen.getByRole("button", {
+            name: "Point C at -5 comma -5.",
+        });
+        const line2Point2 = screen.getByRole("button", {
+            name: "Point D at 5 comma -5.",
+        });
+
+        // Assert — each interactive endpoint gets its custom label
+        expect(line1Point1).toBeInTheDocument();
+        expect(line1Point2).toBeInTheDocument();
+        expect(line2Point1).toBeInTheDocument();
+        expect(line2Point2).toBeInTheDocument();
+    });
+
+    it("falls back to the per-line default for indices without a custom label", () => {
+        // Arrange, Act — only the first two endpoints (line 1) named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["A", "B"],
+                }}
+            />,
+        );
+        const line1Point1 = screen.getByRole("button", {
+            name: "Point A at -5 comma 5.",
+        });
+        const line2Point1 = screen.getByRole("button", {
+            name: "Point 1 on line 2 at -5 comma -5.",
+        });
+        const line2Point2 = screen.getByRole("button", {
+            name: "Point 2 on line 2 at 5 comma -5.",
+        });
+
+        // Assert — line 1's endpoint uses the custom label;
+        // line 2 falls back to the per-line default.
+        expect(line1Point1).toBeInTheDocument();
+        expect(line2Point1).toBeInTheDocument();
+        expect(line2Point2).toBeInTheDocument();
+    });
+
+    // The editor encodes "only the line-2 endpoints named" as
+    // ["", "", "C", "D"]. Empty strings must fall back to the per-line default.
+    it("falls back to the per-line default for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    pointLabels: ["", "", "C", "D"],
+                }}
+            />,
+        );
+        const line1Point1 = screen.getByRole("button", {
+            name: "Point 1 on line 1 at -5 comma 5.",
+        });
+        const line1Point2 = screen.getByRole("button", {
+            name: "Point 2 on line 1 at 5 comma 5.",
+        });
+        const line2Point1 = screen.getByRole("button", {
+            name: "Point C at -5 comma -5.",
+        });
+        const line2Point2 = screen.getByRole("button", {
+            name: "Point D at 5 comma -5.",
+        });
+
+        // Assert
+        expect(line1Point1).toBeInTheDocument();
+        expect(line1Point2).toBeInTheDocument();
+        expect(line2Point1).toBeInTheDocument();
+        expect(line2Point2).toBeInTheDocument();
+    });
+
+    it("falls back to the per-line default for truthy non-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLinearSystemState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B", "C", "D"] as unknown as string[],
+                }}
+            />,
+        );
+        const line1Point1 = screen.getByRole("button", {
+            name: "Point 1 on line 1 at -5 comma 5.",
+        });
+        const line1Point2 = screen.getByRole("button", {
+            name: "Point B at 5 comma 5.",
+        });
+
+        // Assert — index 0 is a non-string and falls back to the per-line
+        // default; index 1 is a usable string and overrides.
+        expect(line1Point1).toBeInTheDocument();
+        expect(line1Point2).toBeInTheDocument();
+    });
+});
+
 describe("getLinearSystemGraphDescription", () => {
     test("describes a default linear system graph", () => {
         // Arrange
