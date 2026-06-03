@@ -310,7 +310,7 @@ describe("getAnnouncementText", () => {
         });
     });
 
-    describe("move-quadratic-point announcements", () => {
+    describe("move-quadratic-point", () => {
         // Composes the point label (quadrant-aware) with the vertex
         // string when a vertex exists; vertex is undefined when the
         // parabola degenerates to a line.
