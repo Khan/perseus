@@ -25,6 +25,11 @@ type Props = {
     };
     // Extra graph information to be read by screen readers
     ariaDescribedBy?: string;
+    // Temporary property to override the internally-managed aria-live for the line and
+    // both endpoints.
+    // TODO(LEMS-4189): Remove once every line-like graph emits its move through
+    // the WB Announcer and the internal aria-live state machine is deleted.
+    ariaLive?: AriaLive;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
@@ -39,6 +44,7 @@ export const MovableLine = (props: Props) => {
         points: [start, end],
         ariaLabels,
         ariaDescribedBy,
+        ariaLive,
         extend,
         onMoveLine = () => {},
         onMovePoint = () => {},
@@ -56,6 +62,12 @@ export const MovableLine = (props: Props) => {
         "off",
     ]);
 
+    // A caller-provided aria-live (e.g. "off" from the linear graph) takes
+    // precedence over the internal state machine above for all three elements.
+    const point1AriaLive = ariaLive ?? ariaLives[0];
+    const point2AriaLive = ariaLive ?? ariaLives[1];
+    const lineAriaLive = ariaLive ?? ariaLives[2];
+
     // We use separate focusableHandle elements, instead of letting the movable
     // points themselves be focusable, to allow the tab order of the points to
     // be different from the rendering order. We had to solve for the following
@@ -71,7 +83,7 @@ export const MovableLine = (props: Props) => {
         useControlPoint({
             ariaLabel: ariaLabels?.point1AriaLabel,
             ariaDescribedBy: ariaDescribedBy,
-            ariaLive: ariaLives[0],
+            ariaLive: point1AriaLive,
             point: start,
             sequenceNumber: 1,
             onMove: (p) => {
@@ -88,7 +100,7 @@ export const MovableLine = (props: Props) => {
         useControlPoint({
             ariaLabel: ariaLabels?.point2AriaLabel,
             ariaDescribedBy: ariaDescribedBy,
-            ariaLive: ariaLives[1],
+            ariaLive: point2AriaLive,
             point: end,
             sequenceNumber: 2,
             onMove: (p) => {
@@ -106,7 +118,7 @@ export const MovableLine = (props: Props) => {
         <Line
             ariaLabel={ariaLabels?.grabHandleAriaLabel}
             ariaDescribedBy={ariaDescribedBy}
-            ariaLive={ariaLives[2]}
+            ariaLive={lineAriaLive}
             start={start}
             end={end}
             extend={extend}
