@@ -169,18 +169,18 @@ const Line = (props: LineProps) => {
         interactiveColor,
     } = useGraphConfig();
 
-    let startExtend: vec.Vector2 | undefined = undefined;
-    let endExtend: vec.Vector2 | undefined = undefined;
+    const computeExtensionTip = (tail: vec.Vector2, source: vec.Vector2) =>
+        insetTipAlongRay(
+            tail,
+            getIntersectionOfRayWithBox(source, tail, range),
+            range,
+            graphDimensionsInPixels,
+        );
 
-    if (extend) {
-        const trimmedRange = trimRange(range, graphDimensionsInPixels);
-        startExtend = extend.start
-            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
-            : undefined;
-        endExtend = extend.end
-            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
-            : undefined;
-    }
+    const startExtend = extend?.start
+        ? computeExtensionTip(start, end)
+        : undefined;
+    const endExtend = extend?.end ? computeExtensionTip(end, start) : undefined;
 
     const line = useRef<SVGGElement>(null);
     const {dragging} = useDraggable({
@@ -320,4 +320,31 @@ export function trimRange(
     const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
     const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
     return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
+}
+
+// Matches `pixelsToTrim` in trimRange above so extension arrows keep the
+// same visual length
+const EXTENSION_TIP_INSET_PX = 4;
+
+/**
+ * Without this inset the arrow tip sits exactly on the graph edge, where
+ * the arrowhead glyph is half-clipped by the viewport.
+ */
+export function insetTipAlongRay(
+    tail: vec.Vector2,
+    tip: vec.Vector2,
+    range: [Interval, Interval],
+    graphDimensionsInPixels: vec.Vector2,
+): vec.Vector2 {
+    const dx = tip[0] - tail[0];
+    const dy = tip[1] - tail[1];
+    const [pixelsWide, pixelsTall] = graphDimensionsInPixels;
+    const pxPerUnitX = pixelsWide / size(range[0]);
+    const pxPerUnitY = pixelsTall / size(range[1]);
+    const lenPx = Math.hypot(dx * pxPerUnitX, dy * pxPerUnitY);
+    if (lenPx === 0) {
+        return tip;
+    }
+    const scale = EXTENSION_TIP_INSET_PX / lenPx;
+    return [tip[0] - dx * scale, tip[1] - dy * scale];
 }
