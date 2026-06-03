@@ -47,22 +47,20 @@ export function FeatureFlagsToolbar() {
             : `Feature Flags: ${activeFlags.length} on`;
 
     return (
-        <React.Suspense fallback={null}>
-            <WithTooltip
-                placement="bottom"
-                trigger="click"
-                closeOnOutsideClick
-                tooltip={<TooltipLinkList links={links} />}
+        <WithTooltip
+            placement="bottom"
+            trigger="click"
+            closeOnOutsideClick
+            tooltip={<TooltipLinkList links={links} />}
+        >
+            <Button
+                size="small"
+                variant="outline"
+                active={activeFlags.length > 0}
+                title="Feature Flags"
             >
-                <Button
-                    size="small"
-                    variant="outline"
-                    active={activeFlags.length > 0}
-                    title="Feature Flags"
-                >
-                    {label}
-                </Button>
-            </WithTooltip>
-        </React.Suspense>
+                {label}
+            </Button>
+        </WithTooltip>
     );
 }
