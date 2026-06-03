@@ -53,6 +53,7 @@ class Indicators extends React.Component<IndicatorsProps> {
             <ul
                 // reduntantly add class name for use in .css files--
                 //   the styles object key gets hashed
+                role="list"
                 className={classNames(
                     css(styles.indicatorContainer),
                     "indicatorContainer",
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
     indicatorContainer: {
         display: "flex",
         flexDirection: "row",
-        listStyleType: '""',
+        listStyleType: "none",
         margin: "unset",
         paddingInlineStart: "unset",
         flexWrap: "wrap",
