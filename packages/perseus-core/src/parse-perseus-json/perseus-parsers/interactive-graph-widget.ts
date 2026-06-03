@@ -1,4 +1,3 @@
-import {lockedFigureColorNames} from "../../data-schema";
 import {
     array,
     boolean,
@@ -188,7 +187,20 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
+const parseLockedFigureColor = pipeParsers(
+    enumeration(
+        // Same as lockedFigureColorNames in data-schema.ts
+        "blue",
+        "gold",
+        "green",
+        "grayH",
+        "purple",
+        "pink",
+        "red",
+        // deprecated name - "orange" is now "gold"
+        "orange",
+    ),
+).then(convert((color) => (color === "orange" ? "gold" : color))).parser;
 
 const parseLockedFigureFillType = enumeration(
     "none",
