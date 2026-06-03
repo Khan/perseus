@@ -5,6 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -33,11 +34,12 @@ export function renderSegmentGraph(
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
-    const {coords: segments} = graphState;
+    const {coords: segments, pointLabels} = graphState;
     const {strings, locale} = usePerseusI18n();
     const segmentUniqueId = React.useId();
     const lengthDescriptionId = segmentUniqueId + "-length";
     const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1
@@ -104,73 +106,75 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
             aria-label={wholeSegmentGraphAriaLabel}
             aria-describedby={`${wholeGraphDescriptionId} ${segments.length === 1 && lengthDescriptionId}`}
         >
-            {segments?.map((segment, i) => (
-                <g
-                    aria-label={
-                        segments.length === 1
-                            ? undefined
-                            : getIndividualSegmentAriaLabel(segment, i)
-                    }
-                    aria-describedby={
-                        segments.length === 1 ? undefined : lengthDescriptionId
-                    }
-                    key={`${segmentUniqueId}-${i}`}
-                >
-                    <MovableLine
-                        key={i}
-                        points={segment}
-                        // The segment graph's move announcements come from the
-                        // WB Announcer via stateAnnouncement; disable aria-live
-                        // here to avoid the focusable handles double-announcing.
-                        // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                        // dropped from MovableLine / useControlPoint.
-                        ariaLive="off"
-                        onMoveLine={(newStart) => {
-                            dispatch(actions.segment.moveLine(i, newStart));
-                        }}
-                        onMovePoint={(
-                            endpointIndex: number,
-                            destination: vec.Vector2,
-                        ) => {
-                            dispatch(
-                                actions.segment.movePointInFigure(
-                                    i,
-                                    endpointIndex,
-                                    destination,
+            {segments?.map((segment, i) => {
+                const point1AriaLabel =
+                    buildLabel(i * 2, segment[0]) ??
+                    formatSegment(1, segment[0][X], segment[0][Y], i + 1);
+                const point2AriaLabel =
+                    buildLabel(i * 2 + 1, segment[1]) ??
+                    formatSegment(2, segment[1][X], segment[1][Y], i + 1);
+                const grabHandleAriaLabel = strings.srSegmentGrabHandle({
+                    point1X: srFormatNumber(segment[0][X], locale),
+                    point1Y: srFormatNumber(segment[0][Y], locale),
+                    point2X: srFormatNumber(segment[1][X], locale),
+                    point2Y: srFormatNumber(segment[1][Y], locale),
+                });
+
+                return (
+                    <g
+                        aria-label={
+                            segments.length === 1
+                                ? undefined
+                                : getIndividualSegmentAriaLabel(segment, i)
+                        }
+                        aria-describedby={
+                            segments.length === 1
+                                ? undefined
+                                : lengthDescriptionId
+                        }
+                        key={`${segmentUniqueId}-${i}`}
+                    >
+                        <MovableLine
+                            key={i}
+                            points={segment}
+                            // The segment graph's move announcements come from the
+                            // WB Announcer via stateAnnouncement; disable aria-live
+                            // here to avoid the focusable handles double-announcing.
+                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
+                            // dropped from MovableLine / useControlPoint.
+                            ariaLive="off"
+                            onMoveLine={(newStart) => {
+                                dispatch(actions.segment.moveLine(i, newStart));
+                            }}
+                            onMovePoint={(
+                                endpointIndex: number,
+                                destination: vec.Vector2,
+                            ) => {
+                                dispatch(
+                                    actions.segment.movePointInFigure(
+                                        i,
+                                        endpointIndex,
+                                        destination,
+                                    ),
+                                );
+                            }}
+                            ariaLabels={{
+                                point1AriaLabel,
+                                point2AriaLabel,
+                                grabHandleAriaLabel,
+                            }}
+                        />
+                        <SRDescInSVG id={lengthDescriptionId}>
+                            {strings.srSegmentLength({
+                                length: srFormatNumber(
+                                    getLengthOfSegment(segment),
+                                    locale,
                                 ),
-                            );
-                        }}
-                        ariaLabels={{
-                            point1AriaLabel: formatSegment(
-                                1,
-                                segment[0][X],
-                                segment[0][Y],
-                                i + 1,
-                            ),
-                            point2AriaLabel: formatSegment(
-                                2,
-                                segment[1][X],
-                                segment[1][Y],
-                                i + 1,
-                            ),
-                            grabHandleAriaLabel: strings.srSegmentGrabHandle({
-                                point1X: srFormatNumber(segment[0][X], locale),
-                                point1Y: srFormatNumber(segment[0][Y], locale),
-                                point2X: srFormatNumber(segment[1][X], locale),
-                                point2Y: srFormatNumber(segment[1][Y], locale),
-                            }),
-                        }}
-                    />
-                    <SRDescInSVG id={lengthDescriptionId}>
-                        {strings.srSegmentLength({
-                            length: srFormatNumber(
-                                getLengthOfSegment(segment),
-                                locale,
-                            ),
-                        })}
-                    </SRDescInSVG>
-                </g>
-            ))}
+                            })}
+                        </SRDescInSVG>
+                    </g>
+                );
+            })}
             <SRDescInSVG id={wholeGraphDescriptionId}>
                 {getWholeSegmentGraphAriaDescription()}
             </SRDescInSVG>

@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 27.2.0
+
+### Minor Changes
+
+-   [#3672](https://github.com/Khan/perseus/pull/3672) [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through line and ray graphs for custom points label
+
+*   [#3673](https://github.com/Khan/perseus/pull/3673) [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through linear-system and segment graphs for custom points label
+
 ## 27.1.0
 
 ### Minor Changes

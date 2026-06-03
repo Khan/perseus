@@ -6778,6 +6778,340 @@ $3$ | $8$
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "A graph with locked figures of different colors.
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "none",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "gridStep": [
+            0.5,
+            0.1,
+          ],
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                1,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "gold",
+              "coord": [
+                2,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "coord": [
+                3,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "grayH",
+              "coord": [
+                4,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "purple",
+              "coord": [
+                5,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "pink",
+              "coord": [
+                5,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "red",
+              "coord": [
+                6,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "gold",
+              "coord": [
+                7,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              0,
+              8,
+            ],
+            [
+              0,
+              2,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.05,
+          ],
+          "step": [
+            1,
+            0.5,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "A graph with locked figures of different colors.
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "gridStep": [
+            0.5,
+            0.1,
+          ],
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                1,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "gold",
+              "coord": [
+                2,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "coord": [
+                3,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "grayH",
+              "coord": [
+                4,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "purple",
+              "coord": [
+                5,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "pink",
+              "coord": [
+                5,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "red",
+              "coord": [
+                6,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "gold",
+              "coord": [
+                7,
+                1,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              0,
+              8,
+            ],
+            [
+              0,
+              2,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "snapStep": [
+            0.25,
+            0.05,
+          ],
+          "step": [
+            1,
+            0.5,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.ts returns the same result as before 1`] = `
 {
   "answerArea": {

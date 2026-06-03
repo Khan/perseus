@@ -3,10 +3,10 @@
 exports[`keypad should snapshot expanded: first render 1`] = `
 <div>
   <div
-    class="default_xu2jcg-o_O-inlineStyles_u02imw keypad-outer-container"
+    class="default_7zhre1-o_O-inlineStyles_u02imw keypad-outer-container"
   >
     <div
-      class="default_xu2jcg-o_O-inlineStyles_qf1nnu wrapper expanded-wrapper"
+      class="default_7zhre1-o_O-inlineStyles_qf1nnu wrapper expanded-wrapper"
     >
       <div
         class="tabs_tb5n2j"
@@ -17,7 +17,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            class="tablist_m7qbl9-o_O-inlineStyles_h8bg75"
+            class="tablist_5vqrl0-o_O-inlineStyles_h8bg75"
             id=":r7:-tablist"
             role="tablist"
           >
@@ -25,7 +25,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               aria-controls="Numbers-panel"
               aria-label="Numbers"
               aria-selected="true"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-selectedTab_165hz3z-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-selectedTab_165hz3z-o_O-inlineStyles_g6fq4g"
               id="Numbers-tab"
               role="tab"
               tabindex="0"
@@ -48,7 +48,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               aria-controls="Extras-panel"
               aria-label="Extras"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Extras-tab"
               role="tab"
               tabindex="-1"
@@ -92,7 +92,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               aria-controls="Operators-panel"
               aria-label="Operators"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Operators-tab"
               role="tab"
               tabindex="-1"
@@ -117,7 +117,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               aria-controls="Geometry-panel"
               aria-label="Geometry"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Geometry-tab"
               role="tab"
               tabindex="-1"
@@ -152,22 +152,22 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            class="default_xu2jcg keypad-grid expression-grid"
+            class="default_7zhre1 keypad-grid expression-grid"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+              class="default_7zhre1-o_O-inlineStyles_1c2q4k1"
               data-testid="NUM_1"
             >
               <button
                 aria-label="1"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -186,19 +186,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_4h080i"
+              class="default_7zhre1-o_O-inlineStyles_4h080i"
               data-testid="NUM_2"
             >
               <button
                 aria-label="2"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -217,19 +217,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+              class="default_7zhre1-o_O-inlineStyles_ei5lhv"
               data-testid="NUM_3"
             >
               <button
                 aria-label="3"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -248,19 +248,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+              class="default_7zhre1-o_O-inlineStyles_1drshe8"
               data-testid="NUM_4"
             >
               <button
                 aria-label="4"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -279,19 +279,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+              class="default_7zhre1-o_O-inlineStyles_1j1cer"
               data-testid="NUM_5"
             >
               <button
                 aria-label="5"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -310,19 +310,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+              class="default_7zhre1-o_O-inlineStyles_1qj00wi"
               data-testid="NUM_6"
             >
               <button
                 aria-label="6"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -341,19 +341,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+              class="default_7zhre1-o_O-inlineStyles_1o7q2hf"
               data-testid="NUM_7"
             >
               <button
                 aria-label="7"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -372,19 +372,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+              class="default_7zhre1-o_O-inlineStyles_11fd5hs"
               data-testid="NUM_8"
             >
               <button
                 aria-label="8"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -403,19 +403,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+              class="default_7zhre1-o_O-inlineStyles_mr6jkh"
               data-testid="NUM_9"
             >
               <button
                 aria-label="9"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -434,19 +434,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+              class="default_7zhre1-o_O-inlineStyles_xra0eu"
               data-testid="NUM_0"
             >
               <button
                 aria-label="0"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -465,19 +465,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+              class="default_7zhre1-o_O-inlineStyles_6bvuz9"
               data-testid="DECIMAL"
             >
               <button
                 aria-label="Decimal"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       data-testid="period-decimal"
@@ -497,19 +497,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+              class="default_7zhre1-o_O-inlineStyles_l02gwk"
               data-testid="NEGATIVE"
             >
               <button
                 aria-label="Negative"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -530,19 +530,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+              class="default_7zhre1-o_O-inlineStyles_ma0as6"
               data-testid="PERCENT"
             >
               <button
                 aria-label="Percent"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -563,19 +563,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_771h91"
+              class="default_7zhre1-o_O-inlineStyles_771h91"
               data-testid="FRAC"
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -596,19 +596,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+              class="default_7zhre1-o_O-inlineStyles_wb5o9j"
               data-testid="PLUS"
             >
               <button
                 aria-label="Plus"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -635,19 +635,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+              class="default_7zhre1-o_O-inlineStyles_9isr9w"
               data-testid="MINUS"
             >
               <button
                 aria-label="Minus"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -668,19 +668,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_lv836c"
+              class="default_7zhre1-o_O-inlineStyles_lv836c"
               data-testid="CDOT"
             >
               <button
                 aria-label="Multiply"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -716,19 +716,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+              class="default_7zhre1-o_O-inlineStyles_k65qc5"
               data-testid="LEFT_PAREN"
             >
               <button
                 aria-label="Left parenthesis"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -749,19 +749,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+              class="default_7zhre1-o_O-inlineStyles_1bljvrq"
               data-testid="RIGHT_PAREN"
             >
               <button
                 aria-label="Right parenthesis"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -782,19 +782,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_y8g975"
+              class="default_7zhre1-o_O-inlineStyles_y8g975"
               data-testid="BACKSPACE"
             >
               <button
                 aria-label="Delete"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -816,24 +816,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </div>
           </div>
           <div
-            class="default_xu2jcg-o_O-container_1k0uorj"
+            class="default_7zhre1-o_O-container_1k0uorj"
           >
             <div
-              class="default_xu2jcg-o_O-grid_8l7lum"
+              class="default_7zhre1-o_O-grid_8l7lum"
             >
               <div
-                class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+                class="default_7zhre1-o_O-inlineStyles_11fd5hs"
               >
                 <button
                   aria-label="Up arrow"
-                  class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
                 >
                   <div
-                    class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                    class="default_7zhre1-o_O-outerBoxBase_ctz3yu"
                   >
                     <div
-                      class="default_xu2jcg-o_O-base_1pvsny9-o_O-up_1f2wdg4"
+                      class="default_7zhre1-o_O-base_1pvsny9-o_O-up_1f2wdg4"
                     >
                       <svg
                         height="48"
@@ -867,18 +867,18 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 </button>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+                class="default_7zhre1-o_O-inlineStyles_1qj00wi"
               >
                 <button
                   aria-label="Right arrow"
-                  class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
                 >
                   <div
-                    class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                    class="default_7zhre1-o_O-outerBoxBase_ctz3yu"
                   >
                     <div
-                      class="default_xu2jcg-o_O-base_1pvsny9-o_O-right_6pkru3"
+                      class="default_7zhre1-o_O-base_1pvsny9-o_O-right_6pkru3"
                     >
                       <svg
                         height="48"
@@ -912,18 +912,18 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 </button>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_4h080i"
+                class="default_7zhre1-o_O-inlineStyles_4h080i"
               >
                 <button
                   aria-label="Down arrow"
-                  class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
                 >
                   <div
-                    class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                    class="default_7zhre1-o_O-outerBoxBase_ctz3yu"
                   >
                     <div
-                      class="default_xu2jcg-o_O-base_1pvsny9-o_O-down_1h77sr8"
+                      class="default_7zhre1-o_O-base_1pvsny9-o_O-down_1h77sr8"
                     >
                       <svg
                         height="48"
@@ -957,18 +957,18 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 </button>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+                class="default_7zhre1-o_O-inlineStyles_1drshe8"
               >
                 <button
                   aria-label="Left arrow"
-                  class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo"
                   type="button"
                 >
                   <div
-                    class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                    class="default_7zhre1-o_O-outerBoxBase_ctz3yu"
                   >
                     <div
-                      class="default_xu2jcg-o_O-base_1pvsny9-o_O-left_176nduz"
+                      class="default_7zhre1-o_O-base_1pvsny9-o_O-left_176nduz"
                     >
                       <svg
                         height="48"
@@ -1001,7 +1001,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 </button>
               </div>
               <div
-                class="default_xu2jcg-o_O-spacer_1qpt4gb"
+                class="default_7zhre1-o_O-spacer_1qpt4gb"
               />
             </div>
           </div>
@@ -1036,10 +1036,10 @@ exports[`keypad should snapshot expanded: first render 1`] = `
 exports[`keypad should snapshot unexpanded: first render 1`] = `
 <div>
   <div
-    class="default_xu2jcg"
+    class="default_7zhre1"
   >
     <div
-      class="default_xu2jcg-o_O-inlineStyles_e296pg wrapper "
+      class="default_7zhre1-o_O-inlineStyles_e296pg wrapper "
     >
       <div
         class="tabs_tb5n2j"
@@ -1050,7 +1050,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            class="tablist_m7qbl9-o_O-inlineStyles_h8bg75"
+            class="tablist_5vqrl0-o_O-inlineStyles_h8bg75"
             id=":r6:-tablist"
             role="tablist"
           >
@@ -1058,7 +1058,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               aria-controls="Numbers-panel"
               aria-label="Numbers"
               aria-selected="true"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-selectedTab_165hz3z-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-selectedTab_165hz3z-o_O-inlineStyles_g6fq4g"
               id="Numbers-tab"
               role="tab"
               tabindex="0"
@@ -1081,7 +1081,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               aria-controls="Extras-panel"
               aria-label="Extras"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Extras-tab"
               role="tab"
               tabindex="-1"
@@ -1125,7 +1125,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               aria-controls="Operators-panel"
               aria-label="Operators"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Operators-tab"
               role="tab"
               tabindex="-1"
@@ -1150,7 +1150,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               aria-controls="Geometry-panel"
               aria-label="Geometry"
               aria-selected="false"
-              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_1o7jtx6-o_O-inlineStyles_g6fq4g"
+              class="button_vr44p2-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-tab_yerg6q-o_O-inlineStyles_g6fq4g"
               id="Geometry-tab"
               role="tab"
               tabindex="-1"
@@ -1185,22 +1185,22 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         >
           <div
             aria-label="Keypad"
-            class="default_xu2jcg keypad-grid expression-grid"
+            class="default_7zhre1 keypad-grid expression-grid"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+              class="default_7zhre1-o_O-inlineStyles_1c2q4k1"
               data-testid="NUM_1"
             >
               <button
                 aria-label="1"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1219,19 +1219,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_4h080i"
+              class="default_7zhre1-o_O-inlineStyles_4h080i"
               data-testid="NUM_2"
             >
               <button
                 aria-label="2"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1250,19 +1250,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+              class="default_7zhre1-o_O-inlineStyles_ei5lhv"
               data-testid="NUM_3"
             >
               <button
                 aria-label="3"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1281,19 +1281,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+              class="default_7zhre1-o_O-inlineStyles_1drshe8"
               data-testid="NUM_4"
             >
               <button
                 aria-label="4"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1312,19 +1312,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+              class="default_7zhre1-o_O-inlineStyles_1j1cer"
               data-testid="NUM_5"
             >
               <button
                 aria-label="5"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1343,19 +1343,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+              class="default_7zhre1-o_O-inlineStyles_1qj00wi"
               data-testid="NUM_6"
             >
               <button
                 aria-label="6"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1374,19 +1374,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+              class="default_7zhre1-o_O-inlineStyles_1o7q2hf"
               data-testid="NUM_7"
             >
               <button
                 aria-label="7"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1405,19 +1405,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+              class="default_7zhre1-o_O-inlineStyles_11fd5hs"
               data-testid="NUM_8"
             >
               <button
                 aria-label="8"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1436,19 +1436,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+              class="default_7zhre1-o_O-inlineStyles_mr6jkh"
               data-testid="NUM_9"
             >
               <button
                 aria-label="9"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1467,19 +1467,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+              class="default_7zhre1-o_O-inlineStyles_xra0eu"
               data-testid="NUM_0"
             >
               <button
                 aria-label="0"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1498,19 +1498,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+              class="default_7zhre1-o_O-inlineStyles_6bvuz9"
               data-testid="DECIMAL"
             >
               <button
                 aria-label="Decimal"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       data-testid="period-decimal"
@@ -1530,19 +1530,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+              class="default_7zhre1-o_O-inlineStyles_l02gwk"
               data-testid="NEGATIVE"
             >
               <button
                 aria-label="Negative"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r"
+                    class="default_7zhre1-o_O-base_5bv98r"
                   >
                     <svg
                       fill="none"
@@ -1563,19 +1563,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+              class="default_7zhre1-o_O-inlineStyles_ma0as6"
               data-testid="PERCENT"
             >
               <button
                 aria-label="Percent"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1596,19 +1596,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_771h91"
+              class="default_7zhre1-o_O-inlineStyles_771h91"
               data-testid="FRAC"
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1629,19 +1629,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+              class="default_7zhre1-o_O-inlineStyles_wb5o9j"
               data-testid="PLUS"
             >
               <button
                 aria-label="Plus"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1668,19 +1668,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+              class="default_7zhre1-o_O-inlineStyles_9isr9w"
               data-testid="MINUS"
             >
               <button
                 aria-label="Minus"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1701,19 +1701,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_lv836c"
+              class="default_7zhre1-o_O-inlineStyles_lv836c"
               data-testid="CDOT"
             >
               <button
                 aria-label="Multiply"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1749,19 +1749,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+              class="default_7zhre1-o_O-inlineStyles_k65qc5"
               data-testid="LEFT_PAREN"
             >
               <button
                 aria-label="Left parenthesis"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1782,19 +1782,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+              class="default_7zhre1-o_O-inlineStyles_1bljvrq"
               data-testid="RIGHT_PAREN"
             >
               <button
                 aria-label="Right parenthesis"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"
@@ -1815,19 +1815,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_y8g975"
+              class="default_7zhre1-o_O-inlineStyles_y8g975"
               data-testid="BACKSPACE"
             >
               <button
                 aria-label="Delete"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                  class="default_7zhre1-o_O-outerBoxBase_3w5jmh"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
+                    class="default_7zhre1-o_O-base_5bv98r-o_O-inlineStyles_s65xgl"
                   >
                     <svg
                       fill="none"

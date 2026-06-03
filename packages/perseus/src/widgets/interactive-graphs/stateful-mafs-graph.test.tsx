@@ -151,7 +151,7 @@ describe("StatefulMafsGraph", () => {
                           ...baseState,
                           stateAnnouncement: {
                               type: "move-point" as const,
-                              pointIndex: 0,
+                              pointLabel: "1",
                               x: 3,
                               y: 5,
                           },

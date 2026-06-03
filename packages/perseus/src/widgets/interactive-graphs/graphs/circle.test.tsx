@@ -354,6 +354,91 @@ describe("describeCircleGraph", () => {
     });
 });
 
+// pointLabels for circle is interpreted as `[radiusPointLabel]`: only the
+// radius point (a `MovablePoint`) is labelable. The center is a
+// `MovableCircle` whose announcement describes the whole shape and is not
+// overridden. The SR-tree summary is deferred to the post-PR-7 i18n work.
+// TODO(LEMS-3995, post-PR-7): route the circle SR-tree summary through buildPointAriaLabel once new locale string keys land.
+describe("Circle graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses a custom pointLabels[0] for the radius point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseCircleState, pointLabels: ["R"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point R at 1 comma 0."}),
+        ).toBeInTheDocument();
+    });
+
+    it("does not override the center's announcement", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseCircleState, pointLabels: ["R"]}}
+            />,
+        );
+
+        // Assert — the center is a MovableCircle and intentionally NOT
+        // labelable; its announcement keeps its shape description even
+        // when `pointLabels` is set.
+        expect(
+            screen.getByRole("button", {
+                name: "Circle. The center point is at 0 comma 0.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for an empty-string entry", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseCircleState, pointLabels: [""]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Right radius endpoint at 1 comma 0. Circle radius is 1.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseCircleState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42] as unknown as string[],
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Right radius endpoint at 1 comma 0. Circle radius is 1.",
+            }),
+        ).toBeInTheDocument();
+    });
+});
+
 describe("getCircleKeyboardConstraint", () => {
     it("should snap to the snapStep and avoid putting points on a vertical line", () => {
         const radiusPoint: vec.Vector2 = [0, 0];

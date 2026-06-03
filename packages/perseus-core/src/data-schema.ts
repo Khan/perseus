@@ -990,8 +990,6 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
-    // deprecated
-    "orange",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -1004,9 +1002,6 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
-    // Deprecated: "orange" is the old name for the current "gold" color.
-    // We still have to support this in existing content.
-    orange: "var(--wb-semanticColor-learning-math-foreground-gold)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
@@ -1341,8 +1336,6 @@ export type PerseusGraphTypeVector = {
      *  "exact" (default) — both tail and tip must match exactly.
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
-    /** Custom label for each interactive point that will help with the screen reader. */
-    pointLabels?: [string, string];
 };
 
 type AbsoluteValueGraphCorrect = {
