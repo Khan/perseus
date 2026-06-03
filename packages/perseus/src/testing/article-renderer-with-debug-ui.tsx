@@ -7,6 +7,7 @@ import * as React from "react";
 
 import ArticleRenderer from "../article-renderer";
 
+import {StorybookFeatureFlagsContext} from "./feature-flags-context";
 import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
@@ -33,15 +34,20 @@ export const ArticleRendererWithDebugUI = ({
     linterContext,
 }: Props): React.ReactElement => {
     const ref = React.useRef<ArticleRenderer>(null);
+    const contextFlags = React.useContext(StorybookFeatureFlagsContext);
     const [isMobile, setIsMobile] = React.useState(
         apiOptions.isMobile ?? false,
     );
-    const options = {
-        ...apiOptions,
-        isMobile,
-        isArticle: true, // Articles should have isArticle flag set for proper behavior
-        customKeypad: isMobile, // Use the mobile keypad for mobile
-    };
+    const options = React.useMemo(
+        () => ({
+            ...apiOptions,
+            flags: {...contextFlags, ...apiOptions.flags},
+            isMobile,
+            isArticle: true, // Articles should have isArticle flag set for proper behavior
+            customKeypad: isMobile, // Use the mobile keypad for mobile
+        }),
+        [apiOptions, contextFlags, isMobile],
+    );
 
     return (
         <SplitView

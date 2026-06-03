@@ -12,6 +12,8 @@ import {useItemRenderer} from "./item-renderer-hooks";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
+import {StorybookFeatureFlagsContext} from "./feature-flags-context";
+
 import type {APIOptions} from "../types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -36,6 +38,15 @@ export const ServerItemRendererWithDebugUI = ({
     reviewMode = false,
     showSolutions,
 }: Props): React.ReactElement => {
+    const contextFlags = React.useContext(StorybookFeatureFlagsContext);
+    const mergedApiOptions = React.useMemo(
+        () => ({
+            ...apiOptions,
+            flags: {...contextFlags, ...apiOptions.flags},
+        }),
+        [apiOptions, contextFlags],
+    );
+
     // Use our custom hook to manage the renderer state
     const {
         ref,
@@ -48,7 +59,7 @@ export const ServerItemRendererWithDebugUI = ({
         handleSkip,
         handleCheck,
         setShowPopover,
-    } = useItemRenderer(item, apiOptions, reviewMode, showSolutions);
+    } = useItemRenderer(item, mergedApiOptions, reviewMode, showSolutions);
 
     return (
         <View>
