@@ -44,7 +44,11 @@ grep -nE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/compon
 
 ### Fonts to be Tokenized:
 
-None found. No `fontSize`, `fontWeight`, `lineHeight`, or `fontFamily` in any sortable files.
+Initial grep against `packages/perseus/src/components/sortable.tsx` found no fonts. However, `packages/perseus/src/styles/widgets/sortable.css` (discovered in Step 9) contains:
+
+- Line 65: `font-size: 14px` — `.perseus-sortable .perseus-sortable-draggable > div`
+
+**Note on audit miss:** The initial audit only scanned `components/sortable.tsx`. The CSS file lives in `styles/widgets/` and is loaded via `perseus-renderer.css` (`@import "widgets/sortable.css" layer(perseus-legacy)`). Steps 5–7 were originally marked as skipped but were un-skipped when this was discovered.
 
 ---
 
@@ -116,9 +120,23 @@ Regression stories committed and pushed in a dedicated baseline PR. Chromatic sn
 
 ---
 
-## Steps 5–7 — Skipped
+## Step 5 — Font Conversion
 
-**Reason:** Audit (Step 1) found no font properties (`fontSize`, `fontWeight`, `lineHeight`, `fontFamily`) in any sortable files. Font conversion, font quality checks, and Chromatic font diff review are not applicable.
+**File changed:** `packages/perseus/src/styles/widgets/sortable.css`
+
+| Location | Before | After |
+|---|---|---|
+| `.perseus-sortable .perseus-sortable-draggable > div` | `font-size: 14px` | `font-size: var(--wb-font-body-size-small)` |
+
+**Token resolution:** `font.body.size.small` → `sizing.size_140` → `pxToRem(14)` = `0.875rem` (exactly 14px at standard 16px browser root). CSS file uses the CSS variable form directly — no JS import needed.
+
+**Note:** Steps 5–7 were originally marked skipped because the initial audit missed `sortable.css` (scanned only `sortable.tsx`). Un-skipped after the file was discovered during Step 9 review.
+
+---
+
+## Steps 6–7 — Pre-Push Quality Checks and Chromatic Diff — Fonts
+
+Steps 6 and 7 are folded into the existing Step 12 quality checks and Step 13 Chromatic review since the font change is being committed alongside the color changes.
 
 ---
 
@@ -147,17 +165,17 @@ All 5 colors are inside `StyleSheet.create()`. Per conversion rules, JS token va
 | `#ddd` | `border` (1px solid) | `card` | `color.fadedOffBlack16` `#DBDCDD` | `semanticColor.core.border.neutral.subtle` | Mapping table |
 | `#ddd` | `background` | `placeholder` | `color.fadedOffBlack16` `#DBDCDD` | `semanticColor.core.background.disabled.strong` | Mapping table (Confluence) |
 | `#ccc` | `border` (1px solid) | `placeholder` | ~`color.fadedOffBlack32` `#B8B9BB` | `semanticColor.core.border.neutral.subtle` | Mapping table |
-| `#ffedcd` | `background` | `dragging` | `color.fadedGold24` `#FFECC2` | `semanticColor.core.background.warning.default` | Mapping table |
+| `#ffedcd` | `background` | `dragging` | `color.fadedGold8` `#FFF9EB` | `semanticColor.core.background.warning.subtle` | Mapping table (corrected — see note) |
 
 ### Judgment Calls
 
 **`#ddd` placeholder background:** The Confluence table maps `fadedOffBlack16` (background context) → `semanticColor.core.background.disabled.strong`, while the codemod mapping table maps it → `background.neutral.subtle`. Followed the Confluence table: a placeholder slot is semantically "disabled/unavailable" (the dragged card has left this slot), making `disabled.strong` a more accurate match. Will revisit in semantic check (Step 10).
 
-**`#ffedcd` dragging background:** Maps to `warning.default` by hex proximity to `color.fadedGold24` (`#FFECC2`). Semantically imprecise — a card being dragged is not a "warning" state. No `active` or `in-progress` semantic bucket exists. Flagged as a design gap below.
+**`#ffedcd` dragging background:** Initially mapped to `warning.default` by hex proximity to `color.fadedGold24` (`#FFECC2`). However, in the SYL Light theme `warning.default` resolves to `#F7B92C` — a saturated amber with only 3.394:1 contrast ratio against the card's dark text (below AA). Corrected to `warning.subtle` (`#FFF9EB`), a very light warm tint that closely matches the original `#ffedcd` and provides sufficient contrast. Semantically imprecise either way (dragging is not a "warning" state) — flagged as design gap.
 
 ### Design Gap
 
-> **Design gap:** `dragging` style in `sortable.tsx` — no semantic token exists for "card in active drag" state. Token chosen (`warning.default`) reflects closest hex match only. Recommend design adds an explicit active/in-progress interaction token or documents the intended semantic for this state.
+> **Design gap:** `dragging` style in `sortable.tsx` — no semantic token exists for "card in active drag" state. Token chosen (`warning.subtle`) reflects closest accessible hex match. Recommend design adds an explicit active/in-progress interaction token or documents the intended semantic for this state.
 
 ---
 
@@ -178,7 +196,7 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 | `card.border` | `"1px solid #ddd"` | `` `1px solid ${semanticColor.core.border.neutral.subtle}` `` |
 | `placeholder.background` | `"#ddd"` | `semanticColor.core.background.disabled.strong` |
 | `placeholder.border` | `"1px solid #ccc"` | `` `1px solid ${semanticColor.core.border.neutral.subtle}` `` |
-| `dragging.background` | `"#ffedcd"` | `semanticColor.core.background.warning.default` |
+| `dragging.background` | `"#ffedcd"` | `semanticColor.core.background.warning.subtle` (corrected from `warning.default` — contrast failure) |
 
 **Left unchanged:** `disabled.backgroundColor: "inherit"` and `disabled.border: "1px solid transparent"` — CSS keywords, not color values; replacing them would break the disabled appearance.
 
@@ -214,11 +232,11 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 3. **Intensity fit?** `subtle` — `#ccc` maps to ~`fadedOffBlack32`, and both `fadedOffBlack16` and `fadedOffBlack32` map to `border.neutral.subtle` in the border context. Confident match.
 4. **Namespace fit?** `border` property → `border` namespace. ✅
 
-### `dragging.background` → `semanticColor.core.background.warning.default`
+### `dragging.background` → `semanticColor.core.background.warning.subtle`
 
 1. **What is it doing?** Background highlight of a card currently being dragged by the user.
-2. **Category fit?** `warning` — **imprecise semantic fit.** A card being dragged is not a warning or cautionary state. The token was chosen by hex proximity only (`#ffedcd` ≈ `#FFECC2` = `fadedGold24`). No `active` or `in-progress` interaction token exists in the current semantic palette. ⚠️ Lower confidence — flagged as a design gap in Step 8.
-3. **Intensity fit?** `default` — `fadedGold24` (a medium gold tint) maps to `background.warning.default`. The token hex value matches the original hex closely. Confident match on intensity given the category choice.
+2. **Category fit?** `warning` — **imprecise semantic fit.** A card being dragged is not a warning or cautionary state. The gold/warm family is the best available approximation in the current palette. ⚠️ Lower confidence — flagged as a design gap in Step 8.
+3. **Intensity fit?** `subtle` — originally mapped to `warning.default`, but in SYL Light that token resolves to `#F7B92C` (saturated amber, contrast ratio 3.394:1 — below AA). Corrected to `subtle` (`#FFF9EB`), a very light warm tint that closely matches the original `#ffedcd` and passes contrast. `subtle` also better reflects the original intent: a faint highlight, not a strong filled indicator.
 4. **Namespace fit?** `background` property → `background` namespace. ✅
 
 ---
@@ -273,7 +291,7 @@ All converted colors are covered by at least one regression story.
 
 ---
 
-## Step 12 — Pre-Push Quality Checks — Colors
+## Step 12 — Pre-Push Quality Checks — Colors and Font
 
 - `pnpm lint` — PASS
 - `pnpm tsc` — PASS
