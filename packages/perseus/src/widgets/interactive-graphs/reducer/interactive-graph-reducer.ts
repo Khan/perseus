@@ -296,6 +296,10 @@ function doMovePointInFigure(
             };
         }
         case "linear-system": {
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.figureIndex,
@@ -303,10 +307,7 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
+                        newValue,
                     }),
             });
 
@@ -318,6 +319,19 @@ function doMovePointInFigure(
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-linear-system-point",
+                    lineIndex: action.figureIndex,
+                    pointIndex: action.pointIndex,
+                    // pointLabels is a flat array across both lines, indexed by
+                    // lineIndex * 2 + pointIndex (matching linear-system.tsx).
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.figureIndex * 2 + action.pointIndex,
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                },
             };
         }
         case "ray":
@@ -421,8 +435,37 @@ function doMoveLine(
     const {newStart} = action;
 
     switch (state.type) {
-        case "segment":
         case "linear-system": {
+            // TODO(LEMS-4189): Temporary duplication of logic with segment
+            // until we move all graphs to use WB Announcer.
+            if (action.itemIndex === undefined) {
+                throw new Error("Please provide index of line to move");
+            }
+            const currentLine = state.coords[action.itemIndex];
+            const constrainedLine = constrainShapePreservingMove(
+                currentLine,
+                newStart,
+                {snapStep, range},
+            );
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.itemIndex,
+                newValue: constrainedLine,
+            });
+
+            return {
+                ...state,
+                type: state.type,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+                stateAnnouncement: {
+                    type: "move-linear-system-line",
+                    lineIndex: action.itemIndex,
+                    coords: constrainedLine,
+                },
+            };
+        }
+        case "segment": {
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
