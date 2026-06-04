@@ -10984,7 +10984,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-without-showPointLabels.ts returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-labels.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -11102,7 +11102,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-without-showPointLab
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-without-showPointLabels.ts returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-labels.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
