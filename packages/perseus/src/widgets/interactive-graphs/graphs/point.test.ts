@@ -82,7 +82,12 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("announces auto A/B/C labels when showLabels is true and pointLabels is omitted (matches what sighted learners see)", () => {
+    it("falls back to the numeric 'Point N' default when showLabels is true but pointLabels is omitted (lint rule blocks this combination at authoring time)", () => {
+        // Defense in depth: even if a bad item somehow lands in the database
+        // with showLabels:true and no pointLabels (the
+        // interactive-graph-widget-error lint rule blocks the combination
+        // at save time), the renderer must NOT auto-generate Latin letters
+        // — that would leak into non-Latin-alphabet locales.
         const state: PointGraphState = {
             ...baseState,
             showLabels: true,
@@ -93,11 +98,11 @@ describe("getPointGraphDescription", () => {
             ],
         };
         expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point A at 0 comma 0. Point B at 1 comma 1. Point C at 2 comma 2.",
+            "Interactive elements: Point 1 at 0 comma 0. Point 2 at 1 comma 1. Point 3 at 2 comma 2.",
         );
     });
 
-    it("prefers author pointLabels over auto labels when showLabels is true and both are present", () => {
+    it("uses author pointLabels when showLabels is true and both are present", () => {
         const state: PointGraphState = {
             ...baseState,
             showLabels: true,
@@ -112,7 +117,7 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("fills aria gaps with auto letters when showLabels is true and pointLabels is partial", () => {
+    it("falls back to the numeric 'Point N' default for points without a pointLabel entry when pointLabels is partial", () => {
         const state: PointGraphState = {
             ...baseState,
             showLabels: true,
@@ -123,7 +128,7 @@ describe("getPointGraphDescription", () => {
             pointLabels: ["P"],
         };
         expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point P at 0 comma 0. Point B at 1 comma 1.",
+            "Interactive elements: Point P at 0 comma 0. Point 2 at 1 comma 1.",
         );
     });
 

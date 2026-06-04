@@ -1,3 +1,5 @@
+import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {Text} from "mafs";
 import * as React from "react";
 import {useState, useRef, useLayoutEffect} from "react";
 
@@ -8,7 +10,6 @@ import {srFormatNumber} from "../screenreader-text";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";
-import {TextLabel} from "./text-label";
 
 import type {CSSCursor} from "./css-cursor";
 import type {AriaLive} from "../../types";
@@ -162,18 +163,57 @@ export function useControlPoint(params: Params): Return {
                 // The visible label is purely decorative; the focusable handle
                 // above already carries the equivalent text in its aria-label,
                 // so we hide this from the a11y tree to avoid double-announce.
+                //
+                // The inline <defs> below is intentional. The shared
+                // `text-label.tsx` filter is a translucent rectangle backdrop,
+                // and its <defs> sit in a different <Mafs> than the one this
+                // label renders in (so the reference wouldn't resolve anyway).
+                // We add a dilated-stroke knockout filter — the same shape
+                // Matthew used for LockedLabel — scoped to this label only so
+                // the existing angle/side labels keep their current look.
                 <g
                     aria-hidden="true"
                     data-testid="movable-point__visible-label"
                 >
-                    <TextLabel
+                    <defs>
+                        <filter id="movable-point-label-knockout">
+                            <feMorphology
+                                operator="dilate"
+                                radius="2"
+                                in="SourceGraphic"
+                                result="expanded"
+                            />
+                            <feFlood
+                                floodColor={
+                                    semanticColor.core.border.knockout.default
+                                }
+                                result="flood"
+                            />
+                            <feComposite
+                                in="flood"
+                                in2="expanded"
+                                operator="in"
+                                result="outline"
+                            />
+                            <feMerge>
+                                <feMergeNode in="outline" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <Text
                         x={point[X]}
                         y={point[Y]}
                         attach="ne"
-                        attachDistance={12}
+                        attachDistance={24}
+                        size={16}
+                        svgTextProps={{
+                            filter: "url(#movable-point-label-knockout)",
+                            fontWeight: font.weight.bold,
+                        }}
                     >
                         {label}
-                    </TextLabel>
+                    </Text>
                 </g>
             )}
         </>

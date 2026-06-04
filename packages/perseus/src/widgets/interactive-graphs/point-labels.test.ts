@@ -1,16 +1,15 @@
 import {getEffectivePointLabels, resolveVisibleLabel} from "./point-labels";
 
 describe("resolveVisibleLabel", () => {
-    it("auto-generates A, B, C, … when pointLabels is undefined", () => {
+    it("returns undefined when pointLabels is undefined", () => {
         // Arrange, Act, Assert
-        expect(resolveVisibleLabel(undefined, 0)).toBe("A");
-        expect(resolveVisibleLabel(undefined, 1)).toBe("B");
-        expect(resolveVisibleLabel(undefined, 2)).toBe("C");
+        expect(resolveVisibleLabel(undefined, 0)).toBeUndefined();
+        expect(resolveVisibleLabel(undefined, 1)).toBeUndefined();
     });
 
-    it("auto-generates the next letter when pointLabels has no entry at that index", () => {
+    it("returns undefined when pointLabels has no entry at that index", () => {
         // Arrange, Act, Assert
-        expect(resolveVisibleLabel(["P"], 1)).toBe("B");
+        expect(resolveVisibleLabel(["P"], 1)).toBeUndefined();
     });
 
     it("uses the author-provided label when present and non-empty", () => {
@@ -20,16 +19,10 @@ describe("resolveVisibleLabel", () => {
         expect(resolveVisibleLabel(["P", "Q", "R"], 2)).toBe("R");
     });
 
-    it("falls back to the auto letter when the author-provided label is the empty string", () => {
+    it("returns undefined when the author-provided label is the empty string", () => {
         // Arrange, Act, Assert
-        expect(resolveVisibleLabel(["", "Q"], 0)).toBe("A");
+        expect(resolveVisibleLabel(["", "Q"], 0)).toBeUndefined();
         expect(resolveVisibleLabel(["", "Q"], 1)).toBe("Q");
-    });
-
-    it("wraps the alphabet at index 26", () => {
-        // Arrange, Act, Assert
-        expect(resolveVisibleLabel(undefined, 25)).toBe("Z");
-        expect(resolveVisibleLabel(undefined, 26)).toBe("A");
     });
 });
 
@@ -47,26 +40,27 @@ describe("getEffectivePointLabels", () => {
         expect(getEffectivePointLabels(false, undefined, 3)).toBeUndefined();
     });
 
-    it("returns undefined when showLabels is undefined (treated as off)", () => {
+    it("returns pointLabels unchanged when showLabels is undefined (treated as off)", () => {
         // Arrange, Act, Assert
         expect(getEffectivePointLabels(undefined, ["P"], 2)).toEqual(["P"]);
     });
 
-    it("fills A/B/C when showLabels is true and pointLabels is undefined", () => {
+    it("returns empty strings for every position when showLabels is true and pointLabels is undefined (no auto-fill)", () => {
+        // The author skipped pointLabels. We deliberately do NOT generate
+        // A/B/C here — that would leak Latin characters into non-Latin
+        // locales. The interactive-graph-widget-error lint rule blocks
+        // this shape at authoring time; the renderer's job is just to
+        // not invent labels.
         // Arrange, Act, Assert
         expect(getEffectivePointLabels(true, undefined, 3)).toEqual([
-            "A",
-            "B",
-            "C",
+            "",
+            "",
+            "",
         ]);
     });
 
-    it("uses author labels and fills gaps with auto letters when showLabels is true and pointLabels is partial", () => {
+    it("uses author labels and leaves gaps empty when showLabels is true and pointLabels is partial", () => {
         // Arrange, Act, Assert
-        expect(getEffectivePointLabels(true, ["P"], 3)).toEqual([
-            "P",
-            "B",
-            "C",
-        ]);
+        expect(getEffectivePointLabels(true, ["P"], 3)).toEqual(["P", "", ""]);
     });
 });

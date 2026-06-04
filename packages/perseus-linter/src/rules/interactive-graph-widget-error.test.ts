@@ -131,6 +131,78 @@ describe("interactive-graph-widget-error", () => {
         },
     );
 
+    // Error when showLabels is true but pointLabels is missing
+    expectWarning(
+        interactiveGraphWidgetErrorRule,
+        "[[☃ interactive-graph 1]]",
+        {
+            widgets: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        correct: generateIGPolygonGraph({
+                            showLabels: true,
+                        }),
+                    }),
+                }),
+            },
+        },
+        {
+            message:
+                "showLabels is true but pointLabels is missing. Provide a label for every point.",
+            severity: Rule.Severity.ERROR,
+        },
+    );
+
+    // Error when showLabels is true but pointLabels has an empty entry
+    expectWarning(
+        interactiveGraphWidgetErrorRule,
+        "[[☃ interactive-graph 1]]",
+        {
+            widgets: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        correct: generateIGPolygonGraph({
+                            showLabels: true,
+                            pointLabels: ["A", "", "C"],
+                        }),
+                    }),
+                }),
+            },
+        },
+        {
+            message:
+                "showLabels is true but pointLabels has empty entries. Provide a label for every point.",
+            severity: Rule.Severity.ERROR,
+        },
+    );
+
+    // Pass when showLabels is true and pointLabels is fully provided
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
+                        showLabels: true,
+                        pointLabels: ["A", "B", "C"],
+                    }),
+                }),
+            }),
+        },
+    });
+
+    // Pass when showLabels is false (no requirement on pointLabels)
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
+                        showLabels: false,
+                    }),
+                }),
+            }),
+        },
+    });
+
     // Pass when no errors are detected
     expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
         widgets: {

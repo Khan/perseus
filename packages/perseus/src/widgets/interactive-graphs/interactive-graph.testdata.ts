@@ -1311,37 +1311,13 @@ export const pointWithDefaultLabelQuestion: PerseusRenderer =
         }),
     });
 
-// Point graph with `showLabels: true` and no `pointLabels` — interactive
-// points are auto-labelled "A", "B", "C", … on the canvas as the learner
-// plots them. Used to show the opt-in visible-labels behaviour without any
-// authoring overhead.
-export const pointWithAutoVisibleLabelsQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({
-        content:
-            "**Plot any three points on the graph. They will be labelled A, B, and C automatically.**\n\n[[☃ interactive-graph 1]]",
-        markings: "graph",
-        gridStep: [1, 1],
-        snapStep: [1, 1],
-        step: [1, 1],
-        range: [
-            [-5, 5],
-            [-5, 5],
-        ],
-        correct: generateIGPointGraph({
-            numPoints: 3,
-            startCoords: [
-                [-2, 0],
-                [0, 2],
-                [2, 0],
-            ],
-            showLabels: true,
-        }),
-    });
-
-// Polygon graph with `showLabels: true` and no `pointLabels` — vertices are
-// auto-labelled "A", "B", "C", "D" on the canvas. Demonstrates that the
-// `showLabels` opt-in works for non-`point` graph types via the same
-// `getEffectivePointLabels` helper.
+// Polygon graph with `showLabels: true` and author-supplied
+// `pointLabels: ["A", "B", "C", "D"]` — each vertex carries its assigned
+// letter as both the visible on-canvas label and the screen-reader
+// announcement. `showLabels` always requires `pointLabels` (the
+// interactive-graph-widget-error lint rule blocks the combination
+// `showLabels: true` without `pointLabels` at authoring time), so
+// non-Latin locales never see auto-generated Latin letters.
 export const polygonWithVisibleLabelsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:
@@ -1362,17 +1338,18 @@ export const polygonWithVisibleLabelsQuestion: PerseusRenderer =
                 [3, -2],
                 [-3, -2],
             ],
+            pointLabels: ["A", "B", "C", "D"],
             showLabels: true,
         }),
     });
 
-// Point graph with both `showLabels: true` AND `pointLabels` provided.
-// Author-supplied names ("P", "Q", "R") win over the auto A/B/C fallback,
-// so the visible labels match the question prompt exactly.
-export const pointWithCustomVisibleLabelsQuestion: PerseusRenderer =
+// Point graph with `showLabels: true` and author-supplied `pointLabels`.
+// The visible on-canvas labels and the screen-reader announcements both
+// use the same per-index string, so they stay in sync.
+export const pointWithVisibleLabelsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
         content:
-            "**Drag points $P$, $Q$, and $R$ to form a right triangle.** The visible labels on the graph should match the names in the prompt.\n\n[[☃ interactive-graph 1]]",
+            "**Drag points $P$, $Q$, and $R$ to form a right triangle.** The visible labels on the graph match the names in the prompt.\n\n[[☃ interactive-graph 1]]",
         markings: "graph",
         gridStep: [1, 1],
         snapStep: [1, 1],

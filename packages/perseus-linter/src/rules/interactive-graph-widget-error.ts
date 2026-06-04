@@ -84,7 +84,40 @@ export default Rule.makeRule({
             }
         }
 
+        // showLabels requires pointLabels. We refuse to auto-generate
+        // fallback letters (A, B, C, …) at render time because those leak
+        // Latin characters into non-Latin-alphabet locales — so the
+        // author must spell every label out.
+        checkShowLabelsHasLabels(graph, issues);
+        checkShowLabelsHasLabels(correct, issues);
+
         const allIssuesString = issues.join("\n\n");
         return allIssuesString;
     },
 }) as Rule;
+
+function checkShowLabelsHasLabels(
+    g:
+        | {type: string; showLabels?: boolean; pointLabels?: readonly string[]}
+        | undefined,
+    issues: Array<string>,
+) {
+    if (g == null || g.type === "none" || g.type === "vector") {
+        return;
+    }
+    if (g.showLabels !== true) {
+        return;
+    }
+    const labels = g.pointLabels;
+    if (labels == null || labels.length === 0) {
+        issues.push(
+            "showLabels is true but pointLabels is missing. Provide a label for every point.",
+        );
+        return;
+    }
+    if (labels.some((l) => l == null || l === "")) {
+        issues.push(
+            "showLabels is true but pointLabels has empty entries. Provide a label for every point.",
+        );
+    }
+}

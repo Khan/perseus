@@ -10,10 +10,9 @@ import {
     linearSystemWithCustomLabelsQuestion,
     linearWithCustomLabelsQuestion,
     pointQuestion,
-    pointWithAutoVisibleLabelsQuestion,
     pointWithCustomLabelQuestion,
-    pointWithCustomVisibleLabelsQuestion,
     pointWithDefaultLabelQuestion,
+    pointWithVisibleLabelsQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
     polygonWithVisibleLabelsQuestion,
@@ -189,29 +188,18 @@ export const PointWithDefaultLabel: Story = {
 };
 
 /**
- * A point graph with `showLabels: true` and no `pointLabels`. The three
- * interactive points are auto-labelled "A", "B", "C" on the canvas — labels
- * track each point as the learner drags it. Demonstrates the opt-in
- * visible-labels behaviour with zero authoring overhead.
+ * A point graph with `showLabels: true` and author-supplied
+ * `pointLabels: ["P", "Q", "R"]`. The same per-index string drives both
+ * the visible on-canvas label and the screen-reader announcement, so the
+ * two stay in sync. `showLabels` always requires `pointLabels` — the
+ * interactive-graph-widget-error lint rule blocks the combination
+ * `showLabels: true` without `pointLabels` at authoring time, so
+ * non-Latin locales never see auto-generated Latin letters.
  */
-export const PointWithAutoVisibleLabels: Story = {
+export const PointWithVisibleLabels: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: pointWithAutoVisibleLabelsQuestion,
-        }),
-    },
-};
-
-/**
- * A point graph with both `showLabels: true` AND author-supplied
- * `pointLabels: ["P", "Q", "R"]`. The custom strings win over the
- * auto A/B/C fallback, so the visible labels on the canvas match the
- * names in the prompt exactly.
- */
-export const PointWithCustomVisibleLabels: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: pointWithCustomVisibleLabelsQuestion,
+            question: pointWithVisibleLabelsQuestion,
         }),
     },
 };
@@ -238,13 +226,12 @@ export const PolygonWithCustomLabels: Story = {
 };
 
 /**
- * A polygon graph with `showLabels: true` and no `pointLabels`. Each vertex
- * is auto-labelled "A", "B", "C", "D" on the canvas — visible to sighted
- * learners and reflected in the screen-reader announcement
- * ("Point A / B / C / D at …"). Demonstrates that the `showLabels` opt-in
- * works for non-`point` graph types via the shared `getEffectivePointLabels`
- * helper. Pair this with `PointWithAutoVisibleLabels` to verify the
- * cross-type wiring.
+ * A polygon graph with `showLabels: true` and author-supplied
+ * `pointLabels: ["A", "B", "C", "D"]`. Each vertex carries its assigned
+ * letter as both the visible on-canvas label and the screen-reader
+ * announcement ("Point A / B / C / D at …"). Demonstrates that the
+ * `showLabels` opt-in works for non-`point` graph types via the same
+ * per-index plumbing.
  */
 export const PolygonWithVisibleLabels: Story = {
     args: {
