@@ -32,10 +32,7 @@ export function FeatureFlagsToolbar() {
             trigger="click"
             closeOnOutsideClick
             tooltip={
-                <FlagList
-                    activeFlags={activeFlags}
-                    onToggle={toggleFlag}
-                />
+                <FlagList activeFlags={activeFlags} onToggle={toggleFlag} />
             }
         >
             <Button
