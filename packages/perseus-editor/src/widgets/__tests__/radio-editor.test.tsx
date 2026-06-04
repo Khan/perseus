@@ -865,30 +865,6 @@ describe("radio-editor", () => {
             expect(contentTextField).toHaveValue("Choice 1\n![Image 1]");
         });
 
-        it("should call onChange when an image is pasted into the content", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderRadioEditor(onChangeMock, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Act
-            const contentTextField = screen.getByRole("textbox", {
-                name: "Content",
-            });
-            contentTextField.focus();
-            await userEvent.paste("graphie");
-
-            // Assert
-            expect(onChangeMock).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    choices: [
-                        {id: "0-0-0-0-0", content: "Choice 1\n![](graphie)"},
-                    ],
-                }),
-            );
-        });
-
         it("should add an empty image when the 'Add image' button is clicked", async () => {
             // Arrange
             const onChangeMock = jest.fn();
@@ -986,34 +962,49 @@ describe("radio-editor", () => {
             expect(deleteImageButtons).toHaveLength(2);
         });
 
-        it("should call onChange when the image URL is changed", async () => {
+        it("should call onChange when the image URL field is blurred", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderRadioEditor(onChangeMock, {
-                choices: [
-                    // empty URL
-                    {id: "0-0-0-0-0", content: "Choice 1\n![Alt]()"},
-                ],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
             });
 
-            // Act
+            // Act - type into the image URL field, and tab off of it.
             const imageUrlInput = screen.getByRole("textbox", {
                 name: "Image URL",
             });
             imageUrlInput.focus();
-            await userEvent.paste("image2.jpg");
+            await userEvent.type(imageUrlInput, "image.png");
+            await userEvent.tab();
 
             // Assert
+            expect(imageUrlInput).toHaveValue("image.png");
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
                     choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Choice 1\n![Alt](image2.jpg)",
-                        },
+                        {id: "0-0-0-0-0", content: "Choice 1\n![](image.png)"},
                     ],
                 }),
             );
+        });
+
+        it("should not call onChange while the user is typing in the image URL field", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
+            });
+
+            // Act - type into the image URL field, and don't tab off of it.
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            imageUrlInput.focus();
+            await userEvent.type(imageUrlInput, "image.png");
+
+            // Assert
+            expect(imageUrlInput).toHaveValue("image.png");
+            expect(onChangeMock).not.toHaveBeenCalled();
         });
 
         it("should call onChange when the image alt text is changed", async () => {

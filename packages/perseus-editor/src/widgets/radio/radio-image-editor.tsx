@@ -30,6 +30,8 @@ export default function RadioImageEditor({
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
+    const [stateImageUrl, setStateImageUrl] = React.useState<string>(imageUrl);
+
     // Dimensions are needed to keep the preview from overflowing its
     // container.
     const [dimensions, setDimensions] = React.useState<{
@@ -67,14 +69,6 @@ export default function RadioImageEditor({
             cancelled = true;
         };
     }, [imageUrl]);
-
-    function handleUrlChange(value: string) {
-        onSave(value, imageAltText);
-    }
-
-    function handleAltTextChange(value: string) {
-        onSave(imageUrl, value);
-    }
 
     return (
         <>
@@ -119,11 +113,10 @@ export default function RadioImageEditor({
             </BodyText>
             <TextArea
                 id={imageUrlTextAreaId}
-                value={imageUrl}
+                value={stateImageUrl}
                 placeholder="cdn.kastatic.org/..."
-                onChange={(value) => {
-                    handleUrlChange(value);
-                }}
+                onChange={setStateImageUrl}
+                onBlur={() => onSave(stateImageUrl, imageAltText)}
                 style={{marginBlockEnd: sizing.size_080}}
                 autoResize={true}
             />
@@ -142,7 +135,7 @@ export default function RadioImageEditor({
                 id={imageAltTextTextAreaId}
                 value={imageAltText}
                 placeholder="Example: Graph of a linear function..."
-                onChange={(value) => handleAltTextChange(value)}
+                onChange={(value) => onSave(imageUrl, value)}
                 autoResize={true}
             />
 
