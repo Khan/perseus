@@ -61,7 +61,7 @@ runs:
 
         # Create the Check run up front (status: in_progress) so the required
         # check appears immediately and is tied to this run's lifecycle. The
-        # final step updates it with the verdict.
+        # final step updates it with the verdict using the check-id.
         #
         # WHY? Posting the Check only at the end left a window where the
         # required-named check didn't exist yet, which surfaced as a stuck
