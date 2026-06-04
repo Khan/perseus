@@ -58,7 +58,8 @@ const withPerseusDecorator: Decorator = (Story) => {
 };
 
 const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
-    const activeFlags: PerseusFeatureFlag[] = context.globals.featureFlags ?? [];
+    const activeFlags: PerseusFeatureFlag[] =
+        context.globals.featureFlags ?? [];
     const flags = {
         ...defaultFeatureFlags,
         ...Object.fromEntries(activeFlags.map((f) => [f, true])),
