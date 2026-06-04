@@ -1,13 +1,14 @@
 import * as React from "react";
-import {
-    Button,
-    TooltipLinkList,
-    WithTooltip,
-} from "storybook/internal/components";
+import {Button, WithTooltip} from "storybook/internal/components";
 import {useGlobals} from "storybook/manager-api";
 
 import PerseusFeatureFlags from "../packages/perseus-core/src/feature-flags";
 
+/**
+ * Storybook toolbar button that lets developers toggle Perseus feature flags
+ * on and off globally across all stories. Flags are sourced automatically
+ * from PerseusFeatureFlags and apply on top of any story-level flag overrides.
+ */
 export function FeatureFlagsToolbar() {
     const [globals, updateGlobals] = useGlobals();
     const activeFlags: string[] = globals.featureFlags ?? [];
@@ -20,30 +21,6 @@ export function FeatureFlagsToolbar() {
         });
     };
 
-    const links = [...PerseusFeatureFlags].map((flag) => {
-        const isActive = activeFlags.includes(flag);
-        return {
-            id: flag,
-            title: (
-                <span style={{display: "flex", alignItems: "center", gap: 6}}>
-                    <span
-                        style={{
-                            width: 14,
-                            textAlign: "center",
-                            flexShrink: 0,
-                            fontWeight: "bold",
-                        }}
-                    >
-                        {isActive ? "✓" : ""}
-                    </span>
-                    {flag}
-                </span>
-            ),
-            active: isActive,
-            onClick: () => toggleFlag(flag),
-        };
-    });
-
     const label =
         activeFlags.length === 0
             ? "Feature Flags"
@@ -54,7 +31,12 @@ export function FeatureFlagsToolbar() {
             placement="bottom"
             trigger="click"
             closeOnOutsideClick
-            tooltip={<TooltipLinkList links={links} />}
+            tooltip={
+                <FlagList
+                    activeFlags={activeFlags}
+                    onToggle={toggleFlag}
+                />
+            }
         >
             <Button
                 size="small"
@@ -65,5 +47,40 @@ export function FeatureFlagsToolbar() {
                 {label}
             </Button>
         </WithTooltip>
+    );
+}
+
+type FlagListProps = {
+    activeFlags: string[];
+    onToggle: (flag: string) => void;
+};
+
+/**
+ * Renders the dropdown list of feature flags with checkboxes for the
+ * Storybook toolbar. Each flag can be toggled independently.
+ */
+function FlagList({activeFlags, onToggle}: FlagListProps) {
+    return (
+        <div style={{padding: 4, minWidth: 180}}>
+            {[...PerseusFeatureFlags].map((flag) => (
+                <label
+                    key={flag}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        padding: "7px 10px",
+                        cursor: "pointer",
+                    }}
+                >
+                    <input
+                        type="checkbox"
+                        checked={activeFlags.includes(flag)}
+                        onChange={() => onToggle(flag)}
+                    />
+                    {flag}
+                </label>
+            ))}
+        </div>
     );
 }

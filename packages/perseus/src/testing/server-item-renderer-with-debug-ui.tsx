@@ -8,8 +8,8 @@ import {isCorrect} from "../util/scoring";
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
 import {DebugHeader} from "./debug-header";
-import {StorybookFeatureFlagsContext} from "./feature-flags-context";
 import {useItemRenderer} from "./item-renderer-hooks";
+import {useStorybookApiOptions} from "./use-storybook-api-options";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
@@ -37,14 +37,7 @@ export const ServerItemRendererWithDebugUI = ({
     reviewMode = false,
     showSolutions,
 }: Props): React.ReactElement => {
-    const contextFlags = React.useContext(StorybookFeatureFlagsContext);
-    const mergedApiOptions = React.useMemo(
-        () => ({
-            ...apiOptions,
-            flags: {...contextFlags, ...apiOptions.flags},
-        }),
-        [apiOptions, contextFlags],
-    );
+    const mergedApiOptions = useStorybookApiOptions(apiOptions);
 
     // Use our custom hook to manage the renderer state
     const {
