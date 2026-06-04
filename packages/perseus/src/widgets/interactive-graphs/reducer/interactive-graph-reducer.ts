@@ -64,6 +64,7 @@ import type {Coord} from "../../../interactive2/types";
 import type {
     AngleGraphState,
     InteractiveGraphState,
+    InteractiveGraphStateAnnouncement,
     PairOfPoints,
 } from "../types";
 import type {QuadraticCoords} from "@khanacademy/kmath";
@@ -270,32 +271,12 @@ function doMovePointInFigure(
     action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "segment": {
-            const newCoords = updateAtIndex({
-                array: state.coords,
-                index: action.figureIndex,
-                update: (tuple) =>
-                    setAtIndex({
-                        array: tuple,
-                        index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
-                    }),
-            });
-
-            const coordsToCheck = newCoords[action.figureIndex];
-            if (coordsOverlap(coordsToCheck)) {
-                return state;
-            }
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
+        case "segment":
         case "linear-system": {
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.figureIndex,
@@ -303,10 +284,7 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
+                        newValue,
                     }),
             });
 
@@ -314,15 +292,42 @@ function doMovePointInFigure(
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
+
+            // pointLabels is a flat array across all lines/segments, indexed
+            // by figureIndex * 2 + pointIndex (matching the render side).
+            const sharedAnnouncement = {
+                pointIndex: action.pointIndex,
+                pointLabel: resolvePointLabel(
+                    state.pointLabels,
+                    action.figureIndex * 2 + action.pointIndex,
+                ),
+                x: newValue[X],
+                y: newValue[Y],
+            };
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-point",
+                          segmentIndex: action.figureIndex,
+                          totalSegments: state.coords.length,
+                          ...sharedAnnouncement,
+                      }
+                    : {
+                          type: "move-linear-system-point",
+                          lineIndex: action.figureIndex,
+                          ...sharedAnnouncement,
+                      };
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement,
             };
         }
-        case "linear": {
-            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
-            // until we move all graphs to use WB Announcer.
+        case "ray":
+        case "linear":
+        case "vector": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
@@ -337,36 +342,43 @@ function doMovePointInFigure(
                 return state;
             }
 
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement: {
+            // Determine the correct state announcement
+            // by the graph type.
+            let stateAnnouncement: InteractiveGraphStateAnnouncement;
+            if (state.type === "ray") {
+                stateAnnouncement = {
+                    type: "move-ray-point",
+                    pointIndex: action.pointIndex,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else if (state.type === "vector") {
+                stateAnnouncement = {
+                    type: "move-vector-point",
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else {
+                stateAnnouncement = {
                     type: "move-point",
                     pointLabel: String(
                         resolvePointLabel(state.pointLabels, action.pointIndex),
                     ),
                     x: newValue[X],
                     y: newValue[Y],
-                },
-            };
-        }
-        case "ray":
-        case "vector": {
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue: boundToEdgeAndSnapToGrid(action.destination, state),
-            });
-
-            if (coordsOverlap(newCoords)) {
-                return state;
+                };
             }
 
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement,
             };
         }
         case "circle":
@@ -418,44 +430,54 @@ function doMoveLine(
                 newValue: constrainedLine,
             });
 
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-line",
+                          coords: constrainedLine,
+                      }
+                    : {
+                          type: "move-linear-system-line",
+                          lineIndex: action.itemIndex,
+                          coords: constrainedLine,
+                      };
+
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-            };
-        }
-        case "linear": {
-            // TODO(LEMS-4189): Temporary duplication of logic between ray/vector
-            // until we move all graphs to use WB Announcer.
-            const constrainedLine = constrainShapePreservingMove(
-                state.coords,
-                newStart,
-                {snapStep, range},
-            );
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: constrainedLine,
-                stateAnnouncement: {
-                    type: "move-linear-line",
-                    coords: constrainedLine,
-                },
+                stateAnnouncement,
             };
         }
         case "ray":
+        case "linear":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
                 {snapStep, range},
             );
+
+            let type: "move-ray-line" | "move-vector-line" | "move-linear-line";
+            if (state.type === "ray") {
+                type = "move-ray-line";
+            } else if (state.type === "vector") {
+                type = "move-vector-line";
+            } else {
+                type = "move-linear-line";
+            }
+
+            const stateAnnouncement: InteractiveGraphStateAnnouncement = {
+                type,
+                coords: constrainedLine,
+            };
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
+                stateAnnouncement,
             };
         }
         default:

@@ -412,7 +412,7 @@ describe("getAnnouncementText", () => {
     });
 
     describe("move-linear-line", () => {
-        it("returns the grab-handle label for a move-linear-line announcement", () => {
+        it("returns the grab-handle label", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-linear-line",
@@ -428,6 +428,256 @@ describe("getAnnouncementText", () => {
             expect(result).toBe(
                 "Line going through point -3 comma 3 and point -1 comma 5.",
             );
+        });
+    });
+
+    describe("move-ray-point", () => {
+        it("returns the endpoint label at index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Endpoint at -3 comma 2.");
+        });
+
+        it("returns the terminal-point label at index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 5,
+                    y: 6,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Through point at 5 comma 6.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
+        // endpoint/through-point wording alongside the custom label.
+        it("uses the custom label, overriding the endpoint/through-point wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-point",
+                    pointIndex: 0,
+                    pointLabel: "T",
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point T at -3 comma 2.");
+        });
+    });
+
+    describe("move-ray-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-ray-line",
+                    coords: [
+                        [-3, 3],
+                        [2, 8],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Ray with endpoint -3 comma 3 going through point 2 comma 8.",
+            );
+        });
+    });
+
+    describe("move-vector-point", () => {
+        it("returns the generic point label at the tail (index 0)", () => {
+            const result = getAnnouncementText(
+                {type: "move-vector-point", pointIndex: 0, x: -1, y: 2},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 at -1 comma 2.");
+        });
+
+        it("returns the tip label at the tip (index 1)", () => {
+            const result = getAnnouncementText(
+                {type: "move-vector-point", pointIndex: 1, x: 5, y: 6},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Tip point at 5 comma 6.");
+        });
+    });
+
+    describe("move-vector-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-vector-line",
+                    coords: [
+                        [2, 1],
+                        [5, 5],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Vector from 2 comma 1 to 5 comma 5.");
+        });
+    });
+
+    describe("move-linear-system-point", () => {
+        it("includes the line number", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-linear-system-point",
+                    lineIndex: 1,
+                    pointIndex: 0,
+                    pointLabel: 3,
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 on line 2 at -3 comma 2.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): Allow custom labels for linear-system points so we can
+        // keep the line/point wording alongside the custom label.
+        it("uses the custom label, overriding the line/point wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-linear-system-point",
+                    lineIndex: 1,
+                    pointIndex: 0,
+                    pointLabel: "C",
+                    x: -3,
+                    y: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point C at -3 comma 2.");
+        });
+    });
+
+    describe("move-linear-system-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-linear-system-line",
+                    lineIndex: 1,
+                    coords: [
+                        [-3, -4],
+                        [7, -4],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Line 2 going through point -3 comma -4 and point 7 comma -4.",
+            );
+        });
+    });
+
+    describe("move-segment-point", () => {
+        it("uses the single-segment endpoint label when there is one segment", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-segment-point",
+                    segmentIndex: 0,
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 2,
+                    totalSegments: 1,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Endpoint 1 at -3 comma 2.");
+        });
+
+        it("includes the segment number when there are multiple segments", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-segment-point",
+                    segmentIndex: 1,
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 2,
+                    totalSegments: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Endpoint 1 on segment 2 at -3 comma 2.");
+        });
+
+        // This is a draw back of the current implementation.
+        // TODO(LEMS-4206): Allow custom labels for segment points so we can
+        // keep the endpoint wording alongside the custom label.
+        it("uses the custom label, overriding the endpoint wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-segment-point",
+                    segmentIndex: 1,
+                    pointIndex: 0,
+                    pointLabel: "C",
+                    x: -3,
+                    y: 2,
+                    totalSegments: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point C at -3 comma 2.");
+        });
+    });
+
+    describe("move-segment-line", () => {
+        it("returns the grab-handle label", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-segment-line",
+                    coords: [
+                        [6, -1],
+                        [8, 1],
+                    ],
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Segment from 6 comma -1 to 8 comma 1.");
         });
     });
 
