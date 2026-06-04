@@ -303,3 +303,30 @@ All converted colors are covered by at least one regression story.
 ## Step 13 — Commit, Push, and Chromatic Diff Review
 
 _Pending user commit and push._
+
+---
+
+## Step 16 — PR Title, Summary, and Test Plan
+
+### PR Title
+
+```
+[ColorSync] Migrate Sortable component colors and font-size to semantic tokens
+```
+
+### PR Summary
+
+Part of the ongoing ColorSync migration to align Perseus components with the Wonder Blocks semantic token system. Sortable is used by both the Sorter and Matcher widgets (which were migrated in earlier PRs), so this closes the remaining gap in that widget family. Adds Chromatic regression coverage for the initial, dragging, and placeholder visual states, which had no prior snapshot coverage.
+
+The snapshot files for Sorter and Matcher are also updated in this PR. Aphrodite generates CSS class names by hashing the style object content — replacing hardcoded hex values with token references changes the hash, so any test that snapshots rendered Sortable markup (including Sorter and Matcher tests, which render Sortable internally) needed regeneration. No behavioral change.
+
+Two judgment calls worth noting: the dragging card background has no purpose-built semantic token (dragging is not a warning state). `semanticColor.core.background.warning.subtle` is the closest accessible match to the original `#ffedcd`. This is flagged as a design gap — a future token for active drag/in-progress interaction states would be the right long-term fix.
+
+The card border (`#ddd`) and placeholder border (`#ccc`) were visually distinct in the original code but both map to `semanticColor.core.border.neutral.subtle` — this is intentional, not an oversight. Both primitives resolve to the same semantic border token; the placeholder remains visually distinct from a resting card via its solid fill (`background.disabled.strong`).
+
+### Test Plan
+
+- [ ] Chromatic diff approved — visual token changes look correct in both SYL Light and ThunderBlocks themes
+- [ ] `PlaceholderVisible` story in Storybook shows the gray placeholder slot exposed alongside the warm dragging card
+- [ ] `DraggingCard` story shows the dragging background without card movement (baseline for the held state)
+- [ ] `pnpm test`, `pnpm tsc`, `pnpm lint` all pass
