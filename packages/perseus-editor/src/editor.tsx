@@ -246,7 +246,7 @@ class Editor extends React.Component<Props, State> {
         // `execCommand` is deprecated per MDN but remains the only widely
         // supported way to keep programmatic edits in the undo stack; all of
         // Khan Academy's supported browsers implement it (per caniuse, global
-        // support is ~96%).
+        // support is ~96% as of June 2026).
         if (this.lastUserValue != null && textarea) {
             textarea.focus();
             textarea.value = this.lastUserValue;
