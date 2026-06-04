@@ -212,14 +212,21 @@ runs:
                       echo
                   fi
                   echo "To acknowledge: add the '$ACK_LABEL_NAME' label — the check re-runs automatically."
-                  echo "Rendered diff & details (run Summary): $RUN_SUMMARY_URL"
                   echo
                   if [ -n "${DIFF_FILE:-}" ] && [ -f "$DIFF_FILE" ]; then
+                      echo "Rendered diff & details (run Summary): $RUN_SUMMARY_URL"
+                      echo
                       echo "------------------- diff vs. base branch -------------------"
                       cat "$DIFF_FILE"
                       echo "------------------------------------------------------------"
                   else
-                      echo "(Diff was computed on the latest code push — see that run's Summary.)"
+                      # No fresh diff: this run was triggered by a label change
+                      # (labeled/unlabeled), so the comparison wasn't re-run.
+                      echo "This run was triggered by a label change, so the artifacts"
+                      echo "weren't rebuilt and the diff isn't shown here. The change is"
+                      echo "still present and unacknowledged — it was computed on the most"
+                      echo "recent code-push run of this check. Open that run from the PR's"
+                      echo "Checks tab (or push a commit) to see the diff."
                   fi
 
                   # Run Summary tab: rendered Markdown version.
@@ -241,7 +248,7 @@ runs:
                           echo
                           echo "</details>"
                       else
-                          echo "_Diff computed on the latest code push; see that run's summary for details._"
+                          echo "> This is a **label-triggered** re-check, so the artifacts weren't rebuilt and the diff isn't shown here. The change is still present and unacknowledged — see the most recent code-push run of this check for the diff."
                       fi
                   } >> "$GITHUB_STEP_SUMMARY"
 
