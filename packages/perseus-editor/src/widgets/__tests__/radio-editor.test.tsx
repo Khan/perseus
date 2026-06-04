@@ -889,6 +889,27 @@ describe("radio-editor", () => {
             );
         });
 
+        it("should add an empty image when the 'Add image' button is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
+            });
+
+            // Act
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            await userEvent.click(addImageButton);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
+                }),
+            );
+        });
+
         /***** Tests for image editor accordion *****/
 
         it("should render the image editor accordion when an image is in the content", () => {
