@@ -6,8 +6,8 @@ description: >-
     automatically and clears the acknowledgement label whenever the diff
     goes empty.
 
-    Must be invoked from a workflow triggered by `pull_request` events: it
-    reads the PR's base ref, head SHA, number, and labels from the event
+    NOTE: Must be invoked from a workflow triggered by `pull_request` events:
+    it reads the PR's base ref, head SHA, number, and labels from the event
     payload and has no meaning outside a pull request.
 
 inputs:
