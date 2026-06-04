@@ -84,11 +84,15 @@ describe("insetTipAlongRay", () => {
 
     it("pulls tip 4px back toward tail along a horizontal ray", () => {
         // Arrange, Act: 1 graph unit = 20 px, so 4 px ≈ 0.2 graph units
-        const result = insetTipAlongRay([5, 3], [10, 3], range400, dims400);
+        const tail = [5, 3]
+        const tip = [10, 3]
+        const result = insetTipAlongRay(tail, tip, range400, dims400);
 
         // Assert
-        expect(result[0]).toBeCloseTo(9.8);
-        expect(result[1]).toBeCloseTo(3);
+        const expectedSomethingX = 9.8
+        const expectedSomethingY = 3
+        expect(result[0]).toBeCloseTo(expectedSomethingX);
+        expect(result[1]).toBeCloseTo(expectedSomethingY);
     });
 
     it("keeps a horizontal extension straight when tail sits on an edge (LEMS-4203)", () => {
