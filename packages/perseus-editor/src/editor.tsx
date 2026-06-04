@@ -238,29 +238,21 @@ class Editor extends React.Component<Props, State> {
     componentDidUpdate(prevProps: Props) {
         const textarea = this.textarea.current;
 
-        // Slightly unorthodox method to ensure that programmatic text changes
-        // are in the browser's undo stack.
+        // Replace the textarea's value via document.execCommand("insertText")
+        // rather than `textarea.value = ...` so the change goes into the
+        // browser's undo stack — Ctrl+Z then unwinds a paste or widget insert
+        // as one step, the same as a user-typed edit would.
         // See https://stackoverflow.com/questions/41273569/how-to-enable-ctrl-z-when-you-change-an-input-text-dynamically-with-react
-        // Note: On unsupported browsers (*cough* Firefox *cough*) `execCommand`
-        // will return false. However at least in Firefox setting `value` on a
-        // textbox clears the undo stack so we don't get unexpected undo
-        // behavior.
+        // `execCommand` is deprecated per MDN but remains the only widely
+        // supported way to keep programmatic edits in the undo stack; all of
+        // Khan Academy's supported browsers implement it (per caniuse, global
+        // support is ~96%).
         if (this.lastUserValue != null && textarea) {
             textarea.focus();
             textarea.value = this.lastUserValue;
             textarea.selectionStart = 0;
             textarea.setSelectionRange(0, prevProps.content.length);
-            if (
-                document.execCommand(
-                    "insertText",
-                    false,
-                    this.props.content,
-                ) === false
-            ) {
-                // This command is not implemented. Fall back to setting `value`
-                // directly.
-                textarea.value = this.props.content;
-            }
+            document.execCommand("insertText", false, this.props.content);
             this.lastUserValue = null;
         }
 

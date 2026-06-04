@@ -4,7 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
-import {act, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -14,6 +14,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
+import * as clipboardUtil from "../util/clipboard";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -305,6 +306,154 @@ describe("Editor", () => {
         await userEvent.selectOptions(select, "Table");
 
         expect(cbData?.content).toMatch(/header 1 | header 2 | header 3/i);
+    });
+
+    describe("cursor positioning after content-changing handlers", () => {
+        // These tests guard against a previous regression where the cursor
+        // jumped to the end of the textarea after inserting a widget (PR #3318
+        // dropped the cursor-positioning callback parameter from the editor's
+        // onChange chain, leaving the cursor logic in editor.tsx orphaned).
+        // The fix moved cursor positioning into Editor's own componentDidUpdate
+        // via the _pendingCursorPos field.
+
+        // Stateful harness that propagates content/widget changes back to
+        // the Editor so the controlled textarea actually updates and we can
+        // observe componentDidUpdate's cursor effect.
+        const StatefulHarness = (props: {
+            initialContent?: string;
+            initialWidgets?: PerseusRenderer["widgets"];
+        }) => {
+            const [content, setContent] = React.useState(
+                props.initialContent ?? "",
+            );
+            const [widgets, setWidgets] = React.useState<
+                PerseusRenderer["widgets"]
+            >(props.initialWidgets ?? {});
+            return (
+                <Harnessed
+                    content={content}
+                    widgets={widgets}
+                    onChange={(data: any) => {
+                        if (data.content !== undefined) {
+                            setContent(data.content);
+                        }
+                        if (data.widgets !== undefined) {
+                            setWidgets(data.widgets);
+                        }
+                    }}
+                />
+            );
+        };
+
+        beforeEach(() => {
+            // jsdom doesn't implement document.execCommand, which the Editor
+            // calls in componentDidUpdate to keep programmatic content
+            // changes in the browser's undo stack. We stub it with a minimal
+            // impl that does what execCommand("insertText") would do in a
+            // real browser: replace the focused textarea's current selection
+            // with the supplied text. The cast and direct DOM access are
+            // intentional for this jsdom polyfill.
+            /* eslint-disable no-restricted-syntax, testing-library/no-node-access */
+            (document as any).execCommand = jest
+                .fn()
+                .mockImplementation(
+                    (cmd: string, _: unknown, value: string) => {
+                        const active = document.activeElement;
+                        if (
+                            cmd === "insertText" &&
+                            active instanceof HTMLTextAreaElement
+                        ) {
+                            const {selectionStart, selectionEnd} = active;
+                            active.value =
+                                active.value.slice(0, selectionStart) +
+                                value +
+                                active.value.slice(selectionEnd);
+                            const newPos = selectionStart + value.length;
+                            active.setSelectionRange(newPos, newPos);
+                        }
+                        return true;
+                    },
+                );
+            /* eslint-enable no-restricted-syntax, testing-library/no-node-access */
+        });
+
+        it("places the cursor after the inserted widget syntax when adding a widget via the dropdown", async () => {
+            // Arrange
+            render(<StatefulHarness initialContent="" initialWidgets={{}} />);
+            act(() => jest.runOnlyPendingTimers());
+
+            // eslint-disable-next-line no-restricted-syntax -- screen.getByLabelText returns a generic HTMLElement; we know this is a textarea.
+            const textarea = screen.getByLabelText(
+                "Markdown content",
+            ) as HTMLTextAreaElement;
+
+            // Act: insert an inline widget. Expression / Equation is inline
+            // so no extra newlines get inserted around it.
+            const select = screen.getByTestId("editor__widget-select");
+            await userEvent.selectOptions(select, "Expression / Equation");
+
+            // Assert: the textarea should contain the widget syntax and the
+            // cursor should land immediately after the closing `]]` (not at
+            // the very end of the textarea or somewhere mid-content).
+            await waitFor(() => {
+                expect(textarea.value).toContain("[[☃ expression 1]]");
+            });
+            const expectedCursorPos = textarea.value.indexOf("]]") + 2;
+            expect(textarea.selectionStart).toBe(expectedCursorPos);
+            expect(textarea.selectionEnd).toBe(expectedCursorPos);
+        });
+
+        it("places the cursor at the end of pasted content when pasting widget content", async () => {
+            // Mock the perseus clipboard helper so the paste handler sees
+            // controlled widget data without needing real navigator.clipboard
+            // access in jsdom.
+            const pastedText = "PASTED";
+            jest.spyOn(
+                clipboardUtil,
+                "getPerseusClipboardData",
+            ).mockResolvedValue({text: pastedText, widgets: {}});
+
+            // Arrange: render with some existing text so we can paste into
+            // the middle of it.
+            const initialContent = "hello world";
+            render(
+                <StatefulHarness
+                    initialContent={initialContent}
+                    initialWidgets={{}}
+                />,
+            );
+            act(() => jest.runOnlyPendingTimers());
+
+            // eslint-disable-next-line no-restricted-syntax -- screen.getByLabelText returns a generic HTMLElement; we know this is a textarea.
+            const textarea = screen.getByLabelText(
+                "Markdown content",
+            ) as HTMLTextAreaElement;
+
+            // Act: place cursor in the middle (after "hello") and trigger
+            // paste. We use fireEvent.paste rather than userEvent.paste
+            // because the perseus paste handler is bound via jQuery and
+            // ignores event.clipboardData (it reads from navigator.clipboard
+            // via the mocked getPerseusClipboardData above).
+            const pasteAt = 5;
+            textarea.focus();
+            textarea.setSelectionRange(pasteAt, pasteAt);
+            // userEvent.paste doesn't go through the jQuery-bound paste listener; fireEvent does.
+            // eslint-disable-next-line testing-library/prefer-user-event
+            fireEvent.paste(textarea);
+
+            // Assert: textarea now has the pasted content inserted at the
+            // cursor, and the cursor sits immediately after the pasted text.
+            await waitFor(() => {
+                expect(textarea.value).toBe(
+                    initialContent.slice(0, pasteAt) +
+                        pastedText +
+                        initialContent.slice(pasteAt),
+                );
+            });
+            const expectedCursorPos = pasteAt + pastedText.length;
+            expect(textarea.selectionStart).toBe(expectedCursorPos);
+            expect(textarea.selectionEnd).toBe(expectedCursorPos);
+        });
     });
 
     test("custom templates work", async () => {
