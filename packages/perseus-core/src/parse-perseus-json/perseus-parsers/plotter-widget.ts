@@ -1,6 +1,3 @@
-// TODO(LEMS-4224): don't import from outside of the parser
-// eslint-disable-next-line import/no-restricted-paths
-import {plotterPlotTypes} from "../../data-schema";
 import {
     constant,
     object,
@@ -14,6 +11,14 @@ import {
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
+
+const plotterPlotTypes = [
+    "bar",
+    "line",
+    "pic",
+    "histogram",
+    "dotplot",
+] as const;
 
 export const parsePlotterWidget = parseWidget(
     constant("plotter"),
