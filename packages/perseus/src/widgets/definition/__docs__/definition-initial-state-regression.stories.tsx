@@ -18,7 +18,7 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export default {
     title: "Widgets/Definition/Visual Regression Tests/Initial State",
     component: ServerItemRendererWithDebugUI,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
