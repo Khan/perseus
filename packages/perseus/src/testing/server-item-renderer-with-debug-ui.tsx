@@ -9,9 +9,9 @@ import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
 import {DebugHeader} from "./debug-header";
 import {useItemRenderer} from "./item-renderer-hooks";
-import {useStorybookApiOptions} from "./use-storybook-api-options";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import {useStorybookApiOptions} from "./use-storybook-api-options";
 
 import type {APIOptions} from "../types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";

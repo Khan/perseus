@@ -8,9 +8,9 @@ import * as React from "react";
 import ArticleRenderer from "../article-renderer";
 
 import SplitView from "./split-view";
-import {useStorybookApiOptions} from "./use-storybook-api-options";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import {useStorybookApiOptions} from "./use-storybook-api-options";
 
 import type {APIOptions} from "../types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";
