@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseInteractionWidget} from "./interaction-widget";
+import {parseInteractionWidget} from "../perseus-parsers/interaction-widget";
 
 import type {InteractionWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

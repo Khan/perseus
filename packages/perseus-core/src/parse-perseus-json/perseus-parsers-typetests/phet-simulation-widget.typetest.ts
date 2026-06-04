@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parsePhetSimulationWidget} from "./phet-simulation-widget";
+import {parsePhetSimulationWidget} from "../perseus-parsers/phet-simulation-widget";
 
 import type {PhetSimulationWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

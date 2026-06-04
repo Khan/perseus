@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseIframeWidget} from "./iframe-widget";
+import {parseIframeWidget} from "../perseus-parsers/iframe-widget";
 
 import type {IFrameWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseLabelImageWidget} from "./label-image-widget";
+import {parseLabelImageWidget} from "../perseus-parsers/label-image-widget";
 
 import type {LabelImageWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

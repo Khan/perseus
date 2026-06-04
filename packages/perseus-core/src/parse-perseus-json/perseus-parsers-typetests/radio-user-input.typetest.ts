@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseRadioUserInput} from "./radio-user-input";
+import {parseRadioUserInput} from "../perseus-parsers/radio-user-input";
 
 import type {PerseusRadioUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

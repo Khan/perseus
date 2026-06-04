@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseRadioWidget} from "./radio-widget";
+import {parseRadioWidget} from "../perseus-parsers/radio-widget";
 
 import type {RadioWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseHint} from "./hint";
+import {parseHint} from "../perseus-parsers/hint";
 
 import type {Hint} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

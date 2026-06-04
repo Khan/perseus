@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseNumericInputUserInput} from "./numeric-input-user-input";
+import {parseNumericInputUserInput} from "../perseus-parsers/numeric-input-user-input";
 
 import type {PerseusNumericInputUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

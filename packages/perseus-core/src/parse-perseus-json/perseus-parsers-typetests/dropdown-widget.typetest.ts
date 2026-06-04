@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseDropdownWidget} from "./dropdown-widget";
+import {parseDropdownWidget} from "../perseus-parsers/dropdown-widget";
 
 import type {DropdownWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

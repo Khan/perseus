@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseCSProgramWidget} from "./cs-program-widget";
+import {parseCSProgramWidget} from "../perseus-parsers/cs-program-widget";
 
 import type {CSProgramWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

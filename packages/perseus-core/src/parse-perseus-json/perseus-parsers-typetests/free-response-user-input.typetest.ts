@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseFreeResponseUserInput} from "./free-response-user-input";
+import {parseFreeResponseUserInput} from "../perseus-parsers/free-response-user-input";
 
 import type {PerseusFreeResponseUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

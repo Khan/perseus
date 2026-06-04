@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseMeasurerWidget} from "./measurer-widget";
+import {parseMeasurerWidget} from "../perseus-parsers/measurer-widget";
 
 import type {MeasurerWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

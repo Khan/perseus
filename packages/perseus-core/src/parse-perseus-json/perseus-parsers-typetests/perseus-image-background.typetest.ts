@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parsePerseusImageBackground} from "./perseus-image-background";
+import {parsePerseusImageBackground} from "../perseus-parsers/perseus-image-background";
 
 import type {PerseusImageBackground} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

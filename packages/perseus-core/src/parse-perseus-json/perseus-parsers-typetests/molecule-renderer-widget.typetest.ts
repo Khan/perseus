@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
+import {parseMoleculeRendererWidget} from "../perseus-parsers/molecule-renderer-widget";
 
 import type {MoleculeRendererWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

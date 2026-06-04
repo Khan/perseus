@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseIFrameUserInput} from "./iframe-user-input";
+import {parseIFrameUserInput} from "../perseus-parsers/iframe-user-input";
 
 import type {PerseusIFrameUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

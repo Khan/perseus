@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseCategorizerUserInput} from "./categorizer-user-input";
+import {parseCategorizerUserInput} from "../perseus-parsers/categorizer-user-input";
 
 import type {PerseusCategorizerUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseGradedGroupWidget} from "./graded-group-widget";
+import {parseGradedGroupWidget} from "../perseus-parsers/graded-group-widget";
 
 import type {GradedGroupWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

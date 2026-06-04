@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseSorterWidget} from "./sorter-widget";
+import {parseSorterWidget} from "../perseus-parsers/sorter-widget";
 
 import type {SorterWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

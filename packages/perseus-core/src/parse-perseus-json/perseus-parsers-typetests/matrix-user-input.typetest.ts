@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseMatrixUserInput} from "./matrix-user-input";
+import {parseMatrixUserInput} from "../perseus-parsers/matrix-user-input";
 
 import type {PerseusMatrixUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";

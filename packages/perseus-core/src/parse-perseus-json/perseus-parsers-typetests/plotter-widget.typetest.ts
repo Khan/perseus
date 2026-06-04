@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parsePlotterWidget} from "./plotter-widget";
+import {parsePlotterWidget} from "../perseus-parsers/plotter-widget";
 
 import type {PlotterWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

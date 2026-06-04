@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parseGrapherWidget} from "./grapher-widget";
+import {parseGrapherWidget} from "../perseus-parsers/grapher-widget";
 
 import type {GrapherWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";

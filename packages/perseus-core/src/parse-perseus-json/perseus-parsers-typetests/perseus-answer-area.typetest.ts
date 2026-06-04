@@ -1,8 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {ctx} from "../general-purpose-parsers/test-helpers";
-
-import {parsePerseusAnswerArea} from "./perseus-answer-area";
+import {parsePerseusAnswerArea} from "../perseus-parsers/perseus-answer-area";
 
 import type {PerseusAnswerArea} from "../../data-schema";
 import type {ParseResult} from "../parser-types";
