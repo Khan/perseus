@@ -169,18 +169,18 @@ const Line = (props: LineProps) => {
         interactiveColor,
     } = useGraphConfig();
 
-    let startExtend: vec.Vector2 | undefined = undefined;
-    let endExtend: vec.Vector2 | undefined = undefined;
+    const computeExtensionTip = (tail: vec.Vector2, source: vec.Vector2) =>
+        insetTipAlongRay(
+            tail,
+            getIntersectionOfRayWithBox(source, tail, range),
+            range,
+            graphDimensionsInPixels,
+        );
 
-    if (extend) {
-        const trimmedRange = trimRange(range, graphDimensionsInPixels);
-        startExtend = extend.start
-            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
-            : undefined;
-        endExtend = extend.end
-            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
-            : undefined;
-    }
+    const startExtend = extend?.start
+        ? computeExtensionTip(start, end)
+        : undefined;
+    const endExtend = extend?.end ? computeExtensionTip(end, start) : undefined;
 
     const line = useRef<SVGGElement>(null);
     const {dragging} = useDraggable({
@@ -308,16 +308,54 @@ export const getMovableLineKeyboardConstraint = (
     };
 };
 
+// Inset extensions from the graph edge so the arrowhead isn't clipped.
+const GRAPH_EDGE_INSET_PX = 4;
+
 export function trimRange(
     range: [Interval, Interval],
     graphDimensionsInPixels: vec.Vector2,
 ): [Interval, Interval] {
-    const pixelsToTrim = 4;
     const [xRange, yRange] = range;
     const [pixelsWide, pixelsTall] = graphDimensionsInPixels;
     const graphUnitsPerPixelX = size(xRange) / pixelsWide;
     const graphUnitsPerPixelY = size(yRange) / pixelsTall;
-    const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
-    const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
+    const graphUnitsToTrimX = GRAPH_EDGE_INSET_PX * graphUnitsPerPixelX;
+    const graphUnitsToTrimY = GRAPH_EDGE_INSET_PX * graphUnitsPerPixelY;
     return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
+}
+
+/**
+ * Returns `tip` pulled back toward `tail` by GRAPH_EDGE_INSET_PX, measured
+ * in pixel space (not graph units) so the inset looks the same regardless
+ * of axis scale. Used to keep arrowhead glyphs from being clipped by the
+ * viewport edge.
+ */
+export function insetTipAlongRay(
+    tail: vec.Vector2,
+    tip: vec.Vector2,
+    range: [Interval, Interval],
+    graphDimensionsInPixels: vec.Vector2,
+): vec.Vector2 {
+    // Direction from tail to tip, in graph units.
+    const dx = tip[0] - tail[0];
+    const dy = tip[1] - tail[1];
+
+    // Conversion factors from graph units to pixels on each axis. These
+    // can differ when the x and y axes have different scales.
+    const [pixelsWide, pixelsTall] = graphDimensionsInPixels;
+    const pxPerUnitX = pixelsWide / size(range[0]);
+    const pxPerUnitY = pixelsTall / size(range[1]);
+
+    // Length of the ray in pixel space. We measure in pixels (not graph
+    // units) so the inset is a fixed visual distance regardless of scale.
+    const lenPx = Math.hypot(dx * pxPerUnitX, dy * pxPerUnitY);
+    if (lenPx === 0) {
+        // tail and tip coincide; no direction to inset along.
+        return tip;
+    }
+
+    // Fraction of the ray that equals GRAPH_EDGE_INSET_PX in pixel space.
+    // Subtract that fraction of the (graph-unit) direction from `tip`.
+    const scale = GRAPH_EDGE_INSET_PX / lenPx;
+    return [tip[0] - dx * scale, tip[1] - dy * scale];
 }
