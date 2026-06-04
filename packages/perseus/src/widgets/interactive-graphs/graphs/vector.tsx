@@ -32,9 +32,6 @@ const {calculateAngleInDegrees} = angles;
 // doesn't poke past the arrowhead shape.
 const LINE_PULLBACK_PX = 4;
 
-// Radius of the static tail dot.
-const TAIL_DOT_RADIUS = 6;
-
 export function renderVectorGraph(
     state: VectorGraphState,
     dispatch: Dispatch,
@@ -190,17 +187,8 @@ const VectorBody = (props: VectorBodyProps) => {
                 start={tailPx}
                 end={lineEndPx}
                 className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
-                style={{stroke: interactiveColor}}
+                style={{stroke: interactiveColor, strokeWidth: 2}}
                 testId="movable-vector__line"
-            />
-            {/* Tail dot — inside the body group so hovering/dragging
-                it activates the line's hover state and drag behavior */}
-            <circle
-                cx={tailPx[X]}
-                cy={tailPx[Y]}
-                r={TAIL_DOT_RADIUS}
-                fill={interactiveColor}
-                data-testid="vector-tail-dot"
             />
             {/* Drag handle pill — only visible on hover / focus / drag */}
             {active && (
