@@ -1,16 +1,14 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
+import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusExpressionOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const ExpressionWidget = getWidget("expression")!;
-
-const meta: Meta<typeof ExpressionWidget> = {
+const meta: Meta<typeof Expression> = {
     title: "Widgets/Expression/Visual Regression Tests/Initial State",
-    component: ExpressionWidget,
+    component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -25,7 +23,7 @@ const meta: Meta<typeof ExpressionWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ExpressionWidget>;
+type Story = StoryObj<typeof Expression>;
 
 // Verifies the default empty input state — math input field and keypad toggle
 // button render correctly with no label and no pre-filled value
@@ -37,7 +35,7 @@ export const DefaultEmpty: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
 };
 
 // Verifies the visible label renders above the input using BodyText typography
@@ -51,7 +49,7 @@ export const WithVisibleLabel: Story = {
         extraKeys: [],
         visibleLabel: "Enter your answer",
         ariaLabel: "Enter your answer",
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
 };
 
 // Verifies the mobile input (KeypadInputWithInterface / KeypadInput) renders
@@ -64,7 +62,7 @@ export const MobileInputDefault: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
     parameters: {
         apiOptions: {customKeypad: true},
     },

@@ -1,18 +1,16 @@
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {getWidget} from "../../../widgets";
+import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusExpressionOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const ExpressionWidget = getWidget("expression")!;
-
-const meta: Meta<typeof ExpressionWidget> = {
+const meta: Meta<typeof Expression> = {
     title: "Widgets/Expression/Visual Regression Tests/Interactions",
-    component: ExpressionWidget,
+    component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -27,7 +25,7 @@ const meta: Meta<typeof ExpressionWidget> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ExpressionWidget>;
+type Story = StoryObj<typeof Expression>;
 
 async function openKeypad({
     canvas,
@@ -46,7 +44,7 @@ const keypadArgs = {
     functions: [],
     times: false,
     extraKeys: ["x", "y"],
-} satisfies Partial<PerseusExpressionWidgetOptions>;
+} satisfies Partial<PerseusExpressionOptions>;
 
 // Verifies the focused input state — blue focus ring appears on the math input
 // border (semanticColor.core.border.instructive.default)
@@ -58,7 +56,7 @@ export const FocusedInput: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
     play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
@@ -127,7 +125,7 @@ export const IconButtonHovered: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
     play: async ({canvas, userEvent}) => {
         const openButton = canvas.getByRole("button", {
             name: "open math keypad",
@@ -146,7 +144,7 @@ export const WithTextInField: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
     play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
@@ -164,7 +162,7 @@ export const MobileInputFocused: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionWidgetOptions>,
+    } satisfies Partial<PerseusExpressionOptions>,
     parameters: {
         apiOptions: {customKeypad: true},
     },
