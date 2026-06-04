@@ -933,7 +933,7 @@ const styles = StyleSheet.create({
     },
 
     placeholder: {
-        background: semanticColor.core.background.disabled.strong,
+        background: semanticColor.core.background.neutral.subtle,
         border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
     },
 
