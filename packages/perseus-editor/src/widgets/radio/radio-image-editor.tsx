@@ -77,7 +77,7 @@ export default function RadioImageEditor({
     }
 
     return (
-        <div>
+        <>
             {/* Preview */}
             {imageUrl ? (
                 <LabeledField
@@ -158,6 +158,6 @@ export default function RadioImageEditor({
                     Delete this image
                 </Button>
             </span>
-        </div>
+        </>
     );
 }
