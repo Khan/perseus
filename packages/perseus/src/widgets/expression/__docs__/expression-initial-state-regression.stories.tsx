@@ -10,13 +10,6 @@ const meta: Meta<typeof Expression> = {
     component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    "Regression tests for the Expression widget that do NOT " +
-                    "need any interactions to test.",
-            },
-        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
@@ -24,8 +17,6 @@ export default meta;
 
 type Story = StoryObj<typeof Expression>;
 
-// Verifies the default empty input state — math input field and keypad toggle
-// button render correctly with no label and no pre-filled value
 export const DefaultEmpty: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -37,7 +28,6 @@ export const DefaultEmpty: Story = {
     },
 };
 
-// Verifies the visible label renders above the input using BodyText typography
 export const WithVisibleLabel: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -51,8 +41,6 @@ export const WithVisibleLabel: Story = {
     },
 };
 
-// Verifies the mobile input (KeypadInputWithInterface / KeypadInput) renders
-// correctly in the mobile keypad context — background and border use semantic tokens
 export const MobileInputDefault: Story = {
     decorators: [expressionRendererDecorator],
     args: {

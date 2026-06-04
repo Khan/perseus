@@ -12,13 +12,6 @@ const meta: Meta<typeof Expression> = {
     component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    "Regression tests for the Expression widget that DO need " +
-                    "some sort of interaction to test.",
-            },
-        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
@@ -45,8 +38,6 @@ const keypadArgs: NonNullable<Story["args"]> = {
     extraKeys: ["x", "y"],
 };
 
-// Verifies the focused input state — blue focus ring appears on the math input
-// border (semanticColor.core.border.instructive.default)
 export const FocusedInput: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -114,8 +105,6 @@ export const KeypadOpenExtrasTab: Story = {
     },
 };
 
-// Verifies the icon hover state — the toggle button fill changes to
-// semanticColor.action.primary.progressive.hover.background when hovered
 export const IconButtonHovered: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -133,8 +122,6 @@ export const IconButtonHovered: Story = {
     },
 };
 
-// Verifies rendered math text is visible in the input — captures text color
-// (semanticColor.core.foreground.neutral.strong) and field background
 export const WithTextInField: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -151,8 +138,6 @@ export const WithTextInField: Story = {
     },
 };
 
-// Verifies the focused state of the mobile input (KeypadInputWithInterface) —
-// captures the instructive blue border on focus
 export const MobileInputFocused: Story = {
     decorators: [expressionRendererDecorator],
     args: {
