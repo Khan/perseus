@@ -5,8 +5,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
@@ -163,14 +161,6 @@ export const GraphieImage: Story = {
 
 export const GifImage: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
-    },
     args: {
         backgroundImage: animatedGifLandscape,
         alt: animatedGifLandscapeAlt,

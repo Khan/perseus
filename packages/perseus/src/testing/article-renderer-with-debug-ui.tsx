@@ -10,6 +10,7 @@ import ArticleRenderer from "../article-renderer";
 import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import {useStorybookApiOptions} from "./use-storybook-api-options";
 
 import type {APIOptions} from "../types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";
@@ -33,15 +34,19 @@ export const ArticleRendererWithDebugUI = ({
     linterContext,
 }: Props): React.ReactElement => {
     const ref = React.useRef<ArticleRenderer>(null);
+    const baseOptions = useStorybookApiOptions(apiOptions);
     const [isMobile, setIsMobile] = React.useState(
         apiOptions.isMobile ?? false,
     );
-    const options = {
-        ...apiOptions,
-        isMobile,
-        isArticle: true, // Articles should have isArticle flag set for proper behavior
-        customKeypad: isMobile, // Use the mobile keypad for mobile
-    };
+    const options = React.useMemo(
+        () => ({
+            ...baseOptions,
+            isMobile,
+            isArticle: true, // Articles should have isArticle flag set for proper behavior
+            customKeypad: isMobile, // Use the mobile keypad for mobile
+        }),
+        [baseOptions, isMobile],
+    );
 
     return (
         <SplitView
