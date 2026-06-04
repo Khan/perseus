@@ -152,8 +152,13 @@ runs:
               echo "$DELIM" >> "$GITHUB_OUTPUT"
               echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
 
+        # Only manage labels when the comparison actually produced a result.
+        # Gating on the diff step's outcome (rather than `always()`) avoids the
+        # churn where a cancelled/failed run — which has an empty
+        # diff-exit-code — falls into the `else` below and spuriously *adds*
+        # the label, only for the next clean run to remove it again.
         - name: Add or Remove Label Based on Diff
-          if: always()
+          if: steps.compare-artifacts.outcome == 'success'
           env:
               GITHUB_TOKEN: ${{ inputs.github-token }}
           shell: bash
@@ -177,10 +182,12 @@ runs:
         # rich summary (rather than the workflow logs, where reviewers
         # struggle to find the Summary tab). Falls back to creating the Check
         # if the up-front creation step errored before reporting its id (so
-        # the verdict is never lost). Runs with `always()` so the verdict is
-        # posted even when an earlier step failed.
+        # the verdict is never lost). Runs with `!cancelled()` so the verdict
+        # is still posted when an earlier step failed (reported as a distinct
+        # error state), but NOT for a superseded (cancelled) run — that run's
+        # replacement will post the real result.
         - name: Finalize the GitHub Check
-          if: always()
+          if: ${{ !cancelled() }}
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
               CHECK_NAME: ${{ inputs.check-name }}
