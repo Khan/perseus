@@ -96,6 +96,8 @@ export type MakeWidgetMap<TRegistry> = {
     [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
 };
 
+// CHANGE!!
+
 /**
  * Our core set of Perseus widgets.
  *
