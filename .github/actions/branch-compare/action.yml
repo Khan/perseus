@@ -98,13 +98,9 @@ runs:
         # ("Index was out of range") when checkout runs inside a composite
         # action's Post step.
         - name: Check out base branch
-          id: checkout-base
           if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: |
-              # Remember the PR ref so we can restore it after building the
-              # base (see "Restore PR checkout" below).
-              echo "pr-ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
               git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
               git checkout FETCH_HEAD
 
@@ -123,17 +119,6 @@ runs:
               if [ -e "${{ inputs.path-to-artifact }}" ]; then
                 cp -R ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
               fi
-
-        # Put the working tree back on the PR ref. The base checkout above left
-        # the base branch's files on disk — including this action.yml — and
-        # GitHub's post-step cleanup re-reads the action def from disk, so a
-        # stale base copy produces spurious "unexpected input" warnings. We diff
-        # the captured copies (under runner.temp), so restoring here is safe.
-        # `always()` so the tree is restored even if a build step failed.
-        - name: Restore PR checkout
-          if: ${{ always() && steps.checkout-base.outputs.pr-ref != '' }}
-          shell: bash
-          run: git checkout --force "${{ steps.checkout-base.outputs.pr-ref }}"
 
         - name: Compare artifacts
           id: compare-artifacts
