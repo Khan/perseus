@@ -5,7 +5,6 @@ import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
-import type {PerseusExpressionOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof Expression> = {
@@ -38,13 +37,13 @@ async function openKeypad({
 // Args shared across all keypad tab stories — configures all four tabs:
 // Numbers (always), Operators (prealgebra/logarithms), Geometry (trig),
 // Extras (extraKeys)
-const keypadArgs = {
+const keypadArgs: NonNullable<Story["args"]> = {
     answerForms: [],
     buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
     functions: [],
     times: false,
     extraKeys: ["x", "y"],
-} satisfies Partial<PerseusExpressionOptions>;
+};
 
 // Verifies the focused input state — blue focus ring appears on the math input
 // border (semanticColor.core.border.instructive.default)
@@ -56,7 +55,7 @@ export const FocusedInput: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
     play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
@@ -125,7 +124,7 @@ export const IconButtonHovered: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
     play: async ({canvas, userEvent}) => {
         const openButton = canvas.getByRole("button", {
             name: "open math keypad",
@@ -144,7 +143,7 @@ export const WithTextInField: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
     play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
@@ -162,7 +161,7 @@ export const MobileInputFocused: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
     parameters: {
         apiOptions: {customKeypad: true},
     },

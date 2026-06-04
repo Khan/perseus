@@ -3,7 +3,6 @@ import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
-import type {PerseusExpressionOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof Expression> = {
@@ -35,7 +34,7 @@ export const DefaultEmpty: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
 };
 
 // Verifies the visible label renders above the input using BodyText typography
@@ -49,7 +48,7 @@ export const WithVisibleLabel: Story = {
         extraKeys: [],
         visibleLabel: "Enter your answer",
         ariaLabel: "Enter your answer",
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
 };
 
 // Verifies the mobile input (KeypadInputWithInterface / KeypadInput) renders
@@ -62,7 +61,7 @@ export const MobileInputDefault: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-    } satisfies Partial<PerseusExpressionOptions>,
+    },
     parameters: {
         apiOptions: {customKeypad: true},
     },
