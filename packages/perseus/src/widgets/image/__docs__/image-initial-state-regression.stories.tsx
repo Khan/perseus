@@ -8,8 +8,6 @@ import * as React from "react";
 import {expect, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
@@ -345,13 +343,8 @@ export const ImageWithoutWidthOrHeightLarge: Story = {
 
 export const TallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
+    globals: {
+        featureFlags: ["image-widget-upgrade-gif-controls"],
     },
     args: {
         backgroundImage: animatedGifPortrait,
@@ -421,13 +414,8 @@ export const PngImage: Story = {
 
 export const MobileAnimatedGif: Story = {
     decorators: [imageRendererDecorator, mobileDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
+    globals: {
+        featureFlags: ["image-widget-upgrade-gif-controls"],
     },
     args: {
         backgroundImage: animatedGifLandscape,
@@ -438,13 +426,8 @@ export const MobileAnimatedGif: Story = {
 
 export const NonAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
+    globals: {
+        featureFlags: ["image-widget-upgrade-gif-controls"],
     },
     args: {
         backgroundImage: nonAnimatedGif,
