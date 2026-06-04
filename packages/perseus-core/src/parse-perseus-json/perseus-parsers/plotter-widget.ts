@@ -1,3 +1,5 @@
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import {plotterPlotTypes} from "../../data-schema";
 import {
     constant,

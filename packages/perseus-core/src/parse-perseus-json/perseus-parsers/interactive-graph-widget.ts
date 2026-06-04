@@ -20,6 +20,8 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusGraphTypeLinear} from "../../data-schema";
 
 // Used to represent 2-D points and ranges
