@@ -8,6 +8,13 @@ const meta: Meta<typeof Sortable> = {
     component: Sortable,
     tags: ["!autodocs", "!manifest"],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Sortable component that do NOT " +
+                    "need any interactions to test.",
+            },
+        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
