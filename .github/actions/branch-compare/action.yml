@@ -49,6 +49,19 @@ inputs:
 runs:
     using: "composite"
     steps:
+        # Fail fast (with a legible message) if this action is ever wired into
+        # a non-pull_request workflow. Everything below reads the PR payload,
+        # so there's nothing sensible to do otherwise. On a normal PR run this
+        # step is skipped. If it fires, the job is already failing; the
+        # `always()` steps below may still run and error on the absent PR
+        # payload, but that's harmless noise behind this clear failure.
+        - name: Assert pull_request context
+          if: github.event_name != 'pull_request'
+          shell: bash
+          run: |
+              echo "::error::branch-compare must run from a pull_request-triggered workflow (got event '${{ github.event_name }}')."
+              exit 1
+
         # Create the Check run up front (status: in_progress) so the required
         # check appears immediately and is tied to this run's lifecycle. The
         # final step updates it with the verdict.
