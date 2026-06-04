@@ -1,7 +1,9 @@
 import {PerseusFeatureFlags} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-type PerseusFlags = Record<(typeof PerseusFeatureFlags)[number], boolean>;
+export type PerseusFeatureFlag = (typeof PerseusFeatureFlags)[number];
+
+type PerseusFlags = Record<PerseusFeatureFlag, boolean>;
 
 // We need to cast here in order to create
 // the correct type for this internal tool

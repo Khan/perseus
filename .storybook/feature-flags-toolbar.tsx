@@ -4,6 +4,8 @@ import {useGlobals} from "storybook/manager-api";
 
 import PerseusFeatureFlags from "../packages/perseus-core/src/feature-flags";
 
+import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
+
 /**
  * Storybook toolbar button that lets developers toggle Perseus feature flags
  * on and off globally across all stories. Flags are sourced automatically
@@ -11,9 +13,9 @@ import PerseusFeatureFlags from "../packages/perseus-core/src/feature-flags";
  */
 export function FeatureFlagsToolbar() {
     const [globals, updateGlobals] = useGlobals();
-    const activeFlags: string[] = globals.featureFlags ?? [];
+    const activeFlags: PerseusFeatureFlag[] = globals.featureFlags ?? [];
 
-    const toggleFlag = (flag: string) => {
+    const toggleFlag = (flag: PerseusFeatureFlag) => {
         updateGlobals({
             featureFlags: activeFlags.includes(flag)
                 ? activeFlags.filter((f) => f !== flag)
@@ -48,8 +50,8 @@ export function FeatureFlagsToolbar() {
 }
 
 type FlagListProps = {
-    activeFlags: string[];
-    onToggle: (flag: string) => void;
+    activeFlags: PerseusFeatureFlag[];
+    onToggle: (flag: PerseusFeatureFlag) => void;
 };
 
 /**

@@ -18,6 +18,7 @@ import {
     StorybookFeatureFlagsContext,
     defaultFeatureFlags,
 } from "../packages/perseus/src/testing/feature-flags-context";
+import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
 
 import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import type {PerseusDependencies} from "../packages/perseus/src/types";
@@ -57,7 +58,7 @@ const withPerseusDecorator: Decorator = (Story) => {
 };
 
 const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
-    const activeFlags: string[] = context.globals.featureFlags ?? [];
+    const activeFlags: PerseusFeatureFlag[] = context.globals.featureFlags ?? [];
     const flags = {
         ...defaultFeatureFlags,
         ...Object.fromEntries(activeFlags.map((f) => [f, true])),
