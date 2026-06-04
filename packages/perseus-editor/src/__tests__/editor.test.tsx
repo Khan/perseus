@@ -309,13 +309,6 @@ describe("Editor", () => {
     });
 
     describe("cursor positioning after content-changing handlers", () => {
-        // These tests guard against a previous regression where the cursor
-        // jumped to the end of the textarea after inserting a widget (PR #3318
-        // dropped the cursor-positioning callback parameter from the editor's
-        // onChange chain, leaving the cursor logic in editor.tsx orphaned).
-        // The fix moved cursor positioning into Editor's own componentDidUpdate
-        // via the _pendingCursorPos field.
-
         // Stateful harness that propagates content/widget changes back to
         // the Editor so the controlled textarea actually updates and we can
         // observe componentDidUpdate's cursor effect.
@@ -347,17 +340,17 @@ describe("Editor", () => {
 
         beforeEach(() => {
             // jsdom doesn't implement document.execCommand, which the Editor
-            // calls in componentDidUpdate to keep programmatic content
-            // changes in the browser's undo stack. We stub it with a minimal
-            // impl that does what execCommand("insertText") would do in a
-            // real browser: replace the focused textarea's current selection
-            // with the supplied text. The cast and direct DOM access are
-            // intentional for this jsdom polyfill.
-            /* eslint-disable no-restricted-syntax, testing-library/no-node-access */
-            (document as any).execCommand = jest
+            // uses to keep programmatic content changes in the browser's undo
+            // stack. We stub it with a minimal impl that does what
+            // execCommand("insertText") would do in a real browser: replace
+            // the focused textarea's current selection with the supplied text.
+            // The cast and direct DOM access are intentional for this jsdom
+            // polyfill.
+            document.execCommand = jest
                 .fn()
                 .mockImplementation(
                     (cmd: string, _: unknown, value: string) => {
+                        // eslint-disable-next-line testing-library/no-node-access
                         const active = document.activeElement;
                         if (
                             cmd === "insertText" &&
@@ -374,83 +367,65 @@ describe("Editor", () => {
                         return true;
                     },
                 );
-            /* eslint-enable no-restricted-syntax, testing-library/no-node-access */
         });
 
         it("places the cursor after the inserted widget syntax when adding a widget via the dropdown", async () => {
             // Arrange
             render(<StatefulHarness initialContent="" initialWidgets={{}} />);
-            act(() => jest.runOnlyPendingTimers());
 
-            // eslint-disable-next-line no-restricted-syntax -- screen.getByLabelText returns a generic HTMLElement; we know this is a textarea.
-            const textarea = screen.getByLabelText(
-                "Markdown content",
-            ) as HTMLTextAreaElement;
+            const textarea = screen.getByRole("textbox", {
+                name: "Markdown content",
+            }) satisfies HTMLTextAreaElement;
 
-            // Act: insert an inline widget. Expression / Equation is inline
-            // so no extra newlines get inserted around it.
+            // Act: add an inline widget
             const select = screen.getByTestId("editor__widget-select");
             await userEvent.selectOptions(select, "Expression / Equation");
 
-            // Assert: the textarea should contain the widget syntax and the
-            // cursor should land immediately after the closing `]]` (not at
-            // the very end of the textarea or somewhere mid-content).
             await waitFor(() => {
                 expect(textarea.value).toContain("[[☃ expression 1]]");
             });
+
+            // Assert
             const expectedCursorPos = textarea.value.indexOf("]]") + 2;
             expect(textarea.selectionStart).toBe(expectedCursorPos);
             expect(textarea.selectionEnd).toBe(expectedCursorPos);
         });
 
         it("places the cursor at the end of pasted content when pasting widget content", async () => {
-            // Mock the perseus clipboard helper so the paste handler sees
-            // controlled widget data without needing real navigator.clipboard
-            // access in jsdom.
             const pastedText = "PASTED";
             jest.spyOn(
                 clipboardUtil,
                 "getPerseusClipboardData",
             ).mockResolvedValue({text: pastedText, widgets: {}});
 
-            // Arrange: render with some existing text so we can paste into
-            // the middle of it.
-            const initialContent = "hello world";
+            // Arrange
             render(
                 <StatefulHarness
-                    initialContent={initialContent}
+                    initialContent={"hello world"}
                     initialWidgets={{}}
                 />,
             );
             act(() => jest.runOnlyPendingTimers());
 
-            // eslint-disable-next-line no-restricted-syntax -- screen.getByLabelText returns a generic HTMLElement; we know this is a textarea.
-            const textarea = screen.getByLabelText(
-                "Markdown content",
-            ) as HTMLTextAreaElement;
+            const textarea = screen.getByRole("textbox", {
+                name: "Markdown content",
+            }) satisfies HTMLTextAreaElement;
 
-            // Act: place cursor in the middle (after "hello") and trigger
-            // paste. We use fireEvent.paste rather than userEvent.paste
-            // because the perseus paste handler is bound via jQuery and
-            // ignores event.clipboardData (it reads from navigator.clipboard
-            // via the mocked getPerseusClipboardData above).
-            const pasteAt = 5;
+            // Act
+            const pasteAtIndex = 5;
             textarea.focus();
-            textarea.setSelectionRange(pasteAt, pasteAt);
-            // userEvent.paste doesn't go through the jQuery-bound paste listener; fireEvent does.
+            textarea.setSelectionRange(pasteAtIndex, pasteAtIndex);
+            // NOTE: we use `fireEvent` because userEvent.paste doesn't go
+            // through the jQuery-bound paste listener, but fireEvent does.
             // eslint-disable-next-line testing-library/prefer-user-event
             fireEvent.paste(textarea);
 
-            // Assert: textarea now has the pasted content inserted at the
-            // cursor, and the cursor sits immediately after the pasted text.
             await waitFor(() => {
-                expect(textarea.value).toBe(
-                    initialContent.slice(0, pasteAt) +
-                        pastedText +
-                        initialContent.slice(pasteAt),
-                );
+                expect(textarea.value).toBe(`hello${pastedText} world`);
             });
-            const expectedCursorPos = pasteAt + pastedText.length;
+
+            // Assert
+            const expectedCursorPos = pasteAtIndex + pastedText.length;
             expect(textarea.selectionStart).toBe(expectedCursorPos);
             expect(textarea.selectionEnd).toBe(expectedCursorPos);
         });
