@@ -344,8 +344,6 @@ describe("Editor", () => {
             // stack. We stub it with a minimal impl that does what
             // execCommand("insertText") would do in a real browser: replace
             // the focused textarea's current selection with the supplied text.
-            // The cast and direct DOM access are intentional for this jsdom
-            // polyfill.
             document.execCommand = jest
                 .fn()
                 .mockImplementation(
