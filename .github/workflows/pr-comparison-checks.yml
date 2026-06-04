@@ -23,6 +23,11 @@ permissions:
     pull-requests: write
     issues: write
 
+# Single source of truth for the Node version these checks build under.
+# (See the note on each job for why these jobs deliberately avoid a matrix.)
+env:
+    NODE_VERSION: "24.x"
+
 jobs:
     check_schema_change:
         name: "Schema Change"
@@ -31,11 +36,13 @@ jobs:
         concurrency:
             group: ${{ github.workflow }}-schema-change-${{ github.event.pull_request.number || github.ref }}
             cancel-in-progress: true
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.x]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        # No matrix here, on purpose: a matrix appends its values to the check
+        # name (e.g. "Schema Change (ubuntu-latest, 24.x)"), so bumping Node
+        # would rename the required check and leave every PR wedged on a stale
+        # branch-protection rule. A single, suffix-free name (Node comes from
+        # the NODE_VERSION env above) keeps the required-status rules stable
+        # across upgrades.
         steps:
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -54,7 +61,7 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  node-version: ${{ matrix.node-version }}
+                  node-version: ${{ env.NODE_VERSION }}
                   build-command: |
                       pnpm install && \
                       pnpm tsc --declaration --emitDeclarationOnly --removeComments \
@@ -89,11 +96,13 @@ jobs:
         concurrency:
             group: ${{ github.workflow }}-item-splitting-${{ github.event.pull_request.number || github.ref }}
             cancel-in-progress: true
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.x]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        # No matrix here, on purpose: a matrix appends its values to the check
+        # name (e.g. "Schema Change (ubuntu-latest, 24.x)"), so bumping Node
+        # would rename the required check and leave every PR wedged on a stale
+        # branch-protection rule. A single, suffix-free name (Node comes from
+        # the NODE_VERSION env above) keeps the required-status rules stable
+        # across upgrades.
         steps:
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -112,7 +121,7 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  node-version: ${{ matrix.node-version }}
+                  node-version: ${{ env.NODE_VERSION }}
                   # esbuild produces a deliberately non-minified bundle for
                   # comparison purposes — the production build pipeline
                   # (rollup + swc + minification) is too noisy for diffs.
