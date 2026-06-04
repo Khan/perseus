@@ -24,8 +24,6 @@ type Story = StoryObj<typeof Sortable>;
 
 const defaultOptions = ["Apple", "Banana", "Cherry"];
 
-// Verifies the default card appearance in horizontal layout: white background
-// and light gray border (card style).
 export const HorizontalLayout: Story = {
     args: {
         layout: "horizontal",
@@ -34,8 +32,6 @@ export const HorizontalLayout: Story = {
     },
 };
 
-// Verifies the default card appearance in vertical layout: white background
-// and light gray border (card style).
 export const VerticalLayout: Story = {
     args: {
         layout: "vertical",
@@ -44,8 +40,6 @@ export const VerticalLayout: Story = {
     },
 };
 
-// Verifies the disabled card appearance: transparent border and inherited
-// background override the default card colors.
 export const DisabledState: Story = {
     args: {
         layout: "horizontal",

@@ -22,9 +22,6 @@ const meta: Meta<typeof Sortable> = {
 };
 export default meta;
 
-// Verifies the dragging card state (gold background) with the card held in
-// place. The placeholder is in the DOM (4 list items) but occluded by the
-// absolutely-positioned dragging card. Use PlaceholderVisible for color coverage.
 export const DraggingCard = {
     args: {
         layout: "horizontal",
@@ -45,9 +42,6 @@ export const DraggingCard = {
     },
 };
 
-// Verifies the placeholder color (disabled background + neutral border) by
-// moving the dragging card away from its original slot so the placeholder is
-// no longer occluded by the absolutely-positioned dragging card.
 export const PlaceholderVisible = {
     args: {
         layout: "horizontal",
