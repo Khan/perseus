@@ -96,8 +96,6 @@ export type MakeWidgetMap<TRegistry> = {
     [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
 };
 
-// CHANGE!!
-
 /**
  * Our core set of Perseus widgets.
  *
@@ -665,6 +663,7 @@ export type PerseusExpressionAnswerForm = {
 export type PerseusGradedGroupWidgetOptions = {
     /** Translatable Text; A title to be displayed for the group. */
     title: string;
+    a11yDescription: string;
     /** Not used in Perseus (but is set in (en, pt) production data) */
     hasHint?: boolean | null | undefined;
     /** A section to define hints for the group. */
