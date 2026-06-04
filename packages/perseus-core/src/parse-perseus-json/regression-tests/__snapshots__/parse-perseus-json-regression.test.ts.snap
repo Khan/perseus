@@ -10984,6 +10984,221 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-without-showPointLabels.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "left": 0,
+            "scale": 1,
+            "url": null,
+          },
+          "correct": {
+            "coords": [
+              [
+                0,
+                0,
+              ],
+              [
+                4,
+                0,
+              ],
+              [
+                2,
+                3,
+              ],
+            ],
+            "match": "exact",
+            "numSides": 3,
+            "pointLabels": [
+              "A",
+              "B",
+              "C",
+            ],
+            "type": "polygon",
+          },
+          "graph": {
+            "numSides": 3,
+            "pointLabels": [
+              "A",
+              "B",
+              "C",
+            ],
+            "startCoords": [
+              [
+                0,
+                0,
+              ],
+              [
+                4,
+                0,
+              ],
+              [
+                2,
+                3,
+              ],
+            ],
+            "type": "polygon",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-without-showPointLabels.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "bottom": 0,
+            "left": 0,
+            "scale": 1,
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "graph": {
+            "numSides": 3,
+            "pointLabels": [
+              "A",
+              "B",
+              "C",
+            ],
+            "startCoords": [
+              [
+                0,
+                0,
+              ],
+              [
+                4,
+                0,
+              ],
+              [
+                2,
+                3,
+              ],
+            ],
+            "type": "polygon",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts returns the same result as before 1`] = `
 {
   "answerArea": {

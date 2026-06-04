@@ -131,6 +131,146 @@ describe("interactive-graph-widget-error", () => {
         },
     );
 
+    // Error when showPointLabels is true but pointLabels is missing (correct graph)
+    expectWarning(
+        interactiveGraphWidgetErrorRule,
+        "[[☃ interactive-graph 1]]",
+        {
+            widgets: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        correct: generateIGPolygonGraph({
+                            showPointLabels: true,
+                        }),
+                    }),
+                }),
+            },
+        },
+        {
+            message:
+                "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+            severity: Rule.Severity.ERROR,
+        },
+    );
+
+    // Error when showPointLabels is true but pointLabels has an empty entry
+    expectWarning(
+        interactiveGraphWidgetErrorRule,
+        "[[☃ interactive-graph 1]]",
+        {
+            widgets: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        correct: generateIGPolygonGraph({
+                            showPointLabels: true,
+                            pointLabels: ["A", "", "C"],
+                        }),
+                    }),
+                }),
+            },
+        },
+        {
+            message:
+                "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+            severity: Rule.Severity.ERROR,
+        },
+    );
+
+    // Error when showPointLabels is true on the starting (`graph`) graph too
+    expectWarning(
+        interactiveGraphWidgetErrorRule,
+        "[[☃ interactive-graph 1]]",
+        {
+            widgets: {
+                "interactive-graph 1": generateInteractiveGraphWidget({
+                    options: generateInteractiveGraphOptions({
+                        graph: generateIGPolygonGraph({
+                            showPointLabels: true,
+                        }),
+                    }),
+                }),
+            },
+        },
+        {
+            message:
+                "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+            severity: Rule.Severity.ERROR,
+        },
+    );
+
+    // Pass when showPointLabels is true and pointLabels is fully provided
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
+                        showPointLabels: true,
+                        pointLabels: ["A", "B", "C"],
+                    }),
+                }),
+            }),
+        },
+    });
+
+    // Pass when showPointLabels is false (no requirement on pointLabels)
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    correct: generateIGPolygonGraph({
+                        showPointLabels: false,
+                    }),
+                }),
+            }),
+        },
+    });
+
+    // Pass when showPointLabels is absent on the `graph` field
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    graph: generateIGPolygonGraph({
+                        pointLabels: ["A", "B", "C"],
+                    }),
+                }),
+            }),
+        },
+    });
+
+    // Pass when graph type is "none" — even with showPointLabels true via a
+    // cast, the rule must skip rather than error (defense-in-depth: the
+    // schema disallows showPointLabels on `none`, but the rule is the
+    // backstop).
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    // The schema disallows showPointLabels on `none`, so we
+                    // cast to assert the defensive guard fires when the
+                    // backstop is asked to look at this shape.
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                    correct: {type: "none", showPointLabels: true} as any,
+                }),
+            }),
+        },
+    });
+
+    // Pass when graph type is "vector" — same rationale as "none".
+    expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
+        widgets: {
+            "interactive-graph 1": generateInteractiveGraphWidget({
+                options: generateInteractiveGraphOptions({
+                    // The schema disallows showPointLabels on `vector`, so we
+                    // cast to assert the defensive guard fires when the
+                    // backstop is asked to look at this shape.
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                    correct: {type: "vector", showPointLabels: true} as any,
+                }),
+            }),
+        },
+    });
+
     // Pass when no errors are detected
     expectPass(interactiveGraphWidgetErrorRule, "[[☃ interactive-graph 1]]", {
         widgets: {
