@@ -3,7 +3,7 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
-import {buildPointAriaLabel} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
@@ -40,6 +40,7 @@ const RayGraph = (props: Props) => {
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
 
@@ -52,12 +53,8 @@ const RayGraph = (props: Props) => {
         srRayGrabHandle,
     } = describeRayGraph(props.graphState, {strings, locale});
 
-    const point1AriaLabel =
-        buildPointAriaLabel(pointLabels, 0, line[0], strings, locale) ??
-        srRayEndpoint;
-    const point2AriaLabel =
-        buildPointAriaLabel(pointLabels, 1, line[1], strings, locale) ??
-        srRayTerminalPoint;
+    const point1AriaLabel = buildLabel(0, line[0]) ?? srRayEndpoint;
+    const point2AriaLabel = buildLabel(1, line[1]) ?? srRayTerminalPoint;
 
     // Ray graphs only have one line
     return (
@@ -73,6 +70,12 @@ const RayGraph = (props: Props) => {
                     point2AriaLabel,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
+                // The ray graph's move announcements come from the WB
+                // Announcer via stateAnnouncement; disable aria-live here to
+                // avoid the focusable handles double-announcing.
+                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
+                // from MovableLine / useControlPoint.
+                ariaLive="off"
                 onMoveLine={handleMoveLine}
                 onMovePoint={handleMovePoint}
                 extend={{

@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "32.1.0",
+    "version": "32.2.0",
     "publishConfig": {
         "access": "public"
     },
@@ -20,10 +20,10 @@
     "source": "src/index.ts",
     "exports": {
         ".": {
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "source": "./src/index.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js"
         },
         "./styles.css": "./dist/index.css"
     },
@@ -112,6 +112,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "250b26c40e93a54a"
+        "catalogHash": "8d63a26474e3cbb4"
     }
 }

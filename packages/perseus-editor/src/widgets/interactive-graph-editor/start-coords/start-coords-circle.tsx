@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -15,13 +16,15 @@ type CircleCoords = {
     radius: number;
 };
 
-type Props = {
+interface StartCoordsCircleProps {
     startCoords: CircleCoords;
     onChange: (startCoords: CircleCoords) => void;
-};
+    pointLabels: ReadonlyArray<string>;
+    onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+}
 
-const StartCoordsCircle = (props: Props) => {
-    const {startCoords, onChange} = props;
+const StartCoordsCircle = (props: StartCoordsCircleProps) => {
+    const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
 
     const [radiusState, setRadiusState] = React.useState(
         startCoords.radius.toString(),
@@ -82,6 +85,27 @@ const StartCoordsCircle = (props: Props) => {
                     onChange={handleRadiuschange}
                     style={styles.textField}
                 />
+            </BodyText>
+
+            {/* Radius point label.
+                The schema's `pointLabels?: string[]` is interpreted for
+                circle as `[radiusPointLabel]`: only the radius point (a
+                `MovablePoint`) is labelable. The center is a
+                `MovableCircle` whose announcement describes the whole
+                shape ("Circle. The center point is at X comma Y.") and is not
+                overridden. */}
+            <Strut size={spacing.small_12} />
+            <BodyText size="medium" weight="bold" tag="span" style={styles.row}>
+                Radius point label:
+                <Strut size={spacing.small_12} />
+                <View style={styles.textField}>
+                    <TextField
+                        aria-label="Radius point name"
+                        value={pointLabels[0] ?? ""}
+                        placeholder="Radius point"
+                        onChange={(newLabel) => onChangePointLabels([newLabel])}
+                    />
+                </View>
             </BodyText>
         </View>
     );
