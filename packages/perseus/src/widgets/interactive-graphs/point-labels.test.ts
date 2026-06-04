@@ -46,10 +46,6 @@ describe("getEffectivePointLabels", () => {
     });
 
     it("returns empty strings for every position when showPointLabels is true and pointLabels is undefined (no auto-fill)", () => {
-        // The author skipped pointLabels. We deliberately do NOT generate
-        // A/B/C here. The interactive-graph-widget-error lint rule blocks
-        // this shape at authoring time; the renderer's job is just to
-        // not invent labels.
         // Arrange, Act, Assert
         expect(getEffectivePointLabels(true, undefined, 3)).toEqual([
             "",

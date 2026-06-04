@@ -84,9 +84,6 @@ export default Rule.makeRule({
             }
         }
 
-        // showPointLabels requires pointLabels. The renderer never
-        // auto-generates fallback letters, so the author must spell every
-        // label out.
         checkShowPointLabelsHasLabels(graph, issues);
         checkShowPointLabelsHasLabels(correct, issues);
 
