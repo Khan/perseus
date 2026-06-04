@@ -8,8 +8,9 @@ import * as React from "react";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../../../types";
+import type {Decorator} from "@storybook/react-vite";
 
-export const expressionRendererDecorator = (
+export const expressionRendererDecorator: Decorator = (
     _,
     {
         args,

@@ -29,7 +29,10 @@ export default meta;
 
 type Story = StoryObj<typeof ExpressionWidget>;
 
-async function openKeypad(canvas: any, userEvent: any) {
+async function openKeypad({
+    canvas,
+    userEvent,
+}: Pick<Parameters<NonNullable<Story["play"]>>[0], "canvas" | "userEvent">) {
     const openButton = canvas.getByRole("button", {name: "open math keypad"});
     await userEvent.click(openButton);
 }
@@ -68,7 +71,7 @@ export const KeypadOpenNumbersTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        await openKeypad(canvas, userEvent);
+        await openKeypad({canvas, userEvent});
     },
 };
 
@@ -78,7 +81,7 @@ export const KeypadOpenOperatorsTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        await openKeypad(canvas, userEvent);
+        await openKeypad({canvas, userEvent});
 
         // The keypad popout renders into a React portal outside the canvas
         const operatorsTab = within(document.body).getByLabelText("Operators");
@@ -92,7 +95,7 @@ export const KeypadOpenGeometryTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        await openKeypad(canvas, userEvent);
+        await openKeypad({canvas, userEvent});
 
         // The keypad popout renders into a React portal outside the canvas
         const geometryTab = within(document.body).getByLabelText("Geometry");
@@ -106,7 +109,7 @@ export const KeypadOpenExtrasTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
-        await openKeypad(canvas, userEvent);
+        await openKeypad({canvas, userEvent});
 
         // The keypad popout renders into a React portal outside the canvas
         const extrasTab = within(document.body).getByLabelText("Extras");
