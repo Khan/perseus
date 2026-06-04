@@ -9,6 +9,8 @@ import {
 
 import {parseWidget} from "./widget";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {FreeResponseWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
 

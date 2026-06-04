@@ -8,6 +8,8 @@ import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {isFailure} from "../result";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {Version} from "../../data-schema";
 import type {ParseContext, Parser} from "../parser-types";
 

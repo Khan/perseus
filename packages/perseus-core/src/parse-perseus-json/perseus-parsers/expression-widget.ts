@@ -1,4 +1,8 @@
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import {KeypadKeys} from "../../keypad";
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import deriveExtraKeys from "../../widgets/expression/derive-extra-keys";
 import {
     array,
