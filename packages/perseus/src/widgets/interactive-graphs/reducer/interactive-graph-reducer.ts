@@ -458,13 +458,17 @@ function doMoveLine(
                 {snapStep, range},
             );
 
+            let type: "move-ray-line" | "move-vector-line" | "move-linear-line";
+            if (state.type === "ray") {
+                type = "move-ray-line";
+            } else if (state.type === "vector") {
+                type = "move-vector-line";
+            } else {
+                type = "move-linear-line";
+            }
+
             const stateAnnouncement: InteractiveGraphStateAnnouncement = {
-                type:
-                    state.type === "ray"
-                        ? "move-ray-line"
-                        : state.type === "vector"
-                          ? "move-vector-line"
-                          : "move-linear-line",
+                type,
                 coords: constrainedLine,
             };
             return {
