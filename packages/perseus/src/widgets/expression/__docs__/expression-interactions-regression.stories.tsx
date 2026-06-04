@@ -12,6 +12,13 @@ const meta: Meta<typeof Expression> = {
     component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Expression widget that DO need " +
+                    "some sort of interaction to test.",
+            },
+        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
