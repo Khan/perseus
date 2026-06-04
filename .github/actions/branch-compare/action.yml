@@ -45,6 +45,39 @@ inputs:
 runs:
     using: "composite"
     steps:
+        # Create the Check run up front (status: in_progress) so the required
+        # check appears immediately and is tied to this run's lifecycle. The
+        # final step updates it with the verdict. Posting the Check only at the
+        # end left a window where the required-named check didn't exist yet,
+        # which surfaced as a stuck "Expected — Waiting for status to be
+        # reported" row and made required-status binding racy under heavy
+        # workflow re-trigger churn.
+        - name: Create in-progress GitHub Check
+          id: create-check
+          if: github.event.pull_request != null
+          uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+          env:
+              CHECK_NAME: ${{ inputs.check-name }}
+              HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          with:
+              github-token: ${{ inputs.github-token }}
+              script: |
+                  const {data: check} = await github.rest.checks.create({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: process.env.CHECK_NAME,
+                      head_sha: process.env.HEAD_SHA,
+                      status: "in_progress",
+                      output: {
+                          title: `${process.env.CHECK_NAME}: Comparing against base branch…`,
+                          summary:
+                              "Building the artifact for the PR and base " +
+                              "branches and diffing them. The result will be " +
+                              "posted here when the comparison finishes.",
+                      },
+                  });
+                  core.setOutput("check-run-id", check.id);
+
         - name: Build for current PR
           shell: bash
           run: ${{ inputs.build-command }}
@@ -122,17 +155,21 @@ runs:
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
-        # Publish the result as a custom GitHub Check run. The job itself
-        # always succeeds; the custom Check carries the meaningful pass/fail.
-        # That keeps the PR's checks list to a single red row when a change
-        # is detected, and clicking the row lands directly on a page that
-        # renders the title + rich summary (rather than the workflow logs,
-        # where reviewers struggle to find the Summary tab).
-        - name: Publish result as a GitHub Check
+        # Finalize the Check run created up front: update it with the
+        # meaningful pass/fail and the rich summary. The job itself always
+        # succeeds; this custom Check carries the verdict. That keeps the PR's
+        # checks list to a single red row when a change is detected, and
+        # clicking the row lands directly on a page that renders the title +
+        # rich summary (rather than the workflow logs, where reviewers
+        # struggle to find the Summary tab). Falls back to creating the Check
+        # if the up-front creation step didn't run (so the verdict is never
+        # lost).
+        - name: Finalize the GitHub Check
           if: always() && github.event.pull_request != null
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
               CHECK_NAME: ${{ inputs.check-name }}
+              CHECK_RUN_ID: ${{ steps.create-check.outputs.check-run-id }}
               DIFF_EXIT_CODE: ${{ steps.compare-artifacts.outputs.diff-exit-code }}
               DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
               CHANGE_DETAILS: ${{ inputs.change-details }}
@@ -202,12 +239,30 @@ runs:
                       summary = parts.join("\n");
                   }
 
-                  await github.rest.checks.create({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      name: checkName,
-                      head_sha: process.env.HEAD_SHA,
-                      status: "completed",
-                      conclusion,
-                      output: {title, summary},
-                  });
+                  const checkRunId = process.env.CHECK_RUN_ID
+                      ? Number(process.env.CHECK_RUN_ID)
+                      : null;
+
+                  if (checkRunId) {
+                      // Normal path: update the in_progress Check created up front.
+                      await github.rest.checks.update({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          check_run_id: checkRunId,
+                          status: "completed",
+                          conclusion,
+                          output: {title, summary},
+                      });
+                  } else {
+                      // Fallback: the up-front creation step didn't run, so
+                      // create a completed Check now rather than lose the verdict.
+                      await github.rest.checks.create({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          name: checkName,
+                          head_sha: process.env.HEAD_SHA,
+                          status: "completed",
+                          conclusion,
+                          output: {title, summary},
+                      });
+                  }
