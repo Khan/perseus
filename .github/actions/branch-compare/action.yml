@@ -225,8 +225,11 @@ runs:
                       echo "This run was triggered by a label change, so the artifacts"
                       echo "weren't rebuilt and the diff isn't shown here. The change is"
                       echo "still present and unacknowledged — it was computed on the most"
-                      echo "recent code-push run of this check. Open that run from the PR's"
-                      echo "Checks tab (or push a commit) to see the diff."
+                      echo "recent code-push run of this check. To see the diff, open that"
+                      echo "run from the PR's Checks tab, or trigger a fresh build with an"
+                      echo "empty commit:"
+                      echo
+                      echo "    git commit --allow-empty -m 're-run PR comparison' && git push"
                   fi
 
                   # Run Summary tab: rendered Markdown version.
@@ -248,7 +251,7 @@ runs:
                           echo
                           echo "</details>"
                       else
-                          echo "> This is a **label-triggered** re-check, so the artifacts weren't rebuilt and the diff isn't shown here. The change is still present and unacknowledged — see the most recent code-push run of this check for the diff."
+                          echo "> This is a **label-triggered** re-check, so the artifacts weren't rebuilt and the diff isn't shown here. The change is still present and unacknowledged. To see the diff, open the most recent code-push run of this check, or trigger a fresh build with an empty commit: \`git commit --allow-empty -m 're-run PR comparison' && git push\`."
                       fi
                   } >> "$GITHUB_STEP_SUMMARY"
 
