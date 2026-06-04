@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.0.15
+
+### Patch Changes
+
+-   [#3693](https://github.com/Khan/perseus/pull/3693) [`b8145a718b`](https://github.com/Khan/perseus/commit/b8145a718b43e6ce78f304296e953ed07341c207) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding a new linter warning for legacy gif urls
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba)]:
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/kmath@2.4.18
+
 ## 5.0.14
 
 ### Patch Changes
