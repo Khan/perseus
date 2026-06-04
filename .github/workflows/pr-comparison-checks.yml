@@ -1,10 +1,18 @@
 name: PR Comparison Checks
 
-# Comparison checks build the PR branch and the base branch separately and
-# diff a specific artifact between the two. They live in their own workflow
-# (separate from `node-ci.yml`) because they need to react to PR metadata
-# changes — specifically `labeled` / `unlabeled` events for the
-# `schema-change-ack` flow — which the rest of CI does not.
+# Comparison checks build the PR branch and the base branch separately and diff
+# a specific artifact between the two. They live in their own workflow (separate
+# from `node-ci.yml`) because they react to PR metadata changes — specifically
+# `labeled` / `unlabeled` events for the acknowledgement flow — which the rest
+# of CI does not.
+#
+# Each job's own pass/fail IS the required status check: a native job check
+# binds to required-status rules reliably, whereas a detached Checks-API check
+# lands in an arbitrary check suite and binds flakily. The job always runs so
+# it always reports (a "skipped" required check would be treated as passing and
+# let an unacknowledged change through): on code events it builds + diffs; on
+# label events it derives the verdict from the labels without rebuilding. See
+# ./.github/actions/branch-compare.
 
 on:
     pull_request:
@@ -14,52 +22,39 @@ permissions:
     contents: read
     pull-requests: write
     issues: write
-    checks: write
 
 jobs:
     check_schema_change:
-        name: Schema change
+        name: "PR Comparison: Schema Change"
         # Scope concurrency to this job (not the whole workflow) so toggling
         # one check's ack label can't cancel the other check's in-flight run.
         concurrency:
             group: ${{ github.workflow }}-schema-change-${{ github.event.pull_request.number || github.ref }}
             cancel-in-progress: true
-        # Run on every push event. On label events, run only when the
-        # acknowledgement label is the one being toggled — other label
-        # changes (including `schema-change` itself, which this action
-        # adds/removes automatically) shouldn't retrigger the check.
-        if: >-
-            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
-            || github.event.label.name == 'schema-change-ack'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
-            - name: Install uuidgen
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install uuid-runtime
-
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+            # Skipped on label events (no build happens then). Kept here rather
+            # than inside branch-compare so the egress lock-down stays visible
+            # at the workflow level.
             - name: Secure Network
+              if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
                   conf-files: .github/npm-extra-domains.conf
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
             - name: Compare Perseus Schema to base branch
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
+                  node-version: ${{ matrix.node-version }}
                   build-command: |
                       pnpm install && \
                       pnpm tsc --declaration --emitDeclarationOnly --removeComments \
@@ -68,12 +63,11 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  check-name: "PR Comparison: Schema Change"
                   ack-label-name: schema-change-ack
-                  # Folded (`>`) so paragraphs can wrap freely. Two blank
-                  # lines are required for a Markdown paragraph break.
-                  # Markdown links must stay on one line — folding inserts
-                  # spaces between content lines, which would break URLs.
+                  # Folded (`>`) so paragraphs can wrap freely. Two blank lines
+                  # are required for a Markdown paragraph break. Markdown links
+                  # must stay on one line — folding inserts spaces between
+                  # content lines, which would break URLs.
                   change-details: >
                       **This PR contains critical changes to Perseus that
                       affect published data.** Please review the changes
@@ -89,47 +83,36 @@ jobs:
                       [See this list of post-mortems for more information.](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/4504322159/Content+Platform+Breaks)
 
     check_item_splitting:
-        name: Item splitting
+        name: "PR Comparison: Item Splitting"
         # Scope concurrency to this job (not the whole workflow) so toggling
         # one check's ack label can't cancel the other check's in-flight run.
         concurrency:
             group: ${{ github.workflow }}-item-splitting-${{ github.event.pull_request.number || github.ref }}
             cancel-in-progress: true
-        # Run on every push event. On label events, run only when the
-        # acknowledgement label is the one being toggled.
-        if: >-
-            (github.event.action != 'labeled' && github.event.action != 'unlabeled')
-            || github.event.label.name == 'item-splitting-change-ack'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [24.x]
         steps:
-            - name: Install uuidgen
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install uuid-runtime
-
             - name: Check out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+            # Skipped on label events (no build happens then). Kept here rather
+            # than inside branch-compare so the egress lock-down stays visible
+            # at the workflow level.
             - name: Secure Network
+              if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
                   conf-files: .github/npm-extra-domains.conf
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
             - name: Use branch-compare action to generate item splitting artifacts
-              id: split-item-compare
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
+                  node-version: ${{ matrix.node-version }}
                   # esbuild produces a deliberately non-minified bundle for
                   # comparison purposes — the production build pipeline
                   # (rollup + swc + minification) is too noisy for diffs.
@@ -154,5 +137,4 @@ jobs:
                         --outfile=${{ runner.temp }}/item-splitting.bundle.js
                   path-to-artifact: ${{ runner.temp }}/item-splitting.bundle.js
                   label-name: item-splitting-change
-                  check-name: "PR Comparison: Item Splitting"
                   ack-label-name: item-splitting-change-ack
