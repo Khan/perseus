@@ -173,6 +173,7 @@ runs:
               COMPARE_OUTCOME: ${{ steps.compare-artifacts.outcome }}
               DIFF_FILE: ${{ steps.compare-artifacts.outputs.diff-file }}
               ACK_LABEL_URL: ${{ github.server_url }}/${{ github.repository }}/labels/${{ inputs.ack-label-name }}
+              RUN_SUMMARY_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           run: |
               set -euo pipefail
 
@@ -200,6 +201,28 @@ runs:
               done <<< "$labels"
 
               if [ "$change_present" = "true" ] && [ "$acked" = "false" ]; then
+                  # Job log: surfaced the instant you click the failing check
+                  # (GitHub auto-expands the failing step), so the diff is right
+                  # here in plain text — no hunting on the Summary tab. The link
+                  # points to the rendered Markdown version on the run Summary.
+                  echo "❌ Changes Detected — Review Required"
+                  echo
+                  if [ -n "$CHANGE_DETAILS" ]; then
+                      echo "$CHANGE_DETAILS"
+                      echo
+                  fi
+                  echo "To acknowledge: add the '$ACK_LABEL_NAME' label — the check re-runs automatically."
+                  echo "Rendered diff & details (run Summary): $RUN_SUMMARY_URL"
+                  echo
+                  if [ -n "${DIFF_FILE:-}" ] && [ -f "$DIFF_FILE" ]; then
+                      echo "------------------- diff vs. base branch -------------------"
+                      cat "$DIFF_FILE"
+                      echo "------------------------------------------------------------"
+                  else
+                      echo "(Diff was computed on the latest code push — see that run's Summary.)"
+                  fi
+
+                  # Run Summary tab: rendered Markdown version.
                   {
                       echo "## ❌ Changes Detected — Review Required"
                       echo
@@ -221,7 +244,8 @@ runs:
                           echo "_Diff computed on the latest code push; see that run's summary for details._"
                       fi
                   } >> "$GITHUB_STEP_SUMMARY"
-                  echo "::error::Unacknowledged change detected — add the '$ACK_LABEL_NAME' label after review."
+
+                  echo "::error::Unacknowledged change detected — add the '$ACK_LABEL_NAME' label after review. Details: $RUN_SUMMARY_URL"
                   exit 1
               fi
 
