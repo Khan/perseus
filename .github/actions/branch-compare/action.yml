@@ -6,6 +6,10 @@ description: >-
     automatically and clears the acknowledgement label whenever the diff
     goes empty.
 
+    Must be invoked from a workflow triggered by `pull_request` events: it
+    reads the PR's base ref, head SHA, number, and labels from the event
+    payload and has no meaning outside a pull request.
+
 inputs:
     github-token:
         description: "The Github token to use for authenticated requests."
@@ -47,14 +51,14 @@ runs:
     steps:
         # Create the Check run up front (status: in_progress) so the required
         # check appears immediately and is tied to this run's lifecycle. The
-        # final step updates it with the verdict. Posting the Check only at the
-        # end left a window where the required-named check didn't exist yet,
-        # which surfaced as a stuck "Expected — Waiting for status to be
-        # reported" row and made required-status binding racy under heavy
-        # workflow re-trigger churn.
+        # final step updates it with the verdict.
+        #
+        # WHY? Posting the Check only at the end left a window where the
+        # required-named check didn't exist yet, which surfaced as a stuck
+        # "Expected — Waiting for status to be reported" row and made
+        # required-status binding racy under heavy workflow re-trigger churn.
         - name: Create in-progress GitHub Check
           id: create-check
-          if: github.event.pull_request != null
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
               CHECK_NAME: ${{ inputs.check-name }}
@@ -162,14 +166,16 @@ runs:
         # clicking the row lands directly on a page that renders the title +
         # rich summary (rather than the workflow logs, where reviewers
         # struggle to find the Summary tab). Falls back to creating the Check
-        # if the up-front creation step didn't run (so the verdict is never
-        # lost).
+        # if the up-front creation step errored before reporting its id (so
+        # the verdict is never lost). Runs with `always()` so the verdict is
+        # posted even when an earlier step failed.
         - name: Finalize the GitHub Check
-          if: always() && github.event.pull_request != null
+          if: always()
           uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
           env:
               CHECK_NAME: ${{ inputs.check-name }}
               CHECK_RUN_ID: ${{ steps.create-check.outputs.check-run-id }}
+              COMPARE_OUTCOME: ${{ steps.compare-artifacts.outcome }}
               DIFF_EXIT_CODE: ${{ steps.compare-artifacts.outputs.diff-exit-code }}
               DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
               CHANGE_DETAILS: ${{ inputs.change-details }}
@@ -180,31 +186,50 @@ runs:
               script: |
                   const checkName = process.env.CHECK_NAME;
                   const ackLabel = process.env.ACK_LABEL_NAME;
+
+                  // We only have a meaningful verdict if the diff step ran to
+                  // completion. Because this step uses `always()`, it also
+                  // fires when an earlier step failed — in which case
+                  // `compare-artifacts` is skipped and DIFF_EXIT_CODE is
+                  // empty. Treat that as a broken run, NOT as a detected
+                  // change; otherwise a crashed job masquerades as a
+                  // schema/bundle change that a reviewer might even ack.
+                  const comparisonRan =
+                      process.env.COMPARE_OUTCOME === "success" &&
+                      process.env.DIFF_EXIT_CODE !== "";
                   const noChanges = process.env.DIFF_EXIT_CODE === "0";
 
                   const labels = (context.payload.pull_request?.labels || [])
                       .map((l) => l.name);
                   const isAcked = labels.includes(ackLabel);
 
-                  let conclusion;
-                  let title;
-                  if (noChanges) {
-                      conclusion = "success";
-                      title = `${checkName}: No Changes ✅`;
-                  } else if (isAcked) {
-                      conclusion = "success";
-                      title = `${checkName}: Changes Acknowledged ✅`;
-                  } else {
-                      conclusion = "failure";
-                      title = `${checkName}: Changes Detected — Review Required ❌`;
-                  }
-
                   // The Checks UI renders `output.title` as a heading above
                   // the summary, so the summary should NOT repeat the title.
+                  let conclusion;
+                  let title;
                   let summary;
-                  if (noChanges) {
+                  if (!comparisonRan) {
+                      // A step before the diff failed, so there's no verdict.
+                      // Report a clearly-distinct, blocking error state rather
+                      // than a misleading "changes detected".
+                      conclusion = "failure";
+                      title = `${checkName}: ⚠️ Comparison could not be completed`;
+                      summary =
+                          "A step in the comparison job failed, so the diff " +
+                          "could not be computed. This is **not** a detected " +
+                          "schema/bundle change — re-run the job, and if it " +
+                          "keeps failing, check the workflow logs.";
+                  } else if (noChanges) {
+                      conclusion = "success";
+                      title = `${checkName}: No Changes ✅`;
                       summary = "No differences vs. the base branch.";
                   } else {
+                      // A real diff exists: acked changes pass, unacked fail.
+                      conclusion = isAcked ? "success" : "failure";
+                      title = isAcked
+                          ? `${checkName}: Changes Acknowledged ✅`
+                          : `${checkName}: Changes Detected — Review Required ❌`;
+
                       const details = (process.env.CHANGE_DETAILS || "").trim();
                       const diff = process.env.DIFF_CONTENT || "";
                       // Render the ack label as a link to its label page so
