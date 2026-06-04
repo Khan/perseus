@@ -69,6 +69,15 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Vector point keyboard move. The tail (index 0) uses
+// the generic point label; the tip (index 1) has a dedicated label.
+type MoveVectorPointAnnouncement = {
+    type: "move-vector-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
 // Segment endpoint keyboard move. Single- and
 // multi-segment graphs use different labels, so totalSegments is carried
 // alongside the segment and endpoint indices.
@@ -108,6 +117,13 @@ type MoveRayPointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+};
+
+// Whole-vector keyboard drag. Carries the tail and tip so the
+// announcement can describe the vector between them.
+type MoveVectorLineAnnouncement = {
+    type: "move-vector-line";
+    coords: PairOfPoints;
 };
 
 // Whole-line keyboard drag for a linear-system line. Carries the
@@ -169,6 +185,8 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveVectorPointAnnouncement
+    | MoveVectorLineAnnouncement
     | MoveSegmentPointAnnouncement
     | MoveSegmentLineAnnouncement
     | MoveLinearSystemPointAnnouncement
