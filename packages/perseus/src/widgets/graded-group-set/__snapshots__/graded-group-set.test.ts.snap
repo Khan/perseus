@@ -38,7 +38,8 @@ exports[`graded group set widget should snapshot 1`] = `
                 class="spacer_bc4egv"
               />
               <ul
-                class="indicatorContainer_1qvfx9i indicatorContainer"
+                class="indicatorContainer_16w94bw indicatorContainer"
+                role="list"
               >
                 <li
                   class="indicator_7k5kza"
