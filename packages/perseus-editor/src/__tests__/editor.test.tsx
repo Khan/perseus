@@ -344,64 +344,56 @@ describe("Editor", () => {
             // stack. We stub it with a minimal impl that does what
             // execCommand("insertText") would do in a real browser: replace
             // the focused textarea's current selection with the supplied text.
-            document.execCommand = jest
-                .fn()
-                .mockImplementation(
-                    (cmd: string, _: unknown, value: string) => {
-                        // eslint-disable-next-line testing-library/no-node-access
-                        const active = document.activeElement;
-                        if (
-                            cmd === "insertText" &&
-                            active instanceof HTMLTextAreaElement
-                        ) {
-                            const {selectionStart, selectionEnd} = active;
-                            active.value =
-                                active.value.slice(0, selectionStart) +
-                                value +
-                                active.value.slice(selectionEnd);
-                            const newPos = selectionStart + value.length;
-                            active.setSelectionRange(newPos, newPos);
-                        }
-                        return true;
-                    },
-                );
+            document.execCommand = (cmd: string, _: unknown, value: string) => {
+                // eslint-disable-next-line testing-library/no-node-access
+                const active = document.activeElement;
+                if (
+                    cmd === "insertText" &&
+                    active instanceof HTMLTextAreaElement
+                ) {
+                    const {selectionStart, selectionEnd} = active;
+                    active.value =
+                        active.value.slice(0, selectionStart) +
+                        value +
+                        active.value.slice(selectionEnd);
+                    const newPos = selectionStart + value.length;
+                    active.setSelectionRange(newPos, newPos);
+                }
+                return true;
+            };
         });
 
         it("places the cursor after the inserted widget syntax when adding a widget via the dropdown", async () => {
             // Arrange
-            render(<StatefulHarness initialContent="" initialWidgets={{}} />);
+            render(<StatefulHarness initialContent="AB" initialWidgets={{}} />);
 
             const textarea = screen.getByRole("textbox", {
                 name: "Markdown content",
             }) satisfies HTMLTextAreaElement;
 
             // Act: add an inline widget
+            textarea.focus();
+            textarea.setSelectionRange(1, 1);
             const select = screen.getByTestId("editor__widget-select");
             await userEvent.selectOptions(select, "Expression / Equation");
 
-            await waitFor(() => {
-                expect(textarea.value).toContain("[[☃ expression 1]]");
-            });
-
             // Assert
-            const expectedCursorPos = textarea.value.indexOf("]]") + 2;
-            expect(textarea.selectionStart).toBe(expectedCursorPos);
-            expect(textarea.selectionEnd).toBe(expectedCursorPos);
+            await waitFor(() => {
+                expect(textarea.value).toEqual("A[[☃ expression 1]]B");
+            });
+            expect(textarea.selectionStart).toBe(19);
+            expect(textarea.selectionEnd).toBe(19);
         });
 
         it("places the cursor at the end of pasted content when pasting widget content", async () => {
-            const pastedText = "PASTED";
             jest.spyOn(
                 clipboardUtil,
                 "getPerseusClipboardData",
-            ).mockResolvedValue({text: pastedText, widgets: {}});
+            ).mockResolvedValue({text: "_", widgets: {}});
 
             // Arrange
             render(
-                <StatefulHarness
-                    initialContent={"hello world"}
-                    initialWidgets={{}}
-                />,
+                <StatefulHarness initialContent={"AB"} initialWidgets={{}} />,
             );
             act(() => jest.runOnlyPendingTimers());
 
@@ -410,22 +402,19 @@ describe("Editor", () => {
             }) satisfies HTMLTextAreaElement;
 
             // Act
-            const pasteAtIndex = 5;
             textarea.focus();
-            textarea.setSelectionRange(pasteAtIndex, pasteAtIndex);
+            textarea.setSelectionRange(1, 1);
             // NOTE: we use `fireEvent` because userEvent.paste doesn't go
             // through the jQuery-bound paste listener, but fireEvent does.
             // eslint-disable-next-line testing-library/prefer-user-event
             fireEvent.paste(textarea);
 
-            await waitFor(() => {
-                expect(textarea.value).toBe(`hello${pastedText} world`);
-            });
-
             // Assert
-            const expectedCursorPos = pasteAtIndex + pastedText.length;
-            expect(textarea.selectionStart).toBe(expectedCursorPos);
-            expect(textarea.selectionEnd).toBe(expectedCursorPos);
+            await waitFor(() => {
+                expect(textarea.value).toBe(`A_B`);
+            });
+            expect(textarea.selectionStart).toBe(2);
+            expect(textarea.selectionEnd).toBe(2);
         });
     });
 
