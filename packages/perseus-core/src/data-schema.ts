@@ -663,7 +663,6 @@ export type PerseusExpressionAnswerForm = {
 export type PerseusGradedGroupWidgetOptions = {
     /** Translatable Text; A title to be displayed for the group. */
     title: string;
-    a11yDescription: string;
     /** Not used in Perseus (but is set in (en, pt) production data) */
     hasHint?: boolean | null | undefined;
     /** A section to define hints for the group. */
