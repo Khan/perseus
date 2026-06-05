@@ -365,5 +365,34 @@ describe("matcher widget", () => {
             expect(matcher._rightStable).toBe(true);
             expect(setAssetStatusSpy).toHaveBeenCalledWith(true);
         });
+
+        it("marks both sides stable and settles when columns have asymmetric natural heights", () => {
+            // Arrange — simulate post-cycle-1 state where the right column is
+            // taller: constraint = max(74, 80) = 80. The shorter left column's
+            // natural height (74) is less than the constraint (80), so the
+            // current === check incorrectly keeps _leftStable false forever.
+            const {renderer} = renderQuestion(question1);
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            const setAssetStatusSpy = jest.spyOn(matcher, "_setAssetStatus");
+            matcher._leftStable = false;
+            matcher._rightStable = false;
+            act(() => {
+                matcher.setState({leftHeight: 74, rightHeight: 80});
+            });
+
+            // Act — fire both onMeasures with their natural heights, mirroring
+            // what cycle 2 looks like: left measures 74, right measures 80.
+            act(() => {
+                matcher.onMeasureLeft({heights: [74, 74, 74], widths: []});
+            });
+            act(() => {
+                matcher.onMeasureRight({heights: [80, 80, 80], widths: []});
+            });
+
+            // Assert — both sides stable and settled despite left < constraint.
+            expect(matcher._leftStable).toBe(true);
+            expect(matcher._rightStable).toBe(true);
+            expect(setAssetStatusSpy).toHaveBeenCalledWith(true);
+        });
     });
 });
