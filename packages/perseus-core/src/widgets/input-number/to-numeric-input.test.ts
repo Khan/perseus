@@ -246,4 +246,37 @@ describe("convertInputNumberOptionsToNumericInput", () => {
             "mixed",
         ]);
     });
+
+    it("converts alignment when rightAlign is undefined", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: undefined,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.alignment).toBe("start");
+    });
+
+    it("converts alignment when rightAlign is true", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: true,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.alignment).toBe("end");
+    });
+
+    it("converts alignment when rightAlign is false", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: false,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.alignment).toBe("start");
+    });
 });
