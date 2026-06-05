@@ -160,6 +160,23 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Logarithm graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveLogarithmPointAnnouncement = {
+    type: "move-logarithm-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Logarithm graph: the vertical asymptote moves horizontally, so only
+// its x-position is carried.
+type MoveLogarithmAsymptoteAnnouncement = {
+    type: "move-logarithm-asymptote";
+    asymptoteX: number;
+};
+
 // Angle graph: vertex (index 1) reads with the measured angle; sides
 // (indices 0, 2) read with just coords. The reducer pre-computes the
 // measure since it already imports the angle helpers.
@@ -195,6 +212,8 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveLogarithmPointAnnouncement
+    | MoveLogarithmAsymptoteAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 

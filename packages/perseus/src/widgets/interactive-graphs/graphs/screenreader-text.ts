@@ -61,6 +61,12 @@ export function getAnnouncementText(
             );
         case "move-sinusoid-point":
             return srSinusoidPointLabel(state, strings, locale);
+        case "move-logarithm-point":
+            return srLogarithmPointLabel(state, strings, locale);
+        case "move-logarithm-asymptote":
+            return strings.srLogarithmAsymptote({
+                asymptoteX: srFormatNumber(state.asymptoteX, locale),
+            });
         case "move-angle-point":
             return srAnglePointLabel(state, strings, locale);
         case "move-polygon":
@@ -123,6 +129,31 @@ function srSinusoidPointLabel(
     return state.y > state.otherY
         ? strings.srSinusoidMaxPoint(formatted)
         : strings.srSinusoidMinPoint(formatted);
+}
+
+function srLogarithmPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the point-1/point-2 semantics, matching
+    // the static aria-label behavior in logarithm.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in logarithm graphs: [point1(0), point2(1)].
+    return state.pointIndex === 0
+        ? strings.srLogarithmPoint1({x, y})
+        : strings.srLogarithmPoint2({x, y});
 }
 
 function srAnglePointLabel(

@@ -3228,6 +3228,57 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.coords[0]).toEqual([-4, -3]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
+
+    it("sets stateAnnouncement to a move-logarithm-point with the new position", () => {
+        const state = generateLogarithmGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-3, -2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(-3);
+        expect(updated.stateAnnouncement.y).toBe(-2);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state = generateLogarithmGraphState({pointLabels: ["A", "B"]});
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(1, [-3, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("B");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state = generateLogarithmGraphState({pointLabels: ["", "B"]});
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-3, -2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+
+    it("emits no announcement when the move is rejected", () => {
+        const state = generateLogarithmGraphState();
+
+        // Moving point 0 onto point 1's y (-7) is rejected.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-4, -7]),
+        );
+
+        expect(updated.stateAnnouncement).toBeUndefined();
+    });
 });
 
 describe("moveCenter on a logarithm graph (asymptote)", () => {
@@ -3303,6 +3354,39 @@ describe("moveCenter on a logarithm graph (asymptote)", () => {
 
         // Assert — asymptote moves to x=-8 regardless of the y passed
         expect(updated.asymptote).toBe(-8);
+    });
+
+    it("sets stateAnnouncement to a move-logarithm-asymptote with the new x", () => {
+        const state = generateLogarithmGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([-8, 99]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-logarithm-asymptote",
+            asymptoteX: -8,
+        });
+    });
+
+    it("emits no announcement when the asymptote move is rejected", () => {
+        // Point 0 sits at (3, 0); moving the asymptote to x=3 would place its
+        // handle on the point, so the move is rejected.
+        const state = generateLogarithmGraphState({
+            coords: [
+                [3, 0],
+                [5, 2],
+            ],
+            asymptote: -6,
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.moveCenter([3, 0]),
+        );
+
+        expect(updated.stateAnnouncement).toBeUndefined();
     });
 });
 
