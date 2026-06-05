@@ -131,11 +131,14 @@ const meta: Meta<typeof NumericInput> = {
                 type: {summary: "string"},
             },
         },
-        rightAlign: {
-            control: {type: "boolean"},
-            description: "Whether to right-align the text or not",
+        textAlign: {
+            options: ["start", "center", "end"],
+            control: {type: "radio"},
+            defaultValue: "start",
+            description: "The alignment of the text in the input.",
             table: {
-                type: {summary: "boolean"},
+                type: {summary: "start | center | end"},
+                defaultValue: {summary: "start"},
             },
         },
         size: {
