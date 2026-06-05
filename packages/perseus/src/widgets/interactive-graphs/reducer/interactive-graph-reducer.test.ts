@@ -477,6 +477,91 @@ describe("movePointInFigure", () => {
         expect(updated.coords[0][0]).toEqual([5, 8]);
     });
 
+    it("sets stateAnnouncement to a move-segment-point with the segment index and total", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(1, 0, [-3, 2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-segment-point",
+            segmentIndex: 1,
+            pointIndex: 0,
+            // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
+            pointLabel: 3,
+            x: -3,
+            y: 2,
+            totalSegments: 2,
+        });
+    });
+
+    it("carries the custom pointLabel from the flattened index when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            // Flat across both segments: [seg0pt0, seg0pt1, seg1pt0, seg1pt1].
+            pointLabels: ["A", "B", "C", "D"],
+        };
+
+        // Move segment 0, point 1 → flat index 0 * 2 + 1 = 1 → "B".
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("B");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [
+                    [2, 2],
+                    [3, 3],
+                ],
+            ],
+            pointLabels: ["A", "", "C", "D"],
+        };
+
+        // Move segment 0, point 1 → flat index 1, which is empty → default.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.movePointInFigure(0, 1, [-3, 2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(2);
+    });
+
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
         const state: InteractiveGraphState = {...baseRayGraphState};
 
@@ -876,6 +961,29 @@ describe("moveSegment", () => {
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("sets stateAnnouncement to a move-segment-line with the new endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            coords: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [6, -1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-segment-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [6, -1],
+            [8, 1],
+        ]);
     });
 });
 
@@ -3246,6 +3354,25 @@ describe("moveTip on a vector graph", () => {
         invariant(updated.type === "vector");
         expect(updated.coords[1]).toEqual([3, 4]);
     });
+
+    it("sets stateAnnouncement to a move-vector-point for the tip", () => {
+        // Arrange
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveTip([5, 6]),
+        );
+
+        // Assert
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-vector-point",
+            pointIndex: 1,
+            x: 5,
+            y: 6,
+        });
+    });
 });
 
 describe("moveVector on a vector graph (body translation)", () => {
@@ -3298,6 +3425,24 @@ describe("moveVector on a vector graph (body translation)", () => {
         expect(updated.coords).toEqual([
             [7, 6],
             [10, 10],
+        ]);
+    });
+
+    it("sets stateAnnouncement to a move-vector-line with the new endpoints", () => {
+        // Arrange — default tail [0,0], tip [3,4]; delta [2,1]
+        const state = generateVectorGraphState();
+
+        // Act
+        const updated = interactiveGraphReducer(
+            state,
+            actions.vector.moveVector([2, 1]),
+        );
+
+        // Assert
+        invariant(updated.stateAnnouncement?.type === "move-vector-line");
+        expect(updated.stateAnnouncement.coords).toEqual([
+            [2, 1],
+            [5, 5],
         ]);
     });
 });

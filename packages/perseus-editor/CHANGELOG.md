@@ -1,5 +1,29 @@
 # @khanacademy/perseus-editor
 
+## 32.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`b44f34d355`](https://github.com/Khan/perseus/commit/b44f34d355d152dd97bb5d2fb95183d887c53073)]:
+    -   @khanacademy/perseus@77.10.2
+
+## 32.3.0
+
+### Minor Changes
+
+-   [#3710](https://github.com/Khan/perseus/pull/3710) [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Use the parser to convert orange to gold
+
+### Patch Changes
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`bbde9057fc`](https://github.com/Khan/perseus/commit/bbde9057fce4d92ce363d83635272e5861e203eb), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba), [`d0fa621849`](https://github.com/Khan/perseus/commit/d0fa621849ce551bf71900d3040502193a8178ab), [`117786801c`](https://github.com/Khan/perseus/commit/117786801c597b88aeb65608ae5d75d1d373774f), [`c3c7aafa48`](https://github.com/Khan/perseus/commit/c3c7aafa48f5e252a78b532511b7df2429d55c7e), [`29041d51fe`](https://github.com/Khan/perseus/commit/29041d51fe5c8de887929eba6216ffdafb908e01), [`14b6e0b58d`](https://github.com/Khan/perseus/commit/14b6e0b58df552178b1598d26e8a9028f423b0ec), [`6f29b86f0b`](https://github.com/Khan/perseus/commit/6f29b86f0b917e7acac63ffb5638ba87cf8f9ea6), [`c244b3e4fe`](https://github.com/Khan/perseus/commit/c244b3e4fe3c3fed5291240bcd8b3e29c5602250), [`c6e7cd2e72`](https://github.com/Khan/perseus/commit/c6e7cd2e7229477e17de48331b11b663eac57e9a), [`23e9ad00f6`](https://github.com/Khan/perseus/commit/23e9ad00f6a364aecdbcb091d399f10235227a79), [`94d0a94623`](https://github.com/Khan/perseus/commit/94d0a94623e0e8ea9975dc354f5e5954cfc89f06), [`58dbd0f93f`](https://github.com/Khan/perseus/commit/58dbd0f93fdcd5d48eea90f4577db4082708b0cb), [`11d53cb5df`](https://github.com/Khan/perseus/commit/11d53cb5df388a7dbf3bf14f7d26bfc12e3fef3d), [`3e96e9ec8c`](https://github.com/Khan/perseus/commit/3e96e9ec8c906625d58ad3e36cc85f9249e0296b), [`00fa96087f`](https://github.com/Khan/perseus/commit/00fa96087f8668da07115ce1c39e01aa07785254), [`84bcfbbe29`](https://github.com/Khan/perseus/commit/84bcfbbe29ed01890bcc0a2805b13ff0fcff2e83), [`b8145a718b`](https://github.com/Khan/perseus/commit/b8145a718b43e6ce78f304296e953ed07341c207)]:
+    -   @khanacademy/perseus@77.10.1
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/perseus-linter@5.0.15
+    -   @khanacademy/keypad-context@3.2.60
+    -   @khanacademy/kmath@2.4.18
+    -   @khanacademy/math-input@26.4.32
+    -   @khanacademy/perseus-score@8.11.2
+
 ## 32.2.0
 
 ### Minor Changes

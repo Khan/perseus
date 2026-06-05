@@ -1,5 +1,7 @@
 import {parseUserInputMap} from "./user-input-map";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusGroupUserInput} from "../../validation.types";
 import type {Parser} from "../parser-types";
 

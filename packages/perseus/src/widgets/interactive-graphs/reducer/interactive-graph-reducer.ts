@@ -270,31 +270,7 @@ function doMovePointInFigure(
     action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "segment": {
-            const newCoords = updateAtIndex({
-                array: state.coords,
-                index: action.figureIndex,
-                update: (tuple) =>
-                    setAtIndex({
-                        array: tuple,
-                        index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
-                    }),
-            });
-
-            const coordsToCheck = newCoords[action.figureIndex];
-            if (coordsOverlap(coordsToCheck)) {
-                return state;
-            }
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
+        case "segment":
         case "linear-system": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
@@ -315,30 +291,42 @@ function doMovePointInFigure(
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
+
+            // pointLabels is a flat array across all lines/segments, indexed
+            // by figureIndex * 2 + pointIndex (matching the render side).
+            const sharedAnnouncement = {
+                pointIndex: action.pointIndex,
+                pointLabel: resolvePointLabel(
+                    state.pointLabels,
+                    action.figureIndex * 2 + action.pointIndex,
+                ),
+                x: newValue[X],
+                y: newValue[Y],
+            };
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-point",
+                          segmentIndex: action.figureIndex,
+                          totalSegments: state.coords.length,
+                          ...sharedAnnouncement,
+                      }
+                    : {
+                          type: "move-linear-system-point",
+                          lineIndex: action.figureIndex,
+                          ...sharedAnnouncement,
+                      };
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-linear-system-point",
-                    lineIndex: action.figureIndex,
-                    pointIndex: action.pointIndex,
-                    // pointLabels is a flat array across both lines, indexed by
-                    // lineIndex * 2 + pointIndex (matching linear-system.tsx).
-                    pointLabel: resolvePointLabel(
-                        state.pointLabels,
-                        action.figureIndex * 2 + action.pointIndex,
-                    ),
-                    x: newValue[X],
-                    y: newValue[Y],
-                },
+                stateAnnouncement,
             };
         }
         case "ray":
-        case "linear": {
-            // Ray and linear share identical endpoint-move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
+        case "linear":
+        case "vector": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
@@ -355,52 +343,41 @@ function doMovePointInFigure(
 
             // Determine the correct state announcement
             // by the graph type.
-            const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {
-                          type: "move-ray-point",
-                          pointIndex: action.pointIndex,
-                          pointLabel: resolvePointLabel(
-                              state.pointLabels,
-                              action.pointIndex,
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      }
-                    : {
-                          type: "move-point",
-                          pointLabel: String(
-                              resolvePointLabel(
-                                  state.pointLabels,
-                                  action.pointIndex,
-                              ),
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      };
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement,
-            };
-        }
-        case "vector": {
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue: boundToEdgeAndSnapToGrid(action.destination, state),
-            });
-
-            if (coordsOverlap(newCoords)) {
-                return state;
+            let stateAnnouncement: InteractiveGraphStateAnnouncement;
+            if (state.type === "ray") {
+                stateAnnouncement = {
+                    type: "move-ray-point",
+                    pointIndex: action.pointIndex,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else if (state.type === "vector") {
+                stateAnnouncement = {
+                    type: "move-vector-point",
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else {
+                stateAnnouncement = {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
             }
 
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement,
             };
         }
         case "circle":
@@ -435,9 +412,8 @@ function doMoveLine(
     const {newStart} = action;
 
     switch (state.type) {
+        case "segment":
         case "linear-system": {
-            // TODO(LEMS-4189): Temporary duplication of logic with segment
-            // until we move all graphs to use WB Announcer.
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
@@ -453,74 +429,54 @@ function doMoveLine(
                 newValue: constrainedLine,
             });
 
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement: {
-                    type: "move-linear-system-line",
-                    lineIndex: action.itemIndex,
-                    coords: constrainedLine,
-                },
-            };
-        }
-        case "segment": {
-            if (action.itemIndex === undefined) {
-                throw new Error("Please provide index of line to move");
-            }
-            const currentLine = state.coords[action.itemIndex];
-            const constrainedLine = constrainShapePreservingMove(
-                currentLine,
-                newStart,
-                {snapStep, range},
-            );
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.itemIndex,
-                newValue: constrainedLine,
-            });
-
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
-        case "ray":
-        case "linear": {
-            // Ray and linear share identical whole-line move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
-            const constrainedLine = constrainShapePreservingMove(
-                state.coords,
-                newStart,
-                {snapStep, range},
-            );
             const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {type: "move-ray-line", coords: constrainedLine}
-                    : {type: "move-linear-line", coords: constrainedLine};
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-line",
+                          coords: constrainedLine,
+                      }
+                    : {
+                          type: "move-linear-system-line",
+                          lineIndex: action.itemIndex,
+                          coords: constrainedLine,
+                      };
+
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
-                coords: constrainedLine,
+                coords: newCoords,
                 stateAnnouncement,
             };
         }
+        case "ray":
+        case "linear":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
                 {snapStep, range},
             );
+
+            let type: "move-ray-line" | "move-vector-line" | "move-linear-line";
+            if (state.type === "ray") {
+                type = "move-ray-line";
+            } else if (state.type === "vector") {
+                type = "move-vector-line";
+            } else {
+                type = "move-linear-line";
+            }
+
+            const stateAnnouncement: InteractiveGraphStateAnnouncement = {
+                type,
+                coords: constrainedLine,
+            };
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
+                stateAnnouncement,
             };
         }
         default:

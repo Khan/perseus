@@ -297,6 +297,13 @@ module.exports = {
                         target: "./packages/(?!.*test.js).*",
                         from: "utils",
                     },
+                    {
+                        // Files in parse-perseus-json may not import from the
+                        // rest of the codebase — it must stay self-contained.
+                        target: "./packages/perseus-core/src/parse-perseus-json/perseus-parsers/**/!(*.typetest).ts",
+                        from: "./packages/perseus-core/src",
+                        except: ["./parse-perseus-json"],
+                    },
                 ],
             },
         ],

@@ -23,6 +23,8 @@ import {parseSorterUserInput} from "./sorter-user-input";
 import {parseTableUserInput} from "./table-user-input";
 import {parseWidgetIdComponents} from "./widget-id-components";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {UserInputMap} from "../../validation.types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
