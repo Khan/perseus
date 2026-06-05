@@ -1180,15 +1180,9 @@ describe("generateIGLockedPolygon", () => {
         expect(lockedPolygon).toEqual({
             type: "polygon",
             points: [
-                {
-                    coord: [0, 2],
-                },
-                {
-                    coord: [-1, 0],
-                },
-                {
-                    coord: [1, 0],
-                },
+                {coord: [0, 2], showAngle: false},
+                {coord: [-1, 0], showAngle: false},
+                {coord: [1, 0], showAngle: false},
             ],
             color: "grayH",
             showVertices: false,
@@ -1203,15 +1197,9 @@ describe("generateIGLockedPolygon", () => {
         // Arrange, Act
         const lockedPolygon = generateIGLockedPolygon({
             points: [
-                {
-                    coord: [1, 1],
-                },
-                {
-                    coord: [2, 2],
-                },
-                {
-                    coord: [3, 3],
-                },
+                {coord: [1, 1], showAngle: false},
+                {coord: [2, 2], showAngle: true},
+                {coord: [3, 3], showAngle: false},
             ],
             color: "blue",
             showVertices: true,
@@ -1234,15 +1222,9 @@ describe("generateIGLockedPolygon", () => {
         expect(lockedPolygon).toEqual({
             type: "polygon",
             points: [
-                {
-                    coord: [1, 1],
-                },
-                {
-                    coord: [2, 2],
-                },
-                {
-                    coord: [3, 3],
-                },
+                {coord: [1, 1], showAngle: false},
+                {coord: [2, 2], showAngle: true},
+                {coord: [3, 3], showAngle: false},
             ],
             color: "blue",
             showVertices: true,

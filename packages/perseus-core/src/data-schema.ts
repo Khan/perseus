@@ -1077,6 +1077,7 @@ export type LockedEllipseType = {
 
 export type LockedPolygonPointType = {
     coord: Coord;
+    showAngle: boolean;
 };
 
 export type LockedPolygonType = {

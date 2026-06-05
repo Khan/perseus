@@ -1236,9 +1236,9 @@ describe("Interactive Graph", function () {
                         lockedFigures: [
                             generateIGLockedPolygon({
                                 points: [
-                                    {coord: [0, 0]},
-                                    {coord: [0, 1]},
-                                    {coord: [1, 1]},
+                                    {coord: [0, 0], showAngle: false},
+                                    {coord: [0, 1], showAngle: false},
+                                    {coord: [1, 1], showAngle: false},
                                 ],
                                 weight: weight,
                             }),
@@ -1322,6 +1322,28 @@ describe("Interactive Graph", function () {
             });
         });
 
+        it("should render angle labels for selected locked polygon points", () => {
+            // Arrange
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    lockedFigures: [
+                        generateIGLockedPolygon({
+                            points: [
+                                {coord: [0, 0], showAngle: true},
+                                {coord: [1, 0], showAngle: false},
+                                {coord: [1, 1], showAngle: false},
+                                {coord: [0, 1], showAngle: false},
+                            ],
+                        }),
+                    ],
+                }),
+                blankOptions,
+            );
+
+            // Assert
+            expect(screen.getByText("90°")).toBeInTheDocument();
+        });
+
         it("should render a locked label within a locked polygon", async () => {
             // Arrange
             const {container} = renderQuestion(
@@ -1352,9 +1374,9 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedPolygon({
                             points: [
-                                {coord: [0, 0]},
-                                {coord: [0, 1]},
-                                {coord: [1, 1]},
+                                {coord: [0, 0], showAngle: false},
+                                {coord: [0, 1], showAngle: false},
+                                {coord: [1, 1], showAngle: false},
                             ],
                             ariaLabel: "Polygon A",
                         }),
@@ -1380,9 +1402,9 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedPolygon({
                             points: [
-                                {coord: [0, 0]},
-                                {coord: [0, 1]},
-                                {coord: [1, 1]},
+                                {coord: [0, 0], showAngle: false},
+                                {coord: [0, 1], showAngle: false},
+                                {coord: [1, 1], showAngle: false},
                             ],
                         }),
                     ],

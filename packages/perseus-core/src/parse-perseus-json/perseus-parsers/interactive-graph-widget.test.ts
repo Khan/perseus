@@ -385,7 +385,7 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
-    it("parses locked polygon points with coord field", () => {
+    it("parses locked polygon points with coord and showAngle fields", () => {
         const result = parse(
             {
                 type: "interactive-graph",
@@ -411,7 +411,7 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "polygon",
                             points: [
-                                {coord: [0, 0]},
+                                {coord: [0, 0], showAngle: true},
                                 {coord: [1, 0]},
                                 {coord: [1, 1]},
                             ],
@@ -455,9 +455,9 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "polygon",
                             points: [
-                                {coord: [0, 0]},
-                                {coord: [1, 0]},
-                                {coord: [1, 1]},
+                                {coord: [0, 0], showAngle: true},
+                                {coord: [1, 0], showAngle: false},
+                                {coord: [1, 1], showAngle: false},
                             ],
                             color: "blue",
                             showVertices: false,
@@ -542,9 +542,9 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "polygon",
                             points: [
-                                {coord: [0, 0]},
-                                {coord: [1, 0]},
-                                {coord: [1, 1]},
+                                {coord: [0, 0], showAngle: false},
+                                {coord: [1, 0], showAngle: false},
+                                {coord: [1, 1], showAngle: false},
                             ],
                             color: "blue",
                             showVertices: false,
