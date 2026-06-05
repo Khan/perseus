@@ -992,6 +992,7 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
+    "blurple",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -1004,6 +1005,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
+    blurple: "var(--wb-semanticColor-core-background-instructive-default)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";

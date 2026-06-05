@@ -475,12 +475,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 )}
                                 {/* Interactive layer.*/}
                                 {graph}
-                                {lockedFigureSelectionEnabled && (
-                                    <GraphLockedFigureHitTargetLayer
-                                        lockedFigures={props.lockedFigures}
-                                        onToggle={toggleLockedFigureSelection}
-                                    />
-                                )}
+                                <GraphLockedFigureHitTargetLayer
+                                    enabled={lockedFigureSelectionEnabled}
+                                    lockedFigures={props.lockedFigures}
+                                    onToggle={toggleLockedFigureSelection}
+                                />
                             </Mafs>
                         </View>
                     </View>

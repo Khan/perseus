@@ -25,6 +25,7 @@ type IndicatorLayerProps = {
 };
 
 type HitTargetLayerProps = {
+    enabled: boolean;
     lockedFigures: ReadonlyArray<LockedFigure>;
     onToggle: (figureIndex: number) => void;
 };
@@ -101,8 +102,26 @@ export function GraphLockedFigureIndicatorLayer(props: IndicatorLayerProps) {
     );
 }
 
+// Whether a figure gets a selection hit target.
+function isSelectableHitTarget(figure: LockedFigure): boolean {
+    switch (figure.type) {
+        case "point":
+        case "polygon":
+            return Boolean(figure.selectable);
+        case "line":
+            return figure.kind === "segment" && Boolean(figure.selectable);
+        default:
+            return false;
+    }
+}
+
 export function GraphLockedFigureHitTargetLayer(props: HitTargetLayerProps) {
-    const {lockedFigures, onToggle} = props;
+    const {enabled, lockedFigures, onToggle} = props;
+
+    // Nothing to hit: render no DOM.
+    if (!enabled || !lockedFigures.some(isSelectableHitTarget)) {
+        return null;
+    }
 
     // Paint polygons, then segments, then points, so smaller targets win
     // clicks at a shared spot.
@@ -165,8 +184,8 @@ const PENCIL_TIP_X = 28;
 const PENCIL_TIP_Y = 228;
 const PENCIL_SCALE = 0.12; // 256 * 0.12 ≈ 31px tall
 const PENCIL_GAP = 8; // px gap between tip and target
-// Khanmigo brand color; no Wonder Blocks token resolves to it.
-const PENCIL_COLOR = "#5753FA";
+// Khanmigo brand color, backed by a Wonder Blocks token.
+const PENCIL_COLOR = lockedFigureColors.blurple;
 
 // The Khanmigo pencil, tip pointing just off (x, y) in pixel space.
 function SpotlightPencil(props: {x: number; y: number}) {
