@@ -160,6 +160,17 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Absolute-value graph: the vertex (index 0) and the point on the arm
+// (index 1) use different labels, chosen by index — mirroring the static
+// aria-labels in absolute-value.tsx.
+type MoveAbsoluteValuePointAnnouncement = {
+    type: "move-absolute-value-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Angle graph: vertex (index 1) reads with the measured angle; sides
 // (indices 0, 2) read with just coords. The reducer pre-computes the
 // measure since it already imports the angle helpers.
@@ -195,6 +206,7 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveAbsoluteValuePointAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 
