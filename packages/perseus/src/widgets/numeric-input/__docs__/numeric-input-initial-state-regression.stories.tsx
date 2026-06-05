@@ -46,7 +46,7 @@ export const SizeSmall: Story = {
     },
 };
 
-// Verifies the end-aligned text input variant with a pre-filled value — the "5" should appear on the end
+// Verifies the end-aligned text input variant with a pre-filled value — the value should appear on the end
 export const EndTextAlign: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
@@ -55,5 +55,17 @@ export const EndTextAlign: Story = {
     args: {
         size: "normal",
         textAlign: "end",
+    },
+};
+
+// Verifies the center-aligned text input variant with a pre-filled value — the value should appear in the center
+export const CenterTextAlign: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        textAlign: "center",
     },
 };

@@ -75,11 +75,18 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             setIsFocused(false);
         };
 
+        const alignmentStyles =
+            props.textAlign === "center"
+                ? stylesLegacy.centerAlign
+                : props.textAlign === "end"
+                  ? stylesLegacy.rightAlign
+                  : {};
+
         // TODO (LEMS-3815): Remove legacy styles
         const legacyStylesToUse = {
             ...stylesLegacy.inputWithExamples,
             ...(isFocused ? stylesLegacy.isFocused : {}),
-            ...(props.rightAlign ? stylesLegacy.rightAlign : {}),
+            ...alignmentStyles,
             ...(props.size === "small" ? stylesLegacy.sizeSmall : {}),
         };
 
@@ -87,17 +94,24 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         if (isFocused) {
             classesToUse.push(styles.isFocused);
         }
-        if (props.rightAlign) {
-            classesToUse.push(styles.rightAlign);
+        if (props.textAlign !== "start") {
+            const alignmentClass =
+                props.textAlign === "center"
+                    ? styles.centerAlign
+                    : styles.rightAlign;
+            classesToUse.push(alignmentClass);
         }
         if (props.size === "small") {
             classesToUse.push(styles.sizeSmall);
         }
         // (mobile-only) If the custom keypad is enabled, use the SimpleKeypadInput component
         if (props.apiOptions.customKeypad) {
-            const alignmentClass = props.rightAlign
-                ? "perseus-input-right-align"
-                : undefined;
+            const alignmentClass =
+                props.textAlign === "center"
+                    ? "perseus-input-center-align"
+                    : props.textAlign === "end"
+                      ? "perseus-input-right-align"
+                      : undefined;
             return (
                 <div className={alignmentClass}>
                     <SimpleKeypadInput

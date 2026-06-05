@@ -26,6 +26,10 @@
     text-align: right;
 }
 
+.input-with-examples.center-align {
+    text-align: center;
+}
+
 .input-with-examples.size-small {
     width: 4rem;
 }
