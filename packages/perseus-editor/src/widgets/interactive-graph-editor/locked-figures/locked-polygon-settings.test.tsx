@@ -47,10 +47,10 @@ describe("LockedPolygonSettings", () => {
             <LockedPolygonSettings
                 {...defaultProps}
                 points={[
-                    {coord: [0, 0]},
-                    {coord: [1, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, -1]},
+                    {coord: [0, 0], showAngle: false},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, -1], showAngle: false},
                 ]}
             />,
             {
@@ -119,10 +119,10 @@ describe("LockedPolygonSettings", () => {
             <LockedPolygonSettings
                 {...defaultProps}
                 points={[
-                    {coord: [0, 0]},
-                    {coord: [1, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, -1]},
+                    {coord: [0, 0], showAngle: false},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, -1], showAngle: false},
                 ]}
             />,
             {
@@ -185,10 +185,10 @@ describe("LockedPolygonSettings", () => {
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
-                    {coord: [1, 1]},
-                    {coord: [2, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, 2]},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, 2], showAngle: false},
                 ]}
             />,
             {
@@ -204,10 +204,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, 1]}],
             points: [
-                {coord: [1, 2]},
-                {coord: [2, 2]},
-                {coord: [2, 3]},
-                {coord: [1, 3]},
+                {coord: [1, 2], showAngle: false},
+                {coord: [2, 2], showAngle: false},
+                {coord: [2, 3], showAngle: false},
+                {coord: [1, 3], showAngle: false},
             ],
         });
     });
@@ -228,10 +228,10 @@ describe("LockedPolygonSettings", () => {
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
-                    {coord: [1, 1]},
-                    {coord: [2, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, 2]},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, 2], showAngle: false},
                 ]}
             />,
             {
@@ -247,10 +247,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, -1]}],
             points: [
-                {coord: [1, 0]},
-                {coord: [2, 0]},
-                {coord: [2, 1]},
-                {coord: [1, 1]},
+                {coord: [1, 0], showAngle: false},
+                {coord: [2, 0], showAngle: false},
+                {coord: [2, 1], showAngle: false},
+                {coord: [1, 1], showAngle: false},
             ],
         });
     });
@@ -271,10 +271,10 @@ describe("LockedPolygonSettings", () => {
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
                 points={[
-                    {coord: [1, 1]},
-                    {coord: [2, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, 2]},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, 2], showAngle: false},
                 ]}
             />,
             {
@@ -290,10 +290,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [-1, 0]}],
             points: [
-                {coord: [0, 1]},
-                {coord: [1, 1]},
-                {coord: [1, 2]},
-                {coord: [0, 2]},
+                {coord: [0, 1], showAngle: false},
+                {coord: [1, 1], showAngle: false},
+                {coord: [1, 2], showAngle: false},
+                {coord: [0, 2], showAngle: false},
             ],
         });
     });
@@ -314,10 +314,10 @@ describe("LockedPolygonSettings", () => {
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
                 points={[
-                    {coord: [1, 1]},
-                    {coord: [2, 1]},
-                    {coord: [2, 2]},
-                    {coord: [1, 2]},
+                    {coord: [1, 1], showAngle: false},
+                    {coord: [2, 1], showAngle: false},
+                    {coord: [2, 2], showAngle: false},
+                    {coord: [1, 2], showAngle: false},
                 ]}
             />,
             {
@@ -333,10 +333,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [1, 0]}],
             points: [
-                {coord: [2, 1]},
-                {coord: [3, 1]},
-                {coord: [3, 2]},
-                {coord: [2, 2]},
+                {coord: [2, 1], showAngle: false},
+                {coord: [3, 1], showAngle: false},
+                {coord: [3, 2], showAngle: false},
+                {coord: [2, 2], showAngle: false},
             ],
         });
     });
@@ -362,6 +362,61 @@ describe("LockedPolygonSettings", () => {
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
+    });
+
+    test("calls onChange when a point angle switch is toggled", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                points={[
+                    {coord: [0, 0], showAngle: false},
+                    {coord: [1, 0], showAngle: false},
+                    {coord: [1, 1], showAngle: false},
+                ]}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const showAngleSwitch = screen.getByLabelText("show angle at B");
+        await userEvent.click(showAngleSwitch);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [
+                {coord: [0, 0], showAngle: false},
+                {coord: [1, 0], showAngle: true},
+                {coord: [1, 1], showAngle: false},
+            ],
+        });
+    });
+
+    test("calls onChange with showAngle false when a point is added", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const addPointButton = screen.getByRole("button", {name: "Add point"});
+        await userEvent.click(addPointButton);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [...defaultProps.points, {coord: [0, 0], showAngle: false}],
+        });
     });
 
     describe("Labels", () => {
@@ -407,7 +462,10 @@ describe("LockedPolygonSettings", () => {
                 render(
                     <LockedPolygonSettings
                         {...defaultProps}
-                        points={startingCoords.map((coord) => ({coord}))}
+                        points={startingCoords.map((coord) => ({
+                            coord,
+                            showAngle: false,
+                        }))}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -433,7 +491,10 @@ describe("LockedPolygonSettings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    points: expectedCoords.map((coord) => ({coord})),
+                    points: expectedCoords.map((coord) => ({
+                        coord,
+                        showAngle: false,
+                    })),
                     labels: [
                         {
                             ...defaultLabel,
@@ -542,7 +603,11 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[{coord: [0, 0]}, {coord: [1, 0]}, {coord: [1, 1]}]}
+                    points={[
+                        {coord: [0, 0], showAngle: false},
+                        {coord: [1, 0], showAngle: false},
+                        {coord: [1, 1], showAngle: false},
+                    ]}
                     labels={[
                         {
                             ...defaultLabel,
@@ -626,7 +691,11 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
+                    points={[
+                        {coord: [0, 0], showAngle: false},
+                        {coord: [0, 1], showAngle: false},
+                        {coord: [1, 1], showAngle: false},
+                    ]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                 />,
@@ -655,7 +724,11 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
+                    points={[
+                        {coord: [0, 0], showAngle: false},
+                        {coord: [0, 1], showAngle: false},
+                        {coord: [1, 1], showAngle: false},
+                    ]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[
@@ -691,7 +764,11 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
+                    points={[
+                        {coord: [0, 0], showAngle: false},
+                        {coord: [0, 1], showAngle: false},
+                        {coord: [1, 1], showAngle: false},
+                    ]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[

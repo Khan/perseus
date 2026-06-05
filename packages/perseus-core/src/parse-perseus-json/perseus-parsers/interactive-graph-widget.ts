@@ -258,6 +258,7 @@ const parseLockedEllipseType = object({
 
 const parseLockedPolygonPointType = object({
     coord: pairOfNumbers,
+    showAngle: defaulted(boolean, () => false),
 });
 
 const parseLockedPolygonPointsType = union(
@@ -266,7 +267,7 @@ const parseLockedPolygonPointsType = union(
     // Normalize legacy representation of points as Coord[] to
     // LockedPolygonPointType[].
     pipeParsers(array(pairOfNumbers)).then(
-        convert((coords) => coords.map((coord) => ({coord}))),
+        convert((coords) => coords.map((coord) => ({coord, showAngle: false}))),
     ).parser,
 ).parser;
 

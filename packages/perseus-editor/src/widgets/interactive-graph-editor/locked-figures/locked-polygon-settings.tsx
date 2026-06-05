@@ -305,6 +305,20 @@ const LockedPolygonSettings = (props: Props) => {
                                     props.onChangeProps({points: newPoints});
                                 }}
                             />
+                            <Strut size={spacing.medium_16} />
+                            <LabeledSwitch
+                                label={`show angle at ${pointLabel}`}
+                                checked={point.showAngle}
+                                size="small"
+                                onChange={(newValue) => {
+                                    const newPoints = [...points];
+                                    newPoints[index] = {
+                                        ...point,
+                                        showAngle: newValue,
+                                    };
+                                    props.onChangeProps({points: newPoints});
+                                }}
+                            />
                             {
                                 // Only show the minus (delete) buttons if there are
                                 // more than 3 points. 3 points is the minimum number
@@ -336,7 +350,10 @@ const LockedPolygonSettings = (props: Props) => {
                         startIcon={plusCircle}
                         onClick={() => {
                             props.onChangeProps({
-                                points: [...points, {coord: [0, 0]}],
+                                points: [
+                                    ...points,
+                                    {coord: [0, 0], showAngle: false},
+                                ],
                             });
                         }}
                     >

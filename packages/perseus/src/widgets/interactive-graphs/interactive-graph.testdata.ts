@@ -861,14 +861,18 @@ export const segmentWithLockedPolygons: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: [{coord: [-3, 4]}, {coord: [-5, 1]}, {coord: [-1, 1]}],
+                points: [
+                    {coord: [-3, 4], showAngle: false},
+                    {coord: [-5, 1], showAngle: false},
+                    {coord: [-1, 1], showAngle: false},
+                ],
             }),
             generateIGLockedPolygon({
                 points: [
-                    {coord: [1, 4]},
-                    {coord: [4, 4]},
-                    {coord: [4, 1]},
-                    {coord: [1, 1]},
+                    {coord: [1, 4], showAngle: false},
+                    {coord: [4, 4], showAngle: false},
+                    {coord: [4, 1], showAngle: false},
+                    {coord: [1, 1], showAngle: false},
                 ],
                 color: "green",
                 showVertices: true,
@@ -877,11 +881,11 @@ export const segmentWithLockedPolygons: PerseusRenderer =
             }),
             generateIGLockedPolygon({
                 points: [
-                    {coord: [0, -1]},
-                    {coord: [-2, -3]},
-                    {coord: [-1, -5]},
-                    {coord: [1, -5]},
-                    {coord: [2, -3]},
+                    {coord: [0, -1], showAngle: false},
+                    {coord: [-2, -3], showAngle: false},
+                    {coord: [-1, -5], showAngle: false},
+                    {coord: [1, -5], showAngle: false},
+                    {coord: [2, -3], showAngle: false},
                 ],
                 color: "purple",
                 showVertices: false,
@@ -896,12 +900,20 @@ export const segmentWithLockedPolygonWhite: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: [{coord: [0, 3]}, {coord: [-3, 0]}, {coord: [3, 0]}],
+                points: [
+                    {coord: [0, 3], showAngle: false},
+                    {coord: [-3, 0], showAngle: false},
+                    {coord: [3, 0], showAngle: false},
+                ],
                 color: "green",
                 fillStyle: "white",
             }),
             generateIGLockedPolygon({
-                points: [{coord: [-5, 0]}, {coord: [-3, -1]}, {coord: [3, -1]}],
+                points: [
+                    {coord: [-5, 0], showAngle: false},
+                    {coord: [-3, -1], showAngle: false},
+                    {coord: [3, -1], showAngle: false},
+                ],
                 color: "pink",
                 fillStyle: "translucent",
             }),
@@ -1000,10 +1012,10 @@ export const staticGraphQuestion: PerseusRenderer =
             }),
             generateIGLockedPolygon({
                 points: [
-                    {coord: [-9, 4]},
-                    {coord: [-6, 4]},
-                    {coord: [-6, 1]},
-                    {coord: [-9, 1]},
+                    {coord: [-9, 4], showAngle: false},
+                    {coord: [-6, 4], showAngle: false},
+                    {coord: [-6, 1], showAngle: false},
+                    {coord: [-9, 1], showAngle: false},
                 ],
                 color: "pink",
             }),
@@ -1038,10 +1050,10 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
                 }),
                 generateIGLockedPolygon({
                     points: [
-                        {coord: [-9, 4]},
-                        {coord: [-6, 4]},
-                        {coord: [-6, 1]},
-                        {coord: [-9, 1]},
+                        {coord: [-9, 4], showAngle: false},
+                        {coord: [-6, 4], showAngle: false},
+                        {coord: [-6, 1], showAngle: false},
+                        {coord: [-9, 1], showAngle: false},
                     ],
                     color: "pink",
                 }),
@@ -1156,7 +1168,11 @@ export const graphWithLabeledPolygon: PerseusRenderer =
         correct: generateIGSegmentGraph(),
         lockedFigures: [
             generateIGLockedPolygon({
-                points: [{coord: [0, 0]}, {coord: [4, 0]}, {coord: [2, 4]}],
+                points: [
+                    {coord: [0, 0], showAngle: false},
+                    {coord: [4, 0], showAngle: false},
+                    {coord: [2, 4], showAngle: false},
+                ],
                 labels: [generateIGLockedLabel({text: "E", coord: [0, 0]})],
             }),
         ],
