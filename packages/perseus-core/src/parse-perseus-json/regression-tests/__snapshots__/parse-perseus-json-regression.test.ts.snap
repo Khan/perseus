@@ -14326,6 +14326,123 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
 }
 `;
 
+exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "$= \\dfrac{9 \\times 1}{2 \\times 4}$",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "$= \\dfrac{9}{8}$",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 1.125,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+        },
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "rightAlign": false,
+          "size": "normal",
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -14834,6 +14951,123 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
         "static": false,
         "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "$= \\dfrac{9 \\times 1}{2 \\times 4}$",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "$= \\dfrac{9}{8}$",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 1.125,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+        },
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "rightAlign": false,
+          "size": "normal",
+        },
+        "static": false,
+        "type": "numeric-input",
         "version": {
           "major": 0,
           "minor": 0,
