@@ -34,9 +34,7 @@ async function openKeypad({
     await userEvent.click(openButton);
 }
 
-// Args shared across all keypad tab stories — configures all four tabs:
-// Numbers (always), Operators (prealgebra/logarithms), Geometry (trig),
-// Extras (extraKeys)
+// Shared keypad args across Numbers, Operators, Geometry, and Extras tabs
 const keypadArgs: NonNullable<Story["args"]> = {
     answerForms: [],
     buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
@@ -60,8 +58,7 @@ export const FocusedInput: Story = {
     },
 };
 
-// Verifies the keypad popout renders with the Numbers tab selected by default —
-// captures the number buttons (0–9, operators, backspace)
+// Number buttons (0–9, operators, backspace)
 export const KeypadOpenNumbersTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
@@ -70,8 +67,7 @@ export const KeypadOpenNumbersTab: Story = {
     },
 };
 
-// Verifies the Operators tab of the keypad popout — captures the pre-algebra,
-// logarithm, and relation buttons rendered in this tab
+// Pre-algebra, logarithm, and relation buttons
 export const KeypadOpenOperatorsTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
@@ -84,8 +80,7 @@ export const KeypadOpenOperatorsTab: Story = {
     },
 };
 
-// Verifies the Geometry tab of the keypad popout — captures the trigonometry
-// buttons (sin, cos, tan, etc.) rendered in this tab
+// Trigonometry buttons (sin, cos, tan, etc.)
 export const KeypadOpenGeometryTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
@@ -98,8 +93,7 @@ export const KeypadOpenGeometryTab: Story = {
     },
 };
 
-// Verifies the Extras tab of the keypad popout — captures the extra variable
-// key buttons (x, y) rendered in this tab
+// Extra variable key buttons (x, y)
 export const KeypadOpenExtrasTab: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
