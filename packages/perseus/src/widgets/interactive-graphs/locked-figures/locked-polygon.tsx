@@ -14,7 +14,6 @@ import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle, weight} = props;
-    const coords = points.map((point) => point.coord);
 
     const hasAria = !!props.ariaLabel;
 
@@ -26,7 +25,7 @@ const LockedPolygon = (props: LockedPolygonType) => {
             role="img"
         >
             <Polygon
-                points={[...coords]}
+                points={[...points.map(({coord}) => coord)]}
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
                 strokeStyle={strokeStyle}
                 color={lockedFigureColors[color]}
@@ -44,11 +43,11 @@ const LockedPolygon = (props: LockedPolygonType) => {
                 }}
             />
             {showVertices &&
-                coords.map((point, index) => (
+                points.map((point, index) => (
                     <Point
                         key={`locked-polygon-point-${index}`}
-                        x={point[X]}
-                        y={point[Y]}
+                        x={point.coord[X]}
+                        y={point.coord[Y]}
                         color={lockedFigureColors[color]}
                     />
                 ))}
