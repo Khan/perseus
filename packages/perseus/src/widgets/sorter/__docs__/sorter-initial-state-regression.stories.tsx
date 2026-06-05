@@ -6,8 +6,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {themeModes} from "../../../../../../.storybook/modes";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {sorterRendererDecorator} from "./sorter-renderer-decorator";

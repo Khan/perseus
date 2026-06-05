@@ -5,8 +5,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {themeModes} from "../../../../../../.storybook/modes";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import {matcherRendererDecorator} from "./matcher-renderer-decorator";
 
