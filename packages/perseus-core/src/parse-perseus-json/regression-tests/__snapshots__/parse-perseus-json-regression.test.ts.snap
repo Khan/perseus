@@ -15014,7 +15014,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
           "coefficient": false,
           "labelText": "",
           "size": "normal",
-          "textAlign": "start",
+          "textAlign": "end",
         },
         "type": "numeric-input",
         "version": {
@@ -15073,7 +15073,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
           "coefficient": false,
           "labelText": "",
           "size": "normal",
-          "textAlign": "start",
+          "textAlign": "end",
         },
         "static": false,
         "type": "numeric-input",

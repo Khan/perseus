@@ -38,7 +38,7 @@ export default {
                     coefficient: false,
                     labelText: "",
                     size: "normal",
-                    rightAligned: true,
+                    rightAlign: true,
                 },
                 type: "numeric-input",
                 version: {
