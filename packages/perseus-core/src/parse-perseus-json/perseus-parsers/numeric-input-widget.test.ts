@@ -4,22 +4,6 @@ import {assertSuccess, success} from "../result";
 
 import {parseNumericInputWidget, parseSimplify} from "./numeric-input-widget";
 
-function numericInputWidget(
-    options: Record<string, unknown>,
-    version: {major: number; minor: number},
-) {
-    return {
-        type: "numeric-input",
-        options: {
-            answers: [{status: "correct", simplify: "required"}],
-            size: "normal",
-            coefficient: false,
-            ...options,
-        },
-        version,
-    };
-}
-
 describe("parseSimplify", () => {
     it(`preserves "required"`, () => {
         expect(parse("required", parseSimplify)).toEqual(success("required"));
@@ -63,6 +47,22 @@ describe("parseSimplify", () => {
 });
 
 describe("textAlign", () => {
+    function numericInputWidget(
+        options: Record<string, unknown>,
+        version: {major: number; minor: number},
+    ) {
+        return {
+            type: "numeric-input",
+            options: {
+                answers: [{status: "correct", simplify: "required"}],
+                size: "normal",
+                coefficient: false,
+                ...options,
+            },
+            version,
+        };
+    }
+
     it("migrates from v0 to v1 when rightAlign is undefined", () => {
         // Arrange
         const widget = numericInputWidget({}, {major: 0, minor: 0});
