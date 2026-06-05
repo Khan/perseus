@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 77.10.2
+
+### Patch Changes
+
+-   [#3727](https://github.com/Khan/perseus/pull/3727) [`b44f34d355`](https://github.com/Khan/perseus/commit/b44f34d355d152dd97bb5d2fb95183d887c53073) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Definition] Fix typo in translation
+
 ## 77.10.1
 
 ### Patch Changes
