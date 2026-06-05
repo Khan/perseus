@@ -1385,7 +1385,7 @@ export const strings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
-    definitionIdentifier: "Definition of: %(word)",
+    definitionIdentifier: "Definition of: %(word)s",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
