@@ -825,6 +825,7 @@ describe("injectWidgets", () => {
                     labelText: "Enter a number",
                     size: "normal",
                     coefficient: false,
+                    alignment: "start",
                 },
             },
             "input-number 1": {
@@ -1017,6 +1018,7 @@ describe("getAnswersFromWidgets", () => {
                 labelText: "Enter a number",
                 size: "normal",
                 coefficient: false,
+                alignment: "start",
             },
         };
         const answer = getAnswersFromWidgets({"numeric-input 1": widget});
