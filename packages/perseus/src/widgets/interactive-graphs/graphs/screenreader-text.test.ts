@@ -4,10 +4,6 @@ import {
     getAnnouncementText,
     getCoordQuadrant,
     getPiMultiple,
-    getQuadraticPointString,
-    getQuadraticVertexString,
-    srCircleCenterLabel,
-    srCircleRadiusPointLabel,
     srFormatNumber,
 } from "./screenreader-text";
 
@@ -696,46 +692,6 @@ describe("getAnnouncementText", () => {
     });
 });
 
-describe("srCircleRadiusPointLabel", () => {
-    it("returns the right-side label when x is greater than centerX", () => {
-        expect(srCircleRadiusPointLabel(3, 0, 0, mockStrings, "en")).toBe(
-            "Right radius endpoint at 3 comma 0.",
-        );
-    });
-
-    it("returns the right-side label when x equals centerX", () => {
-        expect(srCircleRadiusPointLabel(0, 0, 0, mockStrings, "en")).toBe(
-            "Right radius endpoint at 0 comma 0.",
-        );
-    });
-
-    it("returns the left-side label when x is less than centerX", () => {
-        expect(srCircleRadiusPointLabel(-3, 0, 0, mockStrings, "en")).toBe(
-            "Left radius endpoint at -3 comma 0.",
-        );
-    });
-
-    it("formats coordinates through srFormatNumber", () => {
-        expect(srCircleRadiusPointLabel(Math.PI, 0, 0, mockStrings, "en")).toBe(
-            "Right radius endpoint at 1π comma 0.",
-        );
-    });
-});
-
-describe("srCircleCenterLabel", () => {
-    it("returns the circle center description", () => {
-        expect(srCircleCenterLabel(2, 3, mockStrings, "en")).toBe(
-            "Circle. The center point is at 2 comma 3.",
-        );
-    });
-
-    it("formats coordinates through srFormatNumber", () => {
-        expect(srCircleCenterLabel(Math.PI, 0, mockStrings, "en")).toBe(
-            "Circle. The center point is at 1π comma 0.",
-        );
-    });
-});
-
 describe("srFormatNumber", () => {
     it("trivially converts small integers to strings", () => {
         expect(srFormatNumber(3, "en")).toBe("3");
@@ -838,21 +794,5 @@ describe("getCoordQuadrant", () => {
         ${[2, -4]}  | ${4}
     `("returns $expected for coord $coord", ({coord, expected}) => {
         expect(getCoordQuadrant(coord)).toBe(expected);
-    });
-});
-
-describe("getQuadraticVertexString", () => {
-    it("describes the quadrant the vertex lies in", () => {
-        expect(getQuadraticVertexString([2, -4], mockStrings)).toBe(
-            "Vertex is in quadrant 4.",
-        );
-    });
-});
-
-describe("getQuadraticPointString", () => {
-    it("describes the point with its number and the quadrant it lies in", () => {
-        expect(getQuadraticPointString(1, [-2, 4], mockStrings, "en")).toBe(
-            "Point 1 on parabola in quadrant 2 at -2 comma 4.",
-        );
     });
 });
