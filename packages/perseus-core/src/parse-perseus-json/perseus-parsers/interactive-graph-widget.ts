@@ -199,6 +199,7 @@ const parseLockedFigureColor = pipeParsers(
         "purple",
         "pink",
         "red",
+        "blurple",
         // deprecated name - "orange" is now "gold"
         "orange",
     ),
