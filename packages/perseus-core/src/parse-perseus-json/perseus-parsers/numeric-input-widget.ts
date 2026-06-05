@@ -120,13 +120,13 @@ const parseNumericInputWidgetV0 = parseWidgetWithVersion(
 function migrateV0ToV1(
     widget: ParsedValue<typeof parseNumericInputWidgetV0>,
 ): ParsedValue<typeof parseNumericInputWidgetV1> {
-    const {options} = widget;
+    const {rightAlign, ...options} = widget.options;
     return {
         ...widget,
         version: {major: 1, minor: 0},
         options: {
             ...options,
-            textAlign: options.rightAlign ? "end" : "start",
+            textAlign: rightAlign ? "end" : "start",
         },
     };
 }
