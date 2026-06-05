@@ -120,6 +120,7 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
+                        alignment: "start",
                     },
                 },
             },

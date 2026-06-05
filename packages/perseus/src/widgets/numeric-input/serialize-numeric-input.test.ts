@@ -48,6 +48,7 @@ describe("NumericInput serialization", () => {
                             },
                         ],
                         size: "normal",
+                        alignment: "start",
                     },
                 },
             },

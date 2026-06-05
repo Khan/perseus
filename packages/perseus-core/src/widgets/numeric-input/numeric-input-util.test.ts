@@ -20,7 +20,7 @@ describe("getNumericInputPublicWidgetOptions", () => {
             labelText: "labelText",
             size: "Normal",
             coefficient: false,
-            rightAlign: false,
+            alignment: "start",
         };
 
         // Act

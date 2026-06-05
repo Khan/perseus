@@ -58,7 +58,7 @@ const meta: Meta<typeof NumericInput> = {
     args: {
         coefficient: false,
         userInput: {currentValue: ""},
-        rightAlign: false,
+        alignment: "start",
         size: "normal",
         answers: [
             {
