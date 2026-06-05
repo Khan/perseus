@@ -1091,10 +1091,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             const onChangeMock = jest.fn();
 
             const squarePolygonPoints = [
-                [-9, 4],
-                [-6, 4],
-                [-6, 1],
-                [-9, 1],
+                {coord: [-9, 4]},
+                {coord: [-6, 4]},
+                {coord: [-6, 1]},
+                {coord: [-9, 1]},
             ];
 
             renderEditor({
@@ -1102,7 +1102,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [
                     {
                         ...defaultPolygon,
-                        points: squarePolygonPoints.map((coord) => ({coord})),
+                        points: squarePolygonPoints,
                     },
                 ],
             });
@@ -1119,9 +1119,11 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "polygon",
-                            points: squarePolygonPoints
-                                .slice(1)
-                                .map((coord) => ({coord})),
+                            points: [
+                                {coord: [-6, 4]},
+                                {coord: [-6, 1]},
+                                {coord: [-9, 1]},
+                            ],
                         }),
                     ],
                 }),
