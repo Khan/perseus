@@ -6,7 +6,7 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type NumericInputDefaultWidgetOptions = Pick<
     PerseusNumericInputWidgetOptions,
-    "answers" | "size" | "coefficient" | "labelText" | "alignment"
+    "answers" | "size" | "coefficient" | "labelText" | "textAlign"
 >;
 
 const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
@@ -24,7 +24,7 @@ const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
     size: "normal",
     coefficient: false,
     labelText: "",
-    alignment: "start",
+    textAlign: "start",
 };
 
 const numericInputWidgetLogic: WidgetLogic<

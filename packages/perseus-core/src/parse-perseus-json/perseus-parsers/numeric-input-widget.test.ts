@@ -62,7 +62,7 @@ describe("parseSimplify", () => {
     });
 });
 
-describe("alignment", () => {
+describe("textAlign", () => {
     it("migrates from v0 to v1 when rightAlign is undefined", () => {
         // Arrange
         const widget = numericInputWidget({}, {major: 0, minor: 0});
@@ -73,10 +73,10 @@ describe("alignment", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.alignment).toBe("start");
+        expect(result.value.options.textAlign).toBe("start");
     });
 
-    it("migrates from v0 to v1 when rightAlign is true", () => {
+    it("migrates from v0 to v1 when textAlign is true", () => {
         // Arrange
         const widget = numericInputWidget(
             {rightAlign: true},
@@ -89,7 +89,7 @@ describe("alignment", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.alignment).toBe("end");
+        expect(result.value.options.textAlign).toBe("end");
     });
 
     it("migrates from v0 to v1 when rightAlign is false", () => {
@@ -105,10 +105,10 @@ describe("alignment", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.alignment).toBe("start");
+        expect(result.value.options.textAlign).toBe("start");
     });
 
-    it("handles v1 undefined alignment", () => {
+    it("handles v1 undefined textAlign", () => {
         // Arrange
         const widget = numericInputWidget({}, {major: 1, minor: 0});
 
@@ -118,13 +118,13 @@ describe("alignment", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.alignment).toBe("start");
+        expect(result.value.options.textAlign).toBe("start");
     });
 
-    it("handles v1 start alignment", () => {
+    it("handles v1 start textAlign", () => {
         // Arrange
         const widget = numericInputWidget(
-            {alignment: "start"},
+            {textAlign: "start"},
             {major: 1, minor: 0},
         );
 
@@ -133,13 +133,13 @@ describe("alignment", () => {
 
         // Assert
         assertSuccess(result);
-        expect(result.value.options.alignment).toBe("start");
+        expect(result.value.options.textAlign).toBe("start");
     });
 
-    it("handles v1 end alignment", () => {
+    it("handles v1 end textAlign", () => {
         // Arrange
         const widget = numericInputWidget(
-            {alignment: "end"},
+            {textAlign: "end"},
             {major: 1, minor: 0},
         );
 
@@ -148,13 +148,13 @@ describe("alignment", () => {
 
         // Assert
         assertSuccess(result);
-        expect(result.value.options.alignment).toBe("end");
+        expect(result.value.options.textAlign).toBe("end");
     });
 
-    it("handles v1 center alignment", () => {
+    it("handles v1 center textAlign", () => {
         // Arrange
         const widget = numericInputWidget(
-            {alignment: "center"},
+            {textAlign: "center"},
             {major: 1, minor: 0},
         );
 
@@ -163,6 +163,6 @@ describe("alignment", () => {
 
         // Assert
         assertSuccess(result);
-        expect(result.value.options.alignment).toBe("center");
+        expect(result.value.options.textAlign).toBe("center");
     });
 });

@@ -30,7 +30,7 @@ describe("generateNumericInputOptions", () => {
         expect(options.size).toBe("normal");
         expect(options.coefficient).toBe(false);
         expect(options.labelText).toBe("");
-        expect(options.alignment).toBe("start");
+        expect(options.textAlign).toBe("start");
     });
 
     it("builds a numeric input options with all props", () => {
@@ -51,7 +51,7 @@ describe("generateNumericInputOptions", () => {
                 size: "small",
                 coefficient: true,
                 labelText: "Enter your answer",
-                alignment: "end",
+                textAlign: "end",
             });
 
         // Assert
@@ -69,7 +69,7 @@ describe("generateNumericInputOptions", () => {
         expect(options.size).toBe("small");
         expect(options.coefficient).toBe(true);
         expect(options.labelText).toBe("Enter your answer");
-        expect(options.alignment).toBe("end");
+        expect(options.textAlign).toBe("end");
     });
 
     it("builds a numeric input options with answer generator default", () => {
@@ -80,7 +80,7 @@ describe("generateNumericInputOptions", () => {
                 size: "normal",
                 coefficient: false,
                 labelText: "",
-                alignment: "start",
+                textAlign: "start",
             });
 
         // Assert
@@ -98,7 +98,7 @@ describe("generateNumericInputOptions", () => {
         expect(options.size).toBe("normal");
         expect(options.coefficient).toBe(false);
         expect(options.labelText).toBe("");
-        expect(options.alignment).toBe("start");
+        expect(options.textAlign).toBe("start");
     });
 
     it("builds a numeric input options with answer generator specified", () => {
@@ -189,7 +189,7 @@ describe("generateNumericInputWidget", () => {
             size: "normal",
             coefficient: false,
             labelText: "",
-            alignment: "start",
+            textAlign: "start",
             static: false,
         });
     });
@@ -216,7 +216,7 @@ describe("generateNumericInputWidget", () => {
                 size: "small",
                 coefficient: true,
                 labelText: "Enter your answer",
-                alignment: "end",
+                textAlign: "end",
             },
         });
 
@@ -240,7 +240,7 @@ describe("generateNumericInputWidget", () => {
             size: "small",
             coefficient: true,
             labelText: "Enter your answer",
-            alignment: "end",
+            textAlign: "end",
         });
     });
 

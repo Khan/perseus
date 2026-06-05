@@ -255,7 +255,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
 
-        expect(result.alignment).toBe("start");
+        expect(result.textAlign).toBe("start");
     });
 
     it("converts alignment when rightAlign is true", () => {
@@ -266,7 +266,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
 
-        expect(result.alignment).toBe("end");
+        expect(result.textAlign).toBe("end");
     });
 
     it("converts alignment when rightAlign is false", () => {
@@ -277,6 +277,6 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
 
-        expect(result.alignment).toBe("start");
+        expect(result.textAlign).toBe("start");
     });
 });

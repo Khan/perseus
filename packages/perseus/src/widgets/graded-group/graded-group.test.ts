@@ -243,7 +243,7 @@ describe("graded-group", () => {
                                         labelText: "",
                                         size: "normal",
                                         coefficient: false,
-                                        alignment: "start",
+                                        textAlign: "start",
                                     },
                                 }),
                             },

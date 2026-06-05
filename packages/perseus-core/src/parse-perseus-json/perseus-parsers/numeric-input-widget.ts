@@ -97,7 +97,7 @@ const parseNumericInputWidgetV1 = parseWidgetWithVersion(
         labelText: optional(string),
         size: string,
         coefficient: defaulted(boolean, () => false),
-        alignment: defaulted(
+        textAlign: defaulted(
             enumeration("start", "end", "center"),
             () => "start" as const,
         ),
@@ -126,7 +126,7 @@ function migrateV0ToV1(
         version: {major: 1, minor: 0},
         options: {
             ...options,
-            alignment: options.rightAlign ? "end" : "start",
+            textAlign: options.rightAlign ? "end" : "start",
         },
     };
 }
