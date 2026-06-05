@@ -724,6 +724,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-exponential-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "logarithm": {
@@ -929,6 +939,10 @@ function doMoveCenter(
                 ...state,
                 hasBeenInteractedWith: true,
                 asymptote: newY,
+                stateAnnouncement: {
+                    type: "move-exponential-asymptote",
+                    asymptoteY: newY,
+                },
             };
         }
         case "logarithm": {

@@ -160,6 +160,23 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Exponential graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveExponentialPointAnnouncement = {
+    type: "move-exponential-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Exponential graph: the horizontal asymptote moves vertically, so only
+// its y-position is carried.
+type MoveExponentialAsymptoteAnnouncement = {
+    type: "move-exponential-asymptote";
+    asymptoteY: number;
+};
+
 // Angle graph: vertex (index 1) reads with the measured angle; sides
 // (indices 0, 2) read with just coords. The reducer pre-computes the
 // measure since it already imports the angle helpers.
@@ -195,6 +212,8 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveExponentialPointAnnouncement
+    | MoveExponentialAsymptoteAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 
