@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -919,7 +919,7 @@ const styles = StyleSheet.create({
     card: {
         boxSizing: "border-box",
         background: semanticColor.core.background.base.default,
-        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
+        border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         borderRadius: 4,
         cursor: "pointer",
         minWidth: 25,
@@ -934,7 +934,7 @@ const styles = StyleSheet.create({
 
     placeholder: {
         background: semanticColor.core.background.neutral.subtle,
-        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
+        border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
     },
 
     draggable: {
@@ -957,13 +957,13 @@ const styles = StyleSheet.create({
 
     dragging: {
         background: semanticColor.core.background.instructive.subtle,
-        border: `1px solid ${semanticColor.core.border.instructive.default}`,
+        border: `${border.width.thin} solid ${semanticColor.core.border.instructive.default}`,
         opacity: 0.8,
     },
 
     disabled: {
         backgroundColor: "inherit",
-        border: "1px solid transparent",
+        border: `${border.width.thin} solid ${semanticColor.core.border.disabled.subtle}`,
         cursor: "default",
     },
 });
