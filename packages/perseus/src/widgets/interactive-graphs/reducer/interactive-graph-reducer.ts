@@ -816,6 +816,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-tangent-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "quadratic": {

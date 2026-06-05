@@ -215,6 +215,61 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-tangent-point", () => {
+        // Coord layout: [inflection(0), second/control point(1)]. The
+        // inflection point uses the inflection label; the second point uses
+        // the control-point label.
+        it("uses the inflection-point label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-tangent-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 1,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Inflection point at -3 comma 1.");
+        });
+
+        it("uses the control-point label for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-tangent-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 4,
+                    y: -2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Control point at 4 comma -2.");
+        });
+
+        // TODO(LEMS-4206): allow custom labels for tangent points so we can
+        // keep the inflection/control-point wording.
+        it("uses the custom label, overriding the inflection/control-point wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-tangent-point",
+                    pointIndex: 0,
+                    pointLabel: "I",
+                    x: -3,
+                    y: 1,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point I at -3 comma 1.");
+        });
+    });
+
     describe("move-angle-point", () => {
         // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
         // side labels include their coords; the vertex also includes the

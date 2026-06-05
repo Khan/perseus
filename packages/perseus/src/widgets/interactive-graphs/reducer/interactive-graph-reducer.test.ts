@@ -1810,6 +1810,102 @@ describe("movePoint on a sinusoid graph", () => {
     });
 });
 
+describe("movePoint on a tangent graph", () => {
+    it("sets stateAnnouncement to a move-tangent-point when moving the inflection point", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [-3, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-tangent-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(-3);
+        expect(updated.stateAnnouncement.y).toBe(1);
+    });
+
+    it("sets stateAnnouncement to a move-tangent-point when moving the second point", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(1, [4, -2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-tangent-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(4);
+        expect(updated.stateAnnouncement.y).toBe(-2);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["I", "P"],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [-3, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-tangent-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe("I");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+            pointLabels: ["", "P"],
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [-3, 1]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-tangent-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+
+    it("rejects the move when both points would share the same x-coordinate", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        });
+
+        // Moving the inflection point onto the second point's x (2) would make
+        // the coefficients undefined, so the move is rejected.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [2, 5]),
+        );
+
+        invariant(updated.type === "tangent");
+        expect(updated.coords[0]).toEqual([0, 0]);
+        expect(updated.stateAnnouncement).toBeUndefined();
+    });
+});
+
 describe("movePoint on a quadratic graph", () => {
     it("moves a point", () => {
         const state: InteractiveGraphState = baseQuadraticGraphState;

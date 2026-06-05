@@ -61,6 +61,8 @@ export function getAnnouncementText(
             );
         case "move-sinusoid-point":
             return srSinusoidPointLabel(state, strings, locale);
+        case "move-tangent-point":
+            return srTangentPointLabel(state, strings, locale);
         case "move-angle-point":
             return srAnglePointLabel(state, strings, locale);
         case "move-polygon":
@@ -123,6 +125,31 @@ function srSinusoidPointLabel(
     return state.y > state.otherY
         ? strings.srSinusoidMaxPoint(formatted)
         : strings.srSinusoidMinPoint(formatted);
+}
+
+function srTangentPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the inflection/control-point semantics,
+    // matching the static aria-label behavior in tangent.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
+    return state.pointIndex === 0
+        ? strings.srTangentInflectionPoint({x, y})
+        : strings.srTangentSecondPoint({x, y});
 }
 
 function srAnglePointLabel(
