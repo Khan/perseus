@@ -118,12 +118,10 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
-    // A side is considered "stable" once its measurement matches the shared
-    // constraint — meaning further re-measurement of that side won't push
-    // the constraint to change. Settling requires both sides stable (see
-    // _maybeSettle). The check is intentionally not symmetric with the
-    // *opposite* side's state; it just verifies "this measurement won't
-    // drive future change."
+    // A side is considered "stable" once its natural height is at or below the
+    // shared constraint — meaning it won't push the constraint higher and
+    // trigger another re-measurement cycle. Settling requires both sides
+    // stable (see _maybeSettle).
     onMeasureLeft: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
         const currentConstraint = _.max([
@@ -131,7 +129,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             this.state.rightHeight,
         ]);
         this.setState({leftHeight: height});
-        if (height === currentConstraint && currentConstraint > 0) {
+        if (height <= currentConstraint && currentConstraint > 0) {
             this._leftStable = true;
             this._maybeSettle();
         }
@@ -144,7 +142,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             this.state.rightHeight,
         ]);
         this.setState({rightHeight: height});
-        if (height === currentConstraint && currentConstraint > 0) {
+        if (height <= currentConstraint && currentConstraint > 0) {
             this._rightStable = true;
             this._maybeSettle();
         }
