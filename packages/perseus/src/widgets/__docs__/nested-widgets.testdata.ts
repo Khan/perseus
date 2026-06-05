@@ -1,4 +1,6 @@
 import {
+    generateDefinitionOptions,
+    generateDefinitionWidget,
     generateExplanationOptions,
     generateExplanationWidget,
     generateGradedGroupOptions,
@@ -9,7 +11,11 @@ import {
     generateRadioWidget,
     generateTestPerseusRenderer,
     generateVideoWidget,
-    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+
+import type {
+    PerseusRenderer,
+    PerseusExplanationWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 export const gradedGroupWithRadioAndExplanation: PerseusRenderer =
@@ -49,6 +55,50 @@ export const gradedGroupWithRadioAndExplanation: PerseusRenderer =
                                 hidePrompt: "Hide explanation",
                                 explanation:
                                     "Captain Picard commanded the USS Stargazer (NCC-2893) before taking command of the USS Enterprise (NCC-1701-D).",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const gradedGroupWithRadioAndDefinition: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "Jean-Luc Picard's first command",
+                    content:
+                        "What ship was [[☃ definition 1]] first command?\n\n[[☃ radio 1]]",
+                    widgets: {
+                        "radio 1": generateRadioWidget({
+                            options: {
+                                choices: [
+                                    generateRadioChoice(
+                                        "USS Voyager (NCC-74656)",
+                                    ),
+                                    generateRadioChoice(
+                                        "USS Enterprise (NCC-1701-D)",
+                                    ),
+                                    generateRadioChoice(
+                                        "USS Enterprise (NX-01)",
+                                    ),
+                                    generateRadioChoice(
+                                        "USS Stargazer (NCC-2893)",
+                                        {
+                                            correct: true,
+                                        },
+                                    ),
+                                ],
+                            },
+                        }),
+                        "definition 1": generateDefinitionWidget({
+                            options: generateDefinitionOptions({
+                                definition:
+                                    "Jean-Luc Picard is the esteemed captain of the USS Enterprise.",
+                                togglePrompt: "Jean-Luc Picard's",
                             }),
                         }),
                     },
@@ -104,3 +154,18 @@ export const imageInContent: PerseusRenderer = generateTestPerseusRenderer({
         }),
     },
 });
+
+export const explanationWithDefinitionOptions: PerseusExplanationWidgetOptions =
+    generateExplanationOptions({
+        explanation:
+            "During World War II, in August of 1943, the [[☃ definition 1]] launched a massive bombing campaign on Milan and its outskirts.",
+        widgets: {
+            "definition 1": generateDefinitionWidget({
+                options: generateDefinitionOptions({
+                    definition:
+                        "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",
+                    togglePrompt: "Allies",
+                }),
+            }),
+        },
+    });
