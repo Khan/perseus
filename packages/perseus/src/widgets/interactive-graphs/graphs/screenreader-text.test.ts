@@ -2,7 +2,10 @@ import {mockStrings} from "../../../strings";
 
 import {
     getAnnouncementText,
+    getCoordQuadrant,
     getPiMultiple,
+    getQuadraticPointString,
+    getQuadraticVertexString,
     srCircleCenterLabel,
     srCircleRadiusPointLabel,
     srFormatNumber,
@@ -821,4 +824,35 @@ describe("getPiMultiple", () => {
             expect(getPiMultiple(num)).toBe(expectedString);
         },
     );
+});
+
+describe("getCoordQuadrant", () => {
+    test.each`
+        coord        | expected
+        ${[0, 0]}    | ${"origin"}
+        ${[3, 0]}    | ${"x-axis"}
+        ${[0, 3]}    | ${"y-axis"}
+        ${[2, 4]}    | ${1}
+        ${[-2, 4]}   | ${2}
+        ${[-2, -4]}  | ${3}
+        ${[2, -4]}   | ${4}
+    `("returns $expected for coord $coord", ({coord, expected}) => {
+        expect(getCoordQuadrant(coord)).toBe(expected);
+    });
+});
+
+describe("getQuadraticVertexString", () => {
+    it("describes the quadrant the vertex lies in", () => {
+        expect(getQuadraticVertexString([2, -4], mockStrings)).toBe(
+            "Vertex is in quadrant 4.",
+        );
+    });
+});
+
+describe("getQuadraticPointString", () => {
+    it("describes the point with its number and the quadrant it lies in", () => {
+        expect(getQuadraticPointString(1, [-2, 4], mockStrings, "en")).toBe(
+            "Point 1 on parabola in quadrant 2 at -2 comma 4.",
+        );
+    });
 });

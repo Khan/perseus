@@ -364,7 +364,7 @@ export function srCircleCenterLabel(
 
 type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
 
-function getCoordQuadrant(coord: Coord): GraphLocations {
+export function getCoordQuadrant(coord: Coord): GraphLocations {
     const [unroundedX, unroundedY] = coord;
     const x = Number(unroundedX.toFixed(3));
     const y = Number(unroundedY.toFixed(3));
