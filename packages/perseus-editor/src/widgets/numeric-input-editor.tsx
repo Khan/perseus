@@ -12,6 +12,7 @@ import {
     type PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -456,28 +457,21 @@ class NumericInputEditor extends React.Component<Props, State> {
             </fieldset>
         );
 
-        const rightAlign = (
-            <fieldset className="perseus-widget-row">
-                <legend className="inline-options">Alignment: </legend>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.rightAlign ? "transparent" : "accent"}
-                    onClick={() => {
-                        this.props.onChange({rightAlign: false});
+        const textAlign = (
+            <label>
+                Text alignment
+                <SingleSelect
+                    selectedValue={this.props.textAlign}
+                    onChange={(value) => {
+                        this.props.onChange({textAlign: value});
                     }}
+                    placeholder="Select text alignment"
                 >
-                    Left
-                </Pill>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.rightAlign ? "accent" : "transparent"}
-                    onClick={() => {
-                        this.props.onChange({rightAlign: true});
-                    }}
-                >
-                    Right
-                </Pill>
-            </fieldset>
+                    <OptionItem value="start" label="Left" />
+                    <OptionItem value="center" label="Center" />
+                    <OptionItem value="end" label="Right" />
+                </SingleSelect>
+            </label>
         );
 
         const labelText = (
@@ -729,7 +723,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     <div className="perseus-editor-accordion-content">
                         {inputSize}
-                        {rightAlign}
+                        {textAlign}
                         {coefficientCheck}
                         {labelText}
                     </div>

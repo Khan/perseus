@@ -67,19 +67,24 @@ describe("numeric-input-editor", () => {
         );
     });
 
-    it("should be possible to select right alignment", async () => {
+    it("should be possible to change text alignment", async () => {
         const onChangeMock = jest.fn();
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        await userEvent.click(
-            within(screen.getByRole("group", {name: /^Alignment/})).getByRole(
-                "radio",
-                {name: "Right"},
-            ),
-        );
+        // Act
+        const opener = await screen.findByRole("combobox", {
+            name: "Text alignment",
+        });
+        await userEvent.click(opener);
+        await userEvent.click(await screen.findByText("Center"));
 
-        expect(onChangeMock).toHaveBeenCalledWith({rightAlign: true});
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                textAlign: "center",
+            }),
+        );
     });
 
     it("should be possible to select coefficient", async () => {
