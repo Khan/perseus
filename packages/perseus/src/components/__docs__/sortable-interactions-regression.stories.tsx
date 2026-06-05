@@ -62,6 +62,7 @@ export const PlaceholderVisible = {
         // To move the sortable card, we need to "fire" a "mouseMove" event on the "document" element
         // because the sortable's event listener is registered on the "document" instead of the card.
         // Also, events dispatched via "userEvent" don't bubble up to the "document".
+        // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseMove(document, {
             clientX: cardRect.right + 150,
             clientY: cardRect.top + 20,
