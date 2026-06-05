@@ -191,10 +191,15 @@ runs:
               fi
 
               # Read current labels from the API (not the event payload) so we
-              # see any label edits this run just made.
+              # see any label edits this run just made. `if !` keeps `set -e`
+              # from aborting silently on a gh failure, so we can surface a
+              # clear, framed error (gh's own message still prints above it).
               change_present=false
               acked=false
-              labels="$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name')"
+              if ! labels="$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name')"; then
+                  echo "::error::Couldn't read the PR's labels — re-run the job (gh error above)."
+                  exit 1
+              fi
               while IFS= read -r label; do
                   if [ "$label" = "$LABEL_NAME" ]; then change_present=true; fi
                   if [ "$label" = "$ACK_LABEL_NAME" ]; then acked=true; fi
