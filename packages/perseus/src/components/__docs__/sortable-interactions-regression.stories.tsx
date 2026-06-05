@@ -1,7 +1,7 @@
 import {expect, fireEvent, fn, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../.storybook/modes";
-import {startDrag} from "../../../../../.storybook/play-utils";
+import {mouseDown} from "../../../../../.storybook/play-utils";
 import Sortable from "../sortable";
 
 import type {Meta} from "@storybook/react-vite";
@@ -33,7 +33,7 @@ export const DraggingCard = {
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
         const cards = canvas.getAllByRole("listitem");
-        await startDrag(cards[0], userEvent);
+        await mouseDown(cards[0], userEvent);
         // requestAnimationFrame inside onMouseDown fires asynchronously;
         // wait for the placeholder to appear before Chromatic snapshots.
         await waitFor(() =>
@@ -53,7 +53,7 @@ export const PlaceholderVisible = {
         const canvas = within(canvasElement);
         const cards = canvas.getAllByRole("listitem");
         const cardRect = cards[0].getBoundingClientRect();
-        await startDrag(cards[0], userEvent);
+        await mouseDown(cards[0], userEvent);
         // Wait for the placeholder to appear in the DOM
         await waitFor(() =>
             expect(canvas.getAllByRole("listitem")).toHaveLength(4),
