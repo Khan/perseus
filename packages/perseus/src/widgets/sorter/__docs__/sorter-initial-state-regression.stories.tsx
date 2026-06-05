@@ -1,3 +1,12 @@
+import {
+    generateSorterOptions,
+    generateSorterWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+import * as React from "react";
+
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 
@@ -9,7 +18,6 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<PerseusSorterWidgetOptions> = {
     title: "Widgets/Sorter/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
-    decorators: [sorterRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -33,11 +41,13 @@ const horizontalItems: Partial<PerseusSorterWidgetOptions> = {
 
 // Verifies the default horizontal layout: cards arranged in a row with padding
 export const DefaultHorizontal: Story = {
+    decorators: [sorterRendererDecorator],
     args: horizontalItems,
 };
 
 // Verifies the vertical layout: cards stacked in a column with padding
 export const DefaultVertical: Story = {
+    decorators: [sorterRendererDecorator],
     args: {
         correct: [
             "Longest option in the list",
@@ -52,7 +62,7 @@ export const DefaultVertical: Story = {
 
 // Verifies the horizontal layout on mobile: narrower margin between cards (8px vs 5px)
 export const MobileHorizontal: Story = {
-    decorators: [mobileDecorator],
+    decorators: [mobileDecorator, sorterRendererDecorator],
     parameters: {
         apiOptions: {isMobile: true},
     },
@@ -61,6 +71,7 @@ export const MobileHorizontal: Story = {
 
 // Verifies horizontal layout with padding disabled: cards rendered without inner spacing
 export const NoPadding: Story = {
+    decorators: [sorterRendererDecorator],
     args: {
         correct: ["Item one", "Item two", "Item three"],
         padding: false,
@@ -68,18 +79,30 @@ export const NoPadding: Story = {
     },
 };
 
-// Verifies TeX rendering in card content. Sorter coordinates AssetContext,
-// marking itself settled once Sortable has produced its first measurement
-// after the post-typeset measurement cascade — so Chromatic snapshots only
-// fire after measurement settles, no manual delay required.
+// Verifies TeX rendering in card content. Rendered through ServerItemRenderer
+// so AssetContext.Provider is in the tree and the measurement-cascade settling
+// signal reaches the renderer.
 export const WithTeX: Story = {
-    args: {
-        correct: [
-            "$f(x) = \\dfrac{1}{x}$",
-            "$f(x) = \\dfrac{1}{x^2}$",
-            "$f(x) = \\dfrac{1}{x^3}$",
-        ],
-        padding: true,
-        layout: "horizontal",
-    },
+    render: () => (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "Arrange these items in order. [[☃ sorter 1]]",
+                    widgets: {
+                        "sorter 1": generateSorterWidget({
+                            options: generateSorterOptions({
+                                correct: [
+                                    "$f(x) = \\dfrac{1}{x}$",
+                                    "$f(x) = \\dfrac{1}{x^2}$",
+                                    "$f(x) = \\dfrac{1}{x^3}$",
+                                ],
+                                padding: true,
+                                layout: "horizontal",
+                            }),
+                        }),
+                    },
+                }),
+            })}
+        />
+    ),
 };

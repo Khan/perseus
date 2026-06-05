@@ -1,3 +1,11 @@
+import {
+    generateMatcherWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+import * as React from "react";
+
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {themeModes} from "../../../../../../.storybook/modes";
 
 import {matcherRendererDecorator} from "./matcher-renderer-decorator";
@@ -57,27 +65,38 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in both column labels and item cards. Matcher
-// coordinates AssetContext, marking itself settled once both columns have
-// measured at heights consistent with the shared constraint — so Chromatic
-// snapshots only fire after the measurement cascade settles, no manual
-// delay required.
+// Verifies TeX rendering in both column labels and item cards. Rendered
+// through ServerItemRenderer so AssetContext.Provider is in the tree and
+// the measurement-cascade settling signal reaches the renderer.
 export const WithTeX: Story = {
-    decorators: [matcherRendererDecorator],
-    args: {
-        ...sharedArgs,
-        labels: ["$f(x)$", "$f'(x)$"],
-        left: [
-            "$f(x) = \\dfrac{1}{x}$",
-            "$f(x) = \\dfrac{1}{x^2}$",
-            "$f(x) = \\dfrac{1}{x^3}$",
-        ],
-        right: [
-            "$f'(x) = -\\dfrac{1}{x^2}$",
-            "$f'(x) = -\\dfrac{2}{x^3}$",
-            "$f'(x) = -\\dfrac{3}{x^4}$",
-        ],
-    },
+    render: () => (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ matcher 1]]",
+                    widgets: {
+                        "matcher 1": generateMatcherWidget({
+                            options: {
+                                labels: ["$f(x)$", "$f'(x)$"],
+                                left: [
+                                    "$f(x) = \\dfrac{1}{x}$",
+                                    "$f(x) = \\dfrac{1}{x^2}$",
+                                    "$f(x) = \\dfrac{1}{x^3}$",
+                                ],
+                                right: [
+                                    "$f'(x) = -\\dfrac{1}{x^2}$",
+                                    "$f'(x) = -\\dfrac{2}{x^3}$",
+                                    "$f'(x) = -\\dfrac{3}{x^4}$",
+                                ],
+                                orderMatters: false,
+                                padding: true,
+                            },
+                        }),
+                    },
+                }),
+            })}
+        />
+    ),
 };
 
 // Verifies the orderMatters state: both columns render as draggable cards
