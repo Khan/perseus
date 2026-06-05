@@ -14,7 +14,10 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
-import {parseWidget} from "./widget";
+import {versionedWidgetOptions} from "./versioned-widget-options";
+import {parseWidgetWithVersion} from "./widget";
+
+import type {ParsedValue} from "../parser-types";
 
 const parseMathFormat = enumeration(
     "integer",
@@ -64,32 +67,71 @@ function deprecatedSimplifyValuesToRequired(
     }
 }
 
-export const parseNumericInputWidget = parseWidget(
+const parseNumericInputAnswers = array(
+    object({
+        message: defaulted(string, () => ""),
+        // TODO(benchristel): value should never be null or undefined,
+        // but we have some content where it is anyway. If we backfill
+        // the data, simplify this.
+        value: optional(nullable(number)),
+        status: string,
+        answerForms: defaulted(
+            optional(array(parseMathFormat)),
+            () => undefined,
+        ),
+        strict: defaulted(boolean, () => false),
+        maxError: optional(nullable(number)),
+        // TODO(benchristel): simplify should never be a boolean, but we
+        // have some content where it is anyway. If we ever backfill
+        // the data, we should simplify `simplify`.
+        simplify: parseSimplify,
+    }),
+);
+
+const version1 = object({major: constant(1), minor: number});
+const parseNumericInputWidgetV1 = parseWidgetWithVersion(
+    version1,
     constant("numeric-input"),
     object({
-        answers: array(
-            object({
-                message: defaulted(string, () => ""),
-                // TODO(benchristel): value should never be null or undefined,
-                // but we have some content where it is anyway. If we backfill
-                // the data, simplify this.
-                value: optional(nullable(number)),
-                status: string,
-                answerForms: defaulted(
-                    optional(array(parseMathFormat)),
-                    () => undefined,
-                ),
-                strict: defaulted(boolean, () => false),
-                maxError: optional(nullable(number)),
-                // TODO(benchristel): simplify should never be a boolean, but we
-                // have some content where it is anyway. If we ever backfill
-                // the data, we should simplify `simplify`.
-                simplify: parseSimplify,
-            }),
+        answers: parseNumericInputAnswers,
+        labelText: optional(string),
+        size: string,
+        coefficient: defaulted(boolean, () => false),
+        alignment: defaulted(
+            enumeration("start", "end", "center"),
+            () => "start" as const,
         ),
+    }),
+);
+
+const version0 = optional(object({major: constant(0), minor: number}));
+const parseNumericInputWidgetV0 = parseWidgetWithVersion(
+    version0,
+    constant("numeric-input"),
+    object({
+        answers: parseNumericInputAnswers,
         labelText: optional(string),
         size: string,
         coefficient: defaulted(boolean, () => false),
         rightAlign: optional(boolean),
     }),
 );
+
+function migrateV0ToV1(
+    widget: ParsedValue<typeof parseNumericInputWidgetV0>,
+): ParsedValue<typeof parseNumericInputWidgetV1> {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 1, minor: 0},
+        options: {
+            ...options,
+            alignment: options.rightAlign ? "end" : "start",
+        },
+    };
+}
+
+export const parseNumericInputWidget = versionedWidgetOptions(
+    1,
+    parseNumericInputWidgetV1,
+).withMigrationFrom(0, parseNumericInputWidgetV0, migrateV0ToV1).parser;

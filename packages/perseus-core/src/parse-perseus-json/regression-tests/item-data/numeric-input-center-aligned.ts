@@ -33,12 +33,12 @@ export default {
                             status: "correct",
                             strict: false,
                             value: 1.125,
-                            alignment: "center",
                         },
                     ],
                     coefficient: false,
                     labelText: "",
                     size: "normal",
+                    alignment: "center",
                 },
                 type: "numeric-input",
                 version: {

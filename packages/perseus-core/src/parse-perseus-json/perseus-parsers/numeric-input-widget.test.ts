@@ -1,8 +1,24 @@
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
-import {success} from "../result";
+import {assertSuccess, success} from "../result";
 
-import {parseSimplify} from "./numeric-input-widget";
+import {parseNumericInputWidget, parseSimplify} from "./numeric-input-widget";
+
+function numericInputWidget(
+    options: Record<string, unknown>,
+    version: {major: number; minor: number},
+) {
+    return {
+        type: "numeric-input",
+        options: {
+            answers: [{status: "correct", simplify: "required"}],
+            size: "normal",
+            coefficient: false,
+            ...options,
+        },
+        version,
+    };
+}
 
 describe("parseSimplify", () => {
     it(`preserves "required"`, () => {
@@ -43,5 +59,110 @@ describe("parseSimplify", () => {
 
     it(`rejects an arbitrary string`, () => {
         expect(parse("foobar", parseSimplify)).toEqual(anyFailure);
+    });
+});
+
+describe("alignment", () => {
+    it("migrates from v0 to v1 when rightAlign is undefined", () => {
+        // Arrange
+        const widget = numericInputWidget({}, {major: 0, minor: 0});
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.alignment).toBe("start");
+    });
+
+    it("migrates from v0 to v1 when rightAlign is true", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {rightAlign: true},
+            {major: 0, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.alignment).toBe("end");
+    });
+
+    it("migrates from v0 to v1 when rightAlign is false", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {rightAlign: false},
+            {major: 0, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.alignment).toBe("start");
+    });
+
+    it("handles v1 undefined alignment", () => {
+        // Arrange
+        const widget = numericInputWidget({}, {major: 1, minor: 0});
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.alignment).toBe("start");
+    });
+
+    it("handles v1 start alignment", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {alignment: "start"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.alignment).toBe("start");
+    });
+
+    it("handles v1 end alignment", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {alignment: "end"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.alignment).toBe("end");
+    });
+
+    it("handles v1 center alignment", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {alignment: "center"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.alignment).toBe("center");
     });
 });

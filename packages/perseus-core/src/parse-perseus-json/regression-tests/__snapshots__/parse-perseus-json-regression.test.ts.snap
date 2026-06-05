@@ -784,6 +784,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0.05,
@@ -800,7 +801,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -862,6 +863,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -873,13 +875,12 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -1390,6 +1391,7 @@ $r =  $ [[☃ numeric-input 1]] ",
       "numeric-input 1": {
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": null,
@@ -1406,7 +1408,7 @@ $r =  $ [[☃ numeric-input 1]] ",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -1463,6 +1465,7 @@ $r =  $ [[☃ numeric-input 1]] ",
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -1474,13 +1477,12 @@ $r =  $ [[☃ numeric-input 1]] ",
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -3543,6 +3545,7 @@ $\\begin{align}
                     "alignment": "default",
                     "graded": true,
                     "options": {
+                      "alignment": "left",
                       "answers": [
                         {
                           "maxError": null,
@@ -3561,7 +3564,7 @@ $\\begin{align}
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3569,6 +3572,7 @@ $\\begin{align}
                     "alignment": "default",
                     "graded": true,
                     "options": {
+                      "alignment": "left",
                       "answers": [
                         {
                           "answerForms": [
@@ -3591,7 +3595,7 @@ $\\begin{align}
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3650,6 +3654,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                     "alignment": "default",
                     "graded": true,
                     "options": {
+                      "alignment": "left",
                       "answers": [
                         {
                           "maxError": null,
@@ -3668,7 +3673,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3676,6 +3681,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                     "alignment": "default",
                     "graded": true,
                     "options": {
+                      "alignment": "left",
                       "answers": [
                         {
                           "maxError": null,
@@ -3694,7 +3700,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -11441,6 +11447,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": null,
@@ -11459,7 +11466,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -11560,6 +11567,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -11571,13 +11579,12 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
           ],
           "coefficient": false,
           "labelText": "product",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -13801,6 +13808,7 @@ $=(31-31) -8$",
       "numeric-input 1": {
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": null,
@@ -13816,7 +13824,7 @@ $=(31-31) -8$",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -13900,6 +13908,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -13911,13 +13920,12 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -13946,6 +13954,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
       "numeric-input 1": {
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [],
@@ -13962,7 +13971,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -13992,6 +14001,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [],
@@ -14003,13 +14013,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14050,6 +14059,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0,
@@ -14066,7 +14076,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14109,6 +14119,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -14120,13 +14131,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14207,6 +14217,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [
@@ -14228,7 +14239,7 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14297,6 +14308,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [
@@ -14311,13 +14323,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14358,6 +14369,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "center",
           "answers": [
             {
               "maxError": 0,
@@ -14417,6 +14429,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "center",
           "answers": [
             {
               "answerForms": undefined,
@@ -14428,7 +14441,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
@@ -14467,6 +14479,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
       "numeric-input 1": {
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [],
@@ -14483,7 +14496,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14517,6 +14530,7 @@ What is the radius of the mattress when it is rolled up into a cylinder.
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": [],
@@ -14528,13 +14542,12 @@ What is the radius of the mattress when it is rolled up into a cylinder.
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14770,6 +14783,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
       "numeric-input 1": {
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": null,
@@ -14785,7 +14799,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14916,6 +14930,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -14927,13 +14942,12 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14993,6 +15007,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0,
@@ -15009,7 +15024,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15052,6 +15067,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15063,13 +15079,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15323,6 +15338,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15342,7 +15358,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15351,6 +15367,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15370,7 +15387,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15379,6 +15396,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15398,7 +15416,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15551,6 +15569,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15562,13 +15581,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15577,6 +15595,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15588,13 +15607,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15603,6 +15621,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "graded": true,
         "key": null,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15614,13 +15633,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15815,6 +15833,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0.01,
@@ -15857,7 +15876,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15958,6 +15977,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -15990,13 +16010,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16034,6 +16053,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0,
@@ -16052,7 +16072,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16090,6 +16110,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -16101,13 +16122,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16226,6 +16246,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "maxError": 0,
@@ -16243,7 +16264,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16342,6 +16363,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
         "alignment": "default",
         "graded": true,
         "options": {
+          "alignment": "left",
           "answers": [
             {
               "answerForms": undefined,
@@ -16353,13 +16375,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -17053,6 +17074,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "alignment": "default",
                 "graded": true,
                 "options": {
+                  "alignment": "left",
                   "answers": [
                     {
                       "answerForms": [
@@ -17074,7 +17096,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "static": false,
                 "type": "numeric-input",
                 "version": {
-                  "major": 0,
+                  "major": 1,
                   "minor": 0,
                 },
               },

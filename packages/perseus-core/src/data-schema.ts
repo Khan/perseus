@@ -1618,7 +1618,7 @@ export type PerseusNumericInputWidgetOptions = {
      */
     coefficient: boolean;
     /** How to align the text in the input */
-    alignment?: "left" | "right" | "center";
+    alignment: "start" | "end" | "center";
 };
 
 export type PerseusNumericInputAnswer = {
