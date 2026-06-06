@@ -27,11 +27,9 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function renderSinusoidGraph(
     state: SinusoidGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getSinusoidDescription(state, i18n),
     };
 }
 
@@ -208,7 +206,7 @@ export const getSinusoidCoefficients = (
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
 
-function getSinusoidDescription(
+export function getSinusoidDescription(
     state: SinusoidGraphState,
     i18n: I18nContextType,
 ): string {

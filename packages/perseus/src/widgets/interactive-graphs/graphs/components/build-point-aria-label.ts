@@ -1,7 +1,6 @@
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {srFormatNumber} from "../screenreader-text";
 
-import type {PerseusStrings} from "../../../../strings";
 import type {vec} from "mafs";
 
 // Returns the custom label from `pointLabels`, or the 1-indexed sequence
@@ -21,46 +20,32 @@ export function resolvePointLabel(
 }
 
 /**
- * Returns a screen-reader aria-label for an interactive point using a
- * custom label (e.g. "T"). Returns `undefined` when no custom label
- * is set so callers can fall back to the default label (e.g. "Point 1",
- * "Point 2", ...) built by `useControlPoint`.
+ * Hook that returns the canonical screen-reader aria-label builder for an
+ * interactive point, bound to the current locale and the given `pointLabels`.
  *
- * Prefer `usePointAriaLabel` in React components — it binds `strings` and
- * `locale` from `usePerseusI18n()` so call sites read `buildLabel(i, point)`.
- * Use `buildPointAriaLabel` directly only from non-React functions (e.g.
- * graph-description helpers) that already receive `strings` / `locale` as
- * parameters and therefore can't use a hook.
- */
-export function buildPointAriaLabel(
-    pointLabels: ReadonlyArray<string> | undefined,
-    index: number,
-    point: vec.Vector2,
-    strings: PerseusStrings,
-    locale: string,
-): string | undefined {
-    const label = resolvePointLabel(pointLabels, index);
-    // When the resolved label is the numeric default, return undefined so
-    // `useControlPoint` keeps its existing fallback behavior.
-    if (typeof label === "number") {
-        return undefined;
-    }
-    return strings.srPointAtCoordinates({
-        num: label,
-        x: srFormatNumber(point[0], locale),
-        y: srFormatNumber(point[1], locale),
-    });
-}
-
-/**
- * Hook that returns a point aria-label builder bound to the current locale
- * and the given `pointLabels`. Returns `undefined` for points without a
- * custom label so callers can fall back to default labels.
+ * Returns `undefined` for points without a custom label so callers can fall
+ * back to the default label (e.g. "Point 1", "Point 2", ...) built by
+ * `useControlPoint`.
+ *
+ * Non-React callers (e.g. graph-description helpers) should accept the
+ * builder as a parameter from a React-component ancestor rather than calling
+ * the hook themselves.
  */
 export function usePointAriaLabel(
     pointLabels: ReadonlyArray<string> | undefined,
 ) {
     const {strings, locale} = usePerseusI18n();
-    return (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+    return (index: number, point: vec.Vector2): string | undefined => {
+        const label = resolvePointLabel(pointLabels, index);
+        // When the resolved label is the numeric default, return undefined so
+        // `useControlPoint` keeps its existing fallback behavior.
+        if (typeof label === "number") {
+            return undefined;
+        }
+        return strings.srPointAtCoordinates({
+            num: label,
+            x: srFormatNumber(point[0], locale),
+            y: srFormatNumber(point[1], locale),
+        });
+    };
 }

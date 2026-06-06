@@ -22,14 +22,9 @@ import type {vec} from "mafs";
 export function renderLinearSystemGraph(
     state: LinearSystemGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearSystemGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getLinearSystemGraphDescription(
-            state,
-            i18n,
-        ),
     };
 }
 

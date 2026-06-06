@@ -39,11 +39,9 @@ const {getExponentialCoefficients} = kmathCoefficients;
 export function renderExponentialGraph(
     state: ExponentialGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <ExponentialGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getExponentialDescription(state, i18n),
     };
 }
 
@@ -212,7 +210,7 @@ const computeExponential = function (
     return a * Math.exp(b * x) + c;
 };
 
-function getExponentialDescription(
+export function getExponentialDescription(
     state: ExponentialGraphState,
     i18n: I18nContextType,
 ): string {

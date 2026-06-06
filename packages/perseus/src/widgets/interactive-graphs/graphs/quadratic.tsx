@@ -29,14 +29,9 @@ import type {QuadraticCoefficient, QuadraticCoords} from "@khanacademy/kmath";
 export function renderQuadraticGraph(
     state: QuadraticGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getQuadraticGraphDescription(
-            state,
-            i18n,
-        ),
     };
 }
 
@@ -188,7 +183,7 @@ export const getQuadraticCoefficients = (
     return [a, b, c];
 };
 
-function getQuadraticGraphDescription(
+export function getQuadraticGraphDescription(
     state: QuadraticGraphState,
     i18n: I18nContextType,
 ): string {

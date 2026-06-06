@@ -25,7 +25,6 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 // end up in different sections of the DOM.
 export type InteractiveGraphElementSuite = {
     graph: ReactNode;
-    interactiveElementsDescription: ReactNode;
 };
 
 export type InteractiveGraphState =
