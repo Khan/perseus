@@ -155,6 +155,38 @@ export const imageInContent: PerseusRenderer = generateTestPerseusRenderer({
     },
 });
 
+export const definitionInContentAndExplanation: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content:
+            "During World War II, the [[☃ definition 1]] opposed the Axis powers.\n\n[[☃ explanation 1]]",
+        widgets: {
+            "definition 1": generateDefinitionWidget({
+                options: generateDefinitionOptions({
+                    definition:
+                        "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",
+                    togglePrompt: "Allies",
+                }),
+            }),
+            "explanation 1": generateExplanationWidget({
+                options: generateExplanationOptions({
+                    showPrompt: "Show explanation",
+                    hidePrompt: "Hide explanation",
+                    explanation:
+                        "The [[☃ definition 2]] were defeated in 1945.",
+                    widgets: {
+                        "definition 2": generateDefinitionWidget({
+                            options: generateDefinitionOptions({
+                                definition:
+                                    "The Axis powers were Germany, Japan, and Italy, the group of countries who opposed the Allies during World War II.",
+                                togglePrompt: "Axis powers",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
 export const explanationWithDefinitionOptions: PerseusExplanationWidgetOptions =
     generateExplanationOptions({
         explanation:

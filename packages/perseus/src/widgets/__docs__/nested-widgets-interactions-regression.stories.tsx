@@ -8,6 +8,7 @@ import {explanationRendererDecorator} from "../explanation/__docs__/explanation-
 
 import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
 import {
+    definitionInContentAndExplanation,
     explanationWithDefinitionOptions,
     gradedGroupWithRadioAndDefinition,
     gradedGroupWithRadioAndExplanation,
@@ -102,6 +103,30 @@ export const ImageInContent: ExplanationStory = {
             name: imageExample.showPrompt,
         });
         await userEvent.click(explanationTrigger);
+    },
+};
+
+export const DefinitionInContentAndExplanation: StoryObj = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: definitionInContentAndExplanation,
+    },
+    play: async ({canvas, userEvent}) => {
+        // Reveal the explanation, then open the definition nested inside it.
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Show explanation",
+        });
+        await userEvent.click(explanationTrigger);
+        const explanationDefinitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Axis powers",
+        });
+        await userEvent.click(explanationDefinitionTrigger);
+
+        // Open the definition that lives in the main article text.
+        const contentDefinitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Allies",
+        });
+        await userEvent.click(contentDefinitionTrigger);
     },
 };
 
