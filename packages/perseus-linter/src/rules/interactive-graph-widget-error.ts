@@ -84,7 +84,40 @@ export default Rule.makeRule({
             }
         }
 
+        checkShowPointLabelsHasLabels(graph, issues);
+        checkShowPointLabelsHasLabels(correct, issues);
+
         const allIssuesString = issues.join("\n\n");
         return allIssuesString;
     },
 }) as Rule;
+
+function checkShowPointLabelsHasLabels(
+    g:
+        | {
+              type: string;
+              showPointLabels?: boolean;
+              pointLabels?: readonly string[];
+          }
+        | undefined,
+    issues: Array<string>,
+) {
+    if (g == null || g.type === "none" || g.type === "vector") {
+        return;
+    }
+    if (g.showPointLabels !== true) {
+        return;
+    }
+    const labels = g.pointLabels;
+    if (labels == null || labels.length === 0) {
+        issues.push(
+            "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+        );
+        return;
+    }
+    if (labels.some((l) => l == null || l === "")) {
+        issues.push(
+            "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+        );
+    }
+}
