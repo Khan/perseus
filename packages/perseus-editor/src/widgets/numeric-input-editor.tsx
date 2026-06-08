@@ -457,23 +457,6 @@ class NumericInputEditor extends React.Component<Props, State> {
             </fieldset>
         );
 
-        const textAlign = (
-            <label>
-                Text alignment
-                <SingleSelect
-                    selectedValue={this.props.textAlign}
-                    onChange={(value) => {
-                        this.props.onChange({textAlign: value});
-                    }}
-                    placeholder="Select text alignment"
-                >
-                    <OptionItem value="start" label="Left" />
-                    <OptionItem value="center" label="Center" />
-                    <OptionItem value="end" label="Right" />
-                </SingleSelect>
-            </label>
-        );
-
         const labelText = (
             <>
                 <div className="perseus-widget-row">
@@ -723,7 +706,22 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     <div className="perseus-editor-accordion-content">
                         {inputSize}
-                        {textAlign}
+
+                        <label>
+                            Text alignment
+                            <SingleSelect
+                                selectedValue={this.props.textAlign}
+                                onChange={(value) => {
+                                    this.props.onChange({textAlign: value});
+                                }}
+                                placeholder="Select text alignment"
+                            >
+                                <OptionItem value="start" label="Left" />
+                                <OptionItem value="center" label="Center" />
+                                <OptionItem value="end" label="Right" />
+                            </SingleSelect>
+                        </label>
+
                         {coefficientCheck}
                         {labelText}
                     </div>
