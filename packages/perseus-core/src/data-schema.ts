@@ -537,9 +537,6 @@ export type PerseusCategorizerWidgetOptions = {
      * the category. e.g. [0, 1, 0, 1, 2]
      */
     values: number[];
-    /** Whether we should highlight i18n linter errors found on this widget */
-    // TODO(benchristel): highlightLint doesn't seem to be used. Delete it.
-    highlightLint?: boolean;
 };
 
 /** Options for the definition widget. Reveals a definition on click. */
