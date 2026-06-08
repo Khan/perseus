@@ -174,6 +174,16 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Exponential graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveExponentialPointAnnouncement = {
+    type: "move-exponential-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Logarithm graph: the two control points (indices 0, 1) use
 // dedicated point labels chosen by index.
 type MoveLogarithmPointAnnouncement = {
@@ -182,6 +192,13 @@ type MoveLogarithmPointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+};
+
+// Exponential graph: the horizontal asymptote moves vertically, so only
+// its y-position is carried.
+type MoveExponentialAsymptoteAnnouncement = {
+    type: "move-exponential-asymptote";
+    asymptoteY: number;
 };
 
 // Tangent graph: the inflection point (index 0) and the second/control
@@ -249,6 +266,8 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveExponentialPointAnnouncement
+    | MoveExponentialAsymptoteAnnouncement
     | MoveLogarithmPointAnnouncement
     | MoveLogarithmAsymptoteAnnouncement
     | MoveTangentPointAnnouncement

@@ -3285,6 +3285,57 @@ describe("movePoint on an exponential graph", () => {
         expect(updated.coords[0]).toEqual([0, 3]);
         expect(updated.hasBeenInteractedWith).toBe(false);
     });
+
+    it("sets stateAnnouncement to a move-exponential-point with the new position", () => {
+        const state = generateExponentialGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-exponential-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(-1);
+        expect(updated.stateAnnouncement.y).toBe(4);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state = generateExponentialGraphState({pointLabels: ["A", "B"]});
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(1, [3, 7]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-exponential-point");
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("B");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state = generateExponentialGraphState({pointLabels: ["", "B"]});
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, 4]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-exponential-point");
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+
+    it("emits no announcement when the move is rejected", () => {
+        const state = generateExponentialGraphState();
+
+        // Moving point 0 onto point 1's x (2) is rejected.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [2, 4]),
+        );
+
+        expect(updated.stateAnnouncement).toBeUndefined();
+    });
 });
 
 describe("moveCenter on an exponential graph (asymptote)", () => {
@@ -3360,6 +3411,39 @@ describe("moveCenter on an exponential graph (asymptote)", () => {
 
         // Assert — asymptote moves to y=-2 regardless of the x passed
         expect(updated.asymptote).toBe(-2);
+    });
+
+    it("sets stateAnnouncement to a move-exponential-asymptote with the new y", () => {
+        const state = generateExponentialGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([-10, -2]),
+        );
+
+        expect(updated.stateAnnouncement).toEqual({
+            type: "move-exponential-asymptote",
+            asymptoteY: -2,
+        });
+    });
+
+    it("emits no announcement when the asymptote move is rejected", () => {
+        // Point 0 sits at (0, 5); moving the asymptote to y=5 would place its
+        // handle on the point, so the move is rejected.
+        const state = generateExponentialGraphState({
+            coords: [
+                [0, 5],
+                [2, 8],
+            ],
+            asymptote: 1,
+        });
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.moveCenter([0, 5]),
+        );
+
+        expect(updated.stateAnnouncement).toBeUndefined();
     });
 });
 

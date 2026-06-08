@@ -390,6 +390,73 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-exponential-point", () => {
+        // Coord layout: [point1(0), point2(1)], each with its own label.
+        it("uses the point-1 label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-exponential-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -1,
+                    y: 4,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 at -1 comma 4.");
+        });
+
+        it("uses the point-2 label for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-exponential-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 3,
+                    y: 7,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 2 at 3 comma 7.");
+        });
+
+        // TODO(LEMS-4206): allow custom labels for exponential points so we
+        // can keep the point-1/point-2 wording.
+        it("uses the custom label, overriding the point-1/point-2 wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-exponential-point",
+                    pointIndex: 0,
+                    pointLabel: "A",
+                    x: -1,
+                    y: 4,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point A at -1 comma 4.");
+        });
+    });
+
+    describe("move-exponential-asymptote", () => {
+        it("returns the horizontal-asymptote label at the new y", () => {
+            const result = getAnnouncementText(
+                {type: "move-exponential-asymptote", asymptoteY: -2},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Horizontal asymptote at y equals -2. Use up and down arrow keys to move.",
+            );
+        });
+    });
+
     describe("move-angle-point", () => {
         // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
         // side labels include their coords; the vertex also includes the
