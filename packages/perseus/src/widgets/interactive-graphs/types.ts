@@ -69,6 +69,20 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Quadratic graph: the moved point reads with its quadrant-aware
+// label; when the parabola is a true quadratic (not a degenerate
+// line), the announcement also reads the new vertex location. The
+// reducer pre-computes the vertex since it already imports the
+// quadratic helpers.
+type MoveQuadraticPointAnnouncement = {
+    type: "move-quadratic-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    vertex: Coord | undefined;
+};
+
 // Vector point keyboard move. The tail (index 0) uses
 // the generic point label; the tip (index 1) has a dedicated label.
 type MoveVectorPointAnnouncement = {
@@ -185,6 +199,7 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveQuadraticPointAnnouncement
     | MoveVectorPointAnnouncement
     | MoveVectorLineAnnouncement
     | MoveSegmentPointAnnouncement
