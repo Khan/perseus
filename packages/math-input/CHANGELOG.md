@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.4.33
+
+### Patch Changes
+
+-   [#3703](https://github.com/Khan/perseus/pull/3703) [`5d00f57022`](https://github.com/Khan/perseus/commit/5d00f57022f609724bccd781686e6db821856b2c) Thanks [@Myranae](https://github.com/Myranae)! - Convert expression widget related files to use semantic tokens
+
+-   Updated dependencies [[`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81), [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88), [`ec0ce8d61a`](https://github.com/Khan/perseus/commit/ec0ce8d61a8f8565acba672fe249723d025f88fc)]:
+    -   @khanacademy/perseus-core@27.4.0
+    -   @khanacademy/keypad-context@3.2.61
+
 ## 26.4.32
 
 ### Patch Changes
