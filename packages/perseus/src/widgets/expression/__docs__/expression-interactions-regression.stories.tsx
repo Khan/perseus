@@ -139,6 +139,19 @@ export const WithTextInField: Story = {
     },
 };
 
+// Captures the pressed state of a keypad button — covers the #1B50B3 border
+// and rgba(24,101,242,0.32) gradient overlay in keypad-button.tsx
+export const KeypadButtonPressed: Story = {
+    decorators: [expressionRendererDecorator],
+    args: keypadArgs,
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // Keypad renders into a React portal outside the canvas
+        const button = within(document.body).getByRole("button", {name: "1"});
+        await userEvent.pointer({target: button, keys: "[MouseLeft>]"});
+    },
+};
+
 export const MobileInputFocused: Story = {
     decorators: [expressionRendererDecorator],
     args: {
