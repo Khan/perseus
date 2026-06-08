@@ -2,14 +2,14 @@ import {render} from "@testing-library/react";
 import {Mafs} from "mafs";
 import React from "react";
 
-import * as UseDraggableModule from "../use-draggable";
+import * as UseDraggableModule from "../../use-draggable";
 
+import {MovableLine} from "./movable-line";
 import {
     getMovableLineKeyboardConstraint,
     insetTipAlongRay,
-    MovableLine,
     trimRange,
-} from "./movable-line";
+} from "./util";
 
 import type {Interval, vec} from "mafs";
 

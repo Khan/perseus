@@ -44,6 +44,10 @@ export function initializeGraphState(
         range,
         snapStep,
         pointLabels: "pointLabels" in graph ? graph.pointLabels : undefined,
+        showPointLabels:
+            "showPointLabels" in graph
+                ? Boolean(graph.showPointLabels)
+                : undefined,
     };
     switch (graph.type) {
         case "segment":

@@ -8,6 +8,7 @@ import {
     getSideLengthsFromPoints,
     calculateScaledRadius,
     skipAsymptoteKeyboardOverPoint,
+    getQuadraticVertex,
 } from "./utils";
 
 import type {Coord} from "@khanacademy/perseus-core";
@@ -593,5 +594,23 @@ describe("skipAsymptoteKeyboardOverPoint", () => {
 
         // Assert
         expect(result).toEqual([0, 1]);
+    });
+});
+
+describe("getQuadraticVertex", () => {
+    it("returns the vertex (-b/2a, c - b²/4a) for a quadratic", () => {
+        // Arrange, Act — y = x² - 4x + 3 has its vertex at (2, -1)
+        const vertex = getQuadraticVertex([1, -4, 3]);
+
+        // Assert
+        expect(vertex).toEqual([2, -1]);
+    });
+
+    it("returns undefined when a is 0 and the parabola degenerates to a line", () => {
+        // Arrange, Act
+        const vertex = getQuadraticVertex([0, 2, 1]);
+
+        // Assert
+        expect(vertex).toBeUndefined();
     });
 });

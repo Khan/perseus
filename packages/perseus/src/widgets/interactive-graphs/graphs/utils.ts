@@ -6,6 +6,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
+import type {QuadraticCoefficient} from "@khanacademy/kmath";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -125,88 +126,6 @@ export function getInterceptStringForLine(
           });
 }
 
-type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
-
-function getCoordQuadrant(coord: Coord): GraphLocations {
-    const [unroundedX, unroundedY] = coord;
-    const x = Number(unroundedX.toFixed(3));
-    const y = Number(unroundedY.toFixed(3));
-
-    if (x === 0 && y === 0) {
-        return "origin";
-    }
-
-    if (y === 0) {
-        return "x-axis";
-    }
-
-    if (x === 0) {
-        return "y-axis";
-    }
-
-    if (x > 0 && y > 0) {
-        return 1;
-    }
-
-    if (x < 0 && y > 0) {
-        return 2;
-    }
-
-    if (x < 0 && y < 0) {
-        return 3;
-    }
-
-    return 4;
-}
-
-export function getQuadraticVertexString(
-    vertex: Coord,
-    strings: PerseusStrings,
-): string {
-    const location = getCoordQuadrant(vertex);
-
-    switch (location) {
-        case "origin":
-            return strings.srQuadraticGraphVertexOrigin;
-        case "x-axis":
-            return strings.srQuadraticGraphVertexXAxis;
-        case "y-axis":
-            return strings.srQuadraticGraphVertexYAxis;
-        default:
-            return strings.srQuadraticGraphVertexQuadrant({quadrant: location});
-    }
-}
-
-export function getQuadraticPointString(
-    pointNumber,
-    coord: Coord,
-    strings: PerseusStrings,
-    locale: string,
-): string {
-    const location = getCoordQuadrant(coord);
-    const [x, y] = coord;
-
-    switch (location) {
-        case "origin":
-            return strings.srQuadraticPointOrigin({pointNumber: pointNumber});
-        case "x-axis":
-        case "y-axis":
-            return strings.srQuadraticPointAxis({
-                pointNumber: pointNumber,
-                x: srFormatNumber(x, locale),
-                y: srFormatNumber(y, locale),
-            });
-        default:
-            // return `Point ${pointNumber} on parabola in quadrant ${location} at ${srFormatNumber(x, locale)} comma ${srFormatNumber(y, locale)}.`;
-            return strings.srQuadraticPointQuadrant({
-                pointNumber: pointNumber,
-                quadrant: location,
-                x: srFormatNumber(x, locale),
-                y: srFormatNumber(y, locale),
-            });
-    }
-}
-
 export function getQuadraticXIntercepts(
     // Coefficients of the quadratic equation
     a: number,
@@ -240,6 +159,22 @@ export function getQuadraticXIntercepts(
     }
 
     return [x1, x2];
+}
+
+/**
+ * Calculate the vertex of a quadratic from its coefficients.
+ *
+ * When a === 0 the parabola degenerates to a line and has no vertex, so
+ * we return undefined; otherwise the vertex is (-b/2a, c - b²/4a).
+ */
+export function getQuadraticVertex(
+    coeffs: QuadraticCoefficient,
+): Coord | undefined {
+    const [a, b, c] = coeffs;
+    if (a === 0) {
+        return undefined;
+    }
+    return [-b / (2 * a), c - (b * b) / (4 * a)];
 }
 
 /**

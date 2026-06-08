@@ -69,6 +69,20 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
+// Quadratic graph: the moved point reads with its quadrant-aware
+// label; when the parabola is a true quadratic (not a degenerate
+// line), the announcement also reads the new vertex location. The
+// reducer pre-computes the vertex since it already imports the
+// quadratic helpers.
+type MoveQuadraticPointAnnouncement = {
+    type: "move-quadratic-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    vertex: Coord | undefined;
+};
+
 // Vector point keyboard move. The tail (index 0) uses
 // the generic point label; the tip (index 1) has a dedicated label.
 type MoveVectorPointAnnouncement = {
@@ -171,6 +185,17 @@ type MoveTangentPointAnnouncement = {
     y: number;
 };
 
+// Absolute-value graph: the vertex (index 0) and the point on the arm
+// (index 1) use different labels, chosen by index — mirroring the static
+// aria-labels in absolute-value.tsx.
+type MoveAbsoluteValuePointAnnouncement = {
+    type: "move-absolute-value-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Angle graph: vertex (index 1) reads with the measured angle; sides
 // (indices 0, 2) read with just coords. The reducer pre-computes the
 // measure since it already imports the angle helpers.
@@ -196,6 +221,7 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveQuadraticPointAnnouncement
     | MoveVectorPointAnnouncement
     | MoveVectorLineAnnouncement
     | MoveSegmentPointAnnouncement
@@ -207,6 +233,7 @@ export type InteractiveGraphStateAnnouncement =
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
     | MoveTangentPointAnnouncement
+    | MoveAbsoluteValuePointAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 
@@ -215,6 +242,10 @@ export interface InteractiveGraphStateCommon {
     // Custom screen-reader labels for each interactive point. When present,
     // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
     pointLabels?: string[];
+    // Opt-in: when true, render a visible on-canvas label next to each
+    // interactive point, driven by the matching `pointLabels[i]` entry.
+    // Defaults to off.
+    showPointLabels?: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
