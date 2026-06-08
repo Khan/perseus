@@ -12,20 +12,20 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-const plotterPlotTypes = [
+const plotterPlotTypes = enumeration(
     "bar",
     "line",
     "pic",
     "histogram",
     "dotplot",
-] as const;
+);
 
 export const parsePlotterWidget = parseWidget(
     constant("plotter"),
     object({
         labels: array(string),
         categories: array(string),
-        type: enumeration(...plotterPlotTypes),
+        type: plotterPlotTypes,
         maxY: number,
         // The default value for scaleY comes from plotter.tsx.
         // See parse-perseus-json/README.md for why we want to duplicate the
