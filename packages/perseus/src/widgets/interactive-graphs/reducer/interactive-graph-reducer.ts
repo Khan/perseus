@@ -14,6 +14,7 @@ import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
+    getQuadraticVertex,
 } from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
 import {bound, boundToEdgeAndSnapToGrid, isUnlimitedGraphState} from "../utils";
@@ -845,6 +846,8 @@ function doMovePoint(
                 return state;
             }
 
+            const vertex = getQuadraticVertex(QuadraticCoefficients);
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -853,6 +856,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-quadratic-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                    vertex,
+                },
             };
         }
         default:

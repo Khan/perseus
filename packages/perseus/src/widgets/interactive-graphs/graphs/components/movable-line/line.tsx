@@ -1,0 +1,136 @@
+import {useRef} from "react";
+import * as React from "react";
+
+import {snap} from "../../../math";
+import useGraphConfig from "../../../reducer/use-graph-config";
+import {TARGET_SIZE} from "../../../utils";
+import {useDraggable} from "../../use-draggable";
+import {useTransformVectorsToPixels} from "../../use-transform";
+import {getIntersectionOfRayWithBox} from "../../utils";
+import {SVGLine} from "../svg-line";
+import {Vector} from "../vector";
+
+import {insetTipAlongRay} from "./util";
+
+import type {AriaLive} from "../../../types";
+import type {vec} from "mafs";
+
+export interface LineProps {
+    start: vec.Vector2;
+    end: vec.Vector2;
+    ariaLabel?: string;
+    ariaDescribedBy?: string;
+    ariaLive?: AriaLive;
+    /* Extends the line to the edge of the graph with an arrow */
+    extend?:
+        | undefined
+        | {
+              start: boolean;
+              end: boolean;
+          };
+    onMove: (newStart: vec.Vector2) => unknown;
+}
+
+export const Line = (props: LineProps) => {
+    const {start, end, ariaLabel, ariaDescribedBy, ariaLive, extend, onMove} =
+        props;
+
+    const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
+    const {
+        range,
+        graphDimensionsInPixels,
+        snapStep,
+        disableKeyboardInteraction,
+        interactiveColor,
+    } = useGraphConfig();
+
+    const computeExtensionTip = (tail: vec.Vector2, source: vec.Vector2) =>
+        insetTipAlongRay(
+            tail,
+            getIntersectionOfRayWithBox(source, tail, range),
+            range,
+            graphDimensionsInPixels,
+        );
+
+    const startExtend = extend?.start
+        ? computeExtensionTip(start, end)
+        : undefined;
+    const endExtend = extend?.end ? computeExtensionTip(end, start) : undefined;
+
+    const line = useRef<SVGGElement>(null);
+    const {dragging} = useDraggable({
+        gestureTarget: line,
+        point: start,
+        onMove,
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    return (
+        <>
+            <g
+                ref={line}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                // TODO(LEMS-4189): Remove aria-live once every interactive
+                // graph type emits its move through the WB Announcer.
+                aria-live={ariaLive}
+                aria-disabled={disableKeyboardInteraction}
+                className="movable-line"
+                data-testid="movable-line"
+                style={{cursor: dragging ? "grabbing" : "grab"}}
+                // Indicate that this element is interactive.
+                // As a bonus, giving this group a non-group role makes
+                // the screen reader skip over its empty children.
+                role="button"
+            >
+                {/**
+                 * This transparent line creates a nice big click/touch target.
+                 */}
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    className="movable-line-focus-outline"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    className="movable-line-focus-outline-gap"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    style={{
+                        stroke: interactiveColor,
+                        strokeWidth: "var(--movable-line-stroke-weight)",
+                    }}
+                    className={dragging ? "movable-dragging" : ""}
+                    testId="movable-line__line"
+                />
+            </g>
+
+            {/* Draw extension vectors outside of movable area */}
+            {startExtend && (
+                <Vector
+                    tail={start}
+                    tip={startExtend}
+                    testId="movable-line__vector"
+                />
+            )}
+            {endExtend && (
+                <Vector
+                    tail={end}
+                    tip={endExtend}
+                    testId="movable-line__vector"
+                />
+            )}
+        </>
+    );
+};
