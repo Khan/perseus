@@ -174,6 +174,17 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Tangent graph: the inflection point (index 0) and the second/control
+// point (index 1) use different labels, chosen by index — mirroring the
+// static aria-labels in tangent.tsx.
+type MoveTangentPointAnnouncement = {
+    type: "move-tangent-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Absolute-value graph: the vertex (index 0) and the point on the arm
 // (index 1) use different labels, chosen by index — mirroring the static
 // aria-labels in absolute-value.tsx.
@@ -221,6 +232,7 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveTangentPointAnnouncement
     | MoveAbsoluteValuePointAnnouncement
     | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
