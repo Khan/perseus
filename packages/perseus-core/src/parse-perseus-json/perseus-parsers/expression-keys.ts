@@ -1,4 +1,6 @@
-export const KeypadKeys = [
+import {enumeration} from "../general-purpose-parsers";
+
+export const keypadKeys = enumeration(
     "PLUS",
     "MINUS",
     "NEGATIVE",
@@ -107,4 +109,4 @@ export const KeypadKeys = [
     "X",
     "Y",
     "Z",
-] as const;
+);

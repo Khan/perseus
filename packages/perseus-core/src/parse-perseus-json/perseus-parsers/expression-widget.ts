@@ -16,7 +16,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
-import {KeypadKeys} from "./expression-keys";
+import {keypadKeys} from "./expression-keys";
 import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
@@ -73,7 +73,7 @@ const parseExpressionWidgetV2 = parseWidgetWithVersion(
         ariaLabel: optional(string),
         buttonSets: parseLegacyButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
-        extraKeys: optional(array(enumeration(...KeypadKeys))),
+        extraKeys: optional(array(keypadKeys)),
     }),
 );
 
