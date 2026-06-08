@@ -34,10 +34,9 @@ type Props = {
     ariaLabel: string;
     /**
      * Overrides the internal aria-live used to announce moves. Defaults to
-     * "polite". The exponential graph passes "off" so its moves are announced
-     * once via the WB Announcer instead of double-announcing.
-     * TODO(LEMS-4189): Remove once every asymptote graph is wired to the
-     * announcer and the internal aria-live can be dropped.
+     * "polite".
+     * TODO(LEMS-4189): Remove once exponential is also wired to the announcer
+     * and the internal aria-live can be dropped.
      */
     ariaLive?: AriaLive;
     /**

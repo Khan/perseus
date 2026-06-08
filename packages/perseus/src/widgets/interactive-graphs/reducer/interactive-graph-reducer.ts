@@ -14,6 +14,7 @@ import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
+    getQuadraticVertex,
 } from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
 import {bound, boundToEdgeAndSnapToGrid, isUnlimitedGraphState} from "../utils";
@@ -777,6 +778,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-logarithm-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "absolute-value": {
@@ -801,6 +812,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-absolute-value-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "tangent": {
@@ -826,6 +847,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-tangent-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "quadratic": {
@@ -845,6 +876,8 @@ function doMovePoint(
                 return state;
             }
 
+            const vertex = getQuadraticVertex(QuadraticCoefficients);
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -853,6 +886,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-quadratic-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                    vertex,
+                },
             };
         }
         default:
@@ -970,6 +1014,10 @@ function doMoveCenter(
                 ...state,
                 hasBeenInteractedWith: true,
                 asymptote: newX,
+                stateAnnouncement: {
+                    type: "move-logarithm-asymptote",
+                    asymptoteX: newX,
+                },
             };
         }
         default:
