@@ -150,7 +150,6 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(1, destination))
                 }
                 ariaLabel={buildLabel(1, coords[1]) ?? srAngleVertex}
-                label={showLabels ? effectiveLabels?.[1] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.
@@ -171,7 +170,6 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(0, destination))
                 }
                 ariaLabel={buildLabel(0, coords[0]) ?? srAngleEndingSide}
-                label={showLabels ? effectiveLabels?.[0] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.
@@ -192,7 +190,6 @@ function AngleGraph(props: AngleGraphProps) {
                     dispatch(actions.angle.movePoint(2, destination))
                 }
                 ariaLabel={buildLabel(2, coords[2]) ?? srAngleStartingSide}
-                label={showLabels ? effectiveLabels?.[2] : undefined}
                 // Move announcements come from the WB Announcer via
                 // stateAnnouncement; disable aria-live here to avoid
                 // the focusable handle double-announcing.

@@ -350,9 +350,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             )}
                             point={point}
                             sequenceNumber={i + 1}
-                            label={
-                                showLabels ? effectiveLabels?.[i] : undefined
-                            }
                             onMove={(destination: vec.Vector2) => {
                                 const now = Date.now();
                                 const targetFPS = 40;
@@ -557,9 +554,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             ariaLive="off"
                             point={point}
                             sequenceNumber={i + 1}
-                            label={
-                                showLabels ? effectiveLabels?.[i] : undefined
-                            }
                             onDragStart={() => {
                                 dragEndCallbackTimer.clear();
                                 setIsCurrentlyDragging(true);

@@ -106,7 +106,6 @@ export function CircleGraph(props: CircleGraphProps) {
                 ariaDescribedBy={`${outerPointsId}`}
                 point={radiusPoint}
                 sequenceNumber={1}
-                label={showLabels ? effectiveLabels?.[0] : undefined}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
                     dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));

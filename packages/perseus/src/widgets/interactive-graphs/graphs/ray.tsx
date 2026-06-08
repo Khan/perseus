@@ -72,11 +72,6 @@ const RayGraph = (props: Props) => {
                     point2AriaLabel,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
-                pointLabels={
-                    showLabels
-                        ? [effectiveLabels?.[0], effectiveLabels?.[1]]
-                        : undefined
-                }
                 // The ray graph's move announcements come from the WB
                 // Announcer via stateAnnouncement; disable aria-live here to
                 // avoid the focusable handles double-announcing.

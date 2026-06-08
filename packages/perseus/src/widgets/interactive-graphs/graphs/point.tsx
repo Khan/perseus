@@ -106,7 +106,6 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
                     // dropped from useControlPoint.
                     ariaLive="off"
                     ariaLabel={buildLabel(i, point)}
-                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
@@ -187,7 +186,6 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     // dropped from useControlPoint.
                     ariaLive="off"
                     ariaLabel={buildLabel(i, point)}
-                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onDragStart={() => {
                         dragEndCallbackTimer.clear();
                         setIsCurrentlyDragging(true);

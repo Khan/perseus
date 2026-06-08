@@ -171,14 +171,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                                 point2AriaLabel,
                                 grabHandleAriaLabel,
                             }}
-                            pointLabels={
-                                showLabels
-                                    ? [
-                                          effectiveLabels?.[i * 2],
-                                          effectiveLabels?.[i * 2 + 1],
-                                      ]
-                                    : undefined
-                            }
                         />
                         <SRDescInSVG id={lengthDescriptionId}>
                             {strings.srSegmentLength({

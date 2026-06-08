@@ -1,5 +1,3 @@
-import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {Text} from "mafs";
 import * as React from "react";
 import {useState, useRef, useLayoutEffect} from "react";
 
@@ -35,11 +33,6 @@ type Params = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
-    /**
-     * Visible text label rendered next to the point (e.g. "A", "B", "T").
-     * When omitted, no label is drawn.
-     */
-    label?: string;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onDragStart?: (() => unknown) | undefined;
     onDragEnd?: (() => unknown) | undefined;
@@ -66,7 +59,6 @@ export function useControlPoint(params: Params): Return {
         cursor,
         forwardedRef = noop,
         sequenceNumber = 1,
-        label,
         onMove = noop,
         onDragStart = noop,
         onDragEnd = noop,
@@ -145,78 +137,24 @@ export function useControlPoint(params: Params): Return {
             }}
         />
     );
+    // Visible labels are rendered separately by
+    // `movable-point-labels-layer.tsx` (HTML overlay with TeX), not
+    // inside the SVG — TeX cannot render inside an SVG. The layer reads
+    // the live coordinates straight from the reducer state, so a drag
+    // pushes the label along with the point glyph automatically.
     const visiblePoint = (
-        <>
-            <MovablePointView
-                cursor={cursor}
-                onClick={() => {
-                    onClick();
-                    focusableHandleRef.current?.focus();
-                }}
-                point={point}
-                dragging={dragging}
-                focused={focused}
-                ref={visiblePointRef}
-                showFocusRing={focused}
-            />
-            {label != null && label !== "" && (
-                // The visible label is purely decorative; the focusable handle
-                // above already carries the equivalent text in its aria-label,
-                // so we hide this from the a11y tree to avoid double-announce.
-                //
-                // The inline <defs> below is intentional. The shared
-                // `text-label.tsx` filter is a translucent rectangle backdrop,
-                // and its <defs> sit in a different <Mafs> than the one this
-                // label renders in (so the reference wouldn't resolve anyway).
-                // We add a dilated-stroke knockout filter — the same shape
-                // Matthew used for LockedLabel — scoped to this label only so
-                // the existing angle/side labels keep their current look.
-                <g
-                    aria-hidden="true"
-                    data-testid="movable-point__visible-label"
-                >
-                    <defs>
-                        <filter id="movable-point-label-knockout">
-                            <feMorphology
-                                operator="dilate"
-                                radius="2"
-                                in="SourceGraphic"
-                                result="expanded"
-                            />
-                            <feFlood
-                                floodColor={
-                                    semanticColor.core.border.knockout.default
-                                }
-                                result="flood"
-                            />
-                            <feComposite
-                                in="flood"
-                                in2="expanded"
-                                operator="in"
-                                result="outline"
-                            />
-                            <feMerge>
-                                <feMergeNode in="outline" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <Text
-                        x={point[X]}
-                        y={point[Y]}
-                        attach="ne"
-                        attachDistance={24}
-                        size={16}
-                        svgTextProps={{
-                            filter: "url(#movable-point-label-knockout)",
-                            fontWeight: font.weight.bold,
-                        }}
-                    >
-                        {label}
-                    </Text>
-                </g>
-            )}
-        </>
+        <MovablePointView
+            cursor={cursor}
+            onClick={() => {
+                onClick();
+                focusableHandleRef.current?.focus();
+            }}
+            point={point}
+            dragging={dragging}
+            focused={focused}
+            ref={visiblePointRef}
+            showFocusRing={focused}
+        />
     );
 
     return {

@@ -77,11 +77,6 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
                 // from MovableLine / useControlPoint.
                 ariaLive="off"
                 points={line}
-                pointLabels={
-                    showLabels
-                        ? [effectiveLabels?.[0], effectiveLabels?.[1]]
-                        : undefined
-                }
                 onMoveLine={(newStart) => {
                     dispatch(actions.linear.moveLine(newStart));
                 }}

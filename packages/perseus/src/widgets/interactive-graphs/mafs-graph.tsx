@@ -52,6 +52,7 @@ import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {renderVectorGraph} from "./graphs/vector";
 import {X, Y} from "./math";
+import MovablePointLabelsLayer from "./movable-point-labels-layer";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
@@ -381,6 +382,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
+                        <MovablePointLabelsLayer state={state} />
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

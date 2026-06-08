@@ -113,7 +113,6 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                         snapStep,
                         i,
                     )}
-                    label={showLabels ? effectiveLabels?.[i] : undefined}
                     onMove={(destination) =>
                         dispatch(actions.sinusoid.movePoint(i, destination))
                     }
