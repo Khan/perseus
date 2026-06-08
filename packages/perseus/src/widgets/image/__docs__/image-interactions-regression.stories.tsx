@@ -182,9 +182,6 @@ export const ZoomClickedLargePortraitImage: Story = {
 
 export const LongDescriptionClickedStateWithTallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    globals: {
-        featureFlags: ["image-widget-upgrade-gif-controls"],
-    },
     args: {
         backgroundImage: animatedGifPortrait,
         alt: animatedGifPortraitAlt,

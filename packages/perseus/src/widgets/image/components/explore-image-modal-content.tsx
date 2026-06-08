@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -42,11 +41,6 @@ export default function ExploreImageModalContent({
     if (!backgroundImage.url) {
         return null;
     }
-
-    const gifControlsFF = isFeatureOn(
-        {apiOptions},
-        "image-widget-upgrade-gif-controls",
-    );
 
     const imageIsGif = isGif(backgroundImage.url);
     const imageIsSvg = isSvg(backgroundImage.url);
@@ -109,13 +103,9 @@ export default function ExploreImageModalContent({
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
-                            isGifPlaying={
-                                gifControlsFF && imageIsGif
-                                    ? isGifPlaying
-                                    : undefined
-                            }
+                            isGifPlaying={imageIsGif ? isGifPlaying : undefined}
                             onGifLoop={
-                                gifControlsFF && imageIsGif
+                                imageIsGif
                                     ? () => setIsGifPlaying(false)
                                     : undefined
                             }
@@ -126,7 +116,7 @@ export default function ExploreImageModalContent({
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
             >
-                {gifControlsFF && imageIsGif && (
+                {imageIsGif && (
                     <>
                         <GifControlsButton
                             isPlaying={isGifPlaying}
