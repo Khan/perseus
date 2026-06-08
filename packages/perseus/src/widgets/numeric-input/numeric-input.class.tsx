@@ -37,7 +37,6 @@ export type NumericInputProps = ExternalProps & {
 type DefaultProps = Pick<
     NumericInputProps,
     | "size"
-    | "textAlign"
     | "apiOptions"
     | "coefficient"
     | "answerForms"
@@ -74,7 +73,6 @@ export class NumericInput
 
     static defaultProps: DefaultProps = {
         size: "normal",
-        textAlign: "start",
         apiOptions: ApiOptions.defaults,
         coefficient: false,
         answerForms: [],

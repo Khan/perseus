@@ -76,7 +76,7 @@ describe("textAlign", () => {
         expect(result.value.options.textAlign).toBe("start");
     });
 
-    it("migrates from v0 to v1 when textAlign is true", () => {
+    it("migrates from v0 to v1 when rightAlign is true", () => {
         // Arrange
         const widget = numericInputWidget(
             {rightAlign: true},
