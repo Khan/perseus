@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 26.4.32
+
+### Patch Changes
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba)]:
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/keypad-context@3.2.60
+
+## 26.4.31
+
+### Patch Changes
+
+-   [#3707](https://github.com/Khan/perseus/pull/3707) [`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit f89b0c2a550bdefe04d9a9dc2d17b2c401c0e797
+
+-   Updated dependencies [[`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224), [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf)]:
+    -   @khanacademy/perseus-core@27.2.0
+    -   @khanacademy/keypad-context@3.2.59
+
 ## 26.4.30
 
 ### Patch Changes

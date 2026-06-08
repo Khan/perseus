@@ -3,6 +3,8 @@ import {success} from "../result";
 
 import {parsePerseusAnswerArea} from "./perseus-answer-area";
 
+// Tests are fine to import, main files aren't
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusAnswerArea} from "../../data-schema";
 
 describe("parsePerseusAnswerArea", () => {

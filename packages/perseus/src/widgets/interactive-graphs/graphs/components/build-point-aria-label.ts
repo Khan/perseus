@@ -26,9 +26,11 @@ export function resolvePointLabel(
  * is set so callers can fall back to the default label (e.g. "Point 1",
  * "Point 2", ...) built by `useControlPoint`.
  *
- * TODO(LEMS-3995): Prefer the `usePointAriaLabel` hook below in new code.
- * Existing callers in `polygon.tsx`, `point.tsx`, `ray.tsx`, and `linear.tsx`
- * should migrate to the hook in a follow-up PR.
+ * Prefer `usePointAriaLabel` in React components — it binds `strings` and
+ * `locale` from `usePerseusI18n()` so call sites read `buildLabel(i, point)`.
+ * Use `buildPointAriaLabel` directly only from non-React functions (e.g.
+ * graph-description helpers) that already receive `strings` / `locale` as
+ * parameters and therefore can't use a hook.
  */
 export function buildPointAriaLabel(
     pointLabels: ReadonlyArray<string> | undefined,

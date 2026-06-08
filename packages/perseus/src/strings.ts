@@ -633,6 +633,7 @@ export type PerseusStrings = {
     imageResetZoomAriaLabel: string;
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
+    definitionIdentifier: ({word}: {word: string}) => string;
 };
 
 /**
@@ -1384,6 +1385,7 @@ export const strings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: "Definition of: %(word)s",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1793,6 +1795,7 @@ export const mockStrings: PerseusStrings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: ({word}) => `Definition of: ${word}`,
 };
 
 // This type helps us make sure all error codes are mapped to strings

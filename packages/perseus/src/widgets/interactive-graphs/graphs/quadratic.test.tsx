@@ -256,6 +256,88 @@ describe("Quadratic graph screen reader", () => {
     });
 });
 
+// TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
+describe("Quadratic graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseQuadraticState, pointLabels: ["A", "B", "C"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at -5 comma 5."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point C at 5 comma 5."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default label for indices without a custom label", () => {
+        // Arrange, Act — only the middle point is named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseQuadraticState, pointLabels: ["", "B", ""]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Point 1 on parabola in quadrant 2 at -5 comma 5. Vertex is on the Y-axis.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point 3 on parabola in quadrant 1 at 5 comma 5. Vertex is on the Y-axis.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseQuadraticState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B", "C"] as unknown as string[],
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Point 1 on parabola in quadrant 2 at -5 comma 5. Vertex is on the Y-axis.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point C at 5 comma 5."}),
+        ).toBeInTheDocument();
+    });
+});
+
 describe("describedQuadraticGraph interactive elements", () => {
     test("describes interactive elements on a default quadratic graph", () => {
         // Arrange

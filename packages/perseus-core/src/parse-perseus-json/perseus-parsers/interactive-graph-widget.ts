@@ -1,4 +1,3 @@
-import {lockedFigureColorNames} from "../../data-schema";
 import {
     array,
     boolean,
@@ -21,6 +20,8 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusGraphTypeLinear} from "../../data-schema";
 
 // Used to represent 2-D points and ranges
@@ -188,7 +189,20 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
+const parseLockedFigureColor = pipeParsers(
+    enumeration(
+        // Same as lockedFigureColorNames in data-schema.ts
+        "blue",
+        "gold",
+        "green",
+        "grayH",
+        "purple",
+        "pink",
+        "red",
+        // deprecated name - "orange" is now "gold"
+        "orange",
+    ),
+).then(convert((color) => (color === "orange" ? "gold" : color))).parser;
 
 const parseLockedFigureFillType = enumeration(
     "none",

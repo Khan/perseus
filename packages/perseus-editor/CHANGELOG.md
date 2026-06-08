@@ -1,5 +1,58 @@
 # @khanacademy/perseus-editor
 
+## 32.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`b44f34d355`](https://github.com/Khan/perseus/commit/b44f34d355d152dd97bb5d2fb95183d887c53073)]:
+    -   @khanacademy/perseus@77.10.2
+
+## 32.3.0
+
+### Minor Changes
+
+-   [#3710](https://github.com/Khan/perseus/pull/3710) [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Use the parser to convert orange to gold
+
+### Patch Changes
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`bbde9057fc`](https://github.com/Khan/perseus/commit/bbde9057fce4d92ce363d83635272e5861e203eb), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba), [`d0fa621849`](https://github.com/Khan/perseus/commit/d0fa621849ce551bf71900d3040502193a8178ab), [`117786801c`](https://github.com/Khan/perseus/commit/117786801c597b88aeb65608ae5d75d1d373774f), [`c3c7aafa48`](https://github.com/Khan/perseus/commit/c3c7aafa48f5e252a78b532511b7df2429d55c7e), [`29041d51fe`](https://github.com/Khan/perseus/commit/29041d51fe5c8de887929eba6216ffdafb908e01), [`14b6e0b58d`](https://github.com/Khan/perseus/commit/14b6e0b58df552178b1598d26e8a9028f423b0ec), [`6f29b86f0b`](https://github.com/Khan/perseus/commit/6f29b86f0b917e7acac63ffb5638ba87cf8f9ea6), [`c244b3e4fe`](https://github.com/Khan/perseus/commit/c244b3e4fe3c3fed5291240bcd8b3e29c5602250), [`c6e7cd2e72`](https://github.com/Khan/perseus/commit/c6e7cd2e7229477e17de48331b11b663eac57e9a), [`23e9ad00f6`](https://github.com/Khan/perseus/commit/23e9ad00f6a364aecdbcb091d399f10235227a79), [`94d0a94623`](https://github.com/Khan/perseus/commit/94d0a94623e0e8ea9975dc354f5e5954cfc89f06), [`58dbd0f93f`](https://github.com/Khan/perseus/commit/58dbd0f93fdcd5d48eea90f4577db4082708b0cb), [`11d53cb5df`](https://github.com/Khan/perseus/commit/11d53cb5df388a7dbf3bf14f7d26bfc12e3fef3d), [`3e96e9ec8c`](https://github.com/Khan/perseus/commit/3e96e9ec8c906625d58ad3e36cc85f9249e0296b), [`00fa96087f`](https://github.com/Khan/perseus/commit/00fa96087f8668da07115ce1c39e01aa07785254), [`84bcfbbe29`](https://github.com/Khan/perseus/commit/84bcfbbe29ed01890bcc0a2805b13ff0fcff2e83), [`b8145a718b`](https://github.com/Khan/perseus/commit/b8145a718b43e6ce78f304296e953ed07341c207)]:
+    -   @khanacademy/perseus@77.10.1
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/perseus-linter@5.0.15
+    -   @khanacademy/keypad-context@3.2.60
+    -   @khanacademy/kmath@2.4.18
+    -   @khanacademy/math-input@26.4.32
+    -   @khanacademy/perseus-score@8.11.2
+
+## 32.2.0
+
+### Minor Changes
+
+-   [#3672](https://github.com/Khan/perseus/pull/3672) [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through line and ray graphs for custom points label
+
+*   [#3696](https://github.com/Khan/perseus/pull/3696) [`0833037482`](https://github.com/Khan/perseus/commit/08330374821667e7ae2221aab166589dced85ab6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through curve graphs (quadratic, sinusoid, tangent, exponential, logarithm) for custom points label
+
+-   [#3669](https://github.com/Khan/perseus/pull/3669) [`623a29ebc5`](https://github.com/Khan/perseus/commit/623a29ebc570741fff733a8e1aaaa8685886bc7d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through polygon graphs for custom points label
+
+*   [#3673](https://github.com/Khan/perseus/pull/3673) [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through linear-system and segment graphs for custom points label
+
+-   [#3643](https://github.com/Khan/perseus/pull/3643) [`70575e72ca`](https://github.com/Khan/perseus/commit/70575e72ca30d6c8e3dcd9354c2ce6c71d3e12cc) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire `pointLabels` through point graphs so authors can provide custom screen-reader labels (e.g. "T") that match the question prompt instead of the generic "Point 1". Adds an inline name field next to each coordinate row in the editor under "Start coordinates", a one-line author tip, and the underlying state/helper plumbing reusable by the remaining graph types in follow-up PRs (LEMS-3995).
+
+*   [#3697](https://github.com/Khan/perseus/pull/3697) [`551f687046`](https://github.com/Khan/perseus/commit/551f687046de02f2199e1488ae6fb92e27f9b534) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through special-shape graphs (angle, circle, absolute-value)
+
+### Patch Changes
+
+-   [#3707](https://github.com/Khan/perseus/pull/3707) [`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit f89b0c2a550bdefe04d9a9dc2d17b2c401c0e797
+
+-   Updated dependencies [[`ad739d77c9`](https://github.com/Khan/perseus/commit/ad739d77c9124266b13e77949212f5ef1b60b0ad), [`4358b33694`](https://github.com/Khan/perseus/commit/4358b33694a2d531073038b879ec84ce985889e4), [`e2e53d4b81`](https://github.com/Khan/perseus/commit/e2e53d4b81922b16f5655db9323ee17b25262136), [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224), [`f058f83b49`](https://github.com/Khan/perseus/commit/f058f83b495ac0faf50265252a99d0b06404e485), [`0833037482`](https://github.com/Khan/perseus/commit/08330374821667e7ae2221aab166589dced85ab6), [`3c8712c329`](https://github.com/Khan/perseus/commit/3c8712c3292220489476170863396872f56613d2), [`623a29ebc5`](https://github.com/Khan/perseus/commit/623a29ebc570741fff733a8e1aaaa8685886bc7d), [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf), [`9e818db282`](https://github.com/Khan/perseus/commit/9e818db282d3d0594f7fa84228ce3cfac490cc17), [`625791bd32`](https://github.com/Khan/perseus/commit/625791bd32ebe10a477aedc3c593209892c149b3), [`70575e72ca`](https://github.com/Khan/perseus/commit/70575e72ca30d6c8e3dcd9354c2ce6c71d3e12cc), [`551f687046`](https://github.com/Khan/perseus/commit/551f687046de02f2199e1488ae6fb92e27f9b534)]:
+    -   @khanacademy/perseus@77.10.0
+    -   @khanacademy/math-input@26.4.31
+    -   @khanacademy/perseus-core@27.2.0
+    -   @khanacademy/keypad-context@3.2.59
+    -   @khanacademy/kmath@2.4.17
+    -   @khanacademy/perseus-linter@5.0.14
+    -   @khanacademy/perseus-score@8.11.1
+
 ## 32.1.0
 
 ### Minor Changes

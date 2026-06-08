@@ -1,5 +1,23 @@
 # @khanacademy/perseus-core
 
+## 27.3.0
+
+### Minor Changes
+
+-   [#3710](https://github.com/Khan/perseus/pull/3710) [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Use the parser to convert orange to gold
+
+### Patch Changes
+
+-   [#3695](https://github.com/Khan/perseus/pull/3695) [`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Explanation] Add more visual regression tests
+
+## 27.2.0
+
+### Minor Changes
+
+-   [#3672](https://github.com/Khan/perseus/pull/3672) [`981288fe1e`](https://github.com/Khan/perseus/commit/981288fe1e389a306b58ded8f29a392f016cb224) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through line and ray graphs for custom points label
+
+*   [#3673](https://github.com/Khan/perseus/pull/3673) [`3b3cf95a25`](https://github.com/Khan/perseus/commit/3b3cf95a25ebb57c36166bbe3ad76f34bf543dcf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Wire pointLabels through linear-system and segment graphs for custom points label
+
 ## 27.1.0
 
 ### Minor Changes

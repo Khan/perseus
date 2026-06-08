@@ -3,7 +3,7 @@
     "description": "Linter engine for Perseus",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.0.13",
+    "version": "5.0.15",
     "publishConfig": {
         "access": "public"
     },
