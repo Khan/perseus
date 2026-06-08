@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         minHeight: 42,
         minWidth: 42,
         padding: 1,
-        fontFamily: 'Lato, "Noto Sans", sans-serif',
+        fontFamily: font.family.sans,
     },
     hovered: {
         borderColor: semanticColor.core.border.instructive.default,
