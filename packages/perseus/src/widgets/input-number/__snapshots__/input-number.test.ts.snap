@@ -163,7 +163,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
         </strong>
          If necessary, round your answer to the nearest hundredth. 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div
             aria-label="Math input box Tap with one or two fingers to open keyboard"

@@ -73,7 +73,6 @@ type FunctionGrapherProps = {
     hideHairlines: () => void;
     isMobile: boolean;
     model: any;
-    setDrawingAreaAvailable: () => void;
     showHairlines: () => void;
     showTooltips: boolean;
     static: boolean;
@@ -331,12 +330,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     }}
                 >
                     {image}
-                    <Graphie
-                        {...this.props.graph}
-                        setDrawingAreaAvailable={
-                            this.props.setDrawingAreaAvailable
-                        }
-                    >
+                    <Graphie {...this.props.graph}>
                         {this.props.model && this.renderPlot()}
                         {this.props.model && this.renderAsymptote()}
                         {this.props.model && points}
@@ -598,8 +592,6 @@ class Grapher extends React.Component<Props> implements Widget {
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
             isMobile: this.props.apiOptions.isMobile,
             showTooltips: this.props.graph.showTooltips,
             showHairlines: this.showHairlines,

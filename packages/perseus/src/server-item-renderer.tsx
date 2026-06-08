@@ -46,7 +46,6 @@ type OwnProps = {
     item: PerseusItem;
     problemNum?: number;
     reviewMode?: boolean;
-    highlightEmptyWidgets?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;

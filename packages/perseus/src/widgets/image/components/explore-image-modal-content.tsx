@@ -93,7 +93,6 @@ export default function ExploreImageModalContent({
                             width={width}
                             height={height}
                             scale={scale}
-                            preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,
                                 range: range,

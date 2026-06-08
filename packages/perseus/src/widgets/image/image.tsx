@@ -76,7 +76,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     width={backgroundImage.width}
                     height={backgroundImage.height}
                     scale={scale}
-                    preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
                         range: range,

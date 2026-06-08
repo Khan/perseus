@@ -24,14 +24,11 @@ export function sanitizeApiOptions(
         answerableCallback: __,
         getAnotherHint: ___,
         interactionCallback: ____,
-        imagePreloader: _____,
-        trackInteraction: ______,
-        setDrawingAreaAvailable: ________,
-        baseElements: _________,
-        nativeKeypadProxy: __________,
+        trackInteraction: _____,
+        baseElements: _______,
         // Remove React nodes (placeholders)
-        imagePlaceholder: ___________,
-        widgetPlaceholder: ____________,
+        imagePlaceholder: _________,
+        widgetPlaceholder: __________,
         ...serializableOptions
     } = apiOptions;
 

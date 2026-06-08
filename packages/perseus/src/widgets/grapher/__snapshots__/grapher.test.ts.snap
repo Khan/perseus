@@ -37,7 +37,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div>
             <div
@@ -1356,7 +1356,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div>
             <div

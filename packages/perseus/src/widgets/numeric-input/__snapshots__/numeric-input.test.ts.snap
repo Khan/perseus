@@ -25,7 +25,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div>
             <div
@@ -90,7 +90,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-disabled="false"
@@ -144,7 +144,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-disabled="false"
@@ -198,7 +198,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:ri:"
@@ -258,7 +258,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:rl:"
@@ -316,7 +316,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:rc:"
