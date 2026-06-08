@@ -134,6 +134,20 @@ function generateTangentGraphState(
     };
 }
 
+const baseAbsoluteValueGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "absolute-value",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [2, 2],
+    ],
+};
+
 const baseQuadraticGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "quadratic",
@@ -1807,6 +1821,89 @@ describe("movePoint on a sinusoid graph", () => {
 
         invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
         expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+});
+
+describe("movePoint on an absolute-value graph", () => {
+    it("sets stateAnnouncement to a move-absolute-value-point when moving the vertex", () => {
+        const state: InteractiveGraphState = baseAbsoluteValueGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(0, [-3, 1]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-absolute-value-point",
+        );
+        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.x).toBe(-3);
+        expect(updated.stateAnnouncement.y).toBe(1);
+    });
+
+    it("sets stateAnnouncement to a move-absolute-value-point when moving the arm point", () => {
+        const state: InteractiveGraphState = baseAbsoluteValueGraphState;
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(1, [4, -2]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-absolute-value-point",
+        );
+        expect(updated.stateAnnouncement.pointIndex).toBe(1);
+        expect(updated.stateAnnouncement.x).toBe(4);
+        expect(updated.stateAnnouncement.y).toBe(-2);
+    });
+
+    it("carries the custom pointLabel when one is set", () => {
+        const state: InteractiveGraphState = {
+            ...baseAbsoluteValueGraphState,
+            pointLabels: ["V", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(0, [-3, 1]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-absolute-value-point",
+        );
+        expect(updated.stateAnnouncement.pointLabel).toBe("V");
+    });
+
+    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+        const state: InteractiveGraphState = {
+            ...baseAbsoluteValueGraphState,
+            pointLabels: ["", "P"],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(0, [-3, 1]),
+        );
+
+        invariant(
+            updated.stateAnnouncement?.type === "move-absolute-value-point",
+        );
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+    });
+
+    it("rejects the move when both points would share the same x-coordinate", () => {
+        const state: InteractiveGraphState = baseAbsoluteValueGraphState;
+
+        // Moving the vertex onto the arm point's x (2) would make the slope
+        // undefined, so the move is rejected.
+        const updated = interactiveGraphReducer(
+            state,
+            actions.absoluteValue.movePoint(0, [2, 5]),
+        );
+
+        invariant(updated.type === "absolute-value");
+        expect(updated.coords[0]).toEqual([0, 0]);
+        expect(updated.stateAnnouncement).toBeUndefined();
     });
 });
 

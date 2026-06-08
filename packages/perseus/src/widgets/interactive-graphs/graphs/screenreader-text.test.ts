@@ -214,6 +214,60 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-absolute-value-point", () => {
+        // Coord layout: [vertex(0), arm point(1)]. The vertex uses the
+        // vertex label; the arm point uses the second-point label.
+        it("uses the vertex label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-absolute-value-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: 1,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Vertex point at -3 comma 1.");
+        });
+
+        it("uses the arm-point label for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-absolute-value-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 4,
+                    y: -2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point on arm at 4 comma -2.");
+        });
+
+        // TODO(LEMS-4206): allow custom labels for absolute-value points so
+        // we can keep the vertex/arm wording.
+        it("uses the custom label, overriding the vertex/arm wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-absolute-value-point",
+                    pointIndex: 0,
+                    pointLabel: "V",
+                    x: -3,
+                    y: 1,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point V at -3 comma 1.");
+        });
+    });
+
     describe("move-angle-point", () => {
         // Coord layout: [endingSide(0), vertex(1), startingSide(2)]. The
         // side labels include their coords; the vertex also includes the

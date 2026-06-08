@@ -64,6 +64,8 @@ export function getAnnouncementText(
             );
         case "move-sinusoid-point":
             return srSinusoidPointLabel(state, strings, locale);
+        case "move-absolute-value-point":
+            return srAbsoluteValuePointLabel(state, strings, locale);
         case "move-angle-point":
             return srAnglePointLabel(state, strings, locale);
         case "move-polygon":
@@ -162,6 +164,31 @@ function srSinusoidPointLabel(
     return state.y > state.otherY
         ? strings.srSinusoidMaxPoint(formatted)
         : strings.srSinusoidMinPoint(formatted);
+}
+
+function srAbsoluteValuePointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the vertex/arm semantics, matching
+    // the static aria-label behavior in absolute-value.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
+    return state.pointIndex === 0
+        ? strings.srAbsoluteValueVertexPoint({x, y})
+        : strings.srAbsoluteValueSecondPoint({x, y});
 }
 
 function srAnglePointLabel(
