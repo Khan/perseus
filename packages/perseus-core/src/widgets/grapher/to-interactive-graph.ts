@@ -10,7 +10,7 @@ import type {
 import type {
     PerseusGrapherUserInput,
     PerseusInteractiveGraphUserInput,
-} from "@khanacademy/perseus-core";
+} from "../../validation.types";
 
 export function convertGrapherOptionsToInteractiveGraph(
     grapherOptions: PerseusGrapherWidgetOptions,
@@ -91,20 +91,12 @@ export function convertInteractiveGraphUserInputToGrapher(
                 ],
             };
         }
-        // FIXME: we can't convert interactive graph quadratic coords to
-        //  grapher, because that conversion is lossy. We might need to create
-        //  a new interactive graph subtype that uses the two-point quadratic form.
-        // case "quadratic": {
-        //     return {
-        //         type: "quadratic",
-        //         coords: interactiveGraphUserInput.coords ?? null,
-        //     }
-        // }
         case "sinusoid":
             return {
                 type: "sinusoid",
                 // FIXME: avoid casting, use the parser.
                 coords:
+                    // eslint-disable-next-line no-restricted-syntax
                     (interactiveGraphUserInput.coords as [Coord, Coord]) ??
                     null,
             };
@@ -113,10 +105,14 @@ export function convertInteractiveGraphUserInputToGrapher(
                 type: "tangent",
                 // FIXME: avoid casting, use the parser.
                 coords:
+                    // eslint-disable-next-line no-restricted-syntax
                     (interactiveGraphUserInput.coords as [Coord, Coord]) ??
                     null,
             };
         default:
+            // This branch includes "quadratic"
+            // NOTE: we can't convert interactive graph quadratic coords to
+            // grapher, because that conversion is lossy (3 points -> 2 points).
             throw Error(
                 "Can't convert interactive-graph user input to grapher user input. Type: " +
                     interactiveGraphUserInput.type,
