@@ -174,6 +174,16 @@ type MoveSinusoidPointAnnouncement = {
     otherY: number;
 };
 
+// Logarithm graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveLogarithmPointAnnouncement = {
+    type: "move-logarithm-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
 // Tangent graph: the inflection point (index 0) and the second/control
 // point (index 1) use different labels, chosen by index — mirroring the
 // static aria-labels in tangent.tsx.
@@ -183,6 +193,13 @@ type MoveTangentPointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+};
+
+// Logarithm graph: the vertical asymptote moves horizontally, so only
+// its x-position is carried.
+type MoveLogarithmAsymptoteAnnouncement = {
+    type: "move-logarithm-asymptote";
+    asymptoteX: number;
 };
 
 // Absolute-value graph: the vertex (index 0) and the point on the arm
@@ -232,6 +249,8 @@ export type InteractiveGraphStateAnnouncement =
     | MoveRayLineAnnouncement
     | MoveLinearLineAnnouncement
     | MoveSinusoidPointAnnouncement
+    | MoveLogarithmPointAnnouncement
+    | MoveLogarithmAsymptoteAnnouncement
     | MoveTangentPointAnnouncement
     | MoveAbsoluteValuePointAnnouncement
     | MoveAnglePointAnnouncement

@@ -214,6 +214,73 @@ describe("getAnnouncementText", () => {
         });
     });
 
+    describe("move-logarithm-point", () => {
+        // Coord layout: [point1(0), point2(1)], each with its own label.
+        it("uses the point-1 label for index 0", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-logarithm-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: -2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 at -3 comma -2.");
+        });
+
+        it("uses the point-2 label for index 1", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-logarithm-point",
+                    pointIndex: 1,
+                    pointLabel: 2,
+                    x: 4,
+                    y: 5,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 2 at 4 comma 5.");
+        });
+
+        // TODO(LEMS-4206): allow custom labels for logarithm points so we can
+        // keep the point-1/point-2 wording.
+        it("uses the custom label, overriding the point-1/point-2 wording, when one is set", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-logarithm-point",
+                    pointIndex: 0,
+                    pointLabel: "A",
+                    x: -3,
+                    y: -2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point A at -3 comma -2.");
+        });
+    });
+
+    describe("move-logarithm-asymptote", () => {
+        it("returns the vertical-asymptote label at the new x", () => {
+            const result = getAnnouncementText(
+                {type: "move-logarithm-asymptote", asymptoteX: -8},
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Vertical asymptote at x equals -8. Use left and right arrow keys to move.",
+            );
+        });
+    });
+
     describe("move-absolute-value-point", () => {
         // Coord layout: [vertex(0), arm point(1)]. The vertex uses the
         // vertex label; the arm point uses the second-point label.

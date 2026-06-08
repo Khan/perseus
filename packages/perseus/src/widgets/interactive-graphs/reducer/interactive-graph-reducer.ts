@@ -768,6 +768,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-logarithm-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "absolute-value": {
@@ -990,6 +1000,10 @@ function doMoveCenter(
                 ...state,
                 hasBeenInteractedWith: true,
                 asymptote: newX,
+                stateAnnouncement: {
+                    type: "move-logarithm-asymptote",
+                    asymptoteX: newX,
+                },
             };
         }
         default:
