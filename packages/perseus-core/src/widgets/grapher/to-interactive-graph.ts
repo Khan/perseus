@@ -176,8 +176,7 @@ function grapherQuadraticCoordsToInteractiveGraphCoords([vertex, secondPoint]: [
     Coord,
 ]): [Coord, Coord, Coord] {
     const thirdPoint: Coord = [
-        // Reflect the x-coordinate of the second point across a vertical line
-        // through the vertex.
+        // Reflect the second point across a vertical line through the vertex.
         vertex[0] - (secondPoint[0] - vertex[0]),
         secondPoint[1],
     ];
