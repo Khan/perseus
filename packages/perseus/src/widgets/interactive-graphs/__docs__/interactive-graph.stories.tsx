@@ -17,6 +17,7 @@ import {
     rayQuestion,
     rayWithCustomLabelsQuestion,
     segmentQuestion,
+    segmentWithAriaLabelQuestion,
     segmentWithCustomLabelsQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
@@ -241,6 +242,20 @@ export const Vector: Story = {
 export const Segment: Story = {
     args: {
         item: generateTestPerseusItem({question: segmentQuestion}),
+    },
+};
+
+/**
+ * A segment graph that sets `fullGraphAriaLabel` and
+ * `fullGraphAriaDescription`, giving the focusable figure an accessible name
+ * and description. Use this story to test the screen reader experience: on
+ * focus it announces the label, description, interactive elements, and the
+ * graph instructions (including the focus-mode warning and the Insert + I
+ * repeat-instructions hint).
+ */
+export const SegmentWithAriaLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({question: segmentWithAriaLabelQuestion}),
     },
 };
 

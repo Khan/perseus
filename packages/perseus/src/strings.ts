@@ -125,8 +125,10 @@ export type PerseusStrings = {
     simulationLoadFail: string;
     simulationLocaleWarning: string;
     selectAnAnswer: string;
+    srGraphFocusModeWarning: string;
     srGraphInstructions: string;
     srUnlimitedGraphInstructions: string;
+    srGraphInstructionsRepeatHint: string;
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -822,6 +824,12 @@ export const strings = {
             "Button label for the button that opens a closed polygon created by the user in the interactive graph widget.",
         message: "Re-open shape",
     },
+    srGraphFocusModeWarning: {
+        context:
+            "Leading screen reader-only warning that prefixes the interactive graph instructions, telling the user to switch their screen reader to focus mode so that the graph's keyboard commands are not intercepted.",
+        message:
+            "Set your screen reader to focus mode to interact with this graph.",
+    },
     srGraphInstructions: {
         context:
             "Screen reader-only instructions for using the keyboard to move through the interactive elements in the interactive graph widget.",
@@ -833,6 +841,12 @@ export const strings = {
             "Screen reader-only instructions for using the keyboard to move through the 'unlimited' (addable/deletable by the user) interactive elements in the interactive graph widget.",
         message:
             "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+    },
+    srGraphInstructionsRepeatHint: {
+        context:
+            "Trailing screen reader-only hint appended to the interactive graph instructions, telling the user which keyboard shortcut repeats the instructions on demand.",
+        message:
+            "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.",
     },
     srPointAtCoordinates: {
         context:
@@ -1544,10 +1558,14 @@ export const mockStrings: PerseusStrings = {
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
     selectAnAnswer: "Select an answer",
+    srGraphFocusModeWarning:
+        "Set your screen reader to focus mode to interact with this graph.",
     srGraphInstructions:
         "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
         "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+    srGraphInstructionsRepeatHint:
+        "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",

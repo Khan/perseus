@@ -290,6 +290,27 @@ export const segmentQuestion: PerseusRenderer =
         }),
     });
 
+// A segment graph that sets both `fullGraphAriaLabel` and
+// `fullGraphAriaDescription`, so the focusable figure has an accessible name
+// and description. Useful for screen reader testing of the on-focus
+// announcement (label → description → interactive elements → instructions) and
+// the Insert + I repeat-instructions shortcut.
+export const segmentWithAriaLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        correct: generateIGSegmentGraph({
+            numSegments: 1,
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+            ],
+        }),
+        fullGraphAriaLabel: "Segment graph",
+        fullGraphAriaDescription:
+            "A line segment on a coordinate plane. Move its endpoints to draw your answer.",
+    });
+
 export const segmentQuestionDefaultCorrect: PerseusRenderer =
     generateInteractiveGraphQuestion({
         correct: generateIGSegmentGraph({

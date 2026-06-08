@@ -9,6 +9,7 @@
  * - Protractor
  * - Interactive Graph Elements
  */
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -120,6 +121,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    // Tracks whether the Insert key (the SR modifier, also emulated by
+    // Fn + Enter on Mac) is currently held, so we can detect the Insert + I
+    // shortcut that repeats the graph instructions. Insert is not a standard
+    // keyboard modifier, so it can't be read via getModifierState and must be
+    // tracked manually across keydown/keyup.
+    const insertKeyHeld = React.useRef(false);
     const {analytics} = useDependencies();
 
     const i18n = usePerseusI18n();
@@ -240,7 +247,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         width,
                         height,
                     }}
+                    onKeyDown={(event) => {
+                        handleInstructionsShortcut(
+                            event,
+                            state,
+                            strings,
+                            insertKeyHeld,
+                        );
+                    }}
                     onKeyUp={(event) => {
+                        if (event.key === "Insert") {
+                            insertKeyHeld.current = false;
+                        }
                         handleKeyboardEvent(event, state, dispatch);
                     }}
                     aria-label={fullGraphAriaLabel}
@@ -263,6 +281,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         handleFocusEvent(event, state, dispatch);
                     }}
                     onBlur={(event) => {
+                        // Reset the Insert-held flag if focus leaves the graph,
+                        // so a missed keyup can't leave the shortcut "armed".
+                        insertKeyHeld.current = false;
                         handleBlurEvent(event, state, dispatch);
                     }}
                 >
@@ -693,6 +714,56 @@ function handleBlurEvent(
 ) {
     if (isUnlimitedGraphState(state)) {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
+    }
+}
+
+/**
+ * Build the screen reader-only instruction string for the graph.
+ *
+ * Composed from three parts so the shared pieces stay in sync and the
+ * churn-prone copy is isolated: a leading focus-mode warning, the
+ * bounded/unlimited instruction body, and a trailing repeat-shortcut hint.
+ *
+ * Used both by the rendered sr-only instructions View and (in a follow-up) by
+ * the Insert + I repeat-instructions shortcut, so the two can't drift.
+ */
+export function getGraphInstructions(
+    state: InteractiveGraphState,
+    strings: PerseusStrings,
+): string {
+    const body = isUnlimitedGraphState(state)
+        ? strings.srUnlimitedGraphInstructions
+        : strings.srGraphInstructions;
+    return [
+        strings.srGraphFocusModeWarning,
+        body,
+        strings.srGraphInstructionsRepeatHint,
+    ].join(" ");
+}
+
+/**
+ * Repeat the graph instructions on demand via the Insert + I shortcut
+ * (Fn + Enter + I on Mac, which the OS emulates as the Insert key).
+ *
+ * This handler lives on the graph wrapper, so it is inherently focus-scoped to
+ * the graph (WCAG 2.1.4) — it only fires while focus is on the graph or one of
+ * its interactive children. Insert is not a standard keyboard modifier, so its
+ * held state is tracked manually in `insertKeyHeld` across keydown/keyup/blur.
+ */
+function handleInstructionsShortcut(
+    event: React.KeyboardEvent,
+    state: InteractiveGraphState,
+    strings: PerseusStrings,
+    insertKeyHeld: React.MutableRefObject<boolean>,
+) {
+    if (event.key === "Insert") {
+        insertKeyHeld.current = true;
+        return;
+    }
+
+    if (insertKeyHeld.current && event.key.toLowerCase() === "i") {
+        event.preventDefault();
+        announceMessage({message: getGraphInstructions(state, strings)});
     }
 }
 

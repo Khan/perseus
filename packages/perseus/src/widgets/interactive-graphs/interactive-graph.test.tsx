@@ -89,10 +89,14 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+const focusModeWarning =
+    "Set your screen reader to focus mode to interact with this graph.";
 const commonInstructions =
     "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.";
 const unlimitedInstructions =
     "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
+const repeatHint =
+    "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
@@ -1848,6 +1852,20 @@ describe("Interactive Graph", function () {
             },
         );
 
+        it.each(Object.entries(limitedGraphQuestionRenderers))(
+            "graph type %s prefixes the focus mode warning and ends with the repeat hint",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(
+                    `${focusModeWarning} ${commonInstructions} ${repeatHint}`,
+                );
+            },
+        );
+
         it.each(Object.entries(unlimitedGraphQuestionRenderers))(
             "graph type %s has SR instructions for interacting with the graph",
             (_type, question) => {
@@ -1857,6 +1875,20 @@ describe("Interactive Graph", function () {
                 const graph = container.querySelector(".mafs-graph");
 
                 expect(graph).toHaveTextContent(unlimitedInstructions);
+            },
+        );
+
+        it.each(Object.entries(unlimitedGraphQuestionRenderers))(
+            "graph type %s prefixes the focus mode warning and ends with the repeat hint",
+            (_type, question) => {
+                const {container} = renderQuestion(question, blankOptions);
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const graph = container.querySelector(".mafs-graph");
+
+                expect(graph).toHaveTextContent(
+                    `${focusModeWarning} ${unlimitedInstructions} ${repeatHint}`,
+                );
             },
         );
 
