@@ -466,7 +466,7 @@ export const MarkdownTableWithImageWidgets: Story = {
                             }),
                             "image 2": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
+                                    backgroundImage: scienceImage,
                                     alt: "Earth and Moon",
                                 }),
                             }),
@@ -494,7 +494,7 @@ export const MarkdownTableWithMarkdownImages: Story = {
             <div style={{width: 600}}>
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
-                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
                         widgets: {},
                     })}
                 />
