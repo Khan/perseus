@@ -1,0 +1,11 @@
+{
+    "version": "0.0.1",
+    "configurations": [
+        {
+            "name": "Storybook",
+            "runtimeExecutable": "pnpm",
+            "runtimeArgs": ["storybook"],
+            "port": 6006
+        }
+    ]
+}
