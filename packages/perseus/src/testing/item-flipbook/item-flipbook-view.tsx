@@ -1,3 +1,4 @@
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useId, useState} from "react";
 
@@ -11,11 +12,17 @@ interface ViewProps {
 }
 
 export function ItemFlipbookView({viewModel}: ViewProps) {
+    const itemJsonInputId = useId();
     const itemNumberInputId = useId();
 
     return (
         <>
+            <label htmlFor={itemJsonInputId}>
+                Newline-separated Perseus Items, as JSON
+            </label>
             <textarea
+                id={itemJsonInputId}
+                style={{width: "100%", height: "5em"}}
                 value={viewModel.itemJsonInput.value}
                 onChange={viewModel.itemJsonInput.onChange}
             />
@@ -31,9 +38,12 @@ export function ItemFlipbookView({viewModel}: ViewProps) {
                 <span style={{display: "inline-block", width: "7ch"}}>
                     {viewModel.totalItems}
                 </span>{" "}
-                {/* TODO: give these buttons accessible labels / icons */}
-                <button onClick={viewModel.previousItem}>⏴</button>
-                <button onClick={viewModel.nextItem}>⏵</button>
+                <button onClick={viewModel.previousItem}>
+                    ⏴<span className={css(styles.srOnly)}>previous</span>
+                </button>
+                <button onClick={viewModel.nextItem}>
+                    ⏵<span className={css(styles.srOnly)}>next</span>
+                </button>
             </div>
             <ItemDisplayView itemDisplay={viewModel.itemDisplay} />
         </>
@@ -112,3 +122,14 @@ function EditableControlledInput(props: EditableControlledInputProps) {
         />
     );
 }
+
+const styles = StyleSheet.create({
+    srOnly: {
+        clipPath: "inset(50%)",
+        height: 1,
+        overflow: "hidden",
+        position: "absolute",
+        whiteSpace: "nowrap",
+        width: 1,
+    },
+});
