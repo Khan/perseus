@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 27.3.0
+
+### Minor Changes
+
+-   [#3710](https://github.com/Khan/perseus/pull/3710) [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Use the parser to convert orange to gold
+
+### Patch Changes
+
+-   [#3695](https://github.com/Khan/perseus/pull/3695) [`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Explanation] Add more visual regression tests
+
 ## 27.2.0
 
 ### Minor Changes

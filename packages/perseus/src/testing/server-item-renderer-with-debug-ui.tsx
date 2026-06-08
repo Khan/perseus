@@ -11,6 +11,7 @@ import {DebugHeader} from "./debug-header";
 import {useItemRenderer} from "./item-renderer-hooks";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import {useStorybookApiOptions} from "./use-storybook-api-options";
 
 import type {APIOptions} from "../types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
@@ -36,6 +37,8 @@ export const ServerItemRendererWithDebugUI = ({
     reviewMode = false,
     showSolutions,
 }: Props): React.ReactElement => {
+    const mergedApiOptions = useStorybookApiOptions(apiOptions);
+
     // Use our custom hook to manage the renderer state
     const {
         ref,
@@ -48,7 +51,7 @@ export const ServerItemRendererWithDebugUI = ({
         handleSkip,
         handleCheck,
         setShowPopover,
-    } = useItemRenderer(item, apiOptions, reviewMode, showSolutions);
+    } = useItemRenderer(item, mergedApiOptions, reviewMode, showSolutions);
 
     return (
         <View>

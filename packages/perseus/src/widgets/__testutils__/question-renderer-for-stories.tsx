@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
+import {useStorybookApiOptions} from "../../testing/use-storybook-api-options";
 import UserInputManager from "../../user-input-manager";
 
 import type {APIOptions} from "../../types";
@@ -14,6 +14,7 @@ export default function QuestionRendererForStories(props: {
     initialUserInput?: UserInputMap;
 }) {
     const {question, apiOptions, initialUserInput} = props;
+    const mergedApiOptions = useStorybookApiOptions(apiOptions);
     return (
         <UserInputManager
             widgets={question.widgets}
@@ -29,7 +30,7 @@ export default function QuestionRendererForStories(props: {
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={apiOptions ?? ApiOptions.defaults}
+                    apiOptions={mergedApiOptions}
                 />
             )}
         </UserInputManager>

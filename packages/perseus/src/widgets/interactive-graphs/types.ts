@@ -218,6 +218,10 @@ export interface InteractiveGraphStateCommon {
     // Custom screen-reader labels for each interactive point. When present,
     // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
     pointLabels?: string[];
+    // Opt-in: when true, render a visible on-canvas label next to each
+    // interactive point, driven by the matching `pointLabels[i]` entry.
+    // Defaults to off.
+    showPointLabels?: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units

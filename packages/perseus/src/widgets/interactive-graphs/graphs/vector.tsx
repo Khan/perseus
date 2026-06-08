@@ -1,4 +1,5 @@
 import {angles} from "@khanacademy/kmath";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 import {useRef, useState} from "react";
@@ -31,9 +32,6 @@ const {calculateAngleInDegrees} = angles;
 // The visible line is pulled back slightly from the tip so its stroke
 // doesn't poke past the arrowhead shape.
 const LINE_PULLBACK_PX = 4;
-
-// Radius of the static tail dot.
-const TAIL_DOT_RADIUS = 6;
 
 export function renderVectorGraph(
     state: VectorGraphState,
@@ -169,6 +167,7 @@ const VectorBody = (props: VectorBodyProps) => {
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedBy}
             aria-disabled={disableKeyboardInteraction}
+            aria-live="polite"
             className="movable-line"
             data-testid="movable-vector"
             style={{cursor: dragging ? "grabbing" : "grab"}}
@@ -189,17 +188,8 @@ const VectorBody = (props: VectorBodyProps) => {
                 start={tailPx}
                 end={lineEndPx}
                 className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
-                style={{stroke: interactiveColor}}
+                style={{stroke: interactiveColor, strokeWidth: sizing.size_020}}
                 testId="movable-vector__line"
-            />
-            {/* Tail dot — inside the body group so hovering/dragging
-                it activates the line's hover state and drag behavior */}
-            <circle
-                cx={tailPx[X]}
-                cy={tailPx[Y]}
-                r={TAIL_DOT_RADIUS}
-                fill={interactiveColor}
-                data-testid="vector-tail-dot"
             />
             {/* Drag handle pill — only visible on hover / focus / drag */}
             {active && (
@@ -237,11 +227,6 @@ function useTipArrowhead(params: TipArrowheadParams) {
     return useControlArrowhead({
         ariaLabel,
         ariaDescribedBy,
-        // The tip's move announcements come from the WB Announcer via
-        // stateAnnouncement; disable aria-live here to avoid double-announcing.
-        // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped from
-        // useControlArrowhead.
-        ariaLive: "off",
         point: tip,
         angle: angleDeg,
         sequenceNumber: 1,
