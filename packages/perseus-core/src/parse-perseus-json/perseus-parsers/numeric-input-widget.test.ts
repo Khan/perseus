@@ -73,7 +73,7 @@ describe("textAlign", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.textAlign).toBe("start");
+        expect(result.value.options.textAlign).toBe("left");
     });
 
     it("migrates from v0 to v1 when rightAlign is true", () => {
@@ -89,7 +89,7 @@ describe("textAlign", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.textAlign).toBe("end");
+        expect(result.value.options.textAlign).toBe("right");
     });
 
     it("migrates from v0 to v1 when rightAlign is false", () => {
@@ -105,7 +105,7 @@ describe("textAlign", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.textAlign).toBe("start");
+        expect(result.value.options.textAlign).toBe("left");
     });
 
     it("handles v1 undefined textAlign", () => {
@@ -118,13 +118,13 @@ describe("textAlign", () => {
         // Assert
         assertSuccess(result);
         expect(result.value.version).toEqual({major: 1, minor: 0});
-        expect(result.value.options.textAlign).toBe("start");
+        expect(result.value.options.textAlign).toBe("left");
     });
 
-    it("handles v1 start textAlign", () => {
+    it("handles v1 left textAlign", () => {
         // Arrange
         const widget = numericInputWidget(
-            {textAlign: "start"},
+            {textAlign: "left"},
             {major: 1, minor: 0},
         );
 
@@ -133,13 +133,13 @@ describe("textAlign", () => {
 
         // Assert
         assertSuccess(result);
-        expect(result.value.options.textAlign).toBe("start");
+        expect(result.value.options.textAlign).toBe("left");
     });
 
-    it("handles v1 end textAlign", () => {
+    it("handles v1 right textAlign", () => {
         // Arrange
         const widget = numericInputWidget(
-            {textAlign: "end"},
+            {textAlign: "right"},
             {major: 1, minor: 0},
         );
 
@@ -148,7 +148,7 @@ describe("textAlign", () => {
 
         // Assert
         assertSuccess(result);
-        expect(result.value.options.textAlign).toBe("end");
+        expect(result.value.options.textAlign).toBe("right");
     });
 
     it("handles v1 center textAlign", () => {

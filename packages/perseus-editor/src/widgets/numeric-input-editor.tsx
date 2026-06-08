@@ -716,9 +716,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 }}
                                 placeholder="Select text alignment"
                             >
-                                <OptionItem value="start" label="Left" />
+                                <OptionItem value="left" label="Left" />
                                 <OptionItem value="center" label="Center" />
-                                <OptionItem value="end" label="Right" />
+                                <OptionItem value="right" label="Right" />
                             </SingleSelect>
                         </label>
 

@@ -20,7 +20,7 @@ describe("getNumericInputPublicWidgetOptions", () => {
             labelText: "labelText",
             size: "Normal",
             coefficient: false,
-            textAlign: "start",
+            textAlign: "left",
         };
 
         // Act
@@ -31,7 +31,7 @@ describe("getNumericInputPublicWidgetOptions", () => {
             labelText: "labelText",
             size: "Normal",
             coefficient: false,
-            textAlign: "start",
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",

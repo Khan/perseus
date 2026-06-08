@@ -571,7 +571,7 @@ describe("parseWidgetsMap", () => {
                     labelText: "",
                     size: "",
                     coefficient: false,
-                    textAlign: "start",
+                    textAlign: "left",
                 },
             },
         };

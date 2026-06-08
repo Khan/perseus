@@ -120,7 +120,7 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        textAlign: "start",
+                        textAlign: "left",
                     },
                 },
             },
@@ -137,7 +137,7 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        textAlign: "start",
+                        textAlign: "left",
                         answers: [
                             {
                                 simplify: "required",

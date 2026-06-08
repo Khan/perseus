@@ -78,7 +78,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         const alignmentStyles =
             props.textAlign === "center"
                 ? stylesLegacy.centerAlign
-                : props.textAlign === "end"
+                : props.textAlign === "right"
                   ? stylesLegacy.rightAlign
                   : {};
 
@@ -94,7 +94,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         if (isFocused) {
             classesToUse.push(styles.isFocused);
         }
-        if (props.textAlign !== "start") {
+        if (props.textAlign !== "left") {
             const alignmentClass =
                 props.textAlign === "center"
                     ? styles.centerAlign
@@ -109,7 +109,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             const alignmentClass =
                 props.textAlign === "center"
                     ? "perseus-input-center-align"
-                    : props.textAlign === "end"
+                    : props.textAlign === "right"
                       ? "perseus-input-right-align"
                       : undefined;
             return (

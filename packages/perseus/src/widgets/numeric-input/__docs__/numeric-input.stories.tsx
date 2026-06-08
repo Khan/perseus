@@ -58,7 +58,7 @@ const meta: Meta<typeof NumericInput> = {
     args: {
         coefficient: false,
         userInput: {currentValue: ""},
-        textAlign: "start",
+        textAlign: "left",
         size: "normal",
         answers: [
             {
@@ -132,13 +132,13 @@ const meta: Meta<typeof NumericInput> = {
             },
         },
         textAlign: {
-            options: ["start", "center", "end"],
+            options: ["left", "center", "right"],
             control: {type: "radio"},
-            defaultValue: "start",
+            defaultValue: "left",
             description: "The alignment of the text in the input.",
             table: {
-                type: {summary: "start | center | end"},
-                defaultValue: {summary: "start"},
+                type: {summary: "left | center | right"},
+                defaultValue: {summary: "left"},
             },
         },
         size: {

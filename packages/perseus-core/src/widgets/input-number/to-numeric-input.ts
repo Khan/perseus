@@ -12,7 +12,7 @@ export function convertInputNumberOptionsToNumericInput(
 ): PerseusNumericInputWidgetOptions {
     return {
         coefficient: false,
-        textAlign: inputNumberOptions.rightAlign ? "end" : "start",
+        textAlign: inputNumberOptions.rightAlign ? "right" : "left",
         size: inputNumberOptions.size,
         answers: [
             {

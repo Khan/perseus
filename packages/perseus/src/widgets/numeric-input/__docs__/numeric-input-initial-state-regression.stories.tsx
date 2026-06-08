@@ -46,15 +46,15 @@ export const SizeSmall: Story = {
     },
 };
 
-// Verifies the end-aligned text input variant with a pre-filled value — the value should appear on the end
-export const EndTextAlign: Story = {
+// Verifies the right-aligned text input variant with a pre-filled value — the value should appear on the right
+export const RightTextAlign: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
     },
     args: {
         size: "normal",
-        textAlign: "end",
+        textAlign: "right",
     },
 };
 

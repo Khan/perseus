@@ -24,7 +24,7 @@ const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
     size: "normal",
     coefficient: false,
     labelText: "",
-    textAlign: "start",
+    textAlign: "left",
 };
 
 const numericInputWidgetLogic: WidgetLogic<
