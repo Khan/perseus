@@ -1,4 +1,4 @@
-import {expect, fireEvent, fn, waitFor, within} from "storybook/test";
+import {expect, fireEvent, fn, waitFor} from "storybook/test";
 
 import {themeModes} from "../../../../../.storybook/modes";
 import {mouseDown} from "../../../../../.storybook/play-utils";
@@ -30,8 +30,7 @@ export const DraggingCard = {
         waitForTexRendererToLoad: false,
         onMeasure: fn(),
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
         const cards = canvas.getAllByRole("listitem");
         await mouseDown(cards[0], userEvent);
         // requestAnimationFrame inside onMouseDown fires asynchronously;
@@ -49,8 +48,7 @@ export const PlaceholderVisible = {
         waitForTexRendererToLoad: false,
         onMeasure: fn(),
     },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
+    play: async ({canvas, userEvent}) => {
         const cards = canvas.getAllByRole("listitem");
         const cardRect = cards[0].getBoundingClientRect();
         await mouseDown(cards[0], userEvent);
