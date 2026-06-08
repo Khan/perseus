@@ -5,7 +5,8 @@
             "name": "Storybook",
             "runtimeExecutable": "pnpm",
             "runtimeArgs": ["storybook"],
-            "port": 6006
+            "port": 6006,
+            "autoPort": true
         }
     ]
 }
