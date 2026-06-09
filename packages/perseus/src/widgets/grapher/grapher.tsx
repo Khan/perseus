@@ -11,6 +11,7 @@ import {
     GrapherUtil,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
@@ -50,6 +51,7 @@ import type {
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
+    GrapherFunctionType,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -541,10 +543,19 @@ class Grapher extends React.Component<Props> implements Widget {
         };
     }
 
+    getAvailableTypes(): GrapherFunctionType[] {
+        if (this.props.static) {
+            invariant(
+                this.props.correct,
+                "static widgets must have a correct answer",
+            );
+            return [this.props.correct.type];
+        }
+        return this.props.availableTypes;
+    }
+
     renderLegacyGrapher() {
-        const availableTypes = this.props.static
-            ? [this.props.correct.type]
-            : this.props.availableTypes;
+        const availableTypes = this.getAvailableTypes();
 
         const type = this.props.userInput.type;
         const coords = this.props.userInput.coords;
@@ -669,6 +680,10 @@ function getStartUserInput(
 function getCorrectUserInput(
     options: PerseusGrapherWidgetOptions,
 ): PerseusGrapherUserInput {
+    invariant(
+        options.correct,
+        "getCorrectUserInput should only be called for static widgets",
+    );
     return options.correct;
 }
 

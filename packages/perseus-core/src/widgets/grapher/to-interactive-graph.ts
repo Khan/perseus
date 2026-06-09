@@ -15,7 +15,7 @@ import type {
 export function convertGrapherOptionsToInteractiveGraph(
     grapherOptions: PerseusGrapherWidgetOptions,
 ): PerseusInteractiveGraphWidgetOptions | null {
-    if (grapherOptions.availableTypes.length === 1) {
+    if (grapherOptions.availableTypes.length !== 1) {
         // Only grapher widgets with a single available graph type can be
         // converted to interactive-graph widgets.
         return null;
@@ -42,7 +42,9 @@ export function convertGrapherOptionsToInteractiveGraph(
         showTooltips: grapherOptions.graph.showTooltips,
         range: grapherOptions.graph.range,
         graph: {type: type === "absolute_value" ? "absolute-value" : type},
-        correct: grapherAnswerTypesToPerseusGraphType(grapherOptions.correct),
+        correct: grapherOptions.correct
+            ? grapherAnswerTypesToPerseusGraphType(grapherOptions.correct)
+            : {type: type === "absolute_value" ? "absolute-value" : type},
         lockedFigures: [],
     };
 }

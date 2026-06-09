@@ -113,7 +113,7 @@ export const parseGrapherWidget = parseWidget(
                 "tangent",
             ),
         ),
-        correct: parseCorrect,
+        correct: optional(parseCorrect),
         graph: object({
             backgroundImage: object({
                 bottom: optional(number),

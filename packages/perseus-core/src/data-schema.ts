@@ -785,23 +785,28 @@ export type GrapherAnswerTypes =
           coords: null | [Coord, Coord];
       };
 
+/** The functions that can be graphed in a Grapher widget */
+export type GrapherFunctionType =
+    | "absolute_value"
+    | "exponential"
+    | "linear"
+    | "logarithm"
+    | "quadratic"
+    | "sinusoid"
+    | "tangent";
+
 /**
  * Options for the Grapher widget. Defines the available function
  * types, the correct answer, and the visual graph configuration.
  */
 export type PerseusGrapherWidgetOptions = {
     /** The set of function types the learner can choose from when plotting. */
-    availableTypes: Array<
-        | "absolute_value"
-        | "exponential"
-        | "linear"
-        | "logarithm"
-        | "quadratic"
-        | "sinusoid"
-        | "tangent"
-    >;
-    /** The correct answer; used to score the learner's plotted function. */
-    correct: GrapherAnswerTypes;
+    availableTypes: GrapherFunctionType[];
+    /**
+     * The correct answer; used to score the learner's plotted function.
+     * Undefined in answerless data.
+     */
+    correct?: GrapherAnswerTypes;
     /** Visual configuration for the coordinate plane. */
     graph: {
         /** An optional background image displayed behind the graph. */
