@@ -29,7 +29,15 @@ export const KeypadButton = ({
     secondary,
     action,
 }: KeypadButtonProps): React.ReactElement => {
-    const tintColor = secondary ? "#F6F6F7" : action ? "#DBDCDD" : undefined;
+    // TODO(LEMS-4261): `action` is never passed by any caller — this branch
+    // is currently unreachable and has no story coverage. The token is
+    // semantically correct for utility buttons (e.g. backspace); revisit
+    // when/if the prop is wired up.
+    const tintColor = secondary
+        ? semanticColor.core.background.base.subtle
+        : action
+          ? semanticColor.core.background.neutral.subtle
+          : undefined;
 
     return (
         <View
@@ -108,7 +116,7 @@ const styles = StyleSheet.create({
         boxShadow: "none",
     },
     pressed: {
-        border: "2px solid #1B50B3",
+        border: `2px solid ${semanticColor.core.border.instructive.strong}`,
         padding: 0,
         background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${semanticColor.core.background.base.default}`,
         boxShadow: "none",
