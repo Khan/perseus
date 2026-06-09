@@ -1,0 +1,11 @@
+/******************* Video widget styles *******************/
+
+/* The iframe carries fixed `width`/`height` HTML attributes (1280x720) which,
+   without a CSS override, render at that intrinsic size and overflow the
+   article. Constrain it to fill its `.fixed-to-responsive` wrapper, which is
+   already sized (and centered, via the surrounding paragraph) to the article's
+   bounds while preserving aspect ratio. */
+.perseus-video-widget {
+    width: 100%;
+    height: 100%;
+}

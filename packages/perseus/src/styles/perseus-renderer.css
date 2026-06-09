@@ -22,6 +22,7 @@
 @import "widgets/plotter.css" layer(perseus-legacy);
 @import "widgets/sortable.css" layer(perseus-legacy);
 @import "widgets/table.css" layer(perseus-legacy);
+@import "widgets/video.css" layer(perseus-legacy);
 @import "widget-container.css" layer(perseus-legacy);
 @import "./perseus-renderer-part-2.css" layer(perseus-legacy);
 /*
