@@ -1,4 +1,9 @@
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
+import {
+    definitionQuestionContent,
+    definitionQuestionOptions,
+} from "../definition.testdata";
 
 import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
@@ -25,36 +30,40 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const FocusedState: Story = {
-    args: {
-        definition:
-            "A Native American people in Connecticut; white settlers in New England, the Pequots, and their respective allies were at war from 1636-1638.",
-        togglePrompt: "the Pequots",
-    },
+    args: definitionQuestionOptions,
     parameters: {
-        content:
-            "The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
+        content: definitionQuestionContent,
     },
     play: async ({canvas}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "Definition of: the Pequots",
+            name: "Definition of: Allies",
         });
         definitionTrigger.focus();
     },
 };
 
 export const ClickedState: Story = {
-    args: {
-        definition:
-            "A Native American people in Connecticut; white settlers in New England, the Pequots, and their respective allies were at war from 1636-1638.",
-        togglePrompt: "the Pequots",
-    },
+    args: definitionQuestionOptions,
     parameters: {
-        content:
-            "The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
+        content: definitionQuestionContent,
     },
     play: async ({canvas, userEvent}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "Definition of: the Pequots",
+            name: "Definition of: Allies",
+        });
+        await userEvent.click(definitionTrigger);
+    },
+};
+
+export const MobileClickedState: Story = {
+    decorators: [definitionRendererDecorator, mobileDecorator],
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
+    },
+    play: async ({canvas, userEvent}) => {
+        const definitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Allies",
         });
         await userEvent.click(definitionTrigger);
     },
