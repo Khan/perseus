@@ -26,14 +26,6 @@ type Props = {
      * interactive figure on the graph.
      */
     sequenceNumber?: number;
-    /**
-     * Accepted for compatibility with PR-4-series graphs still wired
-     * against the old prop. Visible labels now render via
-     * `MovablePointLabelsLayer`, which reads coords + label text from
-     * the reducer state. This prop is intentionally not forwarded to
-     * `useControlPoint` and has no rendering effect.
-     */
-    label?: string;
     onBlur?: (event: React.FocusEvent) => unknown;
     onClick?: () => unknown;
     onDragStart?: () => unknown;
