@@ -12,7 +12,6 @@ import {Vector} from "../vector";
 
 import {insetTipAlongRay} from "./util";
 
-import type {AriaLive} from "../../../types";
 import type {vec} from "mafs";
 
 export interface LineProps {
@@ -20,7 +19,6 @@ export interface LineProps {
     end: vec.Vector2;
     ariaLabel?: string;
     ariaDescribedBy?: string;
-    ariaLive?: AriaLive;
     /* Extends the line to the edge of the graph with an arrow */
     extend?:
         | undefined
@@ -32,8 +30,7 @@ export interface LineProps {
 }
 
 export const Line = (props: LineProps) => {
-    const {start, end, ariaLabel, ariaDescribedBy, ariaLive, extend, onMove} =
-        props;
+    const {start, end, ariaLabel, ariaDescribedBy, extend, onMove} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {
@@ -72,9 +69,6 @@ export const Line = (props: LineProps) => {
                 tabIndex={disableKeyboardInteraction ? -1 : 0}
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
-                // TODO(LEMS-4189): Remove aria-live once every interactive
-                // graph type emits its move through the WB Announcer.
-                aria-live={ariaLive}
                 aria-disabled={disableKeyboardInteraction}
                 className="movable-line"
                 data-testid="movable-line"
