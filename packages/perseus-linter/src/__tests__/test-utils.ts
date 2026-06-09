@@ -80,6 +80,10 @@ export function expectPass(rule, strings: string | Array<string>, context?) {
     }
 
     it.each(strings)(`Rule ${rule.name} passes with: %s`, (string) => {
-        expect(testRule(rule, string, context)).toBeNull();
+        expectPassSingle(rule, string, context);
     });
+}
+
+export function expectPassSingle(rule, string: string, context?) {
+    expect(testRule(rule, string, context)).toBeNull();
 }
