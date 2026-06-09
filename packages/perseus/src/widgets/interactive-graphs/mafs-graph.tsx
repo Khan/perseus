@@ -52,6 +52,7 @@ import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {renderVectorGraph} from "./graphs/vector";
 import {X, Y} from "./math";
+import MovablePointLabelsLayer from "./movable-point-labels-layer";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
@@ -96,6 +97,14 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
+    /**
+     * Whether the `perseus-enable-point-label-field` flag is on. Gates
+     * the `MovablePointLabelsLayer` mount so the layer is inert in
+     * production until the flag is rolled out, even if a graph state
+     * carries `showPointLabels: true`. Computed upstream by
+     * `interactive-graph.tsx` via `isFeatureOn`.
+     */
+    pointLabelsFlagEnabled?: boolean;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -389,6 +398,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
+                        {props.pointLabelsFlagEnabled && (
+                            <MovablePointLabelsLayer state={state} />
+                        )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

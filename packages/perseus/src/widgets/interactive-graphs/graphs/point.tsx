@@ -1,6 +1,7 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
@@ -83,12 +84,17 @@ function PointGraph(props: Props) {
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch} = statefulProps;
-    const {pointLabels} = statefulProps.graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showPointLabels} = statefulProps.graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     return (
         <>
-            {statefulProps.graphState.coords.map((point, i) => (
+            {coords.map((point, i) => (
                 <MovablePoint
                     key={i}
                     point={point}
@@ -105,8 +111,13 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
 
 function UnlimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch, graphConfig, pointsRef, top, left} = statefulProps;
-    const {coords, pointLabels} = statefulProps.graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showPointLabels} = statefulProps.graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // When users drag a point on iOS Safari, the browser fires a click event after the mouseup
     // at the original click location, which would add an unwanted new point. We track drag
@@ -200,10 +211,16 @@ export function getPointGraphDescription(
         return strings.srNoInteractiveElements;
     }
 
+    const effectiveLabels = getEffectivePointLabels(
+        state.showPointLabels,
+        state.pointLabels,
+        state.coords.length,
+    );
+
     const pointDescriptions = state.coords.map(
         (point, index) =>
             buildPointAriaLabel(
-                state.pointLabels,
+                effectiveLabels,
                 index,
                 point,
                 strings,

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -32,7 +33,7 @@ type Props = MafsGraphProps<RayGraphState>;
 
 const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: line, pointLabels} = props.graphState;
+    const {coords: line, pointLabels, showPointLabels} = props.graphState;
 
     const handleMoveLine = (newStart: vec.Vector2) =>
         dispatch(actions.ray.moveRay(newStart));
@@ -40,7 +41,12 @@ const RayGraph = (props: Props) => {
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        2,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
 

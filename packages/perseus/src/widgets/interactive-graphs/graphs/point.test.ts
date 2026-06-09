@@ -82,6 +82,56 @@ describe("getPointGraphDescription", () => {
         );
     });
 
+    it("falls back to the numeric 'Point N' default when showPointLabels is true but pointLabels is omitted (lint rule blocks this combination at authoring time)", () => {
+        // Defense in depth: even if a bad item somehow lands in the database
+        // with showPointLabels:true and no pointLabels (the
+        // interactive-graph-widget-error lint rule blocks the combination
+        // at save time), the renderer must NOT auto-generate Latin letters
+        // — that would leak into non-Latin-alphabet locales.
+        const state: PointGraphState = {
+            ...baseState,
+            showPointLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point 1 at 0 comma 0. Point 2 at 1 comma 1. Point 3 at 2 comma 2.",
+        );
+    });
+
+    it("uses author pointLabels when showPointLabels is true and both are present", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            showPointLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["P", "Q"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point P at 0 comma 0. Point Q at 1 comma 1.",
+        );
+    });
+
+    it("falls back to the numeric 'Point N' default for points without a pointLabel entry when pointLabels is partial", () => {
+        const state: PointGraphState = {
+            ...baseState,
+            showPointLabels: true,
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            pointLabels: ["P"],
+        };
+        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+            "Interactive elements: Point P at 0 comma 0. Point 2 at 1 comma 1.",
+        );
+    });
+
     it(`encodes "only the second point labeled" as ["", "T"] and announces "Point 1 ... Point T ..."`, () => {
         const state: PointGraphState = {
             ...baseState,

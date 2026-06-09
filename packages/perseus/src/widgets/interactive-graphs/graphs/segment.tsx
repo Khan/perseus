@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -34,12 +35,19 @@ export function renderSegmentGraph(
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
-    const {coords: segments, pointLabels} = graphState;
+    const {coords: segments, pointLabels, showPointLabels} = graphState;
     const {strings, locale} = usePerseusI18n();
     const segmentUniqueId = React.useId();
     const lengthDescriptionId = segmentUniqueId + "-length";
     const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
-    const buildLabel = usePointAriaLabel(pointLabels);
+    // Each segment has 2 endpoints; pointLabels is a flat array indexed as
+    // [seg0Start, seg0End, seg1Start, seg1End, …].
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        segments.length * 2,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     function getWholeSegmentGraphAriaLabel(): string {
         return segments?.length > 1

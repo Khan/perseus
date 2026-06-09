@@ -12,8 +12,10 @@ import {
     pointQuestion,
     pointWithCustomLabelQuestion,
     pointWithDefaultLabelQuestion,
+    pointWithVisibleLabelsQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
+    polygonWithVisibleLabelsQuestion,
     rayQuestion,
     rayWithCustomLabelsQuestion,
     segmentQuestion,
@@ -185,6 +187,26 @@ export const PointWithDefaultLabel: Story = {
     },
 };
 
+/**
+ * A point graph with `showPointLabels: true` and author-supplied
+ * `pointLabels: ["P", "Q", "R"]`. The same per-index string drives both
+ * the visible on-canvas label and the screen-reader announcement, so the
+ * two stay in sync. `showPointLabels` always requires `pointLabels` — the
+ * interactive-graph-widget-error lint rule blocks the combination
+ * `showPointLabels: true` without `pointLabels` at authoring time, so
+ * non-Latin locales never see auto-generated Latin letters.
+ */
+export const PointWithVisibleLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithVisibleLabelsQuestion,
+        }),
+    },
+};
+
 export const Polygon: Story = {
     args: {
         item: generateTestPerseusItem({question: polygonQuestion}),
@@ -202,6 +224,25 @@ export const PolygonWithCustomLabels: Story = {
     args: {
         item: generateTestPerseusItem({
             question: polygonWithCustomLabelsQuestion,
+        }),
+    },
+};
+
+/**
+ * A polygon graph with `showPointLabels: true` and author-supplied
+ * `pointLabels: ["A", "B", "C", "D"]`. Each vertex carries its assigned
+ * letter as both the visible on-canvas label and the screen-reader
+ * announcement ("Point A / B / C / D at …"). Demonstrates that the
+ * `showPointLabels` opt-in works for non-`point` graph types via the same
+ * per-index plumbing.
+ */
+export const PolygonWithVisibleLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
+    args: {
+        item: generateTestPerseusItem({
+            question: polygonWithVisibleLabelsQuestion,
         }),
     },
 };

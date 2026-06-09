@@ -1296,6 +1296,94 @@ describe("MafsGraph", () => {
             expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
         });
     });
+
+    describe("MovablePointLabelsLayer flag gate", () => {
+        function pointStateWith({
+            showPointLabels,
+            pointLabels,
+        }: {
+            showPointLabels?: boolean;
+            pointLabels?: string[];
+        }): InteractiveGraphState {
+            return {
+                type: "point",
+                hasBeenInteractedWith: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [1, 1],
+                coords: [[1, 2]],
+                focusedPointIndex: null,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                pointLabels,
+                showPointLabels,
+            };
+        }
+
+        it("does not mount the layer when pointLabelsFlagEnabled is false, even with showPointLabels: true + pointLabels populated", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({
+                        showPointLabels: true,
+                        pointLabels: ["A"],
+                    })}
+                    dispatch={jest.fn()}
+                    pointLabelsFlagEnabled={false}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("movable-point__visible-label"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("mounts the layer when pointLabelsFlagEnabled is true and showPointLabels: true", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({
+                        showPointLabels: true,
+                        pointLabels: ["A"],
+                    })}
+                    dispatch={jest.fn()}
+                    pointLabelsFlagEnabled={true}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByTestId("movable-point__visible-label"),
+            ).toBeInTheDocument();
+        });
+
+        it("does not render a visible label when flag is on but showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
+            // The trap from the rollout plan: existing content sets
+            // pointLabels for screen-reader purposes without intending
+            // visible labels. Even with the flag on, the renderer must
+            // not start drawing those.
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({pointLabels: ["A"]})}
+                    dispatch={jest.fn()}
+                    pointLabelsFlagEnabled={true}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("movable-point__visible-label"),
+            ).not.toBeInTheDocument();
+        });
+    });
 });
 
 describe("calculateNestedSVGCoords", () => {

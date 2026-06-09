@@ -14,6 +14,7 @@ const DEFAULT_FEATURE_FLAGS: Record<
     "perseus-renderer-upgrade": false,
     "grapher-to-interactive-graph": false,
     "desmos-calculator": false,
+    "perseus-enable-point-label-field": false,
     // ...add new flags here
 };
 

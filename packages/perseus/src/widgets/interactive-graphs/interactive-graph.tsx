@@ -1,4 +1,4 @@
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {Errors, isFeatureOn, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -286,6 +286,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                     readOnly={this.props.apiOptions?.readOnly}
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
+                    pointLabelsFlagEnabled={isFeatureOn(
+                        this.props,
+                        "perseus-enable-point-label-field",
+                    )}
                 />
             </>
         );

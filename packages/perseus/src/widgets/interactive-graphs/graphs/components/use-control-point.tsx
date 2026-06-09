@@ -131,6 +131,11 @@ export function useControlPoint(params: Params): Return {
             }}
         />
     );
+    // Visible labels are rendered separately by
+    // `movable-point-labels-layer.tsx` (HTML overlay with TeX), not
+    // inside the SVG — TeX cannot render inside an SVG. The layer reads
+    // the live coordinates straight from the reducer state, so a drag
+    // pushes the label along with the point glyph automatically.
     const visiblePoint = (
         <MovablePointView
             cursor={cursor}
