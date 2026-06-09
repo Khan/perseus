@@ -1,458 +1,98 @@
 /**
  * @jest-environment node
  */
-import fs from "node:fs";
-
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
 import * as CatalogHashUtils from "../catalog-hash-utils";
-import * as CheckForCatalogHashUpdate from "../check-for-catalog-hash-update";
-import * as GetCatalogDepsHash from "../get-catalog-deps-hash";
 import {updateCatalogHashes} from "../update-catalog-hashes";
+import * as UpdatePackageCatalogHash from "../update-package-catalog-hash";
 
 import type {PnpmWorkspace} from "../catalog-hash-utils";
 
-// Mock fs to prevent actual file writes
-jest.mock("node:fs");
-
 describe("updateCatalogHashes", () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
     const getMockPnpmWorkspace = (): PnpmWorkspace => ({
         catalogs: {
-            prodDeps: {
-                "tiny-invariant": "1.3.1",
-            },
-            peerDeps: {
-                react: "^18.2.0",
-                "react-dom": "^18.2.0",
-            },
-            devDeps: {
-                react: "18.2.0",
-                "react-dom": "18.2.0",
-            },
+            prodDeps: {"tiny-invariant": "1.3.1"},
+            peerDeps: {react: "^18.2.0", "react-dom": "^18.2.0"},
+            devDeps: {react: "18.2.0", "react-dom": "18.2.0"},
         },
     });
 
-    const getMockPackageJson = () =>
-        JSON.stringify({
-            name: "@khanacademy/test-package",
-            version: "1.0.0",
-            dependencies: {
-                "tiny-invariant": "catalog:prodDeps",
-            },
-            khan: {
-                catalogHash: "old-hash-123",
-            },
-        });
+    const mockPackagePaths = (...paths: string[]) =>
+        jest
+            .spyOn(CatalogHashUtils, "findAllPackageJsons")
+            .mockReturnValue(paths);
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        jest.spyOn(console, "log").mockImplementation(() => {});
+        jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+            getMockPnpmWorkspace(),
+        );
+        // Default: each package is unchanged. Individual tests override.
+        jest.spyOn(
+            UpdatePackageCatalogHash,
+            "updatePackageCatalogHash",
+        ).mockReturnValue(null);
+    });
 
     describe("package processing", () => {
-        it("should process all package.json files", () => {
+        it("processes every package.json that findAllPackageJsons returns", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
+            mockPackagePaths(
+                "/mock/packages/package1/package.json",
+                "/mock/packages/package2/package.json",
+                "/mock/packages/package3/package.json",
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
+            const updateSpy = jest.spyOn(
+                UpdatePackageCatalogHash,
+                "updatePackageCatalogHash",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
-                .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValue(false);
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert - Should process each package.json file found
-            expect(checkSpy).toHaveBeenCalledTimes(3);
-        });
-
-        it("should call checkForCatalogHashUpdate with correct parameters", () => {
-            // Arrange
-            const packagePath =
-                "/mock/perseus/root/packages/package1/package.json";
-            const mockPackageJson = JSON.parse(getMockPackageJson());
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [packagePath],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
-                .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValue(false);
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert - Should call with correct parameters
-            expect(checkSpy).toHaveBeenCalledWith(
-                packagePath,
-                mockPackageJson,
-                "new-hash-456",
-            );
-        });
-    });
-
-    describe("dry-run mode", () => {
-        it("should show dry-run message when no updates are needed", () => {
-            // Arrange
-            const consoleLogSpy = jest
-                .spyOn(console, "log")
-                .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                ],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(false);
-
-            // Act
-            updateCatalogHashes(true);
-
-            // Assert
-            expect(consoleLogSpy).toHaveBeenCalledWith(
-                "🔮 Would update 0 package.json files",
-            );
-        });
-
-        it("should show dry-run message when updates are needed", () => {
-            // Arrange
-            const consoleLogSpy = jest
-                .spyOn(console, "log")
-                .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValueOnce(true)
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(true);
-
-            // Act
-            updateCatalogHashes(true);
-
-            // Assert
-            expect(consoleLogSpy).toHaveBeenCalledWith(
-                "🔮 Would update 2 package.json files",
-            );
-        });
-
-        it("should not write files in dry-run mode", () => {
-            // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(true);
-            const writeFileSpy = jest
-                .spyOn(fs, "writeFileSync")
-                .mockImplementation(() => {});
-
-            // Act
-            updateCatalogHashes(true);
-
-            // Assert
-            expect(writeFileSpy).not.toHaveBeenCalled();
-        });
-    });
-
-    describe("normal mode", () => {
-        it("should show success message when no updates are needed", () => {
-            // Arrange
-            const consoleLogSpy = jest
-                .spyOn(console, "log")
-                .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                ],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(false);
 
             // Act
             updateCatalogHashes(false);
 
             // Assert
-            expect(consoleLogSpy).toHaveBeenCalledWith(
-                "✅ Updated 0 package.json files",
-            );
+            expect(updateSpy).toHaveBeenCalledTimes(3);
         });
 
-        it("should show success message when updates are made", () => {
+        it("forwards the path, workspace, dry-run, and verbose flags to each package", () => {
             // Arrange
-            const consoleLogSpy = jest
-                .spyOn(console, "log")
-                .mockImplementation(() => {});
+            const workspace = getMockPnpmWorkspace();
             jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
+                workspace,
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
+            mockPackagePaths("/mock/packages/package1/package.json");
+            const updateSpy = jest.spyOn(
+                UpdatePackageCatalogHash,
+                "updatePackageCatalogHash",
             );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValueOnce(true)
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(true);
-            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert
-            expect(consoleLogSpy).toHaveBeenCalledWith(
-                "✅ Updated 2 package.json files",
-            );
-        });
-
-        it("should write files when updates are needed", () => {
-            // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(true);
-            const writeFileSpy = jest
-                .spyOn(fs, "writeFileSync")
-                .mockImplementation(() => {});
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert
-            expect(writeFileSpy).toHaveBeenCalled();
-        });
-    });
-
-    describe("verbose mode", () => {
-        it("should pass verbose flag to getCatalogDepsHash", () => {
-            // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            const getCatalogDepsHashSpy = jest
-                .spyOn(GetCatalogDepsHash, "getCatalogDepsHash")
-                .mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(false);
 
             // Act
             updateCatalogHashes(false, true);
 
             // Assert
-            expect(getCatalogDepsHashSpy).toHaveBeenCalledWith(
-                expect.any(Object),
-                expect.any(Object),
-                true, // verbose
-            );
-        });
-    });
-
-    describe("integration scenarios", () => {
-        it("should handle empty package list", () => {
-            // Arrange
-            const consoleLogSpy = jest
-                .spyOn(console, "log")
-                .mockImplementation(() => {});
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [],
-            );
-            const checkSpy = jest
-                .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValue(false);
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert
-            expect(checkSpy).not.toHaveBeenCalled();
-            expect(consoleLogSpy).toHaveBeenCalledWith(
-                "✅ Updated 0 package.json files",
-            );
-        });
-
-        it("should process all packages found by findAllPackageJsons", () => {
-            // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            const checkSpy = jest
-                .spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValue(false);
-
-            // Act
-            updateCatalogHashes(false);
-
-            // Assert - Should process all packages found
-            expect(checkSpy).toHaveBeenCalledWith(
-                "/mock/perseus/root/packages/package1/package.json",
-                expect.any(Object),
-                "new-hash-456",
+            expect(updateSpy).toHaveBeenCalledWith(
+                "/mock/packages/package1/package.json",
+                workspace,
+                false,
+                true,
             );
         });
     });
 
     describe("return value", () => {
-        const getMockPackageJsonNamed = (name: string) =>
-            JSON.stringify({
-                name,
-                version: "1.0.0",
-                dependencies: {
-                    "tiny-invariant": "catalog:prodDeps",
-                },
-                khan: {
-                    catalogHash: "old-hash-123",
-                },
-            });
-
         it("returns the names of the packages whose hash changed", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
+            mockPackagePaths(
+                "/mock/packages/package1/package.json",
+                "/mock/packages/package2/package.json",
+                "/mock/packages/package3/package.json",
             );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                [
-                    "/mock/perseus/root/packages/package1/package.json",
-                    "/mock/perseus/root/packages/package2/package.json",
-                    "/mock/perseus/root/packages/package3/package.json",
-                ],
-            );
-            jest.spyOn(fs, "readFileSync")
-                .mockReturnValueOnce(
-                    getMockPackageJsonNamed("@khanacademy/package1"),
-                )
-                .mockReturnValueOnce(
-                    getMockPackageJsonNamed("@khanacademy/package2"),
-                )
-                .mockReturnValueOnce(
-                    getMockPackageJsonNamed("@khanacademy/package3"),
-                );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
-                .mockReturnValueOnce(true)
-                .mockReturnValueOnce(false)
-                .mockReturnValueOnce(true);
-            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+            jest.spyOn(UpdatePackageCatalogHash, "updatePackageCatalogHash")
+                .mockReturnValueOnce("@khanacademy/package1")
+                .mockReturnValueOnce(null)
+                .mockReturnValueOnce("@khanacademy/package3");
 
             // Act
             const result = updateCatalogHashes(false);
@@ -466,29 +106,93 @@ describe("updateCatalogHashes", () => {
 
         it("returns an empty array when no packages changed", () => {
             // Arrange
-            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
-                getMockPnpmWorkspace(),
-            );
-            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
-                ["/mock/perseus/root/packages/package1/package.json"],
-            );
-            jest.spyOn(fs, "readFileSync").mockReturnValue(
-                getMockPackageJson(),
-            );
-            jest.spyOn(
-                GetCatalogDepsHash,
-                "getCatalogDepsHash",
-            ).mockReturnValue("new-hash-456");
-            jest.spyOn(
-                CheckForCatalogHashUpdate,
-                "checkForCatalogHashUpdate",
-            ).mockReturnValue(false);
+            mockPackagePaths("/mock/packages/package1/package.json");
 
             // Act
             const result = updateCatalogHashes(false);
 
             // Assert
             expect(result).toEqual([]);
+        });
+    });
+
+    describe("summary message", () => {
+        it("reports the count of updated packages in normal mode", () => {
+            // Arrange
+            const consoleLogSpy = jest.spyOn(console, "log");
+            mockPackagePaths(
+                "/mock/packages/package1/package.json",
+                "/mock/packages/package2/package.json",
+                "/mock/packages/package3/package.json",
+            );
+            jest.spyOn(UpdatePackageCatalogHash, "updatePackageCatalogHash")
+                .mockReturnValueOnce("@khanacademy/package1")
+                .mockReturnValueOnce(null)
+                .mockReturnValueOnce("@khanacademy/package3");
+
+            // Act
+            updateCatalogHashes(false);
+
+            // Assert
+            expect(consoleLogSpy).toHaveBeenCalledWith(
+                "✅ Updated 2 package.json files",
+            );
+        });
+
+        it("reports the count of packages that would update in dry-run mode", () => {
+            // Arrange
+            const consoleLogSpy = jest.spyOn(console, "log");
+            mockPackagePaths(
+                "/mock/packages/package1/package.json",
+                "/mock/packages/package2/package.json",
+            );
+            jest.spyOn(UpdatePackageCatalogHash, "updatePackageCatalogHash")
+                .mockReturnValueOnce("@khanacademy/package1")
+                .mockReturnValueOnce("@khanacademy/package2");
+
+            // Act
+            updateCatalogHashes(true);
+
+            // Assert
+            expect(consoleLogSpy).toHaveBeenCalledWith(
+                "🔮 Would update 2 package.json files",
+            );
+        });
+
+        it("reports zero when no packages changed", () => {
+            // Arrange
+            const consoleLogSpy = jest.spyOn(console, "log");
+            mockPackagePaths("/mock/packages/package1/package.json");
+
+            // Act
+            updateCatalogHashes(false);
+
+            // Assert
+            expect(consoleLogSpy).toHaveBeenCalledWith(
+                "✅ Updated 0 package.json files",
+            );
+        });
+    });
+
+    describe("integration scenarios", () => {
+        it("handles an empty package list without processing any package", () => {
+            // Arrange
+            const consoleLogSpy = jest.spyOn(console, "log");
+            mockPackagePaths();
+            const updateSpy = jest.spyOn(
+                UpdatePackageCatalogHash,
+                "updatePackageCatalogHash",
+            );
+
+            // Act
+            const result = updateCatalogHashes(false);
+
+            // Assert
+            expect(updateSpy).not.toHaveBeenCalled();
+            expect(result).toEqual([]);
+            expect(consoleLogSpy).toHaveBeenCalledWith(
+                "✅ Updated 0 package.json files",
+            );
         });
     });
 });
