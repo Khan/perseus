@@ -9,6 +9,7 @@ describe("math-adjacent", () => {
             expectWarning(mathAdjacentRule, str);
         },
     );
+
     it.each(["$x=b+c$\n\nnew paragraph\n\n$x-b=c$"])(
         "mathAdjacentRule passes with: %s",
         (str: string) => {

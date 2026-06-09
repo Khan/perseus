@@ -10,6 +10,7 @@ describe("image-url-empty", () => {
     ])("imageUrlEmptyRule warns with: %s", (str: string) => {
         expectWarning(imageUrlEmptyRule, str);
     });
+
     it.each([
         "![alt-text]('something')", // text should pass, though not a valid URL
         "![alt-text]('www.test.com')", // example URL

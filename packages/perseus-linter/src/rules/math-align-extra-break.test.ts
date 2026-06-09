@@ -9,6 +9,7 @@ describe("math-align-extra-break", () => {
     ])("mathAlignExtraBreakRule warns with: %s", (str: string) => {
         expectWarning(mathAlignExtraBreakRule, str);
     });
+
     it.each(["$\\begin{align} x \\\\\\\\ y  \\end{align}$"])(
         "mathAlignExtraBreakRule passes with: %s",
         (str: string) => {

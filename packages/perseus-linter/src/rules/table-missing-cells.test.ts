@@ -12,6 +12,7 @@ describe("table-missing-cells", () => {
     ])("tableMissingCellsRule warns with: %s", (str: string) => {
         expectWarning(tableMissingCellsRule, str);
     });
+
     it.each([
         "|col1|col2|\n|----|----|\n|cell1|cell2|\n|cell1|cell2|",
         "|cell1|\n|----|\n|cell2|\n|cell3|",

@@ -10,6 +10,7 @@ describe("link-click-here", () => {
     ])("linkClickHereRule warns with: %s", (str: string) => {
         expectWarning(linkClickHereRule, str);
     });
+
     it.each(["[click to activate this link here](http://google.com)"])(
         "linkClickHereRule passes with: %s",
         (str: string) => {

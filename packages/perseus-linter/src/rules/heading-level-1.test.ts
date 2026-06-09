@@ -6,6 +6,7 @@ describe("heading-level-1", () => {
     it("warns for a level 1 heading", () => {
         expectWarning(headingLevel1Rule, "# Level 1 heading");
     });
+
     it("passes for level 2 and level 3 headings", () => {
         expectPass(
             headingLevel1Rule,

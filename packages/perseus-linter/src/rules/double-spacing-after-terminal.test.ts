@@ -9,6 +9,7 @@ describe("double-spacing-after-terminal", () => {
             expectWarning(doubleSpacingAfterTerminalRule, str);
         },
     );
+
     it.each([
         "This is okay.",
         "This is definitely okay. Yeah.",

@@ -6,6 +6,7 @@ describe("heading-level-skip", () => {
     it("warns when a heading level is skipped", () => {
         expectWarning(headingLevelSkipRule, "## heading 1\n\n#### heading 2");
     });
+
     it.each([
         "## heading 1\n\n### heading 2\n\n#### heading 3\n\n### heading 4",
         "## heading 1\n\n##heading 2\n\n##heading3",

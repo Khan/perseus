@@ -14,6 +14,7 @@ describe("image-spaces-around-urls", () => {
     ])("imageSpacesAroundUrlsRule warns with: %s", (str: string) => {
         expectWarning(imageSpacesAroundUrlsRule, str);
     });
+
     it.each([
         "![alternative](http://example.com/image.jpg)",
         "![alternative](image.jpg)",

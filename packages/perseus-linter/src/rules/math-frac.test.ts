@@ -9,6 +9,7 @@ describe("math-frac", () => {
             expectWarning(mathFracRule, str);
         },
     );
+
     it.each(["$\\dfrac 12$", "$\\dfrac{1}{2}$", "$\\fraction 12$"])(
         "mathFracRule passes with: %s",
         (str: string) => {

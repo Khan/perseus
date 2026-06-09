@@ -10,6 +10,7 @@ describe("heading-sentence-case", () => {
     ])("headingSentenceCaseRule warns with: %s", (str: string) => {
         expectWarning(headingSentenceCaseRule, str);
     });
+
     it.each([
         "## This heading is in sentence case",
         "## 'This heading too'",

@@ -17,6 +17,7 @@ describe("math-starts-with-space", () => {
     ])("mathStartsWithSpaceRule warns with: %s", (str: string) => {
         expectWarning(mathStartsWithSpaceRule, str);
     });
+
     it.each([
         "$a~ x$",
         "$a\\qquad x$",

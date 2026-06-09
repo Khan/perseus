@@ -10,6 +10,7 @@ describe("extra-content-spacing", () => {
     ])("extraContentSpacingRule warns with: %s", (str: string) => {
         expectWarning(extraContentSpacingRule, str);
     });
+
     it.each([
         "This is okay.",
         "This is definitely okay. Yeah.",

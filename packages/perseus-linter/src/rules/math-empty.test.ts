@@ -10,6 +10,7 @@ describe("math-empty", () => {
     ])("mathEmptyRule warns with: %s", (str: string) => {
         expectWarning(mathEmptyRule, str);
     });
+
     it.each([
         "foo $x$ bar",
         "foo\n\n$x$\n\nbar",

@@ -9,6 +9,7 @@ describe("unbalanced-code-delimiters", () => {
             expectWarning(unbalancedCodeDelimitersRule, str);
         },
     );
+
     it.each([
         "`code`",
         "``code``",

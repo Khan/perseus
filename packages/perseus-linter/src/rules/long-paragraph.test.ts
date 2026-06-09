@@ -9,6 +9,7 @@ describe("long-paragraph", () => {
     it("warns about paragraphs over 500 characters", () => {
         expectWarning(longParagraphRule, sentence + sentence);
     });
+
     it.each([sentence, sentence + "\n\n" + sentence])(
         "longParagraphRule passes with: %s",
         (str: string) => {

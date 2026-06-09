@@ -9,6 +9,7 @@ describe("math-nested", () => {
             expectWarning(mathNestedRule, str);
         },
     );
+
     it.each(["$\\text{4}x$", "inline $\\text{4}x$ math"])(
         "mathNestedRule passes with: %s",
         (str: string) => {

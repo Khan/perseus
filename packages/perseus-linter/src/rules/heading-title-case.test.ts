@@ -9,6 +9,7 @@ describe("heading-title-case", () => {
             "## This Heading is in Title Case and the but nor for Too",
         );
     });
+
     it.each([
         "## This heading is in sentence case",
         "## Acronyms: The CIA, NSA, DNI, and FBI",

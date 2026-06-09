@@ -9,6 +9,7 @@ describe("nested-lists", () => {
             expectWarning(nestedListsRule, str);
         },
     );
+
     it.each([
         "-one\n-two\n-three",
         "1. one\n 2. two\n3. three",

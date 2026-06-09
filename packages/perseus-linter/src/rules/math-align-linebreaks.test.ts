@@ -11,6 +11,7 @@ describe("math-align-linebreaks", () => {
     ])("mathAlignLinebreaksRule warns with: %s", (str: string) => {
         expectWarning(mathAlignLinebreaksRule, str);
     });
+
     it.each([
         "$\\begin{align}x\\sqrty\\end{align}$",
         "$\\begin{align}x\\\\\\\\y\\end{align}$",

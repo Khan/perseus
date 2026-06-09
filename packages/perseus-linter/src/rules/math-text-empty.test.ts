@@ -11,6 +11,7 @@ describe("math-text-empty", () => {
     ])("mathTextEmptyRule warns with: %s", (str: string) => {
         expectWarning(mathTextEmptyRule, str);
     });
+
     it.each(["$x\\text{z}y$"])(
         "mathTextEmptyRule passes with: %s",
         (str: string) => {
