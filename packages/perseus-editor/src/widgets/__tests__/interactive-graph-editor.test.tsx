@@ -117,7 +117,7 @@ describe("InteractiveGraphEditor", () => {
             wrapper: RenderStateRoot,
         });
 
-        const defaultType = await screen.findByText("Linear function");
+        const defaultType = await screen.findAllByText("None");
         const otherType = screen.queryByText("Polygon");
 
         // Assert

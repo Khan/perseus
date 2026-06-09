@@ -13,6 +13,7 @@ import {
     lockedFigureColors,
     splitPerseusItem,
     getDefaultFigureForType,
+    generateIGLinearGraph,
 } from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {screen, waitFor} from "@testing-library/react";
@@ -2118,7 +2119,10 @@ describe("Interactive Graph", function () {
 
         it("renders a 'not graded' message when graded is false", () => {
             // Arrange, Act
-            const question = generateInteractiveGraphQuestion({graded: false});
+            const question = generateInteractiveGraphQuestion({
+                graded: false,
+                graph: generateIGLinearGraph(),
+            });
             renderQuestion(question, blankOptions);
 
             // Assert
