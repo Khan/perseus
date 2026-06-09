@@ -3,6 +3,7 @@ import invariant from "tiny-invariant";
 
 import type {
     GrapherAnswerTypes,
+    GrapherFunctionType,
     PerseusGrapherWidgetOptions,
     PerseusGraphType,
     PerseusInteractiveGraphWidgetOptions,
@@ -29,6 +30,10 @@ export function convertGrapherOptionsToInteractiveGraph(
         return null;
     }
 
+    const graph: PerseusGraphType = {
+        type: grapherFunctionTypeToInteractiveGraphType(type),
+    };
+
     return {
         step: grapherOptions.graph.step,
         gridStep: grapherOptions.graph.gridStep,
@@ -47,10 +52,10 @@ export function convertGrapherOptionsToInteractiveGraph(
         showProtractor: grapherOptions.graph.showProtractor ?? false,
         showTooltips: grapherOptions.graph.showTooltips,
         range: grapherOptions.graph.range,
-        graph: {type: type === "absolute_value" ? "absolute-value" : type},
+        graph,
         correct: grapherOptions.correct
             ? grapherAnswerTypesToPerseusGraphType(grapherOptions.correct)
-            : {type: type === "absolute_value" ? "absolute-value" : type},
+            : graph,
         lockedFigures: [],
     };
 }
@@ -177,4 +182,8 @@ function grapherAnswerTypesToPerseusGraphType(
         default:
             throw new UnreachableCaseError(grapherAnswerTypes);
     }
+}
+
+function grapherFunctionTypeToInteractiveGraphType(type: GrapherFunctionType) {
+    return type === "absolute_value" ? "absolute-value" : type;
 }
