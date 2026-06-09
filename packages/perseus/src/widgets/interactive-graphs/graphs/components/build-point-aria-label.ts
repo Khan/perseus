@@ -1,5 +1,5 @@
 import {usePerseusI18n} from "../../../../components/i18n-context";
-import {srFormatNumber} from "../screenreader-text";
+import {withCustomPointLabel} from "../strings/custom-point-label";
 
 import type {PerseusStrings} from "../../../../strings";
 import type {vec} from "mafs";
@@ -40,16 +40,15 @@ export function buildPointAriaLabel(
     locale: string,
 ): string | undefined {
     const label = resolvePointLabel(pointLabels, index);
-    // When the resolved label is the numeric default, return undefined so
+    // Returns the custom-label string when the resolved label is a string, or
+    // undefined when it's the numeric default — in which case
     // `useControlPoint` keeps its existing fallback behavior.
-    if (typeof label === "number") {
-        return undefined;
-    }
-    return strings.srPointAtCoordinates({
-        num: label,
-        x: srFormatNumber(point[0], locale),
-        y: srFormatNumber(point[1], locale),
-    });
+    const {customLabel} = withCustomPointLabel(
+        {pointLabel: label, x: point[0], y: point[1]},
+        strings,
+        locale,
+    );
+    return customLabel;
 }
 
 /**
