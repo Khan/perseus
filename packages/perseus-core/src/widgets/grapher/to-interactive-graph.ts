@@ -21,7 +21,13 @@ export function convertGrapherOptionsToInteractiveGraph(
         return null;
     }
 
-    const type = grapherOptions.availableTypes[0];
+    const [type] = grapherOptions.availableTypes;
+    if (type === "quadratic") {
+        // Quadratic graphers cannot be converted to interactive-graph,
+        // because the 3-point user input from the interactive-graph cannot be
+        // losslessly converted back to the 2-point user input for Grapher.
+        return null;
+    }
 
     return {
         step: grapherOptions.graph.step,
@@ -111,14 +117,22 @@ export function convertInteractiveGraphUserInputToGrapher(
                     (interactiveGraphUserInput.coords as [Coord, Coord]) ??
                     null,
             };
-        default:
-            // This branch includes "quadratic"
-            // NOTE: we can't convert interactive graph quadratic coords to
-            // grapher, because that conversion is lossy (3 points -> 2 points).
+        case "angle":
+        case "circle":
+        case "linear-system":
+        case "none":
+        case "point":
+        case "polygon":
+        case "quadratic":
+        case "ray":
+        case "segment":
+        case "vector":
             throw Error(
                 "Can't convert interactive-graph user input to grapher user input. Type: " +
                     interactiveGraphUserInput.type,
             );
+        default:
+            throw new UnreachableCaseError(interactiveGraphUserInput);
     }
 }
 
@@ -149,15 +163,9 @@ function grapherAnswerTypesToPerseusGraphType(
                 asymptote: grapherAnswerTypes.asymptote[0][0],
             };
         case "quadratic":
-            return {
-                type: "quadratic",
-                coords:
-                    grapherAnswerTypes.coords == null
-                        ? null
-                        : grapherQuadraticCoordsToInteractiveGraphCoords(
-                              grapherAnswerTypes.coords,
-                          ),
-            };
+            throw Error(
+                "Can't convert GrapherAnswerTypes to interactive graph. Type: quadratic",
+            );
         case "sinusoid":
             return {
                 type: "sinusoid",
@@ -171,16 +179,4 @@ function grapherAnswerTypesToPerseusGraphType(
         default:
             throw new UnreachableCaseError(grapherAnswerTypes);
     }
-}
-
-function grapherQuadraticCoordsToInteractiveGraphCoords([vertex, secondPoint]: [
-    Coord,
-    Coord,
-]): [Coord, Coord, Coord] {
-    const thirdPoint: Coord = [
-        // Reflect the second point across a vertical line through the vertex.
-        vertex[0] - (secondPoint[0] - vertex[0]),
-        secondPoint[1],
-    ];
-    return [vertex, secondPoint, thirdPoint];
 }
