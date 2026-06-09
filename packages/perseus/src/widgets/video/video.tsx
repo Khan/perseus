@@ -33,7 +33,7 @@ const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
 type Props = WidgetProps<PerseusVideoWidgetOptions> & {
-    alignment: string; // Where does this get set?
+    // alignment: string; // Where does this get set?
     dependencies: PerseusDependenciesV2;
 };
 
@@ -106,7 +106,7 @@ class Video extends React.Component<Props> implements Widget {
                     height={DEFAULT_HEIGHT}
                     // The key is here for the benefit of the editor, to ensure that
                     // any changes cause a re-rendering of the frame.
-                    key={location + this.props.alignment}
+                    key={location}
                 >
                     <iframe
                         title={this.context.strings.videoWrapper}
