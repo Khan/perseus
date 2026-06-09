@@ -14,11 +14,13 @@ import semver from "semver";
 import invariant from "tiny-invariant";
 import yaml from "yaml";
 
-import {
-    CHANGESET_DIR,
-    createSyncChangeset,
-} from "./internal/create-sync-changeset";
+import {createSyncChangeset} from "./internal/create-sync-changeset";
 import {updateCatalogHashes} from "./internal/update-catalog-hashes";
+
+/**
+ * The directory (relative to the repo root) where changeset files live.
+ */
+export const CHANGESET_DIR = ".changeset";
 
 function printHelp() {
     console.log("--- Package Dependency Sync ---");
@@ -202,6 +204,13 @@ function main(argv: string[]) {
         );
     } else {
         const changesetPath = path.join(CHANGESET_DIR, changeset.filename);
+        if (fs.existsSync(changesetPath)) {
+            console.error(
+                `❌ Changeset file (${changesetPath}) already exists. Please delete if you want to re-run this script.`,
+            );
+            process.exit(1);
+        }
+
         fs.writeFileSync(changesetPath, changeset.contents, {
             encoding: "utf-8",
         });
