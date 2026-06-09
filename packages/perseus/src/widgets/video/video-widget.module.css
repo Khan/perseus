@@ -1,5 +1,3 @@
-/******************* Video widget styles *******************/
-
 /* Constrain the video widget to the width of the article. Without this
    override, the video will become too large and overflow the article. */
 .perseus-video-widget {

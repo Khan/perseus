@@ -19,6 +19,7 @@ import {
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
 import VideoTranscriptLink from "./video-transcript-link";
+import styles from "./video-widget.module.css";
 
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
@@ -101,7 +102,7 @@ class Video extends React.Component<Props> implements Widget {
         return (
             <View>
                 <FixedToResponsive
-                    className="perseus-video-fixed-to-responsive"
+                    className={styles.perseusVideoFixedToResponsive}
                     width={DEFAULT_WIDTH}
                     height={DEFAULT_HEIGHT}
                     // The key is here for the benefit of the editor, to ensure that
@@ -110,7 +111,7 @@ class Video extends React.Component<Props> implements Widget {
                 >
                     <iframe
                         title={this.context.strings.videoWrapper}
-                        className="perseus-video-widget"
+                        className={styles.perseusVideoWidget}
                         sandbox="allow-same-origin allow-scripts"
                         width={DEFAULT_WIDTH}
                         height={DEFAULT_HEIGHT}
