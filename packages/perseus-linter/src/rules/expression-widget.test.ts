@@ -1,8 +1,4 @@
-import {
-    expectWarning,
-    expectPass,
-    expectPassSingle,
-} from "../__tests__/test-utils";
+import {expectWarning, expectPass} from "../__tests__/test-utils";
 
 import expressionWidgetRule from "./expression-widget";
 
@@ -28,7 +24,7 @@ describe("expression-widget", () => {
     });
 
     it("passes for sqrt with the prealgebra button set", () => {
-        expectPassSingle(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -68,24 +64,25 @@ describe("expression-widget", () => {
         },
     });
 
-    // Pass for ^ with the prealgebra button set
-    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
-        widgets: {
-            "expression 1": {
-                options: {
-                    answerForms: [
-                        {
-                            value: "2^{2x}",
-                            form: true,
-                            simplify: true,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic", "prealgebra"],
+    it("passes for ^ with the prealgebra button set", () => {
+        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "2^{2x}",
+                                form: true,
+                                simplify: true,
+                                considered: "correct",
+                                key: "0",
+                            },
+                        ],
+                        buttonSets: ["basic", "prealgebra"],
+                    },
                 },
             },
-        },
+        });
     });
 
     // Warning for sin without the trig button set
@@ -108,24 +105,25 @@ describe("expression-widget", () => {
         },
     });
 
-    // Pass for sin with the trig button set
-    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
-        widgets: {
-            "expression 1": {
-                options: {
-                    answerForms: [
-                        {
-                            value: "\\sin\\left(42\\right)",
-                            form: true,
-                            simplify: true,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic", "trig"],
+    it("passes for sin with the trig button set", () => {
+        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "\\sin\\left(42\\right)",
+                                form: true,
+                                simplify: true,
+                                considered: "correct",
+                                key: "0",
+                            },
+                        ],
+                        buttonSets: ["basic", "trig"],
+                    },
                 },
             },
-        },
+        });
     });
 
     // Warning for log without the logarithms button set
@@ -148,23 +146,24 @@ describe("expression-widget", () => {
         },
     });
 
-    // Pass for log with the logarithms button set
-    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
-        widgets: {
-            "expression 1": {
-                options: {
-                    answerForms: [
-                        {
-                            value: "\\log\\left(5\\right)",
-                            form: true,
-                            simplify: true,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic", "logarithms"],
+    it("passes for log with the logarithms button set", () => {
+        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "\\log\\left(5\\right)",
+                                form: true,
+                                simplify: true,
+                                considered: "correct",
+                                key: "0",
+                            },
+                        ],
+                        buttonSets: ["basic", "logarithms"],
+                    },
                 },
             },
-        },
+        });
     });
 });

@@ -12,9 +12,11 @@ describe("image-alt-text", () => {
         "![blah](http://google.com/)", // too short to be meaningful
     ]);
 
-    expectPass(imageAltTextRule, [
+    it.each([
         "![alt-text](http://google.com)",
         '![alternative text](http://google.com/ "title")',
         "![alt alt alt][url-ref]",
-    ]);
+    ])("imageAltTextRule passes with: %s", (str: string) => {
+        expectPass(imageAltTextRule, str);
+    });
 });

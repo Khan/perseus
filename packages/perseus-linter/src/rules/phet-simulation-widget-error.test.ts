@@ -32,14 +32,15 @@ describe("radio-widget-error", () => {
         },
     });
 
-    // Pass for phet simulation widget with PhET URL
-    expectPass(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
-        widgets: {
-            "phet-simulation 1": {
-                options: {
-                    url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+    it("passes for phet simulation widget with PhET URL", () => {
+        expectPass(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
+            widgets: {
+                "phet-simulation 1": {
+                    options: {
+                        url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+                    },
                 },
             },
-        },
+        });
     });
 });

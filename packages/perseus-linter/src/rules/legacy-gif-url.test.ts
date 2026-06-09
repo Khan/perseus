@@ -29,38 +29,41 @@ describe("legacy-gif-url", () => {
         },
     });
 
-    // Pass for a legacy S3 image that isn't a gif
-    expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    backgroundImage: {
-                        url: "https://ka-perseus-images.s3.amazonaws.com/abc123.png",
+    it("passes for a legacy S3 image that isn't a gif", () => {
+        expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/abc123.png",
+                        },
                     },
                 },
             },
-        },
+        });
     });
 
-    // Pass for a gif hosted on the CDN
-    expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    backgroundImage: {
-                        url: "https://cdn.kastatic.org/ka-perseus-images/abc123.gif",
+    it("passes for a gif hosted on the CDN", () => {
+        expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        backgroundImage: {
+                            url: "https://cdn.kastatic.org/ka-perseus-images/abc123.gif",
+                        },
                     },
                 },
             },
-        },
+        });
     });
 
-    // Pass for an image widget with no background image URL
-    expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {},
+    it("passes for an image widget with no background image URL", () => {
+        expectPass(legacyGifUrlRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {},
+                },
             },
-        },
+        });
     });
 });

@@ -1,4 +1,4 @@
-import {expectWarning, expectPassSingle} from "../__tests__/test-utils";
+import {expectWarning, expectPass} from "../__tests__/test-utils";
 
 import mathWithoutDollarsRule from "./math-without-dollars";
 
@@ -20,6 +20,6 @@ describe("math-without-dollars", () => {
         "~~~\n\\frac{1}{2}\n~~~",
         "\n    \\frac{1}{2}\n    {\n    }\n",
     ])("mathWithoutDollarsRule passes with: %s", (str: string) => {
-        expectPassSingle(mathWithoutDollarsRule, str);
+        expectPass(mathWithoutDollarsRule, str);
     });
 });

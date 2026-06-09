@@ -27,27 +27,29 @@ describe("radio-widget-error", () => {
         },
     });
 
-    // Pass for matcher widget with the same number of cards in the left and right columns
-    expectPass(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
-        widgets: {
-            "matcher 1": {
-                options: {
-                    left: ["1", "2", "3"],
-                    right: ["4", "5", "6"],
+    it("passes for matcher widget with the same number of cards in the left and right columns", () => {
+        expectPass(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
+            widgets: {
+                "matcher 1": {
+                    options: {
+                        left: ["1", "2", "3"],
+                        right: ["4", "5", "6"],
+                    },
                 },
             },
-        },
+        });
     });
 
-    // Pass for matcher widget with no cards
-    expectPass(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
-        widgets: {
-            "matcher 1": {
-                options: {
-                    left: [],
-                    right: [],
+    it("passes for matcher widget with no cards", () => {
+        expectPass(matcherWidgetErrorRule, "[[☃ matcher 1]]", {
+            widgets: {
+                "matcher 1": {
+                    options: {
+                        left: [],
+                        right: [],
+                    },
                 },
             },
-        },
+        });
     });
 });

@@ -23,7 +23,7 @@ describe("image-markdown", () => {
     ]);
 
     // Text that does not contain markdown images should pass
-    expectPass(imageMarkdownRule, [
+    it.each([
         "!",
         "![",
         "![]",
@@ -38,31 +38,41 @@ describe("image-markdown", () => {
         "[]()", // link markdown, not image
         "[link text](http://google.com)", // link markdown, not image
         "![][", // Incomplete reference image
-    ]);
+    ])("imageMarkdownRule passes with: %s", (str: string) => {
+        expectPass(imageMarkdownRule, str);
+    });
 
     // Markdown images should pass when inside a widget (e.g., Radio widget)
-    expectPass(
-        imageMarkdownRule,
-        [
-            "![](http://google.com/)",
-            "![alt text](http://example.com/image.png)",
-            "![]()",
-            "![ ](http://google.com/)",
-            "![blah](http://google.com/)",
-        ],
-        {
+    it.each([
+        "![](http://google.com/)",
+        "![alt text](http://example.com/image.png)",
+        "![]()",
+        "![ ](http://google.com/)",
+        "![blah](http://google.com/)",
+    ])("imageMarkdownRule passes with: %s", (str: string) => {
+        expectPass(imageMarkdownRule, str, {
             stack: ["root", "paragraph", "widget", "text", "image"],
+        });
+    });
+
+    // Additional test to ensure stack checking works correctly
+    it.each(["![test image](http://test.com/img.jpg)"])(
+        "imageMarkdownRule passes with: %s",
+        (str: string) => {
+            expectPass(imageMarkdownRule, str, {
+                stack: ["widget", "image"],
+            });
         },
     );
 
-    // Additional test to ensure stack checking works correctly
-    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
-        stack: ["widget", "image"],
-    });
-
-    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
-        stack: ["widget"],
-    });
+    it.each(["![test image](http://test.com/img.jpg)"])(
+        "imageMarkdownRule passes with: %s",
+        (str: string) => {
+            expectPass(imageMarkdownRule, str, {
+                stack: ["widget"],
+            });
+        },
+    );
 
     expectWarning(
         imageMarkdownRule,

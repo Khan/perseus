@@ -10,8 +10,10 @@ describe("table-missing-cells", () => {
         "|col1|\n|----|----|\n|col1|\n|cell1|cell2|",
         "|col1|col2|\n|----|----|\n|col1|\n|cell1|cell2|",
     ]);
-    expectPass(tableMissingCellsRule, [
+    it.each([
         "|col1|col2|\n|----|----|\n|cell1|cell2|\n|cell1|cell2|",
         "|cell1|\n|----|\n|cell2|\n|cell3|",
-    ]);
+    ])("tableMissingCellsRule passes with: %s", (str: string) => {
+        expectPass(tableMissingCellsRule, str);
+    });
 });

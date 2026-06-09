@@ -61,18 +61,19 @@ describe("image-widget-empty-size", () => {
         },
     });
 
-    // Pass for image widget with defined width and height
-    expectPass(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    backgroundImage: {
-                        url: "https://example.com/image.png",
-                        width: 100,
-                        height: 100,
+    it("passes for image widget with defined width and height", () => {
+        expectPass(imageWidgetEmptySizeRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        backgroundImage: {
+                            url: "https://example.com/image.png",
+                            width: 100,
+                            height: 100,
+                        },
                     },
                 },
             },
-        },
+        });
     });
 });

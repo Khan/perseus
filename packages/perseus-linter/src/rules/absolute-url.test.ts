@@ -19,7 +19,7 @@ describe("absolute-url", () => {
         "![alt text](https://www.khanacademy.org/about)",
         "![alt text](https://es.khanacademy.org/about)",
     ]);
-    expectPass(absoluteUrlRule, [
+    it.each([
         "[target](/about)", // relative URLs okay
         "[target](https://kasandbox.org/path)",
         "[target](https://fastly.kastatic.org/path)",
@@ -31,5 +31,7 @@ describe("absolute-url", () => {
         "![alt text](/about)",
         "![alt text](https://cdn.kastatic.org/path)",
         "![alt text](https://ka-perseus-images.s3.amazonaws.com/path)",
-    ]);
+    ])("absoluteUrlRule passes with: %s", (str: string) => {
+        expectPass(absoluteUrlRule, str);
+    });
 });

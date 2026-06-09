@@ -8,9 +8,11 @@ describe("image-url-empty", () => {
         "![alt-text](  )", // empty URL with spaces
         "![alt-text](\n)", // empty URL with newline
     ]);
-    expectPass(imageUrlEmptyRule, [
+    it.each([
         "![alt-text]('something')", // text should pass, though not a valid URL
         "![alt-text]('www.test.com')", // example URL
         "![alt-text](56)", // example number should pass, though not a valid URL
-    ]);
+    ])("imageUrlEmptyRule passes with: %s", (str: string) => {
+        expectPass(imageUrlEmptyRule, str);
+    });
 });

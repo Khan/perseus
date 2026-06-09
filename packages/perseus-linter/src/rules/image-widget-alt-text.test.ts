@@ -34,14 +34,15 @@ describe("image-widget", () => {
         },
     });
 
-    // Pass for image widget with sufficiently long alt text
-    expectPass(imageWidgetAltTextRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    alt: "1234567890",
+    it("passes for image widget with sufficiently long alt text", () => {
+        expectPass(imageWidgetAltTextRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        alt: "1234567890",
+                    },
                 },
             },
-        },
+        });
     });
 });

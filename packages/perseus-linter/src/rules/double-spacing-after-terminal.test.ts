@@ -8,9 +8,11 @@ describe("double-spacing-after-terminal", () => {
         "End of the line!  ",
         "You?  Me!",
     ]);
-    expectPass(doubleSpacingAfterTerminalRule, [
+    it.each([
         "This is okay.",
         "This is definitely okay. Yeah.",
         "$a == 3.  125$",
-    ]);
+    ])("doubleSpacingAfterTerminalRule passes with: %s", (str: string) => {
+        expectPass(doubleSpacingAfterTerminalRule, str);
+    });
 });

@@ -7,9 +7,11 @@ describe("nested-lists", () => {
         "1. outer\n  * nested\n  *nested",
         " + outer\n\n   1. nested",
     ]);
-    expectPass(nestedListsRule, [
+    it.each([
         "-one\n-two\n-three",
         "1. one\n 2. two\n3. three",
         " * one\n\n * two\n\n * three",
-    ]);
+    ])("nestedListsRule passes with: %s", (str: string) => {
+        expectPass(nestedListsRule, str);
+    });
 });

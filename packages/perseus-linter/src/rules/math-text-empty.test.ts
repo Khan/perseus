@@ -9,5 +9,10 @@ describe("math-text-empty", () => {
         "$x\\text{\n}y$",
         "$x\\text{\t}y$",
     ]);
-    expectPass(mathTextEmptyRule, ["$x\\text{z}y$"]);
+    it.each(["$x\\text{z}y$"])(
+        "mathTextEmptyRule passes with: %s",
+        (str: string) => {
+            expectPass(mathTextEmptyRule, str);
+        },
+    );
 });

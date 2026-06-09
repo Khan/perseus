@@ -8,9 +8,11 @@ describe("heading-sentence-case", () => {
         "## 'this' heading is uncapitalized",
         "##   this heading is uncapitalized",
     ]);
-    expectPass(headingSentenceCaseRule, [
+    it.each([
         "## This heading is in sentence case",
         "## 'This heading too'",
         "## 2 + 2 = 4",
-    ]);
+    ])("headingSentenceCaseRule passes with: %s", (str: string) => {
+        expectPass(headingSentenceCaseRule, str);
+    });
 });

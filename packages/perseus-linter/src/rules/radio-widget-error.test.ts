@@ -26,15 +26,16 @@ describe("radio-widget-error", () => {
             },
         });
 
-        // Pass for radio widget with correct choices
-        expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
-            widgets: {
-                "radio 1": {
-                    options: {
-                        choices: [{content: "Correct", correct: true}],
+        it("passes for radio widget with correct choices", () => {
+            expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
+                widgets: {
+                    "radio 1": {
+                        options: {
+                            choices: [{content: "Correct", correct: true}],
+                        },
                     },
                 },
-            },
+            });
         });
     });
 
@@ -56,38 +57,42 @@ describe("radio-widget-error", () => {
             },
         });
 
-        expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
-            widgets: {
-                "radio 1": {
-                    options: {
-                        choices: [
-                            {content: "Correct", correct: true},
-                            {
-                                content: "None Of the Above",
-                                isNoneOfTheAbove: true,
-                                correct: false,
-                            },
-                        ],
+        it("passes when None of the Above is not marked correct alongside another correct choice", () => {
+            expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
+                widgets: {
+                    "radio 1": {
+                        options: {
+                            choices: [
+                                {content: "Correct", correct: true},
+                                {
+                                    content: "None Of the Above",
+                                    isNoneOfTheAbove: true,
+                                    correct: false,
+                                },
+                            ],
+                        },
                     },
                 },
-            },
+            });
         });
 
-        expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
-            widgets: {
-                "radio 1": {
-                    options: {
-                        choices: [
-                            {content: "Correct", correct: false},
-                            {
-                                content: "None Of the Above",
-                                isNoneOfTheAbove: true,
-                                correct: true,
-                            },
-                        ],
+        it("passes when only None of the Above is marked correct", () => {
+            expectPass(radioWidgetErrorRule, "[[☃ radio 1]]", {
+                widgets: {
+                    "radio 1": {
+                        options: {
+                            choices: [
+                                {content: "Correct", correct: false},
+                                {
+                                    content: "None Of the Above",
+                                    isNoneOfTheAbove: true,
+                                    correct: true,
+                                },
+                            ],
+                        },
                     },
                 },
-            },
+            });
         });
     });
 });

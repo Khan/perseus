@@ -26,15 +26,16 @@ describe("numeric-input-missing-label", () => {
         },
     });
 
-    // Pass when labelText is set
-    expectPass(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
-        widgets: {
-            "numeric-input 1": {
-                options: {
-                    answers: [{value: 42}],
-                    labelText: "What's the answer?",
+    it("passes when labelText is set", () => {
+        expectPass(numericInputMissingLabelRule, "[[☃ numeric-input 1]]", {
+            widgets: {
+                "numeric-input 1": {
+                    options: {
+                        answers: [{value: 42}],
+                        labelText: "What's the answer?",
+                    },
                 },
             },
-        },
+        });
     });
 });

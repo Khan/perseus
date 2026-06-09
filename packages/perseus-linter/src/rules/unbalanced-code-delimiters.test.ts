@@ -9,7 +9,7 @@ describe("unbalanced-code-delimiters", () => {
         "```code\n",
         "~~~\ncode\n~~",
     ]);
-    expectPass(unbalancedCodeDelimitersRule, [
+    it.each([
         "`code`",
         "``code``",
         "```code```",
@@ -18,5 +18,7 @@ describe("unbalanced-code-delimiters", () => {
         "``co`de``",
         "`co~de`",
         "$`~$",
-    ]);
+    ])("unbalancedCodeDelimitersRule passes with: %s", (str: string) => {
+        expectPass(unbalancedCodeDelimitersRule, str);
+    });
 });

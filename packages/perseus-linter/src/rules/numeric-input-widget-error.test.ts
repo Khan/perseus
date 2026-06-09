@@ -56,18 +56,19 @@ describe("radio-widget-error", () => {
         },
     });
 
-    // Pass for numeric input widget with all non-empty answers
-    expectPass(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
-        widgets: {
-            "numeric-input 1": {
-                options: {
-                    answers: [
-                        {
-                            value: 0,
-                        },
-                    ],
+    it("passes for numeric input widget with all non-empty answers", () => {
+        expectPass(numericInputWidgetErrorRule, "[[☃ numeric-input 1]]", {
+            widgets: {
+                "numeric-input 1": {
+                    options: {
+                        answers: [
+                            {
+                                value: 0,
+                            },
+                        ],
+                    },
                 },
             },
-        },
+        });
     });
 });

@@ -8,9 +8,11 @@ describe("extra-content-spacing", () => {
         "There's extra spaces here    ",
         "  ",
     ]);
-    expectPass(extraContentSpacingRule, [
+    it.each([
         "This is okay.",
         "This is definitely okay. Yeah.",
         "$a == 3.  125$",
-    ]);
+    ])("extraContentSpacingRule passes with: %s", (str: string) => {
+        expectPass(extraContentSpacingRule, str);
+    });
 });

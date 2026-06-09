@@ -8,7 +8,10 @@ describe("link-click-here", () => {
         "[Click here, please](http://google.com)",
         "[For a good time, Click Here](http://google.com)",
     ]);
-    expectPass(linkClickHereRule, [
-        "[click to activate this link here](http://google.com)",
-    ]);
+    it.each(["[click to activate this link here](http://google.com)"])(
+        "linkClickHereRule passes with: %s",
+        (str: string) => {
+            expectPass(linkClickHereRule, str);
+        },
+    );
 });

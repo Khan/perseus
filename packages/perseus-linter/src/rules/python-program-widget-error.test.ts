@@ -36,15 +36,16 @@ describe("python-program-widget-error", () => {
         },
     });
 
-    // Pass when no errors are detected
-    expectPass(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
-        widgets: {
-            "python-program 1": {
-                options: {
-                    programID: "123",
-                    height: 100,
+    it("passes when no errors are detected", () => {
+        expectPass(pythonProgramWidgetErrorRule, "[[☃ python-program 1]]", {
+            widgets: {
+                "python-program 1": {
+                    options: {
+                        programID: "123",
+                        height: 100,
+                    },
                 },
             },
-        },
+        });
     });
 });

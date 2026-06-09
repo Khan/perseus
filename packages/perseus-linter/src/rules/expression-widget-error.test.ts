@@ -87,21 +87,22 @@ describe("expression-widget-error", () => {
         },
     });
 
-    // Pass when no errors are detected
-    expectPass(expressionWidgetErrorRule, "[[☃ expression 1]]", {
-        widgets: {
-            "expression 1": {
-                options: {
-                    answerForms: [
-                        {
-                            value: "2",
-                            form: false,
-                            simplify: false,
-                            considered: "correct",
-                        },
-                    ],
+    it("passes when no errors are detected", () => {
+        expectPass(expressionWidgetErrorRule, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "2",
+                                form: false,
+                                simplify: false,
+                                considered: "correct",
+                            },
+                        ],
+                    },
                 },
             },
-        },
+        });
     });
 });

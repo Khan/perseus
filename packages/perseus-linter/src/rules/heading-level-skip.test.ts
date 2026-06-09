@@ -4,8 +4,10 @@ import headingLevelSkipRule from "./heading-level-skip";
 
 describe("heading-level-skip", () => {
     expectWarning(headingLevelSkipRule, "## heading 1\n\n#### heading 2");
-    expectPass(headingLevelSkipRule, [
+    it.each([
         "## heading 1\n\n### heading 2\n\n#### heading 3\n\n### heading 4",
         "## heading 1\n\n##heading 2\n\n##heading3",
-    ]);
+    ])("headingLevelSkipRule passes with: %s", (str: string) => {
+        expectPass(headingLevelSkipRule, str);
+    });
 });

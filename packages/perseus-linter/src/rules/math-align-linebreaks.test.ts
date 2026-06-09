@@ -9,10 +9,12 @@ describe("math-align-linebreaks", () => {
         "$\\begin{align}x\\\\\\\\\\\\y\\end{align}$",
         "$\\begin{align}\nx\\\\\n\\\\\\\\\ny\n\\end{align}$",
     ]);
-    expectPass(mathAlignLinebreaksRule, [
+    it.each([
         "$\\begin{align}x\\sqrty\\end{align}$",
         "$\\begin{align}x\\\\\\\\y\\end{align}$",
         "$\\begin{align}x\\\\\n\\\\y\\end{align}$",
         "$\\begin{align}x \\\\  \\\\ y\\end{align}$",
-    ]);
+    ])("mathAlignLinebreaksRule passes with: %s", (str: string) => {
+        expectPass(mathAlignLinebreaksRule, str);
+    });
 });

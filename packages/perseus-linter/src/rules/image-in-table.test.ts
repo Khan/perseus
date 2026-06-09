@@ -6,7 +6,9 @@ describe("image-in-table", () => {
     expectWarning(imageInTableRule, [
         "|col1|col2|\n|----|----|\n|![alt-text](/link.gif)|cell2|",
     ]);
-    expectPass(imageInTableRule, [
+    it.each([
         "![alt-text](/link.gif)\n|col1|col2|\n|----|----|\n|cell1|cell2|",
-    ]);
+    ])("imageInTableRule passes with: %s", (str: string) => {
+        expectPass(imageInTableRule, str);
+    });
 });

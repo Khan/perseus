@@ -15,7 +15,7 @@ describe("math-starts-with-space", () => {
         "$\\enspace x$",
         "$\\phantom{xyz} x$",
     ]);
-    expectPass(mathStartsWithSpaceRule, [
+    it.each([
         "$a~ x$",
         "$a\\qquad x$",
         "$a\\quad x$",
@@ -26,5 +26,7 @@ describe("math-starts-with-space", () => {
         "$a\\! x$",
         "$a\\enspace x$",
         "$a\\phantom{xyz} x$",
-    ]);
+    ])("mathStartsWithSpaceRule passes with: %s", (str: string) => {
+        expectPass(mathStartsWithSpaceRule, str);
+    });
 });

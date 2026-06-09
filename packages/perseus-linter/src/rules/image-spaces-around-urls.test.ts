@@ -12,9 +12,11 @@ describe("image-spaces-around-urls", () => {
         "![alternative](\nhttp://example.com/image.jpg)",
         "![alternative](http://example.com/image.jpg\n)",
     ]);
-    expectPass(imageSpacesAroundUrlsRule, [
+    it.each([
         "![alternative](http://example.com/image.jpg)",
         "![alternative](image.jpg)",
         "![alternative](--image.jpg--)",
-    ]);
+    ])("imageSpacesAroundUrlsRule passes with: %s", (str: string) => {
+        expectPass(imageSpacesAroundUrlsRule, str);
+    });
 });

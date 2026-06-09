@@ -170,24 +170,25 @@ describe("label-image-widget-error", () => {
         },
     );
 
-    // Pass when no errors are detected
-    expectPass(labelImageWidgetErrorRule, "[[☃ label-image 1]]", {
-        widgets: {
-            "label-image 1": {
-                options: {
-                    choices: ["Choice 1", "Choice 2"],
-                    imageUrl: "example-url",
-                    imageAlt: "example-alt",
-                    markers: [
-                        {
-                            label: "Label 1",
-                            answers: ["Choice 1"],
-                            x: 10,
-                            y: 10,
-                        },
-                    ],
+    it("passes when no errors are detected", () => {
+        expectPass(labelImageWidgetErrorRule, "[[☃ label-image 1]]", {
+            widgets: {
+                "label-image 1": {
+                    options: {
+                        choices: ["Choice 1", "Choice 2"],
+                        imageUrl: "example-url",
+                        imageAlt: "example-alt",
+                        markers: [
+                            {
+                                label: "Label 1",
+                                answers: ["Choice 1"],
+                                x: 10,
+                                y: 10,
+                            },
+                        ],
+                    },
                 },
             },
-        },
+        });
     });
 });

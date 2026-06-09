@@ -47,14 +47,15 @@ describe("radio-widget-error", () => {
         },
     });
 
-    // Pass for free response widget with no issues
-    expectPass(freeResponseWidgetErrorRule, "[[☃ free-response 1]]", {
-        widgets: {
-            "free-response 1": {
-                options: {
-                    question: "Hello world!",
+    it("passes for free response widget with no issues", () => {
+        expectPass(freeResponseWidgetErrorRule, "[[☃ free-response 1]]", {
+            widgets: {
+                "free-response 1": {
+                    options: {
+                        question: "Hello world!",
+                    },
                 },
             },
-        },
+        });
     });
 });

@@ -7,9 +7,11 @@ describe("heading-title-case", () => {
         headingTitleCaseRule,
         "## This Heading is in Title Case and the but nor for Too",
     );
-    expectPass(headingTitleCaseRule, [
+    it.each([
         "## This heading is in sentence case",
         "## Acronyms: The CIA, NSA, DNI, and FBI",
         "## The Great War",
-    ]);
+    ])("headingTitleCaseRule passes with: %s", (str: string) => {
+        expectPass(headingTitleCaseRule, str);
+    });
 });

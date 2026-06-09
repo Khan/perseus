@@ -74,16 +74,6 @@ export function expectWarning(
     });
 }
 
-export function expectPass(rule, strings: string | Array<string>, context?) {
-    if (typeof strings === "string") {
-        strings = [strings];
-    }
-
-    it.each(strings)(`Rule ${rule.name} passes with: %s`, (string) => {
-        expectPassSingle(rule, string, context);
-    });
-}
-
-export function expectPassSingle(rule, string: string, context?) {
+export function expectPass(rule, string: string, context?) {
     expect(testRule(rule, string, context)).toBeNull();
 }
