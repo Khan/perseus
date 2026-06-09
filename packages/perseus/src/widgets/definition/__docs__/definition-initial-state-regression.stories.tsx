@@ -37,6 +37,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+/*
+ * NOTE: The Definition widget also has a `hover` state, but it cannot be
+ * tested accurately with Chromatic at this time (2026).
+ */
+
 export const Exercise: Story = {
     decorators: [definitionRendererDecorator],
     args: definitionQuestionOptions,
