@@ -57,31 +57,33 @@ describe("image-markdown", () => {
         });
     });
 
-    // Additional test to ensure stack checking works correctly
-    it.each(["![test image](http://test.com/img.jpg)"])(
-        "imageMarkdownRule passes with: %s",
-        (str: string) => {
-            expectPass(imageMarkdownRule, str, {
+    it("passes for a markdown image when the stack is widget then image", () => {
+        expectPass(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
                 stack: ["widget", "image"],
-            });
-        },
-    );
+            },
+        );
+    });
 
-    it.each(["![test image](http://test.com/img.jpg)"])(
-        "imageMarkdownRule passes with: %s",
-        (str: string) => {
-            expectPass(imageMarkdownRule, str, {
+    it("passes for a markdown image when the stack is just a widget", () => {
+        expectPass(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
                 stack: ["widget"],
-            });
-        },
-    );
+            },
+        );
+    });
 
-    it.each(["![test image](http://test.com/img.jpg)"])(
-        "imageMarkdownRule warns with: %s",
-        (str: string) => {
-            expectWarning(imageMarkdownRule, str, {
+    it("warns for a markdown image when the stack is just an image", () => {
+        expectWarning(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
                 stack: ["image"],
-            });
-        },
-    );
+            },
+        );
+    });
 });

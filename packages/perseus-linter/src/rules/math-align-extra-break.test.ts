@@ -10,10 +10,10 @@ describe("math-align-extra-break", () => {
         expectWarning(mathAlignExtraBreakRule, str);
     });
 
-    it.each(["$\\begin{align} x \\\\\\\\ y  \\end{align}$"])(
-        "mathAlignExtraBreakRule passes with: %s",
-        (str: string) => {
-            expectPass(mathAlignExtraBreakRule, str);
-        },
-    );
+    it("passes for an align block without an extra break", () => {
+        expectPass(
+            mathAlignExtraBreakRule,
+            "$\\begin{align} x \\\\\\\\ y  \\end{align}$",
+        );
+    });
 });

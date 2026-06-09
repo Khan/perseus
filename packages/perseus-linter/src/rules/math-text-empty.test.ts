@@ -12,10 +12,7 @@ describe("math-text-empty", () => {
         expectWarning(mathTextEmptyRule, str);
     });
 
-    it.each(["$x\\text{z}y$"])(
-        "mathTextEmptyRule passes with: %s",
-        (str: string) => {
-            expectPass(mathTextEmptyRule, str);
-        },
-    );
+    it("passes for non-empty text in math", () => {
+        expectPass(mathTextEmptyRule, "$x\\text{z}y$");
+    });
 });

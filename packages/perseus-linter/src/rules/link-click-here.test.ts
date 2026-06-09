@@ -11,10 +11,10 @@ describe("link-click-here", () => {
         expectWarning(linkClickHereRule, str);
     });
 
-    it.each(["[click to activate this link here](http://google.com)"])(
-        "linkClickHereRule passes with: %s",
-        (str: string) => {
-            expectPass(linkClickHereRule, str);
-        },
-    );
+    it("passes when the link text is not 'click here'", () => {
+        expectPass(
+            linkClickHereRule,
+            "[click to activate this link here](http://google.com)",
+        );
+    });
 });
