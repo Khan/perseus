@@ -1,4 +1,5 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import invariant from "tiny-invariant";
 
 import type {
     GrapherAnswerTypes,
@@ -71,8 +72,11 @@ export function convertInteractiveGraphUserInputToGrapher(
                 coords: interactiveGraphUserInput.coords ?? null,
             };
         case "exponential": {
-            // FIXME: assert asymptote is not nullish here.
-            const asymptoteY = interactiveGraphUserInput.asymptote ?? 0;
+            invariant(
+                interactiveGraphUserInput.asymptote != null,
+                "exponential graph asymptote must not be nullish in user input",
+            );
+            const asymptoteY = interactiveGraphUserInput.asymptote;
             return {
                 type: "exponential",
                 coords: interactiveGraphUserInput.coords ?? null,
@@ -88,8 +92,11 @@ export function convertInteractiveGraphUserInputToGrapher(
                 coords: interactiveGraphUserInput.coords ?? null,
             };
         case "logarithm": {
-            // FIXME: assert asymptote is not nullish here.
-            const asymptoteX = interactiveGraphUserInput.asymptote ?? 0;
+            invariant(
+                interactiveGraphUserInput.asymptote != null,
+                "logarithm graph asymptote must not be nullish in user input",
+            );
+            const asymptoteX = interactiveGraphUserInput.asymptote;
             return {
                 type: "logarithm",
                 coords: interactiveGraphUserInput.coords ?? null,
