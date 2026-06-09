@@ -1,18 +1,12 @@
 /**
  * @jest-environment node
  */
-import {describe, expect, it, jest, beforeEach, afterEach} from "@jest/globals";
+import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
 import {createSyncChangeset} from "../create-sync-changeset";
 
 describe("createSyncChangeset", () => {
-    beforeEach(() => {
-        jest.useFakeTimers().setSystemTime(new Date("2026-06-09T12:34:56Z"));
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
-    });
+    beforeEach(() => {});
 
     it("returns null when no packages are affected", () => {
         // Arrange, Act
@@ -23,7 +17,7 @@ describe("createSyncChangeset", () => {
     });
 
     it("returns contents bumping each affected package by a patch, sorted, with the commit SHA", () => {
-        // Act - intentionally pass packages out of order
+        // Arrange, Act
         const result = createSyncChangeset(
             ["@khanacademy/perseus", "@khanacademy/math-input"],
             "f89b0c2",
@@ -40,6 +34,9 @@ describe("createSyncChangeset", () => {
     });
 
     it("names the file sync-deps-<YYYY-MM-DD>.md using today's date", () => {
+        // Arrange
+        jest.setSystemTime(new Date("2026-06-09T12:34:56Z"));
+
         // Act
         const result = createSyncChangeset(["@khanacademy/perseus"], "abc123");
 
