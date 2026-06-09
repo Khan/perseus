@@ -8,11 +8,13 @@
 
 import {spawnSync} from "node:child_process";
 import fs from "node:fs";
+import path from "node:path";
 
 import semver from "semver";
 import invariant from "tiny-invariant";
 import yaml from "yaml";
 
+import {createSyncChangeset} from "./internal/create-sync-changeset";
 import {updateCatalogHashes} from "./internal/update-catalog-hashes";
 
 function printHelp() {
@@ -83,6 +85,42 @@ class Catalog {
     }
 }
 
+/**
+ * Resolve the git commit SHA of the repo that contains the client
+ * pnpm-workspace.yaml (typically khan/frontend). This SHA is recorded in the
+ * generated changeset so it's clear which version of the client app the
+ * dependencies were synced from.
+ *
+ * Hard-fails if the SHA can't be determined, since the changeset summary is
+ * required to reference it.
+ */
+function getFrontendCommitSha(clientPnpmWorkspaceYamlPath: string): string {
+    const clientRepoDir = path.dirname(
+        path.resolve(clientPnpmWorkspaceYamlPath),
+    );
+    const result = spawnSync(
+        "git",
+        ["-C", clientRepoDir, "rev-parse", "HEAD"],
+        {
+            encoding: "utf-8",
+        },
+    );
+
+    if (result.error || result.status !== 0) {
+        const detail = result.error
+            ? result.error.message
+            : result.stderr.trim();
+        throw new Error(
+            `Could not determine the frontend commit SHA by running ` +
+                `\`git -C ${clientRepoDir} rev-parse HEAD\`. The changeset ` +
+                `summary requires this SHA. Ensure the client ` +
+                `pnpm-workspace.yaml lives inside a git repository.\n${detail}`,
+        );
+    }
+
+    return result.stdout.trim();
+}
+
 function main(argv: string[]) {
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
@@ -148,7 +186,13 @@ function main(argv: string[]) {
 
     // Update catalog hashes after syncing dependencies
     console.log("\n> Updating catalog hashes...");
-    updateCatalogHashes(false, false);
+    const affectedPackages = updateCatalogHashes(false, false);
+
+    // Create a changeset for the packages affected by the sync so they get
+    // republished with their updated dependency ranges.
+    console.log("\n> Creating changeset...");
+    const frontendCommitSha = getFrontendCommitSha(clientPnpmWorkspaceYamlPath);
+    createSyncChangeset(affectedPackages, frontendCommitSha);
 }
 
 main(process.argv);
