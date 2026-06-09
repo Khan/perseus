@@ -626,6 +626,10 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
+        if (!this.props.apiOptions.flags?.["grapher-to-interactive-graph"]) {
+            return this.renderLegacyGrapher();
+        }
+
         const interactiveGraphOptions = convertGrapherOptionsToInteractiveGraph(
             this.props,
         );
