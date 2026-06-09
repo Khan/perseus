@@ -49,24 +49,6 @@ export function testRule(
 
 export function expectWarning(
     rule,
-    strings: string | Array<string>,
-    context?,
-    options?: {
-        message?: string;
-        severity?: number;
-    },
-) {
-    if (typeof strings === "string") {
-        strings = [strings];
-    }
-
-    it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
-        expectWarningSingle(rule, string, context, options);
-    });
-}
-
-export function expectWarningSingle(
-    rule,
     string: string,
     context?,
     options?: {

@@ -3,11 +3,13 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 import headingSentenceCaseRule from "./heading-sentence-case";
 
 describe("heading-sentence-case", () => {
-    expectWarning(headingSentenceCaseRule, [
+    it.each([
         "## this heading is uncapitalized",
         "## 'this' heading is uncapitalized",
         "##   this heading is uncapitalized",
-    ]);
+    ])("headingSentenceCaseRule warns with: %s", (str: string) => {
+        expectWarning(headingSentenceCaseRule, str);
+    });
     it.each([
         "## This heading is in sentence case",
         "## 'This heading too'",

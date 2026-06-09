@@ -5,7 +5,7 @@ import imageMarkdownRule from "./image-markdown";
 describe("image-markdown", () => {
     // All markdown images (format ![alt](url)) should result in a warning
     // when NOT inside a widget
-    expectWarning(imageMarkdownRule, [
+    it.each([
         "![]()",
         "![](  )",
         "![](\n)",
@@ -20,7 +20,9 @@ describe("image-markdown", () => {
         "![blah](http://google.com/)",
         "![alt alt alt][url-ref]", // Reference image
         "![][url-ref]", // Reference image
-    ]);
+    ])("imageMarkdownRule warns with: %s", (str: string) => {
+        expectWarning(imageMarkdownRule, str);
+    });
 
     // Text that does not contain markdown images should pass
     it.each([
@@ -74,11 +76,12 @@ describe("image-markdown", () => {
         },
     );
 
-    expectWarning(
-        imageMarkdownRule,
-        ["![test image](http://test.com/img.jpg)"],
-        {
-            stack: ["image"],
+    it.each(["![test image](http://test.com/img.jpg)"])(
+        "imageMarkdownRule warns with: %s",
+        (str: string) => {
+            expectWarning(imageMarkdownRule, str, {
+                stack: ["image"],
+            });
         },
     );
 });

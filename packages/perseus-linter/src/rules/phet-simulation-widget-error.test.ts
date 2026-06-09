@@ -10,26 +10,36 @@ describe("radio-widget-error", () => {
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 
-    // Error for phet simulation widget with non-PhET URL
-    expectWarning(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
-        widgets: {
-            "phet-simulation 1": {
-                options: {
-                    url: "https://google.com",
+    it("warns for phet simulation widget with non-PhET URL", () => {
+        expectWarning(
+            phetSimulationWidgetErrorRule,
+            "[[☃ phet-simulation 1]]",
+            {
+                widgets: {
+                    "phet-simulation 1": {
+                        options: {
+                            url: "https://google.com",
+                        },
+                    },
                 },
             },
-        },
+        );
     });
 
-    // Error for phet simulation widget with nonsensical URL
-    expectWarning(phetSimulationWidgetErrorRule, "[[☃ phet-simulation 1]]", {
-        widgets: {
-            "phet-simulation 1": {
-                options: {
-                    url: "abcdefghijklmnopqrstuvwxyz",
+    it("warns for phet simulation widget with nonsensical URL", () => {
+        expectWarning(
+            phetSimulationWidgetErrorRule,
+            "[[☃ phet-simulation 1]]",
+            {
+                widgets: {
+                    "phet-simulation 1": {
+                        options: {
+                            url: "abcdefghijklmnopqrstuvwxyz",
+                        },
+                    },
                 },
             },
-        },
+        );
     });
 
     it("passes for phet simulation widget with PhET URL", () => {

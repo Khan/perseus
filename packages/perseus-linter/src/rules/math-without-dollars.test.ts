@@ -1,14 +1,16 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectPass, expectWarning} from "../__tests__/test-utils";
 
 import mathWithoutDollarsRule from "./math-without-dollars";
 
 describe("math-without-dollars", () => {
-    expectWarning(mathWithoutDollarsRule, [
+    it.each([
         "One half: \\frac{1}{2}!",
         "\\Large{BIG}!",
         "This looks like someone's ear: {",
         "Here's the other ear: }. Weird!",
-    ]);
+    ])("mathWithoutDollarsRule warns with: %s", (str: string) => {
+        expectWarning(mathWithoutDollarsRule, str);
+    });
 
     it.each([
         "One half: $\\frac{1}{2}$",

@@ -3,30 +3,32 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 import legacyGifUrlRule from "./legacy-gif-url";
 
 describe("legacy-gif-url", () => {
-    // Warn for a legacy S3 gif URL
-    expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    backgroundImage: {
-                        url: "https://ka-perseus-images.s3.amazonaws.com/abc123.gif",
+    it("warns for a legacy S3 gif URL", () => {
+        expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/abc123.gif",
+                        },
                     },
                 },
             },
-        },
+        });
     });
 
-    // Warn regardless of the gif extension's casing
-    expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
-        widgets: {
-            "image 1": {
-                options: {
-                    backgroundImage: {
-                        url: "https://ka-perseus-images.s3.amazonaws.com/abc123.GIF",
+    it("warns regardless of the gif extension's casing", () => {
+        expectWarning(legacyGifUrlRule, "[[☃ image 1]]", {
+            widgets: {
+                "image 1": {
+                    options: {
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/abc123.GIF",
+                        },
                     },
                 },
             },
-        },
+        });
     });
 
     it("passes for a legacy S3 image that isn't a gif", () => {

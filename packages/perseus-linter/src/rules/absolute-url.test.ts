@@ -1,4 +1,4 @@
-import {expectPass, expectWarningSingle} from "../__tests__/test-utils";
+import {expectPass, expectWarning} from "../__tests__/test-utils";
 
 import absoluteUrlRule from "./absolute-url";
 
@@ -19,7 +19,7 @@ describe("absolute-url", () => {
         "![alt text](https://www.khanacademy.org/about)",
         "![alt text](https://es.khanacademy.org/about)",
     ])("absoluteUrlRule warns with: %s", (str: string) => {
-        expectWarningSingle(absoluteUrlRule, str);
+        expectWarning(absoluteUrlRule, str);
     });
 
     it.each([

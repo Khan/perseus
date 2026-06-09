@@ -14,189 +14,198 @@ import Rule from "../rule";
 import interactiveGraphWidgetErrorRule from "./interactive-graph-widget-error";
 
 describe("interactive-graph-widget-error", () => {
-    // Error when locked line has length 0
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        lockedFigures: [
-                            generateIGLockedLine({
-                                points: [
-                                    generateIGLockedPoint({coord: [0, 0]}),
-                                    generateIGLockedPoint({coord: [0, 0]}),
-                                ],
+    it("warns when locked line has length 0", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            lockedFigures: [
+                                generateIGLockedLine({
+                                    points: [
+                                        generateIGLockedPoint({coord: [0, 0]}),
+                                        generateIGLockedPoint({coord: [0, 0]}),
+                                    ],
+                                }),
+                            ],
+                        }),
+                    }),
+                },
+            },
+            {
+                message: "Locked line cannot have length 0.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when locked polygon has all coordinates be the same", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            lockedFigures: [
+                                generateIGLockedPolygon({
+                                    points: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                    ],
+                                }),
+                            ],
+                        }),
+                    }),
+                },
+            },
+            {
+                message:
+                    "Locked polygon cannot have all coordinates be the same.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when locked ellipse has negative radius", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            lockedFigures: [
+                                generateIGLockedEllipse({radius: [-1, -1]}),
+                            ],
+                        }),
+                    }),
+                },
+            },
+            {
+                message: "Locked ellipse must have positive radius values.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when locked ellipse has zero radius", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            lockedFigures: [
+                                generateIGLockedEllipse({radius: [0, 0]}),
+                            ],
+                        }),
+                    }),
+                },
+            },
+            {
+                message: "Locked ellipse must have positive radius values.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when unlimited polygon is open", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: "unlimited",
+                                coords: undefined,
                             }),
-                        ],
+                        }),
                     }),
-                }),
+                },
             },
-        },
-        {
-            message: "Locked line cannot have length 0.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
+            {
+                message: "Polygon must be closed.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
 
-    // Error when locked polygon has all coordinates be the same
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        lockedFigures: [
-                            generateIGLockedPolygon({
-                                points: [
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                ],
+    it("warns when showPointLabels is true but pointLabels is missing (correct graph)", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                showPointLabels: true,
                             }),
-                        ],
-                    }),
-                }),
-            },
-        },
-        {
-            message: "Locked polygon cannot have all coordinates be the same.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
-
-    // Error when locked ellipse has negative radius
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        lockedFigures: [
-                            generateIGLockedEllipse({radius: [-1, -1]}),
-                        ],
-                    }),
-                }),
-            },
-        },
-        {
-            message: "Locked ellipse must have positive radius values.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
-
-    // Error when locked ellipse has zero radius
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        lockedFigures: [
-                            generateIGLockedEllipse({radius: [0, 0]}),
-                        ],
-                    }),
-                }),
-            },
-        },
-        {
-            message: "Locked ellipse must have positive radius values.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
-
-    // Error when unlimited polygon is open
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        correct: generateIGPolygonGraph({
-                            numSides: "unlimited",
-                            coords: undefined,
                         }),
                     }),
-                }),
+                },
             },
-        },
-        {
-            message: "Polygon must be closed.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
+            {
+                message:
+                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
 
-    // Error when showPointLabels is true but pointLabels is missing (correct graph)
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        correct: generateIGPolygonGraph({
-                            showPointLabels: true,
+    it("warns when showPointLabels is true but pointLabels has an empty entry", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                showPointLabels: true,
+                                pointLabels: ["A", "", "C"],
+                            }),
                         }),
                     }),
-                }),
+                },
             },
-        },
-        {
-            message:
-                "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
+            {
+                message:
+                    "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
 
-    // Error when showPointLabels is true but pointLabels has an empty entry
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        correct: generateIGPolygonGraph({
-                            showPointLabels: true,
-                            pointLabels: ["A", "", "C"],
+    it("warns when showPointLabels is true on the starting (`graph`) graph too", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            graph: generateIGPolygonGraph({
+                                showPointLabels: true,
+                            }),
                         }),
                     }),
-                }),
+                },
             },
-        },
-        {
-            message:
-                "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
-
-    // Error when showPointLabels is true on the starting (`graph`) graph too
-    expectWarning(
-        interactiveGraphWidgetErrorRule,
-        "[[☃ interactive-graph 1]]",
-        {
-            widgets: {
-                "interactive-graph 1": generateInteractiveGraphWidget({
-                    options: generateInteractiveGraphOptions({
-                        graph: generateIGPolygonGraph({
-                            showPointLabels: true,
-                        }),
-                    }),
-                }),
+            {
+                message:
+                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                severity: Rule.Severity.ERROR,
             },
-        },
-        {
-            message:
-                "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
-            severity: Rule.Severity.ERROR,
-        },
-    );
+        );
+    });
 
     it("passes when showPointLabels is true and pointLabels is fully provided", () => {
         expectPass(
