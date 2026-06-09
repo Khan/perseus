@@ -6,7 +6,6 @@ import type {
     PerseusGrapherWidgetOptions,
     PerseusGraphType,
     PerseusInteractiveGraphWidgetOptions,
-    Coord,
 } from "../../data-schema";
 import type {
     PerseusGrapherUserInput,
@@ -109,20 +108,12 @@ export function convertInteractiveGraphUserInputToGrapher(
         case "sinusoid":
             return {
                 type: "sinusoid",
-                // FIXME: avoid casting, use the parser.
-                coords:
-                    // eslint-disable-next-line no-restricted-syntax
-                    (interactiveGraphUserInput.coords as [Coord, Coord]) ??
-                    null,
+                coords: interactiveGraphUserInput.coords ?? null,
             };
         case "tangent":
             return {
                 type: "tangent",
-                // FIXME: avoid casting, use the parser.
-                coords:
-                    // eslint-disable-next-line no-restricted-syntax
-                    (interactiveGraphUserInput.coords as [Coord, Coord]) ??
-                    null,
+                coords: interactiveGraphUserInput.coords ?? null,
             };
         case "angle":
         case "circle":
