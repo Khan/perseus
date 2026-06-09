@@ -52,6 +52,14 @@ export type StatefulMafsGraphProps = {
     showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
+    /**
+     * Whether the `perseus-enable-point-label-field` flag is on for this
+     * render. Forwarded to `MafsGraph`; gates the
+     * `MovablePointLabelsLayer` mount so existing content with
+     * `pointLabels` set for screen-reader purposes does not start
+     * rendering visible labels until the flag is rolled out.
+     */
+    pointLabelsFlagEnabled?: boolean;
 };
 
 export type StatefulMafsGraphType = {

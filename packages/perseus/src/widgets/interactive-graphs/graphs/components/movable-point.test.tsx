@@ -371,6 +371,12 @@ describe("MovablePoint", () => {
         expect(focusSpy).toHaveBeenCalled();
     });
 
+    // Visible labels no longer render inside `MovablePoint`. The
+    // `MovablePointLabelsLayer` component now renders them in an HTML
+    // overlay, sourced from reducer state, so it can use TeX. See
+    // `movable-point-labels-layer.test.tsx` and
+    // `movable-point-labels.test.ts` for the replacement coverage.
+
     describe("accessibility", () => {
         it("uses the default sequence number when ariaLabel and sequence number are not provided", () => {
             render(

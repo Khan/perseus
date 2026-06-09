@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
+import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -33,10 +34,15 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {dispatch} = props;
-    const {coords: line, pointLabels} = props.graphState;
+    const {coords: line, pointLabels, showPointLabels} = props.graphState;
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        2,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
     const interceptDescriptionId = id + "-intercept";

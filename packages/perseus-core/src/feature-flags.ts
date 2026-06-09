@@ -11,6 +11,7 @@
  */
 const PerseusFeatureFlags = [
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
+    "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;
