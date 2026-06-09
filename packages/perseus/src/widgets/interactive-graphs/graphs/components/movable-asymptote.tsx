@@ -8,7 +8,6 @@ import {useDraggable} from "../use-draggable";
 import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
 
-import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
@@ -33,13 +32,6 @@ type Props = {
     /** Accessible label for the asymptote drag target. */
     ariaLabel: string;
     /**
-     * Overrides the internal aria-live used to announce moves. Defaults to
-     * "polite".
-     * TODO(LEMS-4189): Remove once exponential is also wired to the announcer
-     * and the internal aria-live can be dropped.
-     */
-    ariaLive?: AriaLive;
-    /**
      * Content rendered between the asymptote lines and the drag handle.
      * Use this to render the curve so it appears above the dashed line
      * but below the drag handle in the SVG stacking order.
@@ -57,7 +49,6 @@ export function MovableAsymptote(props: Props) {
         constrainKeyboardMovement,
         orientation,
         ariaLabel,
-        ariaLive,
         children,
     } = props;
     const {interactiveColor, disableKeyboardInteraction} = useGraphConfig();
@@ -89,7 +80,6 @@ export function MovableAsymptote(props: Props) {
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             aria-disabled={disableKeyboardInteraction}
             aria-label={ariaLabel}
-            aria-live={ariaLive ?? "polite"}
             className="movable-line"
             style={{cursor: dragging ? "grabbing" : "grab"}}
             role="button"
