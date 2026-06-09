@@ -7,11 +7,9 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    describeQuadraticGraph,
-    getQuadraticCoefficients,
-    getQuadraticKeyboardConstraint,
-} from "./quadratic";
+import {getQuadraticKeyboardConstraint} from "./quadratic";
+import {describeQuadraticGraph} from "./strings/quadratic";
+import {getQuadraticCoefficients} from "./utils";
 
 import type {QuadraticGraphState, InteractiveGraphState} from "../types";
 import type {vec} from "mafs";

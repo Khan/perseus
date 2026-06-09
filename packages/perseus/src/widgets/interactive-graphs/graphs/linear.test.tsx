@@ -12,7 +12,7 @@ import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeLinearGraph} from "./linear";
+import {describeLinearGraph} from "./strings/linear";
 
 import type {InteractiveGraphState} from "../types";
 

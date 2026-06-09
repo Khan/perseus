@@ -7,7 +7,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {getLinearSystemGraphDescription} from "./linear-system";
+import {describeLinearSystemGraph} from "./strings/linear-system";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -377,12 +377,12 @@ describe("Linear System graph pointLabels", () => {
     });
 });
 
-describe("getLinearSystemGraphDescription", () => {
+describe("describeLinearSystemGraph", () => {
     test("describes a default linear system graph", () => {
         // Arrange
 
         // Act
-        const linearSystemGraphDescription = getLinearSystemGraphDescription(
+        const linearSystemGraphDescription = describeLinearSystemGraph(
             baseLinearSystemState,
             mockPerseusI18nContext,
         );
@@ -397,7 +397,7 @@ describe("getLinearSystemGraphDescription", () => {
         // Arrange
 
         // Act
-        const linearSystemGraphDescription = getLinearSystemGraphDescription(
+        const linearSystemGraphDescription = describeLinearSystemGraph(
             {
                 ...baseLinearSystemState,
                 coords: [

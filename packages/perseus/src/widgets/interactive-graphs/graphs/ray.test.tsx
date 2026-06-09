@@ -7,7 +7,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeRayGraph} from "./ray";
+import {describeRayGraph} from "./strings/ray";
 
 import type {InteractiveGraphState} from "../types";
 

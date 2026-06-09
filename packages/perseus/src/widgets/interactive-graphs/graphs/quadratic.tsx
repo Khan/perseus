@@ -9,12 +9,9 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {
-    getQuadraticPointString,
-    getQuadraticVertexString,
-    srFormatNumber,
-} from "./screenreader-text";
-import {getQuadraticVertex, getQuadraticXIntercepts} from "./utils";
+import {getQuadraticPointString} from "./strings/coord-quadrant";
+import {describeQuadraticGraph} from "./strings/quadratic";
+import {getQuadraticCoefficients} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {Coord} from "../../../interactive2/types";
@@ -33,10 +30,8 @@ export function renderQuadraticGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getQuadraticGraphDescription(
-            state,
-            i18n,
-        ),
+        interactiveElementsDescription:
+            describeQuadraticGraph(state, i18n).srQuadraticInteractiveElements,
     };
 }
 
@@ -156,122 +151,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             </SRDescInSVG>
         </g>
     );
-}
-
-// Get the quadratic coefficients from the 3 control points
-// These equations were originally set up in 2013 and may require some
-// additional comments to help clarify the quadratic formula manipulations
-// Origin: https://phabricator.khanacademy.org/D2413
-export const getQuadraticCoefficients = (
-    coords: QuadraticCoords,
-): QuadraticCoefficient | undefined => {
-    const p1 = coords[0];
-    const p2 = coords[1];
-    const p3 = coords[2];
-
-    // If the denominator is 0, we are going to return undefined as we are
-    // unable to calculate the quadratic coefficients when they hit infinity
-    const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
-    if (denom === 0) {
-        return;
-    }
-
-    const a =
-        (p3[0] * (p2[1] - p1[1]) +
-            p2[0] * (p1[1] - p3[1]) +
-            p1[0] * (p3[1] - p2[1])) /
-        denom;
-    const b =
-        (p3[0] * p3[0] * (p1[1] - p2[1]) +
-            p2[0] * p2[0] * (p3[1] - p1[1]) +
-            p1[0] * p1[0] * (p2[1] - p3[1])) /
-        denom;
-    const c =
-        (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
-            p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
-            p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
-        denom;
-    return [a, b, c];
-};
-
-function getQuadraticGraphDescription(
-    state: QuadraticGraphState,
-    i18n: I18nContextType,
-): string {
-    const strings = describeQuadraticGraph(state, i18n);
-    return strings.srQuadraticInteractiveElements;
-}
-
-type QuadraticGraphDescriptionStrings = {
-    srQuadraticGraph: string;
-    srQuadraticDirection?: string;
-    srQuadraticVertex?: string;
-    srQuadraticXIntercepts?: string;
-    srQuadraticYIntercept: string;
-    srQuadraticInteractiveElements: string;
-};
-
-// Exported for testing
-export function describeQuadraticGraph(
-    state: QuadraticGraphState,
-    i18n: I18nContextType,
-): QuadraticGraphDescriptionStrings {
-    const {strings, locale} = i18n;
-    const coeffs = getQuadraticCoefficients(state.coords);
-    const [a, b, c] = coeffs ?? [0, 0, 0];
-
-    const vertex = getQuadraticVertex([a, b, c]);
-    const xIntercepts = getQuadraticXIntercepts(a, b, c);
-
-    // Aria label strings
-    const srQuadraticGraph = strings.srQuadraticGraph;
-    const srQuadraticFaceUp = strings.srQuadraticFaceUp;
-    const srQuadraticFaceDown = strings.srQuadraticFaceDown;
-    // The graph only has a direction if it is not a line.
-    const srQuadraticDirection =
-        a === 0 ? undefined : a > 0 ? srQuadraticFaceUp : srQuadraticFaceDown;
-    // Only describe vertex if the quadratic graph is not a line.
-    // (Undefined means the quadratic graph is a line and has no vertex.)
-    const srQuadraticVertex =
-        vertex === undefined
-            ? undefined
-            : getQuadraticVertexString(vertex, strings);
-    // Undefined means the quadratic graph has no x-intercepts,
-    // such as when the graph is a horizontal line.
-    const srQuadraticXIntercepts =
-        xIntercepts.length === 2
-            ? strings.srQuadraticTwoXIntercepts({
-                  intercept1: srFormatNumber(xIntercepts[0], locale),
-                  intercept2: srFormatNumber(xIntercepts[1], locale),
-              })
-            : xIntercepts.length === 1
-              ? strings.srQuadraticOneXIntercept({
-                    intercept: srFormatNumber(xIntercepts[0], locale),
-                })
-              : undefined;
-    const srQuadraticYIntercept = strings.srQuadraticYIntercept({
-        intercept: srFormatNumber(c, locale),
-    });
-
-    const srQuadraticInteractiveElements = strings.srInteractiveElements({
-        elements: strings.srQuadraticInteractiveElements({
-            point1X: srFormatNumber(state.coords[0][0], locale),
-            point1Y: srFormatNumber(state.coords[0][1], locale),
-            point2X: srFormatNumber(state.coords[1][0], locale),
-            point2Y: srFormatNumber(state.coords[1][1], locale),
-            point3X: srFormatNumber(state.coords[2][0], locale),
-            point3Y: srFormatNumber(state.coords[2][1], locale),
-        }),
-    });
-
-    return {
-        srQuadraticGraph,
-        srQuadraticDirection,
-        srQuadraticVertex,
-        srQuadraticXIntercepts,
-        srQuadraticYIntercept,
-        srQuadraticInteractiveElements,
-    };
 }
 
 export const getQuadraticKeyboardConstraint = (

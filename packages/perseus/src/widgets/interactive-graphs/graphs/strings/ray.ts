@@ -1,5 +1,8 @@
 import {withCustomPointLabel} from "./custom-point-label";
+import {srFormatNumber} from "./format-number";
 
+import type {I18nContextType} from "../../../../components/i18n-context";
+import type {RayGraphState} from "../../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 export function srRayPointLabel(
@@ -23,4 +26,49 @@ export function srRayPointLabel(
     return state.pointIndex === 0
         ? strings.srRayEndpoint({x, y})
         : strings.srRayTerminalPoint({x, y});
+}
+
+// Exported for testing
+export function describeRayGraph(
+    state: RayGraphState,
+    i18n: I18nContextType,
+): Record<string, string> {
+    const {coords: line} = state;
+    const {strings, locale} = i18n;
+
+    // Aria label strings
+    const srRayGraph = strings.srRayGraph;
+    const srRayPoints = strings.srRayPoints({
+        point1X: srFormatNumber(line[0][0], locale),
+        point1Y: srFormatNumber(line[0][1], locale),
+        point2X: srFormatNumber(line[1][0], locale),
+        point2Y: srFormatNumber(line[1][1], locale),
+    });
+    const srRayEndpoint = strings.srRayEndpoint({
+        x: srFormatNumber(line[0][0], locale),
+        y: srFormatNumber(line[0][1], locale),
+    });
+    const srRayTerminalPoint = strings.srRayTerminalPoint({
+        x: srFormatNumber(line[1][0], locale),
+        y: srFormatNumber(line[1][1], locale),
+    });
+    const srRayGrabHandle = strings.srRayGrabHandle({
+        point1X: srFormatNumber(line[0][0], locale),
+        point1Y: srFormatNumber(line[0][1], locale),
+        point2X: srFormatNumber(line[1][0], locale),
+        point2Y: srFormatNumber(line[1][1], locale),
+    });
+
+    const srRayInteractiveElement = strings.srInteractiveElements({
+        elements: [srRayGraph, srRayPoints].join(" "),
+    });
+
+    return {
+        srRayGraph,
+        srRayPoints,
+        srRayEndpoint,
+        srRayTerminalPoint,
+        srRayGrabHandle,
+        srRayInteractiveElement,
+    };
 }

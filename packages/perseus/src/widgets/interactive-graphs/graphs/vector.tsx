@@ -15,7 +15,7 @@ import {MovablePillHandle} from "./components/movable-pill-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {useControlArrowhead} from "./components/use-control-arrowhead";
-import {srFormatNumber} from "./screenreader-text";
+import {describeVectorGraph} from "./strings/vector";
 import {useDraggable} from "./use-draggable";
 import {useTransformVectorsToPixels} from "./use-transform";
 
@@ -40,7 +40,8 @@ export function renderVectorGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <VectorGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getVectorGraphDescription(state, i18n),
+        interactiveElementsDescription:
+            describeVectorGraph(state, i18n).srVectorInteractiveElement,
     };
 }
 
@@ -266,50 +267,3 @@ export const getVectorTipKeyboardConstraint = (
     };
 };
 
-function getVectorGraphDescription(
-    state: VectorGraphState,
-    i18n: I18nContextType,
-) {
-    const strings = describeVectorGraph(state, i18n);
-    return strings.srVectorInteractiveElement;
-}
-
-// Exported for testing
-export function describeVectorGraph(
-    state: VectorGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {coords} = state;
-    const [tail, tip] = coords;
-    const {strings, locale} = i18n;
-
-    const srVectorGraph = strings.srVectorGraph;
-    const srVectorPoints = strings.srVectorPoints({
-        tailX: srFormatNumber(tail[X], locale),
-        tailY: srFormatNumber(tail[Y], locale),
-        tipX: srFormatNumber(tip[X], locale),
-        tipY: srFormatNumber(tip[Y], locale),
-    });
-    const srVectorTipPoint = strings.srVectorTipPoint({
-        x: srFormatNumber(tip[X], locale),
-        y: srFormatNumber(tip[Y], locale),
-    });
-    const srVectorGrabHandle = strings.srVectorGrabHandle({
-        tailX: srFormatNumber(tail[X], locale),
-        tailY: srFormatNumber(tail[Y], locale),
-        tipX: srFormatNumber(tip[X], locale),
-        tipY: srFormatNumber(tip[Y], locale),
-    });
-
-    const srVectorInteractiveElement = strings.srInteractiveElements({
-        elements: [srVectorGraph, srVectorPoints].join(" "),
-    });
-
-    return {
-        srVectorGraph,
-        srVectorPoints,
-        srVectorTipPoint,
-        srVectorGrabHandle,
-        srVectorInteractiveElement,
-    };
-}

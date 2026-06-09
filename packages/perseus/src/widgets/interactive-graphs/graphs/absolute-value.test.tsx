@@ -6,10 +6,8 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    getAbsoluteValueCoefficients,
-    getAbsoluteValueKeyboardConstraint,
-} from "./absolute-value";
+import {getAbsoluteValueKeyboardConstraint} from "./absolute-value";
+import {getAbsoluteValueCoefficients} from "./utils";
 
 import type {InteractiveGraphState} from "../types";
 

@@ -16,7 +16,7 @@ import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeExponentialGraph} from "./strings/exponential";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {
     getAsymptoteGraphKeyboardConstraint,
@@ -43,7 +43,9 @@ export function renderExponentialGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <ExponentialGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getExponentialDescription(state, i18n),
+        interactiveElementsDescription:
+            describeExponentialGraph(state, i18n)
+                .srExponentialInteractiveElements,
     };
 }
 
@@ -224,54 +226,3 @@ const computeExponential = function (
     return a * Math.exp(b * x) + c;
 };
 
-function getExponentialDescription(
-    state: ExponentialGraphState,
-    i18n: I18nContextType,
-): string {
-    const strings = describeExponentialGraph(state, i18n);
-    return strings.srExponentialInteractiveElements;
-}
-
-function describeExponentialGraph(
-    state: ExponentialGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords, asymptote} = state;
-    const [point1, point2] = coords;
-
-    const formattedPoint1 = {
-        x: srFormatNumber(point1[X], locale),
-        y: srFormatNumber(point1[Y], locale),
-    };
-    const formattedPoint2 = {
-        x: srFormatNumber(point2[X], locale),
-        y: srFormatNumber(point2[Y], locale),
-    };
-    const asymptoteYFormatted = srFormatNumber(asymptote, locale);
-
-    return {
-        srExponentialGraph: strings.srExponentialGraph,
-        srExponentialDescription: strings.srExponentialDescription({
-            point1X: formattedPoint1.x,
-            point1Y: formattedPoint1.y,
-            point2X: formattedPoint2.x,
-            point2Y: formattedPoint2.y,
-            asymptoteY: asymptoteYFormatted,
-        }),
-        srExponentialAsymptote: strings.srExponentialAsymptote({
-            asymptoteY: asymptoteYFormatted,
-        }),
-        srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
-        srExponentialInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srExponentialInteractiveElements({
-                point1X: srFormatNumber(point1[X], locale),
-                point1Y: srFormatNumber(point1[Y], locale),
-                point2X: srFormatNumber(point2[X], locale),
-                point2Y: srFormatNumber(point2[Y], locale),
-                asymptoteY: asymptoteYFormatted,
-            }),
-        }),
-    };
-}

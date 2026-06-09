@@ -10,11 +10,8 @@ import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    CircleGraph,
-    describeCircleGraph,
-    getCircleKeyboardConstraint,
-} from "./circle";
+import {CircleGraph, getCircleKeyboardConstraint} from "./circle";
+import {describeCircleGraph} from "./strings/circle";
 import * as UseDraggableModule from "./use-draggable";
 
 import type {GraphConfig} from "../reducer/use-graph-config";

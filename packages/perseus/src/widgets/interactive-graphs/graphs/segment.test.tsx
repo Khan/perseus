@@ -7,7 +7,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {getSegmentGraphDescription} from "./segment";
+import {describeSegmentGraph} from "./strings/segment";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -441,12 +441,12 @@ describe("Segment graph pointLabels", () => {
     });
 });
 
-describe("getSegmentGraphDescription", () => {
+describe("describeSegmentGraph", () => {
     test("describes a single segment", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = getSegmentGraphDescription(
+        const interactiveElementsString = describeSegmentGraph(
             baseSingleSegmentState,
             mockPerseusI18nContext,
         );
@@ -461,7 +461,7 @@ describe("getSegmentGraphDescription", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = getSegmentGraphDescription(
+        const interactiveElementsString = describeSegmentGraph(
             baseMultipleSegmentState,
             mockPerseusI18nContext,
         );
@@ -476,7 +476,7 @@ describe("getSegmentGraphDescription", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = getSegmentGraphDescription(
+        const interactiveElementsString = describeSegmentGraph(
             {
                 ...baseSingleSegmentState,
                 coords: [
@@ -499,7 +499,7 @@ describe("getSegmentGraphDescription", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = getSegmentGraphDescription(
+        const interactiveElementsString = describeSegmentGraph(
             {
                 ...baseMultipleSegmentState,
                 coords: [
