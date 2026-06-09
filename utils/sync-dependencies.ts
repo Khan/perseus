@@ -14,7 +14,10 @@ import semver from "semver";
 import invariant from "tiny-invariant";
 import yaml from "yaml";
 
-import {createSyncChangeset} from "./internal/create-sync-changeset";
+import {
+    CHANGESET_DIR,
+    createSyncChangeset,
+} from "./internal/create-sync-changeset";
 import {updateCatalogHashes} from "./internal/update-catalog-hashes";
 
 function printHelp() {
@@ -192,7 +195,18 @@ function main(argv: string[]) {
     // republished with their updated dependency ranges.
     console.log("\n> Creating changeset...");
     const frontendCommitSha = getFrontendCommitSha(clientPnpmWorkspaceYamlPath);
-    createSyncChangeset(affectedPackages, frontendCommitSha);
+    const changeset = createSyncChangeset(affectedPackages, frontendCommitSha);
+    if (changeset == null) {
+        console.log(
+            "ℹ️  No packages were affected by the sync; skipping changeset.",
+        );
+    } else {
+        const changesetPath = path.join(CHANGESET_DIR, changeset.filename);
+        fs.writeFileSync(changesetPath, changeset.contents, {
+            encoding: "utf-8",
+        });
+        console.log(`📝 Created changeset ${changesetPath}`);
+    }
 }
 
 main(process.argv);
