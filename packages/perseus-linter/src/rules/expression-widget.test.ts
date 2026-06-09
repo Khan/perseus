@@ -1,26 +1,31 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {
+    expectWarning,
+    expectPass,
+    expectWarningSingle,
+} from "../__tests__/test-utils";
 
 import expressionWidgetRule from "./expression-widget";
 
 describe("expression-widget", () => {
-    // Warning for sqrt without the prealgebra button set
-    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
-        widgets: {
-            "expression 1": {
-                options: {
-                    answerForms: [
-                        {
-                            value: "\\sqrt{42}",
-                            form: true,
-                            simplify: true,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic"],
+    it("warns for sqrt without the prealgebra button set", () => {
+        expectWarningSingle(expressionWidgetRule, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "\\sqrt{42}",
+                                form: true,
+                                simplify: true,
+                                considered: "correct",
+                                key: "0",
+                            },
+                        ],
+                        buttonSets: ["basic"],
+                    },
                 },
             },
-        },
+        });
     });
 
     it("passes for sqrt with the prealgebra button set", () => {

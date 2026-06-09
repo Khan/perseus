@@ -61,17 +61,29 @@ export function expectWarning(
     }
 
     it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
-        const result = testRule(rule, string, context);
-        expect(result).not.toBeNull();
-
-        if (options?.message) {
-            expect(result?.[0]?.message).toBe(options.message);
-        }
-
-        if (options?.severity) {
-            expect(result?.[0]?.severity).toBe(options.severity);
-        }
+        expectWarningSingle(rule, string, context, options);
     });
+}
+
+export function expectWarningSingle(
+    rule,
+    string: string,
+    context?,
+    options?: {
+        message?: string;
+        severity?: number;
+    },
+) {
+    const result = testRule(rule, string, context);
+    expect(result).not.toBeNull();
+
+    if (options?.message) {
+        expect(result?.[0]?.message).toBe(options.message);
+    }
+
+    if (options?.severity) {
+        expect(result?.[0]?.severity).toBe(options.severity);
+    }
 }
 
 export function expectPass(rule, string: string, context?) {
