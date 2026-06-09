@@ -4,7 +4,6 @@ import {
     constant,
     number,
     object,
-    optional,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -19,6 +18,5 @@ export const parseCategorizerWidget = parseWidget(
         randomizeItems: defaulted(boolean, () => false),
         static: defaulted(boolean, () => false),
         values: defaulted(array(defaulted(number, () => 0)), () => []),
-        highlightLint: optional(boolean),
     }),
 );

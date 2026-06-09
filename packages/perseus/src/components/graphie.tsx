@@ -37,7 +37,6 @@ type Props = {
 
     options: any;
 
-    setDrawingAreaAvailable?: (boolean) => void;
     setup: (
         graphie: any,
         options: {
@@ -201,7 +200,6 @@ class Graphie extends React.Component<Props> {
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,
                 onMouseMove: this.props.onMouseMove,
-                setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
             });
         }
 

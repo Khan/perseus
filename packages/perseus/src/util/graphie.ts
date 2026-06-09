@@ -1451,12 +1451,9 @@ export class Graphie {
         onMouseOut?: MouseHandler | null;
         onMouseUp?: MouseHandler | null;
         allowScratchpad?: boolean;
-        setDrawingAreaAvailable?: (available: boolean) => void;
     }): void {
         const localOptions = {
             allowScratchpad: false,
-            setDrawingAreaAvailable: function () {},
-
             ...options,
         };
 
@@ -1520,10 +1517,6 @@ export class Graphie {
                 });
             }
         }
-        if (!localOptions.allowScratchpad) {
-            localOptions.setDrawingAreaAvailable?.(false);
-        }
-
         // Add mouse and visible wrapper layers for DOM-node-wrapped movables
         this._mouselayerWrapper = document.createElement("div");
         $(this._mouselayerWrapper).css({

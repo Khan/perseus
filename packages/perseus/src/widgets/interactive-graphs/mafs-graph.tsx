@@ -224,6 +224,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
+                    role="figure"
                     style={{
                         position: "relative",
                         padding: "25px 25px 0 0",
