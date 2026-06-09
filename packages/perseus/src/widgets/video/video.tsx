@@ -33,7 +33,6 @@ const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
 type Props = WidgetProps<PerseusVideoWidgetOptions> & {
-    // alignment: string; // Where does this get set?
     dependencies: PerseusDependenciesV2;
 };
 
@@ -102,6 +101,7 @@ class Video extends React.Component<Props> implements Widget {
         return (
             <View>
                 <FixedToResponsive
+                    className="perseus-video-fixed-to-responsive"
                     width={DEFAULT_WIDTH}
                     height={DEFAULT_HEIGHT}
                     // The key is here for the benefit of the editor, to ensure that
