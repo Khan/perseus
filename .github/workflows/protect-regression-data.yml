@@ -41,4 +41,38 @@ jobs:
               env:
                   BASE_SHA: ${{ github.event.pull_request.base.sha }}
                   HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-              run: ./utils/check-frozen-regression-data.sh "$BASE_SHA" "$HEAD_SHA"
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  REGRESSION_DIR="packages/perseus-core/src/parse-perseus-json/regression-tests"
+                  PROTECTED_DIRS=(
+                      "$REGRESSION_DIR/item-data"
+                      "$REGRESSION_DIR/article-data"
+                      "$REGRESSION_DIR/renderer-data"
+                      "$REGRESSION_DIR/user-input-data"
+                  )
+
+                  # --diff-filter selects only the change types we forbid:
+                  #   D = deleted, M = modified, R = renamed, C = copied, T = type changed.
+                  # Added (A) is intentionally excluded — adding new fixtures is allowed.
+                  #
+                  # The `A...B` (three-dot) range diffs B against the merge-base of A and B,
+                  # i.e. exactly the changes this PR introduces on top of the base branch.
+                  OFFENDING=$(git diff --name-status --diff-filter=DMRCT \
+                      "$BASE_SHA...$HEAD_SHA" -- "${PROTECTED_DIRS[@]}")
+
+                  if [ -n "$OFFENDING" ]; then
+                      echo "::error title=Frozen regression fixture changed::Existing regression-test fixtures may not be modified, renamed, or deleted."
+                      echo ""
+                      echo "The following protected files were changed:"
+                      echo "$OFFENDING" | sed 's/^/    /'
+                      echo ""
+                      echo "These fixtures capture historical Perseus data formats and must stay"
+                      echo "stable so the parser is always tested against real, published data."
+                      echo "If you need new coverage, ADD a new file to the directory instead of"
+                      echo "editing an existing one."
+                      exit 1
+                  fi
+
+                  echo "No frozen regression-test fixtures were modified. ✅"
