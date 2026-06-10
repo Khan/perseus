@@ -937,6 +937,62 @@ describe("MafsGraph", () => {
         expect(state.coords).toEqual(expectedCoords);
     });
 
+    describe("screen reader instructions ordering", () => {
+        const orderingState: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        it("renders the instructions as the first sr-only child of the figure", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={orderingState}
+                    fullGraphAriaDescription="A graph description."
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const figure = screen.getByRole("figure");
+            // eslint-disable-next-line testing-library/no-node-access
+            const srOnlyChildren = figure.querySelectorAll(
+                ":scope > .mafs-sr-only",
+            );
+            expect(srOnlyChildren[0].id).toMatch(/^instructions-/);
+        });
+
+        it("lists the instructions first in aria-describedby so they are read first on focus", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={orderingState}
+                    fullGraphAriaDescription="A graph description."
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const figure = screen.getByRole("figure");
+            const describedByIds =
+                figure.getAttribute("aria-describedby")?.split(" ") ?? [];
+            expect(describedByIds[0]).toMatch(/^instructions-/);
+        });
+    });
+
     describe("with an unlimited graph", () => {
         it("point - shows a remove point button when a point is focused", async () => {
             // Arrange
