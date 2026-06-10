@@ -1,5 +1,5 @@
 /**
- * Renders the green tear-shaped handle under the cursor.
+ * Renders the blue tear-shaped handle under the cursor.
  */
 
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
