@@ -63,11 +63,11 @@ describe("sanitizePreviewData", () => {
             expect(result.data.apiOptions.customKeypad).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data.apiOptions.answerableCallback).toBeUndefined();
-            expect(result.data.apiOptions.getAnotherHint).toBeUndefined();
-            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
-            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("answerableCallback" in result.data.apiOptions).toBe(false);
+            expect("getAnotherHint" in result.data.apiOptions).toBe(false);
+            expect("interactionCallback" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
             expect(result.data.item).toBe(questionData.item);
@@ -158,8 +158,8 @@ describe("sanitizePreviewData", () => {
             expect(result.data.apiOptions.readOnly).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
             expect(result.data.hint).toBe(hintData.hint);
@@ -212,7 +212,7 @@ describe("sanitizePreviewData", () => {
             expect(result.data.apiOptions.customKeypad).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
+            expect("interactionCallback" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
             expect(result.data.article).toBe(articleData.article);
@@ -260,8 +260,8 @@ describe("sanitizePreviewData", () => {
             invariant(result.type === "article-all");
             expect(result.data.article).toHaveLength(2);
             expect(result.data.apiOptions.readOnly).toBe(true);
-            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
         });
 
         it("handles empty article-all sections array", () => {

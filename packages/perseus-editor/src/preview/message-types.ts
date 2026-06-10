@@ -3,7 +3,8 @@
  * the preview iframe.
  */
 
-import type {APIOptions, DeviceType} from "@khanacademy/perseus";
+import type {SerializableApiOptions} from "./sanitize-api-options";
+import type {DeviceType} from "@khanacademy/perseus";
 import type {
     Hint,
     PerseusItem,
@@ -38,7 +39,7 @@ interface PreviewMessageBase {
  */
 export type QuestionPreviewData = {
     item: PerseusItem;
-    apiOptions: APIOptions;
+    apiOptions: SerializableApiOptions;
     device: DeviceType;
     linterContext: PreviewLinterContext;
     reviewMode?: boolean;
@@ -52,7 +53,7 @@ export type QuestionPreviewData = {
 export type HintPreviewData = {
     hint: Hint;
     pos: number;
-    apiOptions: APIOptions;
+    apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
 };
 
@@ -61,7 +62,7 @@ export type HintPreviewData = {
  */
 export type ArticlePreviewData = {
     article: PerseusRenderer;
-    apiOptions: APIOptions;
+    apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
 };
@@ -71,7 +72,7 @@ export type ArticlePreviewData = {
  */
 export type ArticleAllPreviewData = {
     article: ReadonlyArray<PerseusRenderer>;
-    apiOptions: APIOptions;
+    apiOptions: SerializableApiOptions;
 };
 
 /**
