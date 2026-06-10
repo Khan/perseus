@@ -1,11 +1,12 @@
-import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
+import type {PerseusInputNumberWidgetOptionsV0} from "../../data-schema";
 
 /**
  * For details on the individual options, see the
  * PerseusInputNumberWidgetOptions type
  */
 export type InputNumberPublicWidgetOptions = Pick<
-    PerseusInputNumberWidgetOptions,
+    // FIXME: use v1 options
+    PerseusInputNumberWidgetOptionsV0,
     "answerType" | "inexact" | "maxError" | "rightAlign" | "simplify" | "size"
 >;
 
@@ -14,7 +15,8 @@ export type InputNumberPublicWidgetOptions = Pick<
  * the public options that should be exposed to the client.
  */
 export function getInputNumberPublicWidgetOptions(
-    options: PerseusInputNumberWidgetOptions,
+    // FIXME: use v1 options
+    options: any,
 ): InputNumberPublicWidgetOptions {
     const {value: _, ...publicWidgetOptions} = options;
     return publicWidgetOptions;

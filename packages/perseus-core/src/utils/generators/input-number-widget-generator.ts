@@ -2,6 +2,7 @@ import inputNumberWidgetLogic from "../../widgets/input-number";
 
 import type {
     InputNumberWidget,
+    PerseusInputNumberAnswer,
     PerseusInputNumberWidgetOptions,
 } from "../../data-schema";
 
@@ -25,5 +26,14 @@ export function generateInputNumberOptions(
     return {
         ...inputNumberWidgetLogic.defaultWidgetOptions,
         ...options,
+    };
+}
+
+export function generateInputNumberAnswer(
+    params?: Partial<PerseusInputNumberAnswer>,
+): PerseusInputNumberAnswer {
+    return {
+        ...inputNumberWidgetLogic.defaultWidgetOptions.answers[0],
+        ...params,
     };
 }

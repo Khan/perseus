@@ -1,14 +1,14 @@
 import scoreInputNumber from "./score-input-number";
 
 import type {
-    PerseusInputNumberWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4085): Delete these tests; scoreInputNumber will be replaced by scoreNumericInput.
 describe("scoreInputNumber", () => {
     it("scores undefined user input as invalid", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -25,7 +25,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores correct answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -44,7 +44,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -63,7 +63,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -88,7 +88,7 @@ describe("scoreInputNumber", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -116,7 +116,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -135,7 +135,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             value: "2^{-2}-3",
             simplify: "optional",
             size: "normal",
@@ -152,7 +152,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("should not consider commas as a decimal separator in the EN locale", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 16,
@@ -171,7 +171,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("should reject European decimal format in EN locale", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,
@@ -192,7 +192,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider commas as the decimal separator in the FR locale", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,
@@ -212,7 +212,7 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider decimals as the thousands separator in FR locale", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
+        const rubric: PerseusInputNumberWidgetOptionsV0 = {
             maxError: 0.1,
             inexact: false,
             value: 16.5,

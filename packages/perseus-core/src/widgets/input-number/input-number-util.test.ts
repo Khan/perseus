@@ -1,10 +1,10 @@
 import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 
-import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
+import type {PerseusInputNumberWidgetOptionsV0} from "../../data-schema";
 
 describe("getInputNumberPublicWidgetOptions", () => {
     it("removes value", () => {
-        const original: PerseusInputNumberWidgetOptions = {
+        const original: PerseusInputNumberWidgetOptionsV0 = {
             simplify: "optional",
             size: "normal",
             value: 42,

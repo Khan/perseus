@@ -21,18 +21,25 @@ const question: PerseusRenderer = {
         "input-number 1": {
             graded: true,
             version: {
-                major: 0,
+                major: 1,
                 minor: 0,
             },
             static: false,
             type: "input-number",
             options: {
-                maxError: 0.1,
-                inexact: false,
-                value: 0.5,
-                simplify: "required",
-                answerType: "number",
                 size: "normal",
+                coefficient: false,
+                answers: [
+                    {
+                        status: "correct",
+                        value: 0.5,
+                        maxError: 0,
+                        simplify: "required",
+                        answerForms: [],
+                        message: "",
+                        strict: true,
+                    },
+                ],
             },
             alignment: "default",
         } as InputNumberWidget,

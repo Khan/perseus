@@ -1,5 +1,6 @@
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// FIXME: this export doesn't seem to be used. Delete it?
 export default {
     // eslint-disable-next-line no-restricted-syntax
     question: {
@@ -10,24 +11,38 @@ export default {
                 type: "input-number",
                 graded: true,
                 options: {
-                    value: 5,
-                    simplify: "required",
                     size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                    answerType: "number",
+                    coefficient: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            value: 5,
+                            maxError: 0,
+                            simplify: "required",
+                            answerForms: [],
+                            message: "",
+                            strict: true,
+                        },
+                    ],
                 },
             },
             "input-number 2": {
                 type: "input-number",
                 graded: true,
                 options: {
-                    value: 6,
-                    simplify: "required",
                     size: "normal",
-                    inexact: false,
-                    maxError: 0.1,
-                    answerType: "number",
+                    coefficient: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            value: 6,
+                            maxError: 0,
+                            simplify: "required",
+                            answerForms: [],
+                            message: "",
+                            strict: true,
+                        },
+                    ],
                 },
             },
         },

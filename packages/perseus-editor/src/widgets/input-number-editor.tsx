@@ -8,30 +8,32 @@ import BlurInput from "../components/blur-input";
 
 import type {ParsedValue} from "@khanacademy/perseus";
 import type {
-    PerseusInputNumberWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
     InputNumberDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
-type Props = {
-    value: number;
-    simplify: PerseusInputNumberWidgetOptions["simplify"];
-    size: PerseusInputNumberWidgetOptions["size"];
-    inexact: PerseusInputNumberWidgetOptions["inexact"];
-    maxError: PerseusInputNumberWidgetOptions["maxError"];
-    answerType: PerseusInputNumberWidgetOptions["answerType"];
-    rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
-    onChange: (arg1: {
-        value?: ParsedValue | 0;
-        simplify?: Props["simplify"];
-        size?: Props["size"];
-        inexact?: Props["inexact"];
-        maxError?: Props["maxError"];
-        answerType?: Props["answerType"];
-        rightAlign?: Props["rightAlign"];
-    }) => void;
-};
+// FIXME
+type Props = any;
+// type Props = {
+//     value: number;
+//     simplify: PerseusInputNumberWidgetOptionsV0["simplify"];
+//     size: PerseusInputNumberWidgetOptionsV0["size"];
+//     inexact: PerseusInputNumberWidgetOptionsV0["inexact"];
+//     maxError: PerseusInputNumberWidgetOptionsV0["maxError"];
+//     answerType: PerseusInputNumberWidgetOptionsV0["answerType"];
+//     rightAlign: PerseusInputNumberWidgetOptionsV0["rightAlign"];
+//     onChange: (arg1: {
+//         value?: ParsedValue | 0;
+//         simplify?: Props["simplify"];
+//         size?: Props["size"];
+//         inexact?: Props["inexact"];
+//         maxError?: Props["maxError"];
+//         answerType?: Props["answerType"];
+//         rightAlign?: Props["rightAlign"];
+//     }) => void;
+// };
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -106,7 +108,6 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
-                                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
                                     simplify: e.target.value,
                                 });
                             }}
@@ -180,7 +181,6 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
                         aria-label="Answer type"
@@ -202,7 +202,6 @@ class InputNumberEditor extends React.Component<Props> {
                         <select
                             value={this.props.size}
                             onChange={(e) => {
-                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
                                 this.props.onChange({size: e.target.value});
                             }}
                         >

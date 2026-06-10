@@ -58,6 +58,7 @@ import type {
     NumericInputWidget,
     ExpressionWidget,
     CategorizerWidget,
+    InputNumberWidget,
 } from "../data-schema";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -834,9 +835,19 @@ describe("injectWidgets", () => {
             "input-number 1": {
                 type: "input-number",
                 options: {
-                    value: 42,
-                    simplify: "required",
                     size: "normal",
+                    coefficient: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            value: 42,
+                            maxError: 0,
+                            simplify: "required",
+                            answerForms: [],
+                            message: "",
+                            strict: true,
+                        },
+                    ],
                 },
             },
             "expression 1": {
@@ -957,14 +968,24 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answer from a input-number widget", () => {
-        const widget = {
+        const widget: InputNumberWidget = {
             type: "input-number",
             options: {
-                value: 42,
-                simplify: "required",
                 size: "normal",
+                coefficient: false,
+                answers: [
+                    {
+                        status: "correct",
+                        value: 42,
+                        maxError: 0,
+                        simplify: "required",
+                        answerForms: [],
+                        message: "",
+                        strict: true,
+                    },
+                ],
             },
-        } as const;
+        };
         const answer = getAnswersFromWidgets({"input-number 1": widget});
         expect(answer).toEqual(["42"]);
     });
@@ -1055,9 +1076,19 @@ describe("getAnswersFromWidgets", () => {
                     "input-number 1": {
                         type: "input-number",
                         options: {
-                            value: 42,
-                            simplify: "required",
                             size: "normal",
+                            coefficient: false,
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value: 42,
+                                    maxError: 0,
+                                    simplify: "required",
+                                    answerForms: [],
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },

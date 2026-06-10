@@ -4,25 +4,23 @@ import type {InputNumberPublicWidgetOptions} from "./input-number-util";
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type InputNumberDefaultWidgetOptions = Pick<
-    PerseusInputNumberWidgetOptions,
-    | "value"
-    | "simplify"
-    | "size"
-    | "inexact"
-    | "maxError"
-    | "answerType"
-    | "rightAlign"
->;
+export type InputNumberDefaultWidgetOptions = PerseusInputNumberWidgetOptions;
 
 const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
-    value: 0,
-    simplify: "required",
-    size: "normal",
-    inexact: false,
-    maxError: 0.1,
-    answerType: "number",
     rightAlign: false,
+    coefficient: false,
+    size: "normal",
+    answers: [
+        {
+            status: "correct",
+            value: 0,
+            simplify: "required",
+            maxError: 0,
+            answerForms: [],
+            message: "",
+            strict: true,
+        },
+    ],
 };
 
 const inputNumberWidgetLogic: WidgetLogic<

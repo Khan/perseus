@@ -27,7 +27,7 @@ import type {
 } from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {
-    PerseusInputNumberWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -64,7 +64,7 @@ const formExamples: Record<string, FormExampleFunction> = {
 } as const;
 
 type ExternalProps = WidgetProps<
-    PerseusInputNumberWidgetOptions,
+    PerseusInputNumberWidgetOptionsV0,
     PerseusInputNumberUserInput
 >;
 type Props = ExternalProps & {
@@ -313,7 +313,7 @@ function getStartUserInput(): PerseusInputNumberUserInput {
 }
 
 function getCorrectUserInput(
-    options: PerseusInputNumberWidgetOptions,
+    options: PerseusInputNumberWidgetOptionsV0,
 ): PerseusInputNumberUserInput {
     return {currentValue: options.value.toString()};
 }
