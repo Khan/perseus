@@ -25,7 +25,7 @@ const LockedPolygon = (props: LockedPolygonType) => {
             role="img"
         >
             <Polygon
-                points={[...points]}
+                points={[...points.map(({coord}) => coord)]}
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
                 strokeStyle={strokeStyle}
                 color={lockedFigureColors[color]}
@@ -46,8 +46,8 @@ const LockedPolygon = (props: LockedPolygonType) => {
                 points.map((point, index) => (
                     <Point
                         key={`locked-polygon-point-${index}`}
-                        x={point[X]}
-                        y={point[Y]}
+                        x={point.coord[X]}
+                        y={point.coord[Y]}
                         color={lockedFigureColors[color]}
                     />
                 ))}

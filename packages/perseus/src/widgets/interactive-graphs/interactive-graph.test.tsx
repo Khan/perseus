@@ -1236,9 +1236,9 @@ describe("Interactive Graph", function () {
                         lockedFigures: [
                             generateIGLockedPolygon({
                                 points: [
-                                    [0, 0],
-                                    [0, 1],
-                                    [1, 1],
+                                    {coord: [0, 0]},
+                                    {coord: [0, 1]},
+                                    {coord: [1, 1]},
                                 ],
                                 weight: weight,
                             }),
@@ -1352,9 +1352,9 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedPolygon({
                             points: [
-                                [0, 0],
-                                [0, 1],
-                                [1, 1],
+                                {coord: [0, 0]},
+                                {coord: [0, 1]},
+                                {coord: [1, 1]},
                             ],
                             ariaLabel: "Polygon A",
                         }),
@@ -1380,9 +1380,9 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedPolygon({
                             points: [
-                                [0, 0],
-                                [0, 1],
-                                [1, 1],
+                                {coord: [0, 0]},
+                                {coord: [0, 1]},
+                                {coord: [1, 1]},
                             ],
                         }),
                     ],

@@ -265,10 +265,10 @@ export const segmentWithLockedFigures: PerseusRenderer =
             }),
             generateIGLockedPolygon({
                 points: [
-                    [-9, 4],
-                    [-6, 4],
-                    [-6, 1],
-                    [-9, 1],
+                    {coord: [-9, 4]},
+                    {coord: [-6, 4]},
+                    {coord: [-6, 1]},
+                    {coord: [-9, 1]},
                 ],
                 color: "pink",
                 labels: [

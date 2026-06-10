@@ -47,10 +47,10 @@ describe("LockedPolygonSettings", () => {
             <LockedPolygonSettings
                 {...defaultProps}
                 points={[
-                    [0, 0],
-                    [1, 1],
-                    [2, 2],
-                    [1, -1],
+                    {coord: [0, 0]},
+                    {coord: [1, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, -1]},
                 ]}
             />,
             {
@@ -119,10 +119,10 @@ describe("LockedPolygonSettings", () => {
             <LockedPolygonSettings
                 {...defaultProps}
                 points={[
-                    [0, 0],
-                    [1, 1],
-                    [2, 2],
-                    [1, -1],
+                    {coord: [0, 0]},
+                    {coord: [1, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, -1]},
                 ]}
             />,
             {
@@ -185,10 +185,10 @@ describe("LockedPolygonSettings", () => {
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
+                    {coord: [1, 1]},
+                    {coord: [2, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, 2]},
                 ]}
             />,
             {
@@ -204,10 +204,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, 1]}],
             points: [
-                [1, 2],
-                [2, 2],
-                [2, 3],
-                [1, 3],
+                {coord: [1, 2]},
+                {coord: [2, 2]},
+                {coord: [2, 3]},
+                {coord: [1, 3]},
             ],
         });
     });
@@ -228,10 +228,10 @@ describe("LockedPolygonSettings", () => {
                 labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
+                    {coord: [1, 1]},
+                    {coord: [2, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, 2]},
                 ]}
             />,
             {
@@ -247,10 +247,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [0, -1]}],
             points: [
-                [1, 0],
-                [2, 0],
-                [2, 1],
-                [1, 1],
+                {coord: [1, 0]},
+                {coord: [2, 0]},
+                {coord: [2, 1]},
+                {coord: [1, 1]},
             ],
         });
     });
@@ -271,10 +271,10 @@ describe("LockedPolygonSettings", () => {
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
                 points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
+                    {coord: [1, 1]},
+                    {coord: [2, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, 2]},
                 ]}
             />,
             {
@@ -290,10 +290,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [-1, 0]}],
             points: [
-                [0, 1],
-                [1, 1],
-                [1, 2],
-                [0, 2],
+                {coord: [0, 1]},
+                {coord: [1, 1]},
+                {coord: [1, 2]},
+                {coord: [0, 2]},
             ],
         });
     });
@@ -314,10 +314,10 @@ describe("LockedPolygonSettings", () => {
                 onChangeProps={onChangeSpy}
                 labels={[initialLabel]}
                 points={[
-                    [1, 1],
-                    [2, 1],
-                    [2, 2],
-                    [1, 2],
+                    {coord: [1, 1]},
+                    {coord: [2, 1]},
+                    {coord: [2, 2]},
+                    {coord: [1, 2]},
                 ]}
             />,
             {
@@ -333,10 +333,10 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({
             labels: [{...initialLabel, coord: [1, 0]}],
             points: [
-                [2, 1],
-                [3, 1],
-                [3, 2],
-                [2, 2],
+                {coord: [2, 1]},
+                {coord: [3, 1]},
+                {coord: [3, 2]},
+                {coord: [2, 2]},
             ],
         });
     });
@@ -407,7 +407,7 @@ describe("LockedPolygonSettings", () => {
                 render(
                     <LockedPolygonSettings
                         {...defaultProps}
-                        points={startingCoords}
+                        points={startingCoords.map((coord) => ({coord}))}
                         labels={[
                             {
                                 ...defaultLabel,
@@ -433,7 +433,7 @@ describe("LockedPolygonSettings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    points: expectedCoords,
+                    points: expectedCoords.map((coord) => ({coord})),
                     labels: [
                         {
                             ...defaultLabel,
@@ -542,11 +542,7 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [1, 0],
-                        [1, 1],
-                    ]}
+                    points={[{coord: [0, 0]}, {coord: [1, 0]}, {coord: [1, 1]}]}
                     labels={[
                         {
                             ...defaultLabel,
@@ -630,11 +626,7 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                 />,
@@ -663,11 +655,7 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[
@@ -703,11 +691,7 @@ describe("LockedPolygonSettings", () => {
             render(
                 <LockedPolygonSettings
                     {...defaultProps}
-                    points={[
-                        [0, 0],
-                        [0, 1],
-                        [1, 1],
-                    ]}
+                    points={[{coord: [0, 0]}, {coord: [0, 1]}, {coord: [1, 1]}]}
                     ariaLabel={undefined}
                     onChangeProps={onChangeProps}
                     labels={[

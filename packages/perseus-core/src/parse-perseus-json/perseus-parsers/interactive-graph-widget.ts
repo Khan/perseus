@@ -284,9 +284,23 @@ const parseLockedEllipseType = object({
     ariaLabel: optional(string),
 });
 
+const parseLockedPolygonPointType = object({
+    coord: pairOfNumbers,
+});
+
+const parseLockedPolygonPointsType = union(
+    array(parseLockedPolygonPointType),
+).or(
+    // Normalize legacy representation of points as Coord[] to
+    // LockedPolygonPointType[].
+    pipeParsers(array(pairOfNumbers)).then(
+        convert((coords) => coords.map((coord) => ({coord}))),
+    ).parser,
+).parser;
+
 const parseLockedPolygonType = object({
     type: constant("polygon"),
-    points: array(pairOfNumbers),
+    points: parseLockedPolygonPointsType,
     color: parseLockedFigureColor,
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,

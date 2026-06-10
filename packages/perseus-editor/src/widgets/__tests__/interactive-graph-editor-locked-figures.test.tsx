@@ -1079,7 +1079,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "polygon",
-                            points: [...defaultPolygon.points, [0, 0]],
+                            points: [...defaultPolygon.points, {coord: [0, 0]}],
                         }),
                     ],
                 }),
@@ -1091,10 +1091,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             const onChangeMock = jest.fn();
 
             const squarePolygonPoints = [
-                [-9, 4],
-                [-6, 4],
-                [-6, 1],
-                [-9, 1],
+                {coord: [-9, 4]},
+                {coord: [-6, 4]},
+                {coord: [-6, 1]},
+                {coord: [-9, 1]},
             ];
 
             renderEditor({
@@ -1119,7 +1119,11 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "polygon",
-                            points: squarePolygonPoints.slice(1),
+                            points: [
+                                {coord: [-6, 4]},
+                                {coord: [-6, 1]},
+                                {coord: [-9, 1]},
+                            ],
                         }),
                     ],
                 }),
@@ -1149,9 +1153,9 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             type: "polygon",
                             points: [
-                                [7, 2],
-                                [-1, 0],
-                                [1, 0],
+                                {coord: [7, 2]},
+                                {coord: [-1, 0]},
+                                {coord: [1, 0]},
                             ],
                         }),
                     ],
@@ -1182,9 +1186,9 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             type: "polygon",
                             points: [
-                                [0, 7],
-                                [-1, 0],
-                                [1, 0],
+                                {coord: [0, 7]},
+                                {coord: [-1, 0]},
+                                {coord: [1, 0]},
                             ],
                         }),
                     ],

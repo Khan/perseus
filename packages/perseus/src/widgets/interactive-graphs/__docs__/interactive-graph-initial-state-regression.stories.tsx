@@ -539,10 +539,10 @@ function lockedFiguresWithWeight(
         }),
         generateIGLockedPolygon({
             points: [
-                [-7.5, -3.5],
-                [-6.5, -2.5],
-                [-5.5, -3.5],
-                [-6.5, -4.5],
+                {coord: [-7.5, -3.5]},
+                {coord: [-6.5, -2.5]},
+                {coord: [-5.5, -3.5]},
+                {coord: [-6.5, -4.5]},
             ],
             weight,
             color: "pink",

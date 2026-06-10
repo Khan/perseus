@@ -1,7 +1,6 @@
 import {
     getDefaultFigureForType,
     lockedFigureFillStyles,
-    type Coord,
     type LockedFigureFillType,
     type LockedPolygonType,
     type LockedFigureColor,
@@ -45,7 +44,7 @@ import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {
         /**
-         * Called when the props (coords, color, etc.) are updated.
+         * Called when the props (points, color, etc.) are updated.
          */
         onChangeProps: (newProps: Partial<LockedPolygonType>) => void;
     };
@@ -78,8 +77,9 @@ const LockedPolygonSettings = (props: Props) => {
 
         // Add the coordinates of each point to the aria label
         const pointsList = await Promise.all(
-            points.map(async ([x, y]) => {
+            points.map(async (point) => {
                 // Ensure negative values are read correctly within aria labels.
+                const [x, y] = point.coord;
                 const spokenX = await generateSpokenMathDetails(`$${x}$`);
                 const spokenY = await generateSpokenMathDetails(`$${y}$`);
                 return `${spokenX} comma ${spokenY}`;
@@ -115,7 +115,10 @@ const LockedPolygonSettings = (props: Props) => {
         switch (movement) {
             case "up":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x, y + 1]),
+                    points: points.map((point) => ({
+                        ...point,
+                        coord: [point.coord[0], point.coord[1] + 1],
+                    })),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] + 1],
@@ -124,7 +127,10 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "down":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x, y - 1]),
+                    points: points.map((point) => ({
+                        ...point,
+                        coord: [point.coord[0], point.coord[1] - 1],
+                    })),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] - 1],
@@ -133,7 +139,10 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "left":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x - 1, y]),
+                    points: points.map((point) => ({
+                        ...point,
+                        coord: [point.coord[0] - 1, point.coord[1]],
+                    })),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] - 1, label.coord[1]],
@@ -142,7 +151,10 @@ const LockedPolygonSettings = (props: Props) => {
                 break;
             case "right":
                 onChangeProps({
-                    points: points.map(([x, y]) => [x + 1, y]),
+                    points: points.map((point) => ({
+                        ...point,
+                        coord: [point.coord[0] + 1, point.coord[1]],
+                    })),
                     labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] + 1, label.coord[1]],
@@ -282,11 +294,14 @@ const LockedPolygonSettings = (props: Props) => {
                             >{`${pointLabel}:`}</BodyText>
                             <Strut size={spacing.medium_16} />
                             <CoordinatePairInput
-                                coord={point}
+                                coord={point.coord}
                                 labels={["x", "y"]}
-                                onChange={(newValue: Coord) => {
+                                onChange={(newValue) => {
                                     const newPoints = [...points];
-                                    newPoints[index] = newValue;
+                                    newPoints[index] = {
+                                        ...point,
+                                        coord: newValue,
+                                    };
                                     props.onChangeProps({points: newPoints});
                                 }}
                             />
@@ -301,10 +316,11 @@ const LockedPolygonSettings = (props: Props) => {
                                         kind="tertiary"
                                         actionType="destructive"
                                         onClick={() => {
-                                            const newPoints = [...points];
-                                            newPoints.splice(index, 1);
                                             props.onChangeProps({
-                                                points: newPoints,
+                                                points: points.filter(
+                                                    (_, pointIndex) =>
+                                                        pointIndex !== index,
+                                                ),
                                             });
                                         }}
                                         style={styles.icon}
@@ -320,7 +336,7 @@ const LockedPolygonSettings = (props: Props) => {
                         startIcon={plusCircle}
                         onClick={() => {
                             props.onChangeProps({
-                                points: [...points, [0, 0]],
+                                points: [...points, {coord: [0, 0]}],
                             });
                         }}
                     >
@@ -402,10 +418,10 @@ const LockedPolygonSettings = (props: Props) => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
                         coord: [
-                            points[0][0],
+                            points[0].coord[0],
                             // Additional vertical offset for each
                             // label so they don't overlap.
-                            points[0][1] - labels.length,
+                            points[0].coord[1] - labels.length,
                         ],
                         // Default to the same color as the ellipse
                         color: color,

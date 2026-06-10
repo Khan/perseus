@@ -38,12 +38,11 @@ export default Rule.makeRule({
 
             // A locked polygon can't have all coordinates be the same.
             if (figure.type === "polygon") {
+                const coords = figure.points.map((point) => point.coord);
                 if (
                     // If every point is the same as the first point,
                     // then all the points are the same.
-                    figure.points.every((point) =>
-                        kvector.equal(point, figure.points[0]),
-                    )
+                    coords.every((point) => kvector.equal(point, coords[0]))
                 ) {
                     issues.push(
                         "Locked polygon cannot have all coordinates be the same.",

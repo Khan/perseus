@@ -385,6 +385,180 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
+    it("parses locked polygon points with coord field", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "none",
+                            strokeStyle: "solid",
+                            weight: "medium",
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "none",
+                            strokeStyle: "solid",
+                            weight: "medium",
+                            labels: [],
+                        },
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("normalizes legacy locked polygon points array to coord field", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "none",
+                            strokeStyle: "solid",
+                            weight: "medium",
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                {coord: [0, 0]},
+                                {coord: [1, 0]},
+                                {coord: [1, 1]},
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "none",
+                            strokeStyle: "solid",
+                            weight: "medium",
+                            labels: [],
+                        },
+                    ],
+                },
+            }),
+        );
+    });
+
     it("rejects unrecognized color names on locked figures", () => {
         const result = parse(
             {
