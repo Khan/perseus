@@ -39,7 +39,6 @@ export {
 
 export {
     scorePerseusItem,
-    scorePerseusItemWithInputNumberAsNumericInput,
     scoreWidgetsFunctional,
 } from "./score";
 export {default as flattenScores} from "./util/flatten-scores";

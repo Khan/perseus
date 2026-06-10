@@ -1,9 +1,6 @@
 import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 
-import type {
-    PerseusInputNumberWidgetOptions,
-    PerseusInputNumberWidgetOptionsV0,
-} from "../../data-schema";
+import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 
 describe("getInputNumberPublicWidgetOptions", () => {
     it("nulls out the answer value", () => {
