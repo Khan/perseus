@@ -29,10 +29,17 @@ export function srAbsoluteValuePointLabel(
         : strings.srAbsoluteValueSecondPoint({x, y});
 }
 
+type AbsoluteValueGraphDescriptionStrings = {
+    srAbsoluteValueGraph: string;
+    srAbsoluteValueVertexPoint: string;
+    srAbsoluteValueSecondPoint: string;
+    srAbsoluteValueDescription: string;
+};
+
 export function describeAbsoluteValueGraph(
     state: AbsoluteValueGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): AbsoluteValueGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords} = state;
     const [vertex, armPoint] = coords;

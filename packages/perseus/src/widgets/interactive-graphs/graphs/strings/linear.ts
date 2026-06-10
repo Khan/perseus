@@ -4,11 +4,20 @@ import {srFormatNumber} from "./format-number";
 import type {I18nContextType} from "../../../../components/i18n-context";
 import type {LinearGraphState} from "../../types";
 
+type LinearGraphDescriptionStrings = {
+    srLinearGraph: string;
+    srLinearGraphPoints: string;
+    srLinearGrabHandle: string;
+    slopeString: string;
+    interceptString: string;
+    srLinearInteractiveElement: string;
+};
+
 // Exported for testing
 export function describeLinearGraph(
     state: LinearGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): LinearGraphDescriptionStrings {
     const {coords: line} = state;
     const {strings, locale} = i18n;
 

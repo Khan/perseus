@@ -23,11 +23,19 @@ export function srVectorPointLabel(
         : strings.srVectorTipPoint({x, y});
 }
 
+type VectorGraphDescriptionStrings = {
+    srVectorGraph: string;
+    srVectorPoints: string;
+    srVectorTipPoint: string;
+    srVectorGrabHandle: string;
+    srVectorInteractiveElement: string;
+};
+
 // Exported for testing
 export function describeVectorGraph(
     state: VectorGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): VectorGraphDescriptionStrings {
     const {coords} = state;
     const [tail, tip] = coords;
     const {strings, locale} = i18n;

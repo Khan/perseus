@@ -37,10 +37,18 @@ export function srSinusoidPointLabel(
         : strings.srSinusoidMinPoint(formatted);
 }
 
+type SinusoidGraphDescriptionStrings = {
+    srSinusoidGraph: string;
+    srSinusoidDescription: string;
+    srSinusoidRootPoint: string;
+    srSinusoidPeakPoint: string;
+    srSinusoidInteractiveElements: string;
+};
+
 export function describeSinusoidGraph(
     state: SinusoidGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): SinusoidGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords} = state;
     const [root, peak] = coords;

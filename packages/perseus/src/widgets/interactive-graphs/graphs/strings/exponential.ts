@@ -28,10 +28,19 @@ export function srExponentialPointLabel(
         : strings.srExponentialPoint2({x, y});
 }
 
+type ExponentialGraphDescriptionStrings = {
+    srExponentialGraph: string;
+    srExponentialDescription: string;
+    srExponentialAsymptote: string;
+    srExponentialPoint1: string;
+    srExponentialPoint2: string;
+    srExponentialInteractiveElements: string;
+};
+
 export function describeExponentialGraph(
     state: ExponentialGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): ExponentialGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords, asymptote} = state;
     const [point1, point2] = coords;

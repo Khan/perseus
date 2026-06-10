@@ -35,11 +35,20 @@ export function srCircleCenterLabel(
     });
 }
 
+type CircleGraphDescriptionStrings = {
+    srCircleGraph: string;
+    srCircleShape: string;
+    srCircleRadiusPoint: string;
+    srCircleRadius: string;
+    srCircleOuterPoints: string;
+    srCircleInteractiveElement: string;
+};
+
 // Exported for testing
 export function describeCircleGraph(
     state: CircleGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): CircleGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {center, radiusPoint} = state;
     const radius = getRadius(state);

@@ -28,11 +28,20 @@ export function srRayPointLabel(
         : strings.srRayTerminalPoint({x, y});
 }
 
+type RayGraphDescriptionStrings = {
+    srRayGraph: string;
+    srRayPoints: string;
+    srRayEndpoint: string;
+    srRayTerminalPoint: string;
+    srRayGrabHandle: string;
+    srRayInteractiveElement: string;
+};
+
 // Exported for testing
 export function describeRayGraph(
     state: RayGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): RayGraphDescriptionStrings {
     const {coords: line} = state;
     const {strings, locale} = i18n;
 

@@ -28,10 +28,18 @@ export function srTangentPointLabel(
         : strings.srTangentSecondPoint({x, y});
 }
 
+type TangentGraphDescriptionStrings = {
+    srTangentGraph: string;
+    srTangentDescription: string;
+    srTangentInflectionPoint: string;
+    srTangentSecondPoint: string;
+    srTangentInteractiveElements: string;
+};
+
 export function describeTangentGraph(
     state: TangentGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): TangentGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords} = state;
     const [inflection, secondPoint] = coords;

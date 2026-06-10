@@ -28,10 +28,19 @@ export function srLogarithmPointLabel(
         : strings.srLogarithmPoint2({x, y});
 }
 
+type LogarithmGraphDescriptionStrings = {
+    srLogarithmGraph: string;
+    srLogarithmDescription: string;
+    srLogarithmAsymptote: string;
+    srLogarithmPoint1: string;
+    srLogarithmPoint2: string;
+    srLogarithmInteractiveElements: string;
+};
+
 export function describeLogarithmGraph(
     state: LogarithmGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): LogarithmGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords, asymptote} = state;
     const [point1, point2] = coords;

@@ -43,10 +43,18 @@ export function srAnglePointLabel(
     }
 }
 
+type AngleGraphDescriptionStrings = {
+    srAngleGraphAriaLabel: string;
+    srAngleGraphAriaDescription: string;
+    srAngleStartingSide: string;
+    srAngleEndingSide: string;
+    srAngleVertex: string;
+};
+
 export function describeAngleGraph(
     state: AngleGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): AngleGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords, allowReflexAngles} = state;
     const [endingSide, vertex, startingSide] = coords;
