@@ -38,15 +38,16 @@ OFFENDING=$(git diff --name-status --diff-filter=DMRCT \
     "$BASE_SHA...$HEAD_SHA" -- "${PROTECTED_DIRS[@]}")
 
 if [ -n "$OFFENDING" ]; then
-    echo "::error title=Frozen regression fixture changed::Existing regression-test fixtures may not be modified, renamed, or deleted."
+    echo "::error title=Frozen parser regression fixture changed::Existing regression-test fixtures may not be modified, renamed, or deleted."
     echo ""
     echo "The following protected files were changed:"
     echo "$OFFENDING" | sed 's/^/    /'
     echo ""
-    echo "These fixtures capture historical Perseus data formats and must stay"
-    echo "stable so the parser is always tested against real, published data."
+    echo "These fixtures capture historical Perseus data formats and must never"
+    echo "change so the parser is always tested against real, published data."
     echo "If you need new coverage, ADD a new file to the directory instead of"
-    echo "editing an existing one."
+    echo "editing an existing one. See the README for more details:"
+    echo "https://github.com/Khan/perseus/tree/main/packages/perseus-core/src/parse-perseus-json#regression-testing-against-old-data"
     exit 1
 fi
 
