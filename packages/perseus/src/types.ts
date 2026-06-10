@@ -134,8 +134,6 @@ export type ImageUploader = (
     callback: (url: string) => unknown,
 ) => unknown;
 
-export type Path = ReadonlyArray<string>;
-
 type TrackInteractionArgs = {
     // The widget type that this interaction originates from
     type: string;
