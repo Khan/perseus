@@ -403,8 +403,8 @@ describe("parseWidgetsMap", () => {
                             answerForms: [],
                             message: "",
                             strict: true,
-                        }
-                    ]
+                        },
+                    ],
                 },
             },
         };

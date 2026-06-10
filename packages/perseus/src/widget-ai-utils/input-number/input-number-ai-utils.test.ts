@@ -69,10 +69,7 @@ describe("InputNumber AI utils", () => {
 
         expect(resultJSON).toEqual({
             type: "input-number",
-            options: {
-                simplify: "optional",
-                answerType: "integer",
-            },
+            label: undefined,
             userInput: {
                 value: "123",
             },
@@ -96,11 +93,8 @@ describe("InputNumber AI utils", () => {
                 "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
             widgets: {
                 "input-number 1": {
-                    type: "input-number",
-                    options: {
-                        simplify: "required",
-                        answerType: "number",
-                    },
+                    type: "numeric-input",
+                    label: "",
                     userInput: {
                         value: "40",
                     },

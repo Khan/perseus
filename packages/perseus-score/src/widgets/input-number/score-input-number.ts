@@ -1,8 +1,7 @@
-import {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
-
 import scoreNumericInput from "../numeric-input/score-numeric-input";
 
 import type {
+    PerseusInputNumberWidgetOptions,
     PerseusInputNumberUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -53,11 +52,7 @@ function scoreInputNumber(
     rubric: PerseusInputNumberWidgetOptions,
     locale?: string,
 ): PerseusScore {
-    return scoreNumericInput(
-        userInput,
-        rubric,
-        locale,
-    );
+    return scoreNumericInput(userInput, rubric, locale);
 }
 
 export default scoreInputNumber;

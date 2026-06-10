@@ -1,3 +1,4 @@
+import {convertInputNumberOptionsToNumericInput} from "../../widgets/input-number/to-numeric-input";
 import {
     boolean,
     constant,
@@ -7,16 +8,16 @@ import {
     optional,
     string,
     union,
-    array, nullable,
+    array,
+    nullable,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {singleton} from "../general-purpose-parsers/singleton";
 
-import {parseWidgetWithVersion} from "./widget";
 import {versionedWidgetOptions} from "./versioned-widget-options";
+import {parseWidgetWithVersion} from "./widget";
 
 import type {ParsedValue, Parser} from "../parser-types";
-import {convertInputNumberOptionsToNumericInput} from "../../widgets/input-number/to-numeric-input";
 
 const booleanToZero: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue === "boolean") {
@@ -55,13 +56,15 @@ export const parseInputNumberWidgetV1 = parseWidgetWithVersion(
     }),
 );
 
-function migrateV0ToV1(v0: ParsedValue<typeof parseInputNumberWidgetV0>): ParsedValue<typeof parseInputNumberWidgetV1> {
+function migrateV0ToV1(
+    v0: ParsedValue<typeof parseInputNumberWidgetV0>,
+): ParsedValue<typeof parseInputNumberWidgetV1> {
     const v1Options = convertInputNumberOptionsToNumericInput(v0.options);
     return {
         ...v0,
         version: {major: 1, minor: 0},
         options: v1Options,
-    }
+    };
 }
 
 export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
@@ -96,6 +99,7 @@ export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
     }),
 );
 
-export const parseInputNumberWidget = versionedWidgetOptions(1, parseInputNumberWidgetV1)
-    .withMigrationFrom(0, parseInputNumberWidgetV0, migrateV0ToV1)
-    .parser
+export const parseInputNumberWidget = versionedWidgetOptions(
+    1,
+    parseInputNumberWidgetV1,
+).withMigrationFrom(0, parseInputNumberWidgetV0, migrateV0ToV1).parser;
