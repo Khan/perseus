@@ -1,8 +1,8 @@
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
+import {mockPerseusI18nContext} from "../../../../components/i18n-context";
 
-import {describePointGraph} from "./strings/point";
+import {describePointGraph} from "./point";
 
-import type {PointGraphState} from "../types";
+import type {PointGraphState} from "../../types";
 
 describe("describePointGraph", () => {
     const baseState: PointGraphState = {
