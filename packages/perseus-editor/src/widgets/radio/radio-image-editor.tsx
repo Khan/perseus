@@ -79,7 +79,7 @@ export default function RadioImageEditor({
                     field={
                         <ImagePreview
                             src={imageUrl}
-                            alt={`Preview: ${imageAltText ?? "No alt text"}`}
+                            alt={`Preview: ${imageAltText}`}
                             width={dimensions.width}
                             height={dimensions.height}
                         />
