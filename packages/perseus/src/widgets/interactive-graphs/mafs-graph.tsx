@@ -247,7 +247,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     aria-describedby={describedByIds(
                         // Instructions read first on focus so screen reader
                         // users hear how to interact before the descriptions
-                        // (LEMS-4121).
                         state.type !== "none" &&
                             !disableInteraction &&
                             instructionsId,
@@ -270,7 +269,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {/*
                       Instructions render first so screen reader users
                       encounter how to interact with the graph before the
-                      graph and interactive-element descriptions (LEMS-4121).
+                      graph and interactive-element descriptions
                     */}
                     {state.type !== "none" && (
                         <View
