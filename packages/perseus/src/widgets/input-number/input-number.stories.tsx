@@ -1,6 +1,6 @@
 import {
     type PerseusRenderer,
-    type PerseusInputNumberWidgetOptionsV0,
+    type PerseusInputNumberWidgetOptions,
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -74,7 +74,7 @@ export default meta;
 const updateWidgetOptions = (
     question: PerseusRenderer,
     widgetId: string,
-    options: PerseusInputNumberWidgetOptionsV0,
+    options: PerseusInputNumberWidgetOptions,
 ): PerseusRenderer => {
     const widget = question.widgets[widgetId];
     return {
@@ -92,7 +92,7 @@ const updateWidgetOptions = (
 };
 
 export const Rational = (
-    args: PerseusInputNumberWidgetOptionsV0,
+    args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question1, "input-number 1", args);
     return (
@@ -104,7 +104,7 @@ export const Rational = (
 Rational.args = question1.widgets["input-number 1"].options;
 
 export const PiSimplify = (
-    args: PerseusInputNumberWidgetOptionsV0,
+    args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);
     return (
@@ -116,7 +116,7 @@ export const PiSimplify = (
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
 export const Percent = (
-    args: PerseusInputNumberWidgetOptionsV0,
+    args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question3, "input-number 1", args);
     return (

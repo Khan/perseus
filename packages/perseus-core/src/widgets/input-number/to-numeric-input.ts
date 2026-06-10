@@ -1,6 +1,7 @@
 import type {
     MathFormat,
-    PerseusInputNumberAnswerType, PerseusInputNumberWidgetOptions,
+    PerseusInputNumberAnswerType,
+    PerseusInputNumberWidgetOptions,
     PerseusInputNumberWidgetOptionsV0,
     PerseusNumericInputWidgetOptions,
 } from "../../data-schema";

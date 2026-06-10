@@ -1,7 +1,8 @@
 import scoreInputNumber from "./score-input-number";
 
 import type {
-    PerseusInputNumberUserInput, PerseusInputNumberWidgetOptions,
+    PerseusInputNumberUserInput,
+    PerseusInputNumberWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4085): Delete these tests; scoreInputNumber will be replaced by scoreNumericInput.
@@ -16,11 +17,18 @@ describe("scoreInputNumber", () => {
                     value: 1,
                     maxError: 0,
                     simplify: "optional",
-                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                        "percent",
+                    ],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput = undefined;
@@ -40,11 +48,18 @@ describe("scoreInputNumber", () => {
                     value: 1,
                     maxError: 0,
                     simplify: "optional",
-                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                        "percent",
+                    ],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -66,11 +81,18 @@ describe("scoreInputNumber", () => {
                     value: 1,
                     maxError: 0,
                     simplify: "optional",
-                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                        "percent",
+                    ],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -92,11 +114,18 @@ describe("scoreInputNumber", () => {
                     value: 1,
                     maxError: 0,
                     simplify: "optional",
-                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    answerForms: [
+                        "integer",
+                        "decimal",
+                        "proper",
+                        "improper",
+                        "mixed",
+                        "percent",
+                    ],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -127,8 +156,8 @@ describe("scoreInputNumber", () => {
                     answerForms: [],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -163,8 +192,8 @@ describe("scoreInputNumber", () => {
                     answerForms: ["pi"],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -189,8 +218,8 @@ describe("scoreInputNumber", () => {
                     answerForms: [],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {currentValue: "x+1"};
@@ -216,8 +245,8 @@ describe("scoreInputNumber", () => {
                     answerForms: [],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -242,8 +271,8 @@ describe("scoreInputNumber", () => {
                     answerForms: ["decimal"],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -270,8 +299,8 @@ describe("scoreInputNumber", () => {
                     answerForms: ["decimal"],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -299,8 +328,8 @@ describe("scoreInputNumber", () => {
                     answerForms: ["decimal"],
                     message: "",
                     strict: true,
-                }
-            ]
+                },
+            ],
         };
 
         const userInput: PerseusInputNumberUserInput = {

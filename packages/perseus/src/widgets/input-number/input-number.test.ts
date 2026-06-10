@@ -2,9 +2,12 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateInputNumberAnswer,
+    generateInputNumberOptions,
+} from "@khanacademy/perseus-core";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import _ from "underscore";
 
 import * as Dependencies from "../../dependencies";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
@@ -23,7 +26,7 @@ import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
 
 import type {PerseusDependenciesV2} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {MathFormat, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("input-number", function () {
@@ -107,7 +110,7 @@ describe("input-number", function () {
                 type: "perseus:widget:rendered:ti",
                 payload: {
                     widgetSubType: "null",
-                    widgetType: "input-number",
+                    widgetType: "numeric-input",
                     widgetId: "input-number 1",
                 },
             });
@@ -372,12 +375,12 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
     });
 
     it.each([
-        ["proper", 0.3333333333333333, "1/3", "normal" as const],
-        ["percent", 0.5, "50%", "small" as const],
-        ["pi", 241.90263432641407, "77 pi", "normal" as const],
-    ] as const)(
-        "accepts a correct answer when answerType is %s",
-        async (answerType, value, correctAnswer, size) => {
+        [["proper"], 0.3333333333333333, "1/3", "normal" as const],
+        [["decimal", "percent"], 0.5, "50%", "small" as const],
+        [["pi"], 241.90263432641407, "77 pi", "normal" as const],
+    ] as [MathFormat[], number, string, "small" | "normal"][])(
+        "accepts a correct answer when answerForms is %s",
+        async (answerForms, value, correctAnswer, size) => {
             // Arrange
             const item: PerseusRenderer = {
                 content: "[[☃ input-number 1]]",
@@ -395,7 +398,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
                                     value,
                                     simplify: "optional",
                                     maxError: 0,
-                                    answerForms: [answerType],
+                                    answerForms: answerForms,
                                     message: "",
                                     strict: true,
                                 },
@@ -454,9 +457,15 @@ describe("getOneCorrectAnswerFromRubric", () => {
         );
     });
 
-    it("should return undefined if rubric.value is null/undefined", () => {
+    it("should return undefined if the answer value is null", () => {
         // Arrange
-        const rubric: Record<string, any> = {};
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: null,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
@@ -465,28 +474,52 @@ describe("getOneCorrectAnswerFromRubric", () => {
         expect(result).toBeUndefined();
     });
 
-    it("should return rubric.value if inexact is false", () => {
+    it("should return the answer value if maxError is 0", () => {
         // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: false,
-        } as const;
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 42,
+                    maxError: 0,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
-        expect(result).toEqual("0");
+        expect(result).toEqual("42");
     });
 
-    it("should return rubric.value with an error band if inexact is true", () => {
+    it("should return the answer value if maxError is undefined", () => {
         // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: true,
-        } as const;
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 42,
+                    maxError: undefined,
+                }),
+            ],
+        });
+
+        // Act
+        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+
+        // Assert
+        expect(result).toEqual("42");
+    });
+
+    it("should return the answer value with an error band if maxError is greater than zero", () => {
+        // Arrange
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 0,
+                    maxError: 0.1,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
@@ -591,7 +624,7 @@ it("removes answers from item data", () => {
     expect(
         getAnswerlessInputNumber().question.widgets["input-number 1"].options
             .answers[0].value,
-    ).toBeUndefined();
+    ).toBe(null);
 });
 
 describe.each([
