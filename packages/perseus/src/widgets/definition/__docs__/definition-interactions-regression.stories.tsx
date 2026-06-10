@@ -56,7 +56,7 @@ export const ClickedState: Story = {
 };
 
 export const MobileClickedState: Story = {
-    decorators: [definitionRendererDecorator, mobileDecorator],
+    decorators: [mobileDecorator],
     args: definitionQuestionOptions,
     parameters: {
         content: definitionQuestionContent,
