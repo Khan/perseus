@@ -5,6 +5,7 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
@@ -17,7 +18,7 @@ import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "../../types";
+import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -1298,6 +1299,11 @@ describe("MafsGraph", () => {
     });
 
     describe("MovablePointLabelsLayer flag gate", () => {
+        const apiOptionsWithFlag = (on: boolean): APIOptionsWithDefaults => ({
+            ...ApiOptions.defaults,
+            flags: {"perseus-enable-point-label-field": on},
+        });
+
         function pointStateWith({
             showPointLabels,
             pointLabels,
@@ -1323,7 +1329,7 @@ describe("MafsGraph", () => {
             };
         }
 
-        it("does not mount the layer when pointLabelsFlagEnabled is false, even with showPointLabels: true + pointLabels populated", () => {
+        it("does not mount the layer when the feature flag is off, even with showPointLabels: true + pointLabels populated", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1333,7 +1339,7 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    pointLabelsFlagEnabled={false}
+                    apiOptions={apiOptionsWithFlag(false)}
                 />,
             );
 
@@ -1343,7 +1349,7 @@ describe("MafsGraph", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("mounts the layer when pointLabelsFlagEnabled is true and showPointLabels: true", () => {
+        it("mounts the layer when the feature flag is on and showPointLabels: true", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1353,7 +1359,7 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    pointLabelsFlagEnabled={true}
+                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 
@@ -1374,7 +1380,7 @@ describe("MafsGraph", () => {
                     {...baseMafsProps}
                     state={pointStateWith({pointLabels: ["A"]})}
                     dispatch={jest.fn()}
-                    pointLabelsFlagEnabled={true}
+                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 

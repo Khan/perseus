@@ -18,6 +18,7 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
+import type {APIOptionsWithDefaults} from "../../types";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphUserInput,
@@ -53,13 +54,11 @@ export type StatefulMafsGraphProps = {
     widgetId: string;
     graded?: boolean | null;
     /**
-     * Whether the `perseus-enable-point-label-field` flag is on for this
-     * render. Forwarded to `MafsGraph`; gates the
-     * `MovablePointLabelsLayer` mount so existing content with
-     * `pointLabels` set for screen-reader purposes does not start
-     * rendering visible labels until the flag is rolled out.
+     * Carries the renderer's `apiOptions` (including `flags`) into
+     * `MafsGraph` so it can call `isFeatureOn` for any flag-gated
+     * behaviour (currently the `MovablePointLabelsLayer` mount).
      */
-    pointLabelsFlagEnabled?: boolean;
+    apiOptions?: APIOptionsWithDefaults;
 };
 
 export type StatefulMafsGraphType = {

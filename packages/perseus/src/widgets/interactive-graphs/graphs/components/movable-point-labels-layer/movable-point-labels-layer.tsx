@@ -16,19 +16,18 @@
 import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {getDependencies} from "../../dependencies";
-
-import {pointToPixel} from "./graphs/use-transform";
+import {getDependencies} from "../../../../../dependencies";
+import useGraphConfig from "../../../reducer/use-graph-config";
+import {replaceOutsideTeX} from "../../../utils";
 import {
     getLabelAttach,
     getLabeledMovablePoints,
     type LabelAttach,
     type MovablePointLabel,
-} from "./movable-point-labels";
-import useGraphConfig from "./reducer/use-graph-config";
-import {replaceOutsideTeX} from "./utils";
+} from "../../../utils/movable-point-labels";
+import {pointToPixel} from "../../use-transform";
 
-import type {InteractiveGraphState} from "./types";
+import type {InteractiveGraphState} from "../../../types";
 
 type Props = {
     state: InteractiveGraphState;

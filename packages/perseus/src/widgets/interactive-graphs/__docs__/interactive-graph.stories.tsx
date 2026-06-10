@@ -12,10 +12,8 @@ import {
     pointQuestion,
     pointWithCustomLabelQuestion,
     pointWithDefaultLabelQuestion,
-    pointWithVisibleLabelsQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
-    polygonWithVisibleLabelsQuestion,
     rayQuestion,
     rayWithCustomLabelsQuestion,
     segmentQuestion,
@@ -160,11 +158,16 @@ export const Point: Story = {
 };
 
 /**
- * A point graph whose interactive point uses a custom screen-reader label ("T")
- * via `pointLabels`, so the announcement matches the question prompt ("Plot point T …")
- * instead of the generic "Point 1 …".
+ * A point graph whose interactive point uses a custom label ("T") via
+ * `pointLabels`. With `showPointLabels: true` (paired with the
+ * `perseus-enable-point-label-field` flag) the same string drives both
+ * the screen-reader announcement ("Plot point T …") and the visible
+ * on-canvas label.
  */
 export const PointWithCustomLabel: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: pointWithCustomLabelQuestion,
@@ -187,26 +190,6 @@ export const PointWithDefaultLabel: Story = {
     },
 };
 
-/**
- * A point graph with `showPointLabels: true` and author-supplied
- * `pointLabels: ["P", "Q", "R"]`. The same per-index string drives both
- * the visible on-canvas label and the screen-reader announcement, so the
- * two stay in sync. `showPointLabels` always requires `pointLabels` — the
- * interactive-graph-widget-error lint rule blocks the combination
- * `showPointLabels: true` without `pointLabels` at authoring time, so
- * non-Latin locales never see auto-generated Latin letters.
- */
-export const PointWithVisibleLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
-    args: {
-        item: generateTestPerseusItem({
-            question: pointWithVisibleLabelsQuestion,
-        }),
-    },
-};
-
 export const Polygon: Story = {
     args: {
         item: generateTestPerseusItem({question: polygonQuestion}),
@@ -214,35 +197,19 @@ export const Polygon: Story = {
 };
 
 /**
- * A polygon graph whose vertices use custom screen-reader
- * labels ("A", "B", "C") via `pointLabels`, so the announcements
- * match the question prompt instead of the generic "Point 1/2/3 …".
- * Open with the Storybook a11y addon (or VoiceOver / JAWS) to verify
- * each vertex announces "Point A / B / C at …".
+ * A polygon graph whose vertices use custom labels ("A", "B", "C") via
+ * `pointLabels`. With `showPointLabels: true` (paired with the
+ * `perseus-enable-point-label-field` flag) each vertex carries its
+ * letter both as the screen-reader announcement and as the visible
+ * on-canvas label.
  */
 export const PolygonWithCustomLabels: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: polygonWithCustomLabelsQuestion,
-        }),
-    },
-};
-
-/**
- * A polygon graph with `showPointLabels: true` and author-supplied
- * `pointLabels: ["A", "B", "C", "D"]`. Each vertex carries its assigned
- * letter as both the visible on-canvas label and the screen-reader
- * announcement ("Point A / B / C / D at …"). Demonstrates that the
- * `showPointLabels` opt-in works for non-`point` graph types via the same
- * per-index plumbing.
- */
-export const PolygonWithVisibleLabels: Story = {
     globals: {
         featureFlags: ["perseus-enable-point-label-field"],
     },
     args: {
         item: generateTestPerseusItem({
-            question: polygonWithVisibleLabelsQuestion,
+            question: polygonWithCustomLabelsQuestion,
         }),
     },
 };
@@ -312,6 +279,9 @@ export const Exponential: Story = {
  * unaffected — `pointLabels` only covers the curve's control points.
  */
 export const ExponentialWithCustomLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: exponentialWithCustomLabelsQuestion,
@@ -352,6 +322,9 @@ export const Logarithm: Story = {
  * announcement is unaffected.
  */
 export const LogarithmWithCustomLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: logarithmWithCustomLabelsQuestion,
@@ -371,6 +344,9 @@ export const Tangent: Story = {
  * point" semantic labels.
  */
 export const TangentWithCustomLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: tangentWithCustomLabelsQuestion,
@@ -384,6 +360,9 @@ export const TangentWithCustomLabels: Story = {
  * the SR announcement matches the prompt's naming convention.
  */
 export const QuadraticWithCustomLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: quadraticWithCustomLabelsQuestion,
@@ -404,6 +383,9 @@ export const AbsoluteValue: Story = {
  * the prompt's naming convention.
  */
 export const AbsoluteValueWithCustomLabels: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
     args: {
         item: generateTestPerseusItem({
             question: absoluteValueWithCustomLabelsQuestion,

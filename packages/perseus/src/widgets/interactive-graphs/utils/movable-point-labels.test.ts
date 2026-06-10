@@ -1,16 +1,21 @@
 import {getLabelAttach, getLabeledMovablePoints} from "./movable-point-labels";
 
 import type {
+    AbsoluteValueGraphState,
     AngleGraphState,
     CircleGraphState,
+    ExponentialGraphState,
     InteractiveGraphState,
     LinearGraphState,
     LinearSystemGraphState,
+    LogarithmGraphState,
     PointGraphState,
     PolygonGraphState,
+    QuadraticGraphState,
     SegmentGraphState,
     SinusoidGraphState,
-} from "./types";
+    TangentGraphState,
+} from "../types";
 
 const baseCommon: {
     hasBeenInteractedWith: boolean;
@@ -261,6 +266,110 @@ describe("getLabeledMovablePoints", () => {
             "P",
             "Q",
             "R",
+        ]);
+    });
+
+    it("zips quadratic coords (3 control points) with labels by index", () => {
+        // Arrange
+        const state: QuadraticGraphState = {
+            ...baseCommon,
+            type: "quadratic",
+            coords: [
+                [-3, 2],
+                [0, -2],
+                [3, 2],
+            ],
+            showPointLabels: true,
+            pointLabels: ["L", "V", "R"],
+        };
+
+        // Act, Assert
+        expect(getLabeledMovablePoints(state)).toEqual([
+            {key: "quadratic-0", coord: [-3, 2], text: "L"},
+            {key: "quadratic-1", coord: [0, -2], text: "V"},
+            {key: "quadratic-2", coord: [3, 2], text: "R"},
+        ]);
+    });
+
+    it("zips absolute-value coords (2 control points) with labels by index", () => {
+        // Arrange
+        const state: AbsoluteValueGraphState = {
+            ...baseCommon,
+            type: "absolute-value",
+            coords: [
+                [0, 0],
+                [3, 3],
+            ],
+            showPointLabels: true,
+            pointLabels: ["V", "P"],
+        };
+
+        // Act, Assert
+        expect(getLabeledMovablePoints(state)).toEqual([
+            {key: "absolute-value-0", coord: [0, 0], text: "V"},
+            {key: "absolute-value-1", coord: [3, 3], text: "P"},
+        ]);
+    });
+
+    it("zips tangent coords (2 control points) with labels by index", () => {
+        // Arrange
+        const state: TangentGraphState = {
+            ...baseCommon,
+            type: "tangent",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            showPointLabels: true,
+            pointLabels: ["I", "Q"],
+        };
+
+        // Act, Assert
+        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+            "I",
+            "Q",
+        ]);
+    });
+
+    it("zips exponential coords (2 curve points) with labels — asymptote is not labeled", () => {
+        // Arrange
+        const state: ExponentialGraphState = {
+            ...baseCommon,
+            type: "exponential",
+            coords: [
+                [0, 1],
+                [1, 2],
+            ],
+            asymptote: 0,
+            showPointLabels: true,
+            pointLabels: ["A", "B"],
+        };
+
+        // Act, Assert
+        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+            "A",
+            "B",
+        ]);
+    });
+
+    it("zips logarithm coords (2 curve points) with labels — asymptote is not labeled", () => {
+        // Arrange
+        const state: LogarithmGraphState = {
+            ...baseCommon,
+            type: "logarithm",
+            coords: [
+                [1, 0],
+                [2, 1],
+            ],
+            asymptote: 0,
+            showPointLabels: true,
+            pointLabels: ["A", "B"],
+        };
+
+        // Act, Assert
+        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+            "A",
+            "B",
         ]);
     });
 });

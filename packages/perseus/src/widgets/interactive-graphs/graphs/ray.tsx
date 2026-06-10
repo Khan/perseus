@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
