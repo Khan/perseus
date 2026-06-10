@@ -1,7 +1,11 @@
 import {describe, expect, it} from "@jest/globals";
-import {parseInputNumberWidget, PerseusInputNumberWidgetOptionsV0} from "./input-number-widget";
+
 import {anySuccess, ctx} from "../general-purpose-parsers/test-helpers";
-import {assertSuccess, success} from "../result"
+import {assertSuccess, success} from "../result";
+
+import {parseInputNumberWidget} from "./input-number-widget";
+
+import type {PerseusInputNumberWidgetOptionsV0} from "./input-number-widget";
 
 const baseOptionsV0: PerseusInputNumberWidgetOptionsV0 = {
     simplify: "required",
@@ -17,8 +21,8 @@ describe("parseInputNumberWidget", () => {
                 ...baseOptionsV0,
                 inexact: true,
                 maxError: "0.042",
-            }
-        }
+            },
+        };
 
         const result = parseInputNumberWidget(raw, ctx());
 
@@ -34,8 +38,8 @@ describe("parseInputNumberWidget", () => {
                 ...baseOptionsV0,
                 inexact: true,
                 maxError: "42e-3",
-            }
-        }
+            },
+        };
 
         const result = parseInputNumberWidget(raw, ctx());
 
@@ -59,7 +63,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].maxError).toBe(undefined);
-    })
+    });
 
     it("parses v0 -> v1, setting maxError = 0 when inexact is false", () => {
         const raw = {
@@ -76,7 +80,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].maxError).toBe(0);
-    })
+    });
 
     it("parses v0 -> v1, setting maxError = 0 when inexact is undefined", () => {
         const raw = {
@@ -93,7 +97,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].maxError).toBe(0);
-    })
+    });
 
     it("parses v0 -> v1, converting the 'number' answerType to empty answerForms", () => {
         const raw = {
@@ -109,7 +113,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].answerForms).toEqual([]);
-    })
+    });
 
     it("parses v0 -> v1, converting the 'rational' answerType to [integer, proper, improper, mixed]", () => {
         const raw = {
@@ -124,8 +128,13 @@ describe("parseInputNumberWidget", () => {
 
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
-        expect(result.value.options.answers[0].answerForms).toEqual(["integer", "proper", "improper", "mixed"]);
-    })
+        expect(result.value.options.answers[0].answerForms).toEqual([
+            "integer",
+            "proper",
+            "improper",
+            "mixed",
+        ]);
+    });
 
     it("parses v0 -> v1, defaulting answerForms to empty when answerType is undefined", () => {
         const raw = {
@@ -141,7 +150,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].answerForms).toEqual([]);
-    })
+    });
 
     it("parses v0 -> v1, converting `value` to a number", () => {
         const raw = {
@@ -157,7 +166,7 @@ describe("parseInputNumberWidget", () => {
         expect(result).toEqual(anySuccess);
         assertSuccess(result);
         expect(result.value.options.answers[0].value).toEqual(1.5);
-    })
+    });
 
     it("parses v0 -> v1, excluding `decimal` and `integer` from `answerForms` when answerType is number, inexact is false, and `value` has more than 10 decimal places", () => {
         // The intention here is that if the answer is a very long decimal,
@@ -182,7 +191,7 @@ describe("parseInputNumberWidget", () => {
             "improper",
             "mixed",
         ]);
-    })
+    });
 
     it("parses v0 -> v1, excluding `decimal` and `integer` from `answerForms` when answerType is undefined, inexact is false, and `value` has more than 10 decimal places", () => {
         // The intention here is that if the answer is a very long decimal,
@@ -280,11 +289,20 @@ describe("parseInputNumberWidget", () => {
                 coefficient: false,
                 answers: [
                     {
+                        status: "correct",
                         value: 42,
+                        maxError: 0.7,
+                        simplify: "required",
                         answerForms: [],
-                    }
-                ]
-            }
-        }
-    })
-})
+                        message: "",
+                        strict: true,
+                    },
+                ],
+            },
+        };
+
+        const result = parseInputNumberWidget(raw, ctx());
+
+        expect(result).toEqual(success(raw));
+    });
+});

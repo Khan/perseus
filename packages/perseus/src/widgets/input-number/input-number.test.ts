@@ -378,7 +378,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
         [["proper"], 0.3333333333333333, "1/3", "normal" as const],
         [["decimal", "percent"], 0.5, "50%", "small" as const],
         [["pi"], 241.90263432641407, "77 pi", "normal" as const],
-    ] as [MathFormat[], number, string, "small" | "normal"][])(
+    ] satisfies Array<[MathFormat[], number, string, "small" | "normal"]>)(
         "accepts a correct answer when answerForms is %s",
         async (answerForms, value, correctAnswer, size) => {
             // Arrange

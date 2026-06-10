@@ -17,10 +17,6 @@ import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
 import type {ParsedValue, Parser} from "../parser-types";
-import type {
-    MathFormat,
-    PerseusInputNumberAnswerType,
-} from "@khanacademy/perseus-core";
 
 const booleanToZero: Parser<number> = (rawValue, ctx) => {
     if (typeof rawValue === "boolean") {
@@ -72,7 +68,9 @@ function migrateV0ToV1(
     };
 }
 
-export type PerseusInputNumberWidgetOptionsV0 = ParsedValue<typeof parseInputNumberWidgetV0>["options"];
+export type PerseusInputNumberWidgetOptionsV0 = ParsedValue<
+    typeof parseInputNumberWidgetV0
+>["options"];
 
 export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
     optional(object({major: constant(0), minor: number})),
@@ -141,10 +139,25 @@ function getMaxError(
     return Number(inputNumberOptions.maxError);
 }
 
-const mathFormatsForAnswerType: Record<
-    PerseusInputNumberAnswerType,
-    MathFormat[]
-> = {
+type AnswerType =
+    | "number"
+    | "decimal"
+    | "integer"
+    | "rational"
+    | "improper"
+    | "mixed"
+    | "percent"
+    | "pi";
+type AnswerForm =
+    | "integer"
+    | "decimal"
+    | "proper"
+    | "improper"
+    | "mixed"
+    | "percent"
+    | "pi";
+
+const mathFormatsForAnswerType: Record<AnswerType, AnswerForm[]> = {
     number: [],
     decimal: ["decimal"],
     integer: ["integer"],
@@ -157,7 +170,7 @@ const mathFormatsForAnswerType: Record<
 
 function getAnswerForms(
     options: PerseusInputNumberWidgetOptionsV0,
-): MathFormat[] {
+): AnswerForm[] {
     const value = Number(options.value);
     const {inexact} = options;
     const precision = 1e10;
