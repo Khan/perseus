@@ -47,6 +47,29 @@ export default function RadioImageEditor({
             return;
         }
 
+        // The `cancelled` flag guards against a stale async write.
+        // Since content authors can edit the image URL while the image
+        // dimensions are still being fetched, we need to guard against
+        // saving stale dimensions.
+        //
+        // Example:
+        //
+        //   1. `imageUrl` is changed to "A.png". The effect runs, creates a
+        //      new `cancelled` flag (let's call it cancelledA = false), and
+        //      runs `fetchDimensions()`. That function awaits `getImageSizeModern`,
+        //      which loads the image over the network. This can take a while,
+        //      so the function suspends mid-flight with the await still pending.
+        //   2. Before "A.png" finishes loading, `imageUrl` changes again to
+        //      "B.png" (e.g. the author edits the URL and blurs the field).
+        //      React first runs the previous effect's cleanup (setting
+        //      cancelledA = true) then runs the effect again with a brand-new
+        //      `cancelled` flag (cancelledB = false) and a second in-flight
+        //      `fetchDimensions()`.
+        //   3. "A.png" finally loads and its `await` resolves, resuming the
+        //      first `fetchDimensions()`. It checks its own `cancelled`
+        //      (cancelledA), sees `true`, and skips `setDimensions`. Without
+        //      this check, it would overwrite the dimensions with the stale
+        //      "A.png" size, even though the preview now shows "B.png".
         let cancelled = false;
         async function fetchDimensions() {
             try {
@@ -64,7 +87,7 @@ export default function RadioImageEditor({
 
         void fetchDimensions();
 
-        // Cleanup function to cancel the fetch if the component unmounts.
+        // Cleanup function
         return () => {
             cancelled = true;
         };
