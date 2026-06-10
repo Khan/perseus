@@ -7,7 +7,7 @@ describe("heading-sentence-case", () => {
         "## this heading is uncapitalized",
         "## 'this' heading is uncapitalized",
         "##   this heading is uncapitalized",
-    ])("headingSentenceCaseRule warns with: %s", (str: string) => {
+    ])("warns with: %s", (str: string) => {
         expectWarning(headingSentenceCaseRule, str);
     });
 
@@ -15,7 +15,7 @@ describe("heading-sentence-case", () => {
         "## This heading is in sentence case",
         "## 'This heading too'",
         "## 2 + 2 = 4",
-    ])("headingSentenceCaseRule passes with: %s", (str: string) => {
+    ])("passes with: %s", (str: string) => {
         expectPass(headingSentenceCaseRule, str);
     });
 });

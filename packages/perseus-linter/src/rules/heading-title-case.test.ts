@@ -14,7 +14,7 @@ describe("heading-title-case", () => {
         "## This heading is in sentence case",
         "## Acronyms: The CIA, NSA, DNI, and FBI",
         "## The Great War",
-    ])("headingTitleCaseRule passes with: %s", (str: string) => {
+    ])("passes with: %s", (str: string) => {
         expectPass(headingTitleCaseRule, str);
     });
 });
