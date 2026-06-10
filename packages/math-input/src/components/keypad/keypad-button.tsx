@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     pressed: {
         border: `2px solid ${semanticColor.core.border.instructive.strong}`,
         padding: 0,
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${semanticColor.core.background.base.default}`,
+        background: semanticColor.core.background.instructive.subtle,
         boxShadow: "none",
     },
     outerBoxBase: {
