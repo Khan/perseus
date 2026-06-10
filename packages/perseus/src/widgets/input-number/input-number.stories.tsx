@@ -1,6 +1,6 @@
 import {
     type PerseusRenderer,
-    type PerseusInputNumberWidgetOptions,
+    type PerseusInputNumberWidgetOptionsV0,
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -74,7 +74,7 @@ export default meta;
 const updateWidgetOptions = (
     question: PerseusRenderer,
     widgetId: string,
-    options: PerseusInputNumberWidgetOptions,
+    options: PerseusInputNumberWidgetOptionsV0,
 ): PerseusRenderer => {
     const widget = question.widgets[widgetId];
     return {
@@ -92,7 +92,7 @@ const updateWidgetOptions = (
 };
 
 export const Rational = (
-    args: PerseusInputNumberWidgetOptions,
+    args: PerseusInputNumberWidgetOptionsV0,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question1, "input-number 1", args);
     return (
@@ -104,7 +104,7 @@ export const Rational = (
 Rational.args = question1.widgets["input-number 1"].options;
 
 export const PiSimplify = (
-    args: PerseusInputNumberWidgetOptions,
+    args: PerseusInputNumberWidgetOptionsV0,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);
     return (
@@ -116,7 +116,7 @@ export const PiSimplify = (
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
 export const Percent = (
-    args: PerseusInputNumberWidgetOptions,
+    args: PerseusInputNumberWidgetOptionsV0,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question3, "input-number 1", args);
     return (
@@ -129,9 +129,18 @@ Percent.args = question3.widgets["input-number 1"].options;
 
 export const Answerful = (): React.ReactElement => {
     const item = getAnswerfulItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        answers: [
+            {
+                status: "correct",
+                simplify: "optional",
+                value: 42,
+                answerForms: [],
+                message: "",
+                strict: true,
+            },
+        ],
     });
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
@@ -141,9 +150,18 @@ export const Answerful = (): React.ReactElement => {
 
 export const Answerless = (): React.ReactElement => {
     const item = getAnswerlessItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        answers: [
+            {
+                status: "correct",
+                simplify: "optional",
+                value: 42,
+                answerForms: [],
+                message: "",
+                strict: true,
+            },
+        ],
     });
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line

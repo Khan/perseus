@@ -119,8 +119,10 @@ export function getAnswersFromWidgets(
                 // Answer is the correct value
                 const inputNumber = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                if (inputNumber.options?.value) {
-                    answers.push(inputNumber.options.value.toString());
+                if (inputNumber.options?.answers[0].value) {
+                    answers.push(
+                        inputNumber.options.answers[0].value.toString(),
+                    );
                 }
                 break;
             case "expression":

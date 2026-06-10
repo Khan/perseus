@@ -2,9 +2,9 @@ import {describe, it, expect} from "@jest/globals";
 
 import {convertInputNumberOptionsToNumericInput} from "./to-numeric-input";
 
-import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
+import type {PerseusInputNumberWidgetOptionsV0} from "../../data-schema";
 
-const baseOptions: PerseusInputNumberWidgetOptions = {
+const baseOptions: PerseusInputNumberWidgetOptionsV0 = {
     simplify: "required",
     size: "normal",
     value: "0",
@@ -12,7 +12,7 @@ const baseOptions: PerseusInputNumberWidgetOptions = {
 
 describe("convertInputNumberOptionsToNumericInput", () => {
     it("converts maxError to a number when present", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             inexact: true,
             maxError: "0.042",
@@ -25,7 +25,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("converts maxError values in exponent notation", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             maxError: "42e-3",
             inexact: true,
@@ -38,7 +38,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("leaves maxError undefined when undefined", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             maxError: undefined,
             inexact: true,
@@ -51,7 +51,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("sets maxError to 0 when inexact is false", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             maxError: 0.99,
             inexact: false,
@@ -63,7 +63,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("sets maxError to 0 when inexact is undefined", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             maxError: 0.99,
             inexact: undefined,
@@ -75,7 +75,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it(`converts the "number" answer type to an empty array`, () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: "number",
         };
@@ -87,7 +87,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it(`converts the "rational" answer type to [integer, proper, improper, mixed]`, () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: "rational",
         };
@@ -104,7 +104,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("defaults answerForms to an empty array when answerType is undefined", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: undefined,
         };
@@ -116,7 +116,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("converts the `value` to a number", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             value: "1.5",
         };
@@ -128,7 +128,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("excludes `decimal` and `integer` from `answerForms` when answerType is number, inexact is false, and `value` has more than 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: "number",
             inexact: false,
@@ -145,7 +145,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("excludes `decimal` and `integer` from `answerForms` when answerType is undefined, inexact is false, and `value` has more than 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: undefined,
             inexact: false,
@@ -162,7 +162,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("excludes `decimal` and `integer` from `answerForms` when inexact is undefined and `value` has more than 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: undefined,
             inexact: undefined,
@@ -179,7 +179,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("returns an empty array for answerForms when inexact is true and value has more than 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: undefined,
             inexact: true,
@@ -192,7 +192,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
     });
 
     it("returns an empty array for answerForms when the answer has exactly 10 decimal places", () => {
-        const options: PerseusInputNumberWidgetOptions = {
+        const options: PerseusInputNumberWidgetOptionsV0 = {
             ...baseOptions,
             answerType: undefined,
             inexact: undefined,

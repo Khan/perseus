@@ -371,6 +371,7 @@ export {
 export {
     generateInputNumberOptions,
     generateInputNumberWidget,
+    generateInputNumberAnswer,
 } from "./utils/generators/input-number-widget-generator";
 /** @hidden */
 export {

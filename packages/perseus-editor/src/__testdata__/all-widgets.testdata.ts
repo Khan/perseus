@@ -239,12 +239,19 @@ export const comprehensiveQuestion: PerseusRenderer = {
             static: false,
             type: "input-number",
             options: {
-                value: 0.5,
-                simplify: "optional",
                 size: "normal",
-                inexact: false,
-                maxError: 0.1,
-                answerType: "rational",
+                coefficient: false,
+                answers: [
+                    {
+                        status: "correct",
+                        value: 0.5,
+                        simplify: "optional",
+                        maxError: 0,
+                        answerForms: ["integer", "proper", "improper", "mixed"],
+                        message: "",
+                        strict: true,
+                    },
+                ],
             },
         },
         "free-response 1": generateFreeResponseWidget({
