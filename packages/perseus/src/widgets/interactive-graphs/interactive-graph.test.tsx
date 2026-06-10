@@ -2135,7 +2135,10 @@ describe("Interactive Graph", function () {
 
         it("does not render a 'not graded' message when graded is true", () => {
             // Arrange, Act
-            const question = generateInteractiveGraphQuestion({graded: true});
+            const question = generateInteractiveGraphQuestion({
+                graded: true,
+                graph: generateIGLinearGraph(),
+            });
             renderQuestion(question, blankOptions);
 
             // Assert
