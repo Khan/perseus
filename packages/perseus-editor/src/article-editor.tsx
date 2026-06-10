@@ -32,7 +32,6 @@ import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
-import type {PreviewWithIframeRef} from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageUploader,
@@ -80,9 +79,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         highlightLint: true,
         issues: [],
     };
-
-    // Store refs for preview iframes (keyed by section index or "all")
-    private frameRefs: Record<string, PreviewWithIframeRef | null> = {};
 
     componentDidMount() {
         this._updateIssues();
@@ -146,29 +142,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.setState({issues});
     }
 
-    _updatePreviewFrames() {
-        if (this.props.mode === "preview") {
-            const frameAll = this.frameRefs["all"];
-            if (frameAll) {
-                frameAll.sendNewData({
-                    type: "article-all",
-                    data: this._sections().map((section, i) =>
-                        this._previewDataForSection(section, i),
-                    ),
-                });
-            }
-        } else if (this.props.mode === "edit") {
-            this._sections().forEach((section, i) => {
-                const frame = this.frameRefs[String(i)];
-                if (frame) {
-                    frame.sendNewData({
-                        type: "article",
-                        data: this._previewDataForSection(section, i),
-                    });
-                }
-            });
-        }
-    }
+    _updatePreviewFrames() {}
 
     _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
         // eslint-disable-next-line react/no-string-refs
@@ -362,22 +336,35 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _renderIframePreview(
-        i: number | string,
+        i: number | "all",
         nochrome: boolean,
     ): React.ReactElement<any> {
         const isMobile =
             this.props.screen === "phone" || this.props.screen === "tablet";
 
+        // Build the preview content based on whether this is the full article
+        // preview or an individual section preview.
+        const content =
+            i === "all"
+                ? {
+                      type: "article-all" as const,
+                      data: this._sections().map((section, idx) =>
+                          this._previewDataForSection(section, idx),
+                      ),
+                  }
+                : {
+                      type: "article" as const,
+                      data: this._previewDataForSection(this._sections()[i], i),
+                  };
+
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
                 <PreviewWithIframe
-                    ref={(node) => {
-                        this.frameRefs[String(i)] = node;
-                    }}
-                    key={this.props.screen}
+                    key={`${String(i)}-${this.props.screen}`}
                     isMobile={isMobile}
                     seamless={nochrome}
                     url={this.props.previewURL}
+                    content={content}
                 />
             </DeviceFramer>
         );
