@@ -1,18 +1,6 @@
 import grapherWidgetLogic from "../../widgets/grapher";
 
-import type {
-    GrapherWidget,
-    PerseusGrapherWidgetOptions,
-} from "../../data-schema";
-
-export function generateGrapherWidget(
-    options: Partial<PerseusGrapherWidgetOptions> = {},
-): GrapherWidget {
-    return {
-        type: "grapher",
-        options: generateGrapherWidgetOptions(options),
-    };
-}
+import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 
 export function generateGrapherWidgetOptions(
     options: Partial<PerseusGrapherWidgetOptions> = {},
