@@ -24,10 +24,8 @@ export default meta;
 
 type Story = StoryObj<typeof CursorHandle>;
 
-// Verifies the cursor handle SVG rendered in its visible state — covers
-// fill="#1865f2" (blue teardrop body) and stroke="#fff" (white outline path)
-// in cursor-handle.tsx. This component is touch-only in production and is
-// never shown via mouse interactions, so it is tested here in isolation.
+// This component is touch-only in production and never reached via mouse
+// interactions, so it is tested here in isolation.
 export const CursorHandleVisible: Story = {
     decorators: [
         (Story) => (

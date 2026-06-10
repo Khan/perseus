@@ -18,9 +18,7 @@ const meta: Meta<typeof Expression> = {
             // non-deterministic. The blink rules in main.css use `!important`
             // inside `@layer shared`; CSS layers reverse !important priority
             // (layered beats unlayered), so our overrides must be inside the
-            // same layer — then higher specificity (:root) + later source
-            // order wins. Desktop hides via visibility, mobile via opacity +
-            // transition.
+            // same layer.
             React.useLayoutEffect(() => {
                 const style = document.createElement("style");
                 style.textContent = `
@@ -164,8 +162,6 @@ export const WithTextInField: Story = {
     },
 };
 
-// Captures the pressed state of a keypad button — covers the #1B50B3 border
-// and background.instructive.subtle background in keypad-button.tsx
 export const KeypadButtonPressed: Story = {
     decorators: [expressionRendererDecorator],
     args: keypadArgs,

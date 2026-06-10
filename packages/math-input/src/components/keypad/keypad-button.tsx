@@ -30,9 +30,7 @@ export const KeypadButton = ({
     action,
 }: KeypadButtonProps): React.ReactElement => {
     // TODO(LEMS-4261): `action` is never passed by any caller — this branch
-    // is currently unreachable and has no story coverage. The token is
-    // semantically correct for utility buttons (e.g. backspace); revisit
-    // when/if the prop is wired up.
+    // is currently unreachable. Revisit when/if the prop is wired up.
     const tintColor = secondary
         ? semanticColor.core.background.base.subtle
         : action
