@@ -134,8 +134,6 @@ export function getLabeledMovablePoints(
             const effective = getEffectivePointLabels(true, pointLabels, 3);
             return collect(state.coords, effective, (i) => `quadratic-${i}`);
         }
-        // Excluded from the rollout — no movable points to label, and
-        // PR 1 deliberately skipped these in the lint rule.
         case "vector":
         case "none":
             return [];

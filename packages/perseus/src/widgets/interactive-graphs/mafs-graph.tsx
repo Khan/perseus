@@ -99,12 +99,6 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
-    /**
-     * Forwarded from the renderer so feature-flagged behaviour inside
-     * `MafsGraph` (e.g. the `MovablePointLabelsLayer` mount) can call
-     * `isFeatureOn({apiOptions}, ...)` directly instead of threading
-     * derived booleans through every prop boundary.
-     */
     apiOptions?: APIOptionsWithDefaults;
 };
 
