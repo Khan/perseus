@@ -8,14 +8,16 @@ import * as React from "react";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../../../types";
+import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
 
-export const definitionRendererDecorator = (
+export const definitionRendererDecorator: Decorator = (
     _,
     {
         args,
         parameters,
     }: {
-        args: Record<string, unknown>;
+        args: Partial<DefinitionDefaultWidgetOptions>;
         parameters?: {
             content?: string;
             apiOptions?: APIOptions;
