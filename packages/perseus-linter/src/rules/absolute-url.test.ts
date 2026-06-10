@@ -1,9 +1,9 @@
-import {expectWarning, expectPass} from "../__tests__/test-utils";
+import {expectPass, expectWarning} from "../__tests__/test-utils";
 
 import absoluteUrlRule from "./absolute-url";
 
 describe("absolute-url", () => {
-    expectWarning(absoluteUrlRule, [
+    it.each([
         // Warn about absolute khanacademy.org urls
         "[target](http://khanacademy.org/about)",
         "[target](https://khanacademy.org/about)",
@@ -18,8 +18,11 @@ describe("absolute-url", () => {
         "![alt text](http://khanacademy.org/about)",
         "![alt text](https://www.khanacademy.org/about)",
         "![alt text](https://es.khanacademy.org/about)",
-    ]);
-    expectPass(absoluteUrlRule, [
+    ])("absoluteUrlRule warns with: %s", (str: string) => {
+        expectWarning(absoluteUrlRule, str);
+    });
+
+    it.each([
         "[target](/about)", // relative URLs okay
         "[target](https://kasandbox.org/path)",
         "[target](https://fastly.kastatic.org/path)",
@@ -31,5 +34,7 @@ describe("absolute-url", () => {
         "![alt text](/about)",
         "![alt text](https://cdn.kastatic.org/path)",
         "![alt text](https://ka-perseus-images.s3.amazonaws.com/path)",
-    ]);
+    ])("absoluteUrlRule passes with: %s", (str: string) => {
+        expectPass(absoluteUrlRule, str);
+    });
 });

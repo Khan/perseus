@@ -3,7 +3,7 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 import mathStartsWithSpaceRule from "./math-starts-with-space";
 
 describe("math-starts-with-space", () => {
-    expectWarning(mathStartsWithSpaceRule, [
+    it.each([
         "foo$~ x$bar",
         "$\\qquad x$",
         "$\\quad x$",
@@ -14,8 +14,11 @@ describe("math-starts-with-space", () => {
         "$\\! x$",
         "$\\enspace x$",
         "$\\phantom{xyz} x$",
-    ]);
-    expectPass(mathStartsWithSpaceRule, [
+    ])("mathStartsWithSpaceRule warns with: %s", (str: string) => {
+        expectWarning(mathStartsWithSpaceRule, str);
+    });
+
+    it.each([
         "$a~ x$",
         "$a\\qquad x$",
         "$a\\quad x$",
@@ -26,5 +29,7 @@ describe("math-starts-with-space", () => {
         "$a\\! x$",
         "$a\\enspace x$",
         "$a\\phantom{xyz} x$",
-    ]);
+    ])("mathStartsWithSpaceRule passes with: %s", (str: string) => {
+        expectPass(mathStartsWithSpaceRule, str);
+    });
 });

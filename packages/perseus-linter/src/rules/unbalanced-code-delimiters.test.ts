@@ -3,13 +3,14 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 import unbalancedCodeDelimitersRule from "./unbalanced-code-delimiters";
 
 describe("unbalanced-code-delimiters", () => {
-    expectWarning(unbalancedCodeDelimitersRule, [
-        "`code``",
-        "``code```",
-        "```code\n",
-        "~~~\ncode\n~~",
-    ]);
-    expectPass(unbalancedCodeDelimitersRule, [
+    it.each(["`code``", "``code```", "```code\n", "~~~\ncode\n~~"])(
+        "unbalancedCodeDelimitersRule warns with: %s",
+        (str: string) => {
+            expectWarning(unbalancedCodeDelimitersRule, str);
+        },
+    );
+
+    it.each([
         "`code`",
         "``code``",
         "```code```",
@@ -18,5 +19,7 @@ describe("unbalanced-code-delimiters", () => {
         "``co`de``",
         "`co~de`",
         "$`~$",
-    ]);
+    ])("unbalancedCodeDelimitersRule passes with: %s", (str: string) => {
+        expectPass(unbalancedCodeDelimitersRule, str);
+    });
 });
