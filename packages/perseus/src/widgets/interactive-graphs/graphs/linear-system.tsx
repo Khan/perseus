@@ -92,12 +92,6 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                 <MovableLine
                     key={i}
                     points={line}
-                    // The linear-system graph's move announcements come from
-                    // the WB Announcer via stateAnnouncement; disable aria-live
-                    // here to avoid the focusable handles double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
-                    // from MovableLine / useControlPoint.
-                    ariaLive="off"
                     ariaLabels={{
                         point1AriaLabel:
                             buildLabel(i * 2, line[0]) ??

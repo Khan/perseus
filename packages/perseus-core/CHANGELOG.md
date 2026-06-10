@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 28.0.0
+
+### Major Changes
+
+-   [#3690](https://github.com/Khan/perseus/pull/3690) [`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a) Thanks [@benchristel](https://github.com/benchristel)! - The unused highlightLint property has been removed from the PerseusCategorizerWidgetOptions type. Callers should not pass this property.
+
+### Patch Changes
+
+-   [#3746](https://github.com/Khan/perseus/pull/3746) [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d) Thanks [@benchristel](https://github.com/benchristel)! - In the data-schema types, clarify that `sinusoid` and `tangent` interactive graphs have exactly two movable points.
+
+*   [#3712](https://github.com/Khan/perseus/pull/3712) [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update the convertINputNumberOptionsToNumericInput function so that the 'number' answerType is converted to an empty array.
+
 ## 27.4.0
 
 ### Minor Changes

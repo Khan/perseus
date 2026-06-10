@@ -13,6 +13,8 @@ import {
     generateTestPerseusRenderer,
     generateImageWidget,
     generateImageOptions,
+    generateDefinitionOptions,
+    generateDefinitionWidget,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
@@ -186,5 +188,29 @@ export const ExplanationWidgetInHint: Story = {
     args: {
         dependencies: storybookDependenciesV2,
         hints: [{...ipsumExample, replace: false}],
+    },
+};
+
+export const DefinitionWidgetInHint: Story = {
+    decorators: [bibliotronExerciseDecorator],
+    args: {
+        dependencies: storybookDependenciesV2,
+        hints: [
+            {
+                ...generateTestPerseusRenderer({
+                    content:
+                        "During World War II, in August of 1943, the [[☃ definition 1]] launched a massive bombing campaign on Milan and its outskirts.",
+                    widgets: {
+                        "definition 1": generateDefinitionWidget({
+                            options: generateDefinitionOptions({
+                                definition:
+                                    "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",
+                                togglePrompt: "Allies",
+                            }),
+                        }),
+                    },
+                }),
+            },
+        ],
     },
 };
