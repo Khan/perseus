@@ -51,13 +51,17 @@ type Props = {
      */
     itemId?: string;
     issues?: Issue[];
+    /** Whether to highlight lint warnings in the preview. */
+    highlightLint: boolean;
+    /** The problem number, used for deterministic random seeding in the
+     * preview. */
+    problemNum?: number;
 };
 
 type State = {
     issues: Issue[];
     axeCoreIssues: Issue[];
     showAxeCoreIssues: boolean;
-    previewContent?: QuestionPreviewData;
 };
 
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
@@ -79,7 +83,7 @@ class ItemEditor extends React.Component<Props, State> {
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
-    state = {
+    state: State = {
         issues: [],
         axeCoreIssues: [],
         showAxeCoreIssues: false,
@@ -154,10 +158,6 @@ class ItemEditor extends React.Component<Props, State> {
         this.props.onChange(_(props).extend(newProps));
     };
 
-    triggerPreviewUpdate(newData: QuestionPreviewData) {
-        this.setState({previewContent: newData});
-    }
-
     // eslint-disable-next-line import/no-deprecated
     handleEditorChange: ChangeHandler = (newProps) => {
         const question = _.extend({}, this.props.question, newProps);
@@ -191,13 +191,14 @@ class ItemEditor extends React.Component<Props, State> {
         };
     }
 
+    // Builds the preview content from props.
     _derivePreviewContent(): QuestionPreviewData | null {
-        if (!this.questionEditor.current || !this.itemExtrasEditor.current) {
+        const question = this.props.question;
+        const answerArea = this.props.answerArea ?? undefined;
+
+        if (!question) {
             return null;
         }
-
-        const question = this.questionEditor.current.serialize();
-        const answerArea = this.itemExtrasEditor.current.serialize();
 
         return {
             type: "question",
@@ -218,10 +219,11 @@ class ItemEditor extends React.Component<Props, State> {
                 device: this.props.deviceType,
                 linterContext: {
                     contentType: "exercise",
-                    highlightLint: false,
+                    highlightLint: this.props.highlightLint,
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.getSaveWarnings(),
+                problemNum: this.props.problemNum,
             },
         };
     }
