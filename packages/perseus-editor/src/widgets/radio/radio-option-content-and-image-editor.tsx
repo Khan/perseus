@@ -191,7 +191,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
             {/* Image editor accordions */}
             {images?.map((image, imageIndex) => (
                 <PerseusEditorAccordion
-                    key={image.url}
+                    key={`${imageIndex}-${image.url}`}
                     header={`Image ${imageIndex + 1}`}
                     expanded={true}
                     containerStyle={{
