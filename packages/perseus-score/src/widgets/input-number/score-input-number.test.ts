@@ -1,20 +1,26 @@
 import scoreInputNumber from "./score-input-number";
 
 import type {
-    PerseusInputNumberWidgetOptionsV0,
-    PerseusInputNumberUserInput,
+    PerseusInputNumberUserInput, PerseusInputNumberWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4085): Delete these tests; scoreInputNumber will be replaced by scoreNumericInput.
 describe("scoreInputNumber", () => {
     it("scores undefined user input as invalid", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 1,
-            simplify: "optional",
-            answerType: "percent",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 1,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput = undefined;
@@ -25,13 +31,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores correct answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 1,
-            simplify: "optional",
-            answerType: "percent",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 1,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -44,13 +57,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 1,
-            simplify: "optional",
-            answerType: "percent",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 1,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -63,13 +83,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 1,
-            simplify: "optional",
-            answerType: "percent",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 1,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["integer", "decimal", "proper", "improper", "mixed", "percent"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const useInput: PerseusInputNumberUserInput = {
@@ -82,18 +109,26 @@ describe("scoreInputNumber", () => {
     });
 
     // Don't default to validating the answer as a pi answer
-    // if answerType isn't set on the answer.
+    // if answerForms isn't set on the answer.
     // The answer value and
-    // the omission of answerType in the answer are
+    // the omission of answerForms in the answer are
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 241.90263432641407,
-            simplify: "required",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 241.90263432641407,
+                    maxError: 0,
+                    simplify: "required",
+                    answerForms: [],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -116,13 +151,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 241.90263432641407,
-            simplify: "required",
-            answerType: "pi",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 241.90263432641407,
+                    maxError: 0,
+                    simplify: "required",
+                    answerForms: ["pi"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -135,10 +177,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            value: "2^{-2}-3",
-            simplify: "optional",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 0,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: [],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {currentValue: "x+1"};
@@ -152,13 +204,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("should not consider commas as a decimal separator in the EN locale", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 16,
-            simplify: "optional",
-            answerType: "number",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 16,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: [],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -171,13 +230,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("should reject European decimal format in EN locale", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 16.5,
-            simplify: "optional",
-            answerType: "decimal",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 16.5,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["decimal"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -192,13 +258,20 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider commas as the decimal separator in the FR locale", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 16.5,
-            simplify: "optional",
-            answerType: "decimal",
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 16.5,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["decimal"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
@@ -212,13 +285,22 @@ describe("scoreInputNumber", () => {
     });
 
     it("should consider decimals as the thousands separator in FR locale", () => {
-        const rubric: PerseusInputNumberWidgetOptionsV0 = {
-            maxError: 0.1,
-            inexact: false,
-            value: 16.5,
-            simplify: "optional",
-            answerType: "decimal",
+        // TODO(benchristel): This test seems wrong. The correct answer is 16.5, but
+        // 16.500,00 is accepted.
+        const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    value: 16.5,
+                    maxError: 0,
+                    simplify: "optional",
+                    answerForms: ["decimal"],
+                    message: "",
+                    strict: true,
+                }
+            ]
         };
 
         const userInput: PerseusInputNumberUserInput = {
