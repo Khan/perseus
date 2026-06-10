@@ -1,6 +1,6 @@
-name: Protect Regression Data
+name: Protect Parser Regression Data
 
-# The Perseus JSON regression-test fixtures under
+# The Perseus parser regression-test fixture data under
 # - packages/perseus-core/src/parse-perseus-json/regression-tests/item-data
 # - packages/perseus-core/src/parse-perseus-json/regression-tests/article-data
 # - packages/perseus-core/src/parse-perseus-json/regression-tests/renderer-data
