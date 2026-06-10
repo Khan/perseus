@@ -1,7 +1,7 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -117,7 +117,8 @@ describe("InteractiveGraphEditor", () => {
             wrapper: RenderStateRoot,
         });
 
-        const defaultType = await screen.findByText("None");
+        const dropdown = await screen.findByRole("combobox");
+        const defaultType = within(dropdown).getByText("None");
         const otherType = screen.queryByText("Polygon");
 
         // Assert
