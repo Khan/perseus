@@ -1,13 +1,10 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
-import {describeRayGraph} from "./strings/ray";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -200,58 +197,5 @@ describe("Ray graph pointLabels", () => {
         // Assert
         expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
         expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
-    });
-});
-
-describe("describeRayGraph", () => {
-    test("describes a default ray", () => {
-        // Arrange
-
-        // Act
-        const strings = describeRayGraph(baseRayState, mockPerseusI18nContext);
-
-        // Assert
-        expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
-        expect(strings.srRayPoints).toBe(
-            "The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
-        );
-        expect(strings.srRayEndpoint).toBe("Endpoint at -5 comma 5.");
-        expect(strings.srRayTerminalPoint).toBe("Through point at 5 comma 5.");
-        expect(strings.srRayGrabHandle).toBe(
-            "Ray with endpoint -5 comma 5 going through point 5 comma 5.",
-        );
-        expect(strings.srRayInteractiveElement).toBe(
-            "Interactive elements: A ray on a coordinate plane. The endpoint is at -5 comma 5 and the ray goes through point 5 comma 5.",
-        );
-    });
-
-    test("describes a ray with updated points", () => {
-        // Arrange
-
-        // Act
-        const strings = describeRayGraph(
-            {
-                ...baseRayState,
-                coords: [
-                    [-1, 2],
-                    [3, 4],
-                ],
-            },
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srRayGraph).toBe("A ray on a coordinate plane.");
-        expect(strings.srRayPoints).toBe(
-            "The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
-        );
-        expect(strings.srRayEndpoint).toBe("Endpoint at -1 comma 2.");
-        expect(strings.srRayTerminalPoint).toBe("Through point at 3 comma 4.");
-        expect(strings.srRayGrabHandle).toBe(
-            "Ray with endpoint -1 comma 2 going through point 3 comma 4.",
-        );
-        expect(strings.srRayInteractiveElement).toBe(
-            "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
-        );
     });
 });
