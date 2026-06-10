@@ -4,7 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
-import {act, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -14,6 +14,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
+import * as clipboardUtil from "../util/clipboard";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -137,21 +138,17 @@ describe("Editor", () => {
         await userEvent.tab(); // blurring the input triggers onChange to be called
 
         // Assert
-        expect(changeFn).toHaveBeenCalledWith(
-            {
-                widgets: {
-                    "image 1": expect.objectContaining({
-                        type: "image",
-                        graded: true,
-                        options: expect.objectContaining({
-                            caption: "kittens",
-                        }),
+        expect(changeFn).toHaveBeenCalledWith({
+            widgets: {
+                "image 1": expect.objectContaining({
+                    type: "image",
+                    graded: true,
+                    options: expect.objectContaining({
+                        caption: "kittens",
                     }),
-                },
+                }),
             },
-            undefined,
-            undefined,
-        );
+        });
     });
 
     it("should not log a warning given a widget with an undefined key", () => {
@@ -305,6 +302,116 @@ describe("Editor", () => {
         await userEvent.selectOptions(select, "Table");
 
         expect(cbData?.content).toMatch(/header 1 | header 2 | header 3/i);
+    });
+
+    describe("cursor positioning after content-changing handlers", () => {
+        // Stateful harness that propagates content/widget changes back to
+        // the Editor so the controlled textarea actually updates and we can
+        // observe componentDidUpdate's cursor effect.
+        const StatefulHarness = (props: {
+            initialContent?: string;
+            initialWidgets?: PerseusRenderer["widgets"];
+        }) => {
+            const [content, setContent] = React.useState(
+                props.initialContent ?? "",
+            );
+            const [widgets, setWidgets] = React.useState<
+                PerseusRenderer["widgets"]
+            >(props.initialWidgets ?? {});
+            return (
+                <Harnessed
+                    content={content}
+                    widgets={widgets}
+                    onChange={(data: any) => {
+                        if (data.content !== undefined) {
+                            setContent(data.content);
+                        }
+                        if (data.widgets !== undefined) {
+                            setWidgets(data.widgets);
+                        }
+                    }}
+                />
+            );
+        };
+
+        beforeEach(() => {
+            // jsdom doesn't implement document.execCommand, which the Editor
+            // uses to keep programmatic content changes in the browser's undo
+            // stack. We stub it with a minimal impl that does what
+            // execCommand("insertText") would do in a real browser: replace
+            // the focused textarea's current selection with the supplied text.
+            document.execCommand = (cmd: string, _: unknown, value: string) => {
+                // eslint-disable-next-line testing-library/no-node-access
+                const active = document.activeElement;
+                if (
+                    cmd === "insertText" &&
+                    active instanceof HTMLTextAreaElement
+                ) {
+                    const {selectionStart, selectionEnd} = active;
+                    active.value =
+                        active.value.slice(0, selectionStart) +
+                        value +
+                        active.value.slice(selectionEnd);
+                    const newPos = selectionStart + value.length;
+                    active.setSelectionRange(newPos, newPos);
+                }
+                return true;
+            };
+        });
+
+        it("places the cursor after the inserted widget syntax when adding a widget via the dropdown", async () => {
+            // Arrange
+            render(<StatefulHarness initialContent="AB" initialWidgets={{}} />);
+
+            const textarea = screen.getByRole("textbox", {
+                name: "Markdown content",
+            }) satisfies HTMLTextAreaElement;
+
+            // Act: add an inline widget
+            textarea.focus();
+            textarea.setSelectionRange(1, 1);
+            const select = screen.getByTestId("editor__widget-select");
+            await userEvent.selectOptions(select, "Expression / Equation");
+
+            // Assert
+            await waitFor(() => {
+                expect(textarea.value).toEqual("A[[☃ expression 1]]B");
+            });
+            expect(textarea.selectionStart).toBe(19);
+            expect(textarea.selectionEnd).toBe(19);
+        });
+
+        it("places the cursor at the end of pasted content when pasting widget content", async () => {
+            jest.spyOn(
+                clipboardUtil,
+                "getPerseusClipboardData",
+            ).mockResolvedValue({text: "_", widgets: {}});
+
+            // Arrange
+            render(
+                <StatefulHarness initialContent={"AB"} initialWidgets={{}} />,
+            );
+            act(() => jest.runOnlyPendingTimers());
+
+            const textarea = screen.getByRole("textbox", {
+                name: "Markdown content",
+            }) satisfies HTMLTextAreaElement;
+
+            // Act
+            textarea.focus();
+            textarea.setSelectionRange(1, 1);
+            // NOTE: we use `fireEvent` because userEvent.paste doesn't go
+            // through the jQuery-bound paste listener, but fireEvent does.
+            // eslint-disable-next-line testing-library/prefer-user-event
+            fireEvent.paste(textarea);
+
+            // Assert
+            await waitFor(() => {
+                expect(textarea.value).toBe(`A_B`);
+            });
+            expect(textarea.selectionStart).toBe(2);
+            expect(textarea.selectionEnd).toBe(2);
+        });
     });
 
     test("custom templates work", async () => {

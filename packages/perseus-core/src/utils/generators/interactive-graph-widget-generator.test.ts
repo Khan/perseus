@@ -784,12 +784,10 @@ describe("generateIGSinusoidGraph", () => {
             coords: [
                 [0, 0],
                 [1, 1],
-                [2, 2],
             ],
             startCoords: [
                 [0, 0],
                 [1, 1],
-                [2, 2],
             ],
         });
 
@@ -799,12 +797,10 @@ describe("generateIGSinusoidGraph", () => {
             coords: [
                 [0, 0],
                 [1, 1],
-                [2, 2],
             ],
             startCoords: [
                 [0, 0],
                 [1, 1],
-                [2, 2],
             ],
         });
     });

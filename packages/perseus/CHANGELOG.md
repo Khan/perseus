@@ -1,5 +1,115 @@
 # @khanacademy/perseus
 
+## 78.0.0
+
+### Major Changes
+
+-   [#3689](https://github.com/Khan/perseus/pull/3689) [`4a130c0367`](https://github.com/Khan/perseus/commit/4a130c0367d9e83953c4b37c19881f81437bca39) Thanks [@benchristel](https://github.com/benchristel)! - Unused and deprecated APIOptions and renderer props have been removed. Callers should stop passing these options, as they will have no effect.
+
+### Patch Changes
+
+-   [#3752](https://github.com/Khan/perseus/pull/3752) [`aef2d70b3c`](https://github.com/Khan/perseus/commit/aef2d70b3c68ae8ca1bcf2b13afea8797c69aa64) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove aria-live from interactive-graph in favor of using the WB Annoucer recently added logic
+
+*   [#3748](https://github.com/Khan/perseus/pull/3748) [`a81c4ad5dd`](https://github.com/Khan/perseus/commit/a81c4ad5dd7c89744e88ae1dde37d5c5b81bcc91) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove unused styles
+
+*   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/keypad-context@3.2.62
+    -   @khanacademy/kmath@2.4.20
+    -   @khanacademy/math-input@26.4.34
+    -   @khanacademy/perseus-linter@5.1.1
+    -   @khanacademy/perseus-score@8.11.4
+
+## 77.11.0
+
+### Minor Changes
+
+-   [#3742](https://github.com/Khan/perseus/pull/3742) [`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Remove gif flag, make gif controls permanent
+
+*   [#3725](https://github.com/Khan/perseus/pull/3725) [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Add new JSON field "showPointLabels" for interactive graphs. When set, every movable point gets a visible on-canvas label driven by the matching `pointLabels[i]` entry. `pointLabels` is required whenever `showPointLabels` is true (enforced by the interactive-graph-widget-error lint rule).
+
+### Patch Changes
+
+-   [#3678](https://github.com/Khan/perseus/pull/3678) [`5d4625eb73`](https://github.com/Khan/perseus/commit/5d4625eb735e266fd2986d4efe9e7fa461caa0ad) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Quadratic Graph
+
+*   [#3718](https://github.com/Khan/perseus/pull/3718) [`7ba77bb3e5`](https://github.com/Khan/perseus/commit/7ba77bb3e5e62da886f63090154b623148bad298) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Refactor movable-line
+
+-   [#3732](https://github.com/Khan/perseus/pull/3732) [`40491377ee`](https://github.com/Khan/perseus/commit/40491377eeb55fbb1bfe6b36ba2451eabf7a02c4) Thanks [@Evelas78](https://github.com/Evelas78)! - Added role="figure" to the mafs-graph
+
+*   [#3729](https://github.com/Khan/perseus/pull/3729) [`fcd76e42c0`](https://github.com/Khan/perseus/commit/fcd76e42c0cecd17c4d5b012be625b0928fb3551) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add test to catch typo in translation e.g. %(word) -> \$(word)s
+
+-   [#3701](https://github.com/Khan/perseus/pull/3701) [`7ccf7fbc8f`](https://github.com/Khan/perseus/commit/7ccf7fbc8f6d00cf98aafdd0921ffcad569bffd3) Thanks [@Myranae](https://github.com/Myranae)! - Migrate sortable fonts and colors to semantic tokens and add regression stories
+
+*   [#3703](https://github.com/Khan/perseus/pull/3703) [`5d00f57022`](https://github.com/Khan/perseus/commit/5d00f57022f609724bccd781686e6db821856b2c) Thanks [@Myranae](https://github.com/Myranae)! - Convert expression widget related files to use semantic tokens
+
+-   [#3733](https://github.com/Khan/perseus/pull/3733) [`6f711cfcf9`](https://github.com/Khan/perseus/commit/6f711cfcf9bf6a4961fee47ea596176307153a22) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Absolute Value graph.
+
+*   [#3736](https://github.com/Khan/perseus/pull/3736) [`1cd01a4550`](https://github.com/Khan/perseus/commit/1cd01a4550a35e10f7f88f5e83fa3f91ccb82996) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Exponential graph.
+
+-   [#3735](https://github.com/Khan/perseus/pull/3735) [`dcc83bdbf8`](https://github.com/Khan/perseus/commit/dcc83bdbf89c55273683d64d6b566e4b67f1494d) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Logarithm graph.
+
+*   [#3734](https://github.com/Khan/perseus/pull/3734) [`b4d94b3c09`](https://github.com/Khan/perseus/commit/b4d94b3c09bcd773427f25f71dfd2a8c4154ddad) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Tangent graph.
+
+*   Updated dependencies [[`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81), [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88), [`ec0ce8d61a`](https://github.com/Khan/perseus/commit/ec0ce8d61a8f8565acba672fe249723d025f88fc), [`5d00f57022`](https://github.com/Khan/perseus/commit/5d00f57022f609724bccd781686e6db821856b2c)]:
+    -   @khanacademy/perseus-core@27.4.0
+    -   @khanacademy/perseus-linter@5.1.0
+    -   @khanacademy/math-input@26.4.33
+    -   @khanacademy/keypad-context@3.2.61
+    -   @khanacademy/kmath@2.4.19
+    -   @khanacademy/perseus-score@8.11.3
+
+## 77.10.2
+
+### Patch Changes
+
+-   [#3727](https://github.com/Khan/perseus/pull/3727) [`b44f34d355`](https://github.com/Khan/perseus/commit/b44f34d355d152dd97bb5d2fb95183d887c53073) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Definition] Fix typo in translation
+
+## 77.10.1
+
+### Patch Changes
+
+-   [#3695](https://github.com/Khan/perseus/pull/3695) [`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Explanation] Add more visual regression tests
+
+*   [#3671](https://github.com/Khan/perseus/pull/3671) [`bbde9057fc`](https://github.com/Khan/perseus/commit/bbde9057fce4d92ce363d83635272e5861e203eb) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] Add more image regression stories
+
+-   [#3713](https://github.com/Khan/perseus/pull/3713) [`d0fa621849`](https://github.com/Khan/perseus/commit/d0fa621849ce551bf71900d3040502193a8178ab) Thanks [@Myranae](https://github.com/Myranae)! - [Graded group set] Fix pip indicators broken on iOS/mobile — restore `list-style:none` and add `role="list"` to the indicator `<ul>`
+
+*   [#3719](https://github.com/Khan/perseus/pull/3719) [`117786801c`](https://github.com/Khan/perseus/commit/117786801c597b88aeb65608ae5d75d1d373774f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of a new dropdown in Storybook to allow turning on Feature Flags
+
+-   [#3676](https://github.com/Khan/perseus/pull/3676) [`c3c7aafa48`](https://github.com/Khan/perseus/commit/c3c7aafa48f5e252a78b532511b7df2429d55c7e) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Angle Graph
+
+*   [#3675](https://github.com/Khan/perseus/pull/3675) [`29041d51fe`](https://github.com/Khan/perseus/commit/29041d51fe5c8de887929eba6216ffdafb908e01) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Polygon graphs.
+
+-   [#3721](https://github.com/Khan/perseus/pull/3721) [`14b6e0b58d`](https://github.com/Khan/perseus/commit/14b6e0b58df552178b1598d26e8a9028f423b0ec) Thanks [@Evelas78](https://github.com/Evelas78)! - Changed removed tail dot and increased sizing for arrow head and line for vector graphs
+
+*   [#3708](https://github.com/Khan/perseus/pull/3708) [`6f29b86f0b`](https://github.com/Khan/perseus/commit/6f29b86f0b917e7acac63ffb5638ba87cf8f9ea6) Thanks [@Evelas78](https://github.com/Evelas78)! - Updated strings.ts to store the screenreader's aria-label string for definition widget
+
+-   [#3691](https://github.com/Khan/perseus/pull/3691) [`c244b3e4fe`](https://github.com/Khan/perseus/commit/c244b3e4fe3c3fed5291240bcd8b3e29c5602250) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't show ungraded text for 'none' graph
+
+*   [#3677](https://github.com/Khan/perseus/pull/3677) [`c6e7cd2e72`](https://github.com/Khan/perseus/commit/c6e7cd2e7229477e17de48331b11b663eac57e9a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Add WB Announcer to Sinusoid Graph
+
+-   [#3717](https://github.com/Khan/perseus/pull/3717) [`23e9ad00f6`](https://github.com/Khan/perseus/commit/23e9ad00f6a364aecdbcb091d399f10235227a79) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix line ends bending in for Linear / Ray interactive graphs
+
+*   [#3704](https://github.com/Khan/perseus/pull/3704) [`94d0a94623`](https://github.com/Khan/perseus/commit/94d0a94623e0e8ea9975dc354f5e5954cfc89f06) Thanks [@Myranae](https://github.com/Myranae)! - Fix GIF related visual regression stories for image
+
+-   [#3687](https://github.com/Khan/perseus/pull/3687) [`58dbd0f93f`](https://github.com/Khan/perseus/commit/58dbd0f93fdcd5d48eea90f4577db4082708b0cb) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Linear System graph.
+
+*   [#3683](https://github.com/Khan/perseus/pull/3683) [`11d53cb5df`](https://github.com/Khan/perseus/commit/11d53cb5df388a7dbf3bf14f7d26bfc12e3fef3d) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Linear graph.
+
+-   [#3685](https://github.com/Khan/perseus/pull/3685) [`3e96e9ec8c`](https://github.com/Khan/perseus/commit/3e96e9ec8c906625d58ad3e36cc85f9249e0296b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Ray graph.
+
+*   [#3688](https://github.com/Khan/perseus/pull/3688) [`00fa96087f`](https://github.com/Khan/perseus/commit/00fa96087f8668da07115ce1c39e01aa07785254) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Segment graph.
+
+-   [#3686](https://github.com/Khan/perseus/pull/3686) [`84bcfbbe29`](https://github.com/Khan/perseus/commit/84bcfbbe29ed01890bcc0a2805b13ff0fcff2e83) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Use WB Announcer in Vector graph.
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba), [`b8145a718b`](https://github.com/Khan/perseus/commit/b8145a718b43e6ce78f304296e953ed07341c207)]:
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/perseus-linter@5.0.15
+    -   @khanacademy/keypad-context@3.2.60
+    -   @khanacademy/kmath@2.4.18
+    -   @khanacademy/math-input@26.4.32
+    -   @khanacademy/perseus-score@8.11.2
+
 ## 77.10.0
 
 ### Minor Changes

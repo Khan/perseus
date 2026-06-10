@@ -21,7 +21,7 @@ exports[`graded group set widget should snapshot 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="container_14sgdtb"
@@ -38,7 +38,8 @@ exports[`graded group set widget should snapshot 1`] = `
                 class="spacer_bc4egv"
               />
               <ul
-                class="indicatorContainer_1qvfx9i indicatorContainer"
+                class="indicatorContainer_16w94bw indicatorContainer"
+                role="list"
               >
                 <li
                   class="indicator_7k5kza"
@@ -117,7 +118,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     </span>
                        
                     <div
-                      class="perseus-widget-container widget-nohighlight widget-inline-block"
+                      class="perseus-widget-container widget-inline-block"
                     >
                       <input
                         aria-disabled="false"

@@ -14,6 +14,7 @@ import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
+    getQuadraticVertex,
 } from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
 import {bound, boundToEdgeAndSnapToGrid, isUnlimitedGraphState} from "../utils";
@@ -270,32 +271,12 @@ function doMovePointInFigure(
     action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "segment": {
-            const newCoords = updateAtIndex({
-                array: state.coords,
-                index: action.figureIndex,
-                update: (tuple) =>
-                    setAtIndex({
-                        array: tuple,
-                        index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
-                    }),
-            });
-
-            const coordsToCheck = newCoords[action.figureIndex];
-            if (coordsOverlap(coordsToCheck)) {
-                return state;
-            }
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
+        case "segment":
         case "linear-system": {
+            const newValue = boundToEdgeAndSnapToGrid(
+                action.destination,
+                state,
+            );
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.figureIndex,
@@ -303,10 +284,7 @@ function doMovePointInFigure(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundToEdgeAndSnapToGrid(
-                            action.destination,
-                            state,
-                        ),
+                        newValue,
                     }),
             });
 
@@ -314,17 +292,42 @@ function doMovePointInFigure(
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
+
+            // pointLabels is a flat array across all lines/segments, indexed
+            // by figureIndex * 2 + pointIndex (matching the render side).
+            const sharedAnnouncement = {
+                pointIndex: action.pointIndex,
+                pointLabel: resolvePointLabel(
+                    state.pointLabels,
+                    action.figureIndex * 2 + action.pointIndex,
+                ),
+                x: newValue[X],
+                y: newValue[Y],
+            };
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-point",
+                          segmentIndex: action.figureIndex,
+                          totalSegments: state.coords.length,
+                          ...sharedAnnouncement,
+                      }
+                    : {
+                          type: "move-linear-system-point",
+                          lineIndex: action.figureIndex,
+                          ...sharedAnnouncement,
+                      };
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement,
             };
         }
         case "ray":
-        case "linear": {
-            // Ray and linear share identical endpoint-move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
+        case "linear":
+        case "vector": {
             const newValue = boundToEdgeAndSnapToGrid(
                 action.destination,
                 state,
@@ -341,52 +344,41 @@ function doMovePointInFigure(
 
             // Determine the correct state announcement
             // by the graph type.
-            const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {
-                          type: "move-ray-point",
-                          pointIndex: action.pointIndex,
-                          pointLabel: resolvePointLabel(
-                              state.pointLabels,
-                              action.pointIndex,
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      }
-                    : {
-                          type: "move-point",
-                          pointLabel: String(
-                              resolvePointLabel(
-                                  state.pointLabels,
-                                  action.pointIndex,
-                              ),
-                          ),
-                          x: newValue[X],
-                          y: newValue[Y],
-                      };
-
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-                stateAnnouncement,
-            };
-        }
-        case "vector": {
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue: boundToEdgeAndSnapToGrid(action.destination, state),
-            });
-
-            if (coordsOverlap(newCoords)) {
-                return state;
+            let stateAnnouncement: InteractiveGraphStateAnnouncement;
+            if (state.type === "ray") {
+                stateAnnouncement = {
+                    type: "move-ray-point",
+                    pointIndex: action.pointIndex,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else if (state.type === "vector") {
+                stateAnnouncement = {
+                    type: "move-vector-point",
+                    pointIndex: action.pointIndex,
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
+            } else {
+                stateAnnouncement = {
+                    type: "move-point",
+                    pointLabel: String(
+                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    ),
+                    x: newValue[X],
+                    y: newValue[Y],
+                };
             }
 
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+                stateAnnouncement,
             };
         }
         case "circle":
@@ -438,46 +430,54 @@ function doMoveLine(
                 newValue: constrainedLine,
             });
 
+            const stateAnnouncement: InteractiveGraphStateAnnouncement =
+                state.type === "segment"
+                    ? {
+                          type: "move-segment-line",
+                          coords: constrainedLine,
+                      }
+                    : {
+                          type: "move-linear-system-line",
+                          lineIndex: action.itemIndex,
+                          coords: constrainedLine,
+                      };
+
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
-            };
-        }
-        case "ray":
-        case "linear": {
-            // Ray and linear share identical whole-line move logic; only the
-            // screen reader announcement differs.
-            // TODO(LEMS-4189): Migrate vector to the WB Announcer too.
-            const constrainedLine = constrainShapePreservingMove(
-                state.coords,
-                newStart,
-                {snapStep, range},
-            );
-            const stateAnnouncement: InteractiveGraphStateAnnouncement =
-                state.type === "ray"
-                    ? {type: "move-ray-line", coords: constrainedLine}
-                    : {type: "move-linear-line", coords: constrainedLine};
-            return {
-                ...state,
-                type: state.type,
-                hasBeenInteractedWith: true,
-                coords: constrainedLine,
                 stateAnnouncement,
             };
         }
+        case "ray":
+        case "linear":
         case "vector": {
             const constrainedLine = constrainShapePreservingMove(
                 state.coords,
                 newStart,
                 {snapStep, range},
             );
+
+            let type: "move-ray-line" | "move-vector-line" | "move-linear-line";
+            if (state.type === "ray") {
+                type = "move-ray-line";
+            } else if (state.type === "vector") {
+                type = "move-vector-line";
+            } else {
+                type = "move-linear-line";
+            }
+
+            const stateAnnouncement: InteractiveGraphStateAnnouncement = {
+                type,
+                coords: constrainedLine,
+            };
             return {
                 ...state,
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: constrainedLine,
+                stateAnnouncement,
             };
         }
         default:
@@ -725,6 +725,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-exponential-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "logarithm": {
@@ -768,6 +778,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-logarithm-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "absolute-value": {
@@ -792,6 +812,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-absolute-value-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "tangent": {
@@ -817,6 +847,16 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-tangent-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                },
             };
         }
         case "quadratic": {
@@ -836,6 +876,8 @@ function doMovePoint(
                 return state;
             }
 
+            const vertex = getQuadraticVertex(QuadraticCoefficients);
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -844,6 +886,17 @@ function doMovePoint(
                     index: action.index,
                     newValue: boundDestination,
                 }),
+                stateAnnouncement: {
+                    type: "move-quadratic-point",
+                    pointIndex: action.index,
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
+                    x: boundDestination[X],
+                    y: boundDestination[Y],
+                    vertex,
+                },
             };
         }
         default:
@@ -930,6 +983,10 @@ function doMoveCenter(
                 ...state,
                 hasBeenInteractedWith: true,
                 asymptote: newY,
+                stateAnnouncement: {
+                    type: "move-exponential-asymptote",
+                    asymptoteY: newY,
+                },
             };
         }
         case "logarithm": {
@@ -957,6 +1014,10 @@ function doMoveCenter(
                 ...state,
                 hasBeenInteractedWith: true,
                 asymptote: newX,
+                stateAnnouncement: {
+                    type: "move-logarithm-asymptote",
+                    asymptoteX: newX,
+                },
             };
         }
         default:

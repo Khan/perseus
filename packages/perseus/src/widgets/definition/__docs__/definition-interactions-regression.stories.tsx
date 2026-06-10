@@ -1,14 +1,17 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {question} from "../definition.testdata";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
+import {
+    definitionQuestionContent,
+    definitionQuestionOptions,
+} from "../definition.testdata";
 
-import type {Meta} from "@storybook/react-vite";
+import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
-const meta: Meta = {
+import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
+const meta: Meta<DefinitionDefaultWidgetOptions> = {
     title: "Widgets/Definition/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -19,33 +22,48 @@ const meta: Meta = {
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
+    decorators: [definitionRendererDecorator],
 };
 
 export default meta;
 
-export const FocusedState = {
-    args: {
-        item: generateTestPerseusItem({
-            question,
-        }),
+type Story = StoryObj<typeof meta>;
+
+export const FocusedState: Story = {
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
     },
     play: async ({canvas}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "Definition of: the Pequots",
+            name: "Definition of: Allies",
         });
         definitionTrigger.focus();
     },
 };
 
-export const ClickedState = {
-    args: {
-        item: generateTestPerseusItem({
-            question,
-        }),
+export const ClickedState: Story = {
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
     },
     play: async ({canvas, userEvent}) => {
         const definitionTrigger = canvas.getByRole("button", {
-            name: "Definition of: the Pequots",
+            name: "Definition of: Allies",
+        });
+        await userEvent.click(definitionTrigger);
+    },
+};
+
+export const MobileClickedState: Story = {
+    decorators: [mobileDecorator],
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
+    },
+    play: async ({canvas, userEvent}) => {
+        const definitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Allies",
         });
         await userEvent.click(definitionTrigger);
     },

@@ -16,13 +16,14 @@ permissions:
     issues: write
     checks: write
 
-concurrency:
-    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-    cancel-in-progress: true
-
 jobs:
     check_schema_change:
         name: Schema change
+        # Scope concurrency to this job (not the whole workflow) so toggling
+        # one check's ack label can't cancel the other check's in-flight run.
+        concurrency:
+            group: ${{ github.workflow }}-schema-change-${{ github.event.pull_request.number || github.ref }}
+            cancel-in-progress: true
         # Run on every push event. On label events, run only when the
         # acknowledgement label is the one being toggled — other label
         # changes (including `schema-change` itself, which this action
@@ -67,7 +68,7 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  check-name: "PR Comparison: 🗄️ Schema Change"
+                  check-name: "PR Comparison: Schema Change"
                   ack-label-name: schema-change-ack
                   # Folded (`>`) so paragraphs can wrap freely. Two blank
                   # lines are required for a Markdown paragraph break.
@@ -89,6 +90,11 @@ jobs:
 
     check_item_splitting:
         name: Item splitting
+        # Scope concurrency to this job (not the whole workflow) so toggling
+        # one check's ack label can't cancel the other check's in-flight run.
+        concurrency:
+            group: ${{ github.workflow }}-item-splitting-${{ github.event.pull_request.number || github.ref }}
+            cancel-in-progress: true
         # Run on every push event. On label events, run only when the
         # acknowledgement label is the one being toggled.
         if: >-
@@ -124,8 +130,29 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  build-command: pnpm install && pnpm build
-                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  # esbuild produces a deliberately non-minified bundle for
+                  # comparison purposes — the production build pipeline
+                  # (rollup + swc + minification) is too noisy for diffs.
+                  # We bundle from source rather than diffing the production
+                  # artifact so we're insulated from build-pipeline drift.
+                  #
+                  # The explicit `esbuild` devDep in package.json is pinned
+                  # independently of the version Vite pulls in transitively.
+                  # That's intentional: this check produces a code-level diff
+                  # between base and PR, and we don't need it to track the
+                  # production toolchain. If Vite is bumped and the bundled
+                  # esbuild drifts from our pin, two copies will end up in
+                  # node_modules. That's acceptable here — bumping our pin
+                  # to match is a courtesy, not a correctness requirement.
+                  build-command: |
+                      pnpm install
+                      pnpm exec esbuild packages/perseus-core/src/index.item-splitting.ts \
+                        --bundle \
+                        --format=esm \
+                        --platform=neutral \
+                        --target=es2022 \
+                        --outfile=${{ runner.temp }}/item-splitting.bundle.js
+                  path-to-artifact: ${{ runner.temp }}/item-splitting.bundle.js
                   label-name: item-splitting-change
-                  check-name: "PR Comparison: 🛠️ Item Splitting"
+                  check-name: "PR Comparison: Item Splitting"
                   ack-label-name: item-splitting-change-ack

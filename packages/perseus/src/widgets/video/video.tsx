@@ -19,6 +19,7 @@ import {
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
 import VideoTranscriptLink from "./video-transcript-link";
+import styles from "./video-widget.module.css";
 
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
@@ -33,7 +34,6 @@ const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
 type Props = WidgetProps<PerseusVideoWidgetOptions> & {
-    alignment: string; // Where does this get set?
     dependencies: PerseusDependenciesV2;
 };
 
@@ -102,15 +102,16 @@ class Video extends React.Component<Props> implements Widget {
         return (
             <View>
                 <FixedToResponsive
+                    className={styles.perseusVideoFixedToResponsive}
                     width={DEFAULT_WIDTH}
                     height={DEFAULT_HEIGHT}
                     // The key is here for the benefit of the editor, to ensure that
                     // any changes cause a re-rendering of the frame.
-                    key={location + this.props.alignment}
+                    key={location}
                 >
                     <iframe
                         title={this.context.strings.videoWrapper}
-                        className="perseus-video-widget"
+                        className={styles.perseusVideoWidget}
                         sandbox="allow-same-origin allow-scripts"
                         width={DEFAULT_WIDTH}
                         height={DEFAULT_HEIGHT}

@@ -152,7 +152,7 @@ applies to the logarithm graph.
 - Localized asymptote label (`srExponentialAsymptote`) with keyboard navigation instructions.
 - Graph description (`srExponentialDescription`) with point and asymptote positions.
 - Interactive elements description (`srExponentialInteractiveElements`).
-- `aria-live="polite"` on the asymptote announces position changes to screen readers.
+- Asymptote and point moves are announced to screen readers via the WB Announcer (the reducer's `stateAnnouncement`), consumed in `stateful-mafs-graph.tsx`.
 - All number values use `srFormatNumber` for locale-appropriate formatting.
 
 ### Editor

@@ -59,10 +59,6 @@ export const ApiOptions = {
             Link: PropTypes.func,
         }),
 
-        // Function that takes dimensions and returns a React component
-        // to display while an image is loading
-        imagePreloader: PropTypes.func,
-
         // Function that takes an object argument. The object should
         // include type and id, both strings, at least and can optionally
         // include a boolean "correct" value. This is used for keeping
@@ -76,45 +72,14 @@ export const ApiOptions = {
         // input components.
         customKeypad: PropTypes.bool,
 
-        // If this is provided, it is called instead of appending an instance
-        // of `math-input`'s keypad to the body. This is used by the native
-        // apps so they can have the keypad be defined on the native side.
-        // It is called with an function that, when called, blurs the input,
-        // and is expected to return an object of the shape
-        // keypadElementPropType from math-input/src/prop-types.js.
-        nativeKeypadProxy: PropTypes.func,
-
         // Indicates whether or not to use mobile styling.
         isMobile: PropTypes.bool,
 
         // Indicates whether or not to use mobile app styling.
         isMobileApp: PropTypes.bool,
 
-        // A function, called with a bool indicating whether use of the
-        // drawing area (scratchpad) should be allowed/disallowed.
-        // Previously handled by `Khan.scratchpad.enable/disable`
-        setDrawingAreaAvailable: PropTypes.func,
-
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
-
-        // Whether this Renderer is allowed to auto-scroll the rest of the
-        // page. For example, if this is enabled, the most recently used
-        // radio widget will attempt to keep the "selected" answer in view
-        // after entering review mode.
-        //
-        // Defaults to `false`.
-        canScrollPage: PropTypes.bool,
-        // The value in milliseconds by which the local state of content
-        // in a editor is delayed before propagated to a prop. For example,
-        // when text is typed in the text area of an Editor component,
-        // there will be a delay equal to the value of `editorChangeDelay`
-        // before the change is propagated. This is added for better
-        // responsiveness of the editor when used in certain contexts such
-        // as StructuredItem exercises where constant re-rendering for each
-        // keystroke caused text typed in the text area to appear in it
-        // only after a good few seconds.
-        editorChangeDelay: PropTypes.number,
     }).isRequired,
 
     // eslint-disable-next-line no-restricted-syntax
@@ -134,9 +99,6 @@ export const ApiOptions = {
                 return <a {...rest}>{children}</a>;
             },
         },
-        setDrawingAreaAvailable: function () {},
-        canScrollPage: false,
-        editorChangeDelay: 0,
     } as APIOptionsWithDefaults,
 } as const;
 

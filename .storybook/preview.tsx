@@ -14,6 +14,11 @@ import {
     storybookDependenciesV2,
 } from "../packages/perseus/src/testing/test-dependencies";
 import {TestMathjax} from "../packages/perseus/src/testing/test-mathjax";
+import {
+    StorybookFeatureFlagsContext,
+    defaultFeatureFlags,
+} from "../packages/perseus/src/testing/feature-flags-context";
+import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
 
 import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import type {PerseusDependencies} from "../packages/perseus/src/types";
@@ -49,6 +54,21 @@ const withPerseusDecorator: Decorator = (Story) => {
                 </div>
             </DependenciesContext.Provider>
         </RenderStateRoot>
+    );
+};
+
+const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
+    const activeFlags: PerseusFeatureFlag[] =
+        context.globals.featureFlags ?? [];
+    const flags = {
+        ...defaultFeatureFlags,
+        ...Object.fromEntries(activeFlags.map((f) => [f, true])),
+    } as typeof defaultFeatureFlags;
+
+    return (
+        <StorybookFeatureFlagsContext.Provider value={flags}>
+            <Story />
+        </StorybookFeatureFlagsContext.Provider>
     );
 };
 
@@ -95,7 +115,10 @@ const supportedThemes = {
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
-    decorators: [withPerseusDecorator, withThemeSwitcher],
+    decorators: [withPerseusDecorator, withThemeSwitcher, withFeatureFlags],
+    initialGlobals: {
+        featureFlags: [],
+    },
     globalTypes: {
         // Added theme globalTypes to be consistent with WonderBlocks supported
         // themes, that will allow the user to select a theme from the toolbar.
