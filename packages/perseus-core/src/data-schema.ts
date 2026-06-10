@@ -2319,8 +2319,7 @@ export type PerseusWidgetOptions =
     | PerseusGradedGroupWidgetOptions
     | PerseusIFrameWidgetOptions
     | PerseusImageWidgetOptions
-    // FIXME: use v1 options
-    | PerseusInputNumberWidgetOptionsV0
+    | PerseusInputNumberWidgetOptions
     | PerseusInteractionWidgetOptions
     | PerseusInteractiveGraphWidgetOptions
     | PerseusLabelImageWidgetOptions

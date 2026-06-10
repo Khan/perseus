@@ -45,7 +45,7 @@ import type {
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
     PerseusRenderer,
-    PerseusInputNumberWidgetOptionsV0,
+    PerseusInputNumberWidgetOptions,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -556,8 +556,7 @@ export interface RubricRegistry {
     "graded-group": PerseusGradedGroupRubric;
     grapher: PerseusGrapherRubric;
     group: PerseusGroupRubric;
-    // FIXME: use v1 options
-    "input-number": PerseusInputNumberWidgetOptionsV0;
+    "input-number": PerseusInputNumberWidgetOptions;
     "interactive-graph": PerseusInteractiveGraphRubric;
     "label-image": PerseusLabelImageRubric;
     matcher: PerseusMatcherRubric;
