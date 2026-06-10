@@ -1,3 +1,7 @@
+import {
+    generateIGLockedLine,
+    generateIGLockedPoint,
+} from "@khanacademy/perseus-core";
 import {screen, render, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
@@ -111,6 +115,62 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
         expect(line.getAttribute("x2")).toBe(expectedX2 + "");
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    it("renders locked points outside the clip group so boundary points are not cut off", () => {
+        // Arrange
+        const state: InteractiveGraphState = {
+            type: "none",
+            hasBeenInteractedWith: false,
+            range: [
+                [0, 10],
+                [0, 10],
+            ],
+            snapStep: [1, 1],
+            coords: [],
+        };
+
+        // Act
+        const {container} = render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={state}
+                dispatch={jest.fn()}
+                lockedFigures={[
+                    // A clipped figure, so we know clip groups exist and the
+                    // negative assertion below is meaningful.
+                    generateIGLockedLine({
+                        points: [
+                            generateIGLockedPoint({coord: [1, 1]}),
+                            generateIGLockedPoint({coord: [9, 9]}),
+                        ],
+                    }),
+                    // A point on the graph boundary (the origin).
+                    generateIGLockedPoint({coord: [0, 0]}),
+                ]}
+            />,
+        );
+
+        // Assert
+        // ClipToGraphBounds renders nested <svg>s positioned with an `x`
+        // attribute; the outer Mafs <svg>s have no `x`. That distinguishes a
+        // clipping group from the unclipped Mafs root.
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const clipGroups = Array.from(container.querySelectorAll("svg")).filter(
+            (svg) => svg.getAttribute("x") !== null,
+        );
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const lockedPoint = container.querySelector(".locked-point");
+
+        expect(lockedPoint).toBeInTheDocument();
+        expect(clipGroups.length).toBeGreaterThan(0);
+        // The locked point must not live inside any clip group, otherwise a
+        // point on the boundary would be cut in half.
+        const pointIsClipped = clipGroups.some((svg) =>
+            // eslint-disable-next-line testing-library/no-node-access
+            svg.contains(lockedPoint),
+        );
+        expect(pointIsClipped).toBe(false);
     });
 
     it("should send analytics even when widget is rendered", () => {

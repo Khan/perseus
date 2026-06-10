@@ -195,6 +195,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
         showsAxisLabels,
     );
 
+    // Locked points are rendered in their own unclipped layer so a point on
+    // the graph boundary isn't cut in half. Everything else stays clipped to
+    // the graph bounds.
+    const lockedPointFigures = props.lockedFigures.filter(
+        (figure) => figure.type === "point",
+    );
+    const clippedLockedFigures = props.lockedFigures.filter(
+        (figure) => figure.type !== "point",
+    );
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -368,14 +378,29 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         </>
                                     )
                                 }
-                                {/* Locked figures clipped to graph bounds */}
-                                {props.lockedFigures.length > 0 && (
+                                {/* Locked figures clipped to graph bounds.
+                                    Points are excluded here and rendered
+                                    unclipped below — see the points layer. */}
+                                {clippedLockedFigures.length > 0 && (
                                     <ClipToGraphBounds>
                                         <GraphLockedLayer
-                                            lockedFigures={props.lockedFigures}
+                                            lockedFigures={clippedLockedFigures}
                                             range={state.range}
                                         />
                                     </ClipToGraphBounds>
+                                )}
+                                {/* Locked points rendered unclipped so that a
+                                    point sitting on the graph boundary (e.g. at
+                                    the origin) renders as a full circle instead
+                                    of being cut in half. They are bounded by
+                                    their authored, in-range coordinates, so they
+                                    don't need clipping the way continuous curves
+                                    and the circle's ellipse do. */}
+                                {lockedPointFigures.length > 0 && (
+                                    <GraphLockedLayer
+                                        lockedFigures={lockedPointFigures}
+                                        range={state.range}
+                                    />
                                 )}
                             </Mafs>
                         </View>

@@ -449,6 +449,53 @@ export const LockedPoints: Story = {
     },
 };
 
+// Verifies locked points sitting exactly on the graph boundary render as full
+// circles rather than being clipped in half. Points are placed at each edge
+// midpoint and each corner of the range. Locked points are rendered in an
+// unclipped layer (see mafs-graph.tsx) precisely so boundary points like these
+// aren't cut off. (LEMS-4263)
+export const LockedPointsAtGraphEdges: Story = {
+    args: {
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        lockedFigures: [
+            // Corners
+            generateIGLockedPoint({coord: [-10, -10]}),
+            generateIGLockedPoint({coord: [10, -10]}),
+            generateIGLockedPoint({coord: [-10, 10]}),
+            generateIGLockedPoint({coord: [10, 10]}),
+            // Edge midpoints
+            generateIGLockedPoint({coord: [0, 10]}),
+            generateIGLockedPoint({coord: [0, -10]}),
+            generateIGLockedPoint({coord: [-10, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+        ],
+    },
+};
+
+// Verifies the reported bug scenario (LEMS-4263): a graph whose ranges start at
+// 0, with a locked point at the origin. The origin point sits on both the left
+// and bottom edges and previously rendered as a quarter-circle when clipped.
+export const LockedPointAtOrigin: Story = {
+    args: {
+        range: [
+            [0, 8],
+            [0, 80],
+        ],
+        step: [1, 10],
+        gridStep: [1, 10],
+        labels: ["time (s)", "distance (m)"],
+        labelLocation: "alongEdge",
+        lockedFigures: [
+            generateIGLockedPoint({coord: [0, 0], color: "red", filled: true}),
+            generateIGLockedPoint({coord: [2, 18], color: "red", filled: true}),
+            generateIGLockedPoint({coord: [4, 43], color: "red", filled: true}),
+        ],
+    },
+};
+
 // Verifies a locked line connecting two locked points.
 export const LockedLine: Story = {
     args: {
