@@ -35,8 +35,8 @@ export function renderCircleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeCircleGraph(state, i18n).srCircleInteractiveElement,
+        interactiveElementsDescription: describeCircleGraph(state, i18n)
+            .srCircleInteractiveElement,
     };
 }
 
@@ -307,4 +307,3 @@ export const getCircleKeyboardConstraint = (
         ),
     };
 };
-

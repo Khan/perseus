@@ -30,8 +30,8 @@ export function renderQuadraticGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <QuadraticGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeQuadraticGraph(state, i18n).srQuadraticInteractiveElements,
+        interactiveElementsDescription: describeQuadraticGraph(state, i18n)
+            .srQuadraticInteractiveElements,
     };
 }
 

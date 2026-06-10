@@ -40,8 +40,8 @@ export function renderVectorGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <VectorGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeVectorGraph(state, i18n).srVectorInteractiveElement,
+        interactiveElementsDescription: describeVectorGraph(state, i18n)
+            .srVectorInteractiveElement,
     };
 }
 
@@ -266,4 +266,3 @@ export const getVectorTipKeyboardConstraint = (
         right: moveWithConstraint((coord) => vec.add(coord, [snapStep[X], 0])),
     };
 };
-

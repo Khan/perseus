@@ -1,4 +1,5 @@
 import {buildPointAriaLabel} from "../components/build-point-aria-label";
+
 import {srFormatNumber} from "./format-number";
 
 import type {PointGraphState} from "../../types";

@@ -1,5 +1,6 @@
 import {X, Y} from "../../math";
 import {getAbsoluteValueCoefficients} from "../utils";
+
 import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 

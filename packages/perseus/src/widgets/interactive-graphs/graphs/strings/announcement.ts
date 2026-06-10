@@ -1,33 +1,22 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
-import {srAbsoluteValuePointLabel} from "./strings/absolute-value";
-import {srAnglePointLabel} from "./strings/angle";
-import {srCircleCenterLabel, srCircleRadiusPointLabel} from "./strings/circle";
-import {srExponentialPointLabel} from "./strings/exponential";
-import {srFormatNumber} from "./strings/format-number";
-import {srLinearSystemPointLabel} from "./strings/linear-system";
-import {srLogarithmPointLabel} from "./strings/logarithm";
-import {srPolygonLabel} from "./strings/polygon";
-import {srQuadraticPointLabel} from "./strings/quadratic";
-import {srRayPointLabel} from "./strings/ray";
-import {srSegmentPointLabel} from "./strings/segment";
-import {srSinusoidPointLabel} from "./strings/sinusoid";
-import {srTangentPointLabel} from "./strings/tangent";
-import {srVectorPointLabel} from "./strings/vector";
+import {srAbsoluteValuePointLabel} from "./absolute-value";
+import {srAnglePointLabel} from "./angle";
+import {srCircleCenterLabel, srCircleRadiusPointLabel} from "./circle";
+import {srExponentialPointLabel} from "./exponential";
+import {srFormatNumber} from "./format-number";
+import {srLinearSystemPointLabel} from "./linear-system";
+import {srLogarithmPointLabel} from "./logarithm";
+import {srPolygonLabel} from "./polygon";
+import {srQuadraticPointLabel} from "./quadratic";
+import {srRayPointLabel} from "./ray";
+import {srSegmentPointLabel} from "./segment";
+import {srSinusoidPointLabel} from "./sinusoid";
+import {srTangentPointLabel} from "./tangent";
+import {srVectorPointLabel} from "./vector";
 
-import type {InteractiveGraphStateAnnouncement} from "../types";
+import type {InteractiveGraphStateAnnouncement} from "../../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
-
-// TODO: Temporary re-exports so existing importers of these helpers keep
-// working while the strings/ reorganization is in progress. Removed in the
-// final cleanup phase once all imports point at the new files.
-export {
-    getCoordQuadrant,
-    getQuadraticPointString,
-    getQuadraticVertexString,
-} from "./strings/coord-quadrant";
-export {getPiMultiple, srFormatNumber} from "./strings/format-number";
-export {srCircleCenterLabel, srCircleRadiusPointLabel} from "./strings/circle";
 
 export function getAnnouncementText(
     state: InteractiveGraphStateAnnouncement,
@@ -128,4 +117,3 @@ function formatLineEndpoints(
         point2Y: srFormatNumber(coords[1][1], locale),
     };
 }
-

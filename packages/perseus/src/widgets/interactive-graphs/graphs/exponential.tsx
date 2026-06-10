@@ -43,9 +43,8 @@ export function renderExponentialGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <ExponentialGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeExponentialGraph(state, i18n)
-                .srExponentialInteractiveElements,
+        interactiveElementsDescription: describeExponentialGraph(state, i18n)
+            .srExponentialInteractiveElements,
     };
 }
 
@@ -225,4 +224,3 @@ const computeExponential = function (
     const {a, b, c} = coefficients;
     return a * Math.exp(b * x) + c;
 };
-

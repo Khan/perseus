@@ -13,17 +13,17 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
 import {describeAbsoluteValueGraph} from "./strings/absolute-value";
+import {srFormatNumber} from "./strings/format-number";
 import {getAbsoluteValueCoefficients} from "./utils";
 
+import type {AbsoluteValueCoefficients} from "./utils";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
     InteractiveGraphElementSuite,
     MafsGraphProps,
 } from "../types";
-import type {AbsoluteValueCoefficients} from "./utils";
 import type {Coord} from "@khanacademy/perseus-core";
 
 export function renderAbsoluteValueGraph(
@@ -171,4 +171,3 @@ function getAbsoluteValueDescription(
         }),
     });
 }
-

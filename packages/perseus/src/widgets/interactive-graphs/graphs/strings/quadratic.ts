@@ -3,6 +3,7 @@ import {
     getQuadraticVertex,
     getQuadraticXIntercepts,
 } from "../utils";
+
 import {
     getQuadraticPointString,
     getQuadraticVertexString,

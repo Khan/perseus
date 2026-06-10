@@ -11,8 +11,8 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {getVectorTipKeyboardConstraint} from "./vector";
 import {describeVectorGraph} from "./strings/vector";
+import {getVectorTipKeyboardConstraint} from "./vector";
 
 import type {InteractiveGraphState} from "../types";
 

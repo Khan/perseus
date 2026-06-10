@@ -1,4 +1,5 @@
 import {getRadius} from "../../reducer/interactive-graph-state";
+
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";

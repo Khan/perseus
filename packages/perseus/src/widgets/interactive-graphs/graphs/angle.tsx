@@ -15,8 +15,8 @@ import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
-import {srFormatNumber} from "./screenreader-text";
 import {describeAngleGraph} from "./strings/angle";
+import {srFormatNumber} from "./strings/format-number";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 

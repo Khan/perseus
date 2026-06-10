@@ -4,7 +4,7 @@ import {useState, useRef, useLayoutEffect} from "react";
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {srFormatNumber} from "../screenreader-text";
+import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
 import {MovableArrowheadView} from "./movable-arrowhead-view";

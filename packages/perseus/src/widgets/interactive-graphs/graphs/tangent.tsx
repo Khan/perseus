@@ -31,8 +31,8 @@ export function renderTangentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <TangentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeTangentGraph(state, i18n).srTangentInteractiveElements,
+        interactiveElementsDescription: describeTangentGraph(state, i18n)
+            .srTangentInteractiveElements,
     };
 }
 
@@ -303,4 +303,3 @@ function getPlotSegments(
 
     return segments;
 }
-

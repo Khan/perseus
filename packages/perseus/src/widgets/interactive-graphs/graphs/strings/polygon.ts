@@ -2,13 +2,11 @@ import {
     buildPointAriaLabel,
     resolvePointLabel,
 } from "../components/build-point-aria-label";
+
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
-import type {
-    InteractiveGraphProps,
-    PolygonGraphState,
-} from "../../types";
+import type {InteractiveGraphProps, PolygonGraphState} from "../../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {vec} from "mafs";
 

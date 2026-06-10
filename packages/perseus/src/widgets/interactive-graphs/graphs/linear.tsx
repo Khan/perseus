@@ -24,8 +24,8 @@ export function renderLinearGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <LinearGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeLinearGraph(state, i18n).srLinearInteractiveElement,
+        interactiveElementsDescription: describeLinearGraph(state, i18n)
+            .srLinearInteractiveElement,
     };
 }
 
@@ -103,4 +103,3 @@ const LinearGraph = (props: LinearGraphProps, key: number) => {
         </g>
     );
 };
-

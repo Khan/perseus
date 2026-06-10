@@ -43,8 +43,8 @@ export function renderLogarithmGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <LogarithmGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeLogarithmGraph(state, i18n).srLogarithmInteractiveElements,
+        interactiveElementsDescription: describeLogarithmGraph(state, i18n)
+            .srLogarithmInteractiveElements,
     };
 }
 
@@ -283,4 +283,3 @@ function renderLogarithmCurve({
         </ClipToGraphBounds>
     );
 }
-

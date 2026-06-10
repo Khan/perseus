@@ -24,7 +24,7 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
-import {srFormatNumber} from "./screenreader-text";
+import {srFormatNumber} from "./strings/format-number";
 import {describePolygonGraph} from "./strings/polygon";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";

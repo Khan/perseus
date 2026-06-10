@@ -1,4 +1,5 @@
 import {getInterceptStringForLine, getSlopeStringForLine} from "../utils";
+
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";

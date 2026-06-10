@@ -196,4 +196,3 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
         </>
     );
 }
-

@@ -31,8 +31,8 @@ export function renderSinusoidGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeSinusoidGraph(state, i18n).srSinusoidInteractiveElements,
+        interactiveElementsDescription: describeSinusoidGraph(state, i18n)
+            .srSinusoidInteractiveElements,
     };
 }
 
@@ -208,4 +208,3 @@ export const getSinusoidCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
-

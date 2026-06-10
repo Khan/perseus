@@ -1,6 +1,7 @@
 import {angles} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+
 import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 

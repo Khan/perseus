@@ -7,7 +7,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {srFormatNumber} from "./strings/format-number";
 import {describeSegmentGraph} from "./strings/segment";
 import {getLengthOfSegment} from "./utils";
 
@@ -182,4 +182,3 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         </g>
     );
 };
-

@@ -24,8 +24,8 @@ export function renderRayGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <RayGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription:
-            describeRayGraph(state, i18n).srRayInteractiveElement,
+        interactiveElementsDescription: describeRayGraph(state, i18n)
+            .srRayInteractiveElement,
     };
 }
 
@@ -90,4 +90,3 @@ const RayGraph = (props: Props) => {
         </g>
     );
 };
-
