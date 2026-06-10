@@ -6,9 +6,9 @@ import {
     type I18nContextType,
 } from "../../../components/i18n-context";
 import {X, Y} from "../math/coordinates";
-import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";

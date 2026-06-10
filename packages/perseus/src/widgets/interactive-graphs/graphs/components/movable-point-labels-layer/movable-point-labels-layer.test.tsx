@@ -1,14 +1,14 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import * as Dependencies from "../../../../../dependencies";
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as ReducerGraphConfig from "../../../reducer/use-graph-config";
 
 import MovablePointLabelsLayer from "./movable-point-labels-layer";
-import * as ReducerGraphConfig from "./reducer/use-graph-config";
 
-import type {GraphConfig} from "./reducer/use-graph-config";
-import type {InteractiveGraphState} from "./types";
+import type {GraphConfig} from "../../../reducer/use-graph-config";
+import type {InteractiveGraphState} from "../../../types";
 
 function mockGraphConfig(config: GraphConfig) {
     return jest.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);

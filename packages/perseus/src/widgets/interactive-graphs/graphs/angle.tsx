@@ -5,9 +5,9 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
-import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {Angle} from "./components/angle-indicators";
 import {usePointAriaLabel} from "./components/build-point-aria-label";

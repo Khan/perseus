@@ -11,7 +11,6 @@ import {
 } from "../../../components/i18n-context";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
-import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import {
     calculateAngleSnap,
@@ -19,6 +18,7 @@ import {
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {

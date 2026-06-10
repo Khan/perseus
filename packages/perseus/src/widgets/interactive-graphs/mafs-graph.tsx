@@ -9,6 +9,7 @@
  * - Protractor
  * - Interactive Graph Elements
  */
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -37,6 +38,7 @@ import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
+import MovablePointLabelsLayer from "./graphs/components/movable-point-labels-layer";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
@@ -52,7 +54,6 @@ import {renderTangentGraph} from "./graphs/tangent";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {renderVectorGraph} from "./graphs/vector";
 import {X, Y} from "./math";
-import MovablePointLabelsLayer from "./movable-point-labels-layer";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
@@ -69,6 +70,7 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
+import type {APIOptionsWithDefaults} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -98,13 +100,12 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
     widgetId: string;
     /**
-     * Whether the `perseus-enable-point-label-field` flag is on. Gates
-     * the `MovablePointLabelsLayer` mount so the layer is inert in
-     * production until the flag is rolled out, even if a graph state
-     * carries `showPointLabels: true`. Computed upstream by
-     * `interactive-graph.tsx` via `isFeatureOn`.
+     * Forwarded from the renderer so feature-flagged behaviour inside
+     * `MafsGraph` (e.g. the `MovablePointLabelsLayer` mount) can call
+     * `isFeatureOn({apiOptions}, ...)` directly instead of threading
+     * derived booleans through every prop boundary.
      */
-    pointLabelsFlagEnabled?: boolean;
+    apiOptions?: APIOptionsWithDefaults;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -391,9 +392,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
-                        {props.pointLabelsFlagEnabled && (
-                            <MovablePointLabelsLayer state={state} />
-                        )}
+                        {isFeatureOn(
+                            {apiOptions: props.apiOptions},
+                            "perseus-enable-point-label-field",
+                        ) && <MovablePointLabelsLayer state={state} />}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

@@ -1,10 +1,10 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
-import {getEffectivePointLabels} from "../point-labels";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {
     buildPointAriaLabel,

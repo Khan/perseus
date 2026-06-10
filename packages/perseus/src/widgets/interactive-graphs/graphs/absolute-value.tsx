@@ -8,6 +8,7 @@ import {
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
@@ -46,8 +47,13 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     const id = React.useId();
     const descriptionId = id + "-description";
 
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, pointLabels, showPointLabels, snapStep} = graphState;
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        coords.length,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     // Cache last valid coefficients to protect against transient invalid
     // states that can occur mid-drag (e.g., both points on the same x).

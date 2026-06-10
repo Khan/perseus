@@ -1268,6 +1268,7 @@ export const pointWithCustomLabelQuestion: PerseusRenderer =
             startCoords: [[0, 0]],
             coords: [[-4, 2]],
             pointLabels: ["T"],
+            showPointLabels: true,
         }),
     });
 
@@ -1308,65 +1309,6 @@ export const pointWithDefaultLabelQuestion: PerseusRenderer =
             numPoints: 1,
             startCoords: [[0, 0]],
             coords: [[-4, 2]],
-        }),
-    });
-
-// Polygon graph with `showPointLabels: true` and author-supplied
-// `pointLabels: ["A", "B", "C", "D"]` — each vertex carries its assigned
-// letter as both the visible on-canvas label and the screen-reader
-// announcement. `showPointLabels` always requires `pointLabels` (the
-// interactive-graph-widget-error lint rule blocks the combination
-// `showPointLabels: true` without `pointLabels` at authoring time), so
-// non-Latin locales never see auto-generated Latin letters.
-export const polygonWithVisibleLabelsQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({
-        content:
-            "**Drag the vertices to form a quadrilateral.** Each vertex is labelled A, B, C, D so you can refer to them in your work.\n\n[[☃ interactive-graph 1]]",
-        markings: "graph",
-        gridStep: [1, 1],
-        snapStep: [1, 1],
-        step: [1, 1],
-        range: [
-            [-5, 5],
-            [-5, 5],
-        ],
-        correct: generateIGPolygonGraph({
-            numSides: 4,
-            startCoords: [
-                [-3, 2],
-                [3, 2],
-                [3, -2],
-                [-3, -2],
-            ],
-            pointLabels: ["A", "B", "C", "D"],
-            showPointLabels: true,
-        }),
-    });
-
-// Point graph with `showPointLabels: true` and author-supplied `pointLabels`.
-// The visible on-canvas labels and the screen-reader announcements both
-// use the same per-index string, so they stay in sync.
-export const pointWithVisibleLabelsQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({
-        content:
-            "**Drag points $P$, $Q$, and $R$ to form a right triangle.** The visible labels on the graph match the names in the prompt.\n\n[[☃ interactive-graph 1]]",
-        markings: "graph",
-        gridStep: [1, 1],
-        snapStep: [1, 1],
-        step: [1, 1],
-        range: [
-            [-5, 5],
-            [-5, 5],
-        ],
-        correct: generateIGPointGraph({
-            numPoints: 3,
-            startCoords: [
-                [-2, 0],
-                [2, 0],
-                [2, 3],
-            ],
-            pointLabels: ["P", "Q", "R"],
-            showPointLabels: true,
         }),
     });
 
@@ -1511,6 +1453,7 @@ export const polygonWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 3],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1536,6 +1479,7 @@ export const quadraticWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1584,6 +1528,7 @@ export const tangentWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1609,6 +1554,7 @@ export const exponentialWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: 1,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1633,6 +1579,7 @@ export const logarithmWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: -6,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1671,6 +1618,7 @@ export const absoluteValueWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["V", "A"],
+            showPointLabels: true,
         }),
     });
 

@@ -9,7 +9,7 @@
 
 import {getEffectivePointLabels} from "./point-labels";
 
-import type {InteractiveGraphState} from "./types";
+import type {InteractiveGraphState} from "../types";
 import type {Interval, vec} from "mafs";
 
 /**
@@ -115,15 +115,27 @@ export function getLabeledMovablePoints(
             );
             return collect(flatCoords, effective, (i) => `segment-${i}`);
         }
-        // Graphs not in PR 2's ready-now bucket fall through and render
-        // no movable-point labels yet. The schema field is accepted on
-        // these states (see PR 1), but rendering arrives in the PR 4
-        // series alongside the WB Announcer work.
         case "absolute-value":
-        case "quadratic":
         case "exponential":
-        case "tangent":
         case "logarithm":
+        case "tangent": {
+            // Curve / asymptote graphs: 2 curve-defining points each.
+            // The asymptote line on exp/log is not separately labeled —
+            // pointLabels covers the two movable points on the curve.
+            const effective = getEffectivePointLabels(true, pointLabels, 2);
+            return collect(
+                state.coords,
+                effective,
+                (i) => `${state.type}-${i}`,
+            );
+        }
+        case "quadratic": {
+            // Three curve-defining points: vertex + two reference points.
+            const effective = getEffectivePointLabels(true, pointLabels, 3);
+            return collect(state.coords, effective, (i) => `quadratic-${i}`);
+        }
+        // Excluded from the rollout — no movable points to label, and
+        // PR 1 deliberately skipped these in the lint rule.
         case "vector":
         case "none":
             return [];
