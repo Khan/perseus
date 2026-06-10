@@ -14,7 +14,7 @@ const DEFAULT_FEATURE_FLAGS: Record<
     "perseus-renderer-upgrade": false,
     "grapher-to-interactive-graph": false,
     "desmos-calculator": false,
-    "perseus-enable-point-label-field": false,
+    "perseus-enable-point-label-field": false, // TODO(AITQ-385): clean up feature flag
     // ...add new flags here
 };
 
