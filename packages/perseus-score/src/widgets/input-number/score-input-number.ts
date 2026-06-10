@@ -1,11 +1,10 @@
-import {convertInputNumberOptionsToNumericInput} from "@khanacademy/perseus-core";
+import {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 
 import scoreNumericInput from "../numeric-input/score-numeric-input";
 
 import type {
     PerseusInputNumberUserInput,
     PerseusScore,
-    PerseusInputNumberWidgetOptionsV0,
 } from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4085): Delete inputNumberAnswerTypes.
@@ -51,12 +50,12 @@ function scoreInputNumber(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusInputNumberUserInput | undefined,
-    rubric: PerseusInputNumberWidgetOptionsV0,
+    rubric: PerseusInputNumberWidgetOptions,
     locale?: string,
 ): PerseusScore {
     return scoreNumericInput(
         userInput,
-        convertInputNumberOptionsToNumericInput(rubric),
+        rubric,
         locale,
     );
 }
