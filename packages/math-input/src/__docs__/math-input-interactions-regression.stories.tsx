@@ -39,7 +39,7 @@ export default meta;
 type Story = StoryObj<typeof NavigationPad>;
 
 // Captures the pressed state of a navigation arrow button — covers the #1B50B3
-// border and rgba(24,101,242,0.32) gradient overlay in navigation-button.tsx.
+// border and background.instructive.subtle background in navigation-button.tsx.
 // NavigationPad renders inline (not a portal) so canvas queries work directly.
 export const NavigationButtonPressed: Story = {
     play: async ({canvas, userEvent}) => {
