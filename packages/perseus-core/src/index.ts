@@ -207,9 +207,6 @@ export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 /** @hidden */
-export {convertInputNumberOptionsToNumericInput} from "./widgets/input-number/to-numeric-input";
-
-/** @hidden */
 export {
     applyDefaultsToWidgets,
     applyDefaultsToWidget,

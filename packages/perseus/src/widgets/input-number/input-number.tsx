@@ -44,6 +44,7 @@ function getCorrectUserInput(
 
 export default {
     name: "input-number",
+    version: {major: 1, minor: 0},
     displayName: "Input number (deprecated - use numeric input instead)",
     hidden: true,
     // NOTE(benchristel): We replaced the InputNumber component with
