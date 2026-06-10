@@ -537,9 +537,6 @@ export type PerseusCategorizerWidgetOptions = {
      * the category. e.g. [0, 1, 0, 1, 2]
      */
     values: number[];
-    /** Whether we should highlight i18n linter errors found on this widget */
-    // TODO(benchristel): highlightLint doesn't seem to be used. Delete it.
-    highlightLint?: boolean;
 };
 
 /** Options for the definition widget. Reveals a definition on click. */
@@ -1275,9 +1272,9 @@ export type PerseusGraphTypeSegment = {
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     /** Expects a list of 2 Coords */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /** The initial coordinates the graph renders with. */
-    startCoords?: Coord[];
+    startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
     /** Opt-in: render a visible label next to each interactive point. */
@@ -1287,9 +1284,9 @@ export type PerseusGraphTypeSinusoid = {
 export type PerseusGraphTypeTangent = {
     type: "tangent";
     // Expects a list of 2 Coords
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     // The initial coordinates the graph renders with.
-    startCoords?: Coord[];
+    startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
     /** Opt-in: render a visible label next to each interactive point. */

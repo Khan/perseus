@@ -1,5 +1,4 @@
 import {
-    isFeatureOn,
     type Interval,
     type PerseusImageBackground,
     type PerseusImageLabel,
@@ -59,11 +58,6 @@ export const ImageInfoArea = (props: Props) => {
 
     const context = React.useContext(PerseusI18nContext);
 
-    const gifControlsFF = isFeatureOn(
-        {apiOptions},
-        "image-widget-upgrade-gif-controls",
-    );
-
     if (!backgroundImage.url) {
         return null;
     }
@@ -73,7 +67,7 @@ export const ImageInfoArea = (props: Props) => {
     return (
         <div className={styles.infoAreaContainer}>
             {/* GIF controls */}
-            {gifControlsFF && imageIsGif && (
+            {imageIsGif && (
                 <GifControlsIcon
                     isPlaying={isGifPlaying}
                     onToggle={() => setIsGifPlaying(!isGifPlaying)}
@@ -81,7 +75,7 @@ export const ImageInfoArea = (props: Props) => {
             )}
 
             {/* Spacer if both GIF controls and description are shown */}
-            {gifControlsFF && imageIsGif && longDescription && (
+            {imageIsGif && longDescription && (
                 <div className={styles.spacerHorizontal} />
             )}
 

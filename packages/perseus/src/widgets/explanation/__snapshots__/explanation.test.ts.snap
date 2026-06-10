@@ -15,7 +15,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
         Here's the explanation
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
+          class="perseus-widget-container widget-inline"
         >
           <button
             aria-controls=":r1:"
@@ -87,7 +87,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
         Here's the explanation
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
+          class="perseus-widget-container widget-inline"
         >
           <button
             aria-controls=":r0:"

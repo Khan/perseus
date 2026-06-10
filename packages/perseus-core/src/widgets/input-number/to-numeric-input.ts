@@ -49,7 +49,7 @@ const mathFormatsForAnswerType: Record<
     PerseusInputNumberAnswerType,
     MathFormat[]
 > = {
-    number: ["integer", "decimal", "proper", "improper", "mixed"],
+    number: [],
     decimal: ["decimal"],
     integer: ["integer"],
     rational: ["integer", "proper", "improper", "mixed"],

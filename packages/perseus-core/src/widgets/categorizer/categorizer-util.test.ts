@@ -10,7 +10,6 @@ describe("getCategorizerPublicWidgetOptions", () => {
             categories: ["citrus", "non-citrus"],
             randomizeItems: true,
             static: false,
-            highlightLint: false,
         };
 
         const publicWidgetOptions = getCategorizerPublicWidgetOptions(

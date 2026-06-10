@@ -111,12 +111,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                 }
                 orientation="horizontal"
                 ariaLabel={srExponentialAsymptote}
-                // Move announcements come from the WB Announcer via
-                // stateAnnouncement; disable aria-live here to avoid the
-                // asymptote handle double-announcing.
-                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
-                // from MovableAsymptote.
-                ariaLive="off"
             >
                 {coeffs !== undefined && (
                     <ClipToGraphBounds>
@@ -159,12 +153,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.exponential.movePoint(i, destination))
                     }
-                    // Move announcements come from the WB Announcer via
-                    // stateAnnouncement; disable aria-live here to avoid
-                    // the focusable handle double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                    // dropped from useControlPoint.
-                    ariaLive="off"
                 />
             ))}
             <SRDescInSVG id={descriptionId}>

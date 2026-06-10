@@ -5,7 +5,6 @@ import * as React from "react";
 import * as Dependencies from "../../../dependencies";
 import {DependenciesContext} from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {mockImageLoading} from "../../../testing/image-loader-utils";
 import {
     testDependencies,
@@ -53,13 +52,6 @@ const defaultProps = {
     apiOptions: ApiOptions.defaults,
     isGifPlaying: false,
     setIsGifPlaying: () => {},
-};
-
-const apiOptionsWithGifControls = {
-    ...ApiOptions.defaults,
-    flags: getFeatureFlags({
-        "image-widget-upgrade-gif-controls": true,
-    }),
 };
 
 describe("ExploreImageModal", () => {
@@ -272,7 +264,6 @@ describe("ExploreImageModal", () => {
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Assert
@@ -306,7 +297,6 @@ describe("ExploreImageModal", () => {
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Act — the modal starts paused, so click Play first
@@ -328,7 +318,6 @@ describe("ExploreImageModal", () => {
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
                 isGifPlaying: false,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Act
@@ -345,7 +334,6 @@ describe("ExploreImageModal", () => {
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Act — modal starts paused, click Play
@@ -365,7 +353,6 @@ describe("ExploreImageModal", () => {
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Act — click Play then Pause
@@ -380,58 +367,6 @@ describe("ExploreImageModal", () => {
             expect(
                 screen.getByRole("button", {name: "Play Animation"}),
             ).toBeVisible();
-        });
-    });
-
-    describe("flags", () => {
-        it("should render gif controls when the feature flag is enabled", () => {
-            // Arrange
-
-            const apiOptionsWithFeatureFlag = {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": true,
-                }),
-            };
-
-            renderModal({
-                ...defaultProps,
-                backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithFeatureFlag,
-            });
-
-            // Assert
-            const playButton = screen.getByRole("button", {
-                name: "Play Animation",
-            });
-            expect(playButton).toBeVisible();
-        });
-
-        it("should not render gif controls when the feature flag is disabled", () => {
-            // Arrange
-
-            const apiOptionsWithFeatureFlag = {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": false,
-                }),
-            };
-
-            renderModal({
-                ...defaultProps,
-                backgroundImage: animatedGifLandscape,
-                apiOptions: apiOptionsWithFeatureFlag,
-            });
-
-            // Assert
-            const playButton = screen.queryByRole("button", {
-                name: "Play Animation",
-            });
-            const pauseButton = screen.queryByRole("button", {
-                name: "Pause Animation",
-            });
-            expect(playButton).not.toBeInTheDocument();
-            expect(pauseButton).not.toBeInTheDocument();
         });
     });
 });

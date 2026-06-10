@@ -13,7 +13,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -1088,7 +1088,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         . 
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -1244,7 +1244,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":r3:-angle-0 :r3:-point-0-side-1 :r3:-point-0-side-2"
                             aria-disabled="false"
                             aria-label="Point 1 at 3.5 comma 2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1315,7 +1314,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":r3:-angle-1 :r3:-point-1-side-1 :r3:-point-1-side-2"
                             aria-disabled="false"
                             aria-label="Point 2 at 2.5 comma 4."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1386,7 +1384,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":r3:-angle-2 :r3:-point-2-side-1 :r3:-point-2-side-2"
                             aria-disabled="false"
                             aria-label="Point 3 at 1.5 comma 2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1524,7 +1521,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -1670,7 +1667,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":rd:-angle-0 :rd:-point-0-side-1 :rd:-point-0-side-2"
                             aria-disabled="false"
                             aria-label="Point 1 at 3 comma -2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1741,7 +1737,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":rd:-angle-1 :rd:-point-1-side-1 :rd:-point-1-side-2"
                             aria-disabled="false"
                             aria-label="Point 2 at 0 comma 3."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1812,7 +1807,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             aria-describedby=":rd:-angle-2 :rd:-point-2-side-1 :rd:-point-2-side-2"
                             aria-disabled="false"
                             aria-label="Point 3 at -3 comma -2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -1966,7 +1960,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -2217,7 +2211,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -2446,7 +2440,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         . 
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -2575,7 +2569,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":r5:-angle-0 :r5:-point-0-side-1 :r5:-point-0-side-2"
                             aria-disabled="false"
                             aria-label="Point 1 at 5.5 comma 2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -2646,7 +2639,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":r5:-angle-1 :r5:-point-1-side-1 :r5:-point-1-side-2"
                             aria-disabled="false"
                             aria-label="Point 2 at 1.5 comma 5."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -2717,7 +2709,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":r5:-angle-2 :r5:-point-2-side-1 :r5:-point-2-side-2"
                             aria-disabled="false"
                             aria-label="Point 3 at 1.5 comma 2."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -2855,7 +2846,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -3001,7 +2992,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":rf:-angle-0 :rf:-point-0-side-1 :rf:-point-0-side-2"
                             aria-disabled="false"
                             aria-label="Point 1 at -6 comma -7."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -3072,7 +3062,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":rf:-angle-1 :rf:-point-1-side-1 :rf:-point-1-side-2"
                             aria-disabled="false"
                             aria-label="Point 2 at 1 comma -4."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -3143,7 +3132,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":rf:-angle-2 :rf:-point-2-side-1 :rf:-point-2-side-2"
                             aria-disabled="false"
                             aria-label="Point 3 at -3 comma -4."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -3297,7 +3285,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -3417,7 +3405,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <g
                         aria-disabled="false"
                         aria-label="Point 1 at 0 comma 0."
-                        aria-live="off"
                         class="movable-point__focusable-handle"
                         data-testid="movable-point__focusable-handle"
                         role="button"
@@ -3461,7 +3448,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <g
                         aria-disabled="false"
                         aria-label="Point 2 at -2.5 comma 0."
-                        aria-live="off"
                         class="movable-point__focusable-handle"
                         data-testid="movable-point__focusable-handle"
                         role="button"
@@ -3505,7 +3491,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       <g
                         aria-disabled="false"
                         aria-label="Point 3 at -1 comma 0."
-                        aria-live="off"
                         class="movable-point__focusable-handle"
                         data-testid="movable-point__focusable-handle"
                         role="button"
@@ -3655,7 +3640,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1 mafs-graph-container"
@@ -3801,7 +3786,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":ru:-angle-0 :ru:-point-0-side-1 :ru:-point-0-side-2"
                             aria-disabled="false"
                             aria-label="Point 1 at -5 comma 0."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -3872,7 +3856,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":ru:-angle-1 :ru:-point-1-side-1 :ru:-point-1-side-2"
                             aria-disabled="false"
                             aria-label="Point 2 at 4 comma 15."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -3943,7 +3926,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":ru:-angle-2 :ru:-point-2-side-1 :ru:-point-2-side-2"
                             aria-disabled="false"
                             aria-label="Point 3 at 4 comma 0."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"
@@ -4014,7 +3996,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             aria-describedby=":ru:-angle-3 :ru:-point-3-side-1 :ru:-point-3-side-2"
                             aria-disabled="false"
                             aria-label="Point 4 at 1 comma 3."
-                            aria-live="off"
                             class="movable-point__focusable-handle"
                             data-testid="movable-point__focusable-handle"
                             role="button"

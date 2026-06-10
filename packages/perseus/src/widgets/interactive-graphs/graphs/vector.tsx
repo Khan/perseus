@@ -167,7 +167,6 @@ const VectorBody = (props: VectorBodyProps) => {
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedBy}
             aria-disabled={disableKeyboardInteraction}
-            aria-live="polite"
             className="movable-line"
             data-testid="movable-vector"
             style={{cursor: dragging ? "grabbing" : "grab"}}

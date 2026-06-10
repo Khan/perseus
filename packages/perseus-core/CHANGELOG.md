@@ -1,5 +1,29 @@
 # @khanacademy/perseus-core
 
+## 28.0.0
+
+### Major Changes
+
+-   [#3690](https://github.com/Khan/perseus/pull/3690) [`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a) Thanks [@benchristel](https://github.com/benchristel)! - The unused highlightLint property has been removed from the PerseusCategorizerWidgetOptions type. Callers should not pass this property.
+
+### Patch Changes
+
+-   [#3746](https://github.com/Khan/perseus/pull/3746) [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d) Thanks [@benchristel](https://github.com/benchristel)! - In the data-schema types, clarify that `sinusoid` and `tangent` interactive graphs have exactly two movable points.
+
+*   [#3712](https://github.com/Khan/perseus/pull/3712) [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update the convertINputNumberOptionsToNumericInput function so that the 'number' answerType is converted to an empty array.
+
+## 27.4.0
+
+### Minor Changes
+
+-   [#3725](https://github.com/Khan/perseus/pull/3725) [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Add new JSON field "showPointLabels" for interactive graphs. When set, every movable point gets a visible on-canvas label driven by the matching `pointLabels[i]` entry. `pointLabels` is required whenever `showPointLabels` is true (enforced by the interactive-graph-widget-error lint rule).
+
+### Patch Changes
+
+-   [#3742](https://github.com/Khan/perseus/pull/3742) [`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Remove gif flag, make gif controls permanent
+
+*   [#3726](https://github.com/Khan/perseus/pull/3726) [`ec0ce8d61a`](https://github.com/Khan/perseus/commit/ec0ce8d61a8f8565acba672fe249723d025f88fc) Thanks [@handeyeco](https://github.com/handeyeco)! - Copy data that was once shared into perseus-parser
+
 ## 27.3.0
 
 ### Minor Changes

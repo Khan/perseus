@@ -128,8 +128,8 @@ const parsePerseusGraphTypeSegment = object({
 
 const parsePerseusGraphTypeSinusoid = object({
     type: constant("sinusoid"),
-    coords: optional(nullable(array(pairOfNumbers))),
-    startCoords: optional(array(pairOfNumbers)),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(array(string)),
     showPointLabels: optional(boolean),
 });
@@ -158,8 +158,8 @@ const parsePerseusGraphTypeAbsoluteValue = object({
 
 const parsePerseusGraphTypeTangent = object({
     type: constant("tangent"),
-    coords: optional(nullable(array(pairOfNumbers))),
-    startCoords: optional(array(pairOfNumbers)),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(array(string)),
     showPointLabels: optional(boolean),
 });

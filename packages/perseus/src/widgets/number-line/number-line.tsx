@@ -425,9 +425,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     this.refs.graphie.movables.numberLinePoint.grab(coord);
                 }}
                 setup={this._setupGraphie}
-                setDrawingAreaAvailable={
-                    this.props.apiOptions.setDrawingAreaAvailable
-                }
                 isMobile={this.props.apiOptions.isMobile}
             >
                 <TickMarks

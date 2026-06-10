@@ -10,7 +10,6 @@
  * 4. Also update the testing/feature-flags-util.ts for testing purpose
  */
 const PerseusFeatureFlags = [
-    "image-widget-upgrade-gif-controls", // TODO(LEMS-3914): clean up feature flag
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
 ] as const;
 

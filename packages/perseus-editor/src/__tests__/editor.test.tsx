@@ -138,21 +138,17 @@ describe("Editor", () => {
         await userEvent.tab(); // blurring the input triggers onChange to be called
 
         // Assert
-        expect(changeFn).toHaveBeenCalledWith(
-            {
-                widgets: {
-                    "image 1": expect.objectContaining({
-                        type: "image",
-                        graded: true,
-                        options: expect.objectContaining({
-                            caption: "kittens",
-                        }),
+        expect(changeFn).toHaveBeenCalledWith({
+            widgets: {
+                "image 1": expect.objectContaining({
+                    type: "image",
+                    graded: true,
+                    options: expect.objectContaining({
+                        caption: "kittens",
                     }),
-                },
+                }),
             },
-            undefined,
-            undefined,
-        );
+        });
     });
 
     it("should not log a warning given a widget with an undefined key", () => {

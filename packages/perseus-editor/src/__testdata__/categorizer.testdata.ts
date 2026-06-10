@@ -41,7 +41,6 @@ export const question: PerseusRenderer = {
                     "Negative linear relationship",
                     "Nonlinear relationship",
                 ],
-                highlightLint: false,
                 static: false,
             },
         },

@@ -343,9 +343,6 @@ export const ImageWithoutWidthOrHeightLarge: Story = {
 
 export const TallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    globals: {
-        featureFlags: ["image-widget-upgrade-gif-controls"],
-    },
     args: {
         backgroundImage: animatedGifPortrait,
         alt: animatedGifPortraitAlt,
@@ -414,9 +411,6 @@ export const PngImage: Story = {
 
 export const MobileAnimatedGif: Story = {
     decorators: [imageRendererDecorator, mobileDecorator],
-    globals: {
-        featureFlags: ["image-widget-upgrade-gif-controls"],
-    },
     args: {
         backgroundImage: animatedGifLandscape,
         alt: animatedGifLandscapeAlt,
@@ -426,9 +420,6 @@ export const MobileAnimatedGif: Story = {
 
 export const NonAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    globals: {
-        featureFlags: ["image-widget-upgrade-gif-controls"],
-    },
     args: {
         backgroundImage: nonAnimatedGif,
         alt: nonAnimatedGifAlt,
