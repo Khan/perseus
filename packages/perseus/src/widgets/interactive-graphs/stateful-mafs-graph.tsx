@@ -53,11 +53,6 @@ export type StatefulMafsGraphProps = {
     showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
-    /**
-     * Carries the renderer's `apiOptions` (including `flags`) into
-     * `MafsGraph` so it can call `isFeatureOn` for any flag-gated
-     * behaviour (currently the `MovablePointLabelsLayer` mount).
-     */
     apiOptions?: APIOptionsWithDefaults;
 };
 
