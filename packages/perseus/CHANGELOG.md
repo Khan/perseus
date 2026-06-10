@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 78.0.0
+
+### Major Changes
+
+-   [#3689](https://github.com/Khan/perseus/pull/3689) [`4a130c0367`](https://github.com/Khan/perseus/commit/4a130c0367d9e83953c4b37c19881f81437bca39) Thanks [@benchristel](https://github.com/benchristel)! - Unused and deprecated APIOptions and renderer props have been removed. Callers should stop passing these options, as they will have no effect.
+
+### Patch Changes
+
+-   [#3752](https://github.com/Khan/perseus/pull/3752) [`aef2d70b3c`](https://github.com/Khan/perseus/commit/aef2d70b3c68ae8ca1bcf2b13afea8797c69aa64) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove aria-live from interactive-graph in favor of using the WB Annoucer recently added logic
+
+*   [#3748](https://github.com/Khan/perseus/pull/3748) [`a81c4ad5dd`](https://github.com/Khan/perseus/commit/a81c4ad5dd7c89744e88ae1dde37d5c5b81bcc91) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove unused styles
+
+*   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/keypad-context@3.2.62
+    -   @khanacademy/kmath@2.4.20
+    -   @khanacademy/math-input@26.4.34
+    -   @khanacademy/perseus-linter@5.1.1
+    -   @khanacademy/perseus-score@8.11.4
+
 ## 77.11.0
 
 ### Minor Changes
