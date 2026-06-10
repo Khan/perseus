@@ -450,27 +450,28 @@ export const LockedPoints: Story = {
 };
 
 // Verifies locked points sitting exactly on the graph boundary render as full
-// circles rather than being clipped in half. Points are placed at each edge
-// midpoint and each corner of the range. Locked points are rendered in an
+// circles rather than being clipped in half. Uses a first-quadrant range (like
+// the reported bug) so the axes sit on the bottom/left edges, and places points
+// at each edge midpoint and each corner. Locked points are rendered in an
 // unclipped layer (see mafs-graph.tsx) precisely so boundary points like these
 // aren't cut off. (LEMS-4263)
 export const LockedPointsAtGraphEdges: Story = {
     args: {
         range: [
-            [-10, 10],
-            [-10, 10],
+            [0, 10],
+            [0, 10],
         ],
         lockedFigures: [
             // Corners
-            generateIGLockedPoint({coord: [-10, -10]}),
-            generateIGLockedPoint({coord: [10, -10]}),
-            generateIGLockedPoint({coord: [-10, 10]}),
+            generateIGLockedPoint({coord: [0, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [0, 10]}),
             generateIGLockedPoint({coord: [10, 10]}),
             // Edge midpoints
-            generateIGLockedPoint({coord: [0, 10]}),
-            generateIGLockedPoint({coord: [0, -10]}),
-            generateIGLockedPoint({coord: [-10, 0]}),
-            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [5, 10]}),
+            generateIGLockedPoint({coord: [5, 0]}),
+            generateIGLockedPoint({coord: [0, 5]}),
+            generateIGLockedPoint({coord: [10, 5]}),
         ],
     },
 };
