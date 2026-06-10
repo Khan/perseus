@@ -1,0 +1,44 @@
+name: Protect Regression Data
+
+# The Perseus JSON regression-test fixtures under
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/item-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/article-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/renderer-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/user-input-data
+# capture real historical data formats. They must stay stable so the parser is
+# always tested against data that exists in the wild. This check fails if a PR
+# modifies, renames, or deletes any existing fixture. Adding new fixtures is
+# allowed.
+
+on:
+    pull_request:
+        # `edited` covers the base branch being changed on an open PR.
+        types: [edited, opened, synchronize, reopened]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    protect-regression-data:
+        name: Protect frozen regression fixtures
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  # Full history so the base branch's merge-base is reachable
+                  # for the diff in the check below.
+                  fetch-depth: 0
+
+            - name: Check for changes to frozen regression fixtures
+              env:
+                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+              run: ./utils/check-frozen-regression-data.sh "$BASE_SHA" "$HEAD_SHA"
