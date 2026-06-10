@@ -104,7 +104,7 @@ export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
     }),
 );
 
-export function convertInputNumberOptionsToNumericInput(
+function convertInputNumberOptionsToNumericInput(
     inputNumberOptions: ParsedValue<typeof parseInputNumberWidgetV0>["options"],
 ): ParsedValue<typeof parseInputNumberWidgetV1>["options"] {
     return {
