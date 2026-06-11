@@ -3,7 +3,7 @@ import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 
 describe("getInputNumberPublicWidgetOptions", () => {
-    it("removes the answer `value`, `message`, and `strict`", () => {
+    it("removes the answer `value` and `message`", () => {
         const original: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
@@ -13,7 +13,7 @@ describe("getInputNumberPublicWidgetOptions", () => {
                     simplify: "optional",
                     value: 42,
                     answerForms: ["pi"],
-                    message: "",
+                    message: "this should be removed",
                     strict: true,
                 },
             ],
@@ -26,7 +26,10 @@ describe("getInputNumberPublicWidgetOptions", () => {
                 {
                     status: "correct",
                     simplify: "optional",
+                    value: null,
                     answerForms: ["pi"],
+                    message: "",
+                    strict: true,
                 },
             ],
         });

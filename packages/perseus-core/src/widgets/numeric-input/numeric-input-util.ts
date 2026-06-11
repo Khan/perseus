@@ -3,22 +3,11 @@ import type {
     PerseusNumericInputWidgetOptions,
 } from "../../data-schema";
 
-type NumericInputAnswerPublicData = Pick<
-    PerseusNumericInputAnswer,
-    "answerForms" | "simplify" | "status"
->;
-
 /**
  * For details on the individual options, see the
  * PerseusNumericInputWidgetOptions type
  */
-export type NumericInputPublicWidgetOptions = {
-    labelText?: PerseusNumericInputWidgetOptions["labelText"];
-    size: PerseusNumericInputWidgetOptions["size"];
-    coefficient: PerseusNumericInputWidgetOptions["coefficient"];
-    textAlign: PerseusNumericInputWidgetOptions["textAlign"];
-    answers: ReadonlyArray<NumericInputAnswerPublicData>;
-};
+export type NumericInputPublicWidgetOptions = PerseusNumericInputWidgetOptions;
 
 /**
  * This data from `answers` is used pre-scoring to give hints
@@ -26,12 +15,11 @@ export type NumericInputPublicWidgetOptions = {
  */
 function getNumericInputAnswerPublicData(
     answer: PerseusNumericInputAnswer,
-): NumericInputAnswerPublicData {
-    const {answerForms, simplify, status} = answer;
+): PerseusNumericInputAnswer {
     return {
-        answerForms,
-        simplify,
-        status,
+        ...answer,
+        value: null,
+        message: "",
     };
 }
 

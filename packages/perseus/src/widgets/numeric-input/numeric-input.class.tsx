@@ -29,6 +29,10 @@ export type NumericInputProps = ExternalProps & {
     textAlign: NonNullable<ExternalProps["textAlign"]>;
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
+    // TODO(benchristel): answerForms is not actually passed to NumericInput.
+    //  It seems to be here because this props type is reused by
+    //  NumericInputComponent, which does take answerForms.
+    //  Use separate prop types that reflect the actual props of each component.
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;

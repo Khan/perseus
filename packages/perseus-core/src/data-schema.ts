@@ -1661,10 +1661,10 @@ export type PerseusNumericInputWidgetOptions = {
 export type PerseusNumericInputAnswer = {
     /**
      * Translatable Display; A description for why this answer is correct,
-     * wrong, or ungraded
+     * wrong, or ungraded. Always the empty string in answerless data.
      */
     message: string;
-    /** The expected answer */
+    /** The expected answer. Null in answerless data. */
     value?: number | null;
     /** Whether this answer is "correct", "wrong", or "ungraded" */
     status: string;
@@ -1678,9 +1678,12 @@ export type PerseusNumericInputAnswer = {
      * (strict = false).
      */
     strict: boolean;
-    /** A range of error +/- the value */
+    /**
+     * The maximum difference between the answer key and a correct user
+     * input.
+     */
     maxError?: number | null;
-    /** Unsimplified answers are Ungraded, Accepted, or Wrong. */
+    /** How unsimplified responses should be handled. */
     simplify: PerseusNumericInputSimplify;
 };
 
