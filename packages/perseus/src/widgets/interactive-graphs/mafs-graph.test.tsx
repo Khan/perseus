@@ -954,7 +954,7 @@ describe("MafsGraph", () => {
             ],
         };
 
-        it("renders the instructions as the first sr-only child of the figure", () => {
+        it("renders the instructions before the graph description so screen readers encounter them first", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -966,15 +966,23 @@ describe("MafsGraph", () => {
             );
 
             // Assert
-            const figure = screen.getByRole("figure");
-            // eslint-disable-next-line testing-library/no-node-access
-            const srOnlyChildren = figure.querySelectorAll(
-                ":scope > .mafs-sr-only",
+            const instructions = screen.getByText(
+                /^Use the Tab key to move through/,
             );
-            expect(srOnlyChildren[0].id).toMatch(/^instructions-/);
+            const description = screen.getByText("A graph description.");
+
+            // The instructions block must come before the description in the
+            // DOM so a screen reader reading the figure's contents in order
+            // hears how to interact with the graph before the graph
+            // description. If this fails, the instructions are rendered after
+            // the description.
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(description.compareDocumentPosition(instructions)).toBe(
+                Node.DOCUMENT_POSITION_PRECEDING,
+            );
         });
 
-        it("lists the instructions first in aria-describedby so they are read first on focus", () => {
+        it("orders aria-describedby as instructions, then graph description, then element details", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -989,7 +997,32 @@ describe("MafsGraph", () => {
             const figure = screen.getByRole("figure");
             const describedByIds =
                 figure.getAttribute("aria-describedby")?.split(" ") ?? [];
-            expect(describedByIds[0]).toMatch(/^instructions-/);
+
+            // Screen readers announce these in order, so the sequence itself is
+            // the behavior under test: how-to-interact first, then the graph
+            // description, then the interactive-element details.
+            const order = describedByIds.map((id) => {
+                if (id.startsWith("instructions-")) {
+                    return "instructions";
+                }
+                // Check the more specific prefix before the description prefix.
+                if (
+                    id.startsWith(
+                        "interactive-graph-interactive-elements-description-",
+                    )
+                ) {
+                    return "element-details";
+                }
+                if (id.startsWith("interactive-graph-description-")) {
+                    return "description";
+                }
+                return id;
+            });
+            expect(order).toEqual([
+                "instructions",
+                "description",
+                "element-details",
+            ]);
         });
     });
 
