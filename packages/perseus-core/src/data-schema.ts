@@ -987,6 +987,7 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
+    "blurple",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -999,6 +1000,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
+    blurple: "var(--wb-semanticColor-core-background-instructive-default)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
@@ -1020,6 +1022,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -1033,6 +1036,7 @@ export type LockedLineType = {
     showPoint1: boolean;
     showPoint2: boolean;
     weight: StrokeWeight;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -1075,6 +1079,7 @@ export type LockedPolygonType = {
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     weight: StrokeWeight;
+    selectable?: boolean;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
