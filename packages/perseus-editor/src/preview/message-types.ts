@@ -59,7 +59,7 @@ export type HintPreviewData = {
 /**
  * Data for a single article section preview (used in edit mode for one section)
  */
-export type ArticlePreviewData = {
+export type ArticleSectionPreviewData = {
     article: PerseusRenderer;
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
@@ -80,7 +80,7 @@ export type ArticleAllPreviewData = {
 export type PreviewContent =
     | {type: "question"; data: QuestionPreviewData}
     | {type: "hint"; data: HintPreviewData}
-    | {type: "article"; data: ArticlePreviewData}
+    | {type: "article-section"; data: ArticleSectionPreviewData}
     | {type: "article-all"; data: ArticleAllPreviewData};
 
 // ---- Parent → Iframe messages ----

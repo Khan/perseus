@@ -209,7 +209,7 @@ describe("usePreviewPresenter", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             const articleContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: {
                     article: {
                         content: "# Article Title\n\nArticle content",
@@ -652,7 +652,7 @@ describe("usePreviewPresenter", () => {
                     },
                 },
                 {
-                    type: "article",
+                    type: "article-section",
                     data: {
                         article: {content: "A1", widgets: {}, images: {}},
                         apiOptions: {},

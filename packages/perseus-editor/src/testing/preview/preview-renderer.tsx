@@ -122,7 +122,7 @@ export function PreviewRenderer({content}: Props) {
         );
     }
 
-    if (content.type === "article") {
+    if (content.type === "article-section") {
         const {article, apiOptions, legacyPerseusLint, linterContext} =
             content.data;
 

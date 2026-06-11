@@ -39,7 +39,7 @@ export function sanitizePreviewData(
                     apiOptions: sanitizedApiOptions,
                 },
             };
-        case "article":
+        case "article-section":
             return {
                 type: content.type,
                 data: {

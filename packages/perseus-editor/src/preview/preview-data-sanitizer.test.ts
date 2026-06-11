@@ -4,7 +4,7 @@ import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {
     ArticleAllPreviewData,
-    ArticlePreviewData,
+    ArticleSectionPreviewData,
     HintPreviewData,
     PreviewContent,
     QuestionPreviewData,
@@ -175,7 +175,7 @@ describe("sanitizePreviewData", () => {
 
     describe("article preview data", () => {
         it("sanitizes apiOptions in article data", () => {
-            const articleData: ArticlePreviewData = {
+            const articleData: ArticleSectionPreviewData = {
                 article: {content: "# Article Title", widgets: {}, images: {}},
                 apiOptions: createMockApiOptions(),
                 linterContext: {
@@ -185,13 +185,13 @@ describe("sanitizePreviewData", () => {
             };
 
             const previewContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: articleData,
             };
 
             const result = sanitizePreviewData(previewContent);
 
-            invariant(result.type === "article");
+            invariant(result.type === "article-section");
             // Serializable options should remain
             expect(result.data.apiOptions.customKeypad).toBe(true);
 
@@ -203,7 +203,7 @@ describe("sanitizePreviewData", () => {
         });
 
         it("handles article data with null apiOptions", () => {
-            const articleData: ArticlePreviewData = {
+            const articleData: ArticleSectionPreviewData = {
                 article: {content: "Content", widgets: {}, images: {}},
                 // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
@@ -214,7 +214,7 @@ describe("sanitizePreviewData", () => {
             };
 
             const previewContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: articleData,
             };
 
@@ -302,7 +302,7 @@ describe("sanitizePreviewData", () => {
             const types: PreviewContent["type"][] = [
                 "question",
                 "hint",
-                "article",
+                "article-section",
                 "article-all",
             ];
 
@@ -341,9 +341,9 @@ describe("sanitizePreviewData", () => {
                             },
                         };
                         break;
-                    case "article":
+                    case "article-section":
                         previewContent = {
-                            type: "article",
+                            type: "article-section",
                             data: {
                                 article: {
                                     content: "A",
