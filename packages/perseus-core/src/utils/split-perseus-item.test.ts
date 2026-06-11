@@ -227,6 +227,7 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
+                        textAlign: "left",
                     },
                 },
             },
@@ -243,7 +244,7 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        rightAlign: false,
+                        textAlign: "left",
                         answers: [
                             {
                                 simplify: "required",

@@ -56,6 +56,15 @@ div.graphie {
 .framework-perseus.perseus-mobile .perseus-input-right-align .keypad-input {
     text-align: right;
 }
+#answercontent input[type="text"].perseus-input-center-align,
+#answercontent input[type="number"].perseus-input-center-align,
+.framework-perseus input[type="text"].perseus-input-center-align,
+.framework-perseus input[type="number"].perseus-input-center-align {
+    text-align: center;
+}
+.framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
+    text-align: center;
+}
 .framework-perseus div.paragraph {
     font-family: "Lato", sans-serif;
     font-weight: 400;
