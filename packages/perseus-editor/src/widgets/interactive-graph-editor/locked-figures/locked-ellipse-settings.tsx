@@ -187,6 +187,7 @@ const LockedEllipseSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
+                    disabled={editingDisabled}
                     style={styles.spaceUnder}
                     onChange={handleCenterChange}
                 />
@@ -200,6 +201,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Radius */}
             <CoordinatePairInput
                 coord={radius}
+                disabled={editingDisabled}
                 labels={["x radius", "y radius"]}
                 style={styles.spaceUnder}
                 onChange={(newCoords: Coord) =>
@@ -220,6 +222,7 @@ const LockedEllipseSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
                 <Strut size={spacing.medium_16} />
@@ -233,6 +236,7 @@ const LockedEllipseSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
+                        disabled={editingDisabled}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
                             // eslint-disable-next-line no-restricted-syntax
@@ -256,6 +260,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
                 containerStyle={{marginBottom: sizing.size_080}}
             />
@@ -263,6 +268,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Weight */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({weight: value})}
             />
 

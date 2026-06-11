@@ -13,11 +13,17 @@ import type {Props as EditorProps} from "../interactive-graph-editor";
 type Props = {
     ariaLabelValue: string;
     ariaDescriptionValue: string;
+    editingDisabled?: boolean;
     onChange: (graphProps: Partial<EditorProps>) => void;
 };
 
 export default function InteractiveGraphDescription(props: Props) {
-    const {ariaLabelValue, ariaDescriptionValue, onChange} = props;
+    const {
+        ariaLabelValue,
+        ariaDescriptionValue,
+        editingDisabled = false,
+        onChange,
+    } = props;
 
     const [isOpen, setIsOpen] = React.useState(true);
 
@@ -49,6 +55,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         Title
                         <TextField
                             value={ariaLabelValue}
+                            disabled={editingDisabled}
                             onChange={(newValue) =>
                                 onChange({
                                     fullGraphAriaLabel:
@@ -72,6 +79,7 @@ export default function InteractiveGraphDescription(props: Props) {
                     <TextArea
                         id={descriptionTextAreaId}
                         value={ariaDescriptionValue}
+                        disabled={editingDisabled}
                         onChange={(newValue) =>
                             onChange({
                                 fullGraphAriaDescription:

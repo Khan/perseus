@@ -65,6 +65,7 @@ function LockedFigureAria(props: Props) {
             <TextArea
                 id={ariaLabelId}
                 value={loading ? "Loading..." : ariaLabel ?? ""}
+                disabled={editingDisabled}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.

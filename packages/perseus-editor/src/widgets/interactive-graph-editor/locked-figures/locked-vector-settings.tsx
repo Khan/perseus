@@ -169,6 +169,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Line color settings */}
             <ColorSelect
                 selectedValue={lineColor}
+                editingDisabled={editingDisabled}
                 onChange={handleColorChange}
                 style={{marginBottom: sizing.size_080}}
             />
@@ -176,6 +177,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Line weight settings */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value: StrokeWeight) =>
                     onChangeProps({weight: value})
                 }
@@ -205,6 +207,7 @@ const LockedVectorSettings = (props: Props) => {
             >
                 <CoordinatePairInput
                     coord={tail}
+                    disabled={editingDisabled}
                     error={isInvalid}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 0);
@@ -228,6 +231,7 @@ const LockedVectorSettings = (props: Props) => {
             >
                 <CoordinatePairInput
                     coord={tip}
+                    disabled={editingDisabled}
                     error={isInvalid}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 1);

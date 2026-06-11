@@ -158,6 +158,7 @@ function InteractiveGraphSRTree({
     fullGraphAriaLabel,
     fullGraphAriaDescription,
     lockedFigures,
+    editingDisabled = false,
 }) {
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [showTags, setShowTags] = React.useState(false);
@@ -190,6 +191,7 @@ function InteractiveGraphSRTree({
                         <Switch
                             id={switchId}
                             checked={showTags}
+                            disabled={editingDisabled}
                             onChange={setShowTags}
                         />
                         <Strut size={spacing.xSmall_8} />

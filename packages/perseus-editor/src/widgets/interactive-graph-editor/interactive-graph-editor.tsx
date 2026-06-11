@@ -465,6 +465,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             ariaDescriptionValue={
                                 this.props.fullGraphAriaDescription ?? ""
                             }
+                            editingDisabled={
+                                this.props.apiOptions?.editingDisabled ?? false
+                            }
                             onChange={this.props.onChange}
                         />
                         <InteractiveGraphCorrectAnswer
@@ -535,6 +538,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 this.props.fullGraphAriaDescription
                             }
                             lockedFigures={this.props.lockedFigures}
+                            editingDisabled={
+                                this.props.apiOptions?.editingDisabled ?? false
+                            }
                         />
                         <InteractiveGraphSettings
                             box={getInteractiveBoxFromSizeClass(sizeClass)}

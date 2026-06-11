@@ -237,6 +237,7 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
+                    disabled={editingDisabled}
                     // TODO(LEMS-2656): remove TS suppression
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
@@ -256,6 +257,7 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
                 <Strut size={spacing.small_12} />
@@ -263,6 +265,7 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
+                    editingDisabled={editingDisabled}
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
                         ((value: "solid" | "dashed") =>
@@ -272,6 +275,7 @@ const LockedLineSettings = (props: Props) => {
             </View>
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value: StrokeWeight) =>
                     onChangeProps({weight: value})
                 }
@@ -287,6 +291,7 @@ const LockedLineSettings = (props: Props) => {
                 headerLabel="Point 1"
                 expanded={true}
                 showPoint={showPoint1}
+                editingDisabled={editingDisabled}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point1}
                 onTogglePoint={(newValue) =>
@@ -298,6 +303,7 @@ const LockedLineSettings = (props: Props) => {
                 headerLabel="Point 2"
                 expanded={true}
                 showPoint={showPoint2}
+                editingDisabled={editingDisabled}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point2}
                 onTogglePoint={(newValue) =>

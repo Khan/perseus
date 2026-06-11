@@ -202,6 +202,7 @@ const LockedPointSettings = (props: Props) => {
         >
             <CoordinatePairInput
                 coord={coord}
+                disabled={editingDisabled}
                 style={styles.spaceUnder}
                 onChange={handleCoordChange}
                 error={!!error}
@@ -213,6 +214,7 @@ const LockedPointSettings = (props: Props) => {
                     label="show point on graph"
                     checked={!!showPoint}
                     style={showPoint && styles.spaceUnder}
+                    disabled={editingDisabled}
                     onChange={onTogglePoint}
                 />
             )}
@@ -222,12 +224,14 @@ const LockedPointSettings = (props: Props) => {
                 <>
                     <ColorSelect
                         selectedValue={pointColor}
+                        editingDisabled={editingDisabled}
                         onChange={handleColorChange}
                         style={styles.spaceUnder}
                     />
                     <LabeledSwitch
                         label="open point"
                         checked={!filled}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             onChangeProps({filled: !newValue});
                         }}
