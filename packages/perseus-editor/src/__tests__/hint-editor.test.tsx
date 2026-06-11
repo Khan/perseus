@@ -16,7 +16,11 @@ describe("CombinedHintsEditor", () => {
 
     it("should render", () => {
         render(
-            <CombinedHintsEditor deviceType="phone" previewURL="about:blank" />,
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+            />,
         );
     });
 
@@ -27,6 +31,7 @@ describe("CombinedHintsEditor", () => {
             <CombinedHintsEditor
                 deviceType="phone"
                 previewURL="about:blank"
+                highlightLint={false}
                 hints={[
                     {content: "You know this one!", widgets: {}, images: {}},
                     {content: "Ok, the answer is 3", widgets: {}, images: {}},
@@ -49,6 +54,7 @@ describe("CombinedHintsEditor", () => {
             <CombinedHintsEditor
                 deviceType="phone"
                 previewURL="about:blank"
+                highlightLint={false}
                 hints={[
                     {content: "You know this one!", widgets: {}, images: {}},
                     {content: "Ok, the answer is 3", widgets: {}, images: {}},
@@ -72,6 +78,7 @@ describe("CombinedHintsEditor", () => {
             <CombinedHintsEditor
                 deviceType="phone"
                 previewURL="about:blank"
+                highlightLint={false}
                 hints={[
                     {content: "You know this one!", widgets: {}, images: {}},
                     {content: "Ok, the answer is 3", widgets: {}, images: {}},
@@ -95,6 +102,7 @@ describe("CombinedHintsEditor", () => {
                 deviceType="phone"
                 previewURL="about:blank"
                 apiOptions={{editingDisabled: true}}
+                highlightLint={false}
                 hints={[
                     {content: "You know this one!", widgets: {}, images: {}},
                 ]}
