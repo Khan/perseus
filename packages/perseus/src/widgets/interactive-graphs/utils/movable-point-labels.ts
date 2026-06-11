@@ -73,11 +73,7 @@ export function getLabeledMovablePoints(
                 pointLabels,
                 flatCoords.length,
             );
-            return collect(
-                flatCoords,
-                effective,
-                (i) => `${state.type}-${i}`,
-            );
+            return collect(flatCoords, effective, (i) => `${state.type}-${i}`);
         }
         case "absolute-value":
         case "exponential":
