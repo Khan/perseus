@@ -1,7 +1,7 @@
 import {components} from "@khanacademy/perseus";
+import {NeutralBadge, StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {addStyle, View} from "@khanacademy/wonder-blocks-core";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import Pill from "@khanacademy/wonder-blocks-pill";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -105,29 +105,28 @@ function SRTree(props: Props) {
             {elementArias.map((aria, index) => (
                 <li key={index}>
                     {showTags && (
-                        <Pill
-                            size="small"
+                        <StatusBadge
                             kind="success"
-                            style={styles.smallSpaceRight}
-                        >
-                            {aria.roleOrTag}
-                        </Pill>
+                            label={aria.roleOrTag}
+                            styles={{root: styles.smallSpaceRight}}
+                        />
                     )}
                     {aria.className}
                     <StyledUl style={styles.indentListLeft}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        value.name === "label"
-                                            ? "info"
-                                            : "neutral"
-                                    }
-                                    style={styles.smallSpaceRight}
-                                >
-                                    {value.name}
-                                </Pill>
+                                {value.name === "label" ? (
+                                    <StatusBadge
+                                        kind="info"
+                                        label={value.name}
+                                        styles={{root: styles.smallSpaceRight}}
+                                    />
+                                ) : (
+                                    <NeutralBadge
+                                        label={value.name}
+                                        styles={{root: styles.smallSpaceRight}}
+                                    />
+                                )}
                                 {value.value}
                             </li>
                         ))}

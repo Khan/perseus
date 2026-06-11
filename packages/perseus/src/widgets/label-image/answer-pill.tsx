@@ -1,3 +1,10 @@
+// TODO(LEMS-4131): `Pill` is deprecated (use `Badge`/`StatusBadge`). This is
+// the only remaining `Pill` after the editor Pill migration. It is intentionally
+// left for now because it is a RUNTIME, learner-facing component (rendered by
+// label-image/marker.tsx), not part of the editor — so it is out of scope for
+// the editor disabled-state work and should be migrated under its own
+// runtime-scoped ticket with its own QA. Note it is interactive (has onClick),
+// so the replacement is an interactive control, not a Badge.
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
