@@ -4,7 +4,11 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
-import type {Hint, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    Hint,
+    PerseusItem,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 /**
  * The subset of `LinterContextProps` that's meaningful to send across the
@@ -75,13 +79,30 @@ export type ArticleAllPreviewData = {
 };
 
 /**
+ * Data for the interactive exercise preview (drives the exercise editor's
+ * "Preview" tab in khan/frontend).
+ *
+ * Unlike the read-only `question` preview, this signals the iframe to mount the
+ * full interactive `ExercisePreview` component (hint controls, answer checking,
+ * scoring) rather than a `ServerItemRenderer`. All of that interactivity lives
+ * inside the iframe — the parent only sends these fields and never observes or
+ * controls the exercise state.
+ */
+export type ExercisePreviewData = {
+    item: PerseusItem;
+    apiOptions: SerializableApiOptions;
+    showRationales: boolean;
+};
+
+/**
  * Union of all preview content types
  */
 export type PreviewContent =
     | {type: "question"; data: QuestionPreviewData}
     | {type: "hint"; data: HintPreviewData}
     | {type: "article-section"; data: ArticleSectionPreviewData}
-    | {type: "article-all"; data: ArticleAllPreviewData};
+    | {type: "article-all"; data: ArticleAllPreviewData}
+    | {type: "exercise"; data: ExercisePreviewData};
 
 // ---- Parent → Iframe messages ----
 

@@ -112,6 +112,23 @@ describe("message-validators", () => {
             expect(isParentToIframeMessage(message)).toBe(true);
         });
 
+        it("returns true for valid exercise content-data message", () => {
+            const message = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "content-data" as const,
+                content: {
+                    type: "exercise" as const,
+                    data: {
+                        item: {question: {content: "test"}},
+                        apiOptions: {},
+                        showRationales: true,
+                    },
+                },
+            };
+
+            expect(isParentToIframeMessage(message)).toBe(true);
+        });
+
         it("returns false for null", () => {
             expect(isParentToIframeMessage(null)).toBe(false);
         });
