@@ -19,7 +19,7 @@ jest.mock("./preview/use-preview-controller", () => ({
 
 function buildArticleContent(): PreviewContent {
     return {
-        type: "article",
+        type: "article-section",
         data: {
             apiOptions: ApiOptions.defaults,
             article: {content: "Hello", widgets: {}, images: {}},

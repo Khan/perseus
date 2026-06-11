@@ -282,7 +282,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                             seamless={true}
                                             url={this.props.previewURL}
                                             content={{
-                                                type: "article" as const,
+                                                type: "article-section" as const,
                                                 data: this._previewDataForSection(
                                                     section,
                                                     i,
