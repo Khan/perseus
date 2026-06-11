@@ -1,0 +1,12 @@
+# Used by utils/start-perseus-in-local-server.ts to mount Perseus and the
+# frontend repo at their exact host paths inside the rspack container, so
+# all absolute paths in pnpm-lock.yaml and virtual-store symlinks resolve
+# correctly.
+#
+# Requires PERSEUS_ROOT and FRONTEND_ROOT to be set in the env passed to
+# docker compose (written into docker-compose.env by the script).
+services:
+    rspack:
+        volumes:
+            - "${PERSEUS_ROOT}:${PERSEUS_ROOT}"
+            - "${FRONTEND_ROOT}:${FRONTEND_ROOT}"
