@@ -209,7 +209,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         showTooltips: false,
         showProtractor: false,
         userInput: {
-            type: "linear",
+            type: "none",
         },
     };
 
