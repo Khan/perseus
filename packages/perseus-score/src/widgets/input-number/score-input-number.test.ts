@@ -1,8 +1,11 @@
-import scoreInputNumber from "./score-input-number";
-
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
+} from "@khanacademy/perseus-core";
+
+import scoreInputNumber from "./score-input-number";
+
+import type {
     PerseusInputNumberUserInput,
     PerseusInputNumberWidgetOptions,
 } from "@khanacademy/perseus-core";

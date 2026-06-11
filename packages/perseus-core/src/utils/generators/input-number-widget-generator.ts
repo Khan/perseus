@@ -7,12 +7,15 @@ import type {
 } from "../../data-schema";
 
 export function generateInputNumberWidget(
-    inputNumberWidgetProperties?: Partial<Omit<InputNumberWidget, "type">>,
+    inputNumberWidgetProperties?: Partial<
+        Omit<InputNumberWidget, "type" | "version">
+    >,
 ): InputNumberWidget {
     return {
         type: "input-number",
         graded: true,
         static: false,
+        version: {major: 1, minor: 0},
         options: generateInputNumberOptions(),
         ...inputNumberWidgetProperties,
     };
