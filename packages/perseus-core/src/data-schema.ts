@@ -2227,28 +2227,6 @@ export type PerseusVideoWidgetOptions = {
     static?: boolean;
 };
 
-export type PerseusInputNumberAnswerType =
-    | "number"
-    | "decimal"
-    | "integer"
-    | "rational"
-    | "improper"
-    | "mixed"
-    | "percent"
-    | "pi";
-
-/** Options for the input-number widget (deprecated; prefer numeric-input). */
-// FIXME: delete
-export type PerseusInputNumberWidgetOptionsV0 = {
-    answerType?: PerseusInputNumberAnswerType;
-    inexact?: boolean;
-    maxError?: number | string;
-    rightAlign?: boolean;
-    simplify: "required" | "optional" | "enforced";
-    size: "normal" | "small";
-    value: string | number;
-};
-
 export type PerseusInputNumberAnswer = {
     /** The expected answer. Null in answerless data. */
     value: number | null;
