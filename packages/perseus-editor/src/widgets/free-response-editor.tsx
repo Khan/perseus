@@ -11,6 +11,7 @@ import trashIcon from "@phosphor-icons/core/regular/trash.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusFreeResponseWidgetOptions,
     FreeResponseDefaultWidgetOptions,
@@ -19,6 +20,7 @@ import type {
 import type {ChangeEventHandler} from "react";
 
 type Props = PerseusFreeResponseWidgetOptions & {
+    apiOptions?: APIOptionsWithDefaults;
     onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
 };
 
@@ -94,13 +96,16 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     };
 
-    renderCriteriaList: () => React.ReactNode = () => {
+    renderCriteriaList: (editingDisabled: boolean) => React.ReactNode = (
+        editingDisabled,
+    ) => {
         const isDeletable = this.props.scoringCriteria.length > 1;
 
         return this.props.scoringCriteria.map((criterion, index) => {
             return (
                 <CriterionEditor
                     criterion={criterion}
+                    editingDisabled={editingDisabled}
                     index={index}
                     isDeletable={isDeletable}
                     key={index}
@@ -112,6 +117,8 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         return (
             <View>
                 <LabeledField
@@ -171,10 +178,11 @@ class FreeResponseEditor extends React.Component<Props> {
                 <View>
                     <View style={styles.criteriaList} tag="fieldset">
                         <BodyText tag="legend">Scoring criteria</BodyText>
-                        {this.renderCriteriaList()}
+                        {this.renderCriteriaList(editingDisabled)}
                     </View>
                     <View>
                         <Button
+                            disabled={editingDisabled}
                             onClick={this.handleAddCriterion}
                             startIcon={plusCircleIcon}
                         >
@@ -190,6 +198,7 @@ class FreeResponseEditor extends React.Component<Props> {
 const CriterionEditor = function (props: {
     index: number;
     isDeletable: boolean;
+    editingDisabled: boolean;
     criterion: PerseusFreeResponseWidgetScoringCriterion;
     onChange: (
         index: number,
@@ -214,7 +223,7 @@ const CriterionEditor = function (props: {
                     <Button
                         aria-label={`Delete criterion ${props.index + 1}`}
                         actionType="destructive"
-                        disabled={!props.isDeletable}
+                        disabled={!props.isDeletable || props.editingDisabled}
                         kind="tertiary"
                         onClick={() => props.onDelete(props.index)}
                         size="small"
