@@ -318,6 +318,11 @@ export class ServerItemRenderer
         assetKey,
         status,
     ) => {
+        // Ensure this function is idempotent. setState always causes a
+        // re-render even if no state properties changed.
+        if (status === this.state.assetStatuses[assetKey]) {
+            return;
+        }
         // setState doesn't properly merge objects so we have to do it ourselves
         const assetStatuses = {
             ...this.state.assetStatuses,

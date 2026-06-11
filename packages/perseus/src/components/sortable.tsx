@@ -463,13 +463,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         waitForTexRendererToLoad: true,
     };
 
-    remeasureItems: () => void = _.debounce(() => {
-        this.setState({
-            // Clear item measurements
-            items: Sortable.clearItemMeasurements(this.state.items),
-        });
-    }, 20);
-
     static itemsFromProps(props: {
         disabled: boolean;
         options: ReadonlyArray<SortableOption>;
@@ -540,7 +533,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !this.state.items[0].height
         ) {
-            // Measure on the next frame to allow items size to settle.
+            // Measure after the DOM has been updated and layout has occurred.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {
@@ -558,15 +551,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
-        // Fetches a jQuery list of elements for each item
-        const $items = _.map(
-            items,
-            function (item) {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                return $(ReactDOM.findDOMNode(this.refs[item.key]));
-            },
-            this,
+        // Get the DOM element for each item, wrapped in jQuery.
+        const $items = items.map((item) =>
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            $(ReactDOM.findDOMNode(this.refs[item.key])),
         );
 
         const widths: ReadonlyArray<number> = _.invoke($items, "outerWidth");
@@ -853,8 +842,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                             this.props.linterContext,
                             "sortable",
                         )}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onRender={this.remeasureItems}
                         // eslint-disable-next-line react/jsx-no-bind
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseDown={this.onMouseDown.bind(this, item.key)}

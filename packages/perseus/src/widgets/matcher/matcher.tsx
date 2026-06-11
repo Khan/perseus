@@ -48,8 +48,8 @@ type DefaultProps = {
 };
 
 type State = {
-    leftHeight: number;
-    rightHeight: number;
+    leftHeight?: number;
+    rightHeight?: number;
     texRendererLoaded: boolean;
 };
 
@@ -70,8 +70,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
     };
 
     state: State = {
-        leftHeight: 0,
-        rightHeight: 0,
         texRendererLoaded: false,
     };
 
@@ -102,6 +100,13 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         this._maybeSettle();
     }
 
+    componentDidUpdate() {
+        if (this.state.leftHeight != null && this.state.rightHeight != null) {
+            console.log("_setAssetStatus(true)");
+            this._setAssetStatus(true);
+        }
+    }
+
     componentWillUnmount(): void {
         // Settle on unmount so a tear-down mid-cascade doesn't block the
         // renderer's onRendered indefinitely.
@@ -124,27 +129,21 @@ export class Matcher extends React.Component<Props, State> implements Widget {
     // stable (see _maybeSettle).
     onMeasureLeft: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
-        const currentConstraint = _.max([
-            this.state.leftHeight,
-            this.state.rightHeight,
-        ]);
-        this.setState({leftHeight: height});
-        if (height <= currentConstraint && currentConstraint > 0) {
-            this._leftStable = true;
-            this._maybeSettle();
+        if (height !== this.state.leftHeight) {
+            console.log(
+                `changing leftHeight from ${this.state.leftHeight} to ${height}`,
+            );
+            this.setState({leftHeight: height});
         }
     };
 
     onMeasureRight: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
-        const currentConstraint = _.max([
-            this.state.leftHeight,
-            this.state.rightHeight,
-        ]);
-        this.setState({rightHeight: height});
-        if (height <= currentConstraint && currentConstraint > 0) {
-            this._rightStable = true;
-            this._maybeSettle();
+        if (height !== this.state.rightHeight) {
+            console.log(
+                `changing rightHeight from ${this.state.rightHeight} to ${height}`,
+            );
+            this.setState({rightHeight: height});
         }
     };
 
