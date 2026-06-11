@@ -34,7 +34,6 @@ export {default as scoreTable} from "./widgets/table/score-table";
 export {default as validateTable} from "./widgets/table/validate-table";
 export {
     default as scoreInputNumber,
-    inputNumberAnswerTypes,
 } from "./widgets/input-number/score-input-number";
 
 export {scorePerseusItem, scoreWidgetsFunctional} from "./score";
