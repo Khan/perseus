@@ -32,7 +32,7 @@ export default {
                         {
                             type: "point",
                             coord: [-9, 9],
-                            color: "green",
+                            color: "blue",
                             filled: true,
                             labels: [],
                         },
