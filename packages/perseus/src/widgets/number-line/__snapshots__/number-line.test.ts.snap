@@ -56,7 +56,7 @@ exports[`number-line widget snapshots all tick labels show when "Style" is "deci
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -621,7 +621,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -978,7 +978,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -1351,7 +1351,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -1916,7 +1916,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -2481,7 +2481,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -2886,7 +2886,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -3328,7 +3328,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -3701,7 +3701,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"
@@ -4095,7 +4095,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="perseus-widget perseus-widget-interactive-number-line"

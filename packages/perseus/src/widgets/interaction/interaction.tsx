@@ -270,9 +270,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                 range={this.props.graph.range}
                 options={this.props.graph}
                 setup={this._setupGraphie}
-                setDrawingAreaAvailable={
-                    this.props.apiOptions.setDrawingAreaAvailable
-                }
             >
                 {this.props.graph.markings === "graph" && (
                     <Label

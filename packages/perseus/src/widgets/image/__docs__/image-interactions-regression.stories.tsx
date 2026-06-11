@@ -1,6 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 import {
     earthMoonImage,
@@ -184,14 +182,6 @@ export const ZoomClickedLargePortraitImage: Story = {
 
 export const LongDescriptionClickedStateWithTallAnimatedGif: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
-    },
     args: {
         backgroundImage: animatedGifPortrait,
         alt: animatedGifPortraitAlt,

@@ -1,5 +1,31 @@
 # @khanacademy/math-input
 
+## 26.4.34
+
+### Patch Changes
+
+-   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/keypad-context@3.2.62
+
+## 26.4.33
+
+### Patch Changes
+
+-   [#3703](https://github.com/Khan/perseus/pull/3703) [`5d00f57022`](https://github.com/Khan/perseus/commit/5d00f57022f609724bccd781686e6db821856b2c) Thanks [@Myranae](https://github.com/Myranae)! - Convert expression widget related files to use semantic tokens
+
+-   Updated dependencies [[`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81), [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88), [`ec0ce8d61a`](https://github.com/Khan/perseus/commit/ec0ce8d61a8f8565acba672fe249723d025f88fc)]:
+    -   @khanacademy/perseus-core@27.4.0
+    -   @khanacademy/keypad-context@3.2.61
+
+## 26.4.32
+
+### Patch Changes
+
+-   Updated dependencies [[`219272532b`](https://github.com/Khan/perseus/commit/219272532b64194d6a0f4fda235a2c90e3163f72), [`c27fb0f232`](https://github.com/Khan/perseus/commit/c27fb0f232d030c8a232191ccfaa2f63386f86ba)]:
+    -   @khanacademy/perseus-core@27.3.0
+    -   @khanacademy/keypad-context@3.2.60
+
 ## 26.4.31
 
 ### Patch Changes

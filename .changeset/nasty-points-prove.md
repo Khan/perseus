@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": patch
 ---
 
-[Explanation] Add more visual regression tests
+[Video] Fix video widget alignment

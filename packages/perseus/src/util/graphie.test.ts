@@ -1308,17 +1308,6 @@ describe("Graphie drawing tools", () => {
                 expect(target?.getAttribute("height")).toBe("50");
             },
         );
-
-        it("should disable drawing area if allowScratchpad is false", async () => {
-            const graphie = createAndInitGraphie();
-            const onSetDrawingAreaAvailable = jest.fn();
-            graphie.addMouseLayer({
-                setDrawingAreaAvailable: onSetDrawingAreaAvailable,
-                allowScratchpad: false,
-            });
-
-            expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
-        });
     });
 
     describe("getMousePx", () => {

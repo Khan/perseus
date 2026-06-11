@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -32,10 +31,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     } = props;
     const context = React.useContext(PerseusI18nContext);
     const {analytics} = useDependencies();
-    const gifControlsFF = isFeatureOn(
-        {apiOptions},
-        "image-widget-upgrade-gif-controls",
-    );
 
     // Gif should be paused on initial render for a11y.
     const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
@@ -81,7 +76,6 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     width={backgroundImage.width}
                     height={backgroundImage.height}
                     scale={scale}
-                    preloader={apiOptions.imagePreloader}
                     extraGraphie={{
                         box: box,
                         range: range,
@@ -95,13 +89,9 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     allowZoom={!decorative && !imageIsGif}
                     alt={decorative || caption === alt ? "" : alt}
                     setAssetStatus={setAssetStatus}
-                    isGifPlaying={
-                        gifControlsFF && imageIsGif ? isGifPlaying : undefined
-                    }
+                    isGifPlaying={imageIsGif ? isGifPlaying : undefined}
                     onGifLoop={
-                        gifControlsFF && imageIsGif
-                            ? () => setIsGifPlaying(false)
-                            : undefined
+                        imageIsGif ? () => setIsGifPlaying(false) : undefined
                     }
                 />
             )}
@@ -161,8 +151,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {/* Image */}
             {svgImage}
 
-            {/* Description & Caption */}
-            {((gifControlsFF && imageIsGif) || caption || longDescription) && (
+            {/* Gif Controls, Description, and Caption */}
+            {(imageIsGif || caption || longDescription) && (
                 <ImageInfoArea
                     isGifPlaying={isGifPlaying}
                     setIsGifPlaying={setIsGifPlaying}

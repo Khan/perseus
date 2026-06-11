@@ -1,6 +1,8 @@
 import {
     generateFreeResponseOptions,
     generateFreeResponseWidget,
+    // Tests are fine to import, main files aren't
+    // eslint-disable-next-line import/no-restricted-paths
 } from "../../utils/generators/free-response-widget-generator";
 import {parse} from "../parse";
 import {failure, success} from "../result";

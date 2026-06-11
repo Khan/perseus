@@ -224,6 +224,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
+                    role="figure"
                     style={{
                         position: "relative",
                         padding: "25px 25px 0 0",
@@ -244,15 +245,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
+                        // Instructions read first on focus so screen reader
+                        // users hear how to interact before the descriptions
+                        state.type !== "none" &&
+                            !disableInteraction &&
+                            instructionsId,
                         fullGraphAriaDescription && descriptionId,
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
                             unlimitedGraphKeyboardPromptId,
-                        state.type !== "none" &&
-                            !disableInteraction &&
-                            instructionsId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -263,6 +266,22 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         handleBlurEvent(event, state, dispatch);
                     }}
                 >
+                    {/*
+                      Instructions render first so screen reader users
+                      encounter how to interact with the graph before the
+                      graph and interactive-element descriptions
+                    */}
+                    {state.type !== "none" && (
+                        <View
+                            id={instructionsId}
+                            tabIndex={-1}
+                            className="mafs-sr-only"
+                        >
+                            {isUnlimitedGraphState(state)
+                                ? strings.srUnlimitedGraphInstructions
+                                : strings.srGraphInstructions}
+                        </View>
+                    )}
                     {fullGraphAriaDescription && (
                         <View
                             id={descriptionId}
@@ -282,17 +301,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             className="mafs-sr-only"
                         >
                             {interactiveElementsDescription}
-                        </View>
-                    )}
-                    {state.type !== "none" && (
-                        <View
-                            id={instructionsId}
-                            tabIndex={-1}
-                            className="mafs-sr-only"
-                        >
-                            {isUnlimitedGraphState(state)
-                                ? strings.srUnlimitedGraphInstructions
-                                : strings.srGraphInstructions}
                         </View>
                     )}
 

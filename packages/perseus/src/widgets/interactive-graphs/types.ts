@@ -69,7 +69,180 @@ type MoveCenterAnnouncement = {
     y: number;
 };
 
-// Whole-polygon keyboard drag (doMoveAll). Carries every vertex so the
+// Quadratic graph: the moved point reads with its quadrant-aware
+// label; when the parabola is a true quadratic (not a degenerate
+// line), the announcement also reads the new vertex location. The
+// reducer pre-computes the vertex since it already imports the
+// quadratic helpers.
+type MoveQuadraticPointAnnouncement = {
+    type: "move-quadratic-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    vertex: Coord | undefined;
+};
+
+// Vector point keyboard move. The tail (index 0) uses
+// the generic point label; the tip (index 1) has a dedicated label.
+type MoveVectorPointAnnouncement = {
+    type: "move-vector-point";
+    pointIndex: number;
+    x: number;
+    y: number;
+};
+
+// Segment endpoint keyboard move. Single- and
+// multi-segment graphs use different labels, so totalSegments is carried
+// alongside the segment and endpoint indices.
+type MoveSegmentPointAnnouncement = {
+    type: "move-segment-point";
+    segmentIndex: number;
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    totalSegments: number;
+};
+
+// Whole-segment keyboard drag. Carries both endpoints so the
+// announcement can describe the segment between them.
+type MoveSegmentLineAnnouncement = {
+    type: "move-segment-line";
+    coords: PairOfPoints;
+};
+
+// Linear-system endpoint keyboard move. Carries the
+// line index so the announcement can say which of the system's lines moved.
+type MoveLinearSystemPointAnnouncement = {
+    type: "move-linear-system-point";
+    lineIndex: number;
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Ray endpoint keyboard move. The endpoint (index 0) and the terminal point
+// (index 1) use different labels, chosen by index.
+type MoveRayPointAnnouncement = {
+    type: "move-ray-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Whole-vector keyboard drag. Carries the tail and tip so the
+// announcement can describe the vector between them.
+type MoveVectorLineAnnouncement = {
+    type: "move-vector-line";
+    coords: PairOfPoints;
+};
+
+// Whole-line keyboard drag for a linear-system line. Carries the
+// line index and both endpoints so the announcement can describe that line.
+type MoveLinearSystemLineAnnouncement = {
+    type: "move-linear-system-line";
+    lineIndex: number;
+    coords: PairOfPoints;
+};
+
+// Whole-ray keyboard drag. Carries both endpoints so the
+// announcement can describe the ray they run through.
+type MoveRayLineAnnouncement = {
+    type: "move-ray-line";
+    coords: PairOfPoints;
+};
+
+// Whole-line keyboard drag for the linear graph. Carries both
+// endpoints so the announcement can describe the line they run through.
+type MoveLinearLineAnnouncement = {
+    type: "move-linear-line";
+    coords: PairOfPoints;
+};
+
+// Sinusoid graph: peak (index 1) reads as max/min/flat depending on
+// its y vs the root's y. We pass otherY so the screen reader text can
+// pick the right label without recomputing it from the reducer.
+type MoveSinusoidPointAnnouncement = {
+    type: "move-sinusoid-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    otherY: number;
+};
+
+// Exponential graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveExponentialPointAnnouncement = {
+    type: "move-exponential-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Logarithm graph: the two control points (indices 0, 1) use
+// dedicated point labels chosen by index.
+type MoveLogarithmPointAnnouncement = {
+    type: "move-logarithm-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Exponential graph: the horizontal asymptote moves vertically, so only
+// its y-position is carried.
+type MoveExponentialAsymptoteAnnouncement = {
+    type: "move-exponential-asymptote";
+    asymptoteY: number;
+};
+
+// Tangent graph: the inflection point (index 0) and the second/control
+// point (index 1) use different labels, chosen by index — mirroring the
+// static aria-labels in tangent.tsx.
+type MoveTangentPointAnnouncement = {
+    type: "move-tangent-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Logarithm graph: the vertical asymptote moves horizontally, so only
+// its x-position is carried.
+type MoveLogarithmAsymptoteAnnouncement = {
+    type: "move-logarithm-asymptote";
+    asymptoteX: number;
+};
+
+// Absolute-value graph: the vertex (index 0) and the point on the arm
+// (index 1) use different labels, chosen by index — mirroring the static
+// aria-labels in absolute-value.tsx.
+type MoveAbsoluteValuePointAnnouncement = {
+    type: "move-absolute-value-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+};
+
+// Angle graph: vertex (index 1) reads with the measured angle; sides
+// (indices 0, 2) read with just coords. The reducer pre-computes the
+// measure since it already imports the angle helpers.
+type MoveAnglePointAnnouncement = {
+    type: "move-angle-point";
+    pointIndex: number;
+    pointLabel: string | number;
+    x: number;
+    y: number;
+    angleMeasure: number;
+};
+
+// Whole-polygon keyboard drag. Carries every vertex so the
 // announcement can list each point's new coordinates, plus any author-supplied
 // custom labels so each vertex is announced by its label when one is set.
 type MovePolygonAnnouncement = {
@@ -82,6 +255,24 @@ export type InteractiveGraphStateAnnouncement =
     | MovePointAnnouncement
     | MoveRadiusPointAnnouncement
     | MoveCenterAnnouncement
+    | MoveQuadraticPointAnnouncement
+    | MoveVectorPointAnnouncement
+    | MoveVectorLineAnnouncement
+    | MoveSegmentPointAnnouncement
+    | MoveSegmentLineAnnouncement
+    | MoveLinearSystemPointAnnouncement
+    | MoveLinearSystemLineAnnouncement
+    | MoveRayPointAnnouncement
+    | MoveRayLineAnnouncement
+    | MoveLinearLineAnnouncement
+    | MoveSinusoidPointAnnouncement
+    | MoveExponentialPointAnnouncement
+    | MoveExponentialAsymptoteAnnouncement
+    | MoveLogarithmPointAnnouncement
+    | MoveLogarithmAsymptoteAnnouncement
+    | MoveTangentPointAnnouncement
+    | MoveAbsoluteValuePointAnnouncement
+    | MoveAnglePointAnnouncement
     | MovePolygonAnnouncement;
 
 export interface InteractiveGraphStateCommon {
@@ -89,6 +280,10 @@ export interface InteractiveGraphStateCommon {
     // Custom screen-reader labels for each interactive point. When present,
     // pointLabels[i] replaces the default numeric "Point {i+1}" announcement.
     pointLabels?: string[];
+    // Opt-in: when true, render a visible on-canvas label next to each
+    // interactive point, driven by the matching `pointLabels[i]` entry.
+    // Defaults to off.
+    showPointLabels?: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
@@ -214,7 +409,5 @@ export type GraphDimensions = {
     width: number; // pixels
     height: number; // pixels
 };
-
-export type AriaLive = "off" | "assertive" | "polite" | undefined;
 
 export type SnapTo = "grid" | "angles" | "sides";

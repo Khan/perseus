@@ -2,13 +2,14 @@ import {render} from "@testing-library/react";
 import {Mafs} from "mafs";
 import React from "react";
 
-import * as UseDraggableModule from "../use-draggable";
+import * as UseDraggableModule from "../../use-draggable";
 
+import {MovableLine} from "./movable-line";
 import {
     getMovableLineKeyboardConstraint,
-    MovableLine,
+    insetTipAlongRay,
     trimRange,
-} from "./movable-line";
+} from "./util";
 
 import type {Interval, vec} from "mafs";
 
@@ -71,6 +72,62 @@ describe("trimRange", () => {
             [-9.6, 9.6],
             [-0.98, 0.98],
         ]);
+    });
+});
+
+describe("insetTipAlongRay", () => {
+    const range400: [Interval, Interval] = [
+        [-10, 10],
+        [-10, 10],
+    ];
+    const dims400: vec.Vector2 = [400, 400];
+
+    it("pulls tip 4px back toward tail along a horizontal ray", () => {
+        // Arrange, Act: 1 graph unit = 20 px, so 4 px ≈ 0.2 graph units
+        const tail: vec.Vector2 = [5, 3];
+        const tip: vec.Vector2 = [10, 3];
+        const result = insetTipAlongRay(tail, tip, range400, dims400);
+
+        // Assert
+        const expectedSomethingX = 9.8;
+        const expectedSomethingY = 3;
+        expect(result[0]).toBeCloseTo(expectedSomethingX);
+        expect(result[1]).toBeCloseTo(expectedSomethingY);
+    });
+
+    it("keeps a horizontal extension straight when tail sits on an edge (LEMS-4203)", () => {
+        const result = insetTipAlongRay([5, -10], [10, -10], range400, dims400);
+
+        // Assert
+        expect(result[0]).toBeCloseTo(9.8);
+        expect(result[1]).toBe(-10);
+    });
+
+    it("returns tip unchanged when tail and tip coincide", () => {
+        // Arrange, Act
+        const result = insetTipAlongRay([2, 2], [2, 2], range400, dims400);
+
+        // Assert
+        expect(result).toEqual([2, 2]);
+    });
+
+    it("measures inset distance in pixel space when axes have different scales", () => {
+        // Arrange: x-axis is 10 px/unit, y-axis is 100 px/unit
+        const range: [Interval, Interval] = [
+            [-10, 10],
+            [-1, 1],
+        ];
+        const dims: vec.Vector2 = [200, 200];
+
+        // Act: diagonal ray of equal graph-unit components — but in pixel
+        // space the y-component is 10x longer, so the inset is dominated
+        // by the y direction.
+        const result = insetTipAlongRay([0, 0], [1, 1], range, dims);
+
+        // Assert: pixel-space length = √(10² + 100²) ≈ 100.5, so 4 px
+        // back ≈ 0.0398 of the way toward tail.
+        expect(result[0]).toBeCloseTo(0.9602, 3);
+        expect(result[1]).toBeCloseTo(0.9602, 3);
     });
 });
 

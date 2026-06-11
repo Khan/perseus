@@ -133,7 +133,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     onRender: (node?: any) => void;
     problemNum?: number;
     reviewMode?: boolean | null | undefined;
-    highlightEmptyWidgets?: boolean;
 
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
@@ -466,11 +465,6 @@ class Renderer
         if (widgetInfo) {
             const type = (widgetInfo && widgetInfo.type) || impliedType;
 
-            let shouldHighlight = false;
-            if (this.props.highlightEmptyWidgets && this.props.userInput) {
-                shouldHighlight = this.emptyWidgets().includes(id);
-            }
-
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
@@ -488,7 +482,6 @@ class Renderer
                     }}
                     type={type}
                     widgetProps={this.getWidgetProps(id)}
-                    shouldHighlight={shouldHighlight}
                     linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
                         "widget",

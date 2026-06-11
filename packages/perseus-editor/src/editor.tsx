@@ -26,15 +26,11 @@ import {
     setPerseusClipboardData,
 } from "./util/clipboard";
 
+import type {APIOptions, ImageUploader} from "@khanacademy/perseus";
 import type {
-    APIOptions,
-    ChangeHandler,
-    ImageUploader,
-} from "@khanacademy/perseus";
-import type {
+    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
-    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 // like [[snowman numeric-input 1]]
@@ -133,8 +129,7 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
-    // eslint-disable-next-line import/no-deprecated
-    onChange: ChangeHandler;
+    onChange: (changes: Partial<PerseusRenderer>) => void;
 }>;
 
 type DefaultProps = {
@@ -175,6 +170,11 @@ export type InitializeWidgetOptionsParams = {
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
+    // When set, componentDidUpdate will move the textarea cursor to this
+    // position after the next render commits. Used by paste and widget-insert
+    // handlers to restore the cursor to a sensible position once React has
+    // re-rendered the textarea with the new content value. See componentDidUpdate.
+    _pendingCursorPos: number | null = null;
     widgetIds: any | null | undefined;
 
     underlay = React.createRef<HTMLDivElement>();
@@ -233,30 +233,30 @@ class Editor extends React.Component<Props, State> {
     componentDidUpdate(prevProps: Props) {
         const textarea = this.textarea.current;
 
-        // Slightly unorthodox method to ensure that programmatic text changes
-        // are in the browser's undo stack.
+        // Replace the textarea's value via document.execCommand("insertText")
+        // rather than `textarea.value = ...` so the change goes into the
+        // browser's undo stack — Ctrl+Z then unwinds a paste or widget insert
+        // as one step, the same as a user-typed edit would.
         // See https://stackoverflow.com/questions/41273569/how-to-enable-ctrl-z-when-you-change-an-input-text-dynamically-with-react
-        // Note: On unsupported browsers (*cough* Firefox *cough*) `execCommand`
-        // will return false. However at least in Firefox setting `value` on a
-        // textbox clears the undo stack so we don't get unexpected undo
-        // behavior.
+        // `execCommand` is deprecated per MDN but remains the only widely
+        // supported way to keep programmatic edits in the undo stack; all of
+        // Khan Academy's supported browsers implement it (per caniuse, global
+        // support is ~96% as of June 2026).
         if (this.lastUserValue != null && textarea) {
             textarea.focus();
             textarea.value = this.lastUserValue;
             textarea.selectionStart = 0;
             textarea.setSelectionRange(0, prevProps.content.length);
-            if (
-                document.execCommand(
-                    "insertText",
-                    false,
-                    this.props.content,
-                ) === false
-            ) {
-                // This command is not implemented. Fall back to setting `value`
-                // directly.
-                textarea.value = this.props.content;
-            }
+            document.execCommand("insertText", false, this.props.content);
             this.lastUserValue = null;
+        }
+
+        // If a handler (paste, widget insert) requested a specific cursor
+        // position to be applied after the controlled-component re-render,
+        // do that now.
+        if (this._pendingCursorPos != null && textarea) {
+            Util.textarea.moveCursor(textarea, this._pendingCursorPos);
+            this._pendingCursorPos = null;
         }
 
         // This can't be in componentWillReceiveProps because that's happening
@@ -296,17 +296,10 @@ class Editor extends React.Component<Props, State> {
     _handleWidgetEditorChange: (
         id: string,
         newWidgetInfo: PerseusWidget,
-        cb?: () => unknown,
-        silent?: boolean,
-    ) => void = (
-        id: string,
-        newWidgetInfo: PerseusWidget,
-        cb?: () => unknown,
-        silent?: boolean,
-    ) => {
+    ) => void = (id: string, newWidgetInfo: PerseusWidget) => {
         const widgets = Object.assign({}, this.props.widgets);
         widgets[id] = Object.assign({}, widgets[id], newWidgetInfo);
-        this.props.onChange({widgets}, cb, silent);
+        this.props.onChange({widgets});
     };
 
     _handleWidgetEditorRemove: (id: string) => void = (id: string) => {
@@ -352,14 +345,9 @@ class Editor extends React.Component<Props, State> {
                     width: width,
                     height: height,
                 };
-                props.onChange(
-                    {
-                        images: _.clone(images),
-                    },
-                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                    null, // callback
-                    true, // silent
-                );
+                props.onChange({
+                    images: _.clone(images),
+                });
             });
         });
     };
@@ -564,20 +552,16 @@ class Editor extends React.Component<Props, State> {
 
             // See componentDidUpdate() for how this flag is used
             this.lastUserValue = this.state.textAreaValue;
-            this.props.onChange(
-                {
-                    content: newContent,
-                    widgets: {
-                        ...safeWidgetData,
-                        ...this.getWidgetsReferencedIn(newContent),
-                    },
+            // After React commits the new content, place the cursor at the end
+            // of what we just pasted in.
+            this._pendingCursorPos = selectionStart + safeText.length;
+            this.props.onChange({
+                content: newContent,
+                widgets: {
+                    ...safeWidgetData,
+                    ...this.getWidgetsReferencedIn(newContent),
                 },
-                () => {
-                    const expectedCursorPosition =
-                        selectionStart + safeText.length;
-                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
-                },
-            );
+            });
         };
 
     _safeWidgetNameMapping: (widgetData: {
@@ -705,24 +689,13 @@ class Editor extends React.Component<Props, State> {
 
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
-        this.props.onChange(
-            {
-                content: newContent,
-                widgets: newWidgets,
-            },
-            () => {
-                if (!this.textarea.current) {
-                    return;
-                }
-
-                Util.textarea.moveCursor(
-                    this.textarea.current,
-                    // We want to put the cursor after the widget
-                    // and after any added newlines
-                    newContent.length - postlude.length,
-                );
-            },
-        );
+        // After React commits the new content, place the cursor after the
+        // newly-inserted widget syntax (and any added newlines).
+        this._pendingCursorPos = newContent.length - postlude.length;
+        this.props.onChange({
+            content: newContent,
+            widgets: newWidgets,
+        });
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
@@ -799,7 +772,7 @@ class Editor extends React.Component<Props, State> {
 
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
-        this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
+        this.props.onChange({content: newContent});
     };
 
     getSaveWarnings: () => any = () => {

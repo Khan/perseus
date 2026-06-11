@@ -312,7 +312,7 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
-    it("accepts the deprecated 'orange' color on locked figures so existing content keeps rendering", () => {
+    it("parses the deprecated 'orange' color on locked figures to 'gold'", () => {
         const result = parse(
             {
                 type: "interactive-graph",
@@ -375,7 +375,7 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "point",
                             coord: [0, 0],
-                            color: "orange",
+                            color: "gold",
                             filled: true,
                             labels: [],
                         },

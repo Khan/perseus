@@ -107,8 +107,6 @@ class Measurer extends React.Component<Props> implements Widget {
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
         });
 
         if (this.protractor) {

@@ -43,6 +43,8 @@ import {parseWidgetIdComponents} from "./widget-id-components";
 import type {
     DeprecatedStandinWidget,
     PerseusWidgetsMap,
+    // TODO(LEMS-4224): don't import from outside of the parser
+    // eslint-disable-next-line import/no-restricted-paths
 } from "../../data-schema";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 

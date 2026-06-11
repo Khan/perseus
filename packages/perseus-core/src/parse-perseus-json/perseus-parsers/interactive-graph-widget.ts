@@ -1,4 +1,3 @@
-import {lockedFigureColorNames} from "../../data-schema";
 import {
     array,
     boolean,
@@ -21,6 +20,8 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusGraphTypeLinear} from "../../data-schema";
 
 // Used to represent 2-D points and ranges
@@ -36,6 +37,7 @@ const parsePerseusGraphTypeAngle = object({
     coords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(trio(string, string, string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeCircle = object({
@@ -49,6 +51,7 @@ const parsePerseusGraphTypeCircle = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLinear = object({
@@ -56,6 +59,7 @@ const parsePerseusGraphTypeLinear = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLinearSystem = object({
@@ -64,6 +68,7 @@ const parsePerseusGraphTypeLinearSystem = object({
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeNone = object({
@@ -77,6 +82,7 @@ const parsePerseusGraphTypePoint = object({
     startCoords: optional(array(pairOfNumbers)),
     coord: optional(pairOfNumbers),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypePolygon = object({
@@ -89,6 +95,7 @@ const parsePerseusGraphTypePolygon = object({
     startCoords: optional(array(pairOfNumbers)),
     coords: optional(nullable(array(pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeQuadratic = object({
@@ -98,6 +105,7 @@ const parsePerseusGraphTypeQuadratic = object({
     ),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(trio(string, string, string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeRay = object({
@@ -105,6 +113,7 @@ const parsePerseusGraphTypeRay = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeSegment = object({
@@ -114,13 +123,15 @@ const parsePerseusGraphTypeSegment = object({
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeSinusoid = object({
     type: constant("sinusoid"),
-    coords: optional(nullable(array(pairOfNumbers))),
-    startCoords: optional(array(pairOfNumbers)),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeExponential = object({
@@ -134,6 +145,7 @@ const parsePerseusGraphTypeExponential = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeAbsoluteValue = object({
@@ -141,13 +153,15 @@ const parsePerseusGraphTypeAbsoluteValue = object({
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(pair(string, string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeTangent = object({
     type: constant("tangent"),
-    coords: optional(nullable(array(pairOfNumbers))),
-    startCoords: optional(array(pairOfNumbers)),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
+    startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeLogarithm = object({
@@ -161,6 +175,7 @@ const parsePerseusGraphTypeLogarithm = object({
         }),
     ),
     pointLabels: optional(array(string)),
+    showPointLabels: optional(boolean),
 });
 
 const parsePerseusGraphTypeVector = object({
@@ -188,7 +203,20 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("logarithm", parsePerseusGraphTypeLogarithm)
     .withBranch("vector", parsePerseusGraphTypeVector).parser;
 
-const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
+const parseLockedFigureColor = pipeParsers(
+    enumeration(
+        // Same as lockedFigureColorNames in data-schema.ts
+        "blue",
+        "gold",
+        "green",
+        "grayH",
+        "purple",
+        "pink",
+        "red",
+        // deprecated name - "orange" is now "gold"
+        "orange",
+    ),
+).then(convert((color) => (color === "orange" ? "gold" : color))).parser;
 
 const parseLockedFigureFillType = enumeration(
     "none",
