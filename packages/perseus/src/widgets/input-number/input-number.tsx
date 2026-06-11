@@ -1,24 +1,7 @@
-import {NumericInput} from "../numeric-input/numeric-input.class";
+import numericInput from "../numeric-input/numeric-input.class";
 
 import type {WidgetExports} from "../../types";
-import type {
-    PerseusInputNumberUserInput,
-    PerseusInputNumberWidgetOptions,
-} from "@khanacademy/perseus-core";
-
-function getOneCorrectAnswerFromRubric(
-    rubric: PerseusInputNumberWidgetOptions,
-): string | undefined {
-    const answer = rubric.answers[0];
-    if (answer.value == null) {
-        return;
-    }
-    let answerString = String(answer.value);
-    if (answer.maxError != null && answer.maxError > 0) {
-        answerString += " \u00B1 " + answer.maxError;
-    }
-    return answerString;
-}
+import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-core";
 
 /**
  * @deprecated and likely a very broken API
@@ -32,16 +15,6 @@ function getUserInputFromSerializedState(
     };
 }
 
-function getStartUserInput(): PerseusInputNumberUserInput {
-    return {currentValue: ""};
-}
-
-function getCorrectUserInput(
-    options: PerseusInputNumberWidgetOptions,
-): PerseusInputNumberUserInput {
-    return {currentValue: String(options.answers[0].value)};
-}
-
 export default {
     name: "input-number",
     version: {major: 1, minor: 0},
@@ -49,10 +22,10 @@ export default {
     hidden: true,
     // NOTE(benchristel): We replaced the InputNumber component with
     // NumericInput in 2026.
-    widget: NumericInput,
+    widget: numericInput.widget,
     isLintable: true,
-    getOneCorrectAnswerFromRubric,
-    getStartUserInput,
-    getCorrectUserInput,
+    getOneCorrectAnswerFromRubric: numericInput.getOneCorrectAnswerFromRubric,
+    getStartUserInput: numericInput.getStartUserInput,
+    getCorrectUserInput: numericInput.getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof NumericInput>;
+} satisfies WidgetExports<typeof numericInput.widget>;
