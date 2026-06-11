@@ -6,8 +6,6 @@ import type {
     PerseusInputNumberAnswer,
 } from "../../data-schema";
 
-// TODO(LEMS-4085): Delete this file.
-
 export function generateInputNumberWidget(
     inputNumberWidgetProperties?: Partial<Omit<InputNumberWidget, "type">>,
 ): InputNumberWidget {
