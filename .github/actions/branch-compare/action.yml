@@ -1,17 +1,34 @@
 name: "Branch Compare"
 description: >-
-    Compare artifacts between PR branch and base branch. The job concludes
-    as success when identical, as failure when changed (unless the configured
-    acknowledgement label is applied). Adds/removes a "change present" label
-    automatically and clears the acknowledgement label whenever the diff
-    goes empty.
+    Compare a built artifact between a PR branch and its base branch. The job's
+    own pass/fail IS the verdict — it fails when the artifact differs and the
+    change hasn't been acknowledged via the configured label, and passes
+    otherwise. Using the native job check (rather than a detached Checks-API
+    check) is deliberate: GitHub binds native checks to required-status rules
+    reliably, whereas API-created checks land in an arbitrary check suite and
+    bind flakily. The diff and guidance are written to the job summary, and the
+    "change present" label is added/removed to reflect the diff (the ack label
+    is cleared whenever the diff goes empty).
+
+    To stay cheap, the expensive build+diff runs only on code events
+    (opened/synchronize/reopened/edited). On label events the verdict is derived
+    from the current labels without rebuilding, so toggling the ack label is a
+    ~15s job rather than a full rebuild.
+
+    Must be invoked from a workflow triggered by `pull_request` events: it reads
+    the PR's base ref, head SHA, number, and labels from the event payload and
+    has no meaning outside a pull request. Assumes the repository has already
+    been checked out (it's loaded as a local action).
 
 inputs:
     github-token:
         description: "The Github token to use for authenticated requests."
         required: true
+    node-version:
+        description: "Node version to install for the build (e.g. 24.x)."
+        required: true
     build-command:
-        description: "The command that generates the artifact to compare"
+        description: "The command that generates the artifact to compare."
         required: true
     path-to-artifact:
         description: >-
@@ -19,38 +36,56 @@ inputs:
             It should be the same for both the current branch and base branch.
         required: true
     label-name:
-        description: "The name of the label to add or remove based on the diff result"
+        description: "The label added/removed to reflect whether a change is present."
         required: true
-    check-name:
+    ack-label-name:
         description: >-
-            The name to use for the GitHub Check run that surfaces the
-            comparison result on the PR.
+            Label that, when applied to the PR, acknowledges the change and
+            flips the job from failure to success. A detected change without
+            this label fails the job; with the label it passes. The label is
+            auto-removed when the diff goes empty so a future re-introduction
+            requires a fresh ack.
         required: true
     change-details:
         description: >-
-            Optional Markdown body shown in the Check's summary when changes
-            are detected, before the diff. Use this to call out follow-ups
+            Optional Markdown shown in the job summary when changes are
+            detected, before the diff. Use this to call out follow-ups
             reviewers should perform (e.g. coordinating a downstream release).
         required: false
         default: ""
-    ack-label-name:
-        description: >-
-            Label name that, when applied to the PR, acknowledges the change
-            and flips the job from failure to success. A detected change
-            without this label fails the job; with the label it passes. The
-            label is auto-removed when the diff goes empty so a future
-            re-introduction requires a fresh ack.
-        required: true
 
 runs:
     using: "composite"
     steps:
-        - name: Build for current PR
+        # Fail fast if this action is ever wired into a non-pull_request
+        # workflow. Some steps may still run and error due to missing PR
+        # metadata, but we'll have already clearly failed here.
+        - name: Assert pull_request context
+          if: github.event_name != 'pull_request'
+          shell: bash
+          run: |
+              echo "::error::branch-compare must run from a pull_request-triggered workflow (got event '${{ github.event_name }}')."
+              exit 1
+
+        # ---------------------------------------------------------------------
+        # Build + diff: code events only. On label events every step here is
+        # skipped and the verdict is derived from the labels below, so a label
+        # toggle (e.g. adding the ack label) is a ~15s job, not a rebuild.
+        # ---------------------------------------------------------------------
+        - name: Install & cache node_modules
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
+          uses: ./.github/actions/shared-node-cache
+          with:
+              node-version: ${{ inputs.node-version }}
+
+        - name: Build artifact for current PR
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: ${{ inputs.build-command }}
 
-        - name: Capture output artifact from build-command for current PR
+        - name: Capture PR artifact
           id: capture-pr-artifacts
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: |
               PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
@@ -58,24 +93,25 @@ runs:
               if [ -e "${{ inputs.path-to-artifact }}" ]; then
                 cp -R ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
               fi
-              echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
-        # Note: We use manual git commands instead of actions/checkout here to
-        # avoid a known GitHub Actions runner bug ("Index was out of range")
-        # that occurs when calling actions/checkout inside the Post step of a
-        # composite action.
+        # Manual git instead of actions/checkout to avoid a known runner bug
+        # ("Index was out of range") when checkout runs inside a composite
+        # action's Post step.
         - name: Check out base branch
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: |
               git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
               git checkout FETCH_HEAD
 
-        - name: Build for base
+        - name: Build artifact for base branch
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: ${{ inputs.build-command }}
 
-        - name: Capture output artifact from build-command for base branch
+        - name: Capture base artifact
           id: capture-base-artifacts
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: |
               BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
@@ -83,131 +119,159 @@ runs:
               if [ -e "${{ inputs.path-to-artifact }}" ]; then
                 cp -R ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
               fi
-              echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
-        - name: Compare Artifacts
+        - name: Compare artifacts
           id: compare-artifacts
+          if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           shell: bash
           run: |
-              # Don't stop execution if an error occurs, we'll capture the
-              # return value from `diff` and don't want it to blow up this
-              # Github action in cases where it finds differences (non-zero
-              # exit code).
+              # Capture diff's exit code without aborting the step (a non-empty
+              # diff exits non-zero, which is expected, not an error).
               set +e
-              # We generate a delimeter as a UUID to avoid the chance of our
-              # delimeter showing up in the diff output. A new UUID from this
-              # tool is guaranteed to be unique over both space and time.
-              DELIM=$(uuidgen)
-              echo "diff-content<<$DELIM" >> "$GITHUB_OUTPUT"
-              diff --unified "${{ steps.capture-base-artifacts.outputs.artifact-path }}" \
-                             "${{ steps.capture-pr-artifacts.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
-              DIFF_EXIT_CODE=$?
-              echo "$DELIM" >> "$GITHUB_OUTPUT"
-              echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
+              DIFF_FILE="${{ runner.temp }}/branch-compare-diff.txt"
+              diff --unified \
+                  "${{ runner.temp }}/branch-compare/base" \
+                  "${{ runner.temp }}/branch-compare/pr" > "$DIFF_FILE"
+              echo "diff-exit-code=$?" >> "$GITHUB_OUTPUT"
+              echo "diff-file=$DIFF_FILE" >> "$GITHUB_OUTPUT"
 
-        - name: Add or Remove Label Based on Diff
-          if: always()
+        # Keep the change label in sync with the diff. Gated on the comparison
+        # having actually completed (not `always()`), so a cancelled/failed run
+        # — which has no diff result — never spuriously toggles the label.
+        - name: Update change label from diff
+          if: ${{ steps.compare-artifacts.outcome == 'success' }}
+          shell: bash
           env:
               GITHUB_TOKEN: ${{ inputs.github-token }}
-          shell: bash
           run: |
               PR_NUMBER="${{ github.event.pull_request.number }}"
-              if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" == "0" ]; then
+              if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" = "0" ]; then
                   gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
-                  # Drop the ack label too: nothing to acknowledge anymore. If
-                  # a future commit reintroduces a diff, the author will need
-                  # to re-apply the label, which is the desired behaviour.
+                  # Nothing to acknowledge anymore; drop the ack label so a
+                  # future re-introduction of the diff requires a fresh ack.
                   gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.ack-label-name }}" || true
               else
                   gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
-        # Publish the result as a custom GitHub Check run. The job itself
-        # always succeeds; the custom Check carries the meaningful pass/fail.
-        # That keeps the PR's checks list to a single red row when a change
-        # is detected, and clicking the row lands directly on a page that
-        # renders the title + rich summary (rather than the workflow logs,
-        # where reviewers struggle to find the Summary tab).
-        - name: Publish result as a GitHub Check
-          if: always() && github.event.pull_request != null
-          uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        # ---------------------------------------------------------------------
+        # Verdict: runs on every event (this job's pass/fail IS the required
+        # check, so it must always report — never be "skipped"). The verdict is
+        # a pure function of the labels (the bot keeps the change label in sync
+        # with the diff), so on label events we don't need the build to know it.
+        # ---------------------------------------------------------------------
+        - name: Determine verdict and write summary
+          if: ${{ !cancelled() }}
+          shell: bash
           env:
-              CHECK_NAME: ${{ inputs.check-name }}
-              DIFF_EXIT_CODE: ${{ steps.compare-artifacts.outputs.diff-exit-code }}
-              DIFF_CONTENT: ${{ steps.compare-artifacts.outputs.diff-content }}
-              CHANGE_DETAILS: ${{ inputs.change-details }}
+              GITHUB_TOKEN: ${{ inputs.github-token }}
+              PR_NUMBER: ${{ github.event.pull_request.number }}
+              LABEL_NAME: ${{ inputs.label-name }}
               ACK_LABEL_NAME: ${{ inputs.ack-label-name }}
-              HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          with:
-              github-token: ${{ inputs.github-token }}
-              script: |
-                  const checkName = process.env.CHECK_NAME;
-                  const ackLabel = process.env.ACK_LABEL_NAME;
-                  const noChanges = process.env.DIFF_EXIT_CODE === "0";
+              CHANGE_DETAILS: ${{ inputs.change-details }}
+              IS_CODE_EVENT: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
+              COMPARE_OUTCOME: ${{ steps.compare-artifacts.outcome }}
+              DIFF_FILE: ${{ steps.compare-artifacts.outputs.diff-file }}
+              ACK_LABEL_URL: ${{ github.server_url }}/${{ github.repository }}/labels/${{ inputs.ack-label-name }}
+              RUN_SUMMARY_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          run: |
+              set -euo pipefail
 
-                  const labels = (context.payload.pull_request?.labels || [])
-                      .map((l) => l.name);
-                  const isAcked = labels.includes(ackLabel);
+              # On a code event the verdict needs the comparison to have run. If
+              # it didn't complete, report a distinct error rather than a
+              # misleading "changes detected".
+              if [ "$IS_CODE_EVENT" = "true" ] && [ "$COMPARE_OUTCOME" != "success" ]; then
+                  {
+                      echo "## ⚠️ Comparison could not be completed"
+                      echo
+                      echo "A step in the comparison job failed, so the diff could not be computed. This is **not** a detected change. Re-run the job; if it keeps failing, check the workflow logs."
+                  } >> "$GITHUB_STEP_SUMMARY"
+                  echo "::error::Comparison could not be completed (a prior step failed)."
+                  exit 1
+              fi
 
-                  let conclusion;
-                  let title;
-                  if (noChanges) {
-                      conclusion = "success";
-                      title = `${checkName}: No Changes ✅`;
-                  } else if (isAcked) {
-                      conclusion = "success";
-                      title = `${checkName}: Changes Acknowledged ✅`;
-                  } else {
-                      conclusion = "failure";
-                      title = `${checkName}: Changes Detected — Review Required ❌`;
-                  }
+              # Read current labels from the API (not the event payload) so we
+              # see any label edits this run just made. `if !` keeps `set -e`
+              # from aborting silently on a gh failure, so we can surface a
+              # clear, framed error (gh's own message still prints above it).
+              change_present=false
+              acked=false
+              if ! labels="$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name')"; then
+                  echo "::error::Couldn't read the PR's labels — re-run the job (gh error above)."
+                  exit 1
+              fi
+              while IFS= read -r label; do
+                  if [ "$label" = "$LABEL_NAME" ]; then change_present=true; fi
+                  if [ "$label" = "$ACK_LABEL_NAME" ]; then acked=true; fi
+              done <<< "$labels"
 
-                  // The Checks UI renders `output.title` as a heading above
-                  // the summary, so the summary should NOT repeat the title.
-                  let summary;
-                  if (noChanges) {
-                      summary = "No differences vs. the base branch.";
-                  } else {
-                      const details = (process.env.CHANGE_DETAILS || "").trim();
-                      const diff = process.env.DIFF_CONTENT || "";
-                      // Render the ack label as a link to its label page so
-                      // reviewers can see the real label badge (and the PRs
-                      // currently carrying it) with one click.
-                      const labelUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/labels/${encodeURIComponent(ackLabel)}`;
-                      const ackLabelMd = `[\`${ackLabel}\`](${labelUrl})`;
-                      const parts = [];
-                      if (details) {
-                          parts.push(details, "");
-                      }
-                      if (isAcked) {
-                          parts.push(
-                              `> Acknowledged via the **${ackLabelMd}** label. Remove the label to require re-acknowledgement.`,
-                              "",
-                          );
-                      } else {
-                          parts.push(
-                              `👀 **Review the diff below.** Once you've confirmed the change is intentional and any required follow-ups are in motion, add the ${ackLabelMd} label to acknowledge. The check will re-run automatically.`,
-                              "",
-                          );
-                      }
-                      parts.push(
-                          "<details open><summary>View diff</summary>",
-                          "",
-                          "```diff",
-                          diff,
-                          "```",
-                          "",
-                          "</details>",
-                      );
-                      summary = parts.join("\n");
-                  }
+              if [ "$change_present" = "true" ] && [ "$acked" = "false" ]; then
+                  # Job log: surfaced the instant you click the failing check
+                  # (GitHub auto-expands the failing step), so the diff is right
+                  # here in plain text — no hunting on the Summary tab. The link
+                  # points to the rendered Markdown version on the run Summary.
+                  echo "❌ Changes Detected — Review Required"
+                  echo
+                  if [ -n "$CHANGE_DETAILS" ]; then
+                      echo "$CHANGE_DETAILS"
+                      echo
+                  fi
+                  echo "To acknowledge: add the '$ACK_LABEL_NAME' label — the check re-runs automatically."
+                  echo
+                  if [ -n "${DIFF_FILE:-}" ] && [ -f "$DIFF_FILE" ]; then
+                      echo "Rendered diff & details (run Summary): $RUN_SUMMARY_URL"
+                      echo
+                      echo "------------------- diff vs. base branch -------------------"
+                      cat "$DIFF_FILE"
+                      echo "------------------------------------------------------------"
+                  else
+                      # No fresh diff: this run was triggered by a label change
+                      # (labeled/unlabeled), so the comparison wasn't re-run.
+                      echo "This run was triggered by a label change, so the artifacts"
+                      echo "weren't rebuilt and the diff isn't shown here. The change is"
+                      echo "still present and unacknowledged — it was computed on the most"
+                      echo "recent code-push run of this check. To see the diff, open that"
+                      echo "run from the PR's Checks tab, or trigger a fresh build with an"
+                      echo "empty commit:"
+                      echo
+                      echo "    git commit --allow-empty -m 're-run PR comparison' && git push"
+                  fi
 
-                  await github.rest.checks.create({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      name: checkName,
-                      head_sha: process.env.HEAD_SHA,
-                      status: "completed",
-                      conclusion,
-                      output: {title, summary},
-                  });
+                  # Run Summary tab: rendered Markdown version.
+                  {
+                      echo "## ❌ Changes Detected — Review Required"
+                      echo
+                      if [ -n "$CHANGE_DETAILS" ]; then
+                          echo "$CHANGE_DETAILS"
+                          echo
+                      fi
+                      echo "👀 **Review the change.** Once you've confirmed it's intentional and any follow-ups are in motion, add the [\`$ACK_LABEL_NAME\`]($ACK_LABEL_URL) label to acknowledge — the check re-runs automatically."
+                      echo
+                      if [ -n "${DIFF_FILE:-}" ] && [ -f "$DIFF_FILE" ]; then
+                          echo "<details open><summary>View diff</summary>"
+                          echo
+                          echo '```diff'
+                          cat "$DIFF_FILE"
+                          echo '```'
+                          echo
+                          echo "</details>"
+                      else
+                          echo "> This is a **label-triggered** re-check, so the artifacts weren't rebuilt and the diff isn't shown here. The change is still present and unacknowledged. To see the diff, open the most recent code-push run of this check, or trigger a fresh build with an empty commit: \`git commit --allow-empty -m 're-run PR comparison' && git push\`."
+                      fi
+                  } >> "$GITHUB_STEP_SUMMARY"
+
+                  echo "::error::Unacknowledged change detected — add the '$ACK_LABEL_NAME' label after review. Details: $RUN_SUMMARY_URL"
+                  exit 1
+              fi
+
+              {
+                  if [ "$change_present" = "true" ]; then
+                      echo "## ✅ Changes Acknowledged"
+                      echo
+                      echo "> Acknowledged via the **[\`$ACK_LABEL_NAME\`]($ACK_LABEL_URL)** label. Remove it to require re-acknowledgement."
+                  else
+                      echo "## ✅ No Changes"
+                      echo
+                      echo "No differences vs. the base branch."
+                  fi
+              } >> "$GITHUB_STEP_SUMMARY"
