@@ -138,12 +138,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const editor = this.refs[`editor${sectionIndex}`];
 
         return {
+            article: section,
             apiOptions: this._apiOptionsForPreview(),
-            json: section,
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                stack: [],
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             legacyPerseusLint: editor?.getSaveWarnings() ?? [],
@@ -283,7 +282,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                             seamless={true}
                                             url={this.props.previewURL}
                                             content={{
-                                                type: "article" as const,
+                                                type: "article-section" as const,
                                                 data: this._previewDataForSection(
                                                     section,
                                                     i,
@@ -353,9 +352,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         url={this.props.previewURL}
                         content={{
                             type: "article-all" as const,
-                            data: this._sections().map((section, idx) =>
-                                this._previewDataForSection(section, idx),
-                            ),
+                            data: {
+                                article: this._sections(),
+                                apiOptions: this._apiOptionsForPreview(),
+                            },
                         }}
                     />
                 </DeviceFramer>

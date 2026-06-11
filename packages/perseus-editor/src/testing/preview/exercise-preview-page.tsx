@@ -12,18 +12,18 @@ import {PreviewRenderer} from "./preview-renderer";
  * only be used to support editor previews in Storybook!
  */
 const ExercisePreviewPage = () => {
-    const {data, reportHeight} = usePreviewPresenter();
+    const {content, reportHeight} = usePreviewPresenter();
     const containerRef = React.useRef<HTMLDivElement>(null);
     const lastHeightRef = React.useRef<number | null>(null);
 
     // Handle body overflow for article-all type (allows scrolling)
     React.useEffect(() => {
-        if (data?.type === "article-all") {
+        if (content?.type === "article-all") {
             document.body.style.overflow = "scroll";
         } else {
             document.body.style.overflow = "hidden";
         }
-    }, [data?.type]);
+    }, [content?.type]);
 
     // Send height updates to parent
     React.useEffect(() => {
@@ -58,9 +58,9 @@ const ExercisePreviewPage = () => {
         return () => {
             resizeObserver?.disconnect();
         };
-    }, [data, reportHeight]);
+    }, [content, reportHeight]);
 
-    if (!data) {
+    if (!content) {
         return (
             <View style={styles.loading}>
                 <div>Loading preview...</div>
@@ -70,7 +70,7 @@ const ExercisePreviewPage = () => {
 
     return (
         <div ref={containerRef}>
-            <PreviewRenderer data={data} />
+            <PreviewRenderer content={content} />
         </div>
     );
 };

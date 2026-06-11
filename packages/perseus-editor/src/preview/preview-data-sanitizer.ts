@@ -1,3 +1,5 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
 import {sanitizeApiOptions} from "./sanitize-api-options";
 
 import type {PreviewContent} from "./message-types";
@@ -5,46 +7,55 @@ import type {PreviewContent} from "./message-types";
 /**
  * Sanitizes preview content by removing non-serializable functions and React
  * components from apiOptions before sending via postMessage.
- *
- * NOTE: The article-all case currently sanitizes apiOptions on each section
- * individually because the current type is ArticlePreviewData[] (each section
- * carries its own apiOptions). This will be simplified to a single apiOptions
- * when we restructure the preview data types.
  */
 export function sanitizePreviewData(
     /** Preview content to sanitize */
     content: PreviewContent,
 ): PreviewContent {
-    if (
-        (content.type === "question" ||
-            content.type === "hint" ||
-            content.type === "article") &&
-        content.data.apiOptions != null
-    ) {
-        // eslint-disable-next-line no-restricted-syntax
-        return {
-            ...content,
-            data: {
-                ...content.data,
-                apiOptions: sanitizeApiOptions(content.data.apiOptions),
-            },
-        } as PreviewContent;
+    if (content.data.apiOptions == null) {
+        return content;
     }
 
-    if (content.type === "article-all") {
-        // eslint-disable-next-line no-restricted-syntax
-        return {
-            ...content,
-            data: content.data.map((section) =>
-                section.apiOptions != null
-                    ? {
-                          ...section,
-                          apiOptions: sanitizeApiOptions(section.apiOptions),
-                      }
-                    : section,
-            ),
-        } as PreviewContent;
-    }
+    const sanitizedApiOptions = sanitizeApiOptions(content.data.apiOptions);
 
-    return content;
+    // We switch on `content.type` and rebuild each variant explicitly so the
+    // result stays a properly-correlated member of the `PreviewContent`
+    // discriminated union — a single `{...content, data: {...}}` spread would
+    // widen `type` and `data` independently and no longer be assignable.
+    switch (content.type) {
+        case "question":
+            return {
+                type: content.type,
+                data: {
+                    ...content.data,
+                    apiOptions: sanitizedApiOptions,
+                },
+            };
+        case "hint":
+            return {
+                type: content.type,
+                data: {
+                    ...content.data,
+                    apiOptions: sanitizedApiOptions,
+                },
+            };
+        case "article-section":
+            return {
+                type: content.type,
+                data: {
+                    ...content.data,
+                    apiOptions: sanitizedApiOptions,
+                },
+            };
+        case "article-all":
+            return {
+                type: content.type,
+                data: {
+                    ...content.data,
+                    apiOptions: sanitizedApiOptions,
+                },
+            };
+        default:
+            throw new UnreachableCaseError(content);
+    }
 }

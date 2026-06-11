@@ -102,10 +102,8 @@ describe("message-validators", () => {
                 content: {
                     type: "question" as const,
                     data: {
-                        item: {question: {content: "test"}},
+                        question: {content: "test"},
                         apiOptions: {},
-                        initialHintsVisible: 0,
-                        device: {type: "phone" as const},
                         linterContext: {contentType: "exercise" as const},
                     },
                 },

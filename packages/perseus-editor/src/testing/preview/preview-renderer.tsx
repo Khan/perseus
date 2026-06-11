@@ -8,7 +8,6 @@ import {
     ArticleRenderer,
     Dependencies,
     Renderer,
-    ServerItemRenderer,
     usePerseusI18n,
 } from "@khanacademy/perseus";
 import {pushContextStack} from "@khanacademy/perseus-linter";
@@ -23,7 +22,7 @@ import {storybookDependenciesV2} from "../test-dependencies";
 import type {PreviewContent} from "../../preview/message-types";
 
 type Props = {
-    data: PreviewContent;
+    content: PreviewContent;
 };
 
 function PreviewWithKeypad({
@@ -74,42 +73,37 @@ function PreviewWithKeypad({
 /**
  * Renders the appropriate content based on preview data type
  */
-export function PreviewRenderer({data}: Props) {
+export function PreviewRenderer({content}: Props) {
     const i18n = usePerseusI18n();
 
-    if (data.type === "question") {
-        const {
-            item,
-            apiOptions,
-            initialHintsVisible,
-            linterContext,
-            reviewMode,
-            problemNum,
-        } = data.data;
+    if (content.type === "question") {
+        const {question, apiOptions, linterContext, reviewMode, problemNum} =
+            content.data;
 
         return (
             <PreviewWithKeypad>
                 {({keypadElement, isMobile}) => (
-                    <ServerItemRenderer
-                        item={item}
+                    <Renderer
+                        strings={i18n.strings}
+                        content={question.content}
+                        widgets={question.widgets}
+                        images={question.images}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
+                        reviewMode={reviewMode}
+                        problemNum={problemNum}
                         linterContext={pushContextStack(
                             linterContext,
                             "question",
                         )}
-                        hintsVisible={initialHintsVisible}
-                        reviewMode={reviewMode}
-                        problemNum={problemNum}
-                        dependencies={storybookDependenciesV2}
                     />
                 )}
             </PreviewWithKeypad>
         );
     }
 
-    if (data.type === "hint") {
-        const {hint, apiOptions, linterContext} = data.data;
+    if (content.type === "hint") {
+        const {hint, apiOptions, linterContext} = content.data;
 
         return (
             <PreviewWithKeypad>
@@ -128,14 +122,15 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    if (data.type === "article") {
-        const {json, apiOptions, legacyPerseusLint, linterContext} = data.data;
+    if (content.type === "article-section") {
+        const {article, apiOptions, legacyPerseusLint, linterContext} =
+            content.data;
 
         return (
             <PreviewWithKeypad>
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
-                        json={json}
+                        json={article}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
                         legacyPerseusLint={legacyPerseusLint}
@@ -150,26 +145,18 @@ export function PreviewRenderer({data}: Props) {
         );
     }
 
-    if (data.type === "article-all") {
+    if (content.type === "article-all") {
+        const {article, apiOptions} = content.data;
+
         return (
             <PreviewWithKeypad>
                 {({keypadElement, isMobile}) => (
-                    <>
-                        {data.data.map((article, i) => (
-                            <ArticleRenderer
-                                key={i}
-                                json={article.json}
-                                apiOptions={{...article.apiOptions, isMobile}}
-                                keypadElement={keypadElement}
-                                legacyPerseusLint={article.legacyPerseusLint}
-                                linterContext={pushContextStack(
-                                    article.linterContext,
-                                    "article",
-                                )}
-                                dependencies={storybookDependenciesV2}
-                            />
-                        ))}
-                    </>
+                    <ArticleRenderer
+                        json={[...article]}
+                        apiOptions={{...apiOptions, isMobile}}
+                        keypadElement={keypadElement}
+                        dependencies={storybookDependenciesV2}
+                    />
                 )}
             </PreviewWithKeypad>
         );
