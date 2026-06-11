@@ -1,6 +1,8 @@
 import scoreInputNumber from "./score-input-number";
 
-import type {
+import {
+    generateInputNumberAnswer,
+    generateInputNumberOptions,
     PerseusInputNumberUserInput,
     PerseusInputNumberWidgetOptions,
 } from "@khanacademy/perseus-core";
@@ -8,28 +10,9 @@ import type {
 // TODO(LEMS-4085): Delete these tests; scoreInputNumber will be replaced by scoreNumericInput.
 describe("scoreInputNumber", () => {
     it("scores undefined user input as invalid", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
-            answers: [
-                {
-                    status: "correct",
-                    value: 1,
-                    maxError: 0,
-                    simplify: "optional",
-                    answerForms: [
-                        "integer",
-                        "decimal",
-                        "proper",
-                        "improper",
-                        "mixed",
-                        "percent",
-                    ],
-                    message: "",
-                    strict: true,
-                },
-            ],
-        };
+        const rubric = generateInputNumberOptions({
+            answers: [generateInputNumberAnswer({value: 1})],
+        });
 
         const userInput = undefined;
 
@@ -39,100 +22,43 @@ describe("scoreInputNumber", () => {
     });
 
     it("scores correct answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
-            answers: [
-                {
-                    status: "correct",
-                    value: 1,
-                    maxError: 0,
-                    simplify: "optional",
-                    answerForms: [
-                        "integer",
-                        "decimal",
-                        "proper",
-                        "improper",
-                        "mixed",
-                        "percent",
-                    ],
-                    message: "",
-                    strict: true,
-                },
-            ],
-        };
+        const rubric = generateInputNumberOptions({
+            answers: [generateInputNumberAnswer({value: 1})],
+        });
 
-        const useInput: PerseusInputNumberUserInput = {
+        const userInput: PerseusInputNumberUserInput = {
             currentValue: "1",
         };
 
-        const score = scoreInputNumber(useInput, rubric);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
-            answers: [
-                {
-                    status: "correct",
-                    value: 1,
-                    maxError: 0,
-                    simplify: "optional",
-                    answerForms: [
-                        "integer",
-                        "decimal",
-                        "proper",
-                        "improper",
-                        "mixed",
-                        "percent",
-                    ],
-                    message: "",
-                    strict: true,
-                },
-            ],
-        };
+        const rubric = generateInputNumberOptions({
+            answers: [generateInputNumberAnswer({value: 1})],
+        });
 
-        const useInput: PerseusInputNumberUserInput = {
+        const userInput: PerseusInputNumberUserInput = {
             currentValue: "2",
         };
 
-        const score = scoreInputNumber(useInput, rubric);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
-            answers: [
-                {
-                    status: "correct",
-                    value: 1,
-                    maxError: 0,
-                    simplify: "optional",
-                    answerForms: [
-                        "integer",
-                        "decimal",
-                        "proper",
-                        "improper",
-                        "mixed",
-                        "percent",
-                    ],
-                    message: "",
-                    strict: true,
-                },
-            ],
-        };
+        const rubric = generateInputNumberOptions({
+            answers: [generateInputNumberAnswer({value: 1})],
+        });
 
-        const useInput: PerseusInputNumberUserInput = {
+        const userInput: PerseusInputNumberUserInput = {
             currentValue: "sadasdfas",
         };
 
-        const score = scoreInputNumber(useInput, rubric);
+        const score = scoreInputNumber(userInput, rubric);
 
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
