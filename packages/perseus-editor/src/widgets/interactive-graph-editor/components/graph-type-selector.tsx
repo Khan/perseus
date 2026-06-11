@@ -21,12 +21,13 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
                 value="absolute-value"
                 label="Absolute value function"
             />
+            <OptionItem value="exponential" label="Exponential function" />
             <OptionItem value="linear" label="Linear function" />
+            <OptionItem value="logarithmic" label="Logarithmic function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoidal" label="Sinusoidal function" />
             <OptionItem value="tangent" label="Tangent function" />
-            <OptionItem value="exponential" label="Exponential function" />
-            <OptionItem value="logarithmic" label="Logarithmic function" />
+            <OptionItem value="angle" label="Angle" />
             <OptionItem value="circle" label="Circle" />
             <OptionItem value="linear-system" label="Linear system" />
             <OptionItem value="segment" label="Line segment(s)" />
@@ -34,7 +35,6 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             <OptionItem value="polygon" label="Polygon" />
             <OptionItem value="ray" label="Ray" />
             <OptionItem value="vector" label="Vector" />
-            <OptionItem value="angle" label="Angle" />
         </SingleSelect>
     );
 };
