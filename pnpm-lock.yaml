@@ -776,9 +776,6 @@ importers:
       '@khanacademy/perseus-linter':
         specifier: workspace:*
         version: link:../perseus-linter
-      '@khanacademy/perseus-score':
-        specifier: workspace:*
-        version: link:../perseus-score
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
