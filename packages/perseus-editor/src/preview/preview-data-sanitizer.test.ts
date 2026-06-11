@@ -1,4 +1,3 @@
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
 import {sanitizePreviewData} from "./preview-data-sanitizer";
@@ -32,17 +31,12 @@ describe("sanitizePreviewData", () => {
     describe("question preview data", () => {
         it("sanitizes apiOptions in question data", () => {
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {
-                        content: "What is 2+2?",
-                        widgets: {},
-                        images: {},
-                    },
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
+                question: {
+                    content: "What is 2+2?",
+                    widgets: {},
+                    images: {},
                 },
                 apiOptions: createMockApiOptions(),
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -70,19 +64,14 @@ describe("sanitizePreviewData", () => {
             expect("trackInteraction" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
-            expect(result.data.item).toBe(questionData.item);
+            expect(result.data.question).toBe(questionData.question);
         });
 
         it("handles question data with null apiOptions", () => {
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {content: "Test", widgets: {}, images: {}},
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
-                },
+                question: {content: "Test", widgets: {}, images: {}},
                 // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -104,13 +93,8 @@ describe("sanitizePreviewData", () => {
         it("does not mutate original question data", () => {
             const apiOptions = createMockApiOptions();
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {content: "Test", widgets: {}, images: {}},
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
-                },
+                question: {content: "Test", widgets: {}, images: {}},
                 apiOptions,
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -330,17 +314,12 @@ describe("sanitizePreviewData", () => {
                         previewContent = {
                             type: "question",
                             data: {
-                                item: {
-                                    question: {
-                                        content: "Q",
-                                        widgets: {},
-                                        images: {},
-                                    },
-                                    answerArea: getDefaultAnswerArea(),
-                                    hints: [],
+                                question: {
+                                    content: "Q",
+                                    widgets: {},
+                                    images: {},
                                 },
                                 apiOptions: {},
-                                device: "phone",
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,

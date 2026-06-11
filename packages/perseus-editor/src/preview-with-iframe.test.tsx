@@ -103,12 +103,8 @@ describe("PreviewWithIframe", () => {
         const data: PreviewContent = {
             type: "question",
             data: {
-                item: {
-                    question: {content: "Q", widgets: {}, images: {}},
-                    hints: [],
-                },
+                question: {content: "Q", widgets: {}, images: {}},
                 apiOptions: {},
-                device: "desktop",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -132,12 +128,8 @@ describe("PreviewWithIframe", () => {
         const content: Extract<PreviewContent, {type: "question"}> = {
             type: "question",
             data: {
-                item: {
-                    question: {content: "Q", widgets: {}, images: {}},
-                    hints: [],
-                },
+                question: {content: "Q", widgets: {}, images: {}},
                 apiOptions: {},
-                device: "desktop",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -155,7 +147,7 @@ describe("PreviewWithIframe", () => {
         );
 
         const modifiedContent = clone(content);
-        modifiedContent.data.item.question.content = "Abc";
+        modifiedContent.data.question.content = "Abc";
 
         // Act
         rerender(

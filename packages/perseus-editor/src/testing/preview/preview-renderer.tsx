@@ -8,7 +8,6 @@ import {
     ArticleRenderer,
     Dependencies,
     Renderer,
-    ServerItemRenderer,
     usePerseusI18n,
 } from "@khanacademy/perseus";
 import {pushContextStack} from "@khanacademy/perseus-linter";
@@ -78,24 +77,25 @@ export function PreviewRenderer({content}: Props) {
     const i18n = usePerseusI18n();
 
     if (content.type === "question") {
-        const {item, apiOptions, linterContext, reviewMode, problemNum} =
+        const {question, apiOptions, linterContext, reviewMode, problemNum} =
             content.data;
 
         return (
             <PreviewWithKeypad>
                 {({keypadElement, isMobile}) => (
-                    <ServerItemRenderer
-                        item={item}
+                    <Renderer
+                        strings={i18n.strings}
+                        content={question.content}
+                        widgets={question.widgets}
+                        images={question.images}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
+                        reviewMode={reviewMode}
+                        problemNum={problemNum}
                         linterContext={pushContextStack(
                             linterContext,
                             "question",
                         )}
-                        hintsVisible={0}
-                        reviewMode={reviewMode}
-                        problemNum={problemNum}
-                        dependencies={storybookDependenciesV2}
                     />
                 )}
             </PreviewWithKeypad>

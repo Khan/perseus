@@ -144,19 +144,12 @@ describe("usePreviewPresenter", () => {
             const questionContent: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {
-                            content: "What is 2+2?",
-                            widgets: {},
-                            images: {},
-                        },
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
+                    question: {
+                        content: "What is 2+2?",
+                        widgets: {},
+                        images: {},
                     },
                     apiOptions: {readOnly: true},
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -310,19 +303,12 @@ describe("usePreviewPresenter", () => {
             const content1: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {
-                            content: "Question 1",
-                            widgets: {},
-                            images: {},
-                        },
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
+                    question: {
+                        content: "Question 1",
+                        widgets: {},
+                        images: {},
                     },
                     apiOptions: {},
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -599,15 +585,8 @@ describe("usePreviewPresenter", () => {
             const content: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {content: "Test", widgets: {}, images: {}},
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
-                    },
+                    question: {content: "Test", widgets: {}, images: {}},
                     apiOptions: {},
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -652,15 +631,8 @@ describe("usePreviewPresenter", () => {
                 {
                     type: "question",
                     data: {
-                        item: {
-                            question: {content: "Q1", widgets: {}, images: {}},
-                            // eslint-disable-next-line no-restricted-syntax
-                            answerArea: {calculator: false} as any,
-                            hints: [],
-                        },
+                        question: {content: "Q1", widgets: {}, images: {}},
                         apiOptions: {},
-                        // eslint-disable-next-line no-restricted-syntax
-                        device: {type: "phone"} as any,
                         linterContext: {
                             contentType: "exercise",
                             highlightLint: false,
