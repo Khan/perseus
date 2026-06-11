@@ -6,6 +6,7 @@ import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -1212,7 +1213,7 @@ describe("MafsGraph", () => {
     describe("MovablePointLabelsLayer flag gate", () => {
         const apiOptionsWithFlag = (on: boolean): APIOptionsWithDefaults => ({
             ...ApiOptions.defaults,
-            flags: {"perseus-enable-point-label-field": on},
+            flags: getFeatureFlags({"perseus-enable-point-label-field": on}),
         });
 
         function pointStateWith({
@@ -1281,10 +1282,7 @@ describe("MafsGraph", () => {
         });
 
         it("does not render a visible label when flag is on but showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
-            // The trap from the rollout plan: existing content sets
-            // pointLabels for screen-reader purposes without intending
-            // visible labels. Even with the flag on, the renderer must
-            // not start drawing those.
+            // Existing content sets pointLabels for screen-reader purposes without intending visible labels. Even with the flag on, the renderer must not start drawing those.
             // Arrange, Act
             render(
                 <MafsGraph
