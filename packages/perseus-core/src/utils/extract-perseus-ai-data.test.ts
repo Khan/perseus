@@ -1014,7 +1014,7 @@ describe("getAnswersFromWidgets", () => {
                     "input-number 1": generateInputNumberWidget({
                         options: generateInputNumberOptions({
                             answers: [generateInputNumberAnswer({value: 42})],
-                        })
+                        }),
                     }),
                 },
             },

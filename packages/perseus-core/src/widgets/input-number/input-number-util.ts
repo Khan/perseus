@@ -1,4 +1,6 @@
-import {getNumericInputPublicWidgetOptions, NumericInputPublicWidgetOptions} from "../numeric-input/numeric-input-util";
+import {getNumericInputPublicWidgetOptions} from "../numeric-input/numeric-input-util";
+
+import type {NumericInputPublicWidgetOptions} from "../numeric-input/numeric-input-util";
 
 /**
  * For details on the individual options, see the
@@ -10,4 +12,5 @@ export type InputNumberPublicWidgetOptions = NumericInputPublicWidgetOptions;
  * Given a PerseusInputNumberWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-export const getInputNumberPublicWidgetOptions = getNumericInputPublicWidgetOptions
+export const getInputNumberPublicWidgetOptions =
+    getNumericInputPublicWidgetOptions;

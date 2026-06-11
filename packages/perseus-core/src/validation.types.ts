@@ -45,7 +45,6 @@ import type {
     MakeWidgetMap,
     PerseusFreeResponseWidgetScoringCriterion,
     PerseusRenderer,
-    PerseusInputNumberWidgetOptions,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
