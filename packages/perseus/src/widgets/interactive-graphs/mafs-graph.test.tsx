@@ -937,6 +937,95 @@ describe("MafsGraph", () => {
         expect(state.coords).toEqual(expectedCoords);
     });
 
+    describe("screen reader instructions ordering", () => {
+        const orderingState: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        it("renders the instructions before the graph description so screen readers encounter them first", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={orderingState}
+                    fullGraphAriaDescription="A graph description."
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const instructions = screen.getByText(
+                /^Use the Tab key to move through/,
+            );
+            const description = screen.getByText("A graph description.");
+
+            // The instructions block must come before the description in the
+            // DOM so a screen reader reading the figure's contents in order
+            // hears how to interact with the graph before the graph
+            // description. If this fails, the instructions are rendered after
+            // the description.
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(description.compareDocumentPosition(instructions)).toBe(
+                Node.DOCUMENT_POSITION_PRECEDING,
+            );
+        });
+
+        it("orders aria-describedby as instructions, then graph description, then element details", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={orderingState}
+                    fullGraphAriaDescription="A graph description."
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const figure = screen.getByRole("figure");
+            const describedByIds =
+                figure.getAttribute("aria-describedby")?.split(" ") ?? [];
+
+            // Screen readers announce these in order, so the sequence itself is
+            // the behavior under test: how-to-interact first, then the graph
+            // description, then the interactive-element details.
+            const order = describedByIds.map((id) => {
+                if (id.startsWith("instructions-")) {
+                    return "instructions";
+                }
+                // Check the more specific prefix before the description prefix.
+                if (
+                    id.startsWith(
+                        "interactive-graph-interactive-elements-description-",
+                    )
+                ) {
+                    return "element-details";
+                }
+                if (id.startsWith("interactive-graph-description-")) {
+                    return "description";
+                }
+                return id;
+            });
+            expect(order).toEqual([
+                "instructions",
+                "description",
+                "element-details",
+            ]);
+        });
+    });
+
     describe("with an unlimited graph", () => {
         it("point - shows a remove point button when a point is focused", async () => {
             // Arrange
