@@ -55,6 +55,14 @@ export function sanitizePreviewData(
                     apiOptions: sanitizedApiOptions,
                 },
             };
+        case "exercise":
+            return {
+                type: content.type,
+                data: {
+                    ...content.data,
+                    apiOptions: sanitizedApiOptions,
+                },
+            };
         default:
             throw new UnreachableCaseError(content);
     }

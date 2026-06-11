@@ -1,3 +1,4 @@
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
 import {sanitizePreviewData} from "./preview-data-sanitizer";
@@ -5,6 +6,7 @@ import {sanitizePreviewData} from "./preview-data-sanitizer";
 import type {
     ArticleAllPreviewData,
     ArticleSectionPreviewData,
+    ExercisePreviewData,
     HintPreviewData,
     PreviewContent,
     QuestionPreviewData,
@@ -297,6 +299,66 @@ describe("sanitizePreviewData", () => {
         });
     });
 
+    describe("exercise preview data", () => {
+        it("sanitizes apiOptions in exercise data", () => {
+            const exerciseData: ExercisePreviewData = {
+                item: {
+                    question: {
+                        content: "What is 2+2?",
+                        widgets: {},
+                        images: {},
+                    },
+                    answerArea: getDefaultAnswerArea(),
+                    hints: [],
+                },
+                apiOptions: createMockApiOptions(),
+                showRationales: true,
+            };
+
+            const previewContent: PreviewContent = {
+                type: "exercise",
+                data: exerciseData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            invariant(result.type === "exercise");
+            // Serializable options should remain
+            expect(result.data.apiOptions.readOnly).toBe(true);
+
+            // Non-serializable functions should be removed
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
+
+            // Other properties should remain unchanged
+            expect(result.data.item).toBe(exerciseData.item);
+            expect(result.data.showRationales).toBe(true);
+        });
+
+        it("handles exercise data with null apiOptions", () => {
+            const exerciseData: ExercisePreviewData = {
+                item: {
+                    question: {content: "Test", widgets: {}, images: {}},
+                    answerArea: getDefaultAnswerArea(),
+                    hints: [],
+                },
+                // eslint-disable-next-line no-restricted-syntax
+                apiOptions: null as any,
+                showRationales: false,
+            };
+
+            const previewContent: PreviewContent = {
+                type: "exercise",
+                data: exerciseData,
+            };
+
+            const result = sanitizePreviewData(previewContent);
+
+            // Should return unchanged when apiOptions is null
+            expect(result).toEqual(previewContent);
+        });
+    });
+
     describe("edge cases", () => {
         it("preserves data structure for all content types", () => {
             const types: PreviewContent["type"][] = [
@@ -304,6 +366,7 @@ describe("sanitizePreviewData", () => {
                 "hint",
                 "article-section",
                 "article-all",
+                "exercise",
             ];
 
             types.forEach((type) => {
@@ -370,6 +433,24 @@ describe("sanitizePreviewData", () => {
                                     },
                                 ],
                                 apiOptions: {},
+                            },
+                        };
+                        break;
+                    case "exercise":
+                        previewContent = {
+                            type: "exercise",
+                            data: {
+                                item: {
+                                    question: {
+                                        content: "Q",
+                                        widgets: {},
+                                        images: {},
+                                    },
+                                    answerArea: getDefaultAnswerArea(),
+                                    hints: [],
+                                },
+                                apiOptions: {},
+                                showRationales: false,
                             },
                         };
                         break;
