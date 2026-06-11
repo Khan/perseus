@@ -35,7 +35,7 @@ const parseMathFormat = enumeration(
     "pi",
 );
 
-export const parseInputNumberWidgetV1 = parseWidgetWithVersion(
+const parseInputNumberWidgetV1 = parseWidgetWithVersion(
     object({major: constant(1), minor: number}),
     constant("input-number"),
     object({
@@ -72,7 +72,7 @@ export type PerseusInputNumberWidgetOptionsV0 = ParsedValue<
     typeof parseInputNumberWidgetV0
 >["options"];
 
-export const parseInputNumberWidgetV0 = parseWidgetWithVersion(
+const parseInputNumberWidgetV0 = parseWidgetWithVersion(
     optional(object({major: constant(0), minor: number})),
     constant("input-number"),
     object({
