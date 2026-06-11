@@ -16,22 +16,25 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >
-            <OptionItem value="absolute-value" label="Absolute value" />
             <OptionItem value="none" label="None" />
-            <OptionItem value="linear" label="Linear function" />
-            <OptionItem value="quadratic" label="Quadratic function" />
-            <OptionItem value="sinusoid" label="Sinusoid function" />
+            <OptionItem
+                value="absolute-value"
+                label="Absolute value function"
+            />
             <OptionItem value="exponential" label="Exponential function" />
+            <OptionItem value="linear" label="Linear function" />
+            <OptionItem value="logarithmic" label="Logarithmic function" />
+            <OptionItem value="quadratic" label="Quadratic function" />
+            <OptionItem value="sinusoidal" label="Sinusoidal function" />
             <OptionItem value="tangent" label="Tangent function" />
-            <OptionItem value="logarithm" label="Logarithm function" />
+            <OptionItem value="angle" label="Angle" />
             <OptionItem value="circle" label="Circle" />
+            <OptionItem value="linear-system" label="Linear system" />
+            <OptionItem value="segment" label="Line segment(s)" />
             <OptionItem value="point" label="Point(s)" />
-            <OptionItem value="linear-system" label="Linear System" />
             <OptionItem value="polygon" label="Polygon" />
-            <OptionItem value="segment" label="Line Segment(s)" />
             <OptionItem value="ray" label="Ray" />
             <OptionItem value="vector" label="Vector" />
-            <OptionItem value="angle" label="Angle" />
         </SingleSelect>
     );
 };

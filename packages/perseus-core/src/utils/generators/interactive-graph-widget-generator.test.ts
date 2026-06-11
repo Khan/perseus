@@ -27,7 +27,7 @@ import {
 } from "./interactive-graph-widget-generator";
 
 describe("generateInteractiveGraphWidget", () => {
-    it("builds a default interactive graph widget", () => {
+    it("builds a default interactive graph widget - none graph type", () => {
         // Arrange, Act
         const widget = generateInteractiveGraphWidget();
 
@@ -39,8 +39,12 @@ describe("generateInteractiveGraphWidget", () => {
             static: false,
             alignment: "default",
             options: {
-                correct: {type: "linear", coords: null},
-                graph: {type: "linear"},
+                correct: {
+                    type: "none",
+                },
+                graph: {
+                    type: "none",
+                },
                 labelLocation: "onAxis",
                 labels: ["$x$", "$y$"],
                 markings: "graph",
@@ -157,18 +161,17 @@ describe("generateInteractiveGraphWidget", () => {
 });
 
 describe("generateInteractiveGraphOptions", () => {
-    it("builds a default interactive graph options object", () => {
+    it("builds a default interactive graph options object - none graph type", () => {
         // Arrange, Act
         const options = generateInteractiveGraphOptions();
 
         // Assert
         expect(options).toEqual({
             correct: {
-                type: "linear",
-                coords: null,
+                type: "none",
             },
             graph: {
-                type: "linear",
+                type: "none",
             },
             backgroundImage: {
                 url: null,
@@ -262,7 +265,7 @@ describe("generateInteractiveGraphOptions", () => {
 });
 
 describe("generateInteractiveGraphWidget", () => {
-    it("builds a default interactive graph widget", () => {
+    it("builds a default interactive graph widget - none graph type", () => {
         // Arrange, Act
         const widget = generateInteractiveGraphWidget();
 
@@ -275,11 +278,10 @@ describe("generateInteractiveGraphWidget", () => {
             alignment: "default",
             options: {
                 correct: {
-                    type: "linear",
-                    coords: null,
+                    type: "none",
                 },
                 graph: {
-                    type: "linear",
+                    type: "none",
                 },
                 backgroundImage: {
                     url: null,
