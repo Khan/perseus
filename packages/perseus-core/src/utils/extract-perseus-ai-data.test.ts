@@ -1011,24 +1011,11 @@ describe("getAnswersFromWidgets", () => {
                             ],
                         },
                     },
-                    "input-number 1": {
-                        type: "input-number",
-                        options: {
-                            size: "normal",
-                            coefficient: false,
-                            answers: [
-                                {
-                                    status: "correct",
-                                    value: 42,
-                                    maxError: 0,
-                                    simplify: "required",
-                                    answerForms: [],
-                                    message: "",
-                                    strict: true,
-                                },
-                            ],
-                        },
-                    },
+                    "input-number 1": generateInputNumberWidget({
+                        options: generateInputNumberOptions({
+                            answers: [generateInputNumberAnswer({value: 42})],
+                        })
+                    }),
                 },
             },
         };
