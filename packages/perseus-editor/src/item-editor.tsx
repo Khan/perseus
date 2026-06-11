@@ -194,7 +194,6 @@ class ItemEditor extends React.Component<Props, State> {
     // Builds the preview content from props.
     _derivePreviewContent(): QuestionPreviewData | null {
         const question = this.props.question;
-        const answerArea = this.props.answerArea ?? undefined;
 
         if (!question) {
             return null;
@@ -203,11 +202,7 @@ class ItemEditor extends React.Component<Props, State> {
         return {
             type: "question",
             data: {
-                item: {
-                    question,
-                    hints: [],
-                    answerArea,
-                },
+                question,
                 apiOptions: {
                     ...ApiOptions.defaults,
                     ...this.props.apiOptions,
@@ -215,7 +210,6 @@ class ItemEditor extends React.Component<Props, State> {
                         this.props.deviceType === "phone" ||
                         this.props.deviceType === "tablet",
                 },
-                device: this.props.deviceType,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: this.props.highlightLint,

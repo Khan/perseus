@@ -4,12 +4,7 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
-import type {DeviceType} from "@khanacademy/perseus";
-import type {
-    Hint,
-    PerseusItem,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {Hint, PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**
  * The subset of `LinterContextProps` that's meaningful to send across the
@@ -35,12 +30,16 @@ interface PreviewMessageBase {
 }
 
 /**
- * Data for question preview (full item with question, answer area, and hints)
+ * Data for the read-only question preview shown while editing an exercise.
+ *
+ * This carries just the question's `PerseusRenderer` — the content under edit —
+ * rather than a full `PerseusItem`. The answer widgets live inside the question
+ * renderer itself; the legacy answer-area tools and hints are previewed
+ * elsewhere.
  */
 export type QuestionPreviewData = {
-    item: PerseusItem;
+    question: PerseusRenderer;
     apiOptions: SerializableApiOptions;
-    device: DeviceType;
     linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;

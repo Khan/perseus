@@ -141,10 +141,8 @@ describe("usePreviewController", () => {
                 expect.objectContaining({
                     content: expect.objectContaining({
                         data: expect.objectContaining({
-                            item: expect.objectContaining({
-                                question: expect.objectContaining({
-                                    content: "Question 2",
-                                }),
+                            question: expect.objectContaining({
+                                content: "Question 2",
                             }),
                         }),
                     }),
@@ -629,22 +627,15 @@ function createQuestionPreview(overrides?: {
     return {
         type: "question",
         data: {
-            item: {
-                question: {
-                    content: overrides?.content ?? "What is 2+2?",
-                    widgets: {},
-                    images: {},
-                },
-                // eslint-disable-next-line no-restricted-syntax
-                answerArea: {calculator: false} as any,
-                hints: [],
+            question: {
+                content: overrides?.content ?? "What is 2+2?",
+                widgets: {},
+                images: {},
             },
             apiOptions: {
                 readOnly: true,
                 ...overrides?.apiOptions,
             },
-            // eslint-disable-next-line no-restricted-syntax
-            device: {type: "phone"} as any,
             linterContext: {
                 contentType: "exercise",
                 highlightLint: false,
