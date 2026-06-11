@@ -172,6 +172,7 @@ const LockedFiguresSection = (props: Props) => {
                                     setExpandedStates(newExpanded);
                                 }}
                                 {...figure}
+                                editingDisabled={editingDisabled}
                                 onChangeProps={(newProps) =>
                                     changeProps(index, newProps)
                                 }

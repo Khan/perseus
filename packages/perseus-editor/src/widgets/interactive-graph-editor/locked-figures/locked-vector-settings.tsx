@@ -65,6 +65,7 @@ const LockedVectorSettings = (props: Props) => {
         onChangeProps,
         onMove,
         onRemove,
+        editingDisabled = false,
     } = props;
     const [tail, tip] = points;
     const lineLabel = `Vector (${tail[0]}, ${tail[1]}), (${tip[0]}, ${tip[1]})`;
@@ -240,6 +241,7 @@ const LockedVectorSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -255,6 +257,7 @@ const LockedVectorSettings = (props: Props) => {
                     {...label}
                     key={labelIndex}
                     expanded={true}
+                    editingDisabled={editingDisabled}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
                     }}
@@ -267,6 +270,7 @@ const LockedVectorSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     // Additional vertical offset for each label so
                     // they don't overlap.
@@ -295,6 +299,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />

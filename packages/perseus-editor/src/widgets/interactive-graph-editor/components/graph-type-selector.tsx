@@ -5,6 +5,7 @@ import * as React from "react";
 
 type GraphTypeSelectorProps = {
     graphType: string;
+    disabled?: boolean;
     onChange: (newGraphType: string) => void;
 };
 
@@ -13,6 +14,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         <SingleSelect
             selectedValue={props.graphType}
             onChange={props.onChange}
+            disabled={props.disabled}
             placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >

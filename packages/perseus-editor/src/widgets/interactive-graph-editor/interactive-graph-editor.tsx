@@ -438,6 +438,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <View>
                         <LabeledRow label="Answer type" labelSize="medium">
                             <GraphTypeSelector
+                                disabled={
+                                    this.props.apiOptions?.editingDisabled ??
+                                    false
+                                }
                                 graphType={
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
@@ -514,6 +518,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     {...this.props.graph}
                                     range={this.props.range}
                                     step={this.props.step}
+                                    editingDisabled={
+                                        this.props.apiOptions
+                                            ?.editingDisabled ?? false
+                                    }
                                     onChange={this.changeStartCoords}
                                     onChangePointLabels={this.changePointLabels}
                                 />

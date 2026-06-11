@@ -48,6 +48,8 @@ export type Props = LockedLabelType & {
      * Called when the delete button is pressed.
      */
     onRemove: () => void;
+    /** Whether editing is disabled for the whole editor. */
+    editingDisabled?: boolean;
 
     // Accordion props. Used for standalone labels for the expand/collapse
     // button functionality. Not used within other locked figure settings.
@@ -77,6 +79,7 @@ export default function LockedLabelSettings(props: Props) {
         onRemove,
         onToggle,
         containerStyle,
+        editingDisabled = false,
     } = props;
 
     return (
@@ -188,6 +191,7 @@ export default function LockedLabelSettings(props: Props) {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
