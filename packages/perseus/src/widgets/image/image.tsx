@@ -34,6 +34,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
 
     // Gif should be paused on initial render for a11y.
     const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
+    // Number of decoded GIF frames; Null until GifImage reports it
+    const [gifFrameCount, setGifFrameCount] = React.useState<number | null>(
+        null,
+    );
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
@@ -50,6 +54,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     // we will stop any gif from playing.
     React.useEffect(() => {
         setIsGifPlaying(false);
+        setGifFrameCount(null);
     }, [backgroundImage.url]);
 
     if (!backgroundImage.url) {
@@ -57,6 +62,8 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     }
 
     const imageIsGif = isGif(backgroundImage.url);
+    const isAnimatedGif =
+        imageIsGif && gifFrameCount != null && gifFrameCount > 1;
 
     let scale = props.scale;
     // Set the scale to 1 if the scale is invalid.
@@ -93,6 +100,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     onGifLoop={
                         imageIsGif ? () => setIsGifPlaying(false) : undefined
                     }
+                    onGifFrameCount={imageIsGif ? setGifFrameCount : undefined}
                 />
             )}
         </AssetContext.Consumer>
@@ -156,6 +164,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                 <ImageInfoArea
                     isGifPlaying={isGifPlaying}
                     setIsGifPlaying={setIsGifPlaying}
+                    isAnimatedGif={isAnimatedGif}
                     {...props}
                 />
             )}

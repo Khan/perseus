@@ -33,7 +33,7 @@ type Props = {
     /**
      * Called once GIF frames are decoded and the first frame is drawn.
      */
-    onLoad?: () => void;
+    onLoad?: (frameCount: number) => void;
 };
 
 /**
@@ -242,7 +242,7 @@ const GifImage = (props: Props) => {
 
             // Show the first frame on the canvas.
             drawFrame(0);
-            latestPropsRef.current.onLoad?.();
+            latestPropsRef.current.onLoad?.(frames.length);
 
             if (latestPropsRef.current.isPlaying) {
                 play();
