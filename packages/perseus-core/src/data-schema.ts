@@ -2239,44 +2239,9 @@ export type PerseusVideoWidgetOptions = {
     static?: boolean;
 };
 
-export type PerseusInputNumberAnswer = {
-    /** The expected answer. Null in answerless data. */
-    value: number | null;
-    status: "correct";
-    message: "";
-    /** The accepted answer forms. */
-    answerForms: MathFormat[];
-    strict: true;
-    /**
-     * The maximum difference between the answer key `value` and a correct
-     * response.
-     */
-    maxError?: number | undefined;
-    /** Determines how unsimplified responses are handled */
-    simplify: PerseusNumericInputSimplify;
-};
+export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
-export type PerseusInputNumberWidgetOptions = {
-    answers: [PerseusInputNumberAnswer];
-    /**
-     * Translatable Text; Text to describe this input. This will be shown to
-     * users using screenreaders.
-     */
-    labelText?: string | undefined;
-    /**
-     * Use size "Normal" for all text boxes, unless there are multiple text
-     * boxes in one line and the answer area is too narrow to fit them.
-     * Options: "normal" or "small"
-     */
-    size: "normal" | "small";
-    /**
-     * A coefficient style number allows the student to use - for -1 and an
-     * empty string to mean 1.
-     */
-    coefficient: false;
-    /** Whether to right-align the text or not */
-    rightAlign?: boolean;
-};
+export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 /** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
 export type PerseusMoleculeRendererWidgetOptions = {

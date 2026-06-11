@@ -457,7 +457,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
         );
     });
 
-    it("should return undefined if the answer value is null", () => {
+    it("should return empty if the answer value is null", () => {
         // Arrange
         const rubric = generateInputNumberOptions({
             answers: [
@@ -471,7 +471,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
-        expect(result).toBeUndefined();
+        expect(result).toBe("");
     });
 
     it("should return the answer value if maxError is 0", () => {

@@ -2,8 +2,8 @@ import inputNumberWidgetLogic from "../../widgets/input-number";
 
 import type {
     InputNumberWidget,
-    PerseusInputNumberAnswer,
     PerseusInputNumberWidgetOptions,
+    PerseusInputNumberAnswer,
 } from "../../data-schema";
 
 // TODO(LEMS-4085): Delete this file.

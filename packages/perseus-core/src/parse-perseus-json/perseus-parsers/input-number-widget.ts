@@ -11,7 +11,6 @@ import {
     nullable,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-import {singleton} from "../general-purpose-parsers/singleton";
 
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
@@ -39,18 +38,20 @@ const parseInputNumberWidgetV1 = parseWidgetWithVersion(
     object({major: constant(1), minor: number}),
     constant("input-number"),
     object({
-        size: enumeration("normal", "small"),
-        coefficient: constant(false),
+        size: string,
+        coefficient: boolean,
         labelText: optional(string),
         rightAlign: optional(boolean),
-        answers: singleton(
+        answers: array(
             object({
-                value: nullable(number),
-                status: constant("correct"),
-                message: constant(""),
-                answerForms: array(parseMathFormat),
-                strict: constant(true),
-                maxError: optional(number),
+                value: optional(nullable(number)),
+                status: string,
+                message: string,
+                answerForms: optional(array(parseMathFormat)),
+                // FIXME: confirm that we need the default on `strict`.
+                // cribbed from numeric-input-widget.ts.
+                strict: defaulted(boolean, () => false),
+                maxError: optional(nullable(number)),
                 simplify: enumeration("required", "enforced", "optional"),
             }),
         ),
