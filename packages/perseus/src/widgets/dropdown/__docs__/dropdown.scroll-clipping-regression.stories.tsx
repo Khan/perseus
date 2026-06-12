@@ -271,6 +271,7 @@ const ZoomAfterOpenDemo = (): React.ReactElement => {
     return (
         <div>
             <button
+                type="button"
                 data-testid="zoom-toggle"
                 onClick={() => setZoomed((z) => !z)}
                 style={{marginBottom: 12}}
