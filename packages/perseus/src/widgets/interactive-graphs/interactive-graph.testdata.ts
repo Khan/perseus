@@ -1272,6 +1272,32 @@ export const pointWithCustomLabelQuestion: PerseusRenderer =
         }),
     });
 
+// A point whose custom label contains TeX. The visible on-canvas label
+// renders the math correctly via <TeX>, but the screen-reader aria-label
+// currently reads the raw TeX literally (e.g. "dollar left dfrac one …")
+// because the label string is passed straight through. Used to demo the
+// spoken-math conversion fix.
+export const pointWithTexLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "**Plot the point and listen to how its label is announced.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[2, 3]],
+            pointLabels: ["$\\left(\\dfrac{1}{2}, 3\\right)$"],
+            showPointLabels: true,
+        }),
+    });
+
 // Same reference question as `pointWithCustomLabelQuestion`
 // but with `pointLabels` omitted, so the interactive point falls back to
 // the legacy numeric default. JAWS announces "Point 1 at …" even though
