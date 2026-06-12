@@ -8,6 +8,7 @@ import React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
+import {getFeatureFlags} from "../testing/feature-flags-util";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {earthMoonImage} from "../widgets/image/utils";
 
@@ -45,6 +46,35 @@ export const ImageWidgetInHint: Story = {
     decorators: [bibliotronExerciseDecorator],
     args: {
         dependencies: storybookDependenciesV2,
+        hints: [
+            {
+                ...generateTestPerseusRenderer({
+                    content: "[[☃ image 1]]",
+                    widgets: {
+                        "image 1": generateImageWidget({
+                            options: generateImageOptions({
+                                backgroundImage: earthMoonImage,
+                                alt: "Earth and Moon",
+                                title: "Earth and Moon",
+                                caption: "Earth and Moon",
+                            }),
+                        }),
+                    },
+                }),
+            },
+        ],
+    },
+};
+
+export const ImageWidgetInHintWithRendererUpgrade: Story = {
+    decorators: [bibliotronExerciseDecorator],
+    args: {
+        dependencies: storybookDependenciesV2,
+        apiOptions: {
+            flags: getFeatureFlags({
+                "perseus-renderer-upgrade": true,
+            }),
+        },
         hints: [
             {
                 ...generateTestPerseusRenderer({

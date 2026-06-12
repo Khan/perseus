@@ -11,6 +11,7 @@
  */
 const PerseusFeatureFlags = [
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
+    "perseus-renderer-upgrade",
 ] as const;
 
 export default PerseusFeatureFlags;

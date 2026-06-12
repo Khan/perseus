@@ -6,6 +6,7 @@ import {
     PerseusError,
     applyDefaultsToWidgets,
     getDefaultAnswerArea,
+    isFeatureOn,
     mapObject,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -1526,6 +1527,10 @@ class Renderer
 
     render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
+        const rendererFF = isFeatureOn(
+            {apiOptions},
+            "perseus-renderer-upgrade",
+        );
 
         const content = this.getContent(this.props, this.state);
         // `this.widgetIds` is appended to in `this.outputMarkdown`:
@@ -1599,9 +1604,11 @@ class Renderer
                   // decide you want to add a check that this is an article,
                   // go for it.)
                   isJipt: this.translationIndex != null,
+                  rendererFF,
               })
             : PerseusMarkdown.parse(content, {
                   isJipt: this.translationIndex != null,
+                  rendererFF,
               });
 
         // Optionally apply the linter to the parse tree
