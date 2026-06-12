@@ -23,9 +23,9 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             />
             <OptionItem value="exponential" label="Exponential function" />
             <OptionItem value="linear" label="Linear function" />
-            <OptionItem value="logarithmic" label="Logarithmic function" />
+            <OptionItem value="logarithm" label="Logarithmic function" />
             <OptionItem value="quadratic" label="Quadratic function" />
-            <OptionItem value="sinusoidal" label="Sinusoidal function" />
+            <OptionItem value="sinusoid" label="Sinusoidal function" />
             <OptionItem value="tangent" label="Tangent function" />
             <OptionItem value="angle" label="Angle" />
             <OptionItem value="circle" label="Circle" />
