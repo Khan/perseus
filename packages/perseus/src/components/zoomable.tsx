@@ -40,6 +40,29 @@ type DefaultProps = {
     disableEntranceAnimation: Props["disableEntranceAnimation"];
 };
 
+/**
+ * Returns the cumulative CSS `zoom` applied to a node by its ancestors.
+ *
+ * The mobile apps apply `zoom` to <body> to honor the device font scale
+ * (LEMS-3885). Under `zoom: z`, offsetWidth measurements report the
+ * container as z times narrower while the child's intrinsic width is
+ * unchanged, so a plain fit-to-width scale would exactly cancel the font
+ * scaling. Callers multiply the available width by this factor so fitted
+ * content still grows with the font scale.
+ */
+export function getEffectiveZoom(node: HTMLElement): number {
+    // currentCSSZoom (Chrome/Android WebView 128+, Safari/iOS 18.4+)
+    // accounts for zoom on any ancestor, not just <body>.
+    // eslint-disable-next-line no-restricted-syntax -- currentCSSZoom isn't in the TypeScript DOM lib yet
+    const currentCSSZoom = (node as {currentCSSZoom?: number}).currentCSSZoom;
+    if (typeof currentCSSZoom === "number" && currentCSSZoom > 0) {
+        return currentCSSZoom;
+    }
+    // Fallback for older webviews: the apps only ever zoom <body>.
+    const bodyZoom = parseFloat(window.getComputedStyle(document.body).zoom);
+    return bodyZoom > 0 ? bodyZoom : 1;
+}
+
 type State = {
     visible: boolean;
     marginBottomPx: number;
@@ -220,8 +243,15 @@ class Zoomable extends React.Component<Props, State> {
         const childWidth = childBounds.width + 1;
         const childHeight = childBounds.height + 1;
 
-        if (childWidth > parentBounds.width) {
-            const scale = parentBounds.width / childWidth;
+        // Fit to the zoom-adjusted width so the fitted content's visual
+        // size grows with the device font scale instead of being scaled
+        // back down to its unzoomed size. Overflow at the enlarged size is
+        // handled by the parent's overflowX scrolling and tap-to-zoom.
+        const availableWidth =
+            parentBounds.width * getEffectiveZoom(this._node);
+
+        if (childWidth > availableWidth) {
+            const scale = availableWidth / childWidth;
 
             this.setState({
                 scale,
