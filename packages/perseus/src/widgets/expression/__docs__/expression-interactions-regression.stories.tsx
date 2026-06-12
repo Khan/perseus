@@ -1,3 +1,4 @@
+import * as React from "react";
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
@@ -11,6 +12,28 @@ const meta: Meta<typeof Expression> = {
     title: "Widgets/Expression/Visual Regression Tests/Interactions",
     component: Expression,
     tags: ["!autodocs", "!manifest"],
+    decorators: [
+        (Story) => {
+            // MathQuill toggles `mq-blink` via setInterval, making snapshots
+            // non-deterministic. The blink rules in main.css use `!important`
+            // inside `@layer shared`; CSS layers reverse !important priority
+            // (layered beats unlayered), so our overrides must be inside the
+            // same layer.
+            React.useLayoutEffect(() => {
+                const style = document.createElement("style");
+                style.textContent = `
+                    @layer shared {
+                        :root .mq-cursor.mq-blink { visibility: visible !important; }
+                        :root .keypad-input .mq-editable-field .mq-cursor { transition: none !important; }
+                        :root .keypad-input .mq-editable-field .mq-cursor.mq-blink { opacity: 1 !important; }
+                    }
+                `;
+                document.head.appendChild(style);
+                return () => style.remove();
+            }, []);
+            return <Story />;
+        },
+    ],
     parameters: {
         docs: {
             description: {
@@ -136,6 +159,17 @@ export const WithTextInField: Story = {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
         await userEvent.type(mathInput, "x+1");
+    },
+};
+
+export const KeypadButtonPressed: Story = {
+    decorators: [expressionRendererDecorator],
+    args: keypadArgs,
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // Keypad renders into a React portal outside the canvas
+        const button = within(document.body).getByRole("button", {name: "1"});
+        await userEvent.pointer({target: button, keys: "[MouseLeft>]"});
     },
 };
 

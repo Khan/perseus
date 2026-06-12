@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
         boxShadow: "none",
     },
     pressed: {
-        border: "2px solid #1B50B3",
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${semanticColor.core.background.base.default}`,
+        border: `2px solid ${semanticColor.core.border.instructive.strong}`,
+        background: semanticColor.core.background.instructive.subtle,
         boxShadow: "none",
     },
 });
