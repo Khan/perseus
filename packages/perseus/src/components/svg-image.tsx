@@ -109,6 +109,7 @@ export type Props = {
      * Called when the GIF completes one full loop.
      */
     onGifLoop?: () => void;
+    onGifFrameCount?: (count: number) => void;
 };
 
 type DefaultProps = {
@@ -487,7 +488,10 @@ class SvgImage extends React.Component<Props, State> {
                                 scale={this.props.scale}
                                 isPlaying={!!this.props.isGifPlaying}
                                 onLoop={this.props.onGifLoop ?? (() => {})}
-                                onLoad={this.onImageLoad}
+                                onLoad={(count) => {
+                                    this.onImageLoad();
+                                    this.props.onGifFrameCount?.(count);
+                                }}
                             />
                         )}
                     </>

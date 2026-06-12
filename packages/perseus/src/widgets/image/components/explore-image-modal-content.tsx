@@ -36,6 +36,9 @@ export default function ExploreImageModalContent({
     longDescId,
 }: Props) {
     const [isGifPlaying, setIsGifPlaying] = React.useState(false);
+    const [gifFrameCount, setGifFrameCount] = React.useState<number | null>(
+        null,
+    );
     const context = React.useContext(PerseusI18nContext);
 
     if (!backgroundImage.url) {
@@ -44,6 +47,8 @@ export default function ExploreImageModalContent({
 
     const imageIsGif = isGif(backgroundImage.url);
     const imageIsSvg = isSvg(backgroundImage.url);
+    const isAnimatedGif =
+        imageIsGif && gifFrameCount != null && gifFrameCount > 1;
 
     let scale = 1;
     // If we know the original image size, attempt to upscale the image.
@@ -108,6 +113,9 @@ export default function ExploreImageModalContent({
                                     ? () => setIsGifPlaying(false)
                                     : undefined
                             }
+                            onGifFrameCount={
+                                imageIsGif ? setGifFrameCount : undefined
+                            }
                         />
                     )}
                 </AssetContext.Consumer>
@@ -115,7 +123,7 @@ export default function ExploreImageModalContent({
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
             >
-                {imageIsGif && (
+                {isAnimatedGif && imageIsGif && (
                     <>
                         <GifControlsButton
                             isPlaying={isGifPlaying}
