@@ -1,16 +1,12 @@
-import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
-import ImagePreview from "../../components/image-preview";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
-import styles from "./radio-editor.module.css";
 import RadioImageEditor from "./radio-image-editor";
 import {
     setMarkdownContentFromImageProxy,
@@ -47,44 +43,18 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     // States for updating content and images
     const [proxiedContent, setProxiedContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
-        {url: string; altText: string; width?: number; height?: number}[]
+        {url: string; altText: string}[]
     >([]);
 
-    // States for adding an image
-    const [addingImage, setAddingImage] = React.useState(false);
-
+    // Parse the content into easy-to-read proxies plus the list of images.
+    // This is cheap and synchronous; image dimensions are fetched per-image
+    // inside RadioImageEditor, keyed on the URL.
     React.useEffect(() => {
         const [proxiedContent, parsedImages] = setImageProxyFromMarkdownContent(
             content ?? "",
         );
         setProxiedContent(proxiedContent);
-
-        // Set images immediately without dimensions so they render right away
         setImages(parsedImages);
-
-        // Fetch dimensions for all images asynchronously,
-        // to prevent image from overflowing its container in editor previews
-        async function fetchAllDimensions() {
-            const imagesWithDimensions = await Promise.all(
-                parsedImages.map(async (image) => {
-                    try {
-                        const size = await Util.getImageSizeModern(image.url);
-                        return {
-                            ...image,
-                            width: size[0],
-                            height: size[1],
-                        };
-                    } catch (error) {
-                        // If we can't get dimensions, return image without them
-                        return image;
-                    }
-                }),
-            );
-            // Update images with dimensions once fetched
-            setImages(imagesWithDimensions);
-        }
-
-        void fetchAllDimensions();
     }, [content]);
 
     // Add the image markdown at the end of the content.
@@ -92,8 +62,6 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         choiceIndex: number,
         imageUrl: string,
         imageAltText: string,
-        width?: number,
-        height?: number,
     ) => {
         const newContent = `${content}\n![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
@@ -115,11 +83,9 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
         imageIndex: number,
         url: string,
         altText: string,
-        width?: number,
-        height?: number,
     ) => {
         const newImages = [...images];
-        newImages[imageIndex] = {url, altText, width, height};
+        newImages[imageIndex] = {url, altText};
         setImages(newImages);
 
         const newContent = setMarkdownContentFromImageProxy(
@@ -210,45 +176,22 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
             />
 
             {/* Add image button */}
-            {!addingImage && (
-                <Button
-                    startIcon={plusIcon}
-                    size="small"
-                    kind="tertiary"
-                    style={{alignSelf: "flex-start"}}
-                    onClick={() => {
-                        setAddingImage(true);
-                    }}
-                >
-                    Add image
-                </Button>
-            )}
-
-            {/* "Add image" tile */}
-            {addingImage && (
-                <RadioImageEditor
-                    initialImageUrl=""
-                    initialImageAltText=""
-                    containerClassName={styles.imageEditorContainer}
-                    onSave={(imageUrl, imageAltText, width, height) => {
-                        handleAddImage(
-                            choiceIndex,
-                            imageUrl,
-                            imageAltText,
-                            width,
-                            height,
-                        );
-                    }}
-                    onClose={() => {
-                        setAddingImage(false);
-                    }}
-                />
-            )}
+            <Button
+                startIcon={plusIcon}
+                size="small"
+                kind="tertiary"
+                style={{alignSelf: "flex-start"}}
+                onClick={() => {
+                    handleAddImage(choiceIndex, "", "");
+                }}
+            >
+                Add image
+            </Button>
 
             {/* Image editor accordions */}
             {images?.map((image, imageIndex) => (
                 <PerseusEditorAccordion
-                    key={image.url}
+                    key={`${imageIndex}-${image.url}`}
                     header={`Image ${imageIndex + 1}`}
                     expanded={true}
                     containerStyle={{
@@ -263,37 +206,20 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                         paddingBlockEnd: sizing.size_120,
                     }}
                 >
-                    <LabeledField
-                        label="Preview"
-                        field={
-                            <ImagePreview
-                                src={image.url}
-                                alt={`Preview: ${image.altText ?? "No alt text"}`}
-                                width={image.width}
-                                height={image.height}
-                            />
-                        }
+                    <RadioImageEditor
+                        imageUrl={image.url}
+                        imageAltText={image.altText}
+                        onSave={(imageUrl, imageAltText) => {
+                            handleUpdateImage(
+                                imageIndex,
+                                imageUrl,
+                                imageAltText,
+                            );
+                        }}
+                        onDelete={() => {
+                            handleDeleteImageConfirmation(imageIndex);
+                        }}
                     />
-                    <div style={{marginTop: sizing.size_160}}>
-                        <RadioImageEditor
-                            initialImageUrl={image.url}
-                            initialImageAltText={image.altText}
-                            initialImageWidth={image.width}
-                            initialImageHeight={image.height}
-                            onSave={(imageUrl, imageAltText, width, height) => {
-                                handleUpdateImage(
-                                    imageIndex,
-                                    imageUrl,
-                                    imageAltText,
-                                    width,
-                                    height,
-                                );
-                            }}
-                            onDelete={() => {
-                                handleDeleteImageConfirmation(imageIndex);
-                            }}
-                        />
-                    </div>
                 </PerseusEditorAccordion>
             )) ?? null}
         </>
