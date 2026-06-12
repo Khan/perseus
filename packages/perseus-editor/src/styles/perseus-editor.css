@@ -1062,25 +1062,33 @@ breaks the layout depending on the widget editors used.*/
  * Applied when editingDisabled=true to prevent content creators from making
  * changes while still allowing them to view the editor interface.
  *
- * Targets all form controls and interactive elements within disabled editors.
+ * The editor content is wrapped in a <fieldset disabled>, and the interactive
+ * controls are Wonder Blocks components that render their own accessible
+ * disabled state. So we deliberately DO NOT dim everything with `opacity`
+ * anymore — opacity is inherited by the content (text and math) and dropped it
+ * below a readable contrast (see LEMS-4131). We only add a muted background and
+ * a not-allowed cursor to the non-WB native and MathQuill inputs, using the WB
+ * disabled tokens so they read as disabled consistently with the design system.
  */
 .perseus-single-editor.perseus-editor-disabled input,
-.perseus-single-editor.perseus-editor-disabled textarea,
 .perseus-single-editor.perseus-editor-disabled select,
-.perseus-single-editor.perseus-editor-disabled checkbox,
 .perseus-single-editor.perseus-editor-disabled .perseus-math-input,
 .perseus-single-editor.perseus-editor-disabled .keypad-input {
-    opacity: 0.6 !important;
     background-color: var(
-        --wb-semanticColor-core-background-neutral-subtle
+        --wb-semanticColor-input-disabled-background
     ) !important;
     cursor: not-allowed !important;
-    border-color: var(--wb-semanticColor-core-border-neutral-subtle) !important;
+    border-color: var(--wb-semanticColor-input-disabled-border) !important;
 }
 
-/* We want to keep the button colors as it often helps denote correctness. */
-.perseus-single-editor.perseus-editor-disabled button {
-    opacity: 0.6 !important;
+/* The markdown field renders widget-reference highlights in a transparent
+   underlay that sits behind the textarea, so tint the container — not the
+   textarea — to keep the highlights visible while still reading as disabled. */
+.perseus-single-editor.perseus-editor-disabled .perseus-textarea-pair {
+    background-color: var(
+        --wb-semanticColor-input-disabled-background
+    ) !important;
+    border-color: var(--wb-semanticColor-input-disabled-border) !important;
     cursor: not-allowed !important;
 }
 

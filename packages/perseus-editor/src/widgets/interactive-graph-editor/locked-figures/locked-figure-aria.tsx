@@ -18,11 +18,17 @@ type Props = {
      * for the locked figure with math details converted to spoken words.
      */
     getPrepopulatedAriaLabel: () => Promise<string>;
+    editingDisabled?: boolean;
     onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
 };
 
 function LockedFigureAria(props: Props) {
-    const {ariaLabel, getPrepopulatedAriaLabel, onChangeProps} = props;
+    const {
+        ariaLabel,
+        getPrepopulatedAriaLabel,
+        editingDisabled = false,
+        onChangeProps,
+    } = props;
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
 
@@ -59,6 +65,7 @@ function LockedFigureAria(props: Props) {
             <TextArea
                 id={ariaLabelId}
                 value={loading ? "Loading..." : ariaLabel ?? ""}
+                disabled={editingDisabled}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.
@@ -73,6 +80,7 @@ function LockedFigureAria(props: Props) {
             <Button
                 kind="tertiary"
                 startIcon={pencilCircle}
+                disabled={editingDisabled}
                 style={styles.button}
                 onClick={() => {
                     setLoading(true);

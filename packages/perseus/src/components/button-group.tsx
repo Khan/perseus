@@ -26,6 +26,11 @@ type Props = {
      * Customizes the selected button's styling.
      */
     selectedButtonStyle?: CSSProperties;
+
+    /**
+     * When true, all buttons are disabled (non-interactive and visually muted).
+     */
+    disabled?: boolean;
 };
 
 type DefaultProps = {
@@ -75,11 +80,13 @@ class ButtonGroup extends React.Component<Props> {
                     type="button"
                     ref={"button" + i}
                     key={"" + i}
+                    disabled={this.props.disabled}
                     className={css(
                         styles.buttonStyle,
                         button.value === value && styles.selectedStyle,
                         button.value === value &&
                             this.props.selectedButtonStyle,
+                        this.props.disabled && styles.disabledStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -135,6 +142,15 @@ const styles = StyleSheet.create({
 
     selectedStyle: {
         backgroundColor: "#ddd",
+    },
+
+    disabledStyle: {
+        cursor: "not-allowed",
+        backgroundColor: "#f0f0f1",
+        color: "#888d93",
+        ":hover": {
+            backgroundColor: "#f0f0f1",
+        },
     },
 });
 

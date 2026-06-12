@@ -538,6 +538,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     render() {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         return (
             <>
                 <Heading
@@ -556,6 +558,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     <ButtonGroup
                                         value={this.props.labelLocation}
                                         allowEmpty={false}
+                                        disabled={editingDisabled}
                                         buttons={[
                                             {
                                                 value: "onAxis",
@@ -682,6 +685,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     <Button
                                         size="small"
                                         kind="tertiary"
+                                        disabled={editingDisabled}
                                         onClick={() => {
                                             this.changeStepsBasedOnRange();
                                         }}
@@ -706,10 +710,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 </div>
                             </div>
                             <div className="perseus-widget-row">
-                                <LabeledRow label="Markings:">
+                                <LabeledRow label="Markings">
                                     <ButtonGroup
                                         value={this.props.markings}
                                         allowEmpty={false}
+                                        disabled={editingDisabled}
                                         buttons={[
                                             {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},
@@ -732,7 +737,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                         </div>
 
                         <LabeledRow
-                            label="Background image URL:"
+                            label="Background image URL"
                             style={styles.resetSpaceTop}
                         >
                             <input

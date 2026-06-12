@@ -11,10 +11,16 @@ type Props = {
     selectedValue: StrokeWeight;
     onChange: (newValue: StrokeWeight) => void;
     containerStyle?: StyleType;
+    editingDisabled?: boolean;
 };
 
 const LineWeightSelect = (props: Props) => {
-    const {selectedValue, containerStyle, onChange} = props;
+    const {
+        selectedValue,
+        containerStyle,
+        editingDisabled = false,
+        onChange,
+    } = props;
 
     return (
         <BodyText
@@ -34,6 +40,7 @@ const LineWeightSelect = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
+                disabled={editingDisabled}
                 // eslint-disable-next-line no-restricted-syntax
                 onChange={(value) => onChange(value as StrokeWeight)}
                 // Placeholder is required, but never gets used.

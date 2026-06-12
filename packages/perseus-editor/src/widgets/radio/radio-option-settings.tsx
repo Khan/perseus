@@ -1,8 +1,10 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import Pill from "@khanacademy/wonder-blocks-pill";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
+
+import {SegmentedControl} from "../../components/segmented-control";
 
 import styles from "./radio-editor.module.css";
 import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
@@ -20,6 +22,8 @@ export type RadioOptionSettingsHandle = {
 interface RadioOptionSettingsProps {
     index: number;
     choice: PerseusRadioChoice;
+    // Whether the whole editor is disabled (apiOptions.editingDisabled).
+    editingDisabled: boolean;
     multipleSelect: boolean;
     onStatusChange: (choiceIndex: number, correct: boolean) => void;
     onContentChange: (choiceIndex: number, content: string) => void;
@@ -37,6 +41,7 @@ export const RadioOptionSettings = React.forwardRef<
     {
         index,
         choice,
+        editingDisabled,
         multipleSelect,
         onStatusChange,
         onContentChange,
@@ -65,57 +70,39 @@ export const RadioOptionSettings = React.forwardRef<
         <div className={styles.tile}>
             {/* Correct / Incorrect status selection */}
             <fieldset className="perseus-widget-row">
-                <RadioStatusPill
-                    index={index}
-                    correct={correct}
-                    multipleSelect={multipleSelect}
-                    onClick={() => {
-                        onStatusChange(index, !correct);
-                    }}
-                />
-                <BodyText
-                    size="small"
-                    weight="bold"
-                    tag="span"
+                <View
                     style={{
-                        display: "inline",
-                        marginInlineEnd: sizing.size_080,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        flexWrap: "wrap",
                     }}
                 >
-                    Status
-                </BodyText>
-                <Pill
-                    kind={correct ? "accent" : "transparent"}
-                    onClick={() => {
-                        onStatusChange(index, true);
-                    }}
-                    style={{
-                        marginInlineEnd: sizing.size_080,
-                        // Higher contrast on the default outline for
-                        // secondary pills
-                        outlineColor: correct
-                            ? semanticColor.core.background.instructive.default
-                            : semanticColor.core.border.neutral.default,
-                    }}
-                >
-                    Correct
-                </Pill>
-                <Pill
-                    kind={correct ? "transparent" : "accent"}
-                    onClick={() => {
-                        onStatusChange(index, false);
-                    }}
-                    style={{
-                        marginInlineEnd: sizing.size_080,
-                        // Higher contrast on the default outline for
-                        // secondary pills
-                        outlineColor: !correct
-                            ? semanticColor.core.background.instructive.default
-                            : semanticColor.core.border.neutral.default,
-                    }}
-                >
-                    Incorrect
-                </Pill>
+                    <RadioStatusPill
+                        index={index}
+                        correct={correct}
+                        multipleSelect={multipleSelect}
+                    />
+                    <BodyText
+                        size="small"
+                        weight="bold"
+                        tag="span"
+                        style={{marginInlineEnd: sizing.size_080}}
+                    >
+                        Status
+                    </BodyText>
+                    <SegmentedControl
+                        aria-label="Choice status"
+                        disabled={editingDisabled}
+                        selectedValue={correct ? "correct" : "incorrect"}
+                        onChange={(value) => {
+                            onStatusChange(index, value === "correct");
+                        }}
+                        options={[
+                            {value: "correct", label: "Correct"},
+                            {value: "incorrect", label: "Incorrect"},
+                        ]}
+                    />
+                </View>
             </fieldset>
 
             {/* Content and rationale text areas */}
@@ -124,6 +111,7 @@ export const RadioOptionSettings = React.forwardRef<
                 content={content}
                 choiceIndex={index}
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
+                editingDisabled={editingDisabled}
                 onContentChange={onContentChange}
             />
 
@@ -143,6 +131,7 @@ export const RadioOptionSettings = React.forwardRef<
                 id={rationaleTextAreaId}
                 value={rationale ?? ""}
                 placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
+                disabled={editingDisabled}
                 onChange={(value) => {
                     onRationaleChange(index, value);
                 }}
@@ -154,6 +143,7 @@ export const RadioOptionSettings = React.forwardRef<
                 content={content}
                 showDelete={showDelete}
                 showMove={showMove}
+                editingDisabled={editingDisabled}
                 onDelete={onDelete}
                 onMove={(movement) => onMove(index, movement)}
             />

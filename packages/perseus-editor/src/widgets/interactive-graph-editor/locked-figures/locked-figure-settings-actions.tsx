@@ -26,12 +26,13 @@ export type LockedFigureSettingsMovementType =
 
 type Props = {
     figureType: LockedFigureType;
+    editingDisabled?: boolean;
     onMove?: (movement: LockedFigureSettingsMovementType) => void;
     onRemove: () => void;
 };
 
 const LockedFigureSettingsActions = (props: Props) => {
-    const {figureType, onMove, onRemove} = props;
+    const {figureType, editingDisabled = false, onMove, onRemove} = props;
 
     return (
         <View style={styles.container}>
@@ -40,6 +41,7 @@ const LockedFigureSettingsActions = (props: Props) => {
                 aria-label={`Delete locked ${figureType}`}
                 onClick={onRemove}
                 kind="tertiary"
+                disabled={editingDisabled}
                 style={styles.deleteButton}
             >
                 Delete
@@ -54,6 +56,7 @@ const LockedFigureSettingsActions = (props: Props) => {
                         kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} to the back`}
+                        disabled={editingDisabled}
                         onClick={() => onMove("back")}
                     />
                     <IconButton
@@ -61,6 +64,7 @@ const LockedFigureSettingsActions = (props: Props) => {
                         kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} backward`}
+                        disabled={editingDisabled}
                         onClick={() => onMove("backward")}
                     />
                     <IconButton
@@ -68,6 +72,7 @@ const LockedFigureSettingsActions = (props: Props) => {
                         kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} forward`}
+                        disabled={editingDisabled}
                         onClick={() => onMove("forward")}
                     />
                     <IconButton
@@ -75,6 +80,7 @@ const LockedFigureSettingsActions = (props: Props) => {
                         kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} to the front`}
+                        disabled={editingDisabled}
                         onClick={() => onMove("front")}
                     />
                 </>

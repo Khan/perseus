@@ -32,9 +32,9 @@ const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. When editing is disabled, default to
     // all open so content can still be reviewed. Otherwise, default to closed.
-    const defaultState = props.apiOptions?.editingDisabled ?? false;
+    const editingDisabled = props.apiOptions?.editingDisabled ?? false;
     const collapsedStateArray = Array((props.figures ?? []).length).fill(
-        defaultState,
+        editingDisabled,
     );
     const [expandedStates, setExpandedStates] =
         React.useState(collapsedStateArray);
@@ -172,6 +172,7 @@ const LockedFiguresSection = (props: Props) => {
                                     setExpandedStates(newExpanded);
                                 }}
                                 {...figure}
+                                editingDisabled={editingDisabled}
                                 onChangeProps={(newProps) =>
                                     changeProps(index, newProps)
                                 }
@@ -185,12 +186,14 @@ const LockedFiguresSection = (props: Props) => {
                     <View style={styles.buttonContainer}>
                         <LockedFigureSelect
                             id={`${uniqueId}-select`}
+                            editingDisabled={editingDisabled}
                             onChange={addLockedFigure}
                         />
                         <Strut size={spacing.small_12} />
                         {showExpandButton && (
                             <Button
                                 kind="secondary"
+                                disabled={editingDisabled}
                                 onClick={() => toggleExpanded(allCollapsed)}
                                 style={styles.button}
                             >

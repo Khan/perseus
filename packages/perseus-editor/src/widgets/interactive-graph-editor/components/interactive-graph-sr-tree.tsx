@@ -1,9 +1,9 @@
 import {components} from "@khanacademy/perseus";
+import {NeutralBadge, StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {addStyle, View} from "@khanacademy/wonder-blocks-core";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import Pill from "@khanacademy/wonder-blocks-pill";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {font, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -105,29 +105,40 @@ function SRTree(props: Props) {
             {elementArias.map((aria, index) => (
                 <li key={index}>
                     {showTags && (
-                        <Pill
-                            size="small"
+                        <StatusBadge
                             kind="success"
-                            style={styles.smallSpaceRight}
-                        >
-                            {aria.roleOrTag}
-                        </Pill>
+                            label={aria.roleOrTag}
+                            showBorder={false}
+                            styles={{
+                                root: styles.smallSpaceRight,
+                                label: styles.badgeLabel,
+                            }}
+                        />
                     )}
                     {aria.className}
                     <StyledUl style={styles.indentListLeft}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        value.name === "label"
-                                            ? "info"
-                                            : "neutral"
-                                    }
-                                    style={styles.smallSpaceRight}
-                                >
-                                    {value.name}
-                                </Pill>
+                                {value.name === "label" ? (
+                                    <StatusBadge
+                                        kind="info"
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: styles.smallSpaceRight,
+                                            label: styles.badgeLabel,
+                                        }}
+                                    />
+                                ) : (
+                                    <NeutralBadge
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: styles.smallSpaceRight,
+                                            label: styles.badgeLabel,
+                                        }}
+                                    />
+                                )}
                                 {value.value}
                             </li>
                         ))}
@@ -147,6 +158,7 @@ function InteractiveGraphSRTree({
     fullGraphAriaLabel,
     fullGraphAriaDescription,
     lockedFigures,
+    editingDisabled = false,
 }) {
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [showTags, setShowTags] = React.useState(false);
@@ -179,6 +191,7 @@ function InteractiveGraphSRTree({
                         <Switch
                             id={switchId}
                             checked={showTags}
+                            disabled={editingDisabled}
                             onChange={setShowTags}
                         />
                         <Strut size={spacing.xSmall_8} />
@@ -202,6 +215,11 @@ function InteractiveGraphSRTree({
 const styles = StyleSheet.create({
     smallSpaceRight: {
         marginRight: spacing.xxSmall_6,
+    },
+    // Match the pre-POC Pill look: badges default to a bold label, but the
+    // decorative tags in this tree should read at the regular body weight.
+    badgeLabel: {
+        fontWeight: font.weight.regular,
     },
     indentListLeft: {
         listStyle: "revert",

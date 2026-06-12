@@ -45,6 +45,13 @@ export type LockedFigureSettingsCommonProps = {
      * Called when the accordion is expanded or collapsed.
      */
     onToggle?: (expanded: boolean) => void;
+
+    /**
+     * Whether editing is disabled for the whole editor. When true, the
+     * figure's action controls (auto-generate, add label, delete, move)
+     * are disabled.
+     */
+    editingDisabled?: boolean;
 };
 
 // Union this type with other locked figure types when they are added.

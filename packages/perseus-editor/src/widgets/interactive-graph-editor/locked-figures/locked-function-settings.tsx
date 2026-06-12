@@ -66,6 +66,7 @@ const LockedFunctionSettings = (props: Props) => {
         onChangeProps,
         onMove,
         onRemove,
+        editingDisabled = false,
     } = props;
     const labels = props.labels;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
@@ -209,6 +210,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
                 <Strut size={spacing.small_12} />
@@ -216,6 +218,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={strokeStyle}
+                    editingDisabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("strokeStyle", newValue);
                     }}
@@ -225,6 +228,7 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Line weight settings */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({weight: value})}
             />
 
@@ -232,6 +236,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Directional axis (x or y) */}
                 <SingleSelect
                     selectedValue={directionalAxis}
+                    disabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
@@ -249,6 +254,7 @@ const LockedFunctionSettings = (props: Props) => {
                     type="text"
                     aria-label="equation"
                     value={equation}
+                    disabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("equation", newValue);
                     }}
@@ -269,6 +275,7 @@ const LockedFunctionSettings = (props: Props) => {
                         type="number"
                         style={styles.domainMinField}
                         value={domainEntries[0]}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             handleDomainChange(0, newValue);
                         }}
@@ -287,6 +294,7 @@ const LockedFunctionSettings = (props: Props) => {
                         type="number"
                         style={styles.domainMaxField}
                         value={domainEntries[1]}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             handleDomainChange(1, newValue);
                         }}
@@ -310,6 +318,7 @@ const LockedFunctionSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={exampleCategory}
+                        disabled={editingDisabled}
                         onChange={setExampleCategory}
                         placeholder="examples"
                     >
@@ -333,6 +342,7 @@ const LockedFunctionSettings = (props: Props) => {
                                 example={example}
                                 index={index}
                                 pasteEquationFn={handlePropChange}
+                                editingDisabled={editingDisabled}
                             />
                         ))}
                     </ul>
@@ -345,6 +355,7 @@ const LockedFunctionSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -360,6 +371,7 @@ const LockedFunctionSettings = (props: Props) => {
                     key={labelIndex}
                     {...label}
                     expanded={true}
+                    editingDisabled={editingDisabled}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
                     }}
@@ -372,6 +384,7 @@ const LockedFunctionSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -394,6 +407,7 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
@@ -406,10 +420,11 @@ type ItemProps = {
     example: string;
     index: number;
     pasteEquationFn: (property: string, newValue: string) => void;
+    editingDisabled: boolean;
 };
 
 const ExampleItem = (props: ItemProps): React.ReactElement => {
-    const {category, example, index, pasteEquationFn} = props;
+    const {category, example, index, pasteEquationFn, editingDisabled} = props;
     const exampleId = useId();
 
     return (
@@ -418,6 +433,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 icon={autoPasteIcon}
                 kind="tertiary"
                 aria-label="paste example"
+                disabled={editingDisabled}
                 aria-describedby={exampleId}
                 onClick={() => pasteEquationFn("equation", example)}
                 size="medium"
@@ -427,6 +443,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 icon={copyIcon}
                 kind="tertiary"
                 aria-label="copy example"
+                disabled={editingDisabled}
                 aria-describedby={exampleId}
                 onClick={() => navigator.clipboard.writeText(example)}
                 size="medium"

@@ -15,11 +15,12 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 type Props = {
     selectedValue: LockedFigureColor;
     style?: StyleType;
+    editingDisabled?: boolean;
     onChange: (newColor: LockedFigureColor) => void;
 };
 
 const ColorSelect = (props: Props) => {
-    const {selectedValue, style, onChange} = props;
+    const {selectedValue, style, editingDisabled = false, onChange} = props;
 
     return (
         <View style={[styles.row, style]}>
@@ -28,6 +29,7 @@ const ColorSelect = (props: Props) => {
                 <Strut size={spacing.xxSmall_6} />
                 <SingleSelect
                     selectedValue={selectedValue}
+                    disabled={editingDisabled}
                     // TODO(LEMS-2656): remove TS suppression
                     // eslint-disable-next-line no-restricted-syntax
                     onChange={onChange as any}

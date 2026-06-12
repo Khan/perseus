@@ -72,6 +72,7 @@ class GradedGroupEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <div className="perseus-group-editor">
                 <div className="perseus-widget-row">
@@ -102,6 +103,7 @@ class GradedGroupEditor extends React.Component<Props> {
                         type="button"
                         style={{marginTop: 10}}
                         className="add-hint simple-button orange"
+                        disabled={editingDisabled}
                         onClick={this.handleAddHint}
                     >
                         <InlineIcon {...iconPlus} /> Add a hint
@@ -135,6 +137,7 @@ class GradedGroupEditor extends React.Component<Props> {
                         <button
                             type="button"
                             className="remove-hint simple-button orange"
+                            disabled={editingDisabled}
                             onClick={this.handleRemoveHint}
                         >
                             <InlineIcon {...iconTrash} /> Remove this hint

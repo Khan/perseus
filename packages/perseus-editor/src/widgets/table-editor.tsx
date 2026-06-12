@@ -90,6 +90,8 @@ class TableEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+
         const tableProps: Partial<PropsFor<typeof Table>> = {
             headers: this.props.headers,
             onChange: this.props.onChange,
@@ -103,7 +105,12 @@ class TableEditor extends React.Component<Props> {
                 // user input is actually editing answers
                 this.props.onChange({answers: userInput});
             },
-            apiOptions: this.props.apiOptions,
+            // When editing is disabled, mark the table read-only so its answer
+            // cells render disabled (the widget's inputs key off `readOnly`).
+            apiOptions: {
+                ...this.props.apiOptions,
+                readOnly: editingDisabled || this.props.apiOptions?.readOnly,
+            },
             editableHeaders: true,
             onFocus: () => {},
             onBlur: () => {},
@@ -119,6 +126,7 @@ class TableEditor extends React.Component<Props> {
                         <NumberInput
                             ref={this.numberOfColumns}
                             value={this.props.columns}
+                            disabled={editingDisabled}
                             onChange={(val) => {
                                 if (val) {
                                     this.onSizeInput(this.props.rows, val);
@@ -135,6 +143,7 @@ class TableEditor extends React.Component<Props> {
                             // eslint-disable-next-line react/no-string-refs
                             ref="numberOfRows"
                             value={this.props.rows}
+                            disabled={editingDisabled}
                             onChange={(val) => {
                                 if (val) {
                                     this.onSizeInput(val, this.props.columns);

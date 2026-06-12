@@ -48,6 +48,8 @@ export type Props = LockedLabelType & {
      * Called when the delete button is pressed.
      */
     onRemove: () => void;
+    /** Whether editing is disabled for the whole editor. */
+    editingDisabled?: boolean;
 
     // Accordion props. Used for standalone labels for the expand/collapse
     // button functionality. Not used within other locked figure settings.
@@ -77,6 +79,7 @@ export default function LockedLabelSettings(props: Props) {
         onRemove,
         onToggle,
         containerStyle,
+        editingDisabled = false,
     } = props;
 
     return (
@@ -114,6 +117,7 @@ export default function LockedLabelSettings(props: Props) {
             {/* Coord settings */}
             <CoordinatePairInput
                 coord={coord}
+                disabled={editingDisabled}
                 onChange={(newCoords) => {
                     onChangeProps({coord: newCoords});
                 }}
@@ -130,6 +134,7 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <TextField
                         value={text}
+                        disabled={editingDisabled}
                         placeholder="ex. $x^2$ or $\frac{1}{2}$"
                         onChange={(newValue) =>
                             onChangeProps({
@@ -153,6 +158,7 @@ export default function LockedLabelSettings(props: Props) {
             <View style={styles.row}>
                 <ColorSelect
                     selectedValue={color}
+                    editingDisabled={editingDisabled}
                     onChange={(newColor) => {
                         onChangeProps({color: newColor});
                     }}
@@ -166,6 +172,7 @@ export default function LockedLabelSettings(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
+                        disabled={editingDisabled}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
                             // eslint-disable-next-line no-restricted-syntax
@@ -188,6 +195,7 @@ export default function LockedLabelSettings(props: Props) {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />

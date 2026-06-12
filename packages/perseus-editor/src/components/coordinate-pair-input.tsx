@@ -14,6 +14,7 @@ type Props = {
     coord: [number, number];
     labels?: [string, string];
     error?: boolean;
+    disabled?: boolean;
     style?: StyleType;
     // TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite
     labelStyle?: StyleType;
@@ -21,7 +22,15 @@ type Props = {
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, labels, error, style, labelStyle, onChange} = props;
+    const {
+        coord,
+        labels,
+        error,
+        disabled = false,
+        style,
+        labelStyle,
+        onChange,
+    } = props;
 
     const xLabel = labels ? labels[0] : "x coord";
     const yLabel = labels ? labels[1] : "y coord";
@@ -71,6 +80,7 @@ const CoordinatePairInput = (props: Props) => {
                 <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
                     value={coordState[0]}
+                    disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
                         styles.textField,
@@ -91,6 +101,7 @@ const CoordinatePairInput = (props: Props) => {
                 <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
                     value={coordState[1]}
+                    disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
                         styles.textField,
