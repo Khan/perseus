@@ -37,7 +37,11 @@ type State = {
 // Notably, Safari on iPhone supports neither: Apple deliberately omits
 // fullscreen support there, so this returns false and we hide the
 // fullscreen button instead of rendering one that silently fails.
-export const isFullscreenApiSupported = (): boolean => {
+const isFullscreenApiSupported = (): boolean => {
+    // Guard against non-DOM environments (e.g. server-side rendering)
+    if (typeof document === "undefined") {
+        return false;
+    }
     const doc: DocumentWithWebkitFullscreen = document;
     return Boolean(doc.fullscreenEnabled || doc.webkitFullscreenEnabled);
 };
@@ -220,7 +224,11 @@ export class PhetSimulation
             return;
         }
         if (typeof iframe.requestFullscreen === "function") {
-            iframe.requestFullscreen();
+            // The browser can reject the fullscreen request (e.g. denied
+            // permission, or the call wasn't triggered by a user gesture);
+            // there's nothing actionable for us to do, so swallow it rather
+            // than surface an unhandled promise rejection.
+            iframe.requestFullscreen().catch(() => {});
         } else {
             iframe.webkitRequestFullscreen?.();
         }
