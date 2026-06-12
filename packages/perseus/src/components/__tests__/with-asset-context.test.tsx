@@ -20,7 +20,6 @@ function MockComponent(props: MockComponentProps): React.ReactElement {
     return (
         <button
             onClick={() => props.setAssetStatus(props.assetKey, true)}
-            data-testid={props.label}
             data-asset-key={props.assetKey}
         >
             {props.label}
@@ -46,7 +45,7 @@ describe("withAssetContext", () => {
                 <Wrapped label="hello" />
             </AssetContext.Provider>,
         );
-        screen.getByTestId("hello").click();
+        screen.getByRole("button", {name: "hello"}).click();
 
         // Assert
         expect(setAssetStatusSpy).toHaveBeenCalled();
@@ -58,9 +57,9 @@ describe("withAssetContext", () => {
         render(<Wrapped label="hello" />);
 
         // Assert
-        expect(screen.getByTestId("hello").dataset.assetKey).toMatch(
-            /^widget-/,
-        );
+        expect(
+            screen.getByRole("button", {name: "hello"}).dataset.assetKey,
+        ).toMatch(/^widget-/);
     });
 
     it("generates a unique assetKey per rendered instance", () => {
@@ -74,8 +73,8 @@ describe("withAssetContext", () => {
         );
 
         // Assert
-        const first = screen.getByTestId("first");
-        const second = screen.getByTestId("second");
+        const first = screen.getByRole("button", {name: "first"});
+        const second = screen.getByRole("button", {name: "second"});
         expect(first.dataset.assetKey).not.toBe(second.dataset.assetKey);
     });
 
@@ -87,7 +86,7 @@ describe("withAssetContext", () => {
         // Assert — the HOC still generates an assetKey (useId works without
         // a Provider) and the default no-op setAssetStatus is callable (so
         // the click handler doesn't crash).
-        const button = screen.getByTestId("hello");
+        const button = screen.getByRole("button", {name: "hello"});
         expect(button.dataset.assetKey).toMatch(/^widget-/);
         expect(() => button.click()).not.toThrow();
     });

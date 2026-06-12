@@ -23,6 +23,8 @@ import type {
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
     dependencies: PerseusDependenciesV2;
+    // `setAssetStatus` is assumed to be idempotent; Sorter may call it with
+    // the same value on every measurement.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
     assetKey: string;
 };
@@ -70,9 +72,9 @@ export class Sorter extends React.Component<Props> implements Widget {
     }
 
     onMeasure: () => void = () => {
-        // Sorter has no constraint distribution, so Sortable's first
-        // measurement is authoritative. Settle on each call (idempotent);
-        // the renderer's _fullyRendered is a one-way latch.
+        // Unlike Matcher, Sorter doesn't resize its items to a shared height,
+        // so the first measurement means the cards have finished rendering.
+        // Settle on every measurement (see Props re: idempotency).
         this._setAssetStatus(true);
     };
 

@@ -118,16 +118,19 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
+    // The shared height constraint applied to both columns: the taller
+    // column's natural height. Used by both measure handlers and render.
+    _getConstraint: () => number = () => {
+        return Math.max(this.state.leftHeight, this.state.rightHeight);
+    };
+
     // A side is considered "stable" once its natural height is at or below the
     // shared constraint — meaning it won't push the constraint higher and
     // trigger another re-measurement cycle. Settling requires both sides
     // stable (see _maybeSettle).
     onMeasureLeft: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
-        const currentConstraint = _.max([
-            this.state.leftHeight,
-            this.state.rightHeight,
-        ]);
+        const currentConstraint = this._getConstraint();
         this.setState({leftHeight: height});
         if (height <= currentConstraint && currentConstraint > 0) {
             this._leftStable = true;
@@ -137,10 +140,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
 
     onMeasureRight: (arg1: any) => void = (dimensions) => {
         const height = _.max(dimensions.heights);
-        const currentConstraint = _.max([
-            this.state.leftHeight,
-            this.state.rightHeight,
-        ]);
+        const currentConstraint = this._getConstraint();
         this.setState({rightHeight: height});
         if (height <= currentConstraint && currentConstraint > 0) {
             this._rightStable = true;
@@ -233,7 +233,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
 
         const showLabels = _.any(this.props.labels);
         const constraints = {
-            height: _.max([this.state.leftHeight, this.state.rightHeight]),
+            height: this._getConstraint(),
         } as const;
 
         const cellMarginPx = this.props.apiOptions.isMobile ? 8 : 5;
