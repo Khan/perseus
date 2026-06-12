@@ -15,9 +15,16 @@ export type SelectImageProps = {
     onChange: (url: string) => void;
     // The selected image URL.
     url: string;
+    // Whether the editor is disabled. Can be set via API options
+    // to make the editor read-only when needed.
+    editingDisabled?: boolean;
 };
 
-const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
+const SelectImage = ({
+    onChange,
+    url,
+    editingDisabled = false,
+}: SelectImageProps): React.ReactElement => (
     <div>
         <div className={css(styles.title)}>Image</div>
 
@@ -32,7 +39,7 @@ const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
             <div className={css(styles.spacer)} />
 
             <Button
-                disabled={!url}
+                disabled={!url || editingDisabled}
                 aria-label={
                     url
                         ? ""
