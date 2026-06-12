@@ -42,7 +42,6 @@ function PreviewWithKeypad({
     const hasLintGutter = iframe?.dataset.lintGutter === "true";
 
     const className = isMobile ? "perseus-mobile" : "";
-    const keypadCtx = React.useContext(KeypadContext);
 
     const containerStyle = React.useMemo(
         () => [styles.container, hasLintGutter ? styles.gutter : undefined],
@@ -54,18 +53,32 @@ function PreviewWithKeypad({
             value={storybookDependenciesV2}
         >
             <StatefulKeypadContextProvider>
-                <View
-                    className={`framework-perseus ${className}`}
-                    style={containerStyle}
-                >
-                    {children({...keypadCtx, isMobile})}
+                {/*
+                 * The keypad context must be consumed *inside* the provider
+                 * above. Reading it via `useContext` in this component's body
+                 * would resolve to the default (no-op) context value, leaving
+                 * the renderer with a null `keypadElement` and the mobile
+                 * keypad wired to a no-op setter — so keypad presses never
+                 * reach the focused math input. See LEMS-3899.
+                 */}
+                <KeypadContext.Consumer>
+                    {(keypadCtx) => (
+                        <View
+                            className={`framework-perseus ${className}`}
+                            style={containerStyle}
+                        >
+                            {children({...keypadCtx, isMobile})}
 
-                    <MobileKeypad
-                        onAnalyticsEvent={() => Promise.resolve()}
-                        onDismiss={() => keypadCtx.setKeypadActive(false)}
-                        onElementMounted={keypadCtx.setKeypadElement}
-                    />
-                </View>
+                            <MobileKeypad
+                                onAnalyticsEvent={() => Promise.resolve()}
+                                onDismiss={() =>
+                                    keypadCtx.setKeypadActive(false)
+                                }
+                                onElementMounted={keypadCtx.setKeypadElement}
+                            />
+                        </View>
+                    )}
+                </KeypadContext.Consumer>
             </StatefulKeypadContextProvider>
         </Dependencies.DependenciesContext.Provider>
     );
