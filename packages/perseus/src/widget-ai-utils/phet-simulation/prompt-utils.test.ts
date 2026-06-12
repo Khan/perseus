@@ -35,8 +35,6 @@ describe("PhET Simulation AI utils", () => {
                 ok: true,
             }),
         ) as jest.Mock;
-        // eslint-disable-next-line no-restricted-syntax
-        global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 
     it("it returns JSON with the expected format and fields", () => {

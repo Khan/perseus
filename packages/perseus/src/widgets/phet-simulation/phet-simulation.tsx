@@ -32,6 +32,28 @@ type State = {
     isFullScreen: boolean;
 };
 
+// Safari still exposes the Fullscreen API behind a webkit prefix in some
+// versions, so we check for both the standard and prefixed variants.
+// Notably, Safari on iPhone supports neither: Apple deliberately omits
+// fullscreen support there, so this returns false and we hide the
+// fullscreen button instead of rendering one that silently fails.
+const isFullscreenApiSupported = (): boolean => {
+    // Guard against non-DOM environments (e.g. server-side rendering)
+    if (typeof document === "undefined") {
+        return false;
+    }
+    const doc: DocumentWithWebkitFullscreen = document;
+    return Boolean(doc.fullscreenEnabled || doc.webkitFullscreenEnabled);
+};
+
+type DocumentWithWebkitFullscreen = Document & {
+    webkitFullscreenEnabled?: boolean;
+};
+
+type IframeWithWebkitFullscreen = HTMLIFrameElement & {
+    webkitRequestFullscreen?: () => void;
+};
+
 // A constant for the bottom bar height in the mobile app.
 // This is a little hacky, but seems to be the best way to make sure the
 // simulation is not cut off by the bottom bar.
@@ -195,6 +217,23 @@ export class PhetSimulation
         }));
     };
 
+    requestIframeFullscreen = () => {
+        const iframe: IframeWithWebkitFullscreen | null =
+            this.iframeRef.current;
+        if (!iframe) {
+            return;
+        }
+        if (typeof iframe.requestFullscreen === "function") {
+            // The browser can reject the fullscreen request (e.g. denied
+            // permission, or the call wasn't triggered by a user gesture);
+            // there's nothing actionable for us to do, so swallow it rather
+            // than surface an unhandled promise rejection.
+            iframe.requestFullscreen().catch(() => {});
+        } else {
+            iframe.webkitRequestFullscreen?.();
+        }
+    };
+
     render(): React.ReactNode {
         // Extract state and props we'll use
         const {isFullScreen, banner, url} = this.state;
@@ -259,27 +298,29 @@ export class PhetSimulation
                     />
                 </View>
 
-                {/* Fullscreen button (only shown when not in mobile app fullscreen) */}
-                {url !== null && !isMobileAppFullscreen && (
-                    <IconButton
-                        icon={cornersOutIcon}
-                        onClick={
-                            isMobileApp
-                                ? this.toggleFullScreen
-                                : () => {
-                                      this.iframeRef.current?.requestFullscreen();
-                                  }
-                        }
-                        kind="tertiary"
-                        actionType="neutral"
-                        aria-label={"Fullscreen"}
-                        style={{
-                            marginTop: 5,
-                            marginBottom: 5,
-                            alignSelf: "flex-end",
-                        }}
-                    />
-                )}
+                {/* Fullscreen button (only shown when not in mobile app
+                    fullscreen, and hidden on web browsers that don't support
+                    the Fullscreen API, e.g. Safari on iPhone) */}
+                {url !== null &&
+                    !isMobileAppFullscreen &&
+                    (isMobileApp || isFullscreenApiSupported()) && (
+                        <IconButton
+                            icon={cornersOutIcon}
+                            onClick={
+                                isMobileApp
+                                    ? this.toggleFullScreen
+                                    : this.requestIframeFullscreen
+                            }
+                            kind="tertiary"
+                            actionType="neutral"
+                            aria-label={"Fullscreen"}
+                            style={{
+                                marginTop: 5,
+                                marginBottom: 5,
+                                alignSelf: "flex-end",
+                            }}
+                        />
+                    )}
             </View>
         );
     }
