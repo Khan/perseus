@@ -972,8 +972,11 @@ describe("MafsGraph", () => {
             );
 
             // Assert
+            // The instructions block now leads with a focus-mode warning
+            // (see getGraphInstructions), so match the body text as a substring
+            // rather than anchoring at the start of the string.
             const instructions = screen.getByText(
-                /^Use the Tab key to move through/,
+                /Use the Tab key to move through/,
             );
             const description = screen.getByText("A graph description.");
 

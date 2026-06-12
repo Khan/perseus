@@ -845,8 +845,7 @@ export const strings = {
     srGraphInstructionsRepeatHint: {
         context:
             "Trailing screen reader-only hint appended to the interactive graph instructions, telling the user which keyboard shortcut repeats the instructions on demand.",
-        message:
-            "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.",
+        message: "Press Insert + I to repeat these instructions.",
     },
     srPointAtCoordinates: {
         context:
@@ -1565,7 +1564,7 @@ export const mockStrings: PerseusStrings = {
     srUnlimitedGraphInstructions:
         "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     srGraphInstructionsRepeatHint:
-        "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.",
+        "Press Insert + I to repeat these instructions.",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",

@@ -121,11 +121,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
-    // Tracks whether the Insert key (the SR modifier, also emulated by
-    // Fn + Enter on Mac) is currently held, so we can detect the Insert + I
-    // shortcut that repeats the graph instructions. Insert is not a standard
-    // keyboard modifier, so it can't be read via getModifierState and must be
-    // tracked manually across keydown/keyup.
+    // Tracks whether the Insert key is held, so we can detect the Insert + I
+    // shortcut that repeats the graph instructions. Insert isn't a standard
+    // modifier (no getModifierState), so we track it manually across keydown/up.
+    // Windows-only: Macs have no Insert key, the Fn + Return reports as
+    // `key: "Enter"` (never "Insert"), so this shortcut can't fire on a Mac.
     const insertKeyHeld = React.useRef(false);
     const {analytics} = useDependencies();
 
@@ -298,9 +298,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             tabIndex={-1}
                             className="mafs-sr-only"
                         >
-                            {isUnlimitedGraphState(state)
-                                ? strings.srUnlimitedGraphInstructions
-                                : strings.srGraphInstructions}
+                            {getGraphInstructions(state, strings)}
                         </View>
                     )}
                     {fullGraphAriaDescription && (
@@ -742,13 +740,17 @@ export function getGraphInstructions(
 }
 
 /**
- * Repeat the graph instructions on demand via the Insert + I shortcut
- * (Fn + Enter + I on Mac, which the OS emulates as the Insert key).
+ * Repeat the graph instructions on demand via the Insert + I shortcut.
  *
  * This handler lives on the graph wrapper, so it is inherently focus-scoped to
  * the graph (WCAG 2.1.4) — it only fires while focus is on the graph or one of
  * its interactive children. Insert is not a standard keyboard modifier, so its
  * held state is tracked manually in `insertKeyHeld` across keydown/keyup/blur.
+ *
+ * Windows-only by decision (LEMS-4120): Insert is the NVDA/JAWS modifier. Macs
+ * have no Insert key (Fn + Return reports as "Enter", not "Insert") and macOS
+ * VoiceOver doesn't use Insert, so the shortcut intentionally does not fire on
+ * Mac — the repeat-hint copy omits any Mac chord to match.
  */
 function handleInstructionsShortcut(
     event: React.KeyboardEvent,

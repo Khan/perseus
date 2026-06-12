@@ -95,8 +95,7 @@ const commonInstructions =
     "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.";
 const unlimitedInstructions =
     "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
-const repeatHint =
-    "Press Insert + I, or Function + Enter + I on a Mac, to repeat these instructions.";
+const repeatHint = "Press Insert + I to repeat these instructions.";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
