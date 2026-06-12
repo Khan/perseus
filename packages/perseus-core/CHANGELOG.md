@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 28.0.1
+
+### Patch Changes
+
+-   [#3755](https://github.com/Khan/perseus/pull/3755) [`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4) Thanks [@nishasy](https://github.com/nishasy)! - [Video] Fix video widget alignment
+
+*   [#3754](https://github.com/Khan/perseus/pull/3754) [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0) Thanks [@Evelas78](https://github.com/Evelas78)! - Updated dropdown orders, defaults, and names for interactive graphs
+
 ## 28.0.0
 
 ### Major Changes
