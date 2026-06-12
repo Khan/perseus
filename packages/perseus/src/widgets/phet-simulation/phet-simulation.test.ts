@@ -203,6 +203,40 @@ describe("phet-simulation widget", () => {
         });
     });
 
+    it("requests browser fullscreen when the fullscreen button is clicked on web", async () => {
+        // Arrange
+        const requestFullscreen = jest.fn(() => Promise.resolve());
+        renderQuestion(question1, {isMobile: false});
+        const iframe = await screen.findByTitle("Projectile Data Lab");
+        iframe.requestFullscreen = requestFullscreen;
+
+        // Act
+        await userEvent.click(
+            await screen.findByRole("button", {name: "Fullscreen"}),
+        );
+
+        // Assert
+        expect(requestFullscreen).toHaveBeenCalledTimes(1);
+    });
+
+    it("falls back to webkitRequestFullscreen when the standard API is unavailable", async () => {
+        // Arrange
+        const webkitRequestFullscreen = jest.fn();
+        renderQuestion(question1, {isMobile: false});
+        const iframe = await screen.findByTitle("Projectile Data Lab");
+        // jsdom doesn't implement requestFullscreen, so only the prefixed
+        // variant exists on the element in this test.
+        Object.assign(iframe, {webkitRequestFullscreen});
+
+        // Act
+        await userEvent.click(
+            await screen.findByRole("button", {name: "Fullscreen"}),
+        );
+
+        // Assert
+        expect(webkitRequestFullscreen).toHaveBeenCalledTimes(1);
+    });
+
     it("should use the mobile app fullscreen logic when rendered in a mobile app", async () => {
         // Arrange
         const apiOptions: APIOptions = {
