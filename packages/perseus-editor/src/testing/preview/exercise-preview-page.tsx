@@ -12,7 +12,8 @@ import {PreviewRenderer} from "./preview-renderer";
  * only be used to support editor previews in Storybook!
  */
 const ExercisePreviewPage = () => {
-    const {content, reportHeight} = usePreviewPresenter();
+    const {content, isMobile, hasLintGutter, reportHeight} =
+        usePreviewPresenter();
     const containerRef = React.useRef<HTMLDivElement>(null);
     const lastHeightRef = React.useRef<number | null>(null);
 
@@ -70,7 +71,11 @@ const ExercisePreviewPage = () => {
 
     return (
         <div ref={containerRef}>
-            <PreviewRenderer content={content} />
+            <PreviewRenderer
+                content={content}
+                isMobile={isMobile}
+                hasLintGutter={hasLintGutter}
+            />
         </div>
     );
 };
