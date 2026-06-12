@@ -285,7 +285,7 @@ Since this implementation is an improvement on existing functionality no QE is n
 - `role="figure"` on the outer focusable `mafs-graph` View (LEMS-4119; OQ6a primary, OQ6b decision A).
 - DOM reorder so the instructions `<View>` is the first sr-only child inside the graph wrapper (LEMS-4121; OQ4).
 - Bounded vs. unlimited instruction-string split (LEMS-4120; OQ2a decision B), including the leading mode-toggle warning (OQ2b decision A) and the on-demand-shortcut sentence (OQ2c decision A).
-- Insert + I (Windows) / Fn + Enter + I (macOS) keyboard shortcut to repeat the instruction string on demand (LEMS-4120; OQ2c decision A). Platform-detected dual binding.
+- Insert + I keyboard shortcut to repeat the instruction string on demand (LEMS-4120; OQ2c). **Windows-only** — the originally-planned Fn + Enter + I macOS binding was dropped during implementation: Macs have no Insert key (Fn + Return reports as `key: "Enter"`, never "Insert") and macOS VoiceOver doesn't use Insert as a modifier, so the chord can't fire on a Mac. Mac SR users re-focus the graph to re-hear the instructions. No platform detection needed.
 - Explicit "nothing to move" SR-only label for none-type graphs and locked-figure traversability prefix in the on-entry description (LEMS-3205).
 - Instruction-level guidance for keyboard command conflict with screen readers (LEMS-4003); the mode-toggle warning in the instruction text addresses this directly per OQ2b.
 - Per-graph instruction polish for Exponent (LEMS-4122), Logarithm (LEMS-4123), and Vector (LEMS-4124) graph types — audit and update all SR strings for overall graph description and interactive element descriptions.
@@ -328,13 +328,12 @@ Since this implementation is an improvement on existing functionality no QE is n
 
 #### 2.3.3 Update instruction strings and Insert + I shortcut (LEMS-4120; OQ2a, OQ2b, OQ2c)
 
-- Replace `srGraphInstructions` and `srUnlimitedGraphInstructions` with two new strings that share a leading **mode-toggle warning** sentence ("Set your Screen Reader to Focus mode…") and end with the **instruction-repeat hint** ("Use Insert + I (Windows) or Fn + Enter + I (Mac) to repeat these instructions").
-- Bounded variant trims out Action Bar / add-point / close-shape language. Unlimited variant uses the designer's full text.
-- Add a keydown handler on the outer View for Insert + I (Windows) / Fn + Enter + I (macOS). The handler is **focus-scoped** — only runs when the graph is focused (WCAG 2.1.4 compliant). Detect the platform (`navigator.platform` or `navigator.userAgentData` with fallback chain).
-- On match: call `announce(...)` via WB Announcer with the same instruction string the user heard on entry. (No reducer round-trip needed — use `useGraphAnnouncer` directly.)
+- Add a leading **mode-toggle warning** sentence (`srGraphFocusModeWarning`, "Set your Screen Reader to Focus mode…") and a trailing **instruction-repeat hint** (`srGraphInstructionsRepeatHint`, "Press Insert + I to repeat these instructions"), composed with the existing bounded/unlimited bodies via a `getGraphInstructions(state, strings)` selector. (Implemented: the bodies `srGraphInstructions` / `srUnlimitedGraphInstructions` were kept unchanged rather than replaced.)
+- Add a keydown handler on the outer View for Insert + I. The handler is **focus-scoped** — only runs when the graph is focused (WCAG 2.1.4 compliant). **Windows-only, no platform detection:** Macs have no Insert key (Fn + Return reports as `key: "Enter"`) and VoiceOver doesn't use Insert, so the shortcut can't fire on a Mac — the hint copy names only Insert + I.
+- On match: call `announceMessage(...)` via WB Announcer with the same instruction string the user heard on entry (no reducer round-trip).
 - Coordinate final wording with Caitlyn, with Darrell as final sign-off — see [Cross-Cutting → Copy Review Process](#copy-review-process).
 
-**Done when:** bounded and unlimited instruction strings ship with the mode-toggle warning and repeat hint; Insert + I / Fn + Enter + I repeats instructions when the graph is focused; chord is not intercepted when focus is outside the graph.
+**Done when:** bounded and unlimited instruction strings ship with the mode-toggle warning and repeat hint; Insert + I repeats instructions when the graph is focused; chord is not intercepted when focus is outside the graph.
 
 #### 2.3.4 None-type / locked-figure messaging (LEMS-3205)
 
@@ -368,7 +367,7 @@ One PR per graph type is preferred; bundle if trivially the same shape.
 - `role="figure"` is present on the outer View and survives state changes.
 - DOM order: assert the `instructions` `<View>` is the first sr-only child after the new reorder.
 - Instruction strings: round-trip through the i18n harness; assert bounded/unlimited branches produce the expected substrings (mode-toggle warning, on-demand hint).
-- Insert + I / Fn + Enter + I: simulate each keydown on each platform, assert `announceMessage` is called with the instruction string. Assert the chord is **not** intercepted when focus is outside the graph.
+- Insert + I: simulate the keydown, assert `announceMessage` is called with the instruction string; assert I alone does not announce and blur disarms the shortcut.
 - None-type: assert renders `srGraphNothingToMove` in the sr-only description.
 - Locked-figure-bearing graphs: assert the traversability prefix is rendered.
 - Per-graph polish: snapshot-style assertions that updated strings are used.
@@ -400,15 +399,15 @@ Each PR is independently revertible via `git revert` if regressions appear.
 - **`role="figure"` may suppress child announcements on some SRs** (documented on focusable widgets in OQ6a). Mitigation: cross-SR test before merging; documented fallback to `role="application"` if needed.
 - **i18n copy churn**: the instruction strings are long. Late copy changes could ripple through translation files. Mitigation: complete Caitlyn-led iteration, then get Darrell's final sign-off **before** translation kicks off.
 - **"Nothing to move" copy may be misleading** for graph-as-image cases — coordinate with Content team.
-- **Platform detection brittleness** for Insert + I vs. Fn + Enter + I — `navigator.platform` is deprecated in some browsers; use `navigator.userAgentData` with fallback chain.
+- ~~**Platform detection brittleness** for Insert + I vs. Fn + Enter + I~~ — moot: the shortcut shipped Windows-only with no platform detection (see 2.3.3).
 
 ### 2.7 Open Implementation-time Questions
 
 - Final wording of all new strings, especially the mode-toggle warning sentence and whether it names specific SR toggle keys (JAWS: Insert + Z, NVDA: Insert + Space). Owner: Caitlyn, with Darrell as final sign-off.
-- Whether on-entry instructions list both Insert + I **and** Fn + Enter + I, or only the platform-relevant one.
+- ~~Whether on-entry instructions list both Insert + I and Fn + Enter + I~~ — RESOLVED: Insert + I only (Windows-only; see 2.3.3).
 - Whether static graphs get the "nothing to move" treatment. Pending design from Caitlyn.
 - Exact wording of the locked-figure traversability prefix — Caitlyn & Darrell.
-- Final platform-detection signal for Insert + I vs. Fn + Enter + I.
+- ~~Final platform-detection signal for Insert + I vs. Fn + Enter + I~~ — RESOLVED: none needed (Windows-only).
 
 ### 2.8 QE Strategy
 
@@ -816,9 +815,9 @@ Aggregated from per-phase subsections — living list, not a roadblock to starti
 - **Phase 1 (1.2):** Do `linear-system.tsx` and `ray.tsx` carry source-side aria-live toggles, or only test-side assertions? Decides whether they're paired-migration targets in Phase 1 or copy fixes in Phase 5.
 - **Phase 1 (1.3.7):** Do graph-entered / graph-exited announcements route through reducer actions or directly via `useGraphAnnouncer` from the focus handler? Phase 4 picks at the start of implementation.
 - **Phase 2 (2.7):** Final wording of all new strings, especially the mode-toggle warning sentence and whether it names specific SR toggle keys (JAWS Insert + Z, NVDA Insert + Space). Owner: Caitlyn & Darrell.
-- **Phase 2 (2.7):** Whether on-entry instructions list both Insert + I and Fn + Enter + I, or only the platform-relevant one.
+- ~~**Phase 2 (2.7):** Whether on-entry instructions list both Insert + I and Fn + Enter + I~~ — RESOLVED: Insert + I only (Windows-only).
 - **Phase 2 (2.7):** Whether static graphs get the "nothing to move" treatment. Pending design.
-- **Phase 2 (2.7):** Final platform-detection signal for the Insert + I vs. Fn + Enter + I dual binding.
+- ~~**Phase 2 (2.7):** Final platform-detection signal for the Insert + I vs. Fn + Enter + I dual binding~~ — RESOLVED: none needed (Windows-only).
 - **Phase 4 (4.7):** Whether to additionally announce the disabled-button hint on click attempt, or rely on the focus-time announcement.
 - **Phase 5 (5.6):** Whether to expose sinusoid extremum / midline / max / min labels for SR users at all. Pending design from Caitlyn.
 - **Cross-cutting:** Final feature-flag names confirmed with platform team during Phase 4.
@@ -832,7 +831,7 @@ Mirror of `screen-reader-research.md` "Decisions Recorded" — one-line restatem
 - **OQ1 → A.** Focus trap on all graphs (bounded + unlimited).
 - **OQ2a → B.** Two instruction strings (bounded vs. unlimited).
 - **OQ2b → A.** Keep Ctrl + Shift + Arrow; on-entry mode-toggle warning in the instruction text.
-- **OQ2c → A.** Insert + I (Windows) / Fn + Enter + I (macOS), platform-detected dual binding.
+- **OQ2c → A (revised during implementation to Windows-only).** Insert + I, no platform detection. The Fn + Enter + I macOS half of the dual binding was dropped: Macs emit `key: "Enter"` (not "Insert") for Fn + Return and VoiceOver doesn't use Insert, so it can't fire on a Mac.
 - **OQ3 → C.** Hybrid Announcer (central pure-function handler + `useGraphAnnouncer` per-graph escape hatch).
 - **OQ4 → A.** Reorder DOM so instructions render first.
 - **OQ5 → A.** Optional `pointLabels?: string[]` schema field with per-index fallback to "Point N".

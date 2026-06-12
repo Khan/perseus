@@ -1,3 +1,4 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {screen, render, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
@@ -5,12 +6,13 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
+import {mockStrings} from "../../strings";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 
-import {MafsGraph} from "./mafs-graph";
+import {getGraphInstructions, MafsGraph} from "./mafs-graph";
 import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
@@ -20,6 +22,10 @@ import type {InteractiveGraphState} from "./types";
 import type {PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: jest.fn(),
+}));
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
 
@@ -966,8 +972,11 @@ describe("MafsGraph", () => {
             );
 
             // Assert
+            // The instructions block now leads with a focus-mode warning
+            // (see getGraphInstructions), so match the body text as a substring
+            // rather than anchoring at the start of the string.
             const instructions = screen.getByText(
-                /^Use the Tab key to move through/,
+                /Use the Tab key to move through/,
             );
             const description = screen.getByText("A graph description.");
 
@@ -1294,6 +1303,87 @@ describe("MafsGraph", () => {
             });
             // Make sure the button is disabled
             expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("instructions shortcut (Insert + I)", () => {
+        const segmentState: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        beforeEach(() => {
+            jest.mocked(announceMessage).mockClear();
+        });
+
+        it("announces the instructions when Insert + I is pressed while the graph is focused", async () => {
+            // Arrange
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={segmentState}
+                    dispatch={jest.fn()}
+                />,
+            );
+            act(() => screen.getByRole("figure").focus());
+
+            // Act
+            await userEvent.keyboard("{Insert>}i{/Insert}");
+
+            // Assert
+            expect(jest.mocked(announceMessage)).toHaveBeenCalledWith({
+                message: getGraphInstructions(segmentState, mockStrings),
+            });
+        });
+
+        it("does not announce when I is pressed without Insert held", async () => {
+            // Arrange
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={segmentState}
+                    dispatch={jest.fn()}
+                />,
+            );
+            act(() => screen.getByRole("figure").focus());
+
+            // Act
+            await userEvent.keyboard("i");
+
+            // Assert
+            expect(jest.mocked(announceMessage)).not.toHaveBeenCalled();
+        });
+
+        it("does not stay armed after the graph loses focus", async () => {
+            // Arrange
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={segmentState}
+                    dispatch={jest.fn()}
+                />,
+            );
+            const figure = screen.getByRole("figure");
+            act(() => figure.focus());
+
+            // Act: hold Insert, blur the graph, then press I
+            await userEvent.keyboard("{Insert>}");
+            act(() => figure.blur());
+            await userEvent.keyboard("i{/Insert}");
+
+            // Assert
+            expect(jest.mocked(announceMessage)).not.toHaveBeenCalled();
         });
     });
 });
