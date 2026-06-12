@@ -13,8 +13,11 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeAbsoluteValueGraph} from "./strings/absolute-value";
+import {srFormatNumber} from "./strings/format-number";
+import {getAbsoluteValueCoefficients} from "./utils";
 
+import type {AbsoluteValueCoefficients} from "./utils";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
@@ -109,38 +112,6 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     );
 }
 
-export type AbsoluteValueCoefficients = {
-    m: number;
-    h: number;
-    v: number;
-};
-
-/**
- * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two
- * control points: p1 (vertex) and p2 (a point on one arm).
- *
- * Returns undefined if p1 and p2 share the same x-coordinate (slope undefined).
- */
-export function getAbsoluteValueCoefficients(
-    coords: ReadonlyArray<Coord>,
-): AbsoluteValueCoefficients | undefined {
-    const p1 = coords[0];
-    const p2 = coords[1];
-
-    const denom = p2[X] - p1[X];
-    if (denom === 0) {
-        return undefined;
-    }
-
-    const num = p2[Y] - p1[Y];
-    let m = Math.abs(num / denom);
-    if (p2[Y] < p1[Y]) {
-        m = -m;
-    }
-
-    return {m, h: p1[X], v: p1[Y]};
-}
-
 /**
  * Keyboard constraint for absolute value control points.
  * Skips any horizontal position where both points would share the same x.
@@ -193,38 +164,4 @@ function getAbsoluteValueDescription(
             point2Y: srFormatNumber(p2[Y], locale),
         }),
     });
-}
-
-function describeAbsoluteValueGraph(
-    state: AbsoluteValueGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords} = state;
-    const [vertex, armPoint] = coords;
-
-    const coeffs = getAbsoluteValueCoefficients(coords);
-    const m = coeffs?.m ?? 1;
-
-    const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
-    const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-    });
-    const srAbsoluteValueSecondPoint = strings.srAbsoluteValueSecondPoint({
-        x: srFormatNumber(armPoint[X], locale),
-        y: srFormatNumber(armPoint[Y], locale),
-    });
-    const srAbsoluteValueDescription = strings.srAbsoluteValueDescription({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-        slope: srFormatNumber(m, locale),
-    });
-
-    return {
-        srAbsoluteValueGraph,
-        srAbsoluteValueVertexPoint,
-        srAbsoluteValueSecondPoint,
-        srAbsoluteValueDescription,
-    };
 }

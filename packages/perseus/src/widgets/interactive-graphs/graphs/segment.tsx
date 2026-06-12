@@ -1,4 +1,3 @@
-import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
@@ -8,7 +7,9 @@ import {actions} from "../reducer/interactive-graph-action";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {srFormatNumber} from "./strings/format-number";
+import {describeSegmentGraph} from "./strings/segment";
+import {getLengthOfSegment} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {
@@ -27,7 +28,7 @@ export function renderSegmentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SegmentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getSegmentGraphDescription(state, i18n),
+        interactiveElementsDescription: describeSegmentGraph(state, i18n),
     };
 }
 
@@ -175,29 +176,3 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         </g>
     );
 };
-
-function getLengthOfSegment(segment: PairOfPoints) {
-    return kpoint.distanceToPoint(...segment);
-}
-
-// Exported for testing
-export function getSegmentGraphDescription(
-    state: SegmentGraphState,
-    i18n: I18nContextType,
-): string {
-    const {strings, locale} = i18n;
-
-    const segmentDescriptions = state.coords.map(([point1, point2], index) =>
-        strings.srMultipleSegmentIndividualLabel({
-            point1X: srFormatNumber(point1[X], locale),
-            point1Y: srFormatNumber(point1[Y], locale),
-            point2X: srFormatNumber(point2[X], locale),
-            point2Y: srFormatNumber(point2[Y], locale),
-            indexOfSegment: index + 1,
-        }),
-    );
-
-    return strings.srInteractiveElements({
-        elements: segmentDescriptions.join(" "),
-    });
-}

@@ -7,7 +7,7 @@ import {
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import _ from "underscore";
 
-import {getAbsoluteValueCoefficients} from "./graphs/absolute-value";
+import {getAbsoluteValueCoefficients} from "./graphs/utils";
 
 import type {Props} from "./interactive-graph";
 import type {QuadraticGraphState} from "./types";

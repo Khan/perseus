@@ -13,7 +13,7 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeSinusoidGraph} from "./strings/sinusoid";
 
 import type {
     SinusoidGraphState,
@@ -31,7 +31,8 @@ export function renderSinusoidGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <SinusoidGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getSinusoidDescription(state, i18n),
+        interactiveElementsDescription: describeSinusoidGraph(state, i18n)
+            .srSinusoidInteractiveElements,
     };
 }
 
@@ -201,63 +202,3 @@ export const getSinusoidCoefficients = (
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
-
-function getSinusoidDescription(
-    state: SinusoidGraphState,
-    i18n: I18nContextType,
-): string {
-    const strings = describeSinusoidGraph(state, i18n);
-    return strings.srSinusoidInteractiveElements;
-}
-
-function describeSinusoidGraph(
-    state: SinusoidGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords} = state;
-    const [root, peak] = coords;
-
-    const diffX = Math.abs(peak[X] - root[X]);
-    const diffY = Math.abs(peak[Y] - root[Y]);
-
-    const formattedRoot = {
-        x: srFormatNumber(root[X], locale),
-        y: srFormatNumber(root[Y], locale),
-    };
-    const formattedPeak = {
-        x: srFormatNumber(peak[X], locale),
-        y: srFormatNumber(peak[Y], locale),
-    };
-
-    const srSinusoidGraph = strings.srSinusoidGraph;
-    const srSinusoidDescription = strings.srSinusoidDescription({
-        minValue: srFormatNumber(root[Y] - diffY, locale),
-        maxValue: srFormatNumber(root[Y] + diffY, locale),
-        cycleStart: srFormatNumber(root[X] - 2 * diffX, locale),
-        cycleEnd: srFormatNumber(root[X] + 2 * diffX, locale),
-    });
-    const srSinusoidRootPoint = strings.srSinusoidRootPoint(formattedRoot);
-    const srSinusoidPeakPoint =
-        peak[Y] === root[Y]
-            ? strings.srSinusoidFlatPoint(formattedPeak)
-            : peak[Y] > root[Y]
-              ? strings.srSinusoidMaxPoint(formattedPeak)
-              : strings.srSinusoidMinPoint(formattedPeak);
-    const srSinusoidInteractiveElements = strings.srInteractiveElements({
-        elements: strings.srSinusoidInteractiveElements({
-            point1X: srFormatNumber(root[X], locale),
-            point1Y: srFormatNumber(root[Y], locale),
-            point2X: srFormatNumber(peak[X], locale),
-            point2Y: srFormatNumber(peak[Y], locale),
-        }),
-    });
-
-    return {
-        srSinusoidGraph,
-        srSinusoidDescription,
-        srSinusoidRootPoint,
-        srSinusoidPeakPoint,
-        srSinusoidInteractiveElements,
-    };
-}

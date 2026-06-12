@@ -13,7 +13,7 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeTangentGraph} from "./strings/tangent";
 
 import type {
     TangentGraphState,
@@ -31,7 +31,8 @@ export function renderTangentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <TangentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getTangentDescription(state, i18n),
+        interactiveElementsDescription: describeTangentGraph(state, i18n)
+            .srTangentInteractiveElements,
     };
 }
 
@@ -295,55 +296,4 @@ function getPlotSegments(
     segments.push([start, xRange[1]]);
 
     return segments;
-}
-
-function getTangentDescription(
-    state: TangentGraphState,
-    i18n: I18nContextType,
-): string {
-    return describeTangentGraph(state, i18n).srTangentInteractiveElements;
-}
-
-function describeTangentGraph(
-    state: TangentGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords} = state;
-    const [inflection, secondPoint] = coords;
-
-    const formattedInflection = {
-        x: srFormatNumber(inflection[X], locale),
-        y: srFormatNumber(inflection[Y], locale),
-    };
-    const formattedSecondPoint = {
-        x: srFormatNumber(secondPoint[X], locale),
-        y: srFormatNumber(secondPoint[Y], locale),
-    };
-
-    const srTangentGraph = strings.srTangentGraph;
-    const srTangentDescription = strings.srTangentDescription({
-        inflectionX: srFormatNumber(inflection[X], locale),
-        inflectionY: srFormatNumber(inflection[Y], locale),
-    });
-    const srTangentInflectionPoint =
-        strings.srTangentInflectionPoint(formattedInflection);
-    const srTangentSecondPoint =
-        strings.srTangentSecondPoint(formattedSecondPoint);
-    const srTangentInteractiveElements = strings.srInteractiveElements({
-        elements: strings.srTangentInteractiveElements({
-            point1X: srFormatNumber(inflection[X], locale),
-            point1Y: srFormatNumber(inflection[Y], locale),
-            point2X: srFormatNumber(secondPoint[X], locale),
-            point2Y: srFormatNumber(secondPoint[Y], locale),
-        }),
-    });
-
-    return {
-        srTangentGraph,
-        srTangentDescription,
-        srTangentInflectionPoint,
-        srTangentSecondPoint,
-        srTangentInteractiveElements,
-    };
 }

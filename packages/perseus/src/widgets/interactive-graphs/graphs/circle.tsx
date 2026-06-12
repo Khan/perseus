@@ -13,11 +13,7 @@ import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {
-    srCircleCenterLabel,
-    srCircleRadiusPointLabel,
-    srFormatNumber,
-} from "./screenreader-text";
+import {describeCircleGraph} from "./strings/circle";
 import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
@@ -39,7 +35,8 @@ export function renderCircleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getCircleGraphDescription(state, i18n),
+        interactiveElementsDescription: describeCircleGraph(state, i18n)
+            .srCircleInteractiveElement,
     };
 }
 
@@ -267,14 +264,6 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     return result;
 }
 
-function getCircleGraphDescription(
-    state: CircleGraphState,
-    i18n: I18nContextType,
-) {
-    const strings = describeCircleGraph(state, i18n);
-    return strings.srCircleInteractiveElement;
-}
-
 export const getCircleKeyboardConstraint = (
     center: vec.Vector2,
     radiusPoint: vec.Vector2,
@@ -318,55 +307,3 @@ export const getCircleKeyboardConstraint = (
         ),
     };
 };
-
-// Exported for testing
-export function describeCircleGraph(
-    state: CircleGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {center, radiusPoint} = state;
-    const radius = getRadius(state);
-
-    // Aria label strings
-    const srCircleGraph = strings.srCircleGraph;
-    const srCircleShape = srCircleCenterLabel(
-        center[0],
-        center[1],
-        strings,
-        locale,
-    );
-    const srCircleRadiusPoint = srCircleRadiusPointLabel(
-        radiusPoint[0],
-        radiusPoint[1],
-        center[0],
-        strings,
-        locale,
-    );
-    const srCircleRadius = strings.srCircleRadius({
-        radius,
-    });
-    const srCircleOuterPoints = strings.srCircleOuterPoints({
-        point1X: srFormatNumber(center[0] + radius, locale),
-        point1Y: srFormatNumber(center[1], locale),
-        point2X: srFormatNumber(center[0], locale),
-        point2Y: srFormatNumber(center[1] + radius, locale),
-        point3X: srFormatNumber(center[0] - radius, locale),
-        point3Y: srFormatNumber(center[1], locale),
-        point4X: srFormatNumber(center[0], locale),
-        point4Y: srFormatNumber(center[1] - radius, locale),
-    });
-
-    const srCircleInteractiveElement = strings.srInteractiveElements({
-        elements: [srCircleShape, srCircleRadius].join(" "),
-    });
-
-    return {
-        srCircleGraph,
-        srCircleShape,
-        srCircleRadiusPoint,
-        srCircleRadius,
-        srCircleOuterPoints,
-        srCircleInteractiveElement,
-    };
-}
