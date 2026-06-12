@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 33.0.2
+
+### Patch Changes
+
+-   [#3720](https://github.com/Khan/perseus/pull/3720) [`0fb6d26ecd`](https://github.com/Khan/perseus/commit/0fb6d26ecde43b194904f321d21d4324bf7bb192) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Update Radio image editor so it autosaves
+
 ## 33.0.1
 
 ### Patch Changes
