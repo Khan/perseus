@@ -34,8 +34,12 @@ describe("phet-simulation widget", () => {
                 ok: true,
             }),
         ) as jest.Mock;
-        // eslint-disable-next-line no-restricted-syntax
-        global.URL.canParse = jest.fn(() => true) as jest.Mock;
+        // jsdom doesn't implement the Fullscreen API, so we mark it as
+        // supported to keep the fullscreen button visible in these tests.
+        Object.defineProperty(document, "fullscreenEnabled", {
+            value: true,
+            configurable: true,
+        });
     });
 
     it("should display with valid PhET URL", async () => {
@@ -148,6 +152,55 @@ describe("phet-simulation widget", () => {
 
         // Assert
         expect(url).toBe(null);
+    });
+
+    it("hides the fullscreen button on web when the Fullscreen API is unsupported", async () => {
+        // Arrange
+        // Simulate a browser without any Fullscreen API support
+        // (e.g. Safari on iPhone).
+        Object.defineProperty(document, "fullscreenEnabled", {
+            value: undefined,
+            configurable: true,
+        });
+        const apiOptions: APIOptions = {
+            isMobile: true,
+        };
+
+        // Act
+        renderQuestion(question1, apiOptions);
+
+        // Assert
+        await waitFor(() => {
+            expect(
+                screen.getByTitle("Projectile Data Lab"),
+            ).toBeInTheDocument();
+        });
+        expect(
+            screen.queryByRole("button", {name: "Fullscreen"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("shows the fullscreen button in the mobile app even when the Fullscreen API is unsupported", async () => {
+        // Arrange
+        // The mobile app uses its own fullscreen implementation, so the
+        // button should show regardless of browser API support.
+        Object.defineProperty(document, "fullscreenEnabled", {
+            value: undefined,
+            configurable: true,
+        });
+        const apiOptions: APIOptions = {
+            isMobileApp: true,
+        };
+
+        // Act
+        renderQuestion(question1, apiOptions);
+
+        // Assert
+        await waitFor(() => {
+            expect(
+                screen.getByRole("button", {name: "Fullscreen"}),
+            ).toBeInTheDocument();
+        });
     });
 
     it("should use the mobile app fullscreen logic when rendered in a mobile app", async () => {
