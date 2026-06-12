@@ -6,6 +6,8 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {getCSSZoomFactor} from "../util/css-zoom-utils";
+
 type Bounds = {
     width: number;
     height: number;
@@ -39,29 +41,6 @@ type DefaultProps = {
     readyToMeasure: Props["readyToMeasure"];
     disableEntranceAnimation: Props["disableEntranceAnimation"];
 };
-
-/**
- * Returns the cumulative CSS `zoom` applied to a node by its ancestors.
- *
- * The mobile apps apply `zoom` to <body> to honor the device font scale
- * (LEMS-3885). Under `zoom: z`, offsetWidth measurements report the
- * container as z times narrower while the child's intrinsic width is
- * unchanged, so a plain fit-to-width scale would exactly cancel the font
- * scaling. Callers multiply the available width by this factor so fitted
- * content still grows with the font scale.
- */
-export function getEffectiveZoom(node: HTMLElement): number {
-    // currentCSSZoom (Chrome/Android WebView 128+, Safari/iOS 18.4+)
-    // accounts for zoom on any ancestor, not just <body>.
-    // eslint-disable-next-line no-restricted-syntax -- currentCSSZoom isn't in the TypeScript DOM lib yet
-    const currentCSSZoom = (node as {currentCSSZoom?: number}).currentCSSZoom;
-    if (typeof currentCSSZoom === "number" && currentCSSZoom > 0) {
-        return currentCSSZoom;
-    }
-    // Fallback for older webviews: the apps only ever zoom <body>.
-    const bodyZoom = parseFloat(window.getComputedStyle(document.body).zoom);
-    return bodyZoom > 0 ? bodyZoom : 1;
-}
 
 type State = {
     visible: boolean;
@@ -248,7 +227,7 @@ class Zoomable extends React.Component<Props, State> {
         // back down to its unzoomed size. Overflow at the enlarged size is
         // handled by the parent's overflowX scrolling and tap-to-zoom.
         const availableWidth =
-            parentBounds.width * getEffectiveZoom(this._node);
+            parentBounds.width * getCSSZoomFactor(this._node);
 
         if (childWidth > availableWidth) {
             const scale = availableWidth / childWidth;

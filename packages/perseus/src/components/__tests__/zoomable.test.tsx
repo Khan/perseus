@@ -3,7 +3,7 @@ import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import Zoomable, {getEffectiveZoom} from "../zoomable";
+import Zoomable from "../zoomable";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -398,41 +398,6 @@ describe("Zoomable", () => {
 
             // Assert
             expect(rootNode.style.transform).toBe("scale(1, 1)");
-        });
-    });
-
-    describe("getEffectiveZoom", () => {
-        it("returns currentCSSZoom when the browser provides it", () => {
-            // Arrange
-            const node = document.createElement("div");
-            Object.defineProperty(node, "currentCSSZoom", {value: 1.5});
-
-            // Act
-            const zoom = getEffectiveZoom(node);
-
-            // Assert
-            expect(zoom).toBe(1.5);
-        });
-
-        it("falls back to the computed zoom of document.body", () => {
-            // Arrange
-            // eslint-disable-next-line no-restricted-syntax -- partial mock of CSSStyleDeclaration; only `zoom` is read
-            const style = {zoom: "1.25"} as CSSStyleDeclaration;
-            jest.spyOn(window, "getComputedStyle").mockReturnValue(style);
-
-            // Act
-            const zoom = getEffectiveZoom(document.createElement("div"));
-
-            // Assert
-            expect(zoom).toBe(1.25);
-        });
-
-        it("returns 1 when no zoom information is available", () => {
-            // Arrange, Act
-            const zoom = getEffectiveZoom(document.createElement("div"));
-
-            // Assert
-            expect(zoom).toBe(1);
         });
     });
 
