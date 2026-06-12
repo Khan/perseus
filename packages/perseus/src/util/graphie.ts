@@ -1702,7 +1702,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     // Wait for fonts to load before setting label margins,
     // so that the margins are not flakey.
-    // We wait at most once and then apply the margins unconditionally:
+    // We wait only once and then apply the margins unconditionally:
     // Safari can report fonts.status === "loading" while fonts.ready is
     // already resolved (WebKit bugs 174030, 225790), so re-checking the
     // status after the wait would re-queue on a resolved promise forever —
