@@ -286,6 +286,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     readOnly={this.props.apiOptions?.readOnly}
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
+                    apiOptions={this.props.apiOptions}
                 />
             </>
         );

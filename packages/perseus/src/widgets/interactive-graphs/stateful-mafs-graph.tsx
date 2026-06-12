@@ -18,6 +18,7 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
+import type {APIOptionsWithDefaults} from "../../types";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphUserInput,
@@ -52,6 +53,7 @@ export type StatefulMafsGraphProps = {
     showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
+    apiOptions?: APIOptionsWithDefaults;
 };
 
 export type StatefulMafsGraphType = {

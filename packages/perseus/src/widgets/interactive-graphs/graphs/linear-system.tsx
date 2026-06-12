@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
+import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
@@ -37,12 +38,19 @@ type LinearSystemGraphProps = MafsGraphProps<LinearSystemGraphState>;
 
 const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines, pointLabels} = props.graphState;
+    const {coords: lines, pointLabels, showPointLabels} = props.graphState;
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const intersectionId = `${id}-intersection`;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    // Each line has 2 endpoints; pointLabels is flat across both lines:
+    // [line0Start, line0End, line1Start, line1End].
+    const effectiveLabels = getEffectivePointLabels(
+        showPointLabels,
+        pointLabels,
+        lines.length * 2,
+    );
+    const buildLabel = usePointAriaLabel(effectiveLabels);
 
     const intersectionPoint = geometry.getLineIntersection(lines[0], lines[1]);
     const intersectionDescription = intersectionPoint

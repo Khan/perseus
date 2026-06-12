@@ -6,6 +6,7 @@ const DEFAULT_FEATURE_FLAGS = {
     "interactive-graph-vector": false,
     "interactive-graph-not-scored": false,
     "input-number-to-numeric-input": false,
+    "perseus-enable-point-label-field": false, // TODO(AITQ-385): clean up feature flag
     // ...add new flags here
 };
 
