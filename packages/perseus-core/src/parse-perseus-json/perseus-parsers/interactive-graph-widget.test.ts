@@ -109,6 +109,76 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
+    it("defaults color and size on a locked label when they are missing", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "label",
+                            coord: [0, 0],
+                            text: "A",
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "label",
+                            coord: [0, 0],
+                            text: "A",
+                            color: "grayH",
+                            size: "medium",
+                        },
+                    ],
+                },
+            }),
+        );
+    });
     it("parses alongEdge labelLocation correctly", () => {
         const alongEdgeResult = parse(
             {
