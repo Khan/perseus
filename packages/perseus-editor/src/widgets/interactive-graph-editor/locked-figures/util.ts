@@ -40,6 +40,12 @@ export function generateLockedFigureAppearanceDescription(
  * Exported for testing.
  *
  * Example: "Circle with radius $\frac{1}{2}$" ==> "Circle with radius one half"
+ *
+ * @deprecated Use `generateSpokenMathDetails` from `@khanacademy/perseus`
+ * (`packages/perseus/src/util/spoken-math.ts`) instead. This editor copy was
+ * duplicated into perseus so the renderer can convert point labels at runtime.
+ * TODO(LEMS): migrate callers (`joinLabelsAsSpokenMath` below, and the
+ * locked-figure settings) to the perseus util and delete this copy.
  */
 export async function generateSpokenMathDetails(mathString: string) {
     const engine = await SpeechRuleEngine.setup("en");

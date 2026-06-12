@@ -11,6 +11,7 @@ import {
     linearWithCustomLabelsQuestion,
     pointQuestion,
     pointWithCustomLabelQuestion,
+    pointWithTexLabelQuestion,
     pointWithDefaultLabelQuestion,
     polygonQuestion,
     polygonWithCustomLabelsQuestion,
@@ -171,6 +172,24 @@ export const PointWithCustomLabel: Story = {
     args: {
         item: generateTestPerseusItem({
             question: pointWithCustomLabelQuestion,
+        }),
+    },
+};
+
+/**
+ * A point whose custom label is TeX: `$\left(\dfrac{1}{2}, 3\right)$`. The
+ * visible on-canvas label renders the math correctly, but the screen reader
+ * currently announces the raw TeX literally because the label string is read
+ * verbatim. Use this story with a screen reader to hear the bug that
+ * spoken-math conversion fixes.
+ */
+export const PointWithTeXLabel: Story = {
+    globals: {
+        featureFlags: ["perseus-enable-point-label-field"],
+    },
+    args: {
+        item: generateTestPerseusItem({
+            question: pointWithTexLabelQuestion,
         }),
     },
 };

@@ -57,6 +57,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
+        "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
@@ -94,6 +95,7 @@
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
+        "@khanacademy/mathjax-renderer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-announcer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
@@ -130,6 +132,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "8560a5ad63db87f8"
+        "catalogHash": "3dc0969744c5c56c"
     }
 }
