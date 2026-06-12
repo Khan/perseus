@@ -21,6 +21,8 @@ type Props = {
     isNoneOfTheAbove: boolean;
     content: string;
     choiceIndex: number;
+    // Whether the whole editor is disabled (apiOptions.editingDisabled).
+    editingDisabled?: boolean;
     onContentChange: (choiceIndex: number, content: string) => void;
 };
 
@@ -32,7 +34,13 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     RadioOptionContentAndImageEditorHandle,
     Props
 >(function RadioOptionContentAndImageEditor(props, ref) {
-    const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
+    const {
+        content,
+        choiceIndex,
+        onContentChange,
+        isNoneOfTheAbove,
+        editingDisabled = false,
+    } = props;
     const uniqueId = React.useId();
     const contentTextAreaId = `${uniqueId}-content-textarea`;
     const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
@@ -202,6 +210,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                 ref={textAreaRef}
                 value={proxiedContent}
                 placeholder="Type a choice here..."
+                disabled={editingDisabled}
                 onChange={(value) => {
                     handleContentChange(choiceIndex, value);
                 }}
@@ -215,6 +224,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                     startIcon={plusIcon}
                     size="small"
                     kind="tertiary"
+                    disabled={editingDisabled}
                     style={{alignSelf: "flex-start"}}
                     onClick={() => {
                         setAddingImage(true);

@@ -1,6 +1,6 @@
 import {StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {border, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import {StyleSheet} from "aphrodite";
@@ -33,7 +33,14 @@ export function RadioStatusPill({
                     styles.badge,
                     // Round for single select, square for multiple select.
                     multipleSelect ? styles.square : styles.round,
+                    // Correct uses the strong (dark green) fill with knockout
+                    // (white) content, matching the runtime choice indicator.
+                    // Incorrect keeps StatusBadge's default subtle critical
+                    // (light red) styling.
+                    correct && styles.correctStrong,
                 ],
+                label: correct ? styles.knockoutForeground : undefined,
+                icon: correct ? styles.knockoutForeground : undefined,
             }}
         />
     );
@@ -48,5 +55,12 @@ const styles = StyleSheet.create({
     },
     square: {
         borderRadius: border.radius.radius_040,
+    },
+    correctStrong: {
+        backgroundColor: semanticColor.core.background.success.strong,
+        borderColor: semanticColor.core.border.success.strong,
+    },
+    knockoutForeground: {
+        color: semanticColor.core.foreground.knockout.default,
     },
 });

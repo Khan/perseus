@@ -111,6 +111,7 @@ export const RadioOptionSettings = React.forwardRef<
                 content={content}
                 choiceIndex={index}
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
+                editingDisabled={editingDisabled}
                 onContentChange={onContentChange}
             />
 
