@@ -65,7 +65,8 @@ type Story = StoryObj<typeof ArticleRenderer>;
 function makeMultiDropdownQuestion(count: number): PerseusRenderer {
     const dropdownRefs = Array.from(
         {length: count},
-        (_, i) => `- Statement ${i + 1}: a moving object's kinetic energy [[☃ dropdown ${i + 1}]].`,
+        (_, i) =>
+            `- Statement ${i + 1}: a moving object's kinetic energy [[☃ dropdown ${i + 1}]].`,
     ).join("\n");
 
     const widgets: PerseusRenderer["widgets"] = {};
