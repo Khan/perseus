@@ -246,9 +246,13 @@ describe("splitPerseusItem", () => {
                         rightAlign: false,
                         answers: [
                             {
+                                value: null,
                                 simplify: "required",
                                 status: "correct",
+                                maxError: null,
+                                strict: false,
                                 answerForms: ["pi"],
+                                message: "",
                             },
                         ],
                     },

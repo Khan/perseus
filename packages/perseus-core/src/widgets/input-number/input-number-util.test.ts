@@ -3,16 +3,35 @@ import {getInputNumberPublicWidgetOptions} from "./input-number-util";
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 
 describe("getInputNumberPublicWidgetOptions", () => {
-    it("removes value", () => {
+    it("removes the answer `value` and `message`", () => {
         const original: PerseusInputNumberWidgetOptions = {
-            simplify: "optional",
             size: "normal",
-            value: 42,
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    simplify: "optional",
+                    value: 42,
+                    answerForms: ["pi"],
+                    message: "this should be removed",
+                    strict: true,
+                },
+            ],
         };
 
         expect(getInputNumberPublicWidgetOptions(original)).toEqual({
-            simplify: "optional",
             size: "normal",
+            coefficient: false,
+            answers: [
+                {
+                    status: "correct",
+                    simplify: "optional",
+                    value: null,
+                    answerForms: ["pi"],
+                    message: "",
+                    strict: true,
+                },
+            ],
         });
     });
 });

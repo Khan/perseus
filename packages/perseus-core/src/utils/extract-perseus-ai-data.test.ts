@@ -17,10 +17,16 @@ import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
+import {generateExpressionWidget} from "./generators/expression-widget-generator";
 import {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
 } from "./generators/graded-group-widget-generator";
+import {
+    generateInputNumberAnswer,
+    generateInputNumberOptions,
+    generateInputNumberWidget,
+} from "./generators/input-number-widget-generator";
 import {
     generateIGPolygonGraph,
     generateInteractiveGraphOptions,
@@ -58,6 +64,7 @@ import type {
     NumericInputWidget,
     ExpressionWidget,
     CategorizerWidget,
+    InputNumberWidget,
 } from "../data-schema";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -809,49 +816,9 @@ describe("injectWidgets", () => {
 
     it("should inject ? placeholder string for input widgets", () => {
         const widgets: PerseusWidgetsMap = {
-            "numeric-input 1": {
-                type: "numeric-input",
-                options: {
-                    answers: [
-                        {
-                            message: "rationale",
-                            value: 42,
-                            status: "correct",
-                            strict: false,
-                            maxError: 0,
-                            simplify: "required",
-                        },
-                    ],
-                    labelText: "Enter a number",
-                    size: "normal",
-                    coefficient: false,
-                },
-            },
-            "input-number 1": {
-                type: "input-number",
-                options: {
-                    value: 42,
-                    simplify: "required",
-                    size: "normal",
-                },
-            },
-            "expression 1": {
-                type: "expression",
-                options: {
-                    answerForms: [
-                        {
-                            value: "27\\pi",
-                            form: false,
-                            simplify: false,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic", "prealgebra"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-            },
+            "numeric-input 1": generateNumericInputWidget(),
+            "input-number 1": generateInputNumberWidget(),
+            "expression 1": generateExpressionWidget(),
         };
         const content = injectWidgets(
             "Enter your numeric-input [[☃ numeric-input 1]], Enter your input-number [[☃ input-number 1]], Enter your expression [[☃ expression 1]]",
@@ -953,14 +920,11 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answer from a input-number widget", () => {
-        const widget = {
-            type: "input-number",
-            options: {
-                value: 42,
-                simplify: "required",
-                size: "normal",
-            },
-        } as const;
+        const widget: InputNumberWidget = generateInputNumberWidget({
+            options: generateInputNumberOptions({
+                answers: [generateInputNumberAnswer({value: 42})],
+            }),
+        });
         const answer = getAnswersFromWidgets({"input-number 1": widget});
         expect(answer).toEqual(["42"]);
     });
@@ -1047,14 +1011,11 @@ describe("getAnswersFromWidgets", () => {
                             ],
                         },
                     },
-                    "input-number 1": {
-                        type: "input-number",
-                        options: {
-                            value: 42,
-                            simplify: "required",
-                            size: "normal",
-                        },
-                    },
+                    "input-number 1": generateInputNumberWidget({
+                        options: generateInputNumberOptions({
+                            answers: [generateInputNumberAnswer({value: 42})],
+                        }),
+                    }),
                 },
             },
         };

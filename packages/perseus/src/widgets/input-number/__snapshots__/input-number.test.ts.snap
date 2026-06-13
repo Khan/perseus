@@ -165,31 +165,33 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
         <div
           class="perseus-widget-container widget-inline-block"
         >
-          <div
-            aria-label="Math input box Tap with one or two fingers to open keyboard"
-            class="default_7zhre1-o_O-input_1n1c032"
-            role="textbox"
-          >
+          <div>
             <div
-              class="keypad-input"
-              tabindex="0"
+              aria-label="Math input box Tap with one or two fingers to open keyboard"
+              class="default_7zhre1-o_O-input_1n1c032"
+              role="textbox"
             >
               <div
-                class="mq-editable-field mq-math-mode"
-                style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
+                class="keypad-input"
+                tabindex="0"
               >
-                <span
-                  class="mq-textarea"
+                <div
+                  class="mq-editable-field mq-math-mode"
+                  style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
                 >
                   <span
-                    aria-label="Math Input:"
+                    class="mq-textarea"
+                  >
+                    <span
+                      aria-label="Math Input:"
+                    />
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    class="mq-root-block mq-empty"
+                    style="padding: 10px 13px 8px 13px; font-size: 18pt;"
                   />
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="mq-root-block mq-empty"
-                  style="padding: 10px 13px 8px 13px; font-size: 18pt;"
-                />
+                </div>
               </div>
             </div>
           </div>
