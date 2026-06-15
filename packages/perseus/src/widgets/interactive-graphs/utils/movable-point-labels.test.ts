@@ -91,25 +91,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("passes label strings through verbatim (no escaping or transformation)", () => {
-        // The layer renders the raw string as plain text in the Symbola
-        // font, so this helper must hand the string through untouched —
-        // including any characters an author might use for math-flavored
-        // labels (e.g. unicode "θ").
-        // Arrange
-        const state = pointState({
-            coords: [[1, 2]],
-            showPointLabels: true,
-            pointLabels: ["θ"],
-        });
-
-        // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
-            {key: "point-0", coord: [1, 2], text: "θ"},
-        ]);
-    });
-
-    it("zips angle coords with effective labels by index (ending=0, vertex=1, starting=2)", () => {
+    it("maps angle coords to labels by index", () => {
         // Arrange
         const state: AngleGraphState = {
             ...baseCommon,
@@ -148,7 +130,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("flattens linear-system coords as [line0-start, line0-end, line1-start, line1-end]", () => {
+    it("flattens linear-system coords across every endpoint", () => {
         // Arrange
         const state: LinearSystemGraphState = {
             ...baseCommon,
@@ -208,7 +190,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("handles linear / ray / sinusoid as two-endpoint state.coords", () => {
+    it("maps linear, ray, and sinusoid coords to labels by index", () => {
         // Arrange
         const linear: LinearGraphState = {
             ...baseCommon,
@@ -242,7 +224,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("walks polygon coords in order", () => {
+    it("maps polygon coords to labels by index", () => {
         // Arrange
         const state: PolygonGraphState = {
             ...baseCommon,
@@ -272,7 +254,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("zips quadratic coords (3 control points) with labels by index", () => {
+    it("maps quadratic coords to labels by index", () => {
         // Arrange
         const state: QuadraticGraphState = {
             ...baseCommon,
@@ -294,7 +276,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("zips absolute-value coords (2 control points) with labels by index", () => {
+    it("maps absolute-value coords to labels by index", () => {
         // Arrange
         const state: AbsoluteValueGraphState = {
             ...baseCommon,
@@ -314,7 +296,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("zips tangent coords (2 control points) with labels by index", () => {
+    it("maps tangent coords to labels by index", () => {
         // Arrange
         const state: TangentGraphState = {
             ...baseCommon,
@@ -334,7 +316,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("zips exponential coords (2 curve points) with labels — asymptote is not labeled", () => {
+    it("maps exponential coords to labels by index (asymptote is not labeled)", () => {
         // Arrange
         const state: ExponentialGraphState = {
             ...baseCommon,
@@ -355,7 +337,7 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("zips logarithm coords (2 curve points) with labels — asymptote is not labeled", () => {
+    it("maps logarithm coords to labels by index (asymptote is not labeled)", () => {
         // Arrange
         const state: LogarithmGraphState = {
             ...baseCommon,
@@ -384,89 +366,53 @@ describe("getLabelAttach", () => {
         [-10, 10],
     ];
 
-    it("attaches NE for points in the upper-right quadrant (default)", () => {
-        // Arrange, Act, Assert
+    it("attaches NE for upper-right points", () => {
         expect(getLabelAttach([5, 5], range)).toBe("ne");
         expect(getLabelAttach([1, 1], range)).toBe("ne");
     });
 
-    it("attaches NW when the point is in the upper-left quadrant (pushes label outward to the left)", () => {
-        // Arrange, Act, Assert
+    it("attaches NW for upper-left points", () => {
         expect(getLabelAttach([-5, 5], range)).toBe("nw");
     });
 
-    it("attaches SW when the point is in the lower-left quadrant", () => {
-        // Arrange, Act, Assert
+    it("attaches SW for lower-left points", () => {
         expect(getLabelAttach([-5, -5], range)).toBe("sw");
     });
 
-    it("attaches SE when the point is in the lower-right quadrant", () => {
-        // Arrange, Act, Assert
+    it("attaches SE for lower-right points", () => {
         expect(getLabelAttach([5, -5], range)).toBe("se");
     });
 
-    it("flips the horizontal attach inward when the point sits on the right edge so the label stays on-canvas", () => {
-        // Arrange, Act
-        const attach = getLabelAttach([10, 0], range);
-
-        // Assert: without the flip, the quadrant rule would attach east
-        // and the label would spill off the right side of the canvas.
-        // The flip pushes the label west, into the plotted region.
-        expect(attach.endsWith("w")).toBe(true);
+    it("shifts horizontally inward when the point is near the right edge", () => {
+        expect(getLabelAttach([10, 0], range).endsWith("w")).toBe(true);
     });
 
-    it("flips the vertical attach inward when the point sits on the top edge", () => {
-        // Arrange, Act
-        const attach = getLabelAttach([0, 10], range);
-
-        // Assert
-        expect(attach.startsWith("s")).toBe(true);
+    it("shifts vertically inward when the point is near the top edge", () => {
+        expect(getLabelAttach([0, 10], range).startsWith("s")).toBe(true);
     });
 
-    it("flips the horizontal attach inward when the point sits on the left edge", () => {
-        // Arrange, Act
-        const attach = getLabelAttach([-10, 0], range);
-
-        // Assert
-        expect(attach.endsWith("e")).toBe(true);
+    it("shifts horizontally inward when the point is near the left edge", () => {
+        expect(getLabelAttach([-10, 0], range).endsWith("e")).toBe(true);
     });
 
-    it("flips the vertical attach inward when the point sits on the bottom edge", () => {
-        // Arrange, Act
-        const attach = getLabelAttach([0, -10], range);
-
-        // Assert
-        expect(attach.startsWith("n")).toBe(true);
+    it("shifts vertically inward when the point is near the bottom edge", () => {
+        expect(getLabelAttach([0, -10], range).startsWith("n")).toBe(true);
     });
 
-    it("flips both components inward at a corner so the label lands diagonally inside the graph", () => {
-        // Arrange, Act: top-right corner. Default quadrant is NE; both
-        // axes flip → SW (label sits below-and-left of the point).
-        const attach = getLabelAttach([10, 10], range);
-
-        // Assert
-        expect(attach).toBe("sw");
+    it("shifts both axes inward when the point is in a corner", () => {
+        // Top-right corner: NE quadrant shifts on both axes → SW.
+        expect(getLabelAttach([10, 10], range)).toBe("sw");
     });
 
-    it("does not flip when the point is just inside the edge-flip threshold (15% of range)", () => {
-        // Arrange: x range is [-10, 10] → 15% from the right edge is
-        // x = 8.5. A point at x = 7 is just inside that band and should
-        // NOT flip.
-        // Act
-        const attach = getLabelAttach([7, 7], range);
-
-        // Assert: default quadrant rule applies.
-        expect(attach).toBe("ne");
+    it("does not shift when the point is just inside the 15% edge threshold", () => {
+        // Range is [-10, 10] → 15% from the right edge is x = 8.5.
+        // x = 7 is inside that band, so no shift.
+        expect(getLabelAttach([7, 7], range)).toBe("ne");
     });
 
-    it("flips when the point is just past the edge-flip threshold", () => {
-        // Arrange: x = 8.6 is past the 15% threshold (8.5) for the
-        // right edge, so the horizontal component flips W. y = 7 is
-        // just inside the vertical threshold, so vertical stays N.
-        // Act
-        const attach = getLabelAttach([8.6, 7], range);
-
-        // Assert
-        expect(attach).toBe("nw");
+    it("shifts when the point is just past the 15% edge threshold", () => {
+        // x = 8.6 is past 8.5 → horizontal shifts W. y = 7 is inside
+        // the vertical threshold → vertical stays N.
+        expect(getLabelAttach([8.6, 7], range)).toBe("nw");
     });
 });

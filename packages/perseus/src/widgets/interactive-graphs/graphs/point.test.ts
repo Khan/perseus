@@ -83,11 +83,6 @@ describe("getPointGraphDescription", () => {
     });
 
     it("falls back to 'Point N' when showPointLabels is true and pointLabels is omitted", () => {
-        // Defense in depth: even if a bad item somehow lands in the
-        // database with showPointLabels:true and no pointLabels (the
-        // interactive-graph-widget-error lint rule blocks this
-        // combination at save time), the renderer must NOT invent
-        // labels.
         const state: PointGraphState = {
             ...baseState,
             showPointLabels: true,
@@ -147,8 +142,6 @@ describe("getPointGraphDescription", () => {
     });
 
     it("falls back to 'Point N' for non-string pointLabels entries", () => {
-        // Defensive against malformed hand-authored JSON that bypasses
-        // the parser.
         const state: PointGraphState = {
             ...baseState,
             coords: [
