@@ -20,6 +20,10 @@ type Props = PerseusAnswerArea & {
 class ItemExtrasEditor extends React.Component<Props> {
     static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
 
+    shouldShowCalculatorVariants() {
+        return this.props.calculatorVariant !== null;
+    }
+
     shouldShowFinancialCalculatorOptions() {
         return (
             this.props.financialCalculatorMonthlyPayment ||
@@ -45,13 +49,63 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show calculator"
                         disabled={editingDisabled}
                         infoTip="Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
-                        checked={this.props.calculator}
+                        checked={this.shouldShowCalculatorVariants()}
                         onChange={(newCheckedState) => {
                             this.props.onChange({
                                 calculator: newCheckedState,
+                                calculatorVariant: newCheckedState
+                                    ? "scientific"
+                                    : null,
                             });
                         }}
                     />
+
+                    {this.shouldShowCalculatorVariants() && (
+                        <>
+                            <ItemExtraCheckbox
+                                label="Scientific calculator"
+                                disabled={editingDisabled}
+                                infoTip="Provides the student with a scientific calculator."
+                                checked={
+                                    this.props.calculatorVariant === "scientific"
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        calculatorVariant: "scientific",
+                                    });
+                                }}
+                                indent
+                            />
+                            <ItemExtraCheckbox
+                                label="Graphing calculator"
+                                disabled={editingDisabled}
+                                infoTip="Provides the student with a graphing calculator."
+                                checked={
+                                    this.props.calculatorVariant === "graphing"
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        calculatorVariant: "graphing",
+                                    });
+                                }}
+                                indent
+                            />
+                            <ItemExtraCheckbox
+                                label="Four-function calculator"
+                                disabled={editingDisabled}
+                                infoTip="Provides the student with a four-function calculator."
+                                checked={
+                                    this.props.calculatorVariant === "four_function"
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        calculatorVariant: "four_function",
+                                    });
+                                }}
+                                indent
+                            />
+                        </>
+                    )}
 
                     <ItemExtraCheckbox
                         label="Show financial calculator"
