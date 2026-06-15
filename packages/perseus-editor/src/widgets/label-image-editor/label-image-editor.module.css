@@ -24,3 +24,11 @@
 .selectLabel {
     margin-right: var(--wb-sizing-size_080);
 }
+
+.small-spacer {
+    height: var(--wb-sizing-size_160);
+}
+
+.large-spacer {
+    height: var(--wb-sizing-size_320);
+}
