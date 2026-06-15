@@ -1,7 +1,10 @@
 // HTML overlay that renders the visible label next to every labeled
-// movable point. TeX cannot be drawn inside an SVG, so the labels live
-// outside the `<Mafs>` element — exactly the same pattern that
-// `graph-locked-labels-layer.tsx` already uses for every locked label.
+// movable point. The label text is rendered as plain text (not TeX) in
+// the Symbola font so the same string can drive both the visible label
+// and the screen-reader announcement without TeX markup leaking into
+// either. The overlay still lives outside the `<Mafs>` element so it
+// can use HTML/CSS positioning — same pattern as
+// `graph-locked-labels-layer.tsx`.
 //
 // The overlay reads live point coordinates straight from the reducer
 // state, so a drag mutates state → MafsGraph re-renders → this layer
@@ -16,9 +19,7 @@
 import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {getDependencies} from "../../../../../dependencies";
 import useGraphConfig from "../../../reducer/use-graph-config";
-import {replaceOutsideTeX} from "../../../utils";
 import {
     getLabelAttach,
     getLabeledMovablePoints,
@@ -69,8 +70,6 @@ function MovablePointLabelView({
     const [x, y] = pointToPixel(label.coord, graphConfig);
     const attach = getLabelAttach(label.coord, range);
 
-    const {TeX} = getDependencies();
-
     return (
         <span
             className="movable-point-label"
@@ -82,6 +81,11 @@ function MovablePointLabelView({
                 top: y,
                 transform: attachToCss(attach),
                 color: semanticColor.core.foreground.neutral.default,
+                // Symbola gives plain text a TeX-like serif appearance
+                // without requiring authors to wrap labels in `$…$`. The
+                // same string then feeds the screen-reader aria-label
+                // cleanly — no TeX markup to strip.
+                fontFamily: 'Symbola, "Times New Roman", serif',
                 fontSize: font.size.medium,
                 fontWeight: font.weight.bold,
                 whiteSpace: "nowrap",
@@ -89,7 +93,7 @@ function MovablePointLabelView({
                 filter: "url(#math-stroke)",
             }}
         >
-            <TeX>{replaceOutsideTeX(label.text)}</TeX>
+            {label.text}
         </span>
     );
 }

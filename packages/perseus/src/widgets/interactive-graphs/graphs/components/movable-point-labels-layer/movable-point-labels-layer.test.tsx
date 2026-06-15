@@ -1,8 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import * as Dependencies from "../../../../../dependencies";
-import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as ReducerGraphConfig from "../../../reducer/use-graph-config";
 
 import MovablePointLabelsLayer from "./movable-point-labels-layer";
@@ -58,9 +56,6 @@ function pointState(
 describe("MovablePointLabelsLayer", () => {
     beforeEach(() => {
         mockGraphConfig(baseGraphConfig);
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     afterEach(() => {
@@ -102,27 +97,24 @@ describe("MovablePointLabelsLayer", () => {
         ).toHaveLength(2);
     });
 
-    it("renders the label via the TeX pipeline so $A$ becomes math, not the four literal characters '$', 'A', '$'", () => {
-        // The test-dependencies TeX mock wraps children in
-        // `<span class="mock-TeX">`. If the layer hands the raw string
-        // to that mock (via `<TeX>`), the wrapper appears in the DOM.
-        // If the layer instead rendered the string with plain HTML, no
-        // `.mock-TeX` element would exist.
+    it("renders the label as plain text in the Symbola font (no TeX pipeline)", () => {
+        // Labels are intentionally NOT routed through the TeX pipeline
+        // so the same string can drive both the visible label and the
+        // screen-reader announcement without TeX markup leaking into
+        // either. The Symbola font gives plain text a TeX-like serif
+        // appearance.
         // Arrange, Act
-        const {container} = render(
+        render(
             <MovablePointLabelsLayer
-                state={pointState([[0, 0]], ["$A$"], true)}
+                state={pointState([[0, 0]], ["A"], true)}
             />,
         );
 
-        // Assert: TeX pipeline ran on the label's text.
-        // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-        const tex = container.querySelector(".mock-TeX");
-        expect(tex).not.toBeNull();
-        // The original `$A$` survives into the TeX child stream — that
-        // is what guarantees MathJax (in prod) renders the letter A
-        // typeset as math rather than the literal characters.
-        expect(tex?.textContent).toContain("$A$");
+        // Assert: the label's text content is the raw string, and the
+        // span carries the Symbola font-family declaration.
+        const span = screen.getByTestId("movable-point__visible-label");
+        expect(span).toHaveTextContent("A");
+        expect(span.getAttribute("style")).toMatch(/Symbola/);
     });
 
     it("hides the visible label from the accessibility tree (announcement stays on the focusable handle)", () => {

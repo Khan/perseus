@@ -90,19 +90,21 @@ describe("getLabeledMovablePoints", () => {
         ]);
     });
 
-    it("includes TeX-bearing label strings verbatim (no escaping)", () => {
-        // The layer hands the raw string to TeX/replaceOutsideTeX; this
-        // helper must not strip `$` or other math markers.
+    it("passes label strings through verbatim (no escaping or transformation)", () => {
+        // The layer renders the raw string as plain text in the Symbola
+        // font, so this helper must hand the string through untouched —
+        // including any characters an author might use for math-flavored
+        // labels (e.g. unicode "θ").
         // Arrange
         const state = pointState({
             coords: [[1, 2]],
             showPointLabels: true,
-            pointLabels: ["$A$"],
+            pointLabels: ["θ"],
         });
 
         // Act, Assert
         expect(getLabeledMovablePoints(state)).toEqual([
-            {key: "point-0", coord: [1, 2], text: "$A$"},
+            {key: "point-0", coord: [1, 2], text: "θ"},
         ]);
     });
 
