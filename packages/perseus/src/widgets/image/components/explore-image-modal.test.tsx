@@ -1,5 +1,6 @@
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
@@ -16,6 +17,16 @@ import {ExploreImageModal} from "./explore-image-modal";
 
 import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+jest.mock("gifuct-js");
+
+// A minimal fake frame from gifuct-js with a 50ms delay.
+const fakeFrame = {
+    patch: new Uint8ClampedArray(4), // 1x1 RGBA
+    delay: 50,
+    dims: {width: 1, height: 1, top: 0, left: 0},
+    disposalType: 0,
+};
 
 function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
     return render(
@@ -68,6 +79,21 @@ describe("ExploreImageModal", () => {
 
         unmockImageLoading = mockImageLoading();
 
+        // Make gifuct-js return two fake frames (100ms total loop).
+        // eslint-disable-next-line no-restricted-syntax
+        (parseGIF as jest.Mock).mockReturnValue({});
+        // eslint-disable-next-line no-restricted-syntax
+        (decompressFrames as jest.Mock).mockReturnValue([fakeFrame, fakeFrame]);
+
+        // jsdom doesn't implement canvas getContext or ImageData.
+        // eslint-disable-next-line no-restricted-syntax
+        jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+            putImageData: jest.fn(),
+            clearRect: jest.fn(),
+            drawImage: jest.fn(),
+            imageSmoothingEnabled: true,
+        } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
+
         // GifImage (rendered via SvgImage when gif controls are active)
         // calls fetch() to decode GIF frames. jsdom doesn't provide
         // fetch, so we stub it here.
@@ -78,6 +104,22 @@ describe("ExploreImageModal", () => {
                 arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
             }),
         ) as jest.Mock;
+
+        // @ts-expect-error - jsdom doesn't have ImageData
+        global.ImageData = class ImageData {
+            data: Uint8ClampedArray;
+            width: number;
+            height: number;
+            constructor(
+                data: Uint8ClampedArray,
+                width: number,
+                height: number,
+            ) {
+                this.data = data;
+                this.width = width;
+                this.height = height;
+            }
+        };
     });
 
     afterEach(() => {
@@ -259,15 +301,15 @@ describe("ExploreImageModal", () => {
     });
 
     describe("gif controls", () => {
-        it("should render gif controls if the image is a gif", () => {
+        it("should render gif controls if the image is a gif", async () => {
             // Arrange, Act
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
             });
 
-            // Assert
-            const playButton = screen.getByRole("button", {
+            // Assert — wait for the async GIF decode to report frame count
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             expect(playButton).toBeVisible();
@@ -300,7 +342,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act — the modal starts paused, so click Play first
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             await userEvent.click(playButton);
@@ -321,7 +363,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
 
@@ -337,7 +379,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act — modal starts paused, click Play
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             await userEvent.click(playButton);
@@ -357,7 +399,7 @@ describe("ExploreImageModal", () => {
 
             // Act — click Play then Pause
             await userEvent.click(
-                screen.getByRole("button", {name: "Play Animation"}),
+                await screen.findByRole("button", {name: "Play Animation"}),
             );
             await userEvent.click(
                 screen.getByRole("button", {name: "Pause Animation"}),
