@@ -1,0 +1,12 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.container {
+    /* gap is for the vertical spacing between the captions and fields,
+     * while padding-top restores the space above the first caption
+     * this replaces the deprecated Strut spacing style */
+    gap: var(--wb-sizing-size_120) !important;
+    padding-top: var(--wb-sizing-size_060) !important;
+}
+
+.caption {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle) !important;
+}

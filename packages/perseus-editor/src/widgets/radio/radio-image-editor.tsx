@@ -1,119 +1,127 @@
 import {Util} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring} from "@khanacademy/wonder-blocks-layout";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
+
+import ImagePreview from "../../components/image-preview";
 
 import styles from "./radio-editor.module.css";
 
 // Flexible props to work for both the "add image" tile and
 // the "edit image" accordion cases.
 interface RadioImageEditorProps {
-    initialImageUrl: string;
-    initialImageAltText: string;
-    initialImageWidth?: number;
-    initialImageHeight?: number;
-    containerClassName?: string;
-    onSave: (
-        imageUrl: string,
-        imageAltText: string,
-        width?: number,
-        height?: number,
-    ) => void;
-    onClose?: () => void;
-    onDelete?: () => void;
+    imageUrl: string;
+    imageAltText: string;
+    onSave: (imageUrl: string, imageAltText: string) => void;
+    onDelete: () => void;
 }
 
 export default function RadioImageEditor({
-    initialImageUrl,
-    initialImageAltText,
-    initialImageWidth,
-    initialImageHeight,
-    containerClassName,
+    imageUrl,
+    imageAltText,
     onSave,
-    onClose,
     onDelete,
 }: RadioImageEditorProps): React.ReactElement {
-    const [imageUrl, setImageUrl] = React.useState(initialImageUrl);
-    const [imageAltText, setImageAltText] = React.useState(initialImageAltText);
-    const [imageWidth, setImageWidth] = React.useState(initialImageWidth);
-    const [imageHeight, setImageHeight] = React.useState(initialImageHeight);
-
-    // Keep the image URL and alt text in sync with changes.
-    React.useEffect(() => {
-        setImageUrl(initialImageUrl ?? "");
-        setImageAltText(initialImageAltText ?? "");
-        setImageWidth(initialImageWidth);
-        setImageHeight(initialImageHeight);
-    }, [
-        initialImageUrl,
-        initialImageAltText,
-        initialImageWidth,
-        initialImageHeight,
-    ]);
-
     const uniqueId = React.useId();
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
-    // Fetch image dimensions when URL changes, this will be used for the
-    // proper display of the preview on the left side of the editor
-    React.useEffect(() => {
-        async function fetchDimensions() {
-            if (!imageUrl) {
-                setImageWidth(undefined);
-                setImageHeight(undefined);
-                return;
-            }
+    const [stateImageUrl, setStateImageUrl] = React.useState<string>(imageUrl);
 
+    // Dimensions are needed to keep the preview from overflowing its
+    // container.
+    const [dimensions, setDimensions] = React.useState<{
+        width?: number;
+        height?: number;
+    }>({});
+
+    // Fetch the image's dimensions whenever its URL changes. Editing alt text
+    // doesn't touch `imageUrl`, so typing alt text never triggers a re-fetch.
+    React.useEffect(() => {
+        if (!imageUrl) {
+            setDimensions({});
+            return;
+        }
+
+        // The `cancelled` flag guards against a stale async write.
+        // Since content authors can edit the image URL while the image
+        // dimensions are still being fetched, we need to guard against
+        // saving stale dimensions.
+        //
+        // Example:
+        //
+        //   1. `imageUrl` is changed to "A.png". The effect runs, creates a
+        //      new `cancelled` flag (let's call it cancelledA = false), and
+        //      runs `fetchDimensions()`. That function awaits `getImageSizeModern`,
+        //      which loads the image over the network. This can take a while,
+        //      so the function suspends mid-flight with the await still pending.
+        //   2. Before "A.png" finishes loading, `imageUrl` changes again to
+        //      "B.png" (e.g. the author edits the URL and blurs the field).
+        //      React first runs the previous effect's cleanup (setting
+        //      cancelledA = true) then runs the effect again with a brand-new
+        //      `cancelled` flag (cancelledB = false) and a second in-flight
+        //      `fetchDimensions()`.
+        //   3. "A.png" finally loads and its `await` resolves, resuming the
+        //      first `fetchDimensions()`. It checks its own `cancelled`
+        //      (cancelledA), sees `true`, and skips `setDimensions`. Without
+        //      this check, it would overwrite the dimensions with the stale
+        //      "A.png" size, even though the preview now shows "B.png".
+        let cancelled = false;
+        async function fetchDimensions() {
             try {
                 const size = await Util.getImageSizeModern(imageUrl);
-                setImageWidth(size[0]);
-                setImageHeight(size[1]);
+                if (!cancelled) {
+                    setDimensions({width: size[0], height: size[1]});
+                }
             } catch (error) {
-                // If we can't get dimensions, that's okay - the image will
-                // still render, just without responsive sizing
-                setImageWidth(undefined);
-                setImageHeight(undefined);
+                // If we can't get dimensions, render without them.
+                if (!cancelled) {
+                    setDimensions({});
+                }
             }
         }
 
-        // Only fetch if URL changed and we don't already have dimensions
-        if (imageUrl !== initialImageUrl) {
-            void fetchDimensions();
-        }
-    }, [imageUrl, initialImageUrl]);
+        void fetchDimensions();
 
-    function handleClose() {
-        setImageUrl("");
-        setImageAltText("");
-        setImageWidth(undefined);
-        setImageHeight(undefined);
-        onClose?.();
-    }
-
-    function handleSave() {
-        onSave(imageUrl, imageAltText, imageWidth, imageHeight);
-        handleClose();
-    }
+        // Cleanup function
+        return () => {
+            cancelled = true;
+        };
+    }, [imageUrl]);
 
     return (
-        <div className={containerClassName}>
-            {/* Close button */}
-            {onClose && (
-                <IconButton
-                    aria-label="Close"
-                    icon={xIcon}
-                    size="small"
-                    kind="tertiary"
-                    onClick={handleClose}
-                    style={{position: "absolute", top: 4, right: 4}}
+        <>
+            {/* Preview */}
+            {imageUrl ? (
+                <LabeledField
+                    label="Preview"
+                    field={
+                        <ImagePreview
+                            src={imageUrl}
+                            alt={`Preview: ${imageAltText}`}
+                            width={dimensions.width}
+                            height={dimensions.height}
+                        />
+                    }
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // styles are moved to a different layer.
+                    styles={{root: {marginBlockEnd: sizing.size_160}}}
                 />
+            ) : (
+                <BodyText
+                    // TODO(LEMS-3686): Use CSS modules after Wonder Blocks
+                    // styles are moved to a different layer.
+                    style={{
+                        color: semanticColor.core.foreground.critical.default,
+                        marginBlockEnd: sizing.size_160,
+                    }}
+                >
+                    Missing image URL
+                </BodyText>
             )}
 
             {/* Image URL textarea */}
@@ -128,11 +136,10 @@ export default function RadioImageEditor({
             </BodyText>
             <TextArea
                 id={imageUrlTextAreaId}
-                value={imageUrl}
+                value={stateImageUrl}
                 placeholder="cdn.kastatic.org/..."
-                onChange={(value) => {
-                    setImageUrl(value);
-                }}
+                onChange={setStateImageUrl}
+                onBlur={() => onSave(stateImageUrl, imageAltText)}
                 style={{marginBlockEnd: sizing.size_080}}
                 autoResize={true}
             />
@@ -151,40 +158,22 @@ export default function RadioImageEditor({
                 id={imageAltTextTextAreaId}
                 value={imageAltText}
                 placeholder="Example: Graph of a linear function..."
-                onChange={(value) => {
-                    setImageAltText(value);
-                }}
+                onChange={(value) => onSave(imageUrl, value)}
                 autoResize={true}
             />
 
-            {/* Save and delete buttons */}
+            {/* Delete button */}
             <span className={styles.buttonRow}>
-                {onDelete && (
-                    <Button
-                        size="small"
-                        kind="tertiary"
-                        startIcon={trashIcon}
-                        style={{alignSelf: "flex-start"}}
-                        onClick={onDelete}
-                    >
-                        Delete this image
-                    </Button>
-                )}
-                <Spring />
                 <Button
                     size="small"
-                    disabled={
-                        imageUrl === initialImageUrl &&
-                        imageAltText === initialImageAltText
-                    }
-                    style={{
-                        alignSelf: "flex-start",
-                    }}
-                    onClick={handleSave}
+                    kind="tertiary"
+                    startIcon={trashIcon}
+                    style={{alignSelf: "flex-start"}}
+                    onClick={onDelete}
                 >
-                    Save image
+                    Delete this image
                 </Button>
             </span>
-        </div>
+        </>
     );
 }

@@ -5,34 +5,34 @@
         --wb-semanticColor-core-background-instructive-subtle
     );
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
-    border-radius: 12px;
-    padding-inline: 12px;
-    padding-block: 4px;
-    margin-block-end: 12px;
+    border-radius: var(--wb-sizing-size_120);
+    padding-inline: var(--wb-sizing-size_120);
+    padding-block: var(--wb-sizing-size_040);
+    margin-block-end: var(--wb-sizing-size_120);
 }
 
 .radio-option-actions-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-block-start: 8px;
+    margin-block-start: var(--wb-sizing-size_080);
 }
 
 .button-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-block-start: 8px;
+    margin-block-start: var(--wb-sizing-size_080);
 }
 
 .image-editor-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 8px;
-    padding-block-start: 24px;
+    padding: var(--wb-sizing-size_080);
+    padding-block-start: var(--wb-sizing-size_240);
     border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
-    border-radius: 8px;
-    margin-block-start: 8px;
+    border-radius: var(--wb-sizing-size_080);
+    margin-block-start: var(--wb-sizing-size_080);
     background-color: var(--wb-semanticColor-core-background-base-default);
 }

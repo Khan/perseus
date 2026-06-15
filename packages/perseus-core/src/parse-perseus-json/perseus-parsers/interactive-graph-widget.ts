@@ -136,7 +136,7 @@ const parsePerseusGraphTypeSinusoid = object({
 
 const parsePerseusGraphTypeExponential = object({
     type: constant("exponential"),
-    coords: optional(nullable(array(pairOfNumbers))),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     asymptote: optional(nullable(number)),
     startCoords: optional(
         object({
@@ -166,7 +166,7 @@ const parsePerseusGraphTypeTangent = object({
 
 const parsePerseusGraphTypeLogarithm = object({
     type: constant("logarithm"),
-    coords: optional(nullable(array(pairOfNumbers))),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     asymptote: optional(nullable(number)),
     startCoords: optional(
         object({

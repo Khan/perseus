@@ -97,9 +97,9 @@ describe("InteractiveGraphSettings", () => {
         // Assert
         expect(screen.getByText("x Label")).toBeInTheDocument();
         expect(screen.getByText("y Label")).toBeInTheDocument();
-        expect(screen.getByText("Markings:")).toBeInTheDocument();
+        expect(screen.getByText("Markings")).toBeInTheDocument();
         expect(screen.getByText("Snap Step")).toBeInTheDocument();
-        expect(screen.getByText("Background image URL:")).toBeInTheDocument();
+        expect(screen.getByText("Background image URL")).toBeInTheDocument();
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
 
@@ -143,7 +143,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {
-            name: "Background image URL:",
+            name: "Background image URL",
         });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
@@ -181,7 +181,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {
-            name: "Background image URL:",
+            name: "Background image URL",
         });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
@@ -214,7 +214,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {
-            name: "Background image URL:",
+            name: "Background image URL",
         });
         await userEvent.clear(input);
         await userEvent.tab();
@@ -247,7 +247,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {
-            name: "Background image URL:",
+            name: "Background image URL",
         });
         input.focus();
         // Disabling this because we need to test keypress events that are
