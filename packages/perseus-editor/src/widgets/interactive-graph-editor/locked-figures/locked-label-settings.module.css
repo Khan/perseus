@@ -1,0 +1,47 @@
+/* We have to use !important until wonder blocks is in the shared layer. */
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
+.accordion-header-container {
+    /* Stop the label summary from wrapping. */
+    white-space: nowrap !important;
+}
+
+.accordion-header {
+    padding: var(--wb-sizing-size_040) !important;
+    margin-inline-end: var(--wb-sizing-size_080) !important;
+    border-radius: var(--wb-sizing-size_040) !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    background-color: var(
+        --wb-semanticColor-core-background-base-default
+    ) !important;
+}
+
+.row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    /* Allow truncation, stop bleeding over the edge. */
+    min-width: 0 !important;
+}
+
+/* gap replaces the spacer that separated the header label from its swatch. */
+.header {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* The "text" label row: grow to fill, with a gap before the text field. */
+.text-label {
+    margin-bottom: var(--wb-sizing-size_080) !important;
+    flex-grow: 1 !important;
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* gap between the color select and the size control. */
+.color-row {
+    gap: var(--wb-sizing-size_160) !important;
+}
+
+/* gap replaces the spacer between the "size" label and its select. */
+.size-label {
+    gap: var(--wb-sizing-size_080) !important;
+}
