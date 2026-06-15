@@ -76,9 +76,8 @@ Work **newest → oldest**, crossing repo boundaries only as far back as the que
    (`LEMS-####`, `FEI-####`, `LP-####`).
 
 2. **Walk the current repo** with `git log`/`git blame` until you hit the
-   `cb841024 "initial commit"` floor. Confirm the trail genuinely predates the restart:
-   ```bash
-   git log --oneline --reverse | head -3   # shows cb841024 "initial commit"
+   `cb841024 "initial commit"` floor. If you don't have your answer yet,
+   look in the webapp git history.
    ```
 
 3. **Hop the webapp era (2018–2022)** if the trail runs through those years. In webapp,
