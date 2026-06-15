@@ -136,6 +136,8 @@ describe("parseInteractiveGraphWidget", () => {
                             type: "label",
                             coord: [0, 0],
                             text: "A",
+                            color: undefined,
+                            size: undefined,
                         },
                     ],
                 },
