@@ -67,7 +67,8 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 disabled={editingDisabled}
                                 infoTip="Provides the student with a scientific calculator."
                                 checked={
-                                    this.props.calculatorVariant === "scientific"
+                                    this.props.calculatorVariant ===
+                                    "scientific"
                                 }
                                 onChange={() => {
                                     this.props.onChange({
@@ -95,7 +96,8 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 disabled={editingDisabled}
                                 infoTip="Provides the student with a four-function calculator."
                                 checked={
-                                    this.props.calculatorVariant === "four_function"
+                                    this.props.calculatorVariant ===
+                                    "four_function"
                                 }
                                 onChange={() => {
                                     this.props.onChange({

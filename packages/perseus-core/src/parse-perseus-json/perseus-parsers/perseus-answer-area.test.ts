@@ -26,7 +26,7 @@ describe("parsePerseusAnswerArea", () => {
     it("keeps `true` values", () => {
         const allTrue: PerseusAnswerArea = {
             calculator: true,
-            calculatorVariant: null,
+            calculatorVariant: "scientific",
             financialCalculatorMonthlyPayment: true,
             financialCalculatorTotalAmount: true,
             financialCalculatorTimeToPayOff: true,

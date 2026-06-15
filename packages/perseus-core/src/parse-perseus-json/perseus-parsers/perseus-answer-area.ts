@@ -1,7 +1,14 @@
-import {boolean, defaulted, enumeration, nullable, object, pipeParsers} from "../general-purpose-parsers";
+import {
+    boolean,
+    defaulted,
+    enumeration,
+    nullable,
+    object,
+    pipeParsers,
+} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 
-import type {CalculatorVariant, PerseusAnswerArea} from "../../data-schema";
+type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
 const booleanOrFalse = defaulted(boolean, () => false);
 const nullableCalculatorVariant = defaulted(
@@ -30,16 +37,13 @@ const baseParser = defaulted(
     }),
 );
 
-export const parsePerseusAnswerArea = pipeParsers(baseParser)
-    .then(
-        convert(
-            (parsed): PerseusAnswerArea => {
-                const calculatorVariant: CalculatorVariant | null =
-                    parsed.calculator && parsed.calculatorVariant === null
-                        ? "scientific"
-                        : parsed.calculatorVariant;
+export const parsePerseusAnswerArea = pipeParsers(baseParser).then(
+    convert((parsed) => {
+        const calculatorVariant: CalculatorVariant | null =
+            parsed.calculator && parsed.calculatorVariant === null
+                ? "scientific"
+                : parsed.calculatorVariant;
 
-                return {...parsed, calculatorVariant};
-            },
-        ),
-    ).parser;
+        return {...parsed, calculatorVariant};
+    }),
+).parser;
