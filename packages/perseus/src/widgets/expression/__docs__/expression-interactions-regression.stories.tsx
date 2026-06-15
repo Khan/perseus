@@ -14,6 +14,7 @@ const meta: Meta<typeof Expression> = {
     tags: ["!autodocs", "!manifest"],
     decorators: [
         (Story) => {
+            // Cursor blinks via setInterval, making Chromatic snapshots flaky.
             // MathQuill toggles `mq-blink` via setInterval, making snapshots
             // non-deterministic. The blink rules in main.css use `!important`
             // inside `@layer shared`; CSS layers reverse !important priority
