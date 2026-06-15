@@ -43,6 +43,45 @@ function PreviewWithKeypad({
         isMobile,
     }) => React.ReactNode;
 }) {
+    return (
+        <Dependencies.DependenciesContext.Provider
+            value={storybookDependenciesV2}
+        >
+            <StatefulKeypadContextProvider>
+                <PreviewKeypadConnection
+                    isMobile={isMobile}
+                    hasLintGutter={hasLintGutter}
+                >
+                    {children}
+                </PreviewKeypadConnection>
+            </StatefulKeypadContextProvider>
+        </Dependencies.DependenciesContext.Provider>
+    );
+}
+
+/**
+ * Reads the keypad context and wires it up to the renderer and keypad.
+ *
+ * This MUST be a separate component rendered *inside*
+ * StatefulKeypadContextProvider. If it read the context at the same level as
+ * the provider, useContext would resolve to the default (no-op) KeypadContext
+ * instead of the stateful one — leaving the keypad's keystrokes disconnected
+ * from the widget's input.
+ */
+function PreviewKeypadConnection({
+    isMobile,
+    hasLintGutter,
+    children,
+}: {
+    isMobile: boolean;
+    hasLintGutter: boolean;
+    children: ({
+        setKeypadActive,
+        keypadElement,
+        setKeypadElement,
+        isMobile,
+    }) => React.ReactNode;
+}) {
     const className = isMobile ? "perseus-mobile" : "";
     const keypadCtx = React.useContext(KeypadContext);
 
@@ -52,31 +91,25 @@ function PreviewWithKeypad({
     );
 
     return (
-        <Dependencies.DependenciesContext.Provider
-            value={storybookDependenciesV2}
+        <View
+            className={`framework-perseus ${className}`}
+            style={containerStyle}
         >
-            <StatefulKeypadContextProvider>
-                <View
-                    className={`framework-perseus ${className}`}
-                    style={containerStyle}
-                >
-                    {children({...keypadCtx, isMobile})}
+            {children({...keypadCtx, isMobile})}
 
-                    {/* Only mobile previews use the custom keypad (the
-                        parent sends customKeypad: true for phone/tablet).
-                        Desktop widgets pop their own keypad, and an inactive
-                        MobileKeypad still renders a fixed, bordered container
-                        across the bottom of the preview. */}
-                    {isMobile && (
-                        <MobileKeypad
-                            onAnalyticsEvent={() => Promise.resolve()}
-                            onDismiss={() => keypadCtx.setKeypadActive(false)}
-                            onElementMounted={keypadCtx.setKeypadElement}
-                        />
-                    )}
-                </View>
-            </StatefulKeypadContextProvider>
-        </Dependencies.DependenciesContext.Provider>
+            {/* Only mobile previews use the custom keypad (the
+                parent sends customKeypad: true for phone/tablet).
+                Desktop widgets pop their own keypad, and an inactive
+                MobileKeypad still renders a fixed, bordered container
+                across the bottom of the preview. */}
+            {isMobile && (
+                <MobileKeypad
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    onDismiss={() => keypadCtx.setKeypadActive(false)}
+                    onElementMounted={keypadCtx.setKeypadElement}
+                />
+            )}
+        </View>
     );
 }
 
