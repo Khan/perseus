@@ -44,15 +44,16 @@ function pointState(overrides: Partial<PointGraphState> = {}): PointGraphState {
 }
 
 describe("getLabeledMovablePoints", () => {
-    it("returns [] when showPointLabels is absent (legacy SR-only pointLabels case)", () => {
+    it("returns [] when showPointLabels is absent, even if pointLabels is set", () => {
+        // In production, content can set `pointLabels` to drive
+        // screen-reader announcements without opting into visible
+        // labels. That data shape must return [].
         // Arrange
         const state = pointState({
             coords: [
                 [1, 2],
                 [3, 4],
             ],
-            // pointLabels is set for screen-reader text but showPointLabels
-            // is unset — visible rendering must stay off.
             pointLabels: ["A", "B"],
         });
 
@@ -67,11 +68,11 @@ describe("getLabeledMovablePoints", () => {
             showPointLabels: true,
         });
 
-        // Act, Assert: missing labels stay missing — no A/B/C fallback.
+        // Act, Assert: missing labels stay missing.
         expect(getLabeledMovablePoints(state)).toEqual([]);
     });
 
-    it("skips missing or empty entries without inventing a letter", () => {
+    it("skips missing or empty entries", () => {
         // Arrange: pointLabels has 2 entries but coords has 3 — the
         // third slot is structurally undefined.
         const state = pointState({

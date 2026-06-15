@@ -82,12 +82,12 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("falls back to the numeric 'Point N' default when showPointLabels is true but pointLabels is omitted (lint rule blocks this combination at authoring time)", () => {
-        // Defense in depth: even if a bad item somehow lands in the database
-        // with showPointLabels:true and no pointLabels (the
-        // interactive-graph-widget-error lint rule blocks the combination
-        // at save time), the renderer must NOT auto-generate Latin letters
-        // — that would leak into non-Latin-alphabet locales.
+    it("falls back to 'Point N' when showPointLabels is true and pointLabels is omitted", () => {
+        // Defense in depth: even if a bad item somehow lands in the
+        // database with showPointLabels:true and no pointLabels (the
+        // interactive-graph-widget-error lint rule blocks this
+        // combination at save time), the renderer must NOT invent
+        // labels.
         const state: PointGraphState = {
             ...baseState,
             showPointLabels: true,
@@ -102,7 +102,7 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("uses author pointLabels when showPointLabels is true and both are present", () => {
+    it("uses pointLabels when showPointLabels is true and pointLabels is provided", () => {
         const state: PointGraphState = {
             ...baseState,
             showPointLabels: true,
@@ -117,7 +117,7 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("falls back to the numeric 'Point N' default for points without a pointLabel entry when pointLabels is partial", () => {
+    it("falls back to 'Point N' for indices without a pointLabels entry", () => {
         const state: PointGraphState = {
             ...baseState,
             showPointLabels: true,
@@ -132,7 +132,7 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it(`encodes "only the second point labeled" as ["", "T"] and announces "Point 1 ... Point T ..."`, () => {
+    it("falls back to 'Point N' for empty-string pointLabels entries", () => {
         const state: PointGraphState = {
             ...baseState,
             coords: [
@@ -146,7 +146,9 @@ describe("getPointGraphDescription", () => {
         );
     });
 
-    it("falls back to the numeric default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+    it("falls back to 'Point N' for non-string pointLabels entries", () => {
+        // Defensive against malformed hand-authored JSON that bypasses
+        // the parser.
         const state: PointGraphState = {
             ...baseState,
             coords: [

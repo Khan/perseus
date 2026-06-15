@@ -104,8 +104,7 @@ function collect(
     const out: MovablePointLabel[] = [];
     for (let i = 0; i < coords.length; i++) {
         const text = labels?.[i];
-        // Missing entries stay missing — never auto-fill a letter, so
-        // non-Latin-alphabet locales aren't leaked into.
+        // Missing entries stay missing — never auto-fill.
         if (text == null || text === "") {
             continue;
         }

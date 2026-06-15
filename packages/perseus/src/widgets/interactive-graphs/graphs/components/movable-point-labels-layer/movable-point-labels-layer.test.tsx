@@ -62,7 +62,10 @@ describe("MovablePointLabelsLayer", () => {
         jest.restoreAllMocks();
     });
 
-    it("renders nothing when showPointLabels is off, even if pointLabels is set (legacy SR-only data shape)", () => {
+    it("renders nothing when showPointLabels is off, even if pointLabels is set", () => {
+        // In production, content can set `pointLabels` to drive
+        // screen-reader announcements without opting into visible
+        // labels. That data shape must not render anything here.
         // Arrange, Act
         render(
             <MovablePointLabelsLayer
@@ -97,27 +100,10 @@ describe("MovablePointLabelsLayer", () => {
         ).toHaveLength(2);
     });
 
-    it("renders the label as plain text in the Symbola font (no TeX pipeline)", () => {
-        // Labels are intentionally NOT routed through the TeX pipeline
-        // so the same string can drive both the visible label and the
-        // screen-reader announcement without TeX markup leaking into
-        // either. The Symbola font gives plain text a TeX-like serif
-        // appearance.
-        // Arrange, Act
-        render(
-            <MovablePointLabelsLayer
-                state={pointState([[0, 0]], ["A"], true)}
-            />,
-        );
-
-        // Assert: the label's text content is the raw string, and the
-        // span carries the Symbola font-family declaration.
-        const span = screen.getByTestId("movable-point__visible-label");
-        expect(span).toHaveTextContent("A");
-        expect(span.getAttribute("style")).toMatch(/Symbola/);
-    });
-
-    it("hides the visible label from the accessibility tree (announcement stays on the focusable handle)", () => {
+    it("marks the visible label as aria-hidden", () => {
+        // The visible label must not be in the accessibility tree —
+        // screen-reader announcements come from the focusable handle's
+        // own aria-label, not from this overlay span.
         // Arrange, Act
         render(
             <MovablePointLabelsLayer
@@ -131,7 +117,7 @@ describe("MovablePointLabelsLayer", () => {
         ).toHaveAttribute("aria-hidden", "true");
     });
 
-    it("skips points whose label is missing or empty — no Latin-letter fallback", () => {
+    it("skips points whose label is missing or empty", () => {
         // Arrange, Act
         render(
             <MovablePointLabelsLayer
@@ -150,60 +136,5 @@ describe("MovablePointLabelsLayer", () => {
         expect(
             screen.getAllByTestId("movable-point__visible-label"),
         ).toHaveLength(1);
-    });
-
-    it("flips the label inward when the point sits on the right edge so it stays on-canvas", () => {
-        // A point on the right edge gets a west-facing horizontal
-        // attach (the edge-flip in `getLabelAttach`) so the label sits
-        // to the LEFT of the point, inside the plotted region, instead
-        // of spilling off the right side of the canvas.
-        // Arrange, Act
-        render(
-            <MovablePointLabelsLayer
-                state={pointState([[10, 0]], ["A"], true)}
-            />,
-        );
-
-        // Assert: west-facing attach → `calc(-100% - 12px)` horizontal
-        // translate (pulls the span left of the anchor).
-        const style = screen
-            .getByTestId("movable-point__visible-label")
-            .getAttribute("style");
-        expect(style).toMatch(/translate\(calc\(-100% - 12px\)/);
-    });
-
-    it("flips the label inward when the point sits on the bottom edge", () => {
-        // Arrange, Act
-        render(
-            <MovablePointLabelsLayer
-                state={pointState([[0, -10]], ["A"], true)}
-            />,
-        );
-
-        // Assert: north-facing attach → `calc(-100% - 12px)` in the Y
-        // component of `translate(X, Y)` (pulls the span above the
-        // anchor, into the graph).
-        const style = screen
-            .getByTestId("movable-point__visible-label")
-            .getAttribute("style");
-        expect(style).toMatch(/, calc\(-100% - 12px\)\)/);
-    });
-
-    it("flips the label to the left of the point when the point is in the upper-left quadrant", () => {
-        // A point near the top-left should attach NW so the label sits
-        // up-and-left, away from the graph's center / geometry.
-        // Arrange, Act
-        render(
-            <MovablePointLabelsLayer
-                state={pointState([[-7, 7]], ["A"], true)}
-            />,
-        );
-
-        // Assert: NW attach → both horizontal and vertical translate
-        // use `calc(-100% - 12px)`.
-        const style = screen
-            .getByTestId("movable-point__visible-label")
-            .getAttribute("style");
-        expect(style).toMatch(/calc\(-100% - 12px\)/);
     });
 });

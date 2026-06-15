@@ -1,20 +1,9 @@
-// HTML overlay that renders the visible label next to every labeled
-// movable point. The label text is rendered as plain text (not TeX) in
-// the Symbola font so the same string can drive both the visible label
-// and the screen-reader announcement without TeX markup leaking into
-// either. The overlay still lives outside the `<Mafs>` element so it
-// can use HTML/CSS positioning — same pattern as
-// `graph-locked-labels-layer.tsx`.
-//
-// The overlay reads live point coordinates straight from the reducer
-// state, so a drag mutates state → MafsGraph re-renders → this layer
-// projects the new coords to pixels and the labels follow the point
-// without any extra subscription / animation plumbing.
-//
-// `aria-hidden="true"` and `data-testid="movable-point__visible-label"`
-// stay on the rendered span so screen-reader output continues to come
-// from the focusable handle's `aria-label`, never from the visible
-// label. (WCAG 2.5.3, "Label in Name".)
+// HTML overlay that renders a visible label next to every labeled
+// movable point. Labels render as plain text in the Symbola font so the
+// same string can drive both the visible label and the screen-reader
+// announcement. Spans are marked `aria-hidden` — announcement comes
+// from the focusable handle's own aria-label (WCAG 2.5.3, "Label in
+// Name").
 
 import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
@@ -79,12 +68,8 @@ function MovablePointLabelView({
                 position: "absolute",
                 left: x,
                 top: y,
-                transform: attachToCss(attach),
+                transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,
-                // Symbola gives plain text a TeX-like serif appearance
-                // without requiring authors to wrap labels in `$…$`. The
-                // same string then feeds the screen-reader aria-label
-                // cleanly — no TeX markup to strip.
                 fontFamily: 'Symbola, "Times New Roman", serif',
                 fontSize: font.size.medium,
                 fontWeight: font.weight.bold,
@@ -98,20 +83,15 @@ function MovablePointLabelView({
     );
 }
 
-// Distance, in pixels, between the anchor pixel (the point's center)
-// and the label edge that faces the point. Keeps the label glyph from
-// touching the point glyph.
+// Gap between the point glyph and the label glyph, in pixels.
 const LABEL_PADDING_PX = 12;
 
-// Maps a compass attach direction into a CSS `transform` string. The
-// span is positioned with `left: x; top: y;` placing its top-left at
-// the anchor pixel; we then translate it so the chosen attach edge
-// lands LABEL_PADDING_PX from the anchor in the outward direction.
-function attachToCss(attach: LabelAttach): string {
+// Pushes the label LABEL_PADDING_PX away from the anchor point in the
+// given compass direction (n, ne, e, …).
+function translateOutward(attach: LabelAttach): string {
     const p = LABEL_PADDING_PX;
     switch (attach) {
         case "n":
-            // label sits above point: bottom edge `p` above the anchor
             return `translate(-50%, calc(-100% - ${p}px))`;
         case "ne":
             return `translate(${p}px, calc(-100% - ${p}px))`;
