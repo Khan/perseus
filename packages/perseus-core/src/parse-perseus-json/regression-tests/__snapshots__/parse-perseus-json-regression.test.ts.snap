@@ -3204,10 +3204,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.ts returns t
           "availableTypes": [
             "linear",
           ],
-          "correct": {
-            "coords": null,
-            "type": "linear",
-          },
           "graph": {
             "backgroundImage": {
               "url": null,
@@ -3387,10 +3383,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
             "logarithm",
             "exponential",
           ],
-          "correct": {
-            "coords": null,
-            "type": "linear",
-          },
           "graph": {
             "backgroundImage": {
               "height": 0,
