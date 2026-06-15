@@ -1,4 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
+import {act, render, waitFor, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
@@ -11,7 +11,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {earthMoonImage, animatedGifLandscape} from "../utils";
+import {earthMoonImage, animatedGifLandscape, nonAnimatedGif} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
@@ -301,8 +301,8 @@ describe("ExploreImageModal", () => {
     });
 
     describe("gif controls", () => {
-        it("should render gif controls if the image is a gif", async () => {
-            // Arrange, Act
+        it("should render gif controls if the image is a multi frame gif", async () => {
+            // Arrange, Act — beforeEach decodes the gif into two frames
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
@@ -313,6 +313,31 @@ describe("ExploreImageModal", () => {
                 name: "Play Animation",
             });
             expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls if the image is a single frame gif", async () => {
+            // Arrange
+            // eslint-disable-next-line no-restricted-syntax
+            (decompressFrames as jest.Mock).mockReturnValue([fakeFrame]);
+            //Act
+            renderModal({
+                ...defaultProps,
+                backgroundImage: nonAnimatedGif,
+            });
+
+            // Assert
+            await waitFor(() => {
+                expect(decompressFrames).toHaveBeenCalled();
+            });
+
+            const playButton = screen.queryByRole("button", {
+                name: "Play Animation",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause Animation",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
         });
 
         it("should not render gif controls if the image is not a gif", () => {
@@ -334,7 +359,7 @@ describe("ExploreImageModal", () => {
             expect(pauseButton).not.toBeInTheDocument();
         });
 
-        it("should show the pause icon when the gif is playing", async () => {
+        it("should show the pause icon when the gif is playing when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,
@@ -371,7 +396,7 @@ describe("ExploreImageModal", () => {
             expect(playButton).toBeVisible();
         });
 
-        it("should toggle the gif playing state when the play button is clicked", async () => {
+        it("should toggle the gif playing state when the play button is clicked when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,
@@ -390,7 +415,7 @@ describe("ExploreImageModal", () => {
             ).toBeVisible();
         });
 
-        it("should toggle the gif playing state when the pause button is clicked", async () => {
+        it("should toggle the gif playing state when the pause button is clicked when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,

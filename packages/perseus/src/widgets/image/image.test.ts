@@ -3,7 +3,7 @@ import {
     generateImageWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {act, screen, within} from "@testing-library/react";
+import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {parseGIF, decompressFrames} from "gifuct-js";
 import invariant from "tiny-invariant";
@@ -18,7 +18,12 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
-import {earthMoonImage, animatedGifLandscape, graphieImage} from "./utils";
+import {
+    earthMoonImage,
+    animatedGifLandscape,
+    graphieImage,
+    nonAnimatedGif,
+} from "./utils";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -1110,7 +1115,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     });
 
     describe("gif controls", () => {
-        it("should render gif controls if the image is a gif", async () => {
+        it("should render gif controls if the image is a gif with multiple frames", async () => {
             // Arrange, Act
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -1129,6 +1134,42 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 name: "Play Animation",
             });
             expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls if the gif has only one frame", async () => {
+            // Arrange
+            // eslint-disable-next-line no-restricted-syntax
+            (decompressFrames as jest.Mock).mockReturnValue([fakeFrame]);
+
+            const imageQuestion = generateTestPerseusRenderer({
+                content: "[[☃ image 1]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: nonAnimatedGif,
+                        }),
+                    }),
+                },
+            });
+
+            // Act
+            renderQuestion(imageQuestion, apiOptions);
+
+            // Wait for the fetch → decode → onGifFrameCount chain to run so
+            // the controls' absence is intentional, not just not-yet-rendered.
+            await waitFor(() => {
+                expect(decompressFrames).toHaveBeenCalled();
+            });
+
+            // Assert
+            const playButton = screen.queryByRole("button", {
+                name: "Play Animation",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause Animation",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
         });
 
         it("should not render gif controls if the image is not a gif", () => {
@@ -1156,7 +1197,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(pauseButton).not.toBeInTheDocument();
         });
 
-        it("should show the pause icon when the gif is playing", async () => {
+        it("should show the pause icon when the gif is playing if the gif has multiple frames", async () => {
             // Arrange
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -1183,7 +1224,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             expect(pauseButton).toBeVisible();
         });
 
-        it("should show the play icon when the gif is paused", async () => {
+        it("should show the play icon when the gif is paused if the gif has multiple frames", async () => {
             // Arrange
             const gifImageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
