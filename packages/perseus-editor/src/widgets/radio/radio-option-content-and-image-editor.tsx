@@ -13,16 +13,16 @@ import {
     setImageProxyFromMarkdownContent,
 } from "./utils";
 
-type Props = {
+interface Props {
     isNoneOfTheAbove: boolean;
     content: string;
     choiceIndex: number;
     onContentChange: (choiceIndex: number, content: string) => void;
-};
+}
 
-export type RadioOptionContentAndImageEditorHandle = {
+export interface RadioOptionContentAndImageEditorHandle {
     focus: () => void;
-};
+}
 
 export const RadioOptionContentAndImageEditor = React.forwardRef<
     RadioOptionContentAndImageEditorHandle,
