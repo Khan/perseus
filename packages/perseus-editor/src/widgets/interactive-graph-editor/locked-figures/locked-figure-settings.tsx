@@ -25,7 +25,7 @@ import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
-export type LockedFigureSettingsCommonProps = {
+export interface LockedFigureSettingsCommonProps {
     // Movement props
     /**
      * Called when a movement button (top, up, down, bottom) is pressed.
@@ -45,7 +45,7 @@ export type LockedFigureSettingsCommonProps = {
      * Called when the accordion is expanded or collapsed.
      */
     onToggle?: (expanded: boolean) => void;
-};
+}
 
 // Union this type with other locked figure types when they are added.
 type Props = LockedFigureSettingsCommonProps &

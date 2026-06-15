@@ -1,0 +1,135 @@
+/* We have to use !important until wonder blocks is in the shared layer. */
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
+
+.accordion-header {
+    text-overflow: ellipsis !important;
+    /* A maximum width needs to be specified in order for the ellipsis to work. */
+    /* The 64px in the calculation accounts for the line swatch (56px) and the preceding strut (8px). */
+    /* Margin and padding won't work here because they would create space between the header text and the swatch. */
+    max-width: calc(100% - 64px) !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+.axis-menu {
+    min-width: auto !important;
+}
+
+.copy-paste-button {
+    flex-shrink: 0 !important;
+    margin: 0 2px !important;
+}
+
+.domain-min {
+    justify-content: space-between !important;
+    /* The 'width' property is applied to the label, which wraps the text and the input field. */
+    /* The width of the input fields (min/max) should be the same (to have a consistent look), */
+    /*     so the following calculation distributes the space accordingly. */
+    /* For the "domain/range min" block, the text is 82.7px, and the strut is 6px (88.7px total). */
+    /* The "domain/range max" block is 30.23px, and the strut is 6px (36.23px total). */
+    /* The calculation takes the remain space after the text & struts (141px total) are removed, */
+    /*     and divides it between the two input fields equally. */
+    /* The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text" */
+    width: calc(((100% - 141px) / 2) + 88.7px) !important;
+    text-wrap: nowrap !important;
+}
+
+.domain-max {
+    /* See explanation for "domainMin" for the calculation below. */
+    width: calc(((100% - 141px) / 2) + 36.2px) !important;
+}
+
+.dropdown-label {
+    align-items: center !important;
+    display: flex !important;
+    /* gap replaces the spacer between the label text and its control. */
+    gap: var(--wb-sizing-size_060) !important;
+}
+
+/* Plain <ul> element, no !important needed. */
+.example-container {
+    background: white;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: 4px;
+    flex-grow: 1;
+    list-style-type: none;
+    /* Nothing special about the maxHeight value, */
+    /*    just a good height to partially show a 3rd example in the list */
+    /*    to hint at scrollable content. */
+    max-height: 88px;
+    margin: 8px 0 0 0;
+    overflow-y: scroll;
+    padding: 4px 12px 4px 4px;
+}
+
+.example-content {
+    font-family: "Lato", sans-serif !important;
+    flex-grow: 1 !important;
+    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
+}
+
+/* Plain <li> element, no !important needed. */
+.example-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    min-height: 44px;
+}
+
+.row-space {
+    margin-top: var(--wb-sizing-size_080) !important;
+}
+
+.row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+/* gap replaces the spacer that separated the header label from its swatch. */
+.header {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* Color/stroke row: gap between controls, with spacing below the row. */
+.color-row {
+    margin-bottom: var(--wb-sizing-size_080) !important;
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+/* gap between the directional-axis dropdown and the equation field. */
+.axis-row {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* gap between the domain min and max controls. */
+.domain-row {
+    gap: var(--wb-sizing-size_160) !important;
+}
+
+/* Label settings styles */
+.add-button {
+    align-self: start !important;
+}
+
+.horizontal-rule {
+    height: 1px !important;
+    background-color: var(
+        --wb-semanticColor-core-border-neutral-subtle
+    ) !important;
+}
+
+/* Top spacing for a section start (a divider opening a section, or a heading). */
+.section-top {
+    margin-top: var(--wb-sizing-size_120) !important;
+}
+
+/* A divider that hugs the content directly above it. */
+.divider-tight {
+    margin-top: var(--wb-sizing-size_040) !important;
+}
+
+/* Indent for the example content text beside the copy/paste buttons. */
+.example-content-indent {
+    margin-inline-start: var(--wb-sizing-size_040) !important;
+}

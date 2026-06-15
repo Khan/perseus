@@ -1,0 +1,9 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.line-weight-select {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_040) !important;
+    /* Allow truncation, stop bleeding over the edge. */
+    min-width: 0 !important;
+}

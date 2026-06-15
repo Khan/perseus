@@ -8,15 +8,9 @@ import {vector as kvector} from "@khanacademy/kmath";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {
-    sizing,
-    spacing,
-    semanticColor,
-} from "@khanacademy/wonder-blocks-tokens";
+import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
 import * as React from "react";
 
@@ -29,6 +23,7 @@ import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
+import styles from "./locked-vector-settings.module.css";
 import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
@@ -44,8 +39,26 @@ import type {
     LockedVectorType,
     StrokeWeight,
 } from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
+
+// Passed to PerseusEditorAccordion's `containerStyle`/`panelStyle` and
+// LockedLabelSettings' `containerStyle`, which are typed as Wonder Blocks
+// `StyleType` and do not accept a CSS-module className.
+const coordsAccordionContainerStyle: StyleType = {
+    marginTop: sizing.size_080,
+    marginBottom: 0,
+    marginLeft: -sizing.size_040,
+    marginRight: -sizing.size_040,
+    backgroundColor: semanticColor.core.background.base.default,
+};
+const coordsAccordionPanelStyle: StyleType = {
+    paddingBottom: sizing.size_160,
+};
+const labelContainerStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.base.default,
+};
 
 export type Props = LockedVectorType &
     LockedFigureSettingsCommonProps & {
@@ -156,11 +169,10 @@ const LockedVectorSettings = (props: Props) => {
             expanded={props.expanded}
             onToggle={props.onToggle}
             header={
-                <View style={styles.row}>
+                <View className={styles.row}>
                     <BodyText size="medium" weight="bold" tag="span">
                         {lineLabel}
                     </BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle="solid" />
                 </View>
             }
@@ -182,7 +194,7 @@ const LockedVectorSettings = (props: Props) => {
 
             {/* Zero length error message */}
             {isInvalid && (
-                <BodyText style={styles.errorText}>
+                <BodyText className={styles.errorText}>
                     {lengthErrorMessage}
                 </BodyText>
             )}
@@ -190,10 +202,10 @@ const LockedVectorSettings = (props: Props) => {
             {/* Coordinates */}
             <PerseusEditorAccordion
                 expanded={true} // Initial state is expanded
-                containerStyle={styles.container}
-                panelStyle={styles.accordionPanel}
+                containerStyle={coordsAccordionContainerStyle}
+                panelStyle={coordsAccordionPanelStyle}
                 header={
-                    <View style={styles.row}>
+                    <View className={styles.row}>
                         <BodyText
                             size="medium"
                             weight="bold"
@@ -213,10 +225,10 @@ const LockedVectorSettings = (props: Props) => {
 
             <PerseusEditorAccordion
                 expanded={true} // Initial state is expanded
-                containerStyle={styles.container}
-                panelStyle={styles.accordionPanel}
+                containerStyle={coordsAccordionContainerStyle}
+                panelStyle={coordsAccordionPanelStyle}
                 header={
-                    <View style={styles.row}>
+                    <View className={styles.row}>
                         <BodyText
                             size="medium"
                             weight="bold"
@@ -235,8 +247,7 @@ const LockedVectorSettings = (props: Props) => {
             </PerseusEditorAccordion>
 
             {/* Aria label */}
-            <Strut size={spacing.small_12} />
-            <View style={styles.horizontalRule} />
+            <View className={`${styles.horizontalRule} ${styles.sectionTop}`} />
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
@@ -246,10 +257,10 @@ const LockedVectorSettings = (props: Props) => {
             />
 
             {/* Visible labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
@@ -261,7 +272,7 @@ const LockedVectorSettings = (props: Props) => {
                     onRemove={() => {
                         handleLabelRemove(labelIndex);
                     }}
-                    containerStyle={styles.labelContainer}
+                    containerStyle={labelContainerStyle}
                 />
             ))}
             <Button
@@ -287,7 +298,7 @@ const LockedVectorSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -301,36 +312,5 @@ const LockedVectorSettings = (props: Props) => {
         </PerseusEditorAccordion>
     );
 };
-
-const styles = StyleSheet.create({
-    accordionPanel: {
-        paddingBottom: spacing.medium_16,
-    },
-    container: {
-        marginTop: spacing.xSmall_8,
-        marginBottom: 0,
-        marginLeft: -spacing.xxxSmall_4,
-        marginRight: -spacing.xxxSmall_4,
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    errorText: {
-        color: semanticColor.core.foreground.critical.default,
-        marginTop: spacing.xSmall_8,
-    },
-    row: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    addButton: {
-        alignSelf: "start",
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-    labelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-});
 
 export default LockedVectorSettings;

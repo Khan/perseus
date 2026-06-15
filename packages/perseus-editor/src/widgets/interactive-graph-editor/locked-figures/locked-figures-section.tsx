@@ -6,9 +6,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 
@@ -16,17 +13,18 @@ import Heading from "../../../components/heading";
 
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
+import styles from "./locked-figures-section.module.css";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
     apiOptions: APIOptionsWithDefaults;
-};
+}
 
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
@@ -182,17 +180,16 @@ const LockedFiguresSection = (props: Props) => {
                             />
                         );
                     })}
-                    <View style={styles.buttonContainer}>
+                    <View className={styles.buttonContainer}>
                         <LockedFigureSelect
                             id={`${uniqueId}-select`}
                             onChange={addLockedFigure}
                         />
-                        <Strut size={spacing.small_12} />
                         {showExpandButton && (
                             <Button
                                 kind="secondary"
                                 onClick={() => toggleExpanded(allCollapsed)}
-                                style={styles.button}
+                                className={styles.button}
                             >
                                 {buttonLabel}
                             </Button>
@@ -203,16 +200,5 @@ const LockedFiguresSection = (props: Props) => {
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    buttonContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    button: {
-        marginTop: spacing.xSmall_8,
-        flexGrow: 1,
-    },
-});
 
 export default LockedFiguresSection;
