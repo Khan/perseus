@@ -72,7 +72,7 @@ Work **newest → oldest**, crossing repo boundaries only as far back as the que
 
 1. **Locate the code in the current repo.** Find the file/symbol/widget. Note the
    current path, e.g. `packages/perseus/src/widgets/<name>/`. Read for explicit history
-   signals: `@deprecated`, "legacy", `displayName` notes, feature flags, and ticket refs
+   signals: `@deprecated`, "legacy", and ticket refs
    (`LEMS-####`, `FEI-####`, `LP-####`).
 
 2. **Walk the current repo** with `git log`/`git blame` until you hit the
