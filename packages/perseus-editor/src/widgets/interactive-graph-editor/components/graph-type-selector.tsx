@@ -1,12 +1,12 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type GraphTypeSelectorProps = {
+import styles from "../interactive-graph-editor.module.css";
+
+interface GraphTypeSelectorProps {
     graphType: string;
     onChange: (newGraphType: string) => void;
-};
+}
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     return (
@@ -14,7 +14,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             selectedValue={props.graphType}
             onChange={props.onChange}
             placeholder="Select an answer type"
-            style={styles.singleSelectShort}
+            className={styles.singleSelectShort}
         >
             <OptionItem value="none" label="None" />
             <OptionItem
@@ -38,11 +38,5 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         </SingleSelect>
     );
 };
-
-const styles = StyleSheet.create({
-    singleSelectShort: {
-        height: sizing.size_260,
-    },
-});
 
 export default GraphTypeSelector;

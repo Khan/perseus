@@ -66,12 +66,12 @@ type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
     apiOptions?: APIOptionsWithDefaults;
 };
 
-type State = {
+interface State {
     lastStatus: string;
     showAnswerDetails: boolean[];
     showSettings: boolean;
     showAnswers: boolean;
-};
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**

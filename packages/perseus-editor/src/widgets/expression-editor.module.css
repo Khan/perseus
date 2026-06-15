@@ -1,0 +1,42 @@
+.padded-x {
+    padding-left: var(--wb-sizing-size_080);
+    padding-right: var(--wb-sizing-size_080);
+}
+
+.padded-y {
+    padding-top: var(--wb-sizing-size_060);
+    padding-bottom: var(--wb-sizing-size_060);
+}
+
+.answer-option {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-row {
+    display: flex;
+    gap: var(--wb-sizing-size_120);
+}
+
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
+.button-sets {
+    text-transform: uppercase !important;
+}
+
+.answers-subtitle {
+    font-style: italic !important;
+}
+
+.answers-group {
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.answers-list {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+.delete-button {
+    padding-inline: var(--wb-sizing-size_160) !important;
+}
