@@ -13,11 +13,9 @@ interface RadioStatusPillProps {
     multipleSelect: boolean;
 }
 
-// Passed to StatusBadge's `styles` prop, which is typed as Wonder Blocks
-// `StyleType` (per-part: root/icon/label) and does not accept a className.
-// Match the original Pill's compact, fixed-width box so the A/B/C indicators
-// stay aligned; `cursor: default` since the badge is read-only (status is set
-// via the adjacent segmented control), not clickable.
+// Passed to StatusBadge's `styles` prop.
+// Uses a fixed-width box so the A/B/C indicators
+// stay aligned; `cursor: default` since the badge is read-only.
 const boxStyle: StyleType = {
     width: sizing.size_560,
     justifyContent: "center",
@@ -26,9 +24,7 @@ const boxStyle: StyleType = {
 };
 const roundStyle: StyleType = {borderRadius: sizing.size_240};
 const squareStyle: StyleType = {borderRadius: border.radius.radius_040};
-// Correct uses the strong (dark green) fill with knockout (white) content,
-// matching the runtime choice indicator. Incorrect keeps StatusBadge's default
-// subtle critical (light red) styling.
+// Styles matching the runtime choice indicator.
 const correctStrongStyle: StyleType = {
     backgroundColor: semanticColor.core.background.success.strong,
     borderColor: semanticColor.core.border.success.strong,
@@ -38,10 +34,9 @@ const knockoutForegroundStyle: StyleType = {
 };
 
 /**
- * A read-only status indicator showing whether a choice is correct (a green
- * check) or incorrect (a red minus), labelled with the choice letter (A, B,
- * C...). Status is changed via the adjacent segmented control, so this is no
- * longer interactive — it is a Wonder Blocks `StatusBadge`.
+ * * A read-only status indicator showing whether a choice is correct or incorrect,
+ * labeled with the choice letter (A, B, C...). Status is changed via the
+ * adjacent segmented control.
  */
 export function RadioStatusPill({
     index,
@@ -65,8 +60,8 @@ export function RadioStatusPill({
                     multipleSelect ? squareStyle : roundStyle,
                     correct && correctStrongStyle,
                 ],
-                label: correct ? knockoutForegroundStyle : undefined,
-                icon: correct ? knockoutForegroundStyle : undefined,
+                label: correct && knockoutForegroundStyle,
+                icon: correct && knockoutForegroundStyle,
             }}
         />
     );

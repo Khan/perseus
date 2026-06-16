@@ -25,21 +25,15 @@
     gap: var(--wb-sizing-size_080) !important;
 }
 
-/* Reset the Clickable's native <button> chrome; the visual lives on the inner
- * View so it can react to hovered/pressed state. The keyboard focus ring is a
- * rounded box-shadow (follows the border radius, unlike `outline`) shown only on
- * `:focus-visible` so it doesn't appear after a mouse click. */
-.reset {
-    border-radius: var(--wb-border-radius-radius_040) !important;
-}
-
-.reset:focus-visible {
-    outline: none !important;
-    box-shadow: 0 0 0 var(--wb-border-width-medium)
-        var(--wb-semanticColor-focus-outer) !important;
-}
-
+/* The segment IS the Clickable's <button>. Clickable already inherits the font,
+ * resets the text decoration, and sets the cursor (pointer / not-allowed when
+ * disabled); here we add the visual box. Its variants are driven by selectors
+ * below — selected via `[aria-checked="true"]`, disabled via `[aria-disabled]`,
+ * hover via `:hover` — so the markup needs only this one static class. The
+ * keyboard focus ring is a rounded box-shadow (follows the border radius, unlike
+ * `outline`) shown only on `:focus-visible` so it doesn't appear after a click. */
 .segment {
+    display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
@@ -57,7 +51,23 @@
     white-space: nowrap !important;
 }
 
-.segment-selected {
+.segment:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 var(--wb-border-width-medium)
+        var(--wb-semanticColor-focus-outer) !important;
+}
+
+/* Hover only when interactive and not already selected. */
+.segment:not([aria-disabled="true"]):not([aria-checked="true"]):hover {
+    border-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    ) !important;
+    background-color: var(
+        --wb-semanticColor-core-background-neutral-subtle
+    ) !important;
+}
+
+.segment[aria-checked="true"] {
     background-color: var(
         --wb-semanticColor-core-background-instructive-default
     ) !important;
@@ -67,16 +77,7 @@
     color: var(--wb-semanticColor-core-foreground-knockout-default) !important;
 }
 
-.segment-hovered {
-    border-color: var(
-        --wb-semanticColor-core-border-neutral-default
-    ) !important;
-    background-color: var(
-        --wb-semanticColor-core-background-neutral-subtle
-    ) !important;
-}
-
-.segment-disabled {
+.segment[aria-disabled="true"] {
     background-color: var(
         --wb-semanticColor-core-background-disabled-subtle
     ) !important;
@@ -84,10 +85,9 @@
         --wb-semanticColor-core-border-disabled-default
     ) !important;
     color: var(--wb-semanticColor-core-foreground-disabled-default) !important;
-    cursor: not-allowed !important;
 }
 
-.segment-disabled-selected {
+.segment[aria-disabled="true"][aria-checked="true"] {
     background-color: var(
         --wb-semanticColor-core-background-disabled-strong
     ) !important;

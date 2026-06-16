@@ -1,6 +1,5 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import classNames from "classnames";
 import * as React from "react";
 
 import styles from "./segmented-control.module.css";
@@ -42,22 +41,10 @@ function ToggleButton({
             aria-label={ariaLabel}
             disabled={disabled}
             onClick={onClick}
-            className={styles.reset}
+            className={styles.segment}
             style={style}
         >
-            {({hovered, pressed}) => (
-                <View
-                    className={classNames(styles.segment, {
-                        [styles.segmentSelected]: selected,
-                        [styles.segmentHovered]:
-                            !disabled && !selected && (hovered || pressed),
-                        [styles.segmentDisabled]: disabled,
-                        [styles.segmentDisabledSelected]: disabled && selected,
-                    })}
-                >
-                    {children}
-                </View>
-            )}
+            {() => children}
         </Clickable>
     );
 }
