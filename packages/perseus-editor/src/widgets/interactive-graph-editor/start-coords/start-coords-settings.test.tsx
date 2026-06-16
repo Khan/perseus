@@ -1798,7 +1798,7 @@ describe("StartCoordSettings", () => {
             ).not.toHaveAttribute("aria-disabled", "true");
         });
 
-        it("reflects the current showPointLabels value", () => {
+        it("renders the toggle as checked when showPointLabels is true", () => {
             // Arrange, Act
             render(
                 <StartCoordsSettings

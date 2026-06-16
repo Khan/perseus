@@ -220,10 +220,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
         ) {
             return;
         }
-        // TypeScript can't narrow a spread into a discriminated union back
-        // into that union; the runtime guards above ensure both `graph` and
-        // `correct` are one of the 14 supported graph type variants that
-        // declare `showPointLabels`.
+        // Cast: the runtime guards above narrow to variants that accept
+        // `showPointLabels`, but TS can't preserve that narrowing across a
+        // spread into a discriminated union.
         this.props.onChange({
             // eslint-disable-next-line no-restricted-syntax
             graph: {...graph, showPointLabels} as PerseusGraphType,

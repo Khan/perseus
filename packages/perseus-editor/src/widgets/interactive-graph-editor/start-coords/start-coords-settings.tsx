@@ -17,12 +17,10 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
@@ -287,9 +285,8 @@ const StartCoordsSettings = (props: Props) => {
                     {/* Start coordinates input */}
                     <StartCoordsSettingsInner {...props} />
 
-                    {/* Show point labels toggle (flag-gated) */}
                     {showToggle && (
-                        <View style={localStyles.toggleRow}>
+                        <View className={styles.switchRow}>
                             <Switch
                                 id={switchId}
                                 checked={
@@ -298,7 +295,6 @@ const StartCoordsSettings = (props: Props) => {
                                 disabled={!labelsPopulated}
                                 onChange={onChangeShowPointLabels}
                             />
-                            <Strut size={spacing.xSmall_8} />
                             <BodyText
                                 size="small"
                                 tag="label"
@@ -338,13 +334,5 @@ const StartCoordsSettings = (props: Props) => {
         </View>
     );
 };
-
-const localStyles = StyleSheet.create({
-    toggleRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: spacing.small_12,
-    },
-});
 
 export default StartCoordsSettings;
