@@ -38,10 +38,8 @@ export function buildPointAriaLabel(
     strings: PerseusStrings,
     locale: string,
 ): string | undefined {
-    const label = resolvePointLabel(pointLabels, index);
-    // When the resolved label is the numeric default, return undefined so
-    // `useControlPoint` keeps its existing fallback behavior.
-    if (typeof label === "number") {
+    const label = pointLabels?.[index];
+    if (!label) {
         return undefined;
     }
     return strings.srPointAtCoordinates({
