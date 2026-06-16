@@ -1,3 +1,8 @@
+// TODO(LEMS-4304): feature flag cleanup - remove this file.
+// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PURE MARKDOWN!
+// This file is the original pure markdown rules that is being replaced by the
+// new pure markdown rules.
+
 /**
  * Contains markdown related functions in pure javascript,
  * extracted from perseus-markdown.jsx
