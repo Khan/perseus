@@ -41,9 +41,6 @@ const parseMeasurerWidgetV1 = parseWidgetWithVersion(
 const parseMeasurerWidgetV0 = parseWidget(
     constant("measurer"),
     object({
-        // The default value for image comes from measurer.tsx.
-        // See parse-perseus-json/README.md for why we want to duplicate the
-        // defaults here.
         imageTop: number,
         imageLeft: number,
         imageUrl: optional(nullable(string)),
