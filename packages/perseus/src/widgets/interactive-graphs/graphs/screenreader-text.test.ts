@@ -405,7 +405,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point 1 at -1 comma 4.");
+            expect(result).toBe(
+                "Point 1 on an exponential curve at -1 comma 4.",
+            );
         });
 
         it("uses the point-2 label for index 1", () => {
@@ -421,7 +423,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point 2 at 3 comma 7.");
+            expect(result).toBe(
+                "Point 2 on an exponential curve at 3 comma 7.",
+            );
         });
 
         // TODO(LEMS-4206): allow custom labels for exponential points so we
@@ -451,9 +455,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe(
-                "Horizontal asymptote at y equals -2. Use up and down arrow keys to move.",
-            );
+            expect(result).toBe("Horizontal asymptote at y equals -2");
         });
     });
 

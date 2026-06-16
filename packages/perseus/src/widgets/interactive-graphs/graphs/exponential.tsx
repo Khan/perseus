@@ -24,6 +24,7 @@ import {
     skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
+import type {PerseusStrings} from "../../../strings";
 import type {
     ExponentialGraphState,
     MafsGraphProps,
@@ -238,28 +239,74 @@ function describeExponentialGraph(
     };
     const asymptoteYFormatted = srFormatNumber(asymptote, locale);
 
+    // coeffs is undefined when the asymptote sits between the two points and
+    // no valid exponential fits — the description falls back to a plain sentence.
+    const coeffs = getExponentialCoefficients(coords, asymptote);
+    const descriptionArgs = {
+        point1X: formattedPoint1.x,
+        point1Y: formattedPoint1.y,
+        point2X: formattedPoint2.x,
+        point2Y: formattedPoint2.y,
+        asymptoteY: asymptoteYFormatted,
+    };
+
     return {
         srExponentialGraph: strings.srExponentialGraph,
-        srExponentialDescription: strings.srExponentialDescription({
-            point1X: formattedPoint1.x,
-            point1Y: formattedPoint1.y,
-            point2X: formattedPoint2.x,
-            point2Y: formattedPoint2.y,
-            asymptoteY: asymptoteYFormatted,
-        }),
+        srExponentialDescription: buildExponentialDescription(
+            coeffs,
+            descriptionArgs,
+            strings,
+            locale,
+        ),
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
         srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
         srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
         srExponentialInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srExponentialInteractiveElements({
-                point1X: srFormatNumber(point1[X], locale),
-                point1Y: srFormatNumber(point1[Y], locale),
-                point2X: srFormatNumber(point2[X], locale),
-                point2Y: srFormatNumber(point2[Y], locale),
-                asymptoteY: asymptoteYFormatted,
-            }),
+            elements: strings.srExponentialInteractiveElements(descriptionArgs),
         }),
     };
+}
+
+function buildExponentialDescription(
+    coeffs: ExponentialCoefficient | undefined,
+    args: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    if (coeffs === undefined) {
+        return strings.srExponentialDescriptionBasic(args);
+    }
+
+    const {a, b, c} = coeffs;
+
+    // Pick the directional sentence from the four shape combinations.
+    const approachesFromRight = b < 0; // e^(b*x) -> 0 as x -> +infinity
+    const extendsNegative = a < 0; // the dominant term carries sign(a)
+    const base = approachesFromRight
+        ? extendsNegative
+            ? strings.srExponentialDescriptionRightNeg(args)
+            : strings.srExponentialDescriptionRightPos(args)
+        : extendsNegative
+          ? strings.srExponentialDescriptionLeftNeg(args)
+          : strings.srExponentialDescriptionLeftPos(args);
+
+    // The y-intercept always exists; the x-intercept only when -c/a > 0.
+    const yIntercept = srFormatNumber(a + c, locale);
+    const ratio = -c / a;
+    if (ratio > 0) {
+        const xIntercept = srFormatNumber(Math.log(ratio) / b, locale);
+        return `${base} ${strings.srExponentialIntercepts({
+            xIntercept,
+            yIntercept,
+        })}`;
+    }
+    return `${base} ${strings.srExponentialYIntercept({yIntercept})}`;
 }

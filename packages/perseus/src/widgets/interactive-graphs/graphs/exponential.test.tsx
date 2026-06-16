@@ -58,7 +58,9 @@ describe("Exponential graph screen reader", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -70,11 +72,13 @@ describe("Exponential graph screen reader", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 2 at 1 comma 6."}),
+            screen.getByRole("button", {
+                name: "Point 2 on an exponential curve at 1 comma 6.",
+            }),
         ).toBeInTheDocument();
     });
 
-    it("labels the asymptote with its y-value and keyboard instructions", () => {
+    it("labels the asymptote with its y-value", () => {
         // Arrange, Act
         render(
             <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
@@ -83,12 +87,12 @@ describe("Exponential graph screen reader", () => {
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Horizontal asymptote at y equals 1. Use up and down arrow keys to move.",
+                name: "Horizontal asymptote at y equals 1",
             }),
         ).toBeInTheDocument();
     });
 
-    it("describes the graph with point positions and asymptote", () => {
+    it("describes the curve's behavior, asymptote, and intercepts", () => {
         // Arrange, Act
         render(
             <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
@@ -100,7 +104,7 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals 1.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals 1 from the left and extends to positive infinity. The y-intercept is at 0 comma 3.",
         );
     });
 
@@ -125,7 +129,7 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point -2 comma 4 and point 2 comma 8 with a horizontal asymptote at y equals 1.",
+            "The curve passes through -2 comma 4 and 2 comma 8 as the curve approaches y equals 1 from the left and extends to positive infinity. The y-intercept is at 0 comma 5.583.",
         );
     });
 
@@ -147,7 +151,7 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals -3.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals -3 from the left and extends to positive infinity. The x-intercept is at -1.71 comma 0. The y-intercept is at 0 comma 3.",
         );
     });
 
@@ -189,7 +193,7 @@ describe("Exponential graph screen reader", () => {
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Exponential graph with point 1 at 0 comma 3, point 2 at 1 comma 6, and horizontal asymptote at y equals 1.",
+                "Interactive elements: Exponential graph with points at 0 comma 3, 1 comma 6, and a horizontal asymptote at y equals 1.",
             ),
         ).toBeInTheDocument();
     });
@@ -213,7 +217,7 @@ describe("Exponential graph screen reader", () => {
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Exponential graph with point 1 at 3 comma 5, point 2 at 4 comma 7, and horizontal asymptote at y equals 2.",
+                "Interactive elements: Exponential graph with points at 3 comma 5, 4 comma 7, and a horizontal asymptote at y equals 2.",
             ),
         ).toBeInTheDocument();
     });
@@ -259,7 +263,9 @@ describe("Exponential graph pointLabels", () => {
             screen.getByRole("button", {name: "Point A at 0 comma 3."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point 2 at 1 comma 6."}),
+            screen.getByRole("button", {
+                name: "Point 2 on an exponential curve at 1 comma 6.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -276,7 +282,9 @@ describe("Exponential graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Point B at 1 comma 6."}),
@@ -298,7 +306,9 @@ describe("Exponential graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Point B at 1 comma 6."}),
