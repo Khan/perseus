@@ -32,10 +32,6 @@ export default {
 } as WidgetExports<typeof WidgetComponent>;
 ```
 
-## Focus Management
-
-All widgets must implement proper focus management for accessibility.
-
 ## Common Issues & Solutions
 
 ### Widget State Management
