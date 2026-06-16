@@ -29,8 +29,6 @@ pnpm storybook
 
 ## Perseus-specific Rules
 
-- **Use widget generators for test data.** All widget test data must come from
-  `packages/perseus-core/src/utils/generators` — never hand-roll it.
 - **Check for existing stories first.** New stories go in `__docs__/` directories.
   Some older stories are colocated directly but haven't been migrated yet — avoid
   duplicating what's already there.

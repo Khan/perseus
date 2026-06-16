@@ -63,6 +63,9 @@ import type {WidgetProps} from "@khanacademy/perseus-core";
 2. Use widget generators to build test data and test data options.
    You can find generators for all widgets in packages/perseus-core/src/utils/generators.
    An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
+   Values that are important to the test — used in assertions or the specific logic being tested —
+   should be explicitly passed as params to the generator, not left as shared defaults.
+   Test assertions shouldn't be coupled to setup they don't control.
 3. Follow the test structure below:
 ```typescript
 import {render, screen} from "@testing-library/react";
