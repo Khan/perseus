@@ -1,5 +1,3 @@
-import {radioLogic} from "@khanacademy/perseus-core";
-
 import Radio from "./radio-widget";
 import {getUserInputFromSerializedState} from "./util";
 
@@ -17,7 +15,6 @@ export default {
     displayName: "Radio / Multiple choice",
     widget: Radio,
     getStartUserInput,
-    version: radioLogic.version,
     isLintable: true,
 
     // TODO(LEMS-3185): remove serializedState

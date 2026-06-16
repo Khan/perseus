@@ -19,6 +19,7 @@ import {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {generateTestCategorizerWidget} from "../util/test-utils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -28,6 +29,10 @@ beforeEach(() => {
 });
 
 describe("ExtractPerseusData", () => {
+    beforeAll(() => {
+        registerAllWidgetsForTesting();
+    });
+
     describe("isWrongAnswerSupported", () => {
         it("returns true if all the widgets are wrong answers supported widgets", () => {
             expect(
