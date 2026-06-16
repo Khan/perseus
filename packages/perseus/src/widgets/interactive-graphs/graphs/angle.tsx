@@ -142,6 +142,12 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
                 }
+                // TODO(benchristel): if `pointLabels` defines a custom
+                //  label for this point, buildLabel returns a generic
+                //  screenreader label that does not contain the words
+                //  "vertex", "starting side", etc. It would be nice if we
+                //  had screenreader strings that mentioned both the
+                //  custom label and the point's mathematical meaning.
                 ariaLabel={buildLabel(1, coords[1]) ?? srAngleVertex}
             />
             {/* side 1 */}

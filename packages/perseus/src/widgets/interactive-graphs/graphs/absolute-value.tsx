@@ -85,6 +85,12 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                 <MovablePoint
                     key={"point-" + i}
                     ariaLabel={
+                        // TODO(benchristel): if `pointLabels` defines a custom
+                        //  label for this point, buildLabel returns a generic
+                        //  screenreader label that does not contain the words
+                        //  "vertex" or "point on arm". It would be nice if we
+                        //  had screenreader strings that mentioned both the
+                        //  custom label and the point's mathematical meaning.
                         buildLabel(i, coord) ??
                         (i === 0
                             ? srAbsoluteValueVertexPoint

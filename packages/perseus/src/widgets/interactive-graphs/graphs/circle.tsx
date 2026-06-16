@@ -97,6 +97,12 @@ export function CircleGraph(props: CircleGraphProps) {
                 // shape ("Circle. The center point is at X comma Y.") and is not
                 // overridden.
                 ariaLabel={
+                    // TODO(benchristel): if `pointLabels` defines a custom
+                    //  label for this point, buildLabel returns a generic
+                    //  screenreader label that does not contain the word
+                    //  "radius". It would be nice if we had screenreader
+                    //  strings that mentioned both the custom label and the
+                    //  point's mathematical meaning.
                     buildLabel(0, radiusPoint) ??
                     `${srCircleRadiusPoint} ${srCircleRadius}`
                 }
