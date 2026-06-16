@@ -96,6 +96,13 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     points={line}
                     ariaLabels={{
                         point1AriaLabel:
+                            // TODO(benchristel): if `pointLabels` defines a
+                            //  custom label for this point, buildLabel
+                            //  returns a generic screenreader label that does
+                            //  not identify which line the point belongs to.
+                            //  It would be nice if we had screenreader strings
+                            //  that mentioned both the custom label and the
+                            //  point's mathematical meaning.
                             buildLabel(i * 2, line[0]) ??
                             strings.srLinearSystemPoint({
                                 lineNumber: i + 1,
