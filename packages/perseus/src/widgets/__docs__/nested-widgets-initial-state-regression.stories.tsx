@@ -1,9 +1,18 @@
+import {
+    type GradedGroupWidget,
+    type PerseusExplanationWidgetOptions,
+} from "@khanacademy/perseus-core";
+
 import {themeModes} from "../../../../../.storybook/modes";
+import {explanationRendererDecorator} from "../explanation/__docs__/explanation-renderer-decorator";
 
 import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
-import {gradedGroupWithRadioAndExplanation} from "./nested-widgets.testdata";
+import {
+    explanationWithDefinitionOptions,
+    gradedGroupWithRadioAndDefinition,
+    gradedGroupWithRadioAndExplanation,
+} from "./nested-widgets.testdata";
 
-import type {GradedGroupWidget} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -32,4 +41,18 @@ export const GradedGroupWithRadioAndExplanation: GradedGroupStory = {
     parameters: {
         question: gradedGroupWithRadioAndExplanation,
     },
+};
+
+export const GradedGroupWithRadioAndDefinition: GradedGroupStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: gradedGroupWithRadioAndDefinition,
+    },
+};
+
+type ExplanationStory = StoryObj<PerseusExplanationWidgetOptions>;
+
+export const ExplanationWithDefinition: ExplanationStory = {
+    decorators: [articleRendererDecorator, explanationRendererDecorator],
+    args: explanationWithDefinitionOptions,
 };

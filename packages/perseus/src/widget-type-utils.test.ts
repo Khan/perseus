@@ -90,7 +90,7 @@ describe("widget-type-utils", () => {
             );
 
             // Assert
-            expect(widgetSubType).toBe("linear");
+            expect(widgetSubType).toBe("none");
         });
 
         it("returns null when widget does not have a subtype", () => {

@@ -5,7 +5,7 @@ import imageMarkdownRule from "./image-markdown";
 describe("image-markdown", () => {
     // All markdown images (format ![alt](url)) should result in a warning
     // when NOT inside a widget
-    expectWarning(imageMarkdownRule, [
+    it.each([
         "![]()",
         "![](  )",
         "![](\n)",
@@ -20,10 +20,12 @@ describe("image-markdown", () => {
         "![blah](http://google.com/)",
         "![alt alt alt][url-ref]", // Reference image
         "![][url-ref]", // Reference image
-    ]);
+    ])("imageMarkdownRule warns with: %s", (str: string) => {
+        expectWarning(imageMarkdownRule, str);
+    });
 
     // Text that does not contain markdown images should pass
-    expectPass(imageMarkdownRule, [
+    it.each([
         "!",
         "![",
         "![]",
@@ -38,37 +40,50 @@ describe("image-markdown", () => {
         "[]()", // link markdown, not image
         "[link text](http://google.com)", // link markdown, not image
         "![][", // Incomplete reference image
-    ]);
+    ])("imageMarkdownRule passes with: %s", (str: string) => {
+        expectPass(imageMarkdownRule, str);
+    });
 
     // Markdown images should pass when inside a widget (e.g., Radio widget)
-    expectPass(
-        imageMarkdownRule,
-        [
-            "![](http://google.com/)",
-            "![alt text](http://example.com/image.png)",
-            "![]()",
-            "![ ](http://google.com/)",
-            "![blah](http://google.com/)",
-        ],
-        {
+    it.each([
+        "![](http://google.com/)",
+        "![alt text](http://example.com/image.png)",
+        "![]()",
+        "![ ](http://google.com/)",
+        "![blah](http://google.com/)",
+    ])("imageMarkdownRule passes with: %s", (str: string) => {
+        expectPass(imageMarkdownRule, str, {
             stack: ["root", "paragraph", "widget", "text", "image"],
-        },
-    );
-
-    // Additional test to ensure stack checking works correctly
-    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
-        stack: ["widget", "image"],
+        });
     });
 
-    expectPass(imageMarkdownRule, ["![test image](http://test.com/img.jpg)"], {
-        stack: ["widget"],
+    it("passes for a markdown image when the stack is widget then image", () => {
+        expectPass(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
+                stack: ["widget", "image"],
+            },
+        );
     });
 
-    expectWarning(
-        imageMarkdownRule,
-        ["![test image](http://test.com/img.jpg)"],
-        {
-            stack: ["image"],
-        },
-    );
+    it("passes for a markdown image when the stack is just a widget", () => {
+        expectPass(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
+                stack: ["widget"],
+            },
+        );
+    });
+
+    it("warns for a markdown image when the stack is just an image", () => {
+        expectWarning(
+            imageMarkdownRule,
+            "![test image](http://test.com/img.jpg)",
+            {
+                stack: ["image"],
+            },
+        );
+    });
 });

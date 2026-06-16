@@ -1,6 +1,7 @@
 import {
     generateIGAngleGraph,
     generateIGCircleGraph,
+    generateIGLinearGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLabel,
@@ -652,7 +653,9 @@ export const Ungraded: Story = {
     parameters: {
         graded: false,
     },
-    args: {},
+    args: {
+        graph: generateIGLinearGraph(),
+    },
 };
 
 // Verifies the static graph state — when `static` is true, interactive

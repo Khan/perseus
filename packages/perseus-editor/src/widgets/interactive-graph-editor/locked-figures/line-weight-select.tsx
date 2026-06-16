@@ -1,17 +1,17 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
+
+import styles from "./line-weight-select.module.css";
 
 import type {StrokeWeight} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface Props {
     selectedValue: StrokeWeight;
     onChange: (newValue: StrokeWeight) => void;
     containerStyle?: StyleType;
-};
+}
 
 const LineWeightSelect = (props: Props) => {
     const {selectedValue, containerStyle, onChange} = props;
@@ -19,19 +19,10 @@ const LineWeightSelect = (props: Props) => {
     return (
         <BodyText
             tag="label"
-            style={[
-                {
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    // Allow truncation, stop bleeding over the edge.
-                    minWidth: 0,
-                },
-                containerStyle,
-            ]}
+            className={styles.lineWeightSelect}
+            style={containerStyle}
         >
             weight
-            <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
                 // eslint-disable-next-line no-restricted-syntax

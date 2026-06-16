@@ -45,11 +45,10 @@ const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     showTooltips: false,
     showProtractor: false,
     graph: {
-        type: "linear",
+        type: "none",
     },
     correct: {
-        type: "linear",
-        coords: null,
+        type: "none",
     },
 };
 

@@ -13,10 +13,8 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
@@ -24,11 +22,16 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import styles from "./locked-label-settings.module.css";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
+
+// Passed to Wonder Blocks `StyleType`-only props (CoordinatePairInput,
+// ColorSelect) which don't accept a CSS-module className.
+const spaceUnderStyle: StyleType = {marginBottom: sizing.size_080};
 
 export type Props = LockedLabelType & {
     /**
@@ -84,25 +87,21 @@ export default function LockedLabelSettings(props: Props) {
             expanded={expanded}
             onToggle={onToggle}
             header={
-                <View style={[styles.row, styles.accordionHeaderContainer]}>
+                <View
+                    className={`${styles.row} ${styles.accordionHeaderContainer} ${styles.header}`}
+                >
                     <BodyText size="medium" weight="bold" tag="span">
                         Label ({coord[0]}, {coord[1]})
                     </BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     {text !== "" && (
                         <BodyText
                             size="medium"
                             weight="bold"
                             tag="span"
-                            style={[
-                                {
-                                    backgroundColor:
-                                        semanticColor.core.background.base
-                                            .default,
-                                    color: lockedFigureColors[color],
-                                },
-                                styles.accordionHeader,
-                            ]}
+                            className={styles.accordionHeader}
+                            style={{
+                                color: lockedFigureColors[color],
+                            }}
                         >
                             {text}
                         </BodyText>
@@ -117,17 +116,16 @@ export default function LockedLabelSettings(props: Props) {
                 onChange={(newCoords) => {
                     onChangeProps({coord: newCoords});
                 }}
-                style={styles.spaceUnder}
+                style={spaceUnderStyle}
             />
 
             {/* Text settings */}
-            <View style={styles.row}>
+            <View className={styles.row}>
                 <BodyText
                     tag="label"
-                    style={[styles.row, styles.spaceUnder, {flexGrow: 1}]}
+                    className={`${styles.row} ${styles.textLabel}`}
                 >
                     text
-                    <Strut size={spacing.xSmall_8} />
                     <TextField
                         value={text}
                         placeholder="ex. $x^2$ or $\frac{1}{2}$"
@@ -150,20 +148,21 @@ export default function LockedLabelSettings(props: Props) {
                 </InfoTip>
             </View>
 
-            <View style={styles.row}>
+            <View className={`${styles.row} ${styles.colorRow}`}>
                 <ColorSelect
                     selectedValue={color}
                     onChange={(newColor) => {
                         onChangeProps({color: newColor});
                     }}
-                    style={styles.spaceUnder}
+                    style={spaceUnderStyle}
                 />
-                <Strut size={spacing.medium_16} />
 
                 {/* Size settings */}
-                <BodyText tag="label" style={styles.row}>
+                <BodyText
+                    tag="label"
+                    className={`${styles.row} ${styles.sizeLabel}`}
+                >
                     size
-                    <Strut size={spacing.xSmall_8} />
                     <SingleSelect
                         selectedValue={size}
                         // TODO(LEMS-2656): remove TS suppression
@@ -194,26 +193,3 @@ export default function LockedLabelSettings(props: Props) {
         </PerseusEditorAccordion>
     );
 }
-const styles = StyleSheet.create({
-    accordionHeaderContainer: {
-        // Stop the label summary from wrapping.
-        whiteSpace: "nowrap",
-    },
-    accordionHeader: {
-        padding: spacing.xxxSmall_4,
-        marginInlineEnd: spacing.xSmall_8,
-        borderRadius: spacing.xxxSmall_4,
-        textOverflow: "ellipsis",
-        overflow: "hidden",
-    },
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        // Allow truncation, stop bleeding over the edge.
-        minWidth: 0,
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
-    },
-});

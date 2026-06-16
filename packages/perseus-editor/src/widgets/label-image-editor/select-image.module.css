@@ -1,0 +1,13 @@
+.title {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: var(--wb-sizing-size_060);
+    color: #626569; /* gray17 */
+}
+
+.image-row {
+    display: flex;
+    gap: var(--wb-sizing-size_160);
+}

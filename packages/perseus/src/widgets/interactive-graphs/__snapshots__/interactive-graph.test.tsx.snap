@@ -1094,24 +1094,24 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
+              aria-describedby="instructions-:r2: interactive-graph-interactive-elements-description-:r2:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:r2:"
-                tabindex="-1"
-              >
-                Interactive elements: A polygon with 3 points. 
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:r2:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:r2:"
+                tabindex="-1"
+              >
+                Interactive elements: A polygon with 3 points. 
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -1527,24 +1527,24 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rc: instructions-:rc:"
+              aria-describedby="instructions-:rc: interactive-graph-interactive-elements-description-:rc:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:rc:"
-                tabindex="-1"
-              >
-                Interactive elements: A polygon with 3 points. 
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:rc:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:rc:"
+                tabindex="-1"
+              >
+                Interactive elements: A polygon with 3 points. 
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -1966,24 +1966,24 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rl: unlimited-graph-keyboard-prompt-:rl: instructions-:rl:"
+              aria-describedby="instructions-:rl: interactive-graph-interactive-elements-description-:rl: unlimited-graph-keyboard-prompt-:rl:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:rl:"
-                tabindex="-1"
-              >
-                No interactive elements
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:rl:"
                 tabindex="-1"
               >
                 Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:rl:"
+                tabindex="-1"
+              >
+                No interactive elements
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -2217,7 +2217,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="unlimited-graph-keyboard-prompt-:rr: instructions-:rr:"
+              aria-describedby="instructions-:rr: unlimited-graph-keyboard-prompt-:rr:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
@@ -2446,24 +2446,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:r4: instructions-:r4:"
+              aria-describedby="instructions-:r4: interactive-graph-interactive-elements-description-:r4:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:r4:"
-                tabindex="-1"
-              >
-                Interactive elements: A polygon with 3 points. 
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:r4:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:r4:"
+                tabindex="-1"
+              >
+                Interactive elements: A polygon with 3 points. 
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -2852,24 +2852,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:re: instructions-:re:"
+              aria-describedby="instructions-:re: interactive-graph-interactive-elements-description-:re:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:re:"
-                tabindex="-1"
-              >
-                Interactive elements: A polygon with 3 points. 
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:re:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:re:"
+                tabindex="-1"
+              >
+                Interactive elements: A polygon with 3 points. 
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -3291,24 +3291,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rm: instructions-:rm:"
+              aria-describedby="instructions-:rm: interactive-graph-interactive-elements-description-:rm:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:rm:"
-                tabindex="-1"
-              >
-                Interactive elements: Point 1 at 0 comma 0. Point 2 at -2.5 comma 0. Point 3 at -1 comma 0.
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:rm:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:rm:"
+                tabindex="-1"
+              >
+                Interactive elements: Point 1 at 0 comma 0. Point 2 at -2.5 comma 0. Point 3 at -1 comma 0.
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -3646,24 +3646,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              aria-describedby="interactive-graph-interactive-elements-description-:rt: instructions-:rt:"
+              aria-describedby="instructions-:rt: interactive-graph-interactive-elements-description-:rt:"
               class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
               role="figure"
               tabindex="0"
             >
               <div
                 class="default_7zhre1 mafs-sr-only"
-                id="interactive-graph-interactive-elements-description-:rt:"
-                tabindex="-1"
-              >
-                Interactive elements: A polygon with 4 points. 
-              </div>
-              <div
-                class="default_7zhre1 mafs-sr-only"
                 id="instructions-:rt:"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+              </div>
+              <div
+                class="default_7zhre1 mafs-sr-only"
+                id="interactive-graph-interactive-elements-description-:rt:"
+                tabindex="-1"
+              >
+                Interactive elements: A polygon with 4 points. 
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"

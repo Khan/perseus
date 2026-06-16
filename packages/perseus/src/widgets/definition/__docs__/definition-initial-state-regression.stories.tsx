@@ -1,24 +1,27 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {article, question} from "../definition.testdata";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
+import {
+    article,
+    definitionQuestionContent,
+    definitionQuestionOptions,
+} from "../definition.testdata";
 
-import type {StoryObj} from "@storybook/react-vite";
+import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * This is a visual regression story for the definition widget.
  */
 
-export default {
+const meta: Meta<DefinitionDefaultWidgetOptions> = {
     title: "Widgets/Definition/Visual Regression Tests/Initial State",
-    component: ServerItemRendererWithDebugUI,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -30,9 +33,28 @@ export default {
     },
 };
 
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+/*
+ * NOTE: The Definition widget also has a `hover` state, but it cannot be
+ * tested accurately with Chromatic at this time (2026).
+ */
+
 export const Exercise: Story = {
-    args: {
-        item: generateTestPerseusItem({question}),
+    decorators: [definitionRendererDecorator],
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
+    },
+};
+
+export const Mobile: Story = {
+    decorators: [definitionRendererDecorator, mobileDecorator],
+    args: definitionQuestionOptions,
+    parameters: {
+        content: definitionQuestionContent,
     },
 };
 
