@@ -29,8 +29,6 @@ pnpm storybook
 
 ## Perseus-specific Rules
 
-- **Never invent widget props.** Perseus widgets have a strict versioned data
-  schema. Always verify against documented stories before using any prop.
 - **Use widget generators for test data.** All widget test data must come from
   `packages/perseus-core/src/utils/generators` — never hand-roll it.
 - **Check for existing stories first.** New stories go in `__docs__/` directories.
