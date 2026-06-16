@@ -137,6 +137,8 @@ function AngleGraph(props: AngleGraphProps) {
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
@@ -153,6 +155,8 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
@@ -167,6 +171,8 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],

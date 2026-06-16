@@ -97,6 +97,8 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                             : srAbsoluteValueSecondPoint)
                     }
                     point={coord}
+                    // TODO(benchristel): sequenceNumber has no effect when
+                    //  ariaLabel is always passed.
                     sequenceNumber={i + 1}
                     constrain={getAbsoluteValueKeyboardConstraint(
                         coords,

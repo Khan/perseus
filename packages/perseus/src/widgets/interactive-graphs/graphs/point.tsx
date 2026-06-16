@@ -1,11 +1,15 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {
+    resolvePointLabel,
+    usePointAriaLabel,
+} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
@@ -81,7 +85,7 @@ function PointGraph(props: Props) {
 function LimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch} = statefulProps;
     const {coords, pointLabels} = statefulProps.graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const i18n = usePerseusI18n();
 
     return (
         <>
@@ -89,8 +93,11 @@ function LimitedPointGraph(statefulProps: StatefulProps) {
                 <MovablePoint
                     key={i}
                     point={point}
-                    sequenceNumber={i + 1}
-                    ariaLabel={buildLabel(i, point)}
+                    ariaLabel={i18n.strings.srPointAtCoordinates({
+                        num: resolvePointLabel(pointLabels, i),
+                        x: srFormatNumber(point[0], i18n.locale),
+                        y: srFormatNumber(point[1], i18n.locale),
+                    })}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }

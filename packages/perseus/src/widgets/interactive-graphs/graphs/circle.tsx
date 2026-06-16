@@ -109,6 +109,8 @@ export function CircleGraph(props: CircleGraphProps) {
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
                 point={radiusPoint}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={1}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
