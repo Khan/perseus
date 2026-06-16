@@ -62,8 +62,9 @@ export type WidgetLogic<
     /**
      * The widget version. Any time the _major_ version changes, the widget
      * should provide a new entry in the widget parser to migrate from the
-     * older version to the current (new) version. Minor version changes must
-     * be backwards compatible with previous minor versions widget options.
+     * older version to the current (new) version.
+     *
+     * The minor version is not used.
      *
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
