@@ -50,29 +50,6 @@ export const pointQuestionWithStartingCoords: PerseusRenderer =
         correct: generateIGPointGraph({numPoints: 2}),
     });
 
-// A point graph with `pointLabels` pre-populated and `showPointLabels`
-// already turned on. Useful in the EditorPage Playground story for
-// exercising the "Show point labels" toggle in its enabled-and-on state
-// without first having to type labels into the point-name fields.
-export const pointQuestionWithPointLabels: PerseusRenderer =
-    generateInteractiveGraphQuestion({
-        graph: generateIGPointGraph({
-            numPoints: 3,
-            startCoords: [
-                [-2, 0],
-                [2, 0],
-                [0, 3],
-            ],
-            pointLabels: ["A", "B", "C"],
-            showPointLabels: true,
-        }),
-        correct: generateIGPointGraph({
-            numPoints: 3,
-            pointLabels: ["A", "B", "C"],
-            showPointLabels: true,
-        }),
-    });
-
 // Clockwise points
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({
