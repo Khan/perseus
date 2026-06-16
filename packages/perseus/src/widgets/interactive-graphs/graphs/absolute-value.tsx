@@ -198,7 +198,12 @@ function getAbsoluteValueDescription(
 function describeAbsoluteValueGraph(
     state: AbsoluteValueGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): {
+    srAbsoluteValueGraph: string;
+    srAbsoluteValueVertexPoint: string;
+    srAbsoluteValueSecondPoint: string;
+    srAbsoluteValueDescription: string;
+} {
     const {strings, locale} = i18n;
     const {coords} = state;
     const [vertex, armPoint] = coords;
