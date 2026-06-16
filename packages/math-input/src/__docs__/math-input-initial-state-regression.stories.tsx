@@ -21,11 +21,11 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof CursorHandle>;
+type CursorHandleStory = StoryObj<typeof CursorHandle>;
 
 // This component is touch-only in production and never reached via mouse
 // interactions, so it is tested here in isolation.
-export const CursorHandleVisible: Story = {
+export const CursorHandleVisible: CursorHandleStory = {
     render: (args) => (
         <div style={{position: "relative", height: 100, width: 100}}>
             <CursorHandle {...args} />

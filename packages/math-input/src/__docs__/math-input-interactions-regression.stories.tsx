@@ -35,10 +35,10 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof NavigationPad>;
+type NavigationPadStory = StoryObj<typeof NavigationPad>;
 
 // NavigationPad renders inline (not a portal) so canvas queries work directly.
-export const NavigationButtonPressed: Story = {
+export const NavigationButtonPressed: NavigationPadStory = {
     render: (args) => <NavigationPad {...args} />,
     play: async ({canvas, userEvent}) => {
         const button = canvas.getByRole("button", {name: "Left arrow"});
