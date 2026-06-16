@@ -634,6 +634,8 @@ export type PerseusStrings = {
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
     definitionIdentifier: ({word}: {word: string}) => string;
+    interactiveGraphShowPointLabels: string;
+    interactiveGraphShowPointLabelsInfoTip: string;
 };
 
 /**
@@ -1386,6 +1388,17 @@ export const strings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: "Definition of: %(word)s",
+    interactiveGraphShowPointLabels: {
+        context:
+            "Editor toggle on the Interactive Graph widget that, when on, displays a visible label next to every movable point.",
+        message: "Show point labels",
+    },
+    interactiveGraphShowPointLabelsInfoTip: {
+        context:
+            "Tooltip explaining the 'Show point labels' editor toggle on the Interactive Graph widget.",
+        message:
+            "When on, each movable point displays a visible label next to it. Add a name to every point below to enable this option.",
+    },
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1796,6 +1809,9 @@ export const mockStrings: PerseusStrings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: ({word}) => `Definition of: ${word}`,
+    interactiveGraphShowPointLabels: "Show point labels",
+    interactiveGraphShowPointLabelsInfoTip:
+        "When on, each movable point displays a visible label next to it. Add a name to every point below to enable this option.",
 };
 
 // This type helps us make sure all error codes are mapped to strings

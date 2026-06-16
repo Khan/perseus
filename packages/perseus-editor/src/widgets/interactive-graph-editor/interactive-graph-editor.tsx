@@ -17,6 +17,7 @@ import {
     interactiveGraphLogic,
     type ShowAxisArrows,
     type ShowAxisTicks,
+    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -207,6 +208,30 @@ class InteractiveGraphEditor extends React.Component<Props> {
         }
     };
 
+    changeShowPointLabels = (showPointLabels: boolean) => {
+        const {graph, correct} = this.props;
+        if (!graph?.type || graph.type === "vector" || graph.type === "none") {
+            return;
+        }
+        if (
+            !correct?.type ||
+            correct.type === "vector" ||
+            correct.type === "none"
+        ) {
+            return;
+        }
+        // TypeScript can't narrow a spread into a discriminated union back
+        // into that union; the runtime guards above ensure both `graph` and
+        // `correct` are one of the 14 supported graph type variants that
+        // declare `showPointLabels`.
+        this.props.onChange({
+            // eslint-disable-next-line no-restricted-syntax
+            graph: {...graph, showPointLabels} as PerseusGraphType,
+            // eslint-disable-next-line no-restricted-syntax
+            correct: {...correct, showPointLabels} as PerseusGraphType,
+        });
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -247,6 +272,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     "pointLabels" in this.props.graph &&
                     this.props.graph.pointLabels
                         ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
+                    ...(this.props.graph &&
+                    "showPointLabels" in this.props.graph &&
+                    this.props.graph.showPointLabels
+                        ? {
+                              showPointLabels: this.props.graph.showPointLabels,
+                          }
                         : {}),
                 },
                 correct: correct,
@@ -527,6 +559,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     }
                                     onChange={this.changeStartCoords}
                                     onChangePointLabels={this.changePointLabels}
+                                    showPointLabelsFeatureEnabled={isFeatureOn(
+                                        this.props,
+                                        "perseus-enable-point-label-field",
+                                    )}
+                                    onChangeShowPointLabels={
+                                        this.changeShowPointLabels
+                                    }
                                 />
                             )}
 

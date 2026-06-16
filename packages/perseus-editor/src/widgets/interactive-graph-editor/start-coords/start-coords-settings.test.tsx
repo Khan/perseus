@@ -1684,4 +1684,158 @@ describe("StartCoordSettings", () => {
             expect(onChangePointLabelsMock).toHaveBeenLastCalledWith(["R"]);
         });
     });
+
+    describe("show point labels toggle", () => {
+        it("does not render the toggle when the feature flag is off", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["A", "B"]}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("renders the toggle when the feature flag is on", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["A", "B"]}
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByLabelText("Show point labels"),
+            ).toBeInTheDocument();
+        });
+
+        it("hides the toggle for vector graph type even with the flag on", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="vector"
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("disables the toggle when pointLabels is empty", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["", ""]}
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(screen.getByLabelText("Show point labels")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("disables the toggle when pointLabels is missing entirely", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(screen.getByLabelText("Show point labels")).toHaveAttribute(
+                "aria-disabled",
+                "true",
+            );
+        });
+
+        it("enables the toggle when every pointLabels entry is non-empty", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["A", "B"]}
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByLabelText("Show point labels"),
+            ).not.toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("reflects the current showPointLabels value", () => {
+            // Arrange, Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["A", "B"]}
+                    showPointLabels={true}
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(screen.getByLabelText("Show point labels")).toBeChecked();
+        });
+
+        it("calls onChangeShowPointLabels when the author toggles it on", async () => {
+            // Arrange
+            const onChangeShowPointLabelsMock = jest.fn();
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    pointLabels={["A", "B"]}
+                    showPointLabels={false}
+                    onChange={() => {}}
+                    showPointLabelsFeatureEnabled={true}
+                    onChangeShowPointLabels={onChangeShowPointLabelsMock}
+                />,
+            );
+
+            // Act
+            await userEvent.click(screen.getByLabelText("Show point labels"));
+
+            // Assert
+            expect(onChangeShowPointLabelsMock).toHaveBeenCalledWith(true);
+        });
+    });
 });

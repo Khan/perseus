@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    components,
     getAbsoluteValueCoords,
     getAngleCoords,
     getCircleCoords,
@@ -12,10 +13,16 @@ import {
     getSinusoidCoords,
     getTangentCoords,
     getVectorCoords,
+    usePerseusI18n,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
@@ -39,6 +46,8 @@ import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 import type {PerseusGraphType, Range} from "@khanacademy/perseus-core";
 
+const {InfoTip} = components;
+
 interface StartCoordsSettingsProps {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
@@ -46,6 +55,8 @@ interface StartCoordsSettingsProps {
     editingDisabled?: boolean;
     onChange: (startCoords: StartCoords) => void;
     onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
+    showPointLabelsFeatureEnabled?: boolean;
+    onChangeShowPointLabels?: (showPointLabels: boolean) => void;
 }
 
 type Props = PerseusGraphType & StartCoordsSettingsProps;
@@ -229,9 +240,36 @@ const StartCoordsSettingsInner = (props: Props) => {
     }
 };
 
+const hasPopulatedPointLabels = (props: Props): boolean => {
+    if (!("pointLabels" in props) || !props.pointLabels) {
+        return false;
+    }
+    return props.pointLabels.every((label) => label.trim() !== "");
+};
+
 const StartCoordsSettings = (props: Props) => {
-    const {range, step, editingDisabled, onChange} = props;
+    const {
+        range,
+        step, editingDisabled,
+        onChange,
+        type,
+        showPointLabelsFeatureEnabled,
+        onChangeShowPointLabels,
+    } = props;
     const [isOpen, setIsOpen] = React.useState(true);
+    const switchId = React.useId();
+    const {strings} = usePerseusI18n();
+
+    // The toggle is hidden when the feature flag is off, or when the graph
+    // type doesn't support point labels (vector). Other graph types reaching
+    // this component all support `pointLabels` / `showPointLabels`.
+    const showToggle =
+        showPointLabelsFeatureEnabled === true &&
+        type !== "vector" &&
+        onChangeShowPointLabels !== undefined;
+    const labelsPopulated = hasPopulatedPointLabels(props);
+    const currentShowPointLabels =
+        "showPointLabels" in props ? props.showPointLabels === true : false;
 
     return (
         <View>
@@ -248,6 +286,32 @@ const StartCoordsSettings = (props: Props) => {
                 <>
                     {/* Start coordinates input */}
                     <StartCoordsSettingsInner {...props} />
+
+                    {/* Show point labels toggle (flag-gated) */}
+                    {showToggle && (
+                        <View style={localStyles.toggleRow}>
+                            <Switch
+                                id={switchId}
+                                checked={
+                                    labelsPopulated && currentShowPointLabels
+                                }
+                                disabled={!labelsPopulated}
+                                onChange={onChangeShowPointLabels}
+                            />
+                            <Strut size={spacing.xSmall_8} />
+                            <BodyText
+                                size="small"
+                                tag="label"
+                                htmlFor={switchId}
+                            >
+                                {strings.interactiveGraphShowPointLabels}
+                            </BodyText>
+                            <Spring />
+                            <InfoTip>
+                                {strings.interactiveGraphShowPointLabelsInfoTip}
+                            </InfoTip>
+                        </View>
+                    )}
 
                     {/* Button to reset to default */}
                     <View className={styles.resetButton}>
@@ -274,5 +338,13 @@ const StartCoordsSettings = (props: Props) => {
         </View>
     );
 };
+
+const localStyles = StyleSheet.create({
+    toggleRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: spacing.small_12,
+    },
+});
 
 export default StartCoordsSettings;
