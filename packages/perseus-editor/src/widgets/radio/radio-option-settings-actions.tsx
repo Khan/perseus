@@ -18,6 +18,8 @@ interface RadioOptionSettingsActionsProps {
     showMove: boolean;
     onDelete: () => void;
     onMove: (movement: ChoiceMovementType) => void;
+    // Whether the whole editor is disabled (apiOptions.editingDisabled).
+    editingDisabled: boolean;
 }
 
 export function RadioOptionSettingsActions({
@@ -26,6 +28,7 @@ export function RadioOptionSettingsActions({
     showMove,
     onDelete,
     onMove,
+    editingDisabled,
 }: RadioOptionSettingsActionsProps) {
     return (
         <div className={styles.radioOptionActionsContainer}>
@@ -44,6 +47,7 @@ export function RadioOptionSettingsActions({
                             onDelete();
                         }
                     }}
+                    disabled={editingDisabled}
                 >
                     Remove
                 </Button>
@@ -59,6 +63,7 @@ export function RadioOptionSettingsActions({
                         size="xsmall"
                         aria-label="Move choice to the top"
                         onClick={() => onMove("top")}
+                        disabled={editingDisabled}
                     />
                     <IconButton
                         icon={caretUpIcon}
@@ -66,6 +71,7 @@ export function RadioOptionSettingsActions({
                         size="xsmall"
                         aria-label="Move choice up"
                         onClick={() => onMove("up")}
+                        disabled={editingDisabled}
                     />
                     <IconButton
                         icon={caretDownIcon}
@@ -73,6 +79,7 @@ export function RadioOptionSettingsActions({
                         size="xsmall"
                         aria-label="Move choice down"
                         onClick={() => onMove("down")}
+                        disabled={editingDisabled}
                     />
                     <IconButton
                         icon={caretDoubleDownIcon}
@@ -80,6 +87,7 @@ export function RadioOptionSettingsActions({
                         size="xsmall"
                         aria-label="Move choice to the bottom"
                         onClick={() => onMove("bottom")}
+                        disabled={editingDisabled}
                     />
                 </>
             )}

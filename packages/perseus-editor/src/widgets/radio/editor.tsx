@@ -322,7 +322,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
-        const isEditingDisabled = this.props.apiOptions.editingDisabled;
+        const isEditingDisabled =
+            this.props.apiOptions.editingDisabled ?? false;
 
         return (
             <div>
@@ -384,6 +385,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         }
                         onDelete={() => this.onDelete(index)}
                         onMove={this.handleMove}
+                        editingDisabled={isEditingDisabled}
                     />
                 ))}
 
@@ -394,6 +396,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
                         style={{marginInlineEnd: "2.4rem"}}
+                        disabled={isEditingDisabled}
                     >
                         Add a choice
                     </Button>
@@ -403,6 +406,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                             kind="tertiary"
                             startIcon={plusIcon}
                             onClick={this.addChoice.bind(this, true)}
+                            disabled={isEditingDisabled}
                         >
                             None of the above
                         </Button>

@@ -42,3 +42,8 @@
 .disabled {
     cursor: not-allowed;
 }
+
+.disabled-link {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

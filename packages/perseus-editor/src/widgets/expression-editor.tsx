@@ -17,6 +17,7 @@ import _ from "underscore";
 
 import styles from "./expression-editor.module.css";
 
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
@@ -31,6 +32,7 @@ const {ButtonGroup, InfoTip} = components;
 type Props = {
     widgetId?: string;
     value?: string;
+    apiOptions?: APIOptions;
     onChange: (newValues: Partial<PerseusExpressionWidgetOptions>) => void;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
@@ -285,6 +287,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
                 const expressionProps: Partial<
@@ -312,6 +315,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <AnswerOption
                         key={ans.key}
                         considered={ans.considered}
+                        editingDisabled={editingDisabled}
                         // eslint-disable-next-line no-restricted-syntax
                         expressionProps={expressionProps as any}
                         form={ans.form}
@@ -457,7 +461,11 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <View className={styles.answersGroup}>
                     <View className={styles.answersList}>{answerOptions}</View>
-                    <Button size="small" onClick={this.newAnswer}>
+                    <Button
+                        size="small"
+                        disabled={editingDisabled}
+                        onClick={this.newAnswer}
+                    >
                         Add new answer
                     </Button>
                 </View>
@@ -475,6 +483,7 @@ const findNextIn = function <T>(arr: ReadonlyArray<T>, val: T) {
 
 interface AnswerOptionProps {
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
+    editingDisabled: boolean;
     expressionProps: React.ComponentProps<typeof Expression>;
 
     // Must the answer have the same form as this answer.
@@ -522,10 +531,12 @@ class AnswerOption extends React.Component<
     };
 
     render(): React.ReactNode {
+        const {editingDisabled} = this.props;
         const removeButton = this.state.deleteFocused ? (
             <>
                 <Button
                     size="small"
+                    disabled={editingDisabled}
                     onClick={this.handleImSure}
                     actionType="destructive"
                 >
@@ -533,6 +544,7 @@ class AnswerOption extends React.Component<
                 </Button>
                 <Button
                     size="small"
+                    disabled={editingDisabled}
                     onClick={this.handleCancelDelete}
                     kind="secondary"
                 >
@@ -542,6 +554,7 @@ class AnswerOption extends React.Component<
         ) : (
             <Button
                 size="small"
+                disabled={editingDisabled}
                 onClick={this.handleDelete}
                 actionType="destructive"
                 kind="tertiary"
@@ -556,6 +569,7 @@ class AnswerOption extends React.Component<
                 <ButtonGroup
                     onChange={this.toggleConsidered}
                     allowEmpty={false}
+                    disabled={editingDisabled}
                     value={this.props.considered}
                     selectedButtonStyle={
                         consideredButtonStyles[this.props.considered]
