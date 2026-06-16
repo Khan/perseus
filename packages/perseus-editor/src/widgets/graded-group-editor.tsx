@@ -7,12 +7,13 @@ import {
     iconTrash,
 } from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../editor";
 import {iconPlus} from "../styles/icon-paths";
+
+import styles from "./graded-group-editor.module.css";
 
 import type {
     GradedGroupDefaultWidgetOptions,
@@ -75,11 +76,11 @@ class GradedGroupEditor extends React.Component<Props> {
         return (
             <div className="perseus-group-editor">
                 <div className="perseus-widget-row">
-                    <label className={css(styles.title)}>
+                    <label className={styles.title}>
                         Title:{" "}
                         <TextInput
                             value={this.props.title}
-                            className={css(styles.input)}
+                            className={styles.input}
                             // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("title")}
                         />
@@ -100,8 +101,7 @@ class GradedGroupEditor extends React.Component<Props> {
                 {!this.props.hint && (
                     <button
                         type="button"
-                        style={{marginTop: 10}}
-                        className="add-hint simple-button orange"
+                        className={`add-hint simple-button orange ${styles.addHintButton}`}
                         onClick={this.handleAddHint}
                     >
                         <InlineIcon {...iconPlus} /> Add a hint
@@ -109,7 +109,7 @@ class GradedGroupEditor extends React.Component<Props> {
                 )}
                 {this.props.hint && (
                     <div className="perseus-hint-editor">
-                        <div className={css(styles.hintsTitle)}>Hint</div>
+                        <div className={styles.hintsTitle}>Hint</div>
                         <Editor
                             ref={this.hintEditor}
                             content={
@@ -145,22 +145,5 @@ class GradedGroupEditor extends React.Component<Props> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-
-    input: {
-        fontSize: 18,
-    },
-
-    hintsTitle: {
-        marginTop: 10,
-        fontSize: "110%",
-        fontWeight: "bold",
-    },
-});
 
 export default GradedGroupEditor;

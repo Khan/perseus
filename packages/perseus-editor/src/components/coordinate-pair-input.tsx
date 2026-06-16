@@ -1,16 +1,15 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import styles from "./coordinate-pair-input.module.css";
 import ScrolllessNumberTextField from "./scrollless-number-text-field";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface Props {
     coord: [number, number];
     labels?: [string, string];
     error?: boolean;
@@ -18,6 +17,14 @@ type Props = {
     // TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite
     labelStyle?: StyleType;
     onChange: (newCoord: Coord) => void;
+}
+
+// Passed to ScrolllessNumberTextField's `style` prop, which is typed as Wonder
+// Blocks `StyleType` and does not accept a CSS-module className.
+const textFieldStyle: StyleType = {width: sizing.size_640};
+const errorFieldStyle: StyleType = {
+    borderColor: semanticColor.core.border.critical.default,
+    backgroundColor: semanticColor.core.background.critical.subtle,
 };
 
 const CoordinatePairInput = (props: Props) => {
@@ -59,8 +66,8 @@ const CoordinatePairInput = (props: Props) => {
     }
 
     return (
-        <View style={[styles.row, style]}>
-            <BodyText tag="label" style={styles.row}>
+        <View className={styles.container} style={style}>
+            <BodyText tag="label" className={styles.label}>
                 {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
                 {labelStyle != null ? (
                     <View style={labelStyle}>{xLabel}</View>
@@ -68,19 +75,17 @@ const CoordinatePairInput = (props: Props) => {
                     xLabel
                 )}
 
-                <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
                     value={coordState[0]}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
-                        styles.textField,
-                        error ? styles.errorField : undefined,
+                        textFieldStyle,
+                        error ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>
-            <Strut size={spacing.medium_16} />
 
-            <BodyText tag="label" style={styles.row}>
+            <BodyText tag="label" className={styles.label}>
                 {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
                 {labelStyle != null ? (
                     <View style={labelStyle}>{yLabel}</View>
@@ -88,33 +93,17 @@ const CoordinatePairInput = (props: Props) => {
                     yLabel
                 )}
 
-                <Strut size={spacing.xxSmall_6} />
                 <ScrolllessNumberTextField
                     value={coordState[1]}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
-                        styles.textField,
-                        error ? styles.errorField : undefined,
+                        textFieldStyle,
+                        error ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    textField: {
-        width: spacing.xxxLarge_64,
-    },
-    errorField: {
-        borderColor: semanticColor.core.border.critical.default,
-        backgroundColor: semanticColor.core.background.critical.subtle,
-    },
-});
 
 export default CoordinatePairInput;

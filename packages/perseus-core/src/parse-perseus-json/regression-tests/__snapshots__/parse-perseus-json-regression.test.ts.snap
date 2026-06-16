@@ -3204,10 +3204,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.ts returns t
           "availableTypes": [
             "linear",
           ],
-          "correct": {
-            "coords": null,
-            "type": "linear",
-          },
           "graph": {
             "backgroundImage": {
               "url": null,
@@ -3387,10 +3383,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
             "logarithm",
             "exponential",
           ],
-          "correct": {
-            "coords": null,
-            "type": "linear",
-          },
           "graph": {
             "backgroundImage": {
               "height": 0,
@@ -13015,7 +13007,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
           "image": {
             "left": 0,
             "top": 0,
-            "url": null,
+            "url": "crwdns6514084:0crwdne6514084:0",
           },
           "rulerLabel": "",
           "rulerLength": 10,
@@ -13025,6 +13017,10 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
           "showRuler": false,
         },
         "type": "measurer",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
       },
     },
   },
@@ -13122,7 +13118,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
           "image": {
             "left": 0,
             "top": 0,
-            "url": null,
+            "url": "crwdns6514084:0crwdne6514084:0",
           },
           "rulerLabel": "",
           "rulerLength": 10,
@@ -13218,6 +13214,231 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
           "rulerTicks": 10,
           "showProtractor": true,
           "showRuler": true,
+        },
+        "static": false,
+        "type": "measurer",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "We should be able to approach the base of the mountain. Measure it angle of the base using the protractor.",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "In the training course built for the earthbound version of Curiosity, they had a number obstacles and hills set out. For example, the **smallest** of these hills had an incline of 5 degrees.",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "Curiosity is expected to have the ability to ascend inclines as large as 20 degrees.",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "Curiosity's landing site is Gale Crater; a location notable for having a large mountain of layered rock in the center known as Aeolis Mons (*Mount Sharp*). This prevents Curiosity from traveling **directly across** due to the steep incline towards the top. Instead, it was designed to drive up and along the shallower base.
+
+**How steep of an incline was Curiosity designed for?**
+
+*Click and drag the protractor to help you!*
+[[☃ measurer 1]]
+
+[[☃ dropdown 1]]",
+    "images": {},
+    "widgets": {
+      "dropdown 1": {
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "5",
+              "correct": false,
+            },
+            {
+              "content": "10",
+              "correct": false,
+            },
+            {
+              "content": "20",
+              "correct": true,
+            },
+            {
+              "content": "30",
+              "correct": false,
+            },
+            {
+              "content": "45",
+              "correct": false,
+            },
+            {
+              "content": "60",
+              "correct": false,
+            },
+            {
+              "content": "90",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+        },
+        "type": "dropdown",
+      },
+      "measurer 1": {
+        "graded": true,
+        "options": {
+          "box": [
+            480,
+            480,
+          ],
+          "image": {
+            "left": 0,
+            "top": 0,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/32d7ebe969c7ce5b241873ac172d50992ca79de3.jpeg",
+          },
+          "rulerLabel": "",
+          "rulerLength": 10,
+          "rulerPixels": 40,
+          "rulerTicks": 10,
+          "showProtractor": true,
+          "showRuler": false,
+        },
+        "type": "measurer",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "Curiosity's landing site is Gale Crater; a location notable for having a large mountain of layered rock in the center known as Aeolis Mons (*Mount Sharp*). This prevents Curiosity from traveling **directly across** due to the steep incline towards the top. Instead, it was designed to drive up and along the shallower base.
+
+**How steep of an incline was Curiosity designed for?**
+
+*Click and drag the protractor to help you!*
+[[☃ measurer 1]]
+
+[[☃ dropdown 1]]",
+    "images": {},
+    "widgets": {
+      "dropdown 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "ariaLabel": undefined,
+          "choices": [
+            {
+              "content": "5",
+              "correct": false,
+            },
+            {
+              "content": "10",
+              "correct": false,
+            },
+            {
+              "content": "20",
+              "correct": false,
+            },
+            {
+              "content": "30",
+              "correct": false,
+            },
+            {
+              "content": "45",
+              "correct": false,
+            },
+            {
+              "content": "60",
+              "correct": false,
+            },
+            {
+              "content": "90",
+              "correct": false,
+            },
+          ],
+          "placeholder": "",
+          "static": false,
+          "visibleLabel": undefined,
+        },
+        "static": false,
+        "type": "dropdown",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "measurer 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "box": [
+            480,
+            480,
+          ],
+          "image": {
+            "left": 0,
+            "top": 0,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/32d7ebe969c7ce5b241873ac172d50992ca79de3.jpeg",
+          },
+          "rulerLabel": "",
+          "rulerLength": 10,
+          "rulerPixels": 40,
+          "rulerTicks": 10,
+          "showProtractor": true,
+          "showRuler": false,
         },
         "static": false,
         "type": "measurer",

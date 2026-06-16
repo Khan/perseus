@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.1.2
+
+### Patch Changes
+
+-   [#3751](https://github.com/Khan/perseus/pull/3751) [`1174386773`](https://github.com/Khan/perseus/commit/1174386773fa0bf7fffd479951278141cccba4b1) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace how expectWarning and expectPass work so that they no longer contain `it` blocks
+
+-   Updated dependencies [[`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0)]:
+    -   @khanacademy/perseus-core@28.0.1
+    -   @khanacademy/kmath@2.4.21
+
 ## 5.1.1
 
 ### Patch Changes

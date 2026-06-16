@@ -3,10 +3,15 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import CombinedHintsEditor from "../hint-editor";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("CombinedHintsEditor", () => {
+    beforeAll(() => {
+        registerAllWidgetsAndEditorsForTesting();
+    });
+
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({

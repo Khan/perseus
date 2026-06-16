@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 33.0.1
+
+### Patch Changes
+
+-   [#3754](https://github.com/Khan/perseus/pull/3754) [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0) Thanks [@Evelas78](https://github.com/Evelas78)! - Updated dropdown orders, defaults, and names for interactive graphs
+
+*   [#3773](https://github.com/Khan/perseus/pull/3773) [`d00ba1a9e0`](https://github.com/Khan/perseus/commit/d00ba1a9e0dc859e80615bed03edd17fc0c9848f) Thanks [@Evelas78](https://github.com/Evelas78)! - Fixed issue with dropdown graph identifier, sinusoid and logarithm
+
+*   Updated dependencies [[`0e26d60e5e`](https://github.com/Khan/perseus/commit/0e26d60e5e7b782f81a1445399a359ee4f0a0e98), [`5dae3ba80d`](https://github.com/Khan/perseus/commit/5dae3ba80de095af5980e9893319b17c79ba1b42), [`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`872736f394`](https://github.com/Khan/perseus/commit/872736f39410deceff1a1b7943205ea076aae214), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0), [`1174386773`](https://github.com/Khan/perseus/commit/1174386773fa0bf7fffd479951278141cccba4b1)]:
+    -   @khanacademy/perseus@78.0.1
+    -   @khanacademy/perseus-core@28.0.1
+    -   @khanacademy/perseus-linter@5.1.2
+    -   @khanacademy/keypad-context@3.2.63
+    -   @khanacademy/kmath@2.4.21
+    -   @khanacademy/math-input@26.4.35
+    -   @khanacademy/perseus-score@8.11.5
+
 ## 33.0.0
 
 ### Major Changes

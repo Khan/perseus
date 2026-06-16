@@ -7,6 +7,7 @@ const DEFAULT_FEATURE_FLAGS = {
     "interactive-graph-not-scored": false,
     "input-number-to-numeric-input": false,
     "perseus-renderer-upgrade": false,
+    "grapher-to-interactive-graph": false,
     // ...add new flags here
 };
 
