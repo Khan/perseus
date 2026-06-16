@@ -32,12 +32,12 @@ export function buildPointAriaLabel(
     strings: PerseusStrings,
     locale: string,
 ): string | undefined {
-    const label = pointLabels?.[index];
-    if (!label) {
+    const customLabel = pointLabels?.[index];
+    if (!customLabel) {
         return undefined;
     }
     return strings.srPointAtCoordinates({
-        num: label,
+        num: customLabel,
         x: srFormatNumber(point[0], locale),
         y: srFormatNumber(point[1], locale),
     });
