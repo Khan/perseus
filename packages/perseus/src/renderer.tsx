@@ -1527,6 +1527,8 @@ class Renderer
 
     render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
+
+        // TODO(LEMS-4304): clean up feature flag
         const rendererFF = isFeatureOn(
             {apiOptions},
             "perseus-renderer-upgrade",

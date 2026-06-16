@@ -1,3 +1,8 @@
+// TODO(LEMS-4304): feature flag cleanup - rename file to rules.ts
+// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PURE MARKDOWN!
+// This file is a duplicate of packages/pure-markdown/src/rules.ts and contains
+// changes to the original rules.
+
 /**
  * Contains markdown related functions in pure javascript,
  * extracted from perseus-markdown.jsx

@@ -1,3 +1,8 @@
+// TODO(LEMS-4304): feature flag cleanup - rename file to perseus-markdown-rules.ts
+// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PURE MARKDOWN!
+// This file is a duplicate of packages/perseus/src/perseus-markdown-rules.tsx
+// and contains changes to the original rules.
+
 import {rulesWithRendererUpgrade as pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
