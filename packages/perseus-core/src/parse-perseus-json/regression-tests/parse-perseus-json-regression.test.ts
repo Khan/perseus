@@ -1,8 +1,13 @@
 import * as fs from "fs";
 import {join} from "path";
 
+import _ from "underscore";
+
 import splitPerseusItem from "../../utils/split-perseus-item";
-import {getCurrentVersion, registerCoreWidgets} from "../../widgets/core-widget-registry";
+import {
+    getCurrentVersion,
+    registerCoreWidgets,
+} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -16,9 +21,16 @@ import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {assertSuccess, mapFailure} from "../result";
-import type {ExplanationWidget, GradedGroupSetWidget, GradedGroupWidget, PerseusItem, PerseusRenderer, PerseusWidget} from "../../data-schema";
-import {PerseusGradedGroupWidgetOptions} from "../../data-schema";
-import _ from "underscore";
+
+import type {
+    PerseusGradedGroupWidgetOptions,
+    ExplanationWidget,
+    GradedGroupSetWidget,
+    GradedGroupWidget,
+    PerseusItem,
+    PerseusRenderer,
+    PerseusWidget,
+} from "../../data-schema";
 
 const itemDataDir = join(__dirname, "item-data");
 const itemDataFiles = fs.readdirSync(itemDataDir);
@@ -152,7 +164,9 @@ describe("parseAndMigratePerseusItem", () => {
                     }
                 }
                 if (!_.isEqual(expectedVersion, widget.version)) {
-                    throw Error(`Expected ${widget.type} widget to have version ${JSON.stringify(expectedVersion)}, but got ${widget.version}`);
+                    throw Error(
+                        `Expected ${widget.type} widget to have version ${JSON.stringify(expectedVersion)}, but got ${widget.version}`,
+                    );
                 }
             }
         });
@@ -347,21 +361,29 @@ function getWidgetsFromRenderer(renderer: PerseusRenderer): PerseusWidget[] {
     const topLevelWidgets = Object.values(renderer.widgets);
     return [
         ...topLevelWidgets,
-        ...topLevelWidgets.filter(isExplanation).flatMap(getWidgetsFromExplanation),
-        ...topLevelWidgets.filter(isGradedGroup).flatMap(getWidgetsFromGradedGroup),
-        ...topLevelWidgets.filter(isGradedGroupSet).flatMap(getWidgetsFromGradedGroupSet),
+        ...topLevelWidgets
+            .filter(isExplanation)
+            .flatMap(getWidgetsFromExplanation),
+        ...topLevelWidgets
+            .filter(isGradedGroup)
+            .flatMap(getWidgetsFromGradedGroup),
+        ...topLevelWidgets
+            .filter(isGradedGroupSet)
+            .flatMap(getWidgetsFromGradedGroupSet),
     ];
 }
 
 function isExplanation(widget: PerseusWidget): widget is ExplanationWidget {
-    return widget.type === "explanation"
+    return widget.type === "explanation";
 }
 
 function isGradedGroup(widget: PerseusWidget): widget is GradedGroupWidget {
     return widget.type === "graded-group";
 }
 
-function isGradedGroupSet(widget: PerseusWidget): widget is GradedGroupSetWidget {
+function isGradedGroupSet(
+    widget: PerseusWidget,
+): widget is GradedGroupSetWidget {
     return widget.type === "graded-group-set";
 }
 
@@ -373,10 +395,16 @@ function getWidgetsFromGradedGroup(widget: GradedGroupWidget): PerseusWidget[] {
     return getWidgetsFromGradedGroupOptions(widget.options);
 }
 
-function getWidgetsFromGradedGroupOptions(options: PerseusGradedGroupWidgetOptions): PerseusWidget[] {
+function getWidgetsFromGradedGroupOptions(
+    options: PerseusGradedGroupWidgetOptions,
+): PerseusWidget[] {
     return Object.values(options.widgets);
 }
 
-function getWidgetsFromGradedGroupSet(widget: GradedGroupSetWidget): PerseusWidget[] {
-    return widget.options.gradedGroups.flatMap(getWidgetsFromGradedGroupOptions);
+function getWidgetsFromGradedGroupSet(
+    widget: GradedGroupSetWidget,
+): PerseusWidget[] {
+    return widget.options.gradedGroups.flatMap(
+        getWidgetsFromGradedGroupOptions,
+    );
 }

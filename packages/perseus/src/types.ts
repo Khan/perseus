@@ -16,7 +16,6 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
-    Version,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,

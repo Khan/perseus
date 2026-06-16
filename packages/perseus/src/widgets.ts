@@ -1,9 +1,8 @@
-import {Errors, CoreWidgetRegistry, PerseusError, Registry} from "@khanacademy/perseus-core";
+import {Errors, PerseusError, Registry} from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
 
 import type {Tracking, WidgetExports} from "./types";
-import type {Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_TRACKING = "";

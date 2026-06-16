@@ -1,5 +1,3 @@
-import {radioLogic} from "@khanacademy/perseus-core";
-
 import Radio from "./radio-widget";
 import {getUserInputFromSerializedState} from "./util";
 

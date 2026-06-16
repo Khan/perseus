@@ -1,7 +1,4 @@
-import {
-    measurerLogic,
-    type PerseusMeasurerWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
