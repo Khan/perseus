@@ -133,7 +133,7 @@ const TITLED_TABLE_REGEX = new RegExp(
 
 const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 
-export const pureMarkdownRules = {
+export const pureMarkdownRulesNew = {
     ...SimpleMarkdown.defaultRules,
 
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
