@@ -221,7 +221,12 @@ function getExponentialDescription(
 function describeExponentialGraph(
     state: ExponentialGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): {
+    srExponentialGraph: string;
+    srExponentialDescription: string;
+    srExponentialAsymptote: string;
+    srExponentialInteractiveElements: string;
+} {
     const {strings, locale} = i18n;
     const {coords, asymptote} = state;
     const [point1, point2] = coords;
