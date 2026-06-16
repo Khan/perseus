@@ -13327,6 +13327,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
+    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13433,6 +13434,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
+    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
