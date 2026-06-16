@@ -282,7 +282,14 @@ function getLogarithmDescription(
 function describeLogarithmGraph(
     state: LogarithmGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): {
+    srLogarithmGraph: string;
+    srLogarithmDescription: string;
+    srLogarithmAsymptote: string;
+    srLogarithmPoint1: string;
+    srLogarithmPoint2: string;
+    srLogarithmInteractiveElements: string;
+} {
     const {strings, locale} = i18n;
     const {coords, asymptote} = state;
     const [point1, point2] = coords;
