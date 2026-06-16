@@ -30,6 +30,9 @@ import type {
     PerseusItem,
     PerseusRenderer,
     PerseusWidget,
+    GroupWidget,
+    OrdererWidget,
+    PerseusWidgetsMap,
 } from "../../data-schema";
 
 const itemDataDir = join(__dirname, "item-data");
@@ -358,7 +361,13 @@ function getWidgetsFromItem(item: PerseusItem): PerseusWidget[] {
 }
 
 function getWidgetsFromRenderer(renderer: PerseusRenderer): PerseusWidget[] {
-    const topLevelWidgets = Object.values(renderer.widgets);
+    return getWidgetsFromPerseusWidgetsMap(renderer.widgets);
+}
+
+function getWidgetsFromPerseusWidgetsMap(
+    widgets: PerseusWidgetsMap,
+): PerseusWidget[] {
+    const topLevelWidgets = Object.values(widgets);
     return [
         ...topLevelWidgets,
         ...topLevelWidgets
@@ -370,6 +379,8 @@ function getWidgetsFromRenderer(renderer: PerseusRenderer): PerseusWidget[] {
         ...topLevelWidgets
             .filter(isGradedGroupSet)
             .flatMap(getWidgetsFromGradedGroupSet),
+        ...topLevelWidgets.filter(isGroup).flatMap(getWidgetsFromGroup),
+        ...topLevelWidgets.filter(isOrderer).flatMap(getWidgetsFromOrderer),
     ];
 }
 
@@ -387,18 +398,31 @@ function isGradedGroupSet(
     return widget.type === "graded-group-set";
 }
 
+function isGroup(widget: PerseusWidget): widget is GroupWidget {
+    return widget.type === "group";
+}
+
+function isOrderer(widget: PerseusWidget): widget is OrdererWidget {
+    return widget.type === "orderer";
+}
+
 function getWidgetsFromExplanation(widget: ExplanationWidget): PerseusWidget[] {
-    return Object.values(widget.options.widgets);
+    return getWidgetsFromPerseusWidgetsMap(widget.options.widgets);
 }
 
 function getWidgetsFromGradedGroup(widget: GradedGroupWidget): PerseusWidget[] {
-    return getWidgetsFromGradedGroupOptions(widget.options);
+    return [
+        ...getWidgetsFromGradedGroupOptions(widget.options),
+        ...(widget.options.hint
+            ? getWidgetsFromRenderer(widget.options.hint)
+            : []),
+    ];
 }
 
 function getWidgetsFromGradedGroupOptions(
     options: PerseusGradedGroupWidgetOptions,
 ): PerseusWidget[] {
-    return Object.values(options.widgets);
+    return getWidgetsFromPerseusWidgetsMap(options.widgets);
 }
 
 function getWidgetsFromGradedGroupSet(
@@ -407,4 +431,16 @@ function getWidgetsFromGradedGroupSet(
     return widget.options.gradedGroups.flatMap(
         getWidgetsFromGradedGroupOptions,
     );
+}
+
+function getWidgetsFromGroup(widget: GroupWidget): PerseusWidget[] {
+    return getWidgetsFromRenderer(widget.options);
+}
+
+function getWidgetsFromOrderer(widget: OrdererWidget): PerseusWidget[] {
+    return [
+        ...widget.options.correctOptions.flatMap(getWidgetsFromRenderer),
+        ...widget.options.options.flatMap(getWidgetsFromRenderer),
+        ...widget.options.otherOptions.flatMap(getWidgetsFromRenderer),
+    ];
 }
