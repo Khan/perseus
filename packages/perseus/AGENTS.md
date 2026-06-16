@@ -23,8 +23,7 @@ pnpm storybook
 1. Call `get-storybook-story-instructions` once per session — the guidelines
    don't change between calls, so there's no need to re-fetch them.
 2. Write or modify the component and its stories.
-3. Call `preview-stories` only after finishing changes, not speculatively
-   during exploration.
+3. Call `preview-stories` after making changes to verify your work visually.
 4. Prefer MCP tool calls over crawling raw source files — reading story
    conventions via MCP is cheaper than navigating through source directories.
 
