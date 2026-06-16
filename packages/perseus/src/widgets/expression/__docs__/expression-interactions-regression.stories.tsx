@@ -14,19 +14,17 @@ const meta: Meta<typeof Expression> = {
     tags: ["!autodocs", "!manifest"],
     decorators: [
         (Story) => {
-            // Cursor blinks via setInterval, making Chromatic snapshots flaky.
-            // MathQuill toggles `mq-blink` via setInterval, making snapshots
-            // non-deterministic. The blink rules in main.css use `!important`
-            // inside `@layer shared`; CSS layers reverse !important priority
-            // (layered beats unlayered), so our overrides must be inside the
-            // same layer.
+            // The cursor blinks via setInterval, making Chromatic snapshots flaky.
+            // Storybook wraps main.css in `@layer shared`; CSS layers reverse
+            // !important priority (layered beats unlayered), so our overrides
+            // must be inside the same layer.
             React.useLayoutEffect(() => {
                 const style = document.createElement("style");
                 style.textContent = `
                     @layer shared {
-                        :root .mq-cursor.mq-blink { visibility: visible !important; }
-                        :root .keypad-input .mq-editable-field .mq-cursor { transition: none !important; }
-                        :root .keypad-input .mq-editable-field .mq-cursor.mq-blink { opacity: 1 !important; }
+                        .mq-cursor.mq-blink { visibility: visible !important; }
+                        .keypad-input .mq-editable-field .mq-cursor { transition: none !important; }
+                        .keypad-input .mq-editable-field .mq-cursor.mq-blink { opacity: 1 !important; }
                     }
                 `;
                 document.head.appendChild(style);
