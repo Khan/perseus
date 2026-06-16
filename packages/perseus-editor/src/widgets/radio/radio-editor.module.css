@@ -7,7 +7,8 @@
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-sizing-size_120);
     padding-inline: var(--wb-sizing-size_120);
-    padding-block: var(--wb-sizing-size_040);
+    padding-block: var(--wb-sizing-size_080);
+    margin-block-start: var(--wb-sizing-size_120);
     margin-block-end: var(--wb-sizing-size_120);
 }
 
@@ -17,6 +18,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: var(--wb-sizing-size_080);
+    margin-block-end: var(--wb-sizing-size_080);
 }
 
 .radio-option-actions-container {
