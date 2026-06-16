@@ -5,10 +5,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
 
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
@@ -200,20 +197,12 @@ export function getPointGraphDescription(
         return strings.srNoInteractiveElements;
     }
 
-    const pointDescriptions = state.coords.map(
-        (point, index) =>
-            buildPointAriaLabel(
-                state.pointLabels,
-                index,
-                point,
-                strings,
-                locale,
-            ) ??
-            strings.srPointAtCoordinates({
-                num: index + 1,
-                x: srFormatNumber(point[0], locale),
-                y: srFormatNumber(point[1], locale),
-            }),
+    const pointDescriptions = state.coords.map((point, index) =>
+        strings.srPointAtCoordinates({
+            num: state.pointLabels?.[index] || index + 1,
+            x: srFormatNumber(point[0], locale),
+            y: srFormatNumber(point[1], locale),
+        }),
     );
 
     return strings.srInteractiveElements({
