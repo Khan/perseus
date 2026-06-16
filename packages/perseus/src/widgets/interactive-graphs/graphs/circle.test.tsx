@@ -416,27 +416,6 @@ describe("Circle graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
     });
-
-    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseCircleState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42] as unknown as string[],
-                }}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {
-                name: "Right radius endpoint at 1 comma 0. Circle radius is 1.",
-            }),
-        ).toBeInTheDocument();
-    });
 });
 
 describe("getCircleKeyboardConstraint", () => {

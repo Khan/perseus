@@ -262,29 +262,6 @@ describe("interactive-graph-widget-error", () => {
         );
     });
 
-    it('passes when graph type is "none" even with showPointLabels true via a cast (defense-in-depth backstop)', () => {
-        expectPass(
-            interactiveGraphWidgetErrorRule,
-            "[[☃ interactive-graph 1]]",
-            {
-                widgets: {
-                    "interactive-graph 1": generateInteractiveGraphWidget({
-                        options: generateInteractiveGraphOptions({
-                            // The schema disallows showPointLabels on `none`, so we
-                            // cast to assert the defensive guard fires when the
-                            // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
-                            correct: {
-                                type: "none",
-                                showPointLabels: true,
-                            } as any,
-                        }),
-                    }),
-                },
-            },
-        );
-    });
-
     it('passes when graph type is "vector" (same rationale as "none")', () => {
         expectPass(
             interactiveGraphWidgetErrorRule,

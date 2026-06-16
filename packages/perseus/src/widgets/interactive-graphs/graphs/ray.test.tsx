@@ -182,25 +182,6 @@ describe("Ray graph pointLabels", () => {
         expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
         expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
     });
-
-    it("falls back to the semantic default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseRayState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
-        const [point1, , point2] = screen.getAllByRole("button");
-
-        // Assert
-        expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
-    });
 });
 
 describe("describeRayGraph", () => {

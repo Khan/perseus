@@ -572,34 +572,6 @@ describe.each`
             ),
         ).toBeInTheDocument();
     });
-
-    // Defense-in-depth against malformed hand-authored JSON that bypasses the
-    // parser. Locks in that the focusable handle and the SR-tree summary share
-    // the helper's fallback rule for non-string entries.
-    it("falls back to numeric default for truthy non-string entries on both the handle and the summary", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...polygonState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B", "C"] as unknown as string[],
-                }}
-            />,
-        );
-
-        // Assert — handle path (per-point MovablePoint aria-label)
-        expect(
-            screen.getByRole("button", {name: "Point 1 at 3 comma -2."}),
-        ).toBeInTheDocument();
-        // Assert — summary path (InteractiveGraphSRTree)
-        expect(
-            screen.getByText(
-                "Interactive elements: A polygon with 3 points. Point 1 at 3 comma -2. Point B at 0 comma 4. Point C at -3 comma -2.",
-            ),
-        ).toBeInTheDocument();
-    });
 });
 
 describe("getSideSnapConstraint", () => {

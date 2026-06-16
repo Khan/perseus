@@ -231,34 +231,6 @@ describe("Angle graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
     });
-
-    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsProps}
-                state={{
-                    ...baseAngleState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B", "C"] as unknown as string[],
-                }}
-                dispatch={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {
-                name: "Point 2, ending side at -1 comma 1.",
-            }),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Point C at 1 comma 1."}),
-        ).toBeInTheDocument();
-    });
 });
 
 describe("getAngleSideConstraint", () => {

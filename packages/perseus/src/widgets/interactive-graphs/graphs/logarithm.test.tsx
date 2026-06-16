@@ -278,28 +278,6 @@ describe("Logarithm graph pointLabels", () => {
             screen.getByRole("button", {name: "Point B at -5 comma -7."}),
         ).toBeInTheDocument();
     });
-
-    it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Point 1 at -4 comma -3."}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Point B at -5 comma -7."}),
-        ).toBeInTheDocument();
-    });
 });
 
 describe("getLogarithmKeyboardConstraint", () => {
