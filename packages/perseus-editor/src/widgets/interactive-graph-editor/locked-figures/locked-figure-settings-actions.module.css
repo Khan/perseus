@@ -1,0 +1,12 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.container {
+    width: 100% !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-top: var(--wb-sizing-size_040) !important;
+}
+
+.delete-button {
+    /* Line up the delete icon with the rest of the content. */
+    margin-inline-start: calc(-1 * var(--wb-sizing-size_040)) !important;
+}

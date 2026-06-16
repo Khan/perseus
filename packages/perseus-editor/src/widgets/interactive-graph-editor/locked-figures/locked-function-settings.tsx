@@ -10,17 +10,11 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {
-    semanticColor,
-    sizing,
-    spacing,
-} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useState} from "react";
 
@@ -33,6 +27,7 @@ import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
+import styles from "./locked-function-settings.module.css";
 import LockedLabelSettings from "./locked-label-settings";
 import {
     generateLockedFigureAppearanceDescription,
@@ -191,27 +186,25 @@ const LockedFunctionSettings = (props: Props) => {
             expanded={props.expanded}
             onToggle={props.onToggle}
             header={
-                <View style={styles.row}>
+                <View className={`${styles.row} ${styles.header}`}>
                     <BodyText
                         size="medium"
                         weight="bold"
                         tag="span"
-                        style={styles.accordionHeader}
+                        className={styles.accordionHeader}
                     >
                         {lineLabel}
                     </BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle={strokeStyle} />
                 </View>
             }
         >
-            <View style={[styles.row, {marginBottom: sizing.size_080}]}>
+            <View className={`${styles.row} ${styles.colorRow}`}>
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
                     onChange={handleColorChange}
                 />
-                <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
@@ -228,7 +221,9 @@ const LockedFunctionSettings = (props: Props) => {
                 onChange={(value) => onChangeProps({weight: value})}
             />
 
-            <View style={[styles.row, styles.rowSpace]}>
+            <View
+                className={`${styles.row} ${styles.rowSpace} ${styles.axisRow}`}
+            >
                 {/* Directional axis (x or y) */}
                 <SingleSelect
                     selectedValue={directionalAxis}
@@ -236,14 +231,13 @@ const LockedFunctionSettings = (props: Props) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
                     aria-label="equation prefix"
-                    style={[styles.dropdownLabel, styles.axisMenu]}
+                    className={`${styles.dropdownLabel} ${styles.axisMenu}`}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
                     <OptionItem value="x" label="y =" />
                     <OptionItem value="y" label="x =" />
                 </SingleSelect>
-                <Strut size={spacing.xSmall_8} />
                 {/* Equation entry */}
                 <TextField
                     type="text"
@@ -252,40 +246,40 @@ const LockedFunctionSettings = (props: Props) => {
                     onChange={(newValue) => {
                         handlePropChange("equation", newValue);
                     }}
-                    style={[styles.textField]}
+                    style={{flexGrow: 1}}
                 />
             </View>
 
             {/* Domain/Range restrictions */}
-            <View style={[styles.row, styles.rowSpace]}>
+            <View
+                className={`${styles.row} ${styles.rowSpace} ${styles.domainRow}`}
+            >
                 <BodyText
                     tag="label"
-                    style={[styles.dropdownLabel, styles.domainMin]}
+                    className={`${styles.dropdownLabel} ${styles.domainMin}`}
                 >
                     {"domain min"}
 
-                    <Strut size={spacing.xxSmall_6} />
                     <TextField
                         type="number"
-                        style={styles.domainMinField}
+                        // make room for the label
+                        style={{width: "calc(100% - 88.7px)"}}
                         value={domainEntries[0]}
                         onChange={(newValue) => {
                             handleDomainChange(0, newValue);
                         }}
                     />
                 </BodyText>
-                <Strut size={spacing.medium_16} />
                 <BodyText
                     tag="label"
                     aria-label="domain max"
-                    style={[styles.dropdownLabel, styles.domainMax]}
+                    className={`${styles.dropdownLabel} ${styles.domainMax}`}
                 >
                     {"max"}
 
-                    <Strut size={spacing.xxSmall_6} />
                     <TextField
                         type="number"
-                        style={styles.domainMaxField}
+                        style={{width: "calc(100% - 36.2px)"}}
                         value={domainEntries[1]}
                         onChange={(newValue) => {
                             handleDomainChange(1, newValue);
@@ -302,12 +296,18 @@ const LockedFunctionSettings = (props: Props) => {
                     </BodyText>
                 }
                 expanded={false}
-                containerStyle={styles.exampleWorkspace}
-                panelStyle={styles.exampleAccordionPanel}
+                containerStyle={{
+                    background: semanticColor.core.background.base.subtle,
+                }}
+                panelStyle={{
+                    alignItems: "start",
+                    paddingBottom: sizing.size_120,
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                }}
             >
-                <BodyText tag="label" style={styles.dropdownLabel}>
+                <BodyText tag="label" className={styles.dropdownLabel}>
                     {"Choose a category"}
-                    <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={exampleCategory}
                         onChange={setExampleCategory}
@@ -325,7 +325,7 @@ const LockedFunctionSettings = (props: Props) => {
                     </SingleSelect>
                 </BodyText>
                 {exampleCategorySelected && (
-                    <ul className={css(styles.exampleContainer)}>
+                    <ul className={styles.exampleContainer}>
                         {exampleContent.map((example, index) => (
                             <ExampleItem
                                 key={index}
@@ -340,8 +340,7 @@ const LockedFunctionSettings = (props: Props) => {
             </PerseusEditorAccordion>
 
             {/* Aria label */}
-            <Strut size={spacing.small_12} />
-            <View style={styles.horizontalRule} />
+            <View className={`${styles.horizontalRule} ${styles.sectionTop}`} />
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
@@ -351,10 +350,10 @@ const LockedFunctionSettings = (props: Props) => {
             />
 
             {/* Visible Labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     key={labelIndex}
@@ -366,7 +365,10 @@ const LockedFunctionSettings = (props: Props) => {
                     onRemove={() => {
                         handleLabelRemove(labelIndex);
                     }}
-                    containerStyle={styles.labelContainer}
+                    containerStyle={{
+                        backgroundColor:
+                            semanticColor.core.background.base.default,
+                    }}
                 />
             ))}
             <Button
@@ -386,7 +388,7 @@ const LockedFunctionSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -401,19 +403,19 @@ const LockedFunctionSettings = (props: Props) => {
     );
 };
 
-type ItemProps = {
+interface ItemProps {
     category: string;
     example: string;
     index: number;
     pasteEquationFn: (property: string, newValue: string) => void;
-};
+}
 
 const ExampleItem = (props: ItemProps): React.ReactElement => {
     const {category, example, index, pasteEquationFn} = props;
     const exampleId = useId();
 
     return (
-        <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
+        <li key={`${category}-${index}`} className={styles.exampleRow}>
             <IconButton
                 icon={autoPasteIcon}
                 kind="tertiary"
@@ -421,7 +423,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 aria-describedby={exampleId}
                 onClick={() => pasteEquationFn("equation", example)}
                 size="medium"
-                style={styles.copyPasteButton}
+                className={styles.copyPasteButton}
             />
             <IconButton
                 icon={copyIcon}
@@ -430,117 +432,16 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 aria-describedby={exampleId}
                 onClick={() => navigator.clipboard.writeText(example)}
                 size="medium"
-                style={styles.copyPasteButton}
+                className={styles.copyPasteButton}
             />
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.exampleContent} id={exampleId}>
+            <View
+                className={`${styles.exampleContent} ${styles.exampleContentIndent}`}
+                id={exampleId}
+            >
                 {example}
             </View>
         </li>
     );
 };
-
-const styles = StyleSheet.create({
-    accordionHeader: {
-        textOverflow: "ellipsis",
-        // A maximum width needs to be specified in order for the ellipsis to work.
-        // The 64px in the calculation accounts for the line swatch (56px) and the preceding strut (8px).
-        // Margin and padding won't work here because they would create space between the header text and the swatch.
-        maxWidth: "calc(100% - 64px)",
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-    },
-    axisMenu: {
-        minWidth: "auto",
-    },
-    copyPasteButton: {
-        flexShrink: "0",
-        margin: "0 2px",
-    },
-    domainMin: {
-        justifyContent: "space-between",
-        // The 'width' property is applied to the label, which wraps the text and the input field.
-        // The width of the input fields (min/max) should be the same (to have a consistent look),
-        //     so the following calculation distributes the space accordingly.
-        // For the "domain/range min" block, the text is 82.7px, and the strut is 6px (88.7px total).
-        // The "domain/range max" block is 30.23px, and the strut is 6px (36.23px total).
-        // The calculation takes the remain space after the text & struts (141px total) are removed,
-        //     and divides it between the two input fields equally.
-        // The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text"
-        width: "calc(((100% - 141px) / 2) + 88.7px)",
-        textWrap: "nowrap",
-    },
-    domainMinField: {
-        width: "calc(100% - 88.7px)", // make room for the label
-    },
-    domainMax: {
-        // See explanation for "domainMin" for the calculation below.
-        width: "calc(((100% - 141px) / 2) + 36.2px)",
-    },
-    domainMaxField: {
-        width: "calc(100% - 36.2px)", // make room for the label
-    },
-    dropdownLabel: {
-        alignItems: "center",
-        display: "flex",
-    },
-    exampleAccordionPanel: {
-        alignItems: "start",
-        paddingBottom: "12px",
-        flexDirection: "row",
-        flexWrap: "wrap",
-    },
-    exampleContainer: {
-        background: "white",
-        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-        borderRadius: "4px",
-        flexGrow: "1",
-        listStyleType: "none",
-        // Nothing special about the maxHeight value,
-        //    just a good height to partially show a 3rd example in the list
-        //    to hint at scrollable content.
-        maxHeight: "88px",
-        margin: "8px 0 0 0",
-        overflowY: "scroll",
-        padding: "4px 12px 4px 4px",
-    },
-    exampleContent: {
-        fontFamily: `"Lato", sans-serif`,
-        flexGrow: "1",
-        color: semanticColor.core.foreground.neutral.strong,
-    },
-    exampleRow: {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        minHeight: "44px",
-    },
-    exampleWorkspace: {
-        background: semanticColor.core.background.base.subtle,
-    },
-    rowSpace: {
-        marginTop: spacing.xSmall_8,
-    },
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    textField: {
-        flexGrow: "1",
-    },
-
-    // Label settings styles
-    addButton: {
-        alignSelf: "start",
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-    labelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-});
 
 export default LockedFunctionSettings;

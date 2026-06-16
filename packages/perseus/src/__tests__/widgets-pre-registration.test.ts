@@ -9,7 +9,6 @@ describe("widgets pre-registration", () => {
         test.each([
             "getWidget",
             "getWidgetExport",
-            "getVersion",
             "supportsStaticMode",
             "getTracking",
             "isLintable",

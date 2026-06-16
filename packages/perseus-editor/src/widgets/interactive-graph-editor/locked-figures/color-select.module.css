@@ -1,0 +1,10 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_060) !important;
+    /* Set minWidth to "auto" to prevent the component from bleeding */
+    /* into the margins. (minWidth is 0 by default.) */
+    min-width: auto !important;
+}

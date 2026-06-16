@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
         boxShadow: "none",
     },
     pressed: {
-        border: "2px solid #1B50B3",
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${semanticColor.core.background.base.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.border.instructive.strong}`,
+        background: semanticColor.core.background.instructive.subtle,
         boxShadow: "none",
     },
 });
