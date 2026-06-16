@@ -5,9 +5,8 @@ import CursorHandle from "../components/input/cursor-handle";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof CursorHandle> = {
-    title: "Math Input/Components/Visual Regression Tests/Initial State",
-    component: CursorHandle,
+const meta: Meta = {
+    title: "Math Input/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -27,13 +26,11 @@ type Story = StoryObj<typeof CursorHandle>;
 // This component is touch-only in production and never reached via mouse
 // interactions, so it is tested here in isolation.
 export const CursorHandleVisible: Story = {
-    decorators: [
-        (Story) => (
-            <div style={{position: "relative", height: 100, width: 100}}>
-                <Story />
-            </div>
-        ),
-    ],
+    render: (args) => (
+        <div style={{position: "relative", height: 100, width: 100}}>
+            <CursorHandle {...args} />
+        </div>
+    ),
     args: {
         x: 50,
         y: 20,

@@ -8,9 +8,8 @@ import TintedBackgroundDecorator from "./tinted-background-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof NavigationPad> = {
-    title: "Math Input/Components/Visual Regression Tests/Interactions",
-    component: NavigationPad,
+const meta: Meta = {
+    title: "Math Input/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -40,6 +39,7 @@ type Story = StoryObj<typeof NavigationPad>;
 
 // NavigationPad renders inline (not a portal) so canvas queries work directly.
 export const NavigationButtonPressed: Story = {
+    render: (args) => <NavigationPad {...args} />,
     play: async ({canvas, userEvent}) => {
         const button = canvas.getByRole("button", {name: "Left arrow"});
         await userEvent.pointer({target: button, keys: "[MouseLeft>]"});
