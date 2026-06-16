@@ -165,7 +165,7 @@ describe("parseAndMigratePerseusItem", () => {
                 }
                 if (!_.isEqual(expectedVersion, widget.version)) {
                     throw Error(
-                        `Expected ${widget.type} widget to have version ${JSON.stringify(expectedVersion)}, but got ${widget.version}`,
+                        `Expected ${widget.type} widget to have version ${JSON.stringify(expectedVersion)}, but got ${JSON.stringify(widget.version)}`,
                     );
                 }
             }
