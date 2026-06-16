@@ -396,7 +396,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-exponential-point",
-                    pointIndex: 0,
                     pointLabel: 1,
                     x: -1,
                     y: 4,
@@ -412,7 +411,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-exponential-point",
-                    pointIndex: 1,
                     pointLabel: 2,
                     x: 3,
                     y: 7,
@@ -430,7 +428,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-exponential-point",
-                    pointIndex: 0,
                     pointLabel: "A",
                     x: -1,
                     y: 4,

@@ -3295,7 +3295,7 @@ describe("movePoint on an exponential graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-exponential-point");
-        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
         expect(updated.stateAnnouncement.x).toBe(-1);
         expect(updated.stateAnnouncement.y).toBe(4);
     });
@@ -3309,7 +3309,6 @@ describe("movePoint on an exponential graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-exponential-point");
-        expect(updated.stateAnnouncement.pointIndex).toBe(1);
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 

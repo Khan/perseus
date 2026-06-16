@@ -2,7 +2,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import {resolvePointLabel} from "./components/build-point-aria-label";
 
-import type {InteractiveGraphStateAnnouncement} from "../types";
+import type {
+    InteractiveGraphStateAnnouncement,
+    MoveExponentialPointAnnouncement,
+} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Coord} from "@khanacademy/perseus-core";
 
@@ -181,28 +184,13 @@ function srSinusoidPointLabel(
 }
 
 function srExponentialPointLabel(
-    state: {
-        pointIndex: number;
-        pointLabel: string | number;
-        x: number;
-        y: number;
-    },
+    state: MoveExponentialPointAnnouncement,
     strings: PerseusStrings,
     locale: string,
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label overrides the point-1/point-2 semantics, matching
-    // the static aria-label behavior in exponential.tsx.
-    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
-    // we can remove this block in favor of using the index logic below.
-    if (typeof state.pointLabel === "string") {
-        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
-    }
-    // Coord layout in exponential graphs: [point1(0), point2(1)].
-    return state.pointIndex === 0
-        ? strings.srExponentialPoint1({x, y})
-        : strings.srExponentialPoint2({x, y});
+    return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
 }
 
 function srLogarithmPointLabel(
