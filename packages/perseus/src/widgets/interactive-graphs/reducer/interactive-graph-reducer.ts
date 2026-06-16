@@ -779,7 +779,6 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-logarithm-point",
-                    pointIndex: action.index,
                     pointLabel: resolvePointLabel(
                         state.pointLabels,
                         action.index,

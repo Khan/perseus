@@ -220,7 +220,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-logarithm-point",
-                    pointIndex: 0,
                     pointLabel: 1,
                     x: -3,
                     y: -2,
@@ -236,7 +235,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-logarithm-point",
-                    pointIndex: 1,
                     pointLabel: 2,
                     x: 4,
                     y: 5,
@@ -254,7 +252,6 @@ describe("getAnnouncementText", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-logarithm-point",
-                    pointIndex: 0,
                     pointLabel: "A",
                     x: -3,
                     y: -2,

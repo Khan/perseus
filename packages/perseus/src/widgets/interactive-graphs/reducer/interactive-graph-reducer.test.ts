@@ -3601,7 +3601,7 @@ describe("movePoint on a logarithm graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
-        expect(updated.stateAnnouncement.pointIndex).toBe(0);
+        expect(updated.stateAnnouncement.pointLabel).toBe(1);
         expect(updated.stateAnnouncement.x).toBe(-3);
         expect(updated.stateAnnouncement.y).toBe(-2);
     });
@@ -3615,7 +3615,6 @@ describe("movePoint on a logarithm graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
-        expect(updated.stateAnnouncement.pointIndex).toBe(1);
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 

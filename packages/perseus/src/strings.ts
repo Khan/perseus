@@ -554,8 +554,10 @@ export type PerseusStrings = {
     }) => string;
     srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
     srLogarithmGraph: string;
-    srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
-    srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srLogarithmPoint1?: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srLogarithmPoint2?: ({x, y}: {x: string; y: string}) => string;
     srLogarithmDescription: ({
         point1X,
         point1Y,
@@ -1739,8 +1741,6 @@ export const mockStrings: PerseusStrings = {
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
     srLogarithmGraph: "A logarithm function on a coordinate plane.",
-    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
     srLogarithmDescription: ({
         point1X,
         point1Y,

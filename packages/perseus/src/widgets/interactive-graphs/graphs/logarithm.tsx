@@ -11,7 +11,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdgeAndSnapToGrid} from "../utils";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {resolvePointLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
@@ -57,7 +57,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     const descriptionId = id + "-description";
 
     const {coords, pointLabels, asymptote, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
 
     // When the asymptote sits between the two points there is no valid
     // logarithm that fits — coeffs will be undefined, and we skip
@@ -71,13 +70,8 @@ function LogarithmGraph(props: LogarithmGraphProps) {
     const yMax = range[1][1];
 
     // Aria strings
-    const {
-        srLogarithmGraph,
-        srLogarithmDescription,
-        srLogarithmPoint1,
-        srLogarithmPoint2,
-        srLogarithmAsymptote,
-    } = describeLogarithmGraph(graphState, i18n);
+    const {srLogarithmGraph, srLogarithmDescription, srLogarithmAsymptote} =
+        describeLogarithmGraph(graphState, i18n);
 
     // The asymptote is a full-height vertical line.
     const asymptoteBottom: vec.Vector2 = [asymptoteX, yMin];
@@ -127,10 +121,11 @@ function LogarithmGraph(props: LogarithmGraphProps) {
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
-                    ariaLabel={
-                        buildLabel(i, coord) ??
-                        (i === 0 ? srLogarithmPoint1 : srLogarithmPoint2)
-                    }
+                    ariaLabel={i18n.strings.srPointAtCoordinates({
+                        num: resolvePointLabel(pointLabels, i),
+                        x: srFormatNumber(coord[0], i18n.locale),
+                        y: srFormatNumber(coord[1], i18n.locale),
+                    })}
                     key={"point-" + i}
                     point={coord}
                     sequenceNumber={i + 1}
@@ -286,8 +281,6 @@ function describeLogarithmGraph(
     srLogarithmGraph: string;
     srLogarithmDescription: string;
     srLogarithmAsymptote: string;
-    srLogarithmPoint1: string;
-    srLogarithmPoint2: string;
     srLogarithmInteractiveElements: string;
 } {
     const {strings, locale} = i18n;
@@ -316,8 +309,6 @@ function describeLogarithmGraph(
         srLogarithmAsymptote: strings.srLogarithmAsymptote({
             asymptoteX: asymptoteXFormatted,
         }),
-        srLogarithmPoint1: strings.srLogarithmPoint1(formattedPoint1),
-        srLogarithmPoint2: strings.srLogarithmPoint2(formattedPoint2),
         srLogarithmInteractiveElements: strings.srInteractiveElements({
             elements: strings.srLogarithmInteractiveElements({
                 point1X: srFormatNumber(point1[X], locale),
