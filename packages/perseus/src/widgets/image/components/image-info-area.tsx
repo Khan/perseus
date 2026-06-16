@@ -63,12 +63,10 @@ export const ImageInfoArea = (props: Props) => {
         return null;
     }
 
-    const imageIsGif = isGif(backgroundImage.url);
-
     return (
         <div className={styles.infoAreaContainer}>
             {/* GIF controls */}
-            {imageIsGif && isAnimatedGif && (
+            {isAnimatedGif && (
                 <GifControlsIcon
                     isPlaying={isGifPlaying}
                     onToggle={() => setIsGifPlaying(!isGifPlaying)}
@@ -76,7 +74,7 @@ export const ImageInfoArea = (props: Props) => {
             )}
 
             {/* Spacer if both GIF controls and description are shown */}
-            {imageIsGif && isAnimatedGif && longDescription && (
+            {isAnimatedGif && longDescription && (
                 <div className={styles.spacerHorizontal} />
             )}
 

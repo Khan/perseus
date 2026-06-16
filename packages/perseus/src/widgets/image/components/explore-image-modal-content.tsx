@@ -123,7 +123,7 @@ export default function ExploreImageModalContent({
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
             >
-                {isAnimatedGif && imageIsGif && (
+                {isAnimatedGif && (
                     <>
                         <GifControlsButton
                             isPlaying={isGifPlaying}
