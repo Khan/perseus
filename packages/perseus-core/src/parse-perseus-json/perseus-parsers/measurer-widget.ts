@@ -1,17 +1,20 @@
 import {
     boolean,
-    constant,
+    constant, nullable,
     number,
-    object,
+    object, optional,
     pair,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
+import type {ParsedValue} from "../parser-types";
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
-import {parseWidget} from "./widget";
+import {parseWidget, parseWidgetWithVersion} from "./widget";
+import {versionedWidgetOptions} from "./versioned-widget-options";
 
-export const parseMeasurerWidget = parseWidget(
+const parseMeasurerWidgetV1 = parseWidgetWithVersion(
+    object({major: constant(1), minor: number}),
     constant("measurer"),
     object({
         // The default value for image comes from measurer.tsx.
@@ -31,3 +34,40 @@ export const parseMeasurerWidget = parseWidget(
         box: pair(number, number),
     }),
 );
+
+const parseMeasurerWidgetV0 = parseWidget(
+    constant("measurer"),
+    object({
+        // The default value for image comes from measurer.tsx.
+        // See parse-perseus-json/README.md for why we want to duplicate the
+        // defaults here.
+        imageTop: number,
+        imageLeft: number,
+        imageUrl: optional(nullable(string)),
+        showProtractor: boolean,
+        showRuler: boolean,
+        rulerLabel: string,
+        rulerTicks: number,
+        rulerPixels: number,
+        rulerLength: number,
+        box: pair(number, number),
+    }),
+)
+
+function migrateV0ToV1(v0: ParsedValue<typeof parseMeasurerWidgetV0>): ParsedValue<typeof parseMeasurerWidgetV1> {
+    const {imageTop, imageLeft, imageUrl, ...v1Options} = v0.options;
+    return {
+        ...v0,
+        version: {major: 1, minor: 0},
+        options: {
+            image: {
+                top: imageTop,
+                left: imageLeft,
+                url: imageUrl,
+            },
+            ...v1Options,
+        }
+    };
+}
+
+export const parseMeasurerWidget = versionedWidgetOptions(1, parseMeasurerWidgetV1).withMigrationFrom(0, parseMeasurerWidgetV0, migrateV0ToV1).parser;

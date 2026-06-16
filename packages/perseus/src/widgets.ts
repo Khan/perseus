@@ -1,4 +1,4 @@
-import {Errors, PerseusError, Registry} from "@khanacademy/perseus-core";
+import {Errors, CoreWidgetRegistry, PerseusError, Registry} from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
 
@@ -129,25 +129,6 @@ export const getWidgetExport = (type: string): WidgetExports | null => {
 
 export const getEditor = (type: string): Editor | null => {
     return editors.get(type) ?? null;
-};
-
-export const getVersion = (type: string): Version | undefined => {
-    const widget = widgets.get(type);
-    if (widget != null) {
-        return widget.version || {major: 0, minor: 0};
-    }
-
-    return;
-};
-
-export const getVersionVector = (): {
-    [key: string]: Version;
-} => {
-    const version: Record<string, any> = {};
-    widgets.keys().forEach((type) => {
-        version[type] = getVersion(type);
-    });
-    return version;
 };
 
 export const getPublicWidgets = (): Record<string, WidgetExports> => {

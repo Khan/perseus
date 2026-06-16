@@ -17,7 +17,6 @@ export default {
     displayName: "Radio / Multiple choice",
     widget: Radio,
     getStartUserInput,
-    version: radioLogic.version,
     isLintable: true,
 
     // TODO(LEMS-3185): remove serializedState

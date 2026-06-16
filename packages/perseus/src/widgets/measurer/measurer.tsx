@@ -184,5 +184,4 @@ export default {
     displayName: "Measurer",
     hidden: true,
     widget: Measurer,
-    version: measurerLogic.version,
 } satisfies WidgetExports<typeof Measurer>;

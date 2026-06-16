@@ -421,7 +421,6 @@ export default {
     name: "expression",
     displayName: "Expression / Equation",
     widget: Expression,
-    version: expressionLogic.version,
 
     // For use by the editor
     isLintable: true,

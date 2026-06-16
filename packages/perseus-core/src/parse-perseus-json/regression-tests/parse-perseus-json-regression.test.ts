@@ -2,7 +2,7 @@ import * as fs from "fs";
 import {join} from "path";
 
 import splitPerseusItem from "../../utils/split-perseus-item";
-import {registerCoreWidgets} from "../../widgets/core-widget-registry";
+import {getCurrentVersion, registerCoreWidgets} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -16,6 +16,9 @@ import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {assertSuccess, mapFailure} from "../result";
+import type {ExplanationWidget, GradedGroupSetWidget, GradedGroupWidget, PerseusItem, PerseusRenderer, PerseusWidget} from "../../data-schema";
+import {PerseusGradedGroupWidgetOptions} from "../../data-schema";
+import _ from "underscore";
 
 const itemDataDir = join(__dirname, "item-data");
 const itemDataFiles = fs.readdirSync(itemDataDir);
@@ -132,6 +135,26 @@ describe("parseAndMigratePerseusItem", () => {
             expect(answerlessParseResult2.value).toEqual(
                 answerlessParseResult1.value,
             );
+        });
+
+        it("stamps each widget with the current version number", async () => {
+            const result = await getParseResult();
+            assertSuccess(result);
+
+            const widgets = getWidgetsFromItem(result.value);
+
+            for (const widget of widgets) {
+                const expectedVersion = getCurrentVersion(widget.type);
+                if (_.isEqual(expectedVersion, {major: 0, minor: 0})) {
+                    // An undefined version is equivalent to 0.0.
+                    if (widget.version === undefined) {
+                        continue;
+                    }
+                }
+                if (!_.isEqual(expectedVersion, widget.version)) {
+                    throw Error(`Expected ${widget.type} widget to have version ${JSON.stringify(expectedVersion)}, but got ${widget.version}`);
+                }
+            }
         });
     });
 });
@@ -311,4 +334,49 @@ describe("the regression test data", () => {
 
 function getMessage(obj: {message: string}): string {
     return obj.message;
+}
+
+function getWidgetsFromItem(item: PerseusItem): PerseusWidget[] {
+    return [
+        ...getWidgetsFromRenderer(item.question),
+        ...item.hints.flatMap(getWidgetsFromRenderer),
+    ];
+}
+
+function getWidgetsFromRenderer(renderer: PerseusRenderer): PerseusWidget[] {
+    const topLevelWidgets = Object.values(renderer.widgets);
+    return [
+        ...topLevelWidgets,
+        ...topLevelWidgets.filter(isExplanation).flatMap(getWidgetsFromExplanation),
+        ...topLevelWidgets.filter(isGradedGroup).flatMap(getWidgetsFromGradedGroup),
+        ...topLevelWidgets.filter(isGradedGroupSet).flatMap(getWidgetsFromGradedGroupSet),
+    ];
+}
+
+function isExplanation(widget: PerseusWidget): widget is ExplanationWidget {
+    return widget.type === "explanation"
+}
+
+function isGradedGroup(widget: PerseusWidget): widget is GradedGroupWidget {
+    return widget.type === "graded-group";
+}
+
+function isGradedGroupSet(widget: PerseusWidget): widget is GradedGroupSetWidget {
+    return widget.type === "graded-group-set";
+}
+
+function getWidgetsFromExplanation(widget: ExplanationWidget): PerseusWidget[] {
+    return Object.values(widget.options.widgets);
+}
+
+function getWidgetsFromGradedGroup(widget: GradedGroupWidget): PerseusWidget[] {
+    return getWidgetsFromGradedGroupOptions(widget.options);
+}
+
+function getWidgetsFromGradedGroupOptions(options: PerseusGradedGroupWidgetOptions): PerseusWidget[] {
+    return Object.values(options.widgets);
+}
+
+function getWidgetsFromGradedGroupSet(widget: GradedGroupSetWidget): PerseusWidget[] {
+    return widget.options.gradedGroups.flatMap(getWidgetsFromGradedGroupOptions);
 }
