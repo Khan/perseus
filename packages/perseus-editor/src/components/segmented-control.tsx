@@ -26,7 +26,7 @@ interface ToggleButtonProps {
  * Disabled styling intentionally uses the WB disabled tokens so it reads as
  * disabled consistently with the rest of the design system (no opacity hack).
  */
-export function ToggleButton({
+function ToggleButton({
     selected,
     onClick,
     disabled = false,
