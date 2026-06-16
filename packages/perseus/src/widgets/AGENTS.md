@@ -17,6 +17,11 @@
    - `validate-[widget-name].test.ts` - Validation tests (optional)
 5. **Register scoring** in `packages/perseus-score/src/widgets/widget-registry.ts`
 6. **Add types** to `packages/perseus-core/src/data-schema.ts`
+7. **Create editor component** in `packages/perseus-editor/src/widgets/[widget-name]-editor.tsx`
+   (use a subdirectory for complex editors, see `radio/` or `interactive-graph-editor/` as examples)
+   and register it in `packages/perseus-editor/src/all-editors.ts`
+8. **If lintable, add a linter rule** in `packages/perseus-linter/src/rules/[widget-name]-widget-error.ts`
+   using `Rule.makeRule(...)` and register it in `packages/perseus-linter/src/rules/all-rules.ts`
 
 ## Widget Implementation Pattern
 
