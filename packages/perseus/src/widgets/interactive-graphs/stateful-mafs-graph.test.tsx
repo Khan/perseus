@@ -4,6 +4,8 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -228,6 +230,73 @@ describe("StatefulMafsGraph", () => {
         expect(
             screen.getByText("Interactive elements: Point T at 0 comma 0."),
         ).toBeInTheDocument();
+    });
+
+    it("shows visible point labels when showPointLabels changes to true after mount", () => {
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {
+                type: "point",
+                numPoints: 2,
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                pointLabels: ["A", "B"],
+                showPointLabels: false,
+            },
+            correct: {
+                type: "point",
+                numPoints: 2,
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                pointLabels: ["A", "B"],
+                showPointLabels: false,
+            },
+            apiOptions: {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "perseus-enable-point-label-field": true,
+                }),
+            },
+        };
+        const {rerender} = render(<StatefulMafsGraph {...baseProps} />);
+
+        expect(
+            screen.queryAllByTestId("movable-point__visible-label"),
+        ).toHaveLength(0);
+
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 2,
+                    coords: [
+                        [0, 0],
+                        [2, 2],
+                    ],
+                    pointLabels: ["A", "B"],
+                    showPointLabels: true,
+                }}
+                correct={{
+                    type: "point",
+                    numPoints: 2,
+                    coords: [
+                        [0, 0],
+                        [2, 2],
+                    ],
+                    pointLabels: ["A", "B"],
+                    showPointLabels: true,
+                }}
+            />,
+        );
+
+        expect(
+            screen.getAllByTestId("movable-point__visible-label"),
+        ).toHaveLength(2);
     });
 
     it("re-renders when the number of sides on a polygon graph changes", () => {
