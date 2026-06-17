@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 78.2.0
+
+### Minor Changes
+
+-   [#3780](https://github.com/Khan/perseus/pull/3780) [`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates answer area to include calculator variant
+
+### Patch Changes
+
+-   Updated dependencies [[`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee)]:
+    -   @khanacademy/perseus-core@28.2.0
+    -   @khanacademy/keypad-context@3.2.65
+    -   @khanacademy/kmath@2.4.23
+    -   @khanacademy/math-input@26.4.37
+    -   @khanacademy/perseus-linter@5.1.4
+    -   @khanacademy/perseus-score@8.11.7
+
 ## 78.1.0
 
 ### Minor Changes
