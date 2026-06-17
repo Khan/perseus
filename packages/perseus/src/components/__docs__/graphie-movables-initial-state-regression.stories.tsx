@@ -4,16 +4,15 @@ import {themeModes} from "../../../../../.storybook/modes";
 import Graphie from "../graphie";
 import Movables from "../graphie-movables";
 
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const {MovablePoint, Point} = Movables;
 
-// Must be module-level — Graphie logs an error if the setup reference changes
+// Must be module-level — Graphie logs an error if the setup reference changes between renders
 const noopSetup = () => {};
 
-const meta: Meta<typeof Graphie> = {
+const meta: Meta = {
     title: "Components/Graphie Movables/Visual Regression Tests/Initial State",
-    component: Graphie,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -28,8 +27,9 @@ const meta: Meta<typeof Graphie> = {
 };
 export default meta;
 
-// Covers KhanColors.BLACK fill + stroke on the Point class (lines 258–259)
-export const DefaultPoint = {
+type Story = StoryObj<typeof meta>;
+
+export const DefaultPoint: Story = {
     render: () => (
         <Graphie
             box={[200, 200]}
@@ -44,8 +44,7 @@ export const DefaultPoint = {
     ),
 };
 
-// Covers KhanColors.INTERACTIVE stroke + fill on desktop MovablePoint (lines 25–26)
-export const MovablePointDesktop = {
+export const MovablePointDesktop: Story = {
     render: () => (
         <Graphie
             box={[200, 200]}
@@ -60,8 +59,7 @@ export const MovablePointDesktop = {
     ),
 };
 
-// Covers #ffffff stroke + KhanColors.INTERACTIVE fill on mobile MovablePoint (lines 20, 22)
-export const MovablePointMobile = {
+export const MovablePointMobile: Story = {
     render: () => (
         <Graphie
             box={[200, 200]}
