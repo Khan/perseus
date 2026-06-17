@@ -1,8 +1,16 @@
+import {renderHook} from "@testing-library/react";
+
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {getPointGraphDescription} from "./point";
 
 import type {PointGraphState} from "../types";
+
+// Resolves `usePointAriaLabel` via renderHook so non-React description tests
+// can pass a `buildLabel` to `getPointGraphDescription`.
+const makeBuildLabel = (pointLabels?: ReadonlyArray<string>) =>
+    renderHook(() => usePointAriaLabel(pointLabels)).result.current;
 
 describe("getPointGraphDescription", () => {
     const baseState: PointGraphState = {
@@ -22,16 +30,24 @@ describe("getPointGraphDescription", () => {
 
     it(`returns "No interactive elements" for a graph with no points`, () => {
         const state: PointGraphState = {...baseState, coords: []};
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "No interactive elements",
-        );
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe("No interactive elements");
     });
 
     it("describes one point", () => {
         const state: PointGraphState = {...baseState, coords: [[3, 5]]};
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point 1 at 3 comma 5.",
-        );
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe("Interactive elements: Point 1 at 3 comma 5.");
     });
 
     it("separates multiple point descriptions with spaces", () => {
@@ -42,7 +58,13 @@ describe("getPointGraphDescription", () => {
                 [2, 4],
             ],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe(
             "Interactive elements: Point 1 at 3 comma 5. Point 2 at 2 comma 4.",
         );
     });
@@ -52,9 +74,13 @@ describe("getPointGraphDescription", () => {
             ...baseState,
             coords: [[-1.1234, 3.5678]],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point 1 at -1.123 comma 3.568.",
-        );
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe("Interactive elements: Point 1 at -1.123 comma 3.568.");
     });
 
     it("uses the custom point label when pointLabels is set", () => {
@@ -63,9 +89,13 @@ describe("getPointGraphDescription", () => {
             coords: [[0, 0]],
             pointLabels: ["T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point T at 0 comma 0.",
-        );
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe("Interactive elements: Point T at 0 comma 0.");
     });
 
     it("falls back to numeric defaults for indices without a custom label", () => {
@@ -77,7 +107,13 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe(
             "Interactive elements: Point T at 0 comma 0. Point 2 at 1 comma 1.",
         );
     });
@@ -91,7 +127,13 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["", "T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe(
             "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
         );
     });
@@ -106,7 +148,13 @@ describe("getPointGraphDescription", () => {
             // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
             pointLabels: [42, "T"] as unknown as string[],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(
+            getPointGraphDescription(
+                state,
+                mockPerseusI18nContext,
+                makeBuildLabel(state.pointLabels),
+            ),
+        ).toBe(
             "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
         );
     });

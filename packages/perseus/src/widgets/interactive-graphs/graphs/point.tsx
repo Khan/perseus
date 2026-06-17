@@ -5,15 +5,11 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {getCSSZoomFactor} from "../utils";
 
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
 
-import type {I18nContextType} from "../../../components/i18n-context";
 import type {PerseusStrings} from "../../../strings";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -22,15 +18,14 @@ import type {
     Dispatch,
     InteractiveGraphElementSuite,
 } from "../types";
+import type {vec} from "mafs";
 
 export function renderPointGraph(
     state: PointGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getPointGraphDescription(state, i18n),
     };
 }
 
@@ -193,6 +188,7 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
 export function getPointGraphDescription(
     state: PointGraphState,
     i18n: {strings: PerseusStrings; locale: string},
+    buildLabel: (index: number, point: vec.Vector2) => string | undefined,
 ): string {
     const {strings, locale} = i18n;
 
@@ -202,13 +198,7 @@ export function getPointGraphDescription(
 
     const pointDescriptions = state.coords.map(
         (point, index) =>
-            buildPointAriaLabel(
-                state.pointLabels,
-                index,
-                point,
-                strings,
-                locale,
-            ) ??
+            buildLabel(index, point) ??
             strings.srPointAtCoordinates({
                 num: index + 1,
                 x: srFormatNumber(point[0], locale),

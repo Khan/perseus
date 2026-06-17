@@ -39,11 +39,9 @@ const {getLogarithmCoefficients} = kmathCoefficients;
 export function renderLogarithmGraph(
     state: LogarithmGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <LogarithmGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getLogarithmDescription(state, i18n),
     };
 }
 
@@ -271,7 +269,7 @@ function renderLogarithmCurve({
     );
 }
 
-function getLogarithmDescription(
+export function getLogarithmDescription(
     state: LogarithmGraphState,
     i18n: I18nContextType,
 ): string {

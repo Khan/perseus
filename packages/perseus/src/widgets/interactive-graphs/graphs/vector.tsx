@@ -36,11 +36,9 @@ const LINE_PULLBACK_PX = 4;
 export function renderVectorGraph(
     state: VectorGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <VectorGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getVectorGraphDescription(state, i18n),
     };
 }
 
@@ -265,7 +263,7 @@ export const getVectorTipKeyboardConstraint = (
     };
 };
 
-function getVectorGraphDescription(
+export function getVectorGraphDescription(
     state: VectorGraphState,
     i18n: I18nContextType,
 ) {

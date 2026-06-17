@@ -36,11 +36,9 @@ type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 export function renderAngleGraph(
     state: AngleGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <AngleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getAngleGraphDescription(state, i18n),
     };
 }
 
@@ -179,7 +177,7 @@ function AngleGraph(props: AngleGraphProps) {
     );
 }
 
-function getAngleGraphDescription(
+export function getAngleGraphDescription(
     state: AngleGraphState,
     i18n: I18nContextType,
 ): string {

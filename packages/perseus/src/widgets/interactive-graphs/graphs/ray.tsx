@@ -20,11 +20,9 @@ import type {vec} from "mafs";
 export function renderRayGraph(
     state: RayGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
 ): InteractiveGraphElementSuite {
     return {
         graph: <RayGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getRayGraphDescription(state, i18n),
     };
 }
 
@@ -84,7 +82,10 @@ const RayGraph = (props: Props) => {
     );
 };
 
-function getRayGraphDescription(state: RayGraphState, i18n: I18nContextType) {
+export function getRayGraphDescription(
+    state: RayGraphState,
+    i18n: I18nContextType,
+) {
     const strings = describeRayGraph(state, i18n);
     return strings.srRayInteractiveElement;
 }

@@ -55,6 +55,7 @@ import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
+import {useInteractiveElementsDescription} from "./use-interactive-elements-description";
 import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
@@ -66,7 +67,6 @@ import type {
     InteractiveGraphElementSuite,
     GraphDimensions,
 } from "./types";
-import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
 import type {vec} from "mafs";
 
@@ -139,12 +139,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
         });
     });
 
-    const {graph, interactiveElementsDescription} = renderGraphElements({
+    const {graph} = renderGraphElements({state, dispatch});
+    const interactiveElementsDescription = useInteractiveElementsDescription(
         state,
-        dispatch,
-        i18n,
-        markings: props.markings,
-    });
+        props.markings,
+    );
 
     const disableInteraction = readOnly || !!props.static;
 
@@ -738,47 +737,42 @@ function handleKeyboardEvent(
 const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
-    i18n: I18nContextType;
-    // Used to determine if the graph description should specify the
-    // coordinates of the graph elements. We don't want to mention the
-    // coordinates if the graph is not on a coordinate plane (no axes).
-    markings: InteractiveGraphProps["markings"];
 }): InteractiveGraphElementSuite => {
-    const {state, dispatch, i18n, markings} = props;
+    const {state, dispatch} = props;
     const {type} = state;
     switch (type) {
         case "angle":
-            return renderAngleGraph(state, dispatch, i18n);
+            return renderAngleGraph(state, dispatch);
         case "segment":
-            return renderSegmentGraph(state, dispatch, i18n);
+            return renderSegmentGraph(state, dispatch);
         case "linear-system":
-            return renderLinearSystemGraph(state, dispatch, i18n);
+            return renderLinearSystemGraph(state, dispatch);
         case "linear":
-            return renderLinearGraph(state, dispatch, i18n);
+            return renderLinearGraph(state, dispatch);
         case "ray":
-            return renderRayGraph(state, dispatch, i18n);
+            return renderRayGraph(state, dispatch);
         case "polygon":
-            return renderPolygonGraph(state, dispatch, i18n, markings);
+            return renderPolygonGraph(state, dispatch);
         case "point":
-            return renderPointGraph(state, dispatch, i18n);
+            return renderPointGraph(state, dispatch);
         case "circle":
-            return renderCircleGraph(state, dispatch, i18n);
+            return renderCircleGraph(state, dispatch);
         case "quadratic":
-            return renderQuadraticGraph(state, dispatch, i18n);
+            return renderQuadraticGraph(state, dispatch);
         case "sinusoid":
-            return renderSinusoidGraph(state, dispatch, i18n);
+            return renderSinusoidGraph(state, dispatch);
         case "exponential":
-            return renderExponentialGraph(state, dispatch, i18n);
+            return renderExponentialGraph(state, dispatch);
         case "none":
-            return {graph: null, interactiveElementsDescription: null};
+            return {graph: null};
         case "absolute-value":
-            return renderAbsoluteValueGraph(state, dispatch, i18n);
+            return renderAbsoluteValueGraph(state, dispatch);
         case "tangent":
-            return renderTangentGraph(state, dispatch, i18n);
+            return renderTangentGraph(state, dispatch);
         case "logarithm":
-            return renderLogarithmGraph(state, dispatch, i18n);
+            return renderLogarithmGraph(state, dispatch);
         case "vector":
-            return renderVectorGraph(state, dispatch, i18n);
+            return renderVectorGraph(state, dispatch);
         default:
             throw new UnreachableCaseError(type);
     }

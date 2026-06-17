@@ -20,10 +20,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -57,16 +54,9 @@ const {convertRadiansToDegrees} = angles;
 export function renderPolygonGraph(
     state: PolygonGraphState,
     dispatch: Dispatch,
-    i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getPolygonGraphDescription(
-            state,
-            i18n,
-            markings,
-        ),
     };
 }
 
@@ -210,6 +200,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         statefulProps.graphState,
         {strings, locale},
         statefulProps.graphConfig.markings,
+        buildLabel,
     );
 
     return (
@@ -442,6 +433,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
             statefulProps.graphState,
             {strings, locale},
             statefulProps.graphConfig.markings,
+            buildLabel,
         );
 
     return (
@@ -631,12 +623,13 @@ export const hasFocusVisible = (
     }
 };
 
-function getPolygonGraphDescription(
+export function getPolygonGraphDescription(
     state: PolygonGraphState,
     i18n: I18nContextType,
     markings: InteractiveGraphProps["markings"],
+    buildLabel: (index: number, point: vec.Vector2) => string | undefined,
 ): string | null {
-    const strings = describePolygonGraph(state, i18n, markings);
+    const strings = describePolygonGraph(state, i18n, markings, buildLabel);
     return strings.srPolygonInteractiveElements;
 }
 
@@ -652,11 +645,10 @@ function describePolygonGraph(
     state: PolygonGraphState,
     i18n: I18nContextType,
     markings: InteractiveGraphProps["markings"],
+    buildLabel: (index: number, point: vec.Vector2) => string | undefined,
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
-    const {coords, pointLabels} = state;
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
+    const {coords} = state;
     const isCoordinatePlane = markings === "axes" || markings === "graph";
     const hasOnePoint = coords.length === 1;
 
