@@ -1,5 +1,9 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
+ *                                                                     *
+ ***********************************************************************/
 // TODO(LEMS-4304): feature flag cleanup - rename this file to renderer.tsx.
-// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!
 // This file is the new renderer that will replace the old renderer.
 
 /* eslint-disable max-lines */

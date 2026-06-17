@@ -1,5 +1,9 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
+ *                                                                     *
+ ***********************************************************************/
 // TODO(LEMS-4304): feature flag cleanup - remove this file
-// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!
 // This file is the original renderer that is being replaced by the new renderer.
 
 /* eslint-disable max-lines */

@@ -1,5 +1,9 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PERSEUS MARKDOWN! *
+ *                                                                     *
+ ***********************************************************************/
 // TODO(LEMS-4304): feature flag cleanup - rename this file to perseus-markdown.tsx.
-// WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PERSEUS MARKDOWN!
 // This file is the new perseus markdown that will replace the old perseus markdown.
 import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
