@@ -154,7 +154,7 @@ describe("phet-simulation widget", () => {
         expect(url).toBe(null);
     });
 
-    it("hides the fullscreen button on web when the Fullscreen API is unsupported", async () => {
+    it("links out to the simulation instead of showing the fullscreen button when the Fullscreen API is unsupported", async () => {
         // Arrange
         // Simulate a browser without any Fullscreen API support
         // (e.g. Safari on iPhone).
@@ -170,13 +170,34 @@ describe("phet-simulation widget", () => {
         renderQuestion(question1, apiOptions);
 
         // Assert
+        const link = await screen.findByRole("link", {
+            name: "Open simulation in a new tab",
+        });
+        expect(link).toHaveAttribute(
+            "href",
+            "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html?locale=en",
+        );
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(
+            screen.queryByRole("button", {name: "Fullscreen"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("does not show the open-in-new-tab link when fullscreen is supported", async () => {
+        // Arrange, Act
+        // The default beforeEach marks the Fullscreen API as supported.
+        renderQuestion(question1, {isMobile: false});
+
+        // Assert
         await waitFor(() => {
             expect(
-                screen.getByTitle("Projectile Data Lab"),
+                screen.getByRole("button", {name: "Fullscreen"}),
             ).toBeInTheDocument();
         });
         expect(
-            screen.queryByRole("button", {name: "Fullscreen"}),
+            screen.queryByRole("link", {
+                name: "Open simulation in a new tab",
+            }),
         ).not.toBeInTheDocument();
     });
 
