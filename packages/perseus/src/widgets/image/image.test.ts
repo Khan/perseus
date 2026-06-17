@@ -62,13 +62,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         unmockImageLoading = mockImageLoading();
 
-        // Decode resolves to two fake frames (an animated GIF) by default.
-        // eslint-disable-next-line no-restricted-syntax
-        (decodeGifFrames as jest.Mock).mockResolvedValue([
-            fakeFrame,
-            fakeFrame,
-        ]);
-
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
         jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
@@ -77,17 +70,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             drawImage: jest.fn(),
             imageSmoothingEnabled: true,
         } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
-
-        // GifImage (rendered via SvgImage when gif controls are active)
-        // calls fetch() to decode GIF frames. jsdom doesn't provide
-        // fetch, so we stub it here.
-        // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                ok: true,
-                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-            }),
-        ) as jest.Mock;
 
         // @ts-expect-error - jsdom doesn't have ImageData
         global.ImageData = class ImageData {
@@ -1122,6 +1104,15 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     });
 
     describe("gif controls", () => {
+        beforeEach(() => {
+            // Decode resolves to two fake frames (an animated GIF) by default.
+            // eslint-disable-next-line no-restricted-syntax
+            (decodeGifFrames as jest.Mock).mockResolvedValue([
+                fakeFrame,
+                fakeFrame,
+            ]);
+        });
+
         it("should render gif controls if the image is a gif with multiple frames", async () => {
             // Arrange, Act
             const gifImageQuestion = generateTestPerseusRenderer({
