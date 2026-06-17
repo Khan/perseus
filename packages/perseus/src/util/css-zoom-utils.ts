@@ -24,13 +24,12 @@ export function getCSSZoomFactor(element: Element): number {
     // Traverse up the DOM tree to accumulate all zoom values
     while (currentElement) {
         const computedStyle = window.getComputedStyle(currentElement);
-        const zoom = computedStyle.zoom;
 
-        if (zoom && zoom !== "normal") {
-            const zoomValue = parseFloat(zoom);
-            if (!isNaN(zoomValue)) {
-                zoomFactor *= zoomValue;
-            }
+        // parseFloat returns NaN for "normal", "", and undefined, so the
+        // isNaN check covers every "no zoom here" case.
+        const elementZoom = parseFloat(computedStyle.zoom);
+        if (!isNaN(elementZoom)) {
+            zoomFactor *= elementZoom;
         }
 
         currentElement = currentElement.parentElement;
