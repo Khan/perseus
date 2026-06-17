@@ -28,9 +28,7 @@ export function getCSSZoomFactor(element: Element): number {
         // parseFloat returns NaN for "normal", "", and undefined, so the
         // isNaN check covers every "no zoom here" case.
         const elementZoom = parseFloat(computedStyle.zoom);
-        if (!isNaN(elementZoom)) {
-            zoomFactor *= elementZoom;
-        }
+        zoomFactor = isNaN(elementZoom) ? zoomFactor : zoomFactor * elementZoom;
 
         currentElement = currentElement.parentElement;
     }
