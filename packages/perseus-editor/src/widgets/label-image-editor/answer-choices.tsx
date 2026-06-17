@@ -16,6 +16,7 @@ const {Icon} = components;
 interface AddAnswerProps {
     // Callback to add new answer choice.
     onClick: () => void;
+    editingDisabled: boolean;
 }
 
 interface AnswerProps {
@@ -25,6 +26,7 @@ interface AnswerProps {
     onChange: (answer: string) => void;
     // Callback to remove answer from list of choices.
     onRemove: () => void;
+    editingDisabled: boolean;
 }
 
 export interface AnswerChoicesProps {
@@ -93,9 +95,20 @@ const DraggableGripIcon = () => (
 /**
  * A button link to add a new answer.
  */
-const AddAnswer = ({onClick}: AddAnswerProps): React.ReactElement => (
+const AddAnswer = ({
+    onClick,
+    editingDisabled,
+}: AddAnswerProps): React.ReactElement => (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error
-    <Link className={styles.addAnswer} onClick={onClick}>
+    <Link
+        className={
+            editingDisabled
+                ? `${styles.addAnswer} ${styles.disabledLink}`
+                : styles.addAnswer
+        }
+        aria-disabled={editingDisabled || undefined}
+        onClick={onClick}
+    >
         <Icon icon={addIcon} size={24} />
         Add an answer choice
     </Link>
@@ -108,10 +121,15 @@ const Answer = ({
     answer,
     onChange,
     onRemove,
+    editingDisabled,
 }: AnswerProps): React.ReactElement => (
     <li className={styles.answer}>
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid -- TODO(LEMS-2871): Address a11y error, TODO(LEMS-2871): Address a11y error */}
-        <Link onClick={onRemove}>
+        <Link
+            onClick={onRemove}
+            className={editingDisabled ? styles.disabledLink : undefined}
+            aria-disabled={editingDisabled || undefined}
+        >
             <Icon icon={removeIcon} size={24} color="#D92916" />
         </Link>
 
@@ -147,6 +165,7 @@ const AnswerChoices = ({
                 <Answer
                     answer={answer}
                     key={index}
+                    editingDisabled={editingDisabled}
                     // Update answer for choice.
                     onChange={(answer) => {
                         if (editingDisabled) {
@@ -173,6 +192,7 @@ const AnswerChoices = ({
         </ul>
 
         <AddAnswer
+            editingDisabled={editingDisabled}
             // Append a new empty answer to choices.
             onClick={() => {
                 if (editingDisabled) {

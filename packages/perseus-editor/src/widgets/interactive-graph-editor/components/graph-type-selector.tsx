@@ -5,6 +5,7 @@ import styles from "../interactive-graph-editor.module.css";
 
 interface GraphTypeSelectorProps {
     graphType: string;
+    disabled?: boolean;
     onChange: (newGraphType: string) => void;
 }
 
@@ -15,6 +16,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
             onChange={props.onChange}
             placeholder="Select an answer type"
             className={styles.singleSelectShort}
+            disabled={props.disabled}
         >
             <OptionItem value="none" label="None" />
             <OptionItem

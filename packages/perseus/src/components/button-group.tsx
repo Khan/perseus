@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -26,6 +27,11 @@ interface Props {
      * Customizes the selected button's styling.
      */
     selectedButtonStyle?: CSSProperties;
+
+    /**
+     * When true, all buttons are disabled (non-interactive and visually muted).
+     */
+    disabled?: boolean;
 }
 
 interface DefaultProps {
@@ -74,11 +80,13 @@ class ButtonGroup extends React.Component<Props> {
                     title={button.title}
                     type="button"
                     key={"" + i}
+                    disabled={this.props.disabled}
                     className={css(
                         styles.buttonStyle,
                         button.value === value && styles.selectedStyle,
                         button.value === value &&
                             this.props.selectedButtonStyle,
+                        this.props.disabled && styles.disabledStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -134,6 +142,15 @@ const styles = StyleSheet.create({
 
     selectedStyle: {
         backgroundColor: "#ddd",
+    },
+
+    disabledStyle: {
+        cursor: "not-allowed",
+        backgroundColor: semanticColor.core.background.disabled.default,
+        color: semanticColor.core.foreground.disabled.strong,
+        ":hover": {
+            backgroundColor: semanticColor.core.background.disabled.default,
+        },
     },
 });
 
