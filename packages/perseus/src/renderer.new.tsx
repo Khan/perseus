@@ -193,6 +193,10 @@ type DefaultProps = Required<
     >
 >;
 
+// TODO(LEMS-4304): When the `perseus-renderer-upgrade` feature flag is removed
+// and the feature is made permanent, this file will become the default
+// renderer. At that point, export this DifferentQuestionPartialProps type.
+// If we export it now, there's a dead code failure in the PR.
 /**
  * We want to be able to reset the question state when we go
  * from one question to another question. However it's kind of tricky:
@@ -202,11 +206,15 @@ type DefaultProps = Required<
  * So compare the prev props to the next props, but use
  * answerless for both for the comparison
  */
-export type DifferentQuestionPartialProps = Pick<
+type DifferentQuestionPartialProps = Pick<
     Props,
     "content" | "widgets" | "problemNum"
 >;
-export function isDifferentQuestion(
+// TODO(LEMS-4304): When the `perseus-renderer-upgrade` feature flag is removed
+// and the feature is made permanent, this file will become the default
+// renderer. At that point, export this isDifferentQuestion function.
+// If we export it now, there's a dead code failure in the PR.
+function isDifferentQuestion(
     propsA: DifferentQuestionPartialProps,
     propsB: DifferentQuestionPartialProps,
 ): boolean {
