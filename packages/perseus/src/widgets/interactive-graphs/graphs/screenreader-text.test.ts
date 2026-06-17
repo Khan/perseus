@@ -400,6 +400,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: 1,
                     x: -1,
                     y: 4,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",
@@ -418,6 +419,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: 2,
                     x: 3,
                     y: 7,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",
@@ -426,6 +428,23 @@ describe("getAnnouncementText", () => {
             expect(result).toBe(
                 "Point 2 on an exponential curve at 3 comma 7.",
             );
+        });
+
+        it("drops the curve phrasing when no curve is plotted", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-exponential-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -1,
+                    y: 4,
+                    hasCurve: false,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 at -1 comma 4.");
         });
 
         // TODO(LEMS-4206): allow custom labels for exponential points so we
@@ -438,6 +457,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: "A",
                     x: -1,
                     y: 4,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",

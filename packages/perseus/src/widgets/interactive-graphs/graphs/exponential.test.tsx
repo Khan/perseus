@@ -200,15 +200,16 @@ describe("Exponential graph screen reader", () => {
             />,
         );
 
-        // Assert — asymptote + both points still rendered
+        // Assert — asymptote still rendered, and the points drop the
+        // "on an exponential curve" phrasing since no curve is plotted.
         expect(
             screen.getByRole("button", {name: /Horizontal asymptote/}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 1/}),
+            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 2/}),
+            screen.getByRole("button", {name: "Point 2 at 1 comma 6."}),
         ).toBeInTheDocument();
     });
 

@@ -261,8 +261,16 @@ function describeExponentialGraph(
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
-        srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
+        // When no curve is plotted, drop the "on an exponential curve"
+        // phrasing in favor of plain point coordinates.
+        srExponentialPoint1:
+            coeffs === undefined
+                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
+                : strings.srExponentialPoint1(formattedPoint1),
+        srExponentialPoint2:
+            coeffs === undefined
+                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
+                : strings.srExponentialPoint2(formattedPoint2),
         srExponentialInteractiveElements: strings.srInteractiveElements({
             elements: strings.srExponentialInteractiveElements(descriptionArgs),
         }),
