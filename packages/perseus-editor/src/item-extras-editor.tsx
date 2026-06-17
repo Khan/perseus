@@ -1,5 +1,9 @@
 import {components} from "@khanacademy/perseus";
-import {ItemExtras, getDefaultAnswerArea, isFeatureOn} from "@khanacademy/perseus-core";
+import {
+    ItemExtras,
+    getDefaultAnswerArea,
+    isFeatureOn,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -11,7 +15,6 @@ import type {
     CalculatorVariant,
     PerseusAnswerArea,
 } from "@khanacademy/perseus-core";
-
 
 const calculatorVariants: Array<{
     label: string;
