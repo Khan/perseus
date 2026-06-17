@@ -281,32 +281,41 @@ function buildExponentialDescription(
     strings: PerseusStrings,
     locale: string,
 ): string {
+    // No exponential fits these points (e.g. the asymptote sits between them),
+    // so no curve is plotted.
     if (coeffs === undefined) {
-        return strings.srExponentialDescriptionBasic(args);
+        return strings.srExponentialNoCurve(args);
     }
 
     const {a, b, c} = coeffs;
 
-    // Pick the directional sentence from the four shape combinations.
-    const approachesFromRight = b < 0; // e^(b*x) -> 0 as x -> +infinity
-    const extendsNegative = a < 0; // the dominant term carries sign(a)
-    const base = approachesFromRight
-        ? extendsNegative
-            ? strings.srExponentialDescriptionRightNeg(args)
-            : strings.srExponentialDescriptionRightPos(args)
-        : extendsNegative
-          ? strings.srExponentialDescriptionLeftNeg(args)
-          : strings.srExponentialDescriptionLeftPos(args);
+    // The directional sentence describes the flat tail running along the
+    // asymptote (where e^(b*x) -> 0): a positive b trails toward negative
+    // infinity (paired with "from the right"); a negative b trails toward
+    // positive infinity (paired with "from the left"). Both halves track
+    // sign(b), so only these two sentences occur.
+    const base =
+        b < 0
+            ? strings.srExponentialDescriptionLeftPos(args)
+            : strings.srExponentialDescriptionRightNeg(args);
+
+    // f(x) - c = a*e^(b*x) is always sign(a), so the curve sits entirely
+    // above (a > 0) or below (a < 0) the asymptote.
+    const position =
+        a > 0
+            ? strings.srExponentialAboveAsymptote
+            : strings.srExponentialBelowAsymptote;
 
     // The y-intercept always exists; the x-intercept only when -c/a > 0.
     const yIntercept = srFormatNumber(a + c, locale);
     const ratio = -c / a;
-    if (ratio > 0) {
-        const xIntercept = srFormatNumber(Math.log(ratio) / b, locale);
-        return `${base} ${strings.srExponentialIntercepts({
-            xIntercept,
-            yIntercept,
-        })}`;
-    }
-    return `${base} ${strings.srExponentialYIntercept({yIntercept})}`;
+    const intercepts =
+        ratio > 0
+            ? strings.srExponentialIntercepts({
+                  xIntercept: srFormatNumber(Math.log(ratio) / b, locale),
+                  yIntercept,
+              })
+            : strings.srExponentialYIntercept({yIntercept});
+
+    return `${base} ${position} ${intercepts}`;
 }

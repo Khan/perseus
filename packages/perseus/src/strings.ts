@@ -524,35 +524,11 @@ export type PerseusStrings = {
     srExponentialGraph: string;
     srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
     srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
-    // One sentence per curve shape: {approaches left|right} x {extends to
-    // positive|negative infinity}. All four take the same args.
+    // The flat tail's behavior. Both axes track sign(b), so only two
+    // combinations occur: hugs the asymptote on the right while trailing to
+    // negative infinity, or hugs it on the left while trailing to positive
+    // infinity.
     srExponentialDescriptionRightNeg: ({
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-        asymptoteY,
-    }: {
-        point1X: string;
-        point1Y: string;
-        point2X: string;
-        point2Y: string;
-        asymptoteY: string;
-    }) => string;
-    srExponentialDescriptionRightPos: ({
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-        asymptoteY,
-    }: {
-        point1X: string;
-        point1Y: string;
-        point2X: string;
-        point2Y: string;
-        asymptoteY: string;
-    }) => string;
-    srExponentialDescriptionLeftNeg: ({
         point1X,
         point1Y,
         point2X,
@@ -578,9 +554,12 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteY: string;
     }) => string;
-    // Fallback when no valid exponential fits (asymptote sits between the
-    // points), so there is no directional behavior to describe.
-    srExponentialDescriptionBasic: ({
+    // Whether the curve sits entirely above or below the asymptote (sign of a).
+    srExponentialAboveAsymptote: string;
+    srExponentialBelowAsymptote: string;
+    // Used when the points are positioned so that no exponential curve can be
+    // drawn (e.g. the asymptote sits between them), so nothing is plotted.
+    srExponentialNoCurve: ({
         point1X,
         point1Y,
         point2X,
@@ -1338,33 +1317,31 @@ export const strings = {
     },
     srExponentialDescriptionRightNeg: {
         context:
-            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve that approaches the asymptote from the right and extends to negative infinity.",
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the right and trails off toward negative infinity.",
         message:
             "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the right and extends to negative infinity.",
     },
-    srExponentialDescriptionRightPos: {
-        context:
-            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve that approaches the asymptote from the right and extends to positive infinity.",
-        message:
-            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the right and extends to positive infinity.",
-    },
-    srExponentialDescriptionLeftNeg: {
-        context:
-            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve that approaches the asymptote from the left and extends to negative infinity.",
-        message:
-            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the left and extends to negative infinity.",
-    },
     srExponentialDescriptionLeftPos: {
         context:
-            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve that approaches the asymptote from the left and extends to positive infinity.",
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the left and trails off toward positive infinity.",
         message:
             "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the left and extends to positive infinity.",
     },
-    srExponentialDescriptionBasic: {
+    srExponentialAboveAsymptote: {
         context:
-            "Screen reader description of the Exponential function in the interactive graph widget. Fallback used when no valid exponential fits, so the curve has no directional behavior to describe.",
+            "Screen reader description noting that the Exponential curve lies entirely above its horizontal asymptote.",
+        message: "The curve lies above the asymptote.",
+    },
+    srExponentialBelowAsymptote: {
+        context:
+            "Screen reader description noting that the Exponential curve lies entirely below its horizontal asymptote.",
+        message: "The curve lies below the asymptote.",
+    },
+    srExponentialNoCurve: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget, used when the two points are positioned so that no exponential curve can be drawn (for example, the asymptote falls between them) and nothing is plotted.",
         message:
-            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s.",
+            "No exponential curve can be drawn through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s. Move both points to the same side of the asymptote to draw the curve.",
     },
     srExponentialIntercepts: {
         context:
@@ -1836,22 +1813,6 @@ export const mockStrings: PerseusStrings = {
         asymptoteY,
     }) =>
         `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the right and extends to negative infinity.`,
-    srExponentialDescriptionRightPos: ({
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-        asymptoteY,
-    }) =>
-        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the right and extends to positive infinity.`,
-    srExponentialDescriptionLeftNeg: ({
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-        asymptoteY,
-    }) =>
-        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the left and extends to negative infinity.`,
     srExponentialDescriptionLeftPos: ({
         point1X,
         point1Y,
@@ -1860,14 +1821,10 @@ export const mockStrings: PerseusStrings = {
         asymptoteY,
     }) =>
         `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the left and extends to positive infinity.`,
-    srExponentialDescriptionBasic: ({
-        point1X,
-        point1Y,
-        point2X,
-        point2Y,
-        asymptoteY,
-    }) =>
-        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}.`,
+    srExponentialAboveAsymptote: "The curve lies above the asymptote.",
+    srExponentialBelowAsymptote: "The curve lies below the asymptote.",
+    srExponentialNoCurve: ({point1X, point1Y, point2X, point2Y, asymptoteY}) =>
+        `No exponential curve can be drawn through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}. Move both points to the same side of the asymptote to draw the curve.`,
     srExponentialIntercepts: ({xIntercept, yIntercept}) =>
         `The x-intercept is at ${xIntercept} comma 0. The y-intercept is at 0 comma ${yIntercept}.`,
     srExponentialYIntercept: ({yIntercept}) =>

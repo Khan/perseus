@@ -104,7 +104,7 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals 1 from the left and extends to positive infinity. The y-intercept is at 0 comma 3.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals 1 from the right and extends to negative infinity. The curve lies above the asymptote. The y-intercept is at 0 comma 3.",
         );
     });
 
@@ -129,7 +129,7 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The curve passes through -2 comma 4 and 2 comma 8 as the curve approaches y equals 1 from the left and extends to positive infinity. The y-intercept is at 0 comma 5.583.",
+            "The curve passes through -2 comma 4 and 2 comma 8 as the curve approaches y equals 1 from the right and extends to negative infinity. The curve lies above the asymptote. The y-intercept is at 0 comma 5.583.",
         );
     });
 
@@ -151,7 +151,35 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals -3 from the left and extends to positive infinity. The x-intercept is at -1.71 comma 0. The y-intercept is at 0 comma 3.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals -3 from the right and extends to negative infinity. The curve lies above the asymptote. The x-intercept is at -1.71 comma 0. The y-intercept is at 0 comma 3.",
+        );
+    });
+
+    it("describes a curve that approaches from the left and lies below the asymptote", () => {
+        // Arrange, Act — decreasing curve (b < 0) sitting below the
+        // asymptote (a < 0). Exercises the LeftPos directional variant and
+        // the "below" clause.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseExponentialState,
+                    coords: [
+                        [0, -2],
+                        [2, -0.5],
+                    ],
+                    asymptote: 0,
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
+        ).toHaveAccessibleDescription(
+            "The curve passes through 0 comma -2 and 2 comma -0.5 as the curve approaches y equals 0 from the left and extends to positive infinity. The curve lies below the asymptote. The y-intercept is at 0 comma -2.",
         );
     });
 
@@ -182,6 +210,33 @@ describe("Exponential graph screen reader", () => {
         expect(
             screen.getByRole("button", {name: /Point 2/}),
         ).toBeInTheDocument();
+    });
+
+    it("describes the no-curve case when the asymptote sits between the points", () => {
+        // Arrange, Act — asymptote y=4 falls between points at y=3 and y=6,
+        // so no exponential fits and nothing is plotted.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseExponentialState,
+                    coords: [
+                        [0, 3],
+                        [1, 6],
+                    ],
+                    asymptote: 4,
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
+        ).toHaveAccessibleDescription(
+            "No exponential curve can be drawn through 0 comma 3 and 1 comma 6 with a horizontal asymptote at y equals 4. Move both points to the same side of the asymptote to draw the curve.",
+        );
     });
 
     it("describes the interactive elements for the graph", () => {
