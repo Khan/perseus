@@ -6,10 +6,32 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
+import type {CalculatorVariant, PerseusAnswerArea} from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4180): remove once desmos-calculator feature flag is enabled for learners
-const CALCULATOR_VARIANTS_ENABLED = false;
+const CALCULATOR_VARIANTS_ENABLED = true;
+
+const calculatorVariants: Array<{
+    label: string;
+    tip: string;
+    variant: CalculatorVariant;
+}> = [
+    {
+        label: "Scientific calculator",
+        tip: "Provides the student with a scientific calculator.",
+        variant: "scientific",
+    },
+    {
+        label: "Graphing calculator",
+        tip: "Provides the student with a graphing calculator.",
+        variant: "graphing",
+    },
+    {
+        label: "Four-function calculator",
+        tip: "Provides the student with a four-function calculator.",
+        variant: "four_function",
+    },
+];
 
 const {InfoTip} = components;
 
@@ -63,54 +85,26 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {this.shouldShowCalculatorVariants() && CALCULATOR_VARIANTS_ENABLED && (
-                        <>
+                    {this.shouldShowCalculatorVariants() &&
+                        CALCULATOR_VARIANTS_ENABLED &&
+                        calculatorVariants.map((calcVariant) => (
                             <ItemExtraCheckbox
-                                label="Scientific calculator"
+                                key={calcVariant.variant}
+                                label={calcVariant.label}
                                 disabled={editingDisabled}
-                                infoTip="Provides the student with a scientific calculator."
+                                infoTip={calcVariant.tip}
                                 checked={
                                     this.props.calculatorVariant ===
-                                    "scientific"
+                                    calcVariant.variant
                                 }
                                 onChange={() => {
                                     this.props.onChange({
-                                        calculatorVariant: "scientific",
+                                        calculatorVariant: calcVariant.variant,
                                     });
                                 }}
                                 indent
                             />
-                            <ItemExtraCheckbox
-                                label="Graphing calculator"
-                                disabled={editingDisabled}
-                                infoTip="Provides the student with a graphing calculator."
-                                checked={
-                                    this.props.calculatorVariant === "graphing"
-                                }
-                                onChange={() => {
-                                    this.props.onChange({
-                                        calculatorVariant: "graphing",
-                                    });
-                                }}
-                                indent
-                            />
-                            <ItemExtraCheckbox
-                                label="Four-function calculator"
-                                disabled={editingDisabled}
-                                infoTip="Provides the student with a four-function calculator."
-                                checked={
-                                    this.props.calculatorVariant ===
-                                    "four_function"
-                                }
-                                onChange={() => {
-                                    this.props.onChange({
-                                        calculatorVariant: "four_function",
-                                    });
-                                }}
-                                indent
-                            />
-                        </>
-                    )}
+                        ))}
 
                     <ItemExtraCheckbox
                         label="Show financial calculator"
