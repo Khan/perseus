@@ -26,7 +26,7 @@
 
 ## Widget Implementation Pattern
 
-Widgets must be implemented as **functional components**.
+Widgets are defined by creating an object that conforms to the `WidgetExports<T>` interface. The widget component (`widget` key in the export) must be implemented as a **functional component**.
 
 ```typescript
 // Export interface following WidgetExports<T> pattern
