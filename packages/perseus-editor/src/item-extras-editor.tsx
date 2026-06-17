@@ -8,6 +8,9 @@ import * as React from "react";
 
 import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
 
+// TODO(LEMS-4180): remove once desmos-calculator feature flag is enabled for learners
+const CALCULATOR_VARIANTS_ENABLED = false;
+
 const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
@@ -60,7 +63,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {this.shouldShowCalculatorVariants() && (
+                    {this.shouldShowCalculatorVariants() && CALCULATOR_VARIANTS_ENABLED && (
                         <>
                             <ItemExtraCheckbox
                                 label="Scientific calculator"
