@@ -389,17 +389,7 @@ describe("radio-editor", () => {
             {wrapper: RenderStateRoot},
         );
 
-        /**
-         * This was super annoying to figure out.
-         * When in "edit" mode (which the editor is obviously)
-         * the only way to select an option from the radio
-         * is to click the A/B/C/etc icons themselves.
-         * We have a `elem.getAttribute("data-is-radio-icon")` check
-         * to make sure that what we're clicking is the icon and
-         * not some other part of the radio choice.
-         * It's just a div, hence the test ID.
-         */
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         // switch an incorrect answer into a correct answer
         await userEvent.click(choices[0]);
@@ -412,14 +402,14 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is picked (status badges)", async () => {
+    it("calls onChange when the correct choice is picked", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoices,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[0]);
 
@@ -430,32 +420,14 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is picked (indicator pill)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoices,
-        });
-
-        const choice = screen.getByRole("button", {name: "A"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                choices: fourChoicesWithFirstCorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the correct choice is changed (status badges)", async () => {
+    it("calls onChange when the correct choice is changed", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[1]);
 
@@ -467,58 +439,20 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is changed (indicator pill)", async () => {
+    it("calls onChange when the previously correct choice is marked wrong", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
         });
 
-        const choice = screen.getByRole("button", {name: "B"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                // Automatically change the previous correct choice to incorrect
-                choices: fourChoicesWithSecondCorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the previously correct choice is marked wrong (status badges)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoicesWithFirstCorrect,
-        });
-
-        const choices = screen.getAllByRole("button", {name: "Incorrect"});
+        const choices = screen.getAllByRole("radio", {name: "Incorrect"});
 
         await userEvent.click(choices[0]);
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 // All choices are now incorrect
-                choices: fourChoicesWithAllIncorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the previously correct choice is marked wrong (indicator pill)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoicesWithFirstCorrect,
-        });
-
-        const choice = screen.getByRole("button", {name: "A"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                // All choices are now incorrect.
                 choices: fourChoicesWithAllIncorrect,
             }),
         );
@@ -532,7 +466,7 @@ describe("radio-editor", () => {
             multipleSelect: true,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[1]);
 

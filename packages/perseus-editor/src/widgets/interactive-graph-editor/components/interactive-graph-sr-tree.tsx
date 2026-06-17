@@ -1,9 +1,9 @@
 import {components} from "@khanacademy/perseus";
+import {NeutralBadge, StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
-import Pill from "@khanacademy/wonder-blocks-pill";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {font, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -11,7 +11,16 @@ import Heading from "../../../components/heading";
 
 import styles from "./interactive-graph-sr-tree.module.css";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
 const {InfoTip} = components;
+
+// Passed to the Badge `styles` prop, which is typed as Wonder Blocks `StyleType`
+// (per-part: root/label) and does not accept a className.
+const badgeSpacingStyle: StyleType = {marginInlineEnd: sizing.size_060};
+// Badges default to a bold label, but these decorative role/tag indicators
+// should read at the regular body weight (matching the old Pill look).
+const badgeLabelStyle: StyleType = {fontWeight: font.weight.regular};
 
 interface Attribute {
     name: string;
@@ -105,29 +114,40 @@ function SRTree(props: Props) {
             {elementArias.map((aria, index) => (
                 <li key={index}>
                     {showTags && (
-                        <Pill
-                            size="small"
+                        <StatusBadge
                             kind="success"
-                            style={{marginRight: sizing.size_060}}
-                        >
-                            {aria.roleOrTag}
-                        </Pill>
+                            label={aria.roleOrTag}
+                            showBorder={false}
+                            styles={{
+                                root: badgeSpacingStyle,
+                                label: badgeLabelStyle,
+                            }}
+                        />
                     )}
                     {aria.className}
                     <ul className={styles.indentList}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        value.name === "label"
-                                            ? "info"
-                                            : "neutral"
-                                    }
-                                    style={{marginRight: sizing.size_060}}
-                                >
-                                    {value.name}
-                                </Pill>
+                                {value.name === "label" ? (
+                                    <StatusBadge
+                                        kind="info"
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: badgeSpacingStyle,
+                                            label: badgeLabelStyle,
+                                        }}
+                                    />
+                                ) : (
+                                    <NeutralBadge
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: badgeSpacingStyle,
+                                            label: badgeLabelStyle,
+                                        }}
+                                    />
+                                )}
                                 {value.value}
                             </li>
                         ))}
