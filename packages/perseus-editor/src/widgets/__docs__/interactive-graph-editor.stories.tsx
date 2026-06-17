@@ -24,6 +24,7 @@ import {
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
     pointQuestionWithStartingCoords,
+    pointWithCustomLabelQuestion,
     polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
@@ -148,6 +149,11 @@ export const InteractiveGraphPoint = (): React.ReactElement => (
     <EditorPageWithStorybookPreview
         question={pointQuestionWithStartingCoords}
     />
+);
+
+// TODO: Remove this before landing to main
+export const InteractiveGraphPointWithCustomLabel = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={pointWithCustomLabelQuestion} />
 );
 
 export const InteractiveGraphPolygon = (): React.ReactElement => {

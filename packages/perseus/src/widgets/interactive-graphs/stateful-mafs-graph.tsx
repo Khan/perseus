@@ -135,6 +135,12 @@ export const StatefulMafsGraph = React.forwardRef<
     const pointLabels = "pointLabels" in graph ? graph.pointLabels : undefined;
     const showPointLabels =
         "showPointLabels" in graph ? graph.showPointLabels : undefined;
+    // Serialize these arrays to stable primitives so the reinitialize effect
+    // compares them by value, not reference. The editor preview rebuilds graph
+    // props each render, so raw-array deps re-fire reinitialize and cause Safari
+    // scroll jitter.
+    const pointLabelsKey = pointLabels && JSON.stringify(pointLabels);
+    const startCoordsKey = startCoords && JSON.stringify(startCoords);
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -155,9 +161,9 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
-        startCoords,
+        startCoordsKey,
         allowReflexAngles,
-        pointLabels,
+        pointLabelsKey,
         showPointLabels,
     ]);
 

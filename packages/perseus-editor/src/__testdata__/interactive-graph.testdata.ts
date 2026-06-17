@@ -50,6 +50,43 @@ export const pointQuestionWithStartingCoords: PerseusRenderer =
         correct: generateIGPointGraph({numPoints: 2}),
     });
 
+// TODO: Remove this before landing to main
+export const pointWithCustomLabelQuestion: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        content:
+            "Three vertices of a rectangle are at $Q(-4, 5)$, $R(4, 5)$, and $S(4, 2)$.\n\n**Plot point $T$ to complete the rectangle.**\n\n[[☃ interactive-graph 1]]",
+        markings: "graph",
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        step: [1, 1],
+        range: [
+            [-6, 6],
+            [-2, 6],
+        ],
+        lockedFigures: [
+            generateIGLockedPoint({
+                coord: [-4, 5],
+                labels: [
+                    generateIGLockedLabel({text: "Q", coord: [-4.5, 5.5]}),
+                ],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 5],
+                labels: [generateIGLockedLabel({text: "R", coord: [4.5, 5.5]})],
+            }),
+            generateIGLockedPoint({
+                coord: [4, 2],
+                labels: [generateIGLockedLabel({text: "S", coord: [4.5, 1.5]})],
+            }),
+        ],
+        correct: generateIGPointGraph({
+            numPoints: 1,
+            startCoords: [[0, 0]],
+            coords: [[-4, 2]],
+            pointLabels: ["T"],
+        }),
+    });
+
 // Clockwise points
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     generateInteractiveGraphQuestion({

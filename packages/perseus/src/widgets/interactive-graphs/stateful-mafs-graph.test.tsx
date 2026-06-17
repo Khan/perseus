@@ -9,6 +9,7 @@ import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
+import * as InteractiveGraphAction from "./reducer/interactive-graph-action";
 import {MOVE_POINT_IN_FIGURE} from "./reducer/interactive-graph-action";
 import * as GraphReducer from "./reducer/interactive-graph-reducer";
 import {StatefulMafsGraph} from "./stateful-mafs-graph";
@@ -297,6 +298,99 @@ describe("StatefulMafsGraph", () => {
         expect(
             screen.getAllByTestId("movable-point__visible-label"),
         ).toHaveLength(2);
+    });
+
+    it("does not reinitialize when pointLabels has the same values but a new array reference (LEMS-4205)", () => {
+        // The editor preview rebuilds graph props every render, so a
+        // fresh-but-equal pointLabels array must not re-fire reinitialize.
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // A new array reference with identical values must not re-fire.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        expect(reinitializeSpy).not.toHaveBeenCalled();
+
+        // A real label change still triggers it.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["U"],
+                }}
+            />,
+        );
+        expect(reinitializeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not reinitialize when startCoords has the same values but a new array reference (LEMS-4205)", () => {
+        // Same stabilization as pointLabels: a fresh-but-equal startCoords
+        // array must not re-fire reinitialize.
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // A new array reference with identical values must not re-fire.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        expect(reinitializeSpy).not.toHaveBeenCalled();
+
+        // A real coordinate change still triggers it.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[2, 2]]}}
+            />,
+        );
+        expect(reinitializeSpy).toHaveBeenCalledTimes(1);
     });
 
     it("re-renders when the number of sides on a polygon graph changes", () => {
