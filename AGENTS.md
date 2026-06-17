@@ -6,7 +6,11 @@ Perseus is Khan Academy's educational content rendering system that powers all e
 - **Renderers**: Display content (ServerItemRenderer for exercises, ArticleRenderer for articles)
 - **Widgets**: Interactive components (radio, numeric-input, interactive-graph, etc.)
 - **Editors**: Authoring interfaces for content creators
-- **Math**: TeX expressions rendered via MathJax
+- **Scoring**: Server-side answer checking (perseus-score)
+- **Validation**: Input validation before scoring (perseus-score)
+- **Data Schema**: Typed content definitions (perseus-core/src/data-schema.ts)
+- **Parsers**: Content parsing utilities (perseus-core)
+- **Editor Linters**: Content validation rules (perseus-linter)
 
 ## Quick Start Commands
 
