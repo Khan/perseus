@@ -40,7 +40,7 @@ export function convertGrapherOptionsToInteractiveGraph(
         snapStep: grapherOptions.graph.snapStep,
         backgroundImage: grapherOptions.graph.backgroundImage,
         markings: grapherOptions.graph.markings,
-        labels: grapherOptions.graph.labels,
+        labels: grapherOptions.graph.labels.map(wrapTexInDelimitersForMarkdown),
         labelLocation: "onAxis",
         showAxisArrows: {
             xMin: true,
@@ -186,4 +186,8 @@ function grapherAnswerTypesToPerseusGraphType(
 
 function grapherFunctionTypeToInteractiveGraphType(type: GrapherFunctionType) {
     return type === "absolute_value" ? "absolute-value" : type;
+}
+
+function wrapTexInDelimitersForMarkdown(tex): string {
+    return `$${tex}$`;
 }
