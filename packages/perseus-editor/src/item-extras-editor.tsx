@@ -1,18 +1,17 @@
 import {components} from "@khanacademy/perseus";
-import {ItemExtras, getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import {ItemExtras, getDefaultAnswerArea, isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     CalculatorVariant,
     PerseusAnswerArea,
 } from "@khanacademy/perseus-core";
 
-// TODO(LEMS-4180): remove once desmos-calculator feature flag is enabled for learners
-const CALCULATOR_VARIANTS_ENABLED = true;
 
 const calculatorVariants: Array<{
     label: string;
@@ -39,6 +38,7 @@ const calculatorVariants: Array<{
 const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
+    apiOptions?: APIOptions;
     onChange: (props: Partial<PerseusAnswerArea>) => void;
     // Whether the editor is disabled. Can be set via API options
     // to make the editor read-only when needed.
@@ -88,7 +88,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {CALCULATOR_VARIANTS_ENABLED &&
+                    {isFeatureOn(this.props, "desmos-calculator") &&
                         this.shouldShowCalculatorVariants() &&
                         calculatorVariants.map((calcVariant) => (
                             <ItemExtraCheckbox
