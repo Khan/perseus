@@ -42,7 +42,7 @@ export default {
 
 ### Widget State Management
 - Use `useState` or `useReducer` for local UI state that doesn't represent user input
-- User input state must not be stored locally — emit changes via `onChange` and receive state via the `userInput` prop
+- User input state must not be stored locally — emit changes via `handleUserInput` and receive state via the `userInput` prop
 - The props type should be derived from `WidgetProps<...>` and the widget options type in `data-schema.ts`
 - `getSerializedState` is deprecated — if the interface requires it, implement it as `return {}`
 
