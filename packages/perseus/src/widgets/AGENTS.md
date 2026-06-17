@@ -35,7 +35,7 @@ export default {
     displayName: "Widget Display Name",
     widget: WidgetComponent,
     isLintable: true, // For use by the editor
-} as WidgetExports<typeof WidgetComponent>;
+} satisfies WidgetExports<typeof WidgetComponent>;
 ```
 
 ## Common Issues & Solutions
