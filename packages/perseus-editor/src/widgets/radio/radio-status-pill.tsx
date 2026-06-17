@@ -1,60 +1,68 @@
+import {StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import Pill from "@khanacademy/wonder-blocks-pill";
-import {semanticColor, sizing, border} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
+
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface RadioStatusPillProps {
     index: number;
     correct?: boolean;
     multipleSelect: boolean;
-    onClick: () => void;
 }
 
+// Passed to StatusBadge's `styles` prop.
+// Uses a fixed-width box so the A/B/C indicators
+// stay aligned; `cursor: default` since the badge is read-only.
+const boxStyle: StyleType = {
+    width: sizing.size_560,
+    justifyContent: "center",
+    boxSizing: "border-box",
+    cursor: "default",
+};
+const roundStyle: StyleType = {borderRadius: sizing.size_240};
+const squareStyle: StyleType = {borderRadius: border.radius.radius_040};
+// Styles matching the runtime choice indicator.
+const correctStrongStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.success.strong,
+    borderColor: semanticColor.core.border.success.strong,
+};
+const knockoutForegroundStyle: StyleType = {
+    color: semanticColor.core.foreground.knockout.default,
+};
+
+/**
+ * * A read-only status indicator showing whether a choice is correct or incorrect,
+ * labeled with the choice letter (A, B, C...). Status is changed via the
+ * adjacent segmented control.
+ */
 export function RadioStatusPill({
     index,
     correct,
     multipleSelect,
-    onClick,
 }: RadioStatusPillProps) {
     return (
-        <Pill
-            size="large"
-            // TODO(LEMS-3686): Update to use CSS modules when we can
-            // use them with Wonder Blocks.
-            style={{
-                // Space between the pill and the text
-                marginInlineEnd: sizing.size_080,
-                color: correct
-                    ? semanticColor.core.foreground.knockout.default
-                    : semanticColor.core.foreground.critical.default,
-                backgroundColor: correct
-                    ? semanticColor.core.background.success.strong
-                    : semanticColor.core.background.critical.subtle,
-                // Round for single select, square for multiple select
-                borderRadius: multipleSelect
-                    ? border.radius.radius_040
-                    : sizing.size_240,
-                border: `1px solid ${correct ? semanticColor.core.border.success.strong : semanticColor.core.border.critical.default}`,
-                width: sizing.size_560,
-                flexDirection: "row",
-            }}
-            onClick={onClick}
-        >
-            <>
+        <StatusBadge
+            kind={correct ? "success" : "critical"}
+            icon={
                 <PhosphorIcon
                     size="small"
                     icon={correct ? checkIcon : minusCircleIcon}
-                    style={{marginInlineEnd: sizing.size_060}}
-                    color={
-                        correct
-                            ? semanticColor.core.foreground.knockout.default
-                            : semanticColor.core.foreground.critical.default
-                    }
                 />
-                {String.fromCharCode(65 + index)}
-            </>
-        </Pill>
+            }
+            label={String.fromCharCode(65 + index)}
+            styles={{
+                // Round for single select, square for multiple select.
+                root: [
+                    boxStyle,
+                    multipleSelect ? squareStyle : roundStyle,
+                    correct && correctStrongStyle,
+                ],
+                label: correct && knockoutForegroundStyle,
+                icon: correct && knockoutForegroundStyle,
+            }}
+        />
     );
 }

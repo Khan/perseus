@@ -51,6 +51,7 @@
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-badge": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
@@ -83,6 +84,7 @@
     "peerDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-badge": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:peerDeps",
@@ -112,6 +114,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "8d63a26474e3cbb4"
+        "catalogHash": "1fab6704d94ffe20"
     }
 }

@@ -7,15 +7,9 @@ import {
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {
-    sizing,
-    spacing,
-    semanticColor,
-} from "@khanacademy/wonder-blocks-tokens";
+import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import AngleInput from "../../../components/angle-input";
@@ -26,6 +20,7 @@ import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect from "./line-stroke-select";
 import LineWeightSelect from "./line-weight-select";
+import styles from "./locked-ellipse-settings.module.css";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
@@ -43,9 +38,20 @@ import type {
     LockedFigureColor,
     LockedLabelType,
 } from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {convertRadiansToDegrees} = angles;
 const {InfoTip} = components;
+
+// Passed to CoordinatePairInput's/View's `style` and LockedLabelSettings'
+// `containerStyle`, which are typed as Wonder Blocks `StyleType` and do not
+// accept a CSS-module className.
+const spaceUnderStyle: StyleType = {
+    marginBottom: sizing.size_080,
+};
+const labelContainerStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.base.default,
+};
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedEllipseType & {
@@ -167,13 +173,12 @@ const LockedEllipseSettings = (props: Props) => {
             onToggle={onToggle}
             header={
                 // Summary: Ellipse, center, radius, color (opacity, dashed)
-                <View style={styles.row}>
+                <View className={`${styles.row} ${styles.header}`}>
                     <BodyText
                         size="medium"
                         tag="span"
                         weight="bold"
                     >{`Ellipse (${center[0]}, ${center[1]}), radius ${radius[0]}, ${radius[1]}`}</BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <EllipseSwatch
                         color={props.color}
                         fillStyle={fillStyle}
@@ -183,13 +188,13 @@ const LockedEllipseSettings = (props: Props) => {
             }
         >
             {/* Center point */}
-            <View style={styles.row}>
+            <View className={styles.row}>
                 <CoordinatePairInput
                     coord={center}
-                    style={styles.spaceUnder}
+                    style={spaceUnderStyle}
                     onChange={handleCenterChange}
                 />
-                <View style={styles.spaceUnder}>
+                <View className={styles.spaceUnder}>
                     <InfoTip>
                         The coordinates for the center of the ellipse.
                     </InfoTip>
@@ -200,7 +205,7 @@ const LockedEllipseSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={radius}
                 labels={["x radius", "y radius"]}
-                style={styles.spaceUnder}
+                style={spaceUnderStyle}
                 onChange={(newCoords: Coord) =>
                     onChangeProps({radius: newCoords})
                 }
@@ -213,23 +218,20 @@ const LockedEllipseSettings = (props: Props) => {
                     onChangeProps({angle: newAngle})
                 }
             />
-            <Strut size={spacing.xSmall_8} />
 
-            <View style={[styles.row, styles.spaceUnder]}>
+            <View className={`${styles.row} ${styles.colorRow}`}>
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
                     onChange={handleColorChange}
                 />
-                <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
                 <BodyText
                     tag="label"
-                    style={[styles.row, styles.truncatedWidth]}
+                    className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
                         // TODO(LEMS-2656): remove TS suppression
@@ -266,8 +268,7 @@ const LockedEllipseSettings = (props: Props) => {
             />
 
             {/* Aria label */}
-            <Strut size={spacing.small_12} />
-            <View style={styles.horizontalRule} />
+            <View className={`${styles.horizontalRule} ${styles.sectionTop}`} />
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
@@ -277,10 +278,10 @@ const LockedEllipseSettings = (props: Props) => {
             />
 
             {/* Visible Labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
@@ -292,7 +293,7 @@ const LockedEllipseSettings = (props: Props) => {
                     onRemove={() => {
                         handleLabelRemove(labelIndex);
                     }}
-                    containerStyle={styles.labelContainer}
+                    containerStyle={labelContainerStyle}
                 />
             ))}
             <Button
@@ -315,7 +316,7 @@ const LockedEllipseSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -329,30 +330,5 @@ const LockedEllipseSettings = (props: Props) => {
         </PerseusEditorAccordion>
     );
 };
-
-const styles = StyleSheet.create({
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
-    },
-    truncatedWidth: {
-        // Allow truncation, stop bleeding over the edge.
-        minWidth: 0,
-    },
-    addButton: {
-        alignSelf: "start",
-    },
-    labelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-});
 
 export default LockedEllipseSettings;

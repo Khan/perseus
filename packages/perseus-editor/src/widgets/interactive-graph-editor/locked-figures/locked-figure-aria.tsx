@@ -2,16 +2,16 @@ import {components} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import styles from "./locked-figure-aria.module.css";
 
 const {InfoTip} = components;
 
-type Props = {
+interface Props {
     ariaLabel: string | undefined;
     /**
      * The async function that generates the prepopulated aria label
@@ -19,7 +19,7 @@ type Props = {
      */
     getPrepopulatedAriaLabel: () => Promise<string>;
     onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
-};
+}
 
 function LockedFigureAria(props: Props) {
     const {ariaLabel, getPrepopulatedAriaLabel, onChangeProps} = props;
@@ -29,9 +29,8 @@ function LockedFigureAria(props: Props) {
     const [loading, setLoading] = React.useState(false);
 
     return (
-        <View>
-            <Strut size={spacing.xSmall_8} />
-            <View style={styles.row}>
+        <View className={styles.container}>
+            <View className={styles.row}>
                 <BodyText tag="label" htmlFor={ariaLabelId}>
                     Aria label
                 </BodyText>
@@ -50,12 +49,10 @@ function LockedFigureAria(props: Props) {
                     point using a screen reader.
                 </InfoTip>
             </View>
-            <Strut size={spacing.xxSmall_6} />
-            <BodyText size="xsmall" style={styles.caption}>
+            <BodyText size="xsmall" className={styles.caption}>
                 The figure is hidden from screen readers if this field is left
                 blank.
             </BodyText>
-            <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}
                 value={loading ? "Loading..." : ariaLabel ?? ""}
@@ -73,7 +70,7 @@ function LockedFigureAria(props: Props) {
             <Button
                 kind="tertiary"
                 startIcon={pencilCircle}
-                style={styles.button}
+                className={styles.button}
                 onClick={() => {
                     setLoading(true);
                     getPrepopulatedAriaLabel().then((ariaLabel) => {
@@ -87,18 +84,5 @@ function LockedFigureAria(props: Props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    row: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    button: {
-        alignSelf: "start",
-    },
-    caption: {
-        color: semanticColor.core.foreground.neutral.subtle,
-    },
-});
 
 export default LockedFigureAria;

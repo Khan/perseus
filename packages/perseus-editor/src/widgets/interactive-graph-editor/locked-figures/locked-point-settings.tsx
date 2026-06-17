@@ -7,11 +7,9 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
@@ -23,6 +21,7 @@ import ColorSwatch from "./color-swatch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
+import styles from "./locked-point-settings.module.css";
 import {
     generateSpokenMathDetails,
     generateLockedFigureAppearanceDescription,
@@ -31,6 +30,13 @@ import {
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+// Passed to Wonder Blocks `style`/`containerStyle` props (typed as
+// `StyleType`), which do not accept a CSS-module className.
+const spaceUnderStyle: StyleType = {
+    marginBottom: sizing.size_080,
+};
 
 export type Props = LockedPointType & {
     /**
@@ -181,23 +187,38 @@ const LockedPointSettings = (props: Props) => {
             expanded={expanded}
             onToggle={onToggle}
             containerStyle={
-                isDefiningPoint ? styles.definingContainer : undefined
+                isDefiningPoint
+                    ? {
+                          marginTop: sizing.size_080,
+                          marginBottom: 0,
+                          marginLeft: -sizing.size_040,
+                          marginRight: -sizing.size_040,
+                          backgroundColor:
+                              semanticColor.core.background.base.default,
+                      }
+                    : undefined
             }
-            panelStyle={isDefiningPoint ? styles.definingPanel : undefined}
+            panelStyle={
+                isDefiningPoint
+                    ? {
+                          // Need more space since we don't have the actions' margins.
+                          paddingBottom: sizing.size_060,
+                      }
+                    : undefined
+            }
             header={
                 // Summary: Point, coords, color (filled/open)
-                <View style={styles.row}>
+                <View className={styles.row}>
                     <BodyText size="medium" weight="bold" tag="span">
                         {`${headerLabel || "Point"} (${coord[0]}, ${coord[1]})`}
                     </BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <ColorSwatch color={pointColor} filled={filled} />
                 </View>
             }
         >
             <CoordinatePairInput
                 coord={coord}
-                style={styles.spaceUnder}
+                style={spaceUnderStyle}
                 onChange={handleCoordChange}
                 error={!!error}
             />
@@ -207,7 +228,7 @@ const LockedPointSettings = (props: Props) => {
                 <LabeledSwitch
                     label="show point on graph"
                     checked={!!showPoint}
-                    style={showPoint && styles.spaceUnder}
+                    style={showPoint && spaceUnderStyle}
                     onChange={onTogglePoint}
                 />
             )}
@@ -218,7 +239,7 @@ const LockedPointSettings = (props: Props) => {
                     <ColorSelect
                         selectedValue={pointColor}
                         onChange={handleColorChange}
-                        style={styles.spaceUnder}
+                        style={spaceUnderStyle}
                     />
                     <LabeledSwitch
                         label="open point"
@@ -232,8 +253,9 @@ const LockedPointSettings = (props: Props) => {
 
             {!isDefiningPoint && (
                 <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
+                    <View
+                        className={`${styles.horizontalRule} ${styles.sectionTop}`}
+                    />
 
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
@@ -246,16 +268,19 @@ const LockedPointSettings = (props: Props) => {
             )}
 
             {/* Visible labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
                     containerStyle={
-                        !isDefiningPoint && styles.lockedPointLabelContainer
+                        !isDefiningPoint && {
+                            backgroundColor:
+                                semanticColor.core.background.base.default,
+                        }
                     }
                     expanded={true}
                     onChangeProps={(newLabel) => {
@@ -289,7 +314,7 @@ const LockedPointSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -304,38 +329,5 @@ const LockedPointSettings = (props: Props) => {
         </PerseusEditorAccordion>
     );
 };
-
-const styles = StyleSheet.create({
-    definingContainer: {
-        marginTop: spacing.xSmall_8,
-        marginBottom: 0,
-        marginLeft: -spacing.xxxSmall_4,
-        marginRight: -spacing.xxxSmall_4,
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    definingPanel: {
-        // Need more space since we don't have the actions' margins.
-        paddingBottom: spacing.xxSmall_6,
-    },
-    // A regular point (NOT a defining point) has label
-    // accordions with white backgrounds.
-    lockedPointLabelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    row: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
-    },
-    addButton: {
-        alignSelf: "start",
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-});
 
 export default LockedPointSettings;
