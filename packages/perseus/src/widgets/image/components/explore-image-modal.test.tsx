@@ -22,9 +22,6 @@ import {ExploreImageModal} from "./explore-image-modal";
 import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-// Decoding lives in the modal content now (via decodeGifFrames in ../utils),
-// so we mock the decode directly rather than stubbing fetch + gifuct-js. This
-// also avoids colliding with mockImageLoading(), which reassigns global.fetch.
 jest.mock("../utils", () => ({
     ...jest.requireActual("../utils"),
     decodeGifFrames: jest.fn(),
