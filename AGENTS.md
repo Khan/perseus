@@ -80,7 +80,6 @@ describe("WidgetComponent", () => {
 ```
 
 ### Writing Tests
-- use `describe` to group related tests
 - Test titles should describe the requirement or observable outcome, not the implementation.
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
