@@ -42,23 +42,6 @@ packages/
 └── perseus-score/       # Server-side scoring functions
 ```
 
-## Package Dependencies
-
-### Import Guidelines
-- Use package aliases: `@khanacademy/perseus`, `@khanacademy/perseus-editor`
-- NO file extensions in imports (`.ts`, `.tsx` banned by ESLint)
-- NO cross-package relative imports
-- Import order: builtin > external > internal > relative > types
-
-### Example Correct Imports
-```typescript
-import React from "react";                           // external
-import {ApiOptions} from "@khanacademy/perseus";     // internal package
-import {WidgetContainer} from "../widget-container"; // relative
-
-import type {WidgetProps} from "@khanacademy/perseus-core";
-```
-
 ## Testing Guidelines
 
 ### Test Structure
