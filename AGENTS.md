@@ -85,6 +85,14 @@ describe("WidgetComponent", () => {
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
 
+## Commit Messages
+
+Focus on what changed and why — write for someone reading git log in 5 years.
+- Describe the behavior change, not the implementation steps
+- Explain the motivation (the "why")
+- Note anything surprising or non-obvious
+- Omit information already visible in the diff or PR description
+
 ## Deployment Notes
 
 ### Before Submitting PR
