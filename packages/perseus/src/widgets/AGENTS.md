@@ -52,7 +52,7 @@ export default {
 - Consider on-screen keypad for math inputs
 - Test with different screen sizes using Storybook
 
-## Debugging Tips
+## Development Tips
 
 ### Storybook Development
 - Use Storybook for isolated component development
