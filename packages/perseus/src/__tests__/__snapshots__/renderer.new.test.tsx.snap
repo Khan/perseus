@@ -1,0 +1,639 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`renderer rendering should render a table when isMobile: false 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+            >
+              Heading 1
+            </th>
+            <th
+              scope="col"
+            >
+              Heading 2
+            </th>
+            <th
+              scope="col"
+            >
+              Heading 3
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              r1c1
+            </td>
+            <td>
+              r1c2
+            </td>
+            <td>
+              r1c3
+            </td>
+          </tr>
+          <tr>
+            <td>
+              r2c1
+            </td>
+            <td>
+              r2c2
+            </td>
+            <td>
+              r2c3
+            </td>
+          </tr>
+          <tr>
+            <td>
+              r3c1
+            </td>
+            <td>
+              r3c2
+            </td>
+            <td>
+              r3c3
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render a table when isMobile: true 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          style="padding-left: 0px; padding-right: 0px; transform: translate3d(0,0,0); overflow-x: auto;"
+        >
+          <span
+            style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
+          >
+            <table
+              tabindex="0"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                  >
+                    Heading 1
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Heading 2
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Heading 3
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    r1c1
+                  </td>
+                  <td>
+                    r1c2
+                  </td>
+                  <td>
+                    r1c3
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    r2c1
+                  </td>
+                  <td>
+                    r2c2
+                  </td>
+                  <td>
+                    r2c3
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    r3c1
+                  </td>
+                  <td>
+                    r3c2
+                  </td>
+                  <td>
+                    r3c3
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render block math 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        This is some block math
+      </div>
+    </div>
+    <div
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="perseus-block-math"
+      >
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+        >
+          <span
+            class="mock-TeX"
+          >
+            1 + 2
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        And a footer.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render block math on mobile 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        This is some block math
+      </div>
+    </div>
+    <div
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="perseus-block-math"
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
+        >
+          <span
+            style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1;"
+          >
+            <span
+              class="mock-TeX"
+            >
+              1 + 2
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        And a footer.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render columns 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="perseus-two-columns"
+      >
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              Stuff in column 1
+            </div>
+          </div>
+        </div>
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              Stuff in column 2
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render the math 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        This is some inline math: 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            1 + 2
+          </span>
+          <span />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots correct answer: correct answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The total number of boxes the forklift can carry is 
+        <div
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            class="default_7zhre1"
+          >
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r3:"
+            >
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r4:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r3:"
+                role="combobox"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        less than or equal to
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The total number of boxes the forklift can carry is 
+        <div
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            class="default_7zhre1"
+          >
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r6:"
+            >
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r7:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r6:"
+                role="combobox"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater than or equal to
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots initial render: initial render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The total number of boxes the forklift can carry is 
+        <div
+          class="perseus-widget-container widget-inline-block"
+        >
+          <div
+            class="default_7zhre1"
+          >
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r0:"
+            >
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r1:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r0:"
+                role="combobox"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        greater/less than or equal to
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots renders a placeholder for a deprecated widget: deprecated widget 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            style="padding-top: 8px; padding-bottom: 8px;"
+          >
+            <div
+              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
+              role="status"
+            >
+              <div
+                class="default_7zhre1-o_O-containerInner_1lza62o"
+              >
+                <span
+                  aria-label="info"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
+                  data-testid="banner-kind-icon"
+                  role="img"
+                />
+                <div
+                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
+                >
+                  <div
+                    class="default_7zhre1-o_O-labelContainer_14mmd26"
+                  >
+                    <div
+                      class="labelTypography_1y1267m"
+                    >
+                      Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

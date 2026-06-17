@@ -1,11 +1,17 @@
-const DEFAULT_FEATURE_FLAGS = {
+import type {PerseusFeatureFlags} from "@khanacademy/perseus-core";
+
+const DEFAULT_FEATURE_FLAGS: Record<
+    | "perseus-test-flag-1"
+    | "perseus-test-flag-2"
+    | (typeof PerseusFeatureFlags)[number],
+    boolean
+> = {
     // Flags for testing.
     "perseus-test-flag-1": false,
     "perseus-test-flag-2": false,
     // Real production flags.
-    "interactive-graph-vector": false,
-    "interactive-graph-not-scored": false,
     "input-number-to-numeric-input": false,
+    "perseus-renderer-upgrade": false,
     "grapher-to-interactive-graph": false,
     "desmos-calculator": false,
     // ...add new flags here

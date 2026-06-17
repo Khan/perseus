@@ -3,9 +3,8 @@
  * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PERSEUS MARKDOWN! *
  *                                                                     *
  ***********************************************************************/
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
-// This file is the original perseus markdown that is being replaced by the
-// new perseus markdown.
+// TODO(LEMS-4304): feature flag cleanup - rename this file to perseus-markdown.tsx.
+// This file is the new perseus markdown that will replace the old perseus markdown.
 import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";

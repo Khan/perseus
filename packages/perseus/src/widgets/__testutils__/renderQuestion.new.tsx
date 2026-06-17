@@ -1,4 +1,4 @@
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
+// TODO(LEMS-4304): feature flag cleanup - rename this file to renderQuestion.tsx.
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
@@ -11,6 +11,7 @@ import {
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependenciesV2,
     testDependencies,
@@ -52,7 +53,13 @@ export const renderQuestion = (
                         ref={(node) => (renderer = node)}
                         // eslint-disable-next-line no-restricted-syntax
                         question={question as any}
-                        apiOptions={apiOptions}
+                        apiOptions={{
+                            ...apiOptions,
+                            // TODO(LEMS-4304): clean up feature flag.
+                            flags: getFeatureFlags({
+                                "perseus-renderer-upgrade": true,
+                            }),
+                        }}
                         initialUserInput={initialUserInput}
                         extraProps={{
                             ...extraProps,

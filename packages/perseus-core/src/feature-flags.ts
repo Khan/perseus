@@ -11,6 +11,7 @@
  */
 const PerseusFeatureFlags = [
     "input-number-to-numeric-input", // TODO(LEMS-4085): clean up feature flag
+    "perseus-renderer-upgrade", // TODO(LEMS-4304): clean up feature flag
     "grapher-to-interactive-graph", // TODO(LEMS-4259): clean up feature flag
     "desmos-calculator", // TODO(LEMS-4180): clean up feature flag
 ] as const;

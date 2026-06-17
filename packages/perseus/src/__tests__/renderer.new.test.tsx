@@ -1,4 +1,4 @@
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
+// TODO(LEMS-4304): feature flag cleanup - rename this file to renderer.test.tsx.
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
     generateTestPerseusItem,
@@ -27,7 +27,7 @@ import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../widgets/__testutils__/renderQuestion.new";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
