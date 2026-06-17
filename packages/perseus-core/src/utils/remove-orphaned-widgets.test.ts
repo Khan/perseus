@@ -26,6 +26,7 @@ describe("removeOrphanedWidgetsFromPerseusItem", () => {
             hints: [renderer],
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
