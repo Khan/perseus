@@ -1,5 +1,35 @@
 # @khanacademy/perseus
 
+## 78.1.0
+
+### Minor Changes
+
+-   [#3743](https://github.com/Khan/perseus/pull/3743) [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2) Thanks [@benchristel](https://github.com/benchristel)! - When the `grapher-to-interactive-graph` feature flag is on, render Grapher widgets using the Interactive Graph UI components.
+
+### Patch Changes
+
+-   [#3744](https://github.com/Khan/perseus/pull/3744) [`af9eb1c495`](https://github.com/Khan/perseus/commit/af9eb1c4951aa6d77e41ff848ba4be168e21a980) Thanks [@Myranae](https://github.com/Myranae)! - Convert hardcoded colors and fonts in math-input components to semantic tokens (cursor-handle, keypad-button, navigation-button)
+
+*   [#3777](https://github.com/Khan/perseus/pull/3777) [`af7027bb2f`](https://github.com/Khan/perseus/commit/af7027bb2f5bb06a73880cba031759bedb6d0196) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Editor label fix + editor styling/type modernization
+
+-   [#3784](https://github.com/Khan/perseus/pull/3784) [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79) Thanks [@benchristel](https://github.com/benchristel)! - Internal: `WidgetLogic.version` is now the source of truth for widget versions.
+
+*   [#3781](https://github.com/Khan/perseus/pull/3781) [`2a7a4c8189`](https://github.com/Khan/perseus/commit/2a7a4c8189372950fc512bea426880b19c184fbb) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 1c75dbe1da3f9987d58cebe0a8186fbfba7433c7
+
+-   [#3789](https://github.com/Khan/perseus/pull/3789) [`a4951c31a0`](https://github.com/Khan/perseus/commit/a4951c31a040784b6cefec96efbc28b55360f1fa) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 6eb7b7f91562c2d8c7ba19ba73c832e0d0169649
+
+*   [#3778](https://github.com/Khan/perseus/pull/3778) [`df41413dba`](https://github.com/Khan/perseus/commit/df41413dbab119d44490792773c3f394526a11dd) Thanks [@Myranae](https://github.com/Myranae)! - Increase delay on flaky TeX Chromatic snapshot for Matcher
+
+-   [#3785](https://github.com/Khan/perseus/pull/3785) [`be10fbbe03`](https://github.com/Khan/perseus/commit/be10fbbe03e9c2afa557a93ced9708b71237daeb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: a magical comment that was once needed to make the build work is no longer needed and has been removed.
+
+-   Updated dependencies [[`af9eb1c495`](https://github.com/Khan/perseus/commit/af9eb1c4951aa6d77e41ff848ba4be168e21a980), [`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79), [`2a7a4c8189`](https://github.com/Khan/perseus/commit/2a7a4c8189372950fc512bea426880b19c184fbb), [`a4951c31a0`](https://github.com/Khan/perseus/commit/a4951c31a040784b6cefec96efbc28b55360f1fa)]:
+    -   @khanacademy/math-input@26.4.36
+    -   @khanacademy/perseus-core@28.1.0
+    -   @khanacademy/keypad-context@3.2.64
+    -   @khanacademy/kmath@2.4.22
+    -   @khanacademy/perseus-linter@5.1.3
+    -   @khanacademy/perseus-score@8.11.6
+
 ## 78.0.1
 
 ### Patch Changes

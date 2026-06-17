@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 28.1.0
+
+### Minor Changes
+
+-   [#3750](https://github.com/Khan/perseus/pull/3750) [`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b) Thanks [@benchristel](https://github.com/benchristel)! - A new feature flag has been added to `PerseusFeatureFlags`: `grapher-to-interactive-graph`. It is currently a no-op.
+
+*   [#3743](https://github.com/Khan/perseus/pull/3743) [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2) Thanks [@benchristel](https://github.com/benchristel)! - When the `grapher-to-interactive-graph` feature flag is on, render Grapher widgets using the Interactive Graph UI components.
+
+### Patch Changes
+
+-   [#3784](https://github.com/Khan/perseus/pull/3784) [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79) Thanks [@benchristel](https://github.com/benchristel)! - Internal: `WidgetLogic.version` is now the source of truth for widget versions.
+
 ## 28.0.1
 
 ### Patch Changes
