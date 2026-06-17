@@ -1,5 +1,3 @@
-import {getEffectivePointLabels} from "./point-labels";
-
 import type {InteractiveGraphState} from "../types";
 import type {Interval, vec} from "mafs";
 
@@ -9,42 +7,36 @@ export type MovablePointLabel = {
     text: string;
 };
 
+// One of 8 cardinal directions used to anchor a visible label relative to
+// its movable point. `n` = label sits north of the point, `ne` = north-east,
+// `e` = east of the point, etc.
 export type LabelAttach = "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw";
 
-export function getLabeledMovablePoints(
+export function getMovablePointLabels(
     state: InteractiveGraphState,
 ): MovablePointLabel[] {
-    if (state.showPointLabels !== true) {
+    if (!state.showPointLabels) {
         return [];
     }
     const {pointLabels} = state;
 
     switch (state.type) {
         case "point":
-        case "polygon": {
-            const effective = getEffectivePointLabels(
-                true,
-                pointLabels,
-                state.coords.length,
-            );
+        case "polygon":
             return collect(
                 state.coords,
-                effective,
+                pointLabels,
                 (i) => `${state.type}-${i}`,
             );
-        }
-        case "angle": {
+        case "angle":
             // pointLabels indexes match state.coords: [0]=ending side,
             // [1]=vertex, [2]=starting side. The vertex sits at index 1
             // even though it renders first in the DOM.
-            const effective = getEffectivePointLabels(true, pointLabels, 3);
-            return collect(state.coords, effective, (i) => `angle-${i}`);
-        }
+            return collect(state.coords, pointLabels, (i) => `angle-${i}`);
         case "circle": {
             // Center is a MovableCircle, not a MovablePoint, and stays
             // unlabeled by design — only the radius handle is labelable.
-            const effective = getEffectivePointLabels(true, pointLabels, 1);
-            const text = effective?.[0];
+            const text = pointLabels?.[0];
             if (text == null || text === "") {
                 return [];
             }
@@ -52,14 +44,12 @@ export function getLabeledMovablePoints(
         }
         case "sinusoid":
         case "linear":
-        case "ray": {
-            const effective = getEffectivePointLabels(true, pointLabels, 2);
+        case "ray":
             return collect(
                 state.coords,
-                effective,
+                pointLabels,
                 (i) => `${state.type}-${i}`,
             );
-        }
         case "linear-system":
         case "segment": {
             // Flat-indexed across all line/segment endpoints:
@@ -68,28 +58,23 @@ export function getLabeledMovablePoints(
                 pair[0],
                 pair[1],
             ]);
-            const effective = getEffectivePointLabels(
-                true,
+            return collect(
+                flatCoords,
                 pointLabels,
-                flatCoords.length,
+                (i) => `${state.type}-${i}`,
             );
-            return collect(flatCoords, effective, (i) => `${state.type}-${i}`);
         }
         case "absolute-value":
         case "exponential":
         case "logarithm":
-        case "tangent": {
-            const effective = getEffectivePointLabels(true, pointLabels, 2);
+        case "tangent":
             return collect(
                 state.coords,
-                effective,
+                pointLabels,
                 (i) => `${state.type}-${i}`,
             );
-        }
-        case "quadratic": {
-            const effective = getEffectivePointLabels(true, pointLabels, 3);
-            return collect(state.coords, effective, (i) => `quadratic-${i}`);
-        }
+        case "quadratic":
+            return collect(state.coords, pointLabels, (i) => `quadratic-${i}`);
         case "vector":
         case "none":
             return [];

@@ -1,4 +1,4 @@
-import {getLabelAttach, getLabeledMovablePoints} from "./movable-point-labels";
+import {getLabelAttach, getMovablePointLabels} from "./movable-point-labels";
 
 import type {
     AbsoluteValueGraphState,
@@ -43,7 +43,7 @@ function pointState(overrides: Partial<PointGraphState> = {}): PointGraphState {
     };
 }
 
-describe("getLabeledMovablePoints", () => {
+describe("getMovablePointLabels", () => {
     it("returns [] when showPointLabels is absent, even if pointLabels is set", () => {
         // In production, content can set `pointLabels` to drive
         // screen-reader announcements without opting into visible
@@ -58,7 +58,7 @@ describe("getLabeledMovablePoints", () => {
         });
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([]);
+        expect(getMovablePointLabels(state)).toEqual([]);
     });
 
     it("returns [] when showPointLabels is true but pointLabels is undefined", () => {
@@ -69,7 +69,7 @@ describe("getLabeledMovablePoints", () => {
         });
 
         // Act, Assert: missing labels stay missing.
-        expect(getLabeledMovablePoints(state)).toEqual([]);
+        expect(getMovablePointLabels(state)).toEqual([]);
     });
 
     it("skips missing or empty entries", () => {
@@ -86,7 +86,7 @@ describe("getLabeledMovablePoints", () => {
         });
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
+        expect(getMovablePointLabels(state)).toEqual([
             {key: "point-0", coord: [1, 2], text: "A"},
         ]);
     });
@@ -106,7 +106,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
+        expect(getMovablePointLabels(state)).toEqual([
             {key: "angle-0", coord: [3, 0], text: "E"},
             {key: "angle-1", coord: [0, 0], text: "V"},
             {key: "angle-2", coord: [0, 3], text: "S"},
@@ -125,7 +125,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
+        expect(getMovablePointLabels(state)).toEqual([
             {key: "circle-radius", coord: [3, 0], text: "R"},
         ]);
     });
@@ -150,7 +150,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act
-        const result = getLabeledMovablePoints(state);
+        const result = getMovablePointLabels(state);
 
         // Assert
         expect(result.map((r) => r.text)).toEqual(["A", "B", "C", "D"]);
@@ -182,7 +182,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(state).map((r) => r.text)).toEqual([
             "a",
             "b",
             "c",
@@ -214,11 +214,11 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(linear).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(linear).map((r) => r.text)).toEqual([
             "s",
             "e",
         ]);
-        expect(getLabeledMovablePoints(sinusoid).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(sinusoid).map((r) => r.text)).toEqual([
             "root",
             "peak",
         ]);
@@ -247,7 +247,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(state).map((r) => r.text)).toEqual([
             "P",
             "Q",
             "R",
@@ -269,7 +269,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
+        expect(getMovablePointLabels(state)).toEqual([
             {key: "quadratic-0", coord: [-3, 2], text: "L"},
             {key: "quadratic-1", coord: [0, -2], text: "V"},
             {key: "quadratic-2", coord: [3, 2], text: "R"},
@@ -290,7 +290,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state)).toEqual([
+        expect(getMovablePointLabels(state)).toEqual([
             {key: "absolute-value-0", coord: [0, 0], text: "V"},
             {key: "absolute-value-1", coord: [3, 3], text: "P"},
         ]);
@@ -310,7 +310,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(state).map((r) => r.text)).toEqual([
             "I",
             "Q",
         ]);
@@ -331,7 +331,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(state).map((r) => r.text)).toEqual([
             "A",
             "B",
         ]);
@@ -352,7 +352,7 @@ describe("getLabeledMovablePoints", () => {
         };
 
         // Act, Assert
-        expect(getLabeledMovablePoints(state).map((r) => r.text)).toEqual([
+        expect(getMovablePointLabels(state).map((r) => r.text)).toEqual([
             "A",
             "B",
         ]);

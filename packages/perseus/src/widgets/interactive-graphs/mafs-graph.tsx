@@ -99,7 +99,7 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
-    apiOptions?: APIOptionsWithDefaults;
+    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -395,7 +395,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         />
                         {isFeatureOn(
                             {apiOptions: props.apiOptions},
-                            "perseus-enable-point-label-field",
+                            "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
                         ) && <MovablePointLabelsLayer state={state} />}
                         <View style={{position: "absolute"}}>
                             <Mafs

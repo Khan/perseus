@@ -165,9 +165,6 @@ export const Point: Story = {
  * on-canvas label.
  */
 export const PointWithCustomLabel: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: pointWithCustomLabelQuestion,
@@ -204,9 +201,6 @@ export const Polygon: Story = {
  * on-canvas label.
  */
 export const PolygonWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: polygonWithCustomLabelsQuestion,
@@ -279,9 +273,6 @@ export const Exponential: Story = {
  * unaffected — `pointLabels` only covers the curve's control points.
  */
 export const ExponentialWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: exponentialWithCustomLabelsQuestion,
@@ -322,9 +313,6 @@ export const Logarithm: Story = {
  * announcement is unaffected.
  */
 export const LogarithmWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: logarithmWithCustomLabelsQuestion,
@@ -344,9 +332,6 @@ export const Tangent: Story = {
  * point" semantic labels.
  */
 export const TangentWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: tangentWithCustomLabelsQuestion,
@@ -360,9 +345,6 @@ export const TangentWithCustomLabels: Story = {
  * the SR announcement matches the prompt's naming convention.
  */
 export const QuadraticWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: quadraticWithCustomLabelsQuestion,
@@ -383,9 +365,6 @@ export const AbsoluteValue: Story = {
  * the prompt's naming convention.
  */
 export const AbsoluteValueWithCustomLabels: Story = {
-    globals: {
-        featureFlags: ["perseus-enable-point-label-field"],
-    },
     args: {
         item: generateTestPerseusItem({
             question: absoluteValueWithCustomLabelsQuestion,

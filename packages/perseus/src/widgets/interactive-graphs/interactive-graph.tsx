@@ -286,7 +286,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     readOnly={this.props.apiOptions?.readOnly}
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
-                    apiOptions={this.props.apiOptions}
+                    apiOptions={this.props.apiOptions} // TODO(AITQ-385): clean up feature flag
                 />
             </>
         );

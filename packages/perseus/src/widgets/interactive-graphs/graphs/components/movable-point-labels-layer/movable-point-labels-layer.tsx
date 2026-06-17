@@ -11,7 +11,7 @@ import * as React from "react";
 import useGraphConfig from "../../../reducer/use-graph-config";
 import {
     getLabelAttach,
-    getLabeledMovablePoints,
+    getMovablePointLabels,
     type LabelAttach,
     type MovablePointLabel,
 } from "../../../utils/movable-point-labels";
@@ -19,12 +19,12 @@ import {pointToPixel} from "../../use-transform";
 
 import type {InteractiveGraphState} from "../../../types";
 
-type Props = {
+interface Props {
     state: InteractiveGraphState;
-};
+}
 
 export default function MovablePointLabelsLayer({state}: Props) {
-    const labeledPoints = getLabeledMovablePoints(state);
+    const labeledPoints = getMovablePointLabels(state);
 
     if (labeledPoints.length === 0) {
         return null;
@@ -71,8 +71,8 @@ function MovablePointLabelView({
                 transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,
                 fontFamily: 'Symbola, "Times New Roman", serif',
-                fontSize: font.size.medium,
-                fontWeight: font.weight.bold,
+                fontSize: font.size.large,
+                fontWeight: font.weight.black,
                 whiteSpace: "nowrap",
                 pointerEvents: "none",
                 filter: "url(#math-stroke)",
