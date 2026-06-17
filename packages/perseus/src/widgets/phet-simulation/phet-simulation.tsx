@@ -8,6 +8,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import arrowSquareOutIcon from "@phosphor-icons/core/regular/arrow-square-out.svg";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import {StyleSheet, css} from "aphrodite";
@@ -234,6 +235,45 @@ export class PhetSimulation
         }
     };
 
+    renderCornerButton(
+        url: URL,
+        isMobileApp: boolean | undefined,
+    ): React.ReactNode {
+        // The mobile app uses its own fullscreen implementation, and web
+        // browsers that support the Fullscreen API can go fullscreen in place.
+        if (isMobileApp || isFullscreenApiSupported()) {
+            return (
+                <IconButton
+                    icon={cornersOutIcon}
+                    onClick={
+                        isMobileApp
+                            ? this.toggleFullScreen
+                            : this.requestIframeFullscreen
+                    }
+                    kind="tertiary"
+                    actionType="neutral"
+                    aria-label={"Fullscreen"}
+                    style={styles.cornerButton}
+                />
+            );
+        }
+
+        // Otherwise the simulation can't be enlarged in place (e.g. Safari on
+        // iPhone, which doesn't support the Fullscreen API), so link out to the
+        // full-size simulation on PhET's site in a new tab instead.
+        return (
+            <IconButton
+                icon={arrowSquareOutIcon}
+                href={url.toString()}
+                target="_blank"
+                kind="tertiary"
+                actionType="neutral"
+                aria-label={this.context.strings.openSimulationInNewTab}
+                style={styles.cornerButton}
+            />
+        );
+    }
+
     render(): React.ReactNode {
         // Extract state and props we'll use
         const {isFullScreen, banner, url} = this.state;
@@ -298,29 +338,14 @@ export class PhetSimulation
                     />
                 </View>
 
-                {/* Fullscreen button (only shown when not in mobile app
-                    fullscreen, and hidden on web browsers that don't support
-                    the Fullscreen API, e.g. Safari on iPhone) */}
+                {/* Corner action button, shown when not already in mobile-app
+                    fullscreen: either a fullscreen toggle (when fullscreen is
+                    available) or, when the browser can't go fullscreen (e.g.
+                    Safari on iPhone), a link to open the simulation on PhET's
+                    site. */}
                 {url !== null &&
                     !isMobileAppFullscreen &&
-                    (isMobileApp || isFullscreenApiSupported()) && (
-                        <IconButton
-                            icon={cornersOutIcon}
-                            onClick={
-                                isMobileApp
-                                    ? this.toggleFullScreen
-                                    : this.requestIframeFullscreen
-                            }
-                            kind="tertiary"
-                            actionType="neutral"
-                            aria-label={"Fullscreen"}
-                            style={{
-                                marginTop: 5,
-                                marginBottom: 5,
-                                alignSelf: "flex-end",
-                            }}
-                        />
-                    )}
+                    this.renderCornerButton(url, isMobileApp)}
             </View>
         );
     }
@@ -333,6 +358,11 @@ const styles = StyleSheet.create({
         borderColor: "#CCC",
         padding: spacing.medium_16,
         paddingBottom: 0,
+    },
+    cornerButton: {
+        marginTop: 5,
+        marginBottom: 5,
+        alignSelf: "flex-end",
     },
     iframeContainer: {
         position: "relative",
