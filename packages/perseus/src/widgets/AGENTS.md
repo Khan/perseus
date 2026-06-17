@@ -8,7 +8,7 @@
    - `[widget-name].test.ts` - Tests
    - `index.ts` - Exports
    - `__docs__/[widget-name].stories.tsx` - Storybook story
-   - `__docs__/[widget-name]-regression.stories.tsx` - Visual regression stories (add `"!manifest"` tag)
+   - `__docs__/[widget-name]-regression.stories.tsx` - Visual regression stories (add `"!autodocs"` and `"!manifest"` tags)
    - `__docs__/a11y.mdx` - Accessibility documentation
 3. **Register widget** in `packages/perseus/src/widgets.ts`
 4. **If scorable, add scoring functions** in `packages/perseus-score/src/widgets/[widget-name]/`:
@@ -59,7 +59,7 @@ export default {
 - Test different props combinations
 - Verify accessibility with Storybook a11y addon
 - Check mobile layouts with device frame addon
-- Create visual regression stories (`*-regression.stories.tsx`) with the `"!manifest"` tag for Chromatic
+- Create visual regression stories (`*-regression.stories.tsx`) with `"!autodocs"` and `"!manifest"` tags for Chromatic
 
 ### Error Boundaries
 - Widgets are wrapped in error boundaries by their parent component
