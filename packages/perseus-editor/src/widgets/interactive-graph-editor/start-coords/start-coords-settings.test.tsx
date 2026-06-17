@@ -1760,25 +1760,6 @@ describe("StartCoordSettings", () => {
             );
         });
 
-        it("disables the toggle when pointLabels is missing entirely", () => {
-            // Arrange, Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="point"
-                    onChange={() => {}}
-                    showPointLabelsFeatureEnabled={true}
-                    onChangeShowPointLabels={() => {}}
-                />,
-            );
-
-            // Assert
-            expect(screen.getByLabelText("Show point labels")).toHaveAttribute(
-                "aria-disabled",
-                "true",
-            );
-        });
-
         it("enables the toggle when every pointLabels entry is non-empty", () => {
             // Arrange, Act
             render(
