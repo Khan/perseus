@@ -1,5 +1,13 @@
 # @khanacademy/perseus-linter
 
+## 5.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79)]:
+    -   @khanacademy/perseus-core@28.1.0
+    -   @khanacademy/kmath@2.4.22
+
 ## 5.1.2
 
 ### Patch Changes
