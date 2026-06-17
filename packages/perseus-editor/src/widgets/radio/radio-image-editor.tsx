@@ -18,7 +18,6 @@ interface RadioImageEditorProps {
     imageAltText: string;
     onSave: (imageUrl: string, imageAltText: string) => void;
     onDelete: () => void;
-    // Whether the whole editor is disabled (apiOptions.editingDisabled).
     editingDisabled?: boolean;
 }
 

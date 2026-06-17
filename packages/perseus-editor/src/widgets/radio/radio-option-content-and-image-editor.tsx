@@ -18,7 +18,6 @@ interface Props {
     content: string;
     choiceIndex: number;
     onContentChange: (choiceIndex: number, content: string) => void;
-    // Whether the whole editor is disabled (apiOptions.editingDisabled).
     editingDisabled?: boolean;
 }
 

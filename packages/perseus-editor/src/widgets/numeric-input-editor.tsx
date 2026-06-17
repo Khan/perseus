@@ -1,5 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {
+    ApiOptions,
     components,
     Changeable,
     EditorJsonify,
@@ -7,7 +8,6 @@ import {
 } from "@khanacademy/perseus";
 import {
     numericInputLogic,
-    type NumericInputDefaultWidgetOptions,
     type PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -62,7 +62,7 @@ const initAnswer = (status: string) => {
 // The "static" property is not used in this widget (per the type definition comments)
 type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
     onChange: (results: any) => any;
-    apiOptions?: APIOptionsWithDefaults;
+    apiOptions: APIOptionsWithDefaults;
 };
 
 interface State {
@@ -81,8 +81,10 @@ class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
-    static defaultProps: NumericInputDefaultWidgetOptions =
-        numericInputLogic.defaultWidgetOptions;
+    static defaultProps = {
+        ...numericInputLogic.defaultWidgetOptions,
+        apiOptions: ApiOptions.defaults,
+    };
 
     constructor(props: Props) {
         super(props);
@@ -230,7 +232,7 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const editingDisabled = this.props.apiOptions.editingDisabled;
 
         const unsimplifiedAnswers = (i: any) => (
             <View className={styles.field}>

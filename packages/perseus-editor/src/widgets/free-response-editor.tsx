@@ -1,4 +1,4 @@
-import {Util} from "@khanacademy/perseus";
+import {ApiOptions, Util} from "@khanacademy/perseus";
 import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -14,13 +14,12 @@ import * as React from "react";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusFreeResponseWidgetOptions,
-    FreeResponseDefaultWidgetOptions,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "@khanacademy/perseus-core";
 import type {ChangeEventHandler} from "react";
 
 type Props = PerseusFreeResponseWidgetOptions & {
-    apiOptions?: APIOptions;
+    apiOptions: APIOptions;
     onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
 };
 
@@ -29,8 +28,10 @@ type Props = PerseusFreeResponseWidgetOptions & {
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
  */
 class FreeResponseEditor extends React.Component<Props> {
-    static defaultProps: FreeResponseDefaultWidgetOptions =
-        freeResponseLogic.defaultWidgetOptions;
+    static defaultProps = {
+        ...freeResponseLogic.defaultWidgetOptions,
+        apiOptions: ApiOptions.defaults,
+    };
 
     static widgetName = "free-response" as const;
 
@@ -117,7 +118,7 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const editingDisabled = this.props.apiOptions.editingDisabled ?? false;
         return (
             <View>
                 <LabeledField

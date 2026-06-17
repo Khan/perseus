@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {components, Expression} from "@khanacademy/perseus";
+import {ApiOptions, components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
@@ -21,7 +21,6 @@ import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-    ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";
@@ -32,7 +31,7 @@ const {ButtonGroup, InfoTip} = components;
 type Props = {
     widgetId?: string;
     value?: string;
-    apiOptions?: APIOptions;
+    apiOptions: APIOptions;
     onChange: (newValues: Partial<PerseusExpressionWidgetOptions>) => void;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
@@ -63,8 +62,10 @@ interface State {
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: ExpressionDefaultWidgetOptions =
-        expressionLogic.defaultWidgetOptions;
+    static defaultProps = {
+        ...expressionLogic.defaultWidgetOptions,
+        apiOptions: ApiOptions.defaults,
+    };
 
     constructor(props: Props) {
         super(props);
@@ -287,7 +288,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const editingDisabled = this.props.apiOptions.editingDisabled ?? false;
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
                 const expressionProps: Partial<

@@ -16,7 +16,6 @@ const {Icon} = components;
 interface AddAnswerProps {
     // Callback to add new answer choice.
     onClick: () => void;
-    // Whether the editor is disabled (read-only).
     editingDisabled: boolean;
 }
 
@@ -27,7 +26,6 @@ interface AnswerProps {
     onChange: (answer: string) => void;
     // Callback to remove answer from list of choices.
     onRemove: () => void;
-    // Whether the editor is disabled (read-only).
     editingDisabled: boolean;
 }
 

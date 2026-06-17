@@ -18,7 +18,6 @@ interface RadioOptionSettingsActionsProps {
     showMove: boolean;
     onDelete: () => void;
     onMove: (movement: ChoiceMovementType) => void;
-    // Whether the whole editor is disabled (apiOptions.editingDisabled).
     editingDisabled: boolean;
 }
 
