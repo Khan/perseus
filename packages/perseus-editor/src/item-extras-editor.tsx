@@ -6,7 +6,10 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {CalculatorVariant, PerseusAnswerArea} from "@khanacademy/perseus-core";
+import type {
+    CalculatorVariant,
+    PerseusAnswerArea,
+} from "@khanacademy/perseus-core";
 
 // TODO(LEMS-4180): remove once desmos-calculator feature flag is enabled for learners
 const CALCULATOR_VARIANTS_ENABLED = true;
@@ -85,8 +88,8 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {this.shouldShowCalculatorVariants() &&
-                        CALCULATOR_VARIANTS_ENABLED &&
+                    {CALCULATOR_VARIANTS_ENABLED &&
+                        this.shouldShowCalculatorVariants() &&
                         calculatorVariants.map((calcVariant) => (
                             <ItemExtraCheckbox
                                 key={calcVariant.variant}
