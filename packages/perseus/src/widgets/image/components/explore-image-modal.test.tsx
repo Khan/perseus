@@ -1,6 +1,5 @@
 import {act, render, waitFor, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
@@ -11,14 +10,25 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {earthMoonImage, animatedGifLandscape, nonAnimatedGif} from "../utils";
+import {
+    earthMoonImage,
+    animatedGifLandscape,
+    nonAnimatedGif,
+    decodeGifFrames,
+} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
 import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("gifuct-js");
+// Decoding lives in the modal content now (via decodeGifFrames in ../utils),
+// so we mock the decode directly rather than stubbing fetch + gifuct-js. This
+// also avoids colliding with mockImageLoading(), which reassigns global.fetch.
+jest.mock("../utils", () => ({
+    ...jest.requireActual("../utils"),
+    decodeGifFrames: jest.fn(),
+}));
 
 // A minimal fake frame from gifuct-js with a 50ms delay.
 const fakeFrame = {
@@ -79,11 +89,12 @@ describe("ExploreImageModal", () => {
 
         unmockImageLoading = mockImageLoading();
 
-        // Make gifuct-js return two fake frames (100ms total loop).
+        // Decode resolves to two fake frames (an animated GIF) by default.
         // eslint-disable-next-line no-restricted-syntax
-        (parseGIF as jest.Mock).mockReturnValue({});
-        // eslint-disable-next-line no-restricted-syntax
-        (decompressFrames as jest.Mock).mockReturnValue([fakeFrame, fakeFrame]);
+        (decodeGifFrames as jest.Mock).mockResolvedValue([
+            fakeFrame,
+            fakeFrame,
+        ]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
@@ -318,7 +329,7 @@ describe("ExploreImageModal", () => {
         it("should not render gif controls if the image is a single frame gif", async () => {
             // Arrange
             // eslint-disable-next-line no-restricted-syntax
-            (decompressFrames as jest.Mock).mockReturnValue([fakeFrame]);
+            (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
             //Act
             renderModal({
                 ...defaultProps,
@@ -327,7 +338,7 @@ describe("ExploreImageModal", () => {
 
             // Assert
             await waitFor(() => {
-                expect(decompressFrames).toHaveBeenCalled();
+                expect(decodeGifFrames).toHaveBeenCalled();
             });
 
             const playButton = screen.queryByRole("button", {

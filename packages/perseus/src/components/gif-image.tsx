@@ -1,26 +1,8 @@
-import {parseGIF, decompressFrames} from "gifuct-js";
 import * as React from "react";
 
 import type {ParsedFrame} from "gifuct-js";
 
-/**
- * Fetches a GIF and decodes it into individual frames using gifuct-js.
- * Returns the parsed frames array, which includes per-frame pixel data,
- * delay, dimensions, and disposal type.
- */
-async function decodeGifFrames(src: string): Promise<ParsedFrame[]> {
-    const res = await fetch(src);
-    if (!res.ok) {
-        return [];
-    }
-
-    const buffer = await res.arrayBuffer();
-    const gif = parseGIF(buffer);
-    return decompressFrames(gif, true);
-}
-
 type Props = {
-    src: string;
     alt: string;
     width?: number;
     height?: number;
@@ -33,7 +15,8 @@ type Props = {
     /**
      * Called once GIF frames are decoded and the first frame is drawn.
      */
-    onLoad?: (frameCount: number) => void;
+    onLoad?: () => void;
+    gifFrames: ParsedFrame[] | undefined;
 };
 
 /**
@@ -56,7 +39,8 @@ type Props = {
  * - Detect when we have looped the animation.
  */
 const GifImage = (props: Props) => {
-    const {src, alt, width, height, scale, isPlaying, onLoop, onLoad} = props;
+    const {alt, width, height, scale, isPlaying, onLoop, onLoad, gifFrames} =
+        props;
 
     // Decoded GIF frames from gifuct-js
     const framesRef = React.useRef<ParsedFrame[]>([]);
@@ -232,31 +216,20 @@ const GifImage = (props: Props) => {
 
     // Load and decode GIF frames on mount and when src changes.
     React.useEffect(() => {
-        let mounted = true;
+        framesRef.current = gifFrames ?? [];
+        currentFrameIndexRef.current = 0;
+        lastFrameTimeRef.current = null;
 
-        decodeGifFrames(src).then((frames) => {
-            if (!mounted) {
-                return;
-            }
-            framesRef.current = frames;
+        drawFrame(0);
+        latestPropsRef.current.onLoad?.();
 
-            // Show the first frame on the canvas.
-            drawFrame(0);
-            latestPropsRef.current.onLoad?.(frames.length);
+        if (latestPropsRef.current.isPlaying) {
+            play();
+        }
 
-            if (latestPropsRef.current.isPlaying) {
-                play();
-            }
-        });
-
-        return () => {
-            mounted = false;
-            pause();
-            framesRef.current = [];
-        };
-        // Only re-run when src changes.
+        return () => pause();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [src]);
+    }, [gifFrames]);
 
     // Handle play/pause transitions.
     const prevIsPlayingRef = React.useRef(isPlaying);

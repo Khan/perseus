@@ -9,9 +9,10 @@ import Renderer from "../../renderer";
 
 import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
-import {isGif} from "./utils";
+import {isGif, decodeGifFrames} from "./utils";
 
 import type {ImageWidgetProps} from "./image.class";
+import type {ParsedFrame} from "gifuct-js";
 
 export const ImageComponent = (props: ImageWidgetProps) => {
     const {
@@ -35,9 +36,10 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     // Gif should be paused on initial render for a11y.
     const [isGifPlaying, setIsGifPlaying] = React.useState<boolean>(false);
     // Number of decoded GIF frames; Null until GifImage reports it
-    const [gifFrameCount, setGifFrameCount] = React.useState<number | null>(
+    const [gifFrames, setGifFrames] = React.useState<ParsedFrame[] | null>(
         null,
     );
+    const [imageIsGif, setImageGif] = React.useState<boolean>(false);
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
@@ -51,19 +53,34 @@ export const ImageComponent = (props: ImageWidgetProps) => {
     });
 
     // If the backgroundImage.url changes (likely in the editor preview)
-    // we will stop any gif from playing.
+    // we will stop any gif from playing and reset its frame count.
     React.useEffect(() => {
         setIsGifPlaying(false);
-        setGifFrameCount(null);
+        setGifFrames(null);
+
+        const url = backgroundImage.url;
+        if (!url || !isGif(url)) {
+            setImageGif(false);
+            return;
+        }
+        setImageGif(true);
+        let mounted = true;
+        decodeGifFrames(url).then((frames) => {
+            if (mounted) {
+                setGifFrames(frames);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
     }, [backgroundImage.url]);
 
     if (!backgroundImage.url) {
         return null;
     }
 
-    const imageIsGif = isGif(backgroundImage.url);
     const isAnimatedGif =
-        imageIsGif && gifFrameCount != null && gifFrameCount > 1;
+        imageIsGif && gifFrames != null && gifFrames.length > 1;
 
     let scale = props.scale;
     // Set the scale to 1 if the scale is invalid.
@@ -100,7 +117,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
                     onGifLoop={
                         imageIsGif ? () => setIsGifPlaying(false) : undefined
                     }
-                    onGifFrameCount={imageIsGif ? setGifFrameCount : undefined}
+                    gifFrames={imageIsGif ? gifFrames ?? undefined : undefined}
                 />
             )}
         </AssetContext.Consumer>

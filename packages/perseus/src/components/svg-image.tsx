@@ -20,6 +20,7 @@ import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {APIOptions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
+import type {ParsedFrame} from "gifuct-js";
 
 function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
@@ -109,7 +110,7 @@ export type Props = {
      * Called when the GIF completes one full loop.
      */
     onGifLoop?: () => void;
-    onGifFrameCount?: (count: number) => void;
+    gifFrames?: ParsedFrame[] | undefined;
 };
 
 type DefaultProps = {
@@ -481,17 +482,16 @@ class SvgImage extends React.Component<Props, State> {
                         )}
                         {isGifControlled && (
                             <GifImage
-                                src={imageSrc}
                                 alt={this.props.alt}
                                 width={this.props.width}
                                 height={this.props.height}
                                 scale={this.props.scale}
                                 isPlaying={!!this.props.isGifPlaying}
                                 onLoop={this.props.onGifLoop ?? (() => {})}
-                                onLoad={(count) => {
+                                onLoad={() => {
                                     this.onImageLoad();
-                                    this.props.onGifFrameCount?.(count);
                                 }}
+                                gifFrames={this.props.gifFrames}
                             />
                         )}
                     </>

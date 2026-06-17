@@ -5,7 +5,6 @@ import {
 } from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import {parseGIF, decompressFrames} from "gifuct-js";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
@@ -23,12 +22,19 @@ import {
     animatedGifLandscape,
     graphieImage,
     nonAnimatedGif,
+    decodeGifFrames,
 } from "./utils";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("gifuct-js");
+// Decoding lives in image.tsx now (via decodeGifFrames in ./utils), so we mock
+// the decode directly rather than stubbing fetch + gifuct-js. This also avoids
+// colliding with mockImageLoading(), which reassigns global.fetch.
+jest.mock("./utils", () => ({
+    ...jest.requireActual("./utils"),
+    decodeGifFrames: jest.fn(),
+}));
 
 // A minimal fake frame from gifuct-js with a 50ms delay.
 const fakeFrame = {
@@ -56,11 +62,12 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         unmockImageLoading = mockImageLoading();
 
-        // Make gifuct-js return two fake frames (100ms total loop).
+        // Decode resolves to two fake frames (an animated GIF) by default.
         // eslint-disable-next-line no-restricted-syntax
-        (parseGIF as jest.Mock).mockReturnValue({});
-        // eslint-disable-next-line no-restricted-syntax
-        (decompressFrames as jest.Mock).mockReturnValue([fakeFrame, fakeFrame]);
+        (decodeGifFrames as jest.Mock).mockResolvedValue([
+            fakeFrame,
+            fakeFrame,
+        ]);
 
         // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
@@ -1139,7 +1146,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         it("should not render gif controls if the gif has only one frame", async () => {
             // Arrange
             // eslint-disable-next-line no-restricted-syntax
-            (decompressFrames as jest.Mock).mockReturnValue([fakeFrame]);
+            (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
 
             const imageQuestion = generateTestPerseusRenderer({
                 content: "[[☃ image 1]]",
@@ -1155,10 +1162,10 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             // Act
             renderQuestion(imageQuestion, apiOptions);
 
-            // Wait for the fetch → decode → onGifFrameCount chain to run so
-            // the controls' absence is intentional, not just not-yet-rendered.
+            // Wait for the decode to run so the controls' absence is
+            // intentional, not just not-yet-rendered.
             await waitFor(() => {
-                expect(decompressFrames).toHaveBeenCalled();
+                expect(decodeGifFrames).toHaveBeenCalled();
             });
 
             // Assert

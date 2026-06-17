@@ -10,7 +10,6 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
-import {isGif} from "../utils";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";

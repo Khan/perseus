@@ -7,11 +7,12 @@ import {SvgImage} from "../../../components";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
-import {isGif, isSvg} from "../utils";
+import {decodeGifFrames, isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
 import type {CommonImageProps, GifProps} from "./image-info-area";
+import type {ParsedFrame} from "gifuct-js";
 
 const MODAL_HEIGHT = 568;
 
@@ -36,19 +37,43 @@ export default function ExploreImageModalContent({
     longDescId,
 }: Props) {
     const [isGifPlaying, setIsGifPlaying] = React.useState(false);
-    const [gifFrameCount, setGifFrameCount] = React.useState<number | null>(
+    // Decoded GIF frames; null until decoding completes.
+    const [gifFrames, setGifFrames] = React.useState<ParsedFrame[] | null>(
         null,
     );
+    const [imageIsGif, setImageIsGif] = React.useState<boolean>(false);
     const context = React.useContext(PerseusI18nContext);
+
+    // Decode the GIF frames when the background image changes so we can
+    // determine whether it's an animated (multi-frame) GIF.
+    React.useEffect(() => {
+        setIsGifPlaying(false);
+        setGifFrames(null);
+
+        const url = backgroundImage.url;
+        if (!url || !isGif(url)) {
+            setImageIsGif(false);
+            return;
+        }
+        setImageIsGif(true);
+        let mounted = true;
+        decodeGifFrames(url).then((frames) => {
+            if (mounted) {
+                setGifFrames(frames);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, [backgroundImage.url]);
 
     if (!backgroundImage.url) {
         return null;
     }
 
-    const imageIsGif = isGif(backgroundImage.url);
     const imageIsSvg = isSvg(backgroundImage.url);
     const isAnimatedGif =
-        imageIsGif && gifFrameCount != null && gifFrameCount > 1;
+        imageIsGif && gifFrames != null && gifFrames.length > 1;
 
     let scale = 1;
     // If we know the original image size, attempt to upscale the image.
@@ -113,8 +138,8 @@ export default function ExploreImageModalContent({
                                     ? () => setIsGifPlaying(false)
                                     : undefined
                             }
-                            onGifFrameCount={
-                                imageIsGif ? setGifFrameCount : undefined
+                            gifFrames={
+                                imageIsGif ? gifFrames ?? undefined : undefined
                             }
                         />
                     )}
