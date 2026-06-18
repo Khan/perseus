@@ -85,6 +85,12 @@ describe("WidgetComponent", () => {
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
 
+## Accessibility
+
+When doing any UI work, follow the guidelines in `accessibility-instructions.md` (at the repo root).
+
+@accessibility-instructions.md
+
 ## Commit Messages
 
 Focus on what changed and why — write for someone reading git log in 5 years.
