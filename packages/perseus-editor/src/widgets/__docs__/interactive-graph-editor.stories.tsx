@@ -151,11 +151,6 @@ export const InteractiveGraphPoint = (): React.ReactElement => (
     />
 );
 
-// TODO: Remove this before landing to main
-export const InteractiveGraphPointWithCustomLabel = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={pointWithCustomLabelQuestion} />
-);
-
 export const InteractiveGraphPolygon = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
