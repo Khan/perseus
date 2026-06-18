@@ -172,6 +172,15 @@ It does **not** escape:
   it + a provider.
 - **Maintenance posture:** mature but low-activity (~2022-era).
 
+**Confirmed (desk check):** Perseus's `peerDeps`/`devDeps` catalogs are
+*generated from khan/frontend's* `pnpm-workspace.yaml` (via
+`utils/sync-dependencies.ts`) — Perseus deliberately mirrors frontend's versions.
+So **react-dnd as a peer dep is architecturally aligned** (it would flow in
+through the existing sync), whereas a bundled engine like dnd-kit/`@use-gesture`
+is a self-contained Perseus prod dep added directly to `package.json` (no frontend
+coordination). This is a genuine point in react-dnd's favor on the *dependency
+plumbing* axis — separate from the provider/backend concern above.
+
 **Verify before weighting heavily:** which react-dnd **version** webapp uses and
 whether it's app-wide or isolated; which **backend** (HTML5 / touch / multi) and
 whether the root `DndProvider` is shareable; whether non-webapp consumers need it.
@@ -262,3 +271,34 @@ the front-runner (covers the hard ordering/animation needs with a small,
 self-contained, scoped dependency); `react-dnd` is a close second *if* webapp's
 setup makes the peer-dep + provider story clean; pure `@use-gesture` is best only
 if scope narrows back toward FITB-like single-card blanks. The spike confirms.
+
+## 10. Desk-confirmed facts (no spike needed)
+
+Verified now, without building anything:
+
+- **dnd-kit versioning / maintenance:** stable line is **`@dnd-kit/core` 6.3.1**
+  + **`@dnd-kit/sortable` 10.0.0** (current, self-contained). The rewrite
+  **`@dnd-kit/react` is still `0.5.0`** — pre-1.0, with an actively-churning beta.
+  → Confirms the guidance to pin to stable core + sortable and avoid the rewrite
+  for now.
+- **`@use-gesture/react` is already a Perseus prod dep** (`^10.2.27`, direct in
+  `packages/perseus/package.json`). The build-on-`@use-gesture` route adds **zero**
+  new dependency.
+- **Dependency mechanism** (`pnpm-workspace.yaml`): `peerDeps`/`devDeps` catalogs
+  are **generated from khan/frontend's** workspace via `utils/sync-dependencies.ts`
+  (Perseus mirrors frontend's versions); bundled prod deps are listed directly in
+  `package.json`; `minimumReleaseAge` = **3 days**.
+  - **react-dnd** → naturally a peer dep synced from frontend (already there) —
+    aligned with the plumbing.
+  - **dnd-kit / `@use-gesture`** → self-contained Perseus prod deps, added
+    directly, no frontend coordination.
+- **Clean slate:** no dnd/gesture/sortable library is in any Perseus catalog
+  today; Perseus has **zero Adobe / react-aria** deps; **WB Announcer is already
+  available**.
+
+**Still needs others (not desk-confirmable here):**
+
+- webapp's react-dnd **version + backend** — Perseus is the only repo in scope in
+  this session; check khan/frontend's `pnpm-workspace.yaml` / ask the webapp team.
+- the **menu-driven keyboard reframe** (§2) — design/a11y confirmation.
+- **real-device touch** behavior — the spike.
