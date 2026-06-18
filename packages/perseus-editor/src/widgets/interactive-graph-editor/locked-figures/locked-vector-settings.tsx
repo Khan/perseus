@@ -75,6 +75,7 @@ const LockedVectorSettings = (props: Props) => {
         weight,
         labels,
         ariaLabel,
+        editingDisabled = false,
         onChangeProps,
         onMove,
         onRemove,
@@ -180,6 +181,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Line color settings */}
             <ColorSelect
                 selectedValue={lineColor}
+                editingDisabled={editingDisabled}
                 onChange={handleColorChange}
                 style={{marginBottom: sizing.size_080}}
             />
@@ -187,6 +189,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Line weight settings */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value: StrokeWeight) =>
                     onChangeProps({weight: value})
                 }
@@ -217,6 +220,7 @@ const LockedVectorSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={tail}
                     error={isInvalid}
+                    disabled={editingDisabled}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 0);
                     }}
@@ -240,6 +244,7 @@ const LockedVectorSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={tip}
                     error={isInvalid}
+                    disabled={editingDisabled}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 1);
                     }}
@@ -251,6 +256,7 @@ const LockedVectorSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -265,6 +271,7 @@ const LockedVectorSettings = (props: Props) => {
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -278,6 +285,7 @@ const LockedVectorSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     // Additional vertical offset for each label so
                     // they don't overlap.
@@ -306,6 +314,7 @@ const LockedVectorSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />

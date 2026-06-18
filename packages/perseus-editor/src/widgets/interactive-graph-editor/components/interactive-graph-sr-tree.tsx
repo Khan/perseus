@@ -167,6 +167,7 @@ function InteractiveGraphSRTree({
     fullGraphAriaLabel,
     fullGraphAriaDescription,
     lockedFigures,
+    editingDisabled = false,
 }) {
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [showTags, setShowTags] = React.useState(false);
@@ -200,6 +201,7 @@ function InteractiveGraphSRTree({
                             id={switchId}
                             checked={showTags}
                             onChange={setShowTags}
+                            disabled={editingDisabled}
                         />
                         <BodyText size="small" tag="label" htmlFor={switchId}>
                             Show HTML roles/tags

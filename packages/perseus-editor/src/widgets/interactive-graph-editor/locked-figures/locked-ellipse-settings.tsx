@@ -73,6 +73,7 @@ const LockedEllipseSettings = (props: Props) => {
         strokeStyle,
         weight,
         expanded,
+        editingDisabled = false,
         onToggle,
         onChangeProps,
         onMove,
@@ -192,6 +193,7 @@ const LockedEllipseSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={center}
                     style={spaceUnderStyle}
+                    disabled={editingDisabled}
                     onChange={handleCenterChange}
                 />
                 <View className={styles.spaceUnder}>
@@ -206,6 +208,7 @@ const LockedEllipseSettings = (props: Props) => {
                 coord={radius}
                 labels={["x radius", "y radius"]}
                 style={spaceUnderStyle}
+                disabled={editingDisabled}
                 onChange={(newCoords: Coord) =>
                     onChangeProps({radius: newCoords})
                 }
@@ -223,6 +226,7 @@ const LockedEllipseSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
 
@@ -234,6 +238,7 @@ const LockedEllipseSettings = (props: Props) => {
                     fill
                     <SingleSelect
                         selectedValue={fillStyle}
+                        disabled={editingDisabled}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
                             // eslint-disable-next-line no-restricted-syntax
@@ -257,6 +262,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
                 containerStyle={{marginBottom: sizing.size_080}}
             />
@@ -264,6 +270,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Weight */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({weight: value})}
             />
 
@@ -272,6 +279,7 @@ const LockedEllipseSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -286,6 +294,7 @@ const LockedEllipseSettings = (props: Props) => {
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -299,6 +308,7 @@ const LockedEllipseSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -324,6 +334,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />

@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-[Editor] Editor label fix + editor styling/type modernization
+[Editor] Improve contrast of editor controls when editing is disabled

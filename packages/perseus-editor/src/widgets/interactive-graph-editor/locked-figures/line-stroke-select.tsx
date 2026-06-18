@@ -11,10 +11,16 @@ interface Props {
     selectedValue: StyleOptions;
     onChange: (newValue: StyleOptions) => void;
     containerStyle?: StyleType;
+    editingDisabled?: boolean;
 }
 
 const LineStrokeSelect = (props: Props) => {
-    const {selectedValue, containerStyle, onChange} = props;
+    const {
+        selectedValue,
+        containerStyle,
+        editingDisabled = false,
+        onChange,
+    } = props;
 
     return (
         <BodyText
@@ -25,6 +31,7 @@ const LineStrokeSelect = (props: Props) => {
             stroke
             <SingleSelect
                 selectedValue={selectedValue}
+                disabled={editingDisabled}
                 // eslint-disable-next-line no-restricted-syntax
                 onChange={onChange as any}
                 // Placeholder is required, but never gets used.

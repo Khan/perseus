@@ -10,6 +10,7 @@ import type {PerseusAnswerArea} from "../../data-schema";
 describe("parsePerseusAnswerArea", () => {
     const allFalse: PerseusAnswerArea = {
         calculator: false,
+        calculatorVariant: null,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -25,6 +26,7 @@ describe("parsePerseusAnswerArea", () => {
     it("keeps `true` values", () => {
         const allTrue: PerseusAnswerArea = {
             calculator: true,
+            calculatorVariant: "scientific",
             financialCalculatorMonthlyPayment: true,
             financialCalculatorTotalAmount: true,
             financialCalculatorTimeToPayOff: true,

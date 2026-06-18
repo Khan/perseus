@@ -26,6 +26,11 @@ import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
 export interface LockedFigureSettingsCommonProps {
+    /**
+     * Whether editing is disabled for this figure's controls.
+     */
+    editingDisabled?: boolean;
+
     // Movement props
     /**
      * Called when a movement button (top, up, down, bottom) is pressed.

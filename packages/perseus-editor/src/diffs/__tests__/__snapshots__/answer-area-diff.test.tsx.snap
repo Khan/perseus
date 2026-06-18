@@ -423,6 +423,35 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
           </div>
         </div>
       </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="removed dark diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculatorVariant: 
+              <span
+                class="inner-value dark removed dark"
+              />
+            </div>
+          </div>
+          <div
+            class="blank-space diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -471,6 +500,35 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
               >
                 true
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          style="clear: both;"
+        >
+          <div
+            class="blank-space diff-row before"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              <span
+                class="inner-value dark blank-space"
+              />
+            </div>
+          </div>
+          <div
+            class="added dark diff-row after"
+          >
+            <div
+              style="padding-left: 0px;"
+            >
+              calculatorVariant: 
+              <span
+                class="inner-value dark added dark"
+              />
             </div>
           </div>
         </div>

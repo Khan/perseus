@@ -537,6 +537,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     render() {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <>
                 <Heading
@@ -566,6 +567,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             },
                                         ]}
                                         onChange={this.change("labelLocation")}
+                                        disabled={editingDisabled}
                                     />
                                 </LabeledRow>
                             </div>
@@ -684,6 +686,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         onClick={() => {
                                             this.changeStepsBasedOnRange();
                                         }}
+                                        disabled={editingDisabled}
                                     >
                                         Auto-adjust steps
                                     </Button>
@@ -716,6 +719,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             {value: "none", content: "None"},
                                         ]}
                                         onChange={this.change("markings")}
+                                        disabled={editingDisabled}
                                     />
                                 </LabeledRow>
                             </div>
@@ -726,6 +730,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     onChange={(value) => {
                                         this.change({showTooltips: value});
                                     }}
+                                    disabled={editingDisabled}
                                 />
                             </div>
                         </div>
@@ -767,6 +772,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     onChange={(value) => {
                                         this.change({showProtractor: value});
                                     }}
+                                    disabled={editingDisabled}
                                     style={{marginTop: 0}}
                                 />
                             </View>

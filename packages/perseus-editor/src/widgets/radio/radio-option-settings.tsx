@@ -29,6 +29,7 @@ interface RadioOptionSettingsProps {
     showMove: boolean;
     onDelete: () => void;
     onMove: (choiceIndex: number, movement: ChoiceMovementType) => void;
+    editingDisabled: boolean;
 }
 
 export const RadioOptionSettings = React.forwardRef<
@@ -46,6 +47,7 @@ export const RadioOptionSettings = React.forwardRef<
         showMove,
         onDelete,
         onMove,
+        editingDisabled,
     },
     ref,
 ) {
@@ -85,6 +87,7 @@ export const RadioOptionSettings = React.forwardRef<
                             {value: "correct", label: "Correct"},
                             {value: "incorrect", label: "Incorrect"},
                         ]}
+                        disabled={editingDisabled}
                     />
                 </div>
             </fieldset>
@@ -96,6 +99,7 @@ export const RadioOptionSettings = React.forwardRef<
                 choiceIndex={index}
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
                 onContentChange={onContentChange}
+                editingDisabled={editingDisabled}
             />
 
             <BodyText
@@ -118,6 +122,7 @@ export const RadioOptionSettings = React.forwardRef<
                     onRationaleChange(index, value);
                 }}
                 autoResize={true}
+                disabled={editingDisabled}
             />
 
             {/* Delete & reorder button */}
@@ -127,6 +132,7 @@ export const RadioOptionSettings = React.forwardRef<
                 showMove={showMove}
                 onDelete={onDelete}
                 onMove={(movement) => onMove(index, movement)}
+                editingDisabled={editingDisabled}
             />
         </div>
     );

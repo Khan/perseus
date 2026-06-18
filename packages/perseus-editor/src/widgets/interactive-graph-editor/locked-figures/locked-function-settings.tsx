@@ -58,6 +58,7 @@ const LockedFunctionSettings = (props: Props) => {
         domain,
         weight,
         ariaLabel,
+        editingDisabled = false,
         onChangeProps,
         onMove,
         onRemove,
@@ -203,12 +204,14 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={strokeStyle}
+                    editingDisabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("strokeStyle", newValue);
                     }}
@@ -218,6 +221,7 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Line weight settings */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({weight: value})}
             />
 
@@ -227,6 +231,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Directional axis (x or y) */}
                 <SingleSelect
                     selectedValue={directionalAxis}
+                    disabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
@@ -243,6 +248,7 @@ const LockedFunctionSettings = (props: Props) => {
                     type="text"
                     aria-label="equation"
                     value={equation}
+                    disabled={editingDisabled}
                     onChange={(newValue) => {
                         handlePropChange("equation", newValue);
                     }}
@@ -265,6 +271,7 @@ const LockedFunctionSettings = (props: Props) => {
                         // make room for the label
                         style={{width: "calc(100% - 88.7px)"}}
                         value={domainEntries[0]}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             handleDomainChange(0, newValue);
                         }}
@@ -281,6 +288,7 @@ const LockedFunctionSettings = (props: Props) => {
                         type="number"
                         style={{width: "calc(100% - 36.2px)"}}
                         value={domainEntries[1]}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             handleDomainChange(1, newValue);
                         }}
@@ -310,6 +318,7 @@ const LockedFunctionSettings = (props: Props) => {
                     {"Choose a category"}
                     <SingleSelect
                         selectedValue={exampleCategory}
+                        disabled={editingDisabled}
                         onChange={setExampleCategory}
                         placeholder="examples"
                     >
@@ -332,6 +341,7 @@ const LockedFunctionSettings = (props: Props) => {
                                 category={exampleCategory}
                                 example={example}
                                 index={index}
+                                editingDisabled={editingDisabled}
                                 pasteEquationFn={handlePropChange}
                             />
                         ))}
@@ -344,6 +354,7 @@ const LockedFunctionSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -358,6 +369,7 @@ const LockedFunctionSettings = (props: Props) => {
                 <LockedLabelSettings
                     key={labelIndex}
                     {...label}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -374,6 +386,7 @@ const LockedFunctionSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -396,6 +409,7 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
@@ -407,11 +421,12 @@ interface ItemProps {
     category: string;
     example: string;
     index: number;
+    editingDisabled?: boolean;
     pasteEquationFn: (property: string, newValue: string) => void;
 }
 
 const ExampleItem = (props: ItemProps): React.ReactElement => {
-    const {category, example, index, pasteEquationFn} = props;
+    const {category, example, index, editingDisabled, pasteEquationFn} = props;
     const exampleId = useId();
 
     return (
@@ -421,6 +436,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 kind="tertiary"
                 aria-label="paste example"
                 aria-describedby={exampleId}
+                disabled={editingDisabled}
                 onClick={() => pasteEquationFn("equation", example)}
                 size="medium"
                 className={styles.copyPasteButton}
@@ -430,6 +446,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
                 kind="tertiary"
                 aria-label="copy example"
                 aria-describedby={exampleId}
+                disabled={editingDisabled}
                 onClick={() => navigator.clipboard.writeText(example)}
                 size="medium"
                 className={styles.copyPasteButton}

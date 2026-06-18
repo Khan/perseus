@@ -18,6 +18,7 @@ interface RadioImageEditorProps {
     imageAltText: string;
     onSave: (imageUrl: string, imageAltText: string) => void;
     onDelete: () => void;
+    editingDisabled?: boolean;
 }
 
 export default function RadioImageEditor({
@@ -25,6 +26,7 @@ export default function RadioImageEditor({
     imageAltText,
     onSave,
     onDelete,
+    editingDisabled = false,
 }: RadioImageEditorProps): React.ReactElement {
     const uniqueId = React.useId();
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
@@ -142,6 +144,7 @@ export default function RadioImageEditor({
                 onBlur={() => onSave(stateImageUrl, imageAltText)}
                 style={{marginBlockEnd: sizing.size_080}}
                 autoResize={true}
+                disabled={editingDisabled}
             />
 
             {/* Image Alt Text textarea */}
@@ -160,6 +163,7 @@ export default function RadioImageEditor({
                 placeholder="Example: Graph of a linear function..."
                 onChange={(value) => onSave(imageUrl, value)}
                 autoResize={true}
+                disabled={editingDisabled}
             />
 
             {/* Delete button */}
@@ -170,6 +174,7 @@ export default function RadioImageEditor({
                     startIcon={trashIcon}
                     style={{alignSelf: "flex-start"}}
                     onClick={onDelete}
+                    disabled={editingDisabled}
                 >
                     Delete this image
                 </Button>

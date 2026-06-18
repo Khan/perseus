@@ -5,6 +5,8 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -17,7 +19,7 @@ import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "../../types";
+import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -1294,6 +1296,96 @@ describe("MafsGraph", () => {
             });
             // Make sure the button is disabled
             expect(closeShapeButton).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("MovablePointLabelsLayer flag gate", () => {
+        const apiOptionsWithFlag = (on: boolean): APIOptionsWithDefaults => ({
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({"perseus-enable-point-label-field": on}),
+        });
+
+        function pointStateWith({
+            showPointLabels,
+            pointLabels,
+        }: {
+            showPointLabels?: boolean;
+            pointLabels?: string[];
+        }): InteractiveGraphState {
+            return {
+                type: "point",
+                hasBeenInteractedWith: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [1, 1],
+                coords: [[1, 2]],
+                focusedPointIndex: null,
+                showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
+                pointLabels,
+                showPointLabels,
+            };
+        }
+
+        it("does not mount the layer when the feature flag is off, even with showPointLabels: true + pointLabels populated", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({
+                        showPointLabels: true,
+                        pointLabels: ["A"],
+                    })}
+                    dispatch={jest.fn()}
+                    apiOptions={apiOptionsWithFlag(false)}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("movable-point__visible-label"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("mounts the layer when the feature flag is on and showPointLabels: true", () => {
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({
+                        showPointLabels: true,
+                        pointLabels: ["A"],
+                    })}
+                    dispatch={jest.fn()}
+                    apiOptions={apiOptionsWithFlag(true)}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByTestId("movable-point__visible-label"),
+            ).toBeInTheDocument();
+        });
+
+        it("does not render a visible label when flag is on but showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
+            // Existing content sets pointLabels for screen-reader purposes without intending visible labels. Even with the flag on, the renderer must not start drawing those.
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({pointLabels: ["A"]})}
+                    dispatch={jest.fn()}
+                    apiOptions={apiOptionsWithFlag(true)}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("movable-point__visible-label"),
+            ).not.toBeInTheDocument();
         });
     });
 });

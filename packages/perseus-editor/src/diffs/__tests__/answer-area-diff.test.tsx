@@ -12,6 +12,7 @@ describe("AnswerAreaDiff", () => {
 
     const afterItem: PerseusAnswerArea = {
         calculator: true,
+        calculatorVariant: null,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: true,
         financialCalculatorTimeToPayOff: false,

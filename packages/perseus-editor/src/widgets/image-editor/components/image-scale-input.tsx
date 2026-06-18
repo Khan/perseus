@@ -20,12 +20,14 @@ const LARGE_DIMENSION_THRESHOLD = 1048576;
 interface Props {
     backgroundImage: PerseusImageBackground;
     scale: number;
+    editingDisabled?: boolean;
     onChange: ImageEditorProps["onChange"];
 }
 
 export default function ImageScaleInput({
     backgroundImage,
     scale,
+    editingDisabled = false,
     onChange,
 }: Props) {
     const width = backgroundImage.width ?? 0;
@@ -122,6 +124,7 @@ export default function ImageScaleInput({
                 kind="tertiary"
                 size="small"
                 startIcon={arrowCounterClockwise}
+                disabled={editingDisabled}
                 onClick={handleResetToOriginalSize}
             >
                 Recalculate natural size
@@ -154,7 +157,7 @@ export default function ImageScaleInput({
                         value={scale.toString()}
                         min={0}
                         onChange={handleScaleChange}
-                        disabled={hasInvalidDimensions}
+                        disabled={hasInvalidDimensions || editingDisabled}
                     />
                 }
                 styles={wbFieldStyles}
@@ -167,7 +170,7 @@ export default function ImageScaleInput({
                             value={(width * scale).toString()}
                             min={0}
                             onChange={handleScaledWidthChange}
-                            disabled={hasInvalidDimensions}
+                            disabled={hasInvalidDimensions || editingDisabled}
                         />
                     }
                     styles={wbFieldStyles}
@@ -180,7 +183,7 @@ export default function ImageScaleInput({
                             value={(height * scale).toString()}
                             min={0}
                             onChange={handleScaledHeightChange}
-                            disabled={hasInvalidDimensions}
+                            disabled={hasInvalidDimensions || editingDisabled}
                         />
                     }
                     styles={wbFieldStyles}

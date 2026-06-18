@@ -267,6 +267,7 @@ class ItemEditor extends React.Component<Props, State> {
                             <div className="pod-title">Question extras</div>
                             <ItemExtrasEditor
                                 ref={this.itemExtrasEditor}
+                                apiOptions={this.props.apiOptions}
                                 onChange={this.handleItemExtrasChange}
                                 editingDisabled={editingDisabled}
                                 {...this.props.answerArea}
