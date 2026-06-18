@@ -300,9 +300,9 @@ describe("StatefulMafsGraph", () => {
         ).toHaveLength(2);
     });
 
-    it("does not reinitialize when pointLabels has the same values but a new array reference (LEMS-4205)", () => {
-        // The editor preview rebuilds graph props every render, so a
-        // fresh-but-equal pointLabels array must not re-fire reinitialize.
+    it("does not reinitialize when pointLabels has the same values but a new array reference", () => {
+        // The editor rebuilds props every render: a fresh-but-equal
+        // pointLabels array must not re-fire reinitialize.
         const reinitializeSpy = jest.spyOn(
             InteractiveGraphAction,
             "reinitialize",
@@ -325,7 +325,7 @@ describe("StatefulMafsGraph", () => {
         );
         reinitializeSpy.mockClear();
 
-        // A new array reference with identical values must not re-fire.
+        // Same values, new array reference: must not re-fire.
         rerender(
             <StatefulMafsGraph
                 {...baseProps}
@@ -338,8 +338,32 @@ describe("StatefulMafsGraph", () => {
             />,
         );
         expect(reinitializeSpy).not.toHaveBeenCalled();
+    });
 
-        // A real label change still triggers it.
+    it("reinitializes when pointLabels values change", () => {
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Changed value: re-fires.
         rerender(
             <StatefulMafsGraph
                 {...baseProps}
@@ -354,9 +378,9 @@ describe("StatefulMafsGraph", () => {
         expect(reinitializeSpy).toHaveBeenCalledTimes(1);
     });
 
-    it("does not reinitialize when startCoords has the same values but a new array reference (LEMS-4205)", () => {
-        // Same stabilization as pointLabels: a fresh-but-equal startCoords
-        // array must not re-fire reinitialize.
+    it("does not reinitialize when startCoords has the same values but a new array reference", () => {
+        // Same as pointLabels: a fresh-but-equal startCoords array must not
+        // re-fire reinitialize.
         const reinitializeSpy = jest.spyOn(
             InteractiveGraphAction,
             "reinitialize",
@@ -374,7 +398,7 @@ describe("StatefulMafsGraph", () => {
         );
         reinitializeSpy.mockClear();
 
-        // A new array reference with identical values must not re-fire.
+        // Same values, new array reference: must not re-fire.
         rerender(
             <StatefulMafsGraph
                 {...baseProps}
@@ -382,8 +406,27 @@ describe("StatefulMafsGraph", () => {
             />,
         );
         expect(reinitializeSpy).not.toHaveBeenCalled();
+    });
 
-        // A real coordinate change still triggers it.
+    it("reinitializes when startCoords values change", () => {
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Changed value: re-fires.
         rerender(
             <StatefulMafsGraph
                 {...baseProps}
