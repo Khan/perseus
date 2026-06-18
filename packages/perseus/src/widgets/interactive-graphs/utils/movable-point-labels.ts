@@ -23,16 +23,20 @@ export function getMovablePointLabels(
     switch (state.type) {
         case "point":
         case "polygon":
-            return collect(
-                state.coords,
-                pointLabels,
-                (i) => `${state.type}-${i}`,
-            );
+        case "sinusoid":
+        case "linear":
+        case "ray":
+        case "absolute-value":
+        case "exponential":
+        case "logarithm":
+        case "tangent":
+        case "quadratic":
+            return collect(state.coords, pointLabels);
         case "angle":
             // pointLabels indexes match state.coords: [0]=ending side,
             // [1]=vertex, [2]=starting side. The vertex sits at index 1
             // even though it renders first in the DOM.
-            return collect(state.coords, pointLabels, (i) => `angle-${i}`);
+            return collect(state.coords, pointLabels);
         case "circle": {
             // Center is a MovableCircle, not a MovablePoint, and stays
             // unlabeled by design — only the radius handle is labelable.
@@ -40,16 +44,8 @@ export function getMovablePointLabels(
             if (text == null || text === "") {
                 return [];
             }
-            return [{key: "circle-radius", coord: state.radiusPoint, text}];
+            return [{key: "0", coord: state.radiusPoint, text}];
         }
-        case "sinusoid":
-        case "linear":
-        case "ray":
-            return collect(
-                state.coords,
-                pointLabels,
-                (i) => `${state.type}-${i}`,
-            );
         case "linear-system":
         case "segment": {
             // Flat-indexed across all line/segment endpoints:
@@ -58,23 +54,8 @@ export function getMovablePointLabels(
                 pair[0],
                 pair[1],
             ]);
-            return collect(
-                flatCoords,
-                pointLabels,
-                (i) => `${state.type}-${i}`,
-            );
+            return collect(flatCoords, pointLabels);
         }
-        case "absolute-value":
-        case "exponential":
-        case "logarithm":
-        case "tangent":
-            return collect(
-                state.coords,
-                pointLabels,
-                (i) => `${state.type}-${i}`,
-            );
-        case "quadratic":
-            return collect(state.coords, pointLabels, (i) => `quadratic-${i}`);
         case "vector":
         case "none":
             return [];
@@ -84,7 +65,6 @@ export function getMovablePointLabels(
 function collect(
     coords: ReadonlyArray<vec.Vector2>,
     labels: string[] | undefined,
-    keyFor: (i: number) => string,
 ): MovablePointLabel[] {
     const out: MovablePointLabel[] = [];
     for (let i = 0; i < coords.length; i++) {
@@ -94,7 +74,7 @@ function collect(
             continue;
         }
         out.push({
-            key: keyFor(i),
+            key: String(i),
             coord: coords[i],
             text,
         });

@@ -7,7 +7,6 @@ import {X, Y} from "../math";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {Angle} from "./components/angle-indicators";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -55,7 +54,6 @@ function AngleGraph(props: AngleGraphProps) {
     const {
         coords,
         pointLabels,
-        showPointLabels,
         showAngles,
         range,
         allowReflexAngles,
@@ -65,12 +63,7 @@ function AngleGraph(props: AngleGraphProps) {
     // [2]=starting side. The MovablePoints below are rendered in a
     // different order (vertex first), so each call site indexes pointLabels
     // by the coords slot it is bound to.
-    const effectiveLabels = getEffectivePointLabels(
-        showPointLabels,
-        pointLabels,
-        coords.length,
-    );
-    const buildLabel = usePointAriaLabel(effectiveLabels);
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     // Break the coords into the two end points and the center point
     const endPoints: [vec.Vector2, vec.Vector2] = [coords[0], coords[2]];

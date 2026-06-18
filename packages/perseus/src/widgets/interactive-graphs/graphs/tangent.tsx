@@ -8,7 +8,6 @@ import {
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
@@ -48,13 +47,8 @@ function TangentGraph(props: TangentGraphProps) {
     // Destructure the coordinates from the graph state
     // coords[0] is the inflection point (where tan crosses the midline)
     // coords[1] is a quarter-period away (where amplitude is reached)
-    const {coords, pointLabels, showPointLabels, snapStep} = graphState;
-    const effectiveLabels = getEffectivePointLabels(
-        showPointLabels,
-        pointLabels,
-        coords.length,
-    );
-    const buildLabel = usePointAriaLabel(effectiveLabels);
+    const {coords, pointLabels, snapStep} = graphState;
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     // The coefficients are used to calculate the tangent equation, plot
     // the graph, and to indicate to content creators the currently selected

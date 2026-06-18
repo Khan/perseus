@@ -87,7 +87,7 @@ describe("getMovablePointLabels", () => {
 
         // Act, Assert
         expect(getMovablePointLabels(state)).toEqual([
-            {key: "point-0", coord: [1, 2], text: "A"},
+            {key: "0", coord: [1, 2], text: "A"},
         ]);
     });
 
@@ -107,9 +107,9 @@ describe("getMovablePointLabels", () => {
 
         // Act, Assert
         expect(getMovablePointLabels(state)).toEqual([
-            {key: "angle-0", coord: [3, 0], text: "E"},
-            {key: "angle-1", coord: [0, 0], text: "V"},
-            {key: "angle-2", coord: [0, 3], text: "S"},
+            {key: "0", coord: [3, 0], text: "E"},
+            {key: "1", coord: [0, 0], text: "V"},
+            {key: "2", coord: [0, 3], text: "S"},
         ]);
     });
 
@@ -126,7 +126,7 @@ describe("getMovablePointLabels", () => {
 
         // Act, Assert
         expect(getMovablePointLabels(state)).toEqual([
-            {key: "circle-radius", coord: [3, 0], text: "R"},
+            {key: "0", coord: [3, 0], text: "R"},
         ]);
     });
 
@@ -270,9 +270,9 @@ describe("getMovablePointLabels", () => {
 
         // Act, Assert
         expect(getMovablePointLabels(state)).toEqual([
-            {key: "quadratic-0", coord: [-3, 2], text: "L"},
-            {key: "quadratic-1", coord: [0, -2], text: "V"},
-            {key: "quadratic-2", coord: [3, 2], text: "R"},
+            {key: "0", coord: [-3, 2], text: "L"},
+            {key: "1", coord: [0, -2], text: "V"},
+            {key: "2", coord: [3, 2], text: "R"},
         ]);
     });
 
@@ -291,8 +291,8 @@ describe("getMovablePointLabels", () => {
 
         // Act, Assert
         expect(getMovablePointLabels(state)).toEqual([
-            {key: "absolute-value-0", coord: [0, 0], text: "V"},
-            {key: "absolute-value-1", coord: [3, 3], text: "P"},
+            {key: "0", coord: [0, 0], text: "V"},
+            {key: "1", coord: [3, 3], text: "P"},
         ]);
     });
 

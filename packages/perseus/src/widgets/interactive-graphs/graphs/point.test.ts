@@ -140,19 +140,4 @@ describe("getPointGraphDescription", () => {
             "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
         );
     });
-
-    it("falls back to 'Point N' for non-string pointLabels entries", () => {
-        const state: PointGraphState = {
-            ...baseState,
-            coords: [
-                [0, 0],
-                [1, 1],
-            ],
-            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-            pointLabels: [42, "T"] as unknown as string[],
-        };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
-            "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
-        );
-    });
 });

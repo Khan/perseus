@@ -8,6 +8,7 @@
 import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
+import LabelStrokeFilter from "../../../label-stroke-filter";
 import useGraphConfig from "../../../reducer/use-graph-config";
 import {
     getLabelAttach,
@@ -32,11 +33,10 @@ export default function MovablePointLabelsLayer({state}: Props) {
 
     return (
         <>
-            {/* Shared stroke filter (same `id="math-stroke"` as
-                `LockedLabelStrokeFilter`). If a locked label is also on
-                this graph, its <defs> is already in the DOM, so this
-                duplicate is harmless — SVG resolves the first match. */}
-            <MovableLabelStrokeFilter />
+            {/* The same `<filter id="math-stroke">` may already be in
+                the DOM via a `LockedLabel`. Duplicate `<defs>` are
+                harmless — SVG resolves to the first match. */}
+            <LabelStrokeFilter />
             {labeledPoints.map((label) => (
                 <MovablePointLabelView
                     key={label.key}
@@ -108,33 +108,4 @@ function translateOutward(attach: LabelAttach): string {
         case "nw":
             return `translate(calc(-100% - ${p}px), calc(-100% - ${p}px))`;
     }
-}
-
-function MovableLabelStrokeFilter() {
-    const color = semanticColor.core.border.knockout.default;
-    return (
-        <svg width="0" height="0" style={{position: "absolute"}}>
-            <defs>
-                <filter id="math-stroke">
-                    <feMorphology
-                        operator="dilate"
-                        radius="2"
-                        in="SourceGraphic"
-                        result="expanded"
-                    />
-                    <feFlood floodColor={color} result="flood" />
-                    <feComposite
-                        in="flood"
-                        in2="expanded"
-                        operator="in"
-                        result="outline"
-                    />
-                    <feMerge>
-                        <feMergeNode in="outline" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-        </svg>
-    );
 }

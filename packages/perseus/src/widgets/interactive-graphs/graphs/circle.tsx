@@ -7,7 +7,6 @@ import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getEffectivePointLabels} from "../utils/point-labels";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
@@ -49,19 +48,13 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, pointLabels, showPointLabels, radiusPoint, snapStep} =
-        graphState;
+    const {center, pointLabels, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
     // Circle only has one labelable point (the radius point at index 0); the
     // center is a MovableCircle, not a MovablePoint, and is intentionally not
     // overridden — see MovablePoint's ariaLabel below.
-    const effectiveLabels = getEffectivePointLabels(
-        showPointLabels,
-        pointLabels,
-        1,
-    );
-    const buildLabel = usePointAriaLabel(effectiveLabels);
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     const radius = getRadius(graphState);
     const id = React.useId();
