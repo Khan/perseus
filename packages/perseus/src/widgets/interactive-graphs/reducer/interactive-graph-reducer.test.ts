@@ -1839,6 +1839,7 @@ describe("movePoint on an absolute-value graph", () => {
         expect(updated.stateAnnouncement.pointIndex).toBe(0);
         expect(updated.stateAnnouncement.x).toBe(-3);
         expect(updated.stateAnnouncement.y).toBe(1);
+        expect(updated.stateAnnouncement.slope).toBe(0.2);
     });
 
     it("sets stateAnnouncement to a move-absolute-value-point when moving the arm point", () => {
@@ -1855,6 +1856,8 @@ describe("movePoint on an absolute-value graph", () => {
         expect(updated.stateAnnouncement.pointIndex).toBe(1);
         expect(updated.stateAnnouncement.x).toBe(4);
         expect(updated.stateAnnouncement.y).toBe(-2);
+        // Vertex (0, 0) with arm (4, -2): slope = (-2 - 0) / |4 - 0| = -0.5.
+        expect(updated.stateAnnouncement.slope).toBe(-0.5);
     });
 
     it("carries the custom pointLabel when one is set", () => {

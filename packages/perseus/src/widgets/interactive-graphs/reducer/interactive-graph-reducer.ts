@@ -81,7 +81,7 @@ const {
     sign,
     vector,
 } = geometry;
-const {getQuadraticCoefficients} = coefficients;
+const {getQuadraticCoefficients, getAbsoluteValueCoefficients} = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -821,6 +821,7 @@ function doMovePoint(
                     ),
                     x: boundDestination[X],
                     y: boundDestination[Y],
+                    slope: getAbsoluteValueCoefficients(newCoords)?.[0] ?? 1,
                 },
             };
         }

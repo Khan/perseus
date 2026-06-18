@@ -145,12 +145,12 @@ describe("Absolute value graph screen reader", () => {
             />,
         );
         const graph = screen.getByLabelText(
-            "An absolute value function on a coordinate plane.",
+            "An absolute value on a coordinate plane.",
         );
         expect(graph).toBeInTheDocument();
     });
 
-    it("renders with accessible description containing vertex and slope", () => {
+    it("renders with accessible description containing direction, vertex, and intercepts", () => {
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
@@ -158,10 +158,10 @@ describe("Absolute value graph screen reader", () => {
             />,
         );
         const graph = screen.getByLabelText(
-            "An absolute value function on a coordinate plane.",
+            "An absolute value on a coordinate plane.",
         );
         expect(graph).toHaveAccessibleDescription(
-            "The graph shows an absolute value function with vertex at 0 comma 0 and slope 1.",
+            "The graph opens upward. Vertex is at the origin. The slope is 1.",
         );
     });
 
@@ -176,7 +176,7 @@ describe("Absolute value graph screen reader", () => {
         expect(points[0]).toHaveAccessibleName("Vertex point at 0 comma 0.");
     });
 
-    it("renders arm point with aria label", () => {
+    it("renders arm point with aria label and slope description", () => {
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
@@ -185,9 +185,10 @@ describe("Absolute value graph screen reader", () => {
         );
         const points = screen.getAllByRole("button");
         expect(points[1]).toHaveAccessibleName("Point on arm at 2 comma 2.");
+        expect(points[1]).toHaveAccessibleDescription("The slope is 1.");
     });
 
-    it("includes interactive elements description with both point coordinates", () => {
+    it("includes interactive elements description with both points and the slope", () => {
         render(
             <MafsGraph
                 {...baseMafsGraphProps}
@@ -195,9 +196,33 @@ describe("Absolute value graph screen reader", () => {
             />,
         );
         const description = screen.getByText(
-            "Interactive elements: Absolute value graph with vertex point at 0 comma 0 and arm point at 2 comma 2.",
+            "Interactive elements: Absolute value graph with vertex point at 0 comma 0, arm point at 2 comma 2 and slope of 1.",
         );
         expect(description).toBeInTheDocument();
+    });
+
+    it("describes a downward graph that opens with two x-intercepts", () => {
+        // Vertex (0, 2) above the x-axis, arm point (1, 0) below it → m = -2
+        // (opens downward), x-intercepts where |x| = 1, y-intercept at the
+        // vertex.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseAbsoluteValueState,
+                    coords: [
+                        [0, 2],
+                        [1, 0],
+                    ],
+                }}
+            />,
+        );
+        const graph = screen.getByLabelText(
+            "An absolute value on a coordinate plane.",
+        );
+        expect(graph).toHaveAccessibleDescription(
+            "The graph opens downward. Vertex is at 0 comma 2. The X-intercepts are at -1 comma 0 and 1 comma 0. The Y-intercept is at 0 comma 2. The slope is -2.",
+        );
     });
 
     it("updates aria labels when coordinates change", () => {
