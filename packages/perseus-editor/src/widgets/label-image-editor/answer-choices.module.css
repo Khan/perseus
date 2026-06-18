@@ -1,14 +1,5 @@
-.title {
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 22px;
-    margin-bottom: var(--wb-sizing-size_060);
-    color: #626569; /* gray17 */
-}
-
 .answers {
-    margin-top: var(--wb-sizing-size_120);
+    margin-top: var(--wb-sizing-size_080);
     margin-bottom: var(--wb-sizing-size_120);
 }
 
@@ -19,15 +10,7 @@
     gap: var(--wb-sizing-size_160);
 }
 
-.answer:not(:first-child) {
-    margin-top: var(--wb-sizing-size_120);
-}
-
-.add-answer {
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: var(--wb-sizing-size_220);
+.add-answer-content {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -35,15 +18,25 @@
     color: var(--wb-semanticColor-link-rest);
 }
 
-.add-answer:link {
-    color: var(--wb-semanticColor-link-rest);
+.add-answer:hover .add-answer-content {
+    text-decoration: underline;
 }
 
-.disabled {
-    cursor: not-allowed;
+.remove-button-content {
+    display: inline-flex;
+    color: var(--wb-semanticColor-core-foreground-critical-default);
 }
 
-.disabled-link {
-    cursor: not-allowed;
+.add-answer[aria-disabled="true"],
+.remove-button[aria-disabled="true"] {
     opacity: 0.5;
+}
+
+.add-answer:focus:not(:focus-visible),
+.remove-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.answer:not(:first-child) {
+    margin-top: var(--wb-sizing-size_120);
 }

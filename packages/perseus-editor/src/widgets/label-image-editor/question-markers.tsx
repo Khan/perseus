@@ -3,11 +3,12 @@
  * label image with answers from list of choices.
  */
 
-import {Util, Dependencies, bodyXsmallBold} from "@khanacademy/perseus";
+import {Util, Dependencies} from "@khanacademy/perseus";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {gray17, gray68} from "../../styles/global-colors";
+import {gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
 
@@ -83,7 +84,9 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
 
         return (
             <div>
-                <div className={css(styles.title)}>Markers</div>
+                <BodyText weight="bold" tag="span">
+                    Markers
+                </BodyText>
 
                 <div className={css(styles.subtitle)}>
                     {imageUrl ? (
@@ -148,20 +151,13 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
 }
 
 const styles = StyleSheet.create({
-    title: {
-        ...bodyXsmallBold,
-
-        marginBottom: 6,
-
-        color: gray17,
-    },
-
     subtitle: {
         // TODO: can we use WB typography?
         fontFamily: "inherit",
         fontSize: 12,
         lineHeight: "14px",
 
+        marginTop: 8,
         marginBottom: 12,
 
         color: gray68,
