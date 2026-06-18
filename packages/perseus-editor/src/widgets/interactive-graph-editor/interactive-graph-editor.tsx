@@ -34,6 +34,7 @@ import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import PolygonAnswerOptions from "./components/polygon-answer-options";
 import SegmentCountSelector from "./components/segment-count-selector";
+import ShowPointLabelsToggle from "./components/show-point-labels-toggle";
 import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
@@ -210,6 +211,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
     changeShowPointLabels = (showPointLabels: boolean) => {
         const {graph, correct} = this.props;
+        // Custom point labels are not applicable for `vector` or `none`
+        // graph types — they have no movable points to label.
         if (!graph?.type || graph.type === "vector" || graph.type === "none") {
             return;
         }
@@ -220,9 +223,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         ) {
             return;
         }
-        // Cast: the runtime guards above narrow to variants that accept
-        // `showPointLabels`, but TS can't preserve that narrowing across a
-        // spread into a discriminated union.
         this.props.onChange({
             // eslint-disable-next-line no-restricted-syntax
             graph: {...graph, showPointLabels} as PerseusGraphType,
@@ -543,6 +543,31 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         )}
 
+                        {/* TODO(AITQ-385): clean up feature flag */}
+                        {isFeatureOn(
+                            {apiOptions: this.props.apiOptions},
+                            "perseus-enable-point-label-field",
+                        ) &&
+                            !this.props.static &&
+                            this.props.graph?.type &&
+                            this.props.graph.type !== "vector" &&
+                            this.props.graph.type !== "none" && (
+                                <ShowPointLabelsToggle
+                                    showPointLabels={
+                                        "showPointLabels" in this.props.graph
+                                            ? this.props.graph
+                                                  .showPointLabels === true
+                                            : false
+                                    }
+                                    pointLabels={
+                                        "pointLabels" in this.props.graph
+                                            ? this.props.graph.pointLabels
+                                            : undefined
+                                    }
+                                    onChange={this.changeShowPointLabels}
+                                />
+                            )}
+
                         {this.props.graph?.type &&
                             shouldShowStartCoordsUI(
                                 this.props.graph,
@@ -558,13 +583,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     }
                                     onChange={this.changeStartCoords}
                                     onChangePointLabels={this.changePointLabels}
-                                    showPointLabelsFeatureEnabled={isFeatureOn(
-                                        this.props,
-                                        "perseus-enable-point-label-field",
-                                    )}
-                                    onChangeShowPointLabels={
-                                        this.changeShowPointLabels
-                                    }
                                 />
                             )}
 
