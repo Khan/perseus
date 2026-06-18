@@ -39,7 +39,7 @@ export default {
                         {
                             type: "label",
                             coord: [0, 0],
-                            text: "label",
+                            text: undefined,
                             color: undefined,
                             size: undefined,
                         },

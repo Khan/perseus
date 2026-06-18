@@ -7898,7 +7898,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size.ts returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -7942,7 +7942,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
                 0,
               ],
               "size": "medium",
-              "text": "label",
+              "text": "",
               "type": "label",
             },
           ],
@@ -7986,7 +7986,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size.ts returns the same result as before with answer information removed 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -8030,7 +8030,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
                 0,
               ],
               "size": "medium",
-              "text": "label",
+              "text": "",
               "type": "label",
             },
           ],

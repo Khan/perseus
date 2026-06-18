@@ -109,7 +109,7 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
-    it("defaults color and size on a locked label when they are missing", () => {
+    it("defaults text, color and size on a locked label when they are missing", () => {
         const result = parse(
             {
                 type: "interactive-graph",
@@ -135,7 +135,7 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "label",
                             coord: [0, 0],
-                            text: "A",
+                            text: undefined,
                             color: undefined,
                             size: undefined,
                         },
@@ -172,7 +172,7 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "label",
                             coord: [0, 0],
-                            text: "A",
+                            text: "",
                             color: "grayH",
                             size: "medium",
                         },
