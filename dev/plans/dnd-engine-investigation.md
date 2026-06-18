@@ -178,12 +178,26 @@ It does **not** escape:
 So **react-dnd as a peer dep is architecturally aligned** (it would flow in
 through the existing sync), whereas a bundled engine like dnd-kit/`@use-gesture`
 is a self-contained Perseus prod dep added directly to `package.json` (no frontend
-coordination). This is a genuine point in react-dnd's favor on the *dependency
-plumbing* axis — separate from the provider/backend concern above.
+coordination).
 
-**Verify before weighting heavily:** which react-dnd **version** webapp uses and
-whether it's app-wide or isolated; which **backend** (HTML5 / touch / multi) and
-whether the root `DndProvider` is shareable; whether non-webapp consumers need it.
+**Confirmed from khan/frontend itself** (pulled via the GitHub token) — and it
+undercuts the react-dnd case:
+
+- Frontend is on **`react-dnd@14.0.3`** + **`react-dnd-html5-backend@14.0.1`
+  only** — an old major (current is 16.x), and **HTML5 backend = no touch**.
+  Getting mobile touch means adding `react-dnd-touch-backend`/multi-backend, which
+  are **not** in frontend's catalog — breaking the "just sync from frontend"
+  alignment that was react-dnd's main advantage.
+- `DndProvider` is mounted in **~14 feature-local spots, almost all in
+  `apps/devadmin`** (content/exercise/course/graphie editors) plus a couple of
+  file-upload modals. **There is no shared app-root provider** on the
+  learner-facing surface where Perseus renders, so Perseus would have to mount its
+  own provider anyway — and `perseus-editor` (which runs inside devadmin) risks a
+  "two HTML5 backends" nesting conflict.
+
+**Verdict:** react-dnd drops from "close second" to a **weak option** for the
+learner-facing ODD widgets — old major, touch-less backend, and no shared provider
+to reuse. The peer-dep alignment is real but doesn't outweigh those.
 
 ## 7. Bug / limitation references
 
@@ -268,9 +282,11 @@ choice reduces to a scope-aware build-vs-adopt trade among three shapes:
 
 **Provisional lean:** at family scope, `@dnd-kit/core` + `@dnd-kit/sortable` is
 the front-runner (covers the hard ordering/animation needs with a small,
-self-contained, scoped dependency); `react-dnd` is a close second *if* webapp's
-setup makes the peer-dep + provider story clean; pure `@use-gesture` is best only
-if scope narrows back toward FITB-like single-card blanks. The spike confirms.
+self-contained, scoped dependency); pure `@use-gesture` is the lean alternative,
+best if scope narrows back toward FITB-like single-card blanks. **react-dnd has
+dropped to a weak third** after confirming frontend runs an old, touch-less
+major with no shared provider (§6). So the real choice is **`@dnd-kit` (+sortable)
+vs. `@use-gesture` + custom**. The spike confirms.
 
 ## 10. Desk-confirmed facts (no spike needed)
 
@@ -295,10 +311,13 @@ Verified now, without building anything:
 - **Clean slate:** no dnd/gesture/sortable library is in any Perseus catalog
   today; Perseus has **zero Adobe / react-aria** deps; **WB Announcer is already
   available**.
+- **khan/frontend's react-dnd setup** (pulled via the GitHub token):
+  **`react-dnd@14.0.3`** + **`react-dnd-html5-backend@14.0.1` only** (old major;
+  no touch backend), and `DndProvider` mounted in ~14 feature-local spots (mostly
+  `apps/devadmin`), **no shared learner-app root provider**. → react-dnd is a weak
+  option for learner-facing widgets (see §6).
 
 **Still needs others (not desk-confirmable here):**
 
-- webapp's react-dnd **version + backend** — Perseus is the only repo in scope in
-  this session; check khan/frontend's `pnpm-workspace.yaml` / ask the webapp team.
 - the **menu-driven keyboard reframe** (§2) — design/a11y confirmation.
 - **real-device touch** behavior — the spike.
