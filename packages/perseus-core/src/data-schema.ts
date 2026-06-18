@@ -360,7 +360,12 @@ export const ItemExtras = [
      */
     "periodicTableWithKey",
 ] as const;
-export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
+
+export type CalculatorVariant = "scientific" | "graphing" | "four_function";
+
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean> & {
+    calculatorVariant: CalculatorVariant | null;
+};
 
 /**
  * The type representing the common structure of all widget's options. The

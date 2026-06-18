@@ -14,9 +14,14 @@ export interface SelectImageProps {
     onChange: (url: string) => void;
     // The selected image URL.
     url: string;
+    editingDisabled?: boolean;
 }
 
-const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
+const SelectImage = ({
+    onChange,
+    url,
+    editingDisabled = false,
+}: SelectImageProps): React.ReactElement => (
     <div>
         <div className={styles.title}>Image</div>
 
@@ -29,7 +34,7 @@ const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
             />
 
             <Button
-                disabled={!url}
+                disabled={!url || editingDisabled}
                 aria-label={
                     url
                         ? ""

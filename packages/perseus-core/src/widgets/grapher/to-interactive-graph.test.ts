@@ -54,4 +54,18 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
             type: "sinusoid",
         });
     });
+
+    it("wraps axis labels in $...$ delimiters so they are interpreted as TeX", () => {
+        const grapher = generateGrapherWidgetOptions({
+            availableTypes: ["sinusoid"],
+            graph: {
+                ...generateGrapherWidgetOptions().graph,
+                labels: ["x", "f(x)"],
+            },
+        });
+
+        const ig = convertGrapherOptionsToInteractiveGraph(grapher);
+
+        expect(ig?.labels).toEqual(["$x$", "$f(x)$"]);
+    });
 });

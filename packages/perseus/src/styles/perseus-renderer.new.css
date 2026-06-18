@@ -1,0 +1,33 @@
+@layer libraries, perseus-legacy;
+
+@import "./util.css" layer(perseus-legacy);
+@import "./styles.css"; /* These styles are needed in the shared layer to override element selectors that are provided in the shared layer by frontend apps */
+@import "./paragraph-styles.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-1.css" layer(perseus-legacy);
+@import "widgets/categorizer.css" layer(perseus-legacy);
+@import "widgets/dropdown.css" layer(perseus-legacy);
+@import "widgets/expression.css" layer(perseus-legacy);
+@import "widgets/free-response.css" layer(perseus-legacy);
+@import "widgets/grapher.css" layer(perseus-legacy);
+@import "widgets/graded-group.css" layer(perseus-legacy);
+@import "widgets/group.css" layer(perseus-legacy);
+@import "widgets/image.css" layer(perseus-legacy);
+@import "widgets/interactive-graph.css" layer(perseus-legacy);
+@import "widgets/label-image.css" layer(perseus-legacy);
+@import "widgets/matcher.css" layer(perseus-legacy);
+@import "widgets/matrix.css" layer(perseus-legacy);
+@import "widgets/measurer.css" layer(perseus-legacy);
+@import "widgets/numeric.css" layer(perseus-legacy);
+@import "widgets/orderer.css" layer(perseus-legacy);
+@import "widgets/plotter.css" layer(perseus-legacy);
+@import "widgets/sortable.css" layer(perseus-legacy);
+@import "widgets/table.css" layer(perseus-legacy);
+@import "widget-container.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-2.css" layer(perseus-legacy);
+/*
+  This file replicates the definition order of our styling when it was in LESS format.
+  The styling in the original perseus-renderer.less had import statements interspersed among style definitions
+    (which you can't do in regular CSS - https://developer.mozilla.org/en-US/docs/Web/CSS/@import).
+  Therefore, the definitions are broken out into two separate CSS files (-part-1.css and -part-2.css)
+    and the import order is structured to mirror the original file.
+ */

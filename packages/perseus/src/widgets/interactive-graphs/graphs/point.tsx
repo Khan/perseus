@@ -83,12 +83,12 @@ function PointGraph(props: Props) {
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch} = statefulProps;
-    const {pointLabels} = statefulProps.graphState;
+    const {coords, pointLabels} = statefulProps.graphState;
     const buildLabel = usePointAriaLabel(pointLabels);
 
     return (
         <>
-            {statefulProps.graphState.coords.map((point, i) => (
+            {coords.map((point, i) => (
                 <MovablePoint
                     key={i}
                     point={point}

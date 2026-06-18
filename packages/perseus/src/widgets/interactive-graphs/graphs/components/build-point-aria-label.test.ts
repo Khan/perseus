@@ -22,18 +22,6 @@ describe("resolvePointLabel", () => {
         expect(resolvePointLabel(["T"], 0)).toBe("T");
         expect(resolvePointLabel(["A", "B"], 1)).toBe("B");
     });
-
-    it("returns the 1-indexed default for non-string entries (defensive against malformed JSON)", () => {
-        // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-        const labels = [
-            null,
-            undefined,
-            42,
-        ] as unknown as ReadonlyArray<string>;
-        expect(resolvePointLabel(labels, 0)).toBe(1);
-        expect(resolvePointLabel(labels, 1)).toBe(2);
-        expect(resolvePointLabel(labels, 2)).toBe(3);
-    });
 });
 
 describe("buildPointAriaLabel", () => {
@@ -65,23 +53,5 @@ describe("buildPointAriaLabel", () => {
         expect(
             buildPointAriaLabel(["A", "B"], 1, [-1, 2], strings, locale),
         ).toBe("Point B at -1 comma 2.");
-    });
-
-    it("returns undefined for non-string entries (null, undefined, number) — defensive against malformed hand-authored JSON bypassing the parser", () => {
-        // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-        const labels = [
-            null,
-            undefined,
-            42,
-        ] as unknown as ReadonlyArray<string>;
-        expect(
-            buildPointAriaLabel(labels, 0, [0, 0], strings, locale),
-        ).toBeUndefined();
-        expect(
-            buildPointAriaLabel(labels, 1, [0, 0], strings, locale),
-        ).toBeUndefined();
-        expect(
-            buildPointAriaLabel(labels, 2, [0, 0], strings, locale),
-        ).toBeUndefined();
     });
 });

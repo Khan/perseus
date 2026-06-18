@@ -12,12 +12,14 @@ const {InfoTip} = components;
 interface Props {
     decorative?: boolean;
     hasPopulatedFields?: boolean;
+    editingDisabled?: boolean;
     onChange: ImageEditorProps["onChange"];
 }
 
 export default function DecorativeToggle({
     decorative,
     hasPopulatedFields,
+    editingDisabled = false,
     onChange,
 }: Props) {
     function handleDecorativeToggle(newValue: boolean) {
@@ -54,6 +56,7 @@ export default function DecorativeToggle({
                 <LabeledSwitch
                     label="Decorative"
                     checked={decorative ?? false}
+                    disabled={editingDisabled}
                     onChange={handleDecorativeToggle}
                 />
                 <InfoTip>

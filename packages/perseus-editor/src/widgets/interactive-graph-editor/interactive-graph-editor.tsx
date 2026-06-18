@@ -438,6 +438,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <View>
                         <LabeledRow label="Answer type" labelSize="medium">
                             <GraphTypeSelector
+                                disabled={
+                                    this.props.apiOptions?.editingDisabled ??
+                                    false
+                                }
                                 graphType={
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
@@ -460,6 +464,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
                             ariaDescriptionValue={
                                 this.props.fullGraphAriaDescription ?? ""
+                            }
+                            editingDisabled={
+                                this.props.apiOptions?.editingDisabled ?? false
                             }
                             onChange={this.props.onChange}
                         />
@@ -514,6 +521,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     {...this.props.graph}
                                     range={this.props.range}
                                     step={this.props.step}
+                                    editingDisabled={
+                                        this.props.apiOptions
+                                            ?.editingDisabled ?? false
+                                    }
                                     onChange={this.changeStartCoords}
                                     onChangePointLabels={this.changePointLabels}
                                 />
@@ -527,6 +538,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 this.props.fullGraphAriaDescription
                             }
                             lockedFigures={this.props.lockedFigures}
+                            editingDisabled={
+                                this.props.apiOptions?.editingDisabled ?? false
+                            }
                         />
                         <InteractiveGraphSettings
                             box={getInteractiveBoxFromSizeClass(sizeClass)}

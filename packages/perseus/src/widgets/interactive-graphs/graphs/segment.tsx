@@ -39,6 +39,8 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const segmentUniqueId = React.useId();
     const lengthDescriptionId = segmentUniqueId + "-length";
     const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
+    // pointLabels is a flat array across segments: [seg0Start, seg0End,
+    // seg1Start, seg1End, …].
     const buildLabel = usePointAriaLabel(pointLabels);
 
     function getWholeSegmentGraphAriaLabel(): string {

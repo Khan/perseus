@@ -213,7 +213,11 @@ class LabelImageEditor extends React.Component<Props> {
 
         return (
             <div>
-                <SelectImage onChange={this.handleImageChange} url={imageUrl} />
+                <SelectImage
+                    onChange={this.handleImageChange}
+                    url={imageUrl}
+                    editingDisabled={editingDisabled}
+                />
 
                 <div className={styles.smallSpacer} />
 

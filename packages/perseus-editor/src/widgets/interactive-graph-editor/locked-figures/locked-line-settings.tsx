@@ -72,6 +72,7 @@ const LockedLineSettings = (props: Props) => {
         weight,
         labels,
         ariaLabel,
+        editingDisabled = false,
         onChangeProps,
         onMove,
         onRemove,
@@ -243,6 +244,7 @@ const LockedLineSettings = (props: Props) => {
                 kind
                 <SingleSelect
                     selectedValue={kind}
+                    disabled={editingDisabled}
                     // TODO(LEMS-2656): remove TS suppression
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
@@ -264,12 +266,14 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
+                    editingDisabled={editingDisabled}
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
                         ((value: "solid" | "dashed") =>
@@ -279,6 +283,7 @@ const LockedLineSettings = (props: Props) => {
             </View>
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value: StrokeWeight) =>
                     onChangeProps({weight: value})
                 }
@@ -298,6 +303,7 @@ const LockedLineSettings = (props: Props) => {
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point1}
+                editingDisabled={editingDisabled}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
                 }
@@ -309,6 +315,7 @@ const LockedLineSettings = (props: Props) => {
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point2}
+                editingDisabled={editingDisabled}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
                 }
@@ -320,6 +327,7 @@ const LockedLineSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -335,6 +343,7 @@ const LockedLineSettings = (props: Props) => {
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -348,6 +357,7 @@ const LockedLineSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     // Additional vertical offset for each label so
                     // they don't overlap.
@@ -376,6 +386,7 @@ const LockedLineSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
