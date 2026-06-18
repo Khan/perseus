@@ -317,8 +317,6 @@ export function describeVectorGraph(
         direction: srFormatNumber(normalizedDirection, locale),
     });
 
-    // The full graph description appends the magnitude/direction sentence to
-    // the tail/head coordinates.
     const srVectorDescription = `${srVectorPoints} ${srVectorMagnitudeDirection}`;
 
     const srVectorInteractiveElement = strings.srInteractiveElements({
