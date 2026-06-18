@@ -16,7 +16,16 @@
   aphrodite, etc. are `peerDependencies` provided by the consumer (webapp). A DnD
   library webapp already ships could be consumed the same way (see §6).
 - **Mobile-first** — reliable **touch** drag is a hard requirement.
-- **Accessibility is owned by us, not the engine** (see §2).
+- **Supported browsers:** Chrome ≥ **v132**, Safari ≥ **v16.6** (per the
+  [Browser Support](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/103612417/Browser+Support)
+  page). Both fully support Pointer Events, `touch-action`, and `elementFromPoint`,
+  so a Pointer-Events-based engine needs **no legacy fallback** — dnd-kit's
+  `PointerSensor` (or our `@use-gesture` hit-testing) is sufficient; `TouchSensor`
+  is an optional activation-tuning choice, not a compatibility requirement.
+- **Accessibility is owned by us, not the engine** (see §2). **Screen readers are
+  tested manually** per
+  [ADR #514](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/1849524239/ADR+514+Update+screen+reader+browser+combinations+to+test+web+user-facing+changes)
+  (VoiceOver+Safari prioritized; JAWS+Chrome, NVDA+Chrome, JAWS+Edge).
 
 ## 2. The key reframe: what the engine must do vs. what we own
 
@@ -150,6 +159,13 @@ computation among siblings plus FLIP-style shift animations — roughly **anothe
 (engine-agnostic, ~50–100 LOC) regardless of choice. So the build route lands
 nearer **~600–1,100 LOC** at family scope. **The real cost is owning cross-device
 touch QA *and* the sortable/animation surface** — not the FITB line count.
+
+**Animation caveat (sharpens the build cost):** Perseus has **no animation
+library today** (no react-spring / framer-motion in deps or the catalog).
+`@dnd-kit/sortable` ships the FLIP "tiles separate to make room" animations
+(N5/N8) built in; the `@use-gesture` route would need either a **hand-rolled FLIP**
+or **another new dependency** — which cuts against its "leanest, +0 deps" pitch.
+This is a real point in dnd-kit's favor for the family.
 
 ## 6. The webapp / `react-dnd` consideration
 
@@ -321,3 +337,49 @@ Verified now, without building anything:
 
 - the **menu-driven keyboard reframe** (§2) — design/a11y confirmation.
 - **real-device touch** behavior — the spike.
+
+## 11. Gaps & next steps (rounding out the investigation)
+
+Beyond the engine comparison above, a complete investigation should close these.
+
+### Resolved (no further action)
+
+- **Browser baseline** — Chrome v132 / Safari v16.6 fully support Pointer Events,
+  `touch-action`, `elementFromPoint`; no legacy fallback needed (§1). ✓
+- **Screen-reader validation** — manual, per ADR #514's matrix (§1). Not an
+  automated-tooling gap. ✓
+
+### Still open — high value
+
+- **Testing strategy (biggest gap).** jsdom has no layout or real pointer/touch.
+  *Evidence: the existing Sorter widget has no drag-interaction test — only
+  score/validate/serialize.* Decide how we unit/integration-test drag
+  (jest + RTL with mocked pointer events / custom sensors) and what we cover with
+  **Storybook play/interaction tests + visual regression**. The spike should
+  produce a working test of at least one drag scenario per engine.
+- **Animation approach.** Perseus has **no animation library**; the
+  `@use-gesture` build route needs a hand-rolled FLIP or a new dep for the
+  N5/N8 shift animations (§5). Confirm the approach as part of the spike.
+- **Decision scorecard + spike definition-of-done.** Add a weighted rubric,
+  **pass/fail criteria per spike scenario** (§9), a timebox/owner, and an explicit
+  **fallback** ("if dnd-kit fails the touch test on a real device, then…").
+
+### Still open — medium value
+
+- **Mobile native-webview specifics.** Beyond "touch works": iOS **long-press →
+  text-selection / callout menu** during drag, and `apiOptions.isMobileApp` /
+  `file://` webview quirks. Add to the spike + confirm with the mobile team.
+- **Coexistence / migration with the legacy jQuery `sortable`** (Sorter / Matcher
+  / Orderer). ODD aims to extend patterns back to those; during transition both
+  engines coexist in the bundle. Define the migration path.
+- **RTL** — KA has RTL locales; verify drag direction, keyboard, and announcer
+  behavior under RTL (spike smoke test).
+
+### Still open — low value / quick
+
+- **Measured bundle size** — replace the "~10KB" estimate with measured min+gzip
+  for `@dnd-kit/core` + `sortable` + `utilities` + `accessibility` together
+  (bundlephobia/packagephobia; npmjs UI was blocked from this environment).
+- **SSR / hydration** smoke check — no self-SSR found in `packages/perseus/src`,
+  but consumers may SSR the renderer; confirm no `window`/`document` at module
+  load and no `useId` hydration mismatch. Low risk.
