@@ -23,15 +23,15 @@ const MovablePoint: any = GraphieClasses.createClass({
                       ),
                       "stroke-width": 3,
                       fill: tokenValue(
-                          semanticColor.core.foreground.success.default,
+                          semanticColor.core.foreground.instructive.default,
                       ),
                   }
                 : {
                       stroke: tokenValue(
-                          semanticColor.core.foreground.success.default,
+                          semanticColor.core.foreground.instructive.default,
                       ),
                       fill: tokenValue(
-                          semanticColor.core.foreground.success.default,
+                          semanticColor.core.foreground.instructive.default,
                       ),
                   };
 
