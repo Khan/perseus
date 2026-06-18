@@ -8,13 +8,13 @@ import {getBaseMafsGraphPropsForTests} from "../utils";
 
 import {getExponentialKeyboardConstraint} from "./exponential";
 
-import type {InteractiveGraphState} from "../types";
+import type {ExponentialGraphState} from "../types";
 import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
 // Curve above asymptote: f(0)=3, f(1)=6, asymptote y=1
-const baseExponentialState: InteractiveGraphState = {
+const baseExponentialState: ExponentialGraphState = {
     type: "exponential",
     coords: [
         [0, 3],
@@ -29,6 +29,17 @@ const baseExponentialState: InteractiveGraphState = {
     snapStep: [1, 1],
 };
 
+// Renders the exponential graph from the base state, applying any overrides
+// (e.g. coords/asymptote/pointLabels) for the case under test.
+function renderExponentialGraph(overrides?: Partial<ExponentialGraphState>) {
+    return render(
+        <MafsGraph
+            {...baseMafsGraphProps}
+            state={{...baseExponentialState, ...overrides}}
+        />,
+    );
+}
+
 describe("Exponential graph screen reader", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -38,9 +49,7 @@ describe("Exponential graph screen reader", () => {
 
     it("has the correct aria-label on the graph element", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -52,9 +61,7 @@ describe("Exponential graph screen reader", () => {
 
     it("labels point 1 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -66,9 +73,7 @@ describe("Exponential graph screen reader", () => {
 
     it("labels point 2 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -80,9 +85,7 @@ describe("Exponential graph screen reader", () => {
 
     it("labels the asymptote with its y-value", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -94,9 +97,7 @@ describe("Exponential graph screen reader", () => {
 
     it("describes the curve's behavior, asymptote, and intercepts", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -110,18 +111,12 @@ describe("Exponential graph screen reader", () => {
 
     it("updates the graph description when point positions change", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [-2, 4],
-                        [2, 8],
-                    ],
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            coords: [
+                [-2, 4],
+                [2, 8],
+            ],
+        });
 
         // Assert
         expect(
@@ -135,15 +130,7 @@ describe("Exponential graph screen reader", () => {
 
     it("updates the graph description when the asymptote changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    asymptote: -3,
-                }}
-            />,
-        );
+        renderExponentialGraph({asymptote: -3});
 
         // Assert
         expect(
@@ -159,19 +146,13 @@ describe("Exponential graph screen reader", () => {
         // Arrange, Act — decreasing curve (b < 0) sitting below the
         // asymptote (a < 0). Exercises the LeftPos directional variant and
         // the "below" clause.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [0, -2],
-                        [2, -0.5],
-                    ],
-                    asymptote: 0,
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            coords: [
+                [0, -2],
+                [2, -0.5],
+            ],
+            asymptote: 0,
+        });
 
         // Assert
         expect(
@@ -186,19 +167,7 @@ describe("Exponential graph screen reader", () => {
     it("renders without crashing when the asymptote sits between the curve points", () => {
         // Arrange, Act — asymptote y=4 sits between points at y=3 and y=6.
         // There is no exponential curve that fits, so the Plot.OfX is skipped.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [0, 3],
-                        [1, 6],
-                    ],
-                    asymptote: 4,
-                }}
-            />,
-        );
+        renderExponentialGraph({asymptote: 4});
 
         // Assert — asymptote still rendered, and the points drop the
         // "on an exponential curve" phrasing since no curve is plotted.
@@ -216,19 +185,7 @@ describe("Exponential graph screen reader", () => {
     it("describes the no-curve case when the asymptote sits between the points", () => {
         // Arrange, Act — asymptote y=4 falls between points at y=3 and y=6,
         // so no exponential fits and nothing is plotted.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [0, 3],
-                        [1, 6],
-                    ],
-                    asymptote: 4,
-                }}
-            />,
-        );
+        renderExponentialGraph({asymptote: 4});
 
         // Assert
         expect(
@@ -242,9 +199,7 @@ describe("Exponential graph screen reader", () => {
 
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -256,19 +211,13 @@ describe("Exponential graph screen reader", () => {
 
     it("updates the interactive elements description when state changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [3, 5],
-                        [4, 7],
-                    ],
-                    asymptote: 2,
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            coords: [
+                [3, 5],
+                [4, 7],
+            ],
+            asymptote: 2,
+        });
 
         // Assert
         expect(
@@ -289,12 +238,7 @@ describe("Exponential graph pointLabels", () => {
 
     it("uses custom pointLabels in each point's accessible name", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseExponentialState, pointLabels: ["A", "B"]}}
-            />,
-        );
+        renderExponentialGraph({pointLabels: ["A", "B"]});
 
         // Assert
         expect(
@@ -307,12 +251,7 @@ describe("Exponential graph pointLabels", () => {
 
     it("falls back to the default label for indices without a custom label", () => {
         // Arrange, Act — only the first point is named
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseExponentialState, pointLabels: ["A"]}}
-            />,
-        );
+        renderExponentialGraph({pointLabels: ["A"]});
 
         // Assert
         expect(
@@ -329,12 +268,7 @@ describe("Exponential graph pointLabels", () => {
     // An empty string at any index must fall back to the default label.
     it("falls back to the default label for explicit empty-string entries", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseExponentialState, pointLabels: ["", "B"]}}
-            />,
-        );
+        renderExponentialGraph({pointLabels: ["", "B"]});
 
         // Assert
         expect(
@@ -349,16 +283,10 @@ describe("Exponential graph pointLabels", () => {
 
     it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+            pointLabels: [42, "B"] as unknown as string[],
+        });
 
         // Assert
         expect(

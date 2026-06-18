@@ -221,6 +221,16 @@ function getExponentialDescription(
     return strings.srExponentialInteractiveElements;
 }
 
+// The formatted point coordinates and asymptote value shared across the
+// exponential description string templates.
+type ExponentialDescriptionArgs = {
+    point1X: string;
+    point1Y: string;
+    point2X: string;
+    point2Y: string;
+    asymptoteY: string;
+};
+
 function describeExponentialGraph(
     state: ExponentialGraphState,
     i18n: I18nContextType,
@@ -242,7 +252,7 @@ function describeExponentialGraph(
     // coeffs is undefined when the asymptote sits between the two points and
     // no valid exponential fits — the description falls back to a plain sentence.
     const coeffs = getExponentialCoefficients(coords, asymptote);
-    const descriptionArgs = {
+    const descriptionArgs: ExponentialDescriptionArgs = {
         point1X: formattedPoint1.x,
         point1Y: formattedPoint1.y,
         point2X: formattedPoint2.x,
@@ -279,13 +289,7 @@ function describeExponentialGraph(
 
 function buildExponentialDescription(
     coeffs: ExponentialCoefficient | undefined,
-    args: {
-        point1X: string;
-        point1Y: string;
-        point2X: string;
-        point2Y: string;
-        asymptoteY: string;
-    },
+    args: ExponentialDescriptionArgs,
     strings: PerseusStrings,
     locale: string,
 ): string {
