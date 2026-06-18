@@ -62,5 +62,5 @@ export default {
 - Create visual regression stories (`*-regression.stories.tsx`) with `"!autodocs"` and `"!manifest"` tags for Chromatic
 
 ### Error Boundaries
-- Widgets are wrapped in error boundaries by their parent component
+- Widgets are wrapped in error boundaries by their parent component (`WidgetContainer`)
 - Check browser console for widget-specific errors
