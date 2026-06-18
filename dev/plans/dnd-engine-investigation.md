@@ -1,17 +1,36 @@
 # Drag-and-Drop Engine Investigation (Operation Dragon Drop)
 
-> Status: investigation / decision-pending. Purpose: choose the drag-and-drop
-> engine for the new Operation Dragon Drop (ODD) widget family — Fill in the Blank
-> first, then Categorizer / Composer / Sorter. No engine has been adopted yet;
-> this doc frames the decision and the spike that resolves it.
+> **Status:** investigation / decision-pending. Choosing the drag-and-drop engine
+> for the Operation Dragon Drop (ODD) widget family — Fill in the Blank first, then
+> Categorizer / Composer / Sorter. No engine adopted yet.
+
+## At a glance
+
+**Where we landed:** the field is narrowed to **two finalists**. Provisional lean
+is **`@dnd-kit/core` + `@dnd-kit/sortable`**; the final pick comes from a
+timeboxed spike (§9) scored against the rubric in §9.2.
+
+| Standing | Option | One-line reason |
+| --- | --- | --- |
+| ⭐ **Finalist** (front-runner) | **`@dnd-kit/core` + `@dnd-kit/sortable`** | Covers the whole family — incl. ordering + animations — in a small, self-contained, scoped dependency. |
+| ⭐ **Finalist** (leanest) | **`@use-gesture/react` + ~600–1,100 LOC** | Already in Perseus (**+0 deps**); but we build drop-targets, ordering, and animations ourselves. |
+| ▽ Weak third | `react-dnd` | Frontend already ships it, but on old **v14**, **HTML5-only (no touch)**, with no shared provider — see §6. |
+| ✘ Ruled out | Pragmatic · React Aria · hello-pangea · SortableJS · native HTML5 · legacy jQuery · react-beautiful-dnd | Touch, footprint, a11y, or deprecation — see §3.3. |
+
+**Settled** (no spike needed): the requirements (§2), the candidate field (§3),
+and the dependency/browser/SR/test facts (§10).
+**Still to resolve:** real-device touch (the **hard gate**, §9.1), the
+menu-driven-keyboard assumption (design/a11y, §2), and measured bundle size (CI).
+
+---
 
 ## 1. Constraints
 
 - **Free / OSS only.** No paid packages.
 - **Perseus is deliberately lean** — 5 external runtime deps today
   (`@use-gesture/react`, `gifuct-js`, `mafs`, `tiny-invariant`, `uuid`). A DnD
-  dependency should add drag-and-drop and little else; packages that pull in
-  redux stores or whole component/a11y frameworks are a poor fit.
+  dependency should add drag-and-drop and little else; packages that pull in redux
+  stores or whole component/a11y frameworks are a poor fit.
 - **Perseus uses a peer-dependency model** — React, all of Wonder Blocks, jQuery,
   aphrodite, etc. are `peerDependencies` provided by the consumer (webapp). A DnD
   library webapp already ships could be consumed the same way (see §6).
@@ -19,9 +38,7 @@
 - **Supported browsers:** Chrome ≥ **v132**, Safari ≥ **v16.6** (per the
   [Browser Support](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/103612417/Browser+Support)
   page). Both fully support Pointer Events, `touch-action`, and `elementFromPoint`,
-  so a Pointer-Events-based engine needs **no legacy fallback** — dnd-kit's
-  `PointerSensor` (or our `@use-gesture` hit-testing) is sufficient; `TouchSensor`
-  is an optional activation-tuning choice, not a compatibility requirement.
+  so a Pointer-Events-based engine needs **no legacy fallback**.
 - **Accessibility is owned by us, not the engine** (see §2). **Screen readers are
   tested manually** per
   [ADR #514](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/1849524239/ADR+514+Update+screen+reader+browser+combinations+to+test+web+user-facing+changes)
@@ -31,19 +48,23 @@
 
 ODD's keyboard / screen-reader UX is **menu-driven**, not arrow-key dragging.
 Keyboard and SR users move tiles via the **Actions Menu** ("Move to Blank N" /
-"Clear"), and results are announced via the **Wonder Blocks Announcer**
-(`@khanacademy/wonder-blocks-announcer`, already a Perseus dep, already used by
-interactive-graphs / radio / free-response / graded-group).
+"Clear"), and moves are announced via an **aria-live region**.
 
-**Consequence:** a library's built-in keyboard sensor and drag announcements —
-the headline feature of dnd-kit and React Aria — are **largely irrelevant to us**.
-We will not use them. The engine's real job is the pointer/touch side.
+> **On the announcer:** the design docs *propose / recommend* the Wonder Blocks
+> Announcer (`@khanacademy/wonder-blocks-announcer`) for this — the FITB page
+> "proposes" it for read-aloud and the Overview says the announcer "should"
+> announce moves. It is **not a hard mandate**: the requirement is an aria-live
+> announcement, and WB Announcer is simply the convenient option already in the
+> tree (used by interactive-graphs / radio / free-response / graded-group). Any
+> aria-live mechanism satisfies it. **This is engine-independent either way.**
 
-**The engine must cover the needs of the whole ODD family** (Fill in the Blank,
-Categorizer, Composer, Sorter — Scale / Timeline / Sentence variants). The table
-below consolidates the explicitly-requested needs and the ones derived from the
-widget specs. "Req #" maps to the originally-listed needs; "Source" notes specs
-that add a requirement.
+**Consequence:** a library's built-in keyboard sensor and drag announcements — the
+headline feature of dnd-kit and React Aria — are **largely irrelevant to us**. The
+engine's real job is the pointer/touch side.
+
+**The engine must cover the needs of the whole ODD family** (FITB, Categorizer,
+Composer, Sorter — Scale / Timeline / Sentence variants). "Req #" maps to the
+originally-listed needs; "Source" notes specs that add a requirement.
 
 | ID | Requirement | Widget(s) | Req # / Source |
 | --- | --- | --- | --- |
@@ -51,169 +72,133 @@ that add a requirement.
 | N2 | **Touch drag (mobile)** | all | #7 |
 | N3 | Single-card drop zone; replacing a card returns the old one to the bank (**swap → bank**) | FITB, Sorter Scale/Timeline | #4 |
 | N4 | Drop zone that accepts **multiple cards** | Composer, Sorter Sentence, Categorizer | #5 |
-| N5 | **Ordered positional insertion** — drop *between* existing cards at a specific index (others separate to accept it) | Composer, Sorter Sentence, Categorizer | #2 (Composer/Sentence specs) |
-| N6 | **Reorder cards within a zone** (move up / down / to start / to end) and within the bank | Composer, Sorter Sentence, Categorizer | #3 |
+| N5 | **Ordered positional insertion** — drop *between* cards at a specific index (others separate to accept it) | Composer, Sorter Sentence, Categorizer | #2 |
+| N6 | **Reorder cards within a zone** (up / down / to start / to end) and within the bank | Composer, Sorter Sentence, Categorizer | #3 |
 | N7 | **Action-menu move** — a button on the card sends it to a specific zone/position with no drag | all | #1 |
-| N8 | **Displacement on occupied slot** — existing tiles shift down a column; if all blanks full, the last returns to the bank (distinct from N3 swap) | Categorizer | Categorizer spec |
-| N9 | **Per-zone capacity limits** — reject/overflow beyond a max (Composer 4 rows; Categorizer auto blank count) | Composer, Categorizer | Composer/Categorizer specs |
-| N10 | **Multi-use / clone tiles** — one source tile placed N times with a remaining-count; removing a placement replenishes the source | FITB, Composer, Sorter Sentence | Overview / Composer specs |
-| N11 | Drag-over / active state on a target | all | #6 area |
+| N8 | **Displacement on occupied slot** — tiles shift down a column; if full, the last returns to the bank (distinct from N3 swap) | Categorizer | spec |
+| N9 | **Per-zone capacity limits** (Composer 4 rows; Categorizer auto blank count) | Composer, Categorizer | spec |
+| N10 | **Multi-use / clone tiles** — one source placed N times with a remaining-count; removing a placement replenishes it | FITB, Composer, Sorter Sentence | spec |
+| N11 | Drag-over / active state on a target | all | #6 |
 | N12 | Cancel/abort (Escape) + return-to-source on invalid drop | all | spec |
-| N13 | Drop detection robust to **reflow** (504px breakpoint, legend reorientation, staggered timeline) | all (esp. FITB, Sorter) | specs |
-| N14 | Arbitrary card content — **Text, TeX, Images, empty** | all | #8 (+ specs add TeX/empty) |
-| N15 | **A11y** — SR labels, WB Announcer (move/swap/read-aloud), focus-return after a move, ordered-list semantics, column-header announce | all | #6 |
-| N16 | Responsive layout / orientation (legend H↔V, timeline stagger, column stacking) — *our concern, not the engine's*, but engine drop-detection must survive it | all | specs |
+| N13 | Drop detection robust to **reflow** (504px breakpoint, legend reorientation, timeline stagger) | all (esp. FITB, Sorter) | spec |
+| N14 | Arbitrary card content — **Text, TeX, Images, empty** | all | #8 |
+| N15 | **A11y** — SR labels, aria-live announcements (move/swap/read-aloud), focus-return, ordered-list semantics | all | #6 |
+| N16 | Responsive layout / orientation — *our concern, not the engine's*, but drop-detection must survive it | all | spec |
 
-**We own regardless of engine:** keyboard moves (Actions Menu, N7), SR
-announcements (WB Announcer, N15), focus management, multi-use bookkeeping (N10),
-and all responsive layout (N16). The engine's job is the pointer/touch mechanics
-(N1–N6, N8–N9, N11–N13).
+**We own regardless of engine:** keyboard moves (N7), aria-live announcements
+(N15), focus management, multi-use bookkeeping (N10), and responsive layout (N16).
+The engine's job is the pointer/touch mechanics (N1–N6, N8–N9, N11–N13).
 
 ### 2.1 FITB alone vs. the full family — the bar moves
 
-If we only had to ship **Fill in the Blank**, the requirements are modest:
-single-card blanks + swap-to-bank (N3), no ordering, no reorder. Hand-rolling on
-`@use-gesture` is very attractive at that scope.
+**FITB only** is modest: single-card blanks + swap-to-bank (N3), no ordering.
+Hand-rolling on `@use-gesture` is very attractive at that scope.
 
-But the family adds **ordered positional insertion (N5)**, **reorder within a zone
-(N6)**, **displacement (N8)**, **capacity limits (N9)**, and **multi-use/clone
-(N10)** — i.e. *sortable-list-within-a-drop-zone* semantics, including
-index-from-pointer math and FLIP-style "tiles separate to make room" animations.
-Those are exactly the parts that are tedious and bug-prone to hand-roll, and
-exactly what `@dnd-kit/sortable` and `react-dnd`'s sortable model provide out of
-the box. **So the build-vs-adopt calculus flips with scope:** FITB-only favors
-build; the full family favors adopt. The spike should evaluate against the *full
-family*, not FITB alone — otherwise we under-cost the hardest widgets.
+**The full family** adds ordered positional insertion (N5), reorder (N6),
+displacement (N8), capacity limits (N9), and multi-use (N10) — i.e.
+*sortable-list-within-a-drop-zone* semantics, including index-from-pointer math
+and FLIP "tiles separate to make room" animations. Those are tedious and
+bug-prone to hand-roll, and exactly what `@dnd-kit/sortable` provides. **So the
+build-vs-adopt calculus flips with scope:** FITB-only favors build; the full
+family favors adopt. The spike must evaluate against the *full family*.
 
 ## 3. Candidate landscape (free/OSS)
 
-Dependency trees are from the latest published versions. Footprint matters
-because of the lean-repo constraint (§1).
+### 3.1 Finalists
 
-| Option | License | Footprint (runtime deps) | Touch | Discrete drop targets | Verdict |
-| --- | --- | --- | --- | --- | --- |
-| **[`@use-gesture/react`](https://use-gesture.netlify.app/)** ([repo](https://github.com/pmndrs/use-gesture)) | MIT | **+0 — already a Perseus dep** | ✅ pointer events | ❌ we build it | **Finalist.** Gesture layer only; we build R3–R7 (~350–600 LOC, §5). Leanest; cleanest reflow handling. |
-| **[`@dnd-kit/core`](https://dndkit.com/)** ([repo](https://github.com/clauderic/dnd-kit)) | MIT | Small: `tslib`, `@dnd-kit/accessibility`, `@dnd-kit/utilities` | ✅ `TouchSensor` / `PointerSensor` (stable 6.x) | ✅ `useDroppable` | **Finalist.** Covers the full set, ~10KB, modular, scoped context (no app-root provider). Pin to stable 6.x; single-maintainer governance. |
-| **[`react-dnd`](https://react-dnd.github.io/react-dnd/)** ([repo](https://github.com/react-dnd/react-dnd)) | MIT | `dnd-core` (bundles redux) + `@react-dnd/*` + a backend pkg | HTML5 backend lacks touch; needs touch/multi-backend | ✅ | **Finalist (conditional).** Reconsidered because **webapp already ships it** — as a peer dep, ~0 net webapp weight (§6). Cost: root `DndProvider`/backend coupling + touch-backend setup. |
-| **[Atlassian Pragmatic drag-and-drop](https://atlassian.design/components/pragmatic-drag-and-drop/)** | Apache-2.0 | Tiny: `@babel/runtime`, `bind-event-listener`, `raf-schd` | ❌ **structural — native HTML5 DnD doesn't do touch** | ✅ | **Ruled out** on touch (see §7 bug refs). Smallest engine, but touch is a deal-breaker for mobile-first Perseus. |
-| **[React Aria DnD](https://react-spectrum.adobe.com/react-aria/dnd.html)** (Adobe) | Apache-2.0 | **Large + conflict:** `@react-aria/dnd` → whole `react-aria` suite | ✅ | ✅ | **Ruled out.** Huge transitive tree, and introduces a parallel interaction/a11y framework overlapping Wonder Blocks (Perseus has zero Adobe deps; WB is not built on React Aria). |
-| **[`@hello-pangea/dnd`](https://github.com/hello-pangea/dnd)** | BSD-3 | Heavy: `redux` + `react-redux` + `css-box-model` + … | ✅ | List-reorder model | **Ruled out.** Ships its own redux store (~30KB+); list-centric, wrong shape for inline blanks. |
-| **[SortableJS](https://github.com/SortableJS/Sortable)** / [`react-sortablejs`](https://github.com/SortableJS/react-sortablejs) | MIT | No deps, ~640KB unpacked | ✅ | Swap/multi-drag plugins | **Ruled out.** Poor a11y — mouse/touch only. |
-| **[Native HTML5 DnD](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)** | n/a | None | ❌ no touch | Manual | **Ruled out.** Same touch limitation as Pragmatic, none of the ergonomics. |
-| Legacy jQuery `sortable.tsx` (in-repo) | in-repo | n/a | Partial | No (reorder-only) | **Ruled out.** Dated; removing jQuery is a longer-term goal. |
-| [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) | ~~Apache-2.0~~ | — | — | — | **Excluded — deprecated & archived.** Use Pragmatic (successor) or `@hello-pangea/dnd` (fork). |
+| Option | License | Footprint | Touch | Why it's a finalist |
+| --- | --- | --- | --- | --- |
+| **[`@dnd-kit/core`](https://dndkit.com/)** + [`@dnd-kit/sortable`](https://github.com/clauderic/dnd-kit) | MIT | Small: `tslib`, `@dnd-kit/accessibility`, `@dnd-kit/utilities` (+ sortable) | ✅ `Pointer`/`TouchSensor` (stable 6.x) | Covers the full family incl. ordering/animations; scoped context (no app-root provider). **Front-runner.** Pin to stable 6.x; single-maintainer governance. |
+| **[`@use-gesture/react`](https://use-gesture.netlify.app/)** + custom | MIT | **+0 — already a Perseus dep** | ✅ pointer events | Leanest; cleanest reflow handling; proven in-repo test pattern (§10). But we build drop-targets/ordering/animations (~600–1,100 LOC, §5). |
 
-## 4. Finalist coverage
+### 3.2 Weak third
 
-Evaluated against the **full family** (§2), not FITB alone.
+| Option | License | Why only "weak" |
+| --- | --- | --- |
+| **[`react-dnd`](https://react-dnd.github.io/react-dnd/)** | MIT | Frontend already ships it (peer-dep alignment), **but** it's on old **v14**, **HTML5-backend only → no touch**, and there's **no shared provider** to reuse (§6). Touch + provider coupling outweigh the alignment. |
 
-| Requirement | `@dnd-kit/core` (+ `sortable`) | `@use-gesture` + our code | `react-dnd` (peer dep) |
-| --- | --- | --- | --- |
-| N1 pointer | ✅ | ✅ | ✅ |
-| **N2 touch** | ✅ (own edge cases to tune) | ✅ | ⚠️ needs touch / multi-backend |
-| N3 single-card + swap→bank | ✅ `useDroppable` | ❌ we build | ✅ |
-| N4 multi-card zone | ✅ | ❌ we build | ✅ |
-| **N5 ordered positional insertion** | ✅ `@dnd-kit/sortable` | ❌ **we build index math + FLIP** | ✅ (we write hover-index logic) |
-| **N6 reorder within zone** | ✅ `@dnd-kit/sortable` (`arrayMove`) | ❌ we build | ✅ |
-| N8 displacement on occupied slot | ✅ (sortable shift) | ❌ we build | ✅ |
-| N9 capacity limits | we enforce in state | we enforce in state | we enforce in state |
-| N10 multi-use / clone | we orchestrate in state (engine-agnostic) | we orchestrate | we orchestrate |
-| N11 over-state | ✅ `isOver` | ❌ we build | ✅ |
-| N12 cancel/return | ✅ `onDragCancel` | ⚠️ we build | ✅ |
-| N13 reflow-robust detection | ✅ (`pointerWithin` + remeasure) | ✅ `elementFromPoint` (live DOM) | ✅ |
-| N14 React content (Text/TeX/Image/empty) | ✅ | ✅ | ✅ |
-| Reorder/shift animations (FLIP) | ✅ built in | ❌ we build | ⚠️ partial / we add |
-| App-root provider required? | No (scoped `DndContext`) | No | **Yes (`DndProvider` + backend)** |
-| Net bundle add to webapp | ~10KB (+small `sortable`) | 0 | ~0 (already shipped) |
+### 3.3 Ruled out (one line each)
 
-The decisive rows are **N5 / N6 / N8 + FLIP animations**: dnd-kit (with
-`@dnd-kit/sortable`) and react-dnd provide ordered-list semantics; the
-`@use-gesture` route means hand-building index-from-pointer math and the
-"tiles separate to make room" animations for Composer, Sorter Sentence, and
+| Option | License | Reason |
+| --- | --- | --- |
+| **[Pragmatic drag-and-drop](https://atlassian.design/components/pragmatic-drag-and-drop/)** | Apache-2.0 | **Tiny (~5KB, not a huge package)** — but built on native HTML5 DnD, which is **unreliable on touch** (§7). Ruled out on **touch**, not size. |
+| **[React Aria DnD](https://react-spectrum.adobe.com/react-aria/dnd.html)** (Adobe) | Apache-2.0 | `@react-aria/dnd` pulls the **whole `react-aria` suite**, and introduces a parallel a11y framework overlapping Wonder Blocks. |
+| **[`@hello-pangea/dnd`](https://github.com/hello-pangea/dnd)** | BSD-3 | Bundles its own **redux + react-redux** store (~30KB+); list-reorder model, wrong shape for inline blanks. |
+| **[SortableJS](https://github.com/SortableJS/Sortable)** / [react-sortablejs](https://github.com/SortableJS/react-sortablejs) | MIT | **Poor a11y** — mouse/touch only. |
+| **[Native HTML5 DnD](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)** | n/a | **No touch**; none of the ergonomics. |
+| Legacy jQuery `sortable.tsx` (in-repo) | in-repo | Dated, reorder-only — and **we're trying to reduce jQuery, not add to it**. |
+| [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) | ~~Apache-2.0~~ | **Deprecated & archived.** Use Pragmatic (successor) or hello-pangea (fork) instead. |
+
+## 4. Finalist coverage (full family)
+
+| Requirement | `@dnd-kit/core` (+ `sortable`) | `@use-gesture` + our code |
+| --- | --- | --- |
+| N1 pointer · N2 touch | ✅ (touch edge cases to tune) | ✅ |
+| N3 single-card + swap→bank | ✅ `useDroppable` | ❌ we build |
+| N4 multi-card zone | ✅ | ❌ we build |
+| **N5 ordered positional insertion** | ✅ `@dnd-kit/sortable` | ❌ **we build index math + FLIP** |
+| **N6 reorder within zone** | ✅ `arrayMove` | ❌ we build |
+| N8 displacement on occupied slot | ✅ (sortable shift) | ❌ we build |
+| N9 capacity · N10 multi-use | we enforce/orchestrate in state | we enforce/orchestrate in state |
+| N11 over-state | ✅ `isOver` | ❌ we build |
+| N12 cancel/return | ✅ `onDragCancel` | ⚠️ we build |
+| N13 reflow-robust detection | ✅ (`pointerWithin` + remeasure) | ✅ `elementFromPoint` (live DOM) |
+| N14 React content (Text/TeX/Image/empty) | ✅ | ✅ |
+| Reorder/shift animations (FLIP) | ✅ built in | ❌ we build (or add a dep) |
+| App-root provider required? | No (scoped `DndContext`) | No |
+
+**Decisive rows: N5 / N6 / N8 + FLIP animations.** dnd-kit+sortable provides
+ordered-list semantics; the `@use-gesture` route means hand-building
+index-from-pointer math and the shift animations for Composer / Sorter Sentence /
 Categorizer.
 
-## 5. `@use-gesture` build estimate (R3–R7)
+## 5. `@use-gesture` build estimate
 
-`@use-gesture/react` provides R1/R2 (pointer + touch, with activation
-`delay`/`threshold` + tap filtering). The rest we build:
+`@use-gesture/react` provides pointer+touch (with activation `delay`/`threshold`
++ tap filtering). The rest we build:
 
 | Piece | What it does | Rough size |
 | --- | --- | --- |
 | `DragProvider` / context | Tracks active item, pointer position, current droppable | ~80–150 LOC |
-| `useDraggable` wrapper | Wraps `useDrag`; emits start/move/end, sets active item | ~60–100 LOC |
-| `useDroppable` | Registers a blank's element + id into the context | ~30–50 LOC |
-| Hit-testing | `elementFromPoint(x,y)` → `closest('[data-droppable]')` on move | ~30 LOC |
-| Drag preview | Positioned clone following the pointer (`pointer-events: none`) | ~50–80 LOC |
-| Cancel/return (R6) | Escape listener + return-to-source on invalid drop | ~30 LOC |
+| `useDraggable` wrapper | Wraps `useDrag`; emits start/move/end | ~60–100 LOC |
+| `useDroppable` | Registers a blank's element + id | ~30–50 LOC |
+| Hit-testing | `elementFromPoint` → `closest('[data-droppable]')` on move | ~30 LOC |
+| Drag preview | Positioned clone following the pointer | ~50–80 LOC |
+| Cancel/return | Escape listener + return-to-source | ~30 LOC |
 | Touch hardening | `touch-action: none`, scroll suppression, activation tuning | scattered + **real-device QA** |
 
-**Total ≈ 350–600 LOC we fully own** (plus tests) — **for FITB only** (N3 swap
-blanks). Tractable; for N13, `elementFromPoint` hit-tests the live DOM, so it is
-inherently reflow-proof.
+**≈ 350–600 LOC for FITB only.** The full family adds **+200–400 LOC** for N5/N6/N8
+(index math + FLIP) plus ~50–100 LOC for N10 multi-use → **~600–1,100 LOC** at
+family scope. The real cost is owning cross-device touch QA *and* the
+sortable/animation surface.
 
-**The full family adds materially to this estimate.** N5 (ordered positional
-insertion), N6 (reorder), and N8 (displacement) require index-from-pointer
-computation among siblings plus FLIP-style shift animations — roughly **another
-+200–400 LOC** of fiddly, animation-heavy code, which is precisely what
-`@dnd-kit/sortable` / react-dnd give for free. Plus N10 multi-use bookkeeping
-(engine-agnostic, ~50–100 LOC) regardless of choice. So the build route lands
-nearer **~600–1,100 LOC** at family scope. **The real cost is owning cross-device
-touch QA *and* the sortable/animation surface** — not the FITB line count.
-
-**Animation caveat (sharpens the build cost):** Perseus has **no animation
-library today** (no react-spring / framer-motion in deps or the catalog).
-`@dnd-kit/sortable` ships the FLIP "tiles separate to make room" animations
-(N5/N8) built in; the `@use-gesture` route would need either a **hand-rolled FLIP**
-or **another new dependency** — which cuts against its "leanest, +0 deps" pitch.
-This is a real point in dnd-kit's favor for the family.
+**Animation caveat:** Perseus has **no animation library** (no
+react-spring/framer-motion). `@dnd-kit/sortable` ships the FLIP animations built
+in; the `@use-gesture` route needs a **hand-rolled FLIP or another new dependency**
+— cutting against its "+0 deps" pitch. A real point in dnd-kit's favor for the
+family.
 
 ## 6. The webapp / `react-dnd` consideration
 
-webapp already depends on `react-dnd`. Because Perseus uses a peer-dependency
-model (§1), Perseus could declare it as a peer dep and let webapp provide its
-existing copy — **~0 net bundle weight for the primary consumer**, plus team
-familiarity. Our a11y reframe (§2) also removes react-dnd's "manual a11y" demerit,
-since we build a11y ourselves regardless.
+webapp already depends on `react-dnd`, and Perseus's `peerDeps`/`devDeps` catalogs
+are **generated from khan/frontend's** `pnpm-workspace.yaml` (via
+`utils/sync-dependencies.ts`), so a peer dep there is architecturally aligned with
+Perseus — appealing on paper. **But pulling the actual frontend config undercuts
+it:**
 
-It does **not** escape:
-
-- **Touch:** HTML5 backend has no touch; needs `react-dnd-touch-backend` or a
-  multi-backend — extra setup, dependent on webapp's backend choice.
-- **Provider/backend coupling (the real issue for a library):** react-dnd needs a
-  single root `DndProvider` + backend, and can't mount two backends of the same
-  type. Perseus would either lean on webapp's root provider (coupling Perseus to
-  the consumer's DnD setup/version) or nest its own (conflict risk). dnd-kit and
-  `@use-gesture` impose nothing at the app root.
-- **Other consumers** (Perseus Storybook, non-webapp consumers) must each provide
-  it + a provider.
-- **Maintenance posture:** mature but low-activity (~2022-era).
-
-**Confirmed (desk check):** Perseus's `peerDeps`/`devDeps` catalogs are
-*generated from khan/frontend's* `pnpm-workspace.yaml` (via
-`utils/sync-dependencies.ts`) — Perseus deliberately mirrors frontend's versions.
-So **react-dnd as a peer dep is architecturally aligned** (it would flow in
-through the existing sync), whereas a bundled engine like dnd-kit/`@use-gesture`
-is a self-contained Perseus prod dep added directly to `package.json` (no frontend
-coordination).
-
-**Confirmed from khan/frontend itself** (pulled via the GitHub token) — and it
-undercuts the react-dnd case:
-
-- Frontend is on **`react-dnd@14.0.3`** + **`react-dnd-html5-backend@14.0.1`
-  only** — an old major (current is 16.x), and **HTML5 backend = no touch**.
-  Getting mobile touch means adding `react-dnd-touch-backend`/multi-backend, which
-  are **not** in frontend's catalog — breaking the "just sync from frontend"
-  alignment that was react-dnd's main advantage.
+- Frontend is on **`react-dnd@14.0.3`** + **`react-dnd-html5-backend@14.0.1` only**
+  — an old major (current is 16.x), and **HTML5 backend = no touch**. Adding a
+  touch/multi-backend means new packages **not** in frontend's catalog — breaking
+  the very alignment that was the advantage.
 - `DndProvider` is mounted in **~14 feature-local spots, almost all in
-  `apps/devadmin`** (content/exercise/course/graphie editors) plus a couple of
-  file-upload modals. **There is no shared app-root provider** on the
-  learner-facing surface where Perseus renders, so Perseus would have to mount its
-  own provider anyway — and `perseus-editor` (which runs inside devadmin) risks a
-  "two HTML5 backends" nesting conflict.
+  `apps/devadmin`** (editors) plus a couple of upload modals. **No shared app-root
+  provider** on the learner-facing surface where Perseus renders — so Perseus would
+  mount its own anyway, and `perseus-editor` (running inside devadmin) risks a
+  "two HTML5 backends" conflict.
 
-**Verdict:** react-dnd drops from "close second" to a **weak option** for the
-learner-facing ODD widgets — old major, touch-less backend, and no shared provider
-to reuse. The peer-dep alignment is real but doesn't outweigh those.
+**Verdict:** react-dnd is a **weak third** for learner-facing widgets — old major,
+touch-less backend, no shared provider. The peer-dep alignment is real but doesn't
+outweigh those.
 
 ## 7. Bug / limitation references
 
@@ -229,7 +214,7 @@ not "will-be-fixed":
 
 **dnd-kit — touch works but has tunable edge cases** (not disqualifying):
 
-- [#435 — PointerSensor doesn't work well on touch devices](https://github.com/clauderic/dnd-kit/issues/435)
+- [#435 — PointerSensor on touch devices](https://github.com/clauderic/dnd-kit/issues/435)
 - [#1955 — drag doesn't start on some Android (Samsung); works on iOS](https://github.com/clauderic/dnd-kit/issues/1955)
 - [#272 — mobile loses scroll inside scrollable container](https://github.com/clauderic/dnd-kit/issues/272)
 - [#453 — touch + delay activation + `touch-action: auto` conflict](https://github.com/clauderic/dnd-kit/issues/453)
@@ -238,217 +223,124 @@ not "will-be-fixed":
 
 ## 8. Action Menu on draggable cards (drag-handle pattern)
 
-The designs put an Actions Menu icon button **inside** each draggable tile. The
-classic failure mode is a button inside a draggable swallowing clicks as drags.
-Both finalists avoid it by separating "what drags" from "where you grab":
+The designs put an Actions Menu button **inside** each draggable tile; the classic
+failure mode is the button swallowing clicks as drags. Both finalists avoid it by
+separating "what drags" from "where you grab":
 
-- **dnd-kit:** `useDraggable` returns `setNodeRef` (whole card, the thing that
-  moves), `listeners` (drag activators), and `attributes`. Spread `listeners` on
-  **only the grip handle** (the `⠿` icon), so the rest of the card — including the
-  Actions Menu button — receives normal clicks/taps/keyboard.
+- **dnd-kit:** spread `useDraggable`'s `listeners` on **only the grip handle**
+  (the `⠿` icon); the rest of the card — including the Actions Menu button —
+  receives normal clicks/taps/keyboard.
   ([drag-handle docs](https://docs.dndkit.com/api-documentation/draggable/usedraggable#drag-handle))
 - **`@use-gesture`:** bind the gesture to the grip ref only — same result.
 
-Because keyboard/SR moves go through the Actions Menu (not dnd-kit's keyboard
-sensor), there is no conflict between "drag" and "menu button" for keyboard users.
-The "menu button appears on hover/focus, hidden when placed in a blank" behavior
-is plain conditional rendering/CSS, independent of the engine. This requirement
-does **not** separate the finalists.
+Keyboard/SR moves go through the Actions Menu (not a drag keyboard sensor), so
+there's no conflict for keyboard users. The "menu appears on hover/focus, hidden
+when placed" behavior is plain CSS/conditional rendering. **This requirement does
+not separate the finalists.**
 
 ## 9. How we'll decide
 
-1. **Confirm the menu-driven keyboard reframe** (§2) with design/a11y. If true,
-   engine keyboard/announcer features are not a differentiator.
-2. **Throwaway spike** of the finalists against the hardest scenarios — chosen to
-   cover the *full family*, not just FITB:
-   - inline blank in wrapping text across the 504px breakpoint (FITB, N13);
-   - **swap** on an occupied single-card blank → old card to bank (N3);
-   - **ordered positional insertion** — drop a card *between* two others in a
-     multi-card zone, with the "tiles separate to make room" animation
-     (Composer / Sorter Sentence, N5/N6);
-   - **displacement** — drop into a full Categorizer column, others shift down,
-     last returns to bank (N8/N9);
-   - **multi-use** tile placed twice with a decrementing remaining-count (N10);
-   - a TeX tile and an image tile (N14);
-   - **touch drag on a real device** (N2);
-   - Actions Menu button inside the draggable card → move to a target (N7);
-   - focus-return after a move + one WB Announcer call on drop (N15).
-
-   Same engineer, timeboxed. Note the spike now needs `@dnd-kit/sortable` (for the
-   dnd-kit arm) and a touch/multi-backend (for the react-dnd arm).
-3. **Verify the webapp `react-dnd` setup** (§6) if it stays in contention.
-4. **KA-specific checks:** Wonder Blocks / design-systems input; the process for
-   adding a new prod dependency to Perseus; RTL + mobile-webview smoke test.
-5. **Output: an ADR** recommending one engine, filled out against the scorecard
-   below.
+1. **Confirm the menu-driven keyboard reframe** (§2) with design/a11y.
+2. **Throwaway spike** of the two finalists against the §9.1 scenarios — full
+   family, not just FITB. Same engineer, timeboxed. (dnd-kit arm needs
+   `@dnd-kit/sortable`.)
+3. **KA-specific checks:** Wonder Blocks / design-systems input; new-prod-dep
+   process; RTL + mobile-webview smoke test.
+4. **Output: an ADR** recommending one engine, with the §9.2 scorecard filled in.
 
 ### 9.1 Spike scenario pass/fail criteria
 
-Each scenario is **pass / partial / fail** per engine. "Partial" = works but needs
-non-trivial custom code or has a rough edge. Capture the result + a one-line note.
+Each scenario is **pass / partial / fail** per engine; capture a one-line note.
 
 | # | Scenario | Pass criterion |
 | --- | --- | --- |
-| S1 | Inline blank in wrapping text across the 504px breakpoint (N13) | Drop lands in the correct blank after reflow; no stale hit-testing. |
-| S2 | Swap on an occupied single-card blank (N3) | New card placed; old card returns to bank; one announcer call. |
-| S3 | Ordered positional insertion between two cards (N5) | Card lands at the pointer's index; neighbors animate apart (FLIP). |
-| S4 | Reorder within a zone (N6) | Move up/down/start/end via drag *and* via Actions Menu agree. |
+| S1 | Inline blank in wrapping text across 504px (N13) | Drop lands in the correct blank after reflow. |
+| S2 | Swap on an occupied single-card blank (N3) | New card placed; old returns to bank; one announcement. |
+| S3 | Ordered positional insertion between cards (N5) | Lands at the pointer's index; neighbors animate apart. |
+| S4 | Reorder within a zone (N6) | Drag *and* Actions Menu moves agree. |
 | S5 | Displacement in a full Categorizer column (N8/N9) | Others shift down; last returns to bank; capacity enforced. |
 | S6 | Multi-use tile placed twice (N10) | Source decrements; removing a placement replenishes it. |
-| S7 | TeX tile + image tile (N14) | Render correctly while dragging and when placed; no layout break. |
-| S8 | **Touch drag on a real device** (N2) | Reliable drag start + drop on iOS Safari **and** Android Chrome; no scroll/long-press conflict. |
-| S9 | Actions Menu button inside the card (N7) | Button click/keyboard works; never triggers a drag (handle isolation). |
-| S10 | Focus-return + announcer after a move (N15) | Focus returns per spec; correct SR announcement. |
+| S7 | TeX tile + image tile (N14) | Render correctly while dragging and placed. |
+| S8 | **Touch drag on a real device** (N2) | Reliable drag+drop on iOS Safari **and** Android Chrome; no scroll/long-press conflict. |
+| S9 | Actions Menu button inside the card (N7) | Click/keyboard works; never triggers a drag. |
+| S10 | Focus-return + announcement after a move (N15) | Focus returns per spec; correct SR announcement. |
 
-**Gate:** S8 (real-device touch) is a **hard gate** — an engine that only reaches
-"partial" on S8 is disqualified for learner-facing widgets regardless of other
-scores.
+**Hard gate:** an engine that only reaches "partial" on **S8 (real-device touch)**
+is disqualified for learner-facing widgets, regardless of other scores.
 
 ### 9.2 Weighted scorecard
 
-Score each finalist 1–5 per criterion; multiply by weight; sum. Weights reflect
-*our* context (mobile-first, lean, a11y-owned-by-us, full-family scope).
+Score each finalist 1–5 per criterion × weight; sum; apply the S8 gate.
 
-| Criterion | Weight | Why this weight |
-| --- | --- | --- |
-| Real-device touch reliability (S8) | 5 | Hard requirement; mobile-first. Gating. |
-| Full-family fit (S3–S6: ordering, reorder, displacement, multi-use) | 4 | The hardest widgets (Composer/Categorizer/Sentence) live here. |
-| Footprint / lean fit (deps, bundle, no app-root provider) | 4 | Perseus ships everywhere; 5-dep ethos. |
-| Reflow-robust hit-testing (S1) | 3 | FITB's defining quirk. |
-| Testability in jsdom + Storybook (S2–S10 coverage) | 3 | In-repo precedent exists; must hold for the chosen engine. |
-| Integrates with our a11y layer (Actions Menu + WB Announcer; S9/S10) | 3 | We own a11y; engine must not fight it. |
-| Maintenance / governance (longevity, license) | 2 | Long-lived foundation for 4 widgets. |
-| Animation support (FLIP, S3) | 2 | Built-in vs. hand-rolled/new dep. |
-| Implementation/maintenance cost (LOC we own) | 2 | Build-vs-adopt; ~600–1,100 LOC for the build route. |
+| Criterion | Weight |
+| --- | --- |
+| Real-device touch reliability (S8) | 5 (gating) |
+| Full-family fit (S3–S6) | 4 |
+| Footprint / lean fit (deps, bundle, no app-root provider) | 4 |
+| Reflow-robust hit-testing (S1) | 3 |
+| Testability in jsdom + Storybook | 3 |
+| Integrates with our a11y layer (Actions Menu + aria-live; S9/S10) | 3 |
+| Maintenance / governance (longevity, license) | 2 |
+| Animation support (FLIP, S3) | 2 |
+| Implementation/maintenance cost (LOC we own) | 2 |
 
-Decision rule: highest weighted total **after** applying the S8 gate wins; record
-the filled scorecard in the ADR.
+Decision rule: highest weighted total **after** the S8 gate; record the filled
+scorecard in the ADR.
 
 ### 9.3 Fallback / exit
 
-- If **`@dnd-kit`** fails the S8 gate on a real device after sensor/`touch-action`
-  tuning → fall back to **`@use-gesture` + custom** (proven touch + in-repo test
-  pattern), accepting the higher LOC and a FLIP-animation decision.
-- If **`@use-gesture` + custom** proves too costly on N5/N8 (sortable/animation
-  surface) → fall back to **`@dnd-kit` + `@dnd-kit/sortable`**.
-- **`react-dnd`** is only revisited if both above fail *and* the webapp
-  provider/touch-backend story turns out clean (§6) — unlikely given the v14 /
-  HTML5-only / no-shared-provider findings.
-
-**Framing for the decision:** because we bypass the engine's keyboard/SR
-machinery, the value gap between adopting a library and building on the
-`@use-gesture` we already ship is narrower than adoption stats suggest — **at FITB
-scope**. But the full family's sortable-list semantics (N5/N6/N8 + animations)
-widen that gap again, since those are the parts most worth *not* hand-rolling. The
-choice reduces to a scope-aware build-vs-adopt trade among three shapes:
-
-- **`@use-gesture` + ~600–1,100 LOC** — leanest deps (+0), but we own touch QA
-  *and* the sortable/animation surface for Composer/Categorizer/Sentence.
-- **`@dnd-kit/core` + `@dnd-kit/sortable`** — ~10KB + a small sortable package;
-  covers the full family incl. ordering/animations; scoped context (no app-root
-  provider); single-maintainer governance.
-- **`react-dnd` (peer dep)** — ~0 net webapp weight + team familiarity + sortable
-  model, but root `DndProvider`/backend coupling and touch-backend setup.
-
-**Provisional lean:** at family scope, `@dnd-kit/core` + `@dnd-kit/sortable` is
-the front-runner (covers the hard ordering/animation needs with a small,
-self-contained, scoped dependency); pure `@use-gesture` is the lean alternative,
-best if scope narrows back toward FITB-like single-card blanks. **react-dnd has
-dropped to a weak third** after confirming frontend runs an old, touch-less
-major with no shared provider (§6). So the real choice is **`@dnd-kit` (+sortable)
-vs. `@use-gesture` + custom**. The spike confirms.
+- **`@dnd-kit`** fails the S8 gate after tuning → fall back to **`@use-gesture` +
+  custom** (proven touch + in-repo test pattern), accepting the higher LOC.
+- **`@use-gesture`** proves too costly on N5/N8 → fall back to
+  **`@dnd-kit` + `@dnd-kit/sortable`**.
+- **`react-dnd`** is revisited only if both fail *and* webapp's provider/touch
+  story turns out clean (§6) — unlikely given v14 / HTML5-only / no provider.
 
 ## 10. Desk-confirmed facts (no spike needed)
 
-Verified now, without building anything:
+- **dnd-kit versions:** stable **`@dnd-kit/core` 6.3.1** + **`@dnd-kit/sortable`
+  10.0.0** (self-contained). The rewrite **`@dnd-kit/react` is still `0.5.0`**
+  (pre-1.0, churning beta) → pin to stable core+sortable, avoid the rewrite.
+- **`@use-gesture/react` already a Perseus prod dep** (`^10.2.27`) → the
+  build-on-`@use-gesture` route adds **zero** new dependency.
+- **Dependency mechanism:** `peerDeps`/`devDeps` catalogs are generated from
+  khan/frontend; bundled prod deps go directly in `package.json`;
+  `minimumReleaseAge` = 3 days. → react-dnd would be a frontend-synced peer dep;
+  dnd-kit/`@use-gesture` are self-contained prod deps (no frontend coordination).
+- **Clean slate:** no dnd/gesture/sortable in any Perseus catalog; **zero Adobe /
+  react-aria deps**; **WB Announcer already available** (but optional, §2).
+- **khan/frontend's react-dnd:** **`react-dnd@14.0.3`** + **html5-backend only**;
+  `DndProvider` in ~14 feature-local spots (mostly devadmin), **no shared
+  learner-app provider** (§6).
+- **In-repo precedents:** drag is **already testable in jsdom**
+  (`use-draggable.test.tsx`, `fireEvent.mouseDown/mouseMove` + `userEvent`); **RTL
+  infra exists** (`rtlDecorator`, `:dir(rtl)`); **legacy `sortable` used only by
+  `sorter.tsx` + `matcher.tsx`** (bounded migration).
 
-- **dnd-kit versioning / maintenance:** stable line is **`@dnd-kit/core` 6.3.1**
-  + **`@dnd-kit/sortable` 10.0.0** (current, self-contained). The rewrite
-  **`@dnd-kit/react` is still `0.5.0`** — pre-1.0, with an actively-churning beta.
-  → Confirms the guidance to pin to stable core + sortable and avoid the rewrite
-  for now.
-- **`@use-gesture/react` is already a Perseus prod dep** (`^10.2.27`, direct in
-  `packages/perseus/package.json`). The build-on-`@use-gesture` route adds **zero**
-  new dependency.
-- **Dependency mechanism** (`pnpm-workspace.yaml`): `peerDeps`/`devDeps` catalogs
-  are **generated from khan/frontend's** workspace via `utils/sync-dependencies.ts`
-  (Perseus mirrors frontend's versions); bundled prod deps are listed directly in
-  `package.json`; `minimumReleaseAge` = **3 days**.
-  - **react-dnd** → naturally a peer dep synced from frontend (already there) —
-    aligned with the plumbing.
-  - **dnd-kit / `@use-gesture`** → self-contained Perseus prod deps, added
-    directly, no frontend coordination.
-- **Clean slate:** no dnd/gesture/sortable library is in any Perseus catalog
-  today; Perseus has **zero Adobe / react-aria** deps; **WB Announcer is already
-  available**.
-- **khan/frontend's react-dnd setup** (pulled via the GitHub token):
-  **`react-dnd@14.0.3`** + **`react-dnd-html5-backend@14.0.1` only** (old major;
-  no touch backend), and `DndProvider` mounted in ~14 feature-local spots (mostly
-  `apps/devadmin`), **no shared learner-app root provider**. → react-dnd is a weak
-  option for learner-facing widgets (see §6).
-- **In-repo precedents (lower the unknowns):**
-  - **Drag is already testable in jsdom** — `use-draggable.test.tsx` exercises
-    `@use-gesture` dragging via `fireEvent.mouseDown/mouseMove` + `userEvent`.
-  - **RTL infra exists** — `rtlDecorator` / `dir="rtl"` utilities in
-    `widgets/__testutils__/story-decorators.tsx`, `:dir(rtl)` CSS.
-  - **Legacy `sortable` is used only by `sorter.tsx` + `matcher.tsx`** (Orderer is
-    separate) — bounded migration scope.
+## 11. Gaps & next steps
 
-**Still needs others (not desk-confirmable here):**
+**Resolved** — browser baseline (Chrome 132 / Safari 16.6, no fallback needed);
+SR validation is manual per ADR #514.
 
-- the **menu-driven keyboard reframe** (§2) — design/a11y confirmation.
-- **real-device touch** behavior — the spike.
+**Open — high value:**
+- **Testing strategy.** jsdom pattern exists (`use-draggable.test.tsx`); open parts
+  are replicating it for dnd-kit's `PointerSensor` and deciding Storybook
+  play/visual-regression coverage. (The old jQuery Sorter has *no* drag test, so
+  this is net-new rigor.)
+- **Animation approach.** No animation lib in Perseus; the `@use-gesture` route
+  needs hand-rolled FLIP or a new dep (§5). Confirm in the spike.
+- **Spike DoD** — owner + timebox; results recorded against §9.2.
 
-## 11. Gaps & next steps (rounding out the investigation)
+**Open — medium value:**
+- **Mobile native-webview specifics** — iOS long-press → text-selection/callout
+  during drag; `apiOptions.isMobileApp` / `file://`. Spike + mobile team.
+- **Legacy-jQuery migration** — bounded to `sorter.tsx` + `matcher.tsx`; define the
+  coexistence/migration path.
+- **RTL** — reuse existing `rtlDecorator`/`dir` infra; verify drag direction,
+  keyboard, announcer (spike smoke test).
 
-Beyond the engine comparison above, a complete investigation should close these.
-
-### Resolved (no further action)
-
-- **Browser baseline** — Chrome v132 / Safari v16.6 fully support Pointer Events,
-  `touch-action`, `elementFromPoint`; no legacy fallback needed (§1). ✓
-- **Screen-reader validation** — manual, per ADR #514's matrix (§1). Not an
-  automated-tooling gap. ✓
-
-### Still open — high value
-
-- **Testing strategy.** jsdom has no layout or real pointer/touch — but Perseus
-  **already has a working pattern**: `interactive-graphs/graphs/use-draggable.test.tsx`
-  tests `@use-gesture`-based dragging with `fireEvent.mouseDown/mouseMove`
-  (`pointerId`/`buttons`) + `userEvent.pointer`/keyboard (dev note in-file confirms
-  this is the `@use-gesture` testing approach). *So drag-testing in jsdom is
-  solved here — a concrete testability point for the `@use-gesture` route.* Open
-  parts: replicate the pattern against dnd-kit's `PointerSensor` (spike check), and
-  decide Storybook play/interaction + visual-regression coverage. (Note: the old
-  jQuery Sorter has **no** drag-interaction test, so this is net-new rigor.)
-- **Animation approach.** Perseus has **no animation library**; the
-  `@use-gesture` build route needs a hand-rolled FLIP or a new dep for the
-  N5/N8 shift animations (§5). Confirm the approach as part of the spike.
-- **Decision scorecard + spike definition-of-done.** Add a weighted rubric,
-  **pass/fail criteria per spike scenario** (§9), a timebox/owner, and an explicit
-  **fallback** ("if dnd-kit fails the touch test on a real device, then…").
-
-### Still open — medium value
-
-- **Mobile native-webview specifics.** Beyond "touch works": iOS **long-press →
-  text-selection / callout menu** during drag, and `apiOptions.isMobileApp` /
-  `file://` webview quirks. Add to the spike + confirm with the mobile team.
-- **Coexistence / migration with the legacy jQuery `sortable`.** *Confirmed scope:
-  only `sorter.tsx` and `matcher.tsx` import `components/sortable`; Orderer has its
-  own drag.* ODD aims to extend patterns back to those; during transition both
-  engines coexist in the bundle. Define the migration path for those three widgets.
-- **RTL** — *not greenfield:* Perseus already has RTL infra (reusable
-  `rtlDecorator`, `dir="rtl"` test/story utilities in
-  `widgets/__testutils__/story-decorators.tsx`, `:dir(rtl)` CSS). Reuse that
-  harness; verify drag direction, keyboard, and announcer under RTL (spike smoke
-  test).
-
-### Still open — low value / quick
-
-- **Measured bundle size** — replace the "~10KB" estimate with measured min+gzip
-  for `@dnd-kit/core` + `sortable` + `utilities` + `accessibility` together.
-  *Both npmjs and bundlephobia were network-blocked from this environment, so this
-  must be measured locally / in CI* (e.g. a size-limit check on a spike build).
-- **SSR / hydration** smoke check — no self-SSR found in `packages/perseus/src`,
-  but consumers may SSR the renderer; confirm no `window`/`document` at module
-  load and no `useId` hydration mismatch. Low risk.
+**Open — low value:**
+- **Measured bundle size** — npmjs + bundlephobia were network-blocked here; measure
+  locally / via a CI size-limit check.
+- **SSR / hydration** smoke check — no self-SSR in `packages/perseus/src`; confirm
+  no `window`/`document` at module load. Low risk.
