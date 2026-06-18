@@ -399,25 +399,32 @@ export type PerseusStrings = {
     srVectorPoints: ({
         tailX,
         tailY,
-        tipX,
-        tipY,
+        headX,
+        headY,
     }: {
         tailX: string;
         tailY: string;
-        tipX: string;
-        tipY: string;
+        headX: string;
+        headY: string;
     }) => string;
-    srVectorTipPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorHeadPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorMagnitudeDirection: ({
+        magnitude,
+        direction,
+    }: {
+        magnitude: string;
+        direction: string;
+    }) => string;
     srVectorGrabHandle: ({
         tailX,
         tailY,
-        tipX,
-        tipY,
+        headX,
+        headY,
     }: {
         tailX: string;
         tailY: string;
-        tipX: string;
-        tipY: string;
+        headX: string;
+        headY: string;
     }) => string;
     srQuadraticGraph: string;
     srQuadraticFaceUp: string;
@@ -1075,20 +1082,26 @@ export const strings = {
     },
     srVectorPoints: {
         context:
-            "Screen reader description for the tail and tip of a vector in the interactive graph widget.",
+            "Screen reader description for the tail and head of a vector in the interactive graph widget.",
         message:
-            "The tail is at %(tailX)s comma %(tailY)s and the tip is at %(tipX)s comma %(tipY)s.",
+            "The tail is at %(tailX)s comma %(tailY)s and the head is at %(headX)s comma %(headY)s.",
     },
-    srVectorTipPoint: {
+    srVectorHeadPoint: {
         context:
-            "Aria label for the tip point of a Vector (the point with the arrowhead) in the interactive graph widget.",
-        message: "Tip point at %(x)s comma %(y)s.",
+            "Aria label for the head point of a Vector (the point with the arrowhead) in the interactive graph widget.",
+        message: "Vector head at %(x)s comma %(y)s.",
+    },
+    srVectorMagnitudeDirection: {
+        context:
+            "Screen reader description of a vector's magnitude (length) and direction (angle in degrees, measured counterclockwise from the positive x-axis) in the interactive graph widget.",
+        message:
+            "The vector has a magnitude of %(magnitude)s and a direction of %(direction)s degrees.",
     },
     srVectorGrabHandle: {
         context:
             "Aria label for the interactive segment that allows the user to move the whole Vector in the interactive graph widget.",
         message:
-            "Vector from %(tailX)s comma %(tailY)s to %(tipX)s comma %(tipY)s.",
+            "Vector from %(tailX)s comma %(tailY)s to %(headX)s comma %(headY)s.",
     },
     srQuadraticGraph: {
         context:
@@ -1668,11 +1681,13 @@ export const mockStrings: PerseusStrings = {
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
     srVectorGraph: "A vector on a coordinate plane.",
-    srVectorPoints: ({tailX, tailY, tipX, tipY}) =>
-        `The tail is at ${tailX} comma ${tailY} and the tip is at ${tipX} comma ${tipY}.`,
-    srVectorTipPoint: ({x, y}) => `Tip point at ${x} comma ${y}.`,
-    srVectorGrabHandle: ({tailX, tailY, tipX, tipY}) =>
-        `Vector from ${tailX} comma ${tailY} to ${tipX} comma ${tipY}.`,
+    srVectorPoints: ({tailX, tailY, headX, headY}) =>
+        `The tail is at ${tailX} comma ${tailY} and the head is at ${headX} comma ${headY}.`,
+    srVectorHeadPoint: ({x, y}) => `Vector head at ${x} comma ${y}.`,
+    srVectorMagnitudeDirection: ({magnitude, direction}) =>
+        `The vector has a magnitude of ${magnitude} and a direction of ${direction} degrees.`,
+    srVectorGrabHandle: ({tailX, tailY, headX, headY}) =>
+        `Vector from ${tailX} comma ${tailY} to ${headX} comma ${headY}.`,
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",

@@ -757,14 +757,14 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at -1 comma 2.");
         });
 
-        it("returns the tip label at the tip (index 1)", () => {
+        it("returns the head label at the head (index 1)", () => {
             const result = getAnnouncementText(
                 {type: "move-vector-point", pointIndex: 1, x: 5, y: 6},
                 mockStrings,
                 "en",
             );
 
-            expect(result).toBe("Tip point at 5 comma 6.");
+            expect(result).toBe("Vector head at 5 comma 6.");
         });
     });
 
