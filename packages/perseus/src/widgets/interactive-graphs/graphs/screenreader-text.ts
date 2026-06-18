@@ -211,6 +211,7 @@ function srLogarithmPointLabel(
         pointLabel: string | number;
         x: number;
         y: number;
+        hasCurve: boolean;
     },
     strings: PerseusStrings,
     locale: string,
@@ -223,6 +224,15 @@ function srLogarithmPointLabel(
     // we can remove this block in favor of using the index logic below.
     if (typeof state.pointLabel === "string") {
         return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // When no curve is plotted, drop the "on a curve" phrasing
+    // in favor of plain point coordinates, matching logarithm.tsx.
+    if (!state.hasCurve) {
+        return strings.srPointAtCoordinates({
+            num: state.pointIndex + 1,
+            x,
+            y,
+        });
     }
     // Coord layout in logarithm graphs: [point1(0), point2(1)].
     return state.pointIndex === 0
