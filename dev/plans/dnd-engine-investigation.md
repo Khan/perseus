@@ -332,6 +332,13 @@ Verified now, without building anything:
   no touch backend), and `DndProvider` mounted in ~14 feature-local spots (mostly
   `apps/devadmin`), **no shared learner-app root provider**. → react-dnd is a weak
   option for learner-facing widgets (see §6).
+- **In-repo precedents (lower the unknowns):**
+  - **Drag is already testable in jsdom** — `use-draggable.test.tsx` exercises
+    `@use-gesture` dragging via `fireEvent.mouseDown/mouseMove` + `userEvent`.
+  - **RTL infra exists** — `rtlDecorator` / `dir="rtl"` utilities in
+    `widgets/__testutils__/story-decorators.tsx`, `:dir(rtl)` CSS.
+  - **Legacy `sortable` is used only by `sorter.tsx` + `matcher.tsx`** (Orderer is
+    separate) — bounded migration scope.
 
 **Still needs others (not desk-confirmable here):**
 
@@ -351,12 +358,15 @@ Beyond the engine comparison above, a complete investigation should close these.
 
 ### Still open — high value
 
-- **Testing strategy (biggest gap).** jsdom has no layout or real pointer/touch.
-  *Evidence: the existing Sorter widget has no drag-interaction test — only
-  score/validate/serialize.* Decide how we unit/integration-test drag
-  (jest + RTL with mocked pointer events / custom sensors) and what we cover with
-  **Storybook play/interaction tests + visual regression**. The spike should
-  produce a working test of at least one drag scenario per engine.
+- **Testing strategy.** jsdom has no layout or real pointer/touch — but Perseus
+  **already has a working pattern**: `interactive-graphs/graphs/use-draggable.test.tsx`
+  tests `@use-gesture`-based dragging with `fireEvent.mouseDown/mouseMove`
+  (`pointerId`/`buttons`) + `userEvent.pointer`/keyboard (dev note in-file confirms
+  this is the `@use-gesture` testing approach). *So drag-testing in jsdom is
+  solved here — a concrete testability point for the `@use-gesture` route.* Open
+  parts: replicate the pattern against dnd-kit's `PointerSensor` (spike check), and
+  decide Storybook play/interaction + visual-regression coverage. (Note: the old
+  jQuery Sorter has **no** drag-interaction test, so this is net-new rigor.)
 - **Animation approach.** Perseus has **no animation library**; the
   `@use-gesture` build route needs a hand-rolled FLIP or a new dep for the
   N5/N8 shift animations (§5). Confirm the approach as part of the spike.
@@ -369,17 +379,22 @@ Beyond the engine comparison above, a complete investigation should close these.
 - **Mobile native-webview specifics.** Beyond "touch works": iOS **long-press →
   text-selection / callout menu** during drag, and `apiOptions.isMobileApp` /
   `file://` webview quirks. Add to the spike + confirm with the mobile team.
-- **Coexistence / migration with the legacy jQuery `sortable`** (Sorter / Matcher
-  / Orderer). ODD aims to extend patterns back to those; during transition both
-  engines coexist in the bundle. Define the migration path.
-- **RTL** — KA has RTL locales; verify drag direction, keyboard, and announcer
-  behavior under RTL (spike smoke test).
+- **Coexistence / migration with the legacy jQuery `sortable`.** *Confirmed scope:
+  only `sorter.tsx` and `matcher.tsx` import `components/sortable`; Orderer has its
+  own drag.* ODD aims to extend patterns back to those; during transition both
+  engines coexist in the bundle. Define the migration path for those three widgets.
+- **RTL** — *not greenfield:* Perseus already has RTL infra (reusable
+  `rtlDecorator`, `dir="rtl"` test/story utilities in
+  `widgets/__testutils__/story-decorators.tsx`, `:dir(rtl)` CSS). Reuse that
+  harness; verify drag direction, keyboard, and announcer under RTL (spike smoke
+  test).
 
 ### Still open — low value / quick
 
 - **Measured bundle size** — replace the "~10KB" estimate with measured min+gzip
-  for `@dnd-kit/core` + `sortable` + `utilities` + `accessibility` together
-  (bundlephobia/packagephobia; npmjs UI was blocked from this environment).
+  for `@dnd-kit/core` + `sortable` + `utilities` + `accessibility` together.
+  *Both npmjs and bundlephobia were network-blocked from this environment, so this
+  must be measured locally / in CI* (e.g. a size-limit check on a spike build).
 - **SSR / hydration** smoke check — no self-SSR found in `packages/perseus/src`,
   but consumers may SSR the renderer; confirm no `window`/`document` at module
   load and no `useId` hydration mismatch. Low risk.
