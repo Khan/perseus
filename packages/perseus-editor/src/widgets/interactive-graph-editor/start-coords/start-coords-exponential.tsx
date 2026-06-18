@@ -52,8 +52,7 @@ const StartCoordsExponential = (props: StartCoordsExponentialProps) => {
                 axis="y"
                 value={asymptote}
                 onChange={(newY) =>
-                    // Rebuild coords so startCoords gets a new reference;
-                    // StatefulMafsGraph only reinitializes on identity change.
+                    // Update the asymptote in startCoords to refresh the preview.
                     onChange({coords: [coords[0], coords[1]], asymptote: newY})
                 }
             />
