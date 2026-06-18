@@ -39,16 +39,24 @@ menu-driven-keyboard assumption (design/a11y, §2), and measured bundle size (CI
   [Browser Support](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/103612417/Browser+Support)
   page). Both fully support Pointer Events, `touch-action`, and `elementFromPoint`,
   so a Pointer-Events-based engine needs **no legacy fallback**.
-- **Accessibility is owned by us, not the engine** (see §2). **Screen readers are
-  tested manually** per
+- **Accessibility *behaviors* are specified by the design docs** — the ODD
+  Overview explicitly requires an **Actions Menu** on each tile for keyboard /
+  screen-reader users ("drag and drop interactions are not available to
+  keyboard-only or screen reader users"), plus aria-live announcements,
+  focus-return, SR labels, and ordered-list semantics. **Screen readers are tested
+  manually** per
   [ADR #514](https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/1849524239/ADR+514+Update+screen+reader+browser+combinations+to+test+web+user-facing+changes)
   (VoiceOver+Safari prioritized; JAWS+Chrome, NVDA+Chrome, JAWS+Edge).
+  - *Inference, not a verbatim constraint:* because those moves go through our own
+    Actions Menu + aria-live, we'd implement a11y ourselves and an engine's
+    built-in keyboard sensor is largely moot (§2). This is the "menu-driven
+    reframe" still to be confirmed with design/a11y (§9).
 
 ## 2. The key reframe: what the engine must do vs. what we own
 
-ODD's keyboard / screen-reader UX is **menu-driven**, not arrow-key dragging.
-Keyboard and SR users move tiles via the **Actions Menu** ("Move to Blank N" /
-"Clear"), and moves are announced via an **aria-live region**.
+The design docs specify a **menu-driven** keyboard / screen-reader UX (the
+Overview mandates an **Actions Menu** — "Move to Blank N" / "Clear" — because drag
+isn't available to those users), with moves announced via an **aria-live region**.
 
 > **On the announcer:** the design docs *propose / recommend* the Wonder Blocks
 > Announcer (`@khanacademy/wonder-blocks-announcer`) for this — the FITB page
@@ -58,9 +66,10 @@ Keyboard and SR users move tiles via the **Actions Menu** ("Move to Blank N" /
 > tree (used by interactive-graphs / radio / free-response / graded-group). Any
 > aria-live mechanism satisfies it. **This is engine-independent either way.**
 
-**Consequence:** a library's built-in keyboard sensor and drag announcements — the
-headline feature of dnd-kit and React Aria — are **largely irrelevant to us**. The
-engine's real job is the pointer/touch side.
+**Consequence (our inference, pending design/a11y sign-off):** if the Actions Menu
+fully covers keyboard/SR needs, a library's built-in keyboard sensor and drag
+announcements — the headline feature of dnd-kit and React Aria — are **largely
+irrelevant to us**, and the engine's real job is just the pointer/touch side.
 
 **The engine must cover the needs of the whole ODD family** (FITB, Categorizer,
 Composer, Sorter — Scale / Timeline / Sentence variants). "Req #" maps to the
