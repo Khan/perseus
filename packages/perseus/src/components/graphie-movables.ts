@@ -1,8 +1,8 @@
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Interactive2 from "../interactive2";
-import KhanColors from "../util/colors";
 
 import GraphieClasses from "./graphie-classes";
 
@@ -15,15 +15,24 @@ const MovablePoint: any = GraphieClasses.createClass({
         if (this.props.isMobile) {
             const isMobile = this.props.isMobile;
 
+            // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
             const commonStyle = isMobile
                 ? {
-                      stroke: "#ffffff",
+                      stroke: tokenValue(
+                          semanticColor.core.foreground.knockout.default,
+                      ),
                       "stroke-width": 3,
-                      fill: KhanColors.INTERACTIVE,
+                      fill: tokenValue(
+                          semanticColor.core.foreground.success.default,
+                      ),
                   }
                 : {
-                      stroke: KhanColors.INTERACTIVE,
-                      fill: KhanColors.INTERACTIVE,
+                      stroke: tokenValue(
+                          semanticColor.core.foreground.success.default,
+                      ),
+                      fill: tokenValue(
+                          semanticColor.core.foreground.success.default,
+                      ),
                   };
 
             const normalStyle = isMobile
@@ -254,9 +263,14 @@ const PlotParametric: any = GraphieClasses.createSimpleClass(
 );
 
 const Point: any = GraphieClasses.createSimpleClass((graphie, props) => {
+    // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
     return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-        fill: props.color || KhanColors.BLACK,
-        stroke: props.color || KhanColors.BLACK,
+        fill:
+            props.color ||
+            tokenValue(semanticColor.core.foreground.neutral.strong),
+        stroke:
+            props.color ||
+            tokenValue(semanticColor.core.foreground.neutral.strong),
     });
 });
 

@@ -3507,11 +3507,11 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="7"
                         ry="7"
-                        stroke="#ffffff"
+                        stroke="none"
                         stroke-width="3"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3;"
                         transform=""
