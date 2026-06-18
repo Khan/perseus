@@ -284,7 +284,7 @@ describe("getAnnouncementText", () => {
     describe("move-absolute-value-point", () => {
         // Coord layout: [vertex(0), arm point(1)]. The vertex uses the
         // vertex label; the arm point uses the second-point label.
-        it("uses the vertex label for index 0, without the slope", () => {
+        it("uses the vertex label without the slope", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -301,7 +301,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Vertex point at -3 comma 1.");
         });
 
-        it("uses the arm-point label with the slope for index 1", () => {
+        it("uses the arm-point label with the slope", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
