@@ -7902,6 +7902,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
 {
   "answerArea": {
     "calculator": false,
+    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7989,6 +7990,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
 {
   "answerArea": {
     "calculator": false,
+    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
