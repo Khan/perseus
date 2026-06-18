@@ -30,22 +30,51 @@ interactive-graphs / radio / free-response / graded-group).
 the headline feature of dnd-kit and React Aria — are **largely irrelevant to us**.
 We will not use them. The engine's real job is the pointer/touch side.
 
-**The engine must cover:**
+**The engine must cover the needs of the whole ODD family** (Fill in the Blank,
+Categorizer, Composer, Sorter — Scale / Timeline / Sentence variants). The table
+below consolidates the explicitly-requested needs and the ones derived from the
+widget specs. "Req #" maps to the originally-listed needs; "Source" notes specs
+that add a requirement.
 
-| # | Capability | Why |
-| --- | --- | --- |
-| R1 | Pointer/mouse drag | Baseline. |
-| R2 | **Touch drag (mobile)** | Hard requirement — Perseus is mobile-first. |
-| R3 | Discrete drop targets (blanks) + drop back into the choice bank | ODD is drop-zones, not list reorder. |
-| R4 | Drag-over / active state on a target | Blank highlights when a tile is over it. |
-| R5 | Drop detection robust to **reflowing inline targets** | Blanks wrap / change at the 504px breakpoint. |
-| R6 | Cancel/abort (Escape) + return-to-source on invalid drop | Spec requirement. |
-| R7 | Reports the resolved drop target (so we orchestrate **swap**) | We move state; engine reports where it landed. |
-| R8 | Arbitrary React content in draggables (TeX / images) | Tiles aren't plain text. |
+| ID | Requirement | Widget(s) | Req # / Source |
+| --- | --- | --- | --- |
+| N1 | Pointer / mouse drag | all | baseline |
+| N2 | **Touch drag (mobile)** | all | #7 |
+| N3 | Single-card drop zone; replacing a card returns the old one to the bank (**swap → bank**) | FITB, Sorter Scale/Timeline | #4 |
+| N4 | Drop zone that accepts **multiple cards** | Composer, Sorter Sentence, Categorizer | #5 |
+| N5 | **Ordered positional insertion** — drop *between* existing cards at a specific index (others separate to accept it) | Composer, Sorter Sentence, Categorizer | #2 (Composer/Sentence specs) |
+| N6 | **Reorder cards within a zone** (move up / down / to start / to end) and within the bank | Composer, Sorter Sentence, Categorizer | #3 |
+| N7 | **Action-menu move** — a button on the card sends it to a specific zone/position with no drag | all | #1 |
+| N8 | **Displacement on occupied slot** — existing tiles shift down a column; if all blanks full, the last returns to the bank (distinct from N3 swap) | Categorizer | Categorizer spec |
+| N9 | **Per-zone capacity limits** — reject/overflow beyond a max (Composer 4 rows; Categorizer auto blank count) | Composer, Categorizer | Composer/Categorizer specs |
+| N10 | **Multi-use / clone tiles** — one source tile placed N times with a remaining-count; removing a placement replenishes the source | FITB, Composer, Sorter Sentence | Overview / Composer specs |
+| N11 | Drag-over / active state on a target | all | #6 area |
+| N12 | Cancel/abort (Escape) + return-to-source on invalid drop | all | spec |
+| N13 | Drop detection robust to **reflow** (504px breakpoint, legend reorientation, staggered timeline) | all (esp. FITB, Sorter) | specs |
+| N14 | Arbitrary card content — **Text, TeX, Images, empty** | all | #8 (+ specs add TeX/empty) |
+| N15 | **A11y** — SR labels, WB Announcer (move/swap/read-aloud), focus-return after a move, ordered-list semantics, column-header announce | all | #6 |
+| N16 | Responsive layout / orientation (legend H↔V, timeline stagger, column stacking) — *our concern, not the engine's*, but engine drop-detection must survive it | all | specs |
 
-**We own regardless of engine:** keyboard moves (Actions Menu), SR announcements
-(WB Announcer), focus management (incl. focus-return after a move), multi-use tile
-counting.
+**We own regardless of engine:** keyboard moves (Actions Menu, N7), SR
+announcements (WB Announcer, N15), focus management, multi-use bookkeeping (N10),
+and all responsive layout (N16). The engine's job is the pointer/touch mechanics
+(N1–N6, N8–N9, N11–N13).
+
+### 2.1 FITB alone vs. the full family — the bar moves
+
+If we only had to ship **Fill in the Blank**, the requirements are modest:
+single-card blanks + swap-to-bank (N3), no ordering, no reorder. Hand-rolling on
+`@use-gesture` is very attractive at that scope.
+
+But the family adds **ordered positional insertion (N5)**, **reorder within a zone
+(N6)**, **displacement (N8)**, **capacity limits (N9)**, and **multi-use/clone
+(N10)** — i.e. *sortable-list-within-a-drop-zone* semantics, including
+index-from-pointer math and FLIP-style "tiles separate to make room" animations.
+Those are exactly the parts that are tedious and bug-prone to hand-roll, and
+exactly what `@dnd-kit/sortable` and `react-dnd`'s sortable model provide out of
+the box. **So the build-vs-adopt calculus flips with scope:** FITB-only favors
+build; the full family favors adopt. The spike should evaluate against the *full
+family*, not FITB alone — otherwise we under-cost the hardest widgets.
 
 ## 3. Candidate landscape (free/OSS)
 
@@ -67,18 +96,32 @@ because of the lean-repo constraint (§1).
 
 ## 4. Finalist coverage
 
-| Capability | `@dnd-kit/core` (6.x) | `@use-gesture` + our code | `react-dnd` (peer dep) |
+Evaluated against the **full family** (§2), not FITB alone.
+
+| Requirement | `@dnd-kit/core` (+ `sortable`) | `@use-gesture` + our code | `react-dnd` (peer dep) |
 | --- | --- | --- | --- |
-| R1 pointer | ✅ | ✅ | ✅ |
-| **R2 touch** | ✅ (own edge cases to tune) | ✅ | ⚠️ needs touch/multi-backend |
-| R3 drop targets | ✅ `useDroppable` | ❌ we build | ✅ |
-| R4 over-state | ✅ `isOver` | ❌ we build | ✅ |
-| R5 reflow-robust detection | ✅ (`pointerWithin` + remeasure) | ✅ `elementFromPoint` (live DOM) | ✅ |
-| R6 cancel/return | ✅ `onDragCancel` | ⚠️ we build | ✅ |
-| R7 reports target | ✅ | n/a — we compute it | ✅ |
-| R8 React content | ✅ | ✅ | ✅ |
+| N1 pointer | ✅ | ✅ | ✅ |
+| **N2 touch** | ✅ (own edge cases to tune) | ✅ | ⚠️ needs touch / multi-backend |
+| N3 single-card + swap→bank | ✅ `useDroppable` | ❌ we build | ✅ |
+| N4 multi-card zone | ✅ | ❌ we build | ✅ |
+| **N5 ordered positional insertion** | ✅ `@dnd-kit/sortable` | ❌ **we build index math + FLIP** | ✅ (we write hover-index logic) |
+| **N6 reorder within zone** | ✅ `@dnd-kit/sortable` (`arrayMove`) | ❌ we build | ✅ |
+| N8 displacement on occupied slot | ✅ (sortable shift) | ❌ we build | ✅ |
+| N9 capacity limits | we enforce in state | we enforce in state | we enforce in state |
+| N10 multi-use / clone | we orchestrate in state (engine-agnostic) | we orchestrate | we orchestrate |
+| N11 over-state | ✅ `isOver` | ❌ we build | ✅ |
+| N12 cancel/return | ✅ `onDragCancel` | ⚠️ we build | ✅ |
+| N13 reflow-robust detection | ✅ (`pointerWithin` + remeasure) | ✅ `elementFromPoint` (live DOM) | ✅ |
+| N14 React content (Text/TeX/Image/empty) | ✅ | ✅ | ✅ |
+| Reorder/shift animations (FLIP) | ✅ built in | ❌ we build | ⚠️ partial / we add |
 | App-root provider required? | No (scoped `DndContext`) | No | **Yes (`DndProvider` + backend)** |
-| Net bundle add to webapp | ~10KB | 0 | ~0 (already shipped) |
+| Net bundle add to webapp | ~10KB (+small `sortable`) | 0 | ~0 (already shipped) |
+
+The decisive rows are **N5 / N6 / N8 + FLIP animations**: dnd-kit (with
+`@dnd-kit/sortable`) and react-dnd provide ordered-list semantics; the
+`@use-gesture` route means hand-building index-from-pointer math and the
+"tiles separate to make room" animations for Composer, Sorter Sentence, and
+Categorizer.
 
 ## 5. `@use-gesture` build estimate (R3–R7)
 
@@ -95,11 +138,18 @@ because of the lean-repo constraint (§1).
 | Cancel/return (R6) | Escape listener + return-to-source on invalid drop | ~30 LOC |
 | Touch hardening | `touch-action: none`, scroll suppression, activation tuning | scattered + **real-device QA** |
 
-**Total ≈ 350–600 LOC we fully own** (plus tests). Tractable — not a fragile
-collision reimplementation. For R5, `elementFromPoint` hit-tests the live DOM, so
-it is inherently reflow-proof (arguably cleaner than measured-rect collision for
-wrapping inline blanks). **The real cost is owning cross-device touch QA**, not the
-line count.
+**Total ≈ 350–600 LOC we fully own** (plus tests) — **for FITB only** (N3 swap
+blanks). Tractable; for N13, `elementFromPoint` hit-tests the live DOM, so it is
+inherently reflow-proof.
+
+**The full family adds materially to this estimate.** N5 (ordered positional
+insertion), N6 (reorder), and N8 (displacement) require index-from-pointer
+computation among siblings plus FLIP-style shift animations — roughly **another
++200–400 LOC** of fiddly, animation-heavy code, which is precisely what
+`@dnd-kit/sortable` / react-dnd give for free. Plus N10 multi-use bookkeeping
+(engine-agnostic, ~50–100 LOC) regardless of choice. So the build route lands
+nearer **~600–1,100 LOC** at family scope. **The real cost is owning cross-device
+touch QA *and* the sortable/animation surface** — not the FITB line count.
 
 ## 6. The webapp / `react-dnd` consideration
 
@@ -170,11 +220,23 @@ does **not** separate the finalists.
 
 1. **Confirm the menu-driven keyboard reframe** (§2) with design/a11y. If true,
    engine keyboard/announcer features are not a differentiator.
-2. **Throwaway spike** of the finalists against the hardest scenarios only:
-   inline blank in wrapping text across the 504px breakpoint; swap on an occupied
-   blank; a TeX tile and an image tile; **touch drag on a real device**; Actions
-   Menu button inside the draggable card; focus-return after a move; one WB
-   Announcer call on drop. Same engineer, timeboxed (~1–2 days each).
+2. **Throwaway spike** of the finalists against the hardest scenarios — chosen to
+   cover the *full family*, not just FITB:
+   - inline blank in wrapping text across the 504px breakpoint (FITB, N13);
+   - **swap** on an occupied single-card blank → old card to bank (N3);
+   - **ordered positional insertion** — drop a card *between* two others in a
+     multi-card zone, with the "tiles separate to make room" animation
+     (Composer / Sorter Sentence, N5/N6);
+   - **displacement** — drop into a full Categorizer column, others shift down,
+     last returns to bank (N8/N9);
+   - **multi-use** tile placed twice with a decrementing remaining-count (N10);
+   - a TeX tile and an image tile (N14);
+   - **touch drag on a real device** (N2);
+   - Actions Menu button inside the draggable card → move to a target (N7);
+   - focus-return after a move + one WB Announcer call on drop (N15).
+
+   Same engineer, timeboxed. Note the spike now needs `@dnd-kit/sortable` (for the
+   dnd-kit arm) and a touch/multi-backend (for the react-dnd arm).
 3. **Verify the webapp `react-dnd` setup** (§6) if it stays in contention.
 4. **KA-specific checks:** Wonder Blocks / design-systems input; the process for
    adding a new prod dependency to Perseus; RTL + mobile-webview smoke test.
@@ -182,8 +244,21 @@ does **not** separate the finalists.
 
 **Framing for the decision:** because we bypass the engine's keyboard/SR
 machinery, the value gap between adopting a library and building on the
-`@use-gesture` we already ship is narrower than adoption stats suggest. The choice
-reduces to a build-vs-adopt trade among three shapes: **own ~400 LOC + touch QA
-(`@use-gesture`)**, **take a ~10KB self-contained dependency and tune its touch
-(`@dnd-kit`)**, or **reuse webapp's `react-dnd` as a peer dep and accept
-root-provider/backend coupling**.
+`@use-gesture` we already ship is narrower than adoption stats suggest — **at FITB
+scope**. But the full family's sortable-list semantics (N5/N6/N8 + animations)
+widen that gap again, since those are the parts most worth *not* hand-rolling. The
+choice reduces to a scope-aware build-vs-adopt trade among three shapes:
+
+- **`@use-gesture` + ~600–1,100 LOC** — leanest deps (+0), but we own touch QA
+  *and* the sortable/animation surface for Composer/Categorizer/Sentence.
+- **`@dnd-kit/core` + `@dnd-kit/sortable`** — ~10KB + a small sortable package;
+  covers the full family incl. ordering/animations; scoped context (no app-root
+  provider); single-maintainer governance.
+- **`react-dnd` (peer dep)** — ~0 net webapp weight + team familiarity + sortable
+  model, but root `DndProvider`/backend coupling and touch-backend setup.
+
+**Provisional lean:** at family scope, `@dnd-kit/core` + `@dnd-kit/sortable` is
+the front-runner (covers the hard ordering/animation needs with a small,
+self-contained, scoped dependency); `react-dnd` is a close second *if* webapp's
+setup makes the peer-dep + provider story clean; pure `@use-gesture` is best only
+if scope narrows back toward FITB-like single-card blanks. The spike confirms.
