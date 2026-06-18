@@ -8,6 +8,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import arrowSquareOutIcon from "@phosphor-icons/core/regular/arrow-square-out.svg";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import {StyleSheet, css} from "aphrodite";
@@ -30,6 +31,28 @@ type State = {
     } | null;
     url: URL | null;
     isFullScreen: boolean;
+};
+
+// Safari still exposes the Fullscreen API behind a webkit prefix in some
+// versions, so we check for both the standard and prefixed variants.
+// Notably, Safari on iPhone supports neither: Apple deliberately omits
+// fullscreen support there, so this returns false and we hide the
+// fullscreen button instead of rendering one that silently fails.
+const isFullscreenApiSupported = (): boolean => {
+    // Guard against non-DOM environments (e.g. server-side rendering)
+    if (typeof document === "undefined") {
+        return false;
+    }
+    const doc: DocumentWithWebkitFullscreen = document;
+    return Boolean(doc.fullscreenEnabled || doc.webkitFullscreenEnabled);
+};
+
+type DocumentWithWebkitFullscreen = Document & {
+    webkitFullscreenEnabled?: boolean;
+};
+
+type IframeWithWebkitFullscreen = HTMLIFrameElement & {
+    webkitRequestFullscreen?: () => void;
 };
 
 // A constant for the bottom bar height in the mobile app.
@@ -195,6 +218,62 @@ export class PhetSimulation
         }));
     };
 
+    requestIframeFullscreen = () => {
+        const iframe: IframeWithWebkitFullscreen | null =
+            this.iframeRef.current;
+        if (!iframe) {
+            return;
+        }
+        if (typeof iframe.requestFullscreen === "function") {
+            // The browser can reject the fullscreen request (e.g. denied
+            // permission, or the call wasn't triggered by a user gesture);
+            // there's nothing actionable for us to do, so swallow it rather
+            // than surface an unhandled promise rejection.
+            iframe.requestFullscreen().catch(() => {});
+        } else {
+            iframe.webkitRequestFullscreen?.();
+        }
+    };
+
+    renderCornerButton(
+        url: URL,
+        isMobileApp: boolean | undefined,
+    ): React.ReactNode {
+        // The mobile app uses its own fullscreen implementation, and web
+        // browsers that support the Fullscreen API can go fullscreen in place.
+        if (isMobileApp || isFullscreenApiSupported()) {
+            return (
+                <IconButton
+                    icon={cornersOutIcon}
+                    onClick={
+                        isMobileApp
+                            ? this.toggleFullScreen
+                            : this.requestIframeFullscreen
+                    }
+                    kind="tertiary"
+                    actionType="neutral"
+                    aria-label={"Fullscreen"}
+                    style={styles.cornerButton}
+                />
+            );
+        }
+
+        // Otherwise the simulation can't be enlarged in place (e.g. Safari on
+        // iPhone, which doesn't support the Fullscreen API), so link out to the
+        // full-size simulation on PhET's site in a new tab instead.
+        return (
+            <IconButton
+                icon={arrowSquareOutIcon}
+                href={url.toString()}
+                target="_blank"
+                kind="tertiary"
+                actionType="neutral"
+                aria-label={this.context.strings.openSimulationInNewTab}
+                style={styles.cornerButton}
+            />
+        );
+    }
+
     render(): React.ReactNode {
         // Extract state and props we'll use
         const {isFullScreen, banner, url} = this.state;
@@ -259,27 +338,14 @@ export class PhetSimulation
                     />
                 </View>
 
-                {/* Fullscreen button (only shown when not in mobile app fullscreen) */}
-                {url !== null && !isMobileAppFullscreen && (
-                    <IconButton
-                        icon={cornersOutIcon}
-                        onClick={
-                            isMobileApp
-                                ? this.toggleFullScreen
-                                : () => {
-                                      this.iframeRef.current?.requestFullscreen();
-                                  }
-                        }
-                        kind="tertiary"
-                        actionType="neutral"
-                        aria-label={"Fullscreen"}
-                        style={{
-                            marginTop: 5,
-                            marginBottom: 5,
-                            alignSelf: "flex-end",
-                        }}
-                    />
-                )}
+                {/* Corner action button, shown when not already in mobile-app
+                    fullscreen: either a fullscreen toggle (when fullscreen is
+                    available) or, when the browser can't go fullscreen (e.g.
+                    Safari on iPhone), a link to open the simulation on PhET's
+                    site. */}
+                {url !== null &&
+                    !isMobileAppFullscreen &&
+                    this.renderCornerButton(url, isMobileApp)}
             </View>
         );
     }
@@ -292,6 +358,11 @@ const styles = StyleSheet.create({
         borderColor: "#CCC",
         padding: spacing.medium_16,
         paddingBottom: 0,
+    },
+    cornerButton: {
+        marginTop: 5,
+        marginBottom: 5,
+        alignSelf: "flex-end",
     },
     iframeContainer: {
         position: "relative",
