@@ -1,14 +1,5 @@
-.title {
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 22px;
-    margin-bottom: var(--wb-sizing-size_060);
-    color: #626569; /* gray17 */
-}
-
 .answers {
-    margin-top: var(--wb-sizing-size_120);
+    margin-top: var(--wb-sizing-size_080);
     margin-bottom: var(--wb-sizing-size_120);
 }
 
@@ -24,10 +15,6 @@
     flex-direction: row;
     align-items: center;
     gap: var(--wb-sizing-size_160);
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: var(--wb-sizing-size_220);
     color: var(--wb-semanticColor-link-rest);
 }
 

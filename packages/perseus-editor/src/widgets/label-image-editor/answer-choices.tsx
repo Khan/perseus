@@ -4,6 +4,7 @@
 
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import minusCircleIcon from "@phosphor-icons/core/regular/minus-circle.svg";
 import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
@@ -57,7 +58,9 @@ const AddAnswer = ({
                     size="medium"
                     aria-hidden={true}
                 />
-                Add an answer choice
+                <BodyText tag="span" size="medium" weight="bold">
+                    Add an answer choice
+                </BodyText>
             </span>
         )}
     </Clickable>
@@ -107,7 +110,9 @@ const AnswerChoices = ({
     onChange,
 }: AnswerChoicesProps): React.ReactElement => (
     <div>
-        <div className={styles.title}>Answer Choices</div>
+        <BodyText weight="bold" tag="span">
+            Answer Choices
+        </BodyText>
 
         <ul className={styles.answers}>
             {choices.map((answer, index) => (

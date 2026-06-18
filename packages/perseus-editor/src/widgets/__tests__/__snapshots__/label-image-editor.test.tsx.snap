@@ -2,13 +2,15 @@
 
 exports[`label-image-editor popover direction snapshots should render with DOWN popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
         class="image-row"
       >
@@ -37,9 +39,6 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         </button>
       </div>
     </div>
-    <div
-      class="small-spacer"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -50,17 +49,14 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -90,15 +86,12 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         />
       </div>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
         class="answers"
       >
@@ -199,20 +192,23 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             aria-hidden="true"
             class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-          Add an answer choice
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
         </span>
       </button>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -339,13 +335,15 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
 
 exports[`label-image-editor popover direction snapshots should render with LEFT popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
         class="image-row"
       >
@@ -374,9 +372,6 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         </button>
       </div>
     </div>
-    <div
-      class="small-spacer"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -387,17 +382,14 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -427,15 +419,12 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         />
       </div>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
         class="answers"
       >
@@ -536,20 +525,23 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             aria-hidden="true"
             class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-          Add an answer choice
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
         </span>
       </button>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -676,13 +668,15 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
 
 exports[`label-image-editor popover direction snapshots should render with NONE popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
         class="image-row"
       >
@@ -711,9 +705,6 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         </button>
       </div>
     </div>
-    <div
-      class="small-spacer"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -724,17 +715,14 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -764,15 +752,12 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         />
       </div>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
         class="answers"
       >
@@ -873,20 +858,23 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             aria-hidden="true"
             class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-          Add an answer choice
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
         </span>
       </button>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -1013,13 +1001,15 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
 
 exports[`label-image-editor popover direction snapshots should render with RIGHT popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
         class="image-row"
       >
@@ -1048,9 +1038,6 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         </button>
       </div>
     </div>
-    <div
-      class="small-spacer"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -1061,17 +1048,14 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         value="Test image alt text"
       />
     </form>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1101,15 +1085,12 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         />
       </div>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
         class="answers"
       >
@@ -1210,20 +1191,23 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             aria-hidden="true"
             class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-          Add an answer choice
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
         </span>
       </button>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -1350,13 +1334,15 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
 
 exports[`label-image-editor popover direction snapshots should render with UP popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
         class="image-row"
       >
@@ -1385,9 +1371,6 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         </button>
       </div>
     </div>
-    <div
-      class="small-spacer"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -1398,17 +1381,14 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         value="Test image alt text"
       />
     </form>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1438,15 +1418,12 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         />
       </div>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
         class="answers"
       >
@@ -1547,20 +1524,23 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             aria-hidden="true"
             class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-          Add an answer choice
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
         </span>
       </button>
     </div>
-    <div
-      class="large-spacer"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
