@@ -5,12 +5,12 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
   <div>
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Image
       </div>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -22,13 +22,10 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -41,7 +38,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </div>
     </div>
     <div
-      class="smallSpacer_1y6xiyp"
+      class="small-spacer"
     />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -54,7 +51,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       />
     </form>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -94,19 +91,19 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </div>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Answer Choices
       </div>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -126,9 +123,6 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -138,11 +132,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -191,7 +182,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -211,9 +202,6 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -223,11 +211,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -276,7 +261,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -296,9 +281,6 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -308,11 +290,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -362,7 +341,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         </li>
       </ul>
       <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        class="link_dwmetq add-answer"
         href="javascript:void(0)"
       >
         <svg
@@ -378,14 +357,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             fill="currentColor"
           />
         </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
         Add an answer choice
       </a>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -523,12 +499,12 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
   <div>
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Image
       </div>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -540,13 +516,10 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -559,7 +532,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </div>
     </div>
     <div
-      class="smallSpacer_1y6xiyp"
+      class="small-spacer"
     />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -572,7 +545,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       />
     </form>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -612,19 +585,19 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </div>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Answer Choices
       </div>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -644,9 +617,6 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -656,11 +626,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -709,7 +676,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -729,9 +696,6 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -741,11 +705,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -794,7 +755,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -814,9 +775,6 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -826,11 +784,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -880,7 +835,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         </li>
       </ul>
       <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        class="link_dwmetq add-answer"
         href="javascript:void(0)"
       >
         <svg
@@ -896,14 +851,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             fill="currentColor"
           />
         </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
         Add an answer choice
       </a>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -1041,12 +993,12 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
   <div>
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Image
       </div>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1058,13 +1010,10 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -1077,7 +1026,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </div>
     </div>
     <div
-      class="smallSpacer_1y6xiyp"
+      class="small-spacer"
     />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1090,7 +1039,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       />
     </form>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -1130,19 +1079,19 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </div>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Answer Choices
       </div>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1162,9 +1111,6 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1174,11 +1120,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1227,7 +1170,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1247,9 +1190,6 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1259,11 +1199,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1312,7 +1249,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1332,9 +1269,6 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1344,11 +1278,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1398,7 +1329,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         </li>
       </ul>
       <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        class="link_dwmetq add-answer"
         href="javascript:void(0)"
       >
         <svg
@@ -1414,14 +1345,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             fill="currentColor"
           />
         </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
         Add an answer choice
       </a>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -1559,12 +1487,12 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
   <div>
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Image
       </div>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1576,13 +1504,10 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -1595,7 +1520,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </div>
     </div>
     <div
-      class="smallSpacer_1y6xiyp"
+      class="small-spacer"
     />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1608,7 +1533,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       />
     </form>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -1648,19 +1573,19 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </div>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Answer Choices
       </div>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1680,9 +1605,6 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1692,11 +1614,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1745,7 +1664,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1765,9 +1684,6 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1777,11 +1693,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1830,7 +1743,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -1850,9 +1763,6 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1862,11 +1772,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -1916,7 +1823,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         </li>
       </ul>
       <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        class="link_dwmetq add-answer"
         href="javascript:void(0)"
       >
         <svg
@@ -1932,14 +1839,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             fill="currentColor"
           />
         </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
         Add an answer choice
       </a>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -2077,12 +1981,12 @@ exports[`label-image-editor popover direction snapshots should render with UP po
   <div>
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Image
       </div>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -2094,13 +1998,10 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -2113,7 +2014,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </div>
     </div>
     <div
-      class="smallSpacer_1y6xiyp"
+      class="small-spacer"
     />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -2126,7 +2027,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       />
     </form>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
@@ -2166,19 +2067,19 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </div>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div
-        class="title_dt6zj3"
+        class="title"
       >
         Answer Choices
       </div>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -2198,9 +2099,6 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2210,11 +2108,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -2263,7 +2158,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -2283,9 +2178,6 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2295,11 +2187,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -2348,7 +2237,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
           <a
             class="link_dwmetq"
@@ -2368,9 +2257,6 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               />
             </svg>
           </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2380,11 +2266,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
           <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
+            class="link_dwmetq disabled"
             href="javascript:void(0)"
             title="Answer reordering is not implemented."
           >
@@ -2434,7 +2317,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         </li>
       </ul>
       <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
+        class="link_dwmetq add-answer"
         href="javascript:void(0)"
       >
         <svg
@@ -2450,14 +2333,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             fill="currentColor"
           />
         </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
         Add an answer choice
       </a>
     </div>
     <div
-      class="largeSpacer_xwkmkn"
+      class="large-spacer"
     />
     <div>
       <div

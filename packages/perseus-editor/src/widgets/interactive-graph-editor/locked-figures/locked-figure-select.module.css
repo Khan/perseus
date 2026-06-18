@@ -1,0 +1,11 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.container {
+    margin-top: var(--wb-sizing-size_080) !important;
+}
+
+.add-element-select {
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    ) !important;
+    border-radius: var(--wb-sizing-size_040) !important;
+}

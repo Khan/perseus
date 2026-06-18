@@ -1,0 +1,144 @@
+// TODO(LEMS-4304): feature flag cleanup - rename this file to renderQuestion.tsx.
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {render} from "@testing-library/react";
+import * as React from "react";
+
+import {PerseusI18nContextProvider} from "../../components/i18n-context";
+import {
+    DependenciesContext,
+    useDependencies,
+    setDependencies,
+} from "../../dependencies";
+import * as Perseus from "../../index";
+import {mockStrings} from "../../strings";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
+import {
+    testDependenciesV2,
+    testDependencies,
+    // eslint-disable-next-line import/no-relative-packages
+} from "../../testing/test-dependencies";
+import UserInputManager from "../../user-input-manager";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+
+import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type RenderResult = ReturnType<typeof render>;
+
+type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
+
+export const renderQuestion = (
+    question: PerseusRenderer,
+    apiOptions: APIOptions = Object.freeze({}),
+    extraProps?: ExtraProps,
+    initialUserInput?: UserInputMap,
+    dependencies: PerseusDependenciesV2 = testDependenciesV2,
+    locale: string = "en",
+): {
+    container: HTMLElement;
+    renderer: Perseus.Renderer;
+    rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
+    unmount: RenderResult["unmount"];
+} => {
+    setDependencies(testDependencies);
+    registerAllWidgetsForTesting();
+
+    let renderer: Perseus.Renderer | null = null;
+    const {container, rerender, unmount} = render(
+        <RenderStateRoot>
+            <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
+                <DependenciesContext.Provider value={dependencies}>
+                    <RendererWrapper
+                        ref={(node) => (renderer = node)}
+                        // eslint-disable-next-line no-restricted-syntax
+                        question={question as any}
+                        apiOptions={{
+                            ...apiOptions,
+                            // TODO(LEMS-4304): clean up feature flag.
+                            flags: getFeatureFlags({
+                                "perseus-renderer-upgrade": true,
+                            }),
+                        }}
+                        initialUserInput={initialUserInput}
+                        extraProps={{
+                            ...extraProps,
+                            strings: mockStrings,
+                        }}
+                    />
+                </DependenciesContext.Provider>
+            </PerseusI18nContextProvider>
+        </RenderStateRoot>,
+    );
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!renderer) {
+        throw new Error(`Failed to render!`);
+    }
+    const renderAgain = (
+        question: PerseusRenderer,
+        extraProps?: ExtraProps,
+    ) => {
+        rerender(
+            <RenderStateRoot>
+                <DependenciesContext.Provider value={testDependenciesV2}>
+                    <RendererWrapper
+                        ref={(node) => (renderer = node)}
+                        question={question}
+                        apiOptions={apiOptions}
+                        initialUserInput={initialUserInput}
+                        extraProps={{
+                            ...extraProps,
+                            strings: mockStrings,
+                        }}
+                    />
+                </DependenciesContext.Provider>
+            </RenderStateRoot>,
+        );
+        if (!renderer) {
+            throw new Error(`Failed to rerender!`);
+        }
+    };
+
+    return {container, renderer, rerender: renderAgain, unmount};
+};
+
+const RendererWrapper = React.forwardRef<
+    Perseus.Renderer,
+    {
+        question: PerseusRenderer;
+        apiOptions: APIOptions;
+        extraProps?: PropsFor<typeof Perseus.Renderer>;
+        initialUserInput?: UserInputMap;
+    }
+>(function RendererWithDependencies(props, ref) {
+    const dependencies = useDependencies();
+    if (props.extraProps?.userInput) {
+        throw new Error("HERE");
+    }
+    return (
+        <UserInputManager
+            widgets={props.question.widgets}
+            problemNum={0}
+            initialUserInput={props.initialUserInput}
+        >
+            {({userInput, handleUserInput, initializeUserInput}) => {
+                return (
+                    <Perseus.Renderer
+                        ref={ref}
+                        userInput={userInput}
+                        handleUserInput={handleUserInput}
+                        initializeUserInput={initializeUserInput}
+                        content={props.question.content}
+                        images={props.question.images}
+                        widgets={props.question.widgets}
+                        problemNum={0}
+                        apiOptions={props.apiOptions}
+                        strings={mockStrings}
+                        {...props.extraProps}
+                        {...dependencies}
+                    />
+                );
+            }}
+        </UserInputManager>
+    );
+});

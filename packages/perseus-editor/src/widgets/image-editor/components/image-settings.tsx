@@ -24,6 +24,7 @@ const altTextTooShortError =
 
 export default function ImageSettings({
     alt,
+    apiOptions,
     backgroundImage,
     scale = 1,
     caption,
@@ -39,6 +40,8 @@ export default function ImageSettings({
     if (!backgroundImage.url) {
         return null;
     }
+
+    const editingDisabled = apiOptions?.editingDisabled ?? false;
 
     const hasPopulatedFields = Boolean(
         alt || caption || title || longDescription,
@@ -87,6 +90,7 @@ export default function ImageSettings({
             <ImageScaleInput
                 backgroundImage={backgroundImage}
                 scale={scale}
+                editingDisabled={editingDisabled}
                 onChange={onChange}
             />
 
@@ -94,6 +98,7 @@ export default function ImageSettings({
             <DecorativeToggle
                 decorative={decorative}
                 hasPopulatedFields={hasPopulatedFields}
+                editingDisabled={editingDisabled}
                 onChange={onChange}
             />
 
@@ -106,7 +111,7 @@ export default function ImageSettings({
                     <TextArea
                         value={title ?? ""}
                         onChange={(value) => onChange({title: value})}
-                        disabled={decorative}
+                        disabled={decorative || editingDisabled}
                         autoResize={true}
                     />
                 }
@@ -123,7 +128,7 @@ export default function ImageSettings({
                             value={alt ?? ""}
                             onBlur={(e) => handleAltFieldBlur(e.target.value)}
                             onChange={handleAltFieldChange}
-                            disabled={decorative}
+                            disabled={decorative || editingDisabled}
                             autoResize={true}
                         />
                     }
@@ -153,7 +158,7 @@ export default function ImageSettings({
                     <TextArea
                         value={longDescription ?? ""}
                         onChange={(value) => onChange({longDescription: value})}
-                        disabled={decorative}
+                        disabled={decorative || editingDisabled}
                         autoResize={true}
                     />
                 }
@@ -167,7 +172,7 @@ export default function ImageSettings({
                     <TextArea
                         value={caption ?? ""}
                         onChange={(value) => onChange({caption: value})}
-                        disabled={decorative}
+                        disabled={decorative || editingDisabled}
                         autoResize={true}
                     />
                 }

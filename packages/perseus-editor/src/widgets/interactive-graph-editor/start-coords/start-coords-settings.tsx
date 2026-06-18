@@ -43,6 +43,7 @@ interface StartCoordsSettingsProps {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
     allowReflexAngles?: boolean;
+    editingDisabled?: boolean;
     onChange: (startCoords: StartCoords) => void;
     onChangePointLabels: (pointLabels: ReadonlyArray<string>) => void;
 }
@@ -229,7 +230,7 @@ const StartCoordsSettingsInner = (props: Props) => {
 };
 
 const StartCoordsSettings = (props: Props) => {
-    const {range, step, onChange} = props;
+    const {range, step, editingDisabled, onChange} = props;
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
@@ -254,6 +255,7 @@ const StartCoordsSettings = (props: Props) => {
                             startIcon={arrowCounterClockwise}
                             kind="tertiary"
                             size="small"
+                            disabled={editingDisabled}
                             onClick={() => {
                                 onChange(
                                     getDefaultGraphStartCoords(

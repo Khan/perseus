@@ -9,12 +9,10 @@ import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
 import * as React from "react";
 
@@ -27,6 +25,7 @@ import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
+import styles from "./locked-line-settings.module.css";
 import LockedPointSettings from "./locked-point-settings";
 import {
     generateLockedFigureAppearanceDescription,
@@ -44,8 +43,15 @@ import type {
     LockedLineType,
     LockedPointType,
 } from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const lengthZeroStr = "The line cannot have length 0.";
+
+// Passed to LockedLabelSettings' `containerStyle`, which is typed as a
+// Wonder Blocks `StyleType` and does not accept a CSS-module className.
+const labelContainerStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.base.default,
+};
 
 export type Props = LockedLineType &
     LockedFigureSettingsCommonProps & {
@@ -66,6 +72,7 @@ const LockedLineSettings = (props: Props) => {
         weight,
         labels,
         ariaLabel,
+        editingDisabled = false,
         onChangeProps,
         onMove,
         onRemove,
@@ -221,21 +228,23 @@ const LockedLineSettings = (props: Props) => {
             expanded={props.expanded}
             onToggle={props.onToggle}
             header={
-                <View style={styles.row}>
+                <View className={`${styles.row} ${styles.header}`}>
                     <BodyText size="medium" weight="bold" tag="span">
                         {lineLabel}
                     </BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <LineSwatch color={lineColor} lineStyle={lineStyle} />
                 </View>
             }
         >
             {/* Line kind settings */}
-            <BodyText tag="label" style={[styles.row, styles.spaceUnder]}>
+            <BodyText
+                tag="label"
+                className={`${styles.row} ${styles.spaceUnder} ${styles.kindLabel}`}
+            >
                 kind
-                <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
                     selectedValue={kind}
+                    disabled={editingDisabled}
                     // TODO(LEMS-2656): remove TS suppression
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
@@ -251,17 +260,20 @@ const LockedLineSettings = (props: Props) => {
                 </SingleSelect>
             </BodyText>
 
-            <View style={[styles.row, styles.spaceUnder]}>
+            <View
+                className={`${styles.row} ${styles.spaceUnder} ${styles.colorRow}`}
+            >
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
-                <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
+                    editingDisabled={editingDisabled}
                     onChange={
                         // eslint-disable-next-line no-restricted-syntax
                         ((value: "solid" | "dashed") =>
@@ -271,6 +283,7 @@ const LockedLineSettings = (props: Props) => {
             </View>
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value: StrokeWeight) =>
                     onChangeProps({weight: value})
                 }
@@ -278,7 +291,9 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Points error message */}
             {isInvalid && (
-                <BodyText style={styles.errorText}>{lengthZeroStr}</BodyText>
+                <BodyText className={styles.errorText}>
+                    {lengthZeroStr}
+                </BodyText>
             )}
 
             {/* Defining points settings */}
@@ -288,6 +303,7 @@ const LockedLineSettings = (props: Props) => {
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point1}
+                editingDisabled={editingDisabled}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
                 }
@@ -299,6 +315,7 @@ const LockedLineSettings = (props: Props) => {
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point2}
+                editingDisabled={editingDisabled}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
                 }
@@ -306,26 +323,27 @@ const LockedLineSettings = (props: Props) => {
             />
 
             {/* Aria label */}
-            <Strut size={spacing.small_12} />
-            <View style={styles.horizontalRule} />
+            <View className={`${styles.horizontalRule} ${styles.sectionTop}`} />
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
             />
 
             {/* Visible labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
 
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -333,12 +351,13 @@ const LockedLineSettings = (props: Props) => {
                     onRemove={() => {
                         handleLabelRemove(labelIndex);
                     }}
-                    containerStyle={styles.labelContainer}
+                    containerStyle={labelContainerStyle}
                 />
             ))}
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     // Additional vertical offset for each label so
                     // they don't overlap.
@@ -359,7 +378,7 @@ const LockedLineSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -367,35 +386,12 @@ const LockedLineSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
         </PerseusEditorAccordion>
     );
 };
-
-const styles = StyleSheet.create({
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
-    },
-    errorText: {
-        color: semanticColor.core.foreground.critical.default,
-    },
-    addButton: {
-        alignSelf: "start",
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-    labelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-});
 
 export default LockedLineSettings;

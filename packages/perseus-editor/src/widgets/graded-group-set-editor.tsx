@@ -87,10 +87,13 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <div className="perseus-group-editor">
                 {this.renderGroups()}
-                <button onClick={this.addGroup}>Add group</button>
+                <button onClick={this.addGroup} disabled={editingDisabled}>
+                    Add group
+                </button>
             </div>
         );
     }
