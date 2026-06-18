@@ -279,7 +279,61 @@ does **not** separate the finalists.
 3. **Verify the webapp `react-dnd` setup** (§6) if it stays in contention.
 4. **KA-specific checks:** Wonder Blocks / design-systems input; the process for
    adding a new prod dependency to Perseus; RTL + mobile-webview smoke test.
-5. **Output: an ADR** recommending one engine.
+5. **Output: an ADR** recommending one engine, filled out against the scorecard
+   below.
+
+### 9.1 Spike scenario pass/fail criteria
+
+Each scenario is **pass / partial / fail** per engine. "Partial" = works but needs
+non-trivial custom code or has a rough edge. Capture the result + a one-line note.
+
+| # | Scenario | Pass criterion |
+| --- | --- | --- |
+| S1 | Inline blank in wrapping text across the 504px breakpoint (N13) | Drop lands in the correct blank after reflow; no stale hit-testing. |
+| S2 | Swap on an occupied single-card blank (N3) | New card placed; old card returns to bank; one announcer call. |
+| S3 | Ordered positional insertion between two cards (N5) | Card lands at the pointer's index; neighbors animate apart (FLIP). |
+| S4 | Reorder within a zone (N6) | Move up/down/start/end via drag *and* via Actions Menu agree. |
+| S5 | Displacement in a full Categorizer column (N8/N9) | Others shift down; last returns to bank; capacity enforced. |
+| S6 | Multi-use tile placed twice (N10) | Source decrements; removing a placement replenishes it. |
+| S7 | TeX tile + image tile (N14) | Render correctly while dragging and when placed; no layout break. |
+| S8 | **Touch drag on a real device** (N2) | Reliable drag start + drop on iOS Safari **and** Android Chrome; no scroll/long-press conflict. |
+| S9 | Actions Menu button inside the card (N7) | Button click/keyboard works; never triggers a drag (handle isolation). |
+| S10 | Focus-return + announcer after a move (N15) | Focus returns per spec; correct SR announcement. |
+
+**Gate:** S8 (real-device touch) is a **hard gate** — an engine that only reaches
+"partial" on S8 is disqualified for learner-facing widgets regardless of other
+scores.
+
+### 9.2 Weighted scorecard
+
+Score each finalist 1–5 per criterion; multiply by weight; sum. Weights reflect
+*our* context (mobile-first, lean, a11y-owned-by-us, full-family scope).
+
+| Criterion | Weight | Why this weight |
+| --- | --- | --- |
+| Real-device touch reliability (S8) | 5 | Hard requirement; mobile-first. Gating. |
+| Full-family fit (S3–S6: ordering, reorder, displacement, multi-use) | 4 | The hardest widgets (Composer/Categorizer/Sentence) live here. |
+| Footprint / lean fit (deps, bundle, no app-root provider) | 4 | Perseus ships everywhere; 5-dep ethos. |
+| Reflow-robust hit-testing (S1) | 3 | FITB's defining quirk. |
+| Testability in jsdom + Storybook (S2–S10 coverage) | 3 | In-repo precedent exists; must hold for the chosen engine. |
+| Integrates with our a11y layer (Actions Menu + WB Announcer; S9/S10) | 3 | We own a11y; engine must not fight it. |
+| Maintenance / governance (longevity, license) | 2 | Long-lived foundation for 4 widgets. |
+| Animation support (FLIP, S3) | 2 | Built-in vs. hand-rolled/new dep. |
+| Implementation/maintenance cost (LOC we own) | 2 | Build-vs-adopt; ~600–1,100 LOC for the build route. |
+
+Decision rule: highest weighted total **after** applying the S8 gate wins; record
+the filled scorecard in the ADR.
+
+### 9.3 Fallback / exit
+
+- If **`@dnd-kit`** fails the S8 gate on a real device after sensor/`touch-action`
+  tuning → fall back to **`@use-gesture` + custom** (proven touch + in-repo test
+  pattern), accepting the higher LOC and a FLIP-animation decision.
+- If **`@use-gesture` + custom** proves too costly on N5/N8 (sortable/animation
+  surface) → fall back to **`@dnd-kit` + `@dnd-kit/sortable`**.
+- **`react-dnd`** is only revisited if both above fail *and* the webapp
+  provider/touch-backend story turns out clean (§6) — unlikely given the v14 /
+  HTML5-only / no-shared-provider findings.
 
 **Framing for the decision:** because we bypass the engine's keyboard/SR
 machinery, the value gap between adopting a library and building on the
