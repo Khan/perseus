@@ -10,9 +10,9 @@
  *   ~/khan/frontend (frontend repo)
  *
  * Usage:
- *   ./utils/start-perseus-in-local-server.ts           # Activate local Perseus dev mode
- *   ./utils/start-perseus-in-local-server.ts -r        # Revert to published npm packages
- *   ./utils/start-perseus-in-local-server.ts --verbose # Show detailed output
+ *   ./utils/start-perseus-in-local-server.mts           # Activate local Perseus dev mode
+ *   ./utils/start-perseus-in-local-server.mts -r        # Revert to published npm packages
+ *   ./utils/start-perseus-in-local-server.mts --verbose # Show detailed output
  *
  * In a separate terminal, run: pnpm start:standalone
  */
@@ -75,7 +75,7 @@ function log(msg: string): void {
 // ---------------------------------------------------------------------------
 
 const SENTINEL_START =
-    "// LOCAL PERSEUS DEV — inserted by utils/start-perseus-in-local-server.ts";
+    "// LOCAL PERSEUS DEV — inserted by utils/start-perseus-in-local-server.mts";
 const SENTINEL_END = "// END LOCAL PERSEUS DEV";
 const SENTINEL_RE = new RegExp(
     `\n${escRe(SENTINEL_START)}\\n[\\s\\S]*?\\n${escRe(SENTINEL_END)}`,
@@ -472,6 +472,16 @@ function linkProcessModule(): void {
 // pnpm runner
 // ---------------------------------------------------------------------------
 
+function checkDockerRunning(): void {
+    const result = spawnSync("docker", ["info"], {stdio: "pipe"});
+    if (result.status !== 0) {
+        console.error(
+            "!!!!!!!!!!!!\nDocker is not running. Please start Docker Desktop and try again.\n!!!!!!!!!!!!\n",
+        );
+        process.exit(1);
+    }
+}
+
 function runPnpm(args: string[], cwd: string): void {
     const stdio = verbose ? "inherit" : "ignore";
     const result = spawnSync("pnpm", args, {cwd, stdio});
@@ -549,7 +559,7 @@ function usage(): void {
     );
     console.log("");
     console.log(
-        `Usage: ./utils/start-perseus-in-local-server.ts [-r] [--verbose] [-h]`,
+        `Usage: ./utils/start-perseus-in-local-server.mts [-r] [--verbose] [-h]`,
     );
     console.log("  -r         Revert to published npm packages");
     console.log("  --verbose  Show detailed output");
@@ -602,6 +612,7 @@ const perseusGitResult = spawnSync(
 );
 const branch = perseusGitResult.stdout.trim();
 
+checkDockerRunning();
 console.log(`Setting up Perseus local dev mode (branch: ${branch})...`);
 
 // Step 1: Discover Perseus packages
