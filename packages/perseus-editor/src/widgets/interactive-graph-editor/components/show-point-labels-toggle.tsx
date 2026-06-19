@@ -13,11 +13,9 @@ interface Props {
     onChange: (showPointLabels: boolean) => void;
 }
 
-// Editor-level toggle for the graph's `showPointLabels` field. Rendered at
-// the top of the interactive-graph editor so it stays visible for static
-// graphs, where the start-coords sub-panel (which owns the per-point name
-// inputs) is hidden. The toggle is disabled until every point has a
-// non-empty label; the InfoTip explains why.
+// Editor-level toggle for the graph's `showPointLabels` field. The toggle
+// is disabled until every point has a non-empty label; the InfoTip
+// explains why.
 export default function ShowPointLabelsToggle({
     showPointLabels,
     pointLabels,
