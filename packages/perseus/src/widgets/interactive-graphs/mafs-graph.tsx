@@ -396,7 +396,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {isFeatureOn(
                             {apiOptions: props.apiOptions},
                             "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
-                        ) && <MovablePointLabelsLayer state={state} />}
+                        ) &&
+                            !props.static && (
+                                <MovablePointLabelsLayer state={state} />
+                            )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

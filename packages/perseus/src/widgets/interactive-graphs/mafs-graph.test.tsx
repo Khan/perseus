@@ -1387,6 +1387,29 @@ describe("MafsGraph", () => {
                 screen.queryByTestId("movable-point__visible-label"),
             ).not.toBeInTheDocument();
         });
+
+        it("does not show the toggle for static graphs, when flag on and showPointLabels: true", () => {
+            // showPointLabels is specifically about labeling movable points;
+            // a static graph has no movable points, so the labels are skipped.
+            // Arrange, Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    state={pointStateWith({
+                        showPointLabels: true,
+                        pointLabels: ["A"],
+                    })}
+                    dispatch={jest.fn()}
+                    apiOptions={apiOptionsWithFlag(true)}
+                    static={true}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("movable-point__visible-label"),
+            ).not.toBeInTheDocument();
+        });
     });
 });
 
