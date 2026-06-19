@@ -3989,9 +3989,7 @@ describe("simple markdown", function () {
                                 /** @type {SimpleMarkdown.SingleASTNode} */ node,
                                 /** @type {SimpleMarkdown.ReactOutput} */ output,
                             ) {
-                                return SimpleMarkdown.reactElement("p", null, {
-                                    children: output(node.content),
-                                });
+                                return <p>{output(node.content)}</p>;
                             },
                         },
                     ),
@@ -4001,10 +3999,11 @@ describe("simple markdown", function () {
                             /** @type {SimpleMarkdown.ReactOutput} */ output,
                             /** @type {SimpleMarkdown.State} */ state,
                         ) {
-                            return SimpleMarkdown.reactElement("span", null, {
-                                className: state.spanClass || "default",
-                                children: node.content,
-                            });
+                            return (
+                                <span className={state.spanClass || "default"}>
+                                    {node.content}
+                                </span>
+                            );
                         },
                     }),
                 },
@@ -4045,10 +4044,11 @@ describe("simple markdown", function () {
                         /** @type {SimpleMarkdown.SingleASTNode} */ node,
                         /** @type {SimpleMarkdown.ReactOutput} */ output,
                     ) {
-                        return SimpleMarkdown.reactElement("span", null, {
-                            style: {background: "black"},
-                            children: output(node.content),
-                        });
+                        return (
+                            <span style={{background: "black"}}>
+                                {output(node.content)}
+                            </span>
+                        );
                     },
                 },
                 text: SimpleMarkdown.defaultRules.text,
