@@ -1,9 +1,10 @@
-import {components, usePerseusI18n} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import LabeledSwitch from "../../../components/labeled-switch";
-import styles from "../start-coords/start-coords-shared.module.css";
+
+import styles from "./show-point-labels-toggle.module.css";
 
 const {InfoTip} = components;
 
@@ -21,21 +22,23 @@ export default function ShowPointLabelsToggle({
     pointLabels,
     onChange,
 }: Props) {
-    const {strings} = usePerseusI18n();
     const labelsPopulated =
         pointLabels !== undefined &&
         pointLabels.length > 0 &&
-        pointLabels.every((label) => label.trim() !== "");
+        pointLabels.every((label) => label !== "");
 
     return (
         <View className={styles.switchRow}>
             <LabeledSwitch
-                label={strings.interactiveGraphShowPointLabels}
+                label="Show point labels"
                 checked={labelsPopulated && showPointLabels}
                 disabled={!labelsPopulated}
                 onChange={onChange}
             />
-            <InfoTip>{strings.interactiveGraphShowPointLabelsInfoTip}</InfoTip>
+            <InfoTip>
+                When on, each movable point displays a visible label next to it.
+                Add a name to every point below to enable this option.
+            </InfoTip>
         </View>
     );
 }

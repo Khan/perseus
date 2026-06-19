@@ -54,6 +54,23 @@ describe("ShowPointLabelsToggle", () => {
         );
     });
 
+    it("disables the toggle when some pointLabels entries are empty and some are not", () => {
+        // Arrange, Act
+        render(
+            <ShowPointLabelsToggle
+                showPointLabels={false}
+                pointLabels={["A", ""]}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByLabelText("Show point labels")).toHaveAttribute(
+            "aria-disabled",
+            "true",
+        );
+    });
+
     it("enables the toggle when every pointLabels entry is non-empty", () => {
         // Arrange, Act
         render(

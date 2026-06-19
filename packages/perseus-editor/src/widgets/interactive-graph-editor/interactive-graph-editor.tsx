@@ -211,24 +211,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
     changeShowPointLabels = (showPointLabels: boolean) => {
         const {graph, correct} = this.props;
+        if (graph === undefined || correct === undefined) {
+            return;
+        }
+        const newGraph = withShowPointLabels(graph, showPointLabels);
+        const newCorrect = withShowPointLabels(correct, showPointLabels);
         // Custom point labels are not applicable for `vector` or `none`
         // graph types — they have no movable points to label.
-        if (!graph?.type || graph.type === "vector" || graph.type === "none") {
+        if (newGraph === undefined || newCorrect === undefined) {
             return;
         }
-        if (
-            !correct?.type ||
-            correct.type === "vector" ||
-            correct.type === "none"
-        ) {
-            return;
-        }
-        this.props.onChange({
-            // eslint-disable-next-line no-restricted-syntax
-            graph: {...graph, showPointLabels} as PerseusGraphType,
-            // eslint-disable-next-line no-restricted-syntax
-            correct: {...correct, showPointLabels} as PerseusGraphType,
-        });
+        this.props.onChange({graph: newGraph, correct: newCorrect});
     };
 
     // serialize() is what makes copy/paste work. All the properties included
@@ -554,16 +547,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type !== "none" && (
                                 <ShowPointLabelsToggle
                                     showPointLabels={
-                                        "showPointLabels" in this.props.graph
-                                            ? this.props.graph
-                                                  .showPointLabels === true
-                                            : false
+                                        this.props.graph.showPointLabels ===
+                                        true
                                     }
-                                    pointLabels={
-                                        "pointLabels" in this.props.graph
-                                            ? this.props.graph.pointLabels
-                                            : undefined
-                                    }
+                                    pointLabels={this.props.graph.pointLabels}
                                     onChange={this.changeShowPointLabels}
                                 />
                             )}
@@ -691,6 +678,40 @@ function mergeGraphs(
             return {...a, ...b};
         default:
             throw new UnreachableCaseError(a);
+    }
+}
+
+// Returns a copy of `graph` with `showPointLabels` set, narrowed per the
+// graph type so TypeScript can verify that every variant that supports
+// `showPointLabels` is handled. Returns `undefined` for `vector` and
+// `none`, which have no movable points to label. The exhaustive default
+// makes TypeScript fail this code if a new `PerseusGraphType` variant is
+// added — that's the point.
+function withShowPointLabels(
+    graph: PerseusGraphType,
+    showPointLabels: boolean,
+): PerseusGraphType | undefined {
+    switch (graph.type) {
+        case "absolute-value":
+        case "angle":
+        case "circle":
+        case "exponential":
+        case "linear":
+        case "linear-system":
+        case "logarithm":
+        case "point":
+        case "polygon":
+        case "quadratic":
+        case "ray":
+        case "segment":
+        case "sinusoid":
+        case "tangent":
+            return {...graph, showPointLabels};
+        case "none":
+        case "vector":
+            return undefined;
+        default:
+            throw new UnreachableCaseError(graph);
     }
 }
 
