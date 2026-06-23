@@ -1960,7 +1960,7 @@ export const mockStrings: PerseusStrings = {
         `Exponential graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}`,
-    srLogarithmGraph: "A logarithm function on a coordinate plane.",
+    srLogarithmGraph: "A logarithmic curve on a coordinate plane.",
     srLogarithmPoint1: ({x, y}) =>
         `Point 1 on a logarithmic curve at ${x} comma ${y}.`,
     srLogarithmPoint2: ({x, y}) =>
