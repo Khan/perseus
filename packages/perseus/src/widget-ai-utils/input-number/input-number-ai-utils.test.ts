@@ -6,7 +6,6 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {getPromptJSON} from "./input-number-ai-utils";
 
 import type {
-    InputNumberWidget,
     PerseusRenderer,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
@@ -17,7 +16,6 @@ const question: PerseusRenderer = {
         "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
     images: {},
     widgets: {
-        // eslint-disable-next-line no-restricted-syntax
         "input-number 1": {
             graded: true,
             version: {
@@ -42,7 +40,7 @@ const question: PerseusRenderer = {
                 ],
             },
             alignment: "default",
-        } as InputNumberWidget,
+        },
     },
 };
 
