@@ -198,7 +198,34 @@ export const SingleSelectWithGraphie = {
         images: choicesWithGraphieImages,
     },
 };
-export const SingleSelectColor: Story = {
+export const SingleSelectOneColor: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice("$\\blueD{0}$", {
+                correct: true,
+            }),
+            generateRadioChoice("$\\blueD{1 + 8}$"),
+            generateRadioChoice("$\\blueD{2 + 7}$"),
+            generateRadioChoice("$\\blueD{3 + 2}$"),
+        ],
+    },
+};
+export const SingleSelectMultiInLineColor: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice("$\\greenA{Choice}$ + $\\goldD{One}$", {
+                correct: true,
+            }),
+            generateRadioChoice("$\\blueD{Choice}$ + $\\redE{Two}$"),
+            generateRadioChoice("$\\maroonC{Choice}$ + $\\purpleB{Three}$"),
+            generateRadioChoice("$\\tealC{Choice}$ + $\\maroonA{Four}$"),
+            generateRadioChoice("$\\blueC{Choice}$ + $\\blueB{Five}$"),
+        ],
+    },
+};
+export const SingleSelectMultiColor: Story = {
     decorators: [radioRendererDecorator],
     args: {
         choices: [
