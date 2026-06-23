@@ -1,0 +1,110 @@
+# Perseus Development Guide
+
+Perseus is Khan Academy's educational content rendering system that powers all exercises and articles. It's a TypeScript monorepo that extends Markdown with interactive widgets and beautiful math rendering.
+
+**Core Architecture:**
+- **Renderers**: Display content (ServerItemRenderer for exercises, ArticleRenderer for articles)
+- **Widgets**: Interactive components (radio, numeric-input, interactive-graph, etc.)
+- **Editors**: Authoring interfaces for content creators
+- **Scoring**: Server-side answer checking (perseus-score)
+- **Validation**: Input validation before scoring (perseus-score)
+- **Data Schema**: Typed content definitions (perseus-core/src/data-schema.ts)
+- **Parsers**: Content parsing utilities (perseus-core)
+- **Editor Linters**: Content validation rules (perseus-linter)
+
+## Quick Start Commands
+
+### Development
+```bash
+pnpm storybook             # Launch Storybook documentation
+pnpm tesc                  # Run tests for changed files
+```
+
+### Code Quality
+```bash
+pnpm fixc                  # Run linter and autofix formatting
+pnpm tsc                   # Type-check all packages
+pnpm knip                  # Find unused files, exports, and dependencies
+```
+
+## Key Directories
+
+```
+packages/
+├── perseus/             # Main package (renderers, widgets, components)
+│   ├── src/__docs__/    # Main Storybook stories
+│   ├── src/widgets/     # Widget implementations
+│   └── src/components/  # Reusable components
+├── perseus-editor/      # Editor UI components
+├── math-input/          # Math keypad and input components
+├── perseus-core/        # Shared types and utilities
+├── perseus-linter/      # Content validation tools
+└── perseus-score/       # Server-side scoring functions
+```
+
+## Testing Guidelines
+
+### Test Structure
+1. Follow the AAA pattern: Arrange, Act, Assert
+1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
+2. Use widget generators to build test data and test data options.
+   You can find generators for all widgets in packages/perseus-core/src/utils/generators.
+   An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
+   Values that are important to the test — used in assertions or the specific logic being tested —
+   should be explicitly passed as params to the generator, not left as shared defaults.
+   Test assertions shouldn't be coupled to setup they don't control.
+3. Follow the test structure below:
+```typescript
+import {screen} from "@testing-library/react";
+import {userEvent} from "@testing-library/user-event";
+
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {generateWidgetItem} from "./widget.testdata";
+
+describe("Widget", () => {
+    it("renders the prompt text", () => {
+        // Arrange, Act
+        renderQuestion(generateWidgetItem());
+
+        expect(screen.getByText("What is 2 + 2?")).toBeInTheDocument();
+    });
+
+    it("calls handleUserInput when an answer is selected", async () => {
+        const user = userEvent.setup();
+        const {renderer} = renderQuestion(generateWidgetItem());
+
+        await user.click(screen.getByRole("button", {name: "4"}));
+
+        expect(renderer.getUserInput()).toMatchObject({currentValue: "4"});
+    });
+});
+```
+
+### Writing Tests
+- Test titles should describe the requirement or observable outcome, not the implementation.
+  Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
+  A failing test title should tell you which requirement broke without reading the test body.
+  ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
+
+## Accessibility
+
+When doing any UI work, follow the guidelines in `accessibility-instructions.md` (at the repo root).
+
+@accessibility-instructions.md
+
+## Commit Messages
+
+Focus on what changed and why — write for someone reading git log in 5 years.
+- Describe the behavior change, not the implementation steps
+- Explain the motivation (the "why")
+- Note anything surprising or non-obvious
+- Omit information already visible in the diff or PR description
+
+## Deployment Notes
+
+### Before Submitting PR
+1. Run tests: `pnpm tesc`
+2. Check types: `pnpm tsc`
+3. Lint and format: `pnpm fixc`
+4. Test in Storybook: `pnpm storybook`
+5. Verify accessibility compliance
