@@ -7,14 +7,6 @@ import type {SizeClass} from "../../../util/sizing-utils";
 import type {GraphRange, MarkingsType} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
-/**
- * The width, in pixels, of the rendered axis lines. Must be kept in sync with
- * the `--mafs-axis-stroke-width` CSS variable in mafs-styles.css. It's
- * duplicated here so callers can account for the stroke width when clipping
- * the axes (see how `<Axes>` is clipped in mafs-graph.tsx).
- */
-export const AXIS_STROKE_WIDTH = 2;
-
 interface GridProps {
     gridStep: vec.Vector2;
     range: GraphRange;
@@ -23,12 +15,6 @@ interface GridProps {
     width: number;
     height: number;
 }
-
-/**
- * Whether the axis lines should be drawn for the given markings.
- */
-export const axesAreShown = (markings: MarkingsType): boolean =>
-    markings === "graph" || markings === "axes";
 
 /**
  * gridLineOptions determine the grid-line options for Mafs, with the axis
@@ -61,7 +47,7 @@ const gridLineOptions = (
  */
 const axisLineOptions = (props: Omit<GridProps, "containerSizeClass">) => {
     return {
-        axis: axesAreShown(props.markings),
+        axis: props.markings === "graph" || props.markings === "axes",
         lines: false as const,
         labels: false as const,
     };

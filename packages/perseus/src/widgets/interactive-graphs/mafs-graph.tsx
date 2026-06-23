@@ -24,7 +24,7 @@ import {useDependencies} from "../../dependencies";
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
-import {Axes, axesAreShown, AXIS_STROKE_WIDTH, Grid} from "./backgrounds/grid";
+import {Axes, Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import {
     fontSize,
@@ -206,7 +206,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     // so the perpendicular ends (tips) of the axes stay flush with the graph
     // bounds rather than poking out.
     const [[xMin, xMax], [yMin, yMax]] = state.range;
-    const halfStroke = AXIS_STROKE_WIDTH / 2;
+    const halfStroke = 1;
     const axisClipExpand = {
         left: xMin === 0 ? halfStroke : 0,
         right: xMax === 0 ? halfStroke : 0,
@@ -385,7 +385,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 </ClipToGraphBounds>
                                 {/* Axis lines, ticks, and arrows. Only
                                     rendered when the markings include axes. */}
-                                {axesAreShown(props.markings) && (
+                                {showsAxisLabels && (
                                     <>
                                         {/* Axis lines are clipped to the graph
                                             bounds, expanded by half the stroke
