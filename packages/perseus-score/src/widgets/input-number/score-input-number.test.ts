@@ -73,21 +73,16 @@ describe("scoreInputNumber", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
+        const rubric = generateInputNumberOptions({
             answers: [
-                {
-                    status: "correct",
+                generateInputNumberAnswer({
                     value: 241.90263432641407,
                     maxError: 0,
                     simplify: "required",
                     answerForms: [],
-                    message: "",
-                    strict: true,
-                },
+                }),
             ],
-        };
+        });
 
         const userInput: PerseusInputNumberUserInput = {
             // 77 * pi = 241.90263432641407
@@ -109,21 +104,16 @@ describe("scoreInputNumber", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: PerseusInputNumberWidgetOptions = {
-            size: "normal",
-            coefficient: false,
+        const rubric = generateInputNumberOptions({
             answers: [
-                {
-                    status: "correct",
+                generateInputNumberAnswer({
                     value: 241.90263432641407,
                     maxError: 0,
                     simplify: "required",
                     answerForms: ["pi"],
-                    message: "",
-                    strict: true,
-                },
+                }),
             ],
-        };
+        });
 
         const userInput: PerseusInputNumberUserInput = {
             currentValue: "77 pi",
