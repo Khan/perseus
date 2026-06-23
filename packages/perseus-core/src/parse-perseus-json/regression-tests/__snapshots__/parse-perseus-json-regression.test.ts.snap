@@ -7898,6 +7898,182 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "calculatorVariant": null,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "none",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "coord": [
+                0,
+                0,
+              ],
+              "size": "medium",
+              "text": "",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "calculatorVariant": null,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "coord": [
+                0,
+                0,
+              ],
+              "size": "medium",
+              "text": "",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.ts returns the same result as before 1`] = `
 {
   "answerArea": {
