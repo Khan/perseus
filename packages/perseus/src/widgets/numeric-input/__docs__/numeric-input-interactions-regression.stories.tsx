@@ -1,8 +1,29 @@
+import {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+} from "@khanacademy/keypad-context";
+import {MobileKeypad} from "@khanacademy/math-input";
+import {
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+import * as React from "react";
+import {expect, fireEvent, within} from "storybook/test";
+
 import {themeModes} from "../../../../../../.storybook/modes";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
-import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusNumericInputWidgetOptions> = {
@@ -38,7 +59,7 @@ export const Focus: Story = {
 };
 
 /** Verifies the focused state with one answer form (integer) — tooltip shows a single example */
-export const With1Tooltip: Story = {
+export const WithTooltipOneAnswerForm: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
@@ -64,7 +85,7 @@ export const With1Tooltip: Story = {
 };
 
 /** Verifies the focused state with multiple answer forms (integer + decimal) — tooltip shows a list of examples */
-export const WithMultipleTooltips: Story = {
+export const WithTooltipMultipleAnswerForms: Story = {
     decorators: [numericInputRendererDecorator],
     parameters: {
         initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
@@ -86,5 +107,244 @@ export const WithMultipleTooltips: Story = {
     play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");
         input.focus();
+    },
+};
+
+export const WithTooltipMultipleAnswerFormsRTL: Story = {
+    decorators: [numericInputRendererDecorator, rtlDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        answers: [
+            {
+                value: 5,
+                status: "correct",
+                message: "",
+                answerForms: ["integer", "decimal"],
+                simplify: "required" as const,
+                strict: false,
+                maxError: 0,
+            },
+        ],
+    },
+    play: async ({canvas}) => {
+        const input = canvas.getByRole("textbox");
+        input.focus();
+    },
+};
+
+// Six of the seven supported answer forms. We deliberately stop at six:
+// supplying all seven flips the widget into "all forms accepted" mode, which
+// HIDES the examples tooltip entirely (see `shouldShowExamples`). Six is the
+// most forms we can show while still rendering the full bulleted example list.
+const allAnswerForms: PerseusNumericInputWidgetOptions["answers"] = [
+    {
+        value: 5,
+        status: "correct",
+        message: "",
+        answerForms: [
+            "integer",
+            "decimal",
+            "proper",
+            "improper",
+            "mixed",
+            "pi",
+        ],
+        simplify: "optional",
+        strict: false,
+        maxError: 0,
+    },
+];
+
+/**
+ * Verifies the focused tooltip when many answer forms are accepted. With more
+ * than two examples the tooltip switches from an inline string to a bulleted
+ * list, so this guards that bullet layout.
+ */
+export const WithTooltipAllAnswerForms: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        answers: allAnswerForms,
+    },
+    play: async ({canvas}) => {
+        const input = canvas.getByRole("textbox");
+        input.focus();
+    },
+};
+
+/**
+ * The same full bulleted example list as WithTooltipAllAnswerForms, but in RTL.
+ * Verifies the bullet points render mirrored on the reverse (right) side.
+ */
+export const WithTooltipAllAnswerFormsRTL: Story = {
+    decorators: [numericInputRendererDecorator, rtlDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        answers: allAnswerForms,
+    },
+    play: async ({canvas}) => {
+        const input = canvas.getByRole("textbox");
+        input.focus();
+    },
+};
+
+const mobileQuestion = generateTestPerseusRenderer({
+    content: "Enter the warp factor: [[☃ numeric-input 1]]",
+    widgets: {
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({size: "normal"}),
+        }),
+    },
+});
+
+/**
+ * Renders a question with the full mobile on-screen keypad wired up.
+ */
+function MobileKeypadItemRenderer({question}: {question: PerseusRenderer}) {
+    return (
+        <StatefulKeypadContextProvider>
+            <KeypadContext.Consumer>
+                {({keypadElement}) => (
+                    <WrappedServerItemRenderer
+                        apiOptions={{isMobile: true, customKeypad: true}}
+                        item={generateTestPerseusItem({question})}
+                        problemNum={0}
+                        dependencies={storybookDependenciesV2}
+                        keypadElement={keypadElement}
+                    />
+                )}
+            </KeypadContext.Consumer>
+            <KeypadContext.Consumer>
+                {({setKeypadElement}) => (
+                    <MobileKeypad
+                        onElementMounted={setKeypadElement}
+                        onDismiss={() => {}}
+                        onAnalyticsEvent={async () => {}}
+                    />
+                )}
+            </KeypadContext.Consumer>
+        </StatefulKeypadContextProvider>
+    );
+}
+
+export const MobilePhoneBasicKeypadOpen: Story = {
+    render: () => (
+        <div
+            className="framework-perseus perseus-mobile"
+            style={{
+                transform: "translateZ(0)",
+                position: "relative",
+                // Mobile phone dimensions
+                width: 375,
+                height: 600,
+                overflow: "hidden",
+            }}
+        >
+            <MobileKeypadItemRenderer question={mobileQuestion} />
+        </div>
+    ),
+    play: async ({canvas}) => {
+        const input = await canvas.findByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+        fireEvent.touchStart(input);
+        // Wait for the keypad to finish its open animation.
+        await expect(
+            canvas.findByRole("button", {name: "1"}),
+        ).resolves.toBeVisible();
+    },
+};
+
+export const MobileTabletExpandedKeypadOpen: Story = {
+    render: () => (
+        <div
+            className="framework-perseus perseus-mobile"
+            style={{
+                transform: "translateZ(0)",
+                position: "relative",
+                // Tablet landscape dimensions
+                width: 900,
+                height: 520,
+                overflow: "hidden",
+            }}
+        >
+            <MobileKeypadItemRenderer question={mobileQuestion} />
+        </div>
+    ),
+    play: async ({canvas}) => {
+        const input = await canvas.findByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+        fireEvent.touchStart(input);
+        // Wait for the keypad to finish its open animation.
+        await expect(
+            canvas.findByRole("button", {name: "1"}),
+        ).resolves.toBeVisible();
+    },
+};
+
+const keepTryingQuestion = generateTestPerseusRenderer({
+    content: "Enter a whole number: [[☃ numeric-input 1]]",
+    widgets: {
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
+                size: "normal",
+                answers: [
+                    {
+                        value: 5,
+                        status: "correct",
+                        message: "",
+                        answerForms: ["integer"],
+                        simplify: "required",
+                        strict: false,
+                        maxError: 0,
+                    },
+                    {
+                        value: 2.5,
+                        status: "ungraded",
+                        message:
+                            "We're looking for a whole number, not a decimal.",
+                        answerForms: ["decimal"],
+                        simplify: "optional",
+                        strict: false,
+                        maxError: 0,
+                    },
+                ],
+            }),
+        }),
+    },
+});
+
+/**
+ * (Checked) Verifies the "Keep trying…" popover shown for invalid input. Typing
+ * a value that matches the ungraded answer and then checking yields an invalid
+ * score with a message, which opens the popover.
+ */
+export const InvalidInputKeepTryingPopover: Story = {
+    render: () => (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question: keepTryingQuestion})}
+        />
+    ),
+    play: async ({canvas, userEvent}) => {
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "2.5");
+        await userEvent.click(
+            canvas.getByRole("button", {name: "Check answer"}),
+        );
+        // The popover opens a moment after scoring; wait for its message. It is
+        // portaled outside the story canvas, so query the whole document.
+        await expect(
+            within(document.body).findByText("Keep trying"),
+        ).resolves.toBeVisible();
     },
 };

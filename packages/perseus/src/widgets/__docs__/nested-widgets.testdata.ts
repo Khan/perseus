@@ -7,6 +7,8 @@ import {
     generateGradedGroupWidget,
     generateImageOptions,
     generateImageWidget,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateRadioChoice,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -179,6 +181,69 @@ export const definitionInContentAndExplanation: PerseusRenderer =
                                 definition:
                                     "The Axis powers were Germany, Japan, and Italy, the group of countries who opposed the Allies during World War II.",
                                 togglePrompt: "Axis powers",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const numericInputInTable: PerseusRenderer = generateTestPerseusRenderer(
+    {
+        content:
+            "| Normal-size input | Small-size input |\n" +
+            "| --- | --- |\n" +
+            "| [[☃ numeric-input 1]] | [[☃ numeric-input 2]] |",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({size: "normal"}),
+            }),
+            "numeric-input 2": generateNumericInputWidget({
+                options: generateNumericInputOptions({size: "small"}),
+            }),
+        },
+    },
+);
+
+export const numericInputInGradedGroup: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "USS Enterprise registry",
+                    content:
+                        "What is the registry number of the original USS " +
+                        "Enterprise?\n\nNCC-[[☃ numeric-input 1]]",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const numericInputInExplanation: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "Warp factors are not linear.\n\n[[☃ explanation 1]]",
+        widgets: {
+            "explanation 1": generateExplanationWidget({
+                options: generateExplanationOptions({
+                    showPrompt: "Show practice problem",
+                    hidePrompt: "Hide practice problem",
+                    explanation:
+                        "Warp 1 equals the speed of light. Enter the warp " +
+                        "factor that equals twice the speed of light: " +
+                        "[[☃ numeric-input 1]]",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
                             }),
                         }),
                     },
