@@ -604,7 +604,7 @@ export type PerseusStrings = {
     srLogarithmGraph: string;
     srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
     srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
-    srLogarithmDescription: ({
+    srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
@@ -617,6 +617,68 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteX: string;
     }) => string;
+    srLogarithmDescriptionRightPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmDescriptionLeftNeg: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmToRightOfAsymptote: string;
+    srLogarithmToLeftOfAsymptote: string;
+    srLogarithmNoCurve: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srLogarithmXIntercept: ({xIntercept}: {xIntercept: string}) => string;
     srLogarithmInteractiveElements: ({
         point1X,
         point1Y,
@@ -1381,35 +1443,79 @@ export const strings = {
     srLogarithmGraph: {
         context:
             "Aria label for the container containing a Logarithm function in the interactive graph widget.",
-        message: "A logarithm function on a coordinate plane.",
+        message: "A logarithmic curve on a coordinate plane.",
     },
     srLogarithmPoint1: {
         context:
             "Aria label for the first Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 1 at %(x)s comma %(y)s.",
+        message: "Point 1 on a logarithmic curve at %(x)s comma %(y)s.",
     },
     srLogarithmPoint2: {
         context:
             "Aria label for the second Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 2 at %(x)s comma %(y)s.",
+        message: "Point 2 on a logarithmic curve at %(x)s comma %(y)s.",
     },
-    srLogarithmDescription: {
+    srLogarithmDescriptionRightNeg: {
         context:
-            "Screen reader description of the Logarithm function in the interactive graph widget.",
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the right of the asymptote that trails off toward negative infinity near it.",
         message:
-            "The graph shows a logarithm curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s.",
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the right and extends to negative infinity.",
+    },
+    srLogarithmDescriptionRightPos: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the right of the asymptote that trails off toward positive infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the right and extends to positive infinity.",
+    },
+    srLogarithmDescriptionLeftNeg: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the left of the asymptote that trails off toward negative infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the left and extends to negative infinity.",
+    },
+    srLogarithmDescriptionLeftPos: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the left of the asymptote that trails off toward positive infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the left and extends to positive infinity.",
+    },
+    srLogarithmToRightOfAsymptote: {
+        context:
+            "Screen reader description noting that the Logarithm curve lies to the right of its vertical asymptote.",
+        message: "The curve is to the right of the asymptote.",
+    },
+    srLogarithmToLeftOfAsymptote: {
+        context:
+            "Screen reader description noting that the Logarithm curve lies to the left of its vertical asymptote.",
+        message: "The curve is to the left of the asymptote.",
+    },
+    srLogarithmNoCurve: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget, used when the two points are positioned so that no logarithm curve can be drawn (for example, the asymptote falls between them) and nothing is plotted.",
+        message:
+            "No curve can be drawn through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s. Move both points to the same side of the asymptote to draw the curve.",
+    },
+    srLogarithmIntercepts: {
+        context:
+            "Screen reader description of the x- and y-intercepts of the Logarithm function in the interactive graph widget.",
+        message:
+            "The x-intercept is at %(xIntercept)s comma 0. The y-intercept is at 0 comma %(yIntercept)s.",
+    },
+    srLogarithmXIntercept: {
+        context:
+            "Screen reader description of the x-intercept of the Logarithm function in the interactive graph widget, used when the curve has no y-intercept.",
+        message: "The x-intercept is at %(xIntercept)s comma 0.",
     },
     srLogarithmInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Logarithm function in the interactive graph widget.",
         message:
-            "Logarithm graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and vertical asymptote at x equals %(asymptoteX)s.",
+            "Logarithmic graph with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and a vertical asymptote at x equals %(asymptoteX)s.",
     },
     srLogarithmAsymptote: {
         context:
             "Aria label for the draggable vertical asymptote line in the Logarithm function in the interactive graph widget.",
-        message:
-            "Vertical asymptote at x equals %(asymptoteX)s. Use left and right arrow keys to move.",
+        message: "Vertical asymptote at x equals %(asymptoteX)s",
     },
     srAbsoluteValueGraph: {
         context:
@@ -1854,17 +1960,52 @@ export const mockStrings: PerseusStrings = {
         `Exponential graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}`,
-    srLogarithmGraph: "A logarithm function on a coordinate plane.",
-    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
-    srLogarithmDescription: ({
+    srLogarithmGraph: "A logarithmic curve on a coordinate plane.",
+    srLogarithmPoint1: ({x, y}) =>
+        `Point 1 on a logarithmic curve at ${x} comma ${y}.`,
+    srLogarithmPoint2: ({x, y}) =>
+        `Point 2 on a logarithmic curve at ${x} comma ${y}.`,
+    srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         asymptoteX,
     }) =>
-        `The graph shows a logarithm curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}.`,
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the right and extends to negative infinity.`,
+    srLogarithmDescriptionRightPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the right and extends to positive infinity.`,
+    srLogarithmDescriptionLeftNeg: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the left and extends to negative infinity.`,
+    srLogarithmDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the left and extends to positive infinity.`,
+    srLogarithmToRightOfAsymptote:
+        "The curve is to the right of the asymptote.",
+    srLogarithmToLeftOfAsymptote: "The curve is to the left of the asymptote.",
+    srLogarithmNoCurve: ({point1X, point1Y, point2X, point2Y, asymptoteX}) =>
+        `No curve can be drawn through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}. Move both points to the same side of the asymptote to draw the curve.`,
+    srLogarithmIntercepts: ({xIntercept, yIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0. The y-intercept is at 0 comma ${yIntercept}.`,
+    srLogarithmXIntercept: ({xIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0.`,
     srLogarithmInteractiveElements: ({
         point1X,
         point1Y,
@@ -1872,9 +2013,9 @@ export const mockStrings: PerseusStrings = {
         point2Y,
         asymptoteX,
     }) =>
-        `Logarithm graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and vertical asymptote at x equals ${asymptoteX}.`,
+        `Logarithmic graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a vertical asymptote at x equals ${asymptoteX}.`,
     srLogarithmAsymptote: ({asymptoteX}) =>
-        `Vertical asymptote at x equals ${asymptoteX}. Use left and right arrow keys to move.`,
+        `Vertical asymptote at x equals ${asymptoteX}`,
     srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,

@@ -224,12 +224,15 @@ describe("getAnnouncementText", () => {
                     pointLabel: 1,
                     x: -3,
                     y: -2,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",
             );
 
-            expect(result).toBe("Point 1 at -3 comma -2.");
+            expect(result).toBe(
+                "Point 1 on a logarithmic curve at -3 comma -2.",
+            );
         });
 
         it("uses the point-2 label for index 1", () => {
@@ -240,12 +243,30 @@ describe("getAnnouncementText", () => {
                     pointLabel: 2,
                     x: 4,
                     y: 5,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",
             );
 
-            expect(result).toBe("Point 2 at 4 comma 5.");
+            expect(result).toBe("Point 2 on a logarithmic curve at 4 comma 5.");
+        });
+
+        it("drops the curve phrasing when no curve is plotted", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-logarithm-point",
+                    pointIndex: 0,
+                    pointLabel: 1,
+                    x: -3,
+                    y: -2,
+                    hasCurve: false,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe("Point 1 at -3 comma -2.");
         });
 
         // TODO(LEMS-4206): allow custom labels for logarithm points so we can
@@ -258,6 +279,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: "A",
                     x: -3,
                     y: -2,
+                    hasCurve: true,
                 },
                 mockStrings,
                 "en",
@@ -275,9 +297,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe(
-                "Vertical asymptote at x equals -8. Use left and right arrow keys to move.",
-            );
+            expect(result).toBe("Vertical asymptote at x equals -8");
         });
     });
 
