@@ -30,8 +30,8 @@ export function getAnnouncementText(
             return strings.srVectorGrabHandle({
                 tailX: srFormatNumber(state.coords[0][0], locale),
                 tailY: srFormatNumber(state.coords[0][1], locale),
-                tipX: srFormatNumber(state.coords[1][0], locale),
-                tipY: srFormatNumber(state.coords[1][1], locale),
+                headX: srFormatNumber(state.coords[1][0], locale),
+                headY: srFormatNumber(state.coords[1][1], locale),
             });
         case "move-segment-point":
             return srSegmentPointLabel(state, strings, locale);
@@ -418,11 +418,11 @@ function srVectorPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // Index 0 is the vector's tail (generic point label); index 1 is the tip,
+    // Index 0 is the vector's tail (generic point label); index 1 is the head,
     // which has a dedicated label.
     return state.pointIndex === 0
         ? strings.srPointAtCoordinates({num: 1, x, y})
-        : strings.srVectorTipPoint({x, y});
+        : strings.srVectorHeadPoint({x, y});
 }
 
 function srPolygonLabel(
