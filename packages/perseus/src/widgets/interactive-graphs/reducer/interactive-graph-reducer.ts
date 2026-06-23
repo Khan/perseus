@@ -83,9 +83,9 @@ const {
 } = geometry;
 
 const {
-    getQuadraticCoefficients,
     getLogarithmCoefficients,
     getExponentialCoefficients,
+    getQuadraticCoefficients,
 } = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
