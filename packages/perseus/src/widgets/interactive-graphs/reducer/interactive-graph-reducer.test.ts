@@ -3298,6 +3298,21 @@ describe("movePoint on an exponential graph", () => {
         expect(updated.stateAnnouncement.pointIndex).toBe(0);
         expect(updated.stateAnnouncement.x).toBe(-1);
         expect(updated.stateAnnouncement.y).toBe(4);
+        expect(updated.stateAnnouncement.hasCurve).toBe(true);
+    });
+
+    it("reports hasCurve false when the move leaves the points straddling the asymptote", () => {
+        // Default points sit above asymptote y=1; move point 0 below it so no
+        // exponential fits.
+        const state = generateExponentialGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.exponential.movePoint(0, [-1, -2]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-exponential-point");
+        expect(updated.stateAnnouncement.hasCurve).toBe(false);
     });
 
     it("carries the custom pointLabel when one is set", () => {
@@ -3605,6 +3620,21 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.stateAnnouncement.pointIndex).toBe(0);
         expect(updated.stateAnnouncement.x).toBe(-3);
         expect(updated.stateAnnouncement.y).toBe(-2);
+        expect(updated.stateAnnouncement.hasCurve).toBe(true);
+    });
+
+    it("reports hasCurve false when the move leaves the points in a position where no curve fits", () => {
+        // Default points sit right of asymptote x=-6; move point 0 left of it
+        // so the points straddle the asymptote and no logarithm fits.
+        const state = generateLogarithmGraphState();
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.logarithm.movePoint(0, [-8, -3]),
+        );
+
+        invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
+        expect(updated.stateAnnouncement.hasCurve).toBe(false);
     });
 
     it("carries the custom pointLabel when one is set", () => {
