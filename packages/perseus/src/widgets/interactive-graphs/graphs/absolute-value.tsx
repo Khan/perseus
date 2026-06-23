@@ -85,12 +85,20 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                 <MovablePoint
                     key={"point-" + i}
                     ariaLabel={
+                        // TODO(benchristel): if `pointLabels` defines a custom
+                        //  label for this point, buildLabel returns a generic
+                        //  screenreader label that does not contain the words
+                        //  "vertex" or "point on arm". It would be nice if we
+                        //  had screenreader strings that mentioned both the
+                        //  custom label and the point's mathematical meaning.
                         buildLabel(i, coord) ??
                         (i === 0
                             ? srAbsoluteValueVertexPoint
                             : srAbsoluteValueSecondPoint)
                     }
                     point={coord}
+                    // TODO(benchristel): sequenceNumber has no effect when
+                    //  ariaLabel is always passed.
                     sequenceNumber={i + 1}
                     constrain={getAbsoluteValueKeyboardConstraint(
                         coords,
@@ -198,7 +206,12 @@ function getAbsoluteValueDescription(
 function describeAbsoluteValueGraph(
     state: AbsoluteValueGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): {
+    srAbsoluteValueGraph: string;
+    srAbsoluteValueVertexPoint: string;
+    srAbsoluteValueSecondPoint: string;
+    srAbsoluteValueDescription: string;
+} {
     const {strings, locale} = i18n;
     const {coords} = state;
     const [vertex, armPoint] = coords;

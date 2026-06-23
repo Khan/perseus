@@ -350,31 +350,6 @@ describe("Linear System graph pointLabels", () => {
         expect(line2Point1).toBeInTheDocument();
         expect(line2Point2).toBeInTheDocument();
     });
-
-    it("falls back to the per-line default for truthy non-string entries", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLinearSystemState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B", "C", "D"] as unknown as string[],
-                }}
-            />,
-        );
-        const line1Point1 = screen.getByRole("button", {
-            name: "Point 1 on line 1 at -5 comma 5.",
-        });
-        const line1Point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
-        });
-
-        // Assert — index 0 is a non-string and falls back to the per-line
-        // default; index 1 is a usable string and overrides.
-        expect(line1Point1).toBeInTheDocument();
-        expect(line1Point2).toBeInTheDocument();
-    });
 });
 
 describe("getLinearSystemGraphDescription", () => {

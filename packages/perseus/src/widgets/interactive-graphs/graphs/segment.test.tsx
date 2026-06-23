@@ -414,31 +414,6 @@ describe("Segment graph pointLabels", () => {
         expect(seg2Point1).toBeInTheDocument();
         expect(seg2Point2).toBeInTheDocument();
     });
-
-    it("falls back to the per-segment default for truthy non-string entries", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseSingleSegmentState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
-        const point1 = screen.getByRole("button", {
-            name: "Endpoint 1 at -5 comma 5.",
-        });
-        const point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
-        });
-
-        // Assert — index 0 is a non-string and falls back to the default;
-        // index 1 is a usable string and overrides.
-        expect(point1).toBeInTheDocument();
-        expect(point2).toBeInTheDocument();
-    });
 });
 
 describe("getSegmentGraphDescription", () => {

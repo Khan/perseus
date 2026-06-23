@@ -522,8 +522,10 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     srExponentialGraph: string;
-    srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
-    srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srExponentialPoint1?: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srExponentialPoint2?: ({x, y}: {x: string; y: string}) => string;
     srExponentialDescription: ({
         point1X,
         point1Y,
@@ -552,8 +554,10 @@ export type PerseusStrings = {
     }) => string;
     srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
     srLogarithmGraph: string;
-    srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
-    srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srLogarithmPoint1?: ({x, y}: {x: string; y: string}) => string;
+    /** @deprecated */
+    srLogarithmPoint2?: ({x, y}: {x: string; y: string}) => string;
     srLogarithmDescription: ({
         point1X,
         point1Y,
@@ -1262,16 +1266,6 @@ export const strings = {
             "Aria label for the container containing an Exponential function in the interactive graph widget.",
         message: "An exponential curve on a coordinate plane.",
     },
-    srExponentialPoint1: {
-        context:
-            "Aria label for the first Point on the Exponential function in the interactive graph widget.",
-        message: "Point 1 at %(x)s comma %(y)s.",
-    },
-    srExponentialPoint2: {
-        context:
-            "Aria label for the second Point on the Exponential function in the interactive graph widget.",
-        message: "Point 2 at %(x)s comma %(y)s.",
-    },
     srExponentialDescription: {
         context:
             "Screen reader description of the Exponential function in the interactive graph widget.",
@@ -1747,8 +1741,6 @@ export const mockStrings: PerseusStrings = {
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
     srLogarithmGraph: "A logarithm function on a coordinate plane.",
-    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
     srLogarithmDescription: ({
         point1X,
         point1Y,

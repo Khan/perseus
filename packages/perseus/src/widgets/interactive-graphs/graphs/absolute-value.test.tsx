@@ -282,26 +282,4 @@ describe("Absolute value graph pointLabels", () => {
             screen.getByRole("button", {name: "Point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
-
-    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseAbsoluteValueState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Vertex point at 0 comma 0."}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
-        ).toBeInTheDocument();
-    });
 });

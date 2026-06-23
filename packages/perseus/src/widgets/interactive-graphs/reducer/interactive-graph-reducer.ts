@@ -727,7 +727,6 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-exponential-point",
-                    pointIndex: action.index,
                     pointLabel: resolvePointLabel(
                         state.pointLabels,
                         action.index,
@@ -780,7 +779,6 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-logarithm-point",
-                    pointIndex: action.index,
                     pointLabel: resolvePointLabel(
                         state.pointLabels,
                         action.index,

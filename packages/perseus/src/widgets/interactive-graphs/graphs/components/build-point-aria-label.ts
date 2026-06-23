@@ -10,13 +10,7 @@ export function resolvePointLabel(
     pointLabels: ReadonlyArray<string> | undefined,
     index: number,
 ): string | number {
-    const customLabel = pointLabels?.[index];
-    if (!customLabel) {
-        // Convert from a 0-indexed array position to the 1-indexed sequence
-        // number screen readers announce (index 0 → "Point 1", etc.).
-        return index + 1;
-    }
-    return customLabel;
+    return pointLabels?.[index] || index + 1;
 }
 
 /**
@@ -38,14 +32,12 @@ export function buildPointAriaLabel(
     strings: PerseusStrings,
     locale: string,
 ): string | undefined {
-    const label = resolvePointLabel(pointLabels, index);
-    // When the resolved label is the numeric default, return undefined so
-    // `useControlPoint` keeps its existing fallback behavior.
-    if (typeof label === "number") {
+    const customLabel = pointLabels?.[index];
+    if (!customLabel) {
         return undefined;
     }
     return strings.srPointAtCoordinates({
-        num: label,
+        num: customLabel,
         x: srFormatNumber(point[0], locale),
         y: srFormatNumber(point[1], locale),
     });

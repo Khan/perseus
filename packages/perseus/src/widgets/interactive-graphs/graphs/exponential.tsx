@@ -11,7 +11,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdgeAndSnapToGrid} from "../utils";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {resolvePointLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
@@ -57,7 +57,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const descriptionId = id + "-description";
 
     const {coords, pointLabels, asymptote, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
 
     // When the asymptote sits between the two points there is no valid
     // exponential that fits — coeffs will be undefined, and we skip
@@ -73,8 +72,6 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const {
         srExponentialGraph,
         srExponentialDescription,
-        srExponentialPoint1,
-        srExponentialPoint2,
         srExponentialAsymptote,
     } = describeExponentialGraph(graphState, i18n);
 
@@ -136,10 +133,11 @@ function ExponentialGraph(props: ExponentialGraphProps) {
             </MovableAsymptote>
             {coords.map((coord, i) => (
                 <MovablePoint
-                    ariaLabel={
-                        buildLabel(i, coord) ??
-                        (i === 0 ? srExponentialPoint1 : srExponentialPoint2)
-                    }
+                    ariaLabel={i18n.strings.srPointAtCoordinates({
+                        num: resolvePointLabel(pointLabels, i),
+                        x: srFormatNumber(coord[0], i18n.locale),
+                        y: srFormatNumber(coord[1], i18n.locale),
+                    })}
                     key={"point-" + i}
                     point={coord}
                     sequenceNumber={i + 1}
@@ -223,7 +221,12 @@ function getExponentialDescription(
 function describeExponentialGraph(
     state: ExponentialGraphState,
     i18n: I18nContextType,
-): Record<string, string> {
+): {
+    srExponentialGraph: string;
+    srExponentialDescription: string;
+    srExponentialAsymptote: string;
+    srExponentialInteractiveElements: string;
+} {
     const {strings, locale} = i18n;
     const {coords, asymptote} = state;
     const [point1, point2] = coords;
@@ -250,8 +253,6 @@ function describeExponentialGraph(
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
-        srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
         srExponentialInteractiveElements: strings.srInteractiveElements({
             elements: strings.srExponentialInteractiveElements({
                 point1X: srFormatNumber(point1[X], locale),

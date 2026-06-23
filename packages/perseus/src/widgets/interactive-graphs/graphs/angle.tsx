@@ -137,16 +137,26 @@ function AngleGraph(props: AngleGraphProps) {
             {/* vertex */}
             <MovablePoint
                 point={coords[1]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={1}
                 constrain={(p) => p}
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
                 }
+                // TODO(benchristel): if `pointLabels` defines a custom
+                //  label for this point, buildLabel returns a generic
+                //  screenreader label that does not contain the words
+                //  "vertex", "starting side", etc. It would be nice if we
+                //  had screenreader strings that mentioned both the
+                //  custom label and the point's mathematical meaning.
                 ariaLabel={buildLabel(1, coords[1]) ?? srAngleVertex}
             />
             {/* side 1 */}
             <MovablePoint
                 point={coords[0]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={2}
                 constrain={getAngleSideConstraint(
                     coords[0],
@@ -161,6 +171,8 @@ function AngleGraph(props: AngleGraphProps) {
             {/* side 2 */}
             <MovablePoint
                 point={coords[2]}
+                // TODO(benchristel): sequenceNumber has no effect when
+                //  ariaLabel is always passed.
                 sequenceNumber={3}
                 constrain={getAngleSideConstraint(
                     coords[2],

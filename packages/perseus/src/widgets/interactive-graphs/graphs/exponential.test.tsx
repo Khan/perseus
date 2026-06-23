@@ -282,28 +282,6 @@ describe("Exponential graph pointLabels", () => {
             screen.getByRole("button", {name: "Point B at 1 comma 6."}),
         ).toBeInTheDocument();
     });
-
-    it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
-        ).toBeInTheDocument();
-    });
 });
 
 describe("getExponentialKeyboardConstraint", () => {

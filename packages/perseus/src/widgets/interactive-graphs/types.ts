@@ -176,9 +176,8 @@ type MoveSinusoidPointAnnouncement = {
 
 // Exponential graph: the two control points (indices 0, 1) use
 // dedicated point labels chosen by index.
-type MoveExponentialPointAnnouncement = {
+export type MoveExponentialPointAnnouncement = {
     type: "move-exponential-point";
-    pointIndex: number;
     pointLabel: string | number;
     x: number;
     y: number;
@@ -186,9 +185,8 @@ type MoveExponentialPointAnnouncement = {
 
 // Logarithm graph: the two control points (indices 0, 1) use
 // dedicated point labels chosen by index.
-type MoveLogarithmPointAnnouncement = {
+export type MoveLogarithmPointAnnouncement = {
     type: "move-logarithm-point";
-    pointIndex: number;
     pointLabel: string | number;
     x: number;
     y: number;

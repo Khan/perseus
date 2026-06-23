@@ -20,10 +20,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -655,8 +652,6 @@ function describePolygonGraph(
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords, pointLabels} = state;
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
     const isCoordinatePlane = markings === "axes" || markings === "graph";
     const hasOnePoint = coords.length === 1;
 
@@ -675,15 +670,12 @@ function describePolygonGraph(
     // If the graph is not on a coordinate plane, we should not include
     // the points' coordinates in the description.
     if (isCoordinatePlane) {
-        const pointsString = coords.map(
-            (coord, i) =>
-                // Share the helper's defensive rules with the MovablePoint handle's aria-label.
-                buildLabel(i, coord) ??
-                strings.srPointAtCoordinates({
-                    num: i + 1,
-                    x: srFormatNumber(coord[0], locale),
-                    y: srFormatNumber(coord[1], locale),
-                }),
+        const pointsString = coords.map((coord, i) =>
+            strings.srPointAtCoordinates({
+                num: pointLabels?.[i] || i + 1,
+                x: srFormatNumber(coord[0], locale),
+                y: srFormatNumber(coord[1], locale),
+            }),
         );
         srPolygonGraphPoints = pointsString.join(" ");
     }
