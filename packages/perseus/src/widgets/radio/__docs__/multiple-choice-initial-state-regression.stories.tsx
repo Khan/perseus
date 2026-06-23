@@ -8,6 +8,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
+    mobileDecorator,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -312,6 +313,62 @@ export const MultiSelectRTL: Story = {
             }),
             generateRadioChoice("Choice 3"),
             generateRadioChoice("Choice 4"),
+        ],
+    },
+};
+
+export const MultiSelectCountChoicesThree: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {
+                correct: true,
+            }),
+            generateRadioChoice("Choice 2", {
+                correct: true,
+            }),
+            generateRadioChoice("Choice 3", {
+                correct: true,
+            }),
+            generateRadioChoice("Choice 4"),
+        ],
+    },
+};
+
+export const MultiSelectWithManyChoices: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {
+                correct: true,
+            }),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4"),
+            generateRadioChoice("Choice 5"),
+            generateRadioChoice("Choice 6"),
+            generateRadioChoice("Choice 7"),
+            generateRadioChoice("Choice 8"),
+            generateRadioChoice("Choice 9"),
+            generateRadioChoice("Choice 10"),
+        ],
+    },
+};
+
+export const SingleSelectWithLongMathjaxMobile: Story = {
+    decorators: [radioRendererDecorator, mobileDecorator],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice(
+                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                {correct: true},
+            ),
+            generateRadioChoice("$100-50$"),
+            generateRadioChoice("$200-125+10$"),
+            generateRadioChoice("$10+10+10+10$"),
         ],
     },
 };
