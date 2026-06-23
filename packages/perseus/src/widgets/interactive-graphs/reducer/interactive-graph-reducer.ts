@@ -81,7 +81,7 @@ const {
     sign,
     vector,
 } = geometry;
-const {getQuadraticCoefficients} = coefficients;
+const {getQuadraticCoefficients, getExponentialCoefficients} = coefficients;
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;
 
@@ -734,6 +734,11 @@ function doMovePoint(
                     ),
                     x: boundDestination[X],
                     y: boundDestination[Y],
+                    hasCurve:
+                        getExponentialCoefficients(
+                            newCoords,
+                            state.asymptote,
+                        ) !== undefined,
                 },
             };
         }
