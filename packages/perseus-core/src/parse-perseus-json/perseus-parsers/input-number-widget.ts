@@ -48,9 +48,7 @@ const parseInputNumberWidgetV1 = parseWidgetWithVersion(
                 status: string,
                 message: string,
                 answerForms: optional(array(parseMathFormat)),
-                // FIXME: confirm that we need the default on `strict`.
-                // cribbed from numeric-input-widget.ts.
-                strict: defaulted(boolean, () => false),
+                strict: boolean,
                 maxError: optional(nullable(number)),
                 simplify: enumeration("required", "enforced", "optional"),
             }),
