@@ -10,7 +10,7 @@
    - `__docs__/[widget-name].stories.tsx` - Storybook story
    - `__docs__/[widget-name]-regression.stories.tsx` - Visual regression stories (add `"!autodocs"` and `"!manifest"` tags)
    - `__docs__/a11y.mdx` - Accessibility documentation
-3. **Register widget** in `packages/perseus/src/widgets.ts`
+3. **Register widget** by adding it to `packages/perseus/src/extra-widgets.ts` (or `basic-widgets.ts` for the small set of core widgets)
 4. **If scorable, add scoring functions** in `packages/perseus-score/src/widgets/[widget-name]/`:
    - `score-[widget-name].ts` - Scoring logic
    - `score-[widget-name].test.ts` - Scoring tests
