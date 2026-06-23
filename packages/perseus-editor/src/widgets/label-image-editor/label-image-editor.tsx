@@ -212,14 +212,12 @@ class LabelImageEditor extends React.Component<Props> {
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
 
         return (
-            <div>
+            <div className={styles.editor}>
                 <SelectImage
                     onChange={this.handleImageChange}
                     url={imageUrl}
                     editingDisabled={editingDisabled}
                 />
-
-                <div className={styles.smallSpacer} />
 
                 {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {imageSelected && (
@@ -230,8 +228,6 @@ class LabelImageEditor extends React.Component<Props> {
                         width="100%"
                     />
                 )}
-
-                <div className={styles.largeSpacer} />
 
                 <QuestionMarkers
                     editingDisabled={editingDisabled}
@@ -245,15 +241,11 @@ class LabelImageEditor extends React.Component<Props> {
                     ref={(node) => (this._questionMarkers = node)}
                 />
 
-                <div className={styles.largeSpacer} />
-
                 <AnswerChoices
                     choices={choices}
                     editingDisabled={editingDisabled}
                     onChange={this.handleChoicesChange}
                 />
-
-                <div className={styles.largeSpacer} />
 
                 <Behavior
                     preferredPopoverDirection={preferredPopoverDirection}

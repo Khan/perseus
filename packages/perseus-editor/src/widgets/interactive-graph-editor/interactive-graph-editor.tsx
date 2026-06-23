@@ -17,6 +17,7 @@ import {
     interactiveGraphLogic,
     type ShowAxisArrows,
     type ShowAxisTicks,
+    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -33,6 +34,7 @@ import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import PolygonAnswerOptions from "./components/polygon-answer-options";
 import SegmentCountSelector from "./components/segment-count-selector";
+import ShowPointLabelsToggle from "./components/show-point-labels-toggle";
 import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
@@ -207,6 +209,21 @@ class InteractiveGraphEditor extends React.Component<Props> {
         }
     };
 
+    changeShowPointLabels = (showPointLabels: boolean) => {
+        const {graph, correct} = this.props;
+        if (graph === undefined || correct === undefined) {
+            return;
+        }
+        const newGraph = withShowPointLabels(graph, showPointLabels);
+        const newCorrect = withShowPointLabels(correct, showPointLabels);
+        // Custom point labels are not applicable for `vector` or `none`
+        // graph types — they have no movable points to label.
+        if (newGraph === undefined || newCorrect === undefined) {
+            return;
+        }
+        this.props.onChange({graph: newGraph, correct: newCorrect});
+    };
+
     // serialize() is what makes copy/paste work. All the properties included
     // in the serialization json are included when, for example, a graph
     // is copied from the question editor and pasted into the hint editor
@@ -247,6 +264,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     "pointLabels" in this.props.graph &&
                     this.props.graph.pointLabels
                         ? {pointLabels: this.props.graph.pointLabels}
+                        : {}),
+                    ...(this.props.graph &&
+                    "showPointLabels" in this.props.graph &&
+                    this.props.graph.showPointLabels
+                        ? {
+                              showPointLabels: this.props.graph.showPointLabels,
+                          }
                         : {}),
                 },
                 correct: correct,
@@ -512,6 +536,25 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         )}
 
+                        {/* TODO(AITQ-385): clean up feature flag */}
+                        {isFeatureOn(
+                            {apiOptions: this.props.apiOptions},
+                            "perseus-enable-point-label-field",
+                        ) &&
+                            !this.props.static &&
+                            this.props.graph?.type &&
+                            this.props.graph.type !== "vector" &&
+                            this.props.graph.type !== "none" && (
+                                <ShowPointLabelsToggle
+                                    showPointLabels={
+                                        this.props.graph.showPointLabels ===
+                                        true
+                                    }
+                                    pointLabels={this.props.graph.pointLabels}
+                                    onChange={this.changeShowPointLabels}
+                                />
+                            )}
+
                         {this.props.graph?.type &&
                             shouldShowStartCoordsUI(
                                 this.props.graph,
@@ -635,6 +678,40 @@ function mergeGraphs(
             return {...a, ...b};
         default:
             throw new UnreachableCaseError(a);
+    }
+}
+
+// Returns a copy of `graph` with `showPointLabels` set, narrowed per the
+// graph type so TypeScript can verify that every variant that supports
+// `showPointLabels` is handled. Returns `undefined` for `vector` and
+// `none`, which have no movable points to label. The exhaustive default
+// makes TypeScript fail this code if a new `PerseusGraphType` variant is
+// added — that's the point.
+function withShowPointLabels(
+    graph: PerseusGraphType,
+    showPointLabels: boolean,
+): PerseusGraphType | undefined {
+    switch (graph.type) {
+        case "absolute-value":
+        case "angle":
+        case "circle":
+        case "exponential":
+        case "linear":
+        case "linear-system":
+        case "logarithm":
+        case "point":
+        case "polygon":
+        case "quadratic":
+        case "ray":
+        case "segment":
+        case "sinusoid":
+        case "tangent":
+            return {...graph, showPointLabels};
+        case "none":
+        case "vector":
+            return undefined;
+        default:
+            throw new UnreachableCaseError(graph);
     }
 }
 

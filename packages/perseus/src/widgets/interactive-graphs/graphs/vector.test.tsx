@@ -58,7 +58,7 @@ describe("Vector graph screen reader", () => {
         // Assert
         expect(vectorGraph).toBeInTheDocument();
         expect(vectorGraph).toHaveAccessibleDescription(
-            "The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "The tail is at -5 comma 0 and the head is at 5 comma 0. The vector has a magnitude of 10 and a direction of 0 degrees.",
         );
     });
 
@@ -78,19 +78,19 @@ describe("Vector graph screen reader", () => {
         );
     });
 
-    it("renders the tip point with an aria label", () => {
+    it("renders the head point with an aria label", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseVectorState} />);
 
         // Act
         const movableElements = screen.getAllByRole("button");
-        // Tab order: grab handle first, then tip point
-        const tipPoint = movableElements[1];
+        // Tab order: grab handle first, then head point
+        const headPoint = movableElements[1];
 
         // Assert
-        expect(tipPoint).toHaveAttribute(
+        expect(headPoint).toHaveAttribute(
             "aria-label",
-            "Tip point at 5 comma 0.",
+            "Vector head at 5 comma 0.",
         );
     });
 
@@ -125,16 +125,16 @@ describe("Vector graph screen reader", () => {
 
         // Act
         const movableElements = screen.getAllByRole("button");
-        const [grabHandle, tipPoint] = movableElements;
+        const [grabHandle, headPoint] = movableElements;
 
         // Assert
         expect(grabHandle).toHaveAttribute(
             "aria-label",
             "Vector from 1 comma 2 to 4 comma 6.",
         );
-        expect(tipPoint).toHaveAttribute(
+        expect(headPoint).toHaveAttribute(
             "aria-label",
-            "Tip point at 4 comma 6.",
+            "Vector head at 4 comma 6.",
         );
     });
 });
@@ -150,14 +150,17 @@ describe("describeVectorGraph", () => {
         // Assert
         expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
         expect(strings.srVectorPoints).toBe(
-            "The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "The tail is at -5 comma 0 and the head is at 5 comma 0.",
         );
-        expect(strings.srVectorTipPoint).toBe("Tip point at 5 comma 0.");
+        expect(strings.srVectorHeadPoint).toBe("Vector head at 5 comma 0.");
         expect(strings.srVectorGrabHandle).toBe(
             "Vector from -5 comma 0 to 5 comma 0.",
         );
+        expect(strings.srVectorDescription).toBe(
+            "The tail is at -5 comma 0 and the head is at 5 comma 0. The vector has a magnitude of 10 and a direction of 0 degrees.",
+        );
         expect(strings.srVectorInteractiveElement).toBe(
-            "Interactive elements: A vector on a coordinate plane. The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "Interactive elements: A vector on a coordinate plane. The tail is at -5 comma 0 and the head is at 5 comma 0.",
         );
     });
 
@@ -177,11 +180,30 @@ describe("describeVectorGraph", () => {
         // Assert
         expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
         expect(strings.srVectorPoints).toBe(
-            "The tail is at 1 comma 2 and the tip is at 4 comma 6.",
+            "The tail is at 1 comma 2 and the head is at 4 comma 6.",
         );
-        expect(strings.srVectorTipPoint).toBe("Tip point at 4 comma 6.");
+        expect(strings.srVectorHeadPoint).toBe("Vector head at 4 comma 6.");
         expect(strings.srVectorGrabHandle).toBe(
             "Vector from 1 comma 2 to 4 comma 6.",
+        );
+    });
+
+    it("describes the vector's magnitude and direction", () => {
+        // Arrange, Act — a 3-4-5 vector pointing up and to the right.
+        const strings = describeVectorGraph(
+            {
+                ...baseVectorState,
+                coords: [
+                    [1, 2],
+                    [4, 6],
+                ],
+            },
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srVectorDescription).toBe(
+            "The tail is at 1 comma 2 and the head is at 4 comma 6. The vector has a magnitude of 5 and a direction of 53.13 degrees.",
         );
     });
 });
