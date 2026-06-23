@@ -9,7 +9,8 @@
     /* Grid lines */
     --mafs-line-color: var(--wb-semanticColor-core-border-neutral-subtle);
 
-    /* Axis lines */
+    /* Axis lines. Keep in sync with AXIS_STROKE_WIDTH in backgrounds/grid.tsx,
+    which uses it to clip the axes without halving an edge-aligned axis. */
     --mafs-axis-stroke-width: 2px;
 
     --mafs-blue: var(--wb-semanticColor-core-foreground-instructive-default);

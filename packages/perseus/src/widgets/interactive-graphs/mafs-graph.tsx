@@ -24,7 +24,7 @@ import {useDependencies} from "../../dependencies";
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
-import {Grid} from "./backgrounds/grid";
+import {Axes, axesAreShown, AXIS_STROKE_WIDTH, Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import {
     fontSize,
@@ -199,6 +199,23 @@ export const MafsGraph = (props: MafsGraphProps) => {
         showsAxisLabels,
     );
 
+    // When an axis sits exactly on the graph's edge, the outer half of its
+    // stroke would be clipped away by the graph bounds, making it look half
+    // its intended width. Expand the axis clip region outward by half the
+    // stroke width — but only on the side(s) where an axis lands on the edge,
+    // so the perpendicular ends (tips) of the axes stay flush with the graph
+    // bounds rather than poking out.
+    const [[xMin, xMax], [yMin, yMax]] = state.range;
+    const halfStroke = AXIS_STROKE_WIDTH / 2;
+    const axisClipExpand = axesAreShown(props.markings)
+        ? {
+              left: xMin === 0 ? halfStroke : 0,
+              right: xMax === 0 ? halfStroke : 0,
+              bottom: yMin === 0 ? halfStroke : 0,
+              top: yMax === 0 ? halfStroke : 0,
+          }
+        : undefined;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -355,9 +372,26 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             >
                                 {/* Svg definitions to render only once */}
                                 <SvgDefs />
-                                {/* Cartesian grid clipped to graph bounds */}
+                                {/* Cartesian grid lines clipped to graph bounds */}
                                 <ClipToGraphBounds>
                                     <Grid
+                                        gridStep={props.gridStep}
+                                        range={state.range}
+                                        containerSizeClass={
+                                            props.containerSizeClass
+                                        }
+                                        markings={props.markings}
+                                        width={width}
+                                        height={height}
+                                    />
+                                </ClipToGraphBounds>
+                                {/* Axis lines, clipped to graph bounds but
+                                    expanded by half the stroke width on any
+                                    edge an axis sits on, so an edge-aligned
+                                    axis keeps its full width without its tips
+                                    poking past the graph */}
+                                <ClipToGraphBounds expand={axisClipExpand}>
+                                    <Axes
                                         gridStep={props.gridStep}
                                         range={state.range}
                                         containerSizeClass={
