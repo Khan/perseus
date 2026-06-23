@@ -271,10 +271,12 @@ code {
     table-layout: fixed;
 }
 .perseus-editor-row {
-    display: table-row;
+    display: flex;
+    flex-direction: row;
 }
 .perseus-editor-left-cell {
-    display: table-cell;
+    display: flex;
+    flex-direction: column;
     padding-right: 30px;
     vertical-align: top;
     width: 360px;
@@ -282,13 +284,18 @@ code {
     min-width: 360px;
     position: relative;
     z-index: 10;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
-    display: table-cell;
+    display: flex;
+    flex-direction: column;
     padding: 30px;
     padding-top: 5px;
     vertical-align: top;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .perseus-hint-editor {
     padding-bottom: 20px;
