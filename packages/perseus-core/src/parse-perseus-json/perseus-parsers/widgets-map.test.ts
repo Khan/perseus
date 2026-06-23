@@ -501,7 +501,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "measurer 1": {
                 type: "measurer",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     image: {},
                     showProtractor: false,

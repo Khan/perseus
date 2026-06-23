@@ -42,7 +42,6 @@ describe("widget-container", () => {
             <WidgetContainer
                 type="invalid-widget"
                 id="invalid-widget 1"
-                shouldHighlight={false}
                 widgetProps={{apiOptions: {isMobile: false}}}
             />,
         );
@@ -69,7 +68,6 @@ describe("widget-container", () => {
                 <WidgetContainer
                     type="explanation"
                     id="explanation 1"
-                    shouldHighlight={false}
                     widgetProps={{
                         showPrompt: "Explanation",
                         hidePrompt: "Hide explanation",
@@ -112,7 +110,6 @@ describe("widget-container", () => {
                 <WidgetContainer
                     type="mock-widget"
                     id="mock-widget 1"
-                    shouldHighlight={false}
                     widgetProps={{
                         text: "Hello world!",
                         fail: true,

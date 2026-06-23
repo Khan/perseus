@@ -1268,6 +1268,7 @@ export const pointWithCustomLabelQuestion: PerseusRenderer =
             startCoords: [[0, 0]],
             coords: [[-4, 2]],
             pointLabels: ["T"],
+            showPointLabels: true,
         }),
     });
 
@@ -1336,6 +1337,7 @@ export const linearWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1358,6 +1360,7 @@ export const rayWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1391,6 +1394,7 @@ export const linearSystemWithCustomLabelsQuestion: PerseusRenderer =
                 ],
             ],
             pointLabels: ["A", "B", "C", "D"],
+            showPointLabels: true,
         }),
     });
 
@@ -1425,6 +1429,7 @@ export const segmentWithCustomLabelsQuestion: PerseusRenderer =
                 ],
             ],
             pointLabels: ["A", "B", "C", "D"],
+            showPointLabels: true,
         }),
     });
 
@@ -1452,6 +1457,7 @@ export const polygonWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 3],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1477,6 +1483,7 @@ export const quadraticWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1501,6 +1508,7 @@ export const sinusoidWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1525,6 +1533,7 @@ export const tangentWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1550,6 +1559,7 @@ export const exponentialWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: 1,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1574,6 +1584,7 @@ export const logarithmWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: -6,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1595,6 +1606,7 @@ export const angleWithCustomLabelsQuestion: PerseusRenderer =
             showAngles: true,
             allowReflexAngles: true,
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1612,6 +1624,7 @@ export const absoluteValueWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["V", "A"],
+            showPointLabels: true,
         }),
     });
 
@@ -1629,5 +1642,6 @@ export const circleWithCustomLabelsQuestion: PerseusRenderer =
             center: [0, 0],
             radius: 3,
             pointLabels: ["R"],
+            showPointLabels: true,
         }),
     });

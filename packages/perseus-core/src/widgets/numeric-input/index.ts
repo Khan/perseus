@@ -32,6 +32,7 @@ const numericInputWidgetLogic: WidgetLogic<
     NumericInputPublicWidgetOptions
 > = {
     name: "numeric-input",
+    version: {major: 1, minor: 0},
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getNumericInputPublicWidgetOptions,

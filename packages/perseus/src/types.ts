@@ -1,15 +1,6 @@
 import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-// MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
-// error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
-// appears to be a bug introduced in TS 5.6. If you are curious about this, try
-// deleting this comment and running:
-//     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
-// If that succeeds, maybe the bug has been fixed.
-// For more information, see:
-// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
     Hint,
     PerseusAnswerArea,
@@ -17,7 +8,6 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
-    Version,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -213,11 +203,6 @@ export type APIOptions = Readonly<{
         Link: React.ComponentType<any>;
     };
     /**
-     * Function that takes dimensions and returns a React component
-     * to display while an image is loading.
-     */
-    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
-    /**
      * A function that is called when the user has interacted with a widget. It
      * also includes any extra parameters that the originating widget provided.
      * This is used for keeping track of widget interactions.
@@ -231,54 +216,12 @@ export type APIOptions = Readonly<{
      * input components.
      */
     customKeypad?: boolean;
-    /**
-     * If this is provided, it is called instead of appending an instance
-     * of `math-input`'s keypad to the body. This is used by the native
-     * apps so they can have the keypad be defined on the native side.
-     * It is called with an function that, when called, blurs the input,
-     * and is expected to return an object of the shape
-     * keypadElementPropType from math-input/src/prop-types.js.
-     */
-    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     /** Indicates whether or not to use mobile styling. */
     isMobile?: boolean;
     /** Indicates whether or not to use mobile app styling. */
     isMobileApp?: boolean;
-    // TODO(benchristel): Remove setDrawingAreaAvailable
-    /** A function, called with a bool indicating whether use of the
-     * drawing area (scratchpad) should be allowed/disallowed.
-     *
-     * Previously handled by `Khan.scratchpad.enable/disable`
-     * @deprecated setDrawingAreaAvailable is not used in frontend code.
-     */
-    setDrawingAreaAvailable?: (arg1: boolean) => unknown;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
-    // TODO(benchristel): Remove canScrollPage
-    /**
-     * Whether this Renderer is allowed to auto-scroll the rest of the
-     * page. For example, if this is enabled, the most recently used
-     * radio widget will attempt to keep the "selected" answer in view
-     * after entering review mode.
-     *
-     * Defaults to `false`.
-     * @deprecated canScrollPage has no effect.
-     */
-    canScrollPage?: boolean;
-    // TODO(benchristel): Remove editorChangeDelay
-    /**
-     * The value in milliseconds by which the local state of content
-     * in a editor is delayed before propagated to a prop. For example,
-     * when text is typed in the text area of an Editor component,
-     * there will be a delay equal to the value of `editorChangeDelay`
-     * before the change is propagated. This is added for better
-     * responsiveness of the editor when used in certain contexts such
-     * as StructuredItem exercises where constant re-rendering for each
-     * keystroke caused text typed in the text area to appear in it
-     * only after a good few seconds.
-     * @deprecated editorChangeDelay has no effect.
-     */
-    editorChangeDelay?: number;
     /**
      * Feature flags that can be passed from consuming application.
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
@@ -432,17 +375,12 @@ export interface PerseusDependenciesV2 {
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
-        canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
         editingDisabled: NonNullable<APIOptions["editingDisabled"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
-        setDrawingAreaAvailable: NonNullable<
-            APIOptions["setDrawingAreaAvailable"]
-        >;
         showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
     }
 >;
@@ -478,15 +416,6 @@ export type WidgetExports<
 
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
-    /**
-     * The widget version. Any time the _major_ version changes, the widget
-     * should provide a new entry in the widget parser to migrate from the
-     * older version to the current (new) version. Minor version changes must
-     * be backwards compatible with previous minor versions widget options.
-     *
-     * This key defaults to `{major: 0, minor: 0}` if not provided.
-     */
-    version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
     /** When true, the widget editor shows a "Graded" toggle. */

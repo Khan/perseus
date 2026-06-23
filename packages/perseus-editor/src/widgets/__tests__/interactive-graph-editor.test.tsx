@@ -1,10 +1,11 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
@@ -117,7 +118,8 @@ describe("InteractiveGraphEditor", () => {
             wrapper: RenderStateRoot,
         });
 
-        const defaultType = await screen.findByText("Linear function");
+        const dropdown = await screen.findByRole("combobox");
+        const defaultType = within(dropdown).getByText("None");
         const otherType = screen.queryByText("Polygon");
 
         // Assert
@@ -871,4 +873,98 @@ describe("InteractiveGraphEditor", () => {
             expect(correctAnswerBoxes).toHaveLength(expectedNumber);
         },
     );
+
+    describe("show point labels toggle gate", () => {
+        const apiOptionsWithFlag = (on: boolean) => ({
+            ...ApiOptions.defaults,
+            flags: getFeatureFlags({
+                "perseus-enable-point-label-field": on,
+            }),
+        });
+
+        it("renders the toggle when the flag is on and the graph is interactive with a supported type", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphEditor
+                    {...segmentProps}
+                    apiOptions={apiOptionsWithFlag(true)}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.getByLabelText("Show point labels"),
+            ).toBeInTheDocument();
+        });
+
+        it("does not render the toggle when the feature flag is off", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphEditor
+                    {...segmentProps}
+                    apiOptions={apiOptionsWithFlag(false)}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("does not render the toggle for a static graph, even with the flag on", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphEditor
+                    {...segmentProps}
+                    apiOptions={apiOptionsWithFlag(true)}
+                    static={true}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("does not render the toggle for a vector graph", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    graph={{type: "vector"}}
+                    correct={{type: "vector"}}
+                    apiOptions={apiOptionsWithFlag(true)}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("does not render the toggle for a none-type graph", () => {
+            // Arrange, Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    graph={{type: "none"}}
+                    correct={{type: "none"}}
+                    apiOptions={apiOptionsWithFlag(true)}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(
+                screen.queryByLabelText("Show point labels"),
+            ).not.toBeInTheDocument();
+        });
+    });
 });

@@ -1,0 +1,51 @@
+/* We have to use !important until wonder blocks is in the shared layer. */
+/* TODO(LEMS-3686): Remove the !important once we don't need it anymore. */
+.row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+/* gap replaces the spacer that separated the header label from its swatch. */
+.header {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+.space-under {
+    margin-bottom: var(--wb-sizing-size_080) !important;
+}
+
+/* gap between the "kind" label and its select. */
+.kind-label {
+    gap: var(--wb-sizing-size_040) !important;
+}
+
+/* gap between the color select and the line style select. */
+.color-row {
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.error-text {
+    color: var(--wb-semanticColor-core-foreground-critical-default) !important;
+}
+
+.add-button {
+    align-self: start !important;
+}
+
+.horizontal-rule {
+    height: 1px !important;
+    background-color: var(
+        --wb-semanticColor-core-border-neutral-subtle
+    ) !important;
+}
+
+/* Top spacing for a section start (a divider opening a section, or a heading). */
+.section-top {
+    margin-top: var(--wb-sizing-size_120) !important;
+}
+
+/* A divider that hugs the content directly above it. */
+.divider-tight {
+    margin-top: var(--wb-sizing-size_040) !important;
+}

@@ -83,22 +83,16 @@ function PointGraph(props: Props) {
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
     const {dispatch} = statefulProps;
-    const {pointLabels} = statefulProps.graphState;
+    const {coords, pointLabels} = statefulProps.graphState;
     const buildLabel = usePointAriaLabel(pointLabels);
 
     return (
         <>
-            {statefulProps.graphState.coords.map((point, i) => (
+            {coords.map((point, i) => (
                 <MovablePoint
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
-                    // The point graph's move announcements come from the WB
-                    // Announcer via stateAnnouncement; disable aria-live here
-                    // to avoid the focusable handle double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                    // dropped from useControlPoint.
-                    ariaLive="off"
                     ariaLabel={buildLabel(i, point)}
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
@@ -168,12 +162,6 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                     key={i}
                     point={point}
                     sequenceNumber={i + 1}
-                    // The point graph's move announcements come from the WB
-                    // Announcer via stateAnnouncement; disable aria-live here
-                    // to avoid the focusable handle double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                    // dropped from useControlPoint.
-                    ariaLive="off"
                     ariaLabel={buildLabel(i, point)}
                     onDragStart={() => {
                         dragEndCallbackTimer.clear();

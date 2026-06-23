@@ -454,19 +454,7 @@ describe("MovablePoint", () => {
             expect(descriptionElement).toBeInTheDocument();
         });
 
-        it("uses the ariaLive when provided", () => {
-            render(
-                <Mafs width={200} height={200}>
-                    <MovablePoint point={[0, 0]} ariaLive="assertive" />
-                </Mafs>,
-            );
-
-            expect(
-                screen.getByLabelText("Point 1 at 0 comma 0."),
-            ).toHaveAttribute("aria-live", "assertive");
-        });
-
-        it("uses the default ariaLive when not provided", () => {
+        it("does not set aria-live (moves are announced via the WB Announcer)", () => {
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint point={[0, 0]} />
@@ -475,7 +463,7 @@ describe("MovablePoint", () => {
 
             expect(
                 screen.getByLabelText("Point 1 at 0 comma 0."),
-            ).toHaveAttribute("aria-live", "polite");
+            ).not.toHaveAttribute("aria-live");
         });
     });
 });

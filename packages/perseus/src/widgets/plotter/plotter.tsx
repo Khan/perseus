@@ -286,8 +286,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
         });
 
         if (!isTiledPlot) {

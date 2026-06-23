@@ -1,16 +1,47 @@
 import {components} from "@khanacademy/perseus";
-import {ItemExtras, getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import {
+    ItemExtras,
+    getDefaultAnswerArea,
+    isFeatureOn,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    CalculatorVariant,
+    PerseusAnswerArea,
+} from "@khanacademy/perseus-core";
+
+const calculatorVariants: Array<{
+    label: string;
+    tip: string;
+    variant: CalculatorVariant;
+}> = [
+    {
+        label: "Scientific calculator",
+        tip: "Provides the student with a scientific calculator.",
+        variant: "scientific",
+    },
+    {
+        label: "Graphing calculator",
+        tip: "Provides the student with a graphing calculator.",
+        variant: "graphing",
+    },
+    {
+        label: "Four-function calculator",
+        tip: "Provides the student with a four-function calculator.",
+        variant: "four_function",
+    },
+];
 
 const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
+    apiOptions?: APIOptions;
     onChange: (props: Partial<PerseusAnswerArea>) => void;
     // Whether the editor is disabled. Can be set via API options
     // to make the editor read-only when needed.
@@ -19,6 +50,10 @@ type Props = PerseusAnswerArea & {
 
 class ItemExtrasEditor extends React.Component<Props> {
     static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
+
+    shouldShowCalculatorVariants() {
+        return this.props.calculatorVariant !== null;
+    }
 
     shouldShowFinancialCalculatorOptions() {
         return (
@@ -45,13 +80,37 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show calculator"
                         disabled={editingDisabled}
                         infoTip="Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
-                        checked={this.props.calculator}
+                        checked={this.shouldShowCalculatorVariants()}
                         onChange={(newCheckedState) => {
                             this.props.onChange({
                                 calculator: newCheckedState,
+                                calculatorVariant: newCheckedState
+                                    ? "scientific"
+                                    : null,
                             });
                         }}
                     />
+
+                    {isFeatureOn(this.props, "desmos-calculator") &&
+                        this.shouldShowCalculatorVariants() &&
+                        calculatorVariants.map((calcVariant) => (
+                            <ItemExtraCheckbox
+                                key={calcVariant.variant}
+                                label={calcVariant.label}
+                                disabled={editingDisabled}
+                                infoTip={calcVariant.tip}
+                                checked={
+                                    this.props.calculatorVariant ===
+                                    calcVariant.variant
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        calculatorVariant: calcVariant.variant,
+                                    });
+                                }}
+                                indent
+                            />
+                        ))}
 
                     <ItemExtraCheckbox
                         label="Show financial calculator"

@@ -1,0 +1,19 @@
+.tree-list {
+    list-style: revert;
+    margin-left: var(--wb-sizing-size_080);
+}
+
+.indent-list {
+    list-style: revert;
+    margin-left: var(--wb-sizing-size_120);
+}
+
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.switch-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_080) !important;
+    margin-top: var(--wb-sizing-size_080) !important;
+    margin-bottom: var(--wb-sizing-size_080) !important;
+}

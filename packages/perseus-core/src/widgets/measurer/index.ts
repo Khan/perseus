@@ -1,8 +1,6 @@
 import type {PerseusMeasurerWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-const currentVersion = {major: 1, minor: 0};
-
 export type MeasurerDefaultWidgetOptions = Pick<
     PerseusMeasurerWidgetOptions,
     | "box"
@@ -29,7 +27,7 @@ const defaultWidgetOptions: MeasurerDefaultWidgetOptions = {
 
 const measurerWidgetLogic: WidgetLogic = {
     name: "measurer",
-    version: currentVersion,
+    version: {major: 1, minor: 0},
     defaultWidgetOptions: defaultWidgetOptions,
     accessible: false,
 };

@@ -13,7 +13,7 @@ exports[`interaction widget renders movable point elements with blank constraint
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="graphie-container"
@@ -835,7 +835,7 @@ exports[`interaction widget should render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="graphie-container"

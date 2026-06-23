@@ -1,5 +1,51 @@
 # @khanacademy/perseus-linter
 
+## 5.1.4
+
+### Patch Changes
+
+-   Updated dependencies [[`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee)]:
+    -   @khanacademy/perseus-core@28.2.0
+    -   @khanacademy/kmath@2.4.23
+
+## 5.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79)]:
+    -   @khanacademy/perseus-core@28.1.0
+    -   @khanacademy/kmath@2.4.22
+
+## 5.1.2
+
+### Patch Changes
+
+-   [#3751](https://github.com/Khan/perseus/pull/3751) [`1174386773`](https://github.com/Khan/perseus/commit/1174386773fa0bf7fffd479951278141cccba4b1) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace how expectWarning and expectPass work so that they no longer contain `it` blocks
+
+-   Updated dependencies [[`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0)]:
+    -   @khanacademy/perseus-core@28.0.1
+    -   @khanacademy/kmath@2.4.21
+
+## 5.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/kmath@2.4.20
+
+## 5.1.0
+
+### Minor Changes
+
+-   [#3725](https://github.com/Khan/perseus/pull/3725) [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Add new JSON field "showPointLabels" for interactive graphs. When set, every movable point gets a visible on-canvas label driven by the matching `pointLabels[i]` entry. `pointLabels` is required whenever `showPointLabels` is true (enforced by the interactive-graph-widget-error lint rule).
+
+### Patch Changes
+
+-   Updated dependencies [[`d15912407c`](https://github.com/Khan/perseus/commit/d15912407c8bac67bbd68a13487d7ad453da2f81), [`9c601da23f`](https://github.com/Khan/perseus/commit/9c601da23fb67a0de9af0694fe0f877998b70c88), [`ec0ce8d61a`](https://github.com/Khan/perseus/commit/ec0ce8d61a8f8565acba672fe249723d025f88fc)]:
+    -   @khanacademy/perseus-core@27.4.0
+    -   @khanacademy/kmath@2.4.19
+
 ## 5.0.15
 
 ### Patch Changes

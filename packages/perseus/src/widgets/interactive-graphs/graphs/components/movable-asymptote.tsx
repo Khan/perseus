@@ -80,7 +80,6 @@ export function MovableAsymptote(props: Props) {
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             aria-disabled={disableKeyboardInteraction}
             aria-label={ariaLabel}
-            aria-live="polite"
             className="movable-line"
             style={{cursor: dragging ? "grabbing" : "grab"}}
             role="button"

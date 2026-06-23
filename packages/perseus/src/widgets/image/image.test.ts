@@ -8,7 +8,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependenciesV2,
@@ -29,13 +28,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
     const apiOptions: APIOptions = {
         isMobile,
-    };
-
-    const apiOptionsWithGifControlsFlag = {
-        ...apiOptions,
-        flags: getFeatureFlags({
-            "image-widget-upgrade-gif-controls": true,
-        }),
     };
 
     beforeEach(() => {
@@ -547,7 +539,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            renderQuestion(gifImageQuestion, apiOptions);
 
             // Assert
             const zoomButton = screen.queryByRole("button", {
@@ -1088,7 +1080,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            renderQuestion(gifImageQuestion, apiOptions);
 
             // Assert
             const playButton = screen.getByRole("button", {
@@ -1109,7 +1101,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(imageQuestion, apiOptionsWithGifControlsFlag);
+            renderQuestion(imageQuestion, apiOptions);
 
             // Assert
             const playButton = screen.queryByRole("button", {
@@ -1134,7 +1126,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            renderQuestion(gifImageQuestion, apiOptions);
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
@@ -1161,7 +1153,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptionsWithGifControlsFlag);
+            renderQuestion(gifImageQuestion, apiOptions);
 
             // Act - gif is paused by default, click play button
             const playButton = screen.getByRole("button", {
@@ -1183,91 +1175,6 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 name: "Play Animation",
             });
             expect(playButtonAgain).toBeVisible();
-        });
-
-        it("does not render a canvas overlay when the feature flag is disabled", () => {
-            // Arrange, Act
-            const gifImageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: animatedGifLandscape,
-                        }),
-                    }),
-                },
-            });
-            renderQuestion(gifImageQuestion, apiOptions);
-            act(() => {
-                jest.runAllTimers();
-            });
-
-            // Assert
-            expect(screen.queryByTestId("gif-canvas")).not.toBeInTheDocument();
-        });
-    });
-
-    describe("flags", () => {
-        it("should render gif controls when the feature flag is enabled", () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: animatedGifLandscape,
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": true,
-                }),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-
-            // Assert
-            const playButton = screen.getByRole("button", {
-                name: "Play Animation",
-            });
-            expect(playButton).toBeVisible();
-        });
-
-        it("should not render gif controls when the feature flag is disabled", () => {
-            // Arrange
-            const imageQuestion = generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
-                widgets: {
-                    "image 1": generateImageWidget({
-                        options: generateImageOptions({
-                            backgroundImage: animatedGifLandscape,
-                        }),
-                    }),
-                },
-            });
-
-            const apiOptionsWithFeatureFlag = {
-                ...apiOptions,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": false,
-                }),
-            };
-
-            renderQuestion(imageQuestion, apiOptionsWithFeatureFlag);
-
-            // Assert
-            const playButton = screen.queryByRole("button", {
-                name: "Play Animation",
-            });
-            const pauseButton = screen.queryByRole("button", {
-                name: "Pause Animation",
-            });
-            expect(playButton).not.toBeInTheDocument();
-            expect(pauseButton).not.toBeInTheDocument();
         });
     });
 });

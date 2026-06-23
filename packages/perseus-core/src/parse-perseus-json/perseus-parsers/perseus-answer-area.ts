@@ -1,10 +1,25 @@
-import {boolean, defaulted, object} from "../general-purpose-parsers";
+import {
+    boolean,
+    defaulted,
+    enumeration,
+    nullable,
+    object,
+    pipeParsers,
+} from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
+
+type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
 const booleanOrFalse = defaulted(boolean, () => false);
+const nullableCalculatorVariant = defaulted(
+    nullable(enumeration("scientific", "graphing", "four_function")),
+    () => null,
+);
 
-export const parsePerseusAnswerArea = defaulted(
+const baseParser = defaulted(
     object({
         calculator: booleanOrFalse,
+        calculatorVariant: nullableCalculatorVariant,
         financialCalculatorMonthlyPayment: booleanOrFalse,
         financialCalculatorTotalAmount: booleanOrFalse,
         financialCalculatorTimeToPayOff: booleanOrFalse,
@@ -13,6 +28,7 @@ export const parsePerseusAnswerArea = defaulted(
     }),
     () => ({
         calculator: false,
+        calculatorVariant: null,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -20,3 +36,14 @@ export const parsePerseusAnswerArea = defaulted(
         periodicTableWithKey: false,
     }),
 );
+
+export const parsePerseusAnswerArea = pipeParsers(baseParser).then(
+    convert((parsed) => {
+        const calculatorVariant: CalculatorVariant | null =
+            parsed.calculator && parsed.calculatorVariant === null
+                ? "scientific"
+                : parsed.calculatorVariant;
+
+        return {...parsed, calculatorVariant};
+    }),
+).parser;

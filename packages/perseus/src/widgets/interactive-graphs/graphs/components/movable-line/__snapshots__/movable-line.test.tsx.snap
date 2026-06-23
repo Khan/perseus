@@ -1,0 +1,505 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Rendering Does NOT render extensions of line when option is disabled 1`] = `
+<div>
+  <div
+    class="MafsView"
+    style="width: 200px; height: 200px;"
+    tabindex="0"
+  >
+    <svg
+      height="200"
+      preserveAspectRatio="xMidYMin"
+      style="width: 200px; --mafs-view-transform: matrix(28.57143, 0, 0, -28.57143, 0, 0); --mafs-user-transform: translate(0, 0);"
+      viewBox="-100 -100 200 200"
+      width="200"
+    >
+      <g
+        aria-disabled="false"
+        aria-label="Point 1 at -1 comma -1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-disabled="false"
+        class="movable-line"
+        data-testid="movable-line"
+        role="button"
+        style="cursor: grab;"
+        tabindex="0"
+      >
+        <line
+          aria-hidden="true"
+          style="stroke: transparent; stroke-width: 44;"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline-gap"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class=""
+          data-testid="movable-line__line"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+      </g>
+      <g
+        aria-disabled="false"
+        aria-label="Point 2 at 1 comma 1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Rendering Does NOT render extensions of line when option is not provided 1`] = `
+<div>
+  <div
+    class="MafsView"
+    style="width: 200px; height: 200px;"
+    tabindex="0"
+  >
+    <svg
+      height="200"
+      preserveAspectRatio="xMidYMin"
+      style="width: 200px; --mafs-view-transform: matrix(28.57143, 0, 0, -28.57143, 0, 0); --mafs-user-transform: translate(0, 0);"
+      viewBox="-100 -100 200 200"
+      width="200"
+    >
+      <g
+        aria-disabled="false"
+        aria-label="Point 1 at -1 comma -1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-disabled="false"
+        class="movable-line"
+        data-testid="movable-line"
+        role="button"
+        style="cursor: grab;"
+        tabindex="0"
+      >
+        <line
+          aria-hidden="true"
+          style="stroke: transparent; stroke-width: 44;"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline-gap"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class=""
+          data-testid="movable-line__line"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+      </g>
+      <g
+        aria-disabled="false"
+        aria-label="Point 2 at 1 comma 1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Rendering Does render extensions of line when option is enabled 1`] = `
+<div>
+  <div
+    class="MafsView"
+    style="width: 200px; height: 200px;"
+    tabindex="0"
+  >
+    <svg
+      height="200"
+      preserveAspectRatio="xMidYMin"
+      style="width: 200px; --mafs-view-transform: matrix(28.57143, 0, 0, -28.57143, 0, 0); --mafs-user-transform: translate(0, 0);"
+      viewBox="-100 -100 200 200"
+      width="200"
+    >
+      <g
+        aria-disabled="false"
+        aria-label="Point 1 at -1 comma -1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-disabled="false"
+        class="movable-line"
+        data-testid="movable-line"
+        role="button"
+        style="cursor: grab;"
+        tabindex="0"
+      >
+        <line
+          aria-hidden="true"
+          style="stroke: transparent; stroke-width: 44;"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class="movable-line-focus-outline-gap"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          aria-hidden="true"
+          class=""
+          data-testid="movable-line__line"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+      </g>
+      <g
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
+      >
+        <line
+          aria-hidden="true"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <g
+          aria-hidden="true"
+          class="interactive-graph-arrowhead"
+          transform="translate(0 0) rotate(0)"
+        >
+          <g
+            transform="translate(-1.5)"
+          >
+            <path
+              d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2px"
+              style="stroke: var(--mafs-blue);"
+            />
+          </g>
+        </g>
+      </g>
+      <g
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
+      >
+        <line
+          aria-hidden="true"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <g
+          aria-hidden="true"
+          class="interactive-graph-arrowhead"
+          transform="translate(0 0) rotate(0)"
+        >
+          <g
+            transform="translate(-1.5)"
+          >
+            <path
+              d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2px"
+              style="stroke: var(--mafs-blue);"
+            />
+          </g>
+        </g>
+      </g>
+      <g
+        aria-disabled="false"
+        aria-label="Point 2 at 1 comma 1."
+        class="movable-point__focusable-handle"
+        data-testid="movable-point__focusable-handle"
+        role="button"
+        tabindex="0"
+      />
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+      <g
+        aria-hidden="true"
+        class="movable-point"
+        data-testid="movable-point"
+        style="--movable-point-color: var(--mafs-blue);"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: var(--mafs-blue);"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+`;

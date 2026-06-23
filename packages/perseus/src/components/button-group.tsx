@@ -1,9 +1,10 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-type Props = {
+interface Props {
     // the initial value of the button selected, defaults to null
     value: any;
     buttons: ReadonlyArray<{
@@ -26,12 +27,17 @@ type Props = {
      * Customizes the selected button's styling.
      */
     selectedButtonStyle?: CSSProperties;
-};
 
-type DefaultProps = {
+    /**
+     * When true, all buttons are disabled (non-interactive and visually muted).
+     */
+    disabled?: boolean;
+}
+
+interface DefaultProps {
     allowEmpty: Props["allowEmpty"];
     value: Props["value"];
-};
+}
 
 /**
  * ButtonGroup is an aesthetically pleasing group of buttons.
@@ -73,13 +79,14 @@ class ButtonGroup extends React.Component<Props> {
                 <button
                     title={button.title}
                     type="button"
-                    ref={"button" + i}
                     key={"" + i}
+                    disabled={this.props.disabled}
                     className={css(
                         styles.buttonStyle,
                         button.value === value && styles.selectedStyle,
                         button.value === value &&
                             this.props.selectedButtonStyle,
+                        this.props.disabled && styles.disabledStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -135,6 +142,15 @@ const styles = StyleSheet.create({
 
     selectedStyle: {
         backgroundColor: "#ddd",
+    },
+
+    disabledStyle: {
+        cursor: "not-allowed",
+        backgroundColor: semanticColor.core.background.disabled.default,
+        color: semanticColor.core.foreground.disabled.strong,
+        ":hover": {
+            backgroundColor: semanticColor.core.background.disabled.default,
+        },
     },
 });
 

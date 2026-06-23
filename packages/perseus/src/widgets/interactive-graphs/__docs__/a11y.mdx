@@ -18,6 +18,7 @@ The Interactive Graph widget is designed to be accessible for all users, includi
 -   The widget provides ARIA labels and descriptions via the `fullGraphAriaLabel` and `fullGraphAriaDescription` props.
 -   Graph elements are described for screen readers, including coordinates and types of shapes.
 -   Equation strings and graph state can be programmatically accessed and announced.
+-   Keyboard instructions are intentionally ordered first—both as the first sr-only child of the graph figure and first in the figure's `aria-describedby`—so screen reader users hear how to interact with the graph before its description and interactive-element descriptions.
 
 ## Visible Labels and Markings
 

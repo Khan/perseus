@@ -4,9 +4,12 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
+import * as InteractiveGraphAction from "./reducer/interactive-graph-action";
 import {MOVE_POINT_IN_FIGURE} from "./reducer/interactive-graph-action";
 import * as GraphReducer from "./reducer/interactive-graph-reducer";
 import {StatefulMafsGraph} from "./stateful-mafs-graph";
@@ -228,6 +231,209 @@ describe("StatefulMafsGraph", () => {
         expect(
             screen.getByText("Interactive elements: Point T at 0 comma 0."),
         ).toBeInTheDocument();
+    });
+
+    it("shows visible point labels when showPointLabels changes to true after mount", () => {
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {
+                type: "point",
+                numPoints: 2,
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                pointLabels: ["A", "B"],
+                showPointLabels: false,
+            },
+            correct: {
+                type: "point",
+                numPoints: 2,
+                coords: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                pointLabels: ["A", "B"],
+                showPointLabels: false,
+            },
+            apiOptions: {
+                ...ApiOptions.defaults,
+                flags: getFeatureFlags({
+                    "perseus-enable-point-label-field": true,
+                }),
+            },
+        };
+        const {rerender} = render(<StatefulMafsGraph {...baseProps} />);
+
+        expect(
+            screen.queryAllByTestId("movable-point__visible-label"),
+        ).toHaveLength(0);
+
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 2,
+                    coords: [
+                        [0, 0],
+                        [2, 2],
+                    ],
+                    pointLabels: ["A", "B"],
+                    showPointLabels: true,
+                }}
+                correct={{
+                    type: "point",
+                    numPoints: 2,
+                    coords: [
+                        [0, 0],
+                        [2, 2],
+                    ],
+                    pointLabels: ["A", "B"],
+                    showPointLabels: true,
+                }}
+            />,
+        );
+
+        expect(
+            screen.getAllByTestId("movable-point__visible-label"),
+        ).toHaveLength(2);
+    });
+
+    it("does not reinitialize when pointLabels has the same values but a new array reference", () => {
+        // The editor rebuilds props every render: a fresh-but-equal
+        // pointLabels array must not re-fire reinitialize.
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Same values, new array reference: must not re-fire.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        expect(reinitializeSpy).not.toHaveBeenCalled();
+    });
+
+    it("reinitializes when pointLabels values change", () => {
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["T"],
+                }}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Changed value: re-fires.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{
+                    type: "point",
+                    numPoints: 1,
+                    coords: [[0, 0]],
+                    pointLabels: ["U"],
+                }}
+            />,
+        );
+        expect(reinitializeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not reinitialize when startCoords has the same values but a new array reference", () => {
+        // Same as pointLabels: a fresh-but-equal startCoords array must not
+        // re-fire reinitialize.
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Same values, new array reference: must not re-fire.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        expect(reinitializeSpy).not.toHaveBeenCalled();
+    });
+
+    it("reinitializes when startCoords values change", () => {
+        const reinitializeSpy = jest.spyOn(
+            InteractiveGraphAction,
+            "reinitialize",
+        );
+        const baseProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "point", numPoints: 1, coords: [[0, 0]]},
+            correct: {type: "point", numPoints: 1, coords: [[0, 0]]},
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[1, 1]]}}
+            />,
+        );
+        reinitializeSpy.mockClear();
+
+        // Changed value: re-fires.
+        rerender(
+            <StatefulMafsGraph
+                {...baseProps}
+                graph={{type: "point", numPoints: 1, startCoords: [[2, 2]]}}
+            />,
+        );
+        expect(reinitializeSpy).toHaveBeenCalledTimes(1);
     });
 
     it("re-renders when the number of sides on a polygon graph changes", () => {

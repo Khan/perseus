@@ -13,7 +13,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1-o_O-container_lci7r free-response"
@@ -56,7 +56,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                   aria-describedby=":r2:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
+                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -99,7 +99,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1-o_O-container_lci7r free-response"
@@ -142,7 +142,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                   aria-describedby=":r0:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
+                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />

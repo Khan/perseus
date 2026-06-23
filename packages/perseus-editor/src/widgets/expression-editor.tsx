@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {components, Expression} from "@khanacademy/perseus";
+import {ApiOptions, components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
@@ -8,22 +8,19 @@ import {
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {
-    semanticColor,
-    sizing,
-    spacing,
-} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
-import {css, StyleSheet} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import styles from "./expression-editor.module.css";
+
+import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
-    ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";
@@ -34,6 +31,7 @@ const {ButtonGroup, InfoTip} = components;
 type Props = {
     widgetId?: string;
     value?: string;
+    apiOptions: APIOptions;
     onChange: (newValues: Partial<PerseusExpressionWidgetOptions>) => void;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
@@ -51,11 +49,11 @@ const buttonSetsList: LegacyButtonSets = [
     "advanced relations",
 ];
 
-type State = {
+interface State {
     // this is to help the "functions" input feel natural
     // while still allowing us to store the functions as an array
     functionsInternal: string;
-};
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -64,8 +62,10 @@ type State = {
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: ExpressionDefaultWidgetOptions =
-        expressionLogic.defaultWidgetOptions;
+    static defaultProps = {
+        ...expressionLogic.defaultWidgetOptions,
+        apiOptions: ApiOptions.defaults,
+    };
 
     constructor(props: Props) {
         super(props);
@@ -288,6 +288,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
+        const editingDisabled = this.props.apiOptions.editingDisabled ?? false;
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
                 const expressionProps: Partial<
@@ -315,6 +316,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <AnswerOption
                         key={ans.key}
                         considered={ans.considered}
+                        editingDisabled={editingDisabled}
                         // eslint-disable-next-line no-restricted-syntax
                         expressionProps={expressionProps as any}
                         form={ans.form}
@@ -362,7 +364,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             <View>
                 <Heading size="medium">Global Options</Heading>
 
-                <div className={css(styles.paddedY)}>
+                <div className={styles.paddedY}>
                     <LabeledTextField
                         label={
                             <>
@@ -380,7 +382,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                 </div>
 
-                <div className={css(styles.paddedY)}>
+                <div className={styles.paddedY}>
                     <LabeledTextField
                         label={
                             <>
@@ -406,7 +408,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                 </div>
 
-                <div className={css(styles.paddedY)}>
+                <div className={styles.paddedY}>
                     <LabeledTextField
                         label={
                             <>
@@ -424,7 +426,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                 </div>
 
-                <div className={css(styles.paddedY)}>
+                <div className={styles.paddedY}>
                     <Checkbox
                         label={
                             <>
@@ -444,8 +446,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                     />
                 </div>
 
-                <div className={css(styles.paddedY)}>
-                    <Heading size="small" style={styles.buttonSets}>
+                <div className={styles.paddedY}>
+                    <Heading size="small" className={styles.buttonSets}>
                         Button Sets
                     </Heading>
                     {buttonSetChoices}
@@ -453,17 +455,21 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <Heading size="medium">Answers</Heading>
 
-                <BodyText size="small" style={styles.answersSubtitle}>
+                <BodyText size="small" className={styles.answersSubtitle}>
                     student responses area matched against these from top to
                     bottom
                 </BodyText>
 
-                <View style={{gap: spacing.xSmall_8}}>{answerOptions}</View>
-
-                <Strut size={spacing.small_12} />
-                <Button size="small" onClick={this.newAnswer}>
-                    Add new answer
-                </Button>
+                <View className={styles.answersGroup}>
+                    <View className={styles.answersList}>{answerOptions}</View>
+                    <Button
+                        size="small"
+                        disabled={editingDisabled}
+                        onClick={this.newAnswer}
+                    >
+                        Add new answer
+                    </Button>
+                </View>
             </View>
         );
     }
@@ -476,8 +482,9 @@ const findNextIn = function <T>(arr: ReadonlyArray<T>, val: T) {
     return arr[ix];
 };
 
-type AnswerOptionProps = {
+interface AnswerOptionProps {
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
+    editingDisabled: boolean;
     expressionProps: React.ComponentProps<typeof Expression>;
 
     // Must the answer have the same form as this answer.
@@ -492,11 +499,11 @@ type AnswerOptionProps = {
     onChangeConsidered: (
         considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
     ) => void;
-};
+}
 
-type AnswerOptionState = {
+interface AnswerOptionState {
     deleteFocused: boolean;
-};
+}
 
 class AnswerOption extends React.Component<
     AnswerOptionProps,
@@ -525,18 +532,20 @@ class AnswerOption extends React.Component<
     };
 
     render(): React.ReactNode {
+        const {editingDisabled} = this.props;
         const removeButton = this.state.deleteFocused ? (
             <>
                 <Button
                     size="small"
+                    disabled={editingDisabled}
                     onClick={this.handleImSure}
                     actionType="destructive"
                 >
                     I&apos;m sure!
                 </Button>
-                <Strut size={spacing.small_12} />
                 <Button
                     size="small"
+                    disabled={editingDisabled}
                     onClick={this.handleCancelDelete}
                     kind="secondary"
                 >
@@ -546,20 +555,22 @@ class AnswerOption extends React.Component<
         ) : (
             <Button
                 size="small"
+                disabled={editingDisabled}
                 onClick={this.handleDelete}
                 actionType="destructive"
                 kind="tertiary"
-                style={styles.deleteButton}
+                className={styles.deleteButton}
             >
                 Delete
             </Button>
         );
 
         return (
-            <div className={css(styles.answerOption)}>
+            <div className={styles.answerOption}>
                 <ButtonGroup
                     onChange={this.toggleConsidered}
                     allowEmpty={false}
+                    disabled={editingDisabled}
                     value={this.props.considered}
                     selectedButtonStyle={
                         consideredButtonStyles[this.props.considered]
@@ -573,7 +584,7 @@ class AnswerOption extends React.Component<
 
                 <Expression {...this.props.expressionProps} />
 
-                <div className={css(styles.paddedY, styles.paddedX)}>
+                <div className={`${styles.paddedY} ${styles.paddedX}`}>
                     <Checkbox
                         label={
                             <>
@@ -590,7 +601,7 @@ class AnswerOption extends React.Component<
                     />
                 </div>
 
-                <div className={css(styles.paddedY, styles.paddedX)}>
+                <div className={`${styles.paddedY} ${styles.paddedX}`}>
                     <Checkbox
                         label={
                             <>
@@ -611,7 +622,7 @@ class AnswerOption extends React.Component<
                     />
                 </div>
 
-                <div className={css(styles.buttonRow, styles.paddedY)}>
+                <div className={`${styles.buttonRow} ${styles.paddedY}`}>
                     {removeButton}
                 </div>
             </div>
@@ -621,22 +632,7 @@ class AnswerOption extends React.Component<
 
 export default ExpressionEditor;
 
-const styles = StyleSheet.create({
-    paddedX: {
-        paddingLeft: spacing.xSmall_8,
-        paddingRight: spacing.xSmall_8,
-    },
-    paddedY: {
-        paddingTop: spacing.xxSmall_6,
-        paddingBottom: spacing.xxSmall_6,
-    },
-    answersSubtitle: {fontStyle: "italic"},
-    answerOption: {
-        border: "1px solid #ddd",
-        borderRadius: "3px",
-        display: "flex",
-        flexDirection: "column",
-    },
+const wbStyles = StyleSheet.create({
     answerStatusWrong: {
         backgroundColor: semanticColor.core.background.critical.subtle,
     },
@@ -646,22 +642,13 @@ const styles = StyleSheet.create({
     answerStatusUngraded: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
     },
-    buttonRow: {
-        display: "flex",
-    },
-    deleteButton: {
-        paddingInline: sizing.size_160,
-    },
-    buttonSets: {
-        textTransform: "uppercase",
-    },
 });
 
 const consideredButtonStyles: Record<
     (typeof PerseusExpressionAnswerFormConsidered)[number],
     CSSProperties
 > = {
-    wrong: styles.answerStatusWrong,
-    correct: styles.answerStatusCorrect,
-    ungraded: styles.answerStatusUngraded,
+    wrong: wbStyles.answerStatusWrong,
+    correct: wbStyles.answerStatusCorrect,
+    ungraded: wbStyles.answerStatusUngraded,
 };

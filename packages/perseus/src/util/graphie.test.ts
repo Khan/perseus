@@ -1059,6 +1059,51 @@ describe("Graphie drawing tools", () => {
             expect($span[0].style.padding).toBe("7px");
         });
 
+        describe("when fonts are loading", () => {
+            afterEach(() => {
+                Reflect.deleteProperty(document, "fonts");
+            });
+
+            it("applies label margins after fonts.ready resolves even when fonts.status remains 'loading'", async () => {
+                // Arrange: simulate Safari (WebKit bugs 174030, 225790),
+                // where fonts.ready can already be resolved while
+                // fonts.status still reports "loading". Re-checking the
+                // status after awaiting ready would loop forever.
+                let readyReads = 0;
+                Object.defineProperty(document, "fonts", {
+                    configurable: true,
+                    value: {
+                        status: "loading",
+                        get ready() {
+                            readyReads++;
+                            return Promise.resolve();
+                        },
+                    },
+                });
+                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                    testDependencies,
+                );
+                const graphie = createAndInitGraphie();
+
+                // Act
+                const $span = graphie.label(
+                    [0, 0],
+                    "this is the text",
+                    "center",
+                    false,
+                );
+                // Margins are deferred until fonts.ready resolves.
+                expect($span[0].style.marginLeft).toBe("");
+                // Flush microtasks so the fonts.ready callback runs.
+                await Promise.resolve();
+                await Promise.resolve();
+
+                // Assert
+                expect($span[0].style.marginLeft).not.toBe("");
+                expect(readyReads).toBe(1);
+            });
+        });
+
         it("resets the padding to the default after each call", () => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
@@ -1308,17 +1353,6 @@ describe("Graphie drawing tools", () => {
                 expect(target?.getAttribute("height")).toBe("50");
             },
         );
-
-        it("should disable drawing area if allowScratchpad is false", async () => {
-            const graphie = createAndInitGraphie();
-            const onSetDrawingAreaAvailable = jest.fn();
-            graphie.addMouseLayer({
-                setDrawingAreaAvailable: onSetDrawingAreaAvailable,
-                allowScratchpad: false,
-            });
-
-            expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
-        });
     });
 
     describe("getMousePx", () => {

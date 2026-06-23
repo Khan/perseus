@@ -23,13 +23,13 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1"
           >
             <div
-              class="fixed-to-responsive"
+              class="fixed-to-responsive perseus-video-fixed-to-responsive"
               style="max-width: 1280px; max-height: 720px;"
             >
               <iframe
@@ -93,13 +93,13 @@ exports[`video widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             class="default_7zhre1"
           >
             <div
-              class="fixed-to-responsive"
+              class="fixed-to-responsive perseus-video-fixed-to-responsive"
               style="max-width: 1280px; max-height: 720px;"
             >
               <iframe

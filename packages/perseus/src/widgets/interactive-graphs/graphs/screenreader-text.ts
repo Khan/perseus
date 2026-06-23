@@ -4,6 +4,7 @@ import {resolvePointLabel} from "./components/build-point-aria-label";
 
 import type {InteractiveGraphStateAnnouncement} from "../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {Coord} from "@khanacademy/perseus-core";
 
 export function getAnnouncementText(
     state: InteractiveGraphStateAnnouncement,
@@ -21,6 +22,8 @@ export function getAnnouncementText(
             return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
+        case "move-quadratic-point":
+            return srQuadraticPointLabel(state, strings, locale);
         case "move-vector-point":
             return srVectorPointLabel(state, strings, locale);
         case "move-vector-line":
@@ -61,6 +64,22 @@ export function getAnnouncementText(
             );
         case "move-sinusoid-point":
             return srSinusoidPointLabel(state, strings, locale);
+        case "move-exponential-point":
+            return srExponentialPointLabel(state, strings, locale);
+        case "move-exponential-asymptote":
+            return strings.srExponentialAsymptote({
+                asymptoteY: srFormatNumber(state.asymptoteY, locale),
+            });
+        case "move-logarithm-point":
+            return srLogarithmPointLabel(state, strings, locale);
+        case "move-logarithm-asymptote":
+            return strings.srLogarithmAsymptote({
+                asymptoteX: srFormatNumber(state.asymptoteX, locale),
+            });
+        case "move-tangent-point":
+            return srTangentPointLabel(state, strings, locale);
+        case "move-absolute-value-point":
+            return srAbsoluteValuePointLabel(state, strings, locale);
         case "move-angle-point":
             return srAnglePointLabel(state, strings, locale);
         case "move-polygon":
@@ -73,6 +92,42 @@ export function getAnnouncementText(
         default:
             throw new UnreachableCaseError(state);
     }
+}
+
+function srQuadraticPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+        vertex?: Coord;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    // A custom author label overrides the quadrant/vertex semantics, matching
+    // the static aria-label behavior in quadratic.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({
+            num: state.pointLabel,
+            x: srFormatNumber(state.x, locale),
+            y: srFormatNumber(state.y, locale),
+        });
+    }
+    const pointString = getQuadraticPointString(
+        state.pointIndex + 1,
+        [state.x, state.y],
+        strings,
+        locale,
+    );
+    // When vertex is undefined the parabola is degenerate (a line) — no
+    // vertex string to append.
+    if (state.vertex === undefined) {
+        return pointString;
+    }
+    return `${pointString} ${getQuadraticVertexString(state.vertex, strings)}`;
 }
 
 function formatLineEndpoints(
@@ -123,6 +178,107 @@ function srSinusoidPointLabel(
     return state.y > state.otherY
         ? strings.srSinusoidMaxPoint(formatted)
         : strings.srSinusoidMinPoint(formatted);
+}
+
+function srExponentialPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the point-1/point-2 semantics, matching
+    // the static aria-label behavior in exponential.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in exponential graphs: [point1(0), point2(1)].
+    return state.pointIndex === 0
+        ? strings.srExponentialPoint1({x, y})
+        : strings.srExponentialPoint2({x, y});
+}
+
+function srLogarithmPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the point-1/point-2 semantics, matching
+    // the static aria-label behavior in logarithm.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in logarithm graphs: [point1(0), point2(1)].
+    return state.pointIndex === 0
+        ? strings.srLogarithmPoint1({x, y})
+        : strings.srLogarithmPoint2({x, y});
+}
+
+function srTangentPointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the inflection/control-point semantics,
+    // matching the static aria-label behavior in tangent.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
+    return state.pointIndex === 0
+        ? strings.srTangentInflectionPoint({x, y})
+        : strings.srTangentSecondPoint({x, y});
+}
+
+function srAbsoluteValuePointLabel(
+    state: {
+        pointIndex: number;
+        pointLabel: string | number;
+        x: number;
+        y: number;
+    },
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label overrides the vertex/arm semantics, matching
+    // the static aria-label behavior in absolute-value.tsx.
+    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
+    // we can remove this block in favor of using the index logic below.
+    if (typeof state.pointLabel === "string") {
+        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+
+    // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
+    return state.pointIndex === 0
+        ? strings.srAbsoluteValueVertexPoint({x, y})
+        : strings.srAbsoluteValueSecondPoint({x, y});
 }
 
 function srAnglePointLabel(
@@ -321,6 +477,87 @@ export function srCircleCenterLabel(
         centerX: srFormatNumber(x, locale),
         centerY: srFormatNumber(y, locale),
     });
+}
+
+type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;
+
+export function getCoordQuadrant(coord: Coord): GraphLocations {
+    const [unroundedX, unroundedY] = coord;
+    const x = Number(unroundedX.toFixed(3));
+    const y = Number(unroundedY.toFixed(3));
+
+    if (x === 0 && y === 0) {
+        return "origin";
+    }
+
+    if (y === 0) {
+        return "x-axis";
+    }
+
+    if (x === 0) {
+        return "y-axis";
+    }
+
+    if (x > 0 && y > 0) {
+        return 1;
+    }
+
+    if (x < 0 && y > 0) {
+        return 2;
+    }
+
+    if (x < 0 && y < 0) {
+        return 3;
+    }
+
+    return 4;
+}
+
+export function getQuadraticVertexString(
+    vertex: Coord,
+    strings: PerseusStrings,
+): string {
+    const location = getCoordQuadrant(vertex);
+
+    switch (location) {
+        case "origin":
+            return strings.srQuadraticGraphVertexOrigin;
+        case "x-axis":
+            return strings.srQuadraticGraphVertexXAxis;
+        case "y-axis":
+            return strings.srQuadraticGraphVertexYAxis;
+        default:
+            return strings.srQuadraticGraphVertexQuadrant({quadrant: location});
+    }
+}
+
+export function getQuadraticPointString(
+    pointNumber,
+    coord: Coord,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    const location = getCoordQuadrant(coord);
+    const [x, y] = coord;
+
+    switch (location) {
+        case "origin":
+            return strings.srQuadraticPointOrigin({pointNumber: pointNumber});
+        case "x-axis":
+        case "y-axis":
+            return strings.srQuadraticPointAxis({
+                pointNumber: pointNumber,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
+        default:
+            return strings.srQuadraticPointQuadrant({
+                pointNumber: pointNumber,
+                quadrant: location,
+                x: srFormatNumber(x, locale),
+                y: srFormatNumber(y, locale),
+            });
+    }
 }
 
 export function srFormatNumber(

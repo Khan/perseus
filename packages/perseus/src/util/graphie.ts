@@ -1451,12 +1451,9 @@ export class Graphie {
         onMouseOut?: MouseHandler | null;
         onMouseUp?: MouseHandler | null;
         allowScratchpad?: boolean;
-        setDrawingAreaAvailable?: (available: boolean) => void;
     }): void {
         const localOptions = {
             allowScratchpad: false,
-            setDrawingAreaAvailable: function () {},
-
             ...options,
         };
 
@@ -1520,10 +1517,6 @@ export class Graphie {
                 });
             }
         }
-        if (!localOptions.allowScratchpad) {
-            localOptions.setDrawingAreaAvailable?.(false);
-        }
-
         // Add mouse and visible wrapper layers for DOM-node-wrapped movables
         this._mouselayerWrapper = document.createElement("div");
         $(this._mouselayerWrapper).css({
@@ -1709,11 +1702,19 @@ const SVG_SPECIFIC_STYLE_MASK = {
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     // Wait for fonts to load before setting label margins,
     // so that the margins are not flakey.
+    // We wait only once and then apply the margins unconditionally:
+    // Safari can report fonts.status === "loading" while fonts.ready is
+    // already resolved (WebKit bugs 174030, 225790), so re-checking the
+    // status after the wait would re-queue on a resolved promise forever —
+    // an infinite microtask loop that hard-freezes the tab.
     if (document.fonts?.status === "loading") {
-        document.fonts.ready.then(() => setLabelMargins(span, size));
+        document.fonts.ready.then(() => applyLabelMargins(span, size));
         return;
     }
+    applyLabelMargins(span, size);
+};
 
+const applyLabelMargins = function (span: HTMLElement, size: Coord): void {
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;

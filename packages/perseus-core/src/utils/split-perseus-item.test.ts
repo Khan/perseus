@@ -239,7 +239,7 @@ describe("splitPerseusItem", () => {
             widgets: {
                 "numeric-input 1": {
                     type: "numeric-input",
-                    version: {major: 0, minor: 0},
+                    version: {major: 1, minor: 0},
                     options: {
                         coefficient: false,
                         labelText: "This is label",
@@ -595,6 +595,7 @@ describe("splitPerseusItemJSON", () => {
             hints: [],
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,

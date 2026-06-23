@@ -1,6 +1,5 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput} from "@khanacademy/math-input";
-import {expressionLogic} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
@@ -421,7 +420,6 @@ export default {
     name: "expression",
     displayName: "Expression / Equation",
     widget: Expression,
-    version: expressionLogic.version,
 
     // For use by the editor
     isLintable: true,
