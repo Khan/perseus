@@ -195,6 +195,7 @@ type MoveLogarithmPointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+    hasCurve: boolean;
 };
 
 // Exponential graph: the horizontal asymptote moves vertically, so only
