@@ -1220,7 +1220,15 @@ export const sinusoidWithPiTicks: PerseusRenderer =
     });
 
 export const ungradedQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({graded: false});
+    generateInteractiveGraphQuestion({
+        graded: false,
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        }),
+    });
 
 export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
     markings: "axes",
