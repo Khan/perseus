@@ -133,6 +133,84 @@ export const FocusMultiSelect: Story = {
     },
 };
 
+export const ChoiceCheckedCorrect: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {correct: true}),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4", {correct: true}),
+        ],
+    },
+    play: async ({canvas, userEvent}) => {
+        let choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+
+        choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice D\)/,
+        });
+        await userEvent.click(choiceToClick);
+
+        const checkAnswerButton = canvas.getAllByRole("button", {
+            name: "Check answer",
+        })[0];
+        await userEvent.click(checkAnswerButton);
+        await checkAnswerButton.blur();
+    },
+};
+
+export const ChoiceCheckedInvalid: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {correct: true}),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4", {correct: true}),
+        ],
+    },
+    play: async ({canvas, userEvent}) => {
+        const choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+        const checkAnswerButton = canvas.getAllByRole("button", {
+            name: "Check answer",
+        })[0];
+        await userEvent.click(checkAnswerButton);
+        await checkAnswerButton.blur();
+    },
+};
+
+export const SelectChoiceMoveFocusAfter: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {correct: true}),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4"),
+        ],
+    },
+    play: async ({canvas, userEvent}) => {
+        const choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice B\)/,
+        });
+        choiceToFocus.focus();
+    },
+};
+
 /* The following stories don't use the Radio args, beacuse they are not
    directly rendered Radio widgets. These are examples of other environments
    that Radio can be rendered within. */

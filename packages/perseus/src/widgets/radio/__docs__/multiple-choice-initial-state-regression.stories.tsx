@@ -190,6 +190,27 @@ export const SingleSelectWithLongMathjax: Story = {
     },
 };
 
+export const SingleSelectWithGraphie = {
+    decorators: [radioRendererDecorator],
+    args: choicesWithGraphieArgs,
+    parameters: {
+        content: choicesWithGraphieContent,
+        images: choicesWithGraphieImages,
+    },
+};
+export const SingleSelectColor: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice("$\\color{darkviolet}{0}$", {
+                correct: true,
+            }),
+            generateRadioChoice("$\\redE{1 + 8}$"),
+            generateRadioChoice("$\\blueD{2 + 7}$"),
+            generateRadioChoice("$\\greenD{3 + 2}$"),
+        ],
+    },
+};
 export const SingleSelectWithLongText: Story = {
     decorators: [radioRendererDecorator],
     args: {
@@ -208,15 +229,6 @@ export const SingleSelectWithLongText: Story = {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla lorem metus, eleifend eleifend ante sodales non. Sed nec tempus lacus. Suspendisse finibus sit amet enim quis facilisis. Sed eu nisl in ligula mollis dapibus. Maecenas faucibus interdum est, nec scelerisque ligula. Nulla vestibulum tristique vulputate. Etiam hendrerit tellus sit amet lacus suscipit, in auctor nisi hendrerit. Mauris mi turpis, scelerisque eget diam a, rhoncus sodales dui. Fusce sit amet magna nisl. Donec mi nisi, accumsan nec libero consequat, ultrices ornare mauris. Sed leo dolor, facilisis sed urna eu, feugiat dapibus metus. Nunc accumsan lacus ac massa molestie, placerat malesuada massa placerat. Proin ac dolor sit amet metus semper cursus. Suspendisse nec ipsum non nunc commodo posuere. Duis quis porttitor quam. Nulla facilisi.",
             ),
         ],
-    },
-};
-
-export const SingleSelectWithGraphie = {
-    decorators: [radioRendererDecorator],
-    args: choicesWithGraphieArgs,
-    parameters: {
-        content: choicesWithGraphieContent,
-        images: choicesWithGraphieImages,
     },
 };
 
