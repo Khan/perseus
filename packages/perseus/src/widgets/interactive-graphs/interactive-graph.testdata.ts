@@ -1645,3 +1645,26 @@ export const circleWithCustomLabelsQuestion: PerseusRenderer =
             showPointLabels: true,
         }),
     });
+
+// A graph where the axis lines are on the edge of the chart
+// see: https://khanacademy.atlassian.net/browse/LEMS-4273
+export const onEdge: PerseusRenderer = generateInteractiveGraphQuestion({
+    range: [
+        [0, 10],
+        [0, 10],
+    ],
+    showAxisArrows: {
+        xMin: false,
+        xMax: true,
+        yMin: false,
+        yMax: true,
+    },
+    labels: ["My cool X label", "My cool Y label"],
+    labelLocation: "alongEdge",
+    correct: generateIGLinearGraph({
+        coords: [
+            [0, 0],
+            [5, 5],
+        ],
+    }),
+});
