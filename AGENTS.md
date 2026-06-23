@@ -55,26 +55,27 @@ packages/
    Test assertions shouldn't be coupled to setup they don't control.
 3. Follow the test structure below:
 ```typescript
-import {render, screen} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 
-import {question1} from "../__testdata__/widget.testdata";
-import WidgetComponent from "../widget-component";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {generateWidgetItem} from "./widget.testdata";
 
-describe("WidgetComponent", () => {
-    it("renders correctly", () => {
-        render(<WidgetComponent {...question1} />);
-        expect(screen.getByRole("button")).toBeInTheDocument();
+describe("Widget", () => {
+    it("renders the prompt text", () => {
+        // Arrange, Act
+        renderQuestion(generateWidgetItem());
+
+        expect(screen.getByText("What is 2 + 2?")).toBeInTheDocument();
     });
 
-    it("calls onChange when button is clicked", async () => {
+    it("calls handleUserInput when an answer is selected", async () => {
         const user = userEvent.setup();
-        const onChange = jest.fn();
+        const {renderer} = renderQuestion(generateWidgetItem());
 
-        render(<WidgetComponent {...question1} onChange={onChange} />);
-        await user.click(screen.getByRole("button"));
+        await user.click(screen.getByRole("button", {name: "4"}));
 
-        expect(onChange).toHaveBeenCalled();
+        expect(renderer.getUserInput()).toMatchObject({currentValue: "4"});
     });
 });
 ```
