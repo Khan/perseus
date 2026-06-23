@@ -3,6 +3,7 @@
  */
 
 import Button from "@khanacademy/wonder-blocks-button";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
@@ -23,7 +24,9 @@ const SelectImage = ({
     editingDisabled = false,
 }: SelectImageProps): React.ReactElement => (
     <div>
-        <div className={styles.title}>Image</div>
+        <BodyText weight="bold" tag="span">
+            Image
+        </BodyText>
 
         <div className={styles.imageRow}>
             <FormWrappedTextField
