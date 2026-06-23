@@ -1,0 +1,11 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+.button-container {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+.button {
+    margin-top: var(--wb-sizing-size_080) !important;
+    flex-grow: 1 !important;
+}

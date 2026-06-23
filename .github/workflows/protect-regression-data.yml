@@ -1,0 +1,79 @@
+name: Protect Parser Regression Data
+
+# The Perseus parser regression-test fixture data under
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/item-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/article-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/renderer-data
+# - packages/perseus-core/src/parse-perseus-json/regression-tests/user-input-data
+# capture real historical data formats. They must stay stable so the parser is
+# always tested against data that exists in the wild. This check fails if a PR
+# modifies, renames, or deletes any existing fixture. Adding new fixtures is
+# allowed.
+
+on:
+    pull_request:
+        # `edited` covers the base branch being changed on an open PR.
+        types: [edited, opened, synchronize, reopened]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    protect-regression-data:
+        name: Protect frozen regression fixtures
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  # Full history so the base branch's merge-base is reachable
+                  # for the diff in the check below.
+                  fetch-depth: 0
+
+            - name: Check for changes to frozen regression fixtures
+              env:
+                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  REGRESSION_DIR="packages/perseus-core/src/parse-perseus-json/regression-tests"
+                  PROTECTED_DIRS=(
+                      "$REGRESSION_DIR/item-data"
+                      "$REGRESSION_DIR/article-data"
+                      "$REGRESSION_DIR/renderer-data"
+                      "$REGRESSION_DIR/user-input-data"
+                  )
+
+                  # --diff-filter selects only the change types we forbid:
+                  #   D = deleted, M = modified, R = renamed, C = copied, T = type changed.
+                  # Added (A) is intentionally excluded — adding new fixtures is allowed.
+                  #
+                  # The `A...B` (three-dot) range diffs B against the merge-base of A and B,
+                  # i.e. exactly the changes this PR introduces on top of the base branch.
+                  OFFENDING=$(git diff --name-status --diff-filter=DMRCT \
+                      "$BASE_SHA...$HEAD_SHA" -- "${PROTECTED_DIRS[@]}")
+
+                  if [ -n "$OFFENDING" ]; then
+                      echo "::error title=Frozen parser regression fixture changed::Existing regression-test fixtures may not be modified, renamed, or deleted."
+                      echo ""
+                      echo "The following protected files were changed:"
+                      echo "$OFFENDING" | sed 's/^/    /'
+                      echo ""
+                      echo "These fixtures capture historical Perseus data formats and must never"
+                      echo "change so the parser is always tested against real, published data."
+                      echo "If you need new coverage, ADD a new file to the directory instead of"
+                      echo "editing an existing one. See the README for more details:"
+                      echo "https://github.com/Khan/perseus/tree/main/packages/perseus-core/src/parse-perseus-json#regression-testing-against-old-data"
+                      exit 1
+                  fi
+
+                  echo "No frozen regression-test fixtures were modified. ✅"

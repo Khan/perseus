@@ -1,7 +1,4 @@
-import {
-    measurerLogic,
-    type PerseusMeasurerWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -107,8 +104,6 @@ class Measurer extends React.Component<Props> implements Widget {
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
         });
 
         if (this.protractor) {
@@ -186,5 +181,4 @@ export default {
     displayName: "Measurer",
     hidden: true,
     widget: Measurer,
-    version: measurerLogic.version,
 } satisfies WidgetExports<typeof Measurer>;

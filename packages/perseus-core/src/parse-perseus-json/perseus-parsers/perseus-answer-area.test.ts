@@ -3,11 +3,14 @@ import {success} from "../result";
 
 import {parsePerseusAnswerArea} from "./perseus-answer-area";
 
+// Tests are fine to import, main files aren't
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusAnswerArea} from "../../data-schema";
 
 describe("parsePerseusAnswerArea", () => {
     const allFalse: PerseusAnswerArea = {
         calculator: false,
+        calculatorVariant: null,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -23,6 +26,7 @@ describe("parsePerseusAnswerArea", () => {
     it("keeps `true` values", () => {
         const allTrue: PerseusAnswerArea = {
             calculator: true,
+            calculatorVariant: "scientific",
             financialCalculatorMonthlyPayment: true,
             financialCalculatorTotalAmount: true,
             financialCalculatorTimeToPayOff: true,

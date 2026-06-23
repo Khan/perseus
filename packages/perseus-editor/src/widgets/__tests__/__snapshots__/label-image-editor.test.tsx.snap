@@ -2,15 +2,17 @@
 
 exports[`label-image-editor popover direction snapshots should render with DOWN popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -22,13 +24,10 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -40,9 +39,6 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         </button>
       </div>
     </div>
-    <div
-      class="smallSpacer_1y6xiyp"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -53,17 +49,14 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -93,42 +86,33 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         />
       </div>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -138,82 +122,25 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -223,82 +150,25 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -308,92 +178,37 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
       </ul>
-      <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
-        href="javascript:void(0)"
+      <button
+        aria-disabled="false"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        type="button"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
+        <span
+          class="add-answer-content"
         >
-          <path
-            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-            fill="currentColor"
+          <span
+            aria-hidden="true"
+            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-        </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
-        Add an answer choice
-      </a>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
+        </span>
+      </button>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -520,15 +335,17 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
 
 exports[`label-image-editor popover direction snapshots should render with LEFT popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -540,13 +357,10 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -558,9 +372,6 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         </button>
       </div>
     </div>
-    <div
-      class="smallSpacer_1y6xiyp"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -571,17 +382,14 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -611,42 +419,33 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         />
       </div>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -656,82 +455,25 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -741,82 +483,25 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -826,92 +511,37 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
       </ul>
-      <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
-        href="javascript:void(0)"
+      <button
+        aria-disabled="false"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        type="button"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
+        <span
+          class="add-answer-content"
         >
-          <path
-            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-            fill="currentColor"
+          <span
+            aria-hidden="true"
+            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-        </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
-        Add an answer choice
-      </a>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
+        </span>
+      </button>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -1038,15 +668,17 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
 
 exports[`label-image-editor popover direction snapshots should render with NONE popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1058,13 +690,10 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -1076,9 +705,6 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         </button>
       </div>
     </div>
-    <div
-      class="smallSpacer_1y6xiyp"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -1089,17 +715,14 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         value="Test image alt text"
       />
     </form>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1129,42 +752,33 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         />
       </div>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1174,82 +788,25 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1259,82 +816,25 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1344,92 +844,37 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
       </ul>
-      <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
-        href="javascript:void(0)"
+      <button
+        aria-disabled="false"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        type="button"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
+        <span
+          class="add-answer-content"
         >
-          <path
-            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-            fill="currentColor"
+          <span
+            aria-hidden="true"
+            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-        </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
-        Add an answer choice
-      </a>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
+        </span>
+      </button>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -1556,15 +1001,17 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
 
 exports[`label-image-editor popover direction snapshots should render with RIGHT popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -1576,13 +1023,10 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -1594,9 +1038,6 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         </button>
       </div>
     </div>
-    <div
-      class="smallSpacer_1y6xiyp"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -1607,17 +1048,14 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         value="Test image alt text"
       />
     </form>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1647,42 +1085,33 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         />
       </div>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1692,82 +1121,25 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1777,82 +1149,25 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -1862,92 +1177,37 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
       </ul>
-      <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
-        href="javascript:void(0)"
+      <button
+        aria-disabled="false"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        type="button"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
+        <span
+          class="add-answer-content"
         >
-          <path
-            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-            fill="currentColor"
+          <span
+            aria-hidden="true"
+            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-        </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
-        Add an answer choice
-      </a>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
+        </span>
+      </button>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >
@@ -2074,15 +1334,17 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
 
 exports[`label-image-editor popover direction snapshots should render with UP popover direction 1`] = `
 <div>
-  <div>
+  <div
+    class="editor"
+  >
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Image
-      </div>
+      </span>
       <div
-        class="components_jro6t0"
+        class="image-row"
       >
         <form
           class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
@@ -2094,13 +1356,10 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             value="https://example.com/test-image.png"
           />
         </form>
-        <div
-          class="spacer_1ciyl4o"
-        />
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-btn_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
           data-kind="primary"
           type="button"
         >
@@ -2112,9 +1371,6 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         </button>
       </div>
     </div>
-    <div
-      class="smallSpacer_1y6xiyp"
-    />
     <form
       class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
@@ -2125,17 +1381,14 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         value="Test image alt text"
       />
     </form>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Markers
-      </div>
+      </span>
       <div
-        class="subtitle_1w3vbu2"
+        class="subtitle_1l9172p"
       >
         <span>
           Double-click on the image to add a marker.
@@ -2165,42 +1418,33 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         />
       </div>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title_dt6zj3"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Answer Choices
-      </div>
+      </span>
       <ul
-        class="answers_9pyl0r"
+        class="answers"
       >
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2210,82 +1454,25 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 1"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2295,82 +1482,25 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 2"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
         <li
-          class="answer_1tougex"
+          class="answer"
         >
-          <a
-            class="link_dwmetq"
-            href="javascript:void(0)"
+          <button
+            aria-disabled="false"
+            aria-label="Remove answer"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            type="button"
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="24"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+            <span
+              class="remove-button-content"
             >
-              <path
-                d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-5-9a1 1 0 0 1 0-2h10a1 1 0 0 1 0 2H7z"
-                fill="#D92916"
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
               />
-            </svg>
-          </a>
-          <div
-            class="spacer_1ciyl4o"
-          />
+            </span>
+          </button>
           <form
             class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
@@ -2380,92 +1510,37 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               value="Choice 3"
             />
           </form>
-          <div
-            class="spacer_1ciyl4o"
-          />
-          <a
-            class="link_dwmetq-o_O-disabled_14ak7oz"
-            href="javascript:void(0)"
-            title="Answer reordering is not implemented."
-          >
-            <svg
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <filter
-                filterUnits="objectBoundingBox"
-                height="116.7%"
-                id="draggable-grip-shadow"
-                width="112.5%"
-                x="-6.2%"
-                y="-8.3%"
-              >
-                <fegaussianblur
-                  in="SourceAlpha"
-                  result="shadowBlurInner"
-                  stdDeviation=".5"
-                />
-                <feoffset
-                  dy="1"
-                  in="shadowBlurInner"
-                  result="shadowOffsetInner"
-                />
-                <fecomposite
-                  in="shadowOffsetInner"
-                  in2="SourceAlpha"
-                  k2="-1"
-                  k3="1"
-                  operator="arithmetic"
-                  result="shadowInnerInner"
-                />
-                <fecolormatrix
-                  in="shadowInnerInner"
-                  values="0 0 0 0 0.129411765 0 0 0 0 0.141176471 0 0 0 0 0.17254902 0 0 0 0.2 0"
-                />
-              </filter>
-              <path
-                d="M1 4a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1zm0 10a1 1 0 0 1 0-2h14a1 1 0 0 1 0 2H1zm0-5a1 1 0 1 1 0-2h14a1 1 0 0 1 0 2H1z"
-                fill="#21242C"
-                filter="url(#draggable-grip-shadow)"
-              />
-            </svg>
-          </a>
         </li>
       </ul>
-      <a
-        class="link_dwmetq addAnswer_1mmlluv-o_O-addAnswer_1uy1atb"
-        href="javascript:void(0)"
+      <button
+        aria-disabled="false"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        type="button"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          height="24"
-          role="img"
-          viewBox="0 0 24 24"
-          width="24"
+        <span
+          class="add-answer-content"
         >
-          <path
-            d="M11 11V7a1 1 0 0 1 2 0v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4zm1 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-            fill="currentColor"
+          <span
+            aria-hidden="true"
+            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
           />
-        </svg>
-        <div
-          class="spacer_1ciyl4o"
-        />
-        Add an answer choice
-      </a>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+          >
+            Add an answer choice
+          </span>
+        </span>
+      </button>
     </div>
-    <div
-      class="largeSpacer_xwkmkn"
-    />
     <div>
-      <div
-        class="title"
+      <span
+        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
       >
         Behavior
-      </div>
-      <ul>
+      </span>
+      <ul
+        class="options-list"
+      >
         <li
           class="option"
         >

@@ -24,12 +24,13 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <div
-          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+          class="perseus-widget-container perseus-widget__definition widget-inline"
         >
           <button
             aria-controls=":r0:"
             aria-expanded="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            aria-label="Definition of: the Pequots"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
             id=":r0:-anchor"
             type="button"
           >
@@ -71,12 +72,13 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <div
-          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+          class="perseus-widget-container perseus-widget__definition widget-inline"
         >
           <button
             aria-controls=":r2:"
             aria-expanded="true"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            aria-label="Definition of: the Pequots"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
             id=":r2:-anchor"
             type="button"
           >

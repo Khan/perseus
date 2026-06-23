@@ -360,7 +360,12 @@ export const ItemExtras = [
      */
     "periodicTableWithKey",
 ] as const;
-export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
+
+export type CalculatorVariant = "scientific" | "graphing" | "four_function";
+
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean> & {
+    calculatorVariant: CalculatorVariant | null;
+};
 
 /**
  * The type representing the common structure of all widget's options. The
@@ -537,9 +542,6 @@ export type PerseusCategorizerWidgetOptions = {
      * the category. e.g. [0, 1, 0, 1, 2]
      */
     values: number[];
-    /** Whether we should highlight i18n linter errors found on this widget */
-    // TODO(benchristel): highlightLint doesn't seem to be used. Delete it.
-    highlightLint?: boolean;
 };
 
 /** Options for the definition widget. Reveals a definition on click. */
@@ -788,23 +790,28 @@ export type GrapherAnswerTypes =
           coords: null | [Coord, Coord];
       };
 
+/** The functions that can be graphed in a Grapher widget */
+export type GrapherFunctionType =
+    | "absolute_value"
+    | "exponential"
+    | "linear"
+    | "logarithm"
+    | "quadratic"
+    | "sinusoid"
+    | "tangent";
+
 /**
  * Options for the Grapher widget. Defines the available function
  * types, the correct answer, and the visual graph configuration.
  */
 export type PerseusGrapherWidgetOptions = {
     /** The set of function types the learner can choose from when plotting. */
-    availableTypes: Array<
-        | "absolute_value"
-        | "exponential"
-        | "linear"
-        | "logarithm"
-        | "quadratic"
-        | "sinusoid"
-        | "tangent"
-    >;
-    /** The correct answer; used to score the learner's plotted function. */
-    correct: GrapherAnswerTypes;
+    availableTypes: GrapherFunctionType[];
+    /**
+     * The correct answer; used to score the learner's plotted function.
+     * Undefined in answerless data.
+     */
+    correct?: GrapherAnswerTypes;
     /** Visual configuration for the coordinate plane. */
     graph: {
         /** An optional background image displayed behind the graph. */
@@ -990,8 +997,6 @@ export const lockedFigureColorNames = [
     "purple",
     "pink",
     "red",
-    // deprecated
-    "orange",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
@@ -1004,9 +1009,6 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     pink: "var(--wb-semanticColor-learning-math-foreground-pink)",
     purple: "var(--wb-semanticColor-learning-math-foreground-purple)",
     red: "var(--wb-semanticColor-learning-math-foreground-red)",
-    // Deprecated: "orange" is the old name for the current "gold" color.
-    // We still have to support this in existing content.
-    orange: "var(--wb-semanticColor-learning-math-foreground-gold)",
 } as const;
 
 export type StrokeWeight = "thin" | "medium" | "thick";
@@ -1162,6 +1164,8 @@ export type PerseusGraphTypeAngle = {
     startCoords?: [Coord, Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string, string];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeCircle = {
@@ -1175,6 +1179,8 @@ export type PerseusGraphTypeCircle = {
     };
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeLinear = {
@@ -1185,6 +1191,8 @@ export type PerseusGraphTypeLinear = {
     startCoords?: CollinearTuple;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeLinearSystem = {
@@ -1195,6 +1203,8 @@ export type PerseusGraphTypeLinearSystem = {
     startCoords?: CollinearTuple[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeNone = {
@@ -1215,6 +1225,8 @@ export type PerseusGraphTypePoint = {
     coord?: Coord;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypePolygon = {
@@ -1234,6 +1246,8 @@ export type PerseusGraphTypePolygon = {
     startCoords?: Coord[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeQuadratic = {
@@ -1244,6 +1258,8 @@ export type PerseusGraphTypeQuadratic = {
     startCoords?: [Coord, Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string, string];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeSegment = {
@@ -1259,32 +1275,38 @@ export type PerseusGraphTypeSegment = {
     startCoords?: CollinearTuple[];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     /** Expects a list of 2 Coords */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /** The initial coordinates the graph renders with. */
-    startCoords?: Coord[];
+    startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeTangent = {
     type: "tangent";
     // Expects a list of 2 Coords
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     // The initial coordinates the graph renders with.
-    startCoords?: Coord[];
+    startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeExponential = {
     type: "exponential";
     /** Two points along the exponential curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The y-value of the horizontal asymptote (the line y = asymptote).
      * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
@@ -1294,12 +1316,14 @@ export type PerseusGraphTypeExponential = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeLogarithm = {
     type: "logarithm";
     /** Two points along the logarithmic curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The x-value of the vertical asymptote (the line x = asymptote).
      * The curve is defined on only one side of this line.
@@ -1309,6 +1333,8 @@ export type PerseusGraphTypeLogarithm = {
     startCoords?: {coords: [Coord, Coord]; asymptote: number};
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: string[];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeAbsoluteValue = {
@@ -1319,6 +1345,8 @@ export type PerseusGraphTypeAbsoluteValue = {
     startCoords?: [Coord, Coord];
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeRay = {
@@ -1329,6 +1357,8 @@ export type PerseusGraphTypeRay = {
     startCoords?: CollinearTuple;
     /** Custom label for each interactive point that will help with the screen reader. */
     pointLabels?: [string, string];
+    /** Opt-in: render a visible label next to each interactive point. */
+    showPointLabels?: boolean;
 };
 
 export type PerseusGraphTypeVector = {

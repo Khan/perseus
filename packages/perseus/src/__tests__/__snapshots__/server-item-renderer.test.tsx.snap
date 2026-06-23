@@ -36,17 +36,17 @@ exports[`server item renderer should snapshot: initial render 1`] = `
             </span>
              in the box: 
             <div
-              class="perseus-widget-container widget-nohighlight widget-block"
+              class="perseus-widget-container widget-block"
             >
               <div
-                class="default_xu2jcg-o_O-widgetContainer_137u7ef"
+                class="default_7zhre1-o_O-widgetContainer_137u7ef"
               >
                 <input
                   aria-disabled="false"
                   aria-invalid="false"
                   aria-label="Mock Widget"
                   aria-required="false"
-                  class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8"
+                  class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
                   id="mock-widget 1"
                   type="text"
                   value=""

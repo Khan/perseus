@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "32.1.0",
+    "version": "33.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -20,10 +20,10 @@
     "source": "src/index.ts",
     "exports": {
         ".": {
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "source": "./src/index.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js"
         },
         "./styles.css": "./dist/index.css"
     },
@@ -51,6 +51,7 @@
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-badge": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
@@ -83,6 +84,7 @@
     "peerDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-badge": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:peerDeps",
@@ -112,6 +114,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "250b26c40e93a54a"
+        "catalogHash": "6cc1eef6c5c59c5b"
     }
 }

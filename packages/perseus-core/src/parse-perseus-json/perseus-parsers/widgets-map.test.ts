@@ -1,7 +1,11 @@
 import {
     generateDefinitionOptions,
     generateDefinitionWidget,
+    // Tests are fine to import, main files aren't
+    // eslint-disable-next-line import/no-restricted-paths
 } from "../../utils/generators/definition-widget-generator";
+// Tests are fine to import, main files aren't
+// eslint-disable-next-line import/no-restricted-paths
 import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
@@ -9,6 +13,8 @@ import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
+// Tests are fine to import, main files aren't
+// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusWidgetsMap} from "../../data-schema";
 
 describe("parseWidgetsMap", () => {
@@ -495,7 +501,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "measurer 1": {
                 type: "measurer",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     image: {},
                     showProtractor: false,

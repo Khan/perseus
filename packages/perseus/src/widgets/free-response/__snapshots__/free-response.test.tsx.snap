@@ -13,24 +13,24 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_lci7r free-response"
+            class="default_7zhre1-o_O-container_lci7r free-response"
           >
             <div
-              class="default_xu2jcg"
+              class="default_7zhre1"
             >
               <div
-                class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
+                class="default_7zhre1-o_O-labelContainer_1qlbwdv"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
                   for=":r2:-labeled-field-field"
                   id=":r2:-labeled-field-label"
                 >
                   <div
-                    class="default_xu2jcg free-response-question"
+                    class="default_7zhre1 free-response-question"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -50,19 +50,19 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 </label>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+                class="default_7zhre1-o_O-inlineStyles_zdxht7"
               >
                 <textarea
                   aria-describedby=":r2:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
+                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
               </div>
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingAboveHelperText_gnlkey"
                 id=":r2:-labeled-field-additional-helper-message"
               >
                 <p
@@ -74,7 +74,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
+                class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r2:-labeled-field-error"
               />
             </div>
@@ -99,24 +99,24 @@ exports[`free-response widget should snapshot: first render 1`] = `
         class="paragraph"
       >
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_lci7r free-response"
+            class="default_7zhre1-o_O-container_lci7r free-response"
           >
             <div
-              class="default_xu2jcg"
+              class="default_7zhre1"
             >
               <div
-                class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
+                class="default_7zhre1-o_O-labelContainer_1qlbwdv"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
                   for=":r0:-labeled-field-field"
                   id=":r0:-labeled-field-label"
                 >
                   <div
-                    class="default_xu2jcg free-response-question"
+                    class="default_7zhre1 free-response-question"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -136,19 +136,19 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 </label>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+                class="default_7zhre1-o_O-inlineStyles_zdxht7"
               >
                 <textarea
                   aria-describedby=":r0:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n-o_O-inlineStyles_sdsn9f"
+                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
               </div>
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_1lvpu48-o_O-spacingAboveHelperText_gnlkey"
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingAboveHelperText_gnlkey"
                 id=":r0:-labeled-field-additional-helper-message"
               >
                 <p
@@ -160,7 +160,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
+                class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r0:-labeled-field-error"
               />
             </div>

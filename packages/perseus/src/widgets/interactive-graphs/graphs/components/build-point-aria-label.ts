@@ -11,8 +11,7 @@ export function resolvePointLabel(
     index: number,
 ): string | number {
     const customLabel = pointLabels?.[index];
-    // Fall back to the numeric default if a non-string slips past the parser.
-    if (typeof customLabel !== "string" || !customLabel) {
+    if (!customLabel) {
         // Convert from a 0-indexed array position to the 1-indexed sequence
         // number screen readers announce (index 0 → "Point 1", etc.).
         return index + 1;
@@ -26,9 +25,11 @@ export function resolvePointLabel(
  * is set so callers can fall back to the default label (e.g. "Point 1",
  * "Point 2", ...) built by `useControlPoint`.
  *
- * TODO(LEMS-3995): Prefer the `usePointAriaLabel` hook below in new code.
- * Existing callers in `polygon.tsx`, `point.tsx`, `ray.tsx`, and `linear.tsx`
- * should migrate to the hook in a follow-up PR.
+ * Prefer `usePointAriaLabel` in React components — it binds `strings` and
+ * `locale` from `usePerseusI18n()` so call sites read `buildLabel(i, point)`.
+ * Use `buildPointAriaLabel` directly only from non-React functions (e.g.
+ * graph-description helpers) that already receive `strings` / `locale` as
+ * parameters and therefore can't use a hook.
  */
 export function buildPointAriaLabel(
     pointLabels: ReadonlyArray<string> | undefined,

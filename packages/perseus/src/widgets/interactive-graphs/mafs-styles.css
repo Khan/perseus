@@ -266,7 +266,7 @@
 
 .MafsView .movable-arrowhead-center {
     stroke: var(--movable-arrowhead-color);
-    stroke-width: 2px;
+    stroke-width: var(--wb-sizing-size_040);
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%; /* scale from the tip */

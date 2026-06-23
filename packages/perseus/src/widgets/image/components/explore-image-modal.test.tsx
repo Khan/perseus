@@ -5,13 +5,12 @@ import * as React from "react";
 import * as Dependencies from "../../../dependencies";
 import {DependenciesContext} from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {mockImageLoading} from "../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {earthMoonImage, gifImage} from "../utils";
+import {earthMoonImage, animatedGifLandscape} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
@@ -53,13 +52,6 @@ const defaultProps = {
     apiOptions: ApiOptions.defaults,
     isGifPlaying: false,
     setIsGifPlaying: () => {},
-};
-
-const apiOptionsWithGifControls = {
-    ...ApiOptions.defaults,
-    flags: getFeatureFlags({
-        "image-widget-upgrade-gif-controls": true,
-    }),
 };
 
 describe("ExploreImageModal", () => {
@@ -271,8 +263,7 @@ describe("ExploreImageModal", () => {
             // Arrange, Act
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithGifControls,
+                backgroundImage: animatedGifLandscape,
             });
 
             // Assert
@@ -305,8 +296,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithGifControls,
+                backgroundImage: animatedGifLandscape,
             });
 
             // Act — the modal starts paused, so click Play first
@@ -326,9 +316,8 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
+                backgroundImage: animatedGifLandscape,
                 isGifPlaying: false,
-                apiOptions: apiOptionsWithGifControls,
             });
 
             // Act
@@ -344,8 +333,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithGifControls,
+                backgroundImage: animatedGifLandscape,
             });
 
             // Act — modal starts paused, click Play
@@ -364,8 +352,7 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithGifControls,
+                backgroundImage: animatedGifLandscape,
             });
 
             // Act — click Play then Pause
@@ -380,58 +367,6 @@ describe("ExploreImageModal", () => {
             expect(
                 screen.getByRole("button", {name: "Play Animation"}),
             ).toBeVisible();
-        });
-    });
-
-    describe("flags", () => {
-        it("should render gif controls when the feature flag is enabled", () => {
-            // Arrange
-
-            const apiOptionsWithFeatureFlag = {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": true,
-                }),
-            };
-
-            renderModal({
-                ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithFeatureFlag,
-            });
-
-            // Assert
-            const playButton = screen.getByRole("button", {
-                name: "Play Animation",
-            });
-            expect(playButton).toBeVisible();
-        });
-
-        it("should not render gif controls when the feature flag is disabled", () => {
-            // Arrange
-
-            const apiOptionsWithFeatureFlag = {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "image-widget-upgrade-gif-controls": false,
-                }),
-            };
-
-            renderModal({
-                ...defaultProps,
-                backgroundImage: gifImage,
-                apiOptions: apiOptionsWithFeatureFlag,
-            });
-
-            // Assert
-            const playButton = screen.queryByRole("button", {
-                name: "Play Animation",
-            });
-            const pauseButton = screen.queryByRole("button", {
-                name: "Pause Animation",
-            });
-            expect(playButton).not.toBeInTheDocument();
-            expect(pauseButton).not.toBeInTheDocument();
         });
     });
 });

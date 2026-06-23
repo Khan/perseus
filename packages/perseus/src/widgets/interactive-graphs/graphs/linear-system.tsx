@@ -42,6 +42,8 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const intersectionId = `${id}-intersection`;
+    // pointLabels is flat across both lines:
+    // [line0Start, line0End, line1Start, line1End].
     const buildLabel = usePointAriaLabel(pointLabels);
 
     const intersectionPoint = geometry.getLineIntersection(lines[0], lines[1]);

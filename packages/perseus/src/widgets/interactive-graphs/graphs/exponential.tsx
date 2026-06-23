@@ -11,6 +11,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 import {boundToEdgeAndSnapToGrid} from "../utils";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
@@ -23,6 +24,7 @@ import {
     skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
+import type {PerseusStrings} from "../../../strings";
 import type {
     ExponentialGraphState,
     MafsGraphProps,
@@ -55,7 +57,8 @@ function ExponentialGraph(props: ExponentialGraphProps) {
     const id = React.useId();
     const descriptionId = id + "-description";
 
-    const {coords, asymptote, snapStep} = graphState;
+    const {coords, pointLabels, asymptote, snapStep} = graphState;
+    const buildLabel = usePointAriaLabel(pointLabels);
 
     // When the asymptote sits between the two points there is no valid
     // exponential that fits — coeffs will be undefined, and we skip
@@ -135,7 +138,8 @@ function ExponentialGraph(props: ExponentialGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
-                        i === 0 ? srExponentialPoint1 : srExponentialPoint2
+                        buildLabel(i, coord) ??
+                        (i === 0 ? srExponentialPoint1 : srExponentialPoint2)
                     }
                     key={"point-" + i}
                     point={coord}
@@ -217,6 +221,16 @@ function getExponentialDescription(
     return strings.srExponentialInteractiveElements;
 }
 
+// The formatted point coordinates and asymptote value shared across the
+// exponential description string templates.
+type ExponentialDescriptionArgs = {
+    point1X: string;
+    point1Y: string;
+    point2X: string;
+    point2Y: string;
+    asymptoteY: string;
+};
+
 function describeExponentialGraph(
     state: ExponentialGraphState,
     i18n: I18nContextType,
@@ -235,28 +249,85 @@ function describeExponentialGraph(
     };
     const asymptoteYFormatted = srFormatNumber(asymptote, locale);
 
+    // coeffs is undefined when the asymptote sits between the two points and
+    // no valid exponential fits — the description falls back to a plain sentence.
+    const coeffs = getExponentialCoefficients(coords, asymptote);
+    const descriptionArgs: ExponentialDescriptionArgs = {
+        point1X: formattedPoint1.x,
+        point1Y: formattedPoint1.y,
+        point2X: formattedPoint2.x,
+        point2Y: formattedPoint2.y,
+        asymptoteY: asymptoteYFormatted,
+    };
+
     return {
         srExponentialGraph: strings.srExponentialGraph,
-        srExponentialDescription: strings.srExponentialDescription({
-            point1X: formattedPoint1.x,
-            point1Y: formattedPoint1.y,
-            point2X: formattedPoint2.x,
-            point2Y: formattedPoint2.y,
-            asymptoteY: asymptoteYFormatted,
-        }),
+        srExponentialDescription: buildExponentialDescription(
+            coeffs,
+            descriptionArgs,
+            strings,
+            locale,
+        ),
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
-        srExponentialPoint1: strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2: strings.srExponentialPoint2(formattedPoint2),
+        // When no curve is plotted, drop the "on an exponential curve"
+        // phrasing in favor of plain point coordinates.
+        srExponentialPoint1:
+            coeffs === undefined
+                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
+                : strings.srExponentialPoint1(formattedPoint1),
+        srExponentialPoint2:
+            coeffs === undefined
+                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
+                : strings.srExponentialPoint2(formattedPoint2),
         srExponentialInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srExponentialInteractiveElements({
-                point1X: srFormatNumber(point1[X], locale),
-                point1Y: srFormatNumber(point1[Y], locale),
-                point2X: srFormatNumber(point2[X], locale),
-                point2Y: srFormatNumber(point2[Y], locale),
-                asymptoteY: asymptoteYFormatted,
-            }),
+            elements: strings.srExponentialInteractiveElements(descriptionArgs),
         }),
     };
+}
+
+function buildExponentialDescription(
+    coeffs: ExponentialCoefficient | undefined,
+    args: ExponentialDescriptionArgs,
+    strings: PerseusStrings,
+    locale: string,
+): string {
+    // No exponential fits these points (e.g. the asymptote sits between them),
+    // so no curve is plotted.
+    if (coeffs === undefined) {
+        return strings.srExponentialNoCurve(args);
+    }
+
+    const {a, b, c} = coeffs;
+
+    // The directional sentence describes the flat tail running along the
+    // asymptote (where e^(b*x) -> 0): a positive b trails toward negative
+    // infinity (paired with "from the right"); a negative b trails toward
+    // positive infinity (paired with "from the left"). Both halves track
+    // sign(b), so only these two sentences occur.
+    const base =
+        b < 0
+            ? strings.srExponentialDescriptionLeftPos(args)
+            : strings.srExponentialDescriptionRightNeg(args);
+
+    // f(x) - c = a*e^(b*x) is always sign(a), so the curve sits entirely
+    // above (a > 0) or below (a < 0) the asymptote.
+    const position =
+        a > 0
+            ? strings.srExponentialAboveAsymptote
+            : strings.srExponentialBelowAsymptote;
+
+    // The y-intercept always exists; the x-intercept only when -c/a > 0.
+    const yIntercept = srFormatNumber(a + c, locale);
+    const ratio = -c / a;
+    const intercepts =
+        ratio > 0
+            ? strings.srExponentialIntercepts({
+                  xIntercept: srFormatNumber(Math.log(ratio) / b, locale),
+                  yIntercept,
+              })
+            : strings.srExponentialYIntercept({yIntercept});
+
+    return `${base} ${position} ${intercepts}`;
 }

@@ -12,8 +12,6 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -22,6 +20,7 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
 import AxisTickSwitches from "./axis-tick-switches";
+import styles from "./interactive-graph-settings.module.css";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
@@ -48,7 +47,7 @@ function numSteps(range: any, step: any) {
 
 type Range = [min: number, max: number];
 
-type Props = {
+interface Props {
     /**
      * The size of the graph area in pixels.
      */
@@ -119,9 +118,9 @@ type Props = {
     onChange: (arg1: Partial<Props>) => void;
 
     apiOptions: APIOptionsWithDefaults;
-};
+}
 
-type State = {
+interface State {
     isExpanded: boolean;
     labelsTextbox: ReadonlyArray<string>;
     labelLocation: AxisLabelLocation;
@@ -132,7 +131,7 @@ type State = {
     showAxisArrowsSwitches: ShowAxisArrows;
     showAxisTicksSwitches: ShowAxisTicks;
     backgroundImage: PerseusImageBackground;
-};
+}
 
 class InteractiveGraphSettings extends React.Component<Props, State> {
     _isMounted = false;
@@ -538,6 +537,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     render() {
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <>
                 <Heading
@@ -567,6 +567,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             },
                                         ]}
                                         onChange={this.change("labelLocation")}
+                                        disabled={editingDisabled}
                                     />
                                 </LabeledRow>
                             </div>
@@ -685,6 +686,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         onClick={() => {
                                             this.changeStepsBasedOnRange();
                                         }}
+                                        disabled={editingDisabled}
                                     >
                                         Auto-adjust steps
                                     </Button>
@@ -706,7 +708,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 </div>
                             </div>
                             <div className="perseus-widget-row">
-                                <LabeledRow label="Markings:">
+                                <LabeledRow label="Markings">
                                     <ButtonGroup
                                         value={this.props.markings}
                                         allowEmpty={false}
@@ -717,6 +719,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             {value: "none", content: "None"},
                                         ]}
                                         onChange={this.change("markings")}
+                                        disabled={editingDisabled}
                                     />
                                 </LabeledRow>
                             </div>
@@ -727,17 +730,18 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     onChange={(value) => {
                                         this.change({showTooltips: value});
                                     }}
+                                    disabled={editingDisabled}
                                 />
                             </div>
                         </div>
 
                         <LabeledRow
-                            label="Background image URL:"
-                            style={styles.resetSpaceTop}
+                            label="Background image URL"
+                            style={{marginTop: 0}}
                         >
                             <input
                                 type="text"
-                                className={css(styles.backgroundUrlInput)}
+                                className={styles.backgroundUrlInput}
                                 ref={this.bgUrlRef}
                                 value={this.state.backgroundImage.url || ""}
                                 onChange={(e) => {
@@ -760,15 +764,16 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             </InfoTip>
                         </LabeledRow>
 
-                        <View style={styles.protractorSection}>
-                            <View style={styles.checkboxRow}>
+                        <View className={styles.protractorSection}>
+                            <View className={styles.checkboxRow}>
                                 <Checkbox
                                     label="Show protractor"
                                     checked={this.props.showProtractor}
                                     onChange={(value) => {
                                         this.change({showProtractor: value});
                                     }}
-                                    style={styles.resetSpaceTop}
+                                    disabled={editingDisabled}
+                                    style={{marginTop: 0}}
                                 />
                             </View>
                             {this.props.showProtractor && (
@@ -784,29 +789,5 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    resetSpaceTop: {
-        marginTop: 0,
-    },
-    backgroundUrlInput: {
-        border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-        borderRadius: spacing.xxxSmall_4,
-        padding: spacing.xxxSmall_4,
-    },
-    checkboxRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: spacing.xSmall_8,
-    },
-    protractorSection: {
-        marginTop: spacing.xSmall_8,
-        borderTop: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-        paddingTop: spacing.xSmall_8,
-        paddingBottom: spacing.xSmall_8,
-        borderBottom: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-    },
-});
 
 export default InteractiveGraphSettings;

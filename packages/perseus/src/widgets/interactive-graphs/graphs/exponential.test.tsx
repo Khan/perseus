@@ -8,13 +8,13 @@ import {getBaseMafsGraphPropsForTests} from "../utils";
 
 import {getExponentialKeyboardConstraint} from "./exponential";
 
-import type {InteractiveGraphState} from "../types";
+import type {ExponentialGraphState} from "../types";
 import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
 // Curve above asymptote: f(0)=3, f(1)=6, asymptote y=1
-const baseExponentialState: InteractiveGraphState = {
+const baseExponentialState: ExponentialGraphState = {
     type: "exponential",
     coords: [
         [0, 3],
@@ -29,6 +29,17 @@ const baseExponentialState: InteractiveGraphState = {
     snapStep: [1, 1],
 };
 
+// Renders the exponential graph from the base state, applying any overrides
+// (e.g. coords/asymptote/pointLabels) for the case under test.
+function renderExponentialGraph(overrides?: Partial<ExponentialGraphState>) {
+    return render(
+        <MafsGraph
+            {...baseMafsGraphProps}
+            state={{...baseExponentialState, ...overrides}}
+        />,
+    );
+}
+
 describe("Exponential graph screen reader", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -38,9 +49,7 @@ describe("Exponential graph screen reader", () => {
 
     it("has the correct aria-label on the graph element", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -52,47 +61,43 @@ describe("Exponential graph screen reader", () => {
 
     it("labels point 1 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
     });
 
     it("labels point 2 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Point 2 at 1 comma 6."}),
-        ).toBeInTheDocument();
-    });
-
-    it("labels the asymptote with its y-value and keyboard instructions", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Horizontal asymptote at y equals 1. Use up and down arrow keys to move.",
+                name: "Point 2 on an exponential curve at 1 comma 6.",
             }),
         ).toBeInTheDocument();
     });
 
-    it("describes the graph with point positions and asymptote", () => {
+    it("labels the asymptote with its y-value", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Horizontal asymptote at y equals 1",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("describes the curve's behavior, asymptote, and intercepts", () => {
+        // Arrange, Act
+        renderExponentialGraph();
 
         // Assert
         expect(
@@ -100,24 +105,18 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals 1.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals 1 from the right and extends to negative infinity. The curve lies above the asymptote. The y-intercept is at 0 comma 3.",
         );
     });
 
     it("updates the graph description when point positions change", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [-2, 4],
-                        [2, 8],
-                    ],
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            coords: [
+                [-2, 4],
+                [2, 8],
+            ],
+        });
 
         // Assert
         expect(
@@ -125,21 +124,13 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point -2 comma 4 and point 2 comma 8 with a horizontal asymptote at y equals 1.",
+            "The curve passes through -2 comma 4 and 2 comma 8 as the curve approaches y equals 1 from the right and extends to negative infinity. The curve lies above the asymptote. The y-intercept is at 0 comma 5.583.",
         );
     });
 
     it("updates the graph description when the asymptote changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    asymptote: -3,
-                }}
-            />,
-        );
+        renderExponentialGraph({asymptote: -3});
 
         // Assert
         expect(
@@ -147,74 +138,164 @@ describe("Exponential graph screen reader", () => {
                 "An exponential curve on a coordinate plane.",
             ),
         ).toHaveAccessibleDescription(
-            "The graph shows an exponential curve passing through point 0 comma 3 and point 1 comma 6 with a horizontal asymptote at y equals -3.",
+            "The curve passes through 0 comma 3 and 1 comma 6 as the curve approaches y equals -3 from the right and extends to negative infinity. The curve lies above the asymptote. The x-intercept is at -1.71 comma 0. The y-intercept is at 0 comma 3.",
+        );
+    });
+
+    it("describes a curve that approaches from the left and lies below the asymptote", () => {
+        // Arrange, Act — decreasing curve (b < 0) sitting below the
+        // asymptote (a < 0). Exercises the LeftPos directional variant and
+        // the "below" clause.
+        renderExponentialGraph({
+            coords: [
+                [0, -2],
+                [2, -0.5],
+            ],
+            asymptote: 0,
+        });
+
+        // Assert
+        expect(
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
+        ).toHaveAccessibleDescription(
+            "The curve passes through 0 comma -2 and 2 comma -0.5 as the curve approaches y equals 0 from the left and extends to positive infinity. The curve lies below the asymptote. The y-intercept is at 0 comma -2.",
         );
     });
 
     it("renders without crashing when the asymptote sits between the curve points", () => {
         // Arrange, Act — asymptote y=4 sits between points at y=3 and y=6.
         // There is no exponential curve that fits, so the Plot.OfX is skipped.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [0, 3],
-                        [1, 6],
-                    ],
-                    asymptote: 4,
-                }}
-            />,
-        );
+        renderExponentialGraph({asymptote: 4});
 
-        // Assert — asymptote + both points still rendered
+        // Assert — asymptote still rendered, and the points drop the
+        // "on an exponential curve" phrasing since no curve is plotted.
         expect(
             screen.getByRole("button", {name: /Horizontal asymptote/}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 1/}),
+            screen.getByRole("button", {name: "Point 1 at 0 comma 3."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 2/}),
+            screen.getByRole("button", {name: "Point 2 at 1 comma 6."}),
         ).toBeInTheDocument();
+    });
+
+    it("describes the no-curve case when the asymptote sits between the points", () => {
+        // Arrange, Act — asymptote y=4 falls between points at y=3 and y=6,
+        // so no exponential fits and nothing is plotted.
+        renderExponentialGraph({asymptote: 4});
+
+        // Assert
+        expect(
+            screen.getByLabelText(
+                "An exponential curve on a coordinate plane.",
+            ),
+        ).toHaveAccessibleDescription(
+            "No exponential curve can be drawn through 0 comma 3 and 1 comma 6 with a horizontal asymptote at y equals 4. Move both points to the same side of the asymptote to draw the curve.",
+        );
     });
 
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseExponentialState} />,
-        );
+        renderExponentialGraph();
 
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Exponential graph with point 1 at 0 comma 3, point 2 at 1 comma 6, and horizontal asymptote at y equals 1.",
+                "Interactive elements: Exponential graph with points at 0 comma 3, 1 comma 6, and a horizontal asymptote at y equals 1.",
             ),
         ).toBeInTheDocument();
     });
 
     it("updates the interactive elements description when state changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseExponentialState,
-                    coords: [
-                        [3, 5],
-                        [4, 7],
-                    ],
-                    asymptote: 2,
-                }}
-            />,
-        );
+        renderExponentialGraph({
+            coords: [
+                [3, 5],
+                [4, 7],
+            ],
+            asymptote: 2,
+        });
 
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Exponential graph with point 1 at 3 comma 5, point 2 at 4 comma 7, and horizontal asymptote at y equals 2.",
+                "Interactive elements: Exponential graph with points at 3 comma 5, 4 comma 7, and a horizontal asymptote at y equals 2.",
             ),
+        ).toBeInTheDocument();
+    });
+});
+
+// TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
+describe("Exponential graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        renderExponentialGraph({pointLabels: ["A", "B"]});
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 3."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default label for indices without a custom label", () => {
+        // Arrange, Act — only the first point is named
+        renderExponentialGraph({pointLabels: ["A"]});
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 3."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point 2 on an exponential curve at 1 comma 6.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    // The editor encodes "only the second point named" as `["", "B"]`.
+    // An empty string at any index must fall back to the default label.
+    it("falls back to the default label for explicit empty-string entries", () => {
+        // Arrange, Act
+        renderExponentialGraph({pointLabels: ["", "B"]});
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        renderExponentialGraph({
+            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+            pointLabels: [42, "B"] as unknown as string[],
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Point 1 on an exponential curve at 0 comma 3.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
         ).toBeInTheDocument();
     });
 });

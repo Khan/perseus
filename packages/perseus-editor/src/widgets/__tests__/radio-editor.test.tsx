@@ -1,6 +1,6 @@
-import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {Dependencies, ApiOptions, Util} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -389,17 +389,7 @@ describe("radio-editor", () => {
             {wrapper: RenderStateRoot},
         );
 
-        /**
-         * This was super annoying to figure out.
-         * When in "edit" mode (which the editor is obviously)
-         * the only way to select an option from the radio
-         * is to click the A/B/C/etc icons themselves.
-         * We have a `elem.getAttribute("data-is-radio-icon")` check
-         * to make sure that what we're clicking is the icon and
-         * not some other part of the radio choice.
-         * It's just a div, hence the test ID.
-         */
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         // switch an incorrect answer into a correct answer
         await userEvent.click(choices[0]);
@@ -412,14 +402,14 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is picked (status badges)", async () => {
+    it("calls onChange when the correct choice is picked", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoices,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[0]);
 
@@ -430,32 +420,14 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is picked (indicator pill)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoices,
-        });
-
-        const choice = screen.getByRole("button", {name: "A"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                choices: fourChoicesWithFirstCorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the correct choice is changed (status badges)", async () => {
+    it("calls onChange when the correct choice is changed", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[1]);
 
@@ -467,58 +439,20 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is changed (indicator pill)", async () => {
+    it("calls onChange when the previously correct choice is marked wrong", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: fourChoicesWithFirstCorrect,
         });
 
-        const choice = screen.getByRole("button", {name: "B"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                // Automatically change the previous correct choice to incorrect
-                choices: fourChoicesWithSecondCorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the previously correct choice is marked wrong (status badges)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoicesWithFirstCorrect,
-        });
-
-        const choices = screen.getAllByRole("button", {name: "Incorrect"});
+        const choices = screen.getAllByRole("radio", {name: "Incorrect"});
 
         await userEvent.click(choices[0]);
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 // All choices are now incorrect
-                choices: fourChoicesWithAllIncorrect,
-            }),
-        );
-    });
-
-    it("calls onChange when the previously correct choice is marked wrong (indicator pill)", async () => {
-        const onChangeMock = jest.fn();
-
-        renderRadioEditor(onChangeMock, {
-            choices: fourChoicesWithFirstCorrect,
-        });
-
-        const choice = screen.getByRole("button", {name: "A"});
-
-        await userEvent.click(choice);
-
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                // All choices are now incorrect.
                 choices: fourChoicesWithAllIncorrect,
             }),
         );
@@ -532,7 +466,7 @@ describe("radio-editor", () => {
             multipleSelect: true,
         });
 
-        const choices = screen.getAllByRole("button", {name: "Correct"});
+        const choices = screen.getAllByRole("radio", {name: "Correct"});
 
         await userEvent.click(choices[1]);
 
@@ -865,7 +799,7 @@ describe("radio-editor", () => {
             expect(contentTextField).toHaveValue("Choice 1\n![Image 1]");
         });
 
-        it("should call onChange when an image is pasted into the content", async () => {
+        it("should add an empty image when the 'Add image' button is clicked", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderRadioEditor(onChangeMock, {
@@ -873,166 +807,15 @@ describe("radio-editor", () => {
             });
 
             // Act
-            const contentTextField = screen.getByRole("textbox", {
-                name: "Content",
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
             });
-            contentTextField.focus();
-            await userEvent.paste("graphie");
+            await userEvent.click(addImageButton);
 
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [
-                        {id: "0-0-0-0-0", content: "Choice 1\n![](graphie)"},
-                    ],
-                }),
-            );
-        });
-
-        /***** Tests for image adder tile *****/
-
-        it("should show the 'Add image' button by default", () => {
-            // Arrange
-
-            // Act - render
-            renderRadioEditor(() => {}, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Assert
-            const addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            expect(addImageButton).toBeInTheDocument();
-        });
-
-        it("should stop showing the 'Add image' button while an image is being added", async () => {
-            // Arrange
-            renderRadioEditor(() => {}, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Act - click the 'Add image' button
-            const addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            await userEvent.click(addImageButton);
-
-            // Assert
-            expect(screen.queryByText("Add image")).not.toBeInTheDocument();
-        });
-
-        it("should remove the tile when the close button is clicked", async () => {
-            // Arrange
-            renderRadioEditor(() => {}, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Act
-            // Click the 'Add image' button to show the tile with
-            // the close button.
-            let addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            await userEvent.click(addImageButton);
-            expect(addImageButton).not.toBeInTheDocument();
-
-            // Click the close button
-            const closeButton = screen.getByRole("button", {name: "Close"});
-            await userEvent.click(closeButton);
-
-            // Assert
-            // Re-find the add image button since it was removed.
-            addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            expect(addImageButton).toBeInTheDocument();
-
-            // Image adding text fields should be removed.
-            const imageUrlInput = screen.queryByRole("textbox", {
-                name: "Image URL",
-            });
-            expect(imageUrlInput).not.toBeInTheDocument();
-
-            const imageAltTextInput = screen.queryByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            expect(imageAltTextInput).not.toBeInTheDocument();
-        });
-
-        it("should stop showing the image adder tile when the image is being added", async () => {
-            // Arrange
-            renderRadioEditor(() => {}, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Act - click the 'Add image' button
-            const addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            await userEvent.click(addImageButton);
-
-            // Assert - Check all the "Add" editor elements are present
-            // Note the "Delete this image" button is not present - that
-            // is only used within the "Edit image" editor accordion.
-            expect(
-                screen.getByRole("button", {name: "Close"}),
-            ).toBeInTheDocument();
-            expect(
-                screen.getByRole("textbox", {name: "Image URL"}),
-            ).toBeInTheDocument();
-            expect(
-                screen.getByRole("textbox", {name: "Image Alt Text"}),
-            ).toBeInTheDocument();
-            expect(
-                screen.getByRole("button", {name: "Save image"}),
-            ).toBeInTheDocument();
-        });
-
-        it("should call onChange when the 'Save image' button is clicked", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderRadioEditor(onChangeMock, {
-                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
-            });
-
-            // Act
-            // Click the 'Add image' button
-            const addImageButton = screen.getByRole("button", {
-                name: "Add image",
-            });
-            await userEvent.click(addImageButton);
-
-            // Fill in the image URL and alt text
-            const imageUrlInput = screen.getByRole("textbox", {
-                name: "Image URL",
-            });
-            await userEvent.type(
-                imageUrlInput,
-                "https://example.com/image.jpg",
-            );
-
-            const imageAltTextInput = screen.getByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            await userEvent.type(imageAltTextInput, "Image alt text");
-
-            // Click the 'Save image' button
-            const saveImageButton = screen.getByRole("button", {
-                name: "Save image",
-            });
-            await userEvent.click(saveImageButton);
-
-            // Assert
-            expect(onChangeMock).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content:
-                                "Choice 1\n![Image alt text](https://example.com/image.jpg)",
-                        },
-                    ],
+                    choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
                 }),
             );
         });
@@ -1061,9 +844,6 @@ describe("radio-editor", () => {
             const imageAltTextInput = screen.getByRole("textbox", {
                 name: "Image Alt Text",
             });
-            const saveImageButton = screen.getByRole("button", {
-                name: "Save image",
-            });
             const deleteImageButton = screen.getByRole("button", {
                 name: "Delete this image",
             });
@@ -1075,7 +855,6 @@ describe("radio-editor", () => {
             expect(accordionHeader).toBeInTheDocument();
             expect(imageUrlInput).toBeInTheDocument();
             expect(imageAltTextInput).toBeInTheDocument();
-            expect(saveImageButton).toBeInTheDocument();
             expect(deleteImageButton).toBeInTheDocument();
         });
 
@@ -1105,9 +884,6 @@ describe("radio-editor", () => {
             const imageAltTextInputs = screen.getAllByRole("textbox", {
                 name: "Image Alt Text",
             });
-            const saveImageButtons = screen.getAllByRole("button", {
-                name: "Save image",
-            });
             const deleteImageButtons = screen.getAllByRole("button", {
                 name: "Delete this image",
             });
@@ -1117,147 +893,180 @@ describe("radio-editor", () => {
             expect(accordionHeader2).toBeInTheDocument();
             expect(imageUrlInputs).toHaveLength(2);
             expect(imageAltTextInputs).toHaveLength(2);
-            expect(saveImageButtons).toHaveLength(2);
             expect(deleteImageButtons).toHaveLength(2);
         });
 
-        it("should disable the 'Save image' button when the image URL and alt text are not changed", async () => {
+        it("should call onChange when the image URL field is blurred", async () => {
             // Arrange
-            renderRadioEditor(() => {}, {
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
+            });
+
+            // Act - type into the image URL field, and tab off of it.
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            imageUrlInput.focus();
+            await userEvent.type(imageUrlInput, "image.png");
+            await userEvent.tab();
+
+            // Assert
+            expect(imageUrlInput).toHaveValue("image.png");
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {id: "0-0-0-0-0", content: "Choice 1\n![](image.png)"},
+                    ],
+                }),
+            );
+        });
+
+        it("should not call onChange while the user is typing in the image URL field", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{id: "0-0-0-0-0", content: "Choice 1\n![]()"}],
+            });
+
+            // Act - type into the image URL field, and don't tab off of it.
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            imageUrlInput.focus();
+            await userEvent.type(imageUrlInput, "image.png");
+
+            // Assert
+            expect(imageUrlInput).toHaveValue("image.png");
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        it("should call onChange when the image alt text is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
                 choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content: "Choice 1\n![Alt](image.jpg)",
-                    },
+                    // empty alt
+                    {id: "0-0-0-0-0", content: "Choice 1\n![](image.jpg)"},
                 ],
             });
 
             // Act
-            const saveImageButton = screen.getByRole("button", {
-                name: "Save image",
+            const imageAltTextInput = screen.getByRole("textbox", {
+                name: "Image Alt Text",
             });
+            imageAltTextInput.focus();
+            await userEvent.paste("New alt text");
 
             // Assert
-            expect(saveImageButton).toHaveAttribute("aria-disabled", "true");
+
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Choice 1\n![New alt text](image.jpg)",
+                        },
+                    ],
+                }),
+            );
         });
 
-        it("should enable the 'Save image' button when the image URL and alt text are changed", async () => {
+        it("fetches the image's dimensions on mount", async () => {
             // Arrange
+            const getImageSizeSpy = jest
+                .spyOn(Util, "getImageSizeModern")
+                .mockResolvedValue([100, 200]);
+
+            // Act
             renderRadioEditor(() => {}, {
                 choices: [
                     {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
                 ],
             });
 
-            // Act
-            const saveImageButton = screen.getByRole("button", {
-                name: "Save image",
-            });
-
-            // Update the image alt text
-            const imageAltTextInput = screen.getByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            await userEvent.type(imageAltTextInput, "Alt2");
-
-            // Assert
-            expect(saveImageButton).toHaveAttribute("aria-disabled", "false");
-        });
-
-        it("should call onChange when the 'Save image' button is clicked", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            renderRadioEditor(onChangeMock, {
-                choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content: "Choice 1\n![Alt1](image1.jpg)",
-                    },
-                ],
-            });
-
-            // Act
-            // Update the image URL and alt text
-            const imageUrlInput = screen.getByRole("textbox", {
-                name: "Image URL",
-            });
-            await userEvent.clear(imageUrlInput);
-            await userEvent.type(imageUrlInput, "image2.jpg");
-
-            const imageAltTextInput = screen.getByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            await userEvent.clear(imageAltTextInput);
-            await userEvent.type(imageAltTextInput, "Alt2");
-
-            // Click the 'Save image' button
-            const saveImageButton = screen.getByRole("button", {
-                name: "Save image",
-            });
-            await userEvent.click(saveImageButton);
-
-            // Assert
-            expect(onChangeMock).toHaveBeenCalledTimes(1);
-            expect(onChangeMock).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    choices: [
-                        {
-                            id: "0-0-0-0-0",
-                            content: "Choice 1\n![Alt2](image2.jpg)",
-                        },
-                    ],
-                }),
+            // Assert - dimensions are fetched for the image's URL so the
+            // preview doesn't overflow its container.
+            await waitFor(() =>
+                expect(getImageSizeSpy).toHaveBeenCalledWith("image.jpg"),
             );
         });
 
-        it("should call onChange when the 'Save image' button is clicked with multiple images in the content", async () => {
+        it("re-fetches the image's dimensions when the image URL changes", async () => {
             // Arrange
-            const onChangeMock = jest.fn();
-            renderRadioEditor(onChangeMock, {
+            const getImageSizeSpy = jest
+                .spyOn(Util, "getImageSizeModern")
+                .mockResolvedValue([100, 200]);
+            const {rerender} = renderRadioEditor(() => {}, {
                 choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content:
-                            "Choice 1\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
-                    },
+                    {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
                 ],
             });
+            await waitFor(() =>
+                expect(getImageSizeSpy).toHaveBeenCalledWith("image.jpg"),
+            );
+            const callsAfterMount = getImageSizeSpy.mock.calls.length;
 
-            // Act
-            // Update the image URL and alt text for the second image
-            const imageUrlInputs = screen.getAllByRole("textbox", {
-                name: "Image URL",
-            });
-            const imageUrlInput2 = imageUrlInputs[1];
-            await userEvent.clear(imageUrlInput2);
-            await userEvent.type(imageUrlInput2, "foo.jpg");
-
-            const imageAltTextInputs = screen.getAllByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            const imageAltTextInput2 = imageAltTextInputs[1];
-            await userEvent.clear(imageAltTextInput2);
-            await userEvent.type(imageAltTextInput2, "bar");
-
-            // Click the 'Save image' button for the second image
-            const saveImageButtons = screen.getAllByRole("button", {
-                name: "Save image",
-            });
-            await userEvent.click(saveImageButtons[1]);
-
-            // Assert
-            expect(onChangeMock).toHaveBeenCalledTimes(1);
-            expect(onChangeMock).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    choices: [
+            // Act - the content updates with a new image URL (same alt text).
+            rerender(
+                <RadioEditor
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    choices={[
                         {
                             id: "0-0-0-0-0",
-                            content:
-                                "Choice 1\n![Alt1](image1.jpg)\n![bar](foo.jpg)",
+                            content: "Choice 1\n![Alt](image2.jpg)",
                         },
-                    ],
-                }),
+                    ]}
+                />,
             );
+
+            // Assert - the new URL triggers a fresh dimension fetch.
+            await waitFor(() =>
+                expect(getImageSizeSpy).toHaveBeenLastCalledWith("image2.jpg"),
+            );
+            expect(getImageSizeSpy.mock.calls.length).toBeGreaterThan(
+                callsAfterMount,
+            );
+        });
+
+        it("does not re-fetch the image's dimensions when only the alt text changes", async () => {
+            // Arrange
+            const getImageSizeSpy = jest
+                .spyOn(Util, "getImageSizeModern")
+                .mockResolvedValue([100, 200]);
+            const {rerender} = renderRadioEditor(() => {}, {
+                choices: [
+                    {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
+                ],
+            });
+            await waitFor(() =>
+                expect(getImageSizeSpy).toHaveBeenCalledWith("image.jpg"),
+            );
+            const callsAfterMount = getImageSizeSpy.mock.calls.length;
+
+            // Act - the content updates with new alt text but the same URL.
+            rerender(
+                <RadioEditor
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    choices={[
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Choice 1\n![New alt](image.jpg)",
+                        },
+                    ]}
+                />,
+            );
+
+            // Confirm the new alt text actually propagated to the editor, so
+            // the negative assertion below is meaningful.
+            expect(
+                screen.getByRole("textbox", {name: "Image Alt Text"}),
+            ).toHaveValue("New alt");
+
+            // Assert - the URL is unchanged, so no new fetch happens.
+            expect(getImageSizeSpy.mock.calls.length).toBe(callsAfterMount);
         });
 
         it("should call onChange when the 'Delete image' button is clicked", async () => {

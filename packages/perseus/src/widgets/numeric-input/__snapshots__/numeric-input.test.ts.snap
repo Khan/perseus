@@ -25,12 +25,12 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <div>
             <div
               aria-label="Math input box Tap with one or two fingers to open keyboard"
-              class="default_xu2jcg-o_O-input_1n1c032"
+              class="default_7zhre1-o_O-input_1n1c032"
               role="textbox"
             >
               <div
@@ -39,7 +39,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
               >
                 <div
                   class="mq-editable-field mq-math-mode"
-                  style="background-color: white; min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
+                  style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
                 >
                   <span
                     class="mq-textarea"
@@ -90,7 +90,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-disabled="false"
@@ -100,7 +100,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             autocapitalize="off"
             autocomplete="off"
             autocorrect="off"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1d9sp8 perseus-input perseus-focused input-with-examples is-focused"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1d9sp8 perseus-input perseus-focused input-with-examples is-focused"
             data-testid="input-with-examples"
             id=":r6:"
             tabindex="0"
@@ -144,7 +144,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-disabled="false"
@@ -154,7 +154,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             autocapitalize="off"
             autocomplete="off"
             autocorrect="off"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
             id=":r6:"
             tabindex="0"
@@ -198,7 +198,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:ri:"
@@ -209,7 +209,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             autocapitalize="off"
             autocomplete="off"
             autocorrect="off"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
             id=":ri:"
             tabindex="0"
@@ -258,7 +258,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:rl:"
@@ -269,7 +269,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             autocapitalize="off"
             autocomplete="off"
             autocorrect="off"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
             id=":rl:"
             tabindex="0"
@@ -316,7 +316,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
         </span>
          
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
+          class="perseus-widget-container widget-inline-block"
         >
           <input
             aria-describedby="aria-for-:rc:"
@@ -327,7 +327,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             autocapitalize="off"
             autocomplete="off"
             autocorrect="off"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
             id=":rc:"
             tabindex="0"

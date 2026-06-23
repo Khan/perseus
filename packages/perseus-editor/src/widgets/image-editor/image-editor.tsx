@@ -33,10 +33,10 @@ class ImageEditor extends React.Component<Props> {
 
     render() {
         return (
-            <div className="perseus-image-editor">
+            <>
                 <ImageUrlInput {...this.props} />
                 <ImageSettings {...this.props} />
-            </div>
+            </>
         );
     }
 }

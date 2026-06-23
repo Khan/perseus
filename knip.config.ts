@@ -67,6 +67,8 @@ const config: KnipConfig = {
         "swc_mut_cjs_exports",
         // @swc/helpers is referenced via externalHelpers in .swcrc, not imported directly.
         "@swc/helpers",
+        // We use esbuild for the item-splitting change check in a Github action.
+        "esbuild",
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [

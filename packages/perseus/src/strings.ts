@@ -399,25 +399,32 @@ export type PerseusStrings = {
     srVectorPoints: ({
         tailX,
         tailY,
-        tipX,
-        tipY,
+        headX,
+        headY,
     }: {
         tailX: string;
         tailY: string;
-        tipX: string;
-        tipY: string;
+        headX: string;
+        headY: string;
     }) => string;
-    srVectorTipPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorHeadPoint: ({x, y}: {x: string; y: string}) => string;
+    srVectorMagnitudeDirection: ({
+        magnitude,
+        direction,
+    }: {
+        magnitude: string;
+        direction: string;
+    }) => string;
     srVectorGrabHandle: ({
         tailX,
         tailY,
-        tipX,
-        tipY,
+        headX,
+        headY,
     }: {
         tailX: string;
         tailY: string;
-        tipX: string;
-        tipY: string;
+        headX: string;
+        headY: string;
     }) => string;
     srQuadraticGraph: string;
     srQuadraticFaceUp: string;
@@ -524,7 +531,11 @@ export type PerseusStrings = {
     srExponentialGraph: string;
     srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
     srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
-    srExponentialDescription: ({
+    // The flat tail's behavior. Both axes track sign(b), so only two
+    // combinations occur: hugs the asymptote on the right while trailing to
+    // negative infinity, or hugs it on the left while trailing to positive
+    // infinity.
+    srExponentialDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
@@ -537,6 +548,45 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteY: string;
     }) => string;
+    srExponentialDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    // Whether the curve sits entirely above or below the asymptote (sign of a).
+    srExponentialAboveAsymptote: string;
+    srExponentialBelowAsymptote: string;
+    // Used when the points are positioned so that no exponential curve can be
+    // drawn (e.g. the asymptote sits between them), so nothing is plotted.
+    srExponentialNoCurve: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srExponentialYIntercept: ({yIntercept}: {yIntercept: string}) => string;
     srExponentialInteractiveElements: ({
         point1X,
         point1Y,
@@ -633,6 +683,7 @@ export type PerseusStrings = {
     imageResetZoomAriaLabel: string;
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
+    definitionIdentifier: ({word}: {word: string}) => string;
 };
 
 /**
@@ -1074,20 +1125,26 @@ export const strings = {
     },
     srVectorPoints: {
         context:
-            "Screen reader description for the tail and tip of a vector in the interactive graph widget.",
+            "Screen reader description for the tail and head of a vector in the interactive graph widget.",
         message:
-            "The tail is at %(tailX)s comma %(tailY)s and the tip is at %(tipX)s comma %(tipY)s.",
+            "The tail is at %(tailX)s comma %(tailY)s and the head is at %(headX)s comma %(headY)s.",
     },
-    srVectorTipPoint: {
+    srVectorHeadPoint: {
         context:
-            "Aria label for the tip point of a Vector (the point with the arrowhead) in the interactive graph widget.",
-        message: "Tip point at %(x)s comma %(y)s.",
+            "Aria label for the head point of a Vector (the point with the arrowhead) in the interactive graph widget.",
+        message: "Vector head at %(x)s comma %(y)s.",
+    },
+    srVectorMagnitudeDirection: {
+        context:
+            "Screen reader description of a vector's magnitude (length) and direction (angle in degrees, measured counterclockwise from the positive x-axis) in the interactive graph widget.",
+        message:
+            "The vector has a magnitude of %(magnitude)s and a direction of %(direction)s degrees.",
     },
     srVectorGrabHandle: {
         context:
             "Aria label for the interactive segment that allows the user to move the whole Vector in the interactive graph widget.",
         message:
-            "Vector from %(tailX)s comma %(tailY)s to %(tipX)s comma %(tipY)s.",
+            "Vector from %(tailX)s comma %(tailY)s to %(headX)s comma %(headY)s.",
     },
     srQuadraticGraph: {
         context:
@@ -1264,30 +1321,62 @@ export const strings = {
     srExponentialPoint1: {
         context:
             "Aria label for the first Point on the Exponential function in the interactive graph widget.",
-        message: "Point 1 at %(x)s comma %(y)s.",
+        message: "Point 1 on an exponential curve at %(x)s comma %(y)s.",
     },
     srExponentialPoint2: {
         context:
             "Aria label for the second Point on the Exponential function in the interactive graph widget.",
-        message: "Point 2 at %(x)s comma %(y)s.",
+        message: "Point 2 on an exponential curve at %(x)s comma %(y)s.",
     },
-    srExponentialDescription: {
+    srExponentialDescriptionRightNeg: {
         context:
-            "Screen reader description of the Exponential function in the interactive graph widget.",
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the right and trails off toward negative infinity.",
         message:
-            "The graph shows an exponential curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s.",
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the right and extends to negative infinity.",
+    },
+    srExponentialDescriptionLeftPos: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the left and trails off toward positive infinity.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the left and extends to positive infinity.",
+    },
+    srExponentialAboveAsymptote: {
+        context:
+            "Screen reader description noting that the Exponential curve lies entirely above its horizontal asymptote.",
+        message: "The curve lies above the asymptote.",
+    },
+    srExponentialBelowAsymptote: {
+        context:
+            "Screen reader description noting that the Exponential curve lies entirely below its horizontal asymptote.",
+        message: "The curve lies below the asymptote.",
+    },
+    srExponentialNoCurve: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget, used when the two points are positioned so that no exponential curve can be drawn (for example, the asymptote falls between them) and nothing is plotted.",
+        message:
+            "No exponential curve can be drawn through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s. Move both points to the same side of the asymptote to draw the curve.",
+    },
+    srExponentialIntercepts: {
+        context:
+            "Screen reader description of the x- and y-intercepts of the Exponential function in the interactive graph widget.",
+        message:
+            "The x-intercept is at %(xIntercept)s comma 0. The y-intercept is at 0 comma %(yIntercept)s.",
+    },
+    srExponentialYIntercept: {
+        context:
+            "Screen reader description of the y-intercept of the Exponential function in the interactive graph widget, used when the curve has no x-intercept.",
+        message: "The y-intercept is at 0 comma %(yIntercept)s.",
     },
     srExponentialInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Exponential function in the interactive graph widget.",
         message:
-            "Exponential graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and horizontal asymptote at y equals %(asymptoteY)s.",
+            "Exponential graph with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and a horizontal asymptote at y equals %(asymptoteY)s.",
     },
     srExponentialAsymptote: {
         context:
             "Aria label for the draggable horizontal asymptote line in the Exponential function in the interactive graph widget.",
-        message:
-            "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
+        message: "Horizontal asymptote at y equals %(asymptoteY)s",
     },
     srLogarithmGraph: {
         context:
@@ -1384,6 +1473,7 @@ export const strings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: "Definition of: %(word)s",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1666,11 +1756,13 @@ export const mockStrings: PerseusStrings = {
     srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
     srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
     srVectorGraph: "A vector on a coordinate plane.",
-    srVectorPoints: ({tailX, tailY, tipX, tipY}) =>
-        `The tail is at ${tailX} comma ${tailY} and the tip is at ${tipX} comma ${tipY}.`,
-    srVectorTipPoint: ({x, y}) => `Tip point at ${x} comma ${y}.`,
-    srVectorGrabHandle: ({tailX, tailY, tipX, tipY}) =>
-        `Vector from ${tailX} comma ${tailY} to ${tipX} comma ${tipY}.`,
+    srVectorPoints: ({tailX, tailY, headX, headY}) =>
+        `The tail is at ${tailX} comma ${tailY} and the head is at ${headX} comma ${headY}.`,
+    srVectorHeadPoint: ({x, y}) => `Vector head at ${x} comma ${y}.`,
+    srVectorMagnitudeDirection: ({magnitude, direction}) =>
+        `The vector has a magnitude of ${magnitude} and a direction of ${direction} degrees.`,
+    srVectorGrabHandle: ({tailX, tailY, headX, headY}) =>
+        `Vector from ${tailX} comma ${tailY} to ${headX} comma ${headY}.`,
     srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
     srQuadraticFaceUp: "The parabola opens upward.",
     srQuadraticFaceDown: "The parabola opens downward.",
@@ -1724,16 +1816,34 @@ export const mockStrings: PerseusStrings = {
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     srExponentialGraph: "An exponential curve on a coordinate plane.",
-    srExponentialPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srExponentialPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
-    srExponentialDescription: ({
+    srExponentialPoint1: ({x, y}) =>
+        `Point 1 on an exponential curve at ${x} comma ${y}.`,
+    srExponentialPoint2: ({x, y}) =>
+        `Point 2 on an exponential curve at ${x} comma ${y}.`,
+    srExponentialDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         asymptoteY,
     }) =>
-        `The graph shows an exponential curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}.`,
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the right and extends to negative infinity.`,
+    srExponentialDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the left and extends to positive infinity.`,
+    srExponentialAboveAsymptote: "The curve lies above the asymptote.",
+    srExponentialBelowAsymptote: "The curve lies below the asymptote.",
+    srExponentialNoCurve: ({point1X, point1Y, point2X, point2Y, asymptoteY}) =>
+        `No exponential curve can be drawn through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}. Move both points to the same side of the asymptote to draw the curve.`,
+    srExponentialIntercepts: ({xIntercept, yIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0. The y-intercept is at 0 comma ${yIntercept}.`,
+    srExponentialYIntercept: ({yIntercept}) =>
+        `The y-intercept is at 0 comma ${yIntercept}.`,
     srExponentialInteractiveElements: ({
         point1X,
         point1Y,
@@ -1741,9 +1851,9 @@ export const mockStrings: PerseusStrings = {
         point2Y,
         asymptoteY,
     }) =>
-        `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
+        `Exponential graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
-        `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
+        `Horizontal asymptote at y equals ${asymptoteY}`,
     srLogarithmGraph: "A logarithm function on a coordinate plane.",
     srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
     srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
@@ -1793,6 +1903,7 @@ export const mockStrings: PerseusStrings = {
     imageResetZoomAriaLabel: "Close image.",
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
+    definitionIdentifier: ({word}) => `Definition of: ${word}`,
 };
 
 // This type helps us make sure all error codes are mapped to strings

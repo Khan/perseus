@@ -2,7 +2,11 @@ import {
     generateDefinitionOptions,
     generateDefinitionWidget,
     generateTestPerseusRenderer,
-    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
+
+import type {
+    DefinitionDefaultWidgetOptions,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = generateTestPerseusRenderer({
@@ -40,3 +44,13 @@ export const article = {
         }),
     },
 };
+
+export const definitionQuestionOptions: DefinitionDefaultWidgetOptions =
+    generateDefinitionOptions({
+        definition:
+            "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",
+        togglePrompt: "Allies",
+    });
+
+export const definitionQuestionContent: string =
+    "The Governor and Council of the Massachusetts had much conference many days; and at last . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.";

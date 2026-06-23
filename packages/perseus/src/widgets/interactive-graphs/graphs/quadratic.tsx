@@ -5,15 +5,16 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
 import {
     getQuadraticPointString,
     getQuadraticVertexString,
-    getQuadraticXIntercepts,
-} from "./utils";
+    srFormatNumber,
+} from "./screenreader-text";
+import {getQuadraticVertex, getQuadraticXIntercepts} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {Coord} from "../../../interactive2/types";
@@ -44,10 +45,11 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords, snapStep} = graphState;
+    const {coords, pointLabels, snapStep} = graphState;
     const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
+    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const quadraticDirectionId = id + "-direction";
     const quadraticVertexId = id + "-vertex";
@@ -110,7 +112,10 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 return (
                     <MovablePoint
                         key={"point-" + i}
-                        ariaLabel={`${srQuadraticPoint}${srVertex}`}
+                        ariaLabel={
+                            buildLabel(i, coord) ??
+                            `${srQuadraticPoint}${srVertex}`
+                        }
                         point={coord}
                         sequenceNumber={i + 1}
                         constrain={getQuadraticKeyboardConstraint(
@@ -209,7 +214,7 @@ export function describeQuadraticGraph(
     const coeffs = getQuadraticCoefficients(state.coords);
     const [a, b, c] = coeffs ?? [0, 0, 0];
 
-    const vertex: Coord = [-b / (2 * a), c - (b * b) / (4 * a)];
+    const vertex = getQuadraticVertex([a, b, c]);
     const xIntercepts = getQuadraticXIntercepts(a, b, c);
 
     // Aria label strings
@@ -222,7 +227,9 @@ export function describeQuadraticGraph(
     // Only describe vertex if the quadratic graph is not a line.
     // (Undefined means the quadratic graph is a line and has no vertex.)
     const srQuadraticVertex =
-        a !== 0 ? getQuadraticVertexString(vertex, strings) : undefined;
+        vertex === undefined
+            ? undefined
+            : getQuadraticVertexString(vertex, strings);
     // Undefined means the quadratic graph has no x-intercepts,
     // such as when the graph is a horizontal line.
     const srQuadraticXIntercepts =

@@ -3,8 +3,15 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {deepClone, GrapherUtil} from "@khanacademy/perseus-core";
+import {
+    convertGrapherOptionsToInteractiveGraph,
+    convertGrapherUserInputToInteractiveGraph,
+    convertInteractiveGraphUserInputToGrapher,
+    deepClone,
+    GrapherUtil,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
@@ -19,6 +26,7 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
+import InteractiveGraph from "../interactive-graphs/interactive-graph";
 
 import {
     DEFAULT_GRAPHER_PROPS,
@@ -43,6 +51,7 @@ import type {
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
+    GrapherFunctionType,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -73,7 +82,6 @@ type FunctionGrapherProps = {
     hideHairlines: () => void;
     isMobile: boolean;
     model: any;
-    setDrawingAreaAvailable: () => void;
     showHairlines: () => void;
     showTooltips: boolean;
     static: boolean;
@@ -331,12 +339,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     }}
                 >
                     {image}
-                    <Graphie
-                        {...this.props.graph}
-                        setDrawingAreaAvailable={
-                            this.props.setDrawingAreaAvailable
-                        }
-                    >
+                    <Graphie {...this.props.graph}>
                         {this.props.model && this.renderPlot()}
                         {this.props.model && this.renderAsymptote()}
                         {this.props.model && points}
@@ -540,10 +543,19 @@ class Grapher extends React.Component<Props> implements Widget {
         };
     }
 
-    render(): React.ReactNode {
-        const availableTypes = this.props.static
-            ? [this.props.correct.type]
-            : this.props.availableTypes;
+    getAvailableTypes(): GrapherFunctionType[] {
+        if (this.props.static) {
+            invariant(
+                this.props.correct,
+                "static widgets must have a correct answer",
+            );
+            return [this.props.correct.type];
+        }
+        return this.props.availableTypes;
+    }
+
+    renderLegacyGrapher() {
+        const availableTypes = this.getAvailableTypes();
 
         const type = this.props.userInput.type;
         const coords = this.props.userInput.coords;
@@ -598,8 +610,6 @@ class Grapher extends React.Component<Props> implements Widget {
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
             isMobile: this.props.apiOptions.isMobile,
             showTooltips: this.props.graph.showTooltips,
             showHairlines: this.showHairlines,
@@ -612,6 +622,36 @@ class Grapher extends React.Component<Props> implements Widget {
                 <FunctionGrapher {...grapherProps} />
                 {availableTypes.length > 1 && typeSelector}
             </div>
+        );
+    }
+
+    render(): React.ReactNode {
+        if (!this.props.apiOptions.flags?.["grapher-to-interactive-graph"]) {
+            return this.renderLegacyGrapher();
+        }
+
+        const interactiveGraphOptions = convertGrapherOptionsToInteractiveGraph(
+            this.props,
+        );
+        if (interactiveGraphOptions == null) {
+            return this.renderLegacyGrapher();
+        }
+        const interactiveGraphUserInput =
+            convertGrapherUserInputToInteractiveGraph(this.props.userInput);
+
+        return (
+            <InteractiveGraph.widget
+                {...this.props}
+                {...interactiveGraphOptions}
+                userInput={interactiveGraphUserInput}
+                handleUserInput={(interactiveGraphUserInput) =>
+                    this.props.handleUserInput(
+                        convertInteractiveGraphUserInputToGrapher(
+                            interactiveGraphUserInput,
+                        ),
+                    )
+                }
+            />
         );
     }
 }
@@ -644,6 +684,10 @@ function getStartUserInput(
 function getCorrectUserInput(
     options: PerseusGrapherWidgetOptions,
 ): PerseusGrapherUserInput {
+    invariant(
+        options.correct,
+        "getCorrectUserInput should only be called for static widgets",
+    );
     return options.correct;
 }
 

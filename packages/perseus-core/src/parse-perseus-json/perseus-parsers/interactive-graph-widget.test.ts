@@ -109,6 +109,78 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
+    it("defaults text, color and size on a locked label when they are missing", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "label",
+                            coord: [0, 0],
+                            text: undefined,
+                            color: undefined,
+                            size: undefined,
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "label",
+                            coord: [0, 0],
+                            text: "",
+                            color: "grayH",
+                            size: "medium",
+                        },
+                    ],
+                },
+            }),
+        );
+    });
     it("parses alongEdge labelLocation correctly", () => {
         const alongEdgeResult = parse(
             {
@@ -312,7 +384,7 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
-    it("accepts the deprecated 'orange' color on locked figures so existing content keeps rendering", () => {
+    it("parses the deprecated 'orange' color on locked figures to 'gold'", () => {
         const result = parse(
             {
                 type: "interactive-graph",
@@ -375,7 +447,7 @@ describe("parseInteractiveGraphWidget", () => {
                         {
                             type: "point",
                             coord: [0, 0],
-                            color: "orange",
+                            color: "gold",
                             filled: true,
                             labels: [],
                         },

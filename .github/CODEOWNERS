@@ -6,3 +6,12 @@ widget-ai-utils/* @Khan/tut
 
 # For image widget project
 **/widgets/image/** @nishasy @ivyolamit @catandthemachines
+
+# For the Color Sync renderer updates
+packages/perseus/src/perseus-markdown.new.tsx @nishasy @markfitzgerald @myranae
+packages/perseus/src/perseus-markdown.tsx @nishasy @markfitzgerald @myranae
+packages/perseus/src/renderer.new.tsx @nishasy @markfitzgerald @myranae
+packages/perseus/src/renderer.old.tsx @nishasy @markfitzgerald @myranae
+packages/perseus/src/renderer.tsx @nishasy @markfitzgerald @myranae
+packages/perseus/src/styles/perseus-renderer.new.css @nishasy @markfitzgerald @myranae
+packages/perseus/src/styles/perseus-renderer.css @nishasy @markfitzgerald @myranae

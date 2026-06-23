@@ -1,23 +1,29 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
 
+import styles from "./interactive-graph-description.module.css";
+
 import type {Props as EditorProps} from "../interactive-graph-editor";
 
-type Props = {
+interface Props {
     ariaLabelValue: string;
     ariaDescriptionValue: string;
+    editingDisabled?: boolean;
     onChange: (graphProps: Partial<EditorProps>) => void;
-};
+}
 
 export default function InteractiveGraphDescription(props: Props) {
-    const {ariaLabelValue, ariaDescriptionValue, onChange} = props;
+    const {
+        ariaLabelValue,
+        ariaDescriptionValue,
+        editingDisabled = false,
+        onChange,
+    } = props;
 
     const [isOpen, setIsOpen] = React.useState(true);
 
@@ -33,14 +39,14 @@ export default function InteractiveGraphDescription(props: Props) {
                 onToggle={setIsOpen}
             />
             {isOpen && (
-                <View>
-                    <BodyText size="xsmall" style={styles.caption}>
+                <View className={styles.container}>
+                    <BodyText size="xsmall" className={styles.caption}>
                         Use these fields to describe the graph as a whole. These
                         are used by screen readers to describe content to users
                         who may be visually impaired.
                     </BodyText>
 
-                    <BodyText size="xsmall" style={styles.caption}>
+                    <BodyText size="xsmall" className={styles.caption}>
                         Aria description required when using locked figures.
                         Locked figures aren't automatically described.
                     </BodyText>
@@ -57,10 +63,10 @@ export default function InteractiveGraphDescription(props: Props) {
                                         newValue || undefined,
                                 })
                             }
-                            style={styles.spaceAbove}
+                            disabled={editingDisabled}
+                            style={{marginTop: sizing.size_040}}
                         />
                     </BodyText>
-                    <Strut size={spacing.small_12} />
                     <BodyText
                         size="medium"
                         weight="bold"
@@ -80,6 +86,7 @@ export default function InteractiveGraphDescription(props: Props) {
                                     newValue || undefined,
                             })
                         }
+                        disabled={editingDisabled}
                         autoResize={true}
                     />
                 </View>
@@ -87,14 +94,3 @@ export default function InteractiveGraphDescription(props: Props) {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    caption: {
-        color: semanticColor.core.foreground.neutral.subtle,
-        paddingTop: spacing.xxSmall_6,
-        paddingBottom: spacing.xxSmall_6,
-    },
-    spaceAbove: {
-        marginTop: spacing.xxxSmall_4,
-    },
-});

@@ -80,6 +80,97 @@ describe("Tangent graph screen reader", () => {
     });
 });
 
+// TODO(LEMS-3995, post-PR-7): route the curve SR-tree summaries through buildPointAriaLabel once new locale string keys land.
+describe("Tangent graph pointLabels", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("uses custom pointLabels in each point's accessible name", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseTangentState, pointLabels: ["A", "B"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for indices without a custom label", () => {
+        // Arrange, Act — only the first point is named
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseTangentState, pointLabels: ["A"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Control point at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    // The editor encodes "only the second point named" as `["", "B"]`.
+    // An empty string at any index must fall back to the semantic default.
+    it("falls back to the default semantic label for explicit empty-string entries", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{...baseTangentState, pointLabels: ["", "B"]}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Inflection point at 0 comma 0.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+
+    it("falls back to the default semantic label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
+        // Arrange, Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+                    pointLabels: [42, "B"] as unknown as string[],
+                }}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {
+                name: "Inflection point at 0 comma 0.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+        ).toBeInTheDocument();
+    });
+});
+
 describe("TangentGraph", () => {
     it("should accurately calculate the tangent coefficients", () => {
         const coords: TangentGraphState["coords"] = [

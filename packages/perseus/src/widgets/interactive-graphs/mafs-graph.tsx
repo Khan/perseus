@@ -9,6 +9,7 @@
  * - Protractor
  * - Interactive Graph Elements
  */
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -37,6 +38,7 @@ import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
+import MovablePointLabelsLayer from "./graphs/components/movable-point-labels-layer";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
 import {renderLinearGraph} from "./graphs/linear";
@@ -68,6 +70,7 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
+import type {APIOptionsWithDefaults} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -96,6 +99,7 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
+    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -224,6 +228,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             <View className="mafs-graph-container">
                 <View
                     className="mafs-graph"
+                    role="figure"
                     style={{
                         position: "relative",
                         padding: "25px 25px 0 0",
@@ -244,15 +249,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
+                        // Instructions read first on focus so screen reader
+                        // users hear how to interact before the descriptions
+                        state.type !== "none" &&
+                            !disableInteraction &&
+                            instructionsId,
                         fullGraphAriaDescription && descriptionId,
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
                             unlimitedGraphKeyboardPromptId,
-                        state.type !== "none" &&
-                            !disableInteraction &&
-                            instructionsId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -263,6 +270,22 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         handleBlurEvent(event, state, dispatch);
                     }}
                 >
+                    {/*
+                      Instructions render first so screen reader users
+                      encounter how to interact with the graph before the
+                      graph and interactive-element descriptions
+                    */}
+                    {state.type !== "none" && (
+                        <View
+                            id={instructionsId}
+                            tabIndex={-1}
+                            className="mafs-sr-only"
+                        >
+                            {isUnlimitedGraphState(state)
+                                ? strings.srUnlimitedGraphInstructions
+                                : strings.srGraphInstructions}
+                        </View>
+                    )}
                     {fullGraphAriaDescription && (
                         <View
                             id={descriptionId}
@@ -282,17 +305,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             className="mafs-sr-only"
                         >
                             {interactiveElementsDescription}
-                        </View>
-                    )}
-                    {state.type !== "none" && (
-                        <View
-                            id={instructionsId}
-                            tabIndex={-1}
-                            className="mafs-sr-only"
-                        >
-                            {isUnlimitedGraphState(state)
-                                ? strings.srUnlimitedGraphInstructions
-                                : strings.srGraphInstructions}
                         </View>
                     )}
 
@@ -381,6 +393,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
+                        {isFeatureOn(
+                            {apiOptions: props.apiOptions},
+                            "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
+                        ) &&
+                            !props.static && (
+                                <MovablePointLabelsLayer state={state} />
+                            )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

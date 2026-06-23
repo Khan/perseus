@@ -15,7 +15,7 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
         The answer is 42
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <table
             class="perseus-widget-table-of-values non-markdown"
@@ -109,7 +109,7 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
         The answer is 42
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <table
             class="perseus-widget-table-of-values non-markdown"

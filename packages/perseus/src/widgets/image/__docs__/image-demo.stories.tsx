@@ -5,8 +5,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ApiOptions} from "../../../perseus-api";
-import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {getWidget} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
@@ -18,8 +16,8 @@ import {
 import {
     earthMoonImage,
     frescoImage,
-    gifImage,
-    gifImageAlt,
+    animatedGifLandscape,
+    animatedGifLandscapeAlt,
     graphieImage,
     graphieImageAlt,
     portraitImage,
@@ -163,19 +161,11 @@ export const GraphieImage: Story = {
 
 export const GifImage: Story = {
     decorators: [imageRendererDecorator],
-    parameters: {
-        apiOptions: {
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "image-widget-upgrade-gif-controls": true,
-            }),
-        },
-    },
     args: {
-        backgroundImage: gifImage,
-        alt: gifImageAlt,
-        caption: gifImageAlt,
-        longDescription: gifImageAlt,
+        backgroundImage: animatedGifLandscape,
+        alt: animatedGifLandscapeAlt,
+        caption: animatedGifLandscapeAlt,
+        longDescription: animatedGifLandscapeAlt,
     },
 };
 
@@ -317,8 +307,8 @@ export const MarkdownTableWithImageWidgets: Story = {
                             }),
                             "image 2": generateImageWidget({
                                 options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
+                                    backgroundImage: scienceImage,
+                                    alt: scienceImageAlt,
                                 }),
                             }),
                             "image 3": generateImageWidget({
@@ -345,7 +335,7 @@ export const MarkdownTableWithMarkdownImages: Story = {
             <div style={{width: 600}}>
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
-                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![Earth and Moon](${earthMoonImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
                         widgets: {},
                     })}
                 />

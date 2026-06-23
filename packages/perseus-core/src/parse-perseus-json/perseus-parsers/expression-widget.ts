@@ -1,4 +1,5 @@
-import {KeypadKeys} from "../../keypad";
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
 import deriveExtraKeys from "../../widgets/expression/derive-extra-keys";
 import {
     array,
@@ -15,6 +16,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {keypadKeys} from "./expression-keys";
 import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
@@ -71,7 +73,7 @@ const parseExpressionWidgetV2 = parseWidgetWithVersion(
         ariaLabel: optional(string),
         buttonSets: parseLegacyButtonSets,
         buttonsVisible: optional(enumeration("always", "never", "focused")),
-        extraKeys: optional(array(enumeration(...KeypadKeys))),
+        extraKeys: optional(array(keypadKeys)),
     }),
 );
 

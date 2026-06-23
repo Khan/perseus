@@ -31,7 +31,6 @@ export const PieChartGraphieLabels: Story = {
     args: {
         box: [size, size],
         setup: () => {},
-        setDrawingAreaAvailable: () => {},
     },
     render: (args) => <ServerItemRendererWithDebugUI item={itemWithPieChart} />,
 };
@@ -40,6 +39,5 @@ export const SquareBoxSizeAndOtherwiseEmpty: Story = {
     args: {
         box: [size, size],
         setup: () => {},
-        setDrawingAreaAvailable: () => {},
     },
 };

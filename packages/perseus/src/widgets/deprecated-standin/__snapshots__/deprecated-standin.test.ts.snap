@@ -24,17 +24,17 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <div
-          class="perseus-widget-container widget-nohighlight widget-block"
+          class="perseus-widget-container widget-block"
         >
           <div
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
+              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
             >
               <div
-                class="default_xu2jcg-o_O-containerInner_1lza62o"
+                class="default_7zhre1-o_O-containerInner_1lza62o"
               >
                 <span
                   aria-label="info"
@@ -43,10 +43,10 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
                   role="img"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_1dntbm4"
+                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_14mmd26"
+                    class="default_7zhre1-o_O-labelContainer_14mmd26"
                   >
                     <div
                       class="labelTypography_1y1267m"

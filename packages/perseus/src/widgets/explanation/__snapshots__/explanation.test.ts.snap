@@ -15,7 +15,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
         Here's the explanation
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
+          class="perseus-widget-container widget-inline"
         >
           <button
             aria-controls=":r1:"
@@ -31,7 +31,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
               Hide explanation!
             </span>
             <div
-              class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              class="default_7zhre1-o_O-endIcon_zk6zd4-o_O-iconWrapper_bqwm7d-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1hkg79p"
@@ -40,12 +40,12 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           </button>
           <div
             aria-hidden="false"
-            class="default_xu2jcg-o_O-inlineStyles_x0sbw3 content content-expanded transition-expanded"
+            class="default_7zhre1-o_O-inlineStyles_x0sbw3 content content-expanded transition-expanded"
             data-testid="content-container"
             id=":r1:"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_y9ev9r content-wrapper"
+              class="default_7zhre1-o_O-inlineStyles_y9ev9r content-wrapper"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -87,7 +87,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
         Here's the explanation
 
         <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
+          class="perseus-widget-container widget-inline"
         >
           <button
             aria-controls=":r0:"
@@ -103,7 +103,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
               Explanation
             </span>
             <div
-              class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              class="default_7zhre1-o_O-endIcon_zk6zd4-o_O-iconWrapper_bqwm7d-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1dxyeu2"
@@ -112,12 +112,12 @@ exports[`Explanation should snapshot: initial render 1`] = `
           </button>
           <div
             aria-hidden="true"
-            class="default_xu2jcg-o_O-inlineStyles_1xg5zgw content content-collapsed transition-collapsed"
+            class="default_7zhre1-o_O-inlineStyles_1xg5zgw content content-collapsed transition-collapsed"
             data-testid="content-container"
             id=":r0:"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_y9ev9r content-wrapper"
+              class="default_7zhre1-o_O-inlineStyles_y9ev9r content-wrapper"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
