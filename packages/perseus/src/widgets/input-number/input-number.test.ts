@@ -142,6 +142,7 @@ describe("input-number", function () {
                         options: {
                             size: "normal",
                             coefficient: false,
+                            textAlign: "left",
                             answers: [
                                 {
                                     status: "correct",
@@ -185,6 +186,7 @@ describe("input-number", function () {
                         options: {
                             size: "normal",
                             coefficient: false,
+                            textAlign: "left",
                             answers: [
                                 {
                                     status: "correct",
@@ -221,6 +223,7 @@ describe("input-number", function () {
                         options: {
                             size: "normal",
                             coefficient: false,
+                            textAlign: "left",
                             answers: [
                                 {
                                     status: "correct",
@@ -252,6 +255,7 @@ describe("input-number", function () {
                         options: {
                             size: "small",
                             coefficient: false,
+                            textAlign: "left",
                             answers: [
                                 {
                                     status: "correct",
@@ -392,6 +396,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
                         options: {
                             size,
                             coefficient: false,
+                            textAlign: "left",
                             answers: [
                                 {
                                     status: "correct",
@@ -586,6 +591,7 @@ function getAnswerlessInputNumber() {
     return getAnswerlessItem("input-number", {
         size: "normal",
         coefficient: false,
+        textAlign: "left",
         answers: [
             {
                 status: "correct",
@@ -603,6 +609,7 @@ function getAnswerfulInputNumber() {
     return getAnswerfulItem("input-number", {
         size: "normal",
         coefficient: false,
+        textAlign: "left",
         answers: [
             {
                 status: "correct",

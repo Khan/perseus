@@ -87,6 +87,7 @@ export const PerseusItemWithInputNumber = generateTestPerseusItem({
                 options: {
                     size: "normal",
                     coefficient: false,
+                    textAlign: "left",
                     answers: [
                         {
                             status: "correct",

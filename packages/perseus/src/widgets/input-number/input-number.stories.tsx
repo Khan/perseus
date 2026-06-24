@@ -131,6 +131,7 @@ export const Answerful = (): React.ReactElement => {
     const item = getAnswerfulItem("input-number", {
         size: "normal",
         coefficient: false,
+        textAlign: "left",
         answers: [
             {
                 status: "correct",
@@ -152,6 +153,7 @@ export const Answerless = (): React.ReactElement => {
     const item = getAnswerlessItem("input-number", {
         size: "normal",
         coefficient: false,
+        textAlign: "left",
         answers: [
             {
                 status: "correct",

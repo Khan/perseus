@@ -27,6 +27,7 @@ const question: PerseusRenderer = {
             options: {
                 size: "normal",
                 coefficient: false,
+                textAlign: "left",
                 answers: [
                     {
                         status: "correct",

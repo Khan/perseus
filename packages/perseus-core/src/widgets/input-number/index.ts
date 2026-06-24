@@ -7,7 +7,7 @@ import type {WidgetLogic} from "../logic-export.types";
 export type InputNumberDefaultWidgetOptions = PerseusInputNumberWidgetOptions;
 
 const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
-    rightAlign: false,
+    textAlign: "left",
     coefficient: false,
     size: "normal",
     answers: [

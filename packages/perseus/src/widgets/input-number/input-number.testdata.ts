@@ -20,6 +20,7 @@ export const question1: PerseusRenderer = {
             options: {
                 size: "normal",
                 coefficient: false,
+                textAlign: "left",
                 answers: [
                     {
                         status: "correct",
@@ -48,6 +49,7 @@ export const question2: PerseusRenderer = {
             options: {
                 size: "normal",
                 coefficient: false,
+                textAlign: "left",
                 answers: [
                     {
                         status: "correct",
@@ -76,6 +78,7 @@ export const question3: PerseusRenderer = {
             options: {
                 size: "small",
                 coefficient: false,
+                textAlign: "left",
                 answers: [
                     {
                         status: "correct",

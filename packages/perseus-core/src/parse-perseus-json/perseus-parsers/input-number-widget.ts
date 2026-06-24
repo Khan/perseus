@@ -41,7 +41,7 @@ const parseInputNumberWidgetV1 = parseWidgetWithVersion(
         size: string,
         coefficient: boolean,
         labelText: optional(string),
-        rightAlign: optional(boolean),
+        textAlign: enumeration("left", "center", "right"),
         answers: array(
             object({
                 value: optional(nullable(number)),
@@ -108,7 +108,7 @@ function convertInputNumberOptionsToNumericInput(
 ): ParsedValue<typeof parseInputNumberWidgetV1>["options"] {
     return {
         coefficient: false,
-        rightAlign: inputNumberOptions.rightAlign,
+        textAlign: inputNumberOptions.rightAlign ? "right" : "left",
         size: inputNumberOptions.size,
         answers: [
             {

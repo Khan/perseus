@@ -261,6 +261,53 @@ describe("parseInputNumberWidget", () => {
         expect(result.value.options.answers[0].answerForms).toEqual([]);
     });
 
+    it("parses v0 -> v1, migrating rightAlign: false to textAlign: left", () => {
+        const raw = {
+            type: "input-number",
+            options: {
+                ...baseOptionsV0,
+                rightAlign: false,
+            },
+        };
+
+        const result = parseInputNumberWidget(raw, ctx());
+        expect(result).toEqual(anySuccess);
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("parses v0 -> v1, migrating rightAlign: undefined to textAlign: left", () => {
+        const raw = {
+            type: "input-number",
+            options: {
+                simplify: "required",
+                size: "normal",
+                value: "0",
+                // Note: no rightAlign property.
+            },
+        };
+
+        const result = parseInputNumberWidget(raw, ctx());
+        expect(result).toEqual(anySuccess);
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("parses v0 -> v1, migrating rightAlign: true to textAlign: right", () => {
+        const raw = {
+            type: "input-number",
+            options: {
+                ...baseOptionsV0,
+                rightAlign: true,
+            },
+        };
+
+        const result = parseInputNumberWidget(raw, ctx());
+        expect(result).toEqual(anySuccess);
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("right");
+    });
+
     it("allows decimal answers when the answer has exactly 10 decimal places", () => {
         const raw = {
             type: "input-number",
@@ -287,6 +334,7 @@ describe("parseInputNumberWidget", () => {
             options: {
                 size: "normal",
                 coefficient: false,
+                textAlign: "center",
                 answers: [
                     {
                         status: "correct",

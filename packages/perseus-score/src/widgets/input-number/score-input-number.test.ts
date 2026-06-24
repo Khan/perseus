@@ -128,6 +128,7 @@ describe("scoreInputNumber", () => {
         const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
@@ -155,6 +156,7 @@ describe("scoreInputNumber", () => {
         const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
@@ -181,6 +183,7 @@ describe("scoreInputNumber", () => {
         const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
@@ -209,6 +212,7 @@ describe("scoreInputNumber", () => {
         const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
@@ -238,6 +242,7 @@ describe("scoreInputNumber", () => {
         const rubric: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",

@@ -7,6 +7,7 @@ describe("getInputNumberPublicWidgetOptions", () => {
         const original: PerseusInputNumberWidgetOptions = {
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
@@ -22,6 +23,7 @@ describe("getInputNumberPublicWidgetOptions", () => {
         expect(getInputNumberPublicWidgetOptions(original)).toEqual({
             size: "normal",
             coefficient: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
