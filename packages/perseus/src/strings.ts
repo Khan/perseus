@@ -719,12 +719,25 @@ export type PerseusStrings = {
     srTangentGraph: string;
     srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
     srTangentSecondPoint: ({x, y}: {x: string; y: string}) => string;
-    srTangentDescription: ({
+    srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,
+        controlX,
+        controlY,
     }: {
         inflectionX: string;
         inflectionY: string;
+        controlX: string;
+        controlY: string;
+    }) => string;
+    srTangentIncreasing: ({period}: {period: string}) => string;
+    srTangentDecreasing: ({period}: {period: string}) => string;
+    srTangentAsymptotes: ({
+        leftAsymptote,
+        rightAsymptote,
+    }: {
+        leftAsymptote: string;
+        rightAsymptote: string;
     }) => string;
     srTangentInteractiveElements: ({
         point1X,
@@ -1547,7 +1560,7 @@ export const strings = {
     srTangentGraph: {
         context:
             "Aria label for the container containing a Tangent function in the interactive graph widget.",
-        message: "A tangent function on a coordinate plane.",
+        message: "A tangent curve on a coordinate plane.",
     },
     srTangentInflectionPoint: {
         context:
@@ -1559,11 +1572,29 @@ export const strings = {
             "Aria label for the second control point of the Tangent function in the interactive graph widget.",
         message: "Control point at %(x)s comma %(y)s.",
     },
-    srTangentDescription: {
+    srTangentDescriptionPoints: {
         context:
-            "Screen reader description of the Tangent function in the interactive graph widget.",
+            "Screen reader description of the Tangent function in the interactive graph widget, naming the inflection point and the control point the curve passes through.",
         message:
-            "The graph shows a tangent function with an inflection point at %(inflectionX)s comma %(inflectionY)s.",
+            "The curve passes through an inflection point at %(inflectionX)s comma %(inflectionY)s and a control point at %(controlX)s comma %(controlY)s.",
+    },
+    srTangentIncreasing: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget. Variant for a curve that increases through the inflection point. The period is how often the curve repeats, in graph units.",
+        message:
+            "The curve increases through the inflection point, repeating every %(period)s units.",
+    },
+    srTangentDecreasing: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget. Variant for a curve that decreases through the inflection point. The period is how often the curve repeats, in graph units.",
+        message:
+            "The curve decreases through the inflection point, repeating every %(period)s units.",
+    },
+    srTangentAsymptotes: {
+        context:
+            "Screen reader description of the two nearest vertical asymptotes of the Tangent function in the interactive graph widget, one on either side of the inflection point.",
+        message:
+            "The nearest vertical asymptotes are at x equals %(leftAsymptote)s and x equals %(rightAsymptote)s.",
     },
     srTangentInteractiveElements: {
         context:
@@ -2028,12 +2059,23 @@ export const mockStrings: PerseusStrings = {
         point2Y,
     }) =>
         `Absolute value graph with vertex point at ${point1X} comma ${point1Y} and arm point at ${point2X} comma ${point2Y}.`,
-    srTangentGraph: "A tangent function on a coordinate plane.",
+    srTangentGraph: "A tangent curve on a coordinate plane.",
     srTangentInflectionPoint: ({x, y}) =>
         `Inflection point at ${x} comma ${y}.`,
     srTangentSecondPoint: ({x, y}) => `Control point at ${x} comma ${y}.`,
-    srTangentDescription: ({inflectionX, inflectionY}) =>
-        `The graph shows a tangent function with an inflection point at ${inflectionX} comma ${inflectionY}.`,
+    srTangentDescriptionPoints: ({
+        inflectionX,
+        inflectionY,
+        controlX,
+        controlY,
+    }) =>
+        `The curve passes through an inflection point at ${inflectionX} comma ${inflectionY} and a control point at ${controlX} comma ${controlY}.`,
+    srTangentIncreasing: ({period}) =>
+        `The curve increases through the inflection point, repeating every ${period} units.`,
+    srTangentDecreasing: ({period}) =>
+        `The curve decreases through the inflection point, repeating every ${period} units.`,
+    srTangentAsymptotes: ({leftAsymptote, rightAsymptote}) =>
+        `The nearest vertical asymptotes are at x equals ${leftAsymptote} and x equals ${rightAsymptote}.`,
     srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
