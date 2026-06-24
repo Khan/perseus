@@ -274,7 +274,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         return (
             <>
                 {showUngradedText && (
-                    <p>{this.context.strings.ungradedInteractiveGraph}</p>
+                    <p aria-hidden={true}>
+                        {this.context.strings.ungradedInteractiveGraph}
+                    </p>
                 )}
                 <StatefulMafsGraph
                     {...mafsProps}

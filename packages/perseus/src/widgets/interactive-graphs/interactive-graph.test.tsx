@@ -2117,7 +2117,7 @@ describe("Interactive Graph", function () {
             );
         });
 
-        it("renders a 'not graded' message when graded is false", () => {
+        it("shows the 'not graded' message to sighted users but hides it from the accessibility tree", () => {
             // Arrange, Act
             const question = generateInteractiveGraphQuestion({
                 graded: false,
@@ -2126,11 +2126,34 @@ describe("Interactive Graph", function () {
             renderQuestion(question, blankOptions);
 
             // Assert
-            expect(
-                screen.getByText(
+            const visibleNote = screen
+                .getAllByText(
                     "Use this graph to check your thinking, but it does not count as your answer.",
-                ),
-            ).toBeInTheDocument();
+                )
+                .find((node) => node.tagName === "P");
+            expect(visibleNote).toBeInTheDocument();
+            expect(visibleNote).toHaveAttribute("aria-hidden", "true");
+        });
+
+        it("announces the 'not graded' message as the graph's first description", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({
+                graded: false,
+                graph: generateIGLinearGraph(),
+            });
+            renderQuestion(question, blankOptions);
+
+            // Assert
+            const figure = screen.getByRole("figure");
+            const [firstDescribedById] =
+                figure.getAttribute("aria-describedby")?.split(" ") ?? [];
+            const announcedNote = screen
+                .getAllByText(
+                    "Use this graph to check your thinking, but it does not count as your answer.",
+                )
+                .find((node) => node.getAttribute("id") === firstDescribedById);
+
+            expect(announcedNote).toBeInTheDocument();
         });
 
         it("does not render a 'not graded' message when graded is true", () => {

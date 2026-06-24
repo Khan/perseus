@@ -99,6 +99,7 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
+    graded?: boolean | null;
     apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
@@ -112,6 +113,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         fullGraphAriaLabel,
         fullGraphAriaDescription,
         widgetId,
+        graded,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -123,6 +125,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const interactiveElementsDescriptionId = `interactive-graph-interactive-elements-description-${uniqueId}`;
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
+    const ungradedIndicatorId = `interactive-graph-ungraded-indicator-${uniqueId}`;
+    const showUngradedIndicator = graded === false && state.type !== "none";
     const graphRef = React.useRef<HTMLElement>(null);
     const {analytics} = useDependencies();
 
@@ -249,7 +253,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
-                        // Instructions read first on focus so screen reader
+                        showUngradedIndicator && ungradedIndicatorId,
+                        // Instructions read next on focus so screen reader
                         // users hear how to interact before the descriptions
                         state.type !== "none" &&
                             !disableInteraction &&
@@ -271,10 +276,19 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                 >
                     {/*
-                      Instructions render first so screen reader users
+                      Instructions render next so screen reader users
                       encounter how to interact with the graph before the
                       graph and interactive-element descriptions
                     */}
+                    {showUngradedIndicator && (
+                        <View
+                            id={ungradedIndicatorId}
+                            tabIndex={-1}
+                            className="mafs-sr-only"
+                        >
+                            {strings.ungradedInteractiveGraph}
+                        </View>
+                    )}
                     {state.type !== "none" && (
                         <View
                             id={instructionsId}
