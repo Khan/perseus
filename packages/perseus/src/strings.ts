@@ -696,25 +696,32 @@ export type PerseusStrings = {
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
-    srAbsoluteValueDescription: ({
-        x,
-        y,
-        slope,
+    srAbsoluteValueSlope: ({slope}: {slope: string}) => string;
+    srAbsoluteValueOpensUp: string;
+    srAbsoluteValueOpensDown: string;
+    srAbsoluteValueVertex: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueVertexOrigin: string;
+    srAbsoluteValueTwoXIntercepts: ({
+        intercept1,
+        intercept2,
     }: {
-        x: string;
-        y: string;
-        slope: string;
+        intercept1: string;
+        intercept2: string;
     }) => string;
+    srAbsoluteValueOneXIntercept: ({intercept}: {intercept: string}) => string;
+    srAbsoluteValueYIntercept: ({intercept}: {intercept: string}) => string;
     srAbsoluteValueInteractiveElements: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
+        slope,
     }: {
         point1X: string;
         point1Y: string;
         point2X: string;
         point2Y: string;
+        slope: string;
     }) => string;
     srTangentGraph: string;
     srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
@@ -1533,7 +1540,7 @@ export const strings = {
     srAbsoluteValueGraph: {
         context:
             "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
-        message: "An absolute value function on a coordinate plane.",
+        message: "An absolute value on a coordinate plane.",
     },
     srAbsoluteValueVertexPoint: {
         context:
@@ -1545,17 +1552,52 @@ export const strings = {
             "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget.",
         message: "Point on arm at %(x)s comma %(y)s.",
     },
-    srAbsoluteValueDescription: {
+    srAbsoluteValueSlope: {
         context:
-            "Screen reader description of the Absolute Value function in the interactive graph widget.",
+            "Screen reader description of the slope of the arms of the Absolute Value function in the interactive graph widget. Read alongside the point on the arm.",
+        message: "The slope is %(slope)s.",
+    },
+    srAbsoluteValueOpensUp: {
+        context:
+            "Screen reader description noting that the Absolute Value graph opens upward (positive slope).",
+        message: "The graph opens upward.",
+    },
+    srAbsoluteValueOpensDown: {
+        context:
+            "Screen reader description noting that the Absolute Value graph opens downward (negative slope).",
+        message: "The graph opens downward.",
+    },
+    srAbsoluteValueVertex: {
+        context:
+            "Screen reader description of the vertex location of the Absolute Value function in the interactive graph widget.",
+        message: "Vertex is at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueVertexOrigin: {
+        context:
+            "Screen reader description of the vertex of the Absolute Value function when it sits exactly at the origin (0, 0).",
+        message: "Vertex is at the origin.",
+    },
+    srAbsoluteValueTwoXIntercepts: {
+        context:
+            "Screen reader description of the two x-intercepts of the Absolute Value function in the interactive graph widget.",
         message:
-            "The graph shows an absolute value function with vertex at %(x)s comma %(y)s and slope %(slope)s.",
+            "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    },
+    srAbsoluteValueOneXIntercept: {
+        context:
+            "Screen reader description of the single x-intercept of the Absolute Value function in the interactive graph widget, used when the vertex sits on the x-axis.",
+        message: "The X-intercept is at %(intercept)s comma 0.",
+    },
+    srAbsoluteValueYIntercept: {
+        context:
+            "Screen reader description of the y-intercept of the Absolute Value function in the interactive graph widget.",
+        message: "The Y-intercept is at 0 comma %(intercept)s.",
     },
     srAbsoluteValueInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Absolute Value function in the interactive graph widget.",
         message:
-            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s and arm point at %(point2X)s comma %(point2Y)s.",
+            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s, arm point at %(point2X)s comma %(point2Y)s and slope of %(slope)s.",
     },
     srTangentGraph: {
         context:
@@ -2046,19 +2088,29 @@ export const mockStrings: PerseusStrings = {
     }) =>
         `Logarithmic graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a vertical asymptote at x equals ${asymptoteX}.`,
     srLogarithmAsymptote: ({asymptoteX}) =>
-        `Vertical asymptote at x equals ${asymptoteX}`,
-    srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
+        `Vertical asymptote at x equals ${asymptoteX}.`,
+    srAbsoluteValueGraph: "An absolute value on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
-    srAbsoluteValueDescription: ({x, y, slope}) =>
-        `The graph shows an absolute value function with vertex at ${x} comma ${y} and slope ${slope}.`,
+    srAbsoluteValueSlope: ({slope}) => `The slope is ${slope}.`,
+    srAbsoluteValueOpensUp: "The graph opens upward.",
+    srAbsoluteValueOpensDown: "The graph opens downward.",
+    srAbsoluteValueVertex: ({x, y}) => `Vertex is at ${x} comma ${y}.`,
+    srAbsoluteValueVertexOrigin: "Vertex is at the origin.",
+    srAbsoluteValueTwoXIntercepts: ({intercept1, intercept2}) =>
+        `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
+    srAbsoluteValueOneXIntercept: ({intercept}) =>
+        `The X-intercept is at ${intercept} comma 0.`,
+    srAbsoluteValueYIntercept: ({intercept}) =>
+        `The Y-intercept is at 0 comma ${intercept}.`,
     srAbsoluteValueInteractiveElements: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
+        slope,
     }) =>
-        `Absolute value graph with vertex point at ${point1X} comma ${point1Y} and arm point at ${point2X} comma ${point2Y}.`,
+        `Absolute value graph with vertex point at ${point1X} comma ${point1Y}, arm point at ${point2X} comma ${point2Y} and slope of ${slope}.`,
     srTangentGraph: "A tangent curve on a coordinate plane.",
     srTangentInflectionPoint: ({x, y}) =>
         `Inflection point at ${x} comma ${y}.`,

@@ -281,6 +281,7 @@ function srAbsoluteValuePointLabel(
         pointLabel: string | number;
         x: number;
         y: number;
+        slope: number;
     },
     strings: PerseusStrings,
     locale: string,
@@ -296,9 +297,14 @@ function srAbsoluteValuePointLabel(
     }
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
-    return state.pointIndex === 0
-        ? strings.srAbsoluteValueVertexPoint({x, y})
-        : strings.srAbsoluteValueSecondPoint({x, y});
+    if (state.pointIndex === 0) {
+        return strings.srAbsoluteValueVertexPoint({x, y});
+    }
+    const armLabel = strings.srAbsoluteValueSecondPoint({x, y});
+    const slopeLabel = strings.srAbsoluteValueSlope({
+        slope: srFormatNumber(state.slope, locale),
+    });
+    return `${armLabel} ${slopeLabel}`;
 }
 
 function srAnglePointLabel(

@@ -83,6 +83,7 @@ const {
 } = geometry;
 
 const {
+    getAbsoluteValueCoefficients,
     getLogarithmCoefficients,
     getExponentialCoefficients,
     getQuadraticCoefficients,
@@ -834,6 +835,7 @@ function doMovePoint(
                     ),
                     x: boundDestination[X],
                     y: boundDestination[Y],
+                    slope: getAbsoluteValueCoefficients(newCoords)[0],
                 },
             };
         }
