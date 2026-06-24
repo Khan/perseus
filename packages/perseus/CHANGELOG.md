@@ -1,5 +1,54 @@
 # @khanacademy/perseus
 
+## 78.4.0
+
+### Minor Changes
+
+-   [#3731](https://github.com/Khan/perseus/pull/3731) [`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for "centered" text alignment in NumericInputs. This replaces `rightAlign` with `textAlign` in NumericInputs widgetOptions requiring a major bump for NumericInput.
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+    -   @khanacademy/keypad-context@3.2.67
+    -   @khanacademy/kmath@2.4.25
+    -   @khanacademy/math-input@26.4.39
+    -   @khanacademy/perseus-linter@5.1.6
+    -   @khanacademy/perseus-score@8.11.9
+
+## 78.3.0
+
+### Minor Changes
+
+-   [#3749](https://github.com/Khan/perseus/pull/3749) [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Render visible point labels on interactive graphs when the `perseus-enable-point-label-field` flag is on and the graph's `showPointLabels` field is true. Labels reposition to stay on-canvas when a point is near a graph edge. Supported on all interactive graph types except `vector` and `none`.
+
+*   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
+### Patch Changes
+
+-   [#3786](https://github.com/Khan/perseus/pull/3786) [`f8638119b2`](https://github.com/Khan/perseus/commit/f8638119b2e8db68d645512e49c9ed59ce2287eb) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for exponential graph
+
+*   [#3798](https://github.com/Khan/perseus/pull/3798) [`e08a75689a`](https://github.com/Khan/perseus/commit/e08a75689a2985d535e55779d7cac82ad17b630e) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for logarithm graph
+
+-   [#3763](https://github.com/Khan/perseus/pull/3763) [`a7edbbc724`](https://github.com/Khan/perseus/commit/a7edbbc7243ad8ac129f9b922bd7af2b065465b0) Thanks [@Evelas78](https://github.com/Evelas78)! - Remove pause/play button for single frame gifs
+
+*   [#3795](https://github.com/Khan/perseus/pull/3795) [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Safari point-label scroll jitter in interactive graph editor
+
+-   [#3787](https://github.com/Khan/perseus/pull/3787) [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Improve contrast of editor controls when editing is disabled
+
+*   [#3699](https://github.com/Khan/perseus/pull/3699) [`d34f9758e6`](https://github.com/Khan/perseus/commit/d34f9758e677dc511efb5e6f4c5a463bf664da23) Thanks [@Myranae](https://github.com/Myranae)! - Add scoped AGENTS.md instruction files at repo root, packages/perseus, and packages/perseus/src/widgets; replace CLAUDE.md with symlinks to AGENTS.md so all AI tools read the same canonical source.
+
+-   [#3799](https://github.com/Khan/perseus/pull/3799) [`f65a065bff`](https://github.com/Khan/perseus/commit/f65a065bff62cb5f6cd8980e07f1ca4f7cf3078c) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for vector graph
+
+-   Updated dependencies [[`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3)]:
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/pure-markdown@2.3.0
+    -   @khanacademy/keypad-context@3.2.66
+    -   @khanacademy/kmath@2.4.24
+    -   @khanacademy/math-input@26.4.38
+    -   @khanacademy/perseus-linter@5.1.5
+    -   @khanacademy/perseus-score@8.11.8
+
 ## 78.2.0
 
 ### Minor Changes

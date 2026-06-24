@@ -203,4 +203,37 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         expect(result.answers).toHaveLength(1);
         expect(result.answers[0].answerForms).toEqual([]);
     });
+
+    it("converts alignment when rightAlign is undefined", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: undefined,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.textAlign).toBe("left");
+    });
+
+    it("converts alignment when rightAlign is true", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: true,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.textAlign).toBe("right");
+    });
+
+    it("converts alignment when rightAlign is false", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: false,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.textAlign).toBe("left");
+    });
 });
