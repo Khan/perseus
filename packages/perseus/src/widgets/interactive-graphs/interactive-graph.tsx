@@ -270,11 +270,15 @@ class InteractiveGraph extends React.Component<Props, State> {
 
         const showUngradedText =
             this.props.graded === false && this.props.graph.type !== "none";
+        const ungradedDescriptionId = `interactive-graph-ungraded-description-${this.props.widgetId?.replace(
+            /\s+/g,
+            "-",
+        )}`;
 
         return (
             <>
                 {showUngradedText && (
-                    <p aria-hidden={true}>
+                    <p id={ungradedDescriptionId}>
                         {this.context.strings.ungradedInteractiveGraph}
                     </p>
                 )}
@@ -288,6 +292,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                     readOnly={this.props.apiOptions?.readOnly}
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
+                    ungradedDescriptionId={
+                        showUngradedText ? ungradedDescriptionId : undefined
+                    }
                     apiOptions={this.props.apiOptions} // TODO(AITQ-385): clean up feature flag
                 />
             </>
