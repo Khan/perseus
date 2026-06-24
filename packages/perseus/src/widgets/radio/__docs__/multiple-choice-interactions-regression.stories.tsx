@@ -138,10 +138,20 @@ export const ChoiceCheckedCorrect: Story = {
     args: {
         multipleSelect: true,
         choices: [
-            generateRadioChoice("Choice 1", {correct: true}),
-            generateRadioChoice("Choice 2"),
-            generateRadioChoice("Choice 3"),
-            generateRadioChoice("Choice 4", {correct: true}),
+            generateRadioChoice("Choice 1", {
+                correct: true,
+                rationale: "This is correct",
+            }),
+            generateRadioChoice("Choice 2", {
+                rationale: "This is not correct",
+            }),
+            generateRadioChoice("Choice 3", {
+                rationale: "This is not correct",
+            }),
+            generateRadioChoice("Choice 4", {
+                correct: true,
+                rationale: "This is correct",
+            }),
         ],
     },
     play: async ({canvas, userEvent}) => {
@@ -168,10 +178,20 @@ export const ChoiceCheckedInvalid: Story = {
     args: {
         multipleSelect: true,
         choices: [
-            generateRadioChoice("Choice 1", {correct: true}),
-            generateRadioChoice("Choice 2"),
-            generateRadioChoice("Choice 3"),
-            generateRadioChoice("Choice 4", {correct: true}),
+            generateRadioChoice("Choice 1", {
+                correct: true,
+                rationale: "This is correct",
+            }),
+            generateRadioChoice("Choice 2", {
+                rationale: "This is not correct",
+            }),
+            generateRadioChoice("Choice 3", {
+                rationale: "This is not correct",
+            }),
+            generateRadioChoice("Choice 4", {
+                correct: true,
+                rationale: "This is correct",
+            }),
         ],
     },
     play: async ({canvas, userEvent}) => {
