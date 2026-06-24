@@ -297,7 +297,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Vertical asymptote at x equals -8");
+            expect(result).toBe("Vertical asymptote at x equals -8.");
         });
     });
 
