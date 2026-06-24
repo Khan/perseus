@@ -350,11 +350,6 @@ function describeTangentGraph(
     };
 }
 
-// Builds the graph description from the two control points: the inflection
-// point (coords[0]) and the control point a quarter-period away (coords[1]).
-// It names both points, says whether the curve increases or decreases through
-// the inflection point and how often it repeats, and gives the two nearest
-// vertical asymptotes.
 function buildTangentDescription(
     coords: ReadonlyArray<Coord>,
     locale: string,
