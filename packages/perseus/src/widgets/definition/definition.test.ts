@@ -162,8 +162,7 @@ describe("Definition widget", () => {
         });
     });
 
-    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
-    it.skip("should close the popover when we Tab off the close button", async () => {
+    it("should close the popover when we Tab off the close button", async () => {
         // Arrange
         renderQuestion(question);
 
@@ -182,13 +181,14 @@ describe("Definition widget", () => {
         expect(screen.queryByRole("dialog")).toBeNull();
     });
 
-    // TODO(eshmoel, AX-2216): unskip tests once @jandrade completes work to enable Tab off.
-    it.skip("should close the popover when we Shift + Tab from the close button", async () => {
+    it("should return focus to the anchor when we Shift + Tab from the close button", async () => {
         // Arrange
         renderQuestion(question);
 
-        // Act - Open the popover
-        const definitionAnchor = screen.getByText("the Pequots");
+        // Act - Open the popover (focus lands on the close button)
+        const definitionAnchor = screen.getByLabelText(
+            "Definition of: the Pequots",
+        );
         await userEvent.click(definitionAnchor);
 
         // Verify popover is open
@@ -196,6 +196,29 @@ describe("Definition widget", () => {
         expect(tooltip).toBeVisible();
 
         // Shift + Tab off the close button (tab backwards)
+        await userEvent.tab({shift: true});
+
+        // Assert - Focus traps back to the anchor and the popover stays open
+        expect(definitionAnchor).toHaveFocus();
+        expect(screen.getByRole("dialog")).toBeVisible();
+    });
+
+    it("should close the popover when we Shift + Tab off the anchor", async () => {
+        // Arrange
+        renderQuestion(question);
+
+        // Act - Open the popover (focus lands on the close button)
+        const definitionAnchor = screen.getByLabelText(
+            "Definition of: the Pequots",
+        );
+        await userEvent.click(definitionAnchor);
+
+        // Verify popover is open
+        const tooltip = screen.getByRole("dialog");
+        expect(tooltip).toBeVisible();
+
+        // Shift + Tab back to the anchor, then Shift + Tab off it entirely
+        await userEvent.tab({shift: true});
         await userEvent.tab({shift: true});
 
         // Assert - Popover should be closed
