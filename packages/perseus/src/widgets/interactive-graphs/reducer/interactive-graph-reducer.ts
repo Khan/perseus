@@ -835,7 +835,7 @@ function doMovePoint(
                     ),
                     x: boundDestination[X],
                     y: boundDestination[Y],
-                    slope: getAbsoluteValueCoefficients(newCoords)?.[0] ?? 1,
+                    slope: getAbsoluteValueCoefficients(newCoords)[0],
                 },
             };
         }

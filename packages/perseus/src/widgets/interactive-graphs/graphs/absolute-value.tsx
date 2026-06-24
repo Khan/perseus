@@ -59,7 +59,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
         v: 0,
     });
     const coeffs = getAbsoluteValueCoefficients(coords);
-    if (coeffs !== undefined) {
+    if (Number.isFinite(coeffs.m)) {
         coeffRef.current = coeffs;
     }
 
@@ -128,20 +128,14 @@ export type AbsoluteValueCoefficients = {
 /**
  * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two
  * control points: p1 (vertex) and p2 (a point on one arm).
- *
- * Returns undefined if p1 and p2 share the same x-coordinate (slope undefined).
  */
 export function getAbsoluteValueCoefficients(
     coords: ReadonlyArray<Coord>,
-): AbsoluteValueCoefficients | undefined {
+): AbsoluteValueCoefficients {
     const p1 = coords[0];
     const p2 = coords[1];
 
     const denom = p2[X] - p1[X];
-    if (denom === 0) {
-        return undefined;
-    }
-
     const num = p2[Y] - p1[Y];
     let m = Math.abs(num / denom);
     if (p2[Y] < p1[Y]) {
@@ -194,7 +188,7 @@ function getAbsoluteValueDescription(
     const {coords} = state;
     const {locale} = i18n;
     const [p1, p2] = coords;
-    const slope = getAbsoluteValueCoefficients(coords)?.m ?? 1;
+    const slope = getAbsoluteValueCoefficients(coords).m;
 
     return strings.srInteractiveElements({
         elements: strings.srAbsoluteValueInteractiveElements({
@@ -215,14 +209,7 @@ function describeAbsoluteValueGraph(
     const {coords} = state;
     const [vertex, armPoint] = coords;
 
-    // coeffs is undefined only in a transient mid-drag state where both
-    // points share an x-value; fall back to the vertex coords and a slope
-    // of 1 so the description never renders NaN.
-    const coeffs = getAbsoluteValueCoefficients(coords) ?? {
-        m: 1,
-        h: vertex[X],
-        v: vertex[Y],
-    };
+    const coeffs = getAbsoluteValueCoefficients(coords);
 
     const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
     const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
