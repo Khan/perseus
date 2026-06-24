@@ -18,6 +18,7 @@ const styles = {
         padding: "0.4rem",
     },
     rightAlign: {textAlign: "right"},
+    centerAlign: {textAlign: "center"},
     sizeSmall: {width: "4rem"},
 };
 
