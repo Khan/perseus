@@ -10,7 +10,7 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import {expect, fireEvent, within} from "storybook/test";
+import {expect, fireEvent, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import WrappedServerItemRenderer from "../../../server-item-renderer";
@@ -341,10 +341,15 @@ export const InvalidInputKeepTryingPopover: Story = {
         await userEvent.click(
             canvas.getByRole("button", {name: "Check answer"}),
         );
-        // The popover opens a moment after scoring; wait for its message. It is
-        // portaled outside the story canvas, so query the whole document.
-        await expect(
-            within(document.body).findByText("Keep trying"),
-        ).resolves.toBeVisible();
+        // Wait for the popover to open before taking the Chromatic snapshot.
+        await waitFor(
+            () =>
+                expect(
+                    // The popover is portaled outside the story canvas,
+                    // so we need to query the document rather than the canvas.
+                    within(document.body).getByText("Keep trying"),
+                ).toBeVisible(),
+            {timeout: 3000},
+        );
     },
 };
