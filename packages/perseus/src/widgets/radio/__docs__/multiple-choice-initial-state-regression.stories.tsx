@@ -360,6 +360,8 @@ export const MultiSelectCountChoicesThree: Story = {
     decorators: [radioRendererDecorator],
     args: {
         multipleSelect: true,
+        countChoices: true,
+        numCorrect: 3,
         choices: [
             generateRadioChoice("Choice 1", {
                 correct: true,
