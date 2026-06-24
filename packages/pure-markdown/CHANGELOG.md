@@ -1,5 +1,11 @@
 # @khanacademy/pure-markdown
 
+## 2.3.0
+
+### Minor Changes
+
+-   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
 ## 2.2.8
 
 ### Patch Changes

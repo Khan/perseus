@@ -1,5 +1,34 @@
 # @khanacademy/perseus-editor
 
+## 33.2.0
+
+### Minor Changes
+
+-   [#3749](https://github.com/Khan/perseus/pull/3749) [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Render visible point labels on interactive graphs when the `perseus-enable-point-label-field` flag is on and the graph's `showPointLabels` field is true. Labels reposition to stay on-canvas when a point is near a graph edge. Supported on all interactive graph types except `vector` and `none`.
+
+*   [#3783](https://github.com/Khan/perseus/pull/3783) [`6801c10511`](https://github.com/Khan/perseus/commit/6801c10511ae0199e3a6c45ff2806ca77297c936) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Interactive-graph editor: add a "Show point labels" toggle behind the
+    "perseus-enable-point-label-field" flag. Toggling writes `showPointLabels`
+    to the graph JSON.
+
+-   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
+### Patch Changes
+
+-   [#3795](https://github.com/Khan/perseus/pull/3795) [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Safari point-label scroll jitter in interactive graph editor
+
+*   [#3787](https://github.com/Khan/perseus/pull/3787) [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Improve contrast of editor controls when editing is disabled
+
+-   [#3797](https://github.com/Khan/perseus/pull/3797) [`11d3ec0c95`](https://github.com/Khan/perseus/commit/11d3ec0c956d3c007607254d710de0d2e43d5771) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Label Image] Modernize the label-image answer-choices controls (delete custom Link component)
+
+-   Updated dependencies [[`f8638119b2`](https://github.com/Khan/perseus/commit/f8638119b2e8db68d645512e49c9ed59ce2287eb), [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`e08a75689a`](https://github.com/Khan/perseus/commit/e08a75689a2985d535e55779d7cac82ad17b630e), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`a7edbbc724`](https://github.com/Khan/perseus/commit/a7edbbc7243ad8ac129f9b922bd7af2b065465b0), [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1), [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39), [`d34f9758e6`](https://github.com/Khan/perseus/commit/d34f9758e677dc511efb5e6f4c5a463bf664da23), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3), [`f65a065bff`](https://github.com/Khan/perseus/commit/f65a065bff62cb5f6cd8980e07f1ca4f7cf3078c)]:
+    -   @khanacademy/perseus@78.3.0
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/keypad-context@3.2.66
+    -   @khanacademy/kmath@2.4.24
+    -   @khanacademy/math-input@26.4.38
+    -   @khanacademy/perseus-linter@5.1.5
+    -   @khanacademy/perseus-score@8.11.8
+
 ## 33.1.0
 
 ### Minor Changes
