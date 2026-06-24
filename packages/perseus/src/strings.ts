@@ -719,7 +719,6 @@ export type PerseusStrings = {
     srTangentGraph: string;
     srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
     srTangentSecondPoint: ({x, y}: {x: string; y: string}) => string;
-    // The inflection point and control point the curve passes through.
     srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,
@@ -731,12 +730,8 @@ export type PerseusStrings = {
         controlX: string;
         controlY: string;
     }) => string;
-    // Whether the curve increases or decreases through the inflection point,
-    // plus the period (how often the curve repeats).
     srTangentIncreasing: ({period}: {period: string}) => string;
     srTangentDecreasing: ({period}: {period: string}) => string;
-    // The two nearest vertical asymptotes, one on either side of the
-    // inflection point.
     srTangentAsymptotes: ({
         leftAsymptote,
         rightAsymptote,
