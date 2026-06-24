@@ -155,8 +155,8 @@ applies to the exponential graph.
 
 - `aria-label` on the graph container (`srLogarithmGraph`).
 - Localized labels for each point (`srLogarithmPoint1`, `srLogarithmPoint2`).
-- Localized asymptote label (`srLogarithmAsymptote`) with keyboard navigation instructions.
-- Graph description (`srLogarithmDescription`) with point and asymptote positions.
+- Localized asymptote label (`srLogarithmAsymptote`).
+- Graph description describing the curve's direction (which side of the asymptote it approaches and which infinity it trails toward), its position relative to the asymptote, and its intercepts (`srLogarithmDescriptionRightNeg` / `RightPos` / `LeftNeg` / `LeftPos`, `srLogarithmToRightOfAsymptote` / `srLogarithmToLeftOfAsymptote`, `srLogarithmIntercepts` / `srLogarithmXIntercept`), or a no-curve fallback (`srLogarithmNoCurve`) when the points straddle the asymptote.
 - Interactive elements description (`srLogarithmInteractiveElements`).
 - Asymptote and point moves are announced to screen readers via the WB Announcer (the reducer's `stateAnnouncement`), consumed in `stateful-mafs-graph.tsx`.
 - All number values use `srFormatNumber` for locale-appropriate formatting.

@@ -26,7 +26,7 @@ type ExternalProps = WidgetProps<
 
 export type NumericInputProps = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
-    rightAlign: NonNullable<ExternalProps["rightAlign"]>;
+    textAlign: NonNullable<ExternalProps["textAlign"]>;
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
@@ -37,7 +37,6 @@ export type NumericInputProps = ExternalProps & {
 type DefaultProps = Pick<
     NumericInputProps,
     | "size"
-    | "rightAlign"
     | "apiOptions"
     | "coefficient"
     | "answerForms"
@@ -74,7 +73,6 @@ export class NumericInput
 
     static defaultProps: DefaultProps = {
         size: "normal",
-        rightAlign: false,
         apiOptions: ApiOptions.defaults,
         coefficient: false,
         answerForms: [],

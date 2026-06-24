@@ -2,6 +2,7 @@
  * Controlled component to display and change widget options.
  */
 
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import Checkbox from "../../components/checkbox";
@@ -37,9 +38,11 @@ const Behavior = ({
     onChange,
 }: Props): React.ReactElement => (
     <div>
-        <div className={styles.title}>Behavior</div>
+        <BodyText weight="bold" tag="span">
+            Behavior
+        </BodyText>
 
-        <ul>
+        <ul className={styles.optionsList}>
             <li className={styles.option}>
                 <Checkbox
                     checked={multipleAnswers}

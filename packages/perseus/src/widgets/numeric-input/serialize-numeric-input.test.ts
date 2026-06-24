@@ -48,6 +48,7 @@ describe("NumericInput serialization", () => {
                             },
                         ],
                         size: "normal",
+                        textAlign: "left",
                     },
                 },
             },
@@ -97,7 +98,7 @@ describe("NumericInput serialization", () => {
                     answerForms: [],
                     coefficient: false,
                     labelText: "",
-                    rightAlign: false,
+                    textAlign: "left",
                     size: "normal",
                     // currentValue is added to NumericInput props and
                     // represents user input
