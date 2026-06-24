@@ -10,6 +10,11 @@ import ColorSwatch from "./color-swatch";
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+// Get all the possible colors to put in the dropdown, except for "blurple",
+// which is reserved for spotlights.
+const possibleColors: Exclude<LockedFigureColor, "blurple">[] =
+    lockedFigureColorNames.filter((color) => color !== "blurple");
+
 interface Props {
     selectedValue: LockedFigureColor;
     style?: StyleType;
@@ -33,7 +38,7 @@ const ColorSelect = (props: Props) => {
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
-                    {lockedFigureColorNames.map((colorName) => (
+                    {possibleColors.map((colorName) => (
                         <OptionItem
                             key={colorName}
                             value={colorName}

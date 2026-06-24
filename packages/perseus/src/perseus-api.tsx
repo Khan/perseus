@@ -16,6 +16,11 @@
  *    appearance of the keypad on the screen.
  *    When focus changes to or from nothing being selected, `path` will be null.
  *  * interactionCallback: Called when the user interacts with a widget.
+ *  * selectionCallback: Called when the user selects or clears a widget-owned
+ *    selectable element.
+ *  * spotlightedLockedFigureIndex: Host-driven spotlight for the
+ *    interactive-graph widget. The index of a locked figure to call out, or
+ *    null for none.
  *  * answerableCallback: Called with the current `answerability` of the
  *    problem, e.g. whether all required fields have input.
  *  * getAnotherHint: If provided, a button is rendered at the bottom of the
@@ -43,6 +48,8 @@ export const ApiOptions = {
         answerableCallback: PropTypes.func,
         getAnotherHint: PropTypes.func,
         interactionCallback: PropTypes.func,
+        selectionCallback: PropTypes.func,
+        spotlightedLockedFigureIndex: PropTypes.number,
 
         // If imagePlaceholder or widgetPlaceholder are set, perseus will
         // render the placeholder instead of the image or widget node.

@@ -32,6 +32,10 @@ import {
     getGraphBottomMargin,
     getLabelPosition,
 } from "./backgrounds/utils";
+import {
+    GraphLockedFigureHitTargetLayer,
+    GraphLockedFigureIndicatorLayer,
+} from "./graph-locked-figure-selection-layer";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
@@ -96,6 +100,9 @@ export type MafsGraphProps = {
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
+    onLockedFigureSelectionChange?: (index: number | null) => void;
+    // Host-driven spotlight: index of a locked figure to call out, or null.
+    spotlightedLockedFigureIndex?: number | null;
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
@@ -111,6 +118,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        onLockedFigureSelectionChange,
+        spotlightedLockedFigureIndex,
         widgetId,
     } = props;
     const {type} = state;
@@ -132,6 +141,48 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const interactionPrompt =
         isUnlimitedGraphState(state) && state.showKeyboardInteractionInvitation;
 
+    const disableInteraction = readOnly || !!props.static;
+    const lockedFigureSelectionEnabled =
+        state.type === "none" && !disableInteraction;
+    // Positional index into props.lockedFigures; not reconciled if the array changes.
+    const [selectedLockedFigureIndex, setSelectedLockedFigureIndex] =
+        React.useState<number | null>(null);
+    const lastNotifiedSelectionRef = React.useRef<number | null>(null);
+
+    React.useEffect(() => {
+        if (!lockedFigureSelectionEnabled) {
+            setSelectedLockedFigureIndex(null);
+        }
+    }, [lockedFigureSelectionEnabled]);
+
+    React.useEffect(() => {
+        if (lastNotifiedSelectionRef.current === selectedLockedFigureIndex) {
+            return;
+        }
+
+        onLockedFigureSelectionChange?.(selectedLockedFigureIndex);
+        lastNotifiedSelectionRef.current = selectedLockedFigureIndex;
+    }, [onLockedFigureSelectionChange, selectedLockedFigureIndex]);
+
+    const toggleLockedFigureSelection = React.useCallback(
+        (figureIndex: number) => {
+            if (!lockedFigureSelectionEnabled) {
+                return;
+            }
+
+            setSelectedLockedFigureIndex((selectedFigureIndex) =>
+                selectedFigureIndex === figureIndex ? null : figureIndex,
+            );
+        },
+        [lockedFigureSelectionEnabled],
+    );
+
+    const clearLockedFigureSelection = React.useCallback(() => {
+        if (lockedFigureSelectionEnabled) {
+            setSelectedLockedFigureIndex(null);
+        }
+    }, [lockedFigureSelectionEnabled]);
+
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
@@ -149,8 +200,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
         i18n,
         markings: props.markings,
     });
-
-    const disableInteraction = readOnly || !!props.static;
 
     const graphInfo: GraphDimensions = {
         range: state.range,
@@ -245,8 +294,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         height,
                     }}
                     onKeyUp={(event) => {
+                        if (event.key === "Escape") {
+                            clearLockedFigureSelection();
+                        }
                         handleKeyboardEvent(event, state, dispatch);
                     }}
+                    onClick={clearLockedFigureSelection}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
                         // Instructions read first on focus so screen reader
@@ -386,6 +439,18 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                             lockedFigures={props.lockedFigures}
                                             range={state.range}
                                         />
+                                        {/* Indicators for selection and host spotlight. */}
+                                        <GraphLockedFigureIndicatorLayer
+                                            lockedFigures={props.lockedFigures}
+                                            selectedFigureIndex={
+                                                lockedFigureSelectionEnabled
+                                                    ? selectedLockedFigureIndex
+                                                    : null
+                                            }
+                                            spotlightedFigureIndex={
+                                                spotlightedLockedFigureIndex
+                                            }
+                                        />
                                     </ClipToGraphBounds>
                                 )}
                             </Mafs>
@@ -421,6 +486,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 )}
                                 {/* Interactive layer.*/}
                                 {graph}
+                                <GraphLockedFigureHitTargetLayer
+                                    enabled={lockedFigureSelectionEnabled}
+                                    lockedFigures={props.lockedFigures}
+                                    onToggle={toggleLockedFigureSelection}
+                                />
                             </Mafs>
                         </View>
                     </View>

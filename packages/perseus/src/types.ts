@@ -179,6 +179,9 @@ export type APIOptions = Readonly<{
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
+    selectionCallback?: (index: number | null) => void;
+    /** Host-driven spotlight: index of a locked figure to call out, or null. */
+    spotlightedLockedFigureIndex?: number | null;
     /**
      * If imagePlaceholder is set, Perseus will render the placeholder instead
      * of the image node.
