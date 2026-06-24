@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 29.0.0
+
+### Major Changes
+
+-   [#3731](https://github.com/Khan/perseus/pull/3731) [`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for "centered" text alignment in NumericInputs. This replaces `rightAlign` with `textAlign` in NumericInputs widgetOptions requiring a major bump for NumericInput.
+
 ## 28.3.0
 
 ### Minor Changes
