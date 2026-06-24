@@ -99,6 +99,7 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
     widgetId: string;
+    ungradedDescriptionId?: string;
     apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
@@ -112,6 +113,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         fullGraphAriaLabel,
         fullGraphAriaDescription,
         widgetId,
+        ungradedDescriptionId,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -249,7 +251,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
-                        // Instructions read first on focus so screen reader
+                        ungradedDescriptionId,
+                        // Instructions read next on focus so screen reader
                         // users hear how to interact before the descriptions
                         state.type !== "none" &&
                             !disableInteraction &&
