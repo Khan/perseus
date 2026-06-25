@@ -12,6 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
+import {rWidgetRule} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -155,6 +156,25 @@ const rules = {
                     {contents}
                 </div>
             );
+        },
+    },
+    widgetBlock: {
+        // Process block-level widgets before paragraphs.
+        order: SimpleMarkdown.defaultRules.paragraph.order - 0.75,
+        // Match to the widget rule, but at the block level.
+        match: SimpleMarkdown.blockRegex(rWidgetRule),
+        // Type this as a "widget" so that the renderer will use
+        // the same rendering logic as inline widgets.
+        parse: (capture: any, parse: any, state: any): any => ({
+            type: "widget",
+            id: capture[1],
+            widgetType: capture[2],
+        }),
+        react: (node, output, state) => {
+            // The actual output is handled in the renderer, where
+            // we know the current widget props/state. This is
+            // just a stub for testing.
+            return <em key={state.key}>{`[Widget: ${node.id}]`}</em>;
         },
     },
     widget: {

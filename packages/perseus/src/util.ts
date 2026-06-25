@@ -86,7 +86,7 @@ function inputPathsEqual(
     );
 }
 
-const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+export const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
