@@ -109,15 +109,9 @@ function checkShowPointLabelsHasLabels(
         return;
     }
     const labels = g.pointLabels;
-    if (labels == null || labels.length === 0) {
+    if (labels === undefined || labels.every((l) => l == null || l === "")) {
         issues.push(
-            "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
-        );
-        return;
-    }
-    if (labels.some((l) => l == null || l === "")) {
-        issues.push(
-            "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+            "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
         );
     }
 }
