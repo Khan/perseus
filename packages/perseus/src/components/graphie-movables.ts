@@ -28,10 +28,10 @@ const MovablePoint: any = GraphieClasses.createClass({
         };
 
         return Object.assign(this.props, {
-            normalStyle: Object.assign(
-                commonStyle,
-                this.props.mobileStyleOverride || {},
-            ),
+            normalStyle: {
+                ...commonStyle,
+                ...(this.props.mobileStyleOverride || {}),
+            },
             highlightStyle: {
                 ...commonStyle,
                 "stroke-width": 0,
@@ -241,13 +241,12 @@ const PlotParametric: any = GraphieClasses.createSimpleClass(
 
 const Point: any = GraphieClasses.createSimpleClass((graphie, props) => {
     // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+    const neutralColor = tokenValue(
+        semanticColor.core.foreground.neutral.strong,
+    );
     return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-        fill:
-            props.color ||
-            tokenValue(semanticColor.core.foreground.neutral.strong),
-        stroke:
-            props.color ||
-            tokenValue(semanticColor.core.foreground.neutral.strong),
+        fill: props.color || neutralColor,
+        stroke: props.color || neutralColor,
     });
 });
 
