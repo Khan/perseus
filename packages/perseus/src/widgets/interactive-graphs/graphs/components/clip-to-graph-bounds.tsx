@@ -3,6 +3,8 @@ import * as React from "react";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {calculateNestedSVGCoords} from "../../utils";
 
+type Insets = {top?: number; right?: number; bottom?: number; left?: number};
+
 // Clips its children to the graph's visible bounds via a nested <svg>
 // sized to the graph range (default SVG overflow:hidden does the
 // clipping). Wrap any rendering that could extend past the graph if
@@ -22,8 +24,6 @@ import {calculateNestedSVGCoords} from "../../utils";
 // (e.g. an axis line sitting on the edge). Only the side the stroke spills
 // over is expanded, so the perpendicular ends of the content stay clipped to
 // the graph bounds.
-type Insets = {top?: number; right?: number; bottom?: number; left?: number};
-
 export function ClipToGraphBounds({
     children,
     expand,

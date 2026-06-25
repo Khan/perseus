@@ -35,7 +35,7 @@ const gridLineOptions = (
     const lines: number | false =
         props.markings === "axes" ? false : props.gridStep[axisIndex];
     return {
-        axis: false as const,
+        axis: false,
         lines: lines,
         labels: false as const,
     };
