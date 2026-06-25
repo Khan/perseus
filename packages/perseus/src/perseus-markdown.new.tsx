@@ -12,13 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-
-const INLINE_WIDGET_TYPES = new Set([
-    "definition",
-    "expression",
-    "input-number",
-    "numeric-input",
-]);
+import {rWidgetRule} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -173,6 +167,25 @@ const rules = {
             return <em key={state.key}>{`[Widget: ${node.id}]`}</em>;
         },
     },
+    widgetBlock: {
+        // Process block-level widgets before paragraphs.
+        order: SimpleMarkdown.defaultRules.paragraph.order - 0.5,
+        // Match to the widget rule, but at the block level.
+        match: SimpleMarkdown.blockRegex(rWidgetRule),
+        // Type this as a "widget" so that the renderer will use
+        // the same rendering logic as inline widgets.
+        parse: (capture: any, parse: any, state: any): any => ({
+            type: "widget",
+            id: capture[1],
+            widgetType: capture[2],
+        }),
+        react: (node, output, state) => {
+            // The actual output is handled in the renderer, where
+            // we know the current widget props/state. This is
+            // just a stub for testing.
+            return <em key={state.key}>{`[Widget: ${node.id}]`}</em>;
+        },
+    },
     blockMath: {
         ...pureMarkdownRules.blockMath,
         react: (node, output, state) => {
@@ -283,18 +296,12 @@ const rules = {
         },
     },
     paragraph: {
+        // NOTE: This overrides the rendering of "paragraphs" in simple-markdown.
+        //       If simple-markdown is ever corrected (back to a <p> tag),
+        //           then this rule can be removed.
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
-            const containsBlockWidget = node.content.some(
-                (childNode) =>
-                    childNode.type === "widget" &&
-                    !INLINE_WIDGET_TYPES.has(childNode.widgetType),
-            );
-            if (containsBlockWidget) {
-                return output(node.content, state);
-            } else {
-                return <p>{output(node.content, state)}</p>;
-            }
+            return <p>{output(node.content, state)}</p>;
         },
     },
 } as const;
