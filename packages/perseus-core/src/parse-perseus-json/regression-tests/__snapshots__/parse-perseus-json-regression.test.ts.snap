@@ -873,7 +873,7 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
         "options": {
           "answers": [
             {
-              "maxError": 0.05,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -1486,7 +1486,7 @@ $r =  $ [[☃ numeric-input 1]] ",
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -4875,11 +4875,10 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
           "answers": [
             {
               "answerForms": [],
-              "maxError": 0,
               "message": "",
               "simplify": "required",
               "status": "correct",
-              "strict": true,
+              "strict": false,
               "value": null,
             },
           ],
@@ -4901,11 +4900,10 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
           "answers": [
             {
               "answerForms": [],
-              "maxError": 0,
               "message": "",
               "simplify": "required",
               "status": "correct",
-              "strict": true,
+              "strict": false,
               "value": null,
             },
           ],
@@ -12059,7 +12057,7 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -14656,7 +14654,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -14753,7 +14751,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
           "answers": [
             {
               "answerForms": [],
-              "maxError": null,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -14874,7 +14871,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
         "options": {
           "answers": [
             {
-              "maxError": 0,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -15069,7 +15066,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
                 "proper",
                 "improper",
               ],
-              "maxError": null,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -15190,7 +15186,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
         "options": {
           "answers": [
             {
-              "maxError": 0,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -15295,7 +15291,6 @@ What is the radius of the mattress when it is rolled up into a cylinder.
           "answers": [
             {
               "answerForms": [],
-              "maxError": null,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -15706,7 +15701,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -15846,7 +15841,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
         "options": {
           "answers": [
             {
-              "maxError": 0,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -16348,7 +16343,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -16375,7 +16370,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -16402,7 +16397,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
         "options": {
           "answers": [
             {
-              "maxError": null,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -16760,7 +16755,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
         "options": {
           "answers": [
             {
-              "maxError": 0.01,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -16768,7 +16763,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "value": null,
             },
             {
-              "maxError": 0.2,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "ungraded",
@@ -16776,7 +16771,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "value": null,
             },
             {
-              "maxError": 0.5,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "ungraded",
@@ -16784,7 +16779,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "value": null,
             },
             {
-              "maxError": 0.1,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "wrong",
@@ -16898,7 +16893,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
         "options": {
           "answers": [
             {
-              "maxError": 0,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -17154,7 +17149,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
         "options": {
           "answers": [
             {
-              "maxError": 0,
+              "answerForms": undefined,
               "message": "",
               "simplify": "required",
               "status": "correct",
@@ -18927,11 +18922,10 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
           "answers": [
             {
               "answerForms": [],
-              "maxError": 0,
               "message": "",
               "simplify": "required",
               "status": "correct",
-              "strict": true,
+              "strict": false,
               "value": null,
             },
           ],

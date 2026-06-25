@@ -1675,12 +1675,12 @@ export type PerseusNumericInputAnswer = {
     /**
      * Whether we should check the answer strictly against the configured
      * answerForms (strict = true) or include the set of default answerForms
-     * (strict = false).
+     * (strict = false). Always false in answerless data.
      */
     strict: boolean;
     /**
      * The maximum difference between the answer key and a correct user
-     * input.
+     * input. Omitted in answerless data.
      */
     maxError?: number | null;
     /** How unsimplified responses should be handled. */

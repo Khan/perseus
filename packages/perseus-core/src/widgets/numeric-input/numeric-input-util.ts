@@ -17,8 +17,11 @@ function getNumericInputAnswerPublicData(
     answer: PerseusNumericInputAnswer,
 ): PerseusNumericInputAnswer {
     return {
-        ...answer,
+        status: answer.status,
+        answerForms: answer.answerForms,
+        simplify: answer.simplify,
         value: null,
+        strict: false,
         message: "",
     };
 }
