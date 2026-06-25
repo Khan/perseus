@@ -450,6 +450,49 @@ export const LockedPoints: Story = {
     },
 };
 
+// Verifies points on the graph boundary (corners and edge midpoints) render as
+// full circles rather than being clipped in half.
+export const LockedPointsAtGraphEdges: Story = {
+    args: {
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        lockedFigures: [
+            // Corners
+            generateIGLockedPoint({coord: [0, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [0, 10]}),
+            generateIGLockedPoint({coord: [10, 10]}),
+            // Edge midpoints
+            generateIGLockedPoint({coord: [5, 10]}),
+            generateIGLockedPoint({coord: [5, 0]}),
+            generateIGLockedPoint({coord: [0, 5]}),
+            generateIGLockedPoint({coord: [10, 5]}),
+        ],
+    },
+};
+
+// Verifies a point at the origin of a first-quadrant graph (the reported bug):
+// it sits on both edges and previously rendered as a quarter-circle.
+export const LockedPointAtOrigin: Story = {
+    args: {
+        range: [
+            [0, 8],
+            [0, 80],
+        ],
+        step: [1, 10],
+        gridStep: [1, 10],
+        labels: ["time (s)", "distance (m)"],
+        labelLocation: "alongEdge",
+        lockedFigures: [
+            generateIGLockedPoint({coord: [0, 0], color: "red", filled: true}),
+            generateIGLockedPoint({coord: [2, 18], color: "red", filled: true}),
+            generateIGLockedPoint({coord: [4, 43], color: "red", filled: true}),
+        ],
+    },
+};
+
 // Verifies a locked line connecting two locked points.
 export const LockedLine: Story = {
     args: {
