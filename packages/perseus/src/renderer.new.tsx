@@ -44,7 +44,7 @@ import {Log} from "./logging/log";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
-import QuestionParagraph from "./question-paragraph";
+import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";

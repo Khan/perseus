@@ -13,6 +13,13 @@ import _ from "underscore";
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
 
+const INLINE_WIDGET_TYPES = new Set([
+    "definition",
+    "expression",
+    "input-number",
+    "numeric-input",
+]);
+
 /**
  * These rules are the same as the pure-markdown rules, but with some
  * customizations to how they're rendered (note the `react` functions).
@@ -273,6 +280,21 @@ const rules = {
                     {output(node.content, state)}
                 </Lint>
             );
+        },
+    },
+    paragraph: {
+        ...pureMarkdownRules.paragraph,
+        react: (node, output, state) => {
+            const containsBlockWidget = node.content.some(
+                (childNode) =>
+                    childNode.type === "widget" &&
+                    !INLINE_WIDGET_TYPES.has(childNode.widgetType),
+            );
+            if (containsBlockWidget) {
+                return output(node.content, state);
+            } else {
+                return <p>{output(node.content, state)}</p>;
+            }
         },
     },
 } as const;
