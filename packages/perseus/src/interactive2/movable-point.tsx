@@ -188,13 +188,13 @@ export class MovablePoint {
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
         // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
-        const normalColor = tokenValue(
+        const interactiveColor = tokenValue(
             semanticColor.core.foreground.instructive.default,
         );
         state.normalStyle = _.extend(
             {
-                fill: normalColor,
-                stroke: normalColor,
+                fill: interactiveColor,
+                stroke: interactiveColor,
                 scale: 1,
             },
             state.normalStyle,
@@ -202,8 +202,8 @@ export class MovablePoint {
 
         state.highlightStyle = _.extend(
             {
-                fill: normalColor,
-                stroke: normalColor,
+                fill: interactiveColor,
+                stroke: interactiveColor,
                 scale: 2,
             },
             state.highlightStyle,
@@ -237,7 +237,7 @@ export class MovablePoint {
                             {...iconTrash}
                             style={{
                                 position: "static",
-                                color: normalColor,
+                                color: interactiveColor,
                                 marginLeft: 9,
                                 marginRight: 9,
                             }}
