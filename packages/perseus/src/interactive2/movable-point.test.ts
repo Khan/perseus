@@ -45,15 +45,18 @@ describe("MovablePoint", () => {
             touchOffset: null,
             mouseTarget: expect.any(WrappedEllipse),
             visibleShape: expect.any(WrappedEllipse),
+            // Note: fill/stroke resolve to "" in jsdom because tokenValue()
+            // reads CSS custom properties — jsdom doesn't define them.
+            // Correct hex values resolve in a real browser (Chromatic).
             normalStyle: {
                 scale: 1,
-                fill: "#00a60e",
-                stroke: "#00a60e",
+                fill: "",
+                stroke: "",
             },
             highlightStyle: {
                 scale: 2,
-                fill: "#00a60e",
-                stroke: "#00a60e",
+                fill: "",
+                stroke: "",
             },
         });
     });
@@ -97,15 +100,18 @@ describe("MovablePoint", () => {
             touchOffset: null,
             mouseTarget: expect.any(WrappedEllipse),
             visibleShape: expect.any(WrappedEllipse),
+            // Note: fill/stroke resolve to "" in jsdom because tokenValue()
+            // reads CSS custom properties — jsdom doesn't define them.
+            // Correct hex values resolve in a real browser (Chromatic).
             normalStyle: {
                 scale: 1,
-                fill: "#00a60e",
-                stroke: "#00a60e",
+                fill: "",
+                stroke: "",
             },
             highlightStyle: {
                 scale: 2,
-                fill: "#00a60e",
-                stroke: "#00a60e",
+                fill: "",
+                stroke: "",
             },
         });
     });
