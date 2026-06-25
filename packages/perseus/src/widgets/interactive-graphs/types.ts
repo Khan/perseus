@@ -195,6 +195,7 @@ type MoveLogarithmPointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+    hasCurve: boolean;
 };
 
 // Exponential graph: the horizontal asymptote moves vertically, so only
@@ -231,6 +232,7 @@ type MoveAbsoluteValuePointAnnouncement = {
     pointLabel: string | number;
     x: number;
     y: number;
+    slope: number;
 };
 
 // Angle graph: vertex (index 1) reads with the measured angle; sides

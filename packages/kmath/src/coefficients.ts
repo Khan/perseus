@@ -197,20 +197,14 @@ export function getQuadraticCoefficients(
 /**
  * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two
  * control points: p1 (vertex) and p2 (a point on one arm).
- *
- * Returns undefined if p1 and p2 share the same x-coordinate (slope undefined).
  */
 export function getAbsoluteValueCoefficients(
     coords: ReadonlyArray<Coord>,
-): AbsoluteValueCoefficient | undefined {
+): AbsoluteValueCoefficient {
     const p1 = coords[0];
     const p2 = coords[1];
 
     const denom = p2[0] - p1[0];
-    if (denom === 0) {
-        return undefined;
-    }
-
     const num = p2[1] - p1[1];
     const m = num / Math.abs(denom);
 

@@ -47,6 +47,8 @@ import {
     floatingPointIssueQuestion,
     ungradedQuestion,
     noTicks,
+    onEdgeLeftBottom,
+    onEdgeRightTop,
 } from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -576,6 +578,22 @@ export const NoTicks: Story = {
     args: {
         item: generateTestPerseusItem({
             question: noTicks,
+        }),
+    },
+};
+
+export const OnEdgeLeftBottom: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: onEdgeLeftBottom,
+        }),
+    },
+};
+
+export const OnEdgeRightTop: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: onEdgeRightTop,
         }),
     },
 };

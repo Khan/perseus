@@ -41,13 +41,38 @@ describe("Tangent graph screen reader", () => {
         // Arrange, Act
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
         const graph = screen.getByLabelText(
-            "A tangent function on a coordinate plane.",
+            "A tangent curve on a coordinate plane.",
         );
 
         // Assert
         expect(graph).toBeInTheDocument();
         expect(graph).toHaveAccessibleDescription(
-            "The graph shows a tangent function with an inflection point at 0 comma 0.",
+            "The curve passes through an inflection point at 0 comma 0 and a control point at 2 comma 2. The curve increases through the inflection point, repeating every 8 units. The nearest vertical asymptotes are at x equals -4 and x equals 4.",
+        );
+    });
+
+    it("describes a curve that decreases through the inflection point", () => {
+        // Arrange, Act — control point below-and-right of the inflection point
+        // (dx > 0, dy < 0), so the curve decreases through the inflection point.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    coords: [
+                        [0, 0],
+                        [2, -2],
+                    ],
+                }}
+            />,
+        );
+        const graph = screen.getByLabelText(
+            "A tangent curve on a coordinate plane.",
+        );
+
+        // Assert
+        expect(graph).toHaveAccessibleDescription(
+            "The curve passes through an inflection point at 0 comma 0 and a control point at 2 comma -2. The curve decreases through the inflection point, repeating every 8 units. The nearest vertical asymptotes are at x equals -4 and x equals 4.",
         );
     });
 
