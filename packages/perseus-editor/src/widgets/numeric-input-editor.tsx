@@ -12,6 +12,7 @@ import {
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -377,24 +378,6 @@ class NumericInputEditor extends React.Component<Props, State> {
             </View>
         );
 
-        const rightAlign = (
-            <View className={styles.field}>
-                <BodyText weight="semi">Alignment</BodyText>
-                <SegmentedControl
-                    aria-label="Alignment"
-                    disabled={editingDisabled}
-                    selectedValue={this.props.rightAlign ? "right" : "left"}
-                    onChange={(value) =>
-                        this.props.onChange({rightAlign: value === "right"})
-                    }
-                    options={[
-                        {value: "left", label: "Left"},
-                        {value: "right", label: "Right"},
-                    ]}
-                />
-            </View>
-        );
-
         const labelText = (
             <View className={styles.field}>
                 <View className={styles.labelRow}>
@@ -628,7 +611,22 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     <div className="perseus-editor-accordion-content">
                         {inputSize}
-                        {rightAlign}
+
+                        <label>
+                            Text alignment
+                            <SingleSelect
+                                selectedValue={this.props.textAlign}
+                                onChange={(value) => {
+                                    this.props.onChange({textAlign: value});
+                                }}
+                                placeholder="Select text alignment"
+                            >
+                                <OptionItem value="left" label="Left" />
+                                <OptionItem value="center" label="Center" />
+                                <OptionItem value="right" label="Right" />
+                            </SingleSelect>
+                        </label>
+
                         {coefficientCheck}
                         {labelText}
                     </div>

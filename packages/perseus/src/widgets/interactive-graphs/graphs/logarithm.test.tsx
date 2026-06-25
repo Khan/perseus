@@ -86,7 +86,7 @@ describe("Logarithm graph screen reader", () => {
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Vertical asymptote at x equals -6",
+                name: "Vertical asymptote at x equals -6.",
             }),
         ).toBeInTheDocument();
     });

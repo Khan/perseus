@@ -16,7 +16,7 @@ export type NumericInputPublicWidgetOptions = {
     labelText?: PerseusNumericInputWidgetOptions["labelText"];
     size: PerseusNumericInputWidgetOptions["size"];
     coefficient: PerseusNumericInputWidgetOptions["coefficient"];
-    rightAlign?: PerseusNumericInputWidgetOptions["rightAlign"];
+    textAlign: PerseusNumericInputWidgetOptions["textAlign"];
     answers: ReadonlyArray<NumericInputAnswerPublicData>;
 };
 
