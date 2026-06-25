@@ -12,58 +12,35 @@ const MovablePoint: any = GraphieClasses.createClass({
     movableProps: ["children"],
 
     _getProps: function () {
-        if (this.props.isMobile) {
-            const isMobile = this.props.isMobile;
-
-            // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
-            const commonStyle = isMobile
-                ? {
-                      stroke: tokenValue(
-                          semanticColor.core.foreground.knockout.default,
-                      ),
-                      "stroke-width": 3,
-                      fill: tokenValue(
-                          semanticColor.core.foreground.instructive.default,
-                      ),
-                  }
-                : {
-                      stroke: tokenValue(
-                          semanticColor.core.foreground.instructive.default,
-                      ),
-                      fill: tokenValue(
-                          semanticColor.core.foreground.instructive.default,
-                      ),
-                  };
-
-            const normalStyle = isMobile
-                ? Object.assign(
-                      commonStyle,
-                      this.props.mobileStyleOverride || {},
-                  )
-                : Object.assign(commonStyle, this.props.normalStyle);
-
-            const highlightStyle = isMobile
-                ? {
-                      ...commonStyle,
-                      "stroke-width": 0,
-                      scale: 0.75,
-                  }
-                : this.props.highlightStyle;
-            /* eslint-enable indent */
-
-            const addedProps = Object.assign(
-                {
-                    normalStyle: normalStyle,
-                    highlightStyle: highlightStyle,
-                    shadow: isMobile,
-                    tooltip: isMobile && this.props.showTooltips,
-                },
-                isMobile ? {pointSize: 7} : {},
-            );
-
-            return Object.assign(this.props, addedProps);
+        if (!this.props.isMobile) {
+            return this.props;
         }
-        return this.props;
+
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+        const interactiveColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
+
+        const commonStyle = {
+            stroke: tokenValue(semanticColor.core.foreground.knockout.default),
+            "stroke-width": 3,
+            fill: interactiveColor,
+        };
+
+        return Object.assign(this.props, {
+            normalStyle: Object.assign(
+                commonStyle,
+                this.props.mobileStyleOverride || {},
+            ),
+            highlightStyle: {
+                ...commonStyle,
+                "stroke-width": 0,
+                scale: 0.75,
+            },
+            shadow: true,
+            tooltip: this.props.showTooltips,
+            pointSize: 7,
+        });
     },
 
     add: function (graphie) {

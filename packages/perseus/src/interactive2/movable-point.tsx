@@ -51,12 +51,12 @@
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import {Errors, PerseusError, pluck} from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
-import KhanColors from "../util/colors";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -187,9 +187,10 @@ export class MovablePoint {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        const normalColor = state.static
-            ? KhanColors.DYNAMIC
-            : KhanColors.INTERACTIVE;
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+        const normalColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
         state.normalStyle = _.extend(
             {
                 fill: normalColor,
@@ -201,8 +202,8 @@ export class MovablePoint {
 
         state.highlightStyle = _.extend(
             {
-                fill: KhanColors.INTERACTING,
-                stroke: KhanColors.INTERACTING,
+                fill: normalColor,
+                stroke: normalColor,
                 scale: 2,
             },
             state.highlightStyle,
@@ -236,7 +237,7 @@ export class MovablePoint {
                             {...iconTrash}
                             style={{
                                 position: "static",
-                                color: KhanColors.INTERACTIVE,
+                                color: normalColor,
                                 marginLeft: 9,
                                 marginRight: 9,
                             }}
