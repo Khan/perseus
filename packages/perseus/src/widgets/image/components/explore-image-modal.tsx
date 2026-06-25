@@ -3,6 +3,7 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
+import {useDependencies} from "../../../dependencies";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
@@ -17,6 +18,24 @@ export const ExploreImageModal = (props: Props) => {
     const uniqueId = React.useId();
     const captionId = `${uniqueId}-caption`;
     const longDescId = `${uniqueId}-long-desc`;
+    const {analytics} = useDependencies();
+
+    React.useEffect(() => {
+        const openedAt = Date.now();
+        return () => {
+            analytics.onAnalyticsEvent({
+                type: "perseus:image:explore-modal-closed:ti",
+                payload: {
+                    // No SubType exists yet
+                    widgetSubType: "null",
+                    widgetId: props.widgetId,
+                    durationMs: Date.now() - openedAt,
+                },
+            });
+        };
+        // We have an empty dependency array to prevent rerenders, so that return only runs on cleanup (when modal closes)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const titleText = props.title || context.strings.imageAlternativeTitle;
     const title = (
