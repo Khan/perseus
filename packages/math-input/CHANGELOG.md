@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.4.40
+
+### Patch Changes
+
+-   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
 ## 26.4.39
 
 ### Patch Changes

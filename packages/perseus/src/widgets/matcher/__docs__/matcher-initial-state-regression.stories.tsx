@@ -57,30 +57,6 @@ export const WithoutLabels: Story = {
     },
 };
 
-// Verifies TeX rendering in both column labels and item cards. The 500ms delay
-// gives MathJax time to finish rendering and onMeasure to settle before
-// Chromatic takes its snapshot.
-export const WithTeX: Story = {
-    decorators: [matcherRendererDecorator],
-    parameters: {
-        chromatic: {delay: 5000},
-    },
-    args: {
-        ...sharedArgs,
-        labels: ["$f(x)$", "$f'(x)$"],
-        left: [
-            "$f(x) = \\dfrac{1}{x}$",
-            "$f(x) = \\dfrac{1}{x^2}$",
-            "$f(x) = \\dfrac{1}{x^3}$",
-        ],
-        right: [
-            "$f'(x) = -\\dfrac{1}{x^2}$",
-            "$f'(x) = -\\dfrac{2}{x^3}$",
-            "$f'(x) = -\\dfrac{3}{x^4}$",
-        ],
-    },
-};
-
 // Verifies the orderMatters state: both columns render as draggable cards
 // (white background, visible border) rather than the left column appearing
 // flat/disabled as it does when orderMatters is false.

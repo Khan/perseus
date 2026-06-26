@@ -1,5 +1,12 @@
 # @khanacademy/perseus-linter
 
+## 5.1.7
+
+### Patch Changes
+
+-   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1)]:
+    -   @khanacademy/kmath@2.4.26
+
 ## 5.1.6
 
 ### Patch Changes

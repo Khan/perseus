@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 78.4.1
+
+### Patch Changes
+
+-   [#3800](https://github.com/Khan/perseus/pull/3800) [`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for absolute value graph`getAbsoluteValueCoefficients` now always returns coefficients instead of `undefined`: when the two control points share an x-coordinate the slope is `±Infinity`.
+
+*   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   [#3804](https://github.com/Khan/perseus/pull/3804) [`dc3713f791`](https://github.com/Khan/perseus/commit/dc3713f79142cc5a5a9944723e9a56632ab43e19) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for tangent graph
+
+*   [#3806](https://github.com/Khan/perseus/pull/3806) [`e5828ffe4f`](https://github.com/Khan/perseus/commit/e5828ffe4faf5b4093e05b42986222f6d937c17b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update Interactive Graph ungraded screen reader to read out the information about the graph is not graded
+
+*   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1), [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451)]:
+    -   @khanacademy/kmath@2.4.26
+    -   @khanacademy/perseus-score@8.11.10
+    -   @khanacademy/math-input@26.4.40
+    -   @khanacademy/perseus-linter@5.1.7
+
 ## 78.4.0
 
 ### Minor Changes

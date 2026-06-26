@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 33.3.1
+
+### Patch Changes
+
+-   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1), [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451), [`dc3713f791`](https://github.com/Khan/perseus/commit/dc3713f79142cc5a5a9944723e9a56632ab43e19), [`e5828ffe4f`](https://github.com/Khan/perseus/commit/e5828ffe4faf5b4093e05b42986222f6d937c17b)]:
+    -   @khanacademy/kmath@2.4.26
+    -   @khanacademy/perseus@78.4.1
+    -   @khanacademy/perseus-score@8.11.10
+    -   @khanacademy/math-input@26.4.40
+    -   @khanacademy/perseus-linter@5.1.7
+
 ## 33.3.0
 
 ### Minor Changes

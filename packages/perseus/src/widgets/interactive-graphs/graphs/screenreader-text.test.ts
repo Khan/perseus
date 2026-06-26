@@ -297,14 +297,14 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Vertical asymptote at x equals -8");
+            expect(result).toBe("Vertical asymptote at x equals -8.");
         });
     });
 
     describe("move-absolute-value-point", () => {
         // Coord layout: [vertex(0), arm point(1)]. The vertex uses the
         // vertex label; the arm point uses the second-point label.
-        it("uses the vertex label for index 0", () => {
+        it("uses the vertex label without the slope", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -312,6 +312,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: 1,
                     x: -3,
                     y: 1,
+                    slope: 2,
                 },
                 mockStrings,
                 "en",
@@ -320,7 +321,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Vertex point at -3 comma 1.");
         });
 
-        it("uses the arm-point label for index 1", () => {
+        it("uses the arm-point label with the slope", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -328,12 +329,13 @@ describe("getAnnouncementText", () => {
                     pointLabel: 2,
                     x: 4,
                     y: -2,
+                    slope: 2,
                 },
                 mockStrings,
                 "en",
             );
 
-            expect(result).toBe("Point on arm at 4 comma -2.");
+            expect(result).toBe("Point on arm at 4 comma -2. The slope is 2.");
         });
 
         // TODO(LEMS-4206): allow custom labels for absolute-value points so
@@ -346,6 +348,7 @@ describe("getAnnouncementText", () => {
                     pointLabel: "V",
                     x: -3,
                     y: 1,
+                    slope: 2,
                 },
                 mockStrings,
                 "en",
