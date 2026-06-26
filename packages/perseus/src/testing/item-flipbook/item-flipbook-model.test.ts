@@ -71,7 +71,7 @@ describe("ItemFlipbookModel", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                // calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTimeToPayOff: false,
                 financialCalculatorTotalAmount: false,

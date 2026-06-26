@@ -55,6 +55,7 @@ export {removeOrphanedWidgetsFromPerseusItem} from "./utils/remove-orphaned-widg
 export {
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    type PerseusItemParserFlags,
 } from "./parse-perseus-json";
 /** @hidden */
 export {

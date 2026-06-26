@@ -17,7 +17,9 @@ import {
 } from "../index";
 import {parse} from "../parse";
 import {parsePerseusArticle} from "../perseus-parsers/perseus-article";
-import {parsePerseusItem} from "../perseus-parsers/perseus-item";
+import {makePerseusItemParser} from "../perseus-parsers/perseus-item";
+
+const parsePerseusItem = makePerseusItemParser({desmosCalculator: false});
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {assertSuccess, mapFailure} from "../result";

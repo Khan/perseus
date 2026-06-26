@@ -595,7 +595,7 @@ describe("splitPerseusItemJSON", () => {
             hints: [],
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                // calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,

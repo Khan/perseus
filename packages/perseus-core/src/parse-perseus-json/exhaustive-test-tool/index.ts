@@ -28,7 +28,9 @@ import {join} from "path";
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
 import {isPlainObject} from "../general-purpose-parsers";
 import {formatPath} from "../object-path";
-import {parsePerseusItem} from "../perseus-parsers/perseus-item";
+import {makePerseusItemParser} from "../perseus-parsers/perseus-item";
+
+const parsePerseusItem = makePerseusItemParser({desmosCalculator: false});
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {isSuccess} from "../result";
 

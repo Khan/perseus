@@ -1,7 +1,9 @@
 import {parse} from "../parse";
 import {assertSuccess} from "../result";
 
-import {parsePerseusItem} from "./perseus-item";
+import {makePerseusItemParser} from "./perseus-item";
+
+const parsePerseusItem = makePerseusItemParser({desmosCalculator: false});
 
 describe("parsePerseusItem", () => {
     const baseItem = {

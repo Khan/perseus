@@ -1,6 +1,9 @@
 import {parse} from "./parse";
 import {parsePerseusArticle as migrateAndTypecheckPerseusArticle} from "./perseus-parsers/perseus-article";
-import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-parsers/perseus-item";
+import {
+    makePerseusItemParser,
+    type PerseusItemParserFlags,
+} from "./perseus-parsers/perseus-item";
 import {parsePerseusRenderer as migrateAndTypecheckPerseusRenderer} from "./perseus-parsers/perseus-renderer";
 import {parseUserInputMap} from "./perseus-parsers/user-input-map";
 import {failure, isFailure} from "./result";
@@ -36,11 +39,17 @@ export type ParseFailureDetail = {
  * parsing failed.
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
+export {type PerseusItemParserFlags};
+
 export function parseAndMigratePerseusItem(
     data: unknown,
+    flags?: PerseusItemParserFlags,
 ): Result<PerseusItem, ParseFailureDetail> {
     const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
-    const result = parse(object, migrateAndTypecheckPerseusItem);
+    const result = parse(
+        object,
+        makePerseusItemParser(flags ?? {desmosCalculator: false}),
+    );
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
     }

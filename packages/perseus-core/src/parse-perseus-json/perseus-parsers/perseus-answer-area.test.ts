@@ -1,7 +1,9 @@
 import {ctx} from "../general-purpose-parsers/test-helpers";
 import {success} from "../result";
 
-import {parsePerseusAnswerArea} from "./perseus-answer-area";
+import {makePerseusAnswerAreaParser} from "./perseus-answer-area";
+
+const parsePerseusAnswerArea = makePerseusAnswerAreaParser(true);
 
 // Tests are fine to import, main files aren't
 // eslint-disable-next-line import/no-restricted-paths

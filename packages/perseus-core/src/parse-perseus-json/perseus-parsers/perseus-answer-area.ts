@@ -16,28 +16,32 @@ const nullableCalculatorVariant = defaulted(
     () => null,
 );
 
-const baseParser = defaulted(
-    object({
-        calculator: booleanOrFalse,
-        calculatorVariant: nullableCalculatorVariant,
-        financialCalculatorMonthlyPayment: booleanOrFalse,
-        financialCalculatorTotalAmount: booleanOrFalse,
-        financialCalculatorTimeToPayOff: booleanOrFalse,
-        periodicTable: booleanOrFalse,
-        periodicTableWithKey: booleanOrFalse,
-    }),
-    () => ({
-        calculator: false,
-        calculatorVariant: null,
-        financialCalculatorMonthlyPayment: false,
-        financialCalculatorTotalAmount: false,
-        financialCalculatorTimeToPayOff: false,
-        periodicTable: false,
-        periodicTableWithKey: false,
-    }),
-);
+const baseFields = {
+    calculator: booleanOrFalse,
+    financialCalculatorMonthlyPayment: booleanOrFalse,
+    financialCalculatorTotalAmount: booleanOrFalse,
+    financialCalculatorTimeToPayOff: booleanOrFalse,
+    periodicTable: booleanOrFalse,
+    periodicTableWithKey: booleanOrFalse,
+};
 
-export const parsePerseusAnswerArea = pipeParsers(baseParser).then(
+const baseDefault = {
+    calculator: false,
+    financialCalculatorMonthlyPayment: false,
+    financialCalculatorTotalAmount: false,
+    financialCalculatorTimeToPayOff: false,
+    periodicTable: false,
+    periodicTableWithKey: false,
+};
+
+const baseParser = defaulted(object(baseFields), () => baseDefault);
+
+const desmosParser = pipeParsers(
+    defaulted(
+        object({...baseFields, calculatorVariant: nullableCalculatorVariant}),
+        () => ({...baseDefault, calculatorVariant: null}),
+    ),
+).then(
     convert((parsed) => {
         const calculatorVariant: CalculatorVariant | null =
             parsed.calculator && parsed.calculatorVariant === null
@@ -47,3 +51,7 @@ export const parsePerseusAnswerArea = pipeParsers(baseParser).then(
         return {...parsed, calculatorVariant};
     }),
 ).parser;
+
+export function makePerseusAnswerAreaParser(desmosCalculator: boolean) {
+    return desmosCalculator ? desmosParser : baseParser;
+}
