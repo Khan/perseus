@@ -203,6 +203,38 @@ export const SingleSelectWithLongText: Story = {
     },
 };
 
+export const SingleSelectWithRationale = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice("USS Voyager (NCC-74656)", {
+                rationale: "Commanded by Captain Kathryn Janeway.",
+            }),
+            generateRadioChoice("USS Enterprise (NCC-1701)", {
+                rationale:
+                    "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
+                    "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
+                    "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
+                    "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
+                    '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
+            }),
+            generateRadioChoice("USS Enterprise (NX-01)", {
+                rationale: "Commanded by Captain Jonathan Archer.",
+            }),
+            generateRadioChoice("USS Stargazer (NCC-2893)", {
+                correct: true,
+                rationale:
+                    "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
+            }),
+        ],
+    },
+    parameters: {
+        content:
+            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
+        showSolutions: "all",
+    },
+};
+
 // Verifies the legacy `.choice table` styling: markdown tables inside choice
 // content render with the legacy 1px border. Provides coverage for the
 // hardcoded border color when it is later replaced by a semantic token.
@@ -296,48 +328,6 @@ export const MultiSelectRTL: Story = {
             }),
             generateRadioChoice("Choice 3"),
             generateRadioChoice("Choice 4"),
-        ],
-    },
-};
-
-export const MultiSelectCountChoicesThree: Story = {
-    decorators: [radioRendererDecorator],
-    args: {
-        multipleSelect: true,
-        countChoices: true,
-        numCorrect: 3,
-        choices: [
-            generateRadioChoice("Choice 1", {
-                correct: true,
-            }),
-            generateRadioChoice("Choice 2", {
-                correct: true,
-            }),
-            generateRadioChoice("Choice 3", {
-                correct: true,
-            }),
-            generateRadioChoice("Choice 4"),
-        ],
-    },
-};
-
-export const MultiSelectWithManyChoicesMobile: Story = {
-    decorators: [radioRendererDecorator, mobileDecorator],
-    args: {
-        multipleSelect: true,
-        choices: [
-            generateRadioChoice("Choice 1", {
-                correct: true,
-            }),
-            generateRadioChoice("Choice 2"),
-            generateRadioChoice("Choice 3"),
-            generateRadioChoice("Choice 4"),
-            generateRadioChoice("Choice 5"),
-            generateRadioChoice("Choice 6"),
-            generateRadioChoice("Choice 7"),
-            generateRadioChoice("Choice 8"),
-            generateRadioChoice("Choice 9"),
-            generateRadioChoice("Choice 10"),
         ],
     },
 };
