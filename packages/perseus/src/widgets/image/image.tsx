@@ -177,7 +177,7 @@ export const ImageComponent = (props: ImageWidgetProps) => {
             {svgImage}
 
             {/* Gif Controls, Description, and Caption */}
-            {(imageIsGif || caption || longDescription) && (
+            {(isAnimatedGif || caption || longDescription) && (
                 <ImageInfoArea
                     isGifPlaying={isGifPlaying}
                     setIsGifPlaying={setIsGifPlaying}
