@@ -26,5 +26,5 @@ export function isFeatureOn(
     props: {apiOptions?: {flags?: Record<string, boolean>}},
     flag: string,
 ): boolean {
-    return props.apiOptions?.flags?.[flag] ?? false;
+    return true;
 }
