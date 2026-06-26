@@ -15,29 +15,28 @@ interface Props {
 }
 
 // Editor-level toggle for the graph's `showPointLabels` field. The toggle
-// is disabled until every point has a non-empty label; the InfoTip
-// explains why.
+// is disabled until at least one point has a non-empty label; the InfoTip
+// explains why. When on, points with a custom label display it and
+// unlabeled points show nothing.
 export default function ShowPointLabelsToggle({
     showPointLabels,
     pointLabels,
     onChange,
 }: Props) {
-    const labelsPopulated =
-        pointLabels !== undefined &&
-        pointLabels.length > 0 &&
-        pointLabels.every((label) => label !== "");
+    const hasAtLeastOneLabel =
+        pointLabels !== undefined && pointLabels.some((label) => label !== "");
 
     return (
         <View className={styles.switchRow}>
             <LabeledSwitch
                 label="Show point labels"
-                checked={labelsPopulated && showPointLabels}
-                disabled={!labelsPopulated}
+                checked={hasAtLeastOneLabel && showPointLabels}
+                disabled={!hasAtLeastOneLabel}
                 onChange={onChange}
             />
             <InfoTip>
-                When on, each movable point displays a visible label next to it.
-                Add a name to every point below to enable this option.
+                When on, each labeled point displays a visible label next to it.
+                Add a name to at least one point below to enable this option.
             </InfoTip>
         </View>
     );
