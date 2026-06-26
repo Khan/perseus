@@ -1,10 +1,10 @@
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {
-    ArticlePreviewData,
+    ArticleAllPreviewData,
+    ArticleSectionPreviewData,
     HintPreviewData,
     PreviewContent,
     QuestionPreviewData,
@@ -31,18 +31,12 @@ describe("sanitizePreviewData", () => {
     describe("question preview data", () => {
         it("sanitizes apiOptions in question data", () => {
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {
-                        content: "What is 2+2?",
-                        widgets: {},
-                        images: {},
-                    },
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
+                question: {
+                    content: "What is 2+2?",
+                    widgets: {},
+                    images: {},
                 },
                 apiOptions: createMockApiOptions(),
-                initialHintsVisible: 0,
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -63,28 +57,21 @@ describe("sanitizePreviewData", () => {
             expect(result.data.apiOptions.customKeypad).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data.apiOptions.answerableCallback).toBeUndefined();
-            expect(result.data.apiOptions.getAnotherHint).toBeUndefined();
-            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
-            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("answerableCallback" in result.data.apiOptions).toBe(false);
+            expect("getAnotherHint" in result.data.apiOptions).toBe(false);
+            expect("interactionCallback" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
-            expect(result.data.item).toBe(questionData.item);
-            expect(result.data.initialHintsVisible).toBe(0);
+            expect(result.data.question).toBe(questionData.question);
         });
 
         it("handles question data with null apiOptions", () => {
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {content: "Test", widgets: {}, images: {}},
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
-                },
+                question: {content: "Test", widgets: {}, images: {}},
                 // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
-                initialHintsVisible: 0,
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -106,14 +93,8 @@ describe("sanitizePreviewData", () => {
         it("does not mutate original question data", () => {
             const apiOptions = createMockApiOptions();
             const questionData: QuestionPreviewData = {
-                item: {
-                    question: {content: "Test", widgets: {}, images: {}},
-                    answerArea: getDefaultAnswerArea(),
-                    hints: [],
-                },
+                question: {content: "Test", widgets: {}, images: {}},
                 apiOptions,
-                initialHintsVisible: 0,
-                device: "phone",
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -161,8 +142,8 @@ describe("sanitizePreviewData", () => {
             expect(result.data.apiOptions.readOnly).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data.apiOptions.trackInteraction).toBeUndefined();
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
             expect(result.data.hint).toBe(hintData.hint);
@@ -194,8 +175,8 @@ describe("sanitizePreviewData", () => {
 
     describe("article preview data", () => {
         it("sanitizes apiOptions in article data", () => {
-            const articleData: ArticlePreviewData = {
-                json: [{content: "# Article Title", widgets: {}, images: {}}],
+            const articleData: ArticleSectionPreviewData = {
+                article: {content: "# Article Title", widgets: {}, images: {}},
                 apiOptions: createMockApiOptions(),
                 linterContext: {
                     contentType: "article",
@@ -204,26 +185,26 @@ describe("sanitizePreviewData", () => {
             };
 
             const previewContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: articleData,
             };
 
             const result = sanitizePreviewData(previewContent);
 
-            invariant(result.type === "article");
+            invariant(result.type === "article-section");
             // Serializable options should remain
             expect(result.data.apiOptions.customKeypad).toBe(true);
 
             // Non-serializable functions should be removed
-            expect(result.data.apiOptions.interactionCallback).toBeUndefined();
+            expect("interactionCallback" in result.data.apiOptions).toBe(false);
 
             // Other properties should remain unchanged
-            expect(result.data.json).toBe(articleData.json);
+            expect(result.data.article).toBe(articleData.article);
         });
 
         it("handles article data with null apiOptions", () => {
-            const articleData: ArticlePreviewData = {
-                json: [{content: "Content", widgets: {}, images: {}}],
+            const articleData: ArticleSectionPreviewData = {
+                article: {content: "Content", widgets: {}, images: {}},
                 // eslint-disable-next-line no-restricted-syntax
                 apiOptions: null as any,
                 linterContext: {
@@ -233,7 +214,7 @@ describe("sanitizePreviewData", () => {
             };
 
             const previewContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: articleData,
             };
 
@@ -243,72 +224,55 @@ describe("sanitizePreviewData", () => {
         });
     });
 
-    // NOTE: The article-all type currently uses ArticlePreviewData[] where
-    // each section carries its own apiOptions. This will be simplified to a
-    // single apiOptions when we restructure the preview data types.
     describe("article-all preview data", () => {
-        it("sanitizes apiOptions in all article sections", () => {
-            const section1: ArticlePreviewData = {
-                json: [{content: "Section 1", widgets: {}, images: {}}],
+        it("sanitizes the shared apiOptions across all sections", () => {
+            const articleAllData: ArticleAllPreviewData = {
+                article: [
+                    {content: "Section 1", widgets: {}, images: {}},
+                    {content: "Section 2", widgets: {}, images: {}},
+                ],
                 apiOptions: createMockApiOptions(),
-                linterContext: {
-                    contentType: "article",
-                    highlightLint: false,
-                },
-            };
-            const section2: ArticlePreviewData = {
-                json: [{content: "Section 2", widgets: {}, images: {}}],
-                apiOptions: {
-                    ...createMockApiOptions(),
-                    readOnly: false,
-                },
-                linterContext: {
-                    contentType: "article",
-                    highlightLint: false,
-                },
             };
 
             const previewContent: PreviewContent = {
                 type: "article-all",
-                data: [section1, section2],
+                data: articleAllData,
             };
 
             const result = sanitizePreviewData(previewContent);
 
             invariant(result.type === "article-all");
-            expect(result.data).toHaveLength(2);
-            expect(result.data[0].apiOptions.readOnly).toBe(true);
-            expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
-            expect(result.data[1].apiOptions.readOnly).toBe(false);
-            expect(result.data[1].apiOptions.onFocusChange).toBeUndefined();
+            expect(result.data.article).toHaveLength(2);
+            expect(result.data.apiOptions.readOnly).toBe(true);
+            expect("onFocusChange" in result.data.apiOptions).toBe(false);
+            expect("trackInteraction" in result.data.apiOptions).toBe(false);
         });
 
-        it("handles empty article-all array", () => {
+        it("handles empty article-all sections array", () => {
             const previewContent: PreviewContent = {
                 type: "article-all",
-                data: [],
+                data: {
+                    article: [],
+                    apiOptions: createMockApiOptions(),
+                },
             };
 
             const result = sanitizePreviewData(previewContent);
 
             invariant(result.type === "article-all");
-            expect(result.data).toHaveLength(0);
+            expect(result.data.article).toHaveLength(0);
         });
 
         it("does not mutate original article-all data", () => {
             const apiOptions = createMockApiOptions();
-            const section: ArticlePreviewData = {
-                json: [{content: "Section 1", widgets: {}, images: {}}],
+            const articleAllData: ArticleAllPreviewData = {
+                article: [{content: "Section 1", widgets: {}, images: {}}],
                 apiOptions,
-                linterContext: {
-                    contentType: "article",
-                    highlightLint: false,
-                },
             };
 
             const previewContent: PreviewContent = {
                 type: "article-all",
-                data: [section],
+                data: articleAllData,
             };
 
             sanitizePreviewData(previewContent);
@@ -317,37 +281,19 @@ describe("sanitizePreviewData", () => {
             expect(apiOptions.onFocusChange).toBeDefined();
         });
 
-        it("handles sections with null apiOptions", () => {
-            const section1: ArticlePreviewData = {
-                json: [{content: "Section 1", widgets: {}, images: {}}],
-                apiOptions: createMockApiOptions(),
-                linterContext: {
-                    contentType: "article",
-                    highlightLint: false,
-                },
-            };
-            const section2: ArticlePreviewData = {
-                json: [{content: "Section 2", widgets: {}, images: {}}],
-                // eslint-disable-next-line no-restricted-syntax
-                apiOptions: null as any,
-                linterContext: {
-                    contentType: "article",
-                    highlightLint: false,
-                },
-            };
-
+        it("handles article-all with null apiOptions", () => {
             const previewContent: PreviewContent = {
                 type: "article-all",
-                data: [section1, section2],
+                data: {
+                    article: [{content: "Section 1", widgets: {}, images: {}}],
+                    // eslint-disable-next-line no-restricted-syntax
+                    apiOptions: null as any,
+                },
             };
 
             const result = sanitizePreviewData(previewContent);
 
-            invariant(result.type === "article-all");
-            expect(result.data).toHaveLength(2);
-            expect(result.data[0].apiOptions.onFocusChange).toBeUndefined();
-            // Section with null apiOptions should be unchanged
-            expect(result.data[1].apiOptions).toBeNull();
+            expect(result).toEqual(previewContent);
         });
     });
 
@@ -356,7 +302,7 @@ describe("sanitizePreviewData", () => {
             const types: PreviewContent["type"][] = [
                 "question",
                 "hint",
-                "article",
+                "article-section",
                 "article-all",
             ];
 
@@ -368,18 +314,12 @@ describe("sanitizePreviewData", () => {
                         previewContent = {
                             type: "question",
                             data: {
-                                item: {
-                                    question: {
-                                        content: "Q",
-                                        widgets: {},
-                                        images: {},
-                                    },
-                                    answerArea: getDefaultAnswerArea(),
-                                    hints: [],
+                                question: {
+                                    content: "Q",
+                                    widgets: {},
+                                    images: {},
                                 },
                                 apiOptions: {},
-                                initialHintsVisible: 0,
-                                device: "phone",
                                 linterContext: {
                                     contentType: "exercise",
                                     highlightLint: false,
@@ -401,17 +341,15 @@ describe("sanitizePreviewData", () => {
                             },
                         };
                         break;
-                    case "article":
+                    case "article-section":
                         previewContent = {
-                            type: "article",
+                            type: "article-section",
                             data: {
-                                json: [
-                                    {
-                                        content: "A",
-                                        widgets: {},
-                                        images: {},
-                                    },
-                                ],
+                                article: {
+                                    content: "A",
+                                    widgets: {},
+                                    images: {},
+                                },
                                 apiOptions: {},
                                 linterContext: {
                                     contentType: "article",
@@ -423,22 +361,16 @@ describe("sanitizePreviewData", () => {
                     case "article-all":
                         previewContent = {
                             type: "article-all",
-                            data: [
-                                {
-                                    json: [
-                                        {
-                                            content: "Paragraph A",
-                                            widgets: {},
-                                            images: {},
-                                        },
-                                    ],
-                                    apiOptions: {},
-                                    linterContext: {
-                                        contentType: "article",
-                                        highlightLint: false,
+                            data: {
+                                article: [
+                                    {
+                                        content: "Paragraph A",
+                                        widgets: {},
+                                        images: {},
                                     },
-                                },
-                            ],
+                                ],
+                                apiOptions: {},
+                            },
                         };
                         break;
                 }
