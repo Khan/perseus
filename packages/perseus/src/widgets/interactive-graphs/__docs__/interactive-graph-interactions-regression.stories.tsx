@@ -414,25 +414,6 @@ export const UnlimitedPointGraphFocusedEmpty: Story = {
     },
 };
 
-/** Unlimited polygon - closed. Uses the `startCoords` to render the polygon
- * with three points already present and closed. */
-export const UnlimitedPolygonThreePointsClosed: Story = {
-    args: {
-        graph: generateIGPolygonGraph({
-            numSides: "unlimited",
-            startCoords: [
-                [2, 2],
-                [2, -2],
-                [-2, -2],
-            ],
-        }),
-    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
-    play: async ({canvas, userEvent}) => {
-        const firstPoint = canvas.getByRole("button", {name: /^Point 1/});
-        await userEvent.click(firstPoint);
-    },
-};
-
 /** Unlimited polygon - open. Manually adds three points to the graph in order
  * to stay in the `open` state, because the the open state is only stored
  * internally (i.e. we can't use `startCoords` and get an open polygon). */

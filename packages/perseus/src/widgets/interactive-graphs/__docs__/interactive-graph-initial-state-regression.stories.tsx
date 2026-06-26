@@ -274,6 +274,20 @@ export const UnlimitedPointGraphWithTwoPoints: Story = {
     } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
 };
 
+/** Unlimited polygon - closed (via `startCoords`). */
+export const UnlimitedPolygonThreePointsClosed: Story = {
+    args: {
+        graph: generateIGPolygonGraph({
+            numSides: "unlimited",
+            startCoords: [
+                [2, 2],
+                [2, -2],
+                [-2, -2],
+            ],
+        }),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+};
+
 // Verifies the default graph wrapped in a mobile container.
 export const InMobileContainer: Story = {
     decorators: [interactiveGraphRendererDecorator, mobileDecorator],
