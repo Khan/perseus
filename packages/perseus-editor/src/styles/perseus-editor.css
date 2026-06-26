@@ -284,8 +284,10 @@ code {
     min-width: 360px;
     position: relative;
     z-index: 10;
-    max-height: 90vh;
+    /* Make the left cell scrollable. */
     overflow-y: auto;
+    /* Keep the left cell scroll area within the viewport. */
+    max-height: 90vh;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
@@ -294,8 +296,10 @@ code {
     padding: 30px;
     padding-top: 5px;
     vertical-align: top;
-    max-height: 90vh;
+    /* Make the right cell scrollable. */
     overflow-y: auto;
+    /* Keep the right cell scroll area within the viewport. */
+    max-height: 90vh;
 }
 .perseus-hint-editor {
     padding-bottom: 20px;
