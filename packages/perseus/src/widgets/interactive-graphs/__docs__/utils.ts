@@ -137,15 +137,19 @@ export function lockedFiguresWithWeight(weight: StrokeWeight): LockedFigure[] {
         }),
         // Function
         generateIGLockedFunction({
-            equation: "(x - 7)^3 - 1",
+            equation: "(x - 5)^3 - 1",
+            // Clamp the domain to avoid exceeding Chromatic pixel limit.
+            domain: [3, 7],
             weight,
-            strokeStyle: "solid",
+            strokeStyle: "dashed",
             color: "grayH",
         }),
         generateIGLockedFunction({
-            equation: "(x - 5)^3 - 1",
+            equation: "(x - 7)^3 - 1",
+            // Clamp the domain to avoid exceeding Chromatic pixel limit.
+            domain: [5, 9],
             weight,
-            strokeStyle: "dashed",
+            strokeStyle: "solid",
             color: "grayH",
         }),
 
