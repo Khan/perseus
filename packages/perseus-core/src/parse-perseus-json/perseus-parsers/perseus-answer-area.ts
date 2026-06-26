@@ -8,6 +8,11 @@ import {
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 
+// TODO(LEMS-4224): don't import from outside of the parser
+// eslint-disable-next-line import/no-restricted-paths
+import type {PerseusAnswerArea} from "../../data-schema";
+import type {Parser} from "../parser-types";
+
 type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
 const booleanOrFalse = defaulted(boolean, () => false);
@@ -43,15 +48,18 @@ const desmosParser = pipeParsers(
     ),
 ).then(
     convert((parsed) => {
-        const calculatorVariant: CalculatorVariant | null =
-            parsed.calculator && parsed.calculatorVariant === null
-                ? "scientific"
-                : parsed.calculatorVariant;
-
+        if (!parsed.calculator) {
+            const {calculatorVariant: _omit, ...rest} = parsed;
+            return rest;
+        }
+        const calculatorVariant: CalculatorVariant =
+            parsed.calculatorVariant ?? "scientific";
         return {...parsed, calculatorVariant};
     }),
 ).parser;
 
-export function makePerseusAnswerAreaParser(desmosCalculator: boolean) {
+export function makePerseusAnswerAreaParser(
+    desmosCalculator: boolean,
+): Parser<PerseusAnswerArea> {
     return desmosCalculator ? desmosParser : baseParser;
 }
