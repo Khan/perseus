@@ -357,6 +357,29 @@ export const LockedFiguresWithThickWeight: Story = {
     },
 };
 
+// Verifies points on the graph boundary (corners and edge midpoints) render as
+// full circles rather than being clipped in half.
+export const LockedPointsAtGraphEdges: Story = {
+    args: {
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        lockedFigures: [
+            // Corners
+            generateIGLockedPoint({coord: [0, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [0, 10]}),
+            generateIGLockedPoint({coord: [10, 10]}),
+            // Edge midpoints
+            generateIGLockedPoint({coord: [5, 10]}),
+            generateIGLockedPoint({coord: [5, 0]}),
+            generateIGLockedPoint({coord: [0, 5]}),
+            generateIGLockedPoint({coord: [10, 5]}),
+        ],
+    },
+};
+
 // Verifies the default graph rendering with TeX-flavored axis labels.
 export const CustomAxisLabels: Story = {
     args: {
