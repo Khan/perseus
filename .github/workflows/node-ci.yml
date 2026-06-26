@@ -149,39 +149,39 @@ jobs:
 
             # Run all JS checks in parallel.
             - parallel:
-                - name: Eslint
-                  uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
-                  with:
-                      full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-                      full: pnpm lint packages
-                      limited-trigger: ${{ steps.js-files.outputs.filtered }}
-                      limited: pnpm lint {}
+                  - name: Eslint
+                    uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    with:
+                        full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
+                        full: pnpm lint packages
+                        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                        limited: pnpm lint {}
 
-                - name: Typecheck
-                  if: steps.js-files.outputs.filtered != '[]'
-                  run: pnpm typecheck
+                  - name: Typecheck
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm typecheck
 
-                - name: Typetest
-                  if: steps.js-files.outputs.filtered != '[]'
-                  run: pnpm tstyche
+                  - name: Typetest
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm tstyche
 
-                - name: Build types
-                  if: steps.js-files.outputs.filtered != '[]'
-                  run: pnpm build:types
+                  - name: Build types
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm build:types
 
-                # We build the docs here so that typedoc can check any
-                # comment changes to ensure they are valid.
-                - name: Build docs
-                  if: steps.js-files.outputs.filtered != '[]'
-                  run: pnpm build:docs
+                  # We build the docs here so that typedoc can check any
+                  # comment changes to ensure they are valid.
+                  - name: Build docs
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm build:docs
 
-                - name: Jest
-                  uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
-                  with:
-                      full-trigger: ${{ steps.jest-reset.outputs.filtered }}
-                      full: pnpm jest
-                      limited-trigger: ${{ steps.js-files.outputs.filtered }}
-                      limited: pnpm jest --passWithNoTests --findRelatedTests {}
+                  - name: Jest
+                    uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    with:
+                        full-trigger: ${{ steps.jest-reset.outputs.filtered }}
+                        full: pnpm jest
+                        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                        limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
             # Sync on the background steps started before the file filters.
             - wait-all: true
