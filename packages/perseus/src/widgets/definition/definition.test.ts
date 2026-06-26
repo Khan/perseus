@@ -167,7 +167,9 @@ describe("Definition widget", () => {
         renderQuestion(question);
 
         // Act - Open the popover
-        const definitionAnchor = screen.getByText("the Pequots");
+        const definitionAnchor = screen.getByRole("button", {
+            name: "Definition of: the Pequots",
+        });
         await userEvent.click(definitionAnchor);
 
         // Verify popover is open
@@ -186,9 +188,9 @@ describe("Definition widget", () => {
         renderQuestion(question);
 
         // Act - Open the popover (focus lands on the close button)
-        const definitionAnchor = screen.getByLabelText(
-            "Definition of: the Pequots",
-        );
+        const definitionAnchor = screen.getByRole("button", {
+            name: "Definition of: the Pequots",
+        });
         await userEvent.click(definitionAnchor);
 
         // Verify popover is open
@@ -208,9 +210,9 @@ describe("Definition widget", () => {
         renderQuestion(question);
 
         // Act - Open the popover (focus lands on the close button)
-        const definitionAnchor = screen.getByLabelText(
-            "Definition of: the Pequots",
-        );
+        const definitionAnchor = screen.getByRole("button", {
+            name: "Definition of: the Pequots",
+        });
         await userEvent.click(definitionAnchor);
 
         // Verify popover is open
