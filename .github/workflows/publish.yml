@@ -73,6 +73,7 @@ jobs:
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
                   fetch-depth: 0
 
             - name: Secure Network
@@ -167,6 +168,7 @@ jobs:
             - name: Checkout current commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
                   fetch-depth: "0"
 
             - name: Secure Network
