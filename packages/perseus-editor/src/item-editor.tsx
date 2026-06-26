@@ -1,20 +1,13 @@
-import {PerseusMarkdown} from "@khanacademy/perseus";
-import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
-import IssuesPanel from "./components/issues-panel";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
-import {WARNINGS} from "./messages";
-import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {ItemEditorContext} from "./util/item-editor-context";
-import {detectTexErrors} from "./util/tex-error-detector";
 
-import type {Issue} from "./components/issues-panel";
 import type {
     APIOptions,
     ImageUploader,
@@ -24,7 +17,6 @@ import type {
 } from "@khanacademy/perseus";
 import type {
     PerseusAnswerArea,
-    PerseusWidgetsMap,
     PerseusRenderer,
     PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -47,18 +39,11 @@ type Props = {
      * for non-content library exercise questions.
      */
     itemId?: string;
-    issues?: Issue[];
-};
-
-type State = {
-    issues: Issue[];
-    axeCoreIssues: Issue[];
-    showAxeCoreIssues: boolean;
 };
 
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
 // edited separately.
-class ItemEditor extends React.Component<Props, State> {
+class ItemEditor extends React.Component<Props> {
     static defaultProps: {
         answerArea: Record<any, any>;
         onChange: () => void;
@@ -68,81 +53,10 @@ class ItemEditor extends React.Component<Props, State> {
         question: {},
         answerArea: {},
     };
-    static prevContent: string | undefined;
-    static prevWidgets: PerseusWidgetsMap | undefined;
-    a11yCheckerTimeoutId: any;
-
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
-    state = {
-        issues: [],
-        axeCoreIssues: [],
-        showAxeCoreIssues: false,
-    };
-
-    componentDidUpdate(prevProps: Props) {
-        // Short-circuit if nothing changed
-        if (
-            this.props.question?.content === prevProps.question?.content &&
-            this.props.question?.widgets === prevProps.question?.widgets
-        ) {
-            return;
-        }
-
-        const parsed = PerseusMarkdown.parse(
-            this.props.question?.content ?? "",
-            {},
-        );
-        const linterContext = {
-            content: this.props.question?.content,
-            widgets: this.props.question?.widgets,
-            stack: [],
-        };
-
-        // Detect TeX errors
-        const texErrors = detectTexErrors(this.props.question?.content ?? "");
-        const texIssues = texErrors.map((error, index) =>
-            WARNINGS.texError(error.math, error.message, index),
-        );
-
-        this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
-            this.a11yCheckerTimeoutId,
-            (issues) => {
-                this.setState({
-                    axeCoreIssues: issues,
-                });
-            },
-            this.state.showAxeCoreIssues,
-        );
-
-        const gatherIssues = () => {
-            return [
-                ...(this.props.issues ?? []),
-                ...(PerseusLinter.runLinter(parsed, linterContext, false)?.map(
-                    (linterWarning) => {
-                        if (linterWarning.rule === "inaccessible-widget") {
-                            return WARNINGS.inaccessibleWidget(
-                                linterWarning.metadata?.widgetType ?? "unknown",
-                                linterWarning.metadata?.widgetId ?? "unknown",
-                            );
-                        }
-                        return WARNINGS.genericLinterWarning(
-                            linterWarning.rule,
-                            linterWarning.message,
-                            linterWarning.severity,
-                        );
-                    },
-                ) ?? []),
-                ...texIssues,
-            ];
-        };
-
-        this.setState({
-            issues: gatherIssues(),
-        });
-    }
 
     // Notify the parent that the question or answer area has been updated.
     updateProps = (newProps: Partial<PerseusItem>) => {
@@ -193,17 +107,6 @@ class ItemEditor extends React.Component<Props, State> {
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-        const allIssues = this.state.issues.concat(
-            this.state.showAxeCoreIssues ? this.state.axeCoreIssues : [],
-        );
-        const a11yCheck = {
-            callback: () => {
-                this.setState({
-                    showAxeCoreIssues: !this.state.showAxeCoreIssues,
-                });
-            },
-            isChecked: this.state.showAxeCoreIssues,
-        };
 
         return (
             <ItemEditorContext.Provider
@@ -215,10 +118,6 @@ class ItemEditor extends React.Component<Props, State> {
                 <div className="perseus-editor-table">
                     <div className="perseus-editor-row perseus-question-container">
                         <div className="perseus-editor-left-cell">
-                            <IssuesPanel
-                                issues={allIssues}
-                                a11yCheck={a11yCheck}
-                            />
                             <div className="pod-title">Question</div>
                             <fieldset disabled={editingDisabled}>
                                 <Editor
