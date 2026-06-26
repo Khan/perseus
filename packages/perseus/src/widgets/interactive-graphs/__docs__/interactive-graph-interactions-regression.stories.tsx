@@ -406,9 +406,10 @@ export const UnlimitedPointGraphFocusedEmpty: Story = {
     // Make sure the keyboard interaction instructions are present
     // before taking the Chromatic snapshot.
     play: async ({canvas, userEvent}) => {
+        await userEvent.tab();
         expect(
             await canvas.findByText(
-                "Press Shift + Enter to interact with the graph.",
+                "Press Shift + Enter to interact with the graph",
             ),
         ).toBeInTheDocument();
     },
