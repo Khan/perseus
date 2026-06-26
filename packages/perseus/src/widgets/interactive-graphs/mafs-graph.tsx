@@ -216,8 +216,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
         top: yMax === 0 ? halfStroke : 0,
     };
 
-    // Locked points render unclipped so boundary points aren't cut in half;
-    // everything else stays clipped to the graph bounds.
+    // Points are fixed-radius markers, so a point on the boundary would be
+    // sliced in half by the clip — render them unclipped. Other figures are
+    // geometry that should be clipped to the visible range.
     const lockedPointFigures = props.lockedFigures.filter(
         (figure) => figure.type === "point",
     );

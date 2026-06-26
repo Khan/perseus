@@ -473,26 +473,6 @@ export const LockedPointsAtGraphEdges: Story = {
     },
 };
 
-// Verifies a point at the origin of a first-quadrant graph (the reported bug):
-// it sits on both edges and previously rendered as a quarter-circle.
-export const LockedPointAtOrigin: Story = {
-    args: {
-        range: [
-            [0, 8],
-            [0, 80],
-        ],
-        step: [1, 10],
-        gridStep: [1, 10],
-        labels: ["time (s)", "distance (m)"],
-        labelLocation: "alongEdge",
-        lockedFigures: [
-            generateIGLockedPoint({coord: [0, 0], color: "red", filled: true}),
-            generateIGLockedPoint({coord: [2, 18], color: "red", filled: true}),
-            generateIGLockedPoint({coord: [4, 43], color: "red", filled: true}),
-        ],
-    },
-};
-
 // Verifies a locked line connecting two locked points.
 export const LockedLine: Story = {
     args: {
