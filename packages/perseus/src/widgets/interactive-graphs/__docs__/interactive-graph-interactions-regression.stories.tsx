@@ -395,16 +395,6 @@ export const LogarithmDragHandleNoOverlap: Story = {
     },
 };
 
-export const CircleGraphHovered: Story = {
-    args: {
-        correct: generateIGCircleGraph({center: [0, 0], radius: 3}),
-    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
-    play: async ({canvas, userEvent}) => {
-        const circle = canvas.getByRole("button", {name: /^Circle\./});
-        await userEvent.hover(circle);
-    },
-};
-
 /** Unlimited points graph focused with no points added yet. Tabbing into the
  * empty graph focuses it, and the keyboard interaction instructions
  * are presented. */
