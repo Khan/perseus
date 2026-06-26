@@ -105,26 +105,6 @@ jobs:
               uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
               id: changed
 
-            # Run independent checks in the background while we compute
-            # file filters below.
-            - name: Check formatting
-              background: true
-              run: pnpm prettier --check .
-
-            - name: Check for dead code
-              background: true
-              run: pnpm knip
-
-            # We use STOPSHIP internally to mark code that's not safe to go
-            # live yet. We use an if block because we want to return the exact
-            # inverse of what `git grep` returns (0 on none found, 1 on some
-            # found).
-            - name: Checks that STOPSHIP is not used in any files.
-              background: true
-              run: ./utils/stopship-check.sh
-
-            # Compute file filters — sequential because their outputs are
-            # needed by the parallel block below.
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
               uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
@@ -147,8 +127,20 @@ jobs:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js"
 
-            # Run all JS checks in parallel.
             - parallel:
+                  - name: Check formatting
+                    run: pnpm prettier --check .
+
+                  - name: Check for dead code
+                    run: pnpm knip
+
+                  # We use STOPSHIP internally to mark code that's not safe to
+                  # go live yet. We use an if block because we want to return
+                  # the exact inverse of what `git grep` returns (0 on none
+                  # found, 1 on some found).
+                  - name: Checks that STOPSHIP is not used in any files.
+                    run: ./utils/stopship-check.sh
+
                   - name: Eslint
                     uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
                     with:
@@ -182,9 +174,6 @@ jobs:
                         full: pnpm jest
                         limited-trigger: ${{ steps.js-files.outputs.filtered }}
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
-
-            # Sync on the background steps started before the file filters.
-            - wait-all: true
 
     cypress:
         name: Cypress
