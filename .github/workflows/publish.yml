@@ -129,6 +129,8 @@ jobs:
                   # it in the npm registry.
                   # See: https://docs.npmjs.com/generating-provenance-statements
                   NPM_CONFIG_PROVENANCE: true
+                  # DEBUGGING - REMOVE BEFORE LANDING
+                  NODE_DEBUG: request
 
             - name: Send a Slack notification if a publish fails
               if: failure()
@@ -243,6 +245,8 @@ jobs:
                   # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
                   # the npmjs.com side:
                   # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
+                  # DEBUGGING - REMOVE BEFORE LANDING
+                  NODE_DEBUG: request
 
             - name: Calculate short SHA for this commit
               id: short-sha
