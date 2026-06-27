@@ -7,7 +7,9 @@ import {MobileKeypad} from "@khanacademy/math-input";
 import {
     ArticleRenderer,
     Dependencies,
+    HintRenderer,
     Renderer,
+    UserInputManager,
     usePerseusI18n,
 } from "@khanacademy/perseus";
 import {pushContextStack} from "@khanacademy/perseus-linter";
@@ -23,11 +25,17 @@ import type {PreviewContent} from "../../preview/message-types";
 
 type Props = {
     content: PreviewContent;
+    isMobile: boolean;
+    hasLintGutter: boolean;
 };
 
 function PreviewWithKeypad({
+    isMobile,
+    hasLintGutter,
     children,
 }: {
+    isMobile: boolean;
+    hasLintGutter: boolean;
     children: ({
         setKeypadActive,
         keypadElement,
@@ -35,11 +43,45 @@ function PreviewWithKeypad({
         isMobile,
     }) => React.ReactNode;
 }) {
-    // eslint-disable-next-line no-restricted-syntax
-    const iframe = window.frameElement as HTMLIFrameElement | null;
-    const isMobile = iframe?.dataset.mobile === "true";
-    const hasLintGutter = iframe?.dataset.lintGutter === "true";
+    return (
+        <Dependencies.DependenciesContext.Provider
+            value={storybookDependenciesV2}
+        >
+            <StatefulKeypadContextProvider>
+                <PreviewKeypadConnection
+                    isMobile={isMobile}
+                    hasLintGutter={hasLintGutter}
+                >
+                    {children}
+                </PreviewKeypadConnection>
+            </StatefulKeypadContextProvider>
+        </Dependencies.DependenciesContext.Provider>
+    );
+}
 
+/**
+ * Reads the keypad context and wires it up to the renderer and keypad.
+ *
+ * This MUST be a separate component rendered *inside*
+ * StatefulKeypadContextProvider. If it read the context at the same level as
+ * the provider, useContext would resolve to the default (no-op) KeypadContext
+ * instead of the stateful one — leaving the keypad's keystrokes disconnected
+ * from the widget's input.
+ */
+function PreviewKeypadConnection({
+    isMobile,
+    hasLintGutter,
+    children,
+}: {
+    isMobile: boolean;
+    hasLintGutter: boolean;
+    children: ({
+        setKeypadActive,
+        keypadElement,
+        setKeypadElement,
+        isMobile,
+    }) => React.ReactNode;
+}) {
     const className = isMobile ? "perseus-mobile" : "";
     const keypadCtx = React.useContext(KeypadContext);
 
@@ -49,73 +91,102 @@ function PreviewWithKeypad({
     );
 
     return (
-        <Dependencies.DependenciesContext.Provider
-            value={storybookDependenciesV2}
+        <View
+            className={`framework-perseus ${className}`}
+            style={containerStyle}
         >
-            <StatefulKeypadContextProvider>
-                <View
-                    className={`framework-perseus ${className}`}
-                    style={containerStyle}
-                >
-                    {children({...keypadCtx, isMobile})}
+            {children({...keypadCtx, isMobile})}
 
-                    <MobileKeypad
-                        onAnalyticsEvent={() => Promise.resolve()}
-                        onDismiss={() => keypadCtx.setKeypadActive(false)}
-                        onElementMounted={keypadCtx.setKeypadElement}
-                    />
-                </View>
-            </StatefulKeypadContextProvider>
-        </Dependencies.DependenciesContext.Provider>
+            {/* Only mobile previews use the custom keypad (the
+                parent sends customKeypad: true for phone/tablet).
+                Desktop widgets pop their own keypad, and an inactive
+                MobileKeypad still renders a fixed, bordered container
+                across the bottom of the preview. */}
+            {isMobile && (
+                <MobileKeypad
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    onDismiss={() => keypadCtx.setKeypadActive(false)}
+                    onElementMounted={keypadCtx.setKeypadElement}
+                />
+            )}
+        </View>
     );
 }
 
 /**
  * Renders the appropriate content based on preview data type
  */
-export function PreviewRenderer({content}: Props) {
+export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
     const i18n = usePerseusI18n();
 
     if (content.type === "question") {
-        const {question, apiOptions, linterContext, reviewMode, problemNum} =
-            content.data;
+        const {
+            question,
+            apiOptions,
+            linterContext,
+            reviewMode,
+            legacyPerseusLint,
+            problemNum,
+        } = content.data;
 
         return (
-            <PreviewWithKeypad>
+            <PreviewWithKeypad
+                isMobile={isMobile}
+                hasLintGutter={hasLintGutter}
+            >
                 {({keypadElement, isMobile}) => (
-                    <Renderer
-                        strings={i18n.strings}
-                        content={question.content}
+                    <UserInputManager
                         widgets={question.widgets}
-                        images={question.images}
-                        apiOptions={{...apiOptions, isMobile}}
-                        keypadElement={keypadElement}
-                        reviewMode={reviewMode}
-                        problemNum={problemNum}
-                        linterContext={pushContextStack(
-                            linterContext,
-                            "question",
+                        problemNum={problemNum ?? 0}
+                    >
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => (
+                            <Renderer
+                                strings={i18n.strings}
+                                content={question.content}
+                                widgets={question.widgets}
+                                images={question.images}
+                                apiOptions={{...apiOptions, isMobile}}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                                keypadElement={keypadElement}
+                                reviewMode={reviewMode}
+                                legacyPerseusLint={legacyPerseusLint}
+                                problemNum={problemNum}
+                                linterContext={pushContextStack(
+                                    linterContext,
+                                    "question",
+                                )}
+                            />
                         )}
-                    />
+                    </UserInputManager>
                 )}
             </PreviewWithKeypad>
         );
     }
 
     if (content.type === "hint") {
-        const {hint, apiOptions, linterContext} = content.data;
+        const {hint, pos, apiOptions, linterContext} = content.data;
 
+        // HintRenderer manages user input itself, forces the custom keypad
+        // off, and pushes "hint" onto the lint stack — so it gets an empty
+        // initial stack rather than a pre-pushed one.
         return (
-            <PreviewWithKeypad>
-                {({keypadElement, isMobile}) => (
-                    <Renderer
-                        strings={i18n.strings}
-                        content={hint.content}
-                        widgets={hint.widgets}
-                        images={hint.images}
+            <PreviewWithKeypad
+                isMobile={isMobile}
+                hasLintGutter={hasLintGutter}
+            >
+                {({isMobile}) => (
+                    <HintRenderer
+                        hint={hint}
+                        pos={pos}
                         apiOptions={{...apiOptions, isMobile}}
-                        keypadElement={keypadElement}
-                        linterContext={pushContextStack(linterContext, "hint")}
+                        linterContext={{...linterContext, stack: []}}
+                        dependencies={storybookDependenciesV2}
                     />
                 )}
             </PreviewWithKeypad>
@@ -127,7 +198,10 @@ export function PreviewRenderer({content}: Props) {
             content.data;
 
         return (
-            <PreviewWithKeypad>
+            <PreviewWithKeypad
+                isMobile={isMobile}
+                hasLintGutter={hasLintGutter}
+            >
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={article}
@@ -149,7 +223,10 @@ export function PreviewRenderer({content}: Props) {
         const {article, apiOptions} = content.data;
 
         return (
-            <PreviewWithKeypad>
+            <PreviewWithKeypad
+                isMobile={isMobile}
+                hasLintGutter={hasLintGutter}
+            >
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={[...article]}
