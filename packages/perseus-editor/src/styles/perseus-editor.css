@@ -374,7 +374,10 @@ code {
     padding: 32px 20px;
 }
 .perseus-article-editor .editor-preview {
-    display: table-cell;
+    /* Make the preview scrollable. */
+    overflow-y: auto;
+    /* Keep the preview scroll area within the viewport. */
+    max-height: 90vh;
 }
 .perseus-article-editor .editor-preview.full-width {
     width: 100%;
