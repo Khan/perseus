@@ -277,7 +277,6 @@ code {
 .perseus-editor-left-cell {
     display: flex;
     flex-direction: column;
-    padding-right: 30px;
     vertical-align: top;
     width: 360px;
     max-width: 360px;
