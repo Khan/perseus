@@ -4,4 +4,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Makes calculator variant optional instead of undefined when calculator is set to false
+Makes calculator variant optional instead of null when calculator is set to false
