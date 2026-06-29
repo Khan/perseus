@@ -14,6 +14,7 @@ import {
     gradedGroupWithRadioAndExplanation,
     numericInputInGradedGroup,
     numericInputInTable,
+    gradedGroupWithInteractiveGraphAndRadio,
 } from "./nested-widgets.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -50,6 +51,13 @@ export const GradedGroupWithRadioAndDefinition: GradedGroupStory = {
     decorators: [articleRendererDecorator],
     parameters: {
         question: gradedGroupWithRadioAndDefinition,
+    },
+};
+
+export const GradedGroupWithRadioAndInteractiveGraph: GradedGroupStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: gradedGroupWithInteractiveGraphAndRadio,
     },
 };
 

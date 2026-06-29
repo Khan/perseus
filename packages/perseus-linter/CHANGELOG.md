@@ -1,5 +1,39 @@
 # @khanacademy/perseus-linter
 
+## 5.1.8
+
+### Patch Changes
+
+-   [#3819](https://github.com/Khan/perseus/pull/3819) [`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update the behavior of the Interactive Graph showPointLabels toggle enabling it when at least one custom label is provided
+
+-   Updated dependencies [[`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe)]:
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/kmath@2.4.27
+
+## 5.1.7
+
+### Patch Changes
+
+-   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1)]:
+    -   @khanacademy/kmath@2.4.26
+
+## 5.1.6
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+    -   @khanacademy/kmath@2.4.25
+
+## 5.1.5
+
+### Patch Changes
+
+-   Updated dependencies [[`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3)]:
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/pure-markdown@2.3.0
+    -   @khanacademy/kmath@2.4.24
+
 ## 5.1.4
 
 ### Patch Changes

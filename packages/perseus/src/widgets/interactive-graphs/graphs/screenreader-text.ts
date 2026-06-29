@@ -186,6 +186,7 @@ function srExponentialPointLabel(
         pointLabel: string | number;
         x: number;
         y: number;
+        hasCurve: boolean;
     },
     strings: PerseusStrings,
     locale: string,
@@ -199,6 +200,15 @@ function srExponentialPointLabel(
     if (typeof state.pointLabel === "string") {
         return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
     }
+    // When no curve is plotted, drop the "on an exponential curve" phrasing
+    // in favor of plain point coordinates, matching exponential.tsx.
+    if (!state.hasCurve) {
+        return strings.srPointAtCoordinates({
+            num: state.pointIndex + 1,
+            x,
+            y,
+        });
+    }
     // Coord layout in exponential graphs: [point1(0), point2(1)].
     return state.pointIndex === 0
         ? strings.srExponentialPoint1({x, y})
@@ -211,6 +221,7 @@ function srLogarithmPointLabel(
         pointLabel: string | number;
         x: number;
         y: number;
+        hasCurve: boolean;
     },
     strings: PerseusStrings,
     locale: string,
@@ -223,6 +234,15 @@ function srLogarithmPointLabel(
     // we can remove this block in favor of using the index logic below.
     if (typeof state.pointLabel === "string") {
         return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    }
+    // When no curve is plotted, drop the "on a curve" phrasing
+    // in favor of plain point coordinates, matching logarithm.tsx.
+    if (!state.hasCurve) {
+        return strings.srPointAtCoordinates({
+            num: state.pointIndex + 1,
+            x,
+            y,
+        });
     }
     // Coord layout in logarithm graphs: [point1(0), point2(1)].
     return state.pointIndex === 0
@@ -261,6 +281,7 @@ function srAbsoluteValuePointLabel(
         pointLabel: string | number;
         x: number;
         y: number;
+        slope: number;
     },
     strings: PerseusStrings,
     locale: string,
@@ -276,9 +297,14 @@ function srAbsoluteValuePointLabel(
     }
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
-    return state.pointIndex === 0
-        ? strings.srAbsoluteValueVertexPoint({x, y})
-        : strings.srAbsoluteValueSecondPoint({x, y});
+    if (state.pointIndex === 0) {
+        return strings.srAbsoluteValueVertexPoint({x, y});
+    }
+    const armLabel = strings.srAbsoluteValueSecondPoint({x, y});
+    const slopeLabel = strings.srAbsoluteValueSlope({
+        slope: srFormatNumber(state.slope, locale),
+    });
+    return `${armLabel} ${slopeLabel}`;
 }
 
 function srAnglePointLabel(

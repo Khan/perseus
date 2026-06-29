@@ -1,5 +1,34 @@
 # @khanacademy/perseus-core
 
+## 30.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
+## 29.0.0
+
+### Major Changes
+
+-   [#3731](https://github.com/Khan/perseus/pull/3731) [`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for "centered" text alignment in NumericInputs. This replaces `rightAlign` with `textAlign` in NumericInputs widgetOptions requiring a major bump for NumericInput.
+
+## 28.3.0
+
+### Minor Changes
+
+-   [#3749](https://github.com/Khan/perseus/pull/3749) [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Render visible point labels on interactive graphs when the `perseus-enable-point-label-field` flag is on and the graph's `showPointLabels` field is true. Labels reposition to stay on-canvas when a point is near a graph edge. Supported on all interactive graph types except `vector` and `none`.
+
+*   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
+### Patch Changes
+
+-   [#3791](https://github.com/Khan/perseus/pull/3791) [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1) Thanks [@benchristel](https://github.com/benchristel)! - When the `grapher-to-interactive-graph` feature flag is on, Grapher axis labels are now interpreted as TeX. This preserves the existing behavior of Grapher.
+
+*   [#3765](https://github.com/Khan/perseus/pull/3765) [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3) Thanks [@Evelas78](https://github.com/Evelas78)! - Provide defaults in the parser for labels in locked figures
+
+*   Updated dependencies [[`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a)]:
+    -   @khanacademy/pure-markdown@2.3.0
+
 ## 28.2.0
 
 ### Minor Changes

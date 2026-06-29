@@ -1,5 +1,82 @@
 # @khanacademy/perseus-editor
 
+## 34.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
+### Patch Changes
+
+-   [#3819](https://github.com/Khan/perseus/pull/3819) [`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update the behavior of the Interactive Graph showPointLabels toggle enabling it when at least one custom label is provided
+
+-   Updated dependencies [[`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0), [`7b1a029`](https://github.com/Khan/perseus/commit/7b1a029e79a593111619b18e8e7bdf4f83907c20), [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe), [`01c43fd`](https://github.com/Khan/perseus/commit/01c43fd16b3b3ff10b62c81b8ace36178300fb15), [`457b590`](https://github.com/Khan/perseus/commit/457b590cee509df90d5558f9fef13291a1733e59), [`a74d711`](https://github.com/Khan/perseus/commit/a74d711525237027983d875457ac52f0af368c11), [`f6a3591`](https://github.com/Khan/perseus/commit/f6a359129f37eeae8502e62c4fbe05a656aead86)]:
+    -   @khanacademy/perseus-linter@5.1.8
+    -   @khanacademy/perseus@79.0.0
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/keypad-context@3.2.68
+    -   @khanacademy/kmath@2.4.27
+    -   @khanacademy/math-input@26.4.41
+
+## 33.3.1
+
+### Patch Changes
+
+-   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1), [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451), [`dc3713f791`](https://github.com/Khan/perseus/commit/dc3713f79142cc5a5a9944723e9a56632ab43e19), [`e5828ffe4f`](https://github.com/Khan/perseus/commit/e5828ffe4faf5b4093e05b42986222f6d937c17b)]:
+    -   @khanacademy/kmath@2.4.26
+    -   @khanacademy/perseus@78.4.1
+    -   @khanacademy/perseus-score@8.11.10
+    -   @khanacademy/math-input@26.4.40
+    -   @khanacademy/perseus-linter@5.1.7
+
+## 33.3.0
+
+### Minor Changes
+
+-   [#3731](https://github.com/Khan/perseus/pull/3731) [`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for "centered" text alignment in NumericInputs. This replaces `rightAlign` with `textAlign` in NumericInputs widgetOptions requiring a major bump for NumericInput.
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+    -   @khanacademy/perseus@78.4.0
+    -   @khanacademy/keypad-context@3.2.67
+    -   @khanacademy/kmath@2.4.25
+    -   @khanacademy/math-input@26.4.39
+    -   @khanacademy/perseus-linter@5.1.6
+    -   @khanacademy/perseus-score@8.11.9
+
+## 33.2.0
+
+### Minor Changes
+
+-   [#3749](https://github.com/Khan/perseus/pull/3749) [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Render visible point labels on interactive graphs when the `perseus-enable-point-label-field` flag is on and the graph's `showPointLabels` field is true. Labels reposition to stay on-canvas when a point is near a graph edge. Supported on all interactive graph types except `vector` and `none`.
+
+*   [#3783](https://github.com/Khan/perseus/pull/3783) [`6801c10511`](https://github.com/Khan/perseus/commit/6801c10511ae0199e3a6c45ff2806ca77297c936) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Interactive-graph editor: add a "Show point labels" toggle behind the
+    "perseus-enable-point-label-field" flag. Toggling writes `showPointLabels`
+    to the graph JSON.
+
+-   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
+### Patch Changes
+
+-   [#3795](https://github.com/Khan/perseus/pull/3795) [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Safari point-label scroll jitter in interactive graph editor
+
+*   [#3787](https://github.com/Khan/perseus/pull/3787) [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Improve contrast of editor controls when editing is disabled
+
+-   [#3797](https://github.com/Khan/perseus/pull/3797) [`11d3ec0c95`](https://github.com/Khan/perseus/commit/11d3ec0c956d3c007607254d710de0d2e43d5771) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Label Image] Modernize the label-image answer-choices controls (delete custom Link component)
+
+-   Updated dependencies [[`f8638119b2`](https://github.com/Khan/perseus/commit/f8638119b2e8db68d645512e49c9ed59ce2287eb), [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`e08a75689a`](https://github.com/Khan/perseus/commit/e08a75689a2985d535e55779d7cac82ad17b630e), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`a7edbbc724`](https://github.com/Khan/perseus/commit/a7edbbc7243ad8ac129f9b922bd7af2b065465b0), [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1), [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39), [`d34f9758e6`](https://github.com/Khan/perseus/commit/d34f9758e677dc511efb5e6f4c5a463bf664da23), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3), [`f65a065bff`](https://github.com/Khan/perseus/commit/f65a065bff62cb5f6cd8980e07f1ca4f7cf3078c)]:
+    -   @khanacademy/perseus@78.3.0
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/keypad-context@3.2.66
+    -   @khanacademy/kmath@2.4.24
+    -   @khanacademy/math-input@26.4.38
+    -   @khanacademy/perseus-linter@5.1.5
+    -   @khanacademy/perseus-score@8.11.8
+
 ## 33.1.0
 
 ### Minor Changes

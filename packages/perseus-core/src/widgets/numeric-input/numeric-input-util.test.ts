@@ -9,18 +9,18 @@ describe("getNumericInputPublicWidgetOptions", () => {
             answers: [
                 {
                     status: "correct",
-                    maxError: null,
-                    strict: false,
+                    maxError: 0.07,
+                    strict: true,
                     value: 1252,
                     answerForms: ["pi"],
                     simplify: "required",
-                    message: "",
+                    message: "the answer is 1252",
                 },
             ],
             labelText: "labelText",
             size: "Normal",
             coefficient: false,
-            rightAlign: false,
+            textAlign: "left",
         };
 
         // Act
@@ -31,12 +31,15 @@ describe("getNumericInputPublicWidgetOptions", () => {
             labelText: "labelText",
             size: "Normal",
             coefficient: false,
-            rightAlign: false,
+            textAlign: "left",
             answers: [
                 {
                     status: "correct",
+                    value: null,
                     answerForms: ["pi"],
                     simplify: "required",
+                    strict: false,
+                    message: "",
                 },
             ],
         });

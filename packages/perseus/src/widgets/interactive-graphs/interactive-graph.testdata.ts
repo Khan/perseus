@@ -1220,7 +1220,15 @@ export const sinusoidWithPiTicks: PerseusRenderer =
     });
 
 export const ungradedQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({graded: false});
+    generateInteractiveGraphQuestion({
+        graded: false,
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        }),
+    });
 
 export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
     markings: "axes",
@@ -1645,3 +1653,52 @@ export const circleWithCustomLabelsQuestion: PerseusRenderer =
             showPointLabels: true,
         }),
     });
+
+// A graph where the axis lines are on the edge of the chart
+// see: https://khanacademy.atlassian.net/browse/LEMS-4273
+export const onEdgeLeftBottom: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        showAxisArrows: {
+            xMin: false,
+            xMax: true,
+            yMin: false,
+            yMax: true,
+        },
+        labels: ["My cool X label", "My cool Y label"],
+        labelLocation: "alongEdge",
+        correct: generateIGLinearGraph({
+            coords: [
+                [0, 0],
+                [5, 5],
+            ],
+        }),
+    });
+
+// A graph where the axis lines are on the edge of the chart
+// see: https://khanacademy.atlassian.net/browse/LEMS-4273
+export const onEdgeRightTop: PerseusRenderer = generateInteractiveGraphQuestion(
+    {
+        range: [
+            [-10, 0],
+            [-10, 0],
+        ],
+        showAxisArrows: {
+            xMin: true,
+            xMax: false,
+            yMin: true,
+            yMax: false,
+        },
+        labels: ["My cool X label", "My cool Y label"],
+        labelLocation: "alongEdge",
+        correct: generateIGLinearGraph({
+            coords: [
+                [0, 0],
+                [5, 5],
+            ],
+        }),
+    },
+);

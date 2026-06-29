@@ -154,14 +154,14 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
-    it("warns when showPointLabels is true but pointLabels has an empty entry", () => {
-        expectWarning(
+    it("passes when showPointLabels is true and only some pointLabels entries are provided", () => {
+        expectPass(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -176,9 +176,28 @@ describe("interactive-graph-widget-error", () => {
                     }),
                 },
             },
+        );
+    });
+
+    it("warns when showPointLabels is true but every pointLabels entry is empty", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                showPointLabels: true,
+                                pointLabels: ["", "", ""],
+                            }),
+                        }),
+                    }),
+                },
+            },
             {
                 message:
-                    "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -201,7 +220,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );

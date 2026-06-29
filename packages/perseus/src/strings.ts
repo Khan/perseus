@@ -531,7 +531,11 @@ export type PerseusStrings = {
     srExponentialGraph: string;
     srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
     srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
-    srExponentialDescription: ({
+    // The flat tail's behavior. Both axes track sign(b), so only two
+    // combinations occur: hugs the asymptote on the right while trailing to
+    // negative infinity, or hugs it on the left while trailing to positive
+    // infinity.
+    srExponentialDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
@@ -544,6 +548,45 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteY: string;
     }) => string;
+    srExponentialDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    // Whether the curve sits entirely above or below the asymptote (sign of a).
+    srExponentialAboveAsymptote: string;
+    srExponentialBelowAsymptote: string;
+    // Used when the points are positioned so that no exponential curve can be
+    // drawn (e.g. the asymptote sits between them), so nothing is plotted.
+    srExponentialNoCurve: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteY: string;
+    }) => string;
+    srExponentialIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srExponentialYIntercept: ({yIntercept}: {yIntercept: string}) => string;
     srExponentialInteractiveElements: ({
         point1X,
         point1Y,
@@ -561,7 +604,7 @@ export type PerseusStrings = {
     srLogarithmGraph: string;
     srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
     srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
-    srLogarithmDescription: ({
+    srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
@@ -574,6 +617,68 @@ export type PerseusStrings = {
         point2Y: string;
         asymptoteX: string;
     }) => string;
+    srLogarithmDescriptionRightPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmDescriptionLeftNeg: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmToRightOfAsymptote: string;
+    srLogarithmToLeftOfAsymptote: string;
+    srLogarithmNoCurve: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }: {
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+        asymptoteX: string;
+    }) => string;
+    srLogarithmIntercepts: ({
+        xIntercept,
+        yIntercept,
+    }: {
+        xIntercept: string;
+        yIntercept: string;
+    }) => string;
+    srLogarithmXIntercept: ({xIntercept}: {xIntercept: string}) => string;
     srLogarithmInteractiveElements: ({
         point1X,
         point1Y,
@@ -591,35 +696,55 @@ export type PerseusStrings = {
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
     srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
-    srAbsoluteValueDescription: ({
-        x,
-        y,
-        slope,
+    srAbsoluteValueSlope: ({slope}: {slope: string}) => string;
+    srAbsoluteValueOpensUp: string;
+    srAbsoluteValueOpensDown: string;
+    srAbsoluteValueVertex: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueVertexOrigin: string;
+    srAbsoluteValueTwoXIntercepts: ({
+        intercept1,
+        intercept2,
     }: {
-        x: string;
-        y: string;
-        slope: string;
+        intercept1: string;
+        intercept2: string;
     }) => string;
+    srAbsoluteValueOneXIntercept: ({intercept}: {intercept: string}) => string;
+    srAbsoluteValueYIntercept: ({intercept}: {intercept: string}) => string;
     srAbsoluteValueInteractiveElements: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
+        slope,
     }: {
         point1X: string;
         point1Y: string;
         point2X: string;
         point2Y: string;
+        slope: string;
     }) => string;
     srTangentGraph: string;
     srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
     srTangentSecondPoint: ({x, y}: {x: string; y: string}) => string;
-    srTangentDescription: ({
+    srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,
+        controlX,
+        controlY,
     }: {
         inflectionX: string;
         inflectionY: string;
+        controlX: string;
+        controlY: string;
+    }) => string;
+    srTangentIncreasing: ({period}: {period: string}) => string;
+    srTangentDecreasing: ({period}: {period: string}) => string;
+    srTangentAsymptotes: ({
+        leftAsymptote,
+        rightAsymptote,
+    }: {
+        leftAsymptote: string;
+        rightAsymptote: string;
     }) => string;
     srTangentInteractiveElements: ({
         point1X,
@@ -1278,68 +1403,144 @@ export const strings = {
     srExponentialPoint1: {
         context:
             "Aria label for the first Point on the Exponential function in the interactive graph widget.",
-        message: "Point 1 at %(x)s comma %(y)s.",
+        message: "Point 1 on an exponential curve at %(x)s comma %(y)s.",
     },
     srExponentialPoint2: {
         context:
             "Aria label for the second Point on the Exponential function in the interactive graph widget.",
-        message: "Point 2 at %(x)s comma %(y)s.",
+        message: "Point 2 on an exponential curve at %(x)s comma %(y)s.",
     },
-    srExponentialDescription: {
+    srExponentialDescriptionRightNeg: {
         context:
-            "Screen reader description of the Exponential function in the interactive graph widget.",
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the right and trails off toward negative infinity.",
         message:
-            "The graph shows an exponential curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s.",
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the right and extends to negative infinity.",
+    },
+    srExponentialDescriptionLeftPos: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget. Variant for a curve whose flat tail hugs the asymptote on the left and trails off toward positive infinity.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches y equals %(asymptoteY)s from the left and extends to positive infinity.",
+    },
+    srExponentialAboveAsymptote: {
+        context:
+            "Screen reader description noting that the Exponential curve lies entirely above its horizontal asymptote.",
+        message: "The curve lies above the asymptote.",
+    },
+    srExponentialBelowAsymptote: {
+        context:
+            "Screen reader description noting that the Exponential curve lies entirely below its horizontal asymptote.",
+        message: "The curve lies below the asymptote.",
+    },
+    srExponentialNoCurve: {
+        context:
+            "Screen reader description of the Exponential function in the interactive graph widget, used when the two points are positioned so that no exponential curve can be drawn (for example, the asymptote falls between them) and nothing is plotted.",
+        message:
+            "No exponential curve can be drawn through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a horizontal asymptote at y equals %(asymptoteY)s. Move both points to the same side of the asymptote to draw the curve.",
+    },
+    srExponentialIntercepts: {
+        context:
+            "Screen reader description of the x- and y-intercepts of the Exponential function in the interactive graph widget.",
+        message:
+            "The x-intercept is at %(xIntercept)s comma 0. The y-intercept is at 0 comma %(yIntercept)s.",
+    },
+    srExponentialYIntercept: {
+        context:
+            "Screen reader description of the y-intercept of the Exponential function in the interactive graph widget, used when the curve has no x-intercept.",
+        message: "The y-intercept is at 0 comma %(yIntercept)s.",
     },
     srExponentialInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Exponential function in the interactive graph widget.",
         message:
-            "Exponential graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and horizontal asymptote at y equals %(asymptoteY)s.",
+            "Exponential graph with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and a horizontal asymptote at y equals %(asymptoteY)s.",
     },
     srExponentialAsymptote: {
         context:
             "Aria label for the draggable horizontal asymptote line in the Exponential function in the interactive graph widget.",
-        message:
-            "Horizontal asymptote at y equals %(asymptoteY)s. Use up and down arrow keys to move.",
+        message: "Horizontal asymptote at y equals %(asymptoteY)s",
     },
     srLogarithmGraph: {
         context:
             "Aria label for the container containing a Logarithm function in the interactive graph widget.",
-        message: "A logarithm function on a coordinate plane.",
+        message: "A logarithmic curve on a coordinate plane.",
     },
     srLogarithmPoint1: {
         context:
             "Aria label for the first Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 1 at %(x)s comma %(y)s.",
+        message: "Point 1 on a logarithmic curve at %(x)s comma %(y)s.",
     },
     srLogarithmPoint2: {
         context:
             "Aria label for the second Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 2 at %(x)s comma %(y)s.",
+        message: "Point 2 on a logarithmic curve at %(x)s comma %(y)s.",
     },
-    srLogarithmDescription: {
+    srLogarithmDescriptionRightNeg: {
         context:
-            "Screen reader description of the Logarithm function in the interactive graph widget.",
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the right of the asymptote that trails off toward negative infinity near it.",
         message:
-            "The graph shows a logarithm curve passing through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s.",
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the right and extends to negative infinity.",
+    },
+    srLogarithmDescriptionRightPos: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the right of the asymptote that trails off toward positive infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the right and extends to positive infinity.",
+    },
+    srLogarithmDescriptionLeftNeg: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the left of the asymptote that trails off toward negative infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the left and extends to negative infinity.",
+    },
+    srLogarithmDescriptionLeftPos: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget. Variant for a curve to the left of the asymptote that trails off toward positive infinity near it.",
+        message:
+            "The curve passes through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s as the curve approaches x equals %(asymptoteX)s from the left and extends to positive infinity.",
+    },
+    srLogarithmToRightOfAsymptote: {
+        context:
+            "Screen reader description noting that the Logarithm curve lies to the right of its vertical asymptote.",
+        message: "The curve is to the right of the asymptote.",
+    },
+    srLogarithmToLeftOfAsymptote: {
+        context:
+            "Screen reader description noting that the Logarithm curve lies to the left of its vertical asymptote.",
+        message: "The curve is to the left of the asymptote.",
+    },
+    srLogarithmNoCurve: {
+        context:
+            "Screen reader description of the Logarithm function in the interactive graph widget, used when the two points are positioned so that no logarithm curve can be drawn (for example, the asymptote falls between them) and nothing is plotted.",
+        message:
+            "No curve can be drawn through %(point1X)s comma %(point1Y)s and %(point2X)s comma %(point2Y)s with a vertical asymptote at x equals %(asymptoteX)s. Move both points to the same side of the asymptote to draw the curve.",
+    },
+    srLogarithmIntercepts: {
+        context:
+            "Screen reader description of the x- and y-intercepts of the Logarithm function in the interactive graph widget.",
+        message:
+            "The x-intercept is at %(xIntercept)s comma 0. The y-intercept is at 0 comma %(yIntercept)s.",
+    },
+    srLogarithmXIntercept: {
+        context:
+            "Screen reader description of the x-intercept of the Logarithm function in the interactive graph widget, used when the curve has no y-intercept.",
+        message: "The x-intercept is at %(xIntercept)s comma 0.",
     },
     srLogarithmInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Logarithm function in the interactive graph widget.",
         message:
-            "Logarithm graph with point 1 at %(point1X)s comma %(point1Y)s, point 2 at %(point2X)s comma %(point2Y)s, and vertical asymptote at x equals %(asymptoteX)s.",
+            "Logarithmic graph with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and a vertical asymptote at x equals %(asymptoteX)s.",
     },
     srLogarithmAsymptote: {
         context:
             "Aria label for the draggable vertical asymptote line in the Logarithm function in the interactive graph widget.",
-        message:
-            "Vertical asymptote at x equals %(asymptoteX)s. Use left and right arrow keys to move.",
+        message: "Vertical asymptote at x equals %(asymptoteX)s",
     },
     srAbsoluteValueGraph: {
         context:
             "Aria label for the container containing an Absolute Value function in the interactive graph widget.",
-        message: "An absolute value function on a coordinate plane.",
+        message: "An absolute value on a coordinate plane.",
     },
     srAbsoluteValueVertexPoint: {
         context:
@@ -1351,22 +1552,57 @@ export const strings = {
             "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget.",
         message: "Point on arm at %(x)s comma %(y)s.",
     },
-    srAbsoluteValueDescription: {
+    srAbsoluteValueSlope: {
         context:
-            "Screen reader description of the Absolute Value function in the interactive graph widget.",
+            "Screen reader description of the slope of the arms of the Absolute Value function in the interactive graph widget. Read alongside the point on the arm.",
+        message: "The slope is %(slope)s.",
+    },
+    srAbsoluteValueOpensUp: {
+        context:
+            "Screen reader description noting that the Absolute Value graph opens upward (positive slope).",
+        message: "The graph opens upward.",
+    },
+    srAbsoluteValueOpensDown: {
+        context:
+            "Screen reader description noting that the Absolute Value graph opens downward (negative slope).",
+        message: "The graph opens downward.",
+    },
+    srAbsoluteValueVertex: {
+        context:
+            "Screen reader description of the vertex location of the Absolute Value function in the interactive graph widget.",
+        message: "Vertex is at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueVertexOrigin: {
+        context:
+            "Screen reader description of the vertex of the Absolute Value function when it sits exactly at the origin (0, 0).",
+        message: "Vertex is at the origin.",
+    },
+    srAbsoluteValueTwoXIntercepts: {
+        context:
+            "Screen reader description of the two x-intercepts of the Absolute Value function in the interactive graph widget.",
         message:
-            "The graph shows an absolute value function with vertex at %(x)s comma %(y)s and slope %(slope)s.",
+            "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    },
+    srAbsoluteValueOneXIntercept: {
+        context:
+            "Screen reader description of the single x-intercept of the Absolute Value function in the interactive graph widget, used when the vertex sits on the x-axis.",
+        message: "The X-intercept is at %(intercept)s comma 0.",
+    },
+    srAbsoluteValueYIntercept: {
+        context:
+            "Screen reader description of the y-intercept of the Absolute Value function in the interactive graph widget.",
+        message: "The Y-intercept is at 0 comma %(intercept)s.",
     },
     srAbsoluteValueInteractiveElements: {
         context:
             "Screen reader description of all the elements available to interact with within the Absolute Value function in the interactive graph widget.",
         message:
-            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s and arm point at %(point2X)s comma %(point2Y)s.",
+            "Absolute value graph with vertex point at %(point1X)s comma %(point1Y)s, arm point at %(point2X)s comma %(point2Y)s and slope of %(slope)s.",
     },
     srTangentGraph: {
         context:
             "Aria label for the container containing a Tangent function in the interactive graph widget.",
-        message: "A tangent function on a coordinate plane.",
+        message: "A tangent curve on a coordinate plane.",
     },
     srTangentInflectionPoint: {
         context:
@@ -1378,11 +1614,29 @@ export const strings = {
             "Aria label for the second control point of the Tangent function in the interactive graph widget.",
         message: "Control point at %(x)s comma %(y)s.",
     },
-    srTangentDescription: {
+    srTangentDescriptionPoints: {
         context:
-            "Screen reader description of the Tangent function in the interactive graph widget.",
+            "Screen reader description of the Tangent function in the interactive graph widget, naming the inflection point and the control point the curve passes through.",
         message:
-            "The graph shows a tangent function with an inflection point at %(inflectionX)s comma %(inflectionY)s.",
+            "The curve passes through an inflection point at %(inflectionX)s comma %(inflectionY)s and a control point at %(controlX)s comma %(controlY)s.",
+    },
+    srTangentIncreasing: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget. Variant for a curve that increases through the inflection point. The period is how often the curve repeats, in graph units.",
+        message:
+            "The curve increases through the inflection point, repeating every %(period)s units.",
+    },
+    srTangentDecreasing: {
+        context:
+            "Screen reader description of the Tangent function in the interactive graph widget. Variant for a curve that decreases through the inflection point. The period is how often the curve repeats, in graph units.",
+        message:
+            "The curve decreases through the inflection point, repeating every %(period)s units.",
+    },
+    srTangentAsymptotes: {
+        context:
+            "Screen reader description of the two nearest vertical asymptotes of the Tangent function in the interactive graph widget, one on either side of the inflection point.",
+        message:
+            "The nearest vertical asymptotes are at x equals %(leftAsymptote)s and x equals %(rightAsymptote)s.",
     },
     srTangentInteractiveElements: {
         context:
@@ -1741,16 +1995,34 @@ export const mockStrings: PerseusStrings = {
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     srExponentialGraph: "An exponential curve on a coordinate plane.",
-    srExponentialPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srExponentialPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
-    srExponentialDescription: ({
+    srExponentialPoint1: ({x, y}) =>
+        `Point 1 on an exponential curve at ${x} comma ${y}.`,
+    srExponentialPoint2: ({x, y}) =>
+        `Point 2 on an exponential curve at ${x} comma ${y}.`,
+    srExponentialDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         asymptoteY,
     }) =>
-        `The graph shows an exponential curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}.`,
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the right and extends to negative infinity.`,
+    srExponentialDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteY,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches y equals ${asymptoteY} from the left and extends to positive infinity.`,
+    srExponentialAboveAsymptote: "The curve lies above the asymptote.",
+    srExponentialBelowAsymptote: "The curve lies below the asymptote.",
+    srExponentialNoCurve: ({point1X, point1Y, point2X, point2Y, asymptoteY}) =>
+        `No exponential curve can be drawn through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a horizontal asymptote at y equals ${asymptoteY}. Move both points to the same side of the asymptote to draw the curve.`,
+    srExponentialIntercepts: ({xIntercept, yIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0. The y-intercept is at 0 comma ${yIntercept}.`,
+    srExponentialYIntercept: ({yIntercept}) =>
+        `The y-intercept is at 0 comma ${yIntercept}.`,
     srExponentialInteractiveElements: ({
         point1X,
         point1Y,
@@ -1758,20 +2030,55 @@ export const mockStrings: PerseusStrings = {
         point2Y,
         asymptoteY,
     }) =>
-        `Exponential graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and horizontal asymptote at y equals ${asymptoteY}.`,
+        `Exponential graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a horizontal asymptote at y equals ${asymptoteY}.`,
     srExponentialAsymptote: ({asymptoteY}) =>
-        `Horizontal asymptote at y equals ${asymptoteY}. Use up and down arrow keys to move.`,
-    srLogarithmGraph: "A logarithm function on a coordinate plane.",
-    srLogarithmPoint1: ({x, y}) => `Point 1 at ${x} comma ${y}.`,
-    srLogarithmPoint2: ({x, y}) => `Point 2 at ${x} comma ${y}.`,
-    srLogarithmDescription: ({
+        `Horizontal asymptote at y equals ${asymptoteY}`,
+    srLogarithmGraph: "A logarithmic curve on a coordinate plane.",
+    srLogarithmPoint1: ({x, y}) =>
+        `Point 1 on a logarithmic curve at ${x} comma ${y}.`,
+    srLogarithmPoint2: ({x, y}) =>
+        `Point 2 on a logarithmic curve at ${x} comma ${y}.`,
+    srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
         asymptoteX,
     }) =>
-        `The graph shows a logarithm curve passing through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}.`,
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the right and extends to negative infinity.`,
+    srLogarithmDescriptionRightPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the right and extends to positive infinity.`,
+    srLogarithmDescriptionLeftNeg: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the left and extends to negative infinity.`,
+    srLogarithmDescriptionLeftPos: ({
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+        asymptoteX,
+    }) =>
+        `The curve passes through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} as the curve approaches x equals ${asymptoteX} from the left and extends to positive infinity.`,
+    srLogarithmToRightOfAsymptote:
+        "The curve is to the right of the asymptote.",
+    srLogarithmToLeftOfAsymptote: "The curve is to the left of the asymptote.",
+    srLogarithmNoCurve: ({point1X, point1Y, point2X, point2Y, asymptoteX}) =>
+        `No curve can be drawn through ${point1X} comma ${point1Y} and ${point2X} comma ${point2Y} with a vertical asymptote at x equals ${asymptoteX}. Move both points to the same side of the asymptote to draw the curve.`,
+    srLogarithmIntercepts: ({xIntercept, yIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0. The y-intercept is at 0 comma ${yIntercept}.`,
+    srLogarithmXIntercept: ({xIntercept}) =>
+        `The x-intercept is at ${xIntercept} comma 0.`,
     srLogarithmInteractiveElements: ({
         point1X,
         point1Y,
@@ -1779,27 +2086,48 @@ export const mockStrings: PerseusStrings = {
         point2Y,
         asymptoteX,
     }) =>
-        `Logarithm graph with point 1 at ${point1X} comma ${point1Y}, point 2 at ${point2X} comma ${point2Y}, and vertical asymptote at x equals ${asymptoteX}.`,
+        `Logarithmic graph with points at ${point1X} comma ${point1Y}, ${point2X} comma ${point2Y}, and a vertical asymptote at x equals ${asymptoteX}.`,
     srLogarithmAsymptote: ({asymptoteX}) =>
-        `Vertical asymptote at x equals ${asymptoteX}. Use left and right arrow keys to move.`,
-    srAbsoluteValueGraph: "An absolute value function on a coordinate plane.",
+        `Vertical asymptote at x equals ${asymptoteX}.`,
+    srAbsoluteValueGraph: "An absolute value on a coordinate plane.",
     srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
     srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
-    srAbsoluteValueDescription: ({x, y, slope}) =>
-        `The graph shows an absolute value function with vertex at ${x} comma ${y} and slope ${slope}.`,
+    srAbsoluteValueSlope: ({slope}) => `The slope is ${slope}.`,
+    srAbsoluteValueOpensUp: "The graph opens upward.",
+    srAbsoluteValueOpensDown: "The graph opens downward.",
+    srAbsoluteValueVertex: ({x, y}) => `Vertex is at ${x} comma ${y}.`,
+    srAbsoluteValueVertexOrigin: "Vertex is at the origin.",
+    srAbsoluteValueTwoXIntercepts: ({intercept1, intercept2}) =>
+        `The X-intercepts are at ${intercept1} comma 0 and ${intercept2} comma 0.`,
+    srAbsoluteValueOneXIntercept: ({intercept}) =>
+        `The X-intercept is at ${intercept} comma 0.`,
+    srAbsoluteValueYIntercept: ({intercept}) =>
+        `The Y-intercept is at 0 comma ${intercept}.`,
     srAbsoluteValueInteractiveElements: ({
         point1X,
         point1Y,
         point2X,
         point2Y,
+        slope,
     }) =>
-        `Absolute value graph with vertex point at ${point1X} comma ${point1Y} and arm point at ${point2X} comma ${point2Y}.`,
-    srTangentGraph: "A tangent function on a coordinate plane.",
+        `Absolute value graph with vertex point at ${point1X} comma ${point1Y}, arm point at ${point2X} comma ${point2Y} and slope of ${slope}.`,
+    srTangentGraph: "A tangent curve on a coordinate plane.",
     srTangentInflectionPoint: ({x, y}) =>
         `Inflection point at ${x} comma ${y}.`,
     srTangentSecondPoint: ({x, y}) => `Control point at ${x} comma ${y}.`,
-    srTangentDescription: ({inflectionX, inflectionY}) =>
-        `The graph shows a tangent function with an inflection point at ${inflectionX} comma ${inflectionY}.`,
+    srTangentDescriptionPoints: ({
+        inflectionX,
+        inflectionY,
+        controlX,
+        controlY,
+    }) =>
+        `The curve passes through an inflection point at ${inflectionX} comma ${inflectionY} and a control point at ${controlX} comma ${controlY}.`,
+    srTangentIncreasing: ({period}) =>
+        `The curve increases through the inflection point, repeating every ${period} units.`,
+    srTangentDecreasing: ({period}) =>
+        `The curve decreases through the inflection point, repeating every ${period} units.`,
+    srTangentAsymptotes: ({leftAsymptote, rightAsymptote}) =>
+        `The nearest vertical asymptotes are at x equals ${leftAsymptote} and x equals ${rightAsymptote}.`,
     srTangentInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Tangent graph with inflection point at ${point1X} comma ${point1Y} and control point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",

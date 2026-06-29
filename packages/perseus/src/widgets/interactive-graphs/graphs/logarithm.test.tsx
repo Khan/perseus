@@ -8,13 +8,13 @@ import {getBaseMafsGraphPropsForTests} from "../utils";
 
 import {getLogarithmKeyboardConstraint} from "./logarithm";
 
-import type {InteractiveGraphState} from "../types";
+import type {LogarithmGraphState} from "../types";
 import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 
 // Curve right of asymptote: f(-4)=-3, f(-5)=-7, asymptote x=-6
-const baseLogarithmState: InteractiveGraphState = {
+const baseLogarithmState: LogarithmGraphState = {
     type: "logarithm",
     coords: [
         [-4, -3],
@@ -29,6 +29,15 @@ const baseLogarithmState: InteractiveGraphState = {
     snapStep: [1, 1],
 };
 
+function renderLogarithmGraph(overrides?: Partial<LogarithmGraphState>) {
+    return render(
+        <MafsGraph
+            {...baseMafsGraphProps}
+            state={{...baseLogarithmState, ...overrides}}
+        />,
+    );
+}
+
 describe("Logarithm graph screen reader", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -38,178 +47,209 @@ describe("Logarithm graph screen reader", () => {
 
     it("has the correct aria-label on the graph element", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
+        renderLogarithmGraph();
 
         // Assert
         expect(
-            screen.getByLabelText(
-                "A logarithm function on a coordinate plane.",
-            ),
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
         ).toBeInTheDocument();
     });
 
     it("labels point 1 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
+        renderLogarithmGraph();
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at -4 comma -3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on a logarithmic curve at -4 comma -3.",
+            }),
         ).toBeInTheDocument();
     });
 
     it("labels point 2 with its coordinates", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
-
-        // Assert
-        expect(
-            screen.getByRole("button", {name: "Point 2 at -5 comma -7."}),
-        ).toBeInTheDocument();
-    });
-
-    it("labels the asymptote with its x-value and keyboard instructions", () => {
-        // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
+        renderLogarithmGraph();
 
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Vertical asymptote at x equals -6. Use left and right arrow keys to move.",
+                name: "Point 2 on a logarithmic curve at -5 comma -7.",
             }),
         ).toBeInTheDocument();
     });
 
-    it("describes the graph with point positions and asymptote", () => {
+    it("labels the asymptote with its x-value", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
+        renderLogarithmGraph();
 
         // Assert
         expect(
-            screen.getByLabelText(
-                "A logarithm function on a coordinate plane.",
-            ),
+            screen.getByRole("button", {
+                name: "Vertical asymptote at x equals -6.",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it("describes the curve's behavior, asymptote, and intercepts", () => {
+        // Arrange, Act
+        renderLogarithmGraph();
+
+        // Assert
+        expect(
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
         ).toHaveAccessibleDescription(
-            "The graph shows a logarithm curve passing through point -4 comma -3 and point -5 comma -7 with a vertical asymptote at x equals -6.",
+            "The curve passes through -4 comma -3 and -5 comma -7 as the curve approaches x equals -6 from the right and extends to negative infinity. The curve is to the right of the asymptote. The x-intercept is at -2.636 comma 0. The y-intercept is at 0 comma 3.34.",
         );
     });
 
     it("updates the graph description when point positions change", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    coords: [
-                        [-2, 4],
-                        [-3, 2],
-                    ],
-                }}
-            />,
-        );
+        renderLogarithmGraph({
+            coords: [
+                [-2, 4],
+                [-3, 2],
+            ],
+        });
 
         // Assert
         expect(
-            screen.getByLabelText(
-                "A logarithm function on a coordinate plane.",
-            ),
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
         ).toHaveAccessibleDescription(
-            "The graph shows a logarithm curve passing through point -2 comma 4 and point -3 comma 2 with a vertical asymptote at x equals -6.",
+            "The curve passes through -2 comma 4 and -3 comma 2 as the curve approaches x equals -6 from the right and extends to negative infinity. The curve is to the right of the asymptote. The x-intercept is at -3.75 comma 0. The y-intercept is at 0 comma 6.819.",
         );
     });
 
     it("updates the graph description when the asymptote changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    asymptote: -8,
-                }}
-            />,
-        );
+        renderLogarithmGraph({asymptote: -8});
 
         // Assert
         expect(
-            screen.getByLabelText(
-                "A logarithm function on a coordinate plane.",
-            ),
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
         ).toHaveAccessibleDescription(
-            "The graph shows a logarithm curve passing through point -4 comma -3 and point -5 comma -7 with a vertical asymptote at x equals -8.",
+            "The curve passes through -4 comma -3 and -5 comma -7 as the curve approaches x equals -8 from the right and extends to negative infinity. The curve is to the right of the asymptote. The x-intercept is at -3.037 comma 0. The y-intercept is at 0 comma 6.638.",
+        );
+    });
+
+    it("describes a curve to the left of the asymptote with both intercepts", () => {
+        // Arrange, Act — points left of the asymptote (b < 0) with an
+        // increasing curve (a > 0). Exercises the LeftNeg directional variant
+        // and the "to the left" clause; the asymptote at x=3 keeps x=0 in the
+        // domain so a y-intercept exists.
+        renderLogarithmGraph({
+            coords: [
+                [0, 2],
+                [2, -1],
+            ],
+            asymptote: 3,
+        });
+
+        // Assert
+        expect(
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
+        ).toHaveAccessibleDescription(
+            "The curve passes through 0 comma 2 and 2 comma -1 as the curve approaches x equals 3 from the left and extends to negative infinity. The curve is to the left of the asymptote. The x-intercept is at 1.558 comma 0. The y-intercept is at 0 comma 2.",
+        );
+    });
+
+    it("describes a curve to the right that extends to positive infinity with no y-intercept", () => {
+        // Arrange, Act — points right of the asymptote (b > 0) with a
+        // decreasing curve (a < 0). Exercises the RightPos directional variant.
+        // The asymptote at x=0 puts x=0 on the boundary, so there is no
+        // y-intercept and only the x-intercept is described.
+        renderLogarithmGraph({
+            coords: [
+                [1, 3],
+                [5, -2],
+            ],
+            asymptote: 0,
+        });
+
+        // Assert
+        expect(
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
+        ).toHaveAccessibleDescription(
+            "The curve passes through 1 comma 3 and 5 comma -2 as the curve approaches x equals 0 from the right and extends to positive infinity. The curve is to the right of the asymptote. The x-intercept is at 2.627 comma 0.",
+        );
+    });
+
+    it("describes a curve to the left that extends to positive infinity", () => {
+        // Arrange, Act — points left of the asymptote (b < 0) with a
+        // decreasing curve (a < 0). Exercises the LeftPos directional variant.
+        renderLogarithmGraph({
+            coords: [
+                [-1, 3],
+                [-5, -2],
+            ],
+            asymptote: 0,
+        });
+
+        // Assert
+        expect(
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
+        ).toHaveAccessibleDescription(
+            "The curve passes through -1 comma 3 and -5 comma -2 as the curve approaches x equals 0 from the left and extends to positive infinity. The curve is to the left of the asymptote. The x-intercept is at -2.627 comma 0.",
         );
     });
 
     it("renders without crashing when the asymptote sits between the curve points", () => {
         // Arrange, Act — asymptote x=-4.5 sits between points at x=-4 and x=-5.
         // There is no logarithm curve that fits, so the Plot.OfX is skipped.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    asymptote: -4.5,
-                }}
-            />,
-        );
+        renderLogarithmGraph({asymptote: -4.5});
 
-        // Assert — asymptote + both points still rendered
+        // Assert — asymptote still rendered, and the points drop the
+        // "on a logarithmic curve" phrasing since no curve is plotted.
         expect(
             screen.getByRole("button", {name: /Vertical asymptote/}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 1/}),
+            screen.getByRole("button", {name: "Point 1 at -4 comma -3."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: /Point 2/}),
+            screen.getByRole("button", {name: "Point 2 at -5 comma -7."}),
         ).toBeInTheDocument();
+    });
+
+    it("describes the no-curve case when the asymptote sits between the points", () => {
+        // Arrange, Act — asymptote x=-4.5 falls between points at x=-4 and
+        // x=-5, so no logarithm fits and nothing is plotted.
+        renderLogarithmGraph({asymptote: -4.5});
+
+        // Assert
+        expect(
+            screen.getByLabelText("A logarithmic curve on a coordinate plane."),
+        ).toHaveAccessibleDescription(
+            "No curve can be drawn through -4 comma -3 and -5 comma -7 with a vertical asymptote at x equals -4.5. Move both points to the same side of the asymptote to draw the curve.",
+        );
     });
 
     it("describes the interactive elements for the graph", () => {
         // Arrange, Act
-        render(
-            <MafsGraph {...baseMafsGraphProps} state={baseLogarithmState} />,
-        );
+        renderLogarithmGraph();
 
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Logarithm graph with point 1 at -4 comma -3, point 2 at -5 comma -7, and vertical asymptote at x equals -6.",
+                "Interactive elements: Logarithmic graph with points at -4 comma -3, -5 comma -7, and a vertical asymptote at x equals -6.",
             ),
         ).toBeInTheDocument();
     });
 
     it("updates the interactive elements description when state changes", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    coords: [
-                        [3, 5],
-                        [4, 7],
-                    ],
-                    asymptote: 2,
-                }}
-            />,
-        );
+        renderLogarithmGraph({
+            coords: [
+                [3, 5],
+                [4, 7],
+            ],
+            asymptote: 2,
+        });
 
         // Assert
         expect(
             screen.getByText(
-                "Interactive elements: Logarithm graph with point 1 at 3 comma 5, point 2 at 4 comma 7, and vertical asymptote at x equals 2.",
+                "Interactive elements: Logarithmic graph with points at 3 comma 5, 4 comma 7, and a vertical asymptote at x equals 2.",
             ),
         ).toBeInTheDocument();
     });
@@ -225,12 +265,7 @@ describe("Logarithm graph pointLabels", () => {
 
     it("uses custom pointLabels in each point's accessible name", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLogarithmState, pointLabels: ["A", "B"]}}
-            />,
-        );
+        renderLogarithmGraph({pointLabels: ["A", "B"]});
 
         // Assert
         expect(
@@ -243,19 +278,16 @@ describe("Logarithm graph pointLabels", () => {
 
     it("falls back to the default label for indices without a custom label", () => {
         // Arrange, Act — only the first point is named
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLogarithmState, pointLabels: ["A"]}}
-            />,
-        );
+        renderLogarithmGraph({pointLabels: ["A"]});
 
         // Assert
         expect(
             screen.getByRole("button", {name: "Point A at -4 comma -3."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point 2 at -5 comma -7."}),
+            screen.getByRole("button", {
+                name: "Point 2 on a logarithmic curve at -5 comma -7.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -263,16 +295,13 @@ describe("Logarithm graph pointLabels", () => {
     // An empty string at any index must fall back to the default label.
     it("falls back to the default label for explicit empty-string entries", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{...baseLogarithmState, pointLabels: ["", "B"]}}
-            />,
-        );
+        renderLogarithmGraph({pointLabels: ["", "B"]});
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at -4 comma -3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on a logarithmic curve at -4 comma -3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Point B at -5 comma -7."}),
@@ -281,20 +310,16 @@ describe("Logarithm graph pointLabels", () => {
 
     it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
         // Arrange, Act
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseLogarithmState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
-                }}
-            />,
-        );
+        renderLogarithmGraph({
+            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+            pointLabels: [42, "B"] as unknown as string[],
+        });
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point 1 at -4 comma -3."}),
+            screen.getByRole("button", {
+                name: "Point 1 on a logarithmic curve at -4 comma -3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Point B at -5 comma -7."}),

@@ -227,6 +227,7 @@ describe("splitPerseusItem", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
+                        textAlign: "left",
                     },
                 },
             },
@@ -238,17 +239,20 @@ describe("splitPerseusItem", () => {
             widgets: {
                 "numeric-input 1": {
                     type: "numeric-input",
-                    version: {major: 0, minor: 0},
+                    version: {major: 1, minor: 0},
                     options: {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        rightAlign: false,
+                        textAlign: "left",
                         answers: [
                             {
+                                value: null,
                                 simplify: "required",
                                 status: "correct",
+                                strict: false,
                                 answerForms: ["pi"],
+                                message: "",
                             },
                         ],
                     },

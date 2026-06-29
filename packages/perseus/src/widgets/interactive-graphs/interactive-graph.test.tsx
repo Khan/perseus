@@ -2133,6 +2133,26 @@ describe("Interactive Graph", function () {
             ).toBeInTheDocument();
         });
 
+        it("announces the 'not graded' message as the graph's first description", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({
+                graded: false,
+                graph: generateIGLinearGraph(),
+            });
+            renderQuestion(question, blankOptions);
+
+            // Assert
+            const note = screen.getByText(
+                "Use this graph to check your thinking, but it does not count as your answer.",
+            );
+            const figure = screen.getByRole("figure");
+            const [firstDescribedById] =
+                figure.getAttribute("aria-describedby")?.split(" ") ?? [];
+
+            expect(note).toHaveAttribute("id");
+            expect(firstDescribedById).toBe(note.getAttribute("id"));
+        });
+
         it("does not render a 'not graded' message when graded is true", () => {
             // Arrange, Act
             const question = generateInteractiveGraphQuestion({
