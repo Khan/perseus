@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
 
     showHintLink: {
         backgroundColor: "unset",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
         marginTop: 20,
@@ -501,7 +501,7 @@ const styles = StyleSheet.create({
         color: semanticColor.core.foreground.instructive.default,
         marginBottom: 10,
         cursor: "pointer",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
         display: "block",
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 12,
+        fontSize: font.heading.size.small,
         color: gray68,
         textTransform: "uppercase",
         marginBottom: 11,

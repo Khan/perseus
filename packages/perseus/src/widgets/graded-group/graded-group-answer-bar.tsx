@@ -2,7 +2,7 @@
  * Renders answer bar for mobile graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -95,7 +95,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                 <span style={styles.text}>
                     <span
                         style={{
-                            fontSize: 28,
+                            fontSize: font.size.xxLarge,
                             color: semanticColor.core.foreground.success
                                 .default,
                         }}
@@ -118,8 +118,6 @@ class GradedGroupAnswerBar extends React.Component<Props> {
     }
 }
 
-const fontSize = 17;
-
 const styles = {
     answerBar: {
         display: "flex",
@@ -135,7 +133,7 @@ const styles = {
     },
 
     tryAgainIcon: {
-        fontSize: 28,
+        fontSize: font.size.xxLarge,
         color: "#63D9EA",
         transform: "scale(-1,1) rotate(-268deg)",
     },
@@ -144,8 +142,8 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        fontWeight: "bold",
-        fontSize: fontSize,
+        fontWeight: font.weight.bold,
+        fontSize: font.size.medium,
     },
 } as const;
 
