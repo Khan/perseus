@@ -1,9 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-
 import {
     multipleAvailableTypesQuestion,
     quadraticQuestion,
@@ -39,6 +37,8 @@ export const Quadratic: Story = {
 
 export const ChooseYourOwnFunction: Story = {
     args: {
-        item: generateTestPerseusItem({question: multipleAvailableTypesQuestion}),
+        item: generateTestPerseusItem({
+            question: multipleAvailableTypesQuestion,
+        }),
     },
 };
