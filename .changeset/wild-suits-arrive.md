@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Hide matcher in the dropdown and show categorizer in the dropdown
+Hide matcher in the editor dropdown and show categorizer in the dropdown
