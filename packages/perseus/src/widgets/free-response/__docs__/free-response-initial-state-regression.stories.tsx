@@ -26,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Verifies the default state with a character count displayed using
-// semanticColor.core.foreground.neutral.default and font.size.small.
+// semanticColor.core.foreground.neutral.default and font.body.size.small.
 export const DefaultWithCharacterCount: Story = {
     decorators: [freeResponseRendererDecorator],
     args: {
