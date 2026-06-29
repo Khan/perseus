@@ -1661,10 +1661,10 @@ export type PerseusNumericInputWidgetOptions = {
 export type PerseusNumericInputAnswer = {
     /**
      * Translatable Display; A description for why this answer is correct,
-     * wrong, or ungraded
+     * wrong, or ungraded. Always the empty string in answerless data.
      */
     message: string;
-    /** The expected answer */
+    /** The expected answer. Null in answerless data. */
     value?: number | null;
     /** Whether this answer is "correct", "wrong", or "ungraded" */
     status: string;
@@ -1675,12 +1675,15 @@ export type PerseusNumericInputAnswer = {
     /**
      * Whether we should check the answer strictly against the configured
      * answerForms (strict = true) or include the set of default answerForms
-     * (strict = false).
+     * (strict = false). Always false in answerless data.
      */
     strict: boolean;
-    /** A range of error +/- the value */
+    /**
+     * The maximum difference between the answer key and a correct user
+     * input. Omitted in answerless data.
+     */
     maxError?: number | null;
-    /** Unsimplified answers are Ungraded, Accepted, or Wrong. */
+    /** How unsimplified responses should be handled. */
     simplify: PerseusNumericInputSimplify;
 };
 
@@ -2239,26 +2242,9 @@ export type PerseusVideoWidgetOptions = {
     static?: boolean;
 };
 
-export type PerseusInputNumberAnswerType =
-    | "number"
-    | "decimal"
-    | "integer"
-    | "rational"
-    | "improper"
-    | "mixed"
-    | "percent"
-    | "pi";
+export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
-/** Options for the input-number widget (deprecated; prefer numeric-input). */
-export type PerseusInputNumberWidgetOptions = {
-    answerType?: PerseusInputNumberAnswerType;
-    inexact?: boolean;
-    maxError?: number | string;
-    rightAlign?: boolean;
-    simplify: "required" | "optional" | "enforced";
-    size: "normal" | "small";
-    value: string | number;
-};
+export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 /** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
 export type PerseusMoleculeRendererWidgetOptions = {

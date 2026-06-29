@@ -2,9 +2,12 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
+import {
+    generateInputNumberAnswer,
+    generateInputNumberOptions,
+} from "@khanacademy/perseus-core";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import _ from "underscore";
 
 import * as Dependencies from "../../dependencies";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
@@ -23,7 +26,7 @@ import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
 
 import type {PerseusDependenciesV2} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {MathFormat, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("input-number", function () {
@@ -107,7 +110,7 @@ describe("input-number", function () {
                 type: "perseus:widget:rendered:ti",
                 payload: {
                     widgetSubType: "null",
-                    widgetType: "input-number",
+                    widgetType: "numeric-input",
                     widgetId: "input-number 1",
                 },
             });
@@ -137,21 +140,33 @@ describe("input-number", function () {
                         graded: true,
                         alignment: "default",
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "optional",
-                            answerType: "rational",
                             size: "normal",
+                            coefficient: false,
+                            textAlign: "left",
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value: 0.3333333333333333,
+                                    maxError: 0,
+                                    simplify: "optional",
+                                    answerForms: [
+                                        "integer",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                    ],
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },
-            } as PerseusRenderer,
+            } satisfies PerseusRenderer,
             "1/3",
             "0.4",
         ],
         [
-            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
@@ -164,29 +179,38 @@ describe("input-number", function () {
                 },
                 widgets: {
                     "input-number 1": {
-                        version: {
-                            major: 0,
-                            minor: 0,
-                        },
                         type: "input-number",
+                        version: {major: 1, minor: 0},
                         graded: true,
                         alignment: "default",
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "required",
-                            answerType: "rational",
                             size: "normal",
+                            coefficient: false,
+                            textAlign: "left",
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value: 0.3333333333333333,
+                                    maxError: 0,
+                                    simplify: "required",
+                                    answerForms: [
+                                        "integer",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                    ],
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },
-            } as PerseusRenderer,
+            } satisfies PerseusRenderer,
             "1/3",
             "0.4",
         ],
         [
-            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "A washing machine is being redesigned to handle a greater volume of water.  One part is a pipe with a radius of $3 \\,\\text{cm}$ and a length of $11\\,\\text{cm}$.  It gets replaced with a pipe of radius $4\\,\\text{cm}$, and the same length. \n\n**How many more cubic centimeters of water can the new pipe hold?**\n\n [[\u2603 input-number 1]] $\\text{cm}^3$",
@@ -194,23 +218,31 @@ describe("input-number", function () {
                 widgets: {
                     "input-number 1": {
                         type: "input-number",
+                        version: {major: 1, minor: 0},
                         graded: true,
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 241.90263432641407,
-                            simplify: "required",
-                            answerType: "pi",
                             size: "normal",
+                            coefficient: false,
+                            textAlign: "left",
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value: 241.90263432641407,
+                                    simplify: "required",
+                                    maxError: 0,
+                                    answerForms: ["pi"],
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },
-            } as PerseusRenderer,
+            } satisfies PerseusRenderer,
             "77 pi",
             "76 pi",
         ],
         [
-            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     'Akshat works in a hospital lab.\n\nTo project blood quantities, he wants to know the probability that more than $1$ of the next $7$ donors will have type-A blood. From his previous work, Sorin knows that $\\dfrac14$ of donors have type-A blood.\n\nAkshat uses a computer to produce many samples that simulate the next $7$ donors. The first $8$ samples are shown in the table below where "$\\text{\\red{A}}$" represents a donor *with* type-A blood, and "$\\text{\\blue{Z}}$" represents a donor *without* type-A blood.\n\n**Based on the samples below, estimate the probability that  more than $1$ of the next $7$ donors will have type-A blood.** If necessary, round your answer to the nearest hundredth. [[\u2603 input-number 1]]\n\n*Note: This a small sample to practice with. A larger sample could give a much better estimate.*\n\n | Sample |\n:-: | :-: | \n$1$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n$2$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$3$ | $\\text{\\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$4$ | $\\text{\\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$5$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\red{A}}$\n$6$ | $\\text{\\blue{Z}, \\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$7$ | $\\text{\\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}}$\n$8$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n\n',
@@ -218,18 +250,34 @@ describe("input-number", function () {
                 widgets: {
                     "input-number 1": {
                         type: "input-number",
+                        version: {major: 1, minor: 0},
                         graded: true,
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.5,
-                            simplify: "optional",
-                            answerType: "percent",
                             size: "small",
+                            coefficient: false,
+                            textAlign: "left",
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value: 0.5,
+                                    simplify: "optional",
+                                    maxError: 0,
+                                    answerForms: [
+                                        "integer",
+                                        "decimal",
+                                        "proper",
+                                        "improper",
+                                        "mixed",
+                                        "percent",
+                                    ],
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },
-            } as PerseusRenderer,
+            } satisfies PerseusRenderer,
             "50%",
             "0.56",
         ],
@@ -331,12 +379,12 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
     });
 
     it.each([
-        ["rational", 0.3333333333333333, "1/3", "normal" as const],
-        ["percent", 0.5, "50%", "small" as const],
-        ["pi", 241.90263432641407, "77 pi", "normal" as const],
-    ] as const)(
-        "accepts a correct answer when answerType is %s",
-        async (answerType, value, correctAnswer, size) => {
+        [["proper"], 0.3333333333333333, "1/3", "normal" as const],
+        [["decimal", "percent"], 0.5, "50%", "small" as const],
+        [["pi"], 241.90263432641407, "77 pi", "normal" as const],
+    ] satisfies Array<[MathFormat[], number, string, "small" | "normal"]>)(
+        "accepts a correct answer when answerForms is %s",
+        async (answerForms, value, correctAnswer, size) => {
             // Arrange
             const item: PerseusRenderer = {
                 content: "[[☃ input-number 1]]",
@@ -346,12 +394,20 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
                         type: "input-number",
                         graded: true,
                         options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value,
-                            simplify: "optional",
-                            answerType,
                             size,
+                            coefficient: false,
+                            textAlign: "left",
+                            answers: [
+                                {
+                                    status: "correct",
+                                    value,
+                                    simplify: "optional",
+                                    maxError: 0,
+                                    answerForms: answerForms,
+                                    message: "",
+                                    strict: true,
+                                },
+                            ],
                         },
                     },
                 },
@@ -406,39 +462,69 @@ describe("getOneCorrectAnswerFromRubric", () => {
         );
     });
 
-    it("should return undefined if rubric.value is null/undefined", () => {
+    it("should return empty if the answer value is null", () => {
         // Arrange
-        const rubric: Record<string, any> = {};
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: null,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
-        expect(result).toBeUndefined();
+        expect(result).toBe("");
     });
 
-    it("should return rubric.value if inexact is false", () => {
+    it("should return the answer value if maxError is 0", () => {
         // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: false,
-        } as const;
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 42,
+                    maxError: 0,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
 
         // Assert
-        expect(result).toEqual("0");
+        expect(result).toEqual("42");
     });
 
-    it("should return rubric.value with an error band if inexact is true", () => {
+    it("should return the answer value if maxError is undefined", () => {
         // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: true,
-        } as const;
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 42,
+                    maxError: undefined,
+                }),
+            ],
+        });
+
+        // Act
+        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+
+        // Assert
+        expect(result).toEqual("42");
+    });
+
+    it("should return the answer value with an error band if maxError is greater than zero", () => {
+        // Arrange
+        const rubric = generateInputNumberOptions({
+            answers: [
+                generateInputNumberAnswer({
+                    value: 0,
+                    maxError: 0.1,
+                }),
+            ],
+        });
 
         // Act
         const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
@@ -503,29 +589,49 @@ describe("focus state", () => {
 
 function getAnswerlessInputNumber() {
     return getAnswerlessItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        textAlign: "left",
+        answers: [
+            {
+                status: "correct",
+                value: 42,
+                simplify: "optional",
+                message: "",
+                strict: true,
+                answerForms: [],
+            },
+        ],
     });
 }
 
 function getAnswerfulInputNumber() {
     return getAnswerfulItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        textAlign: "left",
+        answers: [
+            {
+                status: "correct",
+                value: 42,
+                simplify: "optional",
+                message: "",
+                strict: true,
+                answerForms: [],
+            },
+        ],
     });
 }
 
 it("removes answers from item data", () => {
     expect(
         getAnswerfulInputNumber().question.widgets["input-number 1"].options
-            .value,
+            .answers[0].value,
     ).toBe(42);
     expect(
         getAnswerlessInputNumber().question.widgets["input-number 1"].options
-            .value,
-    ).toBeUndefined();
+            .answers[0].value,
+    ).toBe(null);
 });
 
 describe.each([

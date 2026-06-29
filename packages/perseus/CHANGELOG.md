@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 79.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
+### Patch Changes
+
+-   [#3814](https://github.com/Khan/perseus/pull/3814) [`7b1a029`](https://github.com/Khan/perseus/commit/7b1a029e79a593111619b18e8e7bdf4f83907c20) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove flaky visual regression test
+
+-   [#3803](https://github.com/Khan/perseus/pull/3803) [`01c43fd`](https://github.com/Khan/perseus/commit/01c43fd16b3b3ff10b62c81b8ace36178300fb15) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix axes from getting cut off when they're on the edge of an InteractiveGraph
+
+-   [#3818](https://github.com/Khan/perseus/pull/3818) [`457b590`](https://github.com/Khan/perseus/commit/457b590cee509df90d5558f9fef13291a1733e59) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: Fix locked figure points clipped at the graph boundary
+
+-   [#3820](https://github.com/Khan/perseus/pull/3820) [`a74d711`](https://github.com/Khan/perseus/commit/a74d711525237027983d875457ac52f0af368c11) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Pass apiOptions to the renderer used for choice content rendering
+
+-   [#3817](https://github.com/Khan/perseus/pull/3817) [`f6a3591`](https://github.com/Khan/perseus/commit/f6a359129f37eeae8502e62c4fbe05a656aead86) Thanks [@Evelas78](https://github.com/Evelas78)! - Removed small divider when a gif doesn't have gif controls
+
+-   Updated dependencies [[`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe), [`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0), [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe)]:
+    -   @khanacademy/perseus-score@8.12.0
+    -   @khanacademy/perseus-linter@5.1.8
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/keypad-context@3.2.68
+    -   @khanacademy/kmath@2.4.27
+    -   @khanacademy/math-input@26.4.41
+
 ## 78.4.1
 
 ### Patch Changes
