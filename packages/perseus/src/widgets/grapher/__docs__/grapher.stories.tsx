@@ -1,6 +1,6 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import {
     absoluteValueQuestion,
@@ -12,7 +12,7 @@ import {
     sinusoidQuestion,
     simpleQuestion,
     staticGrapher,
-} from "./grapher.testdata";
+} from "../grapher.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
