@@ -59,29 +59,10 @@
             "Bash(pnpm cypress:open-kadev)",
             "Bash(pnpm build)",
             "Bash(pnpm build:types)",
-            "Bash(pnpm watch)",
-            "mcp__wallaby__wallaby_allTests",
-            "mcp__wallaby__wallaby_allTestsForFile",
-            "mcp__wallaby__wallaby_allTestsForFileAndLine",
-            "mcp__wallaby__wallaby_coveredLinesForFile",
-            "mcp__wallaby__wallaby_coveredLinesForTest",
-            "mcp__wallaby__wallaby_failingTests",
-            "mcp__wallaby__wallaby_failingTestsForFile",
-            "mcp__wallaby__wallaby_failingTestsForFileAndLine",
-            "mcp__wallaby__wallaby_runtimeValues",
-            "mcp__wallaby__wallaby_runtimeValuesByTest",
-            "mcp__wallaby__wallaby_testById",
-            "mcp__github",
-            "mcp__wonder-blocks-storybook",
-            "mcp__perseus-storybook",
-            "mcp__storybook-mcp__get-*"
+            "Bash(pnpm watch)"
         ],
         "ask": [
-            "mcp__wallaby__wallaby_update*",
-            "mcp__Atlassian__*",
-            "mcp__slack__*",
-            "mcp__google_drive__*",
-            "mcp__figma__*"
+            "mcp__*"
         ]
     },
     "sandbox": {
