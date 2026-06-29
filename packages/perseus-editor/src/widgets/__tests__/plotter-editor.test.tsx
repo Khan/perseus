@@ -5,11 +5,6 @@ import * as React from "react";
 import {testDependencies} from "../../testing/test-dependencies";
 import PlotterEditor from "../plotter-editor";
 
-const baseProps = {
-    onChange: () => undefined,
-    apiOptions: ApiOptions.defaults,
-};
-
 describe("PlotterEditor", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -20,7 +15,9 @@ describe("PlotterEditor", () => {
     it("renders without crashing when picUrl is undefined", () => {
         render(
             <PlotterEditor
-                {...baseProps}
+                onChange={() => undefined}
+                apiOptions={ApiOptions.defaults}
+                static={false}
                 type="pic"
                 picUrl={undefined}
             />,
@@ -39,12 +36,15 @@ describe("PlotterEditor", () => {
             height: 200,
         };
         jest.spyOn(global, "Image").mockImplementation(
+            // eslint-disable-next-line no-restricted-syntax
             () => mockImage as HTMLImageElement,
         );
 
         const {rerender} = render(
             <PlotterEditor
-                {...baseProps}
+                onChange={() => undefined}
+                apiOptions={ApiOptions.defaults}
+                static={false}
                 type="pic"
                 picUrl="https://example.com/image.png"
             />,
@@ -62,13 +62,18 @@ describe("PlotterEditor", () => {
 
         // Act — clear the URL
         rerender(
-            <PlotterEditor {...baseProps} type="pic" picUrl={undefined} />,
+            <PlotterEditor
+                onChange={() => undefined}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                type="pic"
+                picUrl={undefined}
+            />,
         );
 
         // Assert — stale warning should be gone
         expect(
             screen.queryByText(/You are using a picture which is not square/),
         ).not.toBeInTheDocument();
-
     });
 });
