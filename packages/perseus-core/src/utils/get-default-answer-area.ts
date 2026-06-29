@@ -4,6 +4,6 @@ export default function getDefaultAnswerArea(): PerseusAnswerArea {
     // eslint-disable-next-line no-restricted-syntax
     return {
         ...ItemExtras.reduce((acc, curr) => ({...acc, [curr]: false}), {}),
-        calculatorVariant: null,
+        calculatorVariant: undefined,
     } as PerseusAnswerArea;
 }
