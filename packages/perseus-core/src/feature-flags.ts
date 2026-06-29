@@ -26,5 +26,12 @@ export function isFeatureOn(
     props: {apiOptions?: {flags?: Record<string, boolean>}},
     flag: string,
 ): boolean {
+    // ZND-only override: force `perseus-enable-point-label-field` on so
+    // stakeholders can preview the visible-point-labels feature in this
+    // ZND without flipping anything in GrowthBook. Revert before merging
+    // this branch to `main`.
+    if (flag === "perseus-enable-point-label-field") {
+        return true;
+    }
     return props.apiOptions?.flags?.[flag] ?? false;
 }
