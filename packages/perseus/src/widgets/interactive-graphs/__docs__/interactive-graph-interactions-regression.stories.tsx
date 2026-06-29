@@ -438,13 +438,13 @@ export const UnlimitedPolygonThreePointsOpen: Story = {
         await userEvent.click(canvas.getByRole("button", {name: "Add Point"}));
         // Focus is now automatically shifted to the added point.
         // Move the point.
-        await userEvent.keyboard("{arrowRight}");
-        await userEvent.keyboard("{arrowDown}");
+        await userEvent.keyboard("{arrowright}");
+        await userEvent.keyboard("{arrowdown}");
         // Add a point again to get a third point on the graph.
         await userEvent.click(canvas.getByRole("button", {name: "Add Point"}));
         // Focus is now automatically shifted to the added point.
         // Move the point.
-        await userEvent.keyboard("{arrowLeft}");
-        await userEvent.keyboard("{arrowDown}");
+        await userEvent.keyboard("{arrowleft}");
+        await userEvent.keyboard("{arrowdown}");
     },
 };
