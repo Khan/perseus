@@ -68,6 +68,8 @@ export class Movable<Options extends Record<string, any>> {
     state: State;
     prevState: State | undefined;
     _listenerMap: Record<string, number> = {};
+    _moveHandler: ((e: any) => void) | null = null;
+    _upHandler: (() => void) | null = null;
 
     constructor(graphie: Graphie, options: Options) {
         this.graphie = graphie;
@@ -236,7 +238,7 @@ export class Movable<Options extends Record<string, any>> {
         let prevMouseCoord = startMouseCoord;
         this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
 
-        const moveHandler = (
+        this._moveHandler = (
             e: Readonly<{
                 pageX?: number;
                 pageY?: number;
@@ -251,9 +253,11 @@ export class Movable<Options extends Record<string, any>> {
             prevMouseCoord = mouseCoord;
         };
 
-        const upHandler = () => {
-            $(document).unbind("vmousemove", moveHandler);
-            $(document).unbind("vmouseup", upHandler);
+        this._upHandler = () => {
+            $(document).unbind("vmousemove", this._moveHandler);
+            $(document).unbind("vmouseup", this._upHandler);
+            this._moveHandler = null;
+            this._upHandler = null;
             if (state.isHovering) {
                 this._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
             }
@@ -264,8 +268,8 @@ export class Movable<Options extends Record<string, any>> {
             this.draw();
         };
 
-        $(document).bind("vmousemove", moveHandler);
-        $(document).bind("vmouseup", upHandler);
+        $(document).bind("vmousemove", this._moveHandler);
+        $(document).bind("vmouseup", this._upHandler);
     }
 
     _applyConstraints(
@@ -390,6 +394,14 @@ export class Movable<Options extends Record<string, any>> {
 
     remove() {
         this.state.added = false;
+        if (this._moveHandler) {
+            $(document).unbind("vmousemove", this._moveHandler);
+            this._moveHandler = null;
+        }
+        if (this._upHandler) {
+            $(document).unbind("vmouseup", this._upHandler);
+            this._upHandler = null;
+        }
         this._fireEvent(this.state.remove);
         if (this.state.mouseTarget) {
             $(this.state.mouseTarget).off();
