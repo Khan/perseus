@@ -184,14 +184,6 @@ export const AngleGraphWithAnglesAndTooltips: Story = {
     } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
 };
 
-export const CircleGraphRadius10CenterFarRight: Story = {
-    args: {
-        graph: generateIGCircleGraph({
-            startCoords: {center: [10, 0], radius: 10},
-        }),
-    },
-};
-
 export const CircleGraphOverlyingLockedFigures: Story = {
     args: {
         graph: generateIGCircleGraph({
