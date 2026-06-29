@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.1.8
+
+### Patch Changes
+
+-   [#3819](https://github.com/Khan/perseus/pull/3819) [`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update the behavior of the Interactive Graph showPointLabels toggle enabling it when at least one custom label is provided
+
+-   Updated dependencies [[`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe)]:
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/kmath@2.4.27
+
 ## 5.1.7
 
 ### Patch Changes
