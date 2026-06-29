@@ -137,7 +137,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 initialX: 2,
                 correctX: 2,
                 labelRange: [-5, 5],
-                labelStyle: "integer",
+                labelStyle: "decimal",
                 isTickCtrl: false,
                 isInequality: false,
                 divisionRange: [1, 12],
