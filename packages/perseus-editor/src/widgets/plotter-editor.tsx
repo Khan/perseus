@@ -106,7 +106,9 @@ class PlotterEditor extends React.Component<Props, State> {
     }
 
     fetchPic: (url: string | null | undefined) => void = (url) => {
-        if (!url) {
+        if (url == null) {
+            // Make sure we don't display a previously-loaded picUrl if we no
+            // longer have one.
             if (this.state.pic !== null) {
                 this.setState({pic: null, loadedUrl: null});
             }
