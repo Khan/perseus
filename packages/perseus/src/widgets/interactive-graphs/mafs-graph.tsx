@@ -216,6 +216,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
         top: yMax === 0 ? halfStroke : 0,
     };
 
+    // Points are fixed-radius markers, so a point on the boundary would be
+    // sliced in half by the clip — render them unclipped. Other figures are
+    // geometry that should be clipped to the visible range.
+    const lockedPointFigures = props.lockedFigures.filter(
+        (figure) => figure.type === "point",
+    );
+    const clippedLockedFigures = props.lockedFigures.filter(
+        (figure) => figure.type !== "point",
+    );
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -415,13 +425,19 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )}
                                 {/* Locked figures clipped to graph bounds */}
-                                {props.lockedFigures.length > 0 && (
+                                {clippedLockedFigures.length > 0 && (
                                     <ClipToGraphBounds>
                                         <GraphLockedLayer
-                                            lockedFigures={props.lockedFigures}
+                                            lockedFigures={clippedLockedFigures}
                                             range={state.range}
                                         />
                                     </ClipToGraphBounds>
+                                )}
+                                {lockedPointFigures.length > 0 && (
+                                    <GraphLockedLayer
+                                        lockedFigures={lockedPointFigures}
+                                        range={state.range}
+                                    />
                                 )}
                             </Mafs>
                         </View>
