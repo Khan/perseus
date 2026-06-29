@@ -1702,10 +1702,9 @@ export type PerseusNumberLineWidgetOptions = {
     labelRange: Array<number | null>;
     /**
      * This controls the styling of the labels for the two main labels as well
-     * as all the tick mark labels, if applicable. Options: "decimal",
-     * "improper", "mixed", "non-reduced"
+     * as all the tick mark labels, if applicable.
      */
-    labelStyle: string;
+    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
     /** Show label ticks */
     labelTicks: boolean;
     /** Show tick controller */
