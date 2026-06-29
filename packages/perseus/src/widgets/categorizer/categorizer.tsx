@@ -333,7 +333,6 @@ const WrappedCategorizer = withDependencies(Categorizer);
 export default {
     name: "categorizer",
     displayName: "Categorizer",
-    hidden: true,
     widget: WrappedCategorizer,
     getUserInputFromSerializedState,
     getCorrectUserInput,
