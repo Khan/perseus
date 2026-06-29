@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 30.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
 ## 29.0.0
 
 ### Major Changes
