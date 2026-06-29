@@ -254,8 +254,10 @@ export class Movable<Options extends Record<string, any>> {
         };
 
         this._upHandler = () => {
-            $(document).unbind("vmousemove", this._moveHandler);
-            $(document).unbind("vmouseup", this._upHandler);
+            // Both handlers are guaranteed non-null here: grab() sets them
+            // before binding this _upHandler to the document.
+            $(document).unbind("vmousemove", this._moveHandler!);
+            $(document).unbind("vmouseup", this._upHandler!);
             this._moveHandler = null;
             this._upHandler = null;
             if (state.isHovering) {
