@@ -6,7 +6,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRenderer} from "../../../server-item-renderer";
+import {testDependenciesV2} from "../../../testing/test-dependencies";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
@@ -25,7 +26,7 @@ export const gradedGroupRendererDecorator: Decorator = (
     },
 ) => {
     return (
-        <ServerItemRendererWithDebugUI
+        <ServerItemRenderer
             item={generateTestPerseusItem({
                 question: generateTestPerseusRenderer({
                     content: "[[☃ graded-group 1]]",
@@ -39,6 +40,7 @@ export const gradedGroupRendererDecorator: Decorator = (
                 }),
             })}
             apiOptions={parameters?.apiOptions}
+            dependencies={testDependenciesV2}
         />
     );
 };

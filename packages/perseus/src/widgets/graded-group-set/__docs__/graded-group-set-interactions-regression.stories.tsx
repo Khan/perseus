@@ -83,3 +83,34 @@ export const IndicatorNavigation: Story = {
         await userEvent.click(secondIndicator);
     },
 };
+
+// Desktop: answer the first group correctly. Captures the graded-group-set
+// correct state: green check icon alongside a "Next question" button, which
+// only appears when onNextQuestion is wired up by the parent set.
+export const DesktopFirstGroupCorrectAnswer: Story = {
+    render: () => <ArticleRendererWithDebugUI json={twoGroupArticle} />,
+    play: async ({canvas, userEvent}) => {
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "0.9");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+// Mobile: answer the first group correctly. The answer bar shows the CORRECT
+// state with a "Next question" button (space-between layout), distinct from
+// the standalone correct state which centers the star icon alone.
+export const MobileFirstGroupCorrectAnswer: Story = {
+    render: () => (
+        <ArticleRendererWithDebugUI
+            json={twoGroupArticle}
+            apiOptions={{isMobile: true}}
+        />
+    ),
+    play: async ({canvas, userEvent}) => {
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "0.9");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};

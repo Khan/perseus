@@ -1,4 +1,7 @@
 import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
     generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
@@ -31,6 +34,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// Used for stories that stay in INCORRECT or unanswered states, where
+// showSolutions="none" so the inner radio widget shows no grading UI.
 const sharedArgs = {
     title: "Check your understanding!",
     content:
@@ -57,15 +62,38 @@ const sharedArgs = {
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
-// Desktop: select the correct choice and click the widget's own "Check" button.
+// Used for correct-answer stories. A numeric-input is deliberately chosen over
+// radio here: graded-group passes showSolutions="all" when the answer is
+// correct, which makes a radio widget render its full grading UI (highlighted
+// choices). A numeric-input's correct state is visually minimal, keeping the
+// story focused on graded-group's own correct-answer chrome (icon, answer bar).
+const numericInputArgs = {
+    title: "Check your understanding!",
+    content: "$0.5 + 0.4 =$ [[☃ numeric-input 1]]",
+    widgets: {
+        "numeric-input 1": generateNumericInputWidget({
+            options: generateNumericInputOptions({
+                answers: [generateNumericInputAnswer({value: 0.9})],
+            }),
+        }),
+    },
+    hint: {
+        content:
+            "Think in tenths: $5$ tenths $+ 4$ tenths $= 9$ tenths $= 0.9$.",
+        images: {},
+        widgets: {},
+    },
+    hasHint: true,
+    images: {},
+} satisfies Partial<PerseusGradedGroupWidgetOptions>;
+
+// Desktop: type the correct answer and click the widget's own "Check" button.
 // Captures the green correct-answer icon (#526f03 → semanticColor.core.foreground.success.default).
 export const DesktopCorrectAnswer: Story = {
-    args: sharedArgs,
+    args: numericInputArgs,
     play: async ({canvas, userEvent}) => {
-        const correctChoice = canvas.getByRole("button", {
-            name: /^\(Choice C\)/,
-        });
-        await userEvent.click(correctChoice);
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "0.9");
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },
@@ -85,6 +113,18 @@ export const DesktopIncorrectAnswer: Story = {
     },
 };
 
+// Desktop: click "Check" with no answer selected.
+// Captures the invalid state: no icon renders (unlike correct/incorrect),
+// but a message renders through the score-message Renderer. Distinct from
+// the incorrect state and relevant to markdown rendering regression.
+export const DesktopInvalidAnswer: Story = {
+    args: sharedArgs,
+    play: async ({canvas, userEvent}) => {
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
 // Desktop: expand the hint by clicking "Explain".
 // Captures the explanationTitle style (fontSize: 14) and the hint content.
 export const HintExpanded: Story = {
@@ -92,6 +132,20 @@ export const HintExpanded: Story = {
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
         await userEvent.click(explainButton);
+    },
+};
+
+// Mobile: fill in an answer but do not submit.
+// Captures the ACTIVE state of the answer bar: the "Check" button becomes
+// enabled, distinct from the INACTIVE initial state (button disabled).
+export const MobileAnswerBarActive: Story = {
+    args: numericInputArgs,
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+    play: async ({canvas, userEvent}) => {
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "0.9");
     },
 };
 
@@ -126,18 +180,16 @@ export const MobileHintExpanded: Story = {
     },
 };
 
-// Mobile: select the correct choice and click "Check" on the answer bar.
+// Mobile: type the correct answer and click "Check" on the answer bar.
 // Captures the answer bar CORRECT state with the star icon and fontSize: 28.
 export const MobileAnswerBarCorrect: Story = {
-    args: sharedArgs,
+    args: numericInputArgs,
     parameters: {
         apiOptions: {isMobile: true},
     },
     play: async ({canvas, userEvent}) => {
-        const correctChoice = canvas.getByRole("button", {
-            name: /^\(Choice C\)/,
-        });
-        await userEvent.click(correctChoice);
+        const input = canvas.getByRole("textbox");
+        await userEvent.type(input, "0.9");
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },
