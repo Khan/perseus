@@ -31,6 +31,22 @@ const horizontalItems: Partial<PerseusSorterWidgetOptions> = {
     layout: "horizontal",
 };
 
+const verticalItems: Partial<PerseusSorterWidgetOptions> = {
+    correct: ["20 km", "150 km", "500 km", "1200 km"],
+    padding: true,
+    layout: "vertical",
+};
+
+const imageItems: Partial<PerseusSorterWidgetOptions> = {
+    correct: [
+        "![A fox.](https://ka-perseus-graphie.s3.amazonaws.com/6e68574abb61d2b4a12644d777006fcfa8a73cff.png)",
+        "![A ladybug.](https://ka-perseus-graphie.s3.amazonaws.com/5f33edfbe608913a69023101be0af6567645f5a6.png)",
+        "![A whale.](https://ka-perseus-graphie.s3.amazonaws.com/4d02ee4a19c4efc6f41d083ff476841784347d36.png)",
+    ],
+    padding: false,
+    layout: "horizontal",
+};
+
 // Verifies the default horizontal layout: cards arranged in a row with padding
 export const DefaultHorizontal: Story = {
     args: horizontalItems,
@@ -59,6 +75,15 @@ export const MobileHorizontal: Story = {
     args: horizontalItems,
 };
 
+// Verifies the vertical layout on mobile
+export const MobileVertical: Story = {
+    decorators: [mobileDecorator],
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+    args: verticalItems,
+};
+
 // Verifies horizontal layout with padding disabled: cards rendered without inner spacing
 export const NoPadding: Story = {
     args: {
@@ -66,4 +91,49 @@ export const NoPadding: Story = {
         padding: false,
         layout: "horizontal",
     },
+};
+
+export const MathFractions: Story = {
+    args: {
+        correct: ["$\\frac{1}{2}$", "$\\frac{3}{7}$", "$\\frac{8}{5}$"],
+        padding: true,
+        layout: "horizontal",
+    },
+};
+
+export const Math: Story = {
+    args: {
+        correct: [
+            "$5 \\text{ apples}$",
+            "$6 \\text{ apples}$",
+            "$7 \\text{ apples}$",
+        ],
+        padding: true,
+        layout: "horizontal",
+    },
+};
+
+export const ManyOptions: Story = {
+    args: {
+        correct: [
+            "Choice One",
+            "Choice Two",
+            "Choice Three",
+            "Choice Four",
+            "Choice Five",
+            "Choice Six",
+            "Choice Seven",
+            "Choice Eight",
+            "Choice Nine",
+            "Choice Ten",
+            "Choice Eleven",
+            "Choice Tweleve",
+        ],
+        padding: true,
+        layout: "horizontal",
+    },
+};
+
+export const Images: Story = {
+    args: imageItems,
 };
