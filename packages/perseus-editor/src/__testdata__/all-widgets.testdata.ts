@@ -347,7 +347,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 },
             },
         },
-        STOPSHIP: TEST COMPLILER BREAK
         "group 1": generateGroupWidget({
             options: generateGroupOptions({
                 content: "Simple question: [[\u2603 numeric-input 2]]",
