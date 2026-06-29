@@ -22,7 +22,7 @@ const meta: Meta = {
                     "need any interactions to test.",
             },
         },
-        chromatic: {disableSnapshot: false, modes: themeModes},
+        chromatic: {disableSnapshot: false, modes: themeModes, delay: 300},
     },
 };
 export default meta;
