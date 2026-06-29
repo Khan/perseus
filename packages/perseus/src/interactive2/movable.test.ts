@@ -195,6 +195,26 @@ describe("Movable", () => {
         expect(onMove).toHaveBeenCalledWith([2, 2], [0, 0]);
     });
 
+    test("remove() unbinds document move handler after grab()", () => {
+        const graphie = new Graphie(document.createElement("div"));
+        graphie.init({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            scale: [10, 10],
+        });
+        const onMove = jest.fn();
+        const movable = new Movable(graphie, {onMove});
+
+        movable.grab([0, 0]);
+        movable.remove();
+        // eslint-disable-next-line testing-library/prefer-user-event
+        fireEvent.mouseMove(document, {clientX: 120, clientY: 80});
+
+        expect(onMove).not.toHaveBeenCalled();
+    });
+
     test("grab() fires onMoveEnd when mouse up", () => {
         const dummyGraphie: any = {};
         const onMoveEnd = jest.fn();
