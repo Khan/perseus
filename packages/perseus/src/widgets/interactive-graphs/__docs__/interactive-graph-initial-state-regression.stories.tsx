@@ -699,7 +699,7 @@ export const StaticGraph: Story = {
 };
 
 // Verifies locked label rendering — covers the `rgba(255, 255, 255, 0.8)`
-// background color used behind locked text labels and the `font.size` token.
+// background color used behind locked text labels and the font sizing tokens.
 export const LockedLabel: Story = {
     args: {
         lockedFigures: [
