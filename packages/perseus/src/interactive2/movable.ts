@@ -68,7 +68,15 @@ export class Movable<Options extends Record<string, any>> {
     state: State;
     prevState: State | undefined;
     _listenerMap: Record<string, number> = {};
-    _moveHandler: ((e: Readonly<{pageX?: number; pageY?: number; preventDefault(): void}>) => void) | null = null;
+    _moveHandler:
+        | ((
+              e: Readonly<{
+                  pageX?: number;
+                  pageY?: number;
+                  preventDefault(): void;
+              }>,
+          ) => void)
+        | null = null;
     _upHandler: (() => void) | null = null;
 
     constructor(graphie: Graphie, options: Options) {
