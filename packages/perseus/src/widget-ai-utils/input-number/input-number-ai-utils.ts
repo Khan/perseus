@@ -11,27 +11,21 @@ import type React from "react";
 export type InputNumberPromptJSON = {
     type: "input-number";
 
-    /** The configuration of the widget, set by the content creator. */
-    options: {
-        /**
-         * Indicates how answers in unsimplified form are scored.
-         *
-         * - "optional" means the answer can be unsimplified.
-         * - "required" means an unsimplified answer is considered invalid,
-         *   and the learner can try again without penalty.
-         * - "enforced" means unsimplified answers are counted as incorrect.
-         */
-        simplify: string;
-        /** The expected numeric form, e.g. "rational", "decimal" */
-        answerType: string;
-    };
+    /**
+     * Accessible label for the input field, set by the content creator.
+     * Shown to learners using screen readers to describe what value should
+     * be entered.
+     */
+    label: string;
 
     /**
      * The current state of the widget user interface. Usually represents a
      * learner's attempt to answer a question.
      */
     userInput: {
-        /** The text input by the user */
+        /**
+         * The text currently entered in the input field by the learner.
+         */
         value: string;
     };
 };
@@ -41,10 +35,7 @@ export const getPromptJSON = (
 ): InputNumberPromptJSON => {
     return {
         type: "input-number",
-        options: {
-            simplify: widgetData.simplify,
-            answerType: widgetData.answerType,
-        },
+        label: widgetData.labelText,
         userInput: {
             value: widgetData.userInput.currentValue,
         },
