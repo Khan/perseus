@@ -46,8 +46,9 @@ describe("MovablePoint", () => {
             mouseTarget: expect.any(WrappedEllipse),
             visibleShape: expect.any(WrappedEllipse),
             // Note: fill/stroke resolve to "" in jsdom because tokenValue()
-            // reads CSS custom properties — jsdom doesn't define them.
-            // Correct hex values resolve in a real browser (Chromatic).
+            // reads CSS custom properties — jsdom doesn't define them. Raphael
+            // then renders "" as fill/stroke="none" in the DOM (visible in
+            // snapshots). Correct hex values resolve in a real browser (Chromatic).
             normalStyle: {
                 scale: 1,
                 fill: "",
@@ -101,8 +102,9 @@ describe("MovablePoint", () => {
             mouseTarget: expect.any(WrappedEllipse),
             visibleShape: expect.any(WrappedEllipse),
             // Note: fill/stroke resolve to "" in jsdom because tokenValue()
-            // reads CSS custom properties — jsdom doesn't define them.
-            // Correct hex values resolve in a real browser (Chromatic).
+            // reads CSS custom properties — jsdom doesn't define them. Raphael
+            // then renders "" as fill/stroke="none" in the DOM (visible in
+            // snapshots). Correct hex values resolve in a real browser (Chromatic).
             normalStyle: {
                 scale: 1,
                 fill: "",

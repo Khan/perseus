@@ -22,6 +22,9 @@ const meta: Meta = {
                     "need any interactions to test.",
             },
         },
+        // delay: Raphael creates its SVG paper in a detached div before DOM
+        // insertion, causing a timing race that can clip the initial ellipse.
+        // 300ms lets Raphael settle before Chromatic captures the snapshot.
         chromatic: {disableSnapshot: false, modes: themeModes, delay: 300},
     },
 };
