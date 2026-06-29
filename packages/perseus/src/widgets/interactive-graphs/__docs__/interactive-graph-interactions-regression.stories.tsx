@@ -416,7 +416,7 @@ export const UnlimitedPointGraphFocusedEmpty: Story = {
 };
 
 /** Unlimited polygon - open. Manually adds three points to the graph in order
- * to stay in the `open` state, because the the open state is only stored
+ * to stay in the `open` state, because the open state is only stored
  * internally (i.e. we can't use `startCoords` and get an open polygon). */
 export const UnlimitedPolygonThreePointsOpen: Story = {
     args: {
