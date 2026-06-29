@@ -51,7 +51,7 @@ type Props = {
     snapsPerLine: number;
     picSize: number;
     picBoxHeight: number;
-    picUrl: string;
+    picUrl?: string | null;
     plotDimensions: ReadonlyArray<number>;
     labelInterval: number;
     starting: ReadonlyArray<number>;
@@ -105,7 +105,13 @@ class PlotterEditor extends React.Component<Props, State> {
         }
     }
 
-    fetchPic: (arg1: string) => any = (url) => {
+    fetchPic: (url: string | null | undefined) => void = (url) => {
+        if (!url) {
+            if (this.state.pic !== null) {
+                this.setState({pic: null, loadedUrl: null});
+            }
+            return;
+        }
         if (this.state.loadedUrl !== url) {
             const pic = new Image();
             pic.src = url;
@@ -394,7 +400,7 @@ class PlotterEditor extends React.Component<Props, State> {
                             Picture:{" "}
                             <BlurInput
                                 className="pic-url"
-                                value={this.props.picUrl}
+                                value={this.props.picUrl ?? ""}
                                 onChange={this.changePicUrl}
                             />
                             <InfoTip>
