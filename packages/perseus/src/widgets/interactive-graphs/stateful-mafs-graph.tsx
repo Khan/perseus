@@ -49,6 +49,7 @@ export type StatefulMafsGraphProps = {
     showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
+    ungradedDescriptionId?: string;
     apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 

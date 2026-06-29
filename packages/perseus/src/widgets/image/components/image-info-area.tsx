@@ -10,7 +10,6 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
-import {isGif} from "../utils";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
@@ -38,7 +37,7 @@ export interface CommonImageProps {
     apiOptions: APIOptions;
 }
 
-type Props = GifProps & CommonImageProps;
+type Props = GifProps & CommonImageProps & {isAnimatedGif: boolean};
 
 /**
  * The ImageInfoArea component includes the GIF controls, description modal
@@ -54,6 +53,7 @@ export const ImageInfoArea = (props: Props) => {
         linterContext,
         isGifPlaying,
         setIsGifPlaying,
+        isAnimatedGif,
     } = props;
 
     const context = React.useContext(PerseusI18nContext);
@@ -62,12 +62,10 @@ export const ImageInfoArea = (props: Props) => {
         return null;
     }
 
-    const imageIsGif = isGif(backgroundImage.url);
-
     return (
         <div className={styles.infoAreaContainer}>
             {/* GIF controls */}
-            {imageIsGif && (
+            {isAnimatedGif && (
                 <GifControlsIcon
                     isPlaying={isGifPlaying}
                     onToggle={() => setIsGifPlaying(!isGifPlaying)}
@@ -75,7 +73,7 @@ export const ImageInfoArea = (props: Props) => {
             )}
 
             {/* Spacer if both GIF controls and description are shown */}
-            {imageIsGif && longDescription && (
+            {isAnimatedGif && longDescription && (
                 <div className={styles.spacerHorizontal} />
             )}
 
