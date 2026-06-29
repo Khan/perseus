@@ -71,6 +71,23 @@ export const DotPlot: Story = {
     },
 };
 
+export const DotPlotMobile: Story = {
+    decorators: [mobileDecorator],
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+    args: {
+        type: "dotplot",
+        labels: ["", "Average Temp"],
+        categories: ["Spring", "Summer", "Fall", "Winter"],
+        starting: [3, 6, 4, 2],
+        correct: [3, 6, 4, 2],
+        maxY: 10,
+        scaleY: 1,
+        snapsPerLine: 2,
+    },
+};
+
 export const LinePlot: Story = {
     args: {
         type: "line",
@@ -111,9 +128,64 @@ export const Histogram: Story = {
     },
 };
 
+export const HistogramMobile: Story = {
+    decorators: [mobileDecorator],
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+    args: {
+        type: "histogram",
+        labels: ["Score range", "Frequency"],
+        categories: ["0-10", "10-20", "20-30", "30-40", "40-50"],
+        starting: [2, 5, 8, 4, 1],
+        correct: [2, 5, 8, 4, 1],
+        maxY: 10,
+        scaleY: 1,
+    },
+};
+
 // Uses the `play` function to wait for the image to load so the snapshot is
 // captured with the pictograph fully rendered rather than mid-load.
 export const Pictograph: Story = {
+    args: {
+        type: "pic",
+        labels: ["Planet", "Count"],
+        categories: ["Mercury", "Venus", "Earth", "Mars"],
+        starting: [2, 4, 3, 1],
+        correct: [2, 4, 3, 1],
+        maxY: 6,
+        scaleY: 1,
+        picUrl: earthImageUrl,
+        picSize: 40,
+        picBoxHeight: 40,
+    },
+    play: async ({canvasElement}) => {
+        // The pictograph renders each tile as an SVG <image> element (via
+        // Raphael). Wait until at least one is present in the DOM.
+        await waitFor(() => {
+            if (canvasElement.querySelectorAll("image").length === 0) {
+                throw new Error("Pictograph images have not rendered yet");
+            }
+        });
+        // Then preload the source so the bitmap is decoded and painted
+        // before Chromatic snapshots the story.
+        await new Promise<void>((resolve) => {
+            const img = new Image();
+            // Resolve on error too so a failed load can't hang the story.
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = earthImageUrl;
+        });
+    },
+};
+
+// Uses the `play` function to wait for the image to load so the snapshot is
+// captured with the pictograph fully rendered rather than mid-load.
+export const PictographMobile: Story = {
+    decorators: [mobileDecorator],
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
     args: {
         type: "pic",
         labels: ["Planet", "Count"],
