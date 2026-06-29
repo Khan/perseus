@@ -172,7 +172,6 @@ describe("number-line widget", () => {
             // Assert
             expect(container).toMatchSnapshot("show fractions");
         });
-
     });
 
     it("should send analytics event when widget is rendered", () => {
