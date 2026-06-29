@@ -77,15 +77,6 @@ export const StatefulMafsGraph = React.forwardRef<
     const prevState = useRef<InteractiveGraphState>(state);
 
     useEffect(() => {
-        // When the `graph` prop changes type (e.g. while editing in the
-        // preview iframe), the reducer `state` is rebuilt to match by
-        // `useReinitializeOnGraphChange` below — but that runs in a later
-        // effect/commit. In the meantime, a `changeSnapStep`/`changeRange`
-        // dispatch can produce a new `state` that still has the *old* type
-        // while `graph` already has the *new* type. Serializing that mismatch
-        // trips a type-guard invariant in `mafsStateToInteractiveGraph`, so we
-        // skip it: the update is meaningless because `state` is about to be
-        // reinitialized to match `graph` anyway.
         if (prevState.current !== state && state.type === graph.type) {
             onChange(mafsStateToInteractiveGraph(state, graph));
         }
