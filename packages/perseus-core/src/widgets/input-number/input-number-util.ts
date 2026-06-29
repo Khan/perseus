@@ -1,21 +1,16 @@
-import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
+import {getNumericInputPublicWidgetOptions} from "../numeric-input/numeric-input-util";
+
+import type {NumericInputPublicWidgetOptions} from "../numeric-input/numeric-input-util";
 
 /**
  * For details on the individual options, see the
  * PerseusInputNumberWidgetOptions type
  */
-export type InputNumberPublicWidgetOptions = Pick<
-    PerseusInputNumberWidgetOptions,
-    "answerType" | "inexact" | "maxError" | "rightAlign" | "simplify" | "size"
->;
+export type InputNumberPublicWidgetOptions = NumericInputPublicWidgetOptions;
 
 /**
  * Given a PerseusInputNumberWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
-export function getInputNumberPublicWidgetOptions(
-    options: PerseusInputNumberWidgetOptions,
-): InputNumberPublicWidgetOptions {
-    const {value: _, ...publicWidgetOptions} = options;
-    return publicWidgetOptions;
-}
+export const getInputNumberPublicWidgetOptions =
+    getNumericInputPublicWidgetOptions;

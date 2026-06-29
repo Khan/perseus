@@ -232,6 +232,7 @@ describe("generateSimpleRadioItem", () => {
             hints: [],
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
@@ -280,6 +281,7 @@ describe("generateSimpleRadioItem", () => {
             hints: [],
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,

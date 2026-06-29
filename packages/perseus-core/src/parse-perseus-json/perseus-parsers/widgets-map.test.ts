@@ -390,11 +390,22 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "input-number 1": {
                 type: "input-number",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
-                    simplify: "required",
                     size: "normal",
-                    value: "",
+                    coefficient: false,
+                    textAlign: "left",
+                    answers: [
+                        {
+                            status: "correct",
+                            value: 0,
+                            maxError: 0,
+                            simplify: "required",
+                            answerForms: [],
+                            message: "",
+                            strict: true,
+                        },
+                    ],
                 },
             },
         };
@@ -501,7 +512,7 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "measurer 1": {
                 type: "measurer",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     image: {},
                     showProtractor: false,
@@ -565,12 +576,13 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "numeric-input 1": {
                 type: "numeric-input",
-                version: {major: 0, minor: 0},
+                version: {major: 1, minor: 0},
                 options: {
                     answers: [],
                     labelText: "",
                     size: "",
                     coefficient: false,
+                    textAlign: "left",
                 },
             },
         };

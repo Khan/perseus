@@ -1,5 +1,4 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
-import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
@@ -9,15 +8,13 @@ import {getAnnouncementText} from "./graphs/screenreader-text";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
-import {
-    changeRange,
-    changeSnapStep,
-    reinitialize,
-} from "./reducer/interactive-graph-action";
+import {changeRange, changeSnapStep} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
+import {useReinitializeOnGraphChange} from "./use-reinitialize-on-graph-change";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
+import type {APIOptionsWithDefaults} from "../../types";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphUserInput,
@@ -52,6 +49,8 @@ export type StatefulMafsGraphProps = {
     showAxisTicks: InteractiveGraphProps["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
+    ungradedDescriptionId?: string;
+    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export type StatefulMafsGraphType = {
@@ -115,46 +114,7 @@ export const StatefulMafsGraph = React.forwardRef<
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
-    // Update the graph whenever any of the following values changes.
-    // This is necessary to keep the graph previews in sync with the updated
-    // graph settings within the interative graph editor.
-    const numSegments = graph.type === "segment" ? graph.numSegments : null;
-    const numPoints = graph.type === "point" ? graph.numPoints : null;
-    const numSides = graph.type === "polygon" ? graph.numSides : null;
-    const snapTo = graph.type === "polygon" ? graph.snapTo : null;
-    const showAngles =
-        graph.type === "polygon" || graph.type === "angle"
-            ? graph.showAngles
-            : null;
-    const allowReflexAngles =
-        graph.type === "angle" ? graph.allowReflexAngles : null;
-    const showSides = graph.type === "polygon" ? graph.showSides : null;
-    const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
-    const pointLabels = "pointLabels" in graph ? graph.pointLabels : undefined;
-
-    const originalPropsRef = useRef(props);
-    const latestPropsRef = useLatestRef(props);
-    useEffect(() => {
-        // This conditional prevents the state from being "reinitialized" right
-        // after the first render. This is an optimization, but also prevents
-        // a bug where the graph would be marked "incorrect" during grading
-        // even if the user never interacted with it.
-        if (latestPropsRef.current !== originalPropsRef.current) {
-            dispatch(reinitialize(latestPropsRef.current));
-        }
-    }, [
-        graph.type,
-        numPoints,
-        numSegments,
-        numSides,
-        snapTo,
-        showAngles,
-        showSides,
-        latestPropsRef,
-        startCoords,
-        allowReflexAngles,
-        pointLabels,
-    ]);
+    useReinitializeOnGraphChange(props, dispatch);
 
     // If the graph is static and graded, it always displays the correct answer.
     // This is standard behavior for Perseus widgets (e.g. compare the Radio widget).

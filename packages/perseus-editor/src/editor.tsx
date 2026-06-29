@@ -684,7 +684,7 @@ class Editor extends React.Component<Props, State> {
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
-            version: Widgets.getVersion(widgetType),
+            version: CoreWidgetRegistry.getCurrentVersion(widgetType),
         };
 
         // See componentDidUpdate() for how this flag is used

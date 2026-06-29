@@ -6,43 +6,6 @@ describe("Widget API support", () => {
         registerAllWidgetsForTesting();
     });
 
-    describe("getVersionVector", () => {
-        it("creates a map of all widget versions", () => {
-            expect(Widgets.getVersionVector()).toEqual(
-                // skipping the 0.0 widgets for brevity
-                expect.objectContaining({
-                    expression: {
-                        major: 2,
-                        minor: 0,
-                    },
-                    measurer: {
-                        major: 1,
-                        minor: 0,
-                    },
-                    radio: {
-                        major: 3,
-                        minor: 0,
-                    },
-                    transformer: {
-                        major: 0,
-                        minor: 0,
-                    },
-                }),
-            );
-        });
-
-        it("defaults to 0.0 for widgets without a version", () => {
-            expect(Widgets.getVersionVector()).toEqual(
-                expect.objectContaining({
-                    "numeric-input": {
-                        major: 0,
-                        minor: 0,
-                    },
-                }),
-            );
-        });
-    });
-
     describe("replaceWidget", () => {
         it("replaces an existing widget", () => {
             Widgets.replaceWidget("transformer", "radio");

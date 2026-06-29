@@ -34,6 +34,7 @@ const numericInput: NumericInputWidget = {
         ],
         size: "normal",
         coefficient: false,
+        textAlign: "left",
     },
 };
 

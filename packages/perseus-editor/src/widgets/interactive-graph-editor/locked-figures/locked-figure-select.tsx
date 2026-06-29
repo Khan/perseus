@@ -15,11 +15,12 @@ import type {LockedFigureType} from "@khanacademy/perseus-core";
 
 interface Props {
     id: string;
+    editingDisabled?: boolean;
     onChange: (value: LockedFigureType) => void;
 }
 
 const LockedFigureSelect = (props: Props) => {
-    const {id, onChange} = props;
+    const {id, editingDisabled, onChange} = props;
 
     const figureTypes: ReadonlyArray<LockedFigureType> = [
         "point",
@@ -35,6 +36,7 @@ const LockedFigureSelect = (props: Props) => {
         <View className={styles.container}>
             <ActionMenu
                 menuText="Add locked figure"
+                disabled={editingDisabled}
                 className={styles.addElementSelect}
             >
                 {figureTypes.map((figureType) => (

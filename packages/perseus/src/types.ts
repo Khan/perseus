@@ -1,14 +1,6 @@
 import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
-// MAGIC: Removal of this comment may cause `tsc --build` to output a syntax
-// error in packages/perseus/dist/server-item-renderer.d.ts and then fail. This
-// appears to be a bug introduced in TS 5.6. If you are curious about this, try
-// deleting this comment and running:
-//     rm -rf packages/*/{dist,tsconfig-build.tsbuildinfo} && yarn build:types
-// If that succeeds, maybe the bug has been fixed.
-// For more information, see:
-// https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1738883377389969
 import type {
     Hint,
     PerseusAnswerArea,
@@ -16,7 +8,6 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
-    Version,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -133,8 +124,6 @@ export type ImageUploader = (
     file: File,
     callback: (url: string) => unknown,
 ) => unknown;
-
-export type Path = ReadonlyArray<string>;
 
 type TrackInteractionArgs = {
     // The widget type that this interaction originates from
@@ -425,15 +414,6 @@ export type WidgetExports<
 
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
-    /**
-     * The widget version. Any time the _major_ version changes, the widget
-     * should provide a new entry in the widget parser to migrate from the
-     * older version to the current (new) version. Minor version changes must
-     * be backwards compatible with previous minor versions widget options.
-     *
-     * This key defaults to `{major: 0, minor: 0}` if not provided.
-     */
-    version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
     /** When true, the widget editor shows a "Graded" toggle. */

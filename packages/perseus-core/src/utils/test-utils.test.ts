@@ -55,6 +55,7 @@ describe("generateTestPerseusItem", () => {
             },
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
@@ -82,6 +83,7 @@ describe("generateTestPerseusItem", () => {
             },
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,

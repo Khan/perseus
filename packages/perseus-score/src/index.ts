@@ -32,16 +32,9 @@ export {default as scoreSorter} from "./widgets/sorter/score-sorter";
 export {default as validateSorter} from "./widgets/sorter/validate-sorter";
 export {default as scoreTable} from "./widgets/table/score-table";
 export {default as validateTable} from "./widgets/table/validate-table";
-export {
-    default as scoreInputNumber,
-    inputNumberAnswerTypes,
-} from "./widgets/input-number/score-input-number";
+export {default as scoreInputNumber} from "./widgets/input-number/score-input-number";
 
-export {
-    scorePerseusItem,
-    scorePerseusItemWithInputNumberAsNumericInput,
-    scoreWidgetsFunctional,
-} from "./score";
+export {scorePerseusItem, scoreWidgetsFunctional} from "./score";
 export {default as flattenScores} from "./util/flatten-scores";
 export {validateUserInput, emptyWidgetsFunctional} from "./validate";
 export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";

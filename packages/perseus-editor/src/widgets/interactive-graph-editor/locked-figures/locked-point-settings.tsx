@@ -45,6 +45,10 @@ export type Props = LockedPointType & {
      */
     headerLabel?: string;
     /**
+     * Whether editing is disabled for this figure's controls.
+     */
+    editingDisabled?: boolean;
+    /**
      * Whether the extra point settings are toggled open.
      */
     showPoint?: boolean;
@@ -86,6 +90,7 @@ export type Props = LockedPointType & {
 const LockedPointSettings = (props: Props) => {
     const {
         headerLabel,
+        editingDisabled = false,
         coord,
         color: pointColor,
         filled = true,
@@ -219,6 +224,7 @@ const LockedPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 style={spaceUnderStyle}
+                disabled={editingDisabled}
                 onChange={handleCoordChange}
                 error={!!error}
             />
@@ -229,6 +235,7 @@ const LockedPointSettings = (props: Props) => {
                     label="show point on graph"
                     checked={!!showPoint}
                     style={showPoint && spaceUnderStyle}
+                    disabled={editingDisabled}
                     onChange={onTogglePoint}
                 />
             )}
@@ -240,10 +247,12 @@ const LockedPointSettings = (props: Props) => {
                         selectedValue={pointColor}
                         onChange={handleColorChange}
                         style={spaceUnderStyle}
+                        editingDisabled={editingDisabled}
                     />
                     <LabeledSwitch
                         label="open point"
                         checked={!filled}
+                        disabled={editingDisabled}
                         onChange={(newValue) => {
                             onChangeProps({filled: !newValue});
                         }}
@@ -260,6 +269,7 @@ const LockedPointSettings = (props: Props) => {
                     <LockedFigureAria
                         ariaLabel={ariaLabel}
                         getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                        editingDisabled={editingDisabled}
                         onChangeProps={(newProps) => {
                             onChangeProps(newProps);
                         }}
@@ -276,6 +286,7 @@ const LockedPointSettings = (props: Props) => {
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     containerStyle={
                         !isDefiningPoint && {
                             backgroundColor:
@@ -294,6 +305,7 @@ const LockedPointSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -322,6 +334,7 @@ const LockedPointSettings = (props: Props) => {
             {onRemove && (
                 <LockedFigureSettingsActions
                     figureType={props.type}
+                    editingDisabled={editingDisabled}
                     onMove={onMove}
                     onRemove={onRemove}
                 />

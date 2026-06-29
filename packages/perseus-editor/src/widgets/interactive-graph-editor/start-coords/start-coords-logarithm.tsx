@@ -65,8 +65,7 @@ const StartCoordsLogarithm = (props: StartCoordsLogarithmProps) => {
                 axis="x"
                 value={asymptote}
                 onChange={(newX) =>
-                    // Rebuild coords so startCoords gets a new reference;
-                    // StatefulMafsGraph only reinitializes on identity change.
+                    // Update the asymptote in startCoords to refresh the preview.
                     onChange({
                         coords: [coords[0], coords[1]],
                         asymptote: newX,

@@ -76,6 +76,7 @@ const LockedPolygonSettings = (props: Props) => {
         labels,
         ariaLabel,
         expanded,
+        editingDisabled = false,
         onToggle,
         onChangeProps,
         onMove,
@@ -210,6 +211,7 @@ const LockedPolygonSettings = (props: Props) => {
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
 
@@ -221,6 +223,7 @@ const LockedPolygonSettings = (props: Props) => {
                     fill
                     <SingleSelect
                         selectedValue={fillStyle}
+                        disabled={editingDisabled}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
                             // eslint-disable-next-line no-restricted-syntax
@@ -244,6 +247,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
                 containerStyle={spaceUnderStyle}
             />
@@ -251,6 +255,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Weight */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) =>
                     onChangeProps({
                         weight: value,
@@ -263,6 +268,7 @@ const LockedPolygonSettings = (props: Props) => {
             <LabeledSwitch
                 label="show vertices"
                 checked={showVertices}
+                disabled={editingDisabled}
                 onChange={(newValue: boolean) =>
                     onChangeProps({showVertices: newValue})
                 }
@@ -296,6 +302,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 coord={point}
                                 labels={["x", "y"]}
                                 style={{marginInlineStart: sizing.size_160}}
+                                disabled={editingDisabled}
                                 onChange={(newValue: Coord) => {
                                     const newPoints = [...points];
                                     newPoints[index] = newValue;
@@ -312,6 +319,7 @@ const LockedPolygonSettings = (props: Props) => {
                                         icon={minusCircle}
                                         kind="tertiary"
                                         actionType="destructive"
+                                        disabled={editingDisabled}
                                         onClick={() => {
                                             const newPoints = [...points];
                                             newPoints.splice(index, 1);
@@ -332,6 +340,7 @@ const LockedPolygonSettings = (props: Props) => {
                     <Button
                         kind="tertiary"
                         startIcon={plusCircle}
+                        disabled={editingDisabled}
                         onClick={() => {
                             props.onChangeProps({
                                 points: [...points, [0, 0]],
@@ -350,6 +359,7 @@ const LockedPolygonSettings = (props: Props) => {
                             size="small"
                             icon={arrowFatUp}
                             kind="tertiary"
+                            disabled={editingDisabled}
                             onClick={() => handlePolygonMove("up")}
                         />
                         <View className={styles.row}>
@@ -358,6 +368,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 size="small"
                                 icon={arrowFatLeft}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("left")}
                             />
                             <IconButton
@@ -365,6 +376,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 size="small"
                                 icon={arrowFatDown}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("down")}
                             />
                             <IconButton
@@ -372,6 +384,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 size="small"
                                 icon={arrowFatRight}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("right")}
                             />
                         </View>
@@ -384,6 +397,7 @@ const LockedPolygonSettings = (props: Props) => {
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
@@ -398,6 +412,7 @@ const LockedPolygonSettings = (props: Props) => {
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -411,6 +426,7 @@ const LockedPolygonSettings = (props: Props) => {
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -436,6 +452,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />

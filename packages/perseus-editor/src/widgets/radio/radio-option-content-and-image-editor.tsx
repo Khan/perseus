@@ -18,6 +18,7 @@ interface Props {
     content: string;
     choiceIndex: number;
     onContentChange: (choiceIndex: number, content: string) => void;
+    editingDisabled?: boolean;
 }
 
 export interface RadioOptionContentAndImageEditorHandle {
@@ -28,7 +29,13 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
     RadioOptionContentAndImageEditorHandle,
     Props
 >(function RadioOptionContentAndImageEditor(props, ref) {
-    const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
+    const {
+        content,
+        choiceIndex,
+        onContentChange,
+        isNoneOfTheAbove,
+        editingDisabled = false,
+    } = props;
     const uniqueId = React.useId();
     const contentTextAreaId = `${uniqueId}-content-textarea`;
     const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
@@ -173,6 +180,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                 }}
                 onPaste={handlePaste}
                 autoResize={true}
+                disabled={editingDisabled}
             />
 
             {/* Add image button */}
@@ -184,6 +192,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                 onClick={() => {
                     handleAddImage(choiceIndex, "", "");
                 }}
+                disabled={editingDisabled}
             >
                 Add image
             </Button>
@@ -219,6 +228,7 @@ export const RadioOptionContentAndImageEditor = React.forwardRef<
                         onDelete={() => {
                             handleDeleteImageConfirmation(imageIndex);
                         }}
+                        editingDisabled={editingDisabled}
                     />
                 </PerseusEditorAccordion>
             )) ?? null}

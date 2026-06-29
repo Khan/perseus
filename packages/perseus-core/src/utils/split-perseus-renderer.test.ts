@@ -120,6 +120,7 @@ describe("splitPerseusRenderer", () => {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
+                        textAlign: "left",
                     },
                 },
             },
@@ -131,17 +132,20 @@ describe("splitPerseusRenderer", () => {
             widgets: {
                 "numeric-input 1": {
                     type: "numeric-input",
-                    version: {major: 0, minor: 0},
+                    version: {major: 1, minor: 0},
                     options: {
                         coefficient: false,
                         labelText: "This is label",
                         size: "normal",
-                        rightAlign: false,
+                        textAlign: "left",
                         answers: [
                             {
                                 simplify: "required",
                                 status: "correct",
+                                value: null,
                                 answerForms: ["pi"],
+                                message: "",
+                                strict: false,
                             },
                         ],
                     },

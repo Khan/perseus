@@ -1,5 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {
+    ApiOptions,
     components,
     Changeable,
     EditorJsonify,
@@ -7,12 +8,11 @@ import {
 } from "@khanacademy/perseus";
 import {
     numericInputLogic,
-    type MathFormat,
-    type NumericInputDefaultWidgetOptions,
     type PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import Pill from "@khanacademy/wonder-blocks-pill";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -20,15 +20,15 @@ import _ from "underscore";
 
 import Heading from "../components/heading";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
+import {
+    SegmentedControl,
+    ToggleButtonGroup,
+} from "../components/segmented-control";
 import Editor from "../editor";
 
+import styles from "./numeric-input-editor.module.css";
+
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import type {
-    PillSize,
-    PillKind,
-} from "@khanacademy/wonder-blocks-pill/dist/components/pill";
 
 type ChangeFn = typeof Changeable.change;
 
@@ -63,7 +63,7 @@ const initAnswer = (status: string) => {
 // The "static" property is not used in this widget (per the type definition comments)
 type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
     onChange: (results: any) => any;
-    apiOptions?: APIOptionsWithDefaults;
+    apiOptions: APIOptionsWithDefaults;
 };
 
 interface State {
@@ -82,8 +82,10 @@ class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
-    static defaultProps: NumericInputDefaultWidgetOptions =
-        numericInputLogic.defaultWidgetOptions;
+    static defaultProps = {
+        ...numericInputLogic.defaultWidgetOptions,
+        apiOptions: ApiOptions.defaults,
+    };
 
     constructor(props: Props) {
         super(props);
@@ -231,75 +233,21 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
-        const commonOptionProps: {
-            size: PillSize;
-            role: ClickableRole;
-            style: StyleType;
-        } = {
-            size: "medium",
-            role: "radio",
-            style: {marginRight: "8px"},
-        };
-
-        const SettingOption = (props: {
-            kind: "accent" | "transparent";
-            role?: "radio" | "checkbox";
-            ariaLabel?: string;
-            onClick: () => void;
-            children: any;
-        }): React.ReactElement => {
-            const {kind, onClick, ariaLabel, children} = props;
-            const role = props.role ?? "radio";
-            const pillProps = {
-                ...commonOptionProps,
-                "aria-label": ariaLabel,
-                kind: kind satisfies PillKind,
-                role: role satisfies ClickableRole,
-                onClick: onClick,
-            };
-            return <Pill {...pillProps}>{children}</Pill>;
-        };
-
-        const RadioOption = (props: {
-            answerIndex: number;
-            answerProperty: string;
-            value: string | boolean;
-            onClick?: () => void;
-            children: any;
-        }): React.ReactElement => {
-            const {answerIndex, answerProperty, value, children} = props;
-            const isSelected = answers[answerIndex][answerProperty] === value;
-            const kind = isSelected ? "accent" : "transparent";
-            const newState = {};
-            newState[answerProperty] = value;
-            const onClick =
-                props.onClick ??
-                (() => {
-                    this.updateAnswer(answerIndex, newState);
-                });
-
-            return (
-                <SettingOption kind={kind} onClick={onClick}>
-                    {children}
-                </SettingOption>
-            );
-        };
+        const editingDisabled = this.props.apiOptions.editingDisabled;
 
         const unsimplifiedAnswers = (i: any) => (
-            <fieldset className="perseus-widget-row unsimplified-options">
+            <View className={styles.field}>
                 {answers[i]["status"] !== "correct" && (
-                    <>
-                        <legend className="inline-options">
-                            Unsimplified answers are irrelevant for this status
-                        </legend>
-                    </>
+                    <BodyText weight="semi">
+                        Unsimplified answers are irrelevant for this status
+                    </BodyText>
                 )}
                 {answers[i]["status"] === "correct" && (
                     <>
-                        <legend className="inline-options">
-                            Unsimplified answers are
-                        </legend>
-                        <span className="tooltip-for-legend">
+                        <View className={styles.labelRow}>
+                            <BodyText weight="semi">
+                                Unsimplified answers are
+                            </BodyText>
                             <InfoTip>
                                 <p>
                                     Normally select "ungraded". This will give
@@ -319,215 +267,164 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     simplify.
                                 </p>
                             </InfoTip>
-                        </span>
-                        <br />
-                        <RadioOption
-                            answerIndex={i}
-                            answerProperty="simplify"
-                            value="required"
-                        >
-                            Ungraded
-                        </RadioOption>
-                        <RadioOption
-                            answerIndex={i}
-                            answerProperty="simplify"
-                            value="optional"
-                        >
-                            Accepted
-                        </RadioOption>
-                        <RadioOption
-                            answerIndex={i}
-                            answerProperty="simplify"
-                            value="enforced"
-                        >
-                            Wrong
-                        </RadioOption>
+                        </View>
+                        <SegmentedControl
+                            aria-label="Unsimplified answers are"
+                            disabled={editingDisabled}
+                            selectedValue={answers[i]["simplify"]}
+                            onChange={(value) =>
+                                this.updateAnswer(i, {simplify: value})
+                            }
+                            options={[
+                                {value: "required", label: "Ungraded"},
+                                {value: "optional", label: "Accepted"},
+                                {value: "enforced", label: "Wrong"},
+                            ]}
+                        />
                     </>
                 )}
-            </fieldset>
+            </View>
         );
 
         const suggestedAnswerTypes = (i: any) => (
             <>
-                <div className="perseus-widget-row">
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                    <label>Possible answer formats&ensp;</label>
-                    <InfoTip>
-                        <p>
-                            Formats will be autoselected for you based on the
-                            given answer; to show no suggested formats and
-                            accept all types, simply have a decimal/integer be
-                            the answer. Values with &pi; will have format "pi",
-                            and values that are fractions will have some subset
-                            (mixed will be "mixed" and "proper"; improper/proper
-                            will both be "improper" and "proper"). If you would
-                            like to specify that it is only a proper fraction
-                            (or only a mixed/improper fraction), deselect the
-                            other format. Except for specific cases, you should
-                            not need to change the autoselected formats.
-                        </p>
-                        <p>
-                            To restrict the answer to <em>only</em> an improper
-                            fraction (i.e. 7/4), select the improper fraction
-                            and toggle "strict" to true. This <b>will not</b>{" "}
-                            accept 1.75 as an answer.{" "}
-                        </p>
-                        <p>
-                            Unless you are testing that specific skill, please
-                            do not restrict the answer format.
-                        </p>
-                    </InfoTip>
-                    <br />
-                    {answerFormButtons.map((format) => {
-                        const isSelected = answers[i]["answerForms"]?.includes(
-                            // eslint-disable-next-line no-restricted-syntax
-                            format.value as MathFormat,
-                        );
-                        const kind = isSelected ? "accent" : "transparent";
-                        const onClick = () => {
-                            this.onToggleAnswerForm(i, format.value);
-                        };
-
-                        return (
-                            <SettingOption
-                                key={format.value}
-                                ariaLabel={format.title}
-                                kind={kind}
-                                role="checkbox"
-                                onClick={onClick}
-                            >
-                                {format.content}
-                            </SettingOption>
-                        );
-                    })}
-                </div>
-                <fieldset className="perseus-widget-row">
-                    <legend>Answer formats are: </legend>
-                    <RadioOption
-                        answerIndex={i}
-                        answerProperty="strict"
-                        value={false}
-                    >
-                        Suggested
-                    </RadioOption>
-                    <RadioOption
-                        answerIndex={i}
-                        answerProperty="strict"
-                        value={true}
-                    >
-                        Required
-                    </RadioOption>
-                </fieldset>
+                <View className={styles.field}>
+                    <View className={styles.labelRow}>
+                        <BodyText weight="semi">
+                            Possible answer formats
+                        </BodyText>
+                        <InfoTip>
+                            <p>
+                                Formats will be autoselected for you based on
+                                the given answer; to show no suggested formats
+                                and accept all types, simply have a
+                                decimal/integer be the answer. Values with &pi;
+                                will have format "pi", and values that are
+                                fractions will have some subset (mixed will be
+                                "mixed" and "proper"; improper/proper will both
+                                be "improper" and "proper"). If you would like
+                                to specify that it is only a proper fraction (or
+                                only a mixed/improper fraction), deselect the
+                                other format. Except for specific cases, you
+                                should not need to change the autoselected
+                                formats.
+                            </p>
+                            <p>
+                                To restrict the answer to <em>only</em> an
+                                improper fraction (i.e. 7/4), select the
+                                improper fraction and toggle "strict" to true.
+                                This <b>will not</b> accept 1.75 as an answer.{" "}
+                            </p>
+                            <p>
+                                Unless you are testing that specific skill,
+                                please do not restrict the answer format.
+                            </p>
+                        </InfoTip>
+                    </View>
+                    <ToggleButtonGroup
+                        aria-label="Possible answer formats"
+                        disabled={editingDisabled}
+                        selectedValues={answers[i]["answerForms"] ?? []}
+                        onToggle={(value) => this.onToggleAnswerForm(i, value)}
+                        options={answerFormButtons.map((format) => ({
+                            value: format.value,
+                            label: format.content,
+                            ariaLabel: format.title,
+                        }))}
+                    />
+                </View>
+                <View className={styles.field}>
+                    <BodyText weight="semi">Answer formats are</BodyText>
+                    <SegmentedControl
+                        aria-label="Answer formats are"
+                        disabled={editingDisabled}
+                        selectedValue={
+                            answers[i]["strict"] ? "required" : "suggested"
+                        }
+                        onChange={(value) =>
+                            this.updateAnswer(i, {strict: value === "required"})
+                        }
+                        options={[
+                            {value: "suggested", label: "Suggested"},
+                            {value: "required", label: "Required"},
+                        ]}
+                    />
+                </View>
             </>
         );
 
         const inputSize = (
-            <fieldset className="perseus-widget-row">
-                <legend className="inline-options">Width: </legend>
-                <Pill
-                    {...commonOptionProps}
-                    kind={
-                        this.props.size === "normal" ? "accent" : "transparent"
-                    }
-                    onClick={() => {
-                        this.change("size")("normal");
-                    }}
-                >
-                    Normal (80px)
-                </Pill>
-                <Pill
-                    {...commonOptionProps}
-                    kind={
-                        this.props.size === "small" ? "accent" : "transparent"
-                    }
-                    onClick={() => {
-                        this.change("size")("small");
-                    }}
-                >
-                    Small (40px)
-                </Pill>
-                <InfoTip>
-                    <p>
-                        Use size "Normal" for all text boxes, unless there are
-                        multiple text boxes in one line and the answer area is
-                        too narrow to fit them.
-                    </p>
-                </InfoTip>
-            </fieldset>
-        );
-
-        const rightAlign = (
-            <fieldset className="perseus-widget-row">
-                <legend className="inline-options">Alignment: </legend>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.rightAlign ? "transparent" : "accent"}
-                    onClick={() => {
-                        this.props.onChange({rightAlign: false});
-                    }}
-                >
-                    Left
-                </Pill>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.rightAlign ? "accent" : "transparent"}
-                    onClick={() => {
-                        this.props.onChange({rightAlign: true});
-                    }}
-                >
-                    Right
-                </Pill>
-            </fieldset>
+            <View className={styles.field}>
+                <View className={styles.labelRow}>
+                    <BodyText weight="semi">Width</BodyText>
+                    <InfoTip>
+                        <p>
+                            Use size "Normal" for all text boxes, unless there
+                            are multiple text boxes in one line and the answer
+                            area is too narrow to fit them.
+                        </p>
+                    </InfoTip>
+                </View>
+                <SegmentedControl
+                    aria-label="Width"
+                    disabled={editingDisabled}
+                    selectedValue={this.props.size}
+                    onChange={(value) => this.change("size")(value)}
+                    options={[
+                        {value: "normal", label: "Normal (80px)"},
+                        {value: "small", label: "Small (40px)"},
+                    ]}
+                />
+            </View>
         );
 
         const labelText = (
-            <>
-                <div className="perseus-widget-row">
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                    <label>Answer Field Aria label</label>
+            <View className={styles.field}>
+                <View className={styles.labelRow}>
+                    <BodyText weight="semi">Answer Field Aria label</BodyText>
                     <InfoTip>
                         <p>
                             Text to describe the Answer Field for screenreader
                             users.
                         </p>
                     </InfoTip>
-                </div>
+                </View>
                 <TextInput
                     labelText="aria label"
                     value={this.props.labelText}
                     onChange={this.change("labelText")}
                 />
-            </>
+            </View>
         );
 
         const coefficientCheck = (
-            <fieldset className="perseus-widget-row">
-                <legend className="inline-options">Number style: </legend>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.coefficient ? "transparent" : "accent"}
-                    onClick={() => {
-                        this.props.onChange({coefficient: false});
-                    }}
-                >
-                    Standard
-                </Pill>
-                <Pill
-                    {...commonOptionProps}
-                    kind={this.props.coefficient ? "accent" : "transparent"}
-                    onClick={() => {
-                        this.props.onChange({coefficient: true});
-                    }}
-                >
-                    Coefficient
-                </Pill>
-                <InfoTip>
-                    <p>
-                        A coefficient style number allows the student to use -
-                        for -1 and an empty string to mean 1.
-                    </p>
-                </InfoTip>
-            </fieldset>
+            <View className={styles.field}>
+                <View className={styles.labelRow}>
+                    <BodyText weight="semi">Number style</BodyText>
+                    <InfoTip>
+                        <p>
+                            A coefficient style number allows the student to use
+                            - for -1 and an empty string to mean 1.
+                        </p>
+                    </InfoTip>
+                </View>
+                <SegmentedControl
+                    aria-label="Number style"
+                    disabled={editingDisabled}
+                    selectedValue={
+                        this.props.coefficient ? "coefficient" : "standard"
+                    }
+                    onChange={(value) =>
+                        this.props.onChange({
+                            coefficient: value === "coefficient",
+                        })
+                    }
+                    options={[
+                        {value: "standard", label: "Standard"},
+                        {value: "coefficient", label: "Coefficient"},
+                    ]}
+                />
+            </View>
         );
 
         const instructions = {
@@ -583,11 +480,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 this.onToggleAnswers(i);
                             }}
                             header={
-                                <BodyText
-                                    size="medium"
-                                    weight="bold"
-                                    tag="span"
-                                >
+                                <BodyText weight="bold" tag="span">
                                     {answerHeading}
                                 </BodyText>
                             }
@@ -598,8 +491,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     (answer.maxError ? " with-max-error" : "")
                                 }
                             >
-                                <label>
-                                    User input:
+                                <View
+                                    tag="label"
+                                    className={styles.inlineField}
+                                >
+                                    <BodyText weight="semi">
+                                        User input
+                                    </BodyText>
                                     <NumberInput
                                         value={answer.value}
                                         className="numeric-input-value"
@@ -647,7 +545,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                             });
                                         }}
                                     />
-                                </label>
+                                </View>
                                 <span className="max-error-plusmn">
                                     &plusmn;
                                 </span>
@@ -659,51 +557,35 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     onChange={this.updateAnswer(i, "maxError")}
                                 />
                             </div>
-                            <fieldset className="perseus-widget-row">
-                                <legend className="inline-options">
-                                    Status:
-                                </legend>
-                                <RadioOption
-                                    answerIndex={i}
-                                    answerProperty="status"
-                                    value="correct"
-                                    onClick={() => {
-                                        this.onEvaluationChange(i, "correct");
-                                    }}
-                                >
-                                    Correct
-                                </RadioOption>
-                                <RadioOption
-                                    answerIndex={i}
-                                    answerProperty="status"
-                                    value="wrong"
-                                    onClick={() => {
-                                        this.onEvaluationChange(i, "wrong");
-                                    }}
-                                >
-                                    Wrong
-                                </RadioOption>
-                                <RadioOption
-                                    answerIndex={i}
-                                    answerProperty="status"
-                                    value="ungraded"
-                                    onClick={() => {
-                                        this.onEvaluationChange(i, "ungraded");
-                                    }}
-                                >
-                                    Ungraded
-                                </RadioOption>
-                            </fieldset>
+                            <View className={styles.field}>
+                                <BodyText weight="semi">Status</BodyText>
+                                <SegmentedControl
+                                    aria-label="Status"
+                                    disabled={editingDisabled}
+                                    selectedValue={answers[i]["status"]}
+                                    onChange={(value) =>
+                                        this.onEvaluationChange(i, value)
+                                    }
+                                    options={[
+                                        {value: "correct", label: "Correct"},
+                                        {value: "wrong", label: "Wrong"},
+                                        {value: "ungraded", label: "Ungraded"},
+                                    ]}
+                                />
+                            </View>
                             {unsimplifiedAnswers(i)}
-                            <div className="perseus-widget-row">
-                                (Articles only) Message shown to user:
-                            </div>
-                            {editor}
+                            <View className={styles.field}>
+                                <BodyText weight="semi">
+                                    (Articles only) Message shown to user
+                                </BodyText>
+                                {editor}
+                            </View>
                             {suggestedAnswerTypes(i)}
                             <Button
                                 startIcon={trashIcon}
                                 aria-label={`Delete ${answerHeading}`}
                                 className="delete-item-button"
+                                disabled={editingDisabled}
                                 onClick={() => {
                                     this.onTrashAnswer(i);
                                 }}
@@ -729,7 +611,22 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     <div className="perseus-editor-accordion-content">
                         {inputSize}
-                        {rightAlign}
+
+                        <label>
+                            Text alignment
+                            <SingleSelect
+                                selectedValue={this.props.textAlign}
+                                onChange={(value) => {
+                                    this.props.onChange({textAlign: value});
+                                }}
+                                placeholder="Select text alignment"
+                            >
+                                <OptionItem value="left" label="Left" />
+                                <OptionItem value="center" label="Center" />
+                                <OptionItem value="right" label="Right" />
+                            </SingleSelect>
+                        </label>
+
                         {coefficientCheck}
                         {labelText}
                     </div>
@@ -745,7 +642,11 @@ class NumericInputEditor extends React.Component<Props, State> {
                 >
                     <div className="perseus-editor-accordion-content">
                         {generateInputAnswerEditors()}
-                        <Button kind="tertiary" onClick={this.addAnswer}>
+                        <Button
+                            kind="tertiary"
+                            disabled={editingDisabled}
+                            onClick={this.addAnswer}
+                        >
                             Add new answer
                         </Button>
                     </div>

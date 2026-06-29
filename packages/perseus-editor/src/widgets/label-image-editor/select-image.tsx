@@ -3,6 +3,7 @@
  */
 
 import Button from "@khanacademy/wonder-blocks-button";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
@@ -14,11 +15,18 @@ export interface SelectImageProps {
     onChange: (url: string) => void;
     // The selected image URL.
     url: string;
+    editingDisabled?: boolean;
 }
 
-const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
+const SelectImage = ({
+    onChange,
+    url,
+    editingDisabled = false,
+}: SelectImageProps): React.ReactElement => (
     <div>
-        <div className={styles.title}>Image</div>
+        <BodyText weight="bold" tag="span">
+            Image
+        </BodyText>
 
         <div className={styles.imageRow}>
             <FormWrappedTextField
@@ -29,7 +37,7 @@ const SelectImage = ({onChange, url}: SelectImageProps): React.ReactElement => (
             />
 
             <Button
-                disabled={!url}
+                disabled={!url || editingDisabled}
                 aria-label={
                     url
                         ? ""
