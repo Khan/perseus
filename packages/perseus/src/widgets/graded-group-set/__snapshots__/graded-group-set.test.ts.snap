@@ -30,7 +30,7 @@ exports[`graded group set widget should snapshot 1`] = `
               class="top_cjo0m2"
             >
               <div
-                class="title_t78eih"
+                class="title_ryhlxm"
               >
                 Problem 1a
               </div>
@@ -172,7 +172,7 @@ exports[`graded group set widget should snapshot 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_1n4y2tp"
+                class="showHintLink_4ow82o"
                 tabindex="0"
               >
                 Explain

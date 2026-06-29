@@ -30,7 +30,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_1lagzkb"
+                class="title_g89zw8"
               >
                 Problem 1a
               </div>
@@ -111,7 +111,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_1n4y2tp"
+                class="showHintLink_4ow82o"
                 tabindex="0"
               >
                 Explain
@@ -121,7 +121,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_1lagzkb"
+                class="title_g89zw8"
               >
                 Problem 1b
               </div>
@@ -202,7 +202,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_1n4y2tp"
+                class="showHintLink_4ow82o"
                 tabindex="0"
               >
                 Explain
@@ -212,7 +212,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_1lagzkb"
+                class="title_g89zw8"
               >
                 Problem 1c
               </div>
@@ -293,7 +293,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_1n4y2tp"
+                class="showHintLink_4ow82o"
                 tabindex="0"
               >
                 Explain
