@@ -432,7 +432,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -489,7 +488,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -540,7 +538,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -586,7 +583,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -634,7 +630,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -692,7 +687,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -743,7 +737,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -821,7 +814,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -902,7 +894,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -934,7 +925,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -973,7 +963,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1039,7 +1028,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1105,7 +1093,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1170,7 +1157,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1243,7 +1229,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1292,7 +1277,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1350,7 +1334,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1439,7 +1422,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1515,7 +1497,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1577,7 +1558,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1631,7 +1611,6 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1700,7 +1679,6 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1764,7 +1742,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1816,7 +1793,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1869,7 +1845,6 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2129,7 +2104,6 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2710,7 +2684,6 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2912,7 +2885,6 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3300,7 +3272,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3394,7 +3365,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3486,7 +3456,6 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3767,7 +3736,6 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3804,7 +3772,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3883,7 +3850,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3955,7 +3921,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4050,7 +4015,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4116,7 +4080,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4148,7 +4111,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4193,7 +4155,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4243,7 +4204,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4270,7 +4230,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4544,7 +4503,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4677,7 +4635,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4827,7 +4784,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4967,7 +4923,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5166,7 +5121,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5367,7 +5321,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5851,7 +5804,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6345,7 +6297,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6474,7 +6425,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6584,7 +6534,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6734,7 +6683,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6862,7 +6810,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7030,7 +6977,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7198,7 +7144,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7475,7 +7420,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7752,7 +7696,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7843,7 +7786,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7934,7 +7876,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -8022,7 +7963,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-mi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -8110,7 +8050,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -8955,7 +8894,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -9721,7 +9659,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10014,7 +9951,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10120,7 +10056,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10337,7 +10272,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10487,7 +10421,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10599,7 +10532,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10701,7 +10633,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10857,7 +10788,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10974,7 +10904,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11128,7 +11057,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11262,7 +11190,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-l
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11381,7 +11308,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-l
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11479,7 +11405,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11642,7 +11567,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11803,7 +11727,6 @@ exports[`parseAndMigratePerseusItem given label-image.ts returns the same result
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11966,7 +11889,6 @@ exports[`parseAndMigratePerseusItem given label-image.ts returns the same result
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12086,7 +12008,6 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12231,7 +12152,6 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12383,7 +12303,6 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12430,7 +12349,6 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12483,7 +12401,6 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12526,7 +12443,6 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12576,7 +12492,6 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12683,7 +12598,6 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12774,7 +12688,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12837,7 +12750,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13233,7 +13145,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13333,7 +13244,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13446,7 +13356,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13490,7 +13399,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13536,7 +13444,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13643,7 +13550,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13763,7 +13669,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13986,7 +13891,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14122,7 +14026,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14178,7 +14081,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14236,7 +14138,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14367,7 +14268,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14482,7 +14382,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14580,7 +14479,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14683,7 +14581,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14730,7 +14627,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14779,7 +14675,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14838,7 +14733,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14900,7 +14794,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15003,7 +14896,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15094,7 +14986,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15153,7 +15044,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15215,7 +15105,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15266,7 +15155,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15319,7 +15207,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15597,7 +15484,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15749,7 +15635,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15808,7 +15693,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15870,7 +15754,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16235,7 +16118,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16808,7 +16690,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16865,7 +16746,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16922,7 +16802,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17060,7 +16939,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17178,7 +17056,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17961,7 +17838,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18012,7 +17888,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18139,7 +18014,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18222,7 +18096,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18300,7 +18173,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18370,7 +18242,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18571,7 +18442,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18757,7 +18627,6 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18874,7 +18743,6 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18990,7 +18858,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19110,7 +18977,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19194,7 +19060,6 @@ exports[`parseAndMigratePerseusItem given question-missing-content.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19214,7 +19079,6 @@ exports[`parseAndMigratePerseusItem given question-missing-content.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19234,7 +19098,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19314,7 +19177,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19384,7 +19246,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19661,7 +19522,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19922,7 +19782,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20199,7 +20058,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20460,7 +20318,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20523,7 +20380,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20582,7 +20438,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20800,7 +20655,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21004,7 +20858,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21125,7 +20978,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21215,7 +21067,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21390,7 +21241,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21552,7 +21402,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21607,7 +21456,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21666,7 +21514,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21831,7 +21678,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
