@@ -11,7 +11,6 @@ import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
 const {TextInput} = components;
-const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
     color: string;
@@ -45,7 +44,7 @@ class LabelEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div className="graph-settings">

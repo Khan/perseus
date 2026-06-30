@@ -28,7 +28,6 @@ describe("ArticleEditor", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        Dependencies.setDependencies(testDependencies);
     });
 
     it("should render", () => {
