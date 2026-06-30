@@ -4919,6 +4919,157 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 }
 `;
 
+exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "calculatorVariant": null,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns2937155:0crwdne2937155:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2937153:0crwdne2937153:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2688103:0{1.20}crwdne2688103:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2689139:0{1.2}crwdne2689139:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "crwdns3120949:0crwdne3120949:0",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "input-number 1": {
+        "alignment": "",
+        "graded": true,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": true,
+              "value": 18,
+            },
+          ],
+          "coefficient": false,
+          "size": "normal",
+          "textAlign": "left",
+        },
+        "static": false,
+        "type": "input-number",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "calculatorVariant": null,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "crwdns3120949:0crwdne3120949:0",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "input-number 1": {
+        "alignment": "",
+        "graded": true,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": [],
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
+          "size": "normal",
+          "textAlign": "left",
+        },
+        "static": false,
+        "type": "input-number",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.ts returns the same result as before 1`] = `
 {
   "answerArea": {
