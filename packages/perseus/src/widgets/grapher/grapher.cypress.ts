@@ -77,7 +77,13 @@ const MAX_PRESSES = 80;
 // x; some graphs skip an extra grid step to avoid landing both points on the
 // same x, so we re-read the label after every press rather than assuming a
 // fixed step size.
-// FIXME: could movePointTo be async so we could loop instead of using a recursive step() function?
+//
+// This recurses through step() rather than looping with async/await because
+// Cypress commands are queued, not awaitable promises: the call sites (and
+// the enclosing `it` blocks) rely on that queue to order each move and the
+// assertions that follow, and the number of presses isn't known up front.
+// Recursing inside .then() is Cypress's idiomatic way to repeat a command
+// until a dynamic condition holds.
 function movePointTo(index: number, target: Coords): void {
     const handle = () => cy.get(POINT_HANDLE).eq(index);
 
@@ -114,7 +120,10 @@ function movePointTo(index: number, target: Coords): void {
 
 // Moves the asymptote handle to `target`. A horizontal asymptote (exponential)
 // moves vertically; a vertical asymptote (logarithm) moves horizontally.
-// FIXME: same here, could we use async/await and avoid the recursive step()?
+//
+// Like movePointTo, this recurses through step() instead of looping: Cypress
+// commands aren't awaitable promises, so recursion inside .then() is how we
+// repeat a press until the asymptote reaches `target`.
 function moveAsymptoteTo(
     target: number,
     orientation: "horizontal" | "vertical",
