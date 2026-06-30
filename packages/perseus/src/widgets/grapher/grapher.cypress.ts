@@ -36,12 +36,11 @@ const POINTS =
 // --- Interactive Graph (Mafs) keyboard helpers --------------------------
 //
 // A grapher with a single non-quadratic available type now renders as a
-// Mafs Interactive Graph. Its handles are keyboard-driven: focus a handle and
-// press an arrow key to move it one grid unit (every question here uses
-// snapStep [1, 1]). Each handle's aria-label encodes its live coordinates, so
-// we read the label, compare it to the target, and press the appropriate arrow
-// key until they match. Driving movement in grid units (rather than pixels)
-// keeps these tests deterministic.
+// Mafs Interactive Graph. The Interactive Graph widget is accessible, so
+// these tests are keyboard-driven: we focus a handle and press an arrow key
+// to move it one grid unit (every question here uses snapStep [1, 1]). Each
+// handle's aria-label encodes its coordinates, so we read the label, compare
+// it to the target, and press the appropriate arrow key until they match.
 const POINT_HANDLE = "[data-testid=movable-point__focusable-handle]";
 const ASYMPTOTE_HANDLE = "[data-testid=movable-asymptote]";
 
@@ -74,10 +73,11 @@ function parseAsymptoteValue(ariaLabel: string): number {
 const MAX_PRESSES = 80;
 
 // Moves the point handle at `index` (DOM order) to `target` by reading its
-// live aria-label and pressing one arrow key per step. We adjust y first, then
+// aria-label and pressing one arrow key per step. We adjust y first, then
 // x; some graphs skip an extra grid step to avoid landing both points on the
 // same x, so we re-read the label after every press rather than assuming a
 // fixed step size.
+// FIXME: could movePointTo be async so we could loop instead of using a recursive step() function?
 function movePointTo(index: number, target: Coords): void {
     const handle = () => cy.get(POINT_HANDLE).eq(index);
 
@@ -114,6 +114,7 @@ function movePointTo(index: number, target: Coords): void {
 
 // Moves the asymptote handle to `target`. A horizontal asymptote (exponential)
 // moves vertically; a vertical asymptote (logarithm) moves horizontally.
+// FIXME: same here, could we use async/await and avoid the recursive step()?
 function moveAsymptoteTo(
     target: number,
     orientation: "horizontal" | "vertical",
