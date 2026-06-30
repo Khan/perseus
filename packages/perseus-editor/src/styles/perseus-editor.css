@@ -265,10 +265,6 @@ code {
     z-index: 3;
     /* interactive-content */
 }
-.perseus-editor-table {
-    clear: both;
-    table-layout: fixed;
-}
 .perseus-editor-row {
     display: flex;
     flex-direction: row;
@@ -338,10 +334,6 @@ code {
 .perseus-article-editor {
     margin-bottom: 20px;
     margin-top: 20px;
-}
-.perseus-article-editor .perseus-editor-table {
-    margin-left: auto;
-    margin-right: auto;
 }
 .perseus-article-editor .perseus-single-editor {
     margin-bottom: 10px;
