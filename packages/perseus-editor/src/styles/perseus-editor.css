@@ -376,7 +376,7 @@ code {
     max-height: 90vh;
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
-     flex-shrink: 0;
+    flex-shrink: 0;
 }
 .perseus-article-editor .editor-preview.full-width {
     width: 100%;
