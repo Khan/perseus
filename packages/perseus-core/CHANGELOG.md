@@ -1,5 +1,19 @@
 # @khanacademy/perseus-core
 
+## 30.0.1
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3794](https://github.com/Khan/perseus/pull/3794) [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Mark the input-number widget as accessible. Items using input-number are no longer reported as inaccessible, as input-number now renders and scores as a NumericInput.
+
+## 30.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
 ## 29.0.0
 
 ### Major Changes

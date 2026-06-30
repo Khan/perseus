@@ -5,8 +5,11 @@ import {
     generateExplanationWidget,
     generateGradedGroupOptions,
     generateGradedGroupWidget,
+    generateIGPointGraph,
     generateImageOptions,
     generateImageWidget,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
     generateRadioChoice,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -100,6 +103,39 @@ export const gradedGroupWithRadioAndDefinition: PerseusRenderer =
                                     "Jean-Luc Picard is the esteemed captain of the USS Enterprise.",
                                 togglePrompt: "Jean-Luc Picard's",
                             }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const gradedGroupWithInteractiveGraphAndRadio: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "A graph with a point",
+                    content:
+                        "[[☃ interactive-graph 1]]\n\nTrue or false: The above graph has one point on it.\n\n[[☃ radio 1]]",
+                    widgets: {
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
+                                    numPoints: 1,
+                                }),
+                            }),
+                        }),
+                        "radio 1": generateRadioWidget({
+                            options: {
+                                choices: [
+                                    generateRadioChoice("True", {
+                                        correct: true,
+                                    }),
+                                    generateRadioChoice("False"),
+                                ],
+                            },
                         }),
                     },
                 }),

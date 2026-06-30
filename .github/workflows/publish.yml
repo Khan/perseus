@@ -69,10 +69,21 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  # IMPORTANT: Although we don't _need_ to use this token to
+                  # checkout the code, setting it here defines (authenticates)
+                  # the git push later on that the changesets step makes to the
+                  # "Version Packages" PR branch. That push's identity becomes
+                  # the triggering actor of the resulting pull_request event.
+                  # The default GITHUB_TOKEN pushes as github-actions[bot],
+                  # which GitHub now (as of May/June 2026) blocks behind manual
+                  # approval ("action_required"). The khan-actions-bot PAT is a
+                  # trusted member, so its pushes run without the approval
+                  # gate.
+                  token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
                   fetch-depth: 0
 
             - name: Secure Network
@@ -161,12 +172,13 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
                   fetch-depth: "0"
 
             - name: Secure Network

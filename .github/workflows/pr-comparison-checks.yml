@@ -26,7 +26,7 @@ permissions:
 # Single source of truth for the Node version these checks build under.
 # (See the note on each job for why these jobs deliberately avoid a matrix.)
 env:
-    NODE_VERSION: "24.x"
+    NODE_VERSION: "24.16.0"
 
 jobs:
     check_schema_change:
