@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 34.1.0
+
+### Minor Changes
+
+-   [#3839](https://github.com/Khan/perseus/pull/3839) [`fa4ac0a`](https://github.com/Khan/perseus/commit/fa4ac0a7f072d80d5a64fccab9ea027100058522) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update PlotterEditor's picUrl prop to match the Perseus data schema
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3842](https://github.com/Khan/perseus/pull/3842) [`3deffa1`](https://github.com/Khan/perseus/commit/3deffa1a972076857df5e303a9510940481552a3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix Free Response editor to use WB components with LabeledField
+
+-   Updated dependencies [[`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1), [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8), [`9036580`](https://github.com/Khan/perseus/commit/90365803208ac2fb416bc11f17ca5b8ade9a9856), [`a9668ad`](https://github.com/Khan/perseus/commit/a9668ad2cfe0b5a392e026f89c5219ed2a7b9bb2)]:
+    -   @khanacademy/perseus-core@30.0.1
+    -   @khanacademy/perseus@79.1.0
+    -   @khanacademy/keypad-context@3.2.69
+    -   @khanacademy/kmath@2.4.28
+    -   @khanacademy/math-input@26.4.42
+    -   @khanacademy/perseus-linter@5.1.9
+
 ## 34.0.0
 
 ### Major Changes

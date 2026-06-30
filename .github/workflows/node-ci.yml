@@ -150,8 +150,11 @@ jobs:
               run: pnpm build:types
 
             # We build the docs in this job so that typedoc can check any
-            # comment changes to ensure they are valid.
+            # comment changes to ensure they are valid. typedoc reads the
+            # TypeScript source directly, so there's nothing to re-check
+            # unless a .ts(x) source (or relevant tsconfig/lockfile) changed.
             - name: Build docs
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: pnpm build:docs
 
             # Run tests for our target matrix
