@@ -267,7 +267,6 @@ code {
 }
 .perseus-editor-table {
     clear: both;
-    display: table;
     table-layout: fixed;
 }
 .perseus-editor-row {
