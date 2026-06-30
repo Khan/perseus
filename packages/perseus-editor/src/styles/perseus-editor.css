@@ -280,6 +280,9 @@ code {
     z-index: 10;
     /* Make the left cell scrollable. */
     overflow-y: auto;
+    /* Don't show the the horizontal scrollbar that only appears when
+     * the vertical scrollbar appears. */
+    overflow-x: hidden;
     /* Keep the left cell scroll area within the viewport. */
     max-height: 90vh;
 }
@@ -294,6 +297,9 @@ code {
     overflow-y: auto;
     /* Keep the right cell scroll area within the viewport. */
     max-height: 90vh;
+    /* Don't shrink below the preview's intrinsic width. We need this to
+     * preserve the Tablet and Desktop preview widths. */
+    flex-shrink: 0;
 }
 .perseus-hint-editor {
     padding-bottom: 20px;
@@ -368,6 +374,9 @@ code {
     overflow-y: auto;
     /* Keep the preview scroll area within the viewport. */
     max-height: 90vh;
+    /* Don't shrink below the preview's intrinsic width. We need this to
+     * preserve the Tablet and Desktop preview widths. */
+     flex-shrink: 0;
 }
 .perseus-article-editor .editor-preview.full-width {
     width: 100%;
