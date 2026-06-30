@@ -4923,7 +4923,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5001,7 +5000,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
