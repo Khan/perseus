@@ -34,8 +34,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Used for stories that stay in INCORRECT or unanswered states, where
-// showSolutions="none" so the inner radio widget shows no grading UI.
 const sharedArgs = {
     title: "Check your understanding!",
     content:
@@ -62,11 +60,9 @@ const sharedArgs = {
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
-// Used for correct-answer stories. A numeric-input is deliberately chosen over
-// radio here: graded-group passes showSolutions="all" when the answer is
-// correct, which makes a radio widget render its full grading UI (highlighted
-// choices). A numeric-input's correct state is visually minimal, keeping the
-// story focused on graded-group's own correct-answer chrome (icon, answer bar).
+// Correct-answer stories use numeric-input rather than radio: on a correct
+// answer graded-group renders a radio widget's full grading UI (highlighted
+// choices), which would obscure graded-group's own correct-answer chrome.
 const numericInputArgs = {
     title: "Check your understanding!",
     content: "$0.5 + 0.4 =$ [[☃ numeric-input 1]]",
@@ -87,8 +83,6 @@ const numericInputArgs = {
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
-// Desktop: type the correct answer and click the widget's own "Check" button.
-// Captures the green correct-answer icon (#526f03 → semanticColor.core.foreground.success.default).
 export const DesktopCorrectAnswer: Story = {
     args: numericInputArgs,
     play: async ({canvas, userEvent}) => {
@@ -99,8 +93,6 @@ export const DesktopCorrectAnswer: Story = {
     },
 };
 
-// Desktop: select an incorrect choice and click "Check".
-// Captures the red incorrect-answer icon (#ff5454 → semanticColor.core.foreground.critical.default).
 export const DesktopIncorrectAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -113,10 +105,6 @@ export const DesktopIncorrectAnswer: Story = {
     },
 };
 
-// Desktop: click "Check" with no answer selected.
-// Captures the invalid state: no icon renders (unlike correct/incorrect),
-// but a message renders through the score-message Renderer. Distinct from
-// the incorrect state and relevant to markdown rendering regression.
 export const DesktopInvalidAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -125,8 +113,6 @@ export const DesktopInvalidAnswer: Story = {
     },
 };
 
-// Desktop: expand the hint by clicking "Explain".
-// Captures the explanationTitle style (fontSize: 14) and the hint content.
 export const HintExpanded: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -135,9 +121,6 @@ export const HintExpanded: Story = {
     },
 };
 
-// Mobile: fill in an answer but do not submit.
-// Captures the ACTIVE state of the answer bar: the "Check" button becomes
-// enabled, distinct from the INACTIVE initial state (button disabled).
 export const MobileAnswerBarActive: Story = {
     args: numericInputArgs,
     parameters: {
@@ -149,9 +132,6 @@ export const MobileAnswerBarActive: Story = {
     },
 };
 
-// Mobile: select an incorrect choice and click "Check" on the answer bar.
-// Captures the answer bar INCORRECT state with the try-again icon
-// (#63D9EA → semanticColor), fontWeight: "bold", and fontSize: 17 on the text.
 export const MobileAnswerBarIncorrect: Story = {
     args: sharedArgs,
     parameters: {
@@ -167,8 +147,6 @@ export const MobileAnswerBarIncorrect: Story = {
     },
 };
 
-// Mobile: expand the hint while the answer bar is visible.
-// Captures the hint Renderer and answer bar coexisting — unique to mobile.
 export const MobileHintExpanded: Story = {
     args: sharedArgs,
     parameters: {
@@ -180,8 +158,6 @@ export const MobileHintExpanded: Story = {
     },
 };
 
-// Mobile: type the correct answer and click "Check" on the answer bar.
-// Captures the answer bar CORRECT state with the star icon and fontSize: 28.
 export const MobileAnswerBarCorrect: Story = {
     args: numericInputArgs,
     parameters: {

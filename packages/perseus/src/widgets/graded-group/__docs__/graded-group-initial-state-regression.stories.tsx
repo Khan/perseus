@@ -31,9 +31,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Shared graded-group options used across initial-state stories: a single
-// radio question with a hint link visible. Covers the title, showHintLink,
-// and gradedGroup container styles.
 const sharedArgs = {
     title: "Check your understanding!",
     content:
@@ -65,7 +62,6 @@ export const DefaultDesktop: Story = {
     args: sharedArgs,
 };
 
-// Mobile view: shows the GradedGroupAnswerBar in its INACTIVE initial state.
 export const MobileUnanswered: Story = {
     decorators: [gradedGroupRendererDecorator],
     args: sharedArgs,
@@ -79,8 +75,6 @@ export const RightToLeft: Story = {
     args: sharedArgs,
 };
 
-// TeX content in both the question and the radio choices exercises the math
-// rendering path through the content Renderer.
 const texArgs = {
     title: "Check your understanding!",
     content:

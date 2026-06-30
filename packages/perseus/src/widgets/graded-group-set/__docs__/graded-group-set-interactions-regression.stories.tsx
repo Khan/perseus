@@ -72,8 +72,6 @@ const twoGroupArticle = generateTestPerseusRenderer({
     },
 });
 
-// Clicking the second indicator dot navigates to the second group, showing
-// "Problem 1b" in the title and the second indicator as active.
 export const IndicatorNavigation: Story = {
     render: () => <ArticleRendererWithDebugUI json={twoGroupArticle} />,
     play: async ({canvas, userEvent}) => {
@@ -84,9 +82,6 @@ export const IndicatorNavigation: Story = {
     },
 };
 
-// Desktop: answer the first group correctly. Captures the graded-group-set
-// correct state: green check icon alongside a "Next question" button, which
-// only appears when onNextQuestion is wired up by the parent set.
 export const DesktopFirstGroupCorrectAnswer: Story = {
     render: () => <ArticleRendererWithDebugUI json={twoGroupArticle} />,
     play: async ({canvas, userEvent}) => {
@@ -97,9 +92,6 @@ export const DesktopFirstGroupCorrectAnswer: Story = {
     },
 };
 
-// Mobile: answer the first group correctly. The answer bar shows the CORRECT
-// state with a "Next question" button (space-between layout), distinct from
-// the standalone correct state which centers the star icon alone.
 export const MobileFirstGroupCorrectAnswer: Story = {
     render: () => (
         <ArticleRendererWithDebugUI

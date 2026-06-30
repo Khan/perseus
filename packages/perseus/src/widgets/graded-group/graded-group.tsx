@@ -251,9 +251,7 @@ export class GradedGroup
 
         let gradeStatus: string | null = null;
         let icon = null;
-        // Colors are 10% darker than the colors in graded-group.css
         if (this.state.status === GRADING_STATUSES.correct) {
-            // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = (
                 <InlineIcon
@@ -265,7 +263,6 @@ export class GradedGroup
             );
             gradeStatus = this.context.strings.correct;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
-            // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = (
                 <InlineIcon

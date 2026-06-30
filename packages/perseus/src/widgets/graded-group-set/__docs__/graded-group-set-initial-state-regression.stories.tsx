@@ -32,7 +32,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Two-group set showing the title (fontSize: 12) and both indicator dots.
 const twoGroupArticle = generateTestPerseusRenderer({
     content: "[[☃ graded-group-set 1]]",
     widgets: {
