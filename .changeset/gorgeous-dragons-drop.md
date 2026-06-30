@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Added multple regression tests for the radio widget
+Added multiple regression tests for the radio widget
