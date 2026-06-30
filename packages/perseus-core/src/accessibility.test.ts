@@ -7,6 +7,7 @@ import {
     generateImageOptions,
     generateImageWidget,
 } from "./utils/generators/image-widget-generator";
+import {generateInputNumberWidget} from "./utils/generators/input-number-widget-generator";
 import {
     generateIGPointGraph,
     generateInteractiveGraphOptions,
@@ -104,6 +105,21 @@ describe("isItemAccessible", () => {
                 }),
             });
 
+            expect(isItemAccessible(itemData)).toBe(true);
+        });
+
+        it("returns true for an item whose only widget is input-number", () => {
+            // Arrange
+            const itemData: PerseusItem = generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "Enter a number: [[☃ input-number 1]]",
+                    widgets: {
+                        "input-number 1": generateInputNumberWidget(),
+                    },
+                }),
+            });
+
+            // Act, Assert
             expect(isItemAccessible(itemData)).toBe(true);
         });
 
