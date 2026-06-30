@@ -279,6 +279,7 @@ const WrappedMatcher = withDependencies(Matcher);
 export default {
     name: "matcher",
     displayName: "Matcher (two column)",
+    hidden: true,
     widget: WrappedMatcher,
     isLintable: true,
     getStartUserInput,

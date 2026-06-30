@@ -6,13 +6,19 @@ import {
 } from "@testing-library/user-event";
 import * as React from "react";
 
+import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
 import ArticleEditor from "./article-editor";
 import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
+import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
 
 describe("ArticleEditor", () => {
+    beforeAll(() => {
+        registerAllWidgetsAndEditorsForTesting();
+    });
+
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -89,5 +95,26 @@ describe("ArticleEditor", () => {
         expect(screen.getByText("Description:")).toBeInTheDocument();
         expect(screen.getByText("Impact:")).toBeInTheDocument();
         expect(screen.getByText("Issue:")).toBeInTheDocument();
+    });
+
+    it("should match snapshot for editing disabled for all widgets", () => {
+        // Arrange, Act
+        const {container} = render(
+            <ArticleEditor
+                dependencies={testDependenciesV2}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    isArticle: true,
+                    editingDisabled: true, // editing disabled
+                }}
+                imageUploader={() => {}}
+                json={[comprehensiveQuestion]} // question with all widgets
+                onChange={() => {}}
+                previewURL="https://www.example.com"
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot();
     });
 });
