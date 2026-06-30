@@ -2,7 +2,7 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -10,12 +10,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
-import {
-    gray76,
-    tableBackgroundAccent,
-    phoneMargin,
-    negativePhoneMargin,
-} from "../../styles/constants";
+import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
@@ -263,7 +258,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 12,
+        fontSize: font.heading.size.small,
         color: semanticColor.core.foreground.neutral.subtle,
         textTransform: "uppercase",
         marginBottom: 11,
@@ -301,14 +296,14 @@ const styles = StyleSheet.create({
         boxSizing: "content-box",
         width: 10,
         height: 10,
-        borderRadius: "100%",
-        borderWidth: 2,
+        borderRadius: border.radius.radius_full,
+        borderWidth: border.width.medium,
         borderColor: semanticColor.core.border.instructive.default,
         borderStyle: "solid",
     },
 
     indicatorDotFocused: {
-        borderWidth: 5,
+        borderWidth: border.width.thick,
         borderStyle: "double",
     },
 
@@ -319,9 +314,9 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        borderTop: `1px solid ${gray76}`,
-        borderBottom: `1px solid ${gray76}`,
-        backgroundColor: tableBackgroundAccent,
+        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBottom: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        backgroundColor: semanticColor.core.background.base.subtle,
         marginLeft: negativePhoneMargin,
         marginRight: negativePhoneMargin,
         paddingBottom: phoneMargin,

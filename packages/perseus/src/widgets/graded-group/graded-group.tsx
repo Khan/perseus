@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -14,13 +14,7 @@ import {iconOk, iconRemove} from "../../icon-paths";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
-import {
-    gray68,
-    gray76,
-    phoneMargin,
-    negativePhoneMargin,
-    tableBackgroundAccent,
-} from "../../styles/constants";
+import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
@@ -257,16 +251,27 @@ export class GradedGroup
 
         let gradeStatus: string | null = null;
         let icon = null;
-        // Colors are 10% darker than the colors in graded-group.css
         if (this.state.status === GRADING_STATUSES.correct) {
-            // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
-            icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
+            icon = (
+                <InlineIcon
+                    {...iconOk}
+                    style={{
+                        color: semanticColor.core.foreground.success.default,
+                    }}
+                />
+            );
             gradeStatus = this.context.strings.correct;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
-            // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
-            icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
+            icon = (
+                <InlineIcon
+                    {...iconRemove}
+                    style={{
+                        color: semanticColor.core.foreground.critical.default,
+                    }}
+                />
+            );
             gradeStatus = this.context.strings.incorrect;
         }
 
@@ -471,9 +476,9 @@ const styles = StyleSheet.create({
     },
 
     gradedGroup: {
-        borderTop: `1px solid ${gray76}`,
-        borderBottom: `1px solid ${gray76}`,
-        backgroundColor: tableBackgroundAccent,
+        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBottom: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        backgroundColor: semanticColor.core.background.base.subtle,
         marginLeft: negativePhoneMargin,
         marginRight: negativePhoneMargin,
         paddingBottom: phoneMargin,
@@ -485,7 +490,7 @@ const styles = StyleSheet.create({
 
     showHintLink: {
         backgroundColor: "unset",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
         marginTop: 20,
@@ -501,7 +506,7 @@ const styles = StyleSheet.create({
         color: semanticColor.core.foreground.instructive.default,
         marginBottom: 10,
         cursor: "pointer",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
         display: "block",
@@ -509,8 +514,8 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 12,
-        color: gray68,
+        fontSize: font.heading.size.small,
+        color: semanticColor.core.foreground.neutral.subtle,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
