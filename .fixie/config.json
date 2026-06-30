@@ -1,0 +1,4 @@
+{
+    "verify": "pnpm linc && pnpm typecheck && pnpm tesc && pnpm cypress:ci --spec packages/perseus/src/widgets/grapher/grapher.cypress.ts",
+    "fix": "pnpm fixc"
+}
