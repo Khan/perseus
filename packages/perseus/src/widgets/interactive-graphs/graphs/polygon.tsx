@@ -473,7 +473,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 // This is okay because the graph has its own aria-label.
                 aria-hidden={true}
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}
