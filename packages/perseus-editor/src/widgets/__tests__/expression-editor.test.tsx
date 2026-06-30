@@ -4,22 +4,30 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
+import ExpressionEditor from "../expression-editor";
 
-import type ExpressionEditor from "../expression-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const Harnessed = (
-    props: Omit<PropsFor<typeof ExpressionEditor>, "apiOptions">,
-) => {
-    return (
-        <Harnessed
-            apiOptions={ApiOptions.defaults}
-            onChange={() => undefined}
-            {...props}
-        />
-    );
-};
+const HarnessedEditor = React.forwardRef<
+    ExpressionEditor,
+    Partial<PropsFor<typeof ExpressionEditor>>
+>(
+    (
+        {onChange = () => undefined, apiOptions = ApiOptions.defaults, ...rest},
+        ref,
+    ) => {
+        return (
+            <ExpressionEditor
+                apiOptions={apiOptions}
+                onChange={onChange}
+                ref={ref}
+                {...rest}
+            />
+        );
+    },
+);
+HarnessedEditor.displayName = "Harnessed ExpressionEditor";
 
 describe("expression-editor", () => {
     let userEvent: UserEvent;
@@ -34,7 +42,7 @@ describe("expression-editor", () => {
     });
 
     it("should render", async () => {
-        render(<Harnessed />);
+        render(<HarnessedEditor />);
         act(() => jest.runOnlyPendingTimers());
 
         expect(await screen.findByText(/Add new answer/)).toBeInTheDocument();
@@ -65,7 +73,7 @@ describe("expression-editor", () => {
             },
         ];
 
-        render(<Harnessed answerForms={answerForms} />);
+        render(<HarnessedEditor answerForms={answerForms} />);
         act(() => jest.runOnlyPendingTimers());
 
         expect(await screen.findByText(/π/)).toBeInTheDocument();
@@ -74,7 +82,7 @@ describe("expression-editor", () => {
     it("should toggle multiplication checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -91,7 +99,7 @@ describe("expression-editor", () => {
     it("should be possible to change function variables", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} functions={[]} />);
+        render(<HarnessedEditor onChange={onChangeMock} functions={[]} />);
         act(() => jest.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {
@@ -114,7 +122,7 @@ describe("expression-editor", () => {
     it("should toggle division checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -131,7 +139,7 @@ describe("expression-editor", () => {
     it("should toggle trig checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -148,7 +156,7 @@ describe("expression-editor", () => {
     it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -164,7 +172,7 @@ describe("expression-editor", () => {
 
     it("should toggle logarithms checkbox", async () => {
         const onChangeMock = jest.fn();
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -180,7 +188,7 @@ describe("expression-editor", () => {
 
     it("should toggle basic relations checkbox", async () => {
         const onChangeMock = jest.fn();
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -197,7 +205,7 @@ describe("expression-editor", () => {
     it("should toggle advanced relations checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -214,7 +222,7 @@ describe("expression-editor", () => {
     it("should toggle scientific checkbox", async () => {
         const onChangeMock = jest.fn();
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -232,7 +240,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
         crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
 
-        render(<Harnessed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
@@ -259,7 +267,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -305,7 +313,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -344,7 +352,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -383,7 +391,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 onChange={onChangeMock}
                 answerForms={[
                     {
@@ -418,7 +426,7 @@ describe("expression-editor", () => {
     it("serializes", () => {
         const editorRef = React.createRef<ExpressionEditor>();
 
-        render(<Harnessed ref={editorRef} />);
+        render(<HarnessedEditor ref={editorRef} />);
 
         const options = editorRef.current?.serialize();
 
@@ -435,7 +443,7 @@ describe("expression-editor", () => {
         const editorRef = React.createRef<ExpressionEditor>();
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 ref={editorRef}
                 onChange={() => {}}
                 answerForms={[
@@ -460,7 +468,7 @@ describe("expression-editor", () => {
         let options: any;
 
         render(
-            <Harnessed
+            <HarnessedEditor
                 onChange={(o) => {
                     options = o;
                 }}

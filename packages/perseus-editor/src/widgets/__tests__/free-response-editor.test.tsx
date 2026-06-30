@@ -9,20 +9,25 @@ import FreeResponseEditor from "../free-response-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const Harnassed = React.forwardRef<
+const HarnessedEditor = React.forwardRef<
     FreeResponseEditor,
-    Omit<PropsFor<typeof FreeResponseEditor>, "apiOptions">
->((props, ref) => {
-    return (
-        <FreeResponseEditor
-            apiOptions={ApiOptions.defaults}
-            onChange={() => undefined}
-            ref={ref}
-            {...props}
-        />
-    );
-});
-Harnassed.displayName = "Harnassed FreeResponseEditor";
+    Partial<PropsFor<typeof FreeResponseEditor>>
+>(
+    (
+        {onChange = () => undefined, apiOptions = ApiOptions.defaults, ...rest},
+        ref,
+    ) => {
+        return (
+            <FreeResponseEditor
+                apiOptions={apiOptions}
+                onChange={onChange}
+                ref={ref}
+                {...rest}
+            />
+        );
+    },
+);
+HarnessedEditor.displayName = "Harnessed FreeResponseEditor";
 
 describe("free-response editor", () => {
     let userEvent: UserEvent;
@@ -38,7 +43,7 @@ describe("free-response editor", () => {
 
     it("renders the question", async () => {
         // Act
-        render(<Harnassed question="test-question" />);
+        render(<HarnessedEditor question="test-question" />);
 
         // Assert
         expect(screen.getByText("Question")).toBeInTheDocument();
@@ -51,7 +56,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 allowUnlimitedCharacters={false}
                 onChange={onChangeMock}
             />,
@@ -72,7 +77,7 @@ describe("free-response editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<Harnassed characterLimit={0} onChange={onChangeMock} />);
+        render(<HarnessedEditor characterLimit={0} onChange={onChangeMock} />);
 
         await userEvent.type(screen.getByLabelText(/Character limit/), "1");
 
@@ -85,7 +90,7 @@ describe("free-response editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<Harnassed />);
+        render(<HarnessedEditor />);
 
         await userEvent.type(screen.getByLabelText(/Character limit/), "e");
 
@@ -98,7 +103,7 @@ describe("free-response editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<Harnassed onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
         await userEvent.type(screen.getByLabelText("Question"), "2");
 
         // Assert
@@ -111,7 +116,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 placeholder="test-placeholder"
                 onChange={onChangeMock}
             />,
@@ -131,7 +136,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 onChange={onChangeMock}
                 scoringCriteria={[{text: ""}]}
             />,
@@ -149,7 +154,7 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} question="" />);
+        render(<HarnessedEditor ref={ref} question="" />);
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([
@@ -162,7 +167,7 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} question="[[☃ radio 1]]" />);
+        render(<HarnessedEditor ref={ref} question="[[☃ radio 1]]" />);
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([
@@ -175,7 +180,13 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} placeholder="" question="test-question" />);
+        render(
+            <HarnessedEditor
+                ref={ref}
+                placeholder=""
+                question="test-question"
+            />,
+        );
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);
@@ -186,7 +197,7 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} question="test-question" />);
+        render(<HarnessedEditor ref={ref} question="test-question" />);
 
         // Assert
         expect(ref.current?.serialize()).toMatchObject({
@@ -200,7 +211,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 ref={ref}
                 question="test-question"
                 scoringCriteria={[
@@ -224,7 +235,7 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} />);
+        render(<HarnessedEditor ref={ref} />);
 
         // Assert
         expect(ref.current?.serialize()).toMatchObject({
@@ -237,7 +248,7 @@ describe("free-response editor", () => {
         const ref = React.createRef<FreeResponseEditor>();
 
         // Act
-        render(<Harnassed ref={ref} />);
+        render(<HarnessedEditor ref={ref} />);
 
         // Assert
         expect(ref.current?.serialize()).toMatchObject({
@@ -251,7 +262,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 scoringCriteria={[{text: "criterion-1"}]}
                 onChange={onChangeMock}
             />,
@@ -272,7 +283,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 scoringCriteria={[{text: "criterion-1"}]}
                 onChange={onChangeMock}
             />,
@@ -292,7 +303,7 @@ describe("free-response editor", () => {
 
         // Act
         render(
-            <Harnassed
+            <HarnessedEditor
                 scoringCriteria={[{text: "criterion-1"}, {text: "criterion-2"}]}
                 onChange={onChangeMock}
             />,
