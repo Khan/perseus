@@ -21,15 +21,14 @@ import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.sv
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import {WARNINGS} from "./messages";
+import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
@@ -50,6 +49,7 @@ type DefaultProps = {
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
 };
+
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
     dependencies: PerseusDependenciesV2;
@@ -69,9 +69,7 @@ type State = {
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
-        // NOTE(Jeremy):
-        // eslint-disable-next-line no-restricted-syntax
-        json: [{} as any],
+        json: [{content: "", widgets: {}, images: {}}],
         mode: "edit",
         screen: "desktop",
         sectionImageUploadGenerator: () => <span />,
@@ -84,7 +82,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     componentDidMount() {
         this._updateIssues();
-        this._updatePreviewFrames();
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -92,8 +89,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         if (prevProps.json !== this.props.json) {
             this._updateIssues();
         }
-
-        this._updatePreviewFrames();
     }
 
     /**
@@ -101,13 +96,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      * Helper function to be used with componentDidMount and componentDidUpdate.
      */
     _updateIssues() {
-        // Get sections array
-        const sections: PerseusArticle =
-            this.props.json instanceof Array
-                ? this.props.json
-                : [this.props.json];
-
-        const issues = sections.map((section) => {
+        const issues = this._sections().map((section) => {
             const parsed = PerseusMarkdown.parse(section.content ?? "", {});
             const linterContext = {
                 content: section.content,
@@ -144,49 +133,31 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.setState({issues});
     }
 
-    _updatePreviewFrames() {
-        if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
-                type: "article-all",
-                data: this._sections().map((section, i) => {
-                    return this._apiOptionsForSection(section, i);
-                }),
-            });
-        } else if (this.props.mode === "edit") {
-            this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
-                    type: "article",
-                    data: this._apiOptionsForSection(section, i),
-                });
-            });
-        }
-    }
-
-    _apiOptionsForSection(section: PerseusRenderer, sectionIndex: number): any {
+    _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
         // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
-        return {
-            apiOptions: {
-                ...ApiOptions.defaults,
-                ...this.props.apiOptions,
 
-                // Alignment options are always available in article
-                // editors
-                showAlignmentOptions: true,
-                isArticle: true,
-            },
-            json: section,
+        return {
+            article: section,
+            apiOptions: this._apiOptionsForPreview(),
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
+            legacyPerseusLint: editor?.getSaveWarnings() ?? [],
+        };
+    }
+
+    _apiOptionsForPreview(): APIOptions {
+        return {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+
+            // Alignment options are always available in article
+            // editors
+            showAlignmentOptions: true,
+            isArticle: true,
         };
     }
 
@@ -209,6 +180,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         const sections = this._sections();
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const isMobile = this._isMobilePreview();
 
         return (
             <div className="perseus-editor-table">
@@ -300,7 +272,24 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 </div>
 
                                 <div className="editor-preview">
-                                    {this._renderIframePreview(i, true)}
+                                    <DeviceFramer
+                                        deviceType={this.props.screen}
+                                        nochrome={true}
+                                    >
+                                        <PreviewWithIframe
+                                            key={`${String(i)}-${this.props.screen}`}
+                                            isMobile={isMobile}
+                                            seamless={true}
+                                            url={this.props.previewURL}
+                                            content={{
+                                                type: "article-section" as const,
+                                                data: this._previewDataForSection(
+                                                    section,
+                                                    i,
+                                                ),
+                                            }}
+                                        />
+                                    </DeviceFramer>
                                 </div>
                             </fieldset>
                         </div>,
@@ -352,31 +341,24 @@ export default class ArticleEditor extends React.Component<Props, State> {
         );
     }
 
-    _renderIframePreview(
-        i: number | string,
-        nochrome: boolean,
-    ): React.ReactElement<any> {
-        const isMobile =
-            this.props.screen === "phone" || this.props.screen === "tablet";
-
-        return (
-            <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                <IframeContentRenderer
-                    ref={"frame-" + i}
-                    key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
-                    seamless={nochrome}
-                    url={this.props.previewURL}
-                />
-            </DeviceFramer>
-        );
-    }
-
     _renderPreviewMode(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="standalone-preview">
-                {this._renderIframePreview("all", false)}
+                <DeviceFramer deviceType={this.props.screen} nochrome={false}>
+                    <PreviewWithIframe
+                        key={`all-${this.props.screen}`}
+                        isMobile={this._isMobilePreview()}
+                        seamless={false}
+                        url={this.props.previewURL}
+                        content={{
+                            type: "article-all" as const,
+                            data: {
+                                article: this._sections(),
+                                apiOptions: this._apiOptionsForPreview(),
+                            },
+                        }}
+                    />
+                </DeviceFramer>
             </div>
         );
     }
@@ -393,6 +375,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         sections[i] = {...sections[i], ...newProps};
         this.props.onChange({json: sections});
     };
+
+    private _isMobilePreview() {
+        return this.props.screen === "phone" || this.props.screen === "tablet";
+    }
 
     _handleMoveSectionEarlier(i: number) {
         if (i === 0) {
@@ -423,20 +409,24 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _handleAddSectionAfter(i: number) {
         // We do a full serialization here because we
         // might be copying widgets:
-        const sections = _.clone(this.serialize());
+        const clonedArticle = this.serialize();
+        // Articles are (annoyingly) either a single PerseusRenderer _or_ an
+        // array of them! Would be nice for the article to always be an array!
+        const sections =
+            clonedArticle instanceof Array ? clonedArticle : [clonedArticle];
+
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
-        const newSection =
-            i >= 0
-                ? {
-                      widgets: sections[i].widgets,
-                  }
-                : {};
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'PerseusArticle'.
+        const newSection = {
+            content: "",
+            images: {},
+            widgets: i >= 0 ? sections[i].widgets : {},
+        };
+
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
