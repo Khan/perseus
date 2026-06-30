@@ -1,13 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
-import {
-    components,
-    ApiOptions,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {components, Changeable, iconTrash} from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../editor";
@@ -22,18 +15,21 @@ import type {
 
 const {InlineIcon, TextInput} = components;
 
-type Props = any;
+type Props = {
+    title?: string;
+    content?: string;
+    widgets?: Record<string, any>;
+    images?: Record<string, any>;
+    apiOptions?: any;
+    hint?: {
+        content: string;
+        widgets: Record<string, any>;
+        images: Record<string, any>;
+    } | null;
+    onChange: (...args: ReadonlyArray<any>) => any;
+};
 
 class GradedGroupEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        title: PropTypes.string,
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
-
     static widgetName = "graded-group" as const;
 
     static defaultProps: GradedGroupDefaultWidgetOptions =
@@ -62,7 +58,7 @@ class GradedGroupEditor extends React.Component<Props> {
     };
 
     serialize: () => {
-        title: string;
+        title: string | undefined;
         hint: any | null | undefined;
     } = () => {
         return {

@@ -5,7 +5,6 @@ import {
     MatrixWidget,
 } from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -21,18 +20,18 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    matrixBoardSize: ReadonlyArray<number>;
+    answers?: Array<Array<number>>;
+    prefix?: string;
+    suffix?: string;
+    cursorPosition?: ReadonlyArray<number>;
+    apiOptions?: any;
+    labelStyle?: string;
+};
 
 class MatrixEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        matrixBoardSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        prefix: PropTypes.string,
-        suffix: PropTypes.string,
-        cursorPosition: PropTypes.arrayOf(PropTypes.number),
-    };
-
     static widgetName = "matrix" as const;
 
     static defaultProps: MatrixDefaultWidgetOptions =
@@ -46,22 +45,23 @@ class MatrixEditor extends React.Component<Props> {
     };
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
-        const matrixSize = getMatrixSize(this.props.answers);
+        const answers = this.props.answers ?? [];
+        const matrixSize = getMatrixSize(answers);
         if (range[0] !== null && range[1] !== null) {
             range = [
                 Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
                 Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
             ];
-            const answers = _(Math.min(range[0], matrixSize[0])).times(
+            const newAnswers = _(Math.min(range[0], matrixSize[0])).times(
                 (row) => {
                     return _(Math.min(range[1], matrixSize[1])).times((col) => {
-                        return this.props.answers[row][col];
+                        return answers[row][col];
                     });
                 },
             );
             this.props.onChange({
                 matrixBoardSize: range,
-                answers: answers,
+                answers: newAnswers,
             });
         }
     };
@@ -75,11 +75,11 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: this.props.answers},
+            userInput: {answers: (this.props.answers ?? []) as any},
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
             },
-            ...this.props,
+            ...(this.props as any),
         };
 
         return (

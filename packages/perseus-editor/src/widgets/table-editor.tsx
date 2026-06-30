@@ -3,7 +3,6 @@ import {
     tableLogic,
     type TableDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -14,16 +13,16 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 const {InfoTip, NumberInput} = components;
 const Table = TableWidget.widget;
 
-type Props = any;
+type Props = {
+    rows?: number;
+    columns?: number;
+    headers?: Array<string>;
+    answers?: Array<Array<string>>;
+    onChange: (...args: ReadonlyArray<any>) => any;
+    apiOptions?: any;
+};
 
 class TableEditor extends React.Component<Props> {
-    static propTypes = {
-        rows: PropTypes.number,
-        columns: PropTypes.number,
-        headers: PropTypes.arrayOf(PropTypes.string),
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    };
-
     static widgetName = "table" as const;
 
     static defaultProps: TableDefaultWidgetOptions =
@@ -45,10 +44,10 @@ class TableEditor extends React.Component<Props> {
         let columns = +numRawColumns || 0;
         rows = Math.min(Math.max(1, rows), 30);
         columns = Math.min(Math.max(1, columns), 6);
-        const oldColumns = this.props.columns;
-        const oldRows = this.props.rows;
+        const oldColumns = this.props.columns ?? 0;
+        const oldRows = this.props.rows ?? 0;
 
-        const answers = this.props.answers;
+        const answers = this.props.answers ?? [];
         // Truncate if necessary; else, append
         if (rows <= oldRows) {
             answers.length = rows;
@@ -85,7 +84,7 @@ class TableEditor extends React.Component<Props> {
         const json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone),
+            answers: _.map(this.props.answers ?? [], _.clone),
         });
     };
 
@@ -93,7 +92,7 @@ class TableEditor extends React.Component<Props> {
         const tableProps: Partial<PropsFor<typeof Table>> = {
             headers: this.props.headers,
             onChange: this.props.onChange,
-            userInput: this.props.answers,
+            userInput: (this.props.answers ?? []) as any,
             handleUserInput: (userInput) => {
                 // Disable table input changes when editing is disabled
                 if (this.props.apiOptions?.editingDisabled) {
@@ -121,7 +120,7 @@ class TableEditor extends React.Component<Props> {
                             value={this.props.columns}
                             onChange={(val) => {
                                 if (val) {
-                                    this.onSizeInput(this.props.rows, val);
+                                    this.onSizeInput(this.props.rows ?? 0, val);
                                 }
                             }}
                             useArrowKeys={true}
@@ -137,7 +136,10 @@ class TableEditor extends React.Component<Props> {
                             value={this.props.rows}
                             onChange={(val) => {
                                 if (val) {
-                                    this.onSizeInput(val, this.props.columns);
+                                    this.onSizeInput(
+                                        val,
+                                        this.props.columns ?? 0,
+                                    );
                                 }
                             }}
                             useArrowKeys={true}

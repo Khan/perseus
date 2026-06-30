@@ -1,12 +1,10 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {
     sorterLogic,
     type SorterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -15,19 +13,19 @@ const {InfoTip, TextListEditor} = components;
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    correct?: ReadonlyArray<any>;
+    layout?: string;
+    padding?: boolean;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a sorter widget that allows users to arrange items in a specific order.
+ * An editor for adding a sorter widget that allows users to arrange
+ * items in a specific order.
  */
 class SorterEditor extends React.Component<Props> {
-    static propTypes = {
-        correct: PropTypes.array,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "sorter" as const;
 
     static defaultProps: SorterDefaultWidgetOptions =
