@@ -2,7 +2,7 @@
  * Renders answer bar for mobile graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -129,12 +129,12 @@ const styles = {
         marginTop: phoneMargin,
         paddingLeft: phoneMargin,
         paddingRight: 10,
-        borderTop: `1px solid ${semanticColor.core.border.neutral.default}`,
+        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
     },
 
     tryAgainIcon: {
         fontSize: font.size.xxLarge,
-        color: "#63D9EA",
+        color: semanticColor.core.foreground.instructive.default,
         transform: "scale(-1,1) rotate(-268deg)",
     },
 

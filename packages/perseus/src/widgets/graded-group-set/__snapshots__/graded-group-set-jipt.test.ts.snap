@@ -24,13 +24,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="container_14sgdtb"
+            class="container_w7zzoh"
           >
             <div
               class="perseus-graded-group"
             >
               <div
-                class="title_g89zw8"
+                class="title_ryhlxm"
               >
                 Problem 1a
               </div>
@@ -121,7 +121,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_g89zw8"
+                class="title_ryhlxm"
               >
                 Problem 1b
               </div>
@@ -212,7 +212,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_g89zw8"
+                class="title_ryhlxm"
               >
                 Problem 1c
               </div>
