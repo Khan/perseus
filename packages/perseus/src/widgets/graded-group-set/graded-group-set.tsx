@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotFocused: {
-        borderWidth: 5,
+        borderWidth: border.width.thick,
         borderStyle: "double",
     },
 
