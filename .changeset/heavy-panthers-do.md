@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Replace hardcoded KhanColors with semantic tokens in graphie-movables and movable-point
+Update graphie-movables and movable files to use font and color tokens
