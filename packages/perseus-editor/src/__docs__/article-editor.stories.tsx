@@ -108,6 +108,7 @@ export const WithEditingDisabled = (): React.ReactElement => {
     const articleEditorRef = useRef();
     const disabledApiOptions = {
         ...ApiOptions.defaults,
+        isArticle: true,
         editingDisabled: true,
     };
     const storybookPreviewUrl = usePreviewUrl();

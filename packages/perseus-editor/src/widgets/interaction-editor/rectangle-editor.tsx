@@ -9,8 +9,6 @@ import * as React from "react";
 import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
-const {getDependencies} = Dependencies;
-
 type Props = Changeable.ChangeableProps & {
     color: string;
     coordX: string;
@@ -46,7 +44,7 @@ class RectangleEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div className="graph-settings">
