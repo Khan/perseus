@@ -110,6 +110,35 @@ describe("InteractiveGraphEditor", () => {
         ).toBeInTheDocument();
     });
 
+    it("preserves the configured graph and correct answer when `valid` is a string", () => {
+        // Arrange
+        const ref = React.createRef<InteractiveGraphEditor>();
+
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                // An invalid state (e.g. a too-large tick step) unmounts the
+                // InteractiveGraph component, so serialize() can't read the
+                // answer from its ref. It must not fall back to a default
+                // `linear` graph.
+                valid="Step is too large, there must be at least 3 ticks."
+                ref={ref}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const json = ref.current!.serialize();
+
+        // Assert
+        expect(json.graph.type).toBe("segment");
+        expect(json.correct.type).toBe("segment");
+    });
+
     it("uses default graph type if one is not provided", async () => {
         // Arrange
 
