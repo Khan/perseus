@@ -32,6 +32,7 @@ describe("EditorPage", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        Dependencies.setDependencies(testDependencies);
     });
 
     // Regression (LEMS-3252)

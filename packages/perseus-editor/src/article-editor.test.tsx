@@ -12,8 +12,13 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "./testing/test-dependencies";
+import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
 
 describe("ArticleEditor", () => {
+    beforeAll(() => {
+        registerAllWidgetsAndEditorsForTesting();
+    });
+
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -23,6 +28,7 @@ describe("ArticleEditor", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        Dependencies.setDependencies(testDependencies);
     });
 
     it("should render", () => {
