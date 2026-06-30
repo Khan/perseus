@@ -1,3 +1,5 @@
+import {screen} from "@testing-library/react";
+
 import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
@@ -32,7 +34,10 @@ describe("grapher widget", () => {
     it("should snapshot linear graph question", async () => {
         // Arrange and Act
         const {container} = renderQuestion(linearQuestion);
-        await waitForInitialGraphieRender();
+        // A grapher with a single available type renders using the
+        // Interactive Graph components, which wrap the graph in an ARIA
+        // `figure`.
+        expect(await screen.findByRole("figure")).toBeInTheDocument();
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
