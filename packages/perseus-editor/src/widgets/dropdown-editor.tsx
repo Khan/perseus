@@ -11,30 +11,27 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 const {InfoTip} = components;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    choices?: Array<{content: string; correct: boolean}>;
+    placeholder?: string;
+    visibleLabel?: string;
+    ariaLabel?: string;
+    apiOptions?: any;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
+ * An editor for adding a dropdown widget that allows users to select
+ * an option from a predefined list.
  */
 class DropdownEditor extends React.Component<Props> {
-    static propTypes = {
-        choices: PropTypes.arrayOf(
-            PropTypes.shape({
-                content: PropTypes.string,
-                correct: PropTypes.bool,
-            }),
-        ),
-        placeholder: PropTypes.string,
-    };
-
     static widgetName = "dropdown" as const;
 
     static defaultProps: DropdownDefaultWidgetOptions =
@@ -53,7 +50,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     onCorrectChange: (arg1: number) => void = (choiceIndex) => {
-        const choices = _.map(this.props.choices, function (choice, i) {
+        const choices = _.map(this.props.choices ?? [], function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
             });
@@ -65,7 +62,7 @@ class DropdownEditor extends React.Component<Props> {
         choiceIndex,
         newContent,
     ) => {
-        const choices = this.props.choices.slice();
+        const choices = (this.props.choices ?? []).slice();
         const choice = _.clone(choices[choiceIndex]);
         choice.content = newContent;
         choices[choiceIndex] = choice;
@@ -73,7 +70,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     addChoice: () => void = () => {
-        const choices = this.props.choices;
+        const choices = this.props.choices ?? [];
         const blankChoice = {content: "", correct: false} as const;
         this.props.onChange(
             {
@@ -84,7 +81,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     removeChoice: (arg1: number) => void = (choiceIndex) => {
-        const choices = _(this.props.choices).clone();
+        const choices = (this.props.choices ?? []).slice();
         choices.splice(choiceIndex, 1);
         this.props.onChange({
             choices: choices,
@@ -124,7 +121,7 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Visible label
                         <TextField
-                            value={this.props.visibleLabel}
+                            value={this.props.visibleLabel ?? ""}
                             onChange={this.onVisibleLabelChange}
                         />
                     </BodyText>
@@ -136,7 +133,7 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Aria label
                         <TextField
-                            value={this.props.ariaLabel}
+                            value={this.props.ariaLabel ?? ""}
                             onChange={this.onAriaLabelChange}
                             type={"text"}
                         />
@@ -163,7 +160,7 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Placeholder
                         <TextField
-                            value={this.props.placeholder}
+                            value={this.props.placeholder ?? ""}
                             onChange={this.onPlaceholderChange}
                             placeholder={"Placeholder value"}
                         />
@@ -180,7 +177,7 @@ class DropdownEditor extends React.Component<Props> {
                 <div className="clearfix" />
                 <BodyText>Choices</BodyText>
                 <ul className="dropdown-choices">
-                    {this.props.choices.map((choice, i) => {
+                    {(this.props.choices ?? []).map((choice, i) => {
                         const choiceBackgroundColor = choice.correct
                             ? semanticColor.core.background.success.subtle
                             : semanticColor.core.background.critical.subtle;

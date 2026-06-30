@@ -57,12 +57,12 @@ type Props = {
     starting: ReadonlyArray<number>;
     correct: ReadonlyArray<number>;
     static: boolean;
-    onChange: any;
+    onChange: (partial: Partial<PerseusPlotterWidgetOptions>) => void;
 };
 
 type State = {
     editing: EditingState;
-    pic: any;
+    pic: HTMLImageElement | null;
     loadedUrl: string | null;
     minX: number | null;
     maxX: number | null;

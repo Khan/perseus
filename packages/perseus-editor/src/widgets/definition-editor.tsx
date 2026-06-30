@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {definitionLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -12,7 +11,12 @@ import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    togglePrompt?: string;
+    definition?: string;
+    apiOptions?: any;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -20,13 +24,6 @@ type Props = any;
  * editors to embed clickable terms with expandable explanations within content.
  */
 class DefinitionEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        togglePrompt: PropTypes.string,
-        definition: PropTypes.string,
-        apiOptions: PropTypes.any,
-    };
-
     static widgetName = "definition" as const;
 
     static defaultProps: DefinitionDefaultWidgetOptions =

@@ -2,7 +2,6 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -16,26 +15,24 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    box?: ReadonlyArray<number>;
+    image?: {
+        url?: string | null;
+        top?: number;
+        left?: number;
+    };
+    showProtractor?: boolean;
+    showRuler?: boolean;
+    rulerLabel?: string;
+    rulerTicks?: number;
+    rulerPixels?: number;
+    rulerLength?: number;
+};
 
 class MeasurerEditor extends React.Component<Props> {
     static widgetName = "measurer" as const;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        box: PropTypes.arrayOf(PropTypes.number),
-        image: PropTypes.shape({
-            url: PropTypes.string,
-            top: PropTypes.number,
-            left: PropTypes.number,
-        }),
-        showProtractor: PropTypes.bool,
-        showRuler: PropTypes.bool,
-        rulerLabel: PropTypes.string,
-        rulerTicks: PropTypes.number,
-        rulerPixels: PropTypes.number,
-        rulerLength: PropTypes.number,
-    };
 
     static defaultProps: MeasurerDefaultWidgetOptions =
         measurerLogic.defaultWidgetOptions;
@@ -59,7 +56,7 @@ class MeasurerEditor extends React.Component<Props> {
     };
 
     _changeImage: (arg1: string, arg2: any) => void = (subProp, newValue) => {
-        const image = _.clone(this.props.image);
+        const image: Record<string, any> = _.clone(this.props.image ?? {});
         image[subProp] = newValue;
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change("image", image);
