@@ -77,7 +77,7 @@ describe("getAnswerfulItem", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
@@ -133,7 +133,7 @@ describe("getAnswerlessItem", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 periodicTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,

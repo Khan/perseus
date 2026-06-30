@@ -103,6 +103,7 @@ export function getAnswersFromWidgets(
                     }
                 }
                 break;
+            case "input-number":
             case "numeric-input":
                 // Answer is the numeric value cast to a string
                 const numericInput = widget;
@@ -113,14 +114,6 @@ export function getAnswersFromWidgets(
                             answers.push(ans.value.toString());
                         }
                     }
-                }
-                break;
-            case "input-number":
-                // Answer is the correct value
-                const inputNumber = widget;
-                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                if (inputNumber.options?.value) {
-                    answers.push(inputNumber.options.value.toString());
                 }
                 break;
             case "expression":

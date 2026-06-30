@@ -10,16 +10,29 @@ import {convert} from "../general-purpose-parsers/convert";
 
 type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
+type ParsedAnswerArea = {
+    calculator: boolean;
+    calculatorVariant?: CalculatorVariant;
+    financialCalculatorMonthlyPayment: boolean;
+    financialCalculatorTotalAmount: boolean;
+    financialCalculatorTimeToPayOff: boolean;
+    periodicTable: boolean;
+    periodicTableWithKey: boolean;
+};
+
 const booleanOrFalse = defaulted(boolean, () => false);
-const nullableCalculatorVariant = defaulted(
-    nullable(enumeration("scientific", "graphing", "four_function")),
-    () => null,
-);
+// Normalize legacy null values to undefined so content editors aren't prompted with a save warning.
+const calculatorVariantOrUndefined = pipeParsers(
+    defaulted(
+        nullable(enumeration("scientific", "graphing", "four_function")),
+        () => null,
+    ),
+).then(convert((v) => v ?? undefined)).parser;
 
 const baseParser = defaulted(
     object({
         calculator: booleanOrFalse,
-        calculatorVariant: nullableCalculatorVariant,
+        calculatorVariant: calculatorVariantOrUndefined,
         financialCalculatorMonthlyPayment: booleanOrFalse,
         financialCalculatorTotalAmount: booleanOrFalse,
         financialCalculatorTimeToPayOff: booleanOrFalse,
@@ -28,7 +41,7 @@ const baseParser = defaulted(
     }),
     () => ({
         calculator: false,
-        calculatorVariant: null,
+        calculatorVariant: undefined,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -38,12 +51,15 @@ const baseParser = defaulted(
 );
 
 export const parsePerseusAnswerArea = pipeParsers(baseParser).then(
-    convert((parsed) => {
-        const calculatorVariant: CalculatorVariant | null =
-            parsed.calculator && parsed.calculatorVariant === null
+    convert((parsed): ParsedAnswerArea => {
+        const {calculatorVariant: parsedCalcVariant, ...rest} = parsed;
+        const calculatorVariant =
+            parsed.calculator && parsedCalcVariant === undefined
                 ? "scientific"
-                : parsed.calculatorVariant;
+                : parsedCalcVariant;
 
-        return {...parsed, calculatorVariant};
+        return calculatorVariant !== undefined
+            ? {...rest, calculatorVariant}
+            : rest;
     }),
 ).parser;

@@ -207,8 +207,6 @@ export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 /** @hidden */
-export {convertInputNumberOptionsToNumericInput} from "./widgets/input-number/to-numeric-input";
-/** @hidden */
 export {
     convertGrapherOptionsToInteractiveGraph,
     convertGrapherUserInputToInteractiveGraph,
@@ -377,6 +375,7 @@ export {
 export {
     generateInputNumberOptions,
     generateInputNumberWidget,
+    generateInputNumberAnswer,
 } from "./utils/generators/input-number-widget-generator";
 /** @hidden */
 export {

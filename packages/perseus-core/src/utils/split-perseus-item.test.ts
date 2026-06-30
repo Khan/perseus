@@ -247,9 +247,12 @@ describe("splitPerseusItem", () => {
                         textAlign: "left",
                         answers: [
                             {
+                                value: null,
                                 simplify: "required",
                                 status: "correct",
+                                strict: false,
                                 answerForms: ["pi"],
+                                message: "",
                             },
                         ],
                     },
@@ -595,7 +598,7 @@ describe("splitPerseusItemJSON", () => {
             hints: [],
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
