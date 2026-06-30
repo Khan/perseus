@@ -213,25 +213,38 @@ the target). This avoids hard-coding start positions.
 - **Does `@use-gesture` keyboard-drag respond under Cypress component
   testing, and via which API?** This is the biggest risk and should be a
   first-step spike. Candidates, in order of expected reliability:
-  `cy.realPress("ArrowRight")` (cypress-real-events, OS-level) > 
-  `cy.get(handle).trigger("keydown", {key: "ArrowRight"})` > 
+  `cy.realPress("ArrowRight")` (cypress-real-events, OS-level) >
+  `cy.get(handle).trigger("keydown", {key: "ArrowRight"})` >
   `cy.focused().type("{rightarrow}")`. Confirm one works end-to-end on a
   single test before rewriting the rest.
 - If keyboard movement proves unworkable in Cypress, is **pointer-based
   dragging** via `cy.realMouseDown/realMouseMove/realMouseUp` (which emit the
   pointer events `useDrag` listens for) an acceptable fallback, accepting the
   less-deterministic pixel math?
+    - Answer: yes, but prefer keyboard movement over mouse
 - Should these remain **Cypress** tests at all? Equivalent keyboard-driven
   coverage already exists as fast, deterministic RTL tests in
   `interactive-graph.test.tsx`, and a grapher-level RTL test could live in
   `grapher.test.ts`. The task says to rewrite the Cypress tests, so the plan
   assumes Cypress — but flag whether porting to RTL (and deleting the Cypress
   blocks) is preferable.
+    - Answer: keep it in Cypress. Some of the tests are for cases that have not
+      changed ("quadratic" and "complex graph question"), so we need to keep those tests.
 - Confirm the exact **default start coordinates** for each graph type as
   produced by `initialize-graph-state.ts` for these questions (range
   `[-10,10]`, step `[1,1]`), or commit to the aria-label-driven "press until
   target" approach so start positions don't need to be hard-coded.
+    - Answer: Use the aria labels
 - For absolute value, confirm which handle is point index 0 (vertex) vs 1
   (arm) and that moving to the `correct` coords in that order grades as
   correct (the same-x keyboard constraint may require ordering the moves to
   avoid a transient collision).
+    - Answer: vertex is index 0. moving to the `correct` coords in that order grades as correct.
+
+## Notes
+
+The following tests are for behavior that has not changed (still using the legacy Grapher UI).
+They should not need to be updated.
+
+- `describe("quadratic graph", () => {`
+- `describe("complex graph question", () => {`
