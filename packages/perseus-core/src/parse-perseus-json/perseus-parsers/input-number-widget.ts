@@ -72,7 +72,10 @@ export type PerseusInputNumberWidgetOptionsV0 = ParsedValue<
 >["options"];
 
 const parseInputNumberWidgetV0 = parseWidgetWithVersion(
-    optional(object({major: constant(0), minor: number})),
+    defaulted(
+        optional(object({major: constant(0), minor: number})),
+        () => undefined,
+    ),
     constant("input-number"),
     object({
         answerType: optional(
