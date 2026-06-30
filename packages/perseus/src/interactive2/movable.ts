@@ -63,21 +63,11 @@ interface State {
     constraints?: Constraint[];
 }
 
-type MoveHandler = (
-    e: Readonly<{
-        pageX?: number;
-        pageY?: number;
-        preventDefault(): void;
-    }>,
-) => void;
-
 export class Movable<Options extends Record<string, any>> {
     graphie: Graphie;
     state: State;
     prevState: State | undefined;
     _listenerMap: Record<string, number> = {};
-    _moveHandler: MoveHandler | null = null;
-    _upHandler: (() => void) | null = null;
 
     constructor(graphie: Graphie, options: Options) {
         this.graphie = graphie;
@@ -246,7 +236,13 @@ export class Movable<Options extends Record<string, any>> {
         let prevMouseCoord = startMouseCoord;
         this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
 
-        const moveHandler: MoveHandler = (e) => {
+        const moveHandler = (
+            e: Readonly<{
+                pageX?: number;
+                pageY?: number;
+                preventDefault(): void;
+            }>,
+        ) => {
             e.preventDefault();
 
             const mouseCoord = graphie.getMouseCoord(e);
@@ -256,13 +252,8 @@ export class Movable<Options extends Record<string, any>> {
         };
 
         const upHandler = () => {
-            // Reference the handlers lexically (not via the instance fields) so
-            // each grab/up pair always unbinds its own handlers, even if grab()
-            // is called again before this fires.
             $(document).unbind("vmousemove", moveHandler);
             $(document).unbind("vmouseup", upHandler);
-            this._moveHandler = null;
-            this._upHandler = null;
             if (state.isHovering) {
                 this._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
             }
@@ -272,12 +263,6 @@ export class Movable<Options extends Record<string, any>> {
             this._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
             this.draw();
         };
-
-        // Store references so remove() can unbind these even when it's called
-        // outside the normal mouseup flow (e.g. the movable is torn down
-        // mid-drag).
-        this._moveHandler = moveHandler;
-        this._upHandler = upHandler;
 
         $(document).bind("vmousemove", moveHandler);
         $(document).bind("vmouseup", upHandler);
@@ -405,19 +390,6 @@ export class Movable<Options extends Record<string, any>> {
 
     remove() {
         this.state.added = false;
-        if (this._moveHandler) {
-            $(document).unbind("vmousemove", this._moveHandler);
-            this._moveHandler = null;
-        }
-        if (this._upHandler) {
-            $(document).unbind("vmouseup", this._upHandler);
-            this._upHandler = null;
-            // A non-null _upHandler means this movable owns an in-flight drag
-            // (it set graphie.isDragging when it grabbed). The mouseup that
-            // would normally clear the flag won't fire now that we've unbound
-            // it, so reset it here to avoid leaving the graphie stuck dragging.
-            this.graphie.isDragging = false;
-        }
         this._fireEvent(this.state.remove);
         if (this.state.mouseTarget) {
             $(this.state.mouseTarget).off();
