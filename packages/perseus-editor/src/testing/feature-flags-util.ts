@@ -12,7 +12,6 @@ const DEFAULT_FEATURE_FLAGS: Record<
     // Real production flags.
     "input-number-to-numeric-input": false,
     "perseus-renderer-upgrade": false,
-    "grapher-to-interactive-graph": false,
     "desmos-calculator": false,
     "perseus-enable-point-label-field": false, // TODO(AITQ-385): clean up feature flag
     // ...add new flags here
