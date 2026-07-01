@@ -18,6 +18,12 @@
         "composite": true,
         "incremental": true, // Required for composite projects
 
+        // TS 6.0 no longer auto-includes ambient-global @types packages (e.g.
+        // node, jest) when building project references, so we list the ones our
+        // non-test source files rely on (process, require, __dirname, Buffer in
+        // build/codegen scripts; jest/expect in shared testing helpers).
+        "types": ["node", "jest"],
+
         // We use rollup + swc to compile our bundles so we
         // only need tsc to output .d.ts files
         "declaration": true,
