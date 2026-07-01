@@ -42,8 +42,8 @@ export function getAnnouncementText(
             return strings.srVectorGrabHandle({
                 tailX: srFormatNumber(state.coords[0][0], locale),
                 tailY: srFormatNumber(state.coords[0][1], locale),
-                tipX: srFormatNumber(state.coords[1][0], locale),
-                tipY: srFormatNumber(state.coords[1][1], locale),
+                headX: srFormatNumber(state.coords[1][0], locale),
+                headY: srFormatNumber(state.coords[1][1], locale),
             });
         case "move-segment-point":
             return srSegmentPointLabel(state, strings, locale);

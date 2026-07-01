@@ -29,14 +29,14 @@ describe("describeVectorGraph", () => {
         // Assert
         expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
         expect(strings.srVectorPoints).toBe(
-            "The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "The tail is at -5 comma 0 and the head is at 5 comma 0.",
         );
-        expect(strings.srVectorTipPoint).toBe("Tip point at 5 comma 0.");
+        expect(strings.srVectorHeadPoint).toBe("Vector head at 5 comma 0.");
         expect(strings.srVectorGrabHandle).toBe(
             "Vector from -5 comma 0 to 5 comma 0.",
         );
         expect(strings.srVectorInteractiveElement).toBe(
-            "Interactive elements: A vector on a coordinate plane. The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "Interactive elements: A vector on a coordinate plane. The tail is at -5 comma 0 and the head is at 5 comma 0.",
         );
     });
 
@@ -56,9 +56,9 @@ describe("describeVectorGraph", () => {
         // Assert
         expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
         expect(strings.srVectorPoints).toBe(
-            "The tail is at 1 comma 2 and the tip is at 4 comma 6.",
+            "The tail is at 1 comma 2 and the head is at 4 comma 6.",
         );
-        expect(strings.srVectorTipPoint).toBe("Tip point at 4 comma 6.");
+        expect(strings.srVectorHeadPoint).toBe("Vector head at 4 comma 6.");
         expect(strings.srVectorGrabHandle).toBe(
             "Vector from 1 comma 2 to 4 comma 6.",
         );

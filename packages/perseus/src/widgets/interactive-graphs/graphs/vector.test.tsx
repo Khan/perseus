@@ -10,6 +10,8 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
+import {getVectorTipKeyboardConstraint} from "./vector";
+
 import type {InteractiveGraphState} from "../types";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
