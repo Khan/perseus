@@ -216,6 +216,15 @@ jobs:
                     exit 1
                   fi
 
+            - name: React to /snapshot comment
+              if: github.event_name == 'issue_comment'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh api \
+                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+                    -X POST -f content='eyes'
+
             # We need to checkout all history, so that the changeset tool can diff it.
             # We check out the PR's merge commit so we publish what would land on main.
             - name: Checkout current commit
@@ -367,3 +376,14 @@ jobs:
                       finish, then retry this workflow.
 
                       [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
+
+            - name: React to /snapshot comment on success
+              if: >-
+                  github.event_name == 'issue_comment' &&
+                  steps.publish-snapshot.outputs.npm_snapshot_tag != ''
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh api \
+                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+                    -X POST -f content='rocket'
