@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 30.0.2
+
+### Patch Changes
+
+-   [#3852](https://github.com/Khan/perseus/pull/3852) [`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf) Thanks [@benchristel](https://github.com/benchristel)! - Input Number widgets with `version: null` are now parsed successfully. This fixes an error in the translation editor.
+
 ## 30.0.1
 
 ### Patch Changes
