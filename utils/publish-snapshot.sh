@@ -15,6 +15,15 @@ MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # ROOT is the root directory of our project.
 ROOT="$MYPATH/.."
 
+# This environment variable is checked in `prepublishOnly` hooks to verify that
+# the package is correctly versioned for a snapshot release before proceeding.
+# This is done to catch a race condition where a main release is occurring
+# while a snapshot release is requested, avoiding us publishing packages
+# that we shouldn't be.
+# See https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/3571646568/Race+condition+breaks+Perseus+release
+# Need to export this so that the invoked commands see it.
+export SNAPSHOT_RELEASE=1
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [options] <pr-number>
@@ -106,17 +115,6 @@ pre_publish_check() {
 
 parse_args "$@"
 verify_env
-
-# This environment variable is checked in `prepublishOnly` hooks to verify that
-# the package is correctly versioned for a snapshot release before proceeding.
-#
-# This is done to catch a race condition where a main release is occurring
-# while a snapshot release is requested, avoiding us publishing packages
-# that we shouldn't be.
-#
-# See https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/3571646568/Race+condition+breaks+Perseus+release
-# Need to export this so that the invoked commands see it.
-export SNAPSHOT_RELEASE=1
 
 pushd "$ROOT"
 
