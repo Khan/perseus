@@ -22,7 +22,6 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
-const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
 
 type Graph = {
@@ -200,7 +199,7 @@ class InteractionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div className="perseus-widget-interaction-editor">

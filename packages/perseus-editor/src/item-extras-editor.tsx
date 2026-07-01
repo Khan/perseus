@@ -52,7 +52,7 @@ class ItemExtrasEditor extends React.Component<Props> {
     static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
 
     shouldShowCalculatorVariants() {
-        return this.props.calculatorVariant !== null;
+        return this.props.calculatorVariant !== undefined;
     }
 
     shouldShowFinancialCalculatorOptions() {
@@ -86,7 +86,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 calculator: newCheckedState,
                                 calculatorVariant: newCheckedState
                                     ? "scientific"
-                                    : null,
+                                    : undefined,
                             });
                         }}
                     />

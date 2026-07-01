@@ -256,7 +256,7 @@ describe("server item renderer", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,

@@ -1,5 +1,55 @@
 # @khanacademy/perseus-editor
 
+## 34.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+    -   @khanacademy/kmath@2.4.29
+    -   @khanacademy/math-input@26.4.43
+    -   @khanacademy/perseus@79.1.1
+    -   @khanacademy/perseus-linter@5.1.10
+
+## 34.1.0
+
+### Minor Changes
+
+-   [#3839](https://github.com/Khan/perseus/pull/3839) [`fa4ac0a`](https://github.com/Khan/perseus/commit/fa4ac0a7f072d80d5a64fccab9ea027100058522) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update PlotterEditor's picUrl prop to match the Perseus data schema
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3842](https://github.com/Khan/perseus/pull/3842) [`3deffa1`](https://github.com/Khan/perseus/commit/3deffa1a972076857df5e303a9510940481552a3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix Free Response editor to use WB components with LabeledField
+
+-   Updated dependencies [[`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1), [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8), [`9036580`](https://github.com/Khan/perseus/commit/90365803208ac2fb416bc11f17ca5b8ade9a9856), [`a9668ad`](https://github.com/Khan/perseus/commit/a9668ad2cfe0b5a392e026f89c5219ed2a7b9bb2)]:
+    -   @khanacademy/perseus-core@30.0.1
+    -   @khanacademy/perseus@79.1.0
+    -   @khanacademy/keypad-context@3.2.69
+    -   @khanacademy/kmath@2.4.28
+    -   @khanacademy/math-input@26.4.42
+    -   @khanacademy/perseus-linter@5.1.9
+
+## 34.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
+### Patch Changes
+
+-   [#3819](https://github.com/Khan/perseus/pull/3819) [`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update the behavior of the Interactive Graph showPointLabels toggle enabling it when at least one custom label is provided
+
+-   Updated dependencies [[`8dafe47`](https://github.com/Khan/perseus/commit/8dafe47147be7394c473aae1a6a275baf06b9dd0), [`7b1a029`](https://github.com/Khan/perseus/commit/7b1a029e79a593111619b18e8e7bdf4f83907c20), [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe), [`01c43fd`](https://github.com/Khan/perseus/commit/01c43fd16b3b3ff10b62c81b8ace36178300fb15), [`457b590`](https://github.com/Khan/perseus/commit/457b590cee509df90d5558f9fef13291a1733e59), [`a74d711`](https://github.com/Khan/perseus/commit/a74d711525237027983d875457ac52f0af368c11), [`f6a3591`](https://github.com/Khan/perseus/commit/f6a359129f37eeae8502e62c4fbe05a656aead86)]:
+    -   @khanacademy/perseus-linter@5.1.8
+    -   @khanacademy/perseus@79.0.0
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/keypad-context@3.2.68
+    -   @khanacademy/kmath@2.4.27
+    -   @khanacademy/math-input@26.4.41
+
 ## 33.3.1
 
 ### Patch Changes
