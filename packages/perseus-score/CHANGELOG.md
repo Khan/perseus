@@ -1,5 +1,33 @@
 # @khanacademy/perseus-score
 
+## 8.12.2
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/kmath@2.4.29
+
+## 8.12.1
+
+### Patch Changes
+
+-   Updated dependencies [[`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1), [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8)]:
+    -   @khanacademy/perseus-core@30.0.1
+    -   @khanacademy/kmath@2.4.28
+
+## 8.12.0
+
+### Minor Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - Removes the experimental function `scorePerseusItemWithInputNumberAsNumericInput`.
+
+### Patch Changes
+
+-   Updated dependencies [[`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe)]:
+    -   @khanacademy/perseus-core@30.0.0
+    -   @khanacademy/kmath@2.4.27
+
 ## 8.11.10
 
 ### Patch Changes

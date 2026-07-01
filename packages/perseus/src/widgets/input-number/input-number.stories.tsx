@@ -129,9 +129,19 @@ Percent.args = question3.widgets["input-number 1"].options;
 
 export const Answerful = (): React.ReactElement => {
     const item = getAnswerfulItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        textAlign: "left",
+        answers: [
+            {
+                status: "correct",
+                simplify: "optional",
+                value: 42,
+                answerForms: [],
+                message: "",
+                strict: true,
+            },
+        ],
     });
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line
@@ -141,9 +151,19 @@ export const Answerful = (): React.ReactElement => {
 
 export const Answerless = (): React.ReactElement => {
     const item = getAnswerlessItem("input-number", {
-        simplify: "optional",
         size: "normal",
-        value: 42,
+        coefficient: false,
+        textAlign: "left",
+        answers: [
+            {
+                status: "correct",
+                simplify: "optional",
+                value: 42,
+                answerForms: [],
+                message: "",
+                strict: true,
+            },
+        ],
     });
     // TODO(LEMS-3083): Remove eslint suppression
     // eslint-disable-next-line

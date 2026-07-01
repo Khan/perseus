@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Remove flaky visual regression test
+Regression tests for sorter
