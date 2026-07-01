@@ -24,6 +24,8 @@ ROOT="$MYPATH/.."
 # Need to export this so that the invoked commands see it.
 export SNAPSHOT_RELEASE=1
 
+pushd "$ROOT"
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [options] <pr-number>
@@ -115,8 +117,6 @@ pre_publish_check() {
 
 parse_args "$@"
 verify_env
-
-pushd "$ROOT"
 
 check_for_changes
 pre_publish_check
