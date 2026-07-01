@@ -5866,11 +5866,11 @@ table: [[☃ table 1]]
                                       <ellipse
                                         cx="NaN"
                                         cy="NaN"
-                                        fill="#1865f2"
+                                        fill="none"
                                         r="NaN"
                                         rx="4"
                                         ry="4"
-                                        stroke="#1865f2"
+                                        stroke="none"
                                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                         transform=""
                                       />
@@ -5897,11 +5897,11 @@ table: [[☃ table 1]]
                                       <ellipse
                                         cx="NaN"
                                         cy="NaN"
-                                        fill="#1865f2"
+                                        fill="none"
                                         r="NaN"
                                         rx="4"
                                         ry="4"
-                                        stroke="#1865f2"
+                                        stroke="none"
                                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                         transform=""
                                       />

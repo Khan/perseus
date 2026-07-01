@@ -71,6 +71,11 @@ describe("number-line widget", () => {
             const {container} = renderQuestion(question1, mobileApiOptions);
 
             // Assert
+            // Note: MovablePoint colors appear as fill/stroke="none" in this
+            // snapshot because tokenValue() reads CSS custom properties at
+            // runtime — jsdom doesn't define them, so it returns "". The
+            // correct hex values resolve in a real browser and are covered
+            // by Chromatic visual regression tests.
             expect(container).toMatchSnapshot("first mobile render");
         });
 
