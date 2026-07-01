@@ -15,7 +15,8 @@ import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {Vector} from "./components/vector";
-import {srFormatNumber} from "./screenreader-text";
+import {describeAngleGraph} from "./strings/angle";
+import {srFormatNumber} from "./strings/format-number";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
 
@@ -29,7 +30,7 @@ import type {
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 
-const {calculateAngleInDegrees, getClockwiseAngle, polar} = angles;
+const {calculateAngleInDegrees, polar} = angles;
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 
@@ -196,52 +197,6 @@ function getAngleGraphDescription(
             endingSideY: srFormatNumber(coords[0][Y], locale),
         }),
     });
-}
-
-function describeAngleGraph(
-    state: AngleGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords, allowReflexAngles} = state;
-    const [endingSide, vertex, startingSide] = coords;
-
-    const angleMeasure = srFormatNumber(
-        getClockwiseAngle(coords, allowReflexAngles),
-        locale,
-    );
-
-    const srAngleGraphAriaLabel = strings.srAngleGraphAriaLabel;
-    const srAngleGraphAriaDescription = strings.srAngleGraphAriaDescription({
-        angleMeasure,
-        vertexX: srFormatNumber(vertex[X], locale),
-        vertexY: srFormatNumber(vertex[Y], locale),
-        startingSideX: srFormatNumber(startingSide[X], locale),
-        startingSideY: srFormatNumber(startingSide[Y], locale),
-        endingSideX: srFormatNumber(endingSide[X], locale),
-        endingSideY: srFormatNumber(endingSide[Y], locale),
-    });
-    const srAngleStartingSide = strings.srAngleStartingSide({
-        x: srFormatNumber(startingSide[X], locale),
-        y: srFormatNumber(startingSide[Y], locale),
-    });
-    const srAngleEndingSide = strings.srAngleEndingSide({
-        x: srFormatNumber(endingSide[X], locale),
-        y: srFormatNumber(endingSide[Y], locale),
-    });
-    const srAngleVertex = strings.srAngleVertexWithAngleMeasure({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-        angleMeasure,
-    });
-
-    return {
-        srAngleGraphAriaLabel,
-        srAngleGraphAriaDescription,
-        srAngleStartingSide,
-        srAngleEndingSide,
-        srAngleVertex,
-    };
 }
 
 const positiveX: vec.Vector2 = [1, 0];

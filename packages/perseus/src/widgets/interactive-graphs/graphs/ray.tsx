@@ -6,7 +6,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeRayGraph} from "./strings/ray";
 
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {
@@ -24,7 +24,8 @@ export function renderRayGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <RayGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getRayGraphDescription(state, i18n),
+        interactiveElementsDescription: describeRayGraph(state, i18n)
+            .srRayInteractiveElement,
     };
 }
 
@@ -83,53 +84,3 @@ const RayGraph = (props: Props) => {
         </g>
     );
 };
-
-function getRayGraphDescription(state: RayGraphState, i18n: I18nContextType) {
-    const strings = describeRayGraph(state, i18n);
-    return strings.srRayInteractiveElement;
-}
-
-// Exported for testing
-export function describeRayGraph(
-    state: RayGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {coords: line} = state;
-    const {strings, locale} = i18n;
-
-    // Aria label strings
-    const srRayGraph = strings.srRayGraph;
-    const srRayPoints = strings.srRayPoints({
-        point1X: srFormatNumber(line[0][0], locale),
-        point1Y: srFormatNumber(line[0][1], locale),
-        point2X: srFormatNumber(line[1][0], locale),
-        point2Y: srFormatNumber(line[1][1], locale),
-    });
-    const srRayEndpoint = strings.srRayEndpoint({
-        x: srFormatNumber(line[0][0], locale),
-        y: srFormatNumber(line[0][1], locale),
-    });
-    const srRayTerminalPoint = strings.srRayTerminalPoint({
-        x: srFormatNumber(line[1][0], locale),
-        y: srFormatNumber(line[1][1], locale),
-    });
-    const srRayGrabHandle = strings.srRayGrabHandle({
-        point1X: srFormatNumber(line[0][0], locale),
-        point1Y: srFormatNumber(line[0][1], locale),
-        point2X: srFormatNumber(line[1][0], locale),
-        point2Y: srFormatNumber(line[1][1], locale),
-    });
-
-    const srRayInteractiveElement = strings.srInteractiveElements({
-        elements: [srRayGraph, srRayPoints].join(" "),
-    });
-
-    return {
-        srRayGraph,
-        srRayPoints,
-        srRayEndpoint,
-        srRayTerminalPoint,
-        srRayGrabHandle,
-        srRayInteractiveElement,
-    };
-}
