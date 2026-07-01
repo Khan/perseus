@@ -122,7 +122,7 @@ describe("InteractiveGraphEditor", () => {
                 // An invalid state (e.g. a too-large tick step) unmounts the
                 // InteractiveGraph component, so serialize() can't read the
                 // answer from its ref. It must not fall back to a default
-                // `linear` graph.
+                // graph.
                 valid="Step is too large, there must be at least 3 ticks."
                 ref={ref}
             />,
