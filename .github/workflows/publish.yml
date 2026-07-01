@@ -21,7 +21,6 @@ on:
                 required: false
                 type: string
 
-
 # IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
 # meaning that this workflow can only run one instance, per branch, at a time.
 # This prevents us from having two production releases publishing at the same
