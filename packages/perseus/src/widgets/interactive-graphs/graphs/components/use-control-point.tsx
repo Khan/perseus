@@ -10,7 +10,6 @@ import {useDraggable} from "../use-draggable";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
-import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
@@ -18,7 +17,6 @@ type Params = {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
-    ariaLive?: AriaLive;
     color?: string | undefined;
     constrain?: KeyboardMovementConstraint;
     cursor?: CSSCursor | undefined;
@@ -54,7 +52,6 @@ export function useControlPoint(params: Params): Return {
         point,
         ariaDescribedBy,
         ariaLabel,
-        ariaLive = "polite",
         constrain = (p) => snap(snapStep, p),
         cursor,
         forwardedRef = noop,
@@ -123,9 +120,6 @@ export function useControlPoint(params: Params): Return {
             role="button"
             aria-describedby={ariaDescribedBy}
             aria-label={pointAriaLabel}
-            // TODO(LEMS-4189): Remove aria-live once every interactive graph
-            // type emits its move through the WB Announcer.
-            aria-live={ariaLive}
             aria-disabled={disableKeyboardInteraction}
             onFocus={(event) => {
                 onFocus(event);

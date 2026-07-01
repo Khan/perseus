@@ -50,7 +50,10 @@ describe("ItemExtrasEditor", () => {
         await userEvent.click(checkbox);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({calculator: true});
+        expect(onChangeMock).toHaveBeenCalledWith({
+            calculator: true,
+            calculatorVariant: "scientific",
+        });
     });
 
     it("should call onChange with updated periodicTableWithKey value when periodicTable is unchecked", async () => {

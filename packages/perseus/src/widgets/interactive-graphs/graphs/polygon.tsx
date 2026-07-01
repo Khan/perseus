@@ -326,12 +326,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLabel={buildLabel(i, point)}
-                            // Move announcements come from the WB Announcer
-                            // via stateAnnouncement; disable aria-live here
-                            // to avoid the focusable handle double-announcing.
-                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                            // dropped from useControlPoint.
-                            ariaLive="off"
                             constrain={getKeyboardMovementConstraintForPoint(
                                 points,
                                 i,
@@ -531,12 +525,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${sideIds}`}
                             ariaLabel={buildLabel(i, point)}
-                            // Move announcements come from the WB Announcer
-                            // via stateAnnouncement; disable aria-live here
-                            // to avoid the focusable handle double-announcing.
-                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                            // dropped from useControlPoint.
-                            ariaLive="off"
                             point={point}
                             sequenceNumber={i + 1}
                             onDragStart={() => {

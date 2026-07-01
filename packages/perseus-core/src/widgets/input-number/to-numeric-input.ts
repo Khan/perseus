@@ -12,7 +12,7 @@ export function convertInputNumberOptionsToNumericInput(
 ): PerseusNumericInputWidgetOptions {
     return {
         coefficient: false,
-        rightAlign: inputNumberOptions.rightAlign,
+        textAlign: inputNumberOptions.rightAlign ? "right" : "left",
         size: inputNumberOptions.size,
         answers: [
             {
@@ -49,7 +49,7 @@ const mathFormatsForAnswerType: Record<
     PerseusInputNumberAnswerType,
     MathFormat[]
 > = {
-    number: ["integer", "decimal", "proper", "improper", "mixed"],
+    number: [],
     decimal: ["decimal"],
     integer: ["integer"],
     rational: ["integer", "proper", "improper", "mixed"],

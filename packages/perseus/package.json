@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "77.11.0",
+    "version": "78.4.1",
     "publishConfig": {
         "access": "public"
     },
@@ -130,6 +130,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "8560a5ad63db87f8"
+        "catalogHash": "a4790ad979dcb9a1"
     }
 }

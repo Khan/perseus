@@ -37,7 +37,7 @@ describe("numeric-input-editor", () => {
         render(<NumericInputEditor onChange={onChangeMock} />);
 
         await userEvent.click(
-            within(screen.getByRole("group", {name: /^Width/})).getByRole(
+            within(screen.getByRole("radiogroup", {name: /^Width/})).getByRole(
                 "radio",
                 {name: "Normal (80px)"},
             ),
@@ -55,7 +55,7 @@ describe("numeric-input-editor", () => {
         render(<NumericInputEditor onChange={onChangeMock} />);
 
         await userEvent.click(
-            within(screen.getByRole("group", {name: /^Width/})).getByRole(
+            within(screen.getByRole("radiogroup", {name: /^Width/})).getByRole(
                 "radio",
                 {name: "Small (40px)"},
             ),
@@ -67,19 +67,24 @@ describe("numeric-input-editor", () => {
         );
     });
 
-    it("should be possible to select right alignment", async () => {
+    it("should be possible to change text alignment", async () => {
         const onChangeMock = jest.fn();
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        await userEvent.click(
-            within(screen.getByRole("group", {name: /^Alignment/})).getByRole(
-                "radio",
-                {name: "Right"},
-            ),
-        );
+        // Act
+        const opener = await screen.findByRole("combobox", {
+            name: "Text alignment",
+        });
+        await userEvent.click(opener);
+        await userEvent.click(await screen.findByText("Center"));
 
-        expect(onChangeMock).toHaveBeenCalledWith({rightAlign: true});
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                textAlign: "center",
+            }),
+        );
     });
 
     it("should be possible to select coefficient", async () => {
@@ -89,7 +94,7 @@ describe("numeric-input-editor", () => {
 
         await userEvent.click(
             within(
-                screen.getByRole("group", {name: /^Number style/}),
+                screen.getByRole("radiogroup", {name: /^Number style/}),
             ).getByRole("radio", {name: "Coefficient"}),
         );
 
@@ -103,7 +108,7 @@ describe("numeric-input-editor", () => {
 
         await userEvent.click(
             within(
-                screen.getByRole("group", {name: /^Answer formats are/}),
+                screen.getByRole("radiogroup", {name: /^Answer formats are/}),
             ).getByRole("radio", {name: "Required"}),
         );
 
@@ -156,7 +161,7 @@ describe("numeric-input-editor", () => {
         render(<StatefulNumericInputEditor />);
 
         const input = screen.getByRole("textbox", {
-            name: "User input:",
+            name: "User input",
         });
 
         await userEvent.type(input, "6/8");
@@ -171,7 +176,9 @@ describe("numeric-input-editor", () => {
 
         await userEvent.click(
             within(
-                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+                screen.getByRole("radiogroup", {
+                    name: /^Unsimplified answers are/,
+                }),
             ).getByRole("radio", {name: "Ungraded"}),
         );
 
@@ -191,7 +198,9 @@ describe("numeric-input-editor", () => {
 
         await userEvent.click(
             within(
-                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+                screen.getByRole("radiogroup", {
+                    name: /^Unsimplified answers are/,
+                }),
             ).getByRole("radio", {name: "Accepted"}),
         );
 
@@ -211,7 +220,9 @@ describe("numeric-input-editor", () => {
 
         await userEvent.click(
             within(
-                screen.getByRole("group", {name: /^Unsimplified answers are/}),
+                screen.getByRole("radiogroup", {
+                    name: /^Unsimplified answers are/,
+                }),
             ).getByRole("radio", {name: "Wrong"}),
         );
 

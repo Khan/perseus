@@ -1,5 +1,160 @@
 # @khanacademy/perseus
 
+## 78.4.1
+
+### Patch Changes
+
+-   [#3800](https://github.com/Khan/perseus/pull/3800) [`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for absolute value graph`getAbsoluteValueCoefficients` now always returns coefficients instead of `undefined`: when the two control points share an x-coordinate the slope is `±Infinity`.
+
+*   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+-   [#3804](https://github.com/Khan/perseus/pull/3804) [`dc3713f791`](https://github.com/Khan/perseus/commit/dc3713f79142cc5a5a9944723e9a56632ab43e19) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for tangent graph
+
+*   [#3806](https://github.com/Khan/perseus/pull/3806) [`e5828ffe4f`](https://github.com/Khan/perseus/commit/e5828ffe4faf5b4093e05b42986222f6d937c17b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update Interactive Graph ungraded screen reader to read out the information about the graph is not graded
+
+*   Updated dependencies [[`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1), [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451)]:
+    -   @khanacademy/kmath@2.4.26
+    -   @khanacademy/perseus-score@8.11.10
+    -   @khanacademy/math-input@26.4.40
+    -   @khanacademy/perseus-linter@5.1.7
+
+## 78.4.0
+
+### Minor Changes
+
+-   [#3731](https://github.com/Khan/perseus/pull/3731) [`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for "centered" text alignment in NumericInputs. This replaces `rightAlign` with `textAlign` in NumericInputs widgetOptions requiring a major bump for NumericInput.
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+    -   @khanacademy/keypad-context@3.2.67
+    -   @khanacademy/kmath@2.4.25
+    -   @khanacademy/math-input@26.4.39
+    -   @khanacademy/perseus-linter@5.1.6
+    -   @khanacademy/perseus-score@8.11.9
+
+## 78.3.0
+
+### Minor Changes
+
+-   [#3749](https://github.com/Khan/perseus/pull/3749) [`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Render visible point labels on interactive graphs when the `perseus-enable-point-label-field` flag is on and the graph's `showPointLabels` field is true. Labels reposition to stay on-canvas when a point is near a graph edge. Supported on all interactive graph types except `vector` and `none`.
+
+*   [#3770](https://github.com/Khan/perseus/pull/3770) [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a) Thanks [@nishasy](https://github.com/nishasy)! - Add feature flag for renderer upgrade
+
+### Patch Changes
+
+-   [#3786](https://github.com/Khan/perseus/pull/3786) [`f8638119b2`](https://github.com/Khan/perseus/commit/f8638119b2e8db68d645512e49c9ed59ce2287eb) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for exponential graph
+
+*   [#3798](https://github.com/Khan/perseus/pull/3798) [`e08a75689a`](https://github.com/Khan/perseus/commit/e08a75689a2985d535e55779d7cac82ad17b630e) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for logarithm graph
+
+-   [#3763](https://github.com/Khan/perseus/pull/3763) [`a7edbbc724`](https://github.com/Khan/perseus/commit/a7edbbc7243ad8ac129f9b922bd7af2b065465b0) Thanks [@Evelas78](https://github.com/Evelas78)! - Remove pause/play button for single frame gifs
+
+*   [#3795](https://github.com/Khan/perseus/pull/3795) [`81c16ed65f`](https://github.com/Khan/perseus/commit/81c16ed65f0b43ed94c52ada32890b72cb30dfe1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix Safari point-label scroll jitter in interactive graph editor
+
+-   [#3787](https://github.com/Khan/perseus/pull/3787) [`6202a5d446`](https://github.com/Khan/perseus/commit/6202a5d446bcfec34514d36301b7acb6863d4c39) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Improve contrast of editor controls when editing is disabled
+
+*   [#3699](https://github.com/Khan/perseus/pull/3699) [`d34f9758e6`](https://github.com/Khan/perseus/commit/d34f9758e677dc511efb5e6f4c5a463bf664da23) Thanks [@Myranae](https://github.com/Myranae)! - Add scoped AGENTS.md instruction files at repo root, packages/perseus, and packages/perseus/src/widgets; replace CLAUDE.md with symlinks to AGENTS.md so all AI tools read the same canonical source.
+
+-   [#3799](https://github.com/Khan/perseus/pull/3799) [`f65a065bff`](https://github.com/Khan/perseus/commit/f65a065bff62cb5f6cd8980e07f1ca4f7cf3078c) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for vector graph
+
+-   Updated dependencies [[`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3)]:
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/pure-markdown@2.3.0
+    -   @khanacademy/keypad-context@3.2.66
+    -   @khanacademy/kmath@2.4.24
+    -   @khanacademy/math-input@26.4.38
+    -   @khanacademy/perseus-linter@5.1.5
+    -   @khanacademy/perseus-score@8.11.8
+
+## 78.2.0
+
+### Minor Changes
+
+-   [#3780](https://github.com/Khan/perseus/pull/3780) [`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates answer area to include calculator variant
+
+### Patch Changes
+
+-   Updated dependencies [[`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee)]:
+    -   @khanacademy/perseus-core@28.2.0
+    -   @khanacademy/keypad-context@3.2.65
+    -   @khanacademy/kmath@2.4.23
+    -   @khanacademy/math-input@26.4.37
+    -   @khanacademy/perseus-linter@5.1.4
+    -   @khanacademy/perseus-score@8.11.7
+
+## 78.1.0
+
+### Minor Changes
+
+-   [#3743](https://github.com/Khan/perseus/pull/3743) [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2) Thanks [@benchristel](https://github.com/benchristel)! - When the `grapher-to-interactive-graph` feature flag is on, render Grapher widgets using the Interactive Graph UI components.
+
+### Patch Changes
+
+-   [#3744](https://github.com/Khan/perseus/pull/3744) [`af9eb1c495`](https://github.com/Khan/perseus/commit/af9eb1c4951aa6d77e41ff848ba4be168e21a980) Thanks [@Myranae](https://github.com/Myranae)! - Convert hardcoded colors and fonts in math-input components to semantic tokens (cursor-handle, keypad-button, navigation-button)
+
+*   [#3777](https://github.com/Khan/perseus/pull/3777) [`af7027bb2f`](https://github.com/Khan/perseus/commit/af7027bb2f5bb06a73880cba031759bedb6d0196) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Editor] Editor label fix + editor styling/type modernization
+
+-   [#3784](https://github.com/Khan/perseus/pull/3784) [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79) Thanks [@benchristel](https://github.com/benchristel)! - Internal: `WidgetLogic.version` is now the source of truth for widget versions.
+
+*   [#3781](https://github.com/Khan/perseus/pull/3781) [`2a7a4c8189`](https://github.com/Khan/perseus/commit/2a7a4c8189372950fc512bea426880b19c184fbb) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 1c75dbe1da3f9987d58cebe0a8186fbfba7433c7
+
+-   [#3789](https://github.com/Khan/perseus/pull/3789) [`a4951c31a0`](https://github.com/Khan/perseus/commit/a4951c31a040784b6cefec96efbc28b55360f1fa) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 6eb7b7f91562c2d8c7ba19ba73c832e0d0169649
+
+*   [#3778](https://github.com/Khan/perseus/pull/3778) [`df41413dba`](https://github.com/Khan/perseus/commit/df41413dbab119d44490792773c3f394526a11dd) Thanks [@Myranae](https://github.com/Myranae)! - Increase delay on flaky TeX Chromatic snapshot for Matcher
+
+-   [#3785](https://github.com/Khan/perseus/pull/3785) [`be10fbbe03`](https://github.com/Khan/perseus/commit/be10fbbe03e9c2afa557a93ced9708b71237daeb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: a magical comment that was once needed to make the build work is no longer needed and has been removed.
+
+-   Updated dependencies [[`af9eb1c495`](https://github.com/Khan/perseus/commit/af9eb1c4951aa6d77e41ff848ba4be168e21a980), [`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79), [`2a7a4c8189`](https://github.com/Khan/perseus/commit/2a7a4c8189372950fc512bea426880b19c184fbb), [`a4951c31a0`](https://github.com/Khan/perseus/commit/a4951c31a040784b6cefec96efbc28b55360f1fa)]:
+    -   @khanacademy/math-input@26.4.36
+    -   @khanacademy/perseus-core@28.1.0
+    -   @khanacademy/keypad-context@3.2.64
+    -   @khanacademy/kmath@2.4.22
+    -   @khanacademy/perseus-linter@5.1.3
+    -   @khanacademy/perseus-score@8.11.6
+
+## 78.0.1
+
+### Patch Changes
+
+-   [#3737](https://github.com/Khan/perseus/pull/3737) [`0e26d60e5e`](https://github.com/Khan/perseus/commit/0e26d60e5e7b782f81a1445399a359ee4f0a0e98) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] Add more regression stories for the Definition widget
+
+*   [#3769](https://github.com/Khan/perseus/pull/3769) [`5dae3ba80d`](https://github.com/Khan/perseus/commit/5dae3ba80de095af5980e9893319b17c79ba1b42) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix a Safari hard-freeze when rendering graphie images with TeX labels: graphie label positioning now waits for `document.fonts.ready` at most once instead of re-checking `document.fonts.status`, which Safari can leave at "loading" while `ready` is already resolved (WebKit bugs 174030, 225790), causing an infinite microtask loop
+
+-   [#3755](https://github.com/Khan/perseus/pull/3755) [`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4) Thanks [@nishasy](https://github.com/nishasy)! - [Video] Fix video widget alignment
+
+*   [#3758](https://github.com/Khan/perseus/pull/3758) [`872736f394`](https://github.com/Khan/perseus/commit/872736f39410deceff1a1b7943205ea076aae214) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Re-order graph instructions so screen readers hear them first
+
+-   [#3754](https://github.com/Khan/perseus/pull/3754) [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0) Thanks [@Evelas78](https://github.com/Evelas78)! - Updated dropdown orders, defaults, and names for interactive graphs
+
+-   Updated dependencies [[`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0), [`1174386773`](https://github.com/Khan/perseus/commit/1174386773fa0bf7fffd479951278141cccba4b1)]:
+    -   @khanacademy/perseus-core@28.0.1
+    -   @khanacademy/perseus-linter@5.1.2
+    -   @khanacademy/keypad-context@3.2.63
+    -   @khanacademy/kmath@2.4.21
+    -   @khanacademy/math-input@26.4.35
+    -   @khanacademy/perseus-score@8.11.5
+
+## 78.0.0
+
+### Major Changes
+
+-   [#3689](https://github.com/Khan/perseus/pull/3689) [`4a130c0367`](https://github.com/Khan/perseus/commit/4a130c0367d9e83953c4b37c19881f81437bca39) Thanks [@benchristel](https://github.com/benchristel)! - Unused and deprecated APIOptions and renderer props have been removed. Callers should stop passing these options, as they will have no effect.
+
+### Patch Changes
+
+-   [#3752](https://github.com/Khan/perseus/pull/3752) [`aef2d70b3c`](https://github.com/Khan/perseus/commit/aef2d70b3c68ae8ca1bcf2b13afea8797c69aa64) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove aria-live from interactive-graph in favor of using the WB Annoucer recently added logic
+
+*   [#3748](https://github.com/Khan/perseus/pull/3748) [`a81c4ad5dd`](https://github.com/Khan/perseus/commit/a81c4ad5dd7c89744e88ae1dde37d5c5b81bcc91) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (cleanup) | Remove unused styles
+
+*   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/keypad-context@3.2.62
+    -   @khanacademy/kmath@2.4.20
+    -   @khanacademy/math-input@26.4.34
+    -   @khanacademy/perseus-linter@5.1.1
+    -   @khanacademy/perseus-score@8.11.4
+
 ## 77.11.0
 
 ### Minor Changes

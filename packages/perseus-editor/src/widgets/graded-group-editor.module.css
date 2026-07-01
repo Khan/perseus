@@ -1,0 +1,18 @@
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.input {
+    font-size: 18px;
+}
+
+.hints-title {
+    margin-top: var(--wb-sizing-size_100);
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.add-hint-button {
+    margin-top: var(--wb-sizing-size_100);
+}

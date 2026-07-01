@@ -48,6 +48,9 @@ export function CircleGraph(props: CircleGraphProps) {
     const {center, pointLabels, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
+    // Circle only has one labelable point (the radius point at index 0); the
+    // center is a MovableCircle, not a MovablePoint, and is intentionally not
+    // overridden — see MovablePoint's ariaLabel below.
     const buildLabel = usePointAriaLabel(pointLabels);
 
     const radius = getRadius(graphState);

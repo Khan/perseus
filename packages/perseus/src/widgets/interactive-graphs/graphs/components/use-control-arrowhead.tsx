@@ -9,7 +9,6 @@ import {useDraggable} from "../use-draggable";
 
 import {MovableArrowheadView} from "./movable-arrowhead-view";
 
-import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
@@ -18,7 +17,6 @@ type Params = {
     angle: number; // degrees counterclockwise from the positive x-axis
     ariaDescribedBy?: string;
     ariaLabel?: string;
-    ariaLive?: AriaLive;
     constrain?: KeyboardMovementConstraint;
     sequenceNumber?: number;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
@@ -42,7 +40,6 @@ export function useControlArrowhead(params: Params): Return {
         angle,
         ariaDescribedBy,
         ariaLabel,
-        ariaLive = "polite",
         constrain = (p) => snap(snapStep, p),
         sequenceNumber = 1,
         onMove = noop,
@@ -98,7 +95,6 @@ export function useControlArrowhead(params: Params): Return {
             role="button"
             aria-describedby={ariaDescribedBy}
             aria-label={pointAriaLabel}
-            aria-live={ariaLive}
             aria-disabled={disableKeyboardInteraction}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}

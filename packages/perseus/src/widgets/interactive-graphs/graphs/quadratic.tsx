@@ -123,12 +123,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                                 actions.quadratic.movePoint(i, destination),
                             )
                         }
-                        // Move announcements come from the WB Announcer via
-                        // stateAnnouncement; disable aria-live here to avoid
-                        // the focusable handle double-announcing.
-                        // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                        // dropped from useControlPoint.
-                        ariaLive="off"
                     />
                 );
             })}

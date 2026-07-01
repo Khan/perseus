@@ -1,0 +1,5 @@
+.image-row {
+    display: flex;
+    gap: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_080);
+}

@@ -136,7 +136,7 @@ const parsePerseusGraphTypeSinusoid = object({
 
 const parsePerseusGraphTypeExponential = object({
     type: constant("exponential"),
-    coords: optional(nullable(array(pairOfNumbers))),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     asymptote: optional(nullable(number)),
     startCoords: optional(
         object({
@@ -166,7 +166,7 @@ const parsePerseusGraphTypeTangent = object({
 
 const parsePerseusGraphTypeLogarithm = object({
     type: constant("logarithm"),
-    coords: optional(nullable(array(pairOfNumbers))),
+    coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     asymptote: optional(nullable(number)),
     startCoords: optional(
         object({
@@ -235,9 +235,12 @@ const parseStrokeWeight = defaulted(
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
-    text: string,
-    color: parseLockedFigureColor,
-    size: enumeration("small", "medium", "large"),
+    text: defaulted(string, () => ""),
+    color: defaulted(parseLockedFigureColor, () => "grayH" as const),
+    size: defaulted(
+        enumeration("small", "medium", "large"),
+        () => "medium" as const,
+    ),
 });
 
 const parseLockedPointType = object({

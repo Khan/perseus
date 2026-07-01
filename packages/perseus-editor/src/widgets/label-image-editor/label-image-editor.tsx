@@ -1,12 +1,12 @@
 import {EditorJsonify, Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import AnswerChoices from "./answer-choices";
 import Behavior from "./behavior";
+import styles from "./label-image-editor.module.css";
 import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
@@ -17,7 +17,7 @@ import type {
     LabelImageDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     apiOptions: APIOptions;
     // List of answer choices to label question image with.
     choices: string[];
@@ -35,7 +35,7 @@ type Props = {
     // Callback for when a widget prop is changed.
     onChange: (options: any) => void;
     preferredPopoverDirection: PreferredPopoverDirection;
-};
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -212,10 +212,12 @@ class LabelImageEditor extends React.Component<Props> {
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
 
         return (
-            <div>
-                <SelectImage onChange={this.handleImageChange} url={imageUrl} />
-
-                <div className={css(styles.smallSpacer)} />
+            <div className={styles.editor}>
+                <SelectImage
+                    onChange={this.handleImageChange}
+                    url={imageUrl}
+                    editingDisabled={editingDisabled}
+                />
 
                 {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {imageSelected && (
@@ -226,8 +228,6 @@ class LabelImageEditor extends React.Component<Props> {
                         width="100%"
                     />
                 )}
-
-                <div className={css(styles.largeSpacer)} />
 
                 <QuestionMarkers
                     editingDisabled={editingDisabled}
@@ -241,15 +241,11 @@ class LabelImageEditor extends React.Component<Props> {
                     ref={(node) => (this._questionMarkers = node)}
                 />
 
-                <div className={css(styles.largeSpacer)} />
-
                 <AnswerChoices
                     choices={choices}
                     editingDisabled={editingDisabled}
                     onChange={this.handleChoicesChange}
                 />
-
-                <div className={css(styles.largeSpacer)} />
 
                 <Behavior
                     preferredPopoverDirection={preferredPopoverDirection}
@@ -261,15 +257,5 @@ class LabelImageEditor extends React.Component<Props> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    largeSpacer: {
-        height: 32,
-    },
-
-    smallSpacer: {
-        height: 16,
-    },
-});
 
 export default LabelImageEditor;

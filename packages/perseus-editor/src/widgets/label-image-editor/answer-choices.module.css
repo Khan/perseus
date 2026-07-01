@@ -1,0 +1,42 @@
+.answers {
+    margin-top: var(--wb-sizing-size_080);
+    margin-bottom: var(--wb-sizing-size_120);
+}
+
+.answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_160);
+}
+
+.add-answer-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_160);
+    color: var(--wb-semanticColor-link-rest);
+}
+
+.add-answer:hover .add-answer-content {
+    text-decoration: underline;
+}
+
+.remove-button-content {
+    display: inline-flex;
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.add-answer[aria-disabled="true"],
+.remove-button[aria-disabled="true"] {
+    opacity: 0.5;
+}
+
+.add-answer:focus:not(:focus-visible),
+.remove-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.answer:not(:first-child) {
+    margin-top: var(--wb-sizing-size_120);
+}

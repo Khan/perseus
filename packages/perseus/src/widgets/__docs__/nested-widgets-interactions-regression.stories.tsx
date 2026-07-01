@@ -1,17 +1,21 @@
+import {
+    type GradedGroupWidget,
+    type PerseusExplanationWidgetOptions,
+} from "@khanacademy/perseus-core";
+
 import {themeModes} from "../../../../../.storybook/modes";
 import {explanationRendererDecorator} from "../explanation/__docs__/explanation-renderer-decorator";
 
 import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
 import {
+    definitionInContentAndExplanation,
+    explanationWithDefinitionOptions,
+    gradedGroupWithRadioAndDefinition,
     gradedGroupWithRadioAndExplanation,
     imageInContent,
     videoInContent,
 } from "./nested-widgets.testdata";
 
-import type {
-    GradedGroupWidget,
-    PerseusExplanationWidgetOptions,
-} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -44,6 +48,19 @@ export const GradedGroupExplanationClicked: GradedGroupStory = {
             name: "Show explanation",
         });
         await userEvent.click(explanationTrigger);
+    },
+};
+
+export const GradedGroupDefinitionClicked: GradedGroupStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: gradedGroupWithRadioAndDefinition,
+    },
+    play: async ({canvas, userEvent}) => {
+        const definitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Jean-Luc Picard's",
+        });
+        await userEvent.click(definitionTrigger);
     },
 };
 
@@ -86,5 +103,44 @@ export const ImageInContent: ExplanationStory = {
             name: imageExample.showPrompt,
         });
         await userEvent.click(explanationTrigger);
+    },
+};
+
+export const DefinitionInContentAndExplanation: StoryObj = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: definitionInContentAndExplanation,
+    },
+    play: async ({canvas, userEvent}) => {
+        // Reveal the explanation, then open the definition nested inside it.
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Show explanation",
+        });
+        await userEvent.click(explanationTrigger);
+        const explanationDefinitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Axis powers",
+        });
+        await userEvent.click(explanationDefinitionTrigger);
+
+        // Open the definition that lives in the main article text.
+        const contentDefinitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Allies",
+        });
+        await userEvent.click(contentDefinitionTrigger);
+    },
+};
+
+export const ExplanationWithDefinition: ExplanationStory = {
+    decorators: [articleRendererDecorator, explanationRendererDecorator],
+    args: explanationWithDefinitionOptions,
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Explain",
+        });
+        await userEvent.click(explanationTrigger);
+        const definitionTrigger = canvas.getByRole("button", {
+            name: "Definition of: Allies",
+        });
+        await userEvent.click(definitionTrigger);
     },
 };

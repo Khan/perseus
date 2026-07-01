@@ -40,6 +40,8 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     const segmentUniqueId = React.useId();
     const lengthDescriptionId = segmentUniqueId + "-length";
     const wholeGraphDescriptionId = segmentUniqueId + "-whole-graph";
+    // pointLabels is a flat array across segments: [seg0Start, seg0End,
+    // seg1Start, seg1End, …].
     const buildLabel = usePointAriaLabel(pointLabels);
 
     function getWholeSegmentGraphAriaLabel(): string {
@@ -138,12 +140,6 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                         <MovableLine
                             key={i}
                             points={segment}
-                            // The segment graph's move announcements come from the
-                            // WB Announcer via stateAnnouncement; disable aria-live
-                            // here to avoid the focusable handles double-announcing.
-                            // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                            // dropped from MovableLine / useControlPoint.
-                            ariaLive="off"
                             onMoveLine={(newStart) => {
                                 dispatch(actions.segment.moveLine(i, newStart));
                             }}

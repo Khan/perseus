@@ -1,28 +1,37 @@
 import {components} from "@khanacademy/perseus";
-import {addStyle, View} from "@khanacademy/wonder-blocks-core";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import Pill from "@khanacademy/wonder-blocks-pill";
+import {NeutralBadge, StatusBadge} from "@khanacademy/wonder-blocks-badge";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {font, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
 
-const {InfoTip} = components;
-const StyledUl = addStyle("ul");
+import styles from "./interactive-graph-sr-tree.module.css";
 
-type Attribute = {
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+const {InfoTip} = components;
+
+// Passed to the Badge `styles` prop, which is typed as Wonder Blocks `StyleType`
+// (per-part: root/label) and does not accept a className.
+const badgeSpacingStyle: StyleType = {marginInlineEnd: sizing.size_060};
+// Badges default to a bold label, but these decorative role/tag indicators
+// should read at the regular body weight (matching the old Pill look).
+const badgeLabelStyle: StyleType = {fontWeight: font.weight.regular};
+
+interface Attribute {
     name: string;
     value: string;
-};
+}
 
-type AttributeMap = {
+interface AttributeMap {
     roleOrTag: string;
     className: string;
     attributes: Array<Attribute>;
-};
+}
 
 // Exported for testing
 export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
@@ -90,10 +99,10 @@ export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
     return elementArias;
 }
 
-type Props = {
+interface Props {
     elementArias: Array<AttributeMap>;
     showTags: boolean;
-};
+}
 
 function SRTree(props: Props) {
     const {elementArias, showTags} = props;
@@ -101,37 +110,48 @@ function SRTree(props: Props) {
     // Each list item of this ordered list is the role/rag of the element
     // followed by an unordered list of its aria attributes.
     return (
-        <ol style={{listStyle: "revert", marginLeft: 8}}>
+        <ol className={styles.treeList}>
             {elementArias.map((aria, index) => (
                 <li key={index}>
                     {showTags && (
-                        <Pill
-                            size="small"
+                        <StatusBadge
                             kind="success"
-                            style={styles.smallSpaceRight}
-                        >
-                            {aria.roleOrTag}
-                        </Pill>
+                            label={aria.roleOrTag}
+                            showBorder={false}
+                            styles={{
+                                root: badgeSpacingStyle,
+                                label: badgeLabelStyle,
+                            }}
+                        />
                     )}
                     {aria.className}
-                    <StyledUl style={styles.indentListLeft}>
+                    <ul className={styles.indentList}>
                         {aria.attributes.map((value, index) => (
                             <li key={index}>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        value.name === "label"
-                                            ? "info"
-                                            : "neutral"
-                                    }
-                                    style={styles.smallSpaceRight}
-                                >
-                                    {value.name}
-                                </Pill>
+                                {value.name === "label" ? (
+                                    <StatusBadge
+                                        kind="info"
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: badgeSpacingStyle,
+                                            label: badgeLabelStyle,
+                                        }}
+                                    />
+                                ) : (
+                                    <NeutralBadge
+                                        label={value.name}
+                                        showBorder={false}
+                                        styles={{
+                                            root: badgeSpacingStyle,
+                                            label: badgeLabelStyle,
+                                        }}
+                                    />
+                                )}
                                 {value.value}
                             </li>
                         ))}
-                    </StyledUl>
+                    </ul>
                 </li>
             ))}
         </ol>
@@ -147,6 +167,7 @@ function InteractiveGraphSRTree({
     fullGraphAriaLabel,
     fullGraphAriaDescription,
     lockedFigures,
+    editingDisabled = false,
 }) {
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [showTags, setShowTags] = React.useState(false);
@@ -175,13 +196,13 @@ function InteractiveGraphSRTree({
             />
             {isExpanded && (
                 <>
-                    <View style={[styles.row, styles.tagSwitch]}>
+                    <View className={styles.switchRow}>
                         <Switch
                             id={switchId}
                             checked={showTags}
                             onChange={setShowTags}
+                            disabled={editingDisabled}
                         />
-                        <Strut size={spacing.xSmall_8} />
                         <BodyText size="small" tag="label" htmlFor={switchId}>
                             Show HTML roles/tags
                         </BodyText>
@@ -198,23 +219,5 @@ function InteractiveGraphSRTree({
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    smallSpaceRight: {
-        marginRight: spacing.xxSmall_6,
-    },
-    indentListLeft: {
-        listStyle: "revert",
-        marginLeft: spacing.small_12,
-    },
-    tagSwitch: {
-        marginTop: spacing.xSmall_8,
-        marginBottom: spacing.xSmall_8,
-    },
-    row: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-});
 
 export default InteractiveGraphSRTree;

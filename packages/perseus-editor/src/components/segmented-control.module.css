@@ -1,0 +1,98 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+
+/* inline-flex so the (single-select) group flows inline with adjacent
+ * labels/badges (e.g. the "Status" label) instead of wrapping onto its own
+ * line. It stays cohesive — its segments never split across lines; the whole
+ * group wraps below the label as a unit if there isn't room. */
+.group {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* Multi-select group: wraps onto multiple rows as an aligned grid with
+ * consistent row + column gaps. Stretch to the full available width so it only
+ * wraps when the segments genuinely don't fit on one line (not because a flex
+ * parent shrank it to content width). */
+.wrap-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    align-self: stretch !important;
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* The segment IS the Clickable's <button>. Clickable already inherits the font,
+ * resets the text decoration, and sets the cursor (pointer / not-allowed when
+ * disabled); here we add the visual box. Its variants are driven by selectors
+ * below — selected via `[aria-checked="true"]`, disabled via `[aria-disabled]`,
+ * hover via `:hover` — so the markup needs only this one static class. The
+ * keyboard focus ring is a rounded box-shadow (follows the border radius, unlike
+ * `outline`) shown only on `:focus-visible` so it doesn't appear after a click. */
+.segment {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-block: var(--wb-sizing-size_040) !important;
+    padding-inline: var(--wb-sizing-size_120) !important;
+    border-radius: var(--wb-border-radius-radius_040) !important;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle) !important;
+    background-color: var(
+        --wb-semanticColor-core-background-base-default
+    ) !important;
+    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
+    font-size: var(--wb-font-body-size-small) !important;
+    line-height: var(--wb-font-body-lineHeight-small) !important;
+    white-space: nowrap !important;
+}
+
+.segment:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 var(--wb-border-width-medium)
+        var(--wb-semanticColor-focus-outer) !important;
+}
+
+/* Hover only when interactive and not already selected. */
+.segment:not([aria-disabled="true"]):not([aria-checked="true"]):hover {
+    border-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    ) !important;
+    background-color: var(
+        --wb-semanticColor-core-background-neutral-subtle
+    ) !important;
+}
+
+.segment[aria-checked="true"] {
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-default
+    ) !important;
+    border-color: var(
+        --wb-semanticColor-core-background-instructive-default
+    ) !important;
+    color: var(--wb-semanticColor-core-foreground-knockout-default) !important;
+}
+
+.segment[aria-disabled="true"] {
+    background-color: var(
+        --wb-semanticColor-core-background-disabled-subtle
+    ) !important;
+    border-color: var(
+        --wb-semanticColor-core-border-disabled-default
+    ) !important;
+    color: var(--wb-semanticColor-core-foreground-disabled-default) !important;
+}
+
+.segment[aria-disabled="true"][aria-checked="true"] {
+    background-color: var(
+        --wb-semanticColor-core-background-disabled-strong
+    ) !important;
+    border-color: var(
+        --wb-semanticColor-core-background-disabled-strong
+    ) !important;
+    color: var(--wb-semanticColor-core-foreground-disabled-strong) !important;
+}

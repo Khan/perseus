@@ -74,7 +74,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         expect(result.answers[0].maxError).toBe(0);
     });
 
-    it(`converts the "number" answer type to [integer, decimal, proper, improper, mixed]`, () => {
+    it(`converts the "number" answer type to an empty array`, () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: "number",
@@ -83,13 +83,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
     it(`converts the "rational" answer type to [integer, proper, improper, mixed]`, () => {
@@ -109,7 +103,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         ]);
     });
 
-    it("defaults answerForms to [integer, proper, improper, mixed, decimal]", () => {
+    it("defaults answerForms to an empty array when answerType is undefined", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -118,13 +112,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         const result = convertInputNumberOptionsToNumericInput(options);
 
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
     it("converts the `value` to a number", () => {
@@ -190,7 +178,7 @@ describe("convertInputNumberOptionsToNumericInput", () => {
         ]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when inexact is true", () => {
+    it("returns an empty array for answerForms when inexact is true and value has more than 10 decimal places", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -200,16 +188,10 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has 10 decimal places", () => {
+    it("returns an empty array for answerForms when the answer has exactly 10 decimal places", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
             answerType: undefined,
@@ -219,31 +201,39 @@ describe("convertInputNumberOptionsToNumericInput", () => {
 
         const result = convertInputNumberOptionsToNumericInput(options);
         expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+        expect(result.answers[0].answerForms).toEqual([]);
     });
 
-    it("does not exclude `decimal` and `integer` from `answerForms` when the answer has fewer than 10 decimal places", () => {
+    it("converts alignment when rightAlign is undefined", () => {
         const options: PerseusInputNumberWidgetOptions = {
             ...baseOptions,
-            answerType: undefined,
-            inexact: undefined,
-            value: "0.3",
+            rightAlign: undefined,
         };
 
         const result = convertInputNumberOptionsToNumericInput(options);
-        expect(result.answers).toHaveLength(1);
-        expect(result.answers[0].answerForms).toEqual([
-            "integer",
-            "decimal",
-            "proper",
-            "improper",
-            "mixed",
-        ]);
+
+        expect(result.textAlign).toBe("left");
+    });
+
+    it("converts alignment when rightAlign is true", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: true,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.textAlign).toBe("right");
+    });
+
+    it("converts alignment when rightAlign is false", () => {
+        const options: PerseusInputNumberWidgetOptions = {
+            ...baseOptions,
+            rightAlign: false,
+        };
+
+        const result = convertInputNumberOptionsToNumericInput(options);
+
+        expect(result.textAlign).toBe("left");
     });
 });

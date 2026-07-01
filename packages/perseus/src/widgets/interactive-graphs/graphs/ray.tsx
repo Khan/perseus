@@ -71,12 +71,6 @@ const RayGraph = (props: Props) => {
                     point2AriaLabel,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
-                // The ray graph's move announcements come from the WB
-                // Announcer via stateAnnouncement; disable aria-live here to
-                // avoid the focusable handles double-announcing.
-                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
-                // from MovableLine / useControlPoint.
-                ariaLive="off"
                 onMoveLine={handleMoveLine}
                 onMovePoint={handleMovePoint}
                 extend={{

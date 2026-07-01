@@ -13,6 +13,7 @@ import {
     lockedFigureColors,
     splitPerseusItem,
     getDefaultFigureForType,
+    generateIGLinearGraph,
 } from "@khanacademy/perseus-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {screen, waitFor} from "@testing-library/react";
@@ -2118,7 +2119,10 @@ describe("Interactive Graph", function () {
 
         it("renders a 'not graded' message when graded is false", () => {
             // Arrange, Act
-            const question = generateInteractiveGraphQuestion({graded: false});
+            const question = generateInteractiveGraphQuestion({
+                graded: false,
+                graph: generateIGLinearGraph(),
+            });
             renderQuestion(question, blankOptions);
 
             // Assert
@@ -2129,9 +2133,32 @@ describe("Interactive Graph", function () {
             ).toBeInTheDocument();
         });
 
+        it("announces the 'not graded' message as the graph's first description", () => {
+            // Arrange, Act
+            const question = generateInteractiveGraphQuestion({
+                graded: false,
+                graph: generateIGLinearGraph(),
+            });
+            renderQuestion(question, blankOptions);
+
+            // Assert
+            const note = screen.getByText(
+                "Use this graph to check your thinking, but it does not count as your answer.",
+            );
+            const figure = screen.getByRole("figure");
+            const [firstDescribedById] =
+                figure.getAttribute("aria-describedby")?.split(" ") ?? [];
+
+            expect(note).toHaveAttribute("id");
+            expect(firstDescribedById).toBe(note.getAttribute("id"));
+        });
+
         it("does not render a 'not graded' message when graded is true", () => {
             // Arrange, Act
-            const question = generateInteractiveGraphQuestion({graded: true});
+            const question = generateInteractiveGraphQuestion({
+                graded: true,
+                graph: generateIGLinearGraph(),
+            });
             renderQuestion(question, blankOptions);
 
             // Assert

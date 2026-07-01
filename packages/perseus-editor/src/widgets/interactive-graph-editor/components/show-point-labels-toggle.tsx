@@ -1,0 +1,43 @@
+import {components} from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
+
+import LabeledSwitch from "../../../components/labeled-switch";
+
+import styles from "./show-point-labels-toggle.module.css";
+
+const {InfoTip} = components;
+
+interface Props {
+    showPointLabels: boolean;
+    pointLabels: ReadonlyArray<string> | undefined;
+    onChange: (showPointLabels: boolean) => void;
+}
+
+// Editor-level toggle for the graph's `showPointLabels` field. The toggle
+// is disabled until at least one point has a non-empty label; the InfoTip
+// explains why. When on, points with a custom label display it and
+// unlabeled points show nothing.
+export default function ShowPointLabelsToggle({
+    showPointLabels,
+    pointLabels,
+    onChange,
+}: Props) {
+    const hasAtLeastOneLabel =
+        pointLabels !== undefined && pointLabels.some((label) => label !== "");
+
+    return (
+        <View className={styles.switchRow}>
+            <LabeledSwitch
+                label="Show point labels"
+                checked={hasAtLeastOneLabel && showPointLabels}
+                disabled={!hasAtLeastOneLabel}
+                onChange={onChange}
+            />
+            <InfoTip>
+                When on, each labeled point displays a visible label next to it.
+                Add a name to at least one point below to enable this option.
+            </InfoTip>
+        </View>
+    );
+}

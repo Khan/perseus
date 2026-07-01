@@ -60,8 +60,8 @@ const VectorGraph = (props: Props) => {
     // Aria label strings
     const {
         srVectorGraph,
-        srVectorPoints,
-        srVectorTipPoint,
+        srVectorDescription,
+        srVectorHeadPoint,
         srVectorGrabHandle,
     } = describeVectorGraph(props.graphState, {strings, locale});
 
@@ -71,7 +71,7 @@ const VectorGraph = (props: Props) => {
     const tipArrowhead = useTipArrowhead({
         tail,
         tip,
-        ariaLabel: srVectorTipPoint,
+        ariaLabel: srVectorHeadPoint,
         ariaDescribedBy: pointsDescriptionId,
         onMove: (destination) => dispatch(actions.vector.moveTip(destination)),
     });
@@ -100,7 +100,9 @@ const VectorGraph = (props: Props) => {
             {tipArrowhead.visibleArrowhead}
 
             {/* Hidden SR description */}
-            <SRDescInSVG id={pointsDescriptionId}>{srVectorPoints}</SRDescInSVG>
+            <SRDescInSVG id={pointsDescriptionId}>
+                {srVectorDescription}
+            </SRDescInSVG>
         </g>
     );
 };
@@ -168,7 +170,6 @@ const VectorBody = (props: VectorBodyProps) => {
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedBy}
             aria-disabled={disableKeyboardInteraction}
-            aria-live="polite"
             className="movable-line"
             data-testid="movable-vector"
             style={{cursor: dragging ? "grabbing" : "grab"}}

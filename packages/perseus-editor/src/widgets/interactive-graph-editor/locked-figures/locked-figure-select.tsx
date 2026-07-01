@@ -7,19 +7,20 @@
  */
 import {View} from "@khanacademy/wonder-blocks-core";
 import {ActionItem, ActionMenu} from "@khanacademy/wonder-blocks-dropdown";
-import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import styles from "./locked-figure-select.module.css";
 
 import type {LockedFigureType} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     id: string;
+    editingDisabled?: boolean;
     onChange: (value: LockedFigureType) => void;
-};
+}
 
 const LockedFigureSelect = (props: Props) => {
-    const {id, onChange} = props;
+    const {id, editingDisabled, onChange} = props;
 
     const figureTypes: ReadonlyArray<LockedFigureType> = [
         "point",
@@ -32,10 +33,11 @@ const LockedFigureSelect = (props: Props) => {
     ];
 
     return (
-        <View style={styles.container}>
+        <View className={styles.container}>
             <ActionMenu
                 menuText="Add locked figure"
-                style={styles.addElementSelect}
+                disabled={editingDisabled}
+                className={styles.addElementSelect}
             >
                 {figureTypes.map((figureType) => (
                     <ActionItem
@@ -48,15 +50,5 @@ const LockedFigureSelect = (props: Props) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: spacing.xSmall_8,
-    },
-    addElementSelect: {
-        backgroundColor: semanticColor.core.background.instructive.subtle,
-        borderRadius: spacing.xxxSmall_4,
-    },
-});
 
 export default LockedFigureSelect;

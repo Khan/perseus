@@ -49,37 +49,25 @@ export function testRule(
 
 export function expectWarning(
     rule,
-    strings: string | Array<string>,
+    string: string,
     context?,
     options?: {
         message?: string;
         severity?: number;
     },
 ) {
-    if (typeof strings === "string") {
-        strings = [strings];
+    const result = testRule(rule, string, context);
+    expect(result).not.toBeNull();
+
+    if (options?.message) {
+        expect(result?.[0]?.message).toBe(options.message);
     }
 
-    it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
-        const result = testRule(rule, string, context);
-        expect(result).not.toBeNull();
-
-        if (options?.message) {
-            expect(result?.[0]?.message).toBe(options.message);
-        }
-
-        if (options?.severity) {
-            expect(result?.[0]?.severity).toBe(options.severity);
-        }
-    });
+    if (options?.severity) {
+        expect(result?.[0]?.severity).toBe(options.severity);
+    }
 }
 
-export function expectPass(rule, strings: string | Array<string>, context?) {
-    if (typeof strings === "string") {
-        strings = [strings];
-    }
-
-    it.each(strings)(`Rule ${rule.name} passes with: %s`, (string) => {
-        expect(testRule(rule, string, context)).toBeNull();
-    });
+export function expectPass(rule, string: string, context?) {
+    expect(testRule(rule, string, context)).toBeNull();
 }

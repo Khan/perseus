@@ -1,6 +1,7 @@
 import {
     generateIGAngleGraph,
     generateIGCircleGraph,
+    generateIGLinearGraph,
     generateIGLockedEllipse,
     generateIGLockedFunction,
     generateIGLockedLabel,
@@ -449,6 +450,29 @@ export const LockedPoints: Story = {
     },
 };
 
+// Verifies points on the graph boundary (corners and edge midpoints) render as
+// full circles rather than being clipped in half.
+export const LockedPointsAtGraphEdges: Story = {
+    args: {
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        lockedFigures: [
+            // Corners
+            generateIGLockedPoint({coord: [0, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [0, 10]}),
+            generateIGLockedPoint({coord: [10, 10]}),
+            // Edge midpoints
+            generateIGLockedPoint({coord: [5, 10]}),
+            generateIGLockedPoint({coord: [5, 0]}),
+            generateIGLockedPoint({coord: [0, 5]}),
+            generateIGLockedPoint({coord: [10, 5]}),
+        ],
+    },
+};
+
 // Verifies a locked line connecting two locked points.
 export const LockedLine: Story = {
     args: {
@@ -652,7 +676,9 @@ export const Ungraded: Story = {
     parameters: {
         graded: false,
     },
-    args: {},
+    args: {
+        graph: generateIGLinearGraph(),
+    },
 };
 
 // Verifies the static graph state — when `static` is true, interactive

@@ -360,7 +360,12 @@ export const ItemExtras = [
      */
     "periodicTableWithKey",
 ] as const;
-export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
+
+export type CalculatorVariant = "scientific" | "graphing" | "four_function";
+
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean> & {
+    calculatorVariant: CalculatorVariant | null;
+};
 
 /**
  * The type representing the common structure of all widget's options. The
@@ -785,23 +790,28 @@ export type GrapherAnswerTypes =
           coords: null | [Coord, Coord];
       };
 
+/** The functions that can be graphed in a Grapher widget */
+export type GrapherFunctionType =
+    | "absolute_value"
+    | "exponential"
+    | "linear"
+    | "logarithm"
+    | "quadratic"
+    | "sinusoid"
+    | "tangent";
+
 /**
  * Options for the Grapher widget. Defines the available function
  * types, the correct answer, and the visual graph configuration.
  */
 export type PerseusGrapherWidgetOptions = {
     /** The set of function types the learner can choose from when plotting. */
-    availableTypes: Array<
-        | "absolute_value"
-        | "exponential"
-        | "linear"
-        | "logarithm"
-        | "quadratic"
-        | "sinusoid"
-        | "tangent"
-    >;
-    /** The correct answer; used to score the learner's plotted function. */
-    correct: GrapherAnswerTypes;
+    availableTypes: GrapherFunctionType[];
+    /**
+     * The correct answer; used to score the learner's plotted function.
+     * Undefined in answerless data.
+     */
+    correct?: GrapherAnswerTypes;
     /** Visual configuration for the coordinate plane. */
     graph: {
         /** An optional background image displayed behind the graph. */
@@ -1296,7 +1306,7 @@ export type PerseusGraphTypeTangent = {
 export type PerseusGraphTypeExponential = {
     type: "exponential";
     /** Two points along the exponential curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The y-value of the horizontal asymptote (the line y = asymptote).
      * Corresponds to the coefficient c in f(x) = a·eᵇˣ + c.
@@ -1313,7 +1323,7 @@ export type PerseusGraphTypeExponential = {
 export type PerseusGraphTypeLogarithm = {
     type: "logarithm";
     /** Two points along the logarithmic curve. */
-    coords?: Coord[] | null;
+    coords?: [Coord, Coord] | null;
     /**
      * The x-value of the vertical asymptote (the line x = asymptote).
      * The curve is defined on only one side of this line.
@@ -1642,8 +1652,10 @@ export type PerseusNumericInputWidgetOptions = {
      * empty string to mean 1.
      */
     coefficient: boolean;
-    /** Whether to right-align the text or not */
-    rightAlign?: boolean;
+    /**
+     * How to align the text in the input
+     */
+    textAlign: "left" | "right" | "center";
 };
 
 export type PerseusNumericInputAnswer = {

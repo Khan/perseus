@@ -11,8 +11,7 @@ export function resolvePointLabel(
     index: number,
 ): string | number {
     const customLabel = pointLabels?.[index];
-    // Fall back to the numeric default if a non-string slips past the parser.
-    if (typeof customLabel !== "string" || !customLabel) {
+    if (!customLabel) {
         // Convert from a 0-indexed array position to the 1-indexed sequence
         // number screen readers announce (index 0 → "Point 1", etc.).
         return index + 1;

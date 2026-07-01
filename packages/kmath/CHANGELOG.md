@@ -1,5 +1,53 @@
 # @khanacademy/kmath
 
+## 2.4.26
+
+### Patch Changes
+
+-   [#3800](https://github.com/Khan/perseus/pull/3800) [`e3a00c9f19`](https://github.com/Khan/perseus/commit/e3a00c9f1913cdfa4735a1999120cfcf525555a1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader descriptions for absolute value graph`getAbsoluteValueCoefficients` now always returns coefficients instead of `undefined`: when the two control points share an x-coordinate the slope is `±Infinity`.
+
+## 2.4.25
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+
+## 2.4.24
+
+### Patch Changes
+
+-   Updated dependencies [[`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3)]:
+    -   @khanacademy/perseus-core@28.3.0
+
+## 2.4.23
+
+### Patch Changes
+
+-   Updated dependencies [[`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee)]:
+    -   @khanacademy/perseus-core@28.2.0
+
+## 2.4.22
+
+### Patch Changes
+
+-   Updated dependencies [[`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79)]:
+    -   @khanacademy/perseus-core@28.1.0
+
+## 2.4.21
+
+### Patch Changes
+
+-   Updated dependencies [[`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0)]:
+    -   @khanacademy/perseus-core@28.0.1
+
+## 2.4.20
+
+### Patch Changes
+
+-   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+
 ## 2.4.19
 
 ### Patch Changes

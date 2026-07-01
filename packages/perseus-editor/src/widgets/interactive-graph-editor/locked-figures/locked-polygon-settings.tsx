@@ -11,8 +11,8 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
+import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowFatDown from "@phosphor-icons/core/regular/arrow-fat-down.svg";
 import arrowFatLeft from "@phosphor-icons/core/regular/arrow-fat-left.svg";
@@ -20,7 +20,6 @@ import arrowFatRight from "@phosphor-icons/core/regular/arrow-fat-right.svg";
 import arrowFatUp from "@phosphor-icons/core/regular/arrow-fat-up.svg";
 import minusCircle from "@phosphor-icons/core/regular/minus-circle.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
@@ -33,6 +32,7 @@ import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
+import styles from "./locked-polygon-settings.module.css";
 import PolygonSwatch from "./polygon-swatch";
 import {
     generateLockedFigureAppearanceDescription,
@@ -41,6 +41,21 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+// Passed to Wonder Blocks `StyleType`-only props (PerseusEditorAccordion's
+// `containerStyle`/`panelStyle`, child `style`/`containerStyle`), which do not
+// accept a CSS-module className.
+const spaceUnderStyle: StyleType = {marginBottom: sizing.size_080};
+const pointAccordionContainerStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.base.default,
+};
+const pointAccordionPanelStyle: StyleType = {
+    alignItems: "start",
+};
+const labelContainerStyle: StyleType = {
+    backgroundColor: semanticColor.core.background.base.default,
+};
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {
@@ -61,6 +76,7 @@ const LockedPolygonSettings = (props: Props) => {
         labels,
         ariaLabel,
         expanded,
+        editingDisabled = false,
         onToggle,
         onChangeProps,
         onMove,
@@ -177,13 +193,12 @@ const LockedPolygonSettings = (props: Props) => {
             onToggle={onToggle}
             header={
                 // Summary: Polygon, number of sides, style swatch
-                <View style={styles.row}>
+                <View className={`${styles.row} ${styles.header}`}>
                     <BodyText
                         size="medium"
                         weight="bold"
                         tag="span"
                     >{`Polygon, ${points.length} sides`}</BodyText>
-                    <Strut size={spacing.xSmall_8} />
                     <PolygonSwatch
                         color={color}
                         fillStyle={fillStyle}
@@ -192,23 +207,23 @@ const LockedPolygonSettings = (props: Props) => {
                 </View>
             }
         >
-            <View style={[styles.row, styles.spaceUnder]}>
+            <View className={`${styles.row} ${styles.colorRow}`}>
                 {/* Color */}
                 <ColorSelect
                     selectedValue={color}
+                    editingDisabled={editingDisabled}
                     onChange={handleColorChange}
                 />
-                <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
                 <BodyText
                     tag="label"
-                    style={[styles.row, styles.truncatedWidth]}
+                    className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
+                        disabled={editingDisabled}
                         // TODO(LEMS-2656): remove TS suppression
                         onChange={
                             // eslint-disable-next-line no-restricted-syntax
@@ -232,29 +247,32 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
-                containerStyle={styles.spaceUnder}
+                containerStyle={spaceUnderStyle}
             />
 
             {/* Weight */}
             <LineWeightSelect
                 selectedValue={weight}
+                editingDisabled={editingDisabled}
                 onChange={(value) =>
                     onChangeProps({
                         weight: value,
                     })
                 }
-                containerStyle={styles.spaceUnder}
+                containerStyle={spaceUnderStyle}
             />
 
             {/* Show vertices switch */}
             <LabeledSwitch
                 label="show vertices"
                 checked={showVertices}
+                disabled={editingDisabled}
                 onChange={(newValue: boolean) =>
                     onChangeProps({showVertices: newValue})
                 }
-                style={styles.spaceUnder}
+                style={spaceUnderStyle}
             />
 
             <PerseusEditorAccordion
@@ -264,8 +282,8 @@ const LockedPolygonSettings = (props: Props) => {
                     </BodyText>
                 }
                 expanded={true}
-                containerStyle={styles.pointAccordionContainer}
-                panelStyle={styles.pointAccordionPanel}
+                containerStyle={pointAccordionContainerStyle}
+                panelStyle={pointAccordionPanelStyle}
             >
                 {points.map((point, index) => {
                     const pointLabel = String.fromCharCode(65 + index);
@@ -273,17 +291,18 @@ const LockedPolygonSettings = (props: Props) => {
                     return (
                         <View
                             key={`locked-polygon-point-index-${index}`}
-                            style={[styles.row, styles.spaceUnder]}
+                            className={`${styles.row} ${styles.spaceUnder}`}
                         >
                             {/* Give the points alphabet labels */}
                             <BodyText
                                 size="medium"
                                 weight="bold"
                             >{`${pointLabel}:`}</BodyText>
-                            <Strut size={spacing.medium_16} />
                             <CoordinatePairInput
                                 coord={point}
                                 labels={["x", "y"]}
+                                style={{marginInlineStart: sizing.size_160}}
+                                disabled={editingDisabled}
                                 onChange={(newValue: Coord) => {
                                     const newPoints = [...points];
                                     newPoints[index] = newValue;
@@ -300,6 +319,7 @@ const LockedPolygonSettings = (props: Props) => {
                                         icon={minusCircle}
                                         kind="tertiary"
                                         actionType="destructive"
+                                        disabled={editingDisabled}
                                         onClick={() => {
                                             const newPoints = [...points];
                                             newPoints.splice(index, 1);
@@ -307,17 +327,20 @@ const LockedPolygonSettings = (props: Props) => {
                                                 points: newPoints,
                                             });
                                         }}
-                                        style={styles.icon}
+                                        className={styles.icon}
                                     />
                                 )
                             }
                         </View>
                     );
                 })}
-                <View style={[styles.row, styles.polygonActionsContainer]}>
+                <View
+                    className={`${styles.row} ${styles.polygonActionsContainer}`}
+                >
                     <Button
                         kind="tertiary"
                         startIcon={plusCircle}
+                        disabled={editingDisabled}
                         onClick={() => {
                             props.onChangeProps({
                                 points: [...points, [0, 0]],
@@ -330,20 +353,22 @@ const LockedPolygonSettings = (props: Props) => {
                     <Spring />
 
                     {/* Buttons to move the entire polygon */}
-                    <View style={styles.movementButtonsContainer}>
+                    <View className={styles.movementButtonsContainer}>
                         <IconButton
                             aria-label="Move polygon up"
                             size="small"
                             icon={arrowFatUp}
                             kind="tertiary"
+                            disabled={editingDisabled}
                             onClick={() => handlePolygonMove("up")}
                         />
-                        <View style={styles.row}>
+                        <View className={styles.row}>
                             <IconButton
                                 aria-label="Move polygon left"
                                 size="small"
                                 icon={arrowFatLeft}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("left")}
                             />
                             <IconButton
@@ -351,6 +376,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 size="small"
                                 icon={arrowFatDown}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("down")}
                             />
                             <IconButton
@@ -358,6 +384,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 size="small"
                                 icon={arrowFatRight}
                                 kind="tertiary"
+                                disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("right")}
                             />
                         </View>
@@ -366,25 +393,26 @@ const LockedPolygonSettings = (props: Props) => {
             </PerseusEditorAccordion>
 
             {/* Aria label */}
-            <Strut size={spacing.small_12} />
-            <View style={styles.horizontalRule} />
+            <View className={`${styles.horizontalRule} ${styles.sectionTop}`} />
             <LockedFigureAria
                 ariaLabel={ariaLabel}
                 getPrepopulatedAriaLabel={getPrepopulatedAriaLabel}
+                editingDisabled={editingDisabled}
                 onChangeProps={(newProps) => {
                     onChangeProps(newProps);
                 }}
             />
 
             {/* Visible Labels */}
-            <Strut size={spacing.xxxSmall_4} />
-            <View style={styles.horizontalRule} />
-            <Strut size={spacing.small_12} />
-            <BodyText>Visible labels</BodyText>
+            <View
+                className={`${styles.horizontalRule} ${styles.dividerTight}`}
+            />
+            <BodyText className={styles.sectionTop}>Visible labels</BodyText>
             {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
+                    editingDisabled={editingDisabled}
                     expanded={true}
                     onChangeProps={(newLabel) => {
                         handleLabelChange(newLabel, labelIndex);
@@ -392,12 +420,13 @@ const LockedPolygonSettings = (props: Props) => {
                     onRemove={() => {
                         handleLabelRemove(labelIndex);
                     }}
-                    containerStyle={styles.labelContainer}
+                    containerStyle={labelContainerStyle}
                 />
             ))}
             <Button
                 kind="tertiary"
                 startIcon={plusCircle}
+                disabled={editingDisabled}
                 onClick={() => {
                     const newLabel = {
                         ...getDefaultFigureForType("label"),
@@ -415,7 +444,7 @@ const LockedPolygonSettings = (props: Props) => {
                         labels: [...labels, newLabel],
                     });
                 }}
-                style={styles.addButton}
+                className={styles.addButton}
             >
                 Add visible label
             </Button>
@@ -423,56 +452,12 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
+                editingDisabled={editingDisabled}
                 onMove={onMove}
                 onRemove={onRemove}
             />
         </PerseusEditorAccordion>
     );
 };
-
-const styles = StyleSheet.create({
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    pointAccordionContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    pointAccordionPanel: {
-        alignItems: "start",
-    },
-    icon: {
-        marginInlineStart: spacing.xxxSmall_4,
-    },
-    polygonActionsContainer: {
-        width: "100%",
-    },
-    movementButtonsContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minWidth: "fit-content",
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
-    },
-    truncatedWidth: {
-        // Allow truncation, stop bleeding over the edge.
-        minWidth: 0,
-    },
-
-    // Styles for the visible labels section
-    addButton: {
-        alignSelf: "start",
-    },
-    labelContainer: {
-        backgroundColor: semanticColor.core.background.base.default,
-    },
-    horizontalRule: {
-        height: 1,
-        backgroundColor: semanticColor.core.border.neutral.subtle,
-    },
-});
 
 export default LockedPolygonSettings;

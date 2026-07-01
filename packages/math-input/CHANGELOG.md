@@ -1,5 +1,65 @@
 # @khanacademy/math-input
 
+## 26.4.40
+
+### Patch Changes
+
+-   [#3811](https://github.com/Khan/perseus/pull/3811) [`aa520a1a5e`](https://github.com/Khan/perseus/commit/aa520a1a5ee6f493df8fd45d93fe0841bc83e451) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend
+
+## 26.4.39
+
+### Patch Changes
+
+-   Updated dependencies [[`c363a6d0c8`](https://github.com/Khan/perseus/commit/c363a6d0c8be15d4a41c4000678c89a08658cca5)]:
+    -   @khanacademy/perseus-core@29.0.0
+    -   @khanacademy/keypad-context@3.2.67
+
+## 26.4.38
+
+### Patch Changes
+
+-   Updated dependencies [[`c04bfdc6f7`](https://github.com/Khan/perseus/commit/c04bfdc6f74056d439803b0a2ae2fc03ac5615f4), [`a2c520acb9`](https://github.com/Khan/perseus/commit/a2c520acb9b05f99ce6455a2871b71fbd081deb1), [`8d6ed38862`](https://github.com/Khan/perseus/commit/8d6ed3886288b5fb511c83dc17efeb965ca2692a), [`c9f6ab2e24`](https://github.com/Khan/perseus/commit/c9f6ab2e2478c8be5c9a729c2fd5c0c4e7612ec3)]:
+    -   @khanacademy/perseus-core@28.3.0
+    -   @khanacademy/keypad-context@3.2.66
+
+## 26.4.37
+
+### Patch Changes
+
+-   Updated dependencies [[`115a086eaa`](https://github.com/Khan/perseus/commit/115a086eaa3f042c654682a7df153e2437d7bdee)]:
+    -   @khanacademy/perseus-core@28.2.0
+    -   @khanacademy/keypad-context@3.2.65
+
+## 26.4.36
+
+### Patch Changes
+
+-   [#3744](https://github.com/Khan/perseus/pull/3744) [`af9eb1c495`](https://github.com/Khan/perseus/commit/af9eb1c4951aa6d77e41ff848ba4be168e21a980) Thanks [@Myranae](https://github.com/Myranae)! - Convert hardcoded colors and fonts in math-input components to semantic tokens (cursor-handle, keypad-button, navigation-button)
+
+*   [#3781](https://github.com/Khan/perseus/pull/3781) [`2a7a4c8189`](https://github.com/Khan/perseus/commit/2a7a4c8189372950fc512bea426880b19c184fbb) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 1c75dbe1da3f9987d58cebe0a8186fbfba7433c7
+
+-   [#3789](https://github.com/Khan/perseus/pull/3789) [`a4951c31a0`](https://github.com/Khan/perseus/commit/a4951c31a040784b6cefec96efbc28b55360f1fa) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dev deps with frontend commit 6eb7b7f91562c2d8c7ba19ba73c832e0d0169649
+
+-   Updated dependencies [[`2202d565ab`](https://github.com/Khan/perseus/commit/2202d565ab15e953cb386f764a74cddd6f93774b), [`8c93ca9a97`](https://github.com/Khan/perseus/commit/8c93ca9a979c5769c8b961ffa9f1baf0353a22f2), [`dd8d25c7df`](https://github.com/Khan/perseus/commit/dd8d25c7df584b86f96d1011125a5eba9d423b79)]:
+    -   @khanacademy/perseus-core@28.1.0
+    -   @khanacademy/keypad-context@3.2.64
+
+## 26.4.35
+
+### Patch Changes
+
+-   Updated dependencies [[`0f5e14e2c9`](https://github.com/Khan/perseus/commit/0f5e14e2c9be14dfe5fea3aa328b2c9649b9cbf4), [`18aba08759`](https://github.com/Khan/perseus/commit/18aba087593846209979e85c07c79959893f2ca0)]:
+    -   @khanacademy/perseus-core@28.0.1
+    -   @khanacademy/keypad-context@3.2.63
+
+## 26.4.34
+
+### Patch Changes
+
+-   Updated dependencies [[`444c57276e`](https://github.com/Khan/perseus/commit/444c57276e241bc9193a62d06655b955d3b0888a), [`7bf9c46454`](https://github.com/Khan/perseus/commit/7bf9c46454af953213ac8bdceba0bbda9e31e70d), [`9c8873aab0`](https://github.com/Khan/perseus/commit/9c8873aab0b04775ff4aa45cabff8e1368254933)]:
+    -   @khanacademy/perseus-core@28.0.0
+    -   @khanacademy/keypad-context@3.2.62
+
 ## 26.4.33
 
 ### Patch Changes

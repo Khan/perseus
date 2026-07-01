@@ -86,6 +86,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -126,6 +127,7 @@ describe("getPerseusAIData", () => {
             }),
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -201,6 +203,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
+                calculatorVariant: null,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -825,6 +828,7 @@ describe("injectWidgets", () => {
                     labelText: "Enter a number",
                     size: "normal",
                     coefficient: false,
+                    textAlign: "left",
                 },
             },
             "input-number 1": {
@@ -1017,6 +1021,7 @@ describe("getAnswersFromWidgets", () => {
                 labelText: "Enter a number",
                 size: "normal",
                 coefficient: false,
+                textAlign: "left",
             },
         };
         const answer = getAnswersFromWidgets({"numeric-input 1": widget});

@@ -18,6 +18,7 @@ import {srFormatNumber} from "./strings/format-number";
 import {getAbsoluteValueCoefficients} from "./utils";
 
 import type {AbsoluteValueCoefficients} from "./utils";
+import type {PerseusStrings} from "../../../strings";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
@@ -48,6 +49,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     const i18n = usePerseusI18n();
     const id = React.useId();
     const descriptionId = id + "-description";
+    const slopeDescriptionId = id + "-slope";
 
     const {coords, pointLabels, snapStep} = graphState;
     const buildLabel = usePointAriaLabel(pointLabels);
@@ -60,7 +62,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
         v: 0,
     });
     const coeffs = getAbsoluteValueCoefficients(coords);
-    if (coeffs !== undefined) {
+    if (Number.isFinite(coeffs.m)) {
         coeffRef.current = coeffs;
     }
 
@@ -71,6 +73,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
         srAbsoluteValueVertexPoint,
         srAbsoluteValueSecondPoint,
         srAbsoluteValueDescription: srDescription,
+        srAbsoluteValueSlope,
     } = describeAbsoluteValueGraph(graphState, i18n);
 
     return (
@@ -93,6 +96,10 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                             ? srAbsoluteValueVertexPoint
                             : srAbsoluteValueSecondPoint)
                     }
+                    // The arm point (index 1) determines the slope, so it
+                    // carries the slope description; the vertex (index 0)
+                    // does not.
+                    ariaDescribedBy={i === 1 ? slopeDescriptionId : undefined}
                     point={coord}
                     sequenceNumber={i + 1}
                     constrain={getAbsoluteValueKeyboardConstraint(
@@ -105,15 +112,12 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                             actions.absoluteValue.movePoint(i, destination),
                         )
                     }
-                    // Move announcements come from the WB Announcer via
-                    // stateAnnouncement; disable aria-live here to avoid
-                    // the focusable handle double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                    // dropped from useControlPoint.
-                    ariaLive="off"
                 />
             ))}
             <SRDescInSVG id={descriptionId}>{srDescription}</SRDescInSVG>
+            <SRDescInSVG id={slopeDescriptionId}>
+                {srAbsoluteValueSlope}
+            </SRDescInSVG>
         </g>
     );
 }
@@ -161,6 +165,7 @@ function getAbsoluteValueDescription(
     const {coords} = state;
     const {locale} = i18n;
     const [p1, p2] = coords;
+    const slope = getAbsoluteValueCoefficients(coords).m;
 
     return strings.srInteractiveElements({
         elements: strings.srAbsoluteValueInteractiveElements({
@@ -168,6 +173,7 @@ function getAbsoluteValueDescription(
             point1Y: srFormatNumber(p1[Y], locale),
             point2X: srFormatNumber(p2[X], locale),
             point2Y: srFormatNumber(p2[Y], locale),
+            slope: srFormatNumber(slope, locale),
         }),
     });
 }

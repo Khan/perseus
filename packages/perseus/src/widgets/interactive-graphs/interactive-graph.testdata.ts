@@ -1220,7 +1220,15 @@ export const sinusoidWithPiTicks: PerseusRenderer =
     });
 
 export const ungradedQuestion: PerseusRenderer =
-    generateInteractiveGraphQuestion({graded: false});
+    generateInteractiveGraphQuestion({
+        graded: false,
+        correct: generateIGAbsoluteValueGraph({
+            coords: [
+                [0, 0],
+                [2, 2],
+            ],
+        }),
+    });
 
 export const noTicks: PerseusRenderer = generateInteractiveGraphQuestion({
     markings: "axes",
@@ -1268,6 +1276,7 @@ export const pointWithCustomLabelQuestion: PerseusRenderer =
             startCoords: [[0, 0]],
             coords: [[-4, 2]],
             pointLabels: ["T"],
+            showPointLabels: true,
         }),
     });
 
@@ -1336,6 +1345,7 @@ export const linearWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1358,6 +1368,7 @@ export const rayWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1391,6 +1402,7 @@ export const linearSystemWithCustomLabelsQuestion: PerseusRenderer =
                 ],
             ],
             pointLabels: ["A", "B", "C", "D"],
+            showPointLabels: true,
         }),
     });
 
@@ -1425,6 +1437,7 @@ export const segmentWithCustomLabelsQuestion: PerseusRenderer =
                 ],
             ],
             pointLabels: ["A", "B", "C", "D"],
+            showPointLabels: true,
         }),
     });
 
@@ -1452,6 +1465,7 @@ export const polygonWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 3],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1477,6 +1491,7 @@ export const quadraticWithCustomLabelsQuestion: PerseusRenderer =
                 [5, 5],
             ],
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1501,6 +1516,7 @@ export const sinusoidWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1525,6 +1541,7 @@ export const tangentWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1550,6 +1567,7 @@ export const exponentialWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: 1,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1574,6 +1592,7 @@ export const logarithmWithCustomLabelsQuestion: PerseusRenderer =
             ],
             asymptote: -6,
             pointLabels: ["A", "B"],
+            showPointLabels: true,
         }),
     });
 
@@ -1595,6 +1614,7 @@ export const angleWithCustomLabelsQuestion: PerseusRenderer =
             showAngles: true,
             allowReflexAngles: true,
             pointLabels: ["A", "B", "C"],
+            showPointLabels: true,
         }),
     });
 
@@ -1612,6 +1632,7 @@ export const absoluteValueWithCustomLabelsQuestion: PerseusRenderer =
                 [2, 2],
             ],
             pointLabels: ["V", "A"],
+            showPointLabels: true,
         }),
     });
 
@@ -1629,5 +1650,55 @@ export const circleWithCustomLabelsQuestion: PerseusRenderer =
             center: [0, 0],
             radius: 3,
             pointLabels: ["R"],
+            showPointLabels: true,
         }),
     });
+
+// A graph where the axis lines are on the edge of the chart
+// see: https://khanacademy.atlassian.net/browse/LEMS-4273
+export const onEdgeLeftBottom: PerseusRenderer =
+    generateInteractiveGraphQuestion({
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        showAxisArrows: {
+            xMin: false,
+            xMax: true,
+            yMin: false,
+            yMax: true,
+        },
+        labels: ["My cool X label", "My cool Y label"],
+        labelLocation: "alongEdge",
+        correct: generateIGLinearGraph({
+            coords: [
+                [0, 0],
+                [5, 5],
+            ],
+        }),
+    });
+
+// A graph where the axis lines are on the edge of the chart
+// see: https://khanacademy.atlassian.net/browse/LEMS-4273
+export const onEdgeRightTop: PerseusRenderer = generateInteractiveGraphQuestion(
+    {
+        range: [
+            [-10, 0],
+            [-10, 0],
+        ],
+        showAxisArrows: {
+            xMin: true,
+            xMax: false,
+            yMin: true,
+            yMax: false,
+        },
+        labels: ["My cool X label", "My cool Y label"],
+        labelLocation: "alongEdge",
+        correct: generateIGLinearGraph({
+            coords: [
+                [0, 0],
+                [5, 5],
+            ],
+        }),
+    },
+);

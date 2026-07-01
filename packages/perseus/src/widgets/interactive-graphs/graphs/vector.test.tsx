@@ -10,8 +10,6 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {getVectorTipKeyboardConstraint} from "./vector";
-
 import type {InteractiveGraphState} from "../types";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
@@ -57,7 +55,7 @@ describe("Vector graph screen reader", () => {
         // Assert
         expect(vectorGraph).toBeInTheDocument();
         expect(vectorGraph).toHaveAccessibleDescription(
-            "The tail is at -5 comma 0 and the tip is at 5 comma 0.",
+            "The tail is at -5 comma 0 and the head is at 5 comma 0. The vector has a magnitude of 10 and a direction of 0 degrees.",
         );
     });
 
@@ -77,19 +75,19 @@ describe("Vector graph screen reader", () => {
         );
     });
 
-    it("renders the tip point with an aria label", () => {
+    it("renders the head point with an aria label", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseVectorState} />);
 
         // Act
         const movableElements = screen.getAllByRole("button");
-        // Tab order: grab handle first, then tip point
-        const tipPoint = movableElements[1];
+        // Tab order: grab handle first, then head point
+        const headPoint = movableElements[1];
 
         // Assert
-        expect(tipPoint).toHaveAttribute(
+        expect(headPoint).toHaveAttribute(
             "aria-label",
-            "Tip point at 5 comma 0.",
+            "Vector head at 5 comma 0.",
         );
     });
 
@@ -124,16 +122,16 @@ describe("Vector graph screen reader", () => {
 
         // Act
         const movableElements = screen.getAllByRole("button");
-        const [grabHandle, tipPoint] = movableElements;
+        const [grabHandle, headPoint] = movableElements;
 
         // Assert
         expect(grabHandle).toHaveAttribute(
             "aria-label",
             "Vector from 1 comma 2 to 4 comma 6.",
         );
-        expect(tipPoint).toHaveAttribute(
+        expect(headPoint).toHaveAttribute(
             "aria-label",
-            "Tip point at 4 comma 6.",
+            "Vector head at 4 comma 6.",
         );
     });
 });

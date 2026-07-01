@@ -24,6 +24,7 @@ import {
     skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
+import type {PerseusStrings} from "../../../strings";
 import type {
     LogarithmGraphState,
     MafsGraphProps,
@@ -113,12 +114,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                 }
                 orientation="vertical"
                 ariaLabel={srLogarithmAsymptote}
-                // Move announcements come from the WB Announcer via
-                // stateAnnouncement; disable aria-live here to avoid the
-                // asymptote handle double-announcing.
-                // TODO(LEMS-4189): Remove ariaLive once aria-live is dropped
-                // from MovableAsymptote.
-                ariaLive="off"
             >
                 {coeffs !== undefined &&
                     renderLogarithmCurve({
@@ -151,12 +146,6 @@ function LogarithmGraph(props: LogarithmGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.logarithm.movePoint(i, destination))
                     }
-                    // Move announcements come from the WB Announcer via
-                    // stateAnnouncement; disable aria-live here to avoid
-                    // the focusable handle double-announcing.
-                    // TODO(LEMS-4189): Remove ariaLive once aria-live is
-                    // dropped from useControlPoint.
-                    ariaLive="off"
                 />
             ))}
             <SRDescInSVG id={descriptionId}>

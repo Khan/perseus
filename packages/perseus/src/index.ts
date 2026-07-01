@@ -12,8 +12,6 @@ export {ClassNames} from "./perseus-api";
 export {libVersion} from "./version";
 /** @hidden */
 export {apiVersion} from "./perseus-version";
-/** @hidden */
-export {default as itemVersion} from "./item-version";
 
 /**
  * Renderers
