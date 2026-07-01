@@ -1,31 +1,29 @@
-/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {
     matcherLogic,
     type MatcherDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {InfoTip, TextListEditor} = components;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    left?: Array<any>;
+    right?: Array<any>;
+    labels?: Array<any>;
+    orderMatters?: boolean;
+    padding?: boolean;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a matcher widget that allows users to match items from two different sets.
+ * An editor for adding a matcher widget that allows users to match
+ * items from two different sets.
  */
 class MatcherEditor extends React.Component<Props> {
-    static propTypes = {
-        left: PropTypes.array,
-        right: PropTypes.array,
-        labels: PropTypes.array,
-        orderMatters: PropTypes.bool,
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "matcher" as const;
 
     static defaultProps: MatcherDefaultWidgetOptions =
@@ -35,7 +33,7 @@ class MatcherEditor extends React.Component<Props> {
         arg1: number,
         arg2: React.ChangeEvent<HTMLInputElement>,
     ) => void = (index, e) => {
-        const labels = _.clone(this.props.labels);
+        const labels = _.clone(this.props.labels ?? []);
         labels[index] = e.target.value;
         this.props.onChange({labels: labels});
     };
@@ -43,7 +41,9 @@ class MatcherEditor extends React.Component<Props> {
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
-        if (this.props.left.length !== this.props.right.length) {
+        if (
+            (this.props.left?.length ?? 0) !== (this.props.right?.length ?? 0)
+        ) {
             return [
                 "The two halves of the matcher have different numbers" +
                     " of cards.",
@@ -103,13 +103,13 @@ class MatcherEditor extends React.Component<Props> {
                 <div>
                     <input
                         type="text"
-                        defaultValue={this.props.labels[0]}
+                        defaultValue={this.props.labels?.[0]}
                         // eslint-disable-next-line react/jsx-no-bind
                         onChange={this.onLabelChange.bind(this, 0)}
                     />
                     <input
                         type="text"
-                        defaultValue={this.props.labels[1]}
+                        defaultValue={this.props.labels?.[1]}
                         // eslint-disable-next-line react/jsx-no-bind
                         onChange={this.onLabelChange.bind(this, 1)}
                     />

@@ -12,7 +12,6 @@ import {
 import {csProgramLogic, Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -27,16 +26,16 @@ const {InfoTip} = components;
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
+type PairEditorProps = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    name?: string;
+    value?: string;
+};
+
 /**
  * This is used for editing a name/value pair.
  */
-class PairEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        name: PropTypes.string,
-        value: PropTypes.string,
-    };
-
+class PairEditor extends React.Component<PairEditorProps> {
     static defaultProps = {
         name: "",
         value: "",
@@ -56,7 +55,7 @@ class PairEditor extends React.Component<any> {
                 <label>
                     Name:{" "}
                     <BlurInput
-                        value={this.props.name}
+                        value={this.props.name ?? ""}
                         onChange={this.change("name")}
                     />
                 </label>
@@ -64,7 +63,7 @@ class PairEditor extends React.Component<any> {
                     {" "}
                     Value:{" "}
                     <BlurInput
-                        value={this.props.value}
+                        value={this.props.value ?? ""}
                         onChange={this.change("value")}
                     />
                 </label>
@@ -73,20 +72,15 @@ class PairEditor extends React.Component<any> {
     }
 }
 
+type PairsEditorProps = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    pairs: ReadonlyArray<{name: string; value: string}>;
+};
+
 /**
  * This is used for editing a set of name/value pairs.
  */
-class PairsEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        pairs: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-                value: PropTypes.string,
-            }),
-        ).isRequired,
-    };
-
+class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -139,14 +133,21 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    programID?: string;
+    showEditor?: boolean;
+    showButtons?: boolean;
+    settings?: ReadonlyArray<{name: string; value: string}>;
+    width?: number;
+    height?: number;
+    programType?: string | null;
+};
+
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-class CSProgramEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
-
+class CSProgramEditor extends React.Component<Props> {
     static widgetName = "cs-program" as const;
 
     static defaultProps: CSProgramDefaultWidgetOptions =
@@ -212,7 +213,7 @@ class CSProgramEditor extends React.Component<any> {
                 <label>
                     Url or Program ID:{" "}
                     <BlurInput
-                        value={this.props.programID}
+                        value={this.props.programID ?? ""}
                         onChange={this._handleProgramIDChange}
                     />
                 </label>
@@ -242,8 +243,7 @@ class CSProgramEditor extends React.Component<any> {
                 <label>
                     Settings:
                     <PairsEditor
-                        name="settings"
-                        pairs={this.props.settings}
+                        pairs={this.props.settings ?? []}
                         onChange={this._handleSettingsChange}
                     />
                     <InfoTip>

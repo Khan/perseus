@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
-import {ApiOptions} from "@khanacademy/perseus";
 import {groupLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -13,16 +10,15 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type Props = any;
+type Props = {
+    content?: string;
+    widgets?: Record<string, any>;
+    images?: Record<string, any>;
+    apiOptions?: any;
+    onChange: (...args: ReadonlyArray<any>) => any;
+};
 
 class GroupEditor extends React.Component<Props> {
-    static propTypes = {
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
-
     static widgetName = "group" as const;
 
     static defaultProps: GroupDefaultWidgetOptions =

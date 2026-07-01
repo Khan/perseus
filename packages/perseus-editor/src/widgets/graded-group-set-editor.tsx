@@ -1,25 +1,21 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
-import {ApiOptions, Changeable} from "@khanacademy/perseus";
+/* eslint-disable react/no-unsafe */
+import {Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import GradedGroupEditor from "./graded-group-editor";
 
 import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    apiOptions?: any;
+    gradedGroups?: ReadonlyArray<any>;
+};
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        gradedGroups: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-    };
 
     static widgetName = "graded-group-set" as const;
 
@@ -51,7 +47,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         };
     };
 
-    renderGroups: () => React.ReactElement = () => {
+    renderGroups: () => React.ReactNode = () => {
         if (!this.props.gradedGroups) {
             return null;
         }
@@ -67,8 +63,9 @@ class GradedGroupSetEditor extends React.Component<Props> {
                     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
-                        setArrayItem(this.props.gradedGroups, i, {
-                            ...this.props.gradedGroups[i],
+                        setArrayItem(this.props.gradedGroups!, i, {
+                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                            ...this.props.gradedGroups![i],
                             ...data,
                         }),
                     )

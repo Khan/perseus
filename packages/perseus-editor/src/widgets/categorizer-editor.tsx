@@ -1,13 +1,11 @@
 import {
     components,
-    ApiOptions,
     Categorizer as CategorizerWidget,
     Changeable,
     EditorJsonify,
 } from "@khanacademy/perseus";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -17,22 +15,21 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    apiOptions?: any;
+    items?: Array<string>;
+    categories?: Array<string>;
+    values?: Array<number | null | undefined>;
+    randomizeItems?: boolean;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a categorizer widget that allows users to sort items into categories.
+ * An editor for adding a categorizer widget that allows users to sort
+ * items into categories.
  */
 class CategorizerEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        items: PropTypes.arrayOf(PropTypes.string),
-        categories: PropTypes.arrayOf(PropTypes.string),
-        values: PropTypes.arrayOf(PropTypes.number),
-        randomizeItems: PropTypes.bool,
-    };
-
     static widgetName = "categorizer" as const;
 
     static defaultProps: CategorizerDefaultWidgetOptions =
@@ -50,7 +47,7 @@ class CategorizerEditor extends React.Component<Props> {
         const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
             items: this.props.items,
             categories: this.props.categories,
-            userInput: {values: this.props.values},
+            userInput: {values: this.props.values ?? []},
             handleUserInput: (userInput) => {
                 this.props.onChange({values: userInput.values});
             },
@@ -93,7 +90,10 @@ class CategorizerEditor extends React.Component<Props> {
                             // is deleted from the middle. Inconvenient, but
                             // it's at least possible for content creators to
                             // catch and fix.
-                            values: _.first(this.props.values, items.length),
+                            values: _.first(
+                                this.props.values ?? [],
+                                items.length,
+                            ),
                         });
                     }}
                     layout="vertical"

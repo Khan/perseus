@@ -1,18 +1,15 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 const {NumberInput, TextInput} = components;
 
-type Props = any;
+type Props = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    rotationAngle?: number;
+    smiles?: string;
+};
 
 class MoleculeWidgetEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        rotationAngle: PropTypes.number,
-        smiles: PropTypes.string,
-    };
-
     static widgetName = "molecule-renderer" as const;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

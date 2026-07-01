@@ -5,7 +5,6 @@ import {
     type IFrameDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,19 +12,17 @@ import BlurInput from "../components/blur-input";
 
 type ChangeFn = typeof Changeable.change;
 
-type PairEditorProps = any;
+type PairEditorProps = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    name?: string;
+    value?: string;
+};
 
 /**
  * This is used for editing a name/value pair.
  */
 class PairEditor extends React.Component<PairEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        name: PropTypes.string,
-        value: PropTypes.string,
-    };
-
-    static defaultProps: PairEditorProps = {
+    static defaultProps: Partial<PairEditorProps> = {
         name: "",
         value: "",
     };
@@ -44,14 +41,14 @@ class PairEditor extends React.Component<PairEditorProps> {
                 <label>
                     Name:
                     <BlurInput
-                        value={this.props.name}
+                        value={this.props.name ?? ""}
                         onChange={this.change("name")}
                     />
                 </label>
                 <label>
                     Value:
                     <BlurInput
-                        value={this.props.value}
+                        value={this.props.value ?? ""}
                         onChange={this.change("value")}
                     />
                 </label>
@@ -60,22 +57,15 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-type PairsEditorProps = any;
+type PairsEditorProps = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    pairs: ReadonlyArray<{name: string; value: string}>;
+};
 
 /**
  * This is used for editing a set of name/value pairs.
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        pairs: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-                value: PropTypes.string,
-            }),
-        ).isRequired,
-    };
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -112,16 +102,20 @@ class PairsEditor extends React.Component<PairsEditorProps> {
     }
 }
 
-type IframeEditorProps = any;
+type IframeEditorProps = {
+    onChange: (...args: ReadonlyArray<any>) => any;
+    url?: string;
+    settings?: ReadonlyArray<{name: string; value: string}>;
+    width?: string;
+    height?: string;
+    allowFullScreen?: boolean;
+    allowTopNavigation?: boolean;
+};
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 class IframeEditor extends React.Component<IframeEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
-
     static widgetName = "iframe" as const;
 
     static defaultProps: IFrameDefaultWidgetOptions =
@@ -150,7 +144,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Url or Program ID:
                     <BlurInput
-                        value={this.props.url}
+                        value={this.props.url ?? ""}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("url")}
                     />
@@ -160,8 +154,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Settings:
                     <PairsEditor
-                        name="settings"
-                        pairs={this.props.settings}
+                        pairs={this.props.settings ?? []}
                         onChange={this.handleSettingsChange}
                     />
                 </label>
@@ -169,7 +162,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Width:
                     <BlurInput
-                        value={this.props.width}
+                        value={this.props.width ?? ""}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
@@ -177,7 +170,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Height:
                     <BlurInput
-                        value={this.props.height}
+                        value={this.props.height ?? ""}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />
