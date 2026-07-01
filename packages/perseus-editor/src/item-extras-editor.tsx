@@ -2,7 +2,6 @@ import {components} from "@khanacademy/perseus";
 import {
     ItemExtras,
     getDefaultAnswerArea,
-    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -91,8 +90,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {isFeatureOn(this.props, "desmos-calculator") &&
-                        this.shouldShowCalculatorVariants() &&
+                    {this.shouldShowCalculatorVariants() &&
                         calculatorVariants.map((calcVariant) => (
                             <ItemExtraCheckbox
                                 key={calcVariant.variant}
