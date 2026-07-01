@@ -651,12 +651,12 @@ describe("getAbsoluteValueCoefficients", () => {
         expect(coeffs).toEqual({m: 2, h: 1, v: 3});
     });
 
-    it("returns undefined when both points share the same x-coordinate", () => {
+    it("returns an infinite slope when both points share the same x-coordinate", () => {
         const coeffs = getAbsoluteValueCoefficients([
             [2, 0],
             [2, 4],
         ]);
-        expect(coeffs).toBeUndefined();
+        expect(coeffs).toEqual({m: Infinity, h: 2, v: 0});
     });
 
     it("treats left-arm and right-arm points as equivalent (same slope magnitude)", () => {

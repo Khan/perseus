@@ -18,7 +18,6 @@ import {srFormatNumber} from "./strings/format-number";
 import {getAbsoluteValueCoefficients} from "./utils";
 
 import type {AbsoluteValueCoefficients} from "./utils";
-import type {PerseusStrings} from "../../../strings";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
