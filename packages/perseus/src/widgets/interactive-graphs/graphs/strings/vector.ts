@@ -21,13 +21,14 @@ export function srVectorPointLabel(
     // which has a dedicated label.
     return state.pointIndex === 0
         ? strings.srPointAtCoordinates({num: 1, x, y})
-        : strings.srVectorTipPoint({x, y});
+        : strings.srVectorHeadPoint({x, y});
 }
 
 type VectorGraphDescriptionStrings = {
     srVectorGraph: string;
     srVectorPoints: string;
-    srVectorTipPoint: string;
+    srVectorDescription: string;
+    srVectorHeadPoint: string;
     srVectorGrabHandle: string;
     srVectorInteractiveElement: string;
 };
@@ -45,19 +46,36 @@ export function describeVectorGraph(
     const srVectorPoints = strings.srVectorPoints({
         tailX: srFormatNumber(tail[X], locale),
         tailY: srFormatNumber(tail[Y], locale),
-        tipX: srFormatNumber(tip[X], locale),
-        tipY: srFormatNumber(tip[Y], locale),
+        headX: srFormatNumber(tip[X], locale),
+        headY: srFormatNumber(tip[Y], locale),
     });
-    const srVectorTipPoint = strings.srVectorTipPoint({
+    const srVectorHeadPoint = strings.srVectorHeadPoint({
         x: srFormatNumber(tip[X], locale),
         y: srFormatNumber(tip[Y], locale),
     });
     const srVectorGrabHandle = strings.srVectorGrabHandle({
         tailX: srFormatNumber(tail[X], locale),
         tailY: srFormatNumber(tail[Y], locale),
-        tipX: srFormatNumber(tip[X], locale),
-        tipY: srFormatNumber(tip[Y], locale),
+        headX: srFormatNumber(tip[X], locale),
+        headY: srFormatNumber(tip[Y], locale),
     });
+
+    // Magnitude (length) and direction (angle measured counterclockwise from
+    // the positive x-axis, normalized to [0, 360) degrees) of the vector from
+    // tail to head. The tail and head can never overlap, so the magnitude is
+    // always positive and the angle is always well-defined.
+    const dx = tip[X] - tail[X];
+    const dy = tip[Y] - tail[Y];
+    const magnitude = Math.sqrt(dx * dx + dy * dy);
+    const directionDegrees = (Math.atan2(dy, dx) * 180) / Math.PI;
+    const normalizedDirection =
+        directionDegrees < 0 ? directionDegrees + 360 : directionDegrees;
+    const srVectorMagnitudeDirection = strings.srVectorMagnitudeDirection({
+        magnitude: srFormatNumber(magnitude, locale),
+        direction: srFormatNumber(normalizedDirection, locale),
+    });
+
+    const srVectorDescription = `${srVectorPoints} ${srVectorMagnitudeDirection}`;
 
     const srVectorInteractiveElement = strings.srInteractiveElements({
         elements: [srVectorGraph, srVectorPoints].join(" "),
@@ -66,7 +84,8 @@ export function describeVectorGraph(
     return {
         srVectorGraph,
         srVectorPoints,
-        srVectorTipPoint,
+        srVectorDescription,
+        srVectorHeadPoint,
         srVectorGrabHandle,
         srVectorInteractiveElement,
     };

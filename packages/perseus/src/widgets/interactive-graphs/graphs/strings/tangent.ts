@@ -6,6 +6,7 @@ import {srFormatNumber} from "./format-number";
 import type {I18nContextType} from "../../../../components/i18n-context";
 import type {TangentGraphState} from "../../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {Coord} from "@khanacademy/perseus-core";
 
 export function srTangentPointLabel(
     state: {
@@ -55,10 +56,11 @@ export function describeTangentGraph(
     };
 
     const srTangentGraph = strings.srTangentGraph;
-    const srTangentDescription = strings.srTangentDescription({
-        inflectionX: srFormatNumber(inflection[X], locale),
-        inflectionY: srFormatNumber(inflection[Y], locale),
-    });
+    const srTangentDescription = buildTangentDescription(
+        coords,
+        locale,
+        strings,
+    );
     const srTangentInflectionPoint =
         strings.srTangentInflectionPoint(formattedInflection);
     const srTangentSecondPoint =
@@ -79,4 +81,44 @@ export function describeTangentGraph(
         srTangentSecondPoint,
         srTangentInteractiveElements,
     };
+}
+
+function buildTangentDescription(
+    coords: ReadonlyArray<Coord>,
+    locale: string,
+    strings: PerseusStrings,
+): string {
+    const [inflection, control] = coords;
+    const dx = control[X] - inflection[X];
+    const dy = control[Y] - inflection[Y];
+
+    const points = strings.srTangentDescriptionPoints({
+        inflectionX: srFormatNumber(inflection[X], locale),
+        inflectionY: srFormatNumber(inflection[Y], locale),
+        controlX: srFormatNumber(control[X], locale),
+        controlY: srFormatNumber(control[Y], locale),
+    });
+
+    // The period is four times the horizontal distance between the points
+    // (the control point sits a quarter-period from the inflection point).
+    const period = 4 * Math.abs(dx);
+    const periodFormatted = srFormatNumber(period, locale);
+
+    // The curve increases through the inflection point when the control point
+    // lies up-and-right or down-and-left of it (dx and dy share a sign), and
+    // decreases otherwise.
+    const increasing = dx > 0 === dy > 0;
+    const direction = increasing
+        ? strings.srTangentIncreasing({period: periodFormatted})
+        : strings.srTangentDecreasing({period: periodFormatted});
+
+    // The nearest vertical asymptotes sit half a period on either side of the
+    // inflection point.
+    const halfPeriod = period / 2;
+    const asymptotes = strings.srTangentAsymptotes({
+        leftAsymptote: srFormatNumber(inflection[X] - halfPeriod, locale),
+        rightAsymptote: srFormatNumber(inflection[X] + halfPeriod, locale),
+    });
+
+    return `${points} ${direction} ${asymptotes}`;
 }

@@ -24,7 +24,6 @@ import {
     skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
-import type {PerseusStrings} from "../../../strings";
 import type {
     LogarithmGraphState,
     MafsGraphProps,

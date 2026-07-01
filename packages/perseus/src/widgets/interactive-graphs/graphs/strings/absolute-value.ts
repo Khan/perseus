@@ -1,6 +1,7 @@
 import {X, Y} from "../../math";
 import {getAbsoluteValueCoefficients} from "../utils";
 
+import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -19,14 +20,11 @@ export function srAbsoluteValuePointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    const x = srFormatNumber(state.x, locale);
-    const y = srFormatNumber(state.y, locale);
     // A custom author label overrides the vertex/arm semantics, matching
     // the static aria-label behavior in absolute-value.tsx.
-    // TODO(LEMS-4206): Once we update the translation keys to allow custom labels
-    // we can remove this block in favor of using the index logic below.
-    if (typeof state.pointLabel === "string") {
-        return strings.srPointAtCoordinates({num: state.pointLabel, x, y});
+    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
+    if (customLabel !== undefined) {
+        return customLabel;
     }
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
