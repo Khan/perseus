@@ -335,7 +335,6 @@ export const MultiSelectRTL: Story = {
 export const SingleSelectWithLongMathjaxMobile: Story = {
     decorators: [radioRendererDecorator, mobileDecorator],
     args: {
-        multipleSelect: true,
         choices: [
             generateRadioChoice(
                 "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
