@@ -57,7 +57,6 @@ class ItemEditor extends React.Component<Props> {
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
-
     // Notify the parent that the question or answer area has been updated.
     updateProps = (newProps: Partial<PerseusItem>) => {
         const props = _(this.props).pick("question", "answerArea");

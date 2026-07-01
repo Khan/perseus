@@ -115,9 +115,11 @@ describe("gatherLinterIssues", () => {
         };
 
         // Act
-        const issues = gatherLinterIssues(lintyQuestion, [lintyHint], [
-            hostIssue,
-        ]);
+        const issues = gatherLinterIssues(
+            lintyQuestion,
+            [lintyHint],
+            [hostIssue],
+        );
 
         // Assert
         const hostIndex = issues.findIndex((i) => i.id === "host-issue");

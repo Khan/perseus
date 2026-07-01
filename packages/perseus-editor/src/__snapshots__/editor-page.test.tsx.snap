@@ -135,7 +135,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
       class="perseus-editor-table"
     >
       <div
-        class="perseus-editor-row perseus-question-container"
+        class="perseus-editor-row"
       >
         <div
           class="perseus-editor-left-cell"
@@ -161,12 +161,24 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 </div>
               </div>
               <span
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_x420fm"
-                data-testid="issues-icon-check-circle-fill.svg"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_6947y3"
+                data-testid="issues-icon-warning-octagon-fill.svg"
               />
-              0 issues
+              17 issues
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="perseus-editor-table"
+    >
+      <div
+        class="perseus-editor-row perseus-question-container"
+      >
+        <div
+          class="perseus-editor-left-cell"
+        >
           <div
             class="pod-title"
           >
@@ -1302,7 +1314,7 @@ table: [[☃ table 1]]
                           >
                             <input
                               checked=""
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_17"
                               type="radio"
                             />
                             <input
@@ -1334,7 +1346,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_17"
                               type="radio"
                             />
                             <input
@@ -1366,7 +1378,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_17"
                               type="radio"
                             />
                             <input

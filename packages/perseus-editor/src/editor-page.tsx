@@ -17,8 +17,8 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
-import {gatherLinterIssues} from "./util/gather-linter-issues";
 import {runAxeCoreOnUpdate} from "./util/a11y-checker";
+import {gatherLinterIssues} from "./util/gather-linter-issues";
 
 import type {Issue} from "./components/issues-panel";
 import type {
