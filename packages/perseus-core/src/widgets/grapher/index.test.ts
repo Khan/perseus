@@ -13,6 +13,8 @@ describe("grapherWidgetLogic.accessible()", () => {
     const accessible = grapherWidgetLogic.accessible;
     invariant(accessible instanceof Function);
 
+    // A Grapher widget is accessible iff it has no background image and
+    // a single non-quadratic function type.
     const accessibleGraph = generateGrapherWidgetOptions({
         graph: generateGrapherGraph({backgroundImage: {url: null}}),
         availableTypes: ["linear"],
