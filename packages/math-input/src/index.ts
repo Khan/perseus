@@ -39,7 +39,6 @@ export {
 } from "./components/i18n-context";
 
 // External API of the "Provided" keypad component
-export {keypadElementPropType} from "./components/prop-types";
 export type {KeypadAPI} from "./types";
 export {convertDotToTimesByLocale} from "./utils";
 
