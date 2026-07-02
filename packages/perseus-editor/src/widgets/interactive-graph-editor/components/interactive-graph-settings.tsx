@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
+/* eslint-disable react/no-unsafe */
 /**
  * Used in the editor for the InteractiveGraph widget.
  */
