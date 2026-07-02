@@ -24,10 +24,12 @@ ROOT="$MYPATH/.."
 # Need to export this so that the invoked commands see it.
 export SNAPSHOT_RELEASE=1
 
-pushd "$ROOT"
+pushd "$ROOT" > /dev/null
 
 usage() {
-    echo "Usage: $(basename "$0") [-h] <pr-number>"
+    cat <<EOF
+Usage: env GITHUB_OUTPUT=<path> $(basename "$0") [-h] <pr-number>
+EOF
 }
 
 parse_args() {
