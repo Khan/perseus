@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components} from "@khanacademy/perseus";
+import {components, Changeable} from "@khanacademy/perseus";
 import {
     ordererLogic,
     type OrdererDefaultWidgetOptions,
@@ -15,12 +15,11 @@ const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    correctOptions?: Array<{content: string}>;
-    otherOptions?: Array<{content: string}>;
-    height?: string;
-    layout?: string;
-};
+    correctOptions: Array<{content: string}>;
+    otherOptions: Array<{content: string}>;
+    height: string;
+    layout: "horizontal" | "vertical";
+} & Changeable.ChangeableProps;
 
 export const getUpdatedOptions = (
     correctOptions: Array<{content: string}>,
@@ -85,11 +84,10 @@ class OrdererEditor extends React.Component<Props> {
     static defaultProps: OrdererDefaultWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 
-    onOptionsChange: (
-        arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
+    onOptionsChange(
+        whichOptions: "correctOptions" | "otherOptions",
+        options: string[],
+    ): void {
         const updatedOptions = getUpdatedOptions(
             this.props.correctOptions || [],
             this.props.otherOptions || [],
@@ -97,8 +95,8 @@ class OrdererEditor extends React.Component<Props> {
             options,
         );
 
-        this.props.onChange(updatedOptions, cb);
-    };
+        this.props.onChange(updatedOptions);
+    }
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
