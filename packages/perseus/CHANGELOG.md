@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 79.1.2
+
+### Patch Changes
+
+-   [#3847](https://github.com/Khan/perseus/pull/3847) [`855f36d`](https://github.com/Khan/perseus/commit/855f36d9cef4fab5d67cf8a68c9df0309e117b15) Thanks [@Evelas78](https://github.com/Evelas78)! - Regression tests for sorter
+
+-   [#3802](https://github.com/Khan/perseus/pull/3802) [`45feb6d`](https://github.com/Khan/perseus/commit/45feb6d3b32fd149f6a91c6e49344369eb4c8e62) Thanks [@Evelas78](https://github.com/Evelas78)! - Added multiple regression tests for the radio widget
+
+-   [#3812](https://github.com/Khan/perseus/pull/3812) [`53b4221`](https://github.com/Khan/perseus/commit/53b42219e47a919a936e2f9847410d8467ec84fe) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][numeric input] Add more regression stories for the Numeric Input widget
+
 ## 79.1.1
 
 ### Patch Changes
