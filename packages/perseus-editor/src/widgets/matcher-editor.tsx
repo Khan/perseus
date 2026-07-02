@@ -2,6 +2,7 @@ import {components} from "@khanacademy/perseus";
 import {
     matcherLogic,
     type MatcherDefaultWidgetOptions,
+    type PerseusMatcherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -10,12 +11,12 @@ import _ from "underscore";
 const {InfoTip, TextListEditor} = components;
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    left?: Array<any>;
-    right?: Array<any>;
-    labels?: Array<any>;
-    orderMatters?: boolean;
-    padding?: boolean;
+    left: Array<string>;
+    right: Array<string>;
+    labels: Array<string>;
+    orderMatters: boolean;
+    padding: boolean;
+    onChange: (partial: Partial<PerseusMatcherWidgetOptions>) => void;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -80,15 +81,15 @@ class MatcherEditor extends React.Component<Props> {
                 <div className="perseus-clearfix">
                     <TextListEditor
                         options={this.props.left}
-                        onChange={(options, cb) => {
-                            this.props.onChange({left: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({left: options});
                         }}
                         layout="vertical"
                     />
                     <TextListEditor
                         options={this.props.right}
-                        onChange={(options, cb) => {
-                            this.props.onChange({right: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({right: options});
                         }}
                         layout="vertical"
                     />
