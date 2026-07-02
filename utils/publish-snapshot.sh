@@ -27,28 +27,7 @@ export SNAPSHOT_RELEASE=1
 pushd "$ROOT"
 
 usage() {
-    cat <<EOF
-Usage: $(basename "$0") [options] <pr-number>
-
-Publish a snapshot npm release for a pull request.
-
-Arguments:
-  pr-number   The pull request number (e.g. 123). The dist-tag and version
-              suffix will be derived from this (e.g. PR123).
-
-Options:
-  -h, --help  Show this help message and exit.
-
-Environment:
-  CI            Must be set (any non-empty value). Signals we are running in
-                a CI environment.
-  GITHUB_OUTPUT Path to the GitHub Actions output file. When set, the
-                published dist-tag is written to it so downstream steps can
-                read it via \`steps.<id>.outputs.npm_snapshot_tag\`.
-
-Examples:
-  CI=1 ./utils/publish-snapshot.sh 123
-EOF
+    echo "Usage: $(basename "$0") [-h] <pr-number>"
 }
 
 parse_args() {
@@ -77,8 +56,8 @@ parse_args() {
 }
 
 verify_env() {
-    if [ -z "${CI:-}" ]; then
-        echo "Error: required CI environment variable is unset." >&2
+    if [ -z "${GITHUB_OUTPUT:-}" ]; then
+        echo "Error: required GITHUB_OUTPUT environment variable is unset." >&2
         exit 1
     fi
 }
@@ -148,7 +127,7 @@ env NPM_CONFIG_PROVENANCE=true pnpm changeset publish --no-git-tag --tag "${PR_N
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:
 # `steps.<name-of-step-that-calls-this-script>.outputs.npm_snapshot_tag`
-echo "npm_snapshot_tag=$PR_NUMBER" >> "${GITHUB_OUTPUT:-/dev/null}"
+echo "npm_snapshot_tag=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
 # Now throw away all local changes (we've published a snapshot and that's all
 # we needed).
