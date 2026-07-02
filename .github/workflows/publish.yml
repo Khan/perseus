@@ -207,6 +207,9 @@ jobs:
                       echo "Comment is not exactly '/snapshot'. Skipping." >&2
                        exit 1
                     fi
+                    # For issue_comment events, GitHub represents a PR as an
+                    # "issue" under the hood, so github.event.issue.number is
+                    # the PR number.
                     echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
                   elif [ -n "${{ inputs.pr_number }}" ]; then
                     echo "number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
