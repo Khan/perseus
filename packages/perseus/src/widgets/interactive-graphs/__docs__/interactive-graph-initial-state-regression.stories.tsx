@@ -1,33 +1,39 @@
 import {
+    generateIGAbsoluteValueGraph,
     generateIGAngleGraph,
     generateIGCircleGraph,
+    generateIGExponentialGraph,
     generateIGLinearGraph,
-    generateIGLockedEllipse,
-    generateIGLockedFunction,
-    generateIGLockedLabel,
+    generateIGLinearSystemGraph,
     generateIGLockedLine,
     generateIGLockedPoint,
     generateIGLockedPolygon,
-    generateIGLockedVector,
+    generateIGLogarithmGraph,
     generateIGNoneGraph,
+    generateIGPointGraph,
     generateIGPolygonGraph,
+    generateIGQuadraticGraph,
+    generateIGRayGraph,
     generateIGSegmentGraph,
+    generateIGSinusoidGraph,
+    generateIGTangentGraph,
+    generateIGVectorGraph,
     generateInteractiveGraphQuestion,
     generateTestPerseusItem,
+    lockedFigureColorNames,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 
 import {interactiveGraphRendererDecorator} from "./interactive-graph-renderer-decorator";
+import {lockedFiguresWithWeight} from "./utils";
 
-import type {
-    LockedFigure,
-    PerseusInteractiveGraphWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusInteractiveGraphWidgetOptions> = {
@@ -59,13 +65,326 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function MobileContainerDecorator(Story) {
-    return (
-        <div className="framework-perseus perseus-mobile">
-            <Story />
-        </div>
-    );
-}
+/************** All graph type default states **************/
+
+export const DefaultAbsoluteValueGraph: Story = {
+    args: {
+        graph: generateIGAbsoluteValueGraph(),
+    },
+};
+
+export const DefaultExponentialGraph: Story = {
+    args: {
+        graph: generateIGExponentialGraph(),
+    },
+};
+
+export const DefaultLinearGraph: Story = {
+    args: {
+        graph: generateIGLinearGraph(),
+    },
+};
+
+export const DefaultLogarithmGraph: Story = {
+    args: {
+        graph: generateIGLogarithmGraph(),
+    },
+};
+
+export const DefaultQuadraticGraph: Story = {
+    args: {
+        graph: generateIGQuadraticGraph(),
+    },
+};
+
+export const DefaultSinusoidGraph: Story = {
+    args: {
+        graph: generateIGSinusoidGraph(),
+    },
+};
+
+export const DefaultTangentGraph: Story = {
+    args: {
+        graph: generateIGTangentGraph(),
+    },
+};
+
+export const DefaultAngleGraph: Story = {
+    args: {
+        graph: generateIGAngleGraph(),
+    },
+};
+
+export const DefaultCircleGraph: Story = {
+    args: {
+        graph: generateIGCircleGraph(),
+    },
+};
+
+export const DefaultLinearSystemGraph: Story = {
+    args: {
+        graph: generateIGLinearSystemGraph(),
+    },
+};
+
+export const DefaultSegmentGraph: Story = {
+    args: {
+        graph: generateIGSegmentGraph(),
+    },
+};
+
+export const DefaultSegmentGraphMultiple: Story = {
+    args: {
+        graph: generateIGSegmentGraph({numSegments: 2}),
+    },
+};
+
+export const DefaultPointGraph: Story = {
+    args: {
+        graph: generateIGPointGraph(),
+    },
+};
+
+export const DefaultPointGraphUnlimited: Story = {
+    args: {
+        graph: generateIGPointGraph({numPoints: "unlimited"}),
+    },
+};
+
+export const DefaultPolygonGraph: Story = {
+    args: {
+        graph: generateIGPolygonGraph(),
+    },
+};
+
+export const DefaultPolygonGraphUnlimited: Story = {
+    args: {
+        graph: generateIGPolygonGraph({numSides: "unlimited"}),
+    },
+};
+
+export const DefaultRayGraph: Story = {
+    args: {
+        graph: generateIGRayGraph(),
+    },
+};
+
+export const DefaultVectorGraph: Story = {
+    args: {
+        graph: generateIGVectorGraph(),
+    },
+};
+
+/************** Graph type non-default states **************/
+
+export const AngleGraphWithAnglesAndTooltips: Story = {
+    args: {
+        correct: generateIGAngleGraph({showAngles: true}),
+        showTooltips: true,
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+};
+
+export const CircleGraphOverlyingLockedFigures: Story = {
+    args: {
+        graph: generateIGCircleGraph({
+            startCoords: {center: [0, 0], radius: 5},
+        }),
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [-6, -6],
+                    [6, -6],
+                    [6, 6],
+                    [-6, 6],
+                ],
+                color: "green",
+                fillStyle: "translucent",
+            }),
+            generateIGLockedPoint({coord: [0, 0], color: "pink"}),
+            generateIGLockedPoint({coord: [4, 4], color: "purple"}),
+        ],
+    },
+};
+
+export const LinearBothPointsAtBottomEdge: Story = {
+    args: {
+        graph: generateIGLinearGraph({
+            startCoords: [
+                [-7, -10],
+                [7, -10],
+            ],
+        }),
+    },
+};
+
+export const LinearBothPointsAtSameSideEdge: Story = {
+    args: {
+        graph: generateIGLinearGraph({
+            startCoords: [
+                [-10, -5],
+                [-10, 5],
+            ],
+        }),
+    },
+};
+
+export const MultipleSegmentsOverlapping: Story = {
+    args: {
+        graph: generateIGSegmentGraph({
+            numSegments: 2,
+            startCoords: [
+                [
+                    [-6, 3],
+                    [6, -3],
+                ],
+                [
+                    [-6, -3],
+                    [6, 3],
+                ],
+            ],
+        }),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+};
+
+/** Unlimited points graph seeded with two points (via `startCoords`). */
+export const UnlimitedPointGraphWithTwoPoints: Story = {
+    args: {
+        correct: generateIGPointGraph({
+            numPoints: "unlimited",
+            coords: [
+                [-3, 3],
+                [3, -3],
+            ],
+        }),
+        graph: generateIGPointGraph({
+            numPoints: "unlimited",
+            startCoords: [
+                [-3, 3],
+                [3, -3],
+            ],
+        }),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+};
+
+/** Unlimited polygon - closed (via `startCoords`). */
+export const UnlimitedPolygonThreePointsClosed: Story = {
+    args: {
+        graph: generateIGPolygonGraph({
+            numSides: "unlimited",
+            startCoords: [
+                [2, 2],
+                [2, -2],
+                [-2, -2],
+            ],
+        }),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+};
+
+// Verifies the default graph wrapped in a mobile container.
+export const InMobileContainer: Story = {
+    decorators: [interactiveGraphRendererDecorator, mobileDecorator],
+    args: {},
+};
+
+// Verifies a circle graph rendered in a non-square viewport (mobile container).
+export const CircleGraphWithNonsquareRange: Story = {
+    decorators: [interactiveGraphRendererDecorator, mobileDecorator],
+    args: {
+        correct: generateIGCircleGraph(),
+        range: [
+            [-10, 10],
+            [-5, 5],
+        ],
+    },
+};
+
+// Verifies a line graph rendered in a non-square viewport.
+export const LineGraphWithNonsquareRange: Story = {
+    args: {
+        range: [
+            [-5, 5],
+            [-10, 10],
+        ],
+        lockedFigures: [
+            generateIGLockedLine({
+                points: [
+                    generateIGLockedPoint({coord: [-3, -3]}),
+                    generateIGLockedPoint({coord: [3, 3]}),
+                ],
+            }),
+        ],
+    },
+};
+
+/************* Locked figures **************/
+
+// Verifies a locked figure rendered in every available locked figure color.
+export const LockedFiguresAllColors: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: lockedFigureColorNames.map((color, i) =>
+            generateIGLockedLine({
+                kind: "segment",
+                color,
+                weight: "thick",
+                points: [
+                    generateIGLockedPoint({coord: [-9, 9 - i * 3], color}),
+                    generateIGLockedPoint({coord: [9, 9 - i * 3], color}),
+                ],
+            }),
+        ),
+    },
+};
+
+// Verifies all locked figure types rendered with thin stroke weight, in both
+// solid and dashed line styles for every locked figure type.
+export const LockedFiguresWithThinWeight: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: lockedFiguresWithWeight("thin"),
+    },
+};
+
+// Verifies all locked figure types rendered with medium stroke weight, in both
+// solid and dashed line styles for every locked figure type.
+export const LockedFiguresWithMediumWeight: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: lockedFiguresWithWeight("medium"),
+    },
+};
+
+// Verifies all locked figure types rendered with thick stroke weight, in both
+// solid and dashed line styles for every locked figure type.
+export const LockedFiguresWithThickWeight: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: lockedFiguresWithWeight("thick"),
+    },
+};
+
+// Verifies points on the graph boundary (corners and edge midpoints) render as
+// full circles rather than being clipped in half.
+export const LockedPointsAtGraphEdges: Story = {
+    args: {
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        lockedFigures: [
+            // Corners
+            generateIGLockedPoint({coord: [0, 0]}),
+            generateIGLockedPoint({coord: [10, 0]}),
+            generateIGLockedPoint({coord: [0, 10]}),
+            generateIGLockedPoint({coord: [10, 10]}),
+            // Edge midpoints
+            generateIGLockedPoint({coord: [5, 10]}),
+            generateIGLockedPoint({coord: [5, 0]}),
+            generateIGLockedPoint({coord: [0, 5]}),
+            generateIGLockedPoint({coord: [10, 5]}),
+        ],
+    },
+};
 
 // Verifies the default graph rendering with TeX-flavored axis labels.
 export const CustomAxisLabels: Story = {
@@ -395,98 +714,6 @@ export const LabelsAlongEdgeZoomed: Story = {
     },
 };
 
-// Verifies the default graph wrapped in a mobile container.
-export const InMobileContainer: Story = {
-    decorators: [interactiveGraphRendererDecorator, MobileContainerDecorator],
-    args: {},
-};
-
-// Verifies a segment graph with multiple segments rendered in the interactive blue color.
-export const MultipleSegments: Story = {
-    args: {
-        correct: generateIGSegmentGraph({numSegments: 3}),
-    },
-};
-
-// Verifies a circle graph rendered in a non-square viewport (mobile container).
-export const CircleGraphWithNonsquareRange: Story = {
-    decorators: [interactiveGraphRendererDecorator, MobileContainerDecorator],
-    args: {
-        correct: generateIGCircleGraph(),
-        range: [
-            [-10, 10],
-            [-5, 5],
-        ],
-    },
-};
-
-// Verifies a line graph rendered in a non-square viewport.
-export const LineGraphWithNonsquareRange: Story = {
-    args: {
-        range: [
-            [-5, 5],
-            [-10, 10],
-        ],
-        lockedFigures: [
-            generateIGLockedLine({
-                points: [
-                    generateIGLockedPoint({coord: [-3, -3]}),
-                    generateIGLockedPoint({coord: [3, 3]}),
-                ],
-            }),
-        ],
-    },
-};
-
-// Verifies multiple locked points using `lockedFigureColors` and the
-// `semanticColor.core.background.base.default` background fill.
-export const LockedPoints: Story = {
-    args: {
-        lockedFigures: [
-            generateIGLockedPoint({coord: [3, 2]}),
-            generateIGLockedPoint({coord: [-1, 1]}),
-            generateIGLockedPoint({coord: [0, -4]}),
-        ],
-    },
-};
-
-// Verifies points on the graph boundary (corners and edge midpoints) render as
-// full circles rather than being clipped in half.
-export const LockedPointsAtGraphEdges: Story = {
-    args: {
-        range: [
-            [0, 10],
-            [0, 10],
-        ],
-        lockedFigures: [
-            // Corners
-            generateIGLockedPoint({coord: [0, 0]}),
-            generateIGLockedPoint({coord: [10, 0]}),
-            generateIGLockedPoint({coord: [0, 10]}),
-            generateIGLockedPoint({coord: [10, 10]}),
-            // Edge midpoints
-            generateIGLockedPoint({coord: [5, 10]}),
-            generateIGLockedPoint({coord: [5, 0]}),
-            generateIGLockedPoint({coord: [0, 5]}),
-            generateIGLockedPoint({coord: [10, 5]}),
-        ],
-    },
-};
-
-// Verifies a locked line connecting two locked points.
-export const LockedLine: Story = {
-    args: {
-        lockedFigures: [
-            generateIGLockedLine({
-                points: [
-                    generateIGLockedPoint({coord: [-1, 1]}),
-                    generateIGLockedPoint({coord: [2, 3]}),
-                ],
-            }),
-        ],
-    },
-};
-
 // Verifies the protractor measurement tool (uses `--mafs-blue` from protractor.css).
 export const Protractor: Story = {
     args: {
@@ -515,88 +742,6 @@ export const AnswerlessData: Story = {
         })(),
     },
     args: {},
-};
-
-/* Locked figure weight regression tests */
-
-function lockedFiguresWithWeight(
-    weight: "thin" | "medium" | "thick",
-): LockedFigure[] {
-    return [
-        generateIGLockedLine({
-            kind: "segment",
-            weight,
-            points: [
-                generateIGLockedPoint({coord: [2, 2]}),
-                generateIGLockedPoint({coord: [9, 9]}),
-            ],
-        }),
-        generateIGLockedLine({
-            kind: "ray",
-            weight,
-            points: [
-                generateIGLockedPoint({coord: [2, 1]}),
-                generateIGLockedPoint({coord: [9, 8]}),
-            ],
-        }),
-        generateIGLockedLine({
-            kind: "line",
-            weight,
-            points: [
-                generateIGLockedPoint({coord: [2, 0]}),
-                generateIGLockedPoint({coord: [9, 7]}),
-            ],
-        }),
-        generateIGLockedVector({
-            points: [
-                [4, -7],
-                [7, -4],
-            ],
-            weight,
-            color: "green",
-        }),
-        generateIGLockedEllipse({
-            center: [-5, 5],
-            radius: [1, 1],
-            weight,
-            color: "blue",
-        }),
-        generateIGLockedPolygon({
-            points: [
-                [-7.5, -3.5],
-                [-6.5, -2.5],
-                [-5.5, -3.5],
-                [-6.5, -4.5],
-            ],
-            weight,
-            color: "pink",
-        }),
-        generateIGLockedFunction({equation: "x^2", weight, color: "red"}),
-    ];
-}
-
-// Verifies all locked figure types rendered with thin stroke weight.
-export const LockedFiguresWithThinWeight: Story = {
-    args: {
-        correct: generateIGNoneGraph(),
-        lockedFigures: lockedFiguresWithWeight("thin"),
-    },
-};
-
-// Verifies all locked figure types rendered with medium stroke weight.
-export const LockedFiguresWithMediumWeight: Story = {
-    args: {
-        correct: generateIGNoneGraph(),
-        lockedFigures: lockedFiguresWithWeight("medium"),
-    },
-};
-
-// Verifies all locked figure types rendered with thick stroke weight.
-export const LockedFiguresWithThickWeight: Story = {
-    args: {
-        correct: generateIGNoneGraph(),
-        lockedFigures: lockedFiguresWithWeight("thick"),
-    },
 };
 
 // Verifies the xMin axis arrow (uses --mafs-fg arrow color).
@@ -695,32 +840,5 @@ export const StaticGraph: Story = {
                 [0, 4],
             ],
         }),
-    },
-};
-
-// Verifies locked label rendering — covers the `rgba(255, 255, 255, 0.8)`
-// background color used behind locked text labels and the font sizing tokens.
-export const LockedLabel: Story = {
-    args: {
-        lockedFigures: [
-            generateIGLockedLabel({
-                coord: [0, 0],
-                text: "Origin",
-                color: "blue",
-                size: "medium",
-            }),
-            generateIGLockedLabel({
-                coord: [3, -3],
-                text: "y = x^2",
-                color: "green",
-                size: "small",
-            }),
-            generateIGLockedLabel({
-                coord: [-5, -3],
-                text: "Large label",
-                color: "red",
-                size: "large",
-            }),
-        ],
     },
 };

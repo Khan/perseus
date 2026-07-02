@@ -1,5 +1,37 @@
 # @khanacademy/perseus
 
+## 79.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+    -   @khanacademy/kmath@2.4.29
+    -   @khanacademy/math-input@26.4.43
+    -   @khanacademy/perseus-linter@5.1.10
+    -   @khanacademy/perseus-score@8.12.2
+
+## 79.1.0
+
+### Minor Changes
+
+-   [#3840](https://github.com/Khan/perseus/pull/3840) [`a9668ad`](https://github.com/Khan/perseus/commit/a9668ad2cfe0b5a392e026f89c5219ed2a7b9bb2) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Hide matcher in the editor dropdown and show categorizer in the dropdown
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3830](https://github.com/Khan/perseus/pull/3830) [`9036580`](https://github.com/Khan/perseus/commit/90365803208ac2fb416bc11f17ca5b8ade9a9856) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][interactive graph] Add more regression stories for interactive graph
+
+-   Updated dependencies [[`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1), [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8)]:
+    -   @khanacademy/perseus-core@30.0.1
+    -   @khanacademy/keypad-context@3.2.69
+    -   @khanacademy/kmath@2.4.28
+    -   @khanacademy/math-input@26.4.42
+    -   @khanacademy/perseus-linter@5.1.9
+    -   @khanacademy/perseus-score@8.12.1
+
 ## 79.0.0
 
 ### Major Changes

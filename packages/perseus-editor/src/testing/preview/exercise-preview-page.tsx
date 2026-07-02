@@ -21,6 +21,15 @@ const ExercisePreviewPage = () => {
     const [iframeId, setIframeId] = React.useState<string | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
 
+    // Set the overflow to hidden on the body within the iframe
+    // to prevent nested scrollbars from appearing.
+    React.useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, []);
+
     // Read iframe configuration from dataset attributes
     React.useEffect(() => {
         // eslint-disable-next-line no-restricted-syntax

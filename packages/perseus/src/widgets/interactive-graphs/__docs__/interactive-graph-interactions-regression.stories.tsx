@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
+import {expect} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 
@@ -391,5 +392,81 @@ export const LogarithmDragHandleNoOverlap: Story = {
             name: /^Vertical asymptote/,
         });
         asymptote.focus();
+    },
+};
+
+/** Circle graph with the radius point moved to the far right of the graph.
+ * This confirms that the radius point jumps to the other side when it crosses
+ * the edge as the circle is moved. */
+export const CircleGraphRadius10CenterFarRight: Story = {
+    args: {
+        // Circle graph with radius 10 and center at (0, 0).
+        graph: generateIGCircleGraph({radius: 10, center: [0, 0]}),
+        snapStep: [1, 1],
+    },
+    play: async ({canvas, userEvent}) => {
+        // Move the center point to the far right of the graph.
+        const circle = canvas.getByRole("button", {
+            name: /^Circle./,
+        });
+        circle.focus();
+        // Move right 10 times to get the center to the far right of the graph.
+        for (let i = 0; i < 10; i++) {
+            await userEvent.keyboard("{arrowright}");
+        }
+    },
+};
+
+/** Unlimited points graph focused with no points added yet. Tabbing into the
+ * empty graph focuses it, and the keyboard interaction instructions
+ * are presented. */
+export const UnlimitedPointGraphFocusedEmpty: Story = {
+    args: {
+        correct: generateIGPointGraph({numPoints: "unlimited"}),
+        graph: generateIGPointGraph({numPoints: "unlimited"}),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    // Make sure the keyboard interaction instructions are present
+    // before taking the Chromatic snapshot.
+    play: async ({canvas, userEvent}) => {
+        await userEvent.tab();
+        expect(
+            await canvas.findByText(
+                "Press Shift + Enter to interact with the graph",
+            ),
+        ).toBeInTheDocument();
+    },
+};
+
+/** Unlimited polygon - open. Manually adds three points to the graph in order
+ * to stay in the `open` state, because the open state is only stored
+ * internally (i.e. we can't use `startCoords` and get an open polygon). */
+export const UnlimitedPolygonThreePointsOpen: Story = {
+    args: {
+        graph: generateIGPolygonGraph({
+            numSides: "unlimited",
+        }),
+    } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
+    play: async ({canvas, userEvent}) => {
+        await userEvent.tab();
+        // Enter keyboard mode
+        await userEvent.keyboard("{shift>}{enter}");
+        // Click "Add point" button
+        await userEvent.click(canvas.getByRole("button", {name: "Add Point"}));
+        // Focus is now automatically shifted to the added point.
+        // Move the point.
+        await userEvent.keyboard("{arrowright}");
+        await userEvent.keyboard("{arrowup}");
+        // Add a point again to get a second point on the graph.
+        await userEvent.click(canvas.getByRole("button", {name: "Add Point"}));
+        // Focus is now automatically shifted to the added point.
+        // Move the point.
+        await userEvent.keyboard("{arrowright}");
+        await userEvent.keyboard("{arrowdown}");
+        // Add a point again to get a third point on the graph.
+        await userEvent.click(canvas.getByRole("button", {name: "Add Point"}));
+        // Focus is now automatically shifted to the added point.
+        // Move the point.
+        await userEvent.keyboard("{arrowleft}");
+        await userEvent.keyboard("{arrowdown}");
     },
 };

@@ -70,6 +70,11 @@ module.exports = {
         "<rootDir>/**/*.test.ts",
         "<rootDir>/**/*.test.tsx",
     ],
+    // Exclude in-repo git worktrees (e.g. Claude Code agent worktrees under
+    // .claude/) so their duplicate package.json files don't collide in Jest's
+    // Haste module map and their tests aren't discovered twice.
+    modulePathIgnorePatterns: ["<rootDir>/\\.claude/"],
+    testPathIgnorePatterns: ["/node_modules/", "<rootDir>/\\.claude/"],
     setupFilesAfterEnv: [
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
