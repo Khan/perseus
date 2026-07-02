@@ -67,6 +67,7 @@ class ItemExtrasEditor extends React.Component<Props> {
         for (const key of ItemExtras) {
             data[key] = !!this.props[key];
         }
+        data.calculatorVariant = this.props.calculatorVariant;
         return data;
     }
 
