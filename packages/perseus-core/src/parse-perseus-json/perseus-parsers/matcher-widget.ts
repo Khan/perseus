@@ -3,6 +3,7 @@ import {
     boolean,
     constant,
     object,
+    pair,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -12,7 +13,7 @@ import {parseWidget} from "./widget";
 import type {ParsedValue} from "../parser-types";
 
 const matcherOptions = object({
-    labels: array(string),
+    labels: pair(string, string),
     left: array(string),
     right: array(string),
     orderMatters: boolean,
