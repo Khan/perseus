@@ -3,6 +3,8 @@
 # This script uses the `changeset` tool to version each package as a snapshot
 # release (with a version suffix representing the PR the snapshot came from)
 # and then publishes that release to npm with a tag named after the PR.
+#
+# Usage: env GITHUB_OUTPUT=<path> ./utils/publish-snapshot.sh <pr-number>
 
 # https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
 set -e # Exit immediately if a command exits with a non-zero status.
@@ -26,29 +28,15 @@ export SNAPSHOT_RELEASE=1
 
 pushd "$ROOT" > /dev/null
 
-usage() {
-    cat <<EOF
-Usage: env GITHUB_OUTPUT=<path> $(basename "$0") [-h] <pr-number>
-EOF
-}
-
 parse_args() {
     if [[ $# -eq 0 ]]; then
         echo "Error: missing required argument <pr-number>" >&2
-        echo >&2
-        usage >&2
         exit 1
     fi
 
     case "$1" in
-        -h|--help)
-            usage
-            exit 0
-            ;;
         ''|*[!0-9]*)
             echo "Error: <pr-number> must be a positive integer, got: '$1'" >&2
-            echo >&2
-            usage >&2
             exit 1
             ;;
         *)
