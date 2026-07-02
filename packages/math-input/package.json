@@ -58,7 +58,6 @@
         "aphrodite": "catalog:devDeps",
         "mathquill": "github:Khan/mathquill#v1.0.3",
         "perseus-build-settings": "workspace:*",
-        "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
         "react-transition-group": "^4.4.1"
@@ -75,13 +74,12 @@
         "@khanacademy/wonder-stuff-core": "catalog:peerDeps",
         "@phosphor-icons/core": "catalog:peerDeps",
         "aphrodite": "catalog:peerDeps",
-        "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",
         "react-transition-group": "^4.4.1"
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "f7d1285630dc17f0"
+        "catalogHash": "3b051ec3f857a97f"
     }
 }
