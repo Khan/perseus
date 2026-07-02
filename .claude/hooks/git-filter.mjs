@@ -13,22 +13,58 @@ const chunks = [];
 for await (const chunk of process.stdin) chunks.push(chunk);
 const inputData = JSON.parse(Buffer.concat(chunks).toString("utf8"));
 
+// Which agent harness is running this hook, detected by its install path: the
+// same script is copied into .claude/, .codex/, and .cursor/. Defaults to
+// "claude" (also the path the unit tests run from). The harnesses share an input
+// shape but differ on PreToolUse output — see allow()/ask() below.
+const hookPath = process.argv[1] ?? "";
+const harness = hookPath.includes("/.codex/")
+    ? "codex"
+    : hookPath.includes("/.cursor/")
+      ? "cursor"
+      : "claude";
 const toolName = inputData.tool_name ?? "";
-const command = (inputData.tool_input ?? {}).command ?? "";
+// Cursor's beforeShellExecution puts the command at the top level; Claude Code
+// and Codex pass it as tool_input.command on a Bash tool call.
+const command =
+    harness === "cursor" ? (inputData.command ?? "") : ((inputData.tool_input ?? {}).command ?? "");
 
-const allow = { hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "allow" } };
+function allow() {
+    if (harness === "cursor") return { permission: "allow" };
+    // Codex: a bare permissionDecision:"allow" is unsupported and surfaces a hook
+    // error, so emit a no-op (no decision) and let the command run under Codex's
+    // own sandbox/approval policy.
+    if (harness === "codex") return { hookSpecificOutput: { hookEventName: "PreToolUse" } };
+    return { hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "allow" } };
+}
 
-function deny(reason) {
+function ask(reason) {
+    if (harness === "cursor") return { permission: "ask", agent_message: reason };
+    // Codex cannot prompt from a PreToolUse hook ("ask" is unsupported), so deny
+    // to gate the sensitive operation; the reason is surfaced to the model.
+    if (harness === "codex") {
+        return {
+            hookSpecificOutput: {
+                hookEventName: "PreToolUse",
+                permissionDecision: "deny",
+                permissionDecisionReason: reason,
+            },
+        };
+    }
     return {
         hookSpecificOutput: {
             hookEventName: "PreToolUse",
-            permissionDecision: "deny",
+            permissionDecision: "ask",
             permissionDecisionReason: reason,
         },
     };
 }
 
 function allowWithRewrite(rewrittenCommand) {
+    if (harness === "cursor") {
+        // Cursor does not support command rewriting — allow as-is.
+        return { permission: "allow" };
+    }
     return {
         hookSpecificOutput: {
             hookEventName: "PreToolUse",
@@ -38,14 +74,14 @@ function allowWithRewrite(rewrittenCommand) {
     };
 }
 
-if (toolName !== "Bash") {
-    console.log(JSON.stringify(allow));
+if (harness !== "cursor" && toolName !== "Bash") {
+    console.log(JSON.stringify(allow()));
     process.exit(0);
 }
 
 // Only process commands that contain a `git` invocation.
-if (!/\bgit\b/.test(command)) {
-    console.log(JSON.stringify(allow));
+if (!/^\s*git\b/.test(command)) {
+    console.log(JSON.stringify(allow()));
     process.exit(0);
 }
 
@@ -95,6 +131,9 @@ function splitCombinedFlags(token) {
 /**
  * Normalize a list of tokens for a given subcommand.
  * Returns a flat array of tokens with short flags expanded and mapped to long form.
+ * Handles both "-X" and "-X=value" — for the latter, only the flag prefix is
+ * remapped, e.g. "-D=branch" → "--force-delete=branch", so downstream hasFlag()
+ * checks correctly catch the exploit form.
  */
 function normalizeTokens(tokens, subcommand) {
     const map = FLAG_NORMALIZATION[subcommand] ?? {};
@@ -102,10 +141,27 @@ function normalizeTokens(tokens, subcommand) {
     for (const tok of tokens) {
         const expanded = splitCombinedFlags(tok);
         for (const flag of expanded) {
-            result.push(map[flag] ?? flag);
+            const eqIdx = flag.indexOf("=");
+            if (eqIdx > 0) {
+                const head = flag.slice(0, eqIdx);
+                const tail = flag.slice(eqIdx); // includes "="
+                result.push(`${map[head] ?? head}${tail}`);
+            } else {
+                result.push(map[flag] ?? flag);
+            }
         }
     }
     return result;
+}
+
+/**
+ * Detect a flag in a token list, matching both space-separated form ("--flag")
+ * and equals form ("--flag=value"). Without this, attackers can bypass
+ * security checks via the equals form (e.g. `git fetch --upload-pack=evil`).
+ */
+function hasFlag(tokens, flag) {
+    const eqPrefix = `${flag}=`;
+    return tokens.some((t) => t === flag || t.startsWith(eqPrefix));
 }
 
 // ---------------------------------------------------------------------------
@@ -185,17 +241,21 @@ function stripHeredocs(cmd) {
 
 const commandForParsing = stripHeredocs(command);
 
-// Extract the single git invocation from the command.
-const gitInvocationPattern = /\bgit\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/;
-const match = gitInvocationPattern.exec(commandForParsing);
-const invocations = match ? [match[1].trim()] : [];
+// Extract every git invocation from the command. Compound commands joined
+// by &&, ||, ;, or pipes contain multiple invocations and each one needs to
+// be validated — using a single-match regex would let later invocations slip
+// past whatever check the first invocation passes.
+const gitInvocationPattern = /\bgit\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/g;
+const invocations = Array.from(commandForParsing.matchAll(gitInvocationPattern), (m) =>
+    m[1].trim(),
+);
 
-// If we couldn't parse any invocations but git is present, deny to be safe.
+// If we couldn't parse any invocations but git is present, ask to be safe.
 if (invocations.length === 0) {
     console.log(
         JSON.stringify(
-            deny(
-                `Could not parse git command: "${command}". Only allowed git subcommands may be used.`,
+            ask(
+                `Could not parse git command: "${command}". Unparseable commands require user approval.`,
             ),
         ),
     );
@@ -213,11 +273,11 @@ for (const invocation of invocations) {
 
     // Check globally blocked flags anywhere in the raw invocation.
     for (const flag of GLOBALLY_BLOCKED_FLAGS) {
-        if (rawTokens.includes(flag)) {
+        if (hasFlag(rawTokens, flag)) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git: flag "${flag}" is not allowed — it enables arbitrary command execution.`,
+                    ask(
+                        `git: flag "${flag}" requires user approval — it enables arbitrary command execution.`,
                     ),
                 ),
             );
@@ -248,9 +308,9 @@ for (const invocation of invocations) {
     if (!ALLOWED_SUBCOMMANDS.has(subcommand)) {
         console.log(
             JSON.stringify(
-                deny(
-                    `git ${subcommand}: subcommand is not allowed.\n\n` +
-                        `Allowed subcommands: ${[...ALLOWED_SUBCOMMANDS].sort().join(", ")}`,
+                ask(
+                    `git ${subcommand}: subcommand requires user approval.\n\n` +
+                        `Auto-approved subcommands: ${[...ALLOWED_SUBCOMMANDS].sort().join(", ")}`,
                 ),
             ),
         );
@@ -268,11 +328,11 @@ for (const invocation of invocations) {
     if (subcommand === "push") {
         const forceFlags = ["--force", "--force-with-lease", "--force-if-includes"];
         for (const flag of forceFlags) {
-            if (normalized.includes(flag)) {
+            if (hasFlag(normalized, flag)) {
                 console.log(
                     JSON.stringify(
-                        deny(
-                            `git push ${flag} is not allowed — force-pushing can overwrite remote history and requires human review.`,
+                        ask(
+                            `git push ${flag} requires user approval — force-pushing can overwrite remote history.`,
                         ),
                     ),
                 );
@@ -280,38 +340,42 @@ for (const invocation of invocations) {
             }
         }
         for (const flag of ["--mirror", "--delete"]) {
-            if (normalized.includes(flag)) {
+            if (hasFlag(normalized, flag)) {
                 console.log(
                     JSON.stringify(
-                        deny(
-                            `git push ${flag} is not allowed — this is a destructive remote operation that requires human review.`,
+                        ask(
+                            `git push ${flag} requires user approval — this is a destructive remote operation.`,
                         ),
                     ),
                 );
                 process.exit(0);
             }
         }
-        if (normalized.includes("--no-verify")) {
+        if (hasFlag(normalized, "--no-verify")) {
             console.log(
                 JSON.stringify(
-                    deny(`git push --no-verify is not allowed — hooks must not be bypassed.`),
+                    ask(
+                        `git push --no-verify requires user approval — bypassing hooks is a sensitive operation.`,
+                    ),
                 ),
             );
             process.exit(0);
         }
 
         // Block pushes that include changes to sensitive paths.
-        // Only examines commits that are actually being pushed (not already on remote).
+        // Only examines non-merge commits that are actually being pushed (not already on remote).
+        // Merge commits are excluded so that merging main (which may contain workflow changes
+        // made by others) doesn't trigger a warning.
         const BLOCKED_PUSH_PATHS = [
             {
                 pattern: /^\.github\/(workflows|actions)\//,
                 message:
-                    "git push is not allowed — this push includes changes to .github/workflows/ or .github/actions/ which require human review.",
+                    "git push requires user approval — this push includes changes to .github/workflows/ or .github/actions/.",
             },
             {
                 pattern: /^\.claude\/settings(?:\.local)?\.json$/,
                 message:
-                    "git push is not allowed — this push includes changes to .claude/settings.json or .claude/settings.local.json which require human review.",
+                    "git push requires user approval — this push includes changes to .claude/settings.json or .claude/settings.local.json.",
             },
         ];
 
@@ -343,17 +407,22 @@ for (const invocation of invocations) {
             }
 
             if (baseRef) {
-                const changedFiles = execSync(`git diff --name-only ${baseRef}..HEAD`, {
-                    encoding: "utf8",
-                    stdio: "pipe",
-                })
+                // Use git log with --no-merges to get files changed only in non-merge commits.
+                // This excludes changes that came in via merge commits (e.g., merging main).
+                const changedFiles = execSync(
+                    `git log --no-merges --name-only --pretty=format: ${baseRef}..HEAD`,
+                    {
+                        encoding: "utf8",
+                        stdio: "pipe",
+                    },
+                )
                     .trim()
                     .split("\n")
                     .filter(Boolean);
 
                 for (const { pattern, message } of BLOCKED_PUSH_PATHS) {
                     if (changedFiles.some((f) => pattern.test(f))) {
-                        console.log(JSON.stringify(deny(message)));
+                        console.log(JSON.stringify(ask(message)));
                         process.exit(0);
                     }
                 }
@@ -365,11 +434,11 @@ for (const invocation of invocations) {
 
     // --- commit / merge / am ---
     if (subcommand === "commit" || subcommand === "merge" || subcommand === "am") {
-        if (normalized.includes("--no-verify")) {
+        if (hasFlag(normalized, "--no-verify")) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git ${subcommand} --no-verify is not allowed — hooks must not be bypassed.`,
+                    ask(
+                        `git ${subcommand} --no-verify requires user approval — bypassing hooks is a sensitive operation.`,
                     ),
                 ),
             );
@@ -379,11 +448,11 @@ for (const invocation of invocations) {
 
     // --- branch ---
     if (subcommand === "branch") {
-        if (normalized.includes("--force-delete")) {
+        if (hasFlag(normalized, "--force-delete")) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git branch -D is not allowed — force-deleting a branch requires human review. Use -d for a safe delete.`,
+                    ask(
+                        `git branch -D requires user approval — force-deleting a branch is a destructive operation. Use -d for a safe delete.`,
                     ),
                 ),
             );
@@ -393,11 +462,11 @@ for (const invocation of invocations) {
 
     // --- reset ---
     if (subcommand === "reset") {
-        if (normalized.includes("--hard")) {
+        if (hasFlag(normalized, "--hard")) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git reset --hard is not allowed — discarding uncommitted changes requires human review.`,
+                    ask(
+                        `git reset --hard requires user approval — discarding uncommitted changes is a destructive operation.`,
                     ),
                 ),
             );
@@ -411,11 +480,11 @@ for (const invocation of invocations) {
         // beyond the current repo and could tamper with credentials or hook paths.
         const writeScopes = ["--global", "--system", "--worktree"];
         for (const flag of writeScopes) {
-            if (normalized.includes(flag)) {
+            if (hasFlag(normalized, flag)) {
                 console.log(
                     JSON.stringify(
-                        deny(
-                            `git config ${flag} is not allowed — modifying global/system config requires human review.`,
+                        ask(
+                            `git config ${flag} requires user approval — modifying global/system config is a sensitive operation.`,
                         ),
                     ),
                 );
@@ -427,11 +496,11 @@ for (const invocation of invocations) {
     // --- rebase ---
     if (subcommand === "rebase") {
         // --exec / -x runs an arbitrary shell command after each commit — RCE vector.
-        if (normalized.includes("--exec")) {
+        if (hasFlag(normalized, "--exec")) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git rebase --exec / -x is not allowed — it executes arbitrary shell commands during rebase.`,
+                    ask(
+                        `git rebase --exec / -x requires user approval — it executes arbitrary shell commands during rebase.`,
                     ),
                 ),
             );
@@ -441,11 +510,11 @@ for (const invocation of invocations) {
 
     // --- clean ---
     if (subcommand === "clean") {
-        if (normalized.includes("--force")) {
+        if (hasFlag(normalized, "--force")) {
             console.log(
                 JSON.stringify(
-                    deny(
-                        `git clean -f is not allowed — permanently deleting untracked files requires human review.`,
+                    ask(
+                        `git clean -f requires user approval — permanently deleting untracked files is a destructive operation.`,
                     ),
                 ),
             );

@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 79.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+    -   @khanacademy/kmath@2.4.29
+    -   @khanacademy/math-input@26.4.43
+    -   @khanacademy/perseus-linter@5.1.10
+    -   @khanacademy/perseus-score@8.12.2
+
 ## 79.1.0
 
 ### Minor Changes

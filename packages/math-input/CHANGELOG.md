@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 26.4.43
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+
 ## 26.4.42
 
 ### Patch Changes
