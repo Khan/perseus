@@ -5,7 +5,10 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
-import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    MeasurerDefaultWidgetOptions,
+    PerseusMeasurerWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, RangeInput} = components;
 
@@ -16,8 +19,7 @@ const defaultImage = {
 } as const;
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    box?: ReadonlyArray<number>;
+    box: ReadonlyArray<number>;
     image?: {
         url?: string | null;
         top?: number;
@@ -29,6 +31,7 @@ type Props = {
     rulerTicks?: number;
     rulerPixels?: number;
     rulerLength?: number;
+    onChange: (partial: Partial<PerseusMeasurerWidgetOptions>) => void;
 };
 
 class MeasurerEditor extends React.Component<Props> {
