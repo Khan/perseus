@@ -10,7 +10,12 @@ import _ from "underscore";
 
 import Editor from "../editor";
 
-import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    MatrixDefaultWidgetOptions,
+    MathFormat,
+    PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
@@ -21,14 +26,14 @@ const Matrix = MatrixWidget.widget;
 const MAX_BOARD_SIZE = 6;
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
     matrixBoardSize: ReadonlyArray<number>;
-    answers?: Array<Array<number>>;
-    prefix?: string;
-    suffix?: string;
-    cursorPosition?: ReadonlyArray<number>;
-    apiOptions?: any;
+    answers: Array<Array<number>>;
+    prefix: string;
+    suffix: string;
+    cursorPosition: ReadonlyArray<number>;
+    apiOptions?: APIOptions;
     labelStyle?: string;
+    onChange: (partial: Partial<PerseusMatrixWidgetOptions>) => void;
 };
 
 class MatrixEditor extends React.Component<Props> {
@@ -38,7 +43,7 @@ class MatrixEditor extends React.Component<Props> {
         matrixLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        if (this.props.apiOptions.editingDisabled) {
+        if (this.props.apiOptions?.editingDisabled) {
             return;
         }
         return Changeable.change.apply(this, args);
@@ -75,11 +80,11 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: (this.props.answers ?? []) as any},
+            userInput: {answers: (this.props.answers ?? []) as any}, // eslint-disable-line no-restricted-syntax
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
             },
-            ...(this.props as any),
+            ...(this.props as any), // eslint-disable-line no-restricted-syntax
         };
 
         return (
@@ -90,7 +95,8 @@ class MatrixEditor extends React.Component<Props> {
                     <RangeInput
                         value={this.props.matrixBoardSize}
                         onChange={this.onMatrixBoardSizeChange}
-                        format={this.props.labelStyle}
+                        // eslint-disable-next-line no-restricted-syntax
+                        format={this.props.labelStyle as MathFormat | undefined}
                         useArrowKeys={true}
                     />
                 </div>
