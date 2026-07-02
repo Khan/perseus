@@ -20,7 +20,7 @@ const blankPerseusItemData: PerseusItem = {
     question: generateTestPerseusRenderer(),
     answerArea: {
         calculator: false,
-        calculatorVariant: null,
+        calculatorVariant: undefined,
         periodicTable: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,

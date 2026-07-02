@@ -187,8 +187,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 {sections.map((section, i) => {
                     return [
                         <div className="perseus-editor-row" key={i}>
-                            <fieldset disabled={editingDisabled}>
-                                <div className="perseus-editor-left-cell">
+                            <div className="perseus-editor-left-cell">
+                                <fieldset disabled={editingDisabled}>
                                     <IssuesPanel
                                         issues={this.state.issues[i]}
                                     />
@@ -269,29 +269,29 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                         placeholder="Type your section text here..."
                                         ref={"editor" + i}
                                     />
-                                </div>
+                                </fieldset>
+                            </div>
 
-                                <div className="editor-preview">
-                                    <DeviceFramer
-                                        deviceType={this.props.screen}
-                                        nochrome={true}
-                                    >
-                                        <PreviewWithIframe
-                                            key={`${String(i)}-${this.props.screen}`}
-                                            isMobile={isMobile}
-                                            seamless={true}
-                                            url={this.props.previewURL}
-                                            content={{
-                                                type: "article-section" as const,
-                                                data: this._previewDataForSection(
-                                                    section,
-                                                    i,
-                                                ),
-                                            }}
-                                        />
-                                    </DeviceFramer>
-                                </div>
-                            </fieldset>
+                            <div className="editor-preview">
+                                <DeviceFramer
+                                    deviceType={this.props.screen}
+                                    nochrome={true}
+                                >
+                                    <PreviewWithIframe
+                                        key={`${String(i)}-${this.props.screen}`}
+                                        isMobile={isMobile}
+                                        seamless={true}
+                                        url={this.props.previewURL}
+                                        content={{
+                                            type: "article-section" as const,
+                                            data: this._previewDataForSection(
+                                                section,
+                                                i,
+                                            ),
+                                        }}
+                                    />
+                                </DeviceFramer>
+                            </div>
                         </div>,
                     ];
                 })}

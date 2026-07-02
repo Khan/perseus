@@ -17,13 +17,15 @@ const ExercisePreviewPage = () => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const lastHeightRef = React.useRef<number | null>(null);
 
-    // Handle body overflow for article-all type (allows scrolling)
+    // Set the overflow on the body within the iframe (scroll for
+    // article-all, hidden otherwise) to prevent nested scrollbars, and
+    // restore it on unmount.
     React.useEffect(() => {
-        if (content?.type === "article-all") {
-            document.body.style.overflow = "scroll";
-        } else {
-            document.body.style.overflow = "hidden";
-        }
+        document.body.style.overflow =
+            content?.type === "article-all" ? "scroll" : "hidden";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
     }, [content?.type]);
 
     // Send height updates to parent

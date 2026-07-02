@@ -93,7 +93,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -134,7 +134,7 @@ describe("getPerseusAIData", () => {
             }),
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -210,7 +210,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,

@@ -364,7 +364,7 @@ export const ItemExtras = [
 export type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean> & {
-    calculatorVariant: CalculatorVariant | null;
+    calculatorVariant?: CalculatorVariant;
 };
 
 /**

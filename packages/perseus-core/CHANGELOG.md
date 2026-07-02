@@ -1,5 +1,19 @@
 # @khanacademy/perseus-core
 
+## 30.0.2
+
+### Patch Changes
+
+-   [#3852](https://github.com/Khan/perseus/pull/3852) [`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf) Thanks [@benchristel](https://github.com/benchristel)! - Input Number widgets with `version: null` are now parsed successfully. This fixes an error in the translation editor.
+
+## 30.0.1
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3794](https://github.com/Khan/perseus/pull/3794) [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Mark the input-number widget as accessible. Items using input-number are no longer reported as inaccessible, as input-number now renders and scores as a NumericInput.
+
 ## 30.0.0
 
 ### Major Changes
