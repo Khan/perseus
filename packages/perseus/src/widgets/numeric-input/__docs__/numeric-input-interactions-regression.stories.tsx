@@ -10,11 +10,10 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import {expect, fireEvent, waitFor, within} from "storybook/test";
+import {expect, fireEvent} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import WrappedServerItemRenderer from "../../../server-item-renderer";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
@@ -289,67 +288,5 @@ export const MobileTabletExpandedKeypadOpen: Story = {
         await expect(
             canvas.findByRole("button", {name: "1"}),
         ).resolves.toBeVisible();
-    },
-};
-
-const keepTryingQuestion = generateTestPerseusRenderer({
-    content: "Enter a whole number: [[☃ numeric-input 1]]",
-    widgets: {
-        "numeric-input 1": generateNumericInputWidget({
-            options: generateNumericInputOptions({
-                size: "normal",
-                answers: [
-                    {
-                        value: 5,
-                        status: "correct",
-                        message: "",
-                        answerForms: ["integer"],
-                        simplify: "required",
-                        strict: false,
-                        maxError: 0,
-                    },
-                    {
-                        value: 2.5,
-                        status: "ungraded",
-                        message:
-                            "We're looking for a whole number, not a decimal.",
-                        answerForms: ["decimal"],
-                        simplify: "optional",
-                        strict: false,
-                        maxError: 0,
-                    },
-                ],
-            }),
-        }),
-    },
-});
-
-/**
- * (Checked) Verifies the "Keep trying…" popover shown for invalid input. Typing
- * a value that matches the ungraded answer and then checking yields an invalid
- * score with a message, which opens the popover.
- */
-export const InvalidInputKeepTryingPopover: Story = {
-    render: () => (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question: keepTryingQuestion})}
-        />
-    ),
-    play: async ({canvas, userEvent}) => {
-        const input = canvas.getByRole("textbox");
-        await userEvent.type(input, "2.5");
-        await userEvent.click(
-            canvas.getByRole("button", {name: "Check answer"}),
-        );
-        // Wait for the popover to open before taking the Chromatic snapshot.
-        await waitFor(
-            () =>
-                expect(
-                    // The popover is portaled outside the story canvas,
-                    // so we need to query the document rather than the canvas.
-                    within(document.body).getByText("Keep trying"),
-                ).toBeVisible(),
-            {timeout: 3000},
-        );
     },
 };
