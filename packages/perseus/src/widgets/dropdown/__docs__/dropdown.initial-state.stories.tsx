@@ -1,34 +1,16 @@
-import {
-    generateDropdownOptions,
-    generateDropdownWidget,
-    generateTestPerseusItem,
-    generateTestPerseusRenderer,
-} from "@khanacademy/perseus-core";
-import * as React from "react";
+import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ApiOptions} from "../../../perseus-api";
-import {ServerItemRenderer} from "../../../server-item-renderer";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
-import {
-    basicDropdown,
-    dropdownWithEmptyPlaceholder,
-    inlineDropdownWithVisibleLabel,
-} from "../dropdown.testdata";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {StoryObj} from "@storybook/react-vite";
+import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
-type Story = StoryObj<typeof DropdownQuestionRenderer>;
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-/**
- * This is a visual regression story for the dropdown widget.
- */
-
-export default {
+const meta: Meta<PerseusDropdownWidgetOptions> = {
     title: "Widgets/Dropdown/Visual Regression Tests/Initial State",
-    component: DropdownQuestionRenderer,
-    tags: ["!dev", "!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -40,92 +22,108 @@ export default {
     },
 };
 
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
 export const BasicDropdown: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: basicDropdown,
-        }),
+    decorators: [dropdownRendererDecorator],
+    args: generateDropdownOptions({
+        placeholder: "greater/less than or equal to",
+        choices: [
+            {
+                content: "greater than or equal to",
+                correct: false,
+            },
+            {
+                content: "less than or equal to",
+                correct: true,
+            },
+        ],
+    }),
+    parameters: {
+        content:
+            "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     },
 };
 
 export const DropdownWithEmptyPlaceholder: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: dropdownWithEmptyPlaceholder,
-        }),
+    decorators: [dropdownRendererDecorator],
+    args: generateDropdownOptions({
+        placeholder: "",
+        choices: [
+            {
+                content: "greater than or equal to",
+                correct: false,
+            },
+            {
+                content: "less than or equal to",
+                correct: true,
+            },
+        ],
+    }),
+    parameters: {
+        content:
+            "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
     },
 };
 
 export const InlineDropdownWithVisibleLabel: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: inlineDropdownWithVisibleLabel,
-        }),
+    decorators: [dropdownRendererDecorator],
+    args: generateDropdownOptions({
+        placeholder: "Choose an answer",
+        choices: [
+            {
+                content: "True",
+                correct: true,
+            },
+            {
+                content: "False",
+                correct: false,
+            },
+        ],
+        visibleLabel: "Test label",
+        ariaLabel: "Test ARIA label",
+    }),
+    parameters: {
+        content:
+            "The dropdown widget is often used inline. This is how it would look in an article with the new visible label:\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Mus curae sollicitudin penatibus, mattis suscipit habitant tincidunt mauris. Vitae curae dolor gravida vehicula adipiscing vulputate penatibus. [[☃ dropdown 1]] Ultricies mollis taciti vel, penatibus dapibus interdum pharetra. Ultricies sollicitudin facilisi vehicula dapibus ligula maecenas libero ligula. Lobortis luctus accumsan rhoncus posuere sapien mi habitant fusce. Per ultrices ac mus ligula habitant pulvinar aliquam dui lacus.",
+    },
+};
+
+export const TableDropdownWithVisibleLabel: Story = {
+    decorators: [dropdownRendererDecorator],
+    args: generateDropdownOptions({
+        choices: [
+            {
+                content: "True",
+                correct: true,
+            },
+            {
+                content: "False",
+                correct: false,
+            },
+        ],
+        visibleLabel: "Test label",
+        ariaLabel: "Test ARIA label",
+    }),
+    parameters: {
+        content:
+            "Another use case is that it can be used in tables:\n\nheader 1 | header 2 \n- | -\ndata 1 | [[☃ dropdown 1]]\ndata 4 | data 5\ndata 7 | data 8",
     },
 };
 
 export const RTL: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content: "هذه قائمة منسدلة: [[☃ dropdown 1]]",
-                widgets: {
-                    "dropdown 1": generateDropdownWidget({
-                        options: generateDropdownOptions({
-                            placeholder: "اختر إجابة",
-                            choices: [
-                                {content: "الخيار 1", correct: false},
-                                {content: "الخيار 2", correct: true},
-                                {content: "الخيار 3", correct: false},
-                            ],
-                        }),
-                    }),
-                },
-            }),
-        }),
-        rtl: true,
+    decorators: [dropdownRendererDecorator, rtlDecorator],
+    args: generateDropdownOptions({
+        placeholder: "اختر إجابة",
+        choices: [
+            {content: "الخيار 1", correct: false},
+            {content: "الخيار 2", correct: true},
+            {content: "الخيار 3", correct: false},
+        ],
+    }),
+    parameters: {
+        content: "هذه قائمة منسدلة: [[☃ dropdown 1]]",
     },
 };
-
-export const StaticBasicDropdown: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: generateTestPerseusRenderer({
-                content:
-                    "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
-                widgets: {
-                    "dropdown 1": generateDropdownWidget({
-                        static: true,
-                        options: generateDropdownOptions({
-                            placeholder: "greater/less than or equal to",
-                            choices: [
-                                {
-                                    content: "greater than or equal to",
-                                    correct: false,
-                                },
-                                {
-                                    content: "less than or equal to",
-                                    correct: true,
-                                },
-                            ],
-                        }),
-                    }),
-                },
-            }),
-        }),
-    },
-};
-
-function DropdownQuestionRenderer(props: {item: PerseusItem; rtl?: boolean}) {
-    const {item, rtl} = props;
-
-    return (
-        <div dir={rtl ? "rtl" : "ltr"}>
-            <ServerItemRenderer
-                item={item}
-                apiOptions={ApiOptions.defaults}
-                dependencies={testDependenciesV2}
-            />
-        </div>
-    );
-}
