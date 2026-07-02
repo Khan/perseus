@@ -4,7 +4,6 @@ import {
     components,
     Changeable,
     EditorJsonify,
-    Util,
 } from "@khanacademy/perseus";
 import {
     numericInputLogic,
@@ -33,7 +32,6 @@ import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 type ChangeFn = typeof Changeable.change;
 
 const {InfoTip, NumberInput, TextInput} = components;
-const {firstNumericalParse} = Util;
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -61,10 +59,10 @@ const initAnswer = (status: string) => {
 };
 
 // The "static" property is not used in this widget (per the type definition comments)
-type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
-    onChange: (results: any) => any;
-    apiOptions: APIOptionsWithDefaults;
-};
+type Props = Omit<PerseusNumericInputWidgetOptions, "static"> &
+    Changeable.ChangeableProps & {
+        apiOptions: APIOptionsWithDefaults;
+    };
 
 interface State {
     lastStatus: string;
@@ -531,17 +529,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                                 forms = ["proper", "improper"];
                                             }
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                                 answerForms: forms,
                                             });
                                         }}
                                         onChange={(newValue) => {
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                             });
                                         }}
                                     />
@@ -554,7 +548,10 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     placeholder={0}
                                     value={answers[i]["maxError"]}
                                     format={_.last(answer.answerForms || [])}
-                                    onChange={this.updateAnswer(i, "maxError")}
+                                    // eslint-disable-next-line react/jsx-no-bind
+                                    onChange={(v) =>
+                                        this.updateAnswer(i, {maxError: v})
+                                    }
                                 />
                             </div>
                             <View className={styles.field}>
