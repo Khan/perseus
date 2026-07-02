@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -18,23 +17,25 @@ function getTextWidth(text: any) {
     return textWidthCache[text];
 }
 
-class TextListEditor extends React.Component<any, any> {
-    static propTypes = {
-        options: PropTypes.array,
-        layout: PropTypes.oneOf(["horizontal", "vertical"]),
-        onChange: PropTypes.func.isRequired,
-    };
+type Props = {
+    options: ReadonlyArray<string>;
+    layout: "horizontal" | "vertical";
+    onChange: (options: string[]) => void;
+};
 
-    static defaultProps: any = {
+type State = {items: Array<string>};
+
+class TextListEditor extends React.Component<Props, State> {
+    static defaultProps = {
         options: [],
         layout: "horizontal",
     };
 
-    state: any = {
+    state: State = {
         items: this.props.options.concat(""),
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
             items: nextProps.options.concat(""),
         });
@@ -52,7 +53,7 @@ class TextListEditor extends React.Component<any, any> {
         }
 
         this.setState({items: items});
-        this.props.onChange(_.compact(items));
+        this.props.onChange(items.filter((item) => item !== ""));
     };
 
     onKeyDown: (arg1: number, arg2: React.KeyboardEvent) => void = (
@@ -93,7 +94,7 @@ class TextListEditor extends React.Component<any, any> {
             // removes it
         } else if (
             which === 8 /* backspace */ &&
-            this.state.items[index].length === 1 &&
+            String(this.state.items[index]).length === 1 &&
             index === this.state.items.length - 2
         ) {
             event.preventDefault();
@@ -101,7 +102,7 @@ class TextListEditor extends React.Component<any, any> {
             const items = _.clone(this.state.items);
             items.splice(index, 1);
             this.setState({items: items});
-            this.props.onChange(_.compact(items));
+            this.props.onChange(items.filter((item) => item !== ""));
 
             // Enter adds an option below the current one...
         } else if (which === 13 /* enter */) {
