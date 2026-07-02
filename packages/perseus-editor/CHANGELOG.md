@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 34.1.2
+
+### Patch Changes
+
+-   [#3832](https://github.com/Khan/perseus/pull/3832) [`4f11360`](https://github.com/Khan/perseus/commit/4f11360f3f3aa09394fcd19043e28bb2636b8e1b) Thanks [@nishasy](https://github.com/nishasy)! - Put the left and right sides of the editor in separate scroll areas
+
+-   Updated dependencies [[`855f36d`](https://github.com/Khan/perseus/commit/855f36d9cef4fab5d67cf8a68c9df0309e117b15), [`45feb6d`](https://github.com/Khan/perseus/commit/45feb6d3b32fd149f6a91c6e49344369eb4c8e62), [`53b4221`](https://github.com/Khan/perseus/commit/53b42219e47a919a936e2f9847410d8467ec84fe)]:
+    -   @khanacademy/perseus@79.1.2
+
 ## 34.1.1
 
 ### Patch Changes
