@@ -126,8 +126,7 @@
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
     opacity: 0.25;
-    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
-    filter: drop-shadow(0 5px 5px #0008);
+    filter: drop-shadow(0 5px 5px var(--wb-semanticColor-core-shadow-chonky-neutral-default));
 }
 
 .MafsView .movable-point-ring {
@@ -278,8 +277,7 @@
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%;
-    /* offBlack16 shadow — no semantic shadow-with-alpha token; left hardcoded */
-    filter: drop-shadow(0 1px 4px rgba(33, 36, 44, 0.16));
+    filter: drop-shadow(0 1px 4px var(--wb-semanticColor-core-shadow-transparent-low));
 }
 
 .MafsView .movable-arrowhead-halo {
@@ -332,8 +330,7 @@
 
 .MafsView .movable-pill-handle-halo {
     opacity: 0.25;
-    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
-    filter: drop-shadow(0 5px 5px #0008);
+    filter: drop-shadow(0 5px 5px var(--wb-semanticColor-core-shadow-chonky-neutral-default));
 }
 
 .MafsView .movable-pill-handle-ring {
