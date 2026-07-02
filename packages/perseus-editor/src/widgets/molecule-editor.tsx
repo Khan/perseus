@@ -1,12 +1,14 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";
 
+import type {PerseusMoleculeRendererWidgetOptions} from "@khanacademy/perseus-core";
+
 const {NumberInput, TextInput} = components;
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
     rotationAngle?: number;
     smiles?: string;
+    onChange: (partial: Partial<PerseusMoleculeRendererWidgetOptions>) => void;
 };
 
 class MoleculeWidgetEditor extends React.Component<Props> {
@@ -21,7 +23,7 @@ class MoleculeWidgetEditor extends React.Component<Props> {
         this.change({smiles: newValue});
     };
 
-    updateRotation: (arg1: string) => void = (newValue) => {
+    updateRotation: (newValue: number | null) => void = (newValue) => {
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({rotationAngle: newValue});
     };
