@@ -230,7 +230,6 @@ code {
 }
 #perseus {
     margin: 20px;
-    width: calc(100% - 500px);
     z-index: 10;
 }
 #perseus #problemarea #workarea {
@@ -283,8 +282,9 @@ code {
     /* Don't show the the horizontal scrollbar that only appears when
      * the vertical scrollbar appears. */
     overflow-x: hidden;
-    /* Keep the left cell scroll area within the viewport. */
-    max-height: 90vh;
+    /* Keep the left cell scroll area within the viewport. (244px to account
+     * for the header.) */
+    max-height: calc(95vh - 244px);
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
@@ -295,8 +295,9 @@ code {
     vertical-align: top;
     /* Make the right cell scrollable. */
     overflow-y: auto;
-    /* Keep the right cell scroll area within the viewport. */
-    max-height: 90vh;
+    /* Keep the left cell scroll area within the viewport. (244px to account
+     * for the header.) */
+    max-height: calc(95vh - 244px);
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
@@ -372,8 +373,9 @@ code {
 .perseus-article-editor .editor-preview {
     /* Make the preview scrollable. */
     overflow-y: auto;
-    /* Keep the preview scroll area within the viewport. */
-    max-height: 90vh;
+    /* Keep the left cell scroll area within the viewport. (244px to account
+     * for the header.) */
+     max-height: calc(95vh - 244px);
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
