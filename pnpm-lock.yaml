@@ -557,7 +557,7 @@ importers:
         version: 1.2.5
       mathquill:
         specifier: github:Khan/mathquill#v1.0.3
-        version: git+https://git@github.com:Khan/mathquill.git#c9e4329b0bc5d9b4c21d765b5768e4e7693515b3
+        version: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -6979,8 +6979,8 @@ packages:
     resolution: {integrity: sha512-+LfG9Fik+OuI8SLwsiR02IVdjcnRCy5MufYLi0C3TdMT56L/pjB0alMVGgoWJF8pN9Rc7FESycZB9BMNWIid5w==}
     deprecated: Version 4 replaces this package with the scoped package @mathjax/src
 
-  mathquill@git+https://git@github.com:Khan/mathquill.git#c9e4329b0bc5d9b4c21d765b5768e4e7693515b3:
-    resolution: {commit: c9e4329b0bc5d9b4c21d765b5768e4e7693515b3, repo: git@github.com:Khan/mathquill.git, type: git}
+  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3:
+    resolution: {tarball: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3}
     version: 1.0.3
 
   mdn-data@2.0.14:
@@ -16993,7 +16993,7 @@ snapshots:
       mj-context-menu: 0.6.1
       speech-rule-engine: 4.0.7
 
-  mathquill@git+https://git@github.com:Khan/mathquill.git#c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: {}
+  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: {}
 
   mdn-data@2.0.14: {}
 
