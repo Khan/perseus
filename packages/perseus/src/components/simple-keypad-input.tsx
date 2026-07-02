@@ -5,16 +5,27 @@
  */
 
 import {KeypadContext} from "@khanacademy/keypad-context";
-import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
-import PropTypes from "prop-types";
+import {KeypadInput} from "@khanacademy/math-input";
 import * as React from "react";
 
 import type {Focusable} from "../types";
+import type {KeypadAPI} from "@khanacademy/math-input";
+
+type Props = {
+    value: string;
+    keypadElement?: KeypadAPI;
+    onChange: (value: string, callback?: unknown) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
+    ariaLabel?: string;
+    style?: React.CSSProperties;
+};
 
 export default class SimpleKeypadInput
-    extends React.Component<any>
+    extends React.Component<Props>
     implements Focusable
 {
+    static defaultProps = {value: ""};
     static contextType = KeypadContext;
     declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;
@@ -40,31 +51,32 @@ export default class SimpleKeypadInput
         this.inputRef.current?.blur();
     }
 
-    getValue(): string | number {
+    getValue(): string {
         return this.props.value;
     }
 
     render(): React.ReactNode {
-        const _this = this;
-        // Intercept the `onFocus` prop, as we need to configure the keypad
-        // before continuing with the default focus logic for Perseus inputs.
-        // Intercept the `value` prop so as to map `null` to the empty string,
-        // as the `KeypadInput` does not support `null` values.
-        const {keypadElement, onFocus, value, ...rest} = _this.props;
+        const {
+            keypadElement,
+            onFocus,
+            value,
+            onChange,
+            onBlur,
+            ariaLabel,
+            style,
+        } = this.props;
 
         return (
-            // @ts-expect-error - TS2769 - No overload matches this call.
             <KeypadInput
                 ref={this.inputRef}
                 keypadElement={keypadElement}
+                // Intercept onFocus to configure the keypad before delegating.
                 onFocus={() => {
                     if (keypadElement) {
                         keypadElement.configure(
-                            {
-                                keypadType: "FRACTION",
-                            },
+                            {keypadType: "FRACTION"},
                             () => {
-                                if (_this._isMounted) {
+                                if (this._isMounted) {
                                     onFocus?.();
                                 }
                             },
@@ -73,16 +85,12 @@ export default class SimpleKeypadInput
                         onFocus?.();
                     }
                 }}
-                value={value == null ? "" : "" + value}
-                {...rest}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur ?? (() => {})}
+                ariaLabel={ariaLabel ?? ""}
+                style={style}
             />
         );
     }
 }
-
-// @ts-expect-error - TS2339 - Property 'propTypes' does not exist on type 'typeof SimpleKeypadInput'.
-SimpleKeypadInput.propTypes = {
-    keypadElement: keypadElementPropType,
-    onFocus: PropTypes.func,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
