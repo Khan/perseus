@@ -375,7 +375,7 @@ code {
     overflow-y: auto;
     /* Keep the left cell scroll area within the viewport. (244px to account
      * for the header.) */
-     max-height: calc(95vh - 244px);
+    max-height: calc(95vh - 244px);
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
