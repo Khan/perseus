@@ -3,6 +3,7 @@ import {components} from "@khanacademy/perseus";
 import {
     sorterLogic,
     type SorterDefaultWidgetOptions,
+    type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -14,10 +15,10 @@ const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    correct?: ReadonlyArray<any>;
-    layout?: string;
-    padding?: boolean;
+    correct: ReadonlyArray<string>;
+    layout: "horizontal" | "vertical";
+    padding: boolean;
+    onChange: (partial: Partial<PerseusSorterWidgetOptions>) => void;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -34,7 +35,9 @@ class SorterEditor extends React.Component<Props> {
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
     ) => {
-        this.props.onChange({layout: e.target.value});
+        this.props.onChange({
+            layout: e.target.value as PerseusSorterWidgetOptions["layout"],
+        });
     };
 
     serialize: (arg1: any) => void = () => {
@@ -61,8 +64,8 @@ class SorterEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.correct}
                     // eslint-disable-next-line react/jsx-no-bind
-                    onChange={function (options, cb) {
-                        editor.props.onChange({correct: options}, cb);
+                    onChange={function (options) {
+                        editor.props.onChange({correct: options});
                     }}
                     layout={this.props.layout}
                 />
