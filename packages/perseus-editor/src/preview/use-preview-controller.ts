@@ -2,13 +2,22 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {
+    createPreviewClearHighlightsMessage,
+    createPreviewHighlightIssuesMessage,
     createPreviewIframeInitMessage,
+    createPreviewSetA11yEnabledMessage,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {Issue} from "../components/issues-panel";
+
+export type A11yReport = {
+    violations: Issue[];
+    incompletes: Issue[];
+};
 
 type UsePreviewControllerResult = {
     /**
@@ -19,6 +28,22 @@ type UsePreviewControllerResult = {
      * Current height of the iframe content (null if not yet reported)
      */
     height: number | null;
+    /**
+     * Enable or disable axe-core accessibility scanning in the iframe
+     */
+    setA11yEnabled: (enabled: boolean) => void;
+    /**
+     * Highlight the elements for the given previewIds in the iframe
+     */
+    highlightIssues: (previewIds: string[]) => void;
+    /**
+     * Clear any highlighted elements currently shown in the iframe
+     */
+    clearHighlights: () => void;
+    /**
+     * The latest accessibility report received from the iframe (null if none)
+     */
+    a11yReport: A11yReport | null;
 };
 
 /**
@@ -55,13 +80,15 @@ export function usePreviewController(
 ): UsePreviewControllerResult {
     const [height, setHeight] = React.useState<number | null>(null);
     const [isIframeReady, setIsIframeReady] = React.useState(false);
+    const [a11yReport, setA11yReport] = React.useState<A11yReport | null>(null);
 
-    // The current desired preview content, resent in full as an
-    // `iframe-init` reply whenever the iframe announces `iframe-ready` —
-    // including on a later reload/remount, not just the first time. This way
-    // a freshly (re)loaded iframe never has to rely on messages sent before
-    // it was listening.
+    // The current desired preview state, resent in full as an `iframe-init`
+    // reply whenever the iframe announces `iframe-ready` — including on a
+    // later reload/remount, not just the first time. This way a freshly
+    // (re)loaded iframe never has to rely on messages sent before it was
+    // listening.
     const currentContentRef = React.useRef<PreviewContent | null>(null);
+    const currentA11yEnabledRef = React.useRef(false);
 
     // Listen for messages from iframe
     React.useEffect(() => {
@@ -89,6 +116,7 @@ export function usePreviewController(
                             currentContentRef.current
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
+                            currentA11yEnabledRef.current,
                         ),
                         "/",
                     );
@@ -98,6 +126,13 @@ export function usePreviewController(
 
                 case "height-update":
                     setHeight(message.height);
+                    break;
+
+                case "a11y-report":
+                    setA11yReport({
+                        violations: message.violations,
+                        incompletes: message.incompletes,
+                    });
                     break;
 
                 default:
@@ -139,8 +174,62 @@ export function usePreviewController(
         [iframeRef, isIframeReady],
     );
 
+    // Enables/disables accessibility scanning in the iframe
+    const setA11yEnabled = React.useCallback(
+        (enabled: boolean) => {
+            currentA11yEnabledRef.current = enabled;
+
+            // If iframe hasn't sent iframe-ready yet, the iframe-init reply
+            // above will carry this once it does.
+            if (!isIframeReady) {
+                return;
+            }
+
+            const contentWindow = iframeRef.current?.contentWindow;
+            if (!contentWindow) {
+                return;
+            }
+
+            contentWindow.postMessage(
+                createPreviewSetA11yEnabledMessage(enabled),
+                "/",
+            );
+        },
+        [iframeRef, isIframeReady],
+    );
+
+    // Highlights elements in the iframe by previewId
+    const highlightIssues = React.useCallback(
+        (previewIds: string[]) => {
+            const contentWindow = iframeRef.current?.contentWindow;
+            if (!contentWindow) {
+                return;
+            }
+
+            contentWindow.postMessage(
+                createPreviewHighlightIssuesMessage(previewIds),
+                "/",
+            );
+        },
+        [iframeRef],
+    );
+
+    // Clears any highlighted elements in the iframe
+    const clearHighlights = React.useCallback(() => {
+        const contentWindow = iframeRef.current?.contentWindow;
+        if (!contentWindow) {
+            return;
+        }
+
+        contentWindow.postMessage(createPreviewClearHighlightsMessage(), "/");
+    }, [iframeRef]);
+
     return {
         sendData,
         height,
+        setA11yEnabled,
+        highlightIssues,
+        clearHighlights,
+        a11yReport,
     };
 }

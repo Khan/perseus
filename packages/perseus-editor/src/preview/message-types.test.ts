@@ -3,10 +3,12 @@ import {
     createPreviewA11yReportMessage,
     createPreviewClearHighlightsMessage,
     createPreviewHighlightIssuesMessage,
+    createPreviewIframeInitMessage,
     createPreviewSetA11yEnabledMessage,
 } from "./message-types";
 
 import type {Issue} from "../components/issues-panel";
+import type {PreviewContent} from "./message-types";
 
 const issue = (id: string): Issue => ({
     id,
@@ -17,7 +19,47 @@ const issue = (id: string): Issue => ({
     message: `message ${id}`,
 });
 
+const questionContent: PreviewContent = {
+    type: "question",
+    data: {
+        question: {content: "What is 2+2?", widgets: {}, images: {}},
+        apiOptions: {readOnly: true},
+        linterContext: {contentType: "exercise", highlightLint: false},
+    },
+};
+
 describe("message constructors", () => {
+    describe("createPreviewIframeInitMessage", () => {
+        it("builds an iframe-init message carrying content and a11yEnabled", () => {
+            // Arrange, Act
+            const message = createPreviewIframeInitMessage(
+                questionContent,
+                true,
+            );
+
+            // Assert
+            expect(message).toEqual({
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "iframe-init",
+                content: questionContent,
+                a11yEnabled: true,
+            });
+        });
+
+        it("carries null content when nothing has been sent yet", () => {
+            // Arrange, Act
+            const message = createPreviewIframeInitMessage(null, false);
+
+            // Assert
+            expect(message).toEqual({
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "iframe-init",
+                content: null,
+                a11yEnabled: false,
+            });
+        });
+    });
+
     describe("createPreviewSetA11yEnabledMessage", () => {
         it("builds a set-a11y-enabled command carrying the enabled flag", () => {
             // Arrange, Act
