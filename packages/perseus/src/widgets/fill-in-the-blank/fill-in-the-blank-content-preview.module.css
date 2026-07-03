@@ -1,16 +1,20 @@
 .answerZone {
     font-size: 18px;
-    line-height: 2.4;
+    line-height: 2.6;
     color: inherit;
 }
 
 /*
- * Each inline <Renderer> roots a block `<div class="perseus-renderer-responsive">`.
- * Force that root to flow inline so the markdown/TeX runs sit on the same line as
- * our blank and image elements and wrap together like text. This is the same
- * technique label-image uses for its inline Renderer.
+ * A reused inline <Renderer> produces TWO nested block <div>s:
+ *   1. the root, `.perseus-renderer(.perseus-renderer-responsive)`
+ *   2. an inner QuestionParagraph <div> — in inline mode it has no class, but
+ *      always carries a `data-perseus-paragraph-index` attribute.
+ * Both default to `display: block`, so either one alone forces the run onto its
+ * own line. We flow BOTH inline so the markdown/TeX runs sit on the same line as
+ * our blank and image elements and wrap together like text.
  */
-.answerZone :global(.perseus-renderer-responsive) {
+.answerZone :global(.perseus-renderer),
+.answerZone :global([data-perseus-paragraph-index]) {
     display: inline;
 }
 
