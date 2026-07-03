@@ -149,8 +149,43 @@ The builder decomposes into standard Perseus/Wonder Blocks pieces:
 ### Data schema — feasible, and cleaner
 One segment union, two zones, stable ids on objects. No new markdown syntax, no widget-registry entry for "blank," no palette pollution. The unified-palette UI requires **no schema change** beyond §3.
 
-### Parsing / render — feasible, and *simpler than the string approach*
-**There is essentially no parsing** of a content string. Render is a `.map` over `content`: `markdown`→**inline markdown pipeline** (`PerseusMarkdown.parseInline` → React output; keeps bold/italic/links/inline `$…$` TeX/MathJax for free — the "we don't lose automatic markdown rendering" concern), `image`→Perseus's image component (keeps web+graphie handling, not a bare `<img>`), `blank`→the `Blank` component. No marker regex, no markdown-rule change, no TeX-escape collisions. Limitation: markdown can't span segment boundaries, and block-level markdown isn't available inline (§2) — both fine for a fill-in-the-blank sentence/equation.
+### Parsing / render — feasible; see §4.2 for the validated approach
+**There is essentially no parsing** of a content string. Render is a `.map` over `content`, reusing the real `<Renderer>` for markdown/TeX and placing our own components for blanks/images. No marker regex, no markdown-rule change, no TeX-escape collisions, no custom markdown renderer. The exact mechanism (and a working spike) is in §4.2. Limitation: markdown can't span segment boundaries, and block-level markdown isn't available inline (§2) — both fine for a fill-in-the-blank sentence/equation.
+
+### 4.2 Student-side inline rendering — validated approach + renderer-rewrite context
+
+**The approach (validated by a Storybook spike).** FITB renders its own inline layout by interleaving, per segment:
+- `markdown` → a real Perseus **`<Renderer inline content={…} />`** (it only ever sees pure markdown — text + `$…$` TeX; it never has to recognize a blank). This reuses Perseus's markdown/MathJax rendering as-is — **no custom renderer**.
+- `blank` → our own shared **`Blank` component** (a drop target — NOT a Perseus widget).
+- `image` → an inline image tile.
+
+**The one catch — and it's a CSS override, not a widget hack.** A standalone `<Renderer inline>` still roots two block `<div>`s (the `.perseus-renderer` root and the inner `QuestionParagraph` div; the `inline` prop changes parsing but not the wrapper's `display`). So a small scoped override is needed to make the runs flow inline:
+
+```css
+.answerZone :global(.perseus-renderer),
+.answerZone :global([data-perseus-paragraph-index]) {
+    display: inline;
+}
+```
+
+The spike (`packages/perseus/src/widgets/fill-in-the-blank/fill-in-the-blank-content-preview.tsx` + stories) confirms text, TeX, images, and blanks then flow inline and wrap. This is a **rejected `[[☃ blank]]` widget-free** path: blanks stay shared components.
+
+**Is the override acceptable per Perseus standards? Yes — it's an established pattern:**
+- **label-image** overrides `> div.perseus-renderer-responsive` for its inline choice labels (`styles/widgets/label-image.css:6`) — the exact technique.
+- **dropdown** reaches into `.perseus-renderer .paragraph` / `.perseus-block-math` for article-context styling.
+
+So "a widget applies scoped CSS to `.perseus-renderer` internals" is normal, not a novel hack.
+
+**The real risk is timing, because the renderer is being actively rewritten.** Context (epic **LEMS-3487 "[Color] Perseus ColorSync"**, PR [#3770](https://github.com/Khan/perseus/pull/3770), flag `perseus-renderer-upgrade`, `renderer.old` → `renderer.new`):
+- **LEMS-4282 [In Progress]** — "Refactor how paragraphs and widgets are rendered in the DOM." This is the exact DOM our override targets. → we're in the live workzone.
+- **LEMS-3764 [To Do]** — "Rewrite Perseus renderer to not wrap everything in a paragraph." This is *aligned* with us: removing paragraph-wrapping is the enabling change for clean inline flow, and would shrink/remove our override.
+- **LEMS-4238** — "Migrate Aphrodite to CSS Modules" (our spike already uses a CSS module — aligned).
+- **LEMS-4304** — remove the feature flag once `renderer.new` is default.
+
+**Mitigation + recommendation:**
+- **Guard it:** a Chromatic visual-regression story (`…-regression.stories.tsx`, `!manifest`) so any renderer DOM change that breaks inline flow is caught in CI, not silently. *(Added.)*
+- **Coordinate:** sync with **Nisha Yerunkar / the LEMS renderer team** — our override lives in LEMS-4282's blast radius, and they can say whether completing `inline` support in `renderer.new` (so no consumer needs the override) fits LEMS-3764.
+- **Long-term:** prefer **completing the `inline` prop upstream** (render truly inline-level markup) over a downstream override — it removes the fragility for FITB *and* label-image, and matches the direction of LEMS-3764.
 
 ### 4.1 Accessibility & the no-drag path
 The DnD family is a11y-first: movement must work for keyboard/SR users without drag. That makes the **add-to-zone / move-segment menu actions a requirement, not a fallback** — and conveniently it is exactly how we demo the model in Perseus before dnd-kit lands. Type restrictions must be conveyed accessibly too (a Blank offers no "Add to Choices" action; dragging a Blank over Choices shows no drop target).
@@ -262,6 +297,7 @@ A long Text/TeX run before the next segment needs an overflow story; the card ca
 - **Insert-at-position UX** without drag — click-to-insert between segments vs. add-at-end-then-move. Prototype can start with add-at-end + move.
 - **i18n extraction** from structured content — confirm the pipeline reaches nested fields (productionization, not prototype).
 - **dnd-kit** approval + the drag/cross-zone placement layer (external prototype).
+- **Renderer-rewrite coordination** (§4.2) — sync with Nisha / LEMS on LEMS-4282 (paragraph/widget DOM refactor) and LEMS-3764 (stop paragraph-wrapping); decide whether to complete `inline` upstream vs. keep the guarded downstream override.
 
 *(Resolved: **where choices come from** — authored in the Choices zone via the shared palette; distractors are choices no blank references. **Blank storage** — nested in `content`, radio/dropdown-style, stripped via allowlist. See §2 / §3 / §5.)*
 
