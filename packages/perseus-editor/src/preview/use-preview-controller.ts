@@ -1,7 +1,10 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {
+    createPreviewIframeInitMessage,
+    PREVIEW_MESSAGE_SOURCE,
+} from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
@@ -52,7 +55,13 @@ export function usePreviewController(
 ): UsePreviewControllerResult {
     const [height, setHeight] = React.useState<number | null>(null);
     const [isIframeReady, setIsIframeReady] = React.useState(false);
-    const pendingDataRef = React.useRef<PreviewContent | null>(null);
+
+    // The current desired preview content, resent in full as an
+    // `iframe-init` reply whenever the iframe announces `iframe-ready` —
+    // including on a later reload/remount, not just the first time. This way
+    // a freshly (re)loaded iframe never has to rely on messages sent before
+    // it was listening.
+    const currentContentRef = React.useRef<PreviewContent | null>(null);
 
     // Listen for messages from iframe
     React.useEffect(() => {
@@ -75,22 +84,14 @@ export function usePreviewController(
             // Handle the message
             switch (message.type) {
                 case "iframe-ready": {
-                    // Send the pending message (if any)
-                    if (pendingDataRef.current) {
-                        const sanitizedData = sanitizePreviewData(
-                            pendingDataRef.current,
-                        );
-
-                        const msg: ParentToIframeMessage = {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "content-data",
-                            content: sanitizedData,
-                        };
-                        iframeRef.current.contentWindow.postMessage(msg, "/");
-
-                        // Clear the pending data
-                        pendingDataRef.current = null;
-                    }
+                    iframeRef.current.contentWindow.postMessage(
+                        createPreviewIframeInitMessage(
+                            currentContentRef.current
+                                ? sanitizePreviewData(currentContentRef.current)
+                                : null,
+                        ),
+                        "/",
+                    );
                     setIsIframeReady(true);
                     break;
                 }
@@ -114,9 +115,11 @@ export function usePreviewController(
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
         (data: PreviewContent) => {
-            // If iframe hasn't sent request-data yet, store the data
+            currentContentRef.current = data;
+
+            // If iframe hasn't sent iframe-ready yet, the iframe-init reply
+            // above will carry this once it does.
             if (!isIframeReady) {
-                pendingDataRef.current = data;
                 return;
             }
 
@@ -125,13 +128,10 @@ export function usePreviewController(
                 return;
             }
 
-            // Iframe is ready, send immediately
-            const sanitizedData = sanitizePreviewData(data);
-
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                content: sanitizedData,
+                content: sanitizePreviewData(data),
             };
 
             contentWindow.postMessage(message, "/");

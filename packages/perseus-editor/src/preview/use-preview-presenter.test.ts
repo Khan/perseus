@@ -353,6 +353,62 @@ describe("usePreviewPresenter", () => {
         });
     });
 
+    describe("receiving iframe-init message", () => {
+        it("sets content from an iframe-init message", () => {
+            const {result} = renderHook(() => usePreviewPresenter());
+
+            const questionContent: PreviewContent = {
+                type: "question",
+                data: {
+                    question: {
+                        content: "What is 2+2?",
+                        widgets: {},
+                        images: {},
+                    },
+                    apiOptions: {readOnly: true},
+                    linterContext: {
+                        contentType: "exercise",
+                        highlightLint: false,
+                    },
+                },
+            };
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "iframe-init",
+                            content: questionContent,
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            expect(result.current.content).toEqual(questionContent);
+        });
+
+        it("handles null content (nothing sent yet)", () => {
+            const {result} = renderHook(() => usePreviewPresenter());
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "iframe-init",
+                            content: null,
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            expect(result.current.content).toBeNull();
+        });
+    });
+
     describe("reportHeight", () => {
         it("sends height-update message", () => {
             const {result} = renderHook(() => usePreviewPresenter());

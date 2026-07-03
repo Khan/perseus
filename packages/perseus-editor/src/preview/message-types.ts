@@ -115,9 +115,33 @@ interface PreviewDataMessage extends PreviewMessageBase {
 }
 
 /**
+ * Reply from parent to the iframe's `iframe-ready` handshake, carrying the
+ * full current preview state in one message. Sent once per `iframe-ready`
+ * (including a genuine reload, which re-announces readiness) — this way a
+ * freshly (re)loaded iframe never has to rely on messages sent before it was
+ * listening.
+ */
+interface PreviewIframeInitMessage extends PreviewMessageBase {
+    type: "iframe-init";
+    content: PreviewContent | null;
+}
+
+export function createPreviewIframeInitMessage(
+    content: PreviewContent | null,
+): PreviewIframeInitMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "iframe-init",
+        content,
+    };
+}
+
+/**
  * Union of all messages sent from parent to iframe
  */
-export type ParentToIframeMessage = PreviewDataMessage;
+export type ParentToIframeMessage =
+    | PreviewDataMessage
+    | PreviewIframeInitMessage;
 
 // ---- Iframe → Parent messages ----
 
