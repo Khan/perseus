@@ -4,6 +4,7 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
+import type {Issue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusItem,
@@ -137,7 +138,65 @@ export function createPreviewIframeInitMessage(
 }
 
 /**
+ * Command from parent telling the iframe to enable or disable axe-core
+ * accessibility scanning. When enabled, the iframe runs scans and reports back;
+ * when disabled, it neither imports nor runs axe-core.
+ */
+interface PreviewSetA11yEnabledMessage extends PreviewMessageBase {
+    type: "set-a11y-enabled";
+    enabled: boolean;
+}
+
+export function createPreviewSetA11yEnabledMessage(
+    enabled: boolean,
+): PreviewSetA11yEnabledMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "set-a11y-enabled",
+        enabled,
+    };
+}
+
+/**
+ * Command from parent telling the iframe to highlight the elements for the
+ * given previewIds (the "Show Me" overlays drawn inside the iframe).
+ */
+interface PreviewHighlightIssuesMessage extends PreviewMessageBase {
+    type: "highlight-issues";
+    previewIds: string[];
+}
+
+export function createPreviewHighlightIssuesMessage(
+    previewIds: string[],
+): PreviewHighlightIssuesMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "highlight-issues",
+        previewIds,
+    };
+}
+
+/**
+ * Command from parent telling the iframe to remove any "Show Me" highlight
+ * overlays it is currently drawing.
+ */
+interface PreviewClearHighlightsMessage extends PreviewMessageBase {
+    type: "clear-highlights";
+}
+
+export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "clear-highlights",
+    };
+}
+
+/**
  * Union of all messages sent from parent to iframe
+ *
+ * TODO: add PreviewSetA11yEnabledMessage/PreviewHighlightIssuesMessage/
+ * PreviewClearHighlightsMessage here once usePreviewPresenter handles them
+ * (the exhaustive switch obligates a handler to land in the same change).
  */
 export type ParentToIframeMessage =
     | PreviewDataMessage
@@ -161,7 +220,20 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
 }
 
 /**
+ * Message from iframe reporting axe-core accessibility scan results back to the
+ * parent. `violations` are confirmed issues; `incompletes` need manual review.
+ */
+interface PreviewA11yReportMessage extends PreviewMessageBase {
+    type: "a11y-report";
+    violations: Issue[];
+    incompletes: Issue[];
+}
+
+/**
  * Union of all messages sent from iframe to parent
+ *
+ * TODO: add PreviewA11yReportMessage here once usePreviewController handles it
+ * (the exhaustive switch obligates a handler to land in the same change).
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
@@ -171,5 +243,17 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-ready",
+    };
+}
+
+export function createPreviewA11yReportMessage(
+    violations: Issue[],
+    incompletes: Issue[],
+): PreviewA11yReportMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "a11y-report",
+        violations,
+        incompletes,
     };
 }
