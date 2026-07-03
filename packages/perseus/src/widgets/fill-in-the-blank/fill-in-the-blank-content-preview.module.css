@@ -1,0 +1,39 @@
+.answerZone {
+    font-size: 18px;
+    line-height: 2.4;
+    color: inherit;
+}
+
+/*
+ * Each inline <Renderer> roots a block `<div class="perseus-renderer-responsive">`.
+ * Force that root to flow inline so the markdown/TeX runs sit on the same line as
+ * our blank and image elements and wrap together like text. This is the same
+ * technique label-image uses for its inline Renderer.
+ */
+.answerZone :global(.perseus-renderer-responsive) {
+    display: inline;
+}
+
+/* Fake empty blank box (non-interactive placeholder for this spike). */
+.blank {
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    min-width: 72px;
+    height: 1.7em;
+    margin: 0 4px;
+    border: 2px dashed rgba(33, 36, 44, 0.32);
+    border-radius: 4px;
+    background: #f0f1f2;
+}
+
+/* Inline image "tile" (height mimics the widget-level image height preset). */
+.tileImage {
+    display: inline-block;
+    vertical-align: middle;
+    height: 48px;
+    margin: 0 4px;
+    border: 1px solid #d6d8da;
+    border-radius: 4px;
+    background: #fff;
+}
