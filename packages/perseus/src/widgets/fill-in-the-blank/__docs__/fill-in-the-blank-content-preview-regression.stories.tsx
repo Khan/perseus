@@ -84,7 +84,7 @@ function Row({
 
 const meta: Meta = {
     title: "Widgets/Fill in the Blank/Content Placement Spike (regression)",
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         chromatic: {disableSnapshot: false, modes: themeModes},
         docs: {
