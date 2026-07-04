@@ -4,7 +4,7 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
-import type {Issue} from "../components/issues-panel";
+import type {A11yIssue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusItem,
@@ -231,12 +231,12 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
 interface PreviewA11yReportMessage extends PreviewMessageBase {
     type: "a11y-report";
     /** Violations are issues that are confirmed by the a11y scanner. **/
-    violations: Issue[];
+    violations: A11yIssue[];
     /**
      * NeedsReview are issues that the scanner cannot definitively say is a
      * violation or not. Requires manual review.
      */
-    needsReview: Issue[];
+    needsReview: A11yIssue[];
 }
 
 /**
@@ -254,12 +254,9 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     };
 }
 
-/**
- * @public - just to temporarily appeas
- */
 export function createPreviewA11yReportMessage(
-    violations: Issue[],
-    needsReview: Issue[],
+    violations: A11yIssue[],
+    needsReview: A11yIssue[],
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
