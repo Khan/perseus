@@ -34,11 +34,15 @@ type Props = {
     content: ReadonlyArray<FITBPreviewSegment>;
     // Optional width cap, to demonstrate reflow/wrapping at narrow sizes.
     maxWidth?: number;
+    // Optional label to render inside each blank box (e.g. its number), given
+    // the blank's 1-based position. Omit to render empty boxes (default).
+    getBlankLabel?: (blankNumber: number) => React.ReactNode;
 };
 
 export default function FillInTheBlankContentPreview({
     content,
     maxWidth,
+    getBlankLabel,
 }: Props): React.ReactElement {
     let blankNumber = 0;
     return (
@@ -59,15 +63,22 @@ export default function FillInTheBlankContentPreview({
                         );
                     case "blank": {
                         blankNumber += 1;
-                        // Fake, non-interactive placeholder. `aria-hidden` because
-                        // the real Blank component owns proper SR labelling.
+                        const label = getBlankLabel?.(blankNumber);
+                        // Fake, non-interactive placeholder. `aria-hidden` when
+                        // empty because the real Blank component owns SR labelling.
                         return (
                             <span
                                 key={segment.id}
                                 className={styles.blank}
-                                aria-hidden="true"
+                                aria-hidden={label == null ? "true" : undefined}
                                 data-blank-number={blankNumber}
-                            />
+                            >
+                                {label == null ? null : (
+                                    <span className={styles.blankLabel}>
+                                        {label}
+                                    </span>
+                                )}
+                            </span>
                         );
                     }
                     case "image":

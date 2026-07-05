@@ -31,6 +31,16 @@
     background: #f0f1f2;
 }
 
+/* Optional number/label shown inside a blank box (empty boxes render nothing). */
+.blankLabel {
+    display: block;
+    text-align: center;
+    line-height: 1.6em;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
 /* Inline image "tile" (height mimics the widget-level image height preset). */
 .tileImage {
     display: inline-block;
