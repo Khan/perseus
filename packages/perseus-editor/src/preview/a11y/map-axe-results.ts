@@ -1,4 +1,4 @@
-import issuesList from "../../util/a11y-issues-list";
+import issuesList from "./a11y-issues-list";
 
 import type {A11yIssue} from "../../components/issues-panel";
 import type axe from "axe-core";

@@ -2,6 +2,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {A11yContext, createA11yContextValue} from "../components/a11y-context";
 import IssuesPanel from "../components/issues-panel";
 
 import type {IssueImpact} from "../components/issues-panel";
@@ -13,6 +14,11 @@ const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     help: "Example help",
     impact,
     message: "Example message",
+});
+
+const makeA11yIssue = (previewId: string, impact: IssueImpact = "medium") => ({
+    ...makeIssue(`axe-${previewId}`, impact),
+    previewId,
 });
 
 describe("IssuesPanel", () => {
@@ -124,5 +130,80 @@ describe("IssuesPanel", () => {
 
         // Assert
         expect(cta).toBeInTheDocument();
+    });
+
+    it("includes A11yContext's axeCoreIssues in the count when a11yEnabled", () => {
+        // Arrange, Act
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yEnabled: true,
+                    axeCoreIssues: [makeA11yIssue("violation-1")],
+                })}
+            >
+                <IssuesPanel issues={[makeIssue("warn1")]} />
+            </A11yContext.Provider>,
+        );
+
+        // Assert
+        expect(screen.getByText("2 issues")).toBeInTheDocument();
+    });
+
+    it("excludes A11yContext's axeCoreIssues from the count when a11y is disabled", () => {
+        // Arrange, Act
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yEnabled: false,
+                    axeCoreIssues: [makeA11yIssue("violation-1")],
+                })}
+            >
+                <IssuesPanel issues={[makeIssue("warn1")]} />
+            </A11yContext.Provider>,
+        );
+
+        // Assert
+        expect(screen.getByText("1 issue")).toBeInTheDocument();
+    });
+
+    it("reflects A11yContext's a11yEnabled in the scan toggle", async () => {
+        // Arrange
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({a11yEnabled: true})}
+            >
+                <IssuesPanel issues={[]} />
+            </A11yContext.Provider>,
+        );
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act, Assert
+        expect(
+            screen.getByRole("switch", {name: "Include axe-core scan"}),
+        ).toBeChecked();
+    });
+
+    it("calls A11yContext's setA11yEnabled when the scan toggle is clicked", async () => {
+        // Arrange
+        const setA11yEnabled = jest.fn();
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yEnabled: false,
+                    setA11yEnabled,
+                })}
+            >
+                <IssuesPanel issues={[]} />
+            </A11yContext.Provider>,
+        );
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("switch", {name: "Include axe-core scan"}),
+        );
+
+        // Assert
+        expect(setA11yEnabled).toHaveBeenCalledWith(true);
     });
 });
