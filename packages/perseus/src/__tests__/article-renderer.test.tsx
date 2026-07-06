@@ -7,7 +7,10 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
 import * as React from "react";
 
-import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
+import {
+    articleSectionWithExpression,
+    articleWithAnswerArea,
+} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
@@ -17,7 +20,10 @@ import {
 } from "../testing/test-dependencies";
 
 import type {APIOptions} from "../types";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
+import type {
+    PerseusArticle,
+    PerseusArticleSection,
+} from "@khanacademy/perseus-core";
 
 function KeypadWithContext() {
     return (
@@ -39,6 +45,10 @@ function KeypadWithContext() {
 export const renderArticle = (
     json: PerseusArticle = articleSectionWithExpression,
     apiOptions: APIOptions = Object.freeze({}),
+    renderSectionExtras?: (
+        section: PerseusArticleSection,
+        sectionIndex: number,
+    ) => React.ReactNode,
 ): {
     container: HTMLElement;
     renderer: ArticleRenderer;
@@ -58,6 +68,7 @@ export const renderArticle = (
                             dependencies={testDependenciesV2}
                             apiOptions={{...apiOptions}}
                             keypadElement={keypadElement}
+                            renderSectionExtras={renderSectionExtras}
                         />
                     )}
                 </KeypadContext.Consumer>
@@ -156,6 +167,59 @@ describe("article renderer", () => {
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("calls renderSectionExtras with each section and its index", () => {
+        // Arrange
+        const renderSectionExtras = jest.fn();
+
+        // Act
+        renderArticle(
+            articleWithAnswerArea,
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            renderSectionExtras,
+        );
+
+        // Assert
+        expect(renderSectionExtras).toHaveBeenCalledWith(
+            articleWithAnswerArea[0],
+            0,
+        );
+        expect(renderSectionExtras).toHaveBeenCalledWith(
+            articleWithAnswerArea[1],
+            1,
+        );
+    });
+
+    it("renders the content returned by renderSectionExtras for each section", () => {
+        // Arrange, Act
+        renderArticle(
+            articleWithAnswerArea,
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            (section, sectionIndex) => (
+                <div data-testid={`section-extras-${sectionIndex}`}>
+                    {section.answerArea?.calculator
+                        ? "calculator enabled"
+                        : "no extras"}
+                </div>
+            ),
+        );
+
+        // Assert
+        expect(screen.getByTestId("section-extras-0")).toHaveTextContent(
+            "calculator enabled",
+        );
+        expect(screen.getByTestId("section-extras-1")).toHaveTextContent(
+            "no extras",
+        );
     });
 
     it("should call the onFocusChanged callback when an input is focused", async () => {

@@ -19,6 +19,7 @@ import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusArticle,
+    PerseusArticleSection,
     PerseusRenderer,
     KeypadContextRendererInterface,
 } from "@khanacademy/perseus-core";
@@ -29,6 +30,15 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
         legacyPerseusLint?: ReadonlyArray<string>;
         keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
+        /**
+         * Optionally render extra content for each section, positioned after
+         * the section's `Renderer`. Receives the section and its index so
+         * callers can render section-specific extras (e.g. an answer area).
+         */
+        renderSectionExtras?: (
+            section: PerseusArticleSection,
+            sectionIndex: number,
+        ) => React.ReactNode;
     };
 
 type DefaultProps = {
@@ -262,6 +272,7 @@ class ArticleRenderer
                             />
                         )}
                     </UserInputManager>
+                    {this.props.renderSectionExtras?.(section, sectionIndex)}
                 </div>
             );
         });

@@ -133,6 +133,36 @@ describe("parseAndMigratePerseusArticle", () => {
         );
     });
 
+    it("parses answerArea on one section but not others", () => {
+        const result = parseAndMigratePerseusArticle([
+            {
+                content: "with answer area",
+                answerArea: {calculator: true, calculatorVariant: "scientific"},
+            },
+            {content: "without answer area"},
+        ]);
+
+        expect(result).toEqual(
+            success([
+                {
+                    content: "with answer area",
+                    widgets: {},
+                    images: {},
+                    answerArea: {
+                        calculator: true,
+                        calculatorVariant: "scientific",
+                        financialCalculatorMonthlyPayment: false,
+                        financialCalculatorTotalAmount: false,
+                        financialCalculatorTimeToPayOff: false,
+                        periodicTable: false,
+                        periodicTableWithKey: false,
+                    },
+                },
+                {content: "without answer area", widgets: {}, images: {}},
+            ]),
+        );
+    });
+
     it("fails given an invalid data string", () => {
         const result = parseAndMigratePerseusArticle("[9]");
 
