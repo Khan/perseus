@@ -1,6 +1,7 @@
 import {
     type GradedGroupWidget,
     type PerseusExplanationWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../.storybook/modes";
@@ -11,6 +12,8 @@ import {
     explanationWithDefinitionOptions,
     gradedGroupWithRadioAndDefinition,
     gradedGroupWithRadioAndExplanation,
+    numericInputInGradedGroup,
+    numericInputInTable,
     gradedGroupWithInteractiveGraphAndRadio,
 } from "./nested-widgets.testdata";
 
@@ -63,4 +66,20 @@ type ExplanationStory = StoryObj<PerseusExplanationWidgetOptions>;
 export const ExplanationWithDefinition: ExplanationStory = {
     decorators: [articleRendererDecorator, explanationRendererDecorator],
     args: explanationWithDefinitionOptions,
+};
+
+type RendererStory = StoryObj<PerseusRenderer>;
+
+export const NumericInputInTable: RendererStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: numericInputInTable,
+    },
+};
+
+export const NumericInputInGradedGroup: RendererStory = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: numericInputInGradedGroup,
+    },
 };
