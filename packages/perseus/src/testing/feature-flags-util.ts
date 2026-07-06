@@ -10,7 +10,6 @@ const DEFAULT_FEATURE_FLAGS: Record<
     "perseus-test-flag-1": false,
     "perseus-test-flag-2": false,
     // Real production flags.
-    "input-number-to-numeric-input": false,
     "perseus-renderer-upgrade": false,
     "grapher-to-interactive-graph": false,
     "desmos-calculator": false,
