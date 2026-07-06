@@ -64,15 +64,19 @@ const field: React.CSSProperties = {
 export default function FillInTheBlankTagEditor({
     initialContent = "",
     initialChoices = [],
+    initialBlankSettings = [],
 }: {
     initialContent?: string;
     initialChoices?: ReadonlyArray<Choice>;
+    // Optional pre-assigned per-blank settings, in blank order. Handy for
+    // stories that should load already-answered.
+    initialBlankSettings?: ReadonlyArray<BlankSetting>;
 }): React.ReactElement {
     const [content, setContent] = React.useState(initialContent);
     const [choices, setChoices] = React.useState<Choice[]>([...initialChoices]);
-    const [blankSettings, setBlankSettings] = React.useState<BlankSetting[]>(
-        [],
-    );
+    const [blankSettings, setBlankSettings] = React.useState<BlankSetting[]>([
+        ...initialBlankSettings,
+    ]);
     const [tileUsage, setTileUsage] = React.useState<"single" | "multi">(
         "single",
     );

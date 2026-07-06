@@ -34,11 +34,15 @@ type Story = StoryObj<typeof FillInTheBlankTagEditor>;
 export const Prose: Story = {
     args: {
         initialContent:
-            "SpongeBob lives in a {{blank}}, which sits under the {{blank}}.",
+            "Hello my name is SpongeBob, and I live in a {{blank}} under the {{blank}}.",
         initialChoices: [
-            {id: "c1", text: "Pineapple"},
-            {id: "c2", text: "Sea"},
-            {id: "c3", text: "Ocean"},
+            {id: "c1", text: "pineapple"},
+            {id: "c2", text: "sea"},
+        ],
+        // Blank 1 → pineapple, Blank 2 → sea (loads already-answered).
+        initialBlankSettings: [
+            {correct: "c1", displayType: "normal"},
+            {correct: "c2", displayType: "normal"},
         ],
     },
 };
