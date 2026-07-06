@@ -41,14 +41,21 @@ export default function OperatorsPage(props: Props) {
                         coord={[1, 0]}
                     />
                     <KeypadButton
-                        keyConfig={Keys.SQRT}
+                        keyConfig={Keys.SUB}
                         onClickKey={onClickKey}
                         coord={[2, 0]}
                     />
                     <KeypadButton
-                        keyConfig={Keys.RADICAL}
+                        keyConfig={Keys.SQRT}
                         onClickKey={onClickKey}
                         coord={[3, 0]}
+                    />
+                    {/* Row 1 is full (cols 4-5 are shared +/- keys), so RADICAL
+                        moves to the free cell at the end of the relations row. */}
+                    <KeypadButton
+                        keyConfig={Keys.RADICAL}
+                        onClickKey={onClickKey}
+                        coord={[3, 2]}
                     />
                 </>
             )}

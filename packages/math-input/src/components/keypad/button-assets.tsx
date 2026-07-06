@@ -505,6 +505,25 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     />
                 </svg>
             );
+        // NOTE: This is a rough placeholder glyph — the base box from EXP with
+        // the small box moved to the lower-right to read as a subscript.
+        case "SUB":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="none"
+                    viewBox="0 0 40 40"
+                >
+                    <path
+                        fill="#21242C"
+                        fillRule="evenodd"
+                        d="M14 13a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1V13Zm2 1h8v12h-8V14Zm12 12a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-6Zm2 1h4v4h-4v-4Z"
+                        clipRule="evenodd"
+                    />
+                </svg>
+            );
         case "EXP_2":
             return (
                 <svg

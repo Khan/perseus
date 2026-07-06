@@ -166,6 +166,31 @@ describe("MathQuill", () => {
         });
     });
 
+    describe("Subscript", () => {
+        it("should prefix with empty parens after no content", () => {
+            mathField.pressKey("SUB");
+            expect(mathField.getContent()).toEqual("\\left(\\right)_{ }");
+
+            // Verify that the cursor is in the subscript, not within the parens,
+            // writing a unique character to verify cursor position.
+            expect(isInsideEmptyParens(mathField.getCursor())).toBeFalsy();
+            mathField.pressKey("PLUS");
+            expect(mathField.getContent()).toEqual("\\left(\\right)_{+}");
+        });
+
+        it("should prefix with empty parens after an operator", () => {
+            mathField.pressKey("PLUS");
+            mathField.pressKey("SUB");
+            expect(mathField.getContent()).toEqual("+\\left(\\right)_{ }");
+        });
+
+        it("should work after an expression", () => {
+            mathField.setContent("35x");
+            mathField.pressKey("SUB");
+            expect(mathField.getContent()).toEqual("35x_{ }");
+        });
+    });
+
     describe("Square Root", () => {
         it("should work with no content", () => {
             mathField.pressKey("SQRT");
