@@ -9,10 +9,11 @@
  * exports the same widget JSON the card version produces, so the two authoring
  * feels can be compared on identical output.
  *
- * This is a throwaway prototype: local state only, no scoring, no drag. Blank
- * settings are keyed by document position (index), which deliberately exposes
- * the "identity lives in editable text" fragility of the tag approach — useful
- * signal for the comparison.
+ * Choices support both markdown (text/TeX) and image content types, with a
+ * widget-level image-height preset. This is a throwaway prototype: local state
+ * only, no scoring, no drag. Blank settings are keyed by document position,
+ * which deliberately exposes the "identity lives in editable text" fragility of
+ * the tag approach — useful signal for the comparison.
  */
 import * as React from "react";
 
@@ -22,8 +23,18 @@ import type {FITBPreviewSegment} from "./fill-in-the-blank-content-preview";
 
 const BLANK_TAG = "{{blank}}";
 const BLANK_RE = /\{\{blank\}\}/g;
+const IMAGE_HEIGHTS = [24, 36, 48, 60, 72, 84, 96] as const;
+type ImageHeight = (typeof IMAGE_HEIGHTS)[number];
 
-type Choice = {id: string; text: string};
+type MarkdownChoice = {id: string; type: "markdown"; markdown: string};
+type ImageChoice = {
+    id: string;
+    type: "image";
+    url: string;
+    alt: string;
+    longDescription: string;
+};
+type Choice = MarkdownChoice | ImageChoice;
 type DisplayType = "normal" | "superscript" | "subscript";
 type BlankSetting = {correct: string | null; displayType: DisplayType};
 
@@ -44,6 +55,13 @@ function parseSegments(content: string): FITBPreviewSegment[] {
     return segments;
 }
 
+function choiceLabel(c: Choice, i: number): string {
+    if (c.type === "image") {
+        return `🖼 ${c.alt || `Image ${i + 1}`}`;
+    }
+    return c.markdown || `Choice ${i + 1}`;
+}
+
 const heading: React.CSSProperties = {
     fontWeight: 700,
     fontSize: 13,
@@ -60,17 +78,25 @@ const field: React.CSSProperties = {
     borderRadius: 4,
     fontSize: 14,
 };
+const cardBox: React.CSSProperties = {
+    border: "1px solid #e5e7eb",
+    borderRadius: 6,
+    padding: 8,
+    marginBottom: 8,
+};
 
 export default function FillInTheBlankTagEditor({
     initialContent = "",
     initialChoices = [],
     initialBlankSettings = [],
+    initialImageHeight = 48,
 }: {
     initialContent?: string;
     initialChoices?: ReadonlyArray<Choice>;
     // Optional pre-assigned per-blank settings, in blank order. Handy for
     // stories that should load already-answered.
     initialBlankSettings?: ReadonlyArray<BlankSetting>;
+    initialImageHeight?: ImageHeight;
 }): React.ReactElement {
     const [content, setContent] = React.useState(initialContent);
     const [choices, setChoices] = React.useState<Choice[]>([...initialChoices]);
@@ -81,6 +107,8 @@ export default function FillInTheBlankTagEditor({
         "single",
     );
     const [randomize, setRandomize] = React.useState(true);
+    const [imageHeight, setImageHeight] =
+        React.useState<ImageHeight>(initialImageHeight);
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
     const segments = React.useMemo(() => parseSegments(content), [content]);
@@ -114,13 +142,29 @@ export default function FillInTheBlankTagEditor({
             prev.map((b, idx) => (idx === i ? {...b, ...patch} : b)),
         );
 
-    const addChoice = () =>
-        setChoices((prev) => [...prev, {id: crypto.randomUUID(), text: ""}]);
-    const setChoiceText = (id: string, text: string) =>
-        setChoices((prev) => prev.map((c) => (c.id === id ? {...c, text} : c)));
+    const addTextChoice = () =>
+        setChoices((prev) => [
+            ...prev,
+            {id: crypto.randomUUID(), type: "markdown", markdown: ""},
+        ]);
+    const addImageChoice = () =>
+        setChoices((prev) => [
+            ...prev,
+            {
+                id: crypto.randomUUID(),
+                type: "image",
+                url: "",
+                alt: "",
+                longDescription: "",
+            },
+        ]);
+    // Patch a choice by id (fields vary by type; merge loosely for the prototype).
+    const updateChoice = (id: string, patch: Record<string, string>) =>
+        setChoices((prev) =>
+            prev.map((c) => (c.id === id ? ({...c, ...patch} as Choice) : c)),
+        );
     const removeChoice = (id: string) => {
         setChoices((prev) => prev.filter((c) => c.id !== id));
-        // Clear any blank that pointed at the removed choice.
         setBlankSettings((prev) =>
             prev.map((b) => (b.correct === id ? {...b, correct: null} : b)),
         );
@@ -146,17 +190,28 @@ export default function FillInTheBlankTagEditor({
             bi += 1;
             return out;
         });
+        const choicesOut = choices.map((c) =>
+            c.type === "image"
+                ? {
+                      type: "image",
+                      id: c.id,
+                      url: c.url,
+                      alt: c.alt,
+                      longDescription: c.longDescription,
+                  }
+                : {type: "markdown", id: c.id, markdown: c.markdown},
+        );
+        const hasImageChoice = choices.some((c) => c.type === "image");
         return {
             content: contentOut,
-            choices: choices.map((c) => ({
-                type: "markdown",
-                id: c.id,
-                markdown: c.text,
-            })),
+            choices: choicesOut,
             tileUsage,
             randomizeChoices: randomize,
+            ...(hasImageChoice ? {imageHeight} : {}),
         };
-    }, [segments, blankSettings, choices, tileUsage, randomize]);
+    }, [segments, blankSettings, choices, tileUsage, randomize, imageHeight]);
+
+    const hasImageChoice = choices.some((c) => c.type === "image");
 
     return (
         <div style={{display: "flex", gap: 24, alignItems: "flex-start"}}>
@@ -185,30 +240,86 @@ export default function FillInTheBlankTagEditor({
 
                 <div style={heading}>Choices</div>
                 {choices.map((c, i) => (
-                    <div
-                        key={c.id}
-                        style={{display: "flex", gap: 6, marginBottom: 6}}
-                    >
-                        <input
-                            style={field}
-                            aria-label={`Choice ${i + 1}`}
-                            value={c.text}
-                            onChange={(e) =>
-                                setChoiceText(c.id, e.target.value)
-                            }
-                        />
-                        <button
-                            type="button"
-                            aria-label={`Remove choice ${i + 1}`}
-                            onClick={() => removeChoice(c.id)}
+                    <div key={c.id} style={cardBox}>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                marginBottom: 4,
+                            }}
                         >
-                            −
-                        </button>
+                            <span style={{fontWeight: 600, fontSize: 13}}>
+                                {c.type === "image"
+                                    ? `Image choice ${i + 1}`
+                                    : `Text choice ${i + 1}`}
+                            </span>
+                            <button
+                                type="button"
+                                aria-label={`Remove choice ${i + 1}`}
+                                onClick={() => removeChoice(c.id)}
+                            >
+                                −
+                            </button>
+                        </div>
+                        {c.type === "image" ? (
+                            <>
+                                <input
+                                    style={{...field, marginBottom: 4}}
+                                    aria-label={`Choice ${i + 1} image URL`}
+                                    placeholder="Image URL"
+                                    value={c.url}
+                                    onChange={(e) =>
+                                        updateChoice(c.id, {
+                                            url: e.target.value,
+                                        })
+                                    }
+                                />
+                                <input
+                                    style={{...field, marginBottom: 4}}
+                                    aria-label={`Choice ${i + 1} alt text`}
+                                    placeholder="Alt text"
+                                    value={c.alt}
+                                    onChange={(e) =>
+                                        updateChoice(c.id, {
+                                            alt: e.target.value,
+                                        })
+                                    }
+                                />
+                                <input
+                                    style={field}
+                                    aria-label={`Choice ${i + 1} long description`}
+                                    placeholder="Long description"
+                                    value={c.longDescription}
+                                    onChange={(e) =>
+                                        updateChoice(c.id, {
+                                            longDescription: e.target.value,
+                                        })
+                                    }
+                                />
+                            </>
+                        ) : (
+                            <input
+                                style={field}
+                                aria-label={`Choice ${i + 1} text`}
+                                placeholder="Text or $TeX$"
+                                value={c.markdown}
+                                onChange={(e) =>
+                                    updateChoice(c.id, {
+                                        markdown: e.target.value,
+                                    })
+                                }
+                            />
+                        )}
                     </div>
                 ))}
-                <button type="button" onClick={addChoice}>
-                    + Add choice
-                </button>
+                <div style={{display: "flex", gap: 8}}>
+                    <button type="button" onClick={addTextChoice}>
+                        + Text choice
+                    </button>
+                    <button type="button" onClick={addImageChoice}>
+                        + Image choice
+                    </button>
+                </div>
 
                 <div style={heading}>Blanks</div>
                 {blankCount === 0 && (
@@ -222,15 +333,7 @@ export default function FillInTheBlankTagEditor({
                         displayType: "normal" as const,
                     };
                     return (
-                        <div
-                            key={i}
-                            style={{
-                                border: "1px solid #e5e7eb",
-                                borderRadius: 6,
-                                padding: 8,
-                                marginBottom: 8,
-                            }}
-                        >
+                        <div key={i} style={cardBox}>
                             <div style={{fontWeight: 600, marginBottom: 4}}>
                                 Blank {i + 1}
                             </div>
@@ -254,7 +357,7 @@ export default function FillInTheBlankTagEditor({
                                     <option value="">(unassigned)</option>
                                     {choices.map((c, ci) => (
                                         <option key={c.id} value={c.id}>
-                                            {c.text || `Choice ${ci + 1}`}
+                                            {choiceLabel(c, ci)}
                                         </option>
                                     ))}
                                 </select>
@@ -298,6 +401,32 @@ export default function FillInTheBlankTagEditor({
                         <option value="multi">multi</option>
                     </select>
                 </label>
+                {hasImageChoice && (
+                    <label
+                        style={{
+                            display: "block",
+                            fontSize: 13,
+                            marginBottom: 6,
+                        }}
+                    >
+                        Image height{" "}
+                        <select
+                            style={field}
+                            value={imageHeight}
+                            onChange={(e) =>
+                                setImageHeight(
+                                    Number(e.target.value) as ImageHeight,
+                                )
+                            }
+                        >
+                            {IMAGE_HEIGHTS.map((h) => (
+                                <option key={h} value={h}>
+                                    {h}px
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                )}
                 <label style={{display: "block", fontSize: 13}}>
                     <input
                         type="checkbox"
@@ -325,16 +454,36 @@ export default function FillInTheBlankTagEditor({
                     <div style={heading}>Choices</div>
                     <div style={{display: "flex", flexWrap: "wrap", gap: 8}}>
                         {choices.map((c, i) => (
-                            <span
+                            <div
                                 key={c.id}
                                 style={{
                                     border: "1px solid #d6d8da",
                                     borderRadius: 4,
                                     padding: "4px 10px",
+                                    display: "inline-flex",
+                                    alignItems: "center",
                                 }}
                             >
-                                {c.text || `Choice ${i + 1}`}
-                            </span>
+                                {c.type === "image" ? (
+                                    c.url ? (
+                                        <img
+                                            src={c.url}
+                                            alt={c.alt}
+                                            style={{
+                                                height: imageHeight,
+                                                maxWidth: 200,
+                                                display: "block",
+                                            }}
+                                        />
+                                    ) : (
+                                        <span style={{color: "#9ca3af"}}>
+                                            {`Image ${i + 1}`}
+                                        </span>
+                                    )
+                                ) : (
+                                    c.markdown || `Choice ${i + 1}`
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
