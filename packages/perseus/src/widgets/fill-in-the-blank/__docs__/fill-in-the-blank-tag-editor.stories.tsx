@@ -44,15 +44,17 @@ const triangle = svgTile("<path d='M24 8 L42 40 L6 40 Z' fill='%23c2560c'/>");
 export const Prose: Story = {
     args: {
         initialContent:
-            "Hello my name is SpongeBob, and I live in a {{blank}} under the {{blank}}.",
+            "Hello my name is SpongeBob, and I live in a {{blank}} under the {{blank}}. The sea is made out of {{blank}}.",
         initialChoices: [
             {id: "c1", type: "markdown", markdown: "pineapple"},
             {id: "c2", type: "markdown", markdown: "sea"},
+            {id: "c3", type: "markdown", markdown: "$H_2O$"},
         ],
-        // Blank 1 → pineapple, Blank 2 → sea (loads already-answered).
+        // Blank 1 → pineapple, Blank 2 → sea, Blank 3 → H₂O (TeX).
         initialBlankSettings: [
             {correct: "c1", displayType: "normal"},
             {correct: "c2", displayType: "normal"},
+            {correct: "c3", displayType: "normal"},
         ],
     },
 };
