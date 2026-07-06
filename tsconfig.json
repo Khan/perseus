@@ -13,6 +13,16 @@
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
+        // Cypress compiles cypress.config.ts with a bundled ts-node that reads
+        // this (the repo-root) tsconfig and forces module=CommonJS, which
+        // resolves to the deprecated moduleResolution=node10. TS 6.0 makes that
+        // a hard error (TS5107) that blocks the Cypress run. A modern
+        // resolution (node16/nodenext/bundler) can't pair with the forced
+        // CommonJS module, so we acknowledge the deprecation until Cypress is
+        // upgraded to a version that no longer compiles the config this way.
+        // This has no effect on `tsc`/`pnpm typecheck`, which uses the
+        // non-deprecated moduleResolution=bundler from tsconfig-common.
+        "ignoreDeprecations": "6.0",
         "paths": {
             "jsdiff": ["./vendor/jsdiff/jsdiff.js"],
             "raphael": ["./vendor/raphael/raphael.js"],

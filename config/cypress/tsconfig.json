@@ -3,11 +3,6 @@
     "compilerOptions": {
         "noEmit": true,
         "esModuleInterop": true,
-        // Cypress compiles this config with ts-node forcing module=CommonJS,
-        // which falls back to moduleResolution=node10. TS 6.0 errors on that
-        // deprecated value; node16/nodenext/bundler all conflict with the
-        // forced CommonJS module, so we acknowledge the deprecation instead.
-        "ignoreDeprecations": "6.0",
         // be explicit about types included
         // to avoid clashing with Jest types
         "types": ["cypress", "node", "cypress-real-events"]
