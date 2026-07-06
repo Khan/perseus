@@ -93,6 +93,98 @@ const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
 
 /**
+ * Widget types that render as inline content and may safely live inside a
+ * paragraph (`<p>`). Any widget type NOT in this set is treated as block-level.
+ */
+export const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
+    "definition",
+    "expression",
+    "input-number",
+    "numeric-input",
+]);
+
+const isBlockWidgetNode = (node: any): boolean =>
+    node?.type === "widget" && !INLINE_WIDGET_TYPES.has(node.widgetType);
+
+const isWhitespaceOnlyTextNode = (node: any): boolean =>
+    node?.type === "text" && !/\S/.test(node.content);
+
+/**
+ * Trim whitespace-only text nodes from the start and end of an array of inline
+ * markdown AST nodes. Used to avoid emitting empty `<p> </p>` wrappers around
+ * the stray newlines that abut a block widget in malformed markdown.
+ */
+function trimEdgeWhitespaceNodes(nodes: ReadonlyArray<any>): Array<any> {
+    let start = 0;
+    let end = nodes.length;
+    while (start < end && isWhitespaceOnlyTextNode(nodes[start])) {
+        start++;
+    }
+    while (end > start && isWhitespaceOnlyTextNode(nodes[end - 1])) {
+        end--;
+    }
+    return nodes.slice(start, end);
+}
+
+/**
+ * Recover from malformed markdown where a block-level widget (e.g. `radio`)
+ * gets parsed as an inline child of a paragraph. This happens when the content
+ * author doesn't separate the widget reference with blank lines (`\n\n`), so
+ * the block-level `widgetBlock` rule never matches and the widget falls through
+ * to the inline `widget` rule instead.
+ *
+ * For each top-level paragraph containing a direct-child block widget, split it
+ * into sibling nodes: each maximal run of inline nodes stays a `paragraph`
+ * (rendered as `<p>`), and each block widget becomes its own bare sibling.
+ * Whitespace-only text nodes adjacent to a split-out block widget are dropped
+ * so we don't emit empty paragraphs. Paragraphs with no block widget, and all
+ * non-paragraph nodes, are returned untouched.
+ *
+ * Only direct children of top-level paragraphs are considered; block widgets
+ * nested inside inline formatting (e.g. `strong`) or inside other containers
+ * (tables, columns) are not split out.
+ */
+export function splitBlockWidgetsFromParagraphs(ast: any): any {
+    if (!Array.isArray(ast)) {
+        return ast;
+    }
+
+    const result: Array<any> = [];
+    for (const node of ast) {
+        if (
+            node?.type !== "paragraph" ||
+            !Array.isArray(node.content) ||
+            !node.content.some(isBlockWidgetNode)
+        ) {
+            // Nothing to split; keep the node as-is.
+            result.push(node);
+            continue;
+        }
+
+        let inlineNodes: Array<any> = [];
+        const groupInlineNodes = () => {
+            const trimmed = trimEdgeWhitespaceNodes(inlineNodes);
+            if (trimmed.length > 0) {
+                result.push({...node, content: trimmed});
+            }
+            inlineNodes = [];
+        };
+
+        for (const child of node.content) {
+            if (isBlockWidgetNode(child)) {
+                groupInlineNodes();
+                // Emit the block widget as its own bare sibling (no <p>).
+                result.push(child);
+            } else {
+                inlineNodes.push(child);
+            }
+        }
+        groupInlineNodes();
+    }
+    return result;
+}
+
+/**
  * Return the first valid interpretation of 'text' as a number, in the form
  * {value: 2.3, exact: true}.
  */
@@ -551,6 +643,8 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
+    INLINE_WIDGET_TYPES,
+    splitBlockWidgetsFromParagraphs,
     firstNumericalParse,
     stringArrayOfSize,
     stringArrayOfSize2D,

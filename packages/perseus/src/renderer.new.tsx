@@ -1608,7 +1608,7 @@ class Renderer
         this._isTwoColumn = false;
 
         // Parse the string of markdown to a parse tree
-        const parsedMarkdown = this.props.inline
+        let parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
                   // Recognize crowdin IDs while translating articles
                   // (This should never be hit by exercises, though if you
@@ -1619,6 +1619,13 @@ class Renderer
             : PerseusMarkdown.parse(content, {
                   isJipt: this.translationIndex != null,
               });
+
+        // Recover from malformed markdown where a block-level widget (e.g.
+        // radio) is parsed as an inline child of a paragraph because the
+        // content author didn't separate the widget reference with blank
+        // lines. Splitting the paragraph here keeps block widgets out of the
+        // <p> emitted by the paragraph rule, avoiding invalid HTML.
+        parsedMarkdown = Util.splitBlockWidgetsFromParagraphs(parsedMarkdown);
 
         // Optionally apply the linter to the parse tree
         if (this.props.linterContext.highlightLint) {
