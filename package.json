@@ -13,8 +13,7 @@
         "@babel/parser": "^7.26.3",
         "@changesets/changelog-github": "^0.7.0",
         "@changesets/cli": "^2.31.0",
-        "@cypress/code-coverage": "^3.12.24",
-        "@cypress/react": "^8.0.0",
+        "@cypress/code-coverage": "^4.0.3",
         "@jest/globals": "^30.2.0",
         "@khanacademy/eslint-config": "^5.2.1",
         "@khanacademy/eslint-plugin": "^3.1.2",
@@ -57,9 +56,9 @@
         "ancesdir": "^3.1.0",
         "aphrodite": "catalog:devDeps",
         "cross-env": "^5.2.0",
-        "cypress": "^13.6.5",
+        "cypress": "^15.18.0",
         "cypress-jest-adapter": "^0.1.1",
-        "cypress-real-events": "^1.12.0",
+        "cypress-real-events": "^1.15.0",
         "cypress-wait-until": "^3.0.1",
         "esbuild": "0.24.0",
         "eslint": "^8.57.1",
@@ -155,7 +154,7 @@
     "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
     "pnpm": {
         "onlyBuiltDependencies": [
-            "cypress@13.6.5",
+            "cypress@15.18.0",
             "esbuild@0.24.0",
             "@swc/core@1.11.13",
             "mathquill"

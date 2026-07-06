@@ -1,4 +1,4 @@
-import {mount} from "@cypress/react";
+import {mount} from "cypress/react";
 import * as React from "react";
 
 import Keypad from "../components/keypad";
