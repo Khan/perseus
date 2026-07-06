@@ -164,7 +164,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_6947y3"
                 data-testid="issues-icon-warning-octagon-fill.svg"
               />
-              17 issues
+              16 issues
             </div>
           </div>
         </div>
@@ -1314,7 +1314,7 @@ table: [[☃ table 1]]
                           >
                             <input
                               checked=""
-                              name="perseus_dropdown_17"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1346,7 +1346,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_17"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1378,7 +1378,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_17"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
