@@ -11,7 +11,6 @@
  */
 const PerseusFeatureFlags = [
     "perseus-renderer-upgrade", // TODO(LEMS-4304): clean up feature flag
-    "grapher-to-interactive-graph", // TODO(LEMS-4259): clean up feature flag
     "desmos-calculator", // TODO(LEMS-4180): clean up feature flag
     "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
 ] as const;
