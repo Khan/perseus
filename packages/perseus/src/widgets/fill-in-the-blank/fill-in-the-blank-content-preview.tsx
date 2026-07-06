@@ -37,18 +37,22 @@ type Props = {
     // Optional label to render inside each blank box (e.g. its number), given
     // the blank's 1-based position. Omit to render empty boxes (default).
     getBlankLabel?: (blankNumber: number) => React.ReactNode;
+    // Optional inline style merged onto the root (e.g. to shrink font/line-height
+    // when rendering a single segment as a compact choice tile).
+    style?: React.CSSProperties;
 };
 
 export default function FillInTheBlankContentPreview({
     content,
     maxWidth,
     getBlankLabel,
+    style,
 }: Props): React.ReactElement {
     let blankNumber = 0;
     return (
         <div
             className={styles.answerZone}
-            style={maxWidth != null ? {maxWidth} : undefined}
+            style={{...(maxWidth != null ? {maxWidth} : {}), ...style}}
         >
             {content.map((segment) => {
                 switch (segment.type) {

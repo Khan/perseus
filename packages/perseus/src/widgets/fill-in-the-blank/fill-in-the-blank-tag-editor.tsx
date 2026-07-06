@@ -481,7 +481,23 @@ export default function FillInTheBlankTagEditor({
                                         </span>
                                     )
                                 ) : (
-                                    c.markdown || `Choice ${i + 1}`
+                                    // Render the choice's markdown/TeX through
+                                    // the same Renderer, compact for a tile.
+                                    <FillInTheBlankContentPreview
+                                        content={[
+                                            {
+                                                type: "markdown",
+                                                id: c.id,
+                                                markdown:
+                                                    c.markdown ||
+                                                    `Choice ${i + 1}`,
+                                            },
+                                        ]}
+                                        style={{
+                                            fontSize: 14,
+                                            lineHeight: 1.4,
+                                        }}
+                                    />
                                 )}
                             </div>
                         ))}
