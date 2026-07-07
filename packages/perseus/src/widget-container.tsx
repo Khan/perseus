@@ -100,6 +100,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // During the WidgetProps redesign, a migrated widget nests its options
         // under `widgetProps.options`; an un-migrated widget spreads them into
         // the top level of `widgetProps`. Read from whichever shape applies.
+        // TODO(LEMS-4354): clean this up post-migration.
         const subType =
             getWidgetSubType(
                 type,

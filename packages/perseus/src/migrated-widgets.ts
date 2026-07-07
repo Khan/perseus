@@ -8,4 +8,5 @@
  * while the migration is in progress. This list — and the branch that reads
  * it — is removed once every widget has been migrated.
  */
+// TODO(LEMS-4354): delete post-migration.
 export const MIGRATED_WIDGETS: ReadonlyArray<string> = [];

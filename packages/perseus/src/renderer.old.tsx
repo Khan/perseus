@@ -521,6 +521,7 @@ class Renderer
     // method return one of two prop shapes depending on the widget. The precise
     // return type is restored once every widget is migrated. See
     // MIGRATED_WIDGETS.
+    // TODO(LEMS-4354): add return type post-migration.
     getWidgetProps(widgetId: string): any {
         const apiOptions = this.getApiOptions();
         const widgetProps = this.props.widgets[widgetId].options;
@@ -588,6 +589,7 @@ class Renderer
         // options nested under a single `options` prop; an un-migrated widget
         // still receives them spread into the top level of its props. Once
         // every widget is migrated, the un-migrated branch is removed.
+        // TODO(LEMS-4354): clean up post-migration.
         if (widgetInfo != null && MIGRATED_WIDGETS.includes(widgetInfo.type)) {
             return {options: widgetProps, ...universalProps};
         }
