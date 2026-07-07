@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 79.2.0
+
+### Minor Changes
+
+-   [#3866](https://github.com/Khan/perseus/pull/3866) [`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Syncing deps to newest major versions of Wonder Blocks
+
+### Patch Changes
+
+-   [#3815](https://github.com/Khan/perseus/pull/3815) [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71) Thanks [@Evelas78](https://github.com/Evelas78)! - Adding analytics events to explore image modal for tracking amount of uses and how long users linger on the widget
+
+-   Updated dependencies [[`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906), [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/math-input@26.5.0
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/keypad-context@3.2.72
+    -   @khanacademy/kmath@2.4.31
+    -   @khanacademy/perseus-linter@5.1.12
+    -   @khanacademy/perseus-score@8.12.4
+
 ## 79.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 30.1.1
+
+### Patch Changes
+
+-   [#3815](https://github.com/Khan/perseus/pull/3815) [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71) Thanks [@Evelas78](https://github.com/Evelas78)! - Adding analytics events to explore image modal for tracking amount of uses and how long users linger on the widget
+
 ## 30.1.0
 
 ### Minor Changes
