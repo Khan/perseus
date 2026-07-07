@@ -263,6 +263,10 @@ for the recommended per-widget branching shape.
   colocated with the widget, but touches the shared `WidgetExports` type). Both
   are removed in the final cleanup. Recommendation: (a) for minimal surface
   area, unless the team prefers colocating migration state on the widget.
+    - Answer: Option (a) but use an array, not a Set — it's simpler and the
+      lookup is likely faster for the small number of elements we're dealing
+      with.
+
 - **Transitional type name.** Recommend keeping `WidgetProps` as the existing
   (spread) shape untouched and introducing `WidgetPropsV2` (nested `options`)
   for migrated widgets, then renaming `WidgetPropsV2` → `WidgetProps` and
@@ -270,6 +274,8 @@ for the recommended per-widget branching shape.
   compiling without touching un-migrated widgets. Alternative (rename existing
   → `LegacyWidgetProps` up front) requires touching all 30+ files immediately
   and is rejected as riskier. Confirm the naming preference.
+    - Answer: Use WidgetPropsV2 as suggested.
+
 - **Migration order.** Suggested: pilot with a simple, self-contained
   functional widget (e.g. `dropdown`, `iframe`, `sorter`, or `phet-simulation`)
   to nail the pattern (component + serialized-state + AI-util + editor + tests +
@@ -282,14 +288,27 @@ for the recommended per-widget branching shape.
   is well established. Save `orderer` for after the pattern is proven, given its
   `options`-field collision. Confirm whether a specific order/priority is
   desired.
+    - Answer: suggested order sounds good.
+
 - **`getSerializedState` is pervasive (~20 widgets) and relies on the spread.**
   Almost all use `const {userInput, ...rest} = props; return {...rest, ...}`,
   where `...rest` picks up the options. Migrating each of these means replacing
   `...rest` with the widget's `...props.options` (minus any fields the method
   already handles). It's deprecated, so confirm we still want byte-identical
   serialized output rather than simplifying/removing it during this refactor.
+    - Answer: preserve behavior (best effort) using `...props.options`.
+
 - **Does the class-renderer `getWidgetProps` return-type annotation need to be
   loosened during transition?** It's currently `WidgetProps<any, any,
   PerseusWidgetOptions>`; while it emits two shapes it may need a union or a
   looser annotation. Treat as an implementation detail unless it forces an API
   change.
+    - Answer: it's fine to loosen this type to `any` during the migration if
+      needed, but we should change it back to a real type once all widgets are
+      migrated.
+
+FIXME: One thing that's missing from this plan: how are default props handled?
+Many widgets have defaults for props that will be moved under `options`. I
+think those defaults are also used by the widget editors
+(`packages/perseus-editor`) to set up the initial widget state. Please research
+how the default props are used and revise the plan accordingly.
