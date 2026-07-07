@@ -131,10 +131,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
             const {userInput, options, ...otherProps} = props;
             const {choices, ...otherOptions} = options;
             return {
-                // Spread the options first so that the universal props in
-                // `otherProps` win on any name collision, matching the shape
-                // this method produced before options were nested under
-                // `options`.
                 ...otherOptions,
                 ...otherProps,
                 choices: choices.map((choice) => choice.content),
