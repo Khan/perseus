@@ -2,27 +2,52 @@
  * PROTOTYPE (LEMS-4311 — FITB editor exploration): the "renderer-based, blank-tag"
  * authoring approach, as an alternative to the drag-and-drop card composer.
  *
- * Instead of dragging cards, the author writes the sentence/equation in a text
- * field and inserts `{{blank}}` tags where blanks go. A live preview renders the
- * content through the real Perseus <Renderer> (via the inline-flow spike
- * component), and per-blank settings + a choices bank are edited alongside. It
- * exports the same widget JSON the card version produces, so the two authoring
- * feels can be compared on identical output.
+ * The author writes the sentence/equation in a text field and inserts blank
+ * tags where blanks go. Each tag carries a STABLE id (`{{blank 1}}`), so a
+ * blank's settings (correct answer, display type) are keyed by that id — not by
+ * position. Editing or reordering the surrounding text can't reshuffle which
+ * answer belongs to which blank. This mirrors how every rich Perseus widget
+ * stores content: a `content` string with id-bearing references plus an
+ * id-keyed lookup table.
  *
- * Choices support both markdown (text/TeX) and image content types, with a
- * widget-level image-height preset. This is a throwaway prototype: local state
- * only, no scoring, no drag. Blank settings are keyed by document position,
- * which deliberately exposes the "identity lives in editable text" fragility of
- * the tag approach — useful signal for the comparison.
+ * A live preview renders the content through the real Perseus <Renderer> (via
+ * the inline-flow spike component). The exported JSON is the recommended widget
+ * shape: `{content, blanks, choices, …}` where `content` is the authored string,
+ * `blanks` is keyed by blank id, and `choices` is the answer bank. Choices
+ * support markdown (text/TeX) and image content types, with a widget-level
+ * image-height preset.
+ *
+ * The controls are built with Wonder Blocks so the prototype reads like a real
+ * Perseus editor. Throwaway prototype: local state only, no scoring, no drag.
+ * Blanks are added via the "Insert blank" button, which assigns each a fresh
+ * stable id.
  */
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {Checkbox, TextArea, TextField} from "@khanacademy/wonder-blocks-form";
+import {
+    border,
+    font,
+    semanticColor,
+    sizing,
+} from "@khanacademy/wonder-blocks-tokens";
+import {BodyText, Heading} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import FillInTheBlankContentPreview from "./fill-in-the-blank-content-preview";
 
 import type {FITBPreviewSegment} from "./fill-in-the-blank-content-preview";
 
-const BLANK_TAG = "{{blank}}";
-const BLANK_RE = /\{\{blank\}\}/g;
+// Sentinel option value for "no correct answer chosen yet".
+const UNASSIGNED = "__unassigned__";
+
+// A blank reference in the content string, e.g. `{{blank 3}}`. The captured id
+// (`blank 3`) follows Perseus's `type number` id convention. This is FITB-owned
+// syntax — deliberately NOT a Perseus widget reference (`[[☃ …]]`) — so it can't
+// be mistaken for, or collide with, a registered widget.
+const BLANK_RE = /\{\{(blank \d+)\}\}/g;
 const IMAGE_HEIGHTS = [24, 36, 48, 60, 72, 84, 96] as const;
 type ImageHeight = (typeof IMAGE_HEIGHTS)[number];
 
@@ -38,21 +63,67 @@ type Choice = MarkdownChoice | ImageChoice;
 type DisplayType = "normal" | "superscript" | "subscript";
 type BlankSetting = {correct: string | null; displayType: DisplayType};
 
-// Split the content string into preview segments: markdown runs with `{{blank}}`
-// tags becoming blank segments. Segment ids are position-derived (stable across
-// renders for the same content).
+// Split the content string into preview segments: markdown runs, with each
+// `{{blank id}}` becoming a blank segment that carries the id from the tag.
 function parseSegments(content: string): FITBPreviewSegment[] {
-    const parts = content.split(BLANK_RE);
     const segments: FITBPreviewSegment[] = [];
-    parts.forEach((part, i) => {
-        if (part.length > 0) {
-            segments.push({type: "markdown", id: `md-${i}`, markdown: part});
+    let last = 0;
+    let mdIndex = 0;
+    for (const match of content.matchAll(BLANK_RE)) {
+        const start = match.index ?? 0;
+        if (start > last) {
+            segments.push({
+                type: "markdown",
+                id: `md-${mdIndex++}`,
+                markdown: content.slice(last, start),
+            });
         }
-        if (i < parts.length - 1) {
-            segments.push({type: "blank", id: `bk-${i}`});
-        }
-    });
+        segments.push({type: "blank", id: match[1]});
+        last = start + match[0].length;
+    }
+    if (last < content.length) {
+        segments.push({
+            type: "markdown",
+            id: `md-${mdIndex++}`,
+            markdown: content.slice(last),
+        });
+    }
     return segments;
+}
+
+// The blank ids present in a content string, in document order.
+function blankIdsIn(content: string): string[] {
+    return [...content.matchAll(BLANK_RE)].map((m) => m[1]);
+}
+
+// The highest blank number used in a content string (0 if none). New ids are
+// assigned as maxBlankNum + 1 — the same "safe, non-conflicting number" idea the
+// Perseus editor uses when inserting or pasting widgets.
+function maxBlankNum(content: string): number {
+    return blankIdsIn(content)
+        .map((id) => parseInt(id.replace(/\D/g, ""), 10))
+        .filter((n) => !isNaN(n))
+        .reduce((max, n) => Math.max(max, n), 0);
+}
+
+// If the same blank id appears more than once — e.g. after pasting a sentence
+// that already contains a blank — give the later copies fresh ids so each blank
+// keeps its own settings instead of silently sharing them. This is the reactive
+// analog of the Perseus editor renaming pasted widgets to non-conflicting ids
+// (see _safeWidgetNameMapping in perseus-editor/src/editor.tsx).
+function dedupeBlankIds(content: string): string {
+    const seen = new Set<string>();
+    let nextNum = maxBlankNum(content);
+    return content.replace(BLANK_RE, (whole, id) => {
+        if (!seen.has(id)) {
+            seen.add(id);
+            return whole;
+        }
+        nextNum += 1;
+        const fresh = `blank ${nextNum}`;
+        seen.add(fresh);
+        return `{{${fresh}}}`;
+    });
 }
 
 function choiceLabel(c: Choice, i: number): string {
@@ -62,29 +133,6 @@ function choiceLabel(c: Choice, i: number): string {
     return c.markdown || `Choice ${i + 1}`;
 }
 
-const heading: React.CSSProperties = {
-    fontWeight: 700,
-    fontSize: 13,
-    textTransform: "uppercase",
-    letterSpacing: 0.4,
-    color: "#6b7280",
-    margin: "16px 0 6px",
-};
-const field: React.CSSProperties = {
-    width: "100%",
-    boxSizing: "border-box",
-    padding: "6px 8px",
-    border: "1px solid #d6d8da",
-    borderRadius: 4,
-    fontSize: 14,
-};
-const cardBox: React.CSSProperties = {
-    border: "1px solid #e5e7eb",
-    borderRadius: 6,
-    padding: 8,
-    marginBottom: 8,
-};
-
 export default function FillInTheBlankTagEditor({
     initialContent = "",
     initialChoices = [],
@@ -93,16 +141,27 @@ export default function FillInTheBlankTagEditor({
 }: {
     initialContent?: string;
     initialChoices?: ReadonlyArray<Choice>;
-    // Optional pre-assigned per-blank settings, in blank order. Handy for
-    // stories that should load already-answered.
+    // Optional pre-assigned per-blank settings, in blank order. Zipped onto the
+    // initial content's blank ids at mount. Handy for stories that should load
+    // already-answered.
     initialBlankSettings?: ReadonlyArray<BlankSetting>;
     initialImageHeight?: ImageHeight;
 }): React.ReactElement {
     const [content, setContent] = React.useState(initialContent);
     const [choices, setChoices] = React.useState<Choice[]>([...initialChoices]);
-    const [blankSettings, setBlankSettings] = React.useState<BlankSetting[]>([
-        ...initialBlankSettings,
-    ]);
+    // Per-blank settings, keyed by the blank's stable id (not by position).
+    const [blankSettings, setBlankSettings] = React.useState<
+        Record<string, BlankSetting>
+    >(() => {
+        const map: Record<string, BlankSetting> = {};
+        blankIdsIn(initialContent).forEach((id, i) => {
+            map[id] = initialBlankSettings[i] ?? {
+                correct: null,
+                displayType: "normal",
+            };
+        });
+        return map;
+    });
     const [tileUsage, setTileUsage] = React.useState<"single" | "multi">(
         "single",
     );
@@ -112,35 +171,55 @@ export default function FillInTheBlankTagEditor({
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
     const segments = React.useMemo(() => parseSegments(content), [content]);
-    const blankCount = React.useMemo(
-        () => (content.match(BLANK_RE) || []).length,
-        [content],
+    const blankIds = React.useMemo(() => blankIdsIn(content), [content]);
+    const blankCount = blankIds.length;
+
+    // Segments for the live preview, with each blank's displayType merged in so
+    // sub/superscript blanks render off the baseline.
+    const previewSegments = React.useMemo(
+        () =>
+            segments.map((s) =>
+                s.type === "blank"
+                    ? {
+                          ...s,
+                          displayType:
+                              blankSettings[s.id]?.displayType ?? "normal",
+                      }
+                    : s,
+            ),
+        [segments, blankSettings],
     );
 
-    // Keep the per-blank settings array the same length as the number of tags.
+    // Keep the settings map in sync with the blanks in the content: add defaults
+    // for new ids, drop entries for ids that no longer appear.
     React.useEffect(() => {
         setBlankSettings((prev) => {
-            if (prev.length === blankCount) {
-                return prev;
+            const next: Record<string, BlankSetting> = {};
+            for (const id of blankIds) {
+                next[id] = prev[id] ?? {correct: null, displayType: "normal"};
             }
-            const next = prev.slice(0, blankCount);
-            while (next.length < blankCount) {
-                next.push({correct: null, displayType: "normal"});
-            }
-            return next;
+            const unchanged =
+                Object.keys(prev).length === blankIds.length &&
+                blankIds.every((id) => id in prev);
+            return unchanged ? prev : next;
         });
-    }, [blankCount]);
+    }, [blankIds]);
 
     const insertBlank = () => {
         const ta = textareaRef.current;
         const at = ta ? ta.selectionEnd : content.length;
-        setContent(content.slice(0, at) + BLANK_TAG + content.slice(at));
+        const tag = `{{blank ${maxBlankNum(content) + 1}}}`;
+        setContent(content.slice(0, at) + tag + content.slice(at));
     };
 
-    const setBlank = (i: number, patch: Partial<BlankSetting>) =>
-        setBlankSettings((prev) =>
-            prev.map((b, idx) => (idx === i ? {...b, ...patch} : b)),
-        );
+    const setBlank = (id: string, patch: Partial<BlankSetting>) =>
+        setBlankSettings((prev) => ({
+            ...prev,
+            [id]: {
+                ...(prev[id] ?? {correct: null, displayType: "normal"}),
+                ...patch,
+            },
+        }));
 
     const addTextChoice = () =>
         setChoices((prev) => [
@@ -161,35 +240,40 @@ export default function FillInTheBlankTagEditor({
     // Patch a choice by id (fields vary by type; merge loosely for the prototype).
     const updateChoice = (id: string, patch: Record<string, string>) =>
         setChoices((prev) =>
-            prev.map((c) => (c.id === id ? ({...c, ...patch} as Choice) : c)),
+            prev.map((c) => {
+                if (c.id !== id) {
+                    return c;
+                }
+                // eslint-disable-next-line no-restricted-syntax -- prototype: loose merge of a string patch onto the Choice union; callers only pass fields valid for that choice's type.
+                return {...c, ...patch} as Choice;
+            }),
         );
     const removeChoice = (id: string) => {
         setChoices((prev) => prev.filter((c) => c.id !== id));
-        setBlankSettings((prev) =>
-            prev.map((b) => (b.correct === id ? {...b, correct: null} : b)),
-        );
+        // Any blank pointing at this choice loses its correct answer.
+        setBlankSettings((prev) => {
+            const next: Record<string, BlankSetting> = {};
+            for (const [bid, s] of Object.entries(prev)) {
+                next[bid] = s.correct === id ? {...s, correct: null} : s;
+            }
+            return next;
+        });
     };
 
-    // Build the exported widget JSON (answerful) from current state.
+    // Build the exported widget JSON (answerful) from current state — the
+    // recommended shape: content string + id-keyed blanks + choices.
     const exported = React.useMemo(() => {
-        let bi = 0;
-        const contentOut = segments.map((s) => {
-            if (s.type === "markdown") {
-                return {type: "markdown", id: s.id, markdown: s.markdown};
-            }
-            const setting = blankSettings[bi] ?? {
+        const blanks: Record<
+            string,
+            {correct: string | null; displayType: DisplayType}
+        > = {};
+        for (const id of blankIds) {
+            const s = blankSettings[id] ?? {
                 correct: null,
                 displayType: "normal" as const,
             };
-            const out = {
-                type: "blank",
-                id: `blank-${bi + 1}`,
-                displayType: setting.displayType,
-                correct: setting.correct,
-            };
-            bi += 1;
-            return out;
-        });
+            blanks[id] = {correct: s.correct, displayType: s.displayType};
+        }
         const choicesOut = choices.map((c) =>
             c.type === "image"
                 ? {
@@ -203,267 +287,295 @@ export default function FillInTheBlankTagEditor({
         );
         const hasImageChoice = choices.some((c) => c.type === "image");
         return {
-            content: contentOut,
+            content,
+            blanks,
             choices: choicesOut,
             tileUsage,
             randomizeChoices: randomize,
             ...(hasImageChoice ? {imageHeight} : {}),
         };
-    }, [segments, blankSettings, choices, tileUsage, randomize, imageHeight]);
+    }, [
+        content,
+        blankIds,
+        blankSettings,
+        choices,
+        tileUsage,
+        randomize,
+        imageHeight,
+    ]);
 
     const hasImageChoice = choices.some((c) => c.type === "image");
 
     return (
-        <div style={{display: "flex", gap: 24, alignItems: "flex-start"}}>
+        <View style={styles.root}>
             {/* Controls column — kept ~narrow to mirror the real editor panel. */}
-            <div style={{width: 380, flex: "0 0 380px"}}>
-                <div style={heading}>Content</div>
-                <textarea
+            <View style={styles.controls}>
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Content
+                </Heading>
+                <TextArea
                     ref={textareaRef}
-                    style={{...field, minHeight: 120, fontFamily: "monospace"}}
-                    aria-label="Content with blank tags"
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(value) => setContent(dedupeBlankIds(value))}
+                    rows={4}
+                    autoResize={true}
+                    style={styles.mono}
+                    aria-label="Content with blank tags"
                 />
-                <button
-                    type="button"
-                    style={{marginTop: 6}}
-                    onClick={insertBlank}
-                >
-                    + Insert blank
-                </button>
-                <div style={{fontSize: 12, color: "#6b7280", marginTop: 4}}>
+                <View style={styles.insertRow}>
+                    <Button kind="secondary" onClick={insertBlank}>
+                        Insert blank
+                    </Button>
+                </View>
+                <BodyText size="small">
                     Type text and <code>$…$</code> for TeX. Use{" "}
-                    <strong>Insert blank</strong> to drop a{" "}
-                    <code>{BLANK_TAG}</code> at the cursor.
-                </div>
+                    <strong>Insert blank</strong> to drop a blank at the cursor
+                    — each gets a stable id like <code>{"{{blank 1}}"}</code>,
+                    so its answer stays put when you edit around it.
+                </BodyText>
 
-                <div style={heading}>Choices</div>
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Choices
+                </Heading>
                 {choices.map((c, i) => (
-                    <div key={c.id} style={cardBox}>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                marginBottom: 4,
-                            }}
-                        >
-                            <span style={{fontWeight: 600, fontSize: 13}}>
+                    <View key={c.id} style={styles.card}>
+                        <View style={styles.cardHeader}>
+                            <BodyText tag="span" style={styles.strong}>
                                 {c.type === "image"
                                     ? `Image choice ${i + 1}`
                                     : `Text choice ${i + 1}`}
-                            </span>
-                            <button
-                                type="button"
-                                aria-label={`Remove choice ${i + 1}`}
+                            </BodyText>
+                            <Button
+                                kind="tertiary"
                                 onClick={() => removeChoice(c.id)}
                             >
-                                −
-                            </button>
-                        </div>
+                                Remove
+                            </Button>
+                        </View>
                         {c.type === "image" ? (
                             <>
-                                <input
-                                    style={{...field, marginBottom: 4}}
+                                <TextField
                                     aria-label={`Choice ${i + 1} image URL`}
                                     placeholder="Image URL"
                                     value={c.url}
-                                    onChange={(e) =>
-                                        updateChoice(c.id, {
-                                            url: e.target.value,
-                                        })
+                                    onChange={(value) =>
+                                        updateChoice(c.id, {url: value})
                                     }
                                 />
-                                <input
-                                    style={{...field, marginBottom: 4}}
+                                <TextField
                                     aria-label={`Choice ${i + 1} alt text`}
                                     placeholder="Alt text"
                                     value={c.alt}
-                                    onChange={(e) =>
-                                        updateChoice(c.id, {
-                                            alt: e.target.value,
-                                        })
+                                    onChange={(value) =>
+                                        updateChoice(c.id, {alt: value})
                                     }
                                 />
-                                <input
-                                    style={field}
+                                <TextField
                                     aria-label={`Choice ${i + 1} long description`}
                                     placeholder="Long description"
                                     value={c.longDescription}
-                                    onChange={(e) =>
+                                    onChange={(value) =>
                                         updateChoice(c.id, {
-                                            longDescription: e.target.value,
+                                            longDescription: value,
                                         })
                                     }
                                 />
                             </>
                         ) : (
-                            <input
-                                style={field}
+                            <TextField
                                 aria-label={`Choice ${i + 1} text`}
                                 placeholder="Text or $TeX$"
                                 value={c.markdown}
-                                onChange={(e) =>
-                                    updateChoice(c.id, {
-                                        markdown: e.target.value,
-                                    })
+                                onChange={(value) =>
+                                    updateChoice(c.id, {markdown: value})
                                 }
                             />
                         )}
-                    </div>
+                    </View>
                 ))}
-                <div style={{display: "flex", gap: 8}}>
-                    <button type="button" onClick={addTextChoice}>
-                        + Text choice
-                    </button>
-                    <button type="button" onClick={addImageChoice}>
-                        + Image choice
-                    </button>
-                </div>
+                <View style={styles.buttonRow}>
+                    <Button kind="secondary" onClick={addTextChoice}>
+                        Text choice
+                    </Button>
+                    <Button kind="secondary" onClick={addImageChoice}>
+                        Image choice
+                    </Button>
+                </View>
 
-                <div style={heading}>Blanks</div>
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Blanks
+                </Heading>
                 {blankCount === 0 && (
-                    <div style={{fontSize: 13, color: "#6b7280"}}>
+                    <BodyText size="small">
                         No blanks yet — insert one above.
-                    </div>
+                    </BodyText>
                 )}
-                {Array.from({length: blankCount}, (_, i) => {
-                    const setting = blankSettings[i] ?? {
+                {blankIds.map((id, i) => {
+                    const setting = blankSettings[id] ?? {
                         correct: null,
                         displayType: "normal" as const,
                     };
                     return (
-                        <div key={i} style={cardBox}>
-                            <div style={{fontWeight: 600, marginBottom: 4}}>
+                        <View key={id} style={styles.card}>
+                            <BodyText tag="span" style={styles.strong}>
                                 Blank {i + 1}
-                            </div>
-                            <label
-                                style={{
-                                    display: "block",
-                                    fontSize: 13,
-                                    marginBottom: 4,
-                                }}
-                            >
-                                Correct{" "}
-                                <select
-                                    style={field}
-                                    value={setting.correct ?? ""}
-                                    onChange={(e) =>
-                                        setBlank(i, {
-                                            correct: e.target.value || null,
+                            </BodyText>
+                            <View style={styles.fieldRow}>
+                                <BodyText
+                                    id={`lbl-correct-${id}`}
+                                    tag="span"
+                                    size="small"
+                                    style={styles.fieldLabel}
+                                >
+                                    Correct
+                                </BodyText>
+                                <SingleSelect
+                                    aria-labelledby={`lbl-correct-${id}`}
+                                    placeholder="Choose a choice"
+                                    selectedValue={setting.correct ?? undefined}
+                                    onChange={(value) =>
+                                        setBlank(id, {
+                                            correct:
+                                                value === UNASSIGNED
+                                                    ? null
+                                                    : value,
                                         })
                                     }
                                 >
-                                    <option value="">(unassigned)</option>
-                                    {choices.map((c, ci) => (
-                                        <option key={c.id} value={c.id}>
-                                            {choiceLabel(c, ci)}
-                                        </option>
-                                    ))}
-                                </select>
-                            </label>
-                            <label style={{display: "block", fontSize: 13}}>
-                                Display{" "}
-                                <select
-                                    style={field}
-                                    value={setting.displayType}
-                                    onChange={(e) =>
-                                        setBlank(i, {
-                                            displayType: e.target
-                                                .value as DisplayType,
+                                    {[
+                                        <OptionItem
+                                            key={UNASSIGNED}
+                                            value={UNASSIGNED}
+                                            label="(unassigned)"
+                                        />,
+                                        ...choices.map((c, ci) => (
+                                            <OptionItem
+                                                key={c.id}
+                                                value={c.id}
+                                                label={choiceLabel(c, ci)}
+                                            />
+                                        )),
+                                    ]}
+                                </SingleSelect>
+                            </View>
+                            <View style={styles.fieldRow}>
+                                <BodyText
+                                    id={`lbl-display-${id}`}
+                                    tag="span"
+                                    size="small"
+                                    style={styles.fieldLabel}
+                                >
+                                    Display
+                                </BodyText>
+                                <SingleSelect
+                                    aria-labelledby={`lbl-display-${id}`}
+                                    placeholder="Display type"
+                                    selectedValue={setting.displayType}
+                                    onChange={(value) =>
+                                        setBlank(id, {
+                                            displayType:
+                                                value === "superscript" ||
+                                                value === "subscript"
+                                                    ? value
+                                                    : "normal",
                                         })
                                     }
                                 >
-                                    <option value="normal">normal</option>
-                                    <option value="superscript">
-                                        superscript
-                                    </option>
-                                    <option value="subscript">subscript</option>
-                                </select>
-                            </label>
-                        </div>
+                                    <OptionItem value="normal" label="normal" />
+                                    <OptionItem
+                                        value="superscript"
+                                        label="superscript"
+                                    />
+                                    <OptionItem
+                                        value="subscript"
+                                        label="subscript"
+                                    />
+                                </SingleSelect>
+                            </View>
+                        </View>
                     );
                 })}
 
-                <div style={heading}>Settings</div>
-                <label
-                    style={{display: "block", fontSize: 13, marginBottom: 6}}
-                >
-                    Tile usage{" "}
-                    <select
-                        style={field}
-                        value={tileUsage}
-                        onChange={(e) =>
-                            setTileUsage(e.target.value as "single" | "multi")
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Settings
+                </Heading>
+                <View style={styles.fieldRow}>
+                    <BodyText
+                        id="lbl-tile-usage"
+                        tag="span"
+                        size="small"
+                        style={styles.fieldLabel}
+                    >
+                        Tile usage
+                    </BodyText>
+                    <SingleSelect
+                        aria-labelledby="lbl-tile-usage"
+                        placeholder="Tile usage"
+                        selectedValue={tileUsage}
+                        onChange={(value) =>
+                            setTileUsage(value === "multi" ? "multi" : "single")
                         }
                     >
-                        <option value="single">single</option>
-                        <option value="multi">multi</option>
-                    </select>
-                </label>
+                        <OptionItem value="single" label="single" />
+                        <OptionItem value="multi" label="multi" />
+                    </SingleSelect>
+                </View>
                 {hasImageChoice && (
-                    <label
-                        style={{
-                            display: "block",
-                            fontSize: 13,
-                            marginBottom: 6,
-                        }}
-                    >
-                        Image height{" "}
-                        <select
-                            style={field}
-                            value={imageHeight}
-                            onChange={(e) =>
-                                setImageHeight(
-                                    Number(e.target.value) as ImageHeight,
-                                )
-                            }
+                    <View style={styles.fieldRow}>
+                        <BodyText
+                            id="lbl-image-height"
+                            tag="span"
+                            size="small"
+                            style={styles.fieldLabel}
+                        >
+                            Image height
+                        </BodyText>
+                        <SingleSelect
+                            aria-labelledby="lbl-image-height"
+                            placeholder="Image height"
+                            selectedValue={String(imageHeight)}
+                            onChange={(value) => {
+                                const height = IMAGE_HEIGHTS.find(
+                                    (h) => h === Number(value),
+                                );
+                                if (height != null) {
+                                    setImageHeight(height);
+                                }
+                            }}
                         >
                             {IMAGE_HEIGHTS.map((h) => (
-                                <option key={h} value={h}>
-                                    {h}px
-                                </option>
+                                <OptionItem
+                                    key={h}
+                                    value={String(h)}
+                                    label={`${h}px`}
+                                />
                             ))}
-                        </select>
-                    </label>
+                        </SingleSelect>
+                    </View>
                 )}
-                <label style={{display: "block", fontSize: 13}}>
-                    <input
-                        type="checkbox"
-                        checked={randomize}
-                        onChange={(e) => setRandomize(e.target.checked)}
-                    />{" "}
-                    Randomize choices
-                </label>
-            </div>
+                <Checkbox
+                    label="Randomize choices"
+                    checked={randomize}
+                    onChange={(newValue) => setRandomize(newValue)}
+                />
+            </View>
 
             {/* Preview + exported JSON. */}
-            <div style={{flex: 1, minWidth: 0}}>
-                <div style={heading}>Preview</div>
-                <div
-                    style={{
-                        border: "1px solid #e5e7eb",
-                        borderRadius: 8,
-                        padding: 16,
-                    }}
-                >
+            <View style={styles.preview}>
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Preview
+                </Heading>
+                <View style={styles.previewBox}>
                     <FillInTheBlankContentPreview
-                        content={segments}
+                        content={previewSegments}
                         getBlankLabel={(n) => n}
                     />
-                    <div style={heading}>Choices</div>
-                    <div style={{display: "flex", flexWrap: "wrap", gap: 8}}>
+                    <Heading size="small" tag="h3" style={styles.section}>
+                        Choices
+                    </Heading>
+                    <View style={styles.choiceTiles}>
                         {choices.map((c, i) => (
-                            <div
-                                key={c.id}
-                                style={{
-                                    border: "1px solid #d6d8da",
-                                    borderRadius: 4,
-                                    padding: "4px 10px",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                }}
-                            >
+                            <View key={c.id} style={styles.choiceTile}>
                                 {c.type === "image" ? (
                                     c.url ? (
                                         <img
@@ -476,9 +588,9 @@ export default function FillInTheBlankTagEditor({
                                             }}
                                         />
                                     ) : (
-                                        <span style={{color: "#9ca3af"}}>
+                                        <BodyText tag="span" size="small">
                                             {`Image ${i + 1}`}
-                                        </span>
+                                        </BodyText>
                                     )
                                 ) : (
                                     // Render the choice's markdown/TeX through
@@ -493,31 +605,115 @@ export default function FillInTheBlankTagEditor({
                                                     `Choice ${i + 1}`,
                                             },
                                         ]}
-                                        style={{
-                                            fontSize: 14,
-                                            lineHeight: 1.4,
-                                        }}
                                     />
                                 )}
-                            </div>
+                            </View>
                         ))}
-                    </div>
-                </div>
+                    </View>
+                </View>
 
-                <div style={heading}>Exported widget JSON</div>
-                <pre
-                    style={{
-                        background: "#f6f7f8",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: 8,
-                        padding: 12,
-                        fontSize: 12,
-                        overflowX: "auto",
-                    }}
-                >
-                    {JSON.stringify(exported, null, 2)}
-                </pre>
-            </div>
-        </div>
+                <Heading size="small" tag="h3" style={styles.section}>
+                    Exported widget JSON
+                </Heading>
+                <View style={styles.jsonBlock}>
+                    <pre
+                        style={{
+                            margin: 0,
+                            fontFamily: "monospace",
+                            fontSize: font.body.size.xsmall,
+                            lineHeight: font.body.lineHeight.small,
+                        }}
+                    >
+                        {JSON.stringify(exported, null, 2)}
+                    </pre>
+                </View>
+            </View>
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    root: {
+        flexDirection: "row",
+        gap: sizing.size_240,
+        alignItems: "flex-start",
+    },
+    controls: {
+        inlineSize: 380,
+        flexShrink: 0,
+        gap: sizing.size_080,
+    },
+    preview: {
+        flexGrow: 1,
+        minInlineSize: 0,
+        gap: sizing.size_080,
+    },
+    section: {
+        marginBlockStart: sizing.size_160,
+    },
+    strong: {
+        fontWeight: font.weight.bold,
+    },
+    mono: {
+        fontFamily: "monospace",
+    },
+    insertRow: {
+        alignItems: "flex-start",
+    },
+    buttonRow: {
+        flexDirection: "row",
+        gap: sizing.size_080,
+    },
+    card: {
+        borderWidth: border.width.thin,
+        borderStyle: "solid",
+        borderColor: semanticColor.core.border.neutral.default,
+        borderRadius: border.radius.radius_040,
+        padding: sizing.size_080,
+        gap: sizing.size_080,
+    },
+    cardHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    fieldRow: {
+        flexDirection: "row",
+        gap: sizing.size_080,
+        alignItems: "center",
+    },
+    fieldLabel: {
+        inlineSize: 84,
+        flexShrink: 0,
+    },
+    previewBox: {
+        borderWidth: border.width.thin,
+        borderStyle: "solid",
+        borderColor: semanticColor.core.border.neutral.default,
+        borderRadius: border.radius.radius_040,
+        padding: sizing.size_160,
+        gap: sizing.size_080,
+    },
+    choiceTiles: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: sizing.size_080,
+    },
+    choiceTile: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: border.width.thin,
+        borderStyle: "solid",
+        borderColor: semanticColor.core.border.neutral.default,
+        borderRadius: border.radius.radius_040,
+        padding: sizing.size_040,
+    },
+    jsonBlock: {
+        borderWidth: border.width.thin,
+        borderStyle: "solid",
+        borderColor: semanticColor.core.border.neutral.default,
+        borderRadius: border.radius.radius_040,
+        padding: sizing.size_120,
+        overflowX: "auto",
+    },
+});

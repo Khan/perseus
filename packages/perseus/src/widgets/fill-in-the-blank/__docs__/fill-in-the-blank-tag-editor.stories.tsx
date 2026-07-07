@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import FillInTheBlankTagEditor from "../fill-in-the-blank-tag-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -44,7 +42,7 @@ const triangle = svgTile("<path d='M24 8 L42 40 L6 40 Z' fill='%23c2560c'/>");
 export const Prose: Story = {
     args: {
         initialContent:
-            "Hello my name is SpongeBob, and I live in a {{blank}} under the {{blank}}. The sea is made out of {{blank}}.",
+            "Hello my name is SpongeBob, and I live in a {{blank 1}} under the {{blank 2}}. The sea is made out of {{blank 3}}.",
         initialChoices: [
             {id: "c1", type: "markdown", markdown: "pineapple"},
             {id: "c2", type: "markdown", markdown: "sea"},
@@ -62,7 +60,7 @@ export const Prose: Story = {
 export const Equation: Story = {
     args: {
         initialContent:
-            "{{blank}} $H_2$ + {{blank}} $O_2 \\rightarrow$ {{blank}} $H_2 O$",
+            "{{blank 1}} $H_2$ + {{blank 2}} $O_2 \\rightarrow$ {{blank 3}} $H_2 O$",
         initialChoices: [
             {id: "c1", type: "markdown", markdown: "1"},
             {id: "c2", type: "markdown", markdown: "2"},
@@ -74,7 +72,7 @@ export const Equation: Story = {
 export const ImageChoices: Story = {
     args: {
         initialContent:
-            "The pattern is circle, square, triangle, circle, square… so the next shape is {{blank}}.",
+            "The pattern is circle, square, triangle, circle, square… so the next shape is {{blank 1}}.",
         initialChoices: [
             {
                 id: "c1",

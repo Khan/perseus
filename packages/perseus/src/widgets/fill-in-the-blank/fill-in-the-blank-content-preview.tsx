@@ -19,6 +19,7 @@
  */
 import * as React from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 import styles from "./fill-in-the-blank-content-preview.module.css";
@@ -27,7 +28,12 @@ import styles from "./fill-in-the-blank-content-preview.module.css";
 // test the rendering theory.
 export type FITBPreviewSegment =
     | {type: "markdown"; id: string; markdown: string}
-    | {type: "blank"; id: string}
+    | {
+          type: "blank";
+          id: string;
+          // How the blank sits relative to the baseline. Omit for "normal".
+          displayType?: "normal" | "superscript" | "subscript";
+      }
     | {type: "image"; id: string; url: string; alt: string};
 
 type Props = {
@@ -48,6 +54,10 @@ export default function FillInTheBlankContentPreview({
     getBlankLabel,
     style,
 }: Props): React.ReactElement {
+    // The Renderer needs Perseus's translated strings. In Storybook/tests this
+    // resolves to mockStrings via the context default; in the app it comes from
+    // the surrounding PerseusI18nContextProvider.
+    const {strings} = usePerseusI18n();
     let blankNumber = 0;
     return (
         <div
@@ -63,6 +73,7 @@ export default function FillInTheBlankContentPreview({
                                 key={segment.id}
                                 inline
                                 content={segment.markdown}
+                                strings={strings}
                             />
                         );
                     case "blank": {
@@ -70,9 +81,8 @@ export default function FillInTheBlankContentPreview({
                         const label = getBlankLabel?.(blankNumber);
                         // Fake, non-interactive placeholder. `aria-hidden` when
                         // empty because the real Blank component owns SR labelling.
-                        return (
+                        const box = (
                             <span
-                                key={segment.id}
                                 className={styles.blank}
                                 aria-hidden={label == null ? "true" : undefined}
                                 data-blank-number={blankNumber}
@@ -83,6 +93,19 @@ export default function FillInTheBlankContentPreview({
                                     </span>
                                 )}
                             </span>
+                        );
+                        // A subscript/superscript blank (e.g. a coefficient or
+                        // exponent slot) sits off the baseline.
+                        if (segment.displayType === "superscript") {
+                            return <sup key={segment.id}>{box}</sup>;
+                        }
+                        if (segment.displayType === "subscript") {
+                            return <sub key={segment.id}>{box}</sub>;
+                        }
+                        return (
+                            <React.Fragment key={segment.id}>
+                                {box}
+                            </React.Fragment>
                         );
                     }
                     case "image":
