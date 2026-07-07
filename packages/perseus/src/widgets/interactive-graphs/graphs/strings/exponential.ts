@@ -1,4 +1,4 @@
-import {getExponentialCoefficients} from "@khanacademy/kmath/src/coefficients";
+import {coefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
 
@@ -7,8 +7,10 @@ import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
 import type {ExponentialGraphState} from "../../types";
-import type {ExponentialCoefficient} from "@khanacademy/kmath/src/coefficients";
+import type {ExponentialCoefficient} from "@khanacademy/kmath";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
+
+const {getExponentialCoefficients} = coefficients;
 
 export function srExponentialPointLabel(
     state: {
