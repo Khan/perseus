@@ -463,6 +463,9 @@ widget*, in one commit:
 
 ### Pilot widgets
 
+Migrate these **one at a time**, stopping after each step for the user to
+review and commit the changes.
+
 - [ ] Migrate `dropdown` to `WidgetPropsV2` (pilot; functional widget with
       inline destructuring defaults).
 - [ ] Migrate `radio` to `WidgetPropsV2` (second pilot; update the hand-built
@@ -470,6 +473,9 @@ widget*, in one commit:
       handled by scaffolding).
 
 ### Remaining functional widgets
+
+Migrate these **one at a time**, stopping after each step for the user to
+review and commit the changes.
 
 - [ ] Migrate `phet-simulation` to `WidgetPropsV2`.
 - [ ] Migrate `iframe` to `WidgetPropsV2`.
@@ -492,6 +498,9 @@ widget*, in one commit:
 
 ### Class / `ExternalProps` widgets
 
+Migrate these **one at a time**, stopping after each step for the user to
+review and commit the changes.
+
 - [ ] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `matcher` to `WidgetPropsV2`.
 - [ ] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
@@ -506,6 +515,9 @@ widget*, in one commit:
 
 ### Highest-risk / nested widgets
 
+Migrate these **one at a time**, stopping after each step for the user to
+review and commit the changes.
+
 - [ ] Migrate `label-image` to `WidgetPropsV2` (update `satisfies PropsFor`
       assertion).
 - [ ] Migrate `interactive-graph` to `WidgetPropsV2` (update `satisfies PropsFor`
@@ -517,6 +529,9 @@ widget*, in one commit:
 - [ ] Migrate `graded-group-set` to `WidgetPropsV2`.
 
 ### Special cases (do last)
+
+Migrate these **one at a time**, stopping after each step for the user to
+review and commit the changes.
 
 - [ ] Migrate `orderer` to `WidgetPropsV2` — ⚠ its options include a field named
       `options` (`this.props.options[index]` → `this.props.options.options[index]`);
