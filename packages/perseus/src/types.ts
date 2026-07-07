@@ -475,9 +475,6 @@ export type WidgetProps<
  * migrated to it one at a time; once every widget is migrated this will replace
  * `WidgetProps` and `UniversalWidgetProps` will be inlined here.
  *
- * The `@public` tag stops `knip` from reporting this as an unused export while
- * no widget imports it yet; it can be removed once the first widget does.
- * @public
  * TODO(LEMS-4354): revise this doc comment post-migration.
  */
 export type WidgetPropsV2<

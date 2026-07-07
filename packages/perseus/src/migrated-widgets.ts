@@ -9,4 +9,4 @@
  * it — is removed once every widget has been migrated.
  */
 // TODO(LEMS-4354): delete post-migration.
-export const MIGRATED_WIDGETS: ReadonlyArray<string> = [];
+export const MIGRATED_WIDGETS: ReadonlyArray<string> = ["dropdown"];

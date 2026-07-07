@@ -19,7 +19,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
@@ -27,7 +27,7 @@ import type {
     PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput
 > & {
@@ -47,12 +47,14 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
     const {
         choices = [],
         placeholder = "",
+        visibleLabel,
+        ariaLabel,
+    } = props.options;
+    const {
         apiOptions = ApiOptions.defaults,
         userInput = {value: 0},
         static: isStatic = false,
         dependencies,
-        visibleLabel,
-        ariaLabel,
         widgetId,
         trackInteraction,
         handleUserInput,
@@ -126,8 +128,13 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState: (): any => {
-            const {userInput, choices, ...rest} = props;
+            const {userInput, options, ...rest} = props;
+            const {choices, ...otherOptions} = options;
             return {
+                // Spread the options first so that the universal props in
+                // `rest` win on any name collision, matching the shape this
+                // method produced before options were nested under `options`.
+                ...otherOptions,
                 ...rest,
                 choices: choices.map((choice) => choice.content),
                 selected: userInput.value,
@@ -181,7 +188,10 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
                 className="perseus-dropdown"
                 onChange={(value) => handleChange(parseInt(value))}
                 selectedValue={String(userInput.value)}
-                disabled={apiOptions.readOnly || isStatic}
+                // `isStatic` can be `null` (the universal `static` prop is
+                // `boolean | null | undefined` and the destructuring default
+                // only replaces `undefined`), so coerce to a real boolean.
+                disabled={Boolean(apiOptions.readOnly || isStatic)}
                 aria-label={ariaLabel || visibleLabel || strings.selectAnAnswer}
                 showOpenerLabelAsText={false}
             >
