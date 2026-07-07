@@ -71,7 +71,7 @@ function MovablePointLabelView({
                 transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,
                 fontFamily: 'Symbola, "Times New Roman", serif',
-                fontSize: font.size.large,
+                fontSize: font.heading.size.medium,
                 fontWeight: font.weight.black,
                 whiteSpace: "nowrap",
                 pointerEvents: "none",

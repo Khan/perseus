@@ -21,8 +21,8 @@
     .sbdocs p,
     .sbdocs p *:not(a) {
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
-        font-size: var(--wb-font-size-small);
-        line-height: var(--wb-font-lineHeight-small);
+        font-size: var(--wb-font-body-size-small);
+        line-height: var(--wb-font-body-lineHeight-small);
     }
 
     .sbdocs .docblock-argstable p,

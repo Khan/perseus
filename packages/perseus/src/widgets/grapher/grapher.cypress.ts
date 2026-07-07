@@ -23,11 +23,143 @@ import {
 // graphie image). This can lead to there being two `.graphie` matches in the
 // DOM. If we use the wrong one, all of our click and drag coordinates are
 // wrong.
+//
+// These legacy selectors are only used by the quadratic and complex graph
+// blocks, which still render the old Graphie grapher. Graphers with a single
+// non-quadratic available type render as a Mafs Interactive Graph instead and
+// are driven by the keyboard helpers below.
 const GRAPHIE =
     ".perseus-widget-grapher > .graphie-container > .graphie-container > .graphie";
 const POINTS =
     "[data-interactive-kind-for-testing=movable-point] > svg > ellipse";
-const LINES = "[data-interactive-kind-for-testing=movable-line] > svg > path";
+
+// --- Interactive Graph (Mafs) keyboard helpers --------------------------
+//
+// A grapher with a single non-quadratic available type now renders as a
+// Mafs Interactive Graph. The Interactive Graph widget is accessible, so
+// these tests are keyboard-driven: we focus a handle and press an arrow key
+// to move it one grid unit (every question here uses snapStep [1, 1]). Each
+// handle's aria-label encodes its coordinates, so we read the label, compare
+// it to the target, and press the appropriate arrow key until they match.
+const POINT_HANDLE = "[data-testid=movable-point__focusable-handle]";
+const ASYMPTOTE_HANDLE = "[data-testid=movable-asymptote]";
+
+type Coords = {x: number; y: number};
+
+// Pulls the "... at X comma Y." coordinates out of a point handle's aria-label
+// (e.g. "Vertex point at 8 comma 1." or "Point 1 at -5 comma 5.").
+function parsePointCoords(ariaLabel: string): Coords {
+    const match = ariaLabel.match(
+        /at (-?\d+(?:\.\d+)?) comma (-?\d+(?:\.\d+)?)/,
+    );
+    if (!match) {
+        throw new Error(`Could not parse coordinates from "${ariaLabel}"`);
+    }
+    return {x: Number(match[1]), y: Number(match[2])};
+}
+
+// Pulls the "... equals N" value out of an asymptote handle's aria-label
+// (e.g. "Horizontal asymptote at y equals 5").
+function parseAsymptoteValue(ariaLabel: string): number {
+    const match = ariaLabel.match(/equals (-?\d+(?:\.\d+)?)/);
+    if (!match) {
+        throw new Error(`Could not parse asymptote from "${ariaLabel}"`);
+    }
+    return Number(match[1]);
+}
+
+// A safety bound on arrow presses so a move that fails to converge fails the
+// test quickly instead of looping forever.
+const MAX_PRESSES = 80;
+
+// Moves the point handle at `index` (DOM order) to `target` by reading its
+// aria-label and pressing one arrow key per step. We adjust y first, then
+// x; some graphs skip an extra grid step to avoid landing both points on the
+// same x, so we re-read the label after every press rather than assuming a
+// fixed step size.
+//
+// This recurses through step() rather than looping with async/await because
+// Cypress commands are queued, not awaitable promises: the call sites (and
+// the enclosing `it` blocks) rely on that queue to order each move and the
+// assertions that follow, and the number of presses isn't known up front.
+// Recursing inside .then() is Cypress's idiomatic way to repeat a command
+// until a dynamic condition holds.
+function movePointTo(index: number, target: Coords): void {
+    const handle = () => cy.get(POINT_HANDLE).eq(index);
+
+    function step(remaining: number): void {
+        if (remaining <= 0) {
+            throw new Error(
+                `Point ${index} never reached (${target.x}, ${target.y})`,
+            );
+        }
+        handle().then(($el) => {
+            const {x, y} = parsePointCoords($el.attr("aria-label") ?? "");
+            if (x === target.x && y === target.y) {
+                return;
+            }
+            // Directly focus the SVG handle (Cypress's .focus() rejects SVG
+            // elements), then send an OS-level key event via cypress-real-events
+            // so it reliably reaches @use-gesture's keyboard listeners.
+            $el[0].focus();
+            const key =
+                y !== target.y
+                    ? y < target.y
+                        ? "ArrowUp"
+                        : "ArrowDown"
+                    : x < target.x
+                      ? "ArrowRight"
+                      : "ArrowLeft";
+            cy.realPress(key);
+            step(remaining - 1);
+        });
+    }
+
+    step(MAX_PRESSES);
+}
+
+// Moves the asymptote handle to `target`. A horizontal asymptote (exponential)
+// moves vertically; a vertical asymptote (logarithm) moves horizontally.
+//
+// Like movePointTo, this recurses through step() instead of looping: Cypress
+// commands aren't awaitable promises, so recursion inside .then() is how we
+// repeat a press until the asymptote reaches `target`.
+function moveAsymptoteTo(
+    target: number,
+    orientation: "horizontal" | "vertical",
+): void {
+    const handle = () => cy.get(ASYMPTOTE_HANDLE);
+
+    function step(remaining: number): void {
+        if (remaining <= 0) {
+            throw new Error(`Asymptote never reached ${target}`);
+        }
+        handle().then(($el) => {
+            const current = parseAsymptoteValue($el.attr("aria-label") ?? "");
+            if (current === target) {
+                return;
+            }
+            $el[0].focus();
+            const key =
+                orientation === "horizontal"
+                    ? current < target
+                        ? "ArrowUp"
+                        : "ArrowDown"
+                    : current < target
+                      ? "ArrowRight"
+                      : "ArrowLeft";
+            cy.realPress(key);
+            step(remaining - 1);
+        });
+    }
+
+    step(MAX_PRESSES);
+}
+
+// Waits for the Mafs Interactive Graph to finish rendering before interacting.
+function waitForInteractiveGraph(): void {
+    cy.get(POINT_HANDLE).should("exist");
+}
 
 describe("Grapher widget", () => {
     beforeEach(() => {
@@ -64,21 +196,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 360, y: top + 180});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 340, y: top + 140});
-                        });
+                    // correct: vertex (8, 1), point on arm (7, 3)
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 8, y: 1});
+                    movePointTo(1, {x: 7, y: 3});
 
                     // Assert
                     cy.then(() => {
@@ -111,21 +232,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 200});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 100, y: top + 100});
-                        });
+                    // A valid absolute value, but not the correct answer.
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 0, y: 2});
+                    movePointTo(1, {x: 1, y: 4});
 
                     // Assert
                     cy.then(() => {
@@ -183,28 +293,11 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(LINES)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 75});
-                            // [0, 3],
-                            // [1, -1],
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 120});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 225, y: top + 225});
-                        });
+                    // correct: asymptote y = 5, point 1 (0, 3), point 2 (1, -1)
+                    waitForInteractiveGraph();
+                    moveAsymptoteTo(5, "horizontal");
+                    movePointTo(0, {x: 0, y: 3});
+                    movePointTo(1, {x: 1, y: -1});
 
                     // Assert
                     cy.then(() => {
@@ -237,26 +330,11 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(LINES)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 200});
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 25, y: top + 25});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 200});
-                        });
+                    // A valid exponential, but with the wrong asymptote (y = 4).
+                    waitForInteractiveGraph();
+                    moveAsymptoteTo(4, "horizontal");
+                    movePointTo(0, {x: 0, y: 3});
+                    movePointTo(1, {x: 1, y: -1});
 
                     // Assert
                     cy.then(() => {
@@ -314,21 +392,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 100});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 260, y: top + 200});
-                        });
+                    // correct: (0, 5) and (3, 0)
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 0, y: 5});
+                    movePointTo(1, {x: 3, y: 0});
 
                     // Assert
                     cy.then(() => {
@@ -361,21 +428,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 100, y: top + 100});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 300, y: top + 300});
-                        });
+                    // A valid line, but not the correct answer.
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 0, y: 4});
+                    movePointTo(1, {x: 3, y: 1});
 
                     // Assert
                     cy.then(() => {
@@ -433,38 +489,12 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            // Move the Asymptote to x=-6
-                            cy.get(LINES)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 50,
-                                    y: top + 200, // It's a vertical line, so this doesn't matter much
-                                });
-                            // Move point A
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 100,
-                                    y: top + 275,
-                                });
-                            // Move point B
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 75,
-                                    y: top + 375,
-                                });
-                        });
+                    // correct: vertical asymptote x = -6, point 1 (-4, -3),
+                    // point 2 (-5, -7)
+                    waitForInteractiveGraph();
+                    moveAsymptoteTo(-6, "vertical");
+                    movePointTo(0, {x: -4, y: -3});
+                    movePointTo(1, {x: -5, y: -7});
 
                     // Assert
                     cy.then(() => {
@@ -497,38 +527,11 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-                            // Move the Asymptote to x=-6
-                            cy.get(LINES)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 50,
-                                    y: top + 200, // It's a vertical line, so this doesn't matter much
-                                });
-                            // Move point A
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 225,
-                                    y: top + 125,
-                                });
-                            // Move point B
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({
-                                    x: left + 100,
-                                    y: top + 300,
-                                });
-                        });
+                    // A valid logarithm, but with the wrong asymptote (x = -5).
+                    waitForInteractiveGraph();
+                    moveAsymptoteTo(-5, "vertical");
+                    movePointTo(0, {x: -4, y: -3});
+                    movePointTo(1, {x: -5, y: -7});
 
                     // Assert
                     cy.then(() => {
@@ -709,22 +712,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 220, y: top + 140});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 220});
-                        });
+                    // correct: midline intersection (1, 3), extremum (0, -1)
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 1, y: 3});
+                    movePointTo(1, {x: 0, y: -1});
 
                     // Assert
                     cy.then(() => {
@@ -757,22 +748,10 @@ describe("Grapher widget", () => {
                     );
 
                     // Act
-                    cy.get(GRAPHIE)
-                        .should("exist")
-                        .then((node) => {
-                            const {left, top} = node[0].getBoundingClientRect();
-
-                            cy.get(POINTS)
-                                .eq(0)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 100, y: top + 140});
-                            cy.get(POINTS)
-                                .eq(1)
-                                .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                                .dragTo({x: left + 200, y: top + 220});
-                        });
+                    // A valid sinusoid, but not the correct answer.
+                    waitForInteractiveGraph();
+                    movePointTo(0, {x: 2, y: 3});
+                    movePointTo(1, {x: 1, y: -1});
 
                     // Assert
                     cy.then(() => {
