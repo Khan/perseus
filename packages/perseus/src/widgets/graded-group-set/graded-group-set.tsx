@@ -311,6 +311,9 @@ const styles = StyleSheet.create({
         backgroundColor: semanticColor.core.background.instructive.default,
         width: "100%",
         height: "100%",
+        // Round the filled pip so its corners don't poke past the ring's
+        // rounded inner edge (the parent has no overflow:hidden to clip it).
+        borderRadius: border.radius.radius_full,
     },
 
     container: {
