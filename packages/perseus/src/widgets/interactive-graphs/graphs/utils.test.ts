@@ -9,8 +9,11 @@ import {
     calculateScaledRadius,
     skipAsymptoteKeyboardOverPoint,
     getQuadraticVertex,
+    getAbsoluteValueCoefficients,
+    getQuadraticCoefficients,
 } from "./utils";
 
+import type {QuadraticGraphState} from "../types";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
@@ -612,5 +615,90 @@ describe("getQuadraticVertex", () => {
 
         // Assert
         expect(vertex).toBeUndefined();
+    });
+});
+
+describe("getAbsoluteValueCoefficients", () => {
+    it("returns correct coefficients for a basic upward V", () => {
+        const coeffs = getAbsoluteValueCoefficients([
+            [0, 0],
+            [2, 2],
+        ]);
+        expect(coeffs).toEqual({m: 1, h: 0, v: 0});
+    });
+
+    it("returns correct coefficients for a downward V", () => {
+        const coeffs = getAbsoluteValueCoefficients([
+            [1, 3],
+            [3, 1],
+        ]);
+        expect(coeffs).toEqual({m: -1, h: 1, v: 3});
+    });
+
+    it("returns correct coefficients for a steeper slope", () => {
+        const coeffs = getAbsoluteValueCoefficients([
+            [0, 0],
+            [1, 2],
+        ]);
+        expect(coeffs).toEqual({m: 2, h: 0, v: 0});
+    });
+
+    it("returns correct coefficients when vertex is not at origin", () => {
+        const coeffs = getAbsoluteValueCoefficients([
+            [1, 3],
+            [2, 5],
+        ]);
+        expect(coeffs).toEqual({m: 2, h: 1, v: 3});
+    });
+
+    it("returns an infinite slope when both points share the same x-coordinate", () => {
+        const coeffs = getAbsoluteValueCoefficients([
+            [2, 0],
+            [2, 4],
+        ]);
+        expect(coeffs).toEqual({m: Infinity, h: 2, v: 0});
+    });
+
+    it("treats left-arm and right-arm points as equivalent (same slope magnitude)", () => {
+        const rightArm = getAbsoluteValueCoefficients([
+            [0, 0],
+            [2, 2],
+        ]);
+        const leftArm = getAbsoluteValueCoefficients([
+            [0, 0],
+            [-2, 2],
+        ]);
+        expect(rightArm?.m).toBe(leftArm?.m);
+    });
+});
+
+describe("getQuadraticCoefficients", () => {
+    it("should accurately calculate coefficients", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [-5, 5],
+            [0, -5],
+            [4, 5],
+        ];
+        const expected: [number, number, number] = [0.5, 0.5, -5];
+        expect(getQuadraticCoefficients(coords)).toEqual(expected);
+    });
+
+    it("should accurately calculate coefficients regardless of the provided order", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [-5, 5],
+            [4, 5],
+            [0, -5],
+        ];
+        const expected: [number, number, number] = [0.5, 0.5, -5];
+        expect(getQuadraticCoefficients(coords)).toEqual(expected);
+    });
+
+    it("should return undefined when the coefficients are invalid", () => {
+        const coords: QuadraticGraphState["coords"] = [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ];
+        expect(getQuadraticCoefficients(coords)).toBe(undefined);
     });
 });

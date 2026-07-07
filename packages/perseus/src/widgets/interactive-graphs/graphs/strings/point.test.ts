@@ -1,10 +1,10 @@
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
+import {mockPerseusI18nContext} from "../../../../components/i18n-context";
 
-import {getPointGraphDescription} from "./point";
+import {describePointGraph} from "./point";
 
-import type {PointGraphState} from "../types";
+import type {PointGraphState} from "../../types";
 
-describe("getPointGraphDescription", () => {
+describe("describePointGraph", () => {
     const baseState: PointGraphState = {
         type: "point",
         coords: [],
@@ -22,14 +22,14 @@ describe("getPointGraphDescription", () => {
 
     it(`returns "No interactive elements" for a graph with no points`, () => {
         const state: PointGraphState = {...baseState, coords: []};
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "No interactive elements",
         );
     });
 
     it("describes one point", () => {
         const state: PointGraphState = {...baseState, coords: [[3, 5]]};
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point 1 at 3 comma 5.",
         );
     });
@@ -42,7 +42,7 @@ describe("getPointGraphDescription", () => {
                 [2, 4],
             ],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point 1 at 3 comma 5. Point 2 at 2 comma 4.",
         );
     });
@@ -52,7 +52,7 @@ describe("getPointGraphDescription", () => {
             ...baseState,
             coords: [[-1.1234, 3.5678]],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point 1 at -1.123 comma 3.568.",
         );
     });
@@ -63,7 +63,7 @@ describe("getPointGraphDescription", () => {
             coords: [[0, 0]],
             pointLabels: ["T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point T at 0 comma 0.",
         );
     });
@@ -77,7 +77,7 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point T at 0 comma 0. Point 2 at 1 comma 1.",
         );
     });
@@ -92,7 +92,7 @@ describe("getPointGraphDescription", () => {
                 [2, 2],
             ],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point 1 at 0 comma 0. Point 2 at 1 comma 1. Point 3 at 2 comma 2.",
         );
     });
@@ -107,7 +107,7 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["P", "Q"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point P at 0 comma 0. Point Q at 1 comma 1.",
         );
     });
@@ -122,7 +122,7 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["P"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point P at 0 comma 0. Point 2 at 1 comma 1.",
         );
     });
@@ -136,7 +136,7 @@ describe("getPointGraphDescription", () => {
             ],
             pointLabels: ["", "T"],
         };
-        expect(getPointGraphDescription(state, mockPerseusI18nContext)).toBe(
+        expect(describePointGraph(state, mockPerseusI18nContext)).toBe(
             "Interactive elements: Point 1 at 0 comma 0. Point T at 1 comma 1.",
         );
     });
