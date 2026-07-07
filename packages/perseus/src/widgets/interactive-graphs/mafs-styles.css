@@ -279,6 +279,9 @@
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%;
+    /* Not using a semantic token here because there's no equivalent that
+     * would work for the drop shadow filter. */
+    filter: drop-shadow(0 1px 4px rgba(33, 36, 44, 0.16));
 }
 
 .MafsView .movable-arrowhead-halo {
