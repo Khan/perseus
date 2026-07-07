@@ -445,20 +445,20 @@ widget*, in one commit:
 
 ### Scaffolding
 
-- [ ] Add `WidgetPropsV2<TWidgetOptions, TUserInput, TrackingExtraArgs>` to
+- [x] Add `WidgetPropsV2<TWidgetOptions, TUserInput, TrackingExtraArgs>` to
       `types.ts` — nest options under `options`, keep all universal members
       top-level (leave existing `WidgetProps`/`UniversalWidgetProps` untouched).
-- [ ] Add a shared `MIGRATED_WIDGETS: ReadonlyArray<string> = []` module;
+- [x] Add a shared `MIGRATED_WIDGETS: ReadonlyArray<string> = []` module;
       branch both `getWidgetProps` methods (`renderer.old.tsx`,
       `renderer.new.tsx`) on `MIGRATED_WIDGETS.includes(widgetInfo?.type)` —
       emit `{options: widgetProps, ...universal}` when migrated, else the current
       `{...widgetProps, ...universal}`; loosen both return types to `any` for the
       transition. With the array empty, behavior is unchanged — verify the suite
       passes.
-- [ ] In `widget-container.tsx`, make the subtype lookup transition-safe:
+- [x] In `widget-container.tsx`, make the subtype lookup transition-safe:
       `getWidgetSubType(type, this.props.widgetProps.options ?? this.props.widgetProps)`
       (universal-field reads `alignment`/`apiOptions`/`static` stay as-is).
-- [ ] Add a changeset (patch — internal type-only refactor, no public
+- [x] Add a changeset (patch — internal type-only refactor, no public
       API/behavior change).
 
 ### Pilot widgets

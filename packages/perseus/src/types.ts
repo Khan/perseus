@@ -466,6 +466,29 @@ export type WidgetProps<
 > = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
 
 /**
+ * The full set of props provided to a widget whose widget-specific options are
+ * nested under a single `options` prop, rather than spread into the top level
+ * of props alongside the universal props.
+ *
+ * This is the target shape of the in-progress WidgetProps redesign. Widgets are
+ * migrated to it one at a time; once every widget is migrated this replaces
+ * `WidgetProps` and `UniversalWidgetProps` is inlined here.
+ *
+ * The `@public` tag stops `knip` from reporting this as an unused export while
+ * no widget imports it yet; it can be removed once the first widget does.
+ * @public
+ */
+export type WidgetPropsV2<
+    TWidgetOptions,
+    TUserInput = Empty,
+    // Defines the arguments that can be passed to the `trackInteraction`
+    // function from APIOptions for this widget.
+    TrackingExtraArgs = Empty,
+> = {
+    options: TWidgetOptions;
+} & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
+
+/**
  * The props passed to every widget, regardless of its `type`.
  */
 type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
