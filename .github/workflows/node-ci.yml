@@ -175,8 +175,8 @@ jobs:
                         limited-trigger: ${{ steps.js-files.outputs.filtered }}
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
-    cypress:
-        name: Cypress
+    playwright:
+        name: Playwright Component Tests
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
         strategy:
             matrix:
@@ -192,41 +192,44 @@ jobs:
               with:
                   conf-files: .github/npm-extra-domains.conf
                   # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
-                  extra-domains: ka-perseus-graphie.s3.amazonaws.com
+                  # cdn.playwright.dev / *.microsoft.com: Playwright browser downloads
+                  extra-domains: >-
+                      ka-perseus-graphie.s3.amazonaws.com
+                      cdn.playwright.dev
+                      playwright.download.prss.microsoft.com
 
             # MUST be before we install node_modules as that depends on finding
-            # Cypress binaries in this cache!
+            # the Playwright browser binaries in this cache!
             - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
               with:
-                  path: ~/.cache/Cypress
-                  # Generate a new cache whenever the lock file changes
-                  key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  path: ~/.cache/ms-playwright
+                  # Generate a new cache whenever the lock file changes (the
+                  # Playwright version, and thus the browser build, is pinned
+                  # there).
+                  key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
                   # If source files changed, rebuild from a prior cache.
                   restore-keys: |
-                      ${{ runner.os }}-cypress-
+                      ${{ runner.os }}-playwright-
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
-            # We _should_ have a valid Cypress binary in place at this point,
-            # but we _could_ have had a cache miss on `~/.cache/Cypress` but a
-            # cache hit on `node_modules` leaving us in a state where the
-            # Cypress binary isn't available. This step ensures that the
-            # Cypress binary is in place
-            - name: Install Cypress
-              run: pnpm exec cypress install
+            # Ensure the Chromium build matching our pinned Playwright version is
+            # present. This is a no-op on a cache hit.
+            - name: Install Playwright browsers
+              run: pnpm exec playwright install --with-deps chromium
 
-            - name: Run tests
-              run: pnpm cypress:ci
+            - name: Run component tests
+              run: pnpm test:ct
 
-            - name: Upload Screenshots
+            - name: Upload report
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               if: failure()
               with:
-                  name: cypress-screenshots
-                  path: ./cypress/screenshots
+                  name: playwright-report
+                  path: ./playwright-report
 
     check_builds:
         name: Check builds for changes in size

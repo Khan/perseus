@@ -16,7 +16,7 @@ const basePackageConfig = {
     project: ["src/**/*.{ts,tsx,js,jsx}!"],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.cypress.{ts,tsx}",
+        "src/**/*.pw.{ts,tsx}",
         "src/**/*.test.{ts,tsx}",
         "src/**/*.typetest.{ts,tsx}",
         "src/**/*.stories.{ts,tsx}",
@@ -26,10 +26,17 @@ const basePackageConfig = {
 const config: KnipConfig = {
     workspaces: {
         ".": {
-            project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
+            project: [
+                "{config,utils}/**/*.{ts,tsx,js,jsx}",
+                "playwright-ct.config.ts",
+                "playwright/**/*.{ts,tsx}",
+            ],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+                // Playwright component-test config and setup.
+                "playwright-ct.config.ts",
+                "playwright/index.{ts,tsx}",
             ],
         },
         "packages/*": basePackageConfig,
@@ -59,8 +66,6 @@ const config: KnipConfig = {
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
-        // nyc measures code coverage.
-        "nyc",
         // swc_mut_cjs_exports is a plugin for swc, configured like
         // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
         // (hence, not imported).

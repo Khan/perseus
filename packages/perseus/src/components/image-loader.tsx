@@ -141,7 +141,7 @@ class ImageLoader extends React.Component<Props, State> {
             <img
                 alt={alt}
                 title={title}
-                // Class name makes this img findable in Cypress tests.
+                // Class name makes this img findable in component tests.
                 className="image-loader-img"
                 src={this.props.dependencies.generateUrl({
                     url: src,

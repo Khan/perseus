@@ -5,10 +5,10 @@
         "**/dist",
         "coverage",
         "coverage-ts",
-        "cypress.config.ts",
-        "config/cypress/**",
-        "**/*.cypress.ts",
-        "**/*.cypress.tsx"
+        "playwright-ct.config.ts",
+        "playwright/**",
+        "**/*.pw.ts",
+        "**/*.pw.tsx"
     ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {

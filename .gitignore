@@ -9,7 +9,6 @@ storybook-static
 debug-storybook.log
 .nyc_output
 *.tsbuildinfo
-/cypress/
 .idea
 .swc/
 
@@ -22,3 +21,8 @@ CLAUDE.local.md
 
 # Typedoc generated files (we build these when needed instead of checking them in)
 /docs/*
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/

@@ -124,13 +124,15 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
     },
 };
 
-export const cypressTestDependencies: PerseusDependencies = {
+// Dependencies used by the Playwright component tests, which render Perseus in
+// a real browser (see packages/**/*.pw.tsx and playwright-ct.config.ts).
+export const browserTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,
     staticUrl: (str) => str,
 };
 
-export const cypressDependenciesV2: PerseusDependenciesV2 = {
+export const browserTestDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     // Override if necessary
 };

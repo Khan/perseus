@@ -49,4 +49,5 @@ export function convertDotToTimesByLocale(
  **/
 export const inJest =
     typeof process !== "undefined" && !!process?.env?.JEST_WORKER_ID;
-// Explicitly checking for undefined because Cypress throws an error
+// Explicitly checking for undefined because `process` isn't defined in the
+// browser (e.g. under the Playwright component tests).

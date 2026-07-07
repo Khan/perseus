@@ -60,7 +60,6 @@ module.exports = {
     ],
     parser: "@typescript-eslint/parser",
     plugins: [
-        "cypress",
         "disable",
         "import",
         "jest",
@@ -101,7 +100,6 @@ module.exports = {
         },
     },
     env: {
-        "cypress/globals": true,
         "jest/globals": false,
         node: true,
         browser: true,
@@ -122,8 +120,8 @@ module.exports = {
     overrides: [
         {
             files: [
-                "*.cypress.tsx",
-                "*.cypress.ts",
+                "*.pw.tsx",
+                "*.pw.ts",
                 "*.test.ts",
                 "*.test.tsx",
                 "*.testdata.ts",
@@ -217,7 +215,14 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+            excludedFiles: [
+                "*.d.ts",
+                "*.config.ts",
+                "**/*.pw.ts",
+                "**/*.pw.tsx",
+                // Playwright CT setup lives outside tsconfig's project.
+                "playwright/**",
+            ],
         },
     ],
     rules: {
