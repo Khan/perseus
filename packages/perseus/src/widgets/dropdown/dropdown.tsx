@@ -128,14 +128,15 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState: (): any => {
-            const {userInput, options, ...rest} = props;
+            const {userInput, options, ...otherProps} = props;
             const {choices, ...otherOptions} = options;
             return {
                 // Spread the options first so that the universal props in
-                // `rest` win on any name collision, matching the shape this
-                // method produced before options were nested under `options`.
+                // `otherProps` win on any name collision, matching the shape
+                // this method produced before options were nested under
+                // `options`.
                 ...otherOptions,
-                ...rest,
+                ...otherProps,
                 choices: choices.map((choice) => choice.content),
                 selected: userInput.value,
             };
@@ -188,9 +189,6 @@ const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
                 className="perseus-dropdown"
                 onChange={(value) => handleChange(parseInt(value))}
                 selectedValue={String(userInput.value)}
-                // `isStatic` can be `null` (the universal `static` prop is
-                // `boolean | null | undefined` and the destructuring default
-                // only replaces `undefined`), so coerce to a real boolean.
                 disabled={Boolean(apiOptions.readOnly || isStatic)}
                 aria-label={ariaLabel || visibleLabel || strings.selectAnAnswer}
                 showOpenerLabelAsText={false}
