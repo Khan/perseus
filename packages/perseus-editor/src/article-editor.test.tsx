@@ -117,4 +117,38 @@ describe("ArticleEditor", () => {
         // Assert
         expect(container).toMatchSnapshot();
     });
+
+    it("should match snapshot for a section with extras configured", () => {
+        // Arrange, Act
+        const {container} = render(
+            <ArticleEditor
+                dependencies={testDependenciesV2}
+                apiOptions={{...ApiOptions.defaults, isArticle: true}}
+                json={[
+                    {
+                        content: "A section with extras configured.",
+                        images: {},
+                        widgets: {},
+                        answerArea: {
+                            calculator: true,
+                            calculatorVariant: "scientific",
+                            financialCalculatorMonthlyPayment: false,
+                            financialCalculatorTotalAmount: false,
+                            financialCalculatorTimeToPayOff: false,
+                            periodicTable: true,
+                            periodicTableWithKey: false,
+                        },
+                    },
+                ]}
+                onChange={() => {}}
+                previewURL="https://www.example.com"
+            />,
+        );
+
+        // Assert - the configured extras render (e.g. the calculator checkbox)
+        expect(
+            screen.getByRole("checkbox", {name: /Show calculator/}),
+        ).toBeChecked();
+        expect(container).toMatchSnapshot();
+    });
 });

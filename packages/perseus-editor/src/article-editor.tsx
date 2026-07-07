@@ -11,6 +11,7 @@ import {
 } from "@khanacademy/perseus";
 import {
     Errors,
+    getDefaultAnswerArea,
     parseAndMigratePerseusArticle,
     PerseusError,
 } from "@khanacademy/perseus-core";
@@ -29,6 +30,7 @@ import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 import {detectTexErrors} from "./util/tex-error-detector";
 
@@ -38,7 +40,11 @@ import type {
     ImageUploader,
     PerseusDependenciesV2,
 } from "@khanacademy/perseus";
-import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusArticle,
+    PerseusArticleSection,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -190,7 +196,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         };
     }
 
-    _sections(): ReadonlyArray<PerseusRenderer> {
+    _sections(): ReadonlyArray<PerseusArticleSection> {
         const json = this.props.json;
         return json instanceof Array ? json : [json];
     }
@@ -284,6 +290,21 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                             />
                                         </div>
                                     </div>
+                                    <ItemExtrasEditor
+                                        ref={"extras" + i}
+                                        apiOptions={apiOptions}
+                                        editingDisabled={editingDisabled}
+                                        onChange={(changes) =>
+                                            this._handleEditorChange(i, {
+                                                answerArea: {
+                                                    ...getDefaultAnswerArea(),
+                                                    ...section.answerArea,
+                                                    ...changes,
+                                                },
+                                            })
+                                        }
+                                        {...section.answerArea}
+                                    />
                                     <Editor
                                         {...section}
                                         apiOptions={apiOptions}
@@ -387,7 +408,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _handleEditorChange: (
         i: number,
-        newProps: Partial<PerseusRenderer>,
+        newProps: Partial<PerseusArticleSection>,
     ) => void = (i, newProps) => {
         const sections = [...this._sections()];
         sections[i] = {...sections[i], ...newProps};
@@ -430,6 +451,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
+        // Note: we intentionally do NOT carry over `answerArea`. A duplicated
+        // section should start with no extras so editors don't accidentally
+        // ship a calculator (or other extra) they didn't mean to add.
         const newSection =
             i >= 0
                 ? {
@@ -459,9 +483,14 @@ export default class ArticleEditor extends React.Component<Props, State> {
     serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-                return this.refs["editor" + i].serialize();
+                return {
+                    // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                    ...this.refs["editor" + i].serialize(),
+                    // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                    answerArea: this.refs["extras" + i].serialize(),
+                };
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
