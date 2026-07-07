@@ -551,3 +551,4 @@ review and commit the changes.
       spread `WidgetProps` and `UniversalWidgetProps` (inlining its members into
       `WidgetProps`); restore the real return type on both `getWidgetProps`
       methods.
+- [ ] Search for `LEMS-4354` and ensure all matching TODOs are addressed.
