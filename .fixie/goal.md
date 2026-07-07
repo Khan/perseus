@@ -172,8 +172,10 @@ type Props = WidgetPropsV2<PerseusDropdownWidgetOptions, PerseusDropdownUserInpu
 };
 // ...
 const {choices = [], placeholder = "", visibleLabel, ariaLabel} = props.options;
-const {apiOptions, userInput, static: isStatic, trackInteraction,
-       handleUserInput, widgetId, dependencies} = props;
+// Universal props keep reading from `props` — and keep their own inline defaults.
+const {apiOptions = ApiOptions.defaults, userInput = {value: 0},
+       static: isStatic = false, trackInteraction, handleUserInput,
+       widgetId, dependencies} = props;
 ```
 
 **A hand-built props object in a test — radio**
@@ -226,9 +228,12 @@ for the recommended per-widget branching shape.
 - **Each per-widget step is self-contained** and updates, for that one widget:
   its `Props`/`ExternalProps` type, the component body (read `props.options.*`),
   any `satisfies PropsFor<...>` assertion, its `getSerializedState`, its
-  `getPromptJSON` AI-util, its corresponding editor preview (if the editor
-  renders the widget directly), and any hand-built-props unit tests. Also flip
-  that widget's entry in the getWidgetProps decision (set/flag).
+  `getPromptJSON` AI-util, its **option-field default values** (relocate inline
+  destructuring defaults and `static defaultProps` option fields so they still
+  apply to `props.options` — see "How are default props handled?" below), its
+  corresponding editor preview (if the editor renders the widget directly), and
+  any hand-built-props unit tests. Also flip that widget's entry in the
+  getWidgetProps decision (set/flag).
 - **Audit each widget's option field names against the reserved universal prop
   names** before/while migrating it. `orderer` has `options`; verify none of
   the others collide with `userInput`, `apiOptions`, `static`, `alignment`,
@@ -307,8 +312,104 @@ for the recommended per-widget branching shape.
       needed, but we should change it back to a real type once all widgets are
       migrated.
 
-FIXME: One thing that's missing from this plan: how are default props handled?
-Many widgets have defaults for props that will be moved under `options`. I
-think those defaults are also used by the widget editors
-(`packages/perseus-editor`) to set up the initial widget state. Please research
-how the default props are used and revise the plan accordingly.
+- **How are default props handled?** There are two independent default-value
+  mechanisms, and only the first is affected by nesting the runtime props.
+
+  1. **Render-time component defaults (perseus package) — AFFECTED.**
+     `getWidgetProps` spreads the persisted options straight through —
+     `const widgetProps = this.props.widgets[widgetId].options; return {...widgetProps, ...}`
+     (`renderer.old.tsx:521`, `renderer.new.tsx:529`). Authored JSON frequently
+     omits option fields, so widgets rely on component-level defaults to fill the
+     gaps at render time. Two forms exist:
+       - *Inline destructuring defaults* on functional widgets, e.g. dropdown's
+         `const {choices = [], placeholder = ""} = props;` (dropdown.tsx:47).
+       - *React `static defaultProps`* on many class-style widgets — e.g.
+         numeric-input, matrix, orderer, table, number-line, interactive-graph,
+         image, grapher, interaction, molecule, sorter, group, graded-group,
+         graded-group-set, cs-program, definition, plotter, matcher, categorizer,
+         iframe, explanation, python-program, and measurer. Treat this as
+         illustrative, not a checklist: grep `static defaultProps` under
+         `packages/perseus/src/widgets` for the current set and audit each widget
+         as you migrate it (the per-widget migration step already requires this).
+         Most mix **option fields** (e.g. numeric-input
+         `size`/`coefficient`/`answerForms`/`labelText`, matrix
+         `matrixBoardSize`/`prefix`/`suffix`, matcher `labels`/`orderMatters`,
+         iframe `allowFullScreen`/`allowTopNavigation`) with **universal props**
+         (`apiOptions`, `linterContext`, `problemNum`, `alignment`) and sometimes
+         **userInput** (orderer, matrix, cs-program — note orderer has *two*
+         `static defaultProps`: the internal `Card` sub-component's, which is
+         option/universal only, and the `Orderer` widget's at orderer.tsx:336,
+         which includes `userInput`). A few carry one kind only: measurer's is all
+         option fields (`box`/`image`/`showProtractor`/…), while free-response's is
+         `userInput`-only and therefore unaffected by the nesting.
+
+     `WidgetExports` has no `defaultProps` field (`types.ts`), so defaults live on
+     the component, not the export.
+
+     **The trap.** React applies `defaultProps` (and inline destructuring defaults
+     apply) at the *top level* of props. Today a missing `matrixBoardSize` is
+     filled because the component reads `props.matrixBoardSize`. After nesting, the
+     component reads `props.options.matrixBoardSize`, but React still only fills the
+     top-level `props.matrixBoardSize`, which nothing reads — so the default
+     silently stops applying and the field is `undefined`. **You cannot fix this by
+     nesting the defaults under an `options` key in `static defaultProps`:**
+     `getWidgetProps` always sets `options` to a defined (if partial) object, and
+     React only substitutes a default when the *whole* prop is `undefined` — it
+     does not deep-merge — so a `static defaultProps.options` would never be applied
+     to a partial options object.
+
+     **Resolution (per migrated widget).** Relocate the *option-field* defaults so
+     they apply to the nested `options`; leave universal-prop and `userInput`
+     defaults in `static defaultProps` (they stay top-level and keep working):
+       - Functional widgets: **split** the destructure — don't redirect it
+         wholesale. Read the *option* fields (with their inline defaults) from
+         `props.options`, but keep the *universal* props (with their inline
+         defaults) reading from `props`. dropdown (dropdown.tsx:47) destructures
+         both kinds in one statement — `choices = []`/`placeholder = ""` alongside
+         `apiOptions = ApiOptions.defaults`, `userInput = {value: 0}`,
+         `static: isStatic = false` — so pointing the whole statement at
+         `props.options` would read those universal props from `props.options`
+         (where they don't exist) and let their defaults silently clobber the real
+         values. Use the two-statement pattern in the "Examples to follow" section
+         above (the dropdown example).
+       - Class widgets: apply the option defaults inside the component when it reads
+         options — destructure with defaults, or merge once at the top of `render`:
+         `const options = {...OPTION_DEFAULTS, ...this.props.options};`, where
+         `OPTION_DEFAULTS` is the option-only slice moved out of the old
+         `static defaultProps`.
+       (`getWidgetProps` could instead merge the option defaults into the `options`
+       object it builds, but that pushes per-widget knowledge into the shared
+       renderer — prefer the component-local approach.)
+
+     Before relocating, confirm the default is actually reachable for that widget
+     (authored JSON can omit the field). If the parser already populates it for
+     every persisted widget, the entry is dead code and can be dropped; otherwise
+     preserve it. Either way this must not change rendered behavior — cover with the
+     widget's existing tests.
+
+  2. **Editor authoring defaults (perseus-editor package) — NOT affected.** When an
+     author inserts a widget, `editor.tsx` sets
+     `newWidgets[id] = {options: startWidgetOptions || defaultProps, ...}`
+     (editor.tsx:674-688), where `defaultProps` is the *editor* component's
+     `static defaultProps` (e.g. `dropdown-editor.tsx:40`,
+     `static defaultProps = dropdownLogic.defaultWidgetOptions`) and
+     `startWidgetOptions` comes from an optional `initializeWidgetOptions()`. Their
+     shared source of truth is `defaultWidgetOptions` in
+     `perseus-core/src/widgets/<widget>/index.ts`. These defaults become the
+     persisted, still-flat `widgetInfo.options` in the renderer JSON — the data
+     schema and the editor's own (flat) prop shape do NOT change, so the default
+     *definitions* need no edits. (These authoring defaults are distinct from the
+     render-time component defaults above and are often not identical — don't try to
+     unify them in this refactor.) The only editor-side change is already captured
+     under "Editors render widget previews": when a migrated widget is rendered for
+     a preview, that call site must build the nested `{options: {...}}` shape instead
+     of spreading flat option fields (matrix-editor even does `{...this.props}` today).
+
+    - Answer: Only the render-time component defaults are in scope. Add a step to
+      each per-widget migration to relocate that widget's option-field defaults
+      (inline destructuring or `static defaultProps`) so they apply to
+      `props.options`, keeping universal/`userInput` defaults top-level; do NOT nest
+      defaults under an `options` key in `static defaultProps` (React won't apply
+      it). Editor authoring defaults in perseus-core and the flat JSON schema are
+      unchanged; the editor-preview call-site update is already part of the Editors
+      step.
