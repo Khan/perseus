@@ -1,5 +1,13 @@
 # @khanacademy/perseus-score
 
+## 8.12.4
+
+### Patch Changes
+
+-   Updated dependencies [[`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/kmath@2.4.31
+
 ## 8.12.3
 
 ### Patch Changes
