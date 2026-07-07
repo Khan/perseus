@@ -1,8 +1,15 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateRadioChoice,
+    generateSimpleRadioQuestion,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {narrowViewportDecorator} from "../../__testutils__/story-decorators";
+import {
+    mobileDecorator,
+    narrowViewportDecorator,
+} from "../../__testutils__/story-decorators";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     question,
@@ -129,6 +136,29 @@ export const MultiSelect = {
             question: multiChoiceQuestion,
         }),
     },
+};
+
+export const MultiSelectWithManyChoicesMobile = {
+    args: {
+        item: generateTestPerseusItem({
+            question: generateSimpleRadioQuestion({
+                multipleSelect: true,
+                choices: [
+                    generateRadioChoice("Choice 1", {correct: true}),
+                    generateRadioChoice("Choice 2"),
+                    generateRadioChoice("Choice 3"),
+                    generateRadioChoice("Choice 4"),
+                    generateRadioChoice("Choice 5"),
+                    generateRadioChoice("Choice 6"),
+                    generateRadioChoice("Choice 7"),
+                    generateRadioChoice("Choice 8"),
+                    generateRadioChoice("Choice 9"),
+                    generateRadioChoice("Choice 10"),
+                ],
+            }),
+        }),
+    },
+    decorators: [mobileDecorator],
 };
 
 export const MultiSelectWithScroll = {

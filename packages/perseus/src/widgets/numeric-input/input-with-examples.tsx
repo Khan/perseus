@@ -34,10 +34,6 @@ type Props = {
     linterContext?: LinterContextProps;
 };
 
-// [LEMS-2411](Jan 2025) Third: This component has been moved to the NumericInput
-// folder as we are actively working towards removing the InputNumber widget.
-// This comment can be removed as part of LEMS-2411.
-
 /**
  * The InputWithExamples component is a child component of the NumericInput
  * and InputNumber components. It is responsible for rendering the UI elements
