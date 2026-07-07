@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        backgroundColor: semanticColor.core.background.instructive.default,
+        backgroundColor: semanticColor.core.foreground.instructive.default,
         width: "100%",
         height: "100%",
         // Round the filled pip so its corners don't poke past the ring's
