@@ -94,8 +94,6 @@ export async function joinLabelsAsSpokenMath(
     return ` ${spokenLabels.join(", ")}`;
 }
 
-// TODO(LEMS-2616): Stop using this mock in tests once we update the
-// speech rule engine to read locale data from local files.
 /**
  * Non-async mocked version of joinLabelsAsSpokenMath for tests.
  */
