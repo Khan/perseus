@@ -24,6 +24,7 @@ import {useDependencies} from "../../dependencies";
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
+import {GraphBorder} from "./backgrounds/graph-border";
 import {Axes, Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import {
@@ -396,6 +397,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         height={height}
                                     />
                                 </ClipToGraphBounds>
+                                <GraphBorder
+                                    range={state.range}
+                                    width={width}
+                                    height={height}
+                                    markings={props.markings}
+                                />
                                 {/* Axis lines, ticks, and arrows. Only
                                     rendered when the markings include axes. */}
                                 {showsAxisLabels && (
