@@ -1,7 +1,10 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
-import {themeModes} from "../../../../../../.storybook/modes";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {themeModes, viewportModes} from "../../../../../../.storybook/modes";
+import {
+    mobileDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
@@ -125,5 +128,39 @@ export const RTL: Story = {
     }),
     parameters: {
         content: "هذه قائمة منسدلة: [[☃ dropdown 1]]",
+    },
+};
+
+export const MathInPlaceholder: Story = {
+    decorators: [dropdownRendererDecorator],
+    args: generateDropdownOptions({
+        placeholder: "Choose $\\frac{1}{2}$ or $\\frac{3}{4}$",
+        choices: [
+            {content: "$\\frac{1}{2}$", correct: false},
+            {content: "$\\frac{3}{4}$", correct: true},
+        ],
+    }),
+    parameters: {
+        content: "Which fraction is larger? [[☃ dropdown 1]]",
+    },
+};
+
+// Verifies how a placeholder wider than the available space is handled on a
+// mobile-sized screen. `mobileDecorator` applies the `perseus-mobile` styling,
+// and the small viewport Chromatic mode constrains the snapshot to a
+// mobile-sized width so the overflow behavior is observable.
+export const WidePlaceholderOnMobileScreen: Story = {
+    decorators: [dropdownRendererDecorator, mobileDecorator],
+    args: generateDropdownOptions({
+        placeholder:
+            "This is an unusually long placeholder that is wider than a mobile screen",
+        choices: [
+            {content: "greater than or equal to", correct: false},
+            {content: "less than or equal to", correct: true},
+        ],
+    }),
+    parameters: {
+        content: "The total number of boxes is [[☃ dropdown 1]] $60$.",
+        chromatic: {modes: {small: viewportModes.small}},
     },
 };
