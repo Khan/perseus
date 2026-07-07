@@ -70,6 +70,7 @@ const defaultProps = {
     apiOptions: ApiOptions.defaults,
     isGifPlaying: false,
     setIsGifPlaying: () => {},
+    widgetId: "image 1",
 };
 
 describe("ExploreImageModal", () => {

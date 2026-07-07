@@ -10,7 +10,6 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -318,11 +317,8 @@ describe("input-number", function () {
     });
 });
 
-describe("input-number with input-number-to-numeric-input flag on", () => {
+describe("input-number", () => {
     let userEvent: UserEvent;
-    const apiOptionsWithFlag = {
-        flags: getFeatureFlags({"input-number-to-numeric-input": true}),
-    };
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -336,7 +332,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
 
     it("renders the NumericInput UI (default aria-label)", () => {
         // Arrange, Act
-        renderQuestion(question, apiOptionsWithFlag);
+        renderQuestion(question);
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveAccessibleName(
@@ -346,7 +342,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
 
     it("scores a correct answer using the input-number scorer", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        const {renderer} = renderQuestion(question);
 
         // Act
         const textbox = await screen.findByRole("textbox");
@@ -363,7 +359,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
 
     it("scores an incorrect answer using the input-number scorer", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        const {renderer} = renderQuestion(question);
 
         // Act
         const textbox = await screen.findByRole("textbox");
@@ -412,7 +408,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
                     },
                 },
             };
-            const {renderer} = renderQuestion(item, apiOptionsWithFlag);
+            const {renderer} = renderQuestion(item, {});
 
             // Act
             const textbox = await screen.findByRole("textbox");
@@ -429,7 +425,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
 
     it("supports focusing", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        const {renderer} = renderQuestion(question);
 
         // Act
         const gotFocus = await act(() => renderer.focus());
@@ -441,7 +437,7 @@ describe("input-number with input-number-to-numeric-input flag on", () => {
 
     it("supports blurring", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptionsWithFlag);
+        const {renderer} = renderQuestion(question);
         await act(() => renderer.focus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 

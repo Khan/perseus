@@ -1,5 +1,29 @@
 # @khanacademy/perseus-core
 
+## 30.1.1
+
+### Patch Changes
+
+-   [#3815](https://github.com/Khan/perseus/pull/3815) [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71) Thanks [@Evelas78](https://github.com/Evelas78)! - Adding analytics events to explore image modal for tracking amount of uses and how long users linger on the widget
+
+## 30.1.0
+
+### Minor Changes
+
+-   [#3854](https://github.com/Khan/perseus/pull/3854) [`4306c90`](https://github.com/Khan/perseus/commit/4306c9056d5ca6b5cc788e11ada2e1f1d4e5c669) Thanks [@benchristel](https://github.com/benchristel)! - The Grapher widget is now marked **accessible** if it has a single available function type that is not `quadratic`, and no background image.
+
+### Patch Changes
+
+-   [#3859](https://github.com/Khan/perseus/pull/3859) [`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a) Thanks [@benchristel](https://github.com/benchristel)! - The now-unused feature flag "input-number-to-numeric-input" has been removed.
+
+-   [#3855](https://github.com/Khan/perseus/pull/3855) [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059) Thanks [@benchristel](https://github.com/benchristel)! - The `grapher-to-interactive-graph` feature flag has been removed. Graphers now render as Interactive Graphs if they have a single available function type that is not `quadratic`.
+
+## 30.0.2
+
+### Patch Changes
+
+-   [#3852](https://github.com/Khan/perseus/pull/3852) [`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf) Thanks [@benchristel](https://github.com/benchristel)! - Input Number widgets with `version: null` are now parsed successfully. This fixes an error in the translation editor.
+
 ## 30.0.1
 
 ### Patch Changes

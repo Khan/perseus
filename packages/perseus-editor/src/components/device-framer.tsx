@@ -48,7 +48,6 @@ const DeviceFramer = ({
     const withChromeStyle = React.useMemo(
         () => ({
             backgroundColor: "white",
-            overflow: "scroll",
             color: "black",
             textAlign: "left",
             width: SCREEN_SIZES[deviceType].width,
@@ -69,7 +68,6 @@ const DeviceFramer = ({
             <div
                 key="screen"
                 style={{
-                    overflow: "scroll",
                     width:
                         SCREEN_SIZES[deviceType].framedWidth +
                         2 * perseusFrameBorderWidth +

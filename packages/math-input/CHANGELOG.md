@@ -1,5 +1,33 @@
 # @khanacademy/math-input
 
+## 26.5.0
+
+### Minor Changes
+
+-   [#3866](https://github.com/Khan/perseus/pull/3866) [`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Syncing deps to newest major versions of Wonder Blocks
+
+### Patch Changes
+
+-   Updated dependencies [[`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/keypad-context@3.2.72
+
+## 26.4.44
+
+### Patch Changes
+
+-   Updated dependencies [[`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a), [`4306c90`](https://github.com/Khan/perseus/commit/4306c9056d5ca6b5cc788e11ada2e1f1d4e5c669), [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059)]:
+    -   @khanacademy/perseus-core@30.1.0
+    -   @khanacademy/keypad-context@3.2.71
+
+## 26.4.43
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+
 ## 26.4.42
 
 ### Patch Changes

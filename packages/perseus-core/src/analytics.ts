@@ -63,6 +63,23 @@ export type PerseusAnalyticsEvent =
           payload: null;
       }
     | {
+          // Triggers when the button is clicked to open the explore modals
+          type: "perseus:image:explore-modal-opened:ti";
+          payload: {
+              widgetSubType: string;
+              widgetId: string;
+          };
+      }
+    | {
+          // Triggers when the explore modal is closed with a value to store duration the user lingered on the modal
+          type: "perseus:image:explore-modal-closed:ti";
+          payload: {
+              durationMs: number;
+              widgetSubType: string;
+              widgetId: string;
+          };
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
