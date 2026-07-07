@@ -413,3 +413,126 @@ for the recommended per-widget branching shape.
       it). Editor authoring defaults in perseus-core and the flat JSON schema are
       unchanged; the editor-preview call-site update is already part of the Editors
       step.
+
+## Checklist
+
+Each per-widget item below is a single atomic step: after it, `pnpm tsc`,
+`pnpm test`, and lint must all pass with migrated and un-migrated widgets
+coexisting. Migrating **one widget** means doing all of the following *for that
+widget*, in one commit:
+
+1. Point its `Props`/`ExternalProps` type at `WidgetPropsV2` instead of
+   `WidgetProps`.
+2. Read option fields from `props.options.*` in the component body (split the
+   destructure so universal props keep reading from `props`).
+3. Relocate that widget's **option-field** defaults (inline destructuring
+   defaults and/or the option-only slice of `static defaultProps`) so they apply
+   to `props.options`; leave universal/`userInput` defaults top-level. Drop any
+   default the parser already guarantees (dead code); otherwise preserve it.
+4. Update any `... satisfies PropsFor<typeof W>` assertion to build the nested
+   `{options, userInput} satisfies ...` shape.
+5. Update `getSerializedState` (`...rest` → `...props.options`) to preserve
+   byte-identical output.
+6. Update the widget's `getPromptJSON` AI-util to read `widgetData.options.*`.
+7. Update the editor preview call-site (if the editor renders the widget
+   directly) to pass `options: {...}` instead of flat option fields.
+8. Update any hand-built-`WidgetProps` unit tests for that widget.
+9. Add the widget's type name to the shared `MIGRATED_WIDGETS` array (flips the
+   `getWidgetProps` branch for it).
+10. Audit the widget's option field names against the reserved universal prop
+    names (`userInput`, `apiOptions`, `static`, `alignment`, `graded`, etc.);
+    confirm the widget didn't rely on a field being shadowed.
+
+### Scaffolding
+
+- [ ] Add `WidgetPropsV2<TWidgetOptions, TUserInput, TrackingExtraArgs>` to
+      `types.ts` — nest options under `options`, keep all universal members
+      top-level (leave existing `WidgetProps`/`UniversalWidgetProps` untouched).
+- [ ] Add a shared `MIGRATED_WIDGETS: ReadonlyArray<string> = []` module;
+      branch both `getWidgetProps` methods (`renderer.old.tsx`,
+      `renderer.new.tsx`) on `MIGRATED_WIDGETS.includes(widgetInfo?.type)` —
+      emit `{options: widgetProps, ...universal}` when migrated, else the current
+      `{...widgetProps, ...universal}`; loosen both return types to `any` for the
+      transition. With the array empty, behavior is unchanged — verify the suite
+      passes.
+- [ ] In `widget-container.tsx`, make the subtype lookup transition-safe:
+      `getWidgetSubType(type, this.props.widgetProps.options ?? this.props.widgetProps)`
+      (universal-field reads `alignment`/`apiOptions`/`static` stay as-is).
+- [ ] Add a changeset (patch — internal type-only refactor, no public
+      API/behavior change).
+
+### Pilot widgets
+
+- [ ] Migrate `dropdown` to `WidgetPropsV2` (pilot; functional widget with
+      inline destructuring defaults).
+- [ ] Migrate `radio` to `WidgetPropsV2` (second pilot; update the hand-built
+      `getBaseProps` factory in `radio-widget.test.tsx`; subtype lookup already
+      handled by scaffolding).
+
+### Remaining functional widgets
+
+- [ ] Migrate `phet-simulation` to `WidgetPropsV2`.
+- [ ] Migrate `iframe` to `WidgetPropsV2`.
+- [ ] Migrate `sorter` to `WidgetPropsV2`.
+- [ ] Migrate `definition` to `WidgetPropsV2`.
+- [ ] Migrate `explanation` to `WidgetPropsV2`.
+- [ ] Migrate `deprecated-standin` to `WidgetPropsV2`.
+- [ ] Migrate `free-response` to `WidgetPropsV2` (its `defaultProps` is
+      `userInput`-only, so no option-field defaults to relocate).
+- [ ] Migrate `video` to `WidgetPropsV2`.
+- [ ] Migrate `image` to `WidgetPropsV2`.
+- [ ] Migrate `molecule` to `WidgetPropsV2`.
+- [ ] Migrate `measurer` to `WidgetPropsV2`.
+- [ ] Migrate `number-line` to `WidgetPropsV2`.
+- [ ] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
+- [ ] Migrate `cs-program` to `WidgetPropsV2`.
+- [ ] Migrate `python-program` to `WidgetPropsV2`.
+- [ ] Migrate `interaction` to `WidgetPropsV2`.
+- [ ] Migrate `input-number` to `WidgetPropsV2`.
+
+### Class / `ExternalProps` widgets
+
+- [ ] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
+- [ ] Migrate `matcher` to `WidgetPropsV2`.
+- [ ] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
+- [ ] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
+      `satisfies PropsFor` assertion).
+- [ ] Migrate `table` to `WidgetPropsV2` (update its editor preview).
+- [ ] Migrate `numeric-input` to `WidgetPropsV2` (`ExternalProps["<field>"]` →
+      `ExternalProps["options"]["<field>"]`; rebuild the `satisfies PropsFor`
+      assertion into the nested shape).
+- [ ] Migrate `expression` to `WidgetPropsV2` (same `ExternalProps` pattern;
+      update its editor preview).
+
+### Highest-risk / nested widgets
+
+- [ ] Migrate `label-image` to `WidgetPropsV2` (update `satisfies PropsFor`
+      assertion).
+- [ ] Migrate `interactive-graph` to `WidgetPropsV2` (update `satisfies PropsFor`
+      assertion and `interactive-graph-editor` preview; subtype lookup already
+      handled by scaffolding).
+- [ ] Migrate `group` to `WidgetPropsV2` (renders a nested `Renderer`).
+- [ ] Migrate `graded-group` to `WidgetPropsV2` (update `satisfies PropsFor`
+      assertion).
+- [ ] Migrate `graded-group-set` to `WidgetPropsV2`.
+
+### Special cases (do last)
+
+- [ ] Migrate `orderer` to `WidgetPropsV2` — ⚠ its options include a field named
+      `options` (`this.props.options[index]` → `this.props.options.options[index]`);
+      it has two `static defaultProps` (the `Card` sub-component's and the widget's
+      `userInput`-bearing one) — relocate only the option-field defaults.
+- [ ] Migrate `mock-widget` (test-only) to `WidgetPropsV2`.
+
+### Final cleanup
+
+- [ ] Remove the branch from both `getWidgetProps` methods (always emit the
+      `options` shape) and delete the `MIGRATED_WIDGETS` module.
+- [ ] Simplify the `widget-container.tsx` subtype lookup to
+      `getWidgetSubType(type, this.props.widgetProps.options)` and update the
+      `widgetProps` prop type (and any lingering
+      `WidgetProps<any, PerseusWidgetOptions>` annotations).
+- [ ] Rename `WidgetPropsV2` → `WidgetProps` across the repo; delete the old
+      spread `WidgetProps` and `UniversalWidgetProps` (inlining its members into
+      `WidgetProps`); restore the real return type on both `getWidgetProps`
+      methods.
