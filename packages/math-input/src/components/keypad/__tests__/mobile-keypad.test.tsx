@@ -111,4 +111,50 @@ describe("mobile keypad", () => {
             },
         });
     });
+
+    it("getDOMNode returns the keypad element while mounted", () => {
+        // Arrange
+        let api: any;
+
+        // Act
+        render(
+            <MobileKeypadInternals
+                onAnalyticsEvent={async () => undefined}
+                setKeypadActive={(keypadActive: boolean) => undefined}
+                keypadActive={true}
+                onElementMounted={(mounted) => {
+                    api = mounted;
+                }}
+            />,
+        );
+
+        // Assert
+        expect(api.getDOMNode()).toBeInstanceOf(HTMLElement);
+    });
+
+    it("clears the element reference and returns null from getDOMNode on unmount", () => {
+        // Arrange
+        let api: any;
+        const onElementMounted = jest.fn((mounted) => {
+            if (mounted) {
+                api = mounted;
+            }
+        });
+        const {unmount} = render(
+            <MobileKeypadInternals
+                onAnalyticsEvent={async () => undefined}
+                setKeypadActive={(keypadActive: boolean) => undefined}
+                keypadActive={true}
+                onElementMounted={onElementMounted}
+            />,
+        );
+
+        // Act
+        unmount();
+
+        // Assert: consumers are told the element is gone, and reading the DOM
+        // node no longer throws "Unable to find node on an unmounted component".
+        expect(onElementMounted).toHaveBeenLastCalledWith(null);
+        expect(api.getDOMNode()).toBeNull();
+    });
 });
