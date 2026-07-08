@@ -373,10 +373,9 @@ for the recommended per-widget branching shape.
          values. Use the two-statement pattern in the "Examples to follow" section
          above (the dropdown example).
        - Class widgets: apply the option defaults inside the component when it reads
-         options — destructure with defaults, or merge once at the top of `render`:
-         `const options = {...OPTION_DEFAULTS, ...this.props.options};`, where
-         `OPTION_DEFAULTS` is the option-only slice moved out of the old
-         `static defaultProps`.
+         options — destructure with defaults so both missing properties and
+         explicitly-undefined properties get the default.
+
        (`getWidgetProps` could instead merge the option defaults into the `options`
        object it builds, but that pushes per-widget knowledge into the shared
        renderer — prefer the component-local approach.)
