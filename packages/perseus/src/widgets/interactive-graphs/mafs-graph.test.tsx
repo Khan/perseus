@@ -115,6 +115,39 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
+    describe("graph border", () => {
+        it("renders a 1px border spanning the full graph bounds", () => {
+            // Arrange, Act
+            render(<MafsGraph {...baseMafsProps} markings="graph" />);
+
+            // Assert
+            const border = screen.getByTestId("graph-border");
+            const {viewboxX, viewboxY} = calculateNestedSVGCoords(
+                baseMafsProps.state.range,
+                400,
+                400,
+            );
+            expect(border).toBeInTheDocument();
+            expect(border).toHaveAttribute("x", String(viewboxX));
+            expect(border).toHaveAttribute("y", String(viewboxY));
+            expect(border).toHaveAttribute("width", "400");
+            expect(border).toHaveAttribute("height", "400");
+        });
+
+        it.each(["axes", "none"] as const)(
+            "does not render a border when markings are %s",
+            (markings) => {
+                // Arrange, Act
+                render(<MafsGraph {...baseMafsProps} markings={markings} />);
+
+                // Assert
+                expect(
+                    screen.queryByTestId("graph-border"),
+                ).not.toBeInTheDocument();
+            },
+        );
+    });
+
     it("should send analytics even when widget is rendered", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {

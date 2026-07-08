@@ -5245,6 +5245,14 @@ table: [[☃ table 1]]
                                       />
                                     </g>
                                   </svg>
+                                  <rect
+                                    class="mafs-graph-border"
+                                    data-testid="graph-border"
+                                    height="288"
+                                    width="288"
+                                    x="-144"
+                                    y="-144"
+                                  />
                                   <svg
                                     height="288"
                                     preserveAspectRatio="xMidYMin"
@@ -9449,6 +9457,14 @@ table: [[☃ table 1]]
                                         />
                                       </g>
                                     </svg>
+                                    <rect
+                                      class="mafs-graph-border"
+                                      data-testid="graph-border"
+                                      height="288"
+                                      width="288"
+                                      x="-144"
+                                      y="-144"
+                                    />
                                     <svg
                                       height="288"
                                       preserveAspectRatio="xMidYMin"
