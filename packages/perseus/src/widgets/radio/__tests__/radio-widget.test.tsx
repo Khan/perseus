@@ -51,21 +51,24 @@ const baseLinterContext: LinterContextProps = {
     stack: [],
 };
 
+const getBaseOptions = (overrides?: Partial<RadioProps>): RadioProps => ({
+    numCorrect: baseOptions.numCorrect ?? 0,
+    hasNoneOfTheAbove: baseOptions.hasNoneOfTheAbove,
+    multipleSelect: baseOptions.multipleSelect,
+    countChoices: baseOptions.countChoices,
+    deselectEnabled: baseOptions.deselectEnabled,
+    choices: baseChoices,
+    choiceStates: baseChoiceStates,
+    randomize: false,
+    ...overrides,
+});
+
 const getBaseProps = (
     overrides?: Partial<
         WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
     >,
 ): WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
-    options: {
-        numCorrect: baseOptions.numCorrect ?? 0,
-        hasNoneOfTheAbove: baseOptions.hasNoneOfTheAbove,
-        multipleSelect: baseOptions.multipleSelect,
-        countChoices: baseOptions.countChoices,
-        deselectEnabled: baseOptions.deselectEnabled,
-        choices: baseChoices,
-        choiceStates: baseChoiceStates,
-        randomize: false,
-    },
+    options: getBaseOptions(),
     trackInteraction: jest.fn(),
     widgetId: "radio-1",
     widgetIndex: 0,
@@ -125,13 +128,10 @@ describe("Radio widget", () => {
         const handleUserInput = jest.fn();
         const props = getBaseProps({
             handleUserInput,
-            // FIXME: extract getBaseOptions(), mirroring the pattern of getBaseProps(),
-            //  so we can do: `options: getBaseOptions({choiceState: baseChoiceStates.slice(0, 1)})`.
-            //  Also use getBaseOptions in getBaseProps().
-            options: {
-                ...getBaseProps().options,
+            // Only 1 state for 2 choices
+            options: getBaseOptions({
                 choiceStates: baseChoiceStates.slice(0, 1),
-            }, // Only 1 state for 2 choices
+            }),
         });
         render(<Radio {...props} />);
 
