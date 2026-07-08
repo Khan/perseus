@@ -48,14 +48,12 @@ export default function OperatorsPage(props: Props) {
                     <KeypadButton
                         keyConfig={Keys.SQRT}
                         onClickKey={onClickKey}
-                        coord={[3, 0]}
+                        coord={[0, 2]}
                     />
-                    {/* Row 1 is full (cols 4-5 are shared +/- keys), so RADICAL
-                        moves to the free cell at the end of the relations row. */}
                     <KeypadButton
                         keyConfig={Keys.RADICAL}
                         onClickKey={onClickKey}
-                        coord={[3, 2]}
+                        coord={[1, 2]}
                     />
                 </>
             )}
@@ -87,17 +85,17 @@ export default function OperatorsPage(props: Props) {
                     <KeypadButton
                         keyConfig={Keys.EQUAL}
                         onClickKey={onClickKey}
-                        coord={[0, 2]}
+                        coord={[2, 2]}
                     />
                     <KeypadButton
                         keyConfig={Keys.LT}
                         onClickKey={onClickKey}
-                        coord={[1, 2]}
+                        coord={[0, 3]}
                     />
                     <KeypadButton
                         keyConfig={Keys.GT}
                         onClickKey={onClickKey}
-                        coord={[2, 2]}
+                        coord={[1, 3]}
                     />
                 </>
             )}
@@ -108,17 +106,17 @@ export default function OperatorsPage(props: Props) {
                     <KeypadButton
                         keyConfig={Keys.NEQ}
                         onClickKey={onClickKey}
-                        coord={[0, 3]}
+                        coord={[3, 2]}
                     />
                     <KeypadButton
                         keyConfig={Keys.LEQ}
                         onClickKey={onClickKey}
-                        coord={[1, 3]}
+                        coord={[2, 3]}
                     />
                     <KeypadButton
                         keyConfig={Keys.GEQ}
                         onClickKey={onClickKey}
-                        coord={[2, 3]}
+                        coord={[3, 3]}
                     />
                 </>
             )}
