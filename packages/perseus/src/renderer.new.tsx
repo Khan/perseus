@@ -41,6 +41,7 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
+import {MIGRATED_WIDGETS} from "./migrated-widgets";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
@@ -60,7 +61,6 @@ import type {
     FindWidgetsFunction,
     FocusPath,
     Widget,
-    WidgetProps,
 } from "./types";
 import type {
     HandleUserInputCallback,
@@ -74,7 +74,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusRenderer,
     PerseusWidget,
-    PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
     PerseusScore,
@@ -526,9 +525,12 @@ class Renderer
         return widgetIndex;
     }
 
-    getWidgetProps(
-        widgetId: string,
-    ): WidgetProps<any, any, PerseusWidgetOptions> {
+    // Loosely typed as `any` during the WidgetProps redesign, which has this
+    // method return one of two prop shapes depending on the widget. The precise
+    // return type will be restored once every widget is migrated. See
+    // MIGRATED_WIDGETS.
+    // TODO(LEMS-4354): add return type post-migration.
+    getWidgetProps(widgetId: string): any {
         const apiOptions = this.getApiOptions();
         const widgetProps = this.props.widgets[widgetId].options;
 
@@ -553,8 +555,7 @@ class Renderer
                 );
         }
 
-        return {
-            ...widgetProps,
+        const universalProps = {
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             widgetIndex: this._getWidgetIndexById(widgetId),
@@ -591,6 +592,16 @@ class Renderer
             },
             trackInteraction: interactionTracker.track,
         };
+
+        // During the WidgetProps redesign, a migrated widget receives its
+        // options nested under a single `options` prop; an un-migrated widget
+        // still receives them spread into the top level of its props. Once
+        // every widget is migrated, the un-migrated branch should be removed.
+        // TODO(LEMS-4354): clean up post-migration.
+        if (widgetInfo != null && MIGRATED_WIDGETS.includes(widgetInfo.type)) {
+            return {options: widgetProps, ...universalProps};
+        }
+        return {...widgetProps, ...universalProps};
     }
 
     /**
