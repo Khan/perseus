@@ -27,7 +27,6 @@ const {updateQueryString} = Util;
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
-    allowFullScreen: Props["allowFullScreen"];
     allowTopNavigation: Props["allowTopNavigation"];
     userInput: Props["userInput"];
 };
@@ -38,7 +37,6 @@ class Iframe extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        allowFullScreen: false,
         allowTopNavigation: false,
         userInput: {
             status: "incomplete",
