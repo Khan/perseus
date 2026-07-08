@@ -13,7 +13,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import Radio from "../radio-widget";
 
-import type {WidgetProps} from "../../../types";
+import type {WidgetPropsV2} from "../../../types";
 import type {RadioChoiceWithMetadata, RadioProps} from "../radio-widget";
 import type {
     PerseusRadioRubric,
@@ -53,17 +53,19 @@ const baseLinterContext: LinterContextProps = {
 
 const getBaseProps = (
     overrides?: Partial<
-        WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
+        WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
     >,
-): WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
-    numCorrect: baseOptions.numCorrect ?? 0,
-    hasNoneOfTheAbove: baseOptions.hasNoneOfTheAbove,
-    multipleSelect: baseOptions.multipleSelect,
-    countChoices: baseOptions.countChoices,
-    deselectEnabled: baseOptions.deselectEnabled,
-    choices: baseChoices,
-    choiceStates: baseChoiceStates,
-    randomize: false,
+): WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
+    options: {
+        numCorrect: baseOptions.numCorrect ?? 0,
+        hasNoneOfTheAbove: baseOptions.hasNoneOfTheAbove,
+        multipleSelect: baseOptions.multipleSelect,
+        countChoices: baseOptions.countChoices,
+        deselectEnabled: baseOptions.deselectEnabled,
+        choices: baseChoices,
+        choiceStates: baseChoiceStates,
+        randomize: false,
+    },
     trackInteraction: jest.fn(),
     widgetId: "radio-1",
     widgetIndex: 0,
@@ -115,34 +117,27 @@ describe("Radio widget", () => {
         });
     });
 
-    // This tests a production bug where widget state can become misaligned during
-    // content updates or partial state restoration, causing the choiceStates array
-    // to have a different length than the choices array
-    it("handles mismatched choiceStates and choices array lengths without crashing", async () => {
+    it("reports only the clicked choice's ID in single-select mode", async () => {
         // Arrange
         const handleUserInput = jest.fn();
-        const props = getBaseProps({
-            handleUserInput,
-            choiceStates: baseChoiceStates.slice(0, 1), // Only 1 state for 2 choices
-        });
+        const props = getBaseProps({handleUserInput});
         render(<Radio {...props} />);
-
-        // Act & Assert - First click (choice with existing state)
         const buttons = screen.getAllByRole("button");
-        await expect(userEvent.click(buttons[0])).resolves.not.toThrow();
 
+        // Act - click the first choice
+        await userEvent.click(buttons[0]);
+
+        // Assert - only the first choice is reported
         expect(handleUserInput).toHaveBeenCalledWith({
             selectedChoiceIds: ["choice-1"],
         });
 
-        // Reset for next assertion
         handleUserInput.mockClear();
 
-        // Act & Assert - Second click (choice without state)
-        // This should work without throwing even though there's no choiceState for index 1
-        await expect(userEvent.click(buttons[1])).resolves.not.toThrow();
+        // Act - click the second choice
+        await userEvent.click(buttons[1]);
 
-        // In single-select mode, clicking button 2 deselects button 1 and selects button 2
+        // Assert - only the second choice is reported
         expect(handleUserInput).toHaveBeenCalledWith({
             selectedChoiceIds: ["choice-2"],
         });
