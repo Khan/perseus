@@ -15,7 +15,7 @@ import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusIFrameUserInput,
@@ -24,11 +24,20 @@ import type {
 
 const {updateQueryString} = Util;
 
-type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
+type Props = WidgetPropsV2<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
-    allowTopNavigation: Props["allowTopNavigation"];
     userInput: Props["userInput"];
+};
+
+// Option-field defaults, relocated out of `static defaultProps` during the
+// WidgetProps redesign. Option fields now live under `props.options`, but React
+// only applies `defaultProps` at the top level of props, so an option default
+// left there would never reach `props.options`. Authored JSON may omit
+// `allowTopNavigation` (the parser doesn't default it), so this default keeps
+// the (deprecated) serialized output stable.
+const OPTION_DEFAULTS = {
+    allowTopNavigation: false,
 };
 
 /* This renders the iframe and handles validation via window.postMessage */
@@ -37,7 +46,6 @@ class Iframe extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        allowTopNavigation: false,
         userInput: {
             status: "incomplete",
             // optional message
@@ -62,8 +70,11 @@ class Iframe extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput: _, alignment: __, ...rest} = this.props;
-        return rest;
+        const {userInput: _, alignment: __, options, ...rest} = this.props;
+        // `...rest` still carries the universal `static` prop, which spreads
+        // last so it wins over `options.static` — matching the pre-migration
+        // behavior where the universal prop shadowed the option field.
+        return {...OPTION_DEFAULTS, ...options, ...rest};
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
@@ -90,8 +101,8 @@ class Iframe extends React.Component<Props> implements Widget {
 
     render(): React.ReactNode {
         const style = {
-            width: String(this.props.width),
-            height: String(this.props.height),
+            width: String(this.props.options.width),
+            height: String(this.props.options.height),
         } as const;
 
         const {InitialRequestUrl} = getDependencies();
@@ -103,7 +114,7 @@ class Iframe extends React.Component<Props> implements Widget {
             }
         });
 
-        let url = this.props.url;
+        let url = this.props.options.url;
 
         // If the URL doesnt start with http, it must be a program ID
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -112,8 +123,16 @@ class Iframe extends React.Component<Props> implements Widget {
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(url, "width", `${this.props.width}`);
-            url = updateQueryString(url, "height", `${this.props.height}`);
+            url = updateQueryString(
+                url,
+                "width",
+                `${this.props.options.width}`,
+            );
+            url = updateQueryString(
+                url,
+                "height",
+                `${this.props.options.height}`,
+            );
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
         }
@@ -125,9 +144,9 @@ class Iframe extends React.Component<Props> implements Widget {
         }
 
         // Turn array of [{name: "", value: ""}] into object
-        if (this.props.settings) {
+        if (this.props.options.settings) {
             const settings: Record<string, any> = {};
-            this.props.settings.forEach((setting) => {
+            this.props.options.settings.forEach((setting) => {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
                 }
@@ -149,7 +168,7 @@ class Iframe extends React.Component<Props> implements Widget {
                 sandbox={sandboxProperties}
                 style={style}
                 src={url}
-                allowFullScreen={this.props.allowFullScreen}
+                allowFullScreen={this.props.options.allowFullScreen}
             />
         );
     }
