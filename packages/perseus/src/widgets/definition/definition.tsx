@@ -29,19 +29,9 @@ type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    togglePrompt: string;
-    definition: string;
-};
-
 class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        togglePrompt: "define me",
-        definition: "definition goes here",
-    };
 
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
