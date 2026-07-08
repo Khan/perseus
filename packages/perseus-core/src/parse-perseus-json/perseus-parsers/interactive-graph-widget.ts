@@ -213,6 +213,7 @@ const parseLockedFigureColor = pipeParsers(
         "purple",
         "pink",
         "red",
+        "blurple",
         // deprecated name - "orange" is now "gold"
         "orange",
     ),
@@ -248,6 +249,7 @@ const parseLockedPointType = object({
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
     filled: boolean,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -261,6 +263,7 @@ const parseLockedLineType = object({
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
     weight: parseStrokeWeight,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -295,6 +298,7 @@ const parseLockedPolygonType = object({
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
     weight: parseStrokeWeight,
+    selectable: optional(boolean),
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
