@@ -25,9 +25,6 @@ type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
 };
 
 type DefaultProps = {
-    correct: Props["correct"];
-    layout: Props["layout"];
-    padding: Props["padding"];
     problemNum: Props["problemNum"];
     linterContext: Props["linterContext"];
 };
@@ -36,9 +33,6 @@ class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {
-        correct: [],
-        layout: "horizontal",
-        padding: true,
         problemNum: 0,
         linterContext: linterContextDefault,
     };
