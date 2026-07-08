@@ -30,16 +30,6 @@ type DefaultProps = {
     userInput: Props["userInput"];
 };
 
-// Option-field defaults, relocated out of `static defaultProps` during the
-// WidgetProps redesign. Option fields now live under `props.options`, but React
-// only applies `defaultProps` at the top level of props, so an option default
-// left there would never reach `props.options`. Authored JSON may omit
-// `allowTopNavigation` (the parser doesn't default it), so this default keeps
-// the (deprecated) serialized output stable.
-const OPTION_DEFAULTS = {
-    allowTopNavigation: false,
-};
-
 /* This renders the iframe and handles validation via window.postMessage */
 class Iframe extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -71,10 +61,8 @@ class Iframe extends React.Component<Props> implements Widget {
      */
     getSerializedState(): any {
         const {userInput: _, alignment: __, options, ...rest} = this.props;
-        // `...rest` still carries the universal `static` prop, which spreads
-        // last so it wins over `options.static` — matching the pre-migration
-        // behavior where the universal prop shadowed the option field.
-        return {...OPTION_DEFAULTS, ...options, ...rest};
+        const defaults = {allowTopNavigation: false};
+        return {...defaults, ...options, ...rest};
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
