@@ -17,11 +17,11 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {phoneMargin} from "../../styles/constants";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusPhetSimulationWidgetOptions>;
+type Props = WidgetPropsV2<PerseusPhetSimulationWidgetOptions>;
 
 type State = {
     banner: {
@@ -58,13 +58,13 @@ export class PhetSimulation
     };
 
     async componentDidMount() {
-        await this.updateSimState(this.props.url);
+        await this.updateSimState(this.props.options.url);
     }
 
-    async componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps: Props) {
         // If the URL has changed, update our state
-        if (prevProps.url !== this.props.url) {
-            await this.updateSimState(this.props.url);
+        if (prevProps.options.url !== this.props.options.url) {
+            await this.updateSimState(this.props.options.url);
         }
     }
 
@@ -251,7 +251,7 @@ export class PhetSimulation
                 <View style={iframeContainerStyle}>
                     <iframe
                         ref={this.iframeRef}
-                        title={this.props.description}
+                        title={this.props.options.description}
                         sandbox={sandboxProperties}
                         className={css(styles.iframeResponsive)}
                         src={url?.toString()}
