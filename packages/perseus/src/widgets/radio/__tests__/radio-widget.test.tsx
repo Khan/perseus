@@ -117,27 +117,40 @@ describe("Radio widget", () => {
         });
     });
 
-    it("reports only the clicked choice's ID in single-select mode", async () => {
+    // This tests a production bug where widget state can become misaligned during
+    // content updates or partial state restoration, causing the choiceStates array
+    // to have a different length than the choices array
+    it("handles mismatched choiceStates and choices array lengths without crashing", async () => {
         // Arrange
         const handleUserInput = jest.fn();
-        const props = getBaseProps({handleUserInput});
+        const props = getBaseProps({
+            handleUserInput,
+            // FIXME: extract getBaseOptions(), mirroring the pattern of getBaseProps(),
+            //  so we can do: `options: getBaseOptions({choiceState: baseChoiceStates.slice(0, 1)})`.
+            //  Also use getBaseOptions in getBaseProps().
+            options: {
+                ...getBaseProps().options,
+                choiceStates: baseChoiceStates.slice(0, 1),
+            }, // Only 1 state for 2 choices
+        });
         render(<Radio {...props} />);
+
+        // Act & Assert - First click (choice with existing state)
         const buttons = screen.getAllByRole("button");
+        await expect(userEvent.click(buttons[0])).resolves.not.toThrow();
 
-        // Act - click the first choice
-        await userEvent.click(buttons[0]);
-
-        // Assert - only the first choice is reported
         expect(handleUserInput).toHaveBeenCalledWith({
             selectedChoiceIds: ["choice-1"],
         });
 
+        // Reset for next assertion
         handleUserInput.mockClear();
 
-        // Act - click the second choice
-        await userEvent.click(buttons[1]);
+        // Act & Assert - Second click (choice without state)
+        // This should work without throwing even though there's no choiceState for index 1
+        await expect(userEvent.click(buttons[1])).resolves.not.toThrow();
 
-        // Assert - only the second choice is reported
+        // In single-select mode, clicking button 2 deselects button 1 and selects button 2
         expect(handleUserInput).toHaveBeenCalledWith({
             selectedChoiceIds: ["choice-2"],
         });
