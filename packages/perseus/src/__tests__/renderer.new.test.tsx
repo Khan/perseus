@@ -1,6 +1,8 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to renderer.test.tsx.
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
+    generateInputNumberWidget,
+    generateRadioWidget,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -1469,6 +1471,51 @@ describe("renderer", () => {
             const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+        });
+    });
+
+    describe("block-level widgets in paragraphs (malformed markdown)", () => {
+        // Content authors sometimes forget to separate a block-level widget
+        // reference with blank lines (\n\n). The single \n before "[[☃ radio
+        // 1]]" here causes the radio widget to parse as an inline child of the
+        // paragraph. The renderer must split it out so the block widget is not
+        // nested inside a <p> (which would be invalid HTML).
+        const malformedContent =
+            "**Which picture shows how to measure the pink square?** \n" +
+            "[[☃ radio 1]]\n" +
+            "**The pink square is** [[☃ input-number 2]] ** blue squares tall.**";
+
+        const malformedQuestion: PerseusRenderer = {
+            content: malformedContent,
+            images: {},
+            widgets: {
+                "radio 1": generateRadioWidget(),
+                "input-number 2": generateInputNumberWidget(),
+            },
+        };
+
+        it("does not render the block widget inside a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(malformedQuestion);
+
+            // Assert
+            const blockWidget = container.querySelector(
+                ".perseus-widget-container.widget-block",
+            );
+            expect(blockWidget).not.toBeNull();
+            expect(blockWidget?.closest("p")).toBeNull();
+        });
+
+        it("keeps the inline input-number widget within a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(malformedQuestion);
+
+            // Assert
+            const inlineWidget = container.querySelector(
+                ".perseus-widget-container.widget-inline-block",
+            );
+            expect(inlineWidget).not.toBeNull();
+            expect(inlineWidget?.closest("p")).not.toBeNull();
         });
     });
 });
