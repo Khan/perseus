@@ -26,8 +26,10 @@ const question: PerseusRenderer = generateTestPerseusRenderer({
 describe("Definition AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
         const widgetData: any = {
-            definition: "to confuse or fluster",
-            togglePrompt: "bumfuzzle",
+            options: {
+                definition: "to confuse or fluster",
+                togglePrompt: "bumfuzzle",
+            },
         };
 
         const resultJSON = getPromptJSON(widgetData);
