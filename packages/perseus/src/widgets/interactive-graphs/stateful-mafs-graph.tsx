@@ -88,6 +88,10 @@ export const StatefulMafsGraph = React.forwardRef<
             return;
         }
 
+        console.log(
+            `StatefulMafsGraph: stateAnnouncement: ${state.stateAnnouncement}`,
+        );
+
         announceMessage({
             message: getAnnouncementText(
                 state.stateAnnouncement,
