@@ -238,7 +238,7 @@ export type PerseusItem = {
  * A "PerseusArticle" is an item that is meant to be rendered as an article.
  * This item is never scored and is rendered by the `ArticleRenderer`.
  */
-export type PerseusArticle = PerseusRenderer | PerseusRenderer[];
+export type PerseusArticle = PerseusArticleSection | PerseusArticleSection[];
 
 export type Version = {
     /** The major part of the version */
@@ -307,6 +307,9 @@ export type Hint = PerseusRenderer & {
      */
     placeholder?: boolean;
 };
+
+
+export type PerseusArticleSection = PerseusRenderer & { answerArea?: PerseusAnswerArea}
 
 export type PerseusImageDetail = {
     /** The width of the image */

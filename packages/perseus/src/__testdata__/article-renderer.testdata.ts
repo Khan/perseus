@@ -3,6 +3,7 @@ import {
     generateExpressionOptions,
     generateExpressionWidget,
     generateTestPerseusRenderer,
+    type PerseusArticleSection,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -92,6 +93,32 @@ export const multiSectionArticle: PerseusRenderer[] = [
     {
         content:
             "## Where are matrices used in the real world?\n\nMatrices have tons of real-world applications! They can be used in computer graphics to perform transformations on images, in physics to model physical systems, and in statistics to analyze data, just to name a few.",
+        images: {},
+        widgets: {},
+    },
+];
+
+// A multi-section article where the first section has an `answerArea` set
+// (e.g. to offer a calculator) and the second section does not. Useful for
+// exercising `renderSectionExtras`, which receives each section's data.
+export const articleWithAnswerArea: PerseusArticleSection[] = [
+    {
+        content:
+            "## Section with an answer area\n\nUse the calculator to solve the problem below.",
+        images: {},
+        widgets: {},
+        answerArea: {
+            calculator: true,
+            calculatorVariant: "scientific",
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTotalAmount: false,
+            financialCalculatorTimeToPayOff: false,
+            periodicTable: false,
+            periodicTableWithKey: false,
+        },
+    },
+    {
+        content: "## Section without an answer area\n\nJust some reading.",
         images: {},
         widgets: {},
     },
