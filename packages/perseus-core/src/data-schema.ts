@@ -2221,7 +2221,10 @@ export type PerseusIFrameWidgetOptions = {
     height: number | string;
     /** Whether to allow the IFrame to become full-screen (like a video) */
     allowFullScreen: boolean;
-    /** Whether to allow the iframe content to redirect the page */
+    /**
+     * Whether to allow the iframe content to redirect the page
+     * @deprecated - not used in Perseus.
+     */
     allowTopNavigation?: boolean;
     /** Always false */
     static: boolean;
