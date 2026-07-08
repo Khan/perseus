@@ -12,7 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-import {rWidgetRule} from "./util";
+import {rWidgetRule, contentHasSpecialWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -301,7 +301,14 @@ const rules = {
         //           then this rule can be removed.
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
-            return <p>{output(node.content, state)}</p>;
+            if (contentHasSpecialWidget(node)) {
+                // Some widgets can appear inline with text, but shouldn't be
+                // contained by a <p> element (e.g. explanation), so just render
+                // the content and let the parent handle layout, etc.
+                return output(node.content, state);
+            } else {
+                return <p>{output(node.content, state)}</p>;
+            }
         },
     },
 } as const;

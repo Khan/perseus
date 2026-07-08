@@ -106,15 +106,35 @@ export const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
 const isBlockWidgetNode = (node: any): boolean =>
     node?.type === "widget" && !INLINE_WIDGET_TYPES.has(node.widgetType);
 
+const isParagraphWithBlockWidget = (node: any): boolean =>
+    node?.type === "paragraph" &&
+    Array.isArray(node.content) &&
+    node.content.some(isBlockWidgetNode);
+
+/**
+ * Widget types that render as inline content but CANNOT safely live inside a
+ * paragraph (`<p>`). These widgets will cause the <p> element to not render,
+ * but no additional processing is done on the sibling nodes.
+ */
+export const SPECIAL_WIDGET_TYPES: ReadonlySet<string> = new Set([
+    "explanation",
+]);
+
+const isSpecialWidgetNode = (node: any): boolean =>
+    node?.type === "widget" && SPECIAL_WIDGET_TYPES.has(node.widgetType);
+
+export const contentHasSpecialWidget = (node: any): boolean =>
+    Array.isArray(node.content) && node.content.some(isSpecialWidgetNode);
+
 const isWhitespaceOnlyTextNode = (node: any): boolean =>
     node?.type === "text" && !/\S/.test(node.content);
 
 /**
  * Trim whitespace-only text nodes from the start and end of an array of inline
- * markdown AST nodes. Used to avoid emitting empty `<p> </p>` wrappers around
- * the stray newlines that abut a block widget in malformed markdown.
+ * markdown AST nodes. Used to avoid generating empty `<p> </p>` wrappers around
+ * stray newlines that might surround a block widget in malformed markdown.
  */
-function trimEdgeWhitespaceNodes(nodes: ReadonlyArray<any>): Array<any> {
+const trimEdgeWhitespaceNodes = (nodes: ReadonlyArray<any>): Array<any> => {
     let start = 0;
     let end = nodes.length;
     while (start < end && isWhitespaceOnlyTextNode(nodes[start])) {
@@ -124,21 +144,32 @@ function trimEdgeWhitespaceNodes(nodes: ReadonlyArray<any>): Array<any> {
         end--;
     }
     return nodes.slice(start, end);
-}
+};
 
 /**
- * Recover from malformed markdown where a block-level widget (e.g. `radio`)
- * gets parsed as an inline child of a paragraph. This happens when the content
- * author doesn't separate the widget reference with blank lines (`\n\n`), so
- * the block-level `widgetBlock` rule never matches and the widget falls through
- * to the inline `widget` rule instead.
- *
- * For each top-level paragraph containing a direct-child block widget, split it
- * into sibling nodes: each maximal run of inline nodes stays a `paragraph`
- * (rendered as `<p>`), and each block widget becomes its own bare sibling.
- * Whitespace-only text nodes adjacent to a split-out block widget are dropped
- * so we don't emit empty paragraphs. Paragraphs with no block widget, and all
- * non-paragraph nodes, are returned untouched.
+ * Takes the accumulated inline nodes and packages them into a containing node
+ * (based upon the reference node). It ensures that the edge nodes aren't empty.
+ */
+const mergeInlineNodes = (
+    inlineNodes: Array<any>,
+    blockNodes: Array<any>,
+    referenceNode: any,
+): any | undefined => {
+    const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
+    if (trimmedContentNodes.length > 0) {
+        blockNodes.push({...referenceNode, content: trimmedContentNodes});
+    }
+    return blockNodes;
+};
+
+/**
+ * Handle situations in the markdown where a block-level widget doesn't have the
+ * expected double-newline characters in place. The blockRegex function in
+ * perseus-markdown.tsx expects a double-newline. When only a single newline
+ * character exists, then the widget is contained by a <p> element, which is
+ * invalid HTML. This function splits out the widget from the inline text so
+ * that the HTML is valid (<p> elements surround inline content, block-level
+ * widgets are by themselves).
  *
  * Only direct children of top-level paragraphs are considered; block widgets
  * nested inside inline formatting (e.g. `strong`) or inside other containers
@@ -149,39 +180,46 @@ export function splitBlockWidgetsFromParagraphs(ast: any): any {
         return ast;
     }
 
-    const result: Array<any> = [];
-    for (const node of ast) {
-        if (
-            node?.type !== "paragraph" ||
-            !Array.isArray(node.content) ||
-            !node.content.some(isBlockWidgetNode)
-        ) {
-            // Nothing to split; keep the node as-is.
-            result.push(node);
-            continue;
+    return ast.flatMap((node) => {
+        // Traverse all the nodes for this renderer.
+
+        if (!isParagraphWithBlockWidget(node)) {
+            // Don't process nodes that aren't paragraphs with block-level or
+            // special widgets.
+            return node;
         }
 
-        let inlineNodes: Array<any> = [];
-        const groupInlineNodes = () => {
-            const trimmed = trimEdgeWhitespaceNodes(inlineNodes);
-            if (trimmed.length > 0) {
-                result.push({...node, content: trimmed});
-            }
-            inlineNodes = [];
-        };
-
-        for (const child of node.content) {
-            if (isBlockWidgetNode(child)) {
-                groupInlineNodes();
-                // Emit the block widget as its own bare sibling (no <p>).
-                result.push(child);
-            } else {
-                inlineNodes.push(child);
-            }
-        }
-        groupInlineNodes();
-    }
-    return result;
+        type ContentNodes = {blockNodes: Array<any>; inlineNodes: Array<any>};
+        // Break the paragraph node into as many nodes as needed so that any
+        // block-level widgets are in their own node.
+        const {blockNodes, inlineNodes} = node.content.reduce(
+            (contentNodes: ContentNodes, childNode: any) => {
+                if (isBlockWidgetNode(childNode)) {
+                    // If the current child node is a block-level widget, then
+                    // put all accumulated inline nodes into their own paragraph
+                    contentNodes.blockNodes = mergeInlineNodes(
+                        contentNodes.inlineNodes,
+                        contentNodes.blockNodes,
+                        node,
+                    );
+                    // ... add the widget node (by itself, not in a container)
+                    contentNodes.blockNodes.push(childNode);
+                    // ... and clear the accumulated inline nodes.
+                    contentNodes.inlineNodes = [];
+                } else {
+                    // If the current child node is NOT a block-level widget,
+                    // then it is inline and should be batched with other inline
+                    // nodes.
+                    contentNodes.inlineNodes.push(childNode);
+                }
+                return contentNodes;
+            },
+            {blockNodes: [], inlineNodes: []},
+        );
+        // Put all remaining inline nodes into their own paragraph, then return
+        // all the split-out nodes for this initial paragraph node.
+        return mergeInlineNodes(inlineNodes, blockNodes, node);
+    });
 }
 
 /**
