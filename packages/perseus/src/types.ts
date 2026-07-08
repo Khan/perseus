@@ -457,6 +457,7 @@ export type FilterCriterion =
  * `TWidgetOptions` generic argument are the widget-specific props that originate
  * from the PerseusItem.
  */
+// TODO(LEMS-4354): clean this up post-migration.
 export type WidgetProps<
     TWidgetOptions,
     TUserInput = Empty,
@@ -464,6 +465,27 @@ export type WidgetProps<
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
 > = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
+
+/**
+ * The full set of props provided to a widget whose widget-specific options are
+ * nested under a single `options` prop, rather than spread into the top level
+ * of props alongside the universal props.
+ *
+ * This is the target shape of the in-progress WidgetProps redesign. Widgets are
+ * migrated to it one at a time; once every widget is migrated this will replace
+ * `WidgetProps` and `UniversalWidgetProps` will be inlined here.
+ *
+ * TODO(LEMS-4354): revise this doc comment post-migration.
+ */
+export type WidgetPropsV2<
+    TWidgetOptions,
+    TUserInput = Empty,
+    // Defines the arguments that can be passed to the `trackInteraction`
+    // function from APIOptions for this widget.
+    TrackingExtraArgs = Empty,
+> = {
+    options: TWidgetOptions;
+} & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
