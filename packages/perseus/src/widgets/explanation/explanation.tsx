@@ -81,10 +81,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
     }
 
     render(): React.ReactNode {
-        const promptText = this.state.expanded
-            ? this.props.options.hidePrompt
-            : this.props.options.showPrompt;
+        const {hidePrompt, showPrompt, explanation, widgets} =
+            this.props.options;
 
+        const promptText = this.state.expanded ? hidePrompt : showPrompt;
         const caretIcon = this.state.expanded ? caretUp : caretDown;
 
         // TODO (LEMS-3815): Remove legacy styles
@@ -138,7 +138,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                                 style={stylesLegacy.contentWrapper}
                             >
                                 <UserInputManager
-                                    widgets={this.props.options.widgets}
+                                    widgets={widgets}
                                     problemNum={0}
                                 >
                                     {({
@@ -151,13 +151,8 @@ class Explanation extends React.Component<Props, State> implements Widget {
                                                 apiOptions={
                                                     this.props.apiOptions
                                                 }
-                                                content={
-                                                    this.props.options
-                                                        .explanation
-                                                }
-                                                widgets={
-                                                    this.props.options.widgets
-                                                }
+                                                content={explanation}
+                                                widgets={widgets}
                                                 linterContext={
                                                     this.props.linterContext
                                                 }
