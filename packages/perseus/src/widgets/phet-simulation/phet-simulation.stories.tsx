@@ -26,8 +26,10 @@ type Story = StoryObj<typeof PhetSimulation>;
 // Story showing the PhetSimulation component directly
 export const Default: Story = {
     args: {
-        url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
-        description: "Projectile Data Lab",
+        options: {
+            url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+            description: "Projectile Data Lab",
+        },
         apiOptions: {
             ...ApiOptions.defaults,
             isMobileApp: false,
