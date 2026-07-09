@@ -477,7 +477,7 @@ review and commit the changes.
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
-- [ ] Migrate `phet-simulation` to `WidgetPropsV2`.
+- [x] Migrate `phet-simulation` to `WidgetPropsV2`.
 - [ ] Migrate `iframe` to `WidgetPropsV2`.
 - [ ] Migrate `sorter` to `WidgetPropsV2`.
 - [ ] Migrate `definition` to `WidgetPropsV2`.
