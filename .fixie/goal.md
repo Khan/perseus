@@ -478,7 +478,7 @@ Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
 - [x] Migrate `phet-simulation` to `WidgetPropsV2`.
-- [ ] Migrate `iframe` to `WidgetPropsV2`.
+- [x] Migrate `iframe` to `WidgetPropsV2`.
 - [ ] Migrate `sorter` to `WidgetPropsV2`.
 - [ ] Migrate `definition` to `WidgetPropsV2`.
 - [ ] Migrate `explanation` to `WidgetPropsV2`.
