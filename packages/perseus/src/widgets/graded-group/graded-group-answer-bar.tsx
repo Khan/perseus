@@ -95,7 +95,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                 <span style={styles.text}>
                     <span
                         style={{
-                            fontSize: font.heading.size.xxlarge,
+                            fontSize: font.heading.size.xlarge,
                             color: semanticColor.core.foreground.success
                                 .default,
                         }}
