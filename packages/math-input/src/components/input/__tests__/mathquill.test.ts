@@ -172,22 +172,24 @@ describe("MathQuill", () => {
             expect(mathField.getContent()).toEqual("\\left(\\right)_{ }");
 
             // Verify that the cursor is in the subscript, not within the parens,
-            // writing a unique character to verify cursor position.
+            // by writing a variable and checking it lands in the subscript.
             expect(isInsideEmptyParens(mathField.getCursor())).toBeFalsy();
-            mathField.pressKey("PLUS");
-            expect(mathField.getContent()).toEqual("\\left(\\right)_{+}");
+            mathField.pressKey("n");
+            expect(mathField.getContent()).toEqual("\\left(\\right)_{n}");
         });
 
         it("should prefix with empty parens after an operator", () => {
             mathField.pressKey("PLUS");
             mathField.pressKey("SUB");
-            expect(mathField.getContent()).toEqual("+\\left(\\right)_{ }");
+            mathField.pressKey("n");
+            expect(mathField.getContent()).toEqual("+\\left(\\right)_{n}");
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x");
+            mathField.setContent("x");
             mathField.pressKey("SUB");
-            expect(mathField.getContent()).toEqual("35x_{ }");
+            mathField.pressKey("n");
+            expect(mathField.getContent()).toEqual("x_{n}");
         });
     });
 
