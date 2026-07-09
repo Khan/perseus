@@ -14,4 +14,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "radio",
     "phet-simulation",
     "iframe",
+    "sorter",
 ];
