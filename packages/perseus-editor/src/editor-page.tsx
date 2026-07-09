@@ -12,10 +12,13 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
+import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
+import {runAxeCoreOnUpdate} from "./util/a11y-checker";
+import {gatherLinterIssues} from "./util/gather-linter-issues";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -98,9 +101,14 @@ type State = {
     json: PerseusItem;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
+    issues: Issue[];
+    axeCoreIssues: Issue[];
+    showAxeCoreIssues: boolean;
 };
 
 class EditorPage extends React.Component<Props, State> {
+    a11yCheckerTimeoutId: ReturnType<typeof setTimeout> | undefined;
+
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
 
@@ -119,7 +127,20 @@ class EditorPage extends React.Component<Props, State> {
             json: _.pick(this.props, "question", "answerArea", "hints"),
             highlightLint: true,
             widgetsAreOpen: this.props.widgetsAreOpen ?? true,
+            issues: [],
+            axeCoreIssues: [],
+            showAxeCoreIssues: false,
         };
+    }
+
+    componentDidMount() {
+        this.setState({
+            issues: gatherLinterIssues(
+                this.props.question,
+                this.props.hints,
+                this.props.issues,
+            ),
+        });
     }
 
     getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
@@ -146,6 +167,31 @@ class EditorPage extends React.Component<Props, State> {
         ) {
             this.syncJsonStateFromProps();
         }
+
+        const questionOrHintsChanged =
+            previousProps.question?.content !== this.props.question?.content ||
+            previousProps.question?.widgets !== this.props.question?.widgets ||
+            !_.isEqual(previousProps.hints, this.props.hints);
+
+        if (questionOrHintsChanged) {
+            this.setState({
+                issues: gatherLinterIssues(
+                    this.props.question,
+                    this.props.hints,
+                    this.props.issues,
+                ),
+            });
+
+            this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
+                this.a11yCheckerTimeoutId,
+                (axeCoreIssues) => this.setState({axeCoreIssues}),
+                this.state.showAxeCoreIssues,
+            );
+        }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.a11yCheckerTimeoutId);
     }
 
     /**
@@ -241,6 +287,8 @@ class EditorPage extends React.Component<Props, State> {
             isMobile: touch,
         };
 
+        const showEditor = !this.props.developerMode || !this.props.jsonMode;
+
         if (deviceBasedApiOptions.isMobile) {
             className += " " + ClassNames.MOBILE;
         }
@@ -303,7 +351,33 @@ class EditorPage extends React.Component<Props, State> {
                         </div>
                     )}
 
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
+                    {showEditor && (
+                        <div className="perseus-editor-table">
+                            <div className="perseus-editor-row">
+                                <div className="perseus-editor-left-cell">
+                                    <IssuesPanel
+                                        issues={this.state.issues.concat(
+                                            this.state.showAxeCoreIssues
+                                                ? this.state.axeCoreIssues
+                                                : [],
+                                        )}
+                                        a11yCheck={{
+                                            callback: () =>
+                                                this.setState({
+                                                    showAxeCoreIssues:
+                                                        !this.state
+                                                            .showAxeCoreIssues,
+                                                }),
+                                            isChecked:
+                                                this.state.showAxeCoreIssues,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {showEditor && (
                         <ItemEditor
                             ref={this.itemEditor}
                             itemId={this.props.itemId}
@@ -315,14 +389,13 @@ class EditorPage extends React.Component<Props, State> {
                             widgetIsOpen={this.state.widgetsAreOpen}
                             apiOptions={deviceBasedApiOptions}
                             previewURL={this.props.previewURL}
-                            issues={this.props.issues}
                             additionalTemplates={this.props.additionalTemplates}
                             highlightLint={this.state.highlightLint}
                             problemNum={this.props.problemNum}
                         />
                     )}
 
-                    {(!this.props.developerMode || !this.props.jsonMode) && (
+                    {showEditor && (
                         <CombinedHintsEditor
                             ref={this.hintsEditor}
                             itemId={this.props.itemId}

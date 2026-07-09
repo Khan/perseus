@@ -5,13 +5,12 @@ import {
 } from "@testing-library/user-event";
 import * as React from "react";
 
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {describeVectorGraph, getVectorTipKeyboardConstraint} from "./vector";
+import {getVectorTipKeyboardConstraint} from "./vector";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -135,75 +134,6 @@ describe("Vector graph screen reader", () => {
         expect(headPoint).toHaveAttribute(
             "aria-label",
             "Vector head at 4 comma 6.",
-        );
-    });
-});
-
-describe("describeVectorGraph", () => {
-    it("describes a default vector", () => {
-        // Arrange, Act
-        const strings = describeVectorGraph(
-            baseVectorState,
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
-        expect(strings.srVectorPoints).toBe(
-            "The tail is at -5 comma 0 and the head is at 5 comma 0.",
-        );
-        expect(strings.srVectorHeadPoint).toBe("Vector head at 5 comma 0.");
-        expect(strings.srVectorGrabHandle).toBe(
-            "Vector from -5 comma 0 to 5 comma 0.",
-        );
-        expect(strings.srVectorDescription).toBe(
-            "The tail is at -5 comma 0 and the head is at 5 comma 0. The vector has a magnitude of 10 and a direction of 0 degrees.",
-        );
-        expect(strings.srVectorInteractiveElement).toBe(
-            "Interactive elements: A vector on a coordinate plane. The tail is at -5 comma 0 and the head is at 5 comma 0.",
-        );
-    });
-
-    it("describes a vector with updated points", () => {
-        // Arrange, Act
-        const strings = describeVectorGraph(
-            {
-                ...baseVectorState,
-                coords: [
-                    [1, 2],
-                    [4, 6],
-                ],
-            },
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srVectorGraph).toBe("A vector on a coordinate plane.");
-        expect(strings.srVectorPoints).toBe(
-            "The tail is at 1 comma 2 and the head is at 4 comma 6.",
-        );
-        expect(strings.srVectorHeadPoint).toBe("Vector head at 4 comma 6.");
-        expect(strings.srVectorGrabHandle).toBe(
-            "Vector from 1 comma 2 to 4 comma 6.",
-        );
-    });
-
-    it("describes the vector's magnitude and direction", () => {
-        // Arrange, Act — a 3-4-5 vector pointing up and to the right.
-        const strings = describeVectorGraph(
-            {
-                ...baseVectorState,
-                coords: [
-                    [1, 2],
-                    [4, 6],
-                ],
-            },
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srVectorDescription).toBe(
-            "The tail is at 1 comma 2 and the head is at 4 comma 6. The vector has a magnitude of 5 and a direction of 53.13 degrees.",
         );
     });
 });

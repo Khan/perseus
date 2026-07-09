@@ -1,3 +1,5 @@
+import {generateNumericInputAnswer} from "@khanacademy/perseus-core";
+
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-core";
@@ -51,28 +53,30 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("with a simple value", () => {
+    it("scores a correct answer", () => {
         const rubric: PerseusNumericInputRubric = {
-            answers: [
-                {
-                    value: 1,
-                    status: "correct",
-                    maxError: 0,
-                    simplify: "optional",
-                    strict: false,
-                    message: "",
-                },
-            ],
+            answers: [generateNumericInputAnswer({value: 1})],
             coefficient: true,
         };
 
-        const userInput = {
-            currentValue: "1",
-        } as const;
+        const userInput = {currentValue: "1"} as const;
 
         const score = scoreNumericInput(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("scores an incorrect answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [generateNumericInputAnswer({value: 1})],
+            coefficient: true,
+        };
+
+        const userInput = {currentValue: "99"} as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should not consider commas as a decimal separator in the EN locale", () => {
