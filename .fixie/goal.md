@@ -468,7 +468,7 @@ review and commit the changes.
 
 - [x] Migrate `dropdown` to `WidgetPropsV2` (pilot; functional widget with
       inline destructuring defaults).
-- [ ] Migrate `radio` to `WidgetPropsV2` (second pilot; update the hand-built
+- [x] Migrate `radio` to `WidgetPropsV2` (second pilot; update the hand-built
       `getBaseProps` factory in `radio-widget.test.tsx`; subtype lookup already
       handled by scaffolding).
 
