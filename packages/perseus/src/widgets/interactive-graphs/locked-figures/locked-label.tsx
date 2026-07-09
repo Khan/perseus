@@ -11,6 +11,15 @@ import LabelStrokeFilter from "../label-stroke-filter";
 import useGraphConfig from "../reducer/use-graph-config";
 import {replaceOutsideTeX} from "../utils";
 
+// The new font tokens split sizing into separate `body` and `heading` scales.
+// The body scale only goes up to `medium`, so `large` labels map to the
+// equivalent `heading` token.
+const labelFontSize: Record<LockedLabelType["size"], string> = {
+    small: font.body.size.small,
+    medium: font.body.size.medium,
+    large: font.heading.size.medium,
+};
+
 export default function LockedLabel(props: LockedLabelType) {
     const {coord, text, color, size} = props;
 
@@ -29,7 +38,7 @@ export default function LockedLabel(props: LockedLabelType) {
                     left: x,
                     top: y,
                     color: lockedFigureColors[color],
-                    fontSize: font.size[size],
+                    fontSize: labelFontSize[size],
                     filter: "url(#math-stroke)",
                 }}
                 aria-hidden={true}

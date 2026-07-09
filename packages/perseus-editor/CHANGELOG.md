@@ -1,5 +1,53 @@
 # @khanacademy/perseus-editor
 
+## 34.2.0
+
+### Minor Changes
+
+-   [#3866](https://github.com/Khan/perseus/pull/3866) [`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Syncing deps to newest major versions of Wonder Blocks
+
+### Patch Changes
+
+-   [#3863](https://github.com/Khan/perseus/pull/3863) [`9ef574f`](https://github.com/Khan/perseus/commit/9ef574f13c17fb3b6488dac9805a2070122d6bc7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Enables adding calc variant field into editor json
+
+-   Updated dependencies [[`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906), [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/math-input@26.5.0
+    -   @khanacademy/perseus@79.2.0
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/keypad-context@3.2.72
+    -   @khanacademy/kmath@2.4.31
+    -   @khanacademy/perseus-linter@5.1.12
+
+## 34.1.2
+
+### Patch Changes
+
+-   [#3832](https://github.com/Khan/perseus/pull/3832) [`4f11360`](https://github.com/Khan/perseus/commit/4f11360f3f3aa09394fcd19043e28bb2636b8e1b) Thanks [@nishasy](https://github.com/nishasy)! - Put the left and right sides of the editor in separate scroll areas
+
+-   [#3828](https://github.com/Khan/perseus/pull/3828) [`ffc1dcd`](https://github.com/Khan/perseus/commit/ffc1dcd9d7a50d3d639f657e21725e22fd4c5eba) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph][editor] Fix invariant error in interactve graph editor.
+
+-   [#3835](https://github.com/Khan/perseus/pull/3835) [`e5c4c92`](https://github.com/Khan/perseus/commit/e5c4c92d269a7eb6e2c9aa79536d6aa3505b32c3) Thanks [@jandrade](https://github.com/jandrade)! - Migrate Wonder Blocks font sizing from the deprecated `font.size` / `--wb-font-size` tokens to the newer `font.body.size` / `--wb-font-body-size` tokens. Sizes that have no `body` equivalent (`large`) now use the matching `font.heading.size` token.
+
+-   Updated dependencies [[`855f36d`](https://github.com/Khan/perseus/commit/855f36d9cef4fab5d67cf8a68c9df0309e117b15), [`45feb6d`](https://github.com/Khan/perseus/commit/45feb6d3b32fd149f6a91c6e49344369eb4c8e62), [`53b4221`](https://github.com/Khan/perseus/commit/53b42219e47a919a936e2f9847410d8467ec84fe), [`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a), [`4306c90`](https://github.com/Khan/perseus/commit/4306c9056d5ca6b5cc788e11ada2e1f1d4e5c669), [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059), [`e5c4c92`](https://github.com/Khan/perseus/commit/e5c4c92d269a7eb6e2c9aa79536d6aa3505b32c3)]:
+    -   @khanacademy/perseus@79.1.2
+    -   @khanacademy/perseus-core@30.1.0
+    -   @khanacademy/keypad-context@3.2.71
+    -   @khanacademy/kmath@2.4.30
+    -   @khanacademy/math-input@26.4.44
+    -   @khanacademy/perseus-linter@5.1.11
+
+## 34.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+    -   @khanacademy/kmath@2.4.29
+    -   @khanacademy/math-input@26.4.43
+    -   @khanacademy/perseus@79.1.1
+    -   @khanacademy/perseus-linter@5.1.10
+
 ## 34.1.0
 
 ### Minor Changes

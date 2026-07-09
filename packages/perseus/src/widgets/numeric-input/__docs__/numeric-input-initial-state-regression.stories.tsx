@@ -1,4 +1,14 @@
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
+import * as React from "react";
+
 import {themeModes} from "../../../../../../.storybook/modes";
+import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
@@ -67,5 +77,108 @@ export const CenterTextAlign: Story = {
     args: {
         size: "normal",
         textAlign: "center",
+    },
+};
+
+// Verifies that a very long number does not overflow or distort the input box
+export const LongNumber: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {
+            "numeric-input 1": {currentValue: "12345678901234567890"},
+        },
+    },
+    args: {
+        size: "normal",
+    },
+};
+
+export const MultipleInputsInParagraph: Story = {
+    decorators: [
+        (Story) => (
+            // Limit the width to force two inputs to stack vertically.
+            <div style={{maxWidth: "500px"}}>
+                <Story />
+            </div>
+        ),
+    ],
+    render: function Render() {
+        return (
+            <QuestionRendererForStories
+                question={generateTestPerseusRenderer({
+                    content:
+                        "On long-range sensors, the bridge crew counted " +
+                        "[[☃ numeric-input 1]] Borg cubes, [[☃ numeric-input 2]] " +
+                        "Romulan warbirds, and [[☃ numeric-input 3]] Klingon " +
+                        "birds-of-prey approaching the neutral zone.",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                        "numeric-input 2": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                        "numeric-input 3": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                    },
+                })}
+                initialUserInput={{
+                    "numeric-input 1": {currentValue: "12"},
+                    "numeric-input 2": {currentValue: "7"},
+                    "numeric-input 3": {currentValue: "23"},
+                }}
+            />
+        );
+    },
+};
+
+/**
+ * Verifies the vertical spacing/baseline alignment when a numeric input sits
+ * inline with a dropdown in the same paragraph.
+ */
+export const InlineWithDropdown: Story = {
+    render: function Render() {
+        return (
+            <QuestionRendererForStories
+                question={generateTestPerseusRenderer({
+                    content:
+                        "The shuttlecraft can carry [[☃ numeric-input 1]] " +
+                        "supply crates, which is [[☃ dropdown 1]] the cargo " +
+                        "limit set by Starfleet.",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                        "dropdown 1": generateDropdownWidget({
+                            options: generateDropdownOptions({
+                                placeholder: "greater/less than or equal to",
+                                choices: [
+                                    {
+                                        content: "greater than or equal to",
+                                        correct: false,
+                                    },
+                                    {
+                                        content: "less than or equal to",
+                                        correct: true,
+                                    },
+                                ],
+                            }),
+                        }),
+                    },
+                })}
+                initialUserInput={{
+                    "numeric-input 1": {currentValue: "42"},
+                }}
+            />
+        );
     },
 };

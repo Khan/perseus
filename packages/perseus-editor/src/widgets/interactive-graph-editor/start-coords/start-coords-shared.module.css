@@ -66,7 +66,7 @@
     margin-top: var(--wb-sizing-size_080) !important;
     padding-left: var(--wb-sizing-size_080) !important;
     padding-right: var(--wb-sizing-size_080) !important;
-    font-size: var(--wb-font-size-xSmall) !important;
+    font-size: var(--wb-font-body-size-xsmall) !important;
 }
 
 .reset-button {

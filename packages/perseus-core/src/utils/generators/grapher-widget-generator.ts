@@ -10,3 +10,12 @@ export function generateGrapherWidgetOptions(
         ...options,
     };
 }
+
+export function generateGrapherGraph(
+    overrides: Partial<PerseusGrapherWidgetOptions["graph"]>,
+): PerseusGrapherWidgetOptions["graph"] {
+    return {
+        ...grapherWidgetLogic.defaultWidgetOptions.graph,
+        ...overrides,
+    };
+}

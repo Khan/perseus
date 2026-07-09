@@ -1,5 +1,59 @@
 # @khanacademy/perseus
 
+## 79.2.0
+
+### Minor Changes
+
+-   [#3866](https://github.com/Khan/perseus/pull/3866) [`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Syncing deps to newest major versions of Wonder Blocks
+
+### Patch Changes
+
+-   [#3815](https://github.com/Khan/perseus/pull/3815) [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71) Thanks [@Evelas78](https://github.com/Evelas78)! - Adding analytics events to explore image modal for tracking amount of uses and how long users linger on the widget
+
+-   Updated dependencies [[`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906), [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/math-input@26.5.0
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/keypad-context@3.2.72
+    -   @khanacademy/kmath@2.4.31
+    -   @khanacademy/perseus-linter@5.1.12
+    -   @khanacademy/perseus-score@8.12.4
+
+## 79.1.2
+
+### Patch Changes
+
+-   [#3847](https://github.com/Khan/perseus/pull/3847) [`855f36d`](https://github.com/Khan/perseus/commit/855f36d9cef4fab5d67cf8a68c9df0309e117b15) Thanks [@Evelas78](https://github.com/Evelas78)! - Regression tests for sorter
+
+-   [#3802](https://github.com/Khan/perseus/pull/3802) [`45feb6d`](https://github.com/Khan/perseus/commit/45feb6d3b32fd149f6a91c6e49344369eb4c8e62) Thanks [@Evelas78](https://github.com/Evelas78)! - Added multiple regression tests for the radio widget
+
+-   [#3812](https://github.com/Khan/perseus/pull/3812) [`53b4221`](https://github.com/Khan/perseus/commit/53b42219e47a919a936e2f9847410d8467ec84fe) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][numeric input] Add more regression stories for the Numeric Input widget
+
+-   [#3859](https://github.com/Khan/perseus/pull/3859) [`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a) Thanks [@benchristel](https://github.com/benchristel)! - The now-unused feature flag "input-number-to-numeric-input" has been removed.
+
+-   [#3855](https://github.com/Khan/perseus/pull/3855) [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059) Thanks [@benchristel](https://github.com/benchristel)! - The `grapher-to-interactive-graph` feature flag has been removed. Graphers now render as Interactive Graphs if they have a single available function type that is not `quadratic`.
+
+-   [#3835](https://github.com/Khan/perseus/pull/3835) [`e5c4c92`](https://github.com/Khan/perseus/commit/e5c4c92d269a7eb6e2c9aa79536d6aa3505b32c3) Thanks [@jandrade](https://github.com/jandrade)! - Migrate Wonder Blocks font sizing from the deprecated `font.size` / `--wb-font-size` tokens to the newer `font.body.size` / `--wb-font-body-size` tokens. Sizes that have no `body` equivalent (`large`) now use the matching `font.heading.size` token.
+
+-   Updated dependencies [[`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a), [`4306c90`](https://github.com/Khan/perseus/commit/4306c9056d5ca6b5cc788e11ada2e1f1d4e5c669), [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059)]:
+    -   @khanacademy/perseus-core@30.1.0
+    -   @khanacademy/keypad-context@3.2.71
+    -   @khanacademy/kmath@2.4.30
+    -   @khanacademy/math-input@26.4.44
+    -   @khanacademy/perseus-linter@5.1.11
+    -   @khanacademy/perseus-score@8.12.3
+
+## 79.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf)]:
+    -   @khanacademy/perseus-core@30.0.2
+    -   @khanacademy/keypad-context@3.2.70
+    -   @khanacademy/kmath@2.4.29
+    -   @khanacademy/math-input@26.4.43
+    -   @khanacademy/perseus-linter@5.1.10
+    -   @khanacademy/perseus-score@8.12.2
+
 ## 79.1.0
 
 ### Minor Changes

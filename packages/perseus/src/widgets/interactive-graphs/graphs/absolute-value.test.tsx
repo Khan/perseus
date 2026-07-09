@@ -6,10 +6,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    getAbsoluteValueCoefficients,
-    getAbsoluteValueKeyboardConstraint,
-} from "./absolute-value";
+import {getAbsoluteValueKeyboardConstraint} from "./absolute-value";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -27,60 +24,6 @@ const baseAbsoluteValueState: InteractiveGraphState = {
     ],
     snapStep: [1, 1],
 };
-
-describe("getAbsoluteValueCoefficients", () => {
-    it("returns correct coefficients for a basic upward V", () => {
-        const coeffs = getAbsoluteValueCoefficients([
-            [0, 0],
-            [2, 2],
-        ]);
-        expect(coeffs).toEqual({m: 1, h: 0, v: 0});
-    });
-
-    it("returns correct coefficients for a downward V", () => {
-        const coeffs = getAbsoluteValueCoefficients([
-            [1, 3],
-            [3, 1],
-        ]);
-        expect(coeffs).toEqual({m: -1, h: 1, v: 3});
-    });
-
-    it("returns correct coefficients for a steeper slope", () => {
-        const coeffs = getAbsoluteValueCoefficients([
-            [0, 0],
-            [1, 2],
-        ]);
-        expect(coeffs).toEqual({m: 2, h: 0, v: 0});
-    });
-
-    it("returns correct coefficients when vertex is not at origin", () => {
-        const coeffs = getAbsoluteValueCoefficients([
-            [1, 3],
-            [2, 5],
-        ]);
-        expect(coeffs).toEqual({m: 2, h: 1, v: 3});
-    });
-
-    it("returns an infinite slope when both points share the same x-coordinate", () => {
-        const coeffs = getAbsoluteValueCoefficients([
-            [2, 0],
-            [2, 4],
-        ]);
-        expect(coeffs).toEqual({m: Infinity, h: 2, v: 0});
-    });
-
-    it("treats left-arm and right-arm points as equivalent (same slope magnitude)", () => {
-        const rightArm = getAbsoluteValueCoefficients([
-            [0, 0],
-            [2, 2],
-        ]);
-        const leftArm = getAbsoluteValueCoefficients([
-            [0, 0],
-            [-2, 2],
-        ]);
-        expect(rightArm?.m).toBe(leftArm?.m);
-    });
-});
 
 describe("getAbsoluteValueKeyboardConstraint", () => {
     it("returns standard directions when no same-x conflict", () => {

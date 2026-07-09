@@ -159,6 +159,14 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                           />
                         </g>
                       </svg>
+                      <rect
+                        class="mafs-graph-border"
+                        data-testid="graph-border"
+                        height="400"
+                        width="400"
+                        x="-200"
+                        y="-200"
+                      />
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
