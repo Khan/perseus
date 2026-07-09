@@ -113,7 +113,7 @@ jobs:
               run: |
                   # npm trusted publishing requires npm CLI v11.5.1+
                   # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@latest
+                  npm install -g npm@11
                   echo "✅ npm upgraded to $(npm --version)"
 
             - name: Create Release Pull Request or Publish to npm
