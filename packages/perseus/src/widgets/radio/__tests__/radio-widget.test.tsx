@@ -13,7 +13,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import Radio from "../radio-widget";
 
-import type {WidgetProps} from "../../../types";
+import type {WidgetPropsV2} from "../../../types";
 import type {RadioChoiceWithMetadata, RadioProps} from "../radio-widget";
 import type {
     PerseusRadioRubric,
@@ -51,11 +51,7 @@ const baseLinterContext: LinterContextProps = {
     stack: [],
 };
 
-const getBaseProps = (
-    overrides?: Partial<
-        WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
-    >,
-): WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
+const getBaseOptions = (overrides?: Partial<RadioProps>): RadioProps => ({
     numCorrect: baseOptions.numCorrect ?? 0,
     hasNoneOfTheAbove: baseOptions.hasNoneOfTheAbove,
     multipleSelect: baseOptions.multipleSelect,
@@ -64,6 +60,15 @@ const getBaseProps = (
     choices: baseChoices,
     choiceStates: baseChoiceStates,
     randomize: false,
+    ...overrides,
+});
+
+const getBaseProps = (
+    overrides?: Partial<
+        WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
+    >,
+): WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
+    options: getBaseOptions(),
     trackInteraction: jest.fn(),
     widgetId: "radio-1",
     widgetIndex: 0,
@@ -123,7 +128,10 @@ describe("Radio widget", () => {
         const handleUserInput = jest.fn();
         const props = getBaseProps({
             handleUserInput,
-            choiceStates: baseChoiceStates.slice(0, 1), // Only 1 state for 2 choices
+            // Only 1 state for 2 choices
+            options: getBaseOptions({
+                choiceStates: baseChoiceStates.slice(0, 1),
+            }),
         });
         render(<Radio {...props} />);
 
