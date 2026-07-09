@@ -133,7 +133,7 @@ const styles = {
     },
 
     tryAgainIcon: {
-        fontSize: font.size.xxLarge,
+        fontSize: font.heading.size.xlarge,
         color: semanticColor.core.foreground.instructive.default,
         transform: "scale(-1,1) rotate(-268deg)",
     },
