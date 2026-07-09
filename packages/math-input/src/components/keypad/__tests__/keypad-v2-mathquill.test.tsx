@@ -171,6 +171,31 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
+    it("can write an indexed variable using the subscript button", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+
+        // a
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+
+        // subscript
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Subscript"}));
+
+        // index (should land inside the subscript, not after it)
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a_{1}");
+    });
+
     it("can write the Pythagorean theorem (complex)", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
