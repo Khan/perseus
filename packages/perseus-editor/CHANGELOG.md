@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 34.2.0
+
+### Minor Changes
+
+-   [#3866](https://github.com/Khan/perseus/pull/3866) [`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Syncing deps to newest major versions of Wonder Blocks
+
+### Patch Changes
+
+-   [#3863](https://github.com/Khan/perseus/pull/3863) [`9ef574f`](https://github.com/Khan/perseus/commit/9ef574f13c17fb3b6488dac9805a2070122d6bc7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Enables adding calc variant field into editor json
+
+-   Updated dependencies [[`9ae69b7`](https://github.com/Khan/perseus/commit/9ae69b76efec9fd746be09e8e71cc413a42d5906), [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71)]:
+    -   @khanacademy/math-input@26.5.0
+    -   @khanacademy/perseus@79.2.0
+    -   @khanacademy/perseus-core@30.1.1
+    -   @khanacademy/keypad-context@3.2.72
+    -   @khanacademy/kmath@2.4.31
+    -   @khanacademy/perseus-linter@5.1.12
+
 ## 34.1.2
 
 ### Patch Changes
