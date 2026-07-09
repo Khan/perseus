@@ -323,6 +323,29 @@ describe("useDraggable", () => {
         // Assert: the element moved one step to the right and then one step up
         expect(onMoveSpy.mock.calls).toEqual([[[1, 0]], [[0, 1]]]);
     });
+
+    it("lets a press with no movement propagate so a swipe can still scroll the page", () => {
+        // A touch that lands on a draggable but doesn't move yet is
+        // indistinguishable from the start of a page scroll. We must not claim
+        // it (stopPropagation), or the page can't scroll over the graph. This
+        // regressed on iOS 26.5+, where WebKit began honoring default/gesture
+        // suppression during the pointer-down phase.
+        // See .claude/LEMS-4353-ios-26.5-interactive-graph-scroll-investigation.md
+        const parentMouseDownSpy = jest.fn();
+        // Arrange, Act
+        render(
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div onMouseDown={parentMouseDownSpy}>
+                <Mafs width={200} height={200}>
+                    <TestDraggable point={[0, 0]} />
+                </Mafs>
+            </div>,
+        );
+        mouseDownAt(screen.getByRole("button"), 0, 0);
+
+        // Assert: the press reached the ancestor (propagation was not stopped)
+        expect(parentMouseDownSpy).toHaveBeenCalled();
+    });
 });
 
 function mouseDownAt(element: Element, clientX: number, clientY: number) {

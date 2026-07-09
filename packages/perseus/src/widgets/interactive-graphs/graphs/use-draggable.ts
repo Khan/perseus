@@ -83,11 +83,13 @@ export function useDraggable(args: Params): DragState {
     useDrag(
         (state) => {
             const {type, event} = state;
-            event?.stopPropagation();
 
             const isKeyboard = type.includes("key");
             if (isKeyboard) {
                 invariant(event instanceof KeyboardEvent);
+                // Keyboard interactions should never bubble or trigger the
+                // browser's default scroll-on-arrow-key behavior.
+                event?.stopPropagation();
                 event?.preventDefault();
 
                 // When a key is held down, we see multiple "keydown" events,
@@ -174,8 +176,18 @@ export function useDraggable(args: Params): DragState {
                     dragStarted.current = false;
                 }
                 if (vec.mag(pixelMovement) === 0) {
+                    // No movement yet, so we can't tell a drag from the start
+                    // of a page scroll. Leave the event alone (don't stop
+                    // propagation or claim it) so a plain touch-and-swipe over
+                    // the graph still scrolls the page. This matters on iOS
+                    // 26.5+, where WebKit now honors default-prevention during
+                    // the pointer-down phase and would otherwise block scroll.
+                    // See .claude/LEMS-4353-ios-26.5-interactive-graph-scroll-investigation.md
                     return;
                 }
+                // A real drag is underway: claim the gesture so it doesn't
+                // bubble to parents (e.g. the page scroller).
+                event?.stopPropagation();
                 // Don't start a drag if no movement; a click with zero
                 // movement should not set isCurrentlyDragging and block
                 // subsequent click-to-add-point events.
