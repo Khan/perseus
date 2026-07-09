@@ -20,7 +20,7 @@ export const getPromptJSON = (
 ): DefinitionPromptJSON => {
     return {
         type: "definition",
-        definition: widgetData.definition,
-        togglePrompt: widgetData.togglePrompt,
+        definition: widgetData.options.definition,
+        togglePrompt: widgetData.options.togglePrompt,
     };
 };
