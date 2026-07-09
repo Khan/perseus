@@ -88,9 +88,11 @@ class Iframe extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
+        const {width, height, allowFullScreen} = this.props.options;
+
         const style = {
-            width: String(this.props.options.width),
-            height: String(this.props.options.height),
+            width: String(width),
+            height: String(height),
         } as const;
 
         const {InitialRequestUrl} = getDependencies();
@@ -111,16 +113,8 @@ class Iframe extends React.Component<Props> implements Widget {
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(
-                url,
-                "width",
-                `${this.props.options.width}`,
-            );
-            url = updateQueryString(
-                url,
-                "height",
-                `${this.props.options.height}`,
-            );
+            url = updateQueryString(url, "width", `${width}`);
+            url = updateQueryString(url, "height", `${height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
         }
@@ -156,7 +150,7 @@ class Iframe extends React.Component<Props> implements Widget {
                 sandbox={sandboxProperties}
                 style={style}
                 src={url}
-                allowFullScreen={this.props.options.allowFullScreen}
+                allowFullScreen={allowFullScreen}
             />
         );
     }
