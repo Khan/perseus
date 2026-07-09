@@ -14,7 +14,7 @@ import {
     type PerseusDependenciesV2,
     type Widget,
     type WidgetExports,
-    type WidgetProps,
+    type WidgetPropsV2,
 } from "../../types";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
@@ -33,7 +33,7 @@ const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
-type Props = WidgetProps<PerseusVideoWidgetOptions> & {
+type Props = WidgetPropsV2<PerseusVideoWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
@@ -65,7 +65,7 @@ class Video extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         const {InitialRequestUrl} = getDependencies();
 
-        const location = this.props.location;
+        const location = this.props.options.location;
         if (!location) {
             return <div />;
         }
