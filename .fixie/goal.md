@@ -479,7 +479,7 @@ review and commit the changes.
 - [x] Migrate `phet-simulation` to `WidgetPropsV2`.
 - [x] Migrate `iframe` to `WidgetPropsV2`.
 - [x] Migrate `sorter` to `WidgetPropsV2`.
-- [ ] Migrate `definition` to `WidgetPropsV2`.
+- [x] Migrate `definition` to `WidgetPropsV2`.
 - [ ] Migrate `explanation` to `WidgetPropsV2`.
 - [ ] Migrate `deprecated-standin` to `WidgetPropsV2`.
 - [ ] Migrate `free-response` to `WidgetPropsV2` (its `defaultProps` is
