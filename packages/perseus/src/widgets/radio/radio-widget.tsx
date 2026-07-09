@@ -79,7 +79,8 @@ type Props = WidgetPropsV2<
  */
 const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
     function RadioWidget(props, ref) {
-        const {multipleSelect = false, countChoices = false} = props.options;
+        const {options} = props;
+        const {multipleSelect = false, countChoices = false} = options;
         const {
             showSolutions = "none",
             apiOptions,
@@ -97,18 +98,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const choices = useMemo(() => {
             return [
                 ...choiceTransform(
-                    props.options.choices,
-                    props.options.randomize,
+                    options.choices,
+                    options.randomize,
                     strings,
                     randomSeed,
                 ),
             ];
-        }, [
-            props.options.choices,
-            props.options.randomize,
-            strings,
-            randomSeed,
-        ]);
+        }, [options.choices, options.randomize, strings, randomSeed]);
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -365,7 +361,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         };
 
         const choicesProps = prepareChoicesProps();
-        const numCorrect = props.options.numCorrect;
+        const numCorrect = options.numCorrect;
 
         // This is strange, but currently we're showing the same view for both
         // reviewMode, and showSolutions === "all". We may wish to
