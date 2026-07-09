@@ -15,4 +15,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "phet-simulation",
     "iframe",
     "sorter",
+    "definition",
 ];
