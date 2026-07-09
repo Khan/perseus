@@ -79,35 +79,36 @@ describe("Radio AI utils", () => {
     it("should get prompt json which matches the state of the UI", () => {
         // Arrange
         const widgetData: any = {
-            numCorrect: 1,
-            countChoices: false,
-            deselectEnabled: false,
-            hasNoneOfTheAbove: false,
-            multipleSelect: false,
-            choices: [
-                {
-                    id: "3-3-3-3-3",
-                    content: "Content 4",
-                    originalIndex: 3,
-                },
-                {
-                    id: "1-1-1-1-1",
-                    content: "Content 2",
-                    originalIndex: 1,
-                },
-                {
-                    id: "0-0-0-0-0",
-                    content: "Content 1",
-                    originalIndex: 0,
-                },
+            options: {
+                numCorrect: 1,
+                countChoices: false,
+                deselectEnabled: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                choices: [
+                    {
+                        id: "3-3-3-3-3",
+                        content: "Content 4",
+                        originalIndex: 3,
+                    },
+                    {
+                        id: "1-1-1-1-1",
+                        content: "Content 2",
+                        originalIndex: 1,
+                    },
+                    {
+                        id: "0-0-0-0-0",
+                        content: "Content 1",
+                        originalIndex: 0,
+                    },
 
-                {
-                    id: "2-2-2-2-2",
-                    content: "Content 3",
-                    originalIndex: 2,
-                },
-            ],
-            selectedChoiceIds: ["3-3-3-3-3"],
+                    {
+                        id: "2-2-2-2-2",
+                        content: "Content 3",
+                        originalIndex: 2,
+                    },
+                ],
+            },
         };
 
         const userInput: PerseusRadioUserInput = {
@@ -178,30 +179,32 @@ describe("Radio AI utils", () => {
     it("should handle undefined/null user input", () => {
         // Arange
         const widgetData: any = {
-            numCorrect: 1,
-            countChoices: false,
-            deselectEnabled: false,
-            hasNoneOfTheAbove: false,
-            multipleSelect: false,
-            choices: [
-                {
-                    content: "Content 4",
-                    originalIndex: 3,
-                },
-                {
-                    content: "Content 2",
-                    originalIndex: 1,
-                },
-                {
-                    content: "Content 1",
-                    originalIndex: 0,
-                },
+            options: {
+                numCorrect: 1,
+                countChoices: false,
+                deselectEnabled: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                choices: [
+                    {
+                        content: "Content 4",
+                        originalIndex: 3,
+                    },
+                    {
+                        content: "Content 2",
+                        originalIndex: 1,
+                    },
+                    {
+                        content: "Content 1",
+                        originalIndex: 0,
+                    },
 
-                {
-                    content: "Content 3",
-                    originalIndex: 2,
-                },
-            ],
+                    {
+                        content: "Content 3",
+                        originalIndex: 2,
+                    },
+                ],
+            },
         };
 
         // Act
