@@ -83,8 +83,9 @@ jobs:
               uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
                   issue-number: ${{ github.event.pull_request.number }}
-                  body: |
+                  body: >-
                       ${{ env.SNAPSHOT_COMMENT_MARKER }}
+
                       # npm Snapshot
 
                       Want to try this PR's changes before it merges? Comment
