@@ -65,7 +65,21 @@ jobs:
         permissions:
             pull-requests: write # For creating the "how to snapshot" comment
         steps:
+            # Guards against creating a second comment if this job is manually
+            # re-run (e.g. via "Re-run jobs" in the Actions UI). If a snapshot
+            # comment already exists, we leave it untouched rather than
+            # overwrite it, since it may already reflect a snapshot someone
+            # requested.
+            - name: Find existing comment
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
+              id: find-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "${{ env.SNAPSHOT_COMMENT_MARKER }}"
+
             - name: Create snapshot info comment
+              if: steps.find-comment.outputs.comment-id == ''
               uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
                   issue-number: ${{ github.event.pull_request.number }}
