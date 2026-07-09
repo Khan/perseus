@@ -1,0 +1,65 @@
+{
+  "changesets": [
+    {
+      "releases": [
+        {
+          "name": "@khanacademy/perseus",
+          "type": "patch"
+        }
+      ],
+      "summary": "Re-organize interactive graph string files to centralize string patterns and streamline testing.",
+      "id": "itchy-peaches-shake"
+    },
+    {
+      "releases": [],
+      "summary": "",
+      "id": "jolly-apes-notice"
+    },
+    {
+      "releases": [
+        {
+          "name": "@khanacademy/perseus-editor",
+          "type": "patch"
+        },
+        {
+          "name": "@khanacademy/perseus",
+          "type": "patch"
+        }
+      ],
+      "summary": "Fix thin border around the interactive graph",
+      "id": "smooth-wolves-reply"
+    },
+    {
+      "releases": [
+        {
+          "name": "@khanacademy/perseus-editor",
+          "type": "patch"
+        }
+      ],
+      "summary": "Moves issues panel out of item editor into editor",
+      "id": "stale-phones-sink"
+    }
+  ],
+  "releases": [
+    {
+      "name": "@khanacademy/perseus",
+      "type": "patch",
+      "oldVersion": "79.2.0",
+      "changesets": [
+        "itchy-peaches-shake",
+        "smooth-wolves-reply"
+      ],
+      "newVersion": "79.2.1"
+    },
+    {
+      "name": "@khanacademy/perseus-editor",
+      "type": "patch",
+      "oldVersion": "34.2.0",
+      "changesets": [
+        "smooth-wolves-reply",
+        "stale-phones-sink"
+      ],
+      "newVersion": "34.2.1"
+    }
+  ]
+}
