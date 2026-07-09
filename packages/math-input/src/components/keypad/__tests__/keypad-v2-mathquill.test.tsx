@@ -180,15 +180,11 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
 
-        // a
+        // use the keypad for `a_{1}`
         await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
         await userEvent.click(screen.getByRole("button", {name: "a"}));
-
-        // subscript
         await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
         await userEvent.click(screen.getByRole("button", {name: "Subscript"}));
-
-        // index (should land inside the subscript, not after it)
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         await userEvent.click(screen.getByRole("button", {name: "1"}));
 
