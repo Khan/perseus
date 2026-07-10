@@ -35,10 +35,6 @@ export const BasicDropdown: Story = {
         placeholder: "greater/less than or equal to",
         choices: [
             {
-                content: "greater than or equal to",
-                correct: false,
-            },
-            {
                 content: "less than or equal to",
                 correct: true,
             },
@@ -55,10 +51,6 @@ export const DropdownWithEmptyPlaceholder: Story = {
     args: generateDropdownOptions({
         placeholder: "",
         choices: [
-            {
-                content: "greater than or equal to",
-                correct: false,
-            },
             {
                 content: "less than or equal to",
                 correct: true,
@@ -80,10 +72,6 @@ export const InlineDropdownWithVisibleLabel: Story = {
                 content: "True",
                 correct: true,
             },
-            {
-                content: "False",
-                correct: false,
-            },
         ],
         visibleLabel: "Test label",
         ariaLabel: "Test ARIA label",
@@ -102,10 +90,6 @@ export const TableDropdownWithVisibleLabel: Story = {
                 content: "True",
                 correct: true,
             },
-            {
-                content: "False",
-                correct: false,
-            },
         ],
         visibleLabel: "Test label",
         ariaLabel: "Test ARIA label",
@@ -120,11 +104,7 @@ export const RTL: Story = {
     decorators: [dropdownRendererDecorator, rtlDecorator],
     args: generateDropdownOptions({
         placeholder: "اختر إجابة",
-        choices: [
-            {content: "الخيار 1", correct: false},
-            {content: "الخيار 2", correct: true},
-            {content: "الخيار 3", correct: false},
-        ],
+        choices: [{content: "الخيار 1", correct: true}],
     }),
     parameters: {
         content: "هذه قائمة منسدلة: [[☃ dropdown 1]]",
@@ -135,10 +115,7 @@ export const MathInPlaceholder: Story = {
     decorators: [dropdownRendererDecorator],
     args: generateDropdownOptions({
         placeholder: "Choose $\\frac{1}{2}$ or $\\frac{3}{4}$",
-        choices: [
-            {content: "$\\frac{1}{2}$", correct: false},
-            {content: "$\\frac{3}{4}$", correct: true},
-        ],
+        choices: [{content: "$\\frac{1}{2}$", correct: false}],
     }),
     parameters: {
         content: "Which fraction is larger? [[☃ dropdown 1]]",
@@ -154,10 +131,7 @@ export const WidePlaceholderOnMobileScreen: Story = {
     args: generateDropdownOptions({
         placeholder:
             "This is an unusually long placeholder that is wider than a mobile screen",
-        choices: [
-            {content: "greater than or equal to", correct: false},
-            {content: "less than or equal to", correct: true},
-        ],
+        choices: [{content: "less than or equal to", correct: true}],
     }),
     parameters: {
         content: "The total number of boxes is [[☃ dropdown 1]] $60$.",
