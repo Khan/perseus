@@ -1166,7 +1166,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 id="instructions-:r2:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -1599,7 +1599,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 id="instructions-:rc:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -2038,7 +2038,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 id="instructions-:rl:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Enable Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -2289,7 +2289,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 id="instructions-:rr:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Enable Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_7zhre1-o_O-inlineStyles_16155wj"
@@ -2518,7 +2518,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 id="instructions-:r4:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -2924,7 +2924,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 id="instructions-:re:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -3363,7 +3363,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 id="instructions-:rm:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"
@@ -3718,7 +3718,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 id="instructions-:rt:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
               </div>
               <div
                 class="default_7zhre1 mafs-sr-only"

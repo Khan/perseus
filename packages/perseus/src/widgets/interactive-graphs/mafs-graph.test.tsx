@@ -1002,7 +1002,7 @@ describe("MafsGraph", () => {
 
             // Assert
             const instructions = screen.getByText(
-                /^Use the Tab key to move through/,
+                /^Enable Focus mode and use the Tab key to move through/,
             );
             const description = screen.getByText("A graph description.");
 

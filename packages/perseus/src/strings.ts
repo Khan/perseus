@@ -958,13 +958,13 @@ export const strings = {
         context:
             "Screen reader-only instructions for using the keyboard to move through the interactive elements in the interactive graph widget.",
         message:
-            "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
+            "Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.",
     },
     srUnlimitedGraphInstructions: {
         context:
             "Screen reader-only instructions for using the keyboard to move through the 'unlimited' (addable/deletable by the user) interactive elements in the interactive graph widget.",
         message:
-            "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+            "Press Shift + Enter to interact with the graph. Enable Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     },
     srPointAtCoordinates: {
         context:
@@ -1812,9 +1812,9 @@ export const mockStrings: PerseusStrings = {
         "Sorry, this simulation isn't available in your language.",
     selectAnAnswer: "Select an answer",
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
+        "Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+        "Press Shift + Enter to interact with the graph. Enable Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",
