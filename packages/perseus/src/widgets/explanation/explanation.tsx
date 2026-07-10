@@ -18,20 +18,16 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
+type Props = WidgetPropsV2<PerseusExplanationWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
 type DefaultProps = {
-    showPrompt: Props["showPrompt"];
-    hidePrompt: Props["hidePrompt"];
-    explanation: Props["explanation"];
-    widgets: Props["widgets"];
     linterContext: Props["linterContext"];
 };
 
@@ -51,10 +47,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        showPrompt: "Explain",
-        hidePrompt: "Hide explanation",
-        explanation: "explanation goes here\n\nmore explanation",
-        widgets: {},
         linterContext: linterContextDefault,
     };
 
@@ -89,10 +81,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
     }
 
     render(): React.ReactNode {
-        const promptText = this.state.expanded
-            ? this.props.hidePrompt
-            : this.props.showPrompt;
+        const {hidePrompt, showPrompt, explanation, widgets} =
+            this.props.options;
 
+        const promptText = this.state.expanded ? hidePrompt : showPrompt;
         const caretIcon = this.state.expanded ? caretUp : caretDown;
 
         // TODO (LEMS-3815): Remove legacy styles
@@ -146,7 +138,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
                                 style={stylesLegacy.contentWrapper}
                             >
                                 <UserInputManager
-                                    widgets={this.props.widgets}
+                                    widgets={widgets}
                                     problemNum={0}
                                 >
                                     {({
@@ -159,8 +151,8 @@ class Explanation extends React.Component<Props, State> implements Widget {
                                                 apiOptions={
                                                     this.props.apiOptions
                                                 }
-                                                content={this.props.explanation}
-                                                widgets={this.props.widgets}
+                                                content={explanation}
+                                                widgets={widgets}
                                                 linterContext={
                                                     this.props.linterContext
                                                 }
