@@ -135,7 +135,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
       class="perseus-editor-table"
     >
       <div
-        class="perseus-editor-row perseus-question-container"
+        class="perseus-editor-row"
       >
         <div
           class="perseus-editor-left-cell"
@@ -161,12 +161,24 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 </div>
               </div>
               <span
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_x420fm"
-                data-testid="issues-icon-check-circle-fill.svg"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_6947y3"
+                data-testid="issues-icon-warning-octagon-fill.svg"
               />
-              0 issues
+              16 issues
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="perseus-editor-table"
+    >
+      <div
+        class="perseus-editor-row perseus-question-container"
+      >
+        <div
+          class="perseus-editor-left-cell"
+        >
           <div
             class="pod-title"
           >
@@ -1302,7 +1314,7 @@ table: [[☃ table 1]]
                           >
                             <input
                               checked=""
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1334,7 +1346,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1366,7 +1378,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -5245,6 +5257,14 @@ table: [[☃ table 1]]
                                       />
                                     </g>
                                   </svg>
+                                  <rect
+                                    class="mafs-graph-border"
+                                    data-testid="graph-border"
+                                    height="288"
+                                    width="288"
+                                    x="-144"
+                                    y="-144"
+                                  />
                                   <svg
                                     height="288"
                                     preserveAspectRatio="xMidYMin"
@@ -9449,6 +9469,14 @@ table: [[☃ table 1]]
                                         />
                                       </g>
                                     </svg>
+                                    <rect
+                                      class="mafs-graph-border"
+                                      data-testid="graph-border"
+                                      height="288"
+                                      width="288"
+                                      x="-144"
+                                      y="-144"
+                                    />
                                     <svg
                                       height="288"
                                       preserveAspectRatio="xMidYMin"
@@ -13203,7 +13231,7 @@ table: [[☃ table 1]]
                          
                         <input
                           class="number-input normal"
-                          format="integer"
+                          format="decimal"
                           placeholder="answer"
                           type="text"
                           value="2"
@@ -13221,7 +13249,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="2"
@@ -13233,13 +13261,13 @@ table: [[☃ table 1]]
                         >
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="-5"
                           />
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="5"
                           />
@@ -13259,7 +13287,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="-5"
@@ -13269,7 +13297,7 @@ table: [[☃ table 1]]
                           </span>
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="5"
                             type="text"
                             value="5"
@@ -13289,7 +13317,7 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
                             title="Decimals"
                             type="button"
                           >
@@ -13465,7 +13493,7 @@ table: [[☃ table 1]]
                              
                             <input
                               class="number-input"
-                              format="integer"
+                              format="decimal"
                               placeholder="2"
                               type="text"
                               value=""
@@ -13485,7 +13513,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="2"
                           />

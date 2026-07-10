@@ -7,6 +7,8 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {GraphDimensions} from "../types";
 import type {Interval} from "mafs";
 
+// We can't use semantic font tokens here, because the semantic tokens are in
+// rems, whereas we need the font size to be in px for our graph calculations.
 export const fontSize = 14;
 export const fontSizeYAxisLabelMultiplier = 1.25;
 

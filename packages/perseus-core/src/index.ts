@@ -420,6 +420,11 @@ export {
     generateMatrixWidget,
     generateMatrixOptions,
 } from "./utils/generators/matrix-widget-generator";
+/** @hidden */
+export {
+    generatePlotterWidget,
+    generatePlotterOptions,
+} from "./utils/generators/plotter-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {

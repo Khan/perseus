@@ -16,7 +16,7 @@ import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeLogarithmGraph} from "./strings/logarithm";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {
     getAsymptoteGraphKeyboardConstraint,
@@ -24,7 +24,6 @@ import {
     skipAsymptoteKeyboardOverPoint,
 } from "./utils";
 
-import type {PerseusStrings} from "../../../strings";
 import type {
     LogarithmGraphState,
     MafsGraphProps,
@@ -44,7 +43,8 @@ export function renderLogarithmGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <LogarithmGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getLogarithmDescription(state, i18n),
+        interactiveElementsDescription: describeLogarithmGraph(state, i18n)
+            .srLogarithmInteractiveElements,
     };
 }
 
@@ -270,125 +270,4 @@ function renderLogarithmCurve({
             />
         </ClipToGraphBounds>
     );
-}
-
-function getLogarithmDescription(
-    state: LogarithmGraphState,
-    i18n: I18nContextType,
-): string {
-    const strings = describeLogarithmGraph(state, i18n);
-    return strings.srLogarithmInteractiveElements;
-}
-
-type LogarithmDescriptionArgs = {
-    point1X: string;
-    point1Y: string;
-    point2X: string;
-    point2Y: string;
-    asymptoteX: string;
-};
-
-function describeLogarithmGraph(
-    state: LogarithmGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords, asymptote} = state;
-    const [point1, point2] = coords;
-
-    const formattedPoint1 = {
-        x: srFormatNumber(point1[X], locale),
-        y: srFormatNumber(point1[Y], locale),
-    };
-    const formattedPoint2 = {
-        x: srFormatNumber(point2[X], locale),
-        y: srFormatNumber(point2[Y], locale),
-    };
-    const asymptoteXFormatted = srFormatNumber(asymptote, locale);
-
-    const coeffs = getLogarithmCoefficients(coords, asymptote);
-    const descriptionArgs: LogarithmDescriptionArgs = {
-        point1X: formattedPoint1.x,
-        point1Y: formattedPoint1.y,
-        point2X: formattedPoint2.x,
-        point2Y: formattedPoint2.y,
-        asymptoteX: asymptoteXFormatted,
-    };
-
-    return {
-        srLogarithmGraph: strings.srLogarithmGraph,
-        srLogarithmDescription: buildLogarithmDescription(
-            coeffs,
-            descriptionArgs,
-            strings,
-            locale,
-        ),
-        srLogarithmAsymptote: strings.srLogarithmAsymptote({
-            asymptoteX: asymptoteXFormatted,
-        }),
-        // When no curve is plotted, drop the "on a curve"
-        // phrasing in favor of plain point coordinates.
-        srLogarithmPoint1:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
-                : strings.srLogarithmPoint1(formattedPoint1),
-        srLogarithmPoint2:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
-                : strings.srLogarithmPoint2(formattedPoint2),
-        srLogarithmInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srLogarithmInteractiveElements(descriptionArgs),
-        }),
-    };
-}
-
-function buildLogarithmDescription(
-    coeffs: LogarithmCoefficient | undefined,
-    args: LogarithmDescriptionArgs,
-    strings: PerseusStrings,
-    locale: string,
-): string {
-    // No logarithm fits these points (e.g. the asymptote sits between them
-    // or a line), so no curve is plotted.
-    if (coeffs === undefined) {
-        return strings.srLogarithmNoCurve(args);
-    }
-
-    const {a, b, c} = coeffs;
-
-    // The directional sentence describes which side of the vertical asymptote
-    // the curve sits on and which infinity it trails toward near it. The side
-    // tracks sign(b): the domain is b*x + c > 0, so b > 0 puts the curve to
-    // the right of the asymptote and b < 0 to the left. The infinity tracks
-    // sign(a): near the asymptote b*x + c -> 0+ and ln -> -infinity, so a > 0
-    // trails to negative infinity and a < 0 to positive infinity. The two are
-    // independent, so all four combinations occur.
-    const base =
-        b > 0
-            ? a > 0
-                ? strings.srLogarithmDescriptionRightNeg(args)
-                : strings.srLogarithmDescriptionRightPos(args)
-            : a > 0
-              ? strings.srLogarithmDescriptionLeftNeg(args)
-              : strings.srLogarithmDescriptionLeftPos(args);
-
-    const position =
-        b > 0
-            ? strings.srLogarithmToRightOfAsymptote
-            : strings.srLogarithmToLeftOfAsymptote;
-
-    // The x-intercept always exists (the curve is monotonic and spans all
-    // y-values over its domain): f(x) = 0 when b*x + c = 1, i.e. x = (1-c)/b.
-    // The y-intercept exists only when x = 0 is in the domain (c > 0), where
-    // f(0) = a*ln(c).
-    const xIntercept = srFormatNumber((1 - c) / b, locale);
-    const intercepts =
-        c > 0
-            ? strings.srLogarithmIntercepts({
-                  xIntercept,
-                  yIntercept: srFormatNumber(a * Math.log(c), locale),
-              })
-            : strings.srLogarithmXIntercept({xIntercept});
-
-    return `${base} ${position} ${intercepts}`;
 }

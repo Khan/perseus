@@ -4,7 +4,7 @@ import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import {getAnnouncementText} from "./graphs/screenreader-text";
+import {getAnnouncementText} from "./graphs/strings/announcement";
 import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";

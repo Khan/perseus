@@ -13,9 +13,8 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeTangentGraph} from "./strings/tangent";
 
-import type {PerseusStrings} from "../../../strings";
 import type {
     TangentGraphState,
     MafsGraphProps,
@@ -32,7 +31,8 @@ export function renderTangentGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <TangentGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getTangentDescription(state, i18n),
+        interactiveElementsDescription: describeTangentGraph(state, i18n)
+            .srTangentInteractiveElements,
     };
 }
 
@@ -296,96 +296,4 @@ function getPlotSegments(
     segments.push([start, xRange[1]]);
 
     return segments;
-}
-
-function getTangentDescription(
-    state: TangentGraphState,
-    i18n: I18nContextType,
-): string {
-    return describeTangentGraph(state, i18n).srTangentInteractiveElements;
-}
-
-function describeTangentGraph(
-    state: TangentGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords} = state;
-    const [inflection, secondPoint] = coords;
-
-    const formattedInflection = {
-        x: srFormatNumber(inflection[X], locale),
-        y: srFormatNumber(inflection[Y], locale),
-    };
-    const formattedSecondPoint = {
-        x: srFormatNumber(secondPoint[X], locale),
-        y: srFormatNumber(secondPoint[Y], locale),
-    };
-
-    const srTangentGraph = strings.srTangentGraph;
-    const srTangentDescription = buildTangentDescription(
-        coords,
-        locale,
-        strings,
-    );
-    const srTangentInflectionPoint =
-        strings.srTangentInflectionPoint(formattedInflection);
-    const srTangentSecondPoint =
-        strings.srTangentSecondPoint(formattedSecondPoint);
-    const srTangentInteractiveElements = strings.srInteractiveElements({
-        elements: strings.srTangentInteractiveElements({
-            point1X: srFormatNumber(inflection[X], locale),
-            point1Y: srFormatNumber(inflection[Y], locale),
-            point2X: srFormatNumber(secondPoint[X], locale),
-            point2Y: srFormatNumber(secondPoint[Y], locale),
-        }),
-    });
-
-    return {
-        srTangentGraph,
-        srTangentDescription,
-        srTangentInflectionPoint,
-        srTangentSecondPoint,
-        srTangentInteractiveElements,
-    };
-}
-
-function buildTangentDescription(
-    coords: ReadonlyArray<Coord>,
-    locale: string,
-    strings: PerseusStrings,
-): string {
-    const [inflection, control] = coords;
-    const dx = control[X] - inflection[X];
-    const dy = control[Y] - inflection[Y];
-
-    const points = strings.srTangentDescriptionPoints({
-        inflectionX: srFormatNumber(inflection[X], locale),
-        inflectionY: srFormatNumber(inflection[Y], locale),
-        controlX: srFormatNumber(control[X], locale),
-        controlY: srFormatNumber(control[Y], locale),
-    });
-
-    // The period is four times the horizontal distance between the points
-    // (the control point sits a quarter-period from the inflection point).
-    const period = 4 * Math.abs(dx);
-    const periodFormatted = srFormatNumber(period, locale);
-
-    // The curve increases through the inflection point when the control point
-    // lies up-and-right or down-and-left of it (dx and dy share a sign), and
-    // decreases otherwise.
-    const increasing = dx > 0 === dy > 0;
-    const direction = increasing
-        ? strings.srTangentIncreasing({period: periodFormatted})
-        : strings.srTangentDecreasing({period: periodFormatted});
-
-    // The nearest vertical asymptotes sit half a period on either side of the
-    // inflection point.
-    const halfPeriod = period / 2;
-    const asymptotes = strings.srTangentAsymptotes({
-        leftAsymptote: srFormatNumber(inflection[X] - halfPeriod, locale),
-        rightAsymptote: srFormatNumber(inflection[X] + halfPeriod, locale),
-    });
-
-    return `${points} ${direction} ${asymptotes}`;
 }

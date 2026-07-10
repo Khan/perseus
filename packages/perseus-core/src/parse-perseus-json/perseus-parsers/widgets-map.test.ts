@@ -555,7 +555,7 @@ describe("parseWidgetsMap", () => {
                 options: {
                     range: [],
                     labelRange: [],
-                    labelStyle: "",
+                    labelStyle: "decimal",
                     labelTicks: false,
                     isInequality: false,
                     divisionRange: [],
