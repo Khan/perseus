@@ -26,7 +26,10 @@ import {
     setPerseusClipboardData,
 } from "./util/clipboard";
 
-import type {APIOptions, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptionsWithDefaults,
+    ImageUploader,
+} from "@khanacademy/perseus";
 import type {
     PerseusRenderer,
     PerseusWidget,
@@ -115,7 +118,7 @@ const imageUrlsFromContent = function (content: string) {
 
 type Props = Readonly<{
     additionalTemplates: Record<string, string>;
-    apiOptions: any;
+    apiOptions: APIOptionsWithDefaults;
     className?: string;
     content: string;
     placeholder: string;
@@ -146,7 +149,7 @@ type DefaultProps = {
         [name: string]: PerseusWidget;
     };
     additionalTemplates: Props["additionalTemplates"];
-    apiOptions: APIOptions;
+    apiOptions: APIOptionsWithDefaults;
 };
 
 type State = {

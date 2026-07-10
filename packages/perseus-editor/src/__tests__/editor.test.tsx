@@ -280,7 +280,11 @@ describe("Editor", () => {
     });
 
     it("should apply perseus-editor-disabled class when editingDisabled", () => {
-        render(<Harnessed apiOptions={{editingDisabled: true}} />);
+        render(
+            <Harnessed
+                apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
+            />,
+        );
         expect(screen.queryByTestId("perseus-single-editor")).toHaveClass(
             "perseus-editor-disabled",
         );

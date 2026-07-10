@@ -1,4 +1,5 @@
 import {
+    ApiOptions,
     components,
     EditorJsonify,
     MatrixWidget,
@@ -9,7 +10,7 @@ import _ from "underscore";
 
 import Editor from "../editor";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     MatrixDefaultWidgetOptions,
     MathFormat,
@@ -30,7 +31,7 @@ type Props = {
     prefix: string;
     suffix: string;
     cursorPosition: ReadonlyArray<number>;
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     labelStyle?: string;
     onChange: (partial: Partial<PerseusMatrixWidgetOptions>) => void;
 };
@@ -113,7 +114,9 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="prefix"
-                        apiOptions={this.props.apiOptions}
+                        apiOptions={
+                            this.props.apiOptions ?? ApiOptions.defaults
+                        }
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
@@ -127,7 +130,9 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="suffix"
-                        apiOptions={this.props.apiOptions}
+                        apiOptions={
+                            this.props.apiOptions ?? ApiOptions.defaults
+                        }
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {

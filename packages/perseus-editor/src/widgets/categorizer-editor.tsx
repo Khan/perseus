@@ -8,7 +8,7 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
-import type {APIOptions, APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     CategorizerDefaultWidgetOptions,
     PerseusCategorizerWidgetOptions,
@@ -19,7 +19,7 @@ const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
 type Props = {
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     items: Array<string>;
     categories: Array<string>;
     values: Array<number>;
@@ -52,7 +52,7 @@ class CategorizerEditor extends React.Component<Props> {
                     values: userInput.values.map((v) => v ?? 0),
                 });
             },
-            apiOptions: this.props.apiOptions as APIOptionsWithDefaults,
+            apiOptions: this.props.apiOptions,
             trackInteraction: function () {},
         };
 

@@ -19,7 +19,7 @@ import {
 } from "./styles/icon-paths";
 
 import type {
-    APIOptions,
+    APIOptionsWithDefaults,
     ImageDict,
     // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
@@ -36,7 +36,7 @@ const {InfoTip, InlineIcon} = components;
 
 type HintEditorProps = {
     itemId?: string;
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     className: string;
     imageUploader?: ImageUploader;
     showMoveButtons?: boolean;
@@ -179,7 +179,7 @@ class HintEditor extends React.Component<HintEditorProps> {
 
 type CombinedHintEditorProps = {
     itemId?: string;
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
@@ -292,7 +292,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 }
 
 type CombinedHintsEditorProps = {
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
     highlightLint?: boolean;
