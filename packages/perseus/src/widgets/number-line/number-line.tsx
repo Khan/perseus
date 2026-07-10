@@ -90,9 +90,7 @@ const _label = (
 ): any => {
     value = value || pos;
 
-    // TODO(jack): Find out if any exercises have "decimal ticks" set,
-    // and if so, re-save them and remove this check.
-    if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
+    if (labelStyle === "decimal") {
         return graphie.label(
             [pos, -0.53],
             Math.round(value * 100) / 100,
@@ -188,7 +186,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
         graphie.style(lineStyle, () => {
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
         });
-        if (labelTicks || tickIsHighlighted || labelStyle === "decimal ticks") {
+        if (labelTicks || tickIsHighlighted) {
             graphie.style(textStyle, () => {
                 results.push(_label(graphie, labelStyle, tick, tick, base));
             });
