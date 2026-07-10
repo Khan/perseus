@@ -1,10 +1,7 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 import {expect, within} from "storybook/test";
 
-import {
-    themeModes,
-    viewportThemeModes,
-} from "../../../../../../.storybook/modes";
+import {themeModes} from "../../../../../../.storybook/modes";
 import {
     mobileDecorator,
     rtlDecorator,
@@ -279,7 +276,6 @@ export const OpenedWideListOnMobile: Story = {
     }),
     parameters: {
         content: "To simplify the fraction, find [[☃ dropdown 1]].",
-        chromatic: {modes: viewportThemeModes("small")},
     },
     play: openDropdown,
 };
@@ -298,7 +294,6 @@ export const OpenedLongListOnShortScreen: Story = {
     }),
     parameters: {
         content: "Select the correct value: [[☃ dropdown 1]]",
-        chromatic: {modes: viewportThemeModes("chromebook")},
     },
     play: openDropdown,
 };
