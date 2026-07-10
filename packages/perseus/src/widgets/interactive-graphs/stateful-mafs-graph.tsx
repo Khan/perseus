@@ -102,7 +102,8 @@ export const StatefulMafsGraph = React.forwardRef<
                 locale,
             ),
         });
-    }, [state.stateAnnouncement, strings, locale]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state.stateAnnouncement]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
