@@ -95,6 +95,8 @@ export const StatefulMafsGraph = React.forwardRef<
                 locale,
             ),
         });
+        // We only want to fire this useEffect on stateAnnouncement
+        // changes so all announcements are timed with an action.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.stateAnnouncement]);
 
