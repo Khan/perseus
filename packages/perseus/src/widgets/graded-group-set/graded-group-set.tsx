@@ -72,26 +72,36 @@ class Indicators extends React.Component<IndicatorsProps> {
                                 }
                                 onKeyDown={(e) => this.handleKeyDown(e, i)}
                             >
-                                {({hovered, focused, pressed}) => (
-                                    <View
-                                        style={[
-                                            styles.indicatorDot,
-                                            // The active pip fills its whole
-                                            // circle in the fill color (border
-                                            // included) so it reads as one solid
-                                            // dot at the same outer diameter as
-                                            // the non-active ring pips.
-                                            isCurrent &&
-                                                styles.indicatorDotActive,
-                                            // Applied last so the focus color
-                                            // wins over the active fill above,
-                                            // keeping focus visible on the
-                                            // active pip.
-                                            (hovered || focused || pressed) &&
-                                                styles.indicatorDotFocused,
-                                        ]}
-                                    />
-                                )}
+                                {({hovered, focused, pressed}) => {
+                                    const interactive =
+                                        hovered || focused || pressed;
+                                    return (
+                                        <View
+                                            style={[
+                                                styles.indicatorDot,
+                                                // The active pip fills its whole
+                                                // circle in the fill color
+                                                // (border included) so it reads
+                                                // as one solid dot at the same
+                                                // outer diameter as the
+                                                // non-active ring pips.
+                                                isCurrent &&
+                                                    styles.indicatorDotActive,
+                                                // The active pip can't use a
+                                                // border for its hover/focus
+                                                // ring (the fill bleeds under it
+                                                // via border-box clip), so it
+                                                // gets an offset outline instead;
+                                                // non-active pips keep the
+                                                // border-based treatment.
+                                                interactive &&
+                                                    (isCurrent
+                                                        ? styles.indicatorDotActiveFocused
+                                                        : styles.indicatorDotFocused),
+                                            ]}
+                                        />
+                                    );
+                                }}
                             </Clickable>
                         </li>
                     );
@@ -315,10 +325,6 @@ const styles = StyleSheet.create({
     indicatorDotFocused: {
         borderWidth: border.width.thick,
         borderStyle: "double",
-        // Restore the contrasting ring color explicitly. The active pip
-        // (indicatorDotActive) recolors its border to the fill color, so
-        // without this the focus ring would be invisible on the active pip.
-        borderColor: semanticColor.core.border.instructive.default,
     },
 
     indicatorDotActive: {
@@ -329,6 +335,19 @@ const styles = StyleSheet.create({
         // unchanged, so it lines up with the non-active ring pips.
         backgroundColor: semanticColor.core.foreground.instructive.default,
         borderColor: semanticColor.core.foreground.instructive.default,
+    },
+
+    indicatorDotActiveFocused: {
+        // Ring the solid pip on hover/focus with an OUTLINE offset outward, so a
+        // gap of background shows between the pip and the ring (inner dot →
+        // space → line). An outline is used rather than a border because the
+        // fill bleeds under a border via the default border-box background clip,
+        // which would hide the gap; an outline paints outside the box and is
+        // never covered by the fill.
+        outlineColor: semanticColor.core.border.instructive.default,
+        outlineStyle: "solid",
+        outlineWidth: border.width.medium,
+        outlineOffset: 2,
     },
 
     container: {
