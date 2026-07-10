@@ -1,6 +1,6 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
-import {themeModes, viewportModes} from "../../../../../../.storybook/modes";
+import {themeModes} from "../../../../../../.storybook/modes";
 import {
     mobileDecorator,
     rtlDecorator,
@@ -133,8 +133,8 @@ export const WidePlaceholderOnMobileScreen: Story = {
             "This is an unusually long placeholder that is wider than a mobile screen",
         choices: [{content: "less than or equal to", correct: true}],
     }),
+    globals: {viewport: {value: "small"}},
     parameters: {
         content: "The total number of boxes is [[☃ dropdown 1]] $60$.",
-        chromatic: {modes: {small: viewportModes.small}},
     },
 };
