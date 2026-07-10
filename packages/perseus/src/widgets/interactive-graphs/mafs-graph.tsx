@@ -486,7 +486,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     semanticColor.core.background.base.default,
                                 border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
                                 padding: "16px 0",
-                                boxShadow: boxShadow.high,
+                                boxShadow: boxShadow.mid,
 
                                 // This translates the box to the center of the
                                 // graph Then backs it off by half of its
