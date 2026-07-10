@@ -125,6 +125,8 @@ export type PerseusStrings = {
     simulationLoadFail: string;
     simulationLocaleWarning: string;
     openSimulationInNewTab: string;
+    fullscreen: string;
+    exitFullscreen: string;
     selectAnAnswer: string;
     srGraphInstructions: string;
     srUnlimitedGraphInstructions: string;
@@ -938,6 +940,8 @@ export const strings = {
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
     openSimulationInNewTab: "Open simulation in a new tab",
+    fullscreen: "Fullscreen",
+    exitFullscreen: "Exit fullscreen",
     selectAnAnswer: "Select an answer",
     addPoint: "Add Point",
     removePoint: "Remove Point",
@@ -1813,6 +1817,8 @@ export const mockStrings: PerseusStrings = {
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
     openSimulationInNewTab: "Open simulation in a new tab",
+    fullscreen: "Fullscreen",
+    exitFullscreen: "Exit fullscreen",
     selectAnAnswer: "Select an answer",
     srGraphInstructions:
         "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
