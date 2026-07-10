@@ -147,21 +147,25 @@ const preview: Preview = {
         viewport: {
             options: {
                 small: {
-                    name: "Small (mobile)",
-                    styles: {width: "360px", height: "640px"},
+                    name: "Small",
+                    styles: {width: "320px", height: "568px"},
                 },
                 medium: {
-                    name: "Medium (tablet)",
+                    name: "Medium",
                     styles: {width: "768px", height: "1024px"},
                 },
                 large: {
-                    name: "Large (desktop)",
-                    styles: {width: "1280px", height: "800px"},
+                    name: "Large",
+                    styles: {width: "1024px", height: "768px"},
                 },
                 chromebook: {
                     name: "Chromebook",
                     styles: {width: "1366px", height: "768px"},
                 },
+                wide: {
+                    name: "Wide",
+                    styles: {width: "1700px", height: "900px"},
+                }
             },
         },
 
