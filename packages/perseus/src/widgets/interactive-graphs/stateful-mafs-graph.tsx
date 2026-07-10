@@ -88,13 +88,6 @@ export const StatefulMafsGraph = React.forwardRef<
             return;
         }
 
-        const announcementText = JSON.stringify(state.stateAnnouncement);
-
-        // eslint-disable-next-line no-console
-        console.log(
-            `StatefulMafsGraph: stateAnnouncement: ${announcementText}`,
-        );
-
         announceMessage({
             message: getAnnouncementText(
                 state.stateAnnouncement,
