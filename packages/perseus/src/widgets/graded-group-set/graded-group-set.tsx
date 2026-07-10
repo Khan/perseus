@@ -55,37 +55,47 @@ class Indicators extends React.Component<IndicatorsProps> {
                     "indicatorContainer",
                 )}
             >
-                {this.props.gradedGroups.map(({title}, i) => (
-                    // Note: Use index as key — titles are user-authored and not
-                    // guaranteed unique. Groups are never reordered at runtime,
-                    // so index keys are stable.
-                    <li className={css(styles.indicator)} key={i}>
-                        <Clickable
-                            role="button"
-                            aria-label={title}
-                            aria-current={i === this.props.currentGroup}
-                            style={styles.indicatorButton}
-                            onClick={() => this.props.onChangeCurrentGroup(i)}
-                            onKeyDown={(e) => this.handleKeyDown(e, i)}
-                        >
-                            {({hovered, focused, pressed}) => (
-                                <View
-                                    style={[
-                                        styles.indicatorDot,
-                                        (hovered || focused || pressed) &&
-                                            styles.indicatorDotFocused,
-                                    ]}
-                                >
-                                    {i === this.props.currentGroup && (
-                                        <View
-                                            style={styles.indicatorDotActive}
-                                        />
-                                    )}
-                                </View>
-                            )}
-                        </Clickable>
-                    </li>
-                ))}
+                {this.props.gradedGroups.map(({title}, i) => {
+                    const isCurrent = i === this.props.currentGroup;
+                    return (
+                        // Note: Use index as key — titles are user-authored and
+                        // not guaranteed unique. Groups are never reordered at
+                        // runtime, so index keys are stable.
+                        <li className={css(styles.indicator)} key={i}>
+                            <Clickable
+                                role="button"
+                                aria-label={title}
+                                aria-current={isCurrent}
+                                style={styles.indicatorButton}
+                                onClick={() =>
+                                    this.props.onChangeCurrentGroup(i)
+                                }
+                                onKeyDown={(e) => this.handleKeyDown(e, i)}
+                            >
+                                {({hovered, focused, pressed}) => (
+                                    <View
+                                        style={[
+                                            styles.indicatorDot,
+                                            // The active pip fills its whole
+                                            // circle in the fill color (border
+                                            // included) so it reads as one solid
+                                            // dot at the same outer diameter as
+                                            // the non-active ring pips.
+                                            isCurrent &&
+                                                styles.indicatorDotActive,
+                                            // Applied last so the focus color
+                                            // wins over the active fill above,
+                                            // keeping focus visible on the
+                                            // active pip.
+                                            (hovered || focused || pressed) &&
+                                                styles.indicatorDotFocused,
+                                        ]}
+                                    />
+                                )}
+                            </Clickable>
+                        </li>
+                    );
+                })}
             </ul>
         );
     }
@@ -305,15 +315,20 @@ const styles = StyleSheet.create({
     indicatorDotFocused: {
         borderWidth: border.width.thick,
         borderStyle: "double",
+        // Restore the contrasting ring color explicitly. The active pip
+        // (indicatorDotActive) recolors its border to the fill color, so
+        // without this the focus ring would be invisible on the active pip.
+        borderColor: semanticColor.core.border.instructive.default,
     },
 
     indicatorDotActive: {
+        // Fill the whole pip in the fill color. The background paints under the
+        // border (default background-clip: border-box) and the border matches
+        // it, so the pip is one seamless solid circle — no hairline where a
+        // separate inner fill would meet the border. Outer diameter is
+        // unchanged, so it lines up with the non-active ring pips.
         backgroundColor: semanticColor.core.foreground.instructive.default,
-        width: "100%",
-        height: "100%",
-        // Round the filled pip so its corners don't poke past the ring's
-        // rounded inner edge (the parent has no overflow:hidden to clip it).
-        borderRadius: border.radius.radius_full,
+        borderColor: semanticColor.core.foreground.instructive.default,
     },
 
     container: {

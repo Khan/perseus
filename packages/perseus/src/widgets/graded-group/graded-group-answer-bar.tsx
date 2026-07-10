@@ -143,7 +143,7 @@ const styles = {
         flexDirection: "row",
         alignItems: "center",
         fontWeight: font.weight.bold,
-        fontSize: font.size.medium,
+        fontSize: font.heading.size.medium,
     },
 } as const;
 
