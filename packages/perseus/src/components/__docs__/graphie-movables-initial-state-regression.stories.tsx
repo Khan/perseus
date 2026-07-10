@@ -6,7 +6,7 @@ import Movables from "../graphie-movables";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const {MovablePoint, Point} = Movables;
+const {MovableLine, MovablePoint, Point} = Movables;
 
 // Must be module-level — Graphie logs an error if the setup reference changes between renders
 const noopSetup = () => {};
@@ -74,6 +74,61 @@ export const MovablePointMobile: Story = {
             isMobile
         >
             <MovablePoint coord={[0, 0]} isMobile />
+        </Graphie>
+    ),
+};
+
+// A static point should render in the muted gray (disabled) color rather than
+// the interactive color — compare against MovablePointDesktop above.
+export const MovablePointStatic: Story = {
+    render: () => (
+        <Graphie
+            box={[200, 200]}
+            range={[
+                [-5, 5],
+                [-5, 5],
+            ]}
+            setup={noopSetup}
+        >
+            <MovablePoint coord={[0, 0]} static />
+        </Graphie>
+    ),
+};
+
+export const MovableLineDesktop: Story = {
+    render: () => (
+        <Graphie
+            box={[200, 200]}
+            range={[
+                [-5, 5],
+                [-5, 5],
+            ]}
+            setup={noopSetup}
+        >
+            <MovableLine>
+                <MovablePoint coord={[-3, -3]} />
+                <MovablePoint coord={[3, 3]} />
+            </MovableLine>
+        </Graphie>
+    ),
+};
+
+// A static line (and its endpoints) should render in the muted gray (disabled)
+// color rather than the interactive color — compare against MovableLineDesktop.
+export const MovableLineStatic: Story = {
+    render: () => (
+        <Graphie
+            box={[200, 200]}
+            range={[
+                [-5, 5],
+                [-5, 5],
+            ]}
+            setup={noopSetup}
+        >
+            <MovableLine static>
+                <MovablePoint coord={[-3, -3]} static />
+                <MovablePoint coord={[3, 3]} static />
+            </MovableLine>
         </Graphie>
     ),
 };
