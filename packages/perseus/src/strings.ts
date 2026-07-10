@@ -134,12 +134,11 @@ export type PerseusStrings = {
     openPolygon: string;
     ungradedInteractiveGraph: string;
     srPointAtCoordinates: ({
-        num,
+        pointLabel,
         x,
         y,
     }: {
-        // TODO(LEMS-4206) rename to pointLabel an request for new translation
-        num: number | string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
@@ -1822,7 +1821,8 @@ export const mockStrings: PerseusStrings = {
     openPolygon: "Re-open shape",
     ungradedInteractiveGraph:
         "Use this graph to check your thinking, but it does not count as your answer.",
-    srPointAtCoordinates: ({num, x, y}) => `Point ${num} at ${x} comma ${y}.`,
+    srPointAtCoordinates: ({pointLabel, x, y}) =>
+        `Point ${pointLabel} at ${x} comma ${y}.`,
     srInteractiveElements: ({elements}) => `Interactive elements: ${elements}`,
     srNoInteractiveElements: "No interactive elements",
     srCircleGraph: "A circle on a coordinate plane.",
