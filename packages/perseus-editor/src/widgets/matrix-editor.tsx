@@ -1,6 +1,5 @@
 import {
     components,
-    Changeable,
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
@@ -42,11 +41,12 @@ class MatrixEditor extends React.Component<Props> {
     static defaultProps: MatrixDefaultWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        if (this.props.apiOptions?.editingDisabled) {
-            return;
+    onChange: (partial: Partial<PerseusMatrixWidgetOptions>) => void = (
+        partial,
+    ) => {
+        if (!this.props.apiOptions?.editingDisabled) {
+            this.props.onChange(partial);
         }
-        return Changeable.change.apply(this, args);
     };
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
@@ -82,7 +82,10 @@ class MatrixEditor extends React.Component<Props> {
             trackInteraction: () => {},
             userInput: {answers: (this.props.answers ?? []) as any}, // eslint-disable-line no-restricted-syntax
             handleUserInput: (userInput) => {
-                this.change({answers: userInput.answers});
+                this.onChange({
+                    // eslint-disable-next-line no-restricted-syntax
+                    answers: userInput.answers as unknown as number[][],
+                });
             },
             ...(this.props as any), // eslint-disable-line no-restricted-syntax
         };
@@ -114,7 +117,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({prefix: newProps.content});
+                            this.onChange({prefix: newProps.content});
                         }}
                     />
                 </div>
@@ -128,7 +131,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({suffix: newProps.content});
+                            this.onChange({suffix: newProps.content});
                         }}
                     />
                 </div>
