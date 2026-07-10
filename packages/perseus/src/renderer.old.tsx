@@ -760,10 +760,10 @@ class Renderer
         );
     };
 
-    replaceJiptContent: (content: string, paragraphIndex: number) => void = (
+    replaceJiptContent(
         content: string,
-        paragraphIndex: number,
-    ) => {
+        paragraphIndex: number | undefined,
+    ): void {
         if (paragraphIndex == null) {
             // we're not translating paragraph-wise; replace the whole content
             // (we could also theoretically check for apiOptions.isArticle
@@ -809,7 +809,7 @@ class Renderer
                 jiptContent: JiptParagraphs.joinFromArray(paragraphs),
             });
         }
-    };
+    }
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
