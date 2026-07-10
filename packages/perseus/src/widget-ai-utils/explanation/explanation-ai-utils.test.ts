@@ -26,8 +26,10 @@ const question1: PerseusRenderer = generateTestPerseusRenderer({
 describe("Explanation getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
         const widgetData: any = {
-            showPrompt: "Show explanation",
-            explanation: "This is the explanation",
+            options: {
+                showPrompt: "Show explanation",
+                explanation: "This is the explanation",
+            },
         };
 
         const resultJSON = getPromptJSON(widgetData);
