@@ -69,10 +69,12 @@ describe("widget-container", () => {
                     type="explanation"
                     id="explanation 1"
                     widgetProps={{
-                        showPrompt: "Explanation",
-                        hidePrompt: "Hide explanation",
-                        explanation: "This is an explanation",
-                        widgets: {},
+                        options: {
+                            showPrompt: "Explanation",
+                            hidePrompt: "Hide explanation",
+                            explanation: "This is an explanation",
+                            widgets: {},
+                        },
 
                         findWidgets: () => [],
 
