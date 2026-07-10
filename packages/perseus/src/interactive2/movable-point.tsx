@@ -187,14 +187,21 @@ export class MovablePoint {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
+        // When the point is static (non-interactive), render it in a muted
+        // gray to signal that it can't be manipulated — matching the
+        // interactive-graph's static styling (its `--static-gray`, which is
+        // also `foreground.disabled.strong`). Otherwise use the standard
+        // interactive color.
         // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
-        const interactiveColor = tokenValue(
-            semanticColor.core.foreground.instructive.default,
+        const movableColor = tokenValue(
+            state.static
+                ? semanticColor.core.foreground.disabled.strong
+                : semanticColor.core.foreground.instructive.default,
         );
         state.normalStyle = _.extend(
             {
-                fill: interactiveColor,
-                stroke: interactiveColor,
+                fill: movableColor,
+                stroke: movableColor,
                 scale: 1,
             },
             state.normalStyle,
@@ -202,8 +209,8 @@ export class MovablePoint {
 
         state.highlightStyle = _.extend(
             {
-                fill: interactiveColor,
-                stroke: interactiveColor,
+                fill: movableColor,
+                stroke: movableColor,
                 scale: 2,
             },
             state.highlightStyle,
@@ -237,7 +244,7 @@ export class MovablePoint {
                             {...iconTrash}
                             style={{
                                 position: "static",
-                                color: interactiveColor,
+                                color: movableColor,
                                 marginLeft: 9,
                                 marginRight: 9,
                             }}
