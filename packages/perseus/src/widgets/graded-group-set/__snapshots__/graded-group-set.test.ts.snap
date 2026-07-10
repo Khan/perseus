@@ -52,12 +52,8 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-indicatorDotActive_4zbnpj"
-                      />
-                    </div>
+                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j-o_O-indicatorDotActive_dfn32l"
+                    />
                   </button>
                 </li>
                 <li
