@@ -312,16 +312,19 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotFocused: {
-        // Ring the pip on hover/focus with an OUTLINE offset outward, so a gap
-        // of background shows between the pip and the ring (dot/ring → space →
-        // line). An outline is used rather than a border because the active
-        // pip's fill bleeds under a border via the default border-box
-        // background clip, which would hide the gap; an outline paints outside
-        // the box and is never covered by the fill.
-        outlineColor: semanticColor.core.border.instructive.default,
+        // Full Wonder Blocks focus indicator: a white inner ring
+        // (semanticColor.focus.inner) hugging the pip with a blue outer ring
+        // (semanticColor.focus.outer) around it, so focus stays visible on any
+        // background. The outer ring is an outline rather than a border — a
+        // border's gap would be filled by the active pip's fill (border-box
+        // clip), and an outline also survives forced-colors/high-contrast mode
+        // where box-shadow is dropped. The inner white ring is a box-shadow
+        // that fills the outline's offset gap.
+        outlineColor: semanticColor.focus.outer,
         outlineStyle: "solid",
         outlineWidth: border.width.medium,
-        outlineOffset: 2,
+        outlineOffset: border.width.medium,
+        boxShadow: `0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
     },
 
     indicatorDotActive: {
