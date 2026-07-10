@@ -2141,7 +2141,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     >
                       <rect
                         height="400"
-                        style="fill: rgba(0,0,0,0); cursor: crosshair;"
+                        style="fill: none; pointer-events: all; cursor: crosshair;"
                         width="400"
                         x="-200"
                         y="-200"
@@ -2398,7 +2398,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                         <rect
                           aria-hidden="true"
                           height="400"
-                          style="fill: rgba(0,0,0,0); cursor: crosshair;"
+                          style="fill: none; pointer-events: all; cursor: crosshair;"
                           width="400"
                           x="-200"
                           y="-266.6666666666667"
