@@ -46,7 +46,7 @@ class CategorizerEditor extends React.Component<Props> {
         const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
             items: this.props.items,
             categories: this.props.categories,
-            userInput: {values: this.props.values ?? []},
+            userInput: {values: this.props.values},
             handleUserInput: (userInput) => {
                 this.props.onChange({
                     values: userInput.values.map((v) => v ?? 0),
