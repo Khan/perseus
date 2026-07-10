@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-test patch
+[Interactive Graph] Fix double announce message in interactive graph.
