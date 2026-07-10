@@ -24,7 +24,7 @@ export const getPromptJSON = (
 ): ExplanationPromptJSON => {
     return {
         type: "explanation",
-        showPrompt: widgetData.showPrompt,
-        explanation: widgetData.explanation,
+        showPrompt: widgetData.options.showPrompt,
+        explanation: widgetData.options.explanation,
     };
 };

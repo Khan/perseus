@@ -16,4 +16,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "iframe",
     "sorter",
     "definition",
+    "explanation",
 ];
