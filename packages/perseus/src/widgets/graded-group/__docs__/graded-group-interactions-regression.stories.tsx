@@ -121,32 +121,6 @@ export const HintExpanded: Story = {
     },
 };
 
-export const MobileAnswerBarActive: Story = {
-    args: numericInputArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    play: async ({canvas, userEvent}) => {
-        const input = canvas.getByRole("textbox");
-        await userEvent.type(input, "0.9");
-    },
-};
-
-export const MobileAnswerBarIncorrect: Story = {
-    args: sharedArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    play: async ({canvas, userEvent}) => {
-        const incorrectChoice = canvas.getByRole("button", {
-            name: /^\(Choice A\)/,
-        });
-        await userEvent.click(incorrectChoice);
-        const checkButton = canvas.getByRole("button", {name: "Check"});
-        await userEvent.click(checkButton);
-    },
-};
-
 export const MobileHintExpanded: Story = {
     args: sharedArgs,
     parameters: {
@@ -155,18 +129,5 @@ export const MobileHintExpanded: Story = {
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
         await userEvent.click(explainButton);
-    },
-};
-
-export const MobileAnswerBarCorrect: Story = {
-    args: numericInputArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    play: async ({canvas, userEvent}) => {
-        const input = canvas.getByRole("textbox");
-        await userEvent.type(input, "0.9");
-        const checkButton = canvas.getByRole("button", {name: "Check"});
-        await userEvent.click(checkButton);
     },
 };

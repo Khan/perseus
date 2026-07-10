@@ -27,13 +27,17 @@ import type {
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type IndicatorsProps = {
+export type IndicatorsProps = {
     currentGroup: number;
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
     onChangeCurrentGroup: (groupNumber: number) => void;
 };
 
-class Indicators extends React.Component<IndicatorsProps> {
+// Exported so its visual regression story can render the pips in isolation,
+// without an ArticleRenderer or a child widget to visualize them. The pips are
+// driven purely by the group count and the current group, so nothing else is
+// needed to snapshot them.
+export class Indicators extends React.Component<IndicatorsProps> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -328,11 +332,11 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        // Fill the whole pip in the fill color. The background paints under the
-        // border (default background-clip: border-box) and the border matches
-        // it, so the pip is one seamless solid circle — no hairline where a
-        // separate inner fill would meet the border. Outer diameter is
-        // unchanged, so it lines up with the non-active ring pips.
+        // Paint the whole pip — background and border — in the fill color.
+        // The background sits under the border (default background-clip:
+        // border-box) and the border matches it, so the pip renders as one
+        // seamless solid circle at the same outer diameter as the non-active
+        // ring pips.
         backgroundColor: semanticColor.core.foreground.instructive.default,
         borderColor: semanticColor.core.foreground.instructive.default,
     },
