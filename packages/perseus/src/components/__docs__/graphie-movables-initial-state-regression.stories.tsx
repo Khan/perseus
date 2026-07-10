@@ -95,6 +95,8 @@ export const MovablePointStatic: Story = {
     ),
 };
 
+// The child MovablePoints define the line's endpoints; draw={null} keeps them
+// invisible so the story shows just the line.
 export const MovableLineDesktop: Story = {
     render: () => (
         <Graphie
@@ -106,15 +108,15 @@ export const MovableLineDesktop: Story = {
             setup={noopSetup}
         >
             <MovableLine>
-                <MovablePoint coord={[-3, -3]} />
-                <MovablePoint coord={[3, 3]} />
+                <MovablePoint coord={[-3, -3]} draw={null} />
+                <MovablePoint coord={[3, 3]} draw={null} />
             </MovableLine>
         </Graphie>
     ),
 };
 
-// A static line (and its endpoints) should render in the muted gray (disabled)
-// color rather than the interactive color — compare against MovableLineDesktop.
+// A static line should render in the muted gray (disabled) color rather than
+// the interactive color — compare against MovableLineDesktop.
 export const MovableLineStatic: Story = {
     render: () => (
         <Graphie
@@ -126,8 +128,8 @@ export const MovableLineStatic: Story = {
             setup={noopSetup}
         >
             <MovableLine static>
-                <MovablePoint coord={[-3, -3]} static />
-                <MovablePoint coord={[3, 3]} static />
+                <MovablePoint coord={[-3, -3]} draw={null} static />
+                <MovablePoint coord={[3, 3]} draw={null} static />
             </MovableLine>
         </Graphie>
     ),
