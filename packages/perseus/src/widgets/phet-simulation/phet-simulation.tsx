@@ -252,7 +252,7 @@ export class PhetSimulation
                     }
                     kind="tertiary"
                     actionType="neutral"
-                    aria-label={"Fullscreen"}
+                    aria-label={this.context.strings.fullscreen}
                     style={styles.cornerButton}
                 />
             );
@@ -320,7 +320,7 @@ export class PhetSimulation
                             onClick={this.toggleFullScreen}
                             kind="tertiary"
                             actionType="neutral"
-                            aria-label={"Exit fullscreen"}
+                            aria-label={this.context.strings.exitFullscreen}
                             style={styles.closeButton}
                         />
                     </View>
