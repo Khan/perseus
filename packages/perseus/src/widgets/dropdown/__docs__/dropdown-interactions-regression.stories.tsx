@@ -228,8 +228,8 @@ export const PressedNotYetOpen: Story = {
     },
     play: async ({canvas, userEvent}) => {
         canvas.getByRole("combobox").focus();
-        // Hold Space (no release): `pressed` flips true on keydown, showing the
-        // PRESS_SHADOW border, and the menu stays closed until keyup.
+        // `>` holds the key down; holding space shows a dark border
+        // on the dropdown. The menu stays closed until keyup.
         await userEvent.keyboard("[Space>]");
     },
 };
