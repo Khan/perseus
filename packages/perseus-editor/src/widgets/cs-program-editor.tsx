@@ -17,34 +17,28 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
-
-type ChangeFn = typeof Changeable.change;
+import type {
+    CSProgramDefaultWidgetOptions,
+    PerseusCSProgramWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
+type Pair = {name: string; value: string};
+
 type PairEditorProps = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    name?: string;
-    value?: string;
+    onChange: (pair: Pair) => void;
+    name: string;
+    value: string;
 };
 
 /**
  * This is used for editing a name/value pair.
  */
 class PairEditor extends React.Component<PairEditorProps> {
-    static defaultProps = {
-        name: "",
-        value: "",
-    };
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
     serialize = () => {
         return EditorJsonify.serialize.call(this);
     };
@@ -55,16 +49,26 @@ class PairEditor extends React.Component<PairEditorProps> {
                 <label>
                     Name:{" "}
                     <BlurInput
-                        value={this.props.name ?? ""}
-                        onChange={this.change("name")}
+                        value={this.props.name}
+                        onChange={(v) =>
+                            this.props.onChange({
+                                name: v,
+                                value: this.props.value,
+                            })
+                        }
                     />
                 </label>
                 <label>
                     {" "}
                     Value:{" "}
                     <BlurInput
-                        value={this.props.value ?? ""}
-                        onChange={this.change("value")}
+                        value={this.props.value}
+                        onChange={(v) =>
+                            this.props.onChange({
+                                name: this.props.name,
+                                value: v,
+                            })
+                        }
                     />
                 </label>
             </fieldset>
@@ -73,19 +77,15 @@ class PairEditor extends React.Component<PairEditorProps> {
 }
 
 type PairsEditorProps = {
-    onChange: (...args: ReadonlyArray<any>) => any;
-    pairs: ReadonlyArray<{name: string; value: string}>;
+    onChange: (partial: {pairs: ReadonlyArray<Pair>}) => void;
+    pairs: ReadonlyArray<Pair>;
 };
 
 /**
  * This is used for editing a set of name/value pairs.
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    handlePairChange = (pairIndex, pair: any) => {
+    handlePairChange = (pairIndex: number, pair: Pair) => {
         // If they're both non empty, add a new one
         const pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
@@ -94,7 +94,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
-        this.change("pairs", pairs);
+        this.props.onChange({pairs});
     };
 
     serialize = () => {
@@ -134,11 +134,11 @@ function isolateProgramID(programUrl: string) {
 }
 
 type Props = {
-    onChange: (...args: ReadonlyArray<any>) => any;
+    onChange: (partial: Partial<PerseusCSProgramWidgetOptions>) => void;
     programID?: string;
     showEditor?: boolean;
     showButtons?: boolean;
-    settings?: ReadonlyArray<{name: string; value: string}>;
+    settings?: ReadonlyArray<Pair>;
     width?: number;
     height?: number;
     programType?: string | null;
@@ -158,8 +158,8 @@ class CSProgramEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    _handleSettingsChange: (arg1: any) => void = (settings) => {
-        this.change({settings: settings.pairs});
+    _handleSettingsChange = (partial: {pairs: ReadonlyArray<Pair>}) => {
+        this.change({settings: partial.pairs});
     };
 
     _handleProgramIDChange: (arg1: string) => void = (programID) => {
