@@ -1,13 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof Expression> = {
+const meta: Meta<PerseusExpressionWidgetOptions> = {
     title: "Widgets/Expression/Visual Regression Tests/Initial State",
-    component: Expression,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -22,7 +21,7 @@ const meta: Meta<typeof Expression> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof Expression>;
+type Story = StoryObj<typeof meta>;
 
 export const DefaultEmpty: Story = {
     decorators: [expressionRendererDecorator],

@@ -2,15 +2,14 @@ import * as React from "react";
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {Expression} from "../expression";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof Expression> = {
+const meta: Meta<PerseusExpressionWidgetOptions> = {
     title: "Widgets/Expression/Visual Regression Tests/Interactions",
-    component: Expression,
     tags: ["!autodocs", "!manifest"],
     decorators: [
         (Story) => {
@@ -46,7 +45,7 @@ const meta: Meta<typeof Expression> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof Expression>;
+type Story = StoryObj<typeof meta>;
 
 async function openKeypad({
     canvas,
