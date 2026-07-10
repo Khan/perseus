@@ -167,7 +167,7 @@ export type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
-    jiptContent: any;
+    jiptContent: string | null;
 };
 
 type FullLinterContext = LinterContextProps & {
