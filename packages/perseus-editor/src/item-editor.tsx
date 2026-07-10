@@ -9,7 +9,7 @@ import ItemExtrasEditor from "./item-extras-editor";
 import {ItemEditorContext} from "./util/item-editor-context";
 
 import type {
-    APIOptions,
+    APIOptionsWithDefaults,
     ImageUploader,
     // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
@@ -26,7 +26,7 @@ type Props = {
      * within the Perseus Editor.
      */
     additionalTemplates?: Record<string, string>;
-    apiOptions?: APIOptions;
+    apiOptions?: APIOptionsWithDefaults;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;

@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -99,7 +100,7 @@ describe("CombinedHintsEditor", () => {
             <CombinedHintsEditor
                 deviceType="phone"
                 previewURL="about:blank"
-                apiOptions={{editingDisabled: true}}
+                apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
                 hints={[
                     {content: "You know this one!", widgets: {}, images: {}},
                 ]}

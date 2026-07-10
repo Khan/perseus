@@ -4,10 +4,12 @@ import {
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
 import {
+    ApiOptions,
     Renderer,
     usePerseusI18n,
     UserInputManager,
     type APIOptions,
+    type APIOptionsWithDefaults,
     type DeviceType,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -32,7 +34,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
  */
 function ContentPreview({
     question,
-    apiOptions,
+    apiOptions: apiOptionsProp,
     seamless,
     linterContext,
     legacyPerseusLint,
@@ -64,6 +66,10 @@ function ContentPreview({
 }) {
     const i18n = usePerseusI18n();
     const isMobile = previewDevice !== "desktop";
+    const apiOptions: APIOptionsWithDefaults = {
+        ...ApiOptions.defaults,
+        ...apiOptionsProp,
+    };
 
     const className = isMobile ? "perseus-mobile" : "";
 

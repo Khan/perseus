@@ -105,9 +105,6 @@ catalogs:
     jquery:
       specifier: 2.1.1
       version: 2.1.1
-    prop-types:
-      specifier: 15.8.1
-      version: 15.8.1
     react:
       specifier: 18.2.0
       version: 18.2.0
@@ -561,9 +558,6 @@ importers:
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
-      prop-types:
-        specifier: catalog:devDeps
-        version: 15.8.1
       react:
         specifier: catalog:devDeps
         version: 18.2.0
@@ -709,9 +703,6 @@ importers:
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
-      prop-types:
-        specifier: catalog:devDeps
-        version: 15.8.1
       raphael:
         specifier: workspace:*
         version: link:../../vendor/raphael
@@ -873,9 +864,6 @@ importers:
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
-      prop-types:
-        specifier: catalog:devDeps
-        version: 15.8.1
       react:
         specifier: catalog:devDeps
         version: 18.2.0

@@ -13,7 +13,7 @@ import ToggleableCaret from "./toggleable-caret";
 import WidgetEditorSettings from "./widget-editor-settings";
 
 import type Editor from "../editor";
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 // exported for tests
@@ -26,7 +26,7 @@ export type WidgetEditorProps = {
         silent?: boolean,
     ) => unknown;
     onRemove: () => unknown;
-    apiOptions: APIOptions;
+    apiOptions: APIOptionsWithDefaults;
     widgetIsOpen?: boolean;
 } & Omit<PerseusWidget, "key">;
 

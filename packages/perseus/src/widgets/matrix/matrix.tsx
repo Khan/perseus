@@ -444,9 +444,17 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
                                         MatrixInput = (
                                             <SimpleKeypadInput
-                                                {...inputProps}
+                                                // eslint-disable-next-line react/no-string-refs
+                                                ref={inputProps.ref as string}
+                                                value={
+                                                    rowVals != null
+                                                        ? String(rowVals[col])
+                                                        : ""
+                                                }
                                                 style={style}
-                                                scrollable={true}
+                                                onFocus={inputProps.onFocus}
+                                                onBlur={inputProps.onBlur}
+                                                onChange={inputProps.onChange}
                                                 keypadElement={
                                                     this.props.keypadElement
                                                 }

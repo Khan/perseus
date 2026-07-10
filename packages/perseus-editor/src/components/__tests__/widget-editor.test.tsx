@@ -217,7 +217,7 @@ describe("WidgetEditor", () => {
                 id: "definition 1",
                 onChange: () => {},
                 onRemove: () => {},
-                apiOptions: {},
+                apiOptions: ApiOptions.defaults,
                 type: "definition",
                 options,
             };
@@ -254,7 +254,7 @@ describe("WidgetEditor", () => {
                 id: "definition 1",
                 onChange: () => {},
                 onRemove: () => {},
-                apiOptions: {},
+                apiOptions: ApiOptions.defaults,
                 type: "definition",
                 options,
                 graded: true,

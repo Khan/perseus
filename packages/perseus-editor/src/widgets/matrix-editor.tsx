@@ -1,17 +1,21 @@
 import {
+    ApiOptions,
     components,
-    Changeable,
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
-import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {
+    MatrixDefaultWidgetOptions,
+    MathFormat,
+    PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
@@ -21,47 +25,49 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-type Props = any;
+type Props = {
+    matrixBoardSize: ReadonlyArray<number>;
+    answers: Array<Array<number>>;
+    prefix: string;
+    suffix: string;
+    cursorPosition: ReadonlyArray<number>;
+    apiOptions?: APIOptionsWithDefaults;
+    labelStyle?: string;
+    onChange: (partial: Partial<PerseusMatrixWidgetOptions>) => void;
+};
 
 class MatrixEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        matrixBoardSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        prefix: PropTypes.string,
-        suffix: PropTypes.string,
-        cursorPosition: PropTypes.arrayOf(PropTypes.number),
-    };
-
     static widgetName = "matrix" as const;
 
     static defaultProps: MatrixDefaultWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        if (this.props.apiOptions.editingDisabled) {
-            return;
+    onChange: (partial: Partial<PerseusMatrixWidgetOptions>) => void = (
+        partial,
+    ) => {
+        if (!this.props.apiOptions?.editingDisabled) {
+            this.props.onChange(partial);
         }
-        return Changeable.change.apply(this, args);
     };
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
-        const matrixSize = getMatrixSize(this.props.answers);
+        const answers = this.props.answers ?? [];
+        const matrixSize = getMatrixSize(answers);
         if (range[0] !== null && range[1] !== null) {
             range = [
                 Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
                 Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
             ];
-            const answers = _(Math.min(range[0], matrixSize[0])).times(
+            const newAnswers = _(Math.min(range[0], matrixSize[0])).times(
                 (row) => {
                     return _(Math.min(range[1], matrixSize[1])).times((col) => {
-                        return this.props.answers[row][col];
+                        return answers[row][col];
                     });
                 },
             );
             this.props.onChange({
                 matrixBoardSize: range,
-                answers: answers,
+                answers: newAnswers,
             });
         }
     };
@@ -75,11 +81,14 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: this.props.answers},
+            userInput: {answers: (this.props.answers ?? []) as any}, // eslint-disable-line no-restricted-syntax
             handleUserInput: (userInput) => {
-                this.change({answers: userInput.answers});
+                this.onChange({
+                    // eslint-disable-next-line no-restricted-syntax
+                    answers: userInput.answers as unknown as number[][],
+                });
             },
-            ...this.props,
+            ...(this.props as any), // eslint-disable-line no-restricted-syntax
         };
 
         return (
@@ -90,7 +99,8 @@ class MatrixEditor extends React.Component<Props> {
                     <RangeInput
                         value={this.props.matrixBoardSize}
                         onChange={this.onMatrixBoardSizeChange}
-                        format={this.props.labelStyle}
+                        // eslint-disable-next-line no-restricted-syntax
+                        format={this.props.labelStyle as MathFormat | undefined}
                         useArrowKeys={true}
                     />
                 </div>
@@ -104,11 +114,13 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="prefix"
-                        apiOptions={this.props.apiOptions}
+                        apiOptions={
+                            this.props.apiOptions ?? ApiOptions.defaults
+                        }
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({prefix: newProps.content});
+                            this.onChange({prefix: newProps.content});
                         }}
                     />
                 </div>
@@ -118,11 +130,13 @@ class MatrixEditor extends React.Component<Props> {
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="suffix"
-                        apiOptions={this.props.apiOptions}
+                        apiOptions={
+                            this.props.apiOptions ?? ApiOptions.defaults
+                        }
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({suffix: newProps.content});
+                            this.onChange({suffix: newProps.content});
                         }}
                     />
                 </div>

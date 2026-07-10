@@ -1,32 +1,27 @@
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
+import {components, EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";
+
+import type {PerseusMoleculeRendererWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, TextInput} = components;
 
-type Props = any;
+type Props = {
+    rotationAngle?: number;
+    smiles?: string;
+    onChange: (partial: Partial<PerseusMoleculeRendererWidgetOptions>) => void;
+};
 
 class MoleculeWidgetEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        rotationAngle: PropTypes.number,
-        smiles: PropTypes.string,
-    };
-
     static widgetName = "molecule-renderer" as const;
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
     updateMolecule: (arg1: string) => void = (newValue) => {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({smiles: newValue});
+        this.props.onChange({smiles: newValue});
     };
 
-    updateRotation: (arg1: string) => void = (newValue) => {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({rotationAngle: newValue});
+    updateRotation: (newValue: number | null) => void = (newValue) => {
+        if (newValue != null) {
+            this.props.onChange({rotationAngle: newValue});
+        }
     };
 
     serialize: () => any = () => {

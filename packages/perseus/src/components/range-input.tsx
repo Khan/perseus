@@ -1,33 +1,40 @@
-/* eslint-disable react/forbid-prop-types */
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import NumberInput from "./number-input";
 
+import type {MathFormat} from "@khanacademy/perseus-core";
+
 const truth = () => true;
+
+type RangeValue = [number | null, number | null];
+
+type Props = {
+    value: ReadonlyArray<number | null>;
+    onChange(value: RangeValue): void;
+    checkValidity?(value: RangeValue): boolean;
+    placeholder: [
+        number | string | null | undefined,
+        number | string | null | undefined,
+    ];
+    allowPiTruncation?: boolean;
+    format?: MathFormat | null;
+    useArrowKeys?: boolean;
+};
 
 /**
  * A minor abstraction on top of `NumberInput` for ranges
  */
-class RangeInput extends React.Component<any> {
-    static propTypes = {
-        value: PropTypes.array.isRequired,
-        onChange: PropTypes.func.isRequired,
-        placeholder: PropTypes.array,
-        checkValidity: PropTypes.func,
-        allowPiTruncation: PropTypes.bool,
-    };
-
-    static defaultProps: any = {
+class RangeInput extends React.Component<Props> {
+    static defaultProps = {
         placeholder: [null, null],
     };
 
-    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
+    onChange: (arg1: number, arg2: number | null) => void = (i, newVal) => {
         const value = this.props.value;
         if (i === 0) {
-            this.props.onChange([newVal, value[1]]);
+            this.props.onChange([newVal, value[1] ?? null]);
         } else {
-            this.props.onChange([value[0], newVal]);
+            this.props.onChange([value[0] ?? null, newVal]);
         }
     };
 
@@ -38,22 +45,28 @@ class RangeInput extends React.Component<any> {
         return (
             <div className="range-input">
                 <NumberInput
-                    {...this.props}
-                    value={value[0]}
-                    checkValidity={(val) => checkValidity([val, value[1]])}
+                    value={value[0] ?? null}
+                    checkValidity={(val) =>
+                        checkValidity([val, value[1] ?? null])
+                    }
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
                     allowPiTruncation={this.props.allowPiTruncation}
+                    format={this.props.format}
+                    useArrowKeys={this.props.useArrowKeys}
                 />
                 <NumberInput
-                    {...this.props}
-                    value={value[1]}
-                    checkValidity={(val) => checkValidity([value[0], val])}
+                    value={value[1] ?? null}
+                    checkValidity={(val) =>
+                        checkValidity([value[0] ?? null, val])
+                    }
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 1)}
                     placeholder={this.props.placeholder[1]}
                     allowPiTruncation={this.props.allowPiTruncation}
+                    format={this.props.format}
+                    useArrowKeys={this.props.useArrowKeys}
                 />
             </div>
         );

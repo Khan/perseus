@@ -1,12 +1,11 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {
     sorterLogic,
     type SorterDefaultWidgetOptions,
+    type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -15,19 +14,19 @@ const {InfoTip, TextListEditor} = components;
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = {
+    correct: ReadonlyArray<string>;
+    layout: "horizontal" | "vertical";
+    padding: boolean;
+    onChange: (partial: Partial<PerseusSorterWidgetOptions>) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a sorter widget that allows users to arrange items in a specific order.
+ * An editor for adding a sorter widget that allows users to arrange
+ * items in a specific order.
  */
 class SorterEditor extends React.Component<Props> {
-    static propTypes = {
-        correct: PropTypes.array,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "sorter" as const;
 
     static defaultProps: SorterDefaultWidgetOptions =
@@ -36,7 +35,9 @@ class SorterEditor extends React.Component<Props> {
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
     ) => {
-        this.props.onChange({layout: e.target.value});
+        this.props.onChange({
+            layout: e.target.value as PerseusSorterWidgetOptions["layout"],
+        });
     };
 
     serialize: (arg1: any) => void = () => {
@@ -63,8 +64,8 @@ class SorterEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.correct}
                     // eslint-disable-next-line react/jsx-no-bind
-                    onChange={function (options, cb) {
-                        editor.props.onChange({correct: options}, cb);
+                    onChange={function (options) {
+                        editor.props.onChange({correct: options});
                     }}
                     layout={this.props.layout}
                 />

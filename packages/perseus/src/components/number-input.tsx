@@ -1,7 +1,6 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,6 +12,27 @@ import type {MathFormat} from "@khanacademy/perseus-core";
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
+
+type Props = {
+    value: number | null;
+    format: MathFormat | null;
+    placeholder: number | string | null;
+    onChange: (value: number | null) => void;
+    onFormatChange: (value: number | null, format: MathFormat) => void;
+    checkValidity: (value: number) => boolean;
+    size?: "mini" | "small" | "normal";
+    allowPiTruncation?: boolean;
+    useArrowKeys: boolean;
+    onFocus?: () => void;
+    onBlur?: () => void;
+    onKeyDown?: (e: React.KeyboardEvent) => void;
+    className?: string;
+    disabled?: boolean;
+};
+
+type State = {
+    format: MathFormat | null | undefined;
+};
 
 /**
  * An input box that accepts only numeric strings
@@ -33,22 +53,10 @@ const getNumericFormat = KhanMath.getNumericFormat;
  *
  * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
  */
-class NumberInput extends React.Component<any, any> {
+class NumberInput extends React.Component<Props, State> {
     inputRef = React.createRef<HTMLInputElement>();
 
-    static propTypes = {
-        value: PropTypes.number,
-        format: PropTypes.string,
-        placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        onChange: PropTypes.func.isRequired,
-        onFormatChange: PropTypes.func,
-        checkValidity: PropTypes.func,
-        size: PropTypes.oneOf(["mini", "small", "normal"]),
-        label: PropTypes.oneOf(["put your labels outside your inputs!"]),
-        allowPiTruncation: PropTypes.bool,
-    };
-
-    static defaultProps: any = {
+    static defaultProps = {
         value: null,
         placeholder: null,
         format: null,
@@ -57,7 +65,7 @@ class NumberInput extends React.Component<any, any> {
         useArrowKeys: false,
     };
 
-    state: any = {
+    state: State = {
         format: this.props.format,
     };
 
@@ -73,8 +81,8 @@ class NumberInput extends React.Component<any, any> {
         }
     }
 
-    componentDidUpdate(prevProps: any) {
-        if (!knumber.equal(this.getValue(), this.props.value)) {
+    componentDidUpdate(prevProps: Props) {
+        if (!knumber.equal(this.getValue() ?? 0, this.props.value ?? 0)) {
             this._setValue(this.props.value, this.state.format);
         }
     }
@@ -93,7 +101,7 @@ class NumberInput extends React.Component<any, any> {
     /* Return the current "value" of this input
      * If empty, it returns the placeholder (if it is a number) or null
      */
-    getValue: () => any = () => {
+    getValue: () => number | null = () => {
         return this.parseInputValue(this._getInput().value);
     };
 
@@ -102,13 +110,18 @@ class NumberInput extends React.Component<any, any> {
         return this._getInput().toString();
     };
 
-    parseInputValue: (arg1: any) => any = (value) => {
+    parseInputValue: (value: string) => number | null = (value) => {
         if (value === "") {
             const placeholder = this.props.placeholder;
-            return _.isFinite(placeholder) ? +placeholder : null;
+            return typeof placeholder === "number" && _.isFinite(placeholder)
+                ? placeholder
+                : null;
         }
-        const result = firstNumericalParse(value);
-        return _.isFinite(result) ? result : this.props.value;
+        // firstNumericalParse returns a ParsedValue object, but at runtime
+        // _.isFinite coerces it; treat as number for downstream usage.
+        // eslint-disable-next-line no-restricted-syntax
+        const result = firstNumericalParse(value) as unknown as number | null;
+        return _.isFinite(result) ? result : this.props.value ?? null;
     };
 
     /* Set text input focus to this input */
@@ -137,15 +150,12 @@ class NumberInput extends React.Component<any, any> {
         return this._getInput().selectionEnd;
     };
 
-    _checkValidity: (arg1: any) => boolean = (value) => {
+    _checkValidity: (value: number | null) => boolean = (value) => {
         if (value == null) {
             return true;
         }
 
-        const val = firstNumericalParse(value);
-        const checkValidity = this.props.checkValidity;
-
-        return _.isFinite(val) && checkValidity(val);
+        return _.isFinite(value) && this.props.checkValidity(value);
     };
 
     _handleChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
@@ -194,8 +204,8 @@ class NumberInput extends React.Component<any, any> {
         }
 
         let val = this.getValue();
-        if (val !== Math.floor(val)) {
-            return; // bail if not an integer
+        if (val == null || val !== Math.floor(val)) {
+            return; // bail if null or not an integer
         }
 
         if (e.key === "ArrowUp") {
@@ -209,14 +219,17 @@ class NumberInput extends React.Component<any, any> {
         }
     };
 
-    _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
-        this._getInput().value = toNumericString(val, format);
+    _setValue: (
+        val: number | null | undefined,
+        format: MathFormat | null | undefined,
+    ) => void = (val, format) => {
+        this._getInput().value = toNumericString(val ?? 0, format ?? undefined);
     };
 
     render(): React.ReactNode {
         let classes = classNames({
             "number-input": true,
-            "invalid-input": !this._checkValidity(this.props.value),
+            "invalid-input": !this._checkValidity(this.props.value ?? null),
             mini: this.props.size === "mini",
             small: this.props.size === "small",
             normal: this.props.size === "normal",
@@ -225,17 +238,14 @@ class NumberInput extends React.Component<any, any> {
             classes = classes + " " + this.props.className;
         }
 
-        const {
-            onFormatChange: _,
-            checkValidity: __,
-            useArrowKeys: ___,
-            allowPiTruncation: ____,
-            ...restProps
-        } = this.props;
-
         return (
             <input
-                {...restProps}
+                placeholder={
+                    this.props.placeholder != null
+                        ? String(this.props.placeholder)
+                        : undefined
+                }
+                disabled={this.props.disabled}
                 className={classes}
                 type="text"
                 ref={this.inputRef}
@@ -246,8 +256,8 @@ class NumberInput extends React.Component<any, any> {
                 onKeyDown={this._onKeyDown}
                 onTouchStart={captureScratchpadTouchStart}
                 defaultValue={toNumericString(
-                    this.props.value,
-                    this.state.format,
+                    this.props.value ?? 0,
+                    this.state.format ?? undefined,
                 )}
                 value={undefined}
             />

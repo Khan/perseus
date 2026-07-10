@@ -3,13 +3,13 @@ import {number as knumber} from "@khanacademy/kmath";
 import {components, EditorJsonify} from "@khanacademy/perseus";
 import {
     numberLineLogic,
+    type MathFormat,
     type NumberLineDefaultWidgetOptions,
+    type PerseusNumberLineWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
-
-import type {Changeable} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, NumberInput, RangeInput} = components;
 
@@ -24,7 +24,7 @@ type Props = {
     range: number[];
 
     labelRange: ReadonlyArray<number>;
-    labelStyle: string;
+    labelStyle: MathFormat;
     labelTicks: boolean;
 
     divisionRange: ReadonlyArray<number>;
@@ -39,7 +39,8 @@ type Props = {
 
     static?: boolean;
     showTooltips: boolean;
-} & Changeable.ChangeableProps;
+    onChange: (partial: Partial<PerseusNumberLineWidgetOptions>) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -61,12 +62,16 @@ class NumberLineEditor extends React.Component<Props> {
         this.props.onChange({range: range});
     };
 
-    onLabelRangeChange: (arg1: number, arg2: number) => void = (i, num) => {
+    onLabelRangeChange: (arg1: number, arg2: number | null) => void = (
+        i,
+        num,
+    ) => {
         let labelRange = this.props.labelRange.slice();
         const otherNum = labelRange[1 - i];
 
         if (num == null || otherNum == null) {
-            labelRange[i] = num;
+            // eslint-disable-next-line no-restricted-syntax
+            labelRange[i] = num as number;
         } else {
             // If both labels have values, this updates the "appropriate" one.
             // It enforces that the position of the left label <= right label.
@@ -88,18 +93,21 @@ class NumberLineEditor extends React.Component<Props> {
 
     onNumChange: (
         arg1: "correctX" | "initialX" | "snapDivisions",
-        arg2: number,
+        arg2: number | null,
     ) => void = (key, value) => {
         const opts: Record<string, any> = {};
         opts[key] = value;
         this.props.onChange(opts);
     };
 
-    onNumDivisionsChange: (arg1: number) => void = (numDivisions) => {
+    onNumDivisionsChange: (arg1: number | null) => void = (numDivisions) => {
         const divRange = this.props.divisionRange.slice();
 
         // Don't allow a fraction for the number of divisions
-        numDivisions = _.isFinite(numDivisions) ? Math.round(numDivisions) : 0;
+        numDivisions =
+            numDivisions != null && _.isFinite(numDivisions)
+                ? Math.round(numDivisions)
+                : 0;
 
         // Don't allow negative numbers for the number of divisions
         numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
@@ -121,7 +129,7 @@ class NumberLineEditor extends React.Component<Props> {
         }
     };
 
-    onTickStepChange: (arg1: number) => void = (tickStep) => {
+    onTickStepChange: (arg1: number | null) => void = (tickStep) => {
         this.props.onChange({
             numDivisions: null,
             tickStep: tickStep,
@@ -131,14 +139,15 @@ class NumberLineEditor extends React.Component<Props> {
     onChangeRelation: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
     ) => {
-        const value = e.target.value;
+        const value = e.target
+            .value as PerseusNumberLineWidgetOptions["correctRel"];
         this.props.onChange({
             correctRel: value,
             isInequality: value !== "eq",
         });
     };
 
-    onLabelStyleChange: (arg1: any) => void = (labelStyle) => {
+    onLabelStyleChange: (labelStyle: MathFormat) => void = (labelStyle) => {
         this.props.onChange({
             labelStyle: labelStyle,
         });

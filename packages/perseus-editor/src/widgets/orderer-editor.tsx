@@ -1,11 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
-import {components} from "@khanacademy/perseus";
+import {components, Changeable} from "@khanacademy/perseus";
 import {
     ordererLogic,
     type OrdererDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -16,7 +14,12 @@ const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = {
+    correctOptions: Array<{content: string}>;
+    otherOptions: Array<{content: string}>;
+    height: string;
+    layout: "horizontal" | "vertical";
+} & Changeable.ChangeableProps;
 
 export const getUpdatedOptions = (
     correctOptions: Array<{content: string}>,
@@ -76,24 +79,15 @@ export const getUpdatedOptions = (
 };
 
 class OrdererEditor extends React.Component<Props> {
-    static propTypes = {
-        correctOptions: PropTypes.array,
-        otherOptions: PropTypes.array,
-        height: PropTypes.oneOf([NORMAL, AUTO]),
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onChange: PropTypes.func.isRequired,
-    };
-
     static widgetName = "orderer" as const;
 
     static defaultProps: OrdererDefaultWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 
-    onOptionsChange: (
-        arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
+    onOptionsChange(
+        whichOptions: "correctOptions" | "otherOptions",
+        options: string[],
+    ): void {
         const updatedOptions = getUpdatedOptions(
             this.props.correctOptions || [],
             this.props.otherOptions || [],
@@ -101,8 +95,8 @@ class OrdererEditor extends React.Component<Props> {
             options,
         );
 
-        this.props.onChange(updatedOptions, cb);
-    };
+        this.props.onChange(updatedOptions);
+    }
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
@@ -150,7 +144,10 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.correctOptions, "content")}
+                    options={_.pluck(
+                        this.props.correctOptions ?? [],
+                        "content",
+                    )}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "correctOptions")}
                     layout={this.props.layout}
@@ -164,7 +161,7 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.otherOptions, "content")}
+                    options={_.pluck(this.props.otherOptions ?? [], "content")}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "otherOptions")}
                     layout={this.props.layout}

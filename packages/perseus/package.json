@@ -86,7 +86,6 @@
         "classnames": "catalog:devDeps",
         "jquery": "catalog:devDeps",
         "perseus-build-settings": "workspace:*",
-        "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
@@ -122,7 +121,6 @@
         "aphrodite": "catalog:peerDeps",
         "classnames": "catalog:peerDeps",
         "jquery": "catalog:peerDeps",
-        "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",
         "react-popper": "^2.2.5",
@@ -130,6 +128,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "793079df3e67e001"
+        "catalogHash": "e85ed3ccfade3ca9"
     }
 }

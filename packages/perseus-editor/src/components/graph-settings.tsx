@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
+/* eslint-disable react/no-unsafe */
 /**
  * Used in the editors for the Grapher and Interaction widgets.
  */
@@ -466,11 +466,9 @@ class GraphSettings extends React.Component<Props, State> {
                 {_.contains(this.props.editableSettings, "canvas") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
-                            <label htmlFor="canvas-size">
-                                Canvas size (x,y pixels)
-                            </label>
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                            <label>Canvas size (x,y pixels)</label>
                             <RangeInput
-                                id="canvas-size"
                                 value={this.props.box}
                                 onChange={(box) => {
                                     this.props.onChange({box: box});
@@ -515,52 +513,70 @@ class GraphSettings extends React.Component<Props, State> {
 
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                <label htmlFor="range-x">x Range</label>
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                <label>x Range</label>
                                 <RangeInput
-                                    id="range-x"
                                     value={this.state.rangeTextbox[0]}
                                     onChange={(vals) =>
-                                        this.changeRange(0, vals)
+                                        this.changeRange(
+                                            0,
+                                            vals as [number, number], // eslint-disable-line no-restricted-syntax
+                                        )
                                     }
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                <label htmlFor="range-y">y Range</label>
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                <label>y Range</label>
                                 <RangeInput
-                                    id="range-y"
                                     value={this.state.rangeTextbox[1]}
                                     onChange={(vals) =>
-                                        this.changeRange(1, vals)
+                                        this.changeRange(
+                                            1,
+                                            vals as [number, number], // eslint-disable-line no-restricted-syntax
+                                        )
                                     }
                                 />
                             </div>
                         </div>
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                <label htmlFor="tick-step">Tick Step</label>
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                <label>Tick Step</label>
                                 <RangeInput
-                                    id="tick-step"
                                     value={this.state.stepTextbox}
-                                    onChange={this.changeStep}
+                                    onChange={(v) =>
+                                        this.changeStep([v[0] ?? 0, v[1] ?? 0])
+                                    }
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                <label htmlFor="grid-step">Grid Step</label>
+                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                <label>Grid Step</label>
                                 <RangeInput
-                                    id="grid-step"
                                     value={this.state.gridStepTextbox}
-                                    onChange={this.changeGridStep}
+                                    onChange={(v) =>
+                                        this.changeGridStep([
+                                            v[0] ?? 0,
+                                            v[1] ?? 0,
+                                        ])
+                                    }
                                 />
                             </div>
                         </div>
                         {_.contains(this.props.editableSettings, "snap") && (
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
-                                    <label htmlFor="snap-step">Snap Step</label>
+                                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                                    <label>Snap Step</label>
                                     <RangeInput
-                                        id="snap-step"
                                         value={this.state.snapStepTextbox}
-                                        onChange={this.changeSnapStep}
+                                        onChange={(v) =>
+                                            this.changeSnapStep([
+                                                v[0] ?? 0,
+                                                v[1] ?? 0,
+                                            ])
+                                        }
                                     />
                                 </div>
                             </div>
