@@ -1,6 +1,9 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
-import {themeModes} from "../../../../../../.storybook/modes";
+import {
+    themeModes,
+    viewportThemeModes,
+} from "../../../../../../.storybook/modes";
 import {
     mobileDecorator,
     rtlDecorator,
@@ -136,5 +139,6 @@ export const WidePlaceholderOnMobileScreen: Story = {
     globals: {viewport: {value: "small"}},
     parameters: {
         content: "The total number of boxes is [[☃ dropdown 1]] $60$.",
+        chromatic: {modes: viewportThemeModes("small")},
     },
 };
