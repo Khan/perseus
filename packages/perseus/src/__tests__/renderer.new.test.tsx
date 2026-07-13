@@ -154,8 +154,9 @@ describe("renderer", () => {
 
             // Act
             const {container} = renderQuestion({
-                ...question1,
                 content: "crwdns123:0crwdne123",
+                widgets: {},
+                images: {},
             });
 
             // Assert
@@ -176,8 +177,9 @@ describe("renderer", () => {
             // Act
             const {container} = renderQuestion(
                 {
-                    ...question1,
                     content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                    widgets: {},
+                    images: {},
                 },
                 {isArticle: true},
             );
@@ -1535,8 +1537,9 @@ describe("renderer", () => {
             });
 
             renderQuestion({
-                ...question1,
                 content: "crwdns123:0crwdne123",
+                widgets: {},
+                images: {},
             });
 
             expect(addComponent).toHaveBeenCalledWith(expect.any(RendererNew));
@@ -1556,8 +1559,9 @@ describe("renderer", () => {
             // Act
             const {container} = renderQuestion(
                 {
-                    ...question1,
                     content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
                 },
                 {isArticle: false},
             );
@@ -1580,8 +1584,9 @@ describe("renderer", () => {
             // Act
             const {container} = renderQuestion(
                 {
-                    ...question1,
                     content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                    widgets: {},
+                    images: {},
                 },
                 {isArticle: true},
             );
@@ -1603,8 +1608,9 @@ describe("renderer", () => {
             });
             const {container} = renderQuestion(
                 {
-                    ...question1,
                     content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
                 },
                 {isArticle: false},
             );
@@ -1635,8 +1641,9 @@ describe("renderer", () => {
             });
             const {container} = renderQuestion(
                 {
-                    ...question1,
                     content: "crwdns1:0crwdne1:0\n\ncrwdns2:0crwdne2:0",
+                    widgets: {},
+                    images: {},
                 },
                 {isArticle: true},
             );
