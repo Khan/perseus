@@ -340,40 +340,22 @@ export const OpenedAfterPreviouslySelected: Story = {
 
 /************* Article context **************/
 
-/**
- * Tests dropdown styling in article context with paragraph text and block math in choices.
- * This tests the CSS rules:
- * .perseus-article .perseus-dropdown .perseus-renderer .paragraph
- * .perseus-article .perseus-dropdown .perseus-renderer .perseus-block-math
- * which set margin-bottom: 0 and font-size: 18px
- *
- * Block math is math that appears on its own line (followed by two newlines).
- */
 export const OpenedDropdownInArticleWithParagraphs: Story = {
     decorators: [dropdownRendererDecorator],
     args: generateDropdownOptions({
-        placeholder: "Choose a definition",
+        placeholder: "Choose an answer",
         choices: [
-            {
-                content:
-                    "A **function** is a relation where each input has exactly one output.\n\n$f(x) = x^2$\n\nThis is an example of a function.",
-                correct: true,
-            },
-            {
-                content:
-                    "A **variable** is a symbol that represents a value.\n\n$y = 2x + 1$\n\nIn this equation, both $x$ and $y$ are variables.",
-                correct: false,
-            },
-            {
-                content:
-                    "An **equation** is a mathematical statement that two expressions are equal.\n\n$3x + 5 = 20$\n\nThis can be solved for $x$.",
-                correct: false,
-            },
+            {content: "First choice", correct: false},
+            {content: "Second choice", correct: true},
+            {content: "Third choice", correct: false},
         ],
     }),
     parameters: {
         content:
-            "Which definition is correct? Select from the dropdown: [[☃ dropdown 1]]",
+            "This is an article that has multiple paragraphs! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. [[☃ dropdown 1]] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
-    play: openDropdown,
+    play: async (ctx) => {
+        await selectChoice(ctx, 2);
+        await openDropdown(ctx);
+    },
 };
