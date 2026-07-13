@@ -44,6 +44,23 @@
     --movable-asymptote-dash-length-active: 8;
     --movable-asymptote-dash-gap-active: 12;
     overflow: visible !important;
+
+    /* Override Mafs' `touch-action: none` so the page can scroll vertically
+       over the graph (iOS 26.5+ started honoring `none` and trapped scrolling).
+       Dragging a shape is kept from scrolling the page by preventDefault in
+       use-draggable.ts, since Safari doesn't reliably honor `touch-action` on
+       the SVG draggable bodies; the per-element `touch-action: none` below is a
+       fast-path hint for browsers that do (e.g. Chrome). */
+    touch-action: pan-y;
+}
+
+/* Re-block touch scrolling on draggable bodies so vertical drags move the
+   shape instead of scrolling the page (honored by Chrome; Safari relies on the
+   preventDefault backstop in use-draggable.ts). */
+.MafsView .movable-line,
+.MafsView .movable-circle,
+.MafsView .movable-polygon {
+    touch-action: none;
 }
 
 .MafsView > svg {

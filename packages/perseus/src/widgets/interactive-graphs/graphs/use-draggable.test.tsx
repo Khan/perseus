@@ -17,6 +17,7 @@ function TestDraggable(props: {
     constrainKeyboardMovement?: KeyboardMovementConstraint;
     onDragStart?: () => unknown;
     onMove?: (point: vec.Vector2) => unknown;
+    claimOnPointerDown?: boolean;
 }) {
     const {onMove = () => {}, constrainKeyboardMovement = (p) => p} = props;
     const gestureTarget = useRef<HTMLButtonElement>(null);
@@ -26,6 +27,7 @@ function TestDraggable(props: {
         onMove,
         constrainKeyboardMovement,
         gestureTarget,
+        claimOnPointerDown: props.claimOnPointerDown,
     });
     return (
         <button ref={gestureTarget} tabIndex={0}>
@@ -330,7 +332,6 @@ describe("useDraggable", () => {
         // it (stopPropagation), or the page can't scroll over the graph. This
         // regressed on iOS 26.5+, where WebKit began honoring default/gesture
         // suppression during the pointer-down phase.
-        // See .claude/LEMS-4353-ios-26.5-interactive-graph-scroll-investigation.md
         const parentMouseDownSpy = jest.fn();
         // Arrange, Act
         render(
@@ -346,6 +347,45 @@ describe("useDraggable", () => {
         // Assert: the press reached the ancestor (propagation was not stopped)
         expect(parentMouseDownSpy).toHaveBeenCalled();
     });
+
+    it("prevents default scrolling once a drag actually moves", () => {
+        // Dragging a shape must not also scroll the page. Safari doesn't
+        // reliably honor `touch-action: none` on the SVG draggable bodies, so
+        // once a real drag starts we suppress the browser's default scroll in
+        // JS. This must NOT happen before there's movement (see the test
+        // above), or a plain swipe over the graph could no longer scroll.
+        // Arrange
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable point={[0, 0]} />
+            </Mafs>,
+        );
+        const element = screen.getByRole("button");
+        mouseDownAt(element, 0, 0);
+
+        // Act, Assert: a press with no movement should not prevent default
+        // (fireEvent returns false only when a handler called preventDefault)...
+        expect(moveMouseTo(element, 0, 0)).toBe(true);
+        // ...but a move that actually drags the shape should.
+        expect(moveMouseTo(element, 20, 20)).toBe(false);
+    });
+
+    it("does not claim a mouse press on pointer-down even with claimOnPointerDown", () => {
+        // claimOnPointerDown claims a *touch* the instant it lands, to beat
+        // iOS's first-frame scroll. Mouse input never scrolls the page, so it
+        // must stay movement-gated: claiming a mouse press on pointer-down
+        // would suppress native focus/selection for no benefit.
+        // Arrange
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable point={[0, 0]} claimOnPointerDown={true} />
+            </Mafs>,
+        );
+
+        // Act, Assert: the mouse press is not prevented (fireEvent returns false
+        // only when a handler called preventDefault).
+        expect(mouseDownAt(screen.getByRole("button"), 0, 0)).toBe(true);
+    });
 });
 
 function mouseDownAt(element: Element, clientX: number, clientY: number) {
@@ -353,7 +393,7 @@ function mouseDownAt(element: Element, clientX: number, clientY: number) {
     // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
     // I went with that approach.
     // eslint-disable-next-line testing-library/prefer-user-event
-    fireEvent.mouseDown(element, {
+    return fireEvent.mouseDown(element, {
         pointerId: 1,
         buttons: 1,
         clientX,
@@ -366,7 +406,7 @@ function moveMouseTo(element: Element, clientX: number, clientY: number) {
     // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
     // I went with that approach.
     // eslint-disable-next-line testing-library/prefer-user-event
-    fireEvent.mouseMove(element, {
+    return fireEvent.mouseMove(element, {
         pointerId: 1,
         buttons: 1,
         clientX,
