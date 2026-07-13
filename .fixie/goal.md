@@ -484,7 +484,7 @@ review and commit the changes.
 - [x] Migrate `deprecated-standin` to `WidgetPropsV2`.
 - [x] Migrate `free-response` to `WidgetPropsV2` (its `defaultProps` is
       `userInput`-only, so no option-field defaults to relocate).
-- [ ] Migrate `video` to `WidgetPropsV2`.
+- [x] Migrate `video` to `WidgetPropsV2`.
 - [ ] Migrate `image` to `WidgetPropsV2`.
 - [ ] Migrate `molecule` to `WidgetPropsV2`.
 - [ ] Migrate `measurer` to `WidgetPropsV2`.
