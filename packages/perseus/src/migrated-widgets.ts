@@ -17,4 +17,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "sorter",
     "definition",
     "explanation",
+    "deprecated-standin",
 ];
