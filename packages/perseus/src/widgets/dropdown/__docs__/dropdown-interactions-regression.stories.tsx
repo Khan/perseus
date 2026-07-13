@@ -252,7 +252,7 @@ export const OpenedTallMath: Story = {
     play: openDropdown,
 };
 
-export const OpenedWideListOnMobile: Story = {
+export const OpenedMobile: Story = {
     decorators: [dropdownRendererDecorator, mobileDecorator],
     args: generateDropdownOptions({
         placeholder: "Choose the best description",
@@ -281,7 +281,8 @@ export const OpenedWideListOnMobile: Story = {
 };
 
 /**
- * The open listbox with many choices on a short screen - shows a scroll bar.
+ * Confirms that the dropdown opens, and only the subset that fits on the
+ * screen is visible.
  */
 export const OpenedLongListOnShortScreen: Story = {
     decorators: [dropdownRendererDecorator],

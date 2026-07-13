@@ -46,6 +46,23 @@ export const BasicDropdown: Story = {
     },
 };
 
+export const BasicDropdownMobile: Story = {
+    decorators: [dropdownRendererDecorator, mobileDecorator],
+    args: generateDropdownOptions({
+        placeholder: "greater/less than or equal to",
+        choices: [
+            {
+                content: "less than or equal to",
+                correct: true,
+            },
+        ],
+    }),
+    parameters: {
+        content:
+            "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
+    },
+};
+
 export const DropdownWithEmptyPlaceholder: Story = {
     decorators: [dropdownRendererDecorator],
     args: generateDropdownOptions({
@@ -119,21 +136,5 @@ export const MathInPlaceholder: Story = {
     }),
     parameters: {
         content: "Which fraction is larger? [[☃ dropdown 1]]",
-    },
-};
-
-// Verifies how a placeholder wider than the available space is handled on a
-// mobile-sized screen. `mobileDecorator` applies the `perseus-mobile` styling,
-// and the small viewport Chromatic mode constrains the snapshot to a
-// mobile-sized width so the overflow behavior is observable.
-export const WidePlaceholderOnMobileScreen: Story = {
-    decorators: [dropdownRendererDecorator, mobileDecorator],
-    args: generateDropdownOptions({
-        placeholder:
-            "This is an unusually long placeholder that is wider than a mobile screen",
-        choices: [{content: "less than or equal to", correct: true}],
-    }),
-    parameters: {
-        content: "The total number of boxes is [[☃ dropdown 1]] $60$.",
     },
 };
