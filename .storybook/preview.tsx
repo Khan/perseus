@@ -88,10 +88,7 @@ const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     );
 };
 
-// Typed as a global type entry so the toolbar `icon` values are validated
-// against Storybook's `IconType` union instead of being widened to `string`
-// (which is not assignable to the expected type).
-const supportedThemes: NonNullable<Preview["globalTypes"]>[string] = {
+const supportedThemes = {
     description: "Global theme for components",
     toolbar: {
         // The label to show for this toolbar item
@@ -139,35 +136,6 @@ const preview: Preview = {
         // each of those files (unfortunately, this is how we have to do
         // it).
         chromatic: {disableSnapshot: true},
-
-        // Named viewports referenced by the Chromatic `modes` in
-        // `.storybook/modes.ts` (e.g. `{viewport: "small"}`). Chromatic resolves
-        // a mode's `viewport` string against these keys, so they must be defined
-        // here for the responsive modes to take effect.
-        viewport: {
-            options: {
-                small: {
-                    name: "Small",
-                    styles: {width: "320px", height: "568px"},
-                },
-                medium: {
-                    name: "Medium",
-                    styles: {width: "768px", height: "1024px"},
-                },
-                large: {
-                    name: "Large",
-                    styles: {width: "1024px", height: "768px"},
-                },
-                chromebook: {
-                    name: "Chromebook",
-                    styles: {width: "1366px", height: "768px"},
-                },
-                wide: {
-                    name: "Wide",
-                    styles: {width: "1700px", height: "900px"},
-                }
-            },
-        },
 
         options: {
             storySort: (story1, story2) =>
