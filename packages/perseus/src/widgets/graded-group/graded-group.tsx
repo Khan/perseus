@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: font.heading.size.small,
-        color: semanticColor.core.foreground.neutral.subtle,
+        color: semanticColor.core.foreground.neutral.default,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
