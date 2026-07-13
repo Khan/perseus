@@ -91,7 +91,7 @@ export function useControlPoint(params: Params): Return {
     const pointAriaLabel =
         ariaLabel ||
         strings.srPointAtCoordinates({
-            num: sequenceNumber,
+            pointLabel: `${sequenceNumber}`,
             x: srFormatNumber(point[X], locale),
             y: srFormatNumber(point[Y], locale),
         });

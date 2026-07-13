@@ -33,7 +33,7 @@ export function srLogarithmPointLabel(
     // in favor of plain point coordinates, matching logarithm.tsx.
     if (!state.hasCurve) {
         return strings.srPointAtCoordinates({
-            num: state.pointIndex + 1,
+            pointLabel: `${state.pointIndex + 1}`,
             x,
             y,
         });
@@ -103,11 +103,17 @@ export function describeLogarithmGraph(
         // phrasing in favor of plain point coordinates.
         srLogarithmPoint1:
             coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
+                ? strings.srPointAtCoordinates({
+                      pointLabel: "1",
+                      ...formattedPoint1,
+                  })
                 : strings.srLogarithmPoint1(formattedPoint1),
         srLogarithmPoint2:
             coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
+                ? strings.srPointAtCoordinates({
+                      pointLabel: "2",
+                      ...formattedPoint2,
+                  })
                 : strings.srLogarithmPoint2(formattedPoint2),
         srLogarithmInteractiveElements: strings.srInteractiveElements({
             elements: strings.srLogarithmInteractiveElements(descriptionArgs),

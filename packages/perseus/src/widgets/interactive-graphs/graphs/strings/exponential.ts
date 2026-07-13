@@ -33,7 +33,7 @@ export function srExponentialPointLabel(
     // in favor of plain point coordinates, matching exponential.tsx.
     if (!state.hasCurve) {
         return strings.srPointAtCoordinates({
-            num: state.pointIndex + 1,
+            pointLabel: `${state.pointIndex + 1}`,
             x,
             y,
         });
@@ -105,11 +105,17 @@ export function describeExponentialGraph(
         // phrasing in favor of plain point coordinates.
         srExponentialPoint1:
             coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
+                ? strings.srPointAtCoordinates({
+                      pointLabel: "1",
+                      ...formattedPoint1,
+                  })
                 : strings.srExponentialPoint1(formattedPoint1),
         srExponentialPoint2:
             coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
+                ? strings.srPointAtCoordinates({
+                      pointLabel: "2",
+                      ...formattedPoint2,
+                  })
                 : strings.srExponentialPoint2(formattedPoint2),
         srExponentialInteractiveElements: strings.srInteractiveElements({
             elements: strings.srExponentialInteractiveElements(descriptionArgs),

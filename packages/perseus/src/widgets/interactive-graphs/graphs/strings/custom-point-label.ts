@@ -23,7 +23,7 @@ export function withCustomPointLabel(
     const y = srFormatNumber(state.y, locale);
     const customLabel =
         typeof state.pointLabel === "string"
-            ? strings.srPointAtCoordinates({num: state.pointLabel, x, y})
+            ? strings.srPointAtCoordinates({pointLabel: state.pointLabel, x, y})
             : undefined;
     return {x, y, customLabel};
 }

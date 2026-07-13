@@ -9,12 +9,12 @@ import type {vec} from "mafs";
 export function resolvePointLabel(
     pointLabels: ReadonlyArray<string> | undefined,
     index: number,
-): string | number {
+): string {
     const customLabel = pointLabels?.[index];
     if (!customLabel) {
         // Convert from a 0-indexed array position to the 1-indexed sequence
         // number screen readers announce (index 0 → "Point 1", etc.).
-        return index + 1;
+        return `${index + 1}`;
     }
     return customLabel;
 }
