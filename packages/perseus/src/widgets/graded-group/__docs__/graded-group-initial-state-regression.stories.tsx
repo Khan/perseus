@@ -80,24 +80,19 @@ export const RightToLeft: Story = {
     args: sharedArgs,
 };
 
+// TeX lives in the graded group's own content (rendered through <Renderer>),
+// not inside a child widget — so this snapshot exercises graded-group TeX
+// rendering rather than some other widget's. The title is intentionally
+// plain: it's rendered as a bare string, not through <Renderer>, so it
+// doesn't handle TeX.
 const texArgs = {
     title: "Check your understanding!",
     content:
-        "Which of the following values of $x$ satisfies $\\sqrt{64}=x$?\n\n[[☃ radio 1]]\n\n",
-    widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
-                choices: [
-                    generateRadioChoice("$-8$"),
-                    generateRadioChoice("$8$", {correct: true}),
-                    generateRadioChoice("$64$"),
-                    generateRadioChoice("No value of $x$ works"),
-                ],
-            }),
-        }),
-    },
+        "The square root of a number $x$ is written $\\sqrt{x}$. " +
+        "For example, $\\sqrt{64} = 8$ because $8^2 = 64$.",
+    widgets: {},
     hint: {
-        content: "$\\sqrt{64} = 8$ because $8^2 = 64$.",
+        content: "Remember: $\\sqrt{64} = 8$.",
         images: {},
         widgets: {},
     },
