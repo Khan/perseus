@@ -1,6 +1,5 @@
 import {X, Y} from "../../math";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -18,16 +17,18 @@ export function srTangentPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the inflection/control-point semantics,
-    // matching the static aria-label behavior in tangent.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) is woven into the inflection/control-
+    // point description so we keep the tangent-specific semantics; the numeric
+    // default (sequence number) is omitted in favor of the point's role.
+    const pointLabel =
+        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+
     // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
     return state.pointIndex === 0
-        ? strings.srTangentInflectionPoint({x, y})
-        : strings.srTangentSecondPoint({x, y});
+        ? strings.srTangentInflectionPoint({pointLabel, x, y})
+        : strings.srTangentSecondPoint({pointLabel, x, y});
 }
 
 type TangentGraphDescriptionStrings = {

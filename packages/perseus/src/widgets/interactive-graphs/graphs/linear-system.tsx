@@ -97,7 +97,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             buildLabel(i * 2, line[0]) ??
                             strings.srLinearSystemPoint({
                                 lineNumber: i + 1,
-                                pointSequence: 1,
+                                pointLabel: "1",
                                 x: srFormatNumber(line[0][0], locale),
                                 y: srFormatNumber(line[0][1], locale),
                             }),
@@ -105,7 +105,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             buildLabel(i * 2 + 1, line[1]) ??
                             strings.srLinearSystemPoint({
                                 lineNumber: i + 1,
-                                pointSequence: 2,
+                                pointLabel: "2",
                                 x: srFormatNumber(line[1][0], locale),
                                 y: srFormatNumber(line[1][1], locale),
                             }),

@@ -2,7 +2,6 @@ import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -23,25 +22,21 @@ export function srLogarithmPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the point-1/point-2 semantics, matching
-    // the static aria-label behavior in logarithm.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) identifies the point in place of its
+    // sequence number, keeping the point-1/point-2 semantics; a numeric
+    // pointLabel falls back to the point's sequence number.
+    const customLabel =
+        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    const pointLabel = customLabel ?? `${state.pointIndex + 1}`;
+
     // When no curve is plotted, drop the "on a curve" phrasing
     // in favor of plain point coordinates, matching logarithm.tsx.
     if (!state.hasCurve) {
-        return strings.srPointAtCoordinates({
-            pointLabel: `${state.pointIndex + 1}`,
-            x,
-            y,
-        });
+        return strings.srPointAtCoordinates({pointLabel, x, y});
     }
-    // Coord layout in logarithm graphs: [point1(0), point2(1)].
-    return state.pointIndex === 0
-        ? strings.srLogarithmPoint1({x, y})
-        : strings.srLogarithmPoint2({x, y});
+    return strings.srLogarithmPoint({pointLabel, x, y});
 }
 
 type LogarithmGraphDescriptionStrings = {
@@ -107,14 +102,20 @@ export function describeLogarithmGraph(
                       pointLabel: "1",
                       ...formattedPoint1,
                   })
-                : strings.srLogarithmPoint1(formattedPoint1),
+                : strings.srLogarithmPoint({
+                      pointLabel: "1",
+                      ...formattedPoint1,
+                  }),
         srLogarithmPoint2:
             coeffs === undefined
                 ? strings.srPointAtCoordinates({
                       pointLabel: "2",
                       ...formattedPoint2,
                   })
-                : strings.srLogarithmPoint2(formattedPoint2),
+                : strings.srLogarithmPoint({
+                      pointLabel: "2",
+                      ...formattedPoint2,
+                  }),
         srLogarithmInteractiveElements: strings.srInteractiveElements({
             elements: strings.srLogarithmInteractiveElements(descriptionArgs),
         }),

@@ -94,7 +94,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             </ClipToGraphBounds>
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
-                    i + 1,
+                    `${i + 1}`,
                     coord,
                     strings,
                     locale,

@@ -1,6 +1,5 @@
 import {X, Y} from "../../math";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -19,21 +18,21 @@ export function srSegmentPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the endpoint semantics, matching
-    // the static aria-label behavior in segment.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) identifies the endpoint in place of its
+    // sequence number, keeping the endpoint/segment semantics; a numeric
+    // pointLabel falls back to the endpoint's sequence number.
+    const pointLabel =
+        typeof state.pointLabel === "string"
+            ? state.pointLabel
+            : `${state.pointIndex + 1}`;
+
     // Single- vs multi-segment graphs use different endpoint labels.
     return state.totalSegments === 1
-        ? strings.srSingleSegmentGraphEndpointAriaLabel({
-              endpointNumber: state.pointIndex + 1,
-              x,
-              y,
-          })
+        ? strings.srSingleSegmentGraphEndpointAriaLabel({pointLabel, x, y})
         : strings.srMultipleSegmentGraphEndpointAriaLabel({
-              endpointNumber: state.pointIndex + 1,
+              pointLabel,
               indexOfSegment: state.segmentIndex + 1,
               x,
               y,

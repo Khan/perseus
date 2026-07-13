@@ -91,7 +91,7 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
         index: number,
     ) {
         const segObj = {
-            endpointNumber: endpointNumber,
+            pointLabel: `${endpointNumber}`,
             x: srFormatNumber(x, locale),
             y: srFormatNumber(y, locale),
         };

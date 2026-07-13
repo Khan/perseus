@@ -1,4 +1,3 @@
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -15,17 +14,19 @@ export function srRayPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the endpoint/through-point semantics,
-    // matching the static aria-label behavior in ray.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) is woven into the endpoint/through-point
+    // description so we keep the ray-specific semantics; the numeric default
+    // (sequence number) is omitted in favor of the point's role.
+    const pointLabel =
+        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+
     // Index 0 is the ray's endpoint; index 1 is a point the ray passes
     // through. They use different labels.
     return state.pointIndex === 0
-        ? strings.srRayEndpoint({x, y})
-        : strings.srRayTerminalPoint({x, y});
+        ? strings.srRayEndpoint({pointLabel, x, y})
+        : strings.srRayTerminalPoint({pointLabel, x, y});
 }
 
 type RayGraphDescriptionStrings = {

@@ -1,6 +1,5 @@
 import {X, Y} from "../../math";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -18,13 +17,15 @@ export function srSinusoidPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the root/peak semantics, matching
-    // the static aria-label behavior in sinusoid.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
-    const formatted = {x, y};
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) is woven into the root/peak
+    // description so we keep the sinusoid-specific semantics; the numeric
+    // default (sequence number) is omitted in favor of the point's role.
+    const pointLabel =
+        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    const formatted = {pointLabel, x, y};
+
     // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
     // label depends on its y relative to the root's y.
     if (state.pointIndex === 0) {

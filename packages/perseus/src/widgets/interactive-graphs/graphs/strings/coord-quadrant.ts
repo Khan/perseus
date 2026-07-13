@@ -56,7 +56,7 @@ export function getQuadraticVertexString(
 }
 
 export function getQuadraticPointString(
-    pointNumber,
+    pointLabel: string,
     coord: Coord,
     strings: PerseusStrings,
     locale: string,
@@ -66,17 +66,17 @@ export function getQuadraticPointString(
 
     switch (location) {
         case "origin":
-            return strings.srQuadraticPointOrigin({pointNumber: pointNumber});
+            return strings.srQuadraticPointOrigin({pointLabel});
         case "x-axis":
         case "y-axis":
             return strings.srQuadraticPointAxis({
-                pointNumber: pointNumber,
+                pointLabel,
                 x: srFormatNumber(x, locale),
                 y: srFormatNumber(y, locale),
             });
         default:
             return strings.srQuadraticPointQuadrant({
-                pointNumber: pointNumber,
+                pointLabel,
                 quadrant: location,
                 x: srFormatNumber(x, locale),
                 y: srFormatNumber(y, locale),

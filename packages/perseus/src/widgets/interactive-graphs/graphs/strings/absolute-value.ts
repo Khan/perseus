@@ -1,7 +1,6 @@
 import {X, Y} from "../../math";
 import {getAbsoluteValueCoefficients} from "../utils";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -20,18 +19,19 @@ export function srAbsoluteValuePointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the vertex/arm semantics, matching
-    // the static aria-label behavior in absolute-value.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) is woven into the vertex/arm
+    // description so we keep the graph-specific semantics; the numeric default
+    // (sequence number) is omitted in favor of the point's role.
+    const pointLabel =
+        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
     if (state.pointIndex === 0) {
-        return strings.srAbsoluteValueVertexPoint({x, y});
+        return strings.srAbsoluteValueVertexPoint({pointLabel, x, y});
     }
-    const armLabel = strings.srAbsoluteValueSecondPoint({x, y});
+    const armLabel = strings.srAbsoluteValueSecondPoint({pointLabel, x, y});
     const slopeLabel = strings.srAbsoluteValueSlope({
         slope: srFormatNumber(state.slope, locale),
     });

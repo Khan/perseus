@@ -223,13 +223,31 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
-    srAngleStartingSide: ({x, y}: {x: string; y: string}) => string;
-    srAngleEndingSide: ({x, y}: {x: string; y: string}) => string;
+    srAngleStartingSide: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAngleEndingSide: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel: string;
+        x: string;
+        y: string;
+    }) => string;
     srAngleVertexWithAngleMeasure: ({
+        pointLabel,
         x,
         y,
         angleMeasure,
     }: {
+        pointLabel: string;
         x: string;
         y: string;
         angleMeasure: string;
@@ -299,21 +317,21 @@ export type PerseusStrings = {
     }) => string;
     srSegmentLength: ({length}: {length: string}) => string;
     srSingleSegmentGraphEndpointAriaLabel: ({
-        endpointNumber,
+        pointLabel,
         x,
         y,
     }: {
-        endpointNumber: number;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
     srMultipleSegmentGraphEndpointAriaLabel: ({
-        endpointNumber,
+        pointLabel,
         x,
         y,
         indexOfSegment,
     }: {
-        endpointNumber: number;
+        pointLabel: string;
         x: string;
         y: string;
         indexOfSegment: number;
@@ -345,12 +363,12 @@ export type PerseusStrings = {
     }) => string;
     srLinearSystemPoint({
         lineNumber,
-        pointSequence,
+        pointLabel,
         x,
         y,
     }: {
         lineNumber: number;
-        pointSequence: number;
+        pointLabel: string;
         x: string;
         y: string;
     }): string;
@@ -381,8 +399,24 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
-    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
-    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayEndpoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srRayTerminalPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
     srRayGrabHandle: ({
         point1X,
         point1Y,
@@ -441,23 +475,23 @@ export type PerseusStrings = {
     }) => string;
     srQuadraticOneXIntercept: ({intercept}: {intercept: string}) => string;
     srQuadraticYIntercept: ({intercept}: {intercept: string}) => string;
-    srQuadraticPointOrigin: ({pointNumber}: {pointNumber: number}) => string;
+    srQuadraticPointOrigin: ({pointLabel}: {pointLabel: string}) => string;
     srQuadraticPointAxis: ({
-        pointNumber,
+        pointLabel,
         x,
         y,
     }: {
-        pointNumber: number;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
     srQuadraticPointQuadrant: ({
-        pointNumber,
+        pointLabel,
         x,
         y,
         quadrant,
     }: {
-        pointNumber: number;
+        pointLabel: string;
         x: string;
         y: string;
         quadrant: number;
@@ -501,10 +535,42 @@ export type PerseusStrings = {
     }) => string;
     srUnlimitedPolygonEmpty: string;
     srSinusoidGraph: string;
-    srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
-    srSinusoidMaxPoint: ({x, y}: {x: string; y: string}) => string;
-    srSinusoidMinPoint: ({x, y}: {x: string; y: string}) => string;
-    srSinusoidFlatPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidRootPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srSinusoidMaxPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srSinusoidMinPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srSinusoidFlatPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
     srSinusoidDescription: ({
         minValue,
         maxValue,
@@ -528,8 +594,15 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     srExponentialGraph: string;
-    srExponentialPoint1: ({x, y}: {x: string; y: string}) => string;
-    srExponentialPoint2: ({x, y}: {x: string; y: string}) => string;
+    srExponentialPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel: string;
+        x: string;
+        y: string;
+    }) => string;
     // The flat tail's behavior. Both axes track sign(b), so only two
     // combinations occur: hugs the asymptote on the right while trailing to
     // negative infinity, or hugs it on the left while trailing to positive
@@ -601,8 +674,15 @@ export type PerseusStrings = {
     }) => string;
     srExponentialAsymptote: ({asymptoteY}: {asymptoteY: string}) => string;
     srLogarithmGraph: string;
-    srLogarithmPoint1: ({x, y}: {x: string; y: string}) => string;
-    srLogarithmPoint2: ({x, y}: {x: string; y: string}) => string;
+    srLogarithmPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel: string;
+        x: string;
+        y: string;
+    }) => string;
     srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
@@ -693,8 +773,24 @@ export type PerseusStrings = {
     }) => string;
     srLogarithmAsymptote: ({asymptoteX}: {asymptoteX: string}) => string;
     srAbsoluteValueGraph: string;
-    srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
-    srAbsoluteValueSecondPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueVertexPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srAbsoluteValueSecondPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
     srAbsoluteValueSlope: ({slope}: {slope: string}) => string;
     srAbsoluteValueOpensUp: string;
     srAbsoluteValueOpensDown: string;
@@ -723,8 +819,24 @@ export type PerseusStrings = {
         slope: string;
     }) => string;
     srTangentGraph: string;
-    srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
-    srTangentSecondPoint: ({x, y}: {x: string; y: string}) => string;
+    srTangentInflectionPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
+    srTangentSecondPoint: ({
+        pointLabel,
+        x,
+        y,
+    }: {
+        pointLabel?: string;
+        x: string;
+        y: string;
+    }) => string;
     srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,
@@ -1064,19 +1176,19 @@ export const strings = {
     },
     srAngleStartingSide: {
         context:
-            "Aria label for interactive Point 3 of the Angle in the interactive graph widget, explaining it's on the starting side of the Angle.",
-        message: "Point 3, starting side at %(x)s comma %(y)s.",
+            "Aria label for the interactive Point on the starting side of the Angle in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (default '3').",
+        message: "Point %(pointLabel)s, starting side at %(x)s comma %(y)s.",
     },
     srAngleEndingSide: {
         context:
-            "Aria label for interactive Point 2 of the Angle in the interactive graph widget, explaining it's on the ending side of the Angle.",
-        message: "Point 2, ending side at %(x)s comma %(y)s.",
+            "Aria label for the interactive Point on the ending side of the Angle in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (default '2').",
+        message: "Point %(pointLabel)s, ending side at %(x)s comma %(y)s.",
     },
     srAngleVertexWithAngleMeasure: {
         context:
-            "Aria label for interactive Point 1 of the Angle in the interactive graph widget, explaining it's the vertex of the Angle.",
+            "Aria label for the interactive Point at the vertex of the Angle in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (default '1').",
         message:
-            "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
+            "Point %(pointLabel)s, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
     },
     srAngleGraphAriaLabel: {
         context:
@@ -1124,14 +1236,14 @@ export const strings = {
     },
     srSingleSegmentGraphEndpointAriaLabel: {
         context:
-            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there is only one segment.",
-        message: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there is only one segment. %(pointLabel)s identifies the endpoint: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
+        message: "Endpoint %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srMultipleSegmentGraphEndpointAriaLabel: {
         context:
-            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there are multiple segments. Includes the count for the segment's order (e.g. 'Segment 1', 'Segment 2', etc.)",
+            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there are multiple segments. Includes the count for the segment's order (e.g. 'Segment 1', 'Segment 2', etc.) %(pointLabel)s identifies the endpoint: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
         message:
-            "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+            "Endpoint %(pointLabel)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
     },
     srSegmentGrabHandle: {
         context:
@@ -1152,9 +1264,9 @@ export const strings = {
     },
     srLinearSystemPoint: {
         context:
-            "Screen reader description for a point on a line in the Linear System in the interactive graph widget.",
+            "Screen reader description for a point on a line in the Linear System in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
         message:
-            "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+            "Point %(pointLabel)s on line %(lineNumber)s at %(x)s comma %(y)s.",
     },
     srLinearSystemGrabHandle: {
         context:
@@ -1191,13 +1303,13 @@ export const strings = {
     },
     srRayEndpoint: {
         context:
-            "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget.",
-        message: "Endpoint at %(x)s comma %(y)s.",
+            "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Endpoint %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srRayTerminalPoint: {
         context:
-            "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
-        message: "Through point at %(x)s comma %(y)s.",
+            "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Through point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srVectorGraph: {
         context:
@@ -1280,19 +1392,19 @@ export const strings = {
     },
     srQuadraticPointOrigin: {
         context:
-            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is at the origin.",
-        message: "Point %(pointNumber)s on parabola at the origin.",
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is at the origin. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
+        message: "Point %(pointLabel)s on parabola at the origin.",
     },
     srQuadraticPointAxis: {
         context:
-            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is on the X-axis or Y-axis.",
-        message: "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is on the X-axis or Y-axis. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
+        message: "Point %(pointLabel)s on parabola at %(x)s comma %(y)s.",
     },
     srQuadraticPointQuadrant: {
         context:
-            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is in a specific quadrant.",
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is in a specific quadrant. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
         message:
-            "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+            "Point %(pointLabel)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
     },
     srQuadraticInteractiveElements: {
         context:
@@ -1364,23 +1476,23 @@ export const strings = {
     },
     srSinusoidRootPoint: {
         context:
-            "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget.",
-        message: "Midline intersection at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Midline intersection %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidMaxPoint: {
         context:
-            "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget.",
-        message: "Maximum point at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Maximum point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidMinPoint: {
         context:
-            "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget.",
-        message: "Minimum point at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Minimum point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidFlatPoint: {
         context:
-            "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0.",
-        message: "Line through point at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Line through point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidDescription: {
         context:
@@ -1399,15 +1511,11 @@ export const strings = {
             "Aria label for the container containing an Exponential function in the interactive graph widget.",
         message: "An exponential curve on a coordinate plane.",
     },
-    srExponentialPoint1: {
+    srExponentialPoint: {
         context:
-            "Aria label for the first Point on the Exponential function in the interactive graph widget.",
-        message: "Point 1 on an exponential curve at %(x)s comma %(y)s.",
-    },
-    srExponentialPoint2: {
-        context:
-            "Aria label for the second Point on the Exponential function in the interactive graph widget.",
-        message: "Point 2 on an exponential curve at %(x)s comma %(y)s.",
+            "Aria label for a Point on the Exponential function in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
+        message:
+            "Point %(pointLabel)s on an exponential curve at %(x)s comma %(y)s.",
     },
     srExponentialDescriptionRightNeg: {
         context:
@@ -1464,15 +1572,11 @@ export const strings = {
             "Aria label for the container containing a Logarithm function in the interactive graph widget.",
         message: "A logarithmic curve on a coordinate plane.",
     },
-    srLogarithmPoint1: {
+    srLogarithmPoint: {
         context:
-            "Aria label for the first Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 1 on a logarithmic curve at %(x)s comma %(y)s.",
-    },
-    srLogarithmPoint2: {
-        context:
-            "Aria label for the second Point on the Logarithm function in the interactive graph widget.",
-        message: "Point 2 on a logarithmic curve at %(x)s comma %(y)s.",
+            "Aria label for a Point on the Logarithm function in the interactive graph widget. %(pointLabel)s identifies the point: an author-provided custom label (e.g. 'A') when set, otherwise its sequence number (e.g. '1').",
+        message:
+            "Point %(pointLabel)s on a logarithmic curve at %(x)s comma %(y)s.",
     },
     srLogarithmDescriptionRightNeg: {
         context:
@@ -1543,13 +1647,13 @@ export const strings = {
     },
     srAbsoluteValueVertexPoint: {
         context:
-            "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget.",
-        message: "Vertex point at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'V') and is empty when no custom label is set.",
+        message: "Vertex point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srAbsoluteValueSecondPoint: {
         context:
-            "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget.",
-        message: "Point on arm at %(x)s comma %(y)s.",
+            "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'V') and is empty when no custom label is set.",
+        message: "Point on arm %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srAbsoluteValueSlope: {
         context:
@@ -1605,13 +1709,13 @@ export const strings = {
     },
     srTangentInflectionPoint: {
         context:
-            "Aria label for the Point defining the inflection point of the Tangent function in the interactive graph widget.",
-        message: "Inflection point at %(x)s comma %(y)s.",
+            "Aria label for the Point defining the inflection point of the Tangent function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Inflection point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srTangentSecondPoint: {
         context:
-            "Aria label for the second control point of the Tangent function in the interactive graph widget.",
-        message: "Control point at %(x)s comma %(y)s.",
+            "Aria label for the second control point of the Tangent function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'A') and is empty when no custom label is set.",
+        message: "Control point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srTangentDescriptionPoints: {
         context:
@@ -1861,11 +1965,12 @@ export const mockStrings: PerseusStrings = {
         "The line crosses the X and Y axes at the graph's origin.",
     srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Line going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
-    srAngleStartingSide: ({x, y}) =>
-        `Point 3, starting side at ${x} comma ${y}.`,
-    srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
-    srAngleVertexWithAngleMeasure: ({x, y, angleMeasure}) =>
-        `Point 1, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
+    srAngleStartingSide: ({pointLabel, x, y}) =>
+        `Point ${pointLabel}, starting side at ${x} comma ${y}.`,
+    srAngleEndingSide: ({pointLabel, x, y}) =>
+        `Point ${pointLabel}, ending side at ${x} comma ${y}.`,
+    srAngleVertexWithAngleMeasure: ({pointLabel, x, y, angleMeasure}) =>
+        `Point ${pointLabel}, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
     srAngleGraphAriaDescription: ({
         angleMeasure,
@@ -1900,22 +2005,22 @@ export const mockStrings: PerseusStrings = {
     srSingleSegmentLabel: ({point1X, point1Y, point2X, point2Y}) =>
         `Endpoint 1 at ${point1X} comma ${point1Y}. Endpoint 2 at ${point2X} comma ${point2Y}.`,
     srSegmentLength: ({length}) => `Segment length ${length} units.`,
-    srSingleSegmentGraphEndpointAriaLabel: ({endpointNumber, x, y}) =>
-        `Endpoint ${endpointNumber} at ${x} comma ${y}.`,
+    srSingleSegmentGraphEndpointAriaLabel: ({pointLabel, x, y}) =>
+        `Endpoint ${pointLabel} at ${x} comma ${y}.`,
     srMultipleSegmentGraphEndpointAriaLabel: ({
-        endpointNumber,
+        pointLabel,
         x,
         y,
         indexOfSegment,
     }) =>
-        `Endpoint ${endpointNumber} on segment ${indexOfSegment} at ${x} comma ${y}.`,
+        `Endpoint ${pointLabel} on segment ${indexOfSegment} at ${x} comma ${y}.`,
     srSegmentGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Segment from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
     srLinearSystemGraph: "Two lines on a coordinate plane.",
     srLinearSystemPoints: ({lineNumber, point1X, point1Y, point2X, point2Y}) =>
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
-    srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
-        `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srLinearSystemPoint: ({lineNumber, pointLabel, x, y}) =>
+        `Point ${pointLabel} on line ${lineNumber} at ${x} comma ${y}.`,
     srLinearSystemGrabHandle: ({
         lineNumber,
         point1X,
@@ -1932,8 +2037,14 @@ export const mockStrings: PerseusStrings = {
         `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
     srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
-    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
-    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srRayEndpoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Endpoint ${pointLabel} at ${x} comma ${y}.`
+            : `Endpoint at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Through point ${pointLabel} at ${x} comma ${y}.`
+            : `Through point at ${x} comma ${y}.`,
     srVectorGraph: "A vector on a coordinate plane.",
     srVectorPoints: ({tailX, tailY, headX, headY}) =>
         `The tail is at ${tailX} comma ${tailY} and the head is at ${headX} comma ${headY}.`,
@@ -1956,12 +2067,12 @@ export const mockStrings: PerseusStrings = {
         `The X-intercept is at ${intercept} comma 0.`,
     srQuadraticYIntercept: ({intercept}) =>
         `The Y-intercept is at 0 comma ${intercept}.`,
-    srQuadraticPointOrigin: ({pointNumber}) =>
-        `Point ${pointNumber} on parabola at the origin.`,
-    srQuadraticPointAxis: ({pointNumber, x, y}) =>
-        `Point ${pointNumber} on parabola at ${x} comma ${y}.`,
-    srQuadraticPointQuadrant: ({pointNumber, x, y, quadrant}) =>
-        `Point ${pointNumber} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
+    srQuadraticPointOrigin: ({pointLabel}) =>
+        `Point ${pointLabel} on parabola at the origin.`,
+    srQuadraticPointAxis: ({pointLabel, x, y}) =>
+        `Point ${pointLabel} on parabola at ${x} comma ${y}.`,
+    srQuadraticPointQuadrant: ({pointLabel, x, y, quadrant}) =>
+        `Point ${pointLabel} on parabola in quadrant ${quadrant} at ${x} comma ${y}.`,
     srQuadraticInteractiveElements: ({
         point1X,
         point1Y,
@@ -1986,19 +2097,29 @@ export const mockStrings: PerseusStrings = {
         `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
-    srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
-    srSinusoidMaxPoint: ({x, y}) => `Maximum point at ${x} comma ${y}.`,
-    srSinusoidMinPoint: ({x, y}) => `Minimum point at ${x} comma ${y}.`,
-    srSinusoidFlatPoint: ({x, y}) => `Line through point at ${x} comma ${y}.`,
+    srSinusoidRootPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Midline intersection ${pointLabel} at ${x} comma ${y}.`
+            : `Midline intersection at ${x} comma ${y}.`,
+    srSinusoidMaxPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Maximum point ${pointLabel} at ${x} comma ${y}.`
+            : `Maximum point at ${x} comma ${y}.`,
+    srSinusoidMinPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Minimum point ${pointLabel} at ${x} comma ${y}.`
+            : `Minimum point at ${x} comma ${y}.`,
+    srSinusoidFlatPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Line through point ${pointLabel} at ${x} comma ${y}.`
+            : `Line through point at ${x} comma ${y}.`,
     srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     srExponentialGraph: "An exponential curve on a coordinate plane.",
-    srExponentialPoint1: ({x, y}) =>
-        `Point 1 on an exponential curve at ${x} comma ${y}.`,
-    srExponentialPoint2: ({x, y}) =>
-        `Point 2 on an exponential curve at ${x} comma ${y}.`,
+    srExponentialPoint: ({pointLabel, x, y}) =>
+        `Point ${pointLabel} on an exponential curve at ${x} comma ${y}.`,
     srExponentialDescriptionRightNeg: ({
         point1X,
         point1Y,
@@ -2034,10 +2155,8 @@ export const mockStrings: PerseusStrings = {
     srExponentialAsymptote: ({asymptoteY}) =>
         `Horizontal asymptote at y equals ${asymptoteY}`,
     srLogarithmGraph: "A logarithmic curve on a coordinate plane.",
-    srLogarithmPoint1: ({x, y}) =>
-        `Point 1 on a logarithmic curve at ${x} comma ${y}.`,
-    srLogarithmPoint2: ({x, y}) =>
-        `Point 2 on a logarithmic curve at ${x} comma ${y}.`,
+    srLogarithmPoint: ({pointLabel, x, y}) =>
+        `Point ${pointLabel} on a logarithmic curve at ${x} comma ${y}.`,
     srLogarithmDescriptionRightNeg: ({
         point1X,
         point1Y,
@@ -2090,8 +2209,14 @@ export const mockStrings: PerseusStrings = {
     srLogarithmAsymptote: ({asymptoteX}) =>
         `Vertical asymptote at x equals ${asymptoteX}.`,
     srAbsoluteValueGraph: "An absolute value on a coordinate plane.",
-    srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
-    srAbsoluteValueSecondPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
+    srAbsoluteValueVertexPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Vertex point ${pointLabel} at ${x} comma ${y}.`
+            : `Vertex point at ${x} comma ${y}.`,
+    srAbsoluteValueSecondPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Point on arm ${pointLabel} at ${x} comma ${y}.`
+            : `Point on arm at ${x} comma ${y}.`,
     srAbsoluteValueSlope: ({slope}) => `The slope is ${slope}.`,
     srAbsoluteValueOpensUp: "The graph opens upward.",
     srAbsoluteValueOpensDown: "The graph opens downward.",
@@ -2112,9 +2237,14 @@ export const mockStrings: PerseusStrings = {
     }) =>
         `Absolute value graph with vertex point at ${point1X} comma ${point1Y}, arm point at ${point2X} comma ${point2Y} and slope of ${slope}.`,
     srTangentGraph: "A tangent curve on a coordinate plane.",
-    srTangentInflectionPoint: ({x, y}) =>
-        `Inflection point at ${x} comma ${y}.`,
-    srTangentSecondPoint: ({x, y}) => `Control point at ${x} comma ${y}.`,
+    srTangentInflectionPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Inflection point ${pointLabel} at ${x} comma ${y}.`
+            : `Inflection point at ${x} comma ${y}.`,
+    srTangentSecondPoint: ({pointLabel, x, y}) =>
+        pointLabel
+            ? `Control point ${pointLabel} at ${x} comma ${y}.`
+            : `Control point at ${x} comma ${y}.`,
     srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,

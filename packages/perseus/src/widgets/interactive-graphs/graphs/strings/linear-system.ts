@@ -1,4 +1,3 @@
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -16,15 +15,19 @@ export function srLinearSystemPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the line/point semantics, matching
-    // the static aria-label behavior in linear-system.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label (a string) identifies the point in place of its
+    // sequence number, keeping the line/point semantics; a numeric pointLabel
+    // falls back to the point's sequence number.
+    const pointLabel =
+        typeof state.pointLabel === "string"
+            ? state.pointLabel
+            : `${state.pointIndex + 1}`;
+
     return strings.srLinearSystemPoint({
         lineNumber: state.lineIndex + 1,
-        pointSequence: state.pointIndex + 1,
+        pointLabel,
         x,
         y,
     });
