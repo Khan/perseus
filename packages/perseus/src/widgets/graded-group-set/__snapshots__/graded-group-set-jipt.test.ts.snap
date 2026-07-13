@@ -30,7 +30,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_ryhlxm"
+                class="title_2impyw"
               >
                 Problem 1a
               </div>
@@ -121,7 +121,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_ryhlxm"
+                class="title_2impyw"
               >
                 Problem 1b
               </div>
@@ -212,7 +212,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               class="perseus-graded-group"
             >
               <div
-                class="title_ryhlxm"
+                class="title_2impyw"
               >
                 Problem 1c
               </div>
