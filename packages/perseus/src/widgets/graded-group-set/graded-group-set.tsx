@@ -27,7 +27,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-export type IndicatorsProps = {
+type IndicatorsProps = {
     currentGroup: number;
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
     onChangeCurrentGroup: (groupNumber: number) => void;
