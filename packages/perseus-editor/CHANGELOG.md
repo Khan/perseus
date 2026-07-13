@@ -1,5 +1,34 @@
 # @khanacademy/perseus-editor
 
+## 35.0.0
+
+### Major Changes
+
+-   [#3581](https://github.com/Khan/perseus/pull/3581) [`73a2d90`](https://github.com/Khan/perseus/commit/73a2d90b6066c19a369cdb16e8cedce9a1c0455e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Perseus to use the new preview system (`PreviewWithIframe` and
+    `usePreviewController`).
+
+-   [#3581](https://github.com/Khan/perseus/pull/3581) [`73a2d90`](https://github.com/Khan/perseus/commit/73a2d90b6066c19a369cdb16e8cedce9a1c0455e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Replace deprecated `Changeable.ChangeableProps` / `ChangeHandler` with concrete typed `onChange` signatures on `Editor` and `ArticleEditor`.
+
+-   [#3590](https://github.com/Khan/perseus/pull/3590) [`283cafe`](https://github.com/Khan/perseus/commit/283cafeb3aed30f4841e41cbfbc9c16fb5c14313) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rework the preview message data shapes exposed by `usePreviewController`/`usePreviewPresenter` with clearer field names and a serializable `apiOptions` type.
+
+### Minor Changes
+
+-   [#3762](https://github.com/Khan/perseus/pull/3762) [`f4e74dc`](https://github.com/Khan/perseus/commit/f4e74dc65a40de4c07f0c2ee0f933fdb9a891aab) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add an `"exercise"` variant to the typed preview protocol (`ExercisePreviewData`: `{item, apiOptions, showRationales}`) so the interactive exercise preview can move onto the new hook-based message passing. Purely additive — the existing content variants and hooks are unchanged.
+
+-   [#3764](https://github.com/Khan/perseus/pull/3764) [`5e9ada9`](https://github.com/Khan/perseus/commit/5e9ada90eec96a1565ff160f2e7afe6c29de1c20) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export PreviewContent type and PreviewWithIframe component
+
+-   [#3764](https://github.com/Khan/perseus/pull/3764) [`5e9ada9`](https://github.com/Khan/perseus/commit/5e9ada90eec96a1565ff160f2e7afe6c29de1c20) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export `PreviewContent` and `PreviewWithIframe` from `@khanacademy/perseus-editor` so the Frontend can drive the typed preview protocol. Purely additive — both symbols already existed internally; this only adds them to the package's public entry point.
+
+### Patch Changes
+
+-   [#3892](https://github.com/Khan/perseus/pull/3892) [`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sync deps from Frontend
+
+-   [#3851](https://github.com/Khan/perseus/pull/3851) [`8f74bfb`](https://github.com/Khan/perseus/commit/8f74bfb58c4545da1562bf6e827cae9a85f0da3d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove apiOptions from defaultProps in ExpressionEditor, NumericInputEditor, and FreeResponseEditor. Its provided by the widget editor wrapper always.
+
+-   Updated dependencies [[`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e)]:
+    -   @khanacademy/math-input@26.6.1
+    -   @khanacademy/perseus@80.0.1
+
 ## 34.2.1
 
 ### Patch Changes
