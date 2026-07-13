@@ -9,6 +9,7 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -17,7 +18,7 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
@@ -471,7 +472,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 // This is okay because the graph has its own aria-label.
                 aria-hidden={true}
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}

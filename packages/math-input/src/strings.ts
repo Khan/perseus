@@ -35,6 +35,7 @@ export type MathInputStrings = {
     fractionExpressionInNumerator: string;
     fractionExcludingExpression: string;
     customExponent: string;
+    subscript: string;
     square: string;
     cube: string;
     squareRoot: string;
@@ -154,6 +155,11 @@ export const strings: {
         context:
             "A label for a button that will allow the user to input a custom exponent.",
         message: "Custom exponent",
+    },
+    subscript: {
+        context:
+            "A label for a button that will allow the user to input a subscript.",
+        message: "Subscript",
     },
     square: {
         context:
@@ -302,6 +308,7 @@ export const mockStrings: MathInputStrings = {
         "Fraction, with current expression in numerator",
     fractionExcludingExpression: "Fraction, excluding the current expression",
     customExponent: "Custom exponent",
+    subscript: "Subscript",
     square: "Square",
     cube: "Cube",
     squareRoot: "Square root",

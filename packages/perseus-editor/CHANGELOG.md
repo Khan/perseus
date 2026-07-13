@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 34.2.1
+
+### Patch Changes
+
+-   [#3870](https://github.com/Khan/perseus/pull/3870) [`15bdd71`](https://github.com/Khan/perseus/commit/15bdd71343c97f393cd27877e2970a0dbaf203e7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix thin border around the interactive graph
+
+-   [#3827](https://github.com/Khan/perseus/pull/3827) [`4ca460f`](https://github.com/Khan/perseus/commit/4ca460f192d7324419aa3876480198517c88d7ea) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Moves issues panel out of item editor into editor
+
+-   Updated dependencies [[`45fbde7`](https://github.com/Khan/perseus/commit/45fbde7323b775e63d32cda12c9c4dfac32c36d1), [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61), [`cbd7ea7`](https://github.com/Khan/perseus/commit/cbd7ea77f72cab10334190e8032f1a011bc0710e), [`86593cf`](https://github.com/Khan/perseus/commit/86593cf72f137c53011f40024cf48d27e76ce6ef), [`387df6c`](https://github.com/Khan/perseus/commit/387df6cc29442ea3dbd7911df66cb4ae9ea011be), [`15bdd71`](https://github.com/Khan/perseus/commit/15bdd71343c97f393cd27877e2970a0dbaf203e7), [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13), [`024ef46`](https://github.com/Khan/perseus/commit/024ef46592113b75311545f48574b7a2a927fc52)]:
+    -   @khanacademy/perseus@80.0.0
+    -   @khanacademy/perseus-core@31.0.0
+    -   @khanacademy/math-input@26.6.0
+    -   @khanacademy/keypad-context@3.2.73
+    -   @khanacademy/kmath@2.4.32
+    -   @khanacademy/perseus-linter@5.1.13
+
 ## 34.2.0
 
 ### Minor Changes
