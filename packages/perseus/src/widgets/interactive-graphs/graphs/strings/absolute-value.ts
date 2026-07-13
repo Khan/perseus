@@ -31,7 +31,7 @@ export function srAbsoluteValuePointLabel(
     if (state.pointIndex === 0) {
         return strings.srAbsoluteValueVertexPoint({pointLabel, x, y});
     }
-    const armLabel = strings.srAbsoluteValueSecondPoint({pointLabel, x, y});
+    const armLabel = strings.srAbsoluteValueArmPoint({pointLabel, x, y});
     const slopeLabel = strings.srAbsoluteValueSlope({
         slope: srFormatNumber(state.slope, locale),
     });
@@ -41,7 +41,7 @@ export function srAbsoluteValuePointLabel(
 type AbsoluteValueGraphDescriptionStrings = {
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: string;
-    srAbsoluteValueSecondPoint: string;
+    srAbsoluteValueArmPoint: string;
     srAbsoluteValueDescription: string;
     srAbsoluteValueSlope: string;
 };
@@ -61,7 +61,7 @@ export function describeAbsoluteValueGraph(
         x: srFormatNumber(vertex[X], locale),
         y: srFormatNumber(vertex[Y], locale),
     });
-    const srAbsoluteValueSecondPoint = strings.srAbsoluteValueSecondPoint({
+    const srAbsoluteValueArmPoint = strings.srAbsoluteValueArmPoint({
         x: srFormatNumber(armPoint[X], locale),
         y: srFormatNumber(armPoint[Y], locale),
     });
@@ -77,7 +77,7 @@ export function describeAbsoluteValueGraph(
     return {
         srAbsoluteValueGraph,
         srAbsoluteValueVertexPoint,
-        srAbsoluteValueSecondPoint,
+        srAbsoluteValueArmPoint,
         srAbsoluteValueDescription,
         srAbsoluteValueSlope,
     };

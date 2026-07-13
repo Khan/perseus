@@ -70,7 +70,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     const {
         srAbsoluteValueGraph,
         srAbsoluteValueVertexPoint,
-        srAbsoluteValueSecondPoint,
+        srAbsoluteValueArmPoint,
         srAbsoluteValueDescription: srDescription,
         srAbsoluteValueSlope,
     } = describeAbsoluteValueGraph(graphState, i18n);
@@ -93,7 +93,7 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
                         buildLabel(i, coord) ??
                         (i === 0
                             ? srAbsoluteValueVertexPoint
-                            : srAbsoluteValueSecondPoint)
+                            : srAbsoluteValueArmPoint)
                     }
                     // The arm point (index 1) determines the slope, so it
                     // carries the slope description; the vertex (index 0)

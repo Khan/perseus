@@ -782,7 +782,7 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }) => string;
-    srAbsoluteValueSecondPoint: ({
+    srAbsoluteValueArmPoint: ({
         pointLabel,
         x,
         y,
@@ -1650,7 +1650,7 @@ export const strings = {
             "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'V') and is empty when no custom label is set.",
         message: "Vertex point %(pointLabel)s at %(x)s comma %(y)s.",
     },
-    srAbsoluteValueSecondPoint: {
+    srAbsoluteValueArmPoint: {
         context:
             "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an optional author-provided point label (e.g. 'V') and is empty when no custom label is set.",
         message: "Point on arm %(pointLabel)s at %(x)s comma %(y)s.",
@@ -2213,7 +2213,7 @@ export const mockStrings: PerseusStrings = {
         pointLabel
             ? `Vertex point ${pointLabel} at ${x} comma ${y}.`
             : `Vertex point at ${x} comma ${y}.`,
-    srAbsoluteValueSecondPoint: ({pointLabel, x, y}) =>
+    srAbsoluteValueArmPoint: ({pointLabel, x, y}) =>
         pointLabel
             ? `Point on arm ${pointLabel} at ${x} comma ${y}.`
             : `Point on arm at ${x} comma ${y}.`,
