@@ -1,6 +1,5 @@
 ---
-"@khanacademy/perseus-editor": patch
 "@khanacademy/perseus": patch
 ---
 
-Convert graded group related fonts and colors to use tokens
+Convert the `graded-group`, `graded-group-answer-bar`, and `graded-group-set` widgets to use Wonder Blocks semantic color and typography tokens. These widgets now follow the active theme (including dark mode).
