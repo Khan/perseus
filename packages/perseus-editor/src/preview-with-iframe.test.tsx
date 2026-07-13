@@ -19,10 +19,10 @@ jest.mock("./preview/use-preview-controller", () => ({
 
 function buildArticleContent(): PreviewContent {
     return {
-        type: "article",
+        type: "article-section",
         data: {
             apiOptions: ApiOptions.defaults,
-            json: {content: "Hello", widgets: {}, images: {}},
+            article: {content: "Hello", widgets: {}, images: {}},
             linterContext: {
                 contentType: "article",
                 highlightLint: false,
@@ -34,6 +34,20 @@ function buildArticleContent(): PreviewContent {
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
         mockHeight = null;
+        mockSendData.mockClear();
+    });
+
+    it("does not call sendData when content is null", () => {
+        render(
+            <PreviewWithIframe
+                url="/preview"
+                isMobile={false}
+                seamless={false}
+                content={null}
+            />,
+        );
+
+        expect(mockSendData).not.toHaveBeenCalled();
     });
 
     it("renders an iframe with the given URL", () => {
@@ -89,13 +103,8 @@ describe("PreviewWithIframe", () => {
         const data: PreviewContent = {
             type: "question",
             data: {
-                item: {
-                    question: {content: "Q", widgets: {}, images: {}},
-                    hints: [],
-                },
+                question: {content: "Q", widgets: {}, images: {}},
                 apiOptions: {},
-                device: "desktop",
-                initialHintsVisible: 0,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -116,16 +125,11 @@ describe("PreviewWithIframe", () => {
     });
 
     it("sends content using usePreviewController's sendData", () => {
-        const content: PreviewContent = {
+        const content: Extract<PreviewContent, {type: "question"}> = {
             type: "question",
             data: {
-                item: {
-                    question: {content: "Q", widgets: {}, images: {}},
-                    hints: [],
-                },
+                question: {content: "Q", widgets: {}, images: {}},
                 apiOptions: {},
-                device: "desktop",
-                initialHintsVisible: 0,
                 linterContext: {
                     contentType: "exercise",
                     highlightLint: false,
@@ -143,7 +147,7 @@ describe("PreviewWithIframe", () => {
         );
 
         const modifiedContent = clone(content);
-        modifiedContent.data.item.question.content = "Abc";
+        modifiedContent.data.question.content = "Abc";
 
         // Act
         rerender(

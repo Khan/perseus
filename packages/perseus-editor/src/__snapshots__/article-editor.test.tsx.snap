@@ -15620,18 +15620,13 @@ table: [[☃ table 1]]
             style="width: 726px;"
           >
             <div>
-              <div
+              <iframe
+                data-lint-gutter="true"
+                data-mobile="false"
+                src="https://www.example.com"
                 style="width: 100%; height: 100%;"
-              >
-                <iframe
-                  data-id="3"
-                  data-lint-gutter="true"
-                  data-mobile="false"
-                  data-name="content-preview"
-                  src="https://www.example.com"
-                  style="width: 100%; height: 100%;"
-                />
-              </div>
+                title="perseus-preview"
+              />
             </div>
           </div>
         </div>
