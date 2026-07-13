@@ -182,22 +182,17 @@ export class MovablePoint {
 
         assert(kpoint.is(state.coord));
 
-        // Default things inside the state.normalStyle object, because
-        // _.extend is not deep.
-        // We use _.extend instead of _.defaults because we don't want
-        // to modify the passed-in copy (especially if it's from
-        // DEFAULT_PROPS/STATE!)
-        // When the point is static (non-interactive), render it in a muted
-        // gray to signal that it can't be manipulated — matching the
-        // interactive-graph's static styling (its `--static-gray`, which is
-        // also `foreground.disabled.strong`). Otherwise use the standard
-        // interactive color.
         // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
         const movableColor = tokenValue(
             state.static
                 ? semanticColor.core.foreground.disabled.strong
                 : semanticColor.core.foreground.instructive.default,
         );
+        // Default things inside the state.normalStyle object, because
+        // _.extend is not deep.
+        // We use _.extend instead of _.defaults because we don't want
+        // to modify the passed-in copy (especially if it's from
+        // DEFAULT_PROPS/STATE!)
         state.normalStyle = _.extend(
             {
                 fill: movableColor,
