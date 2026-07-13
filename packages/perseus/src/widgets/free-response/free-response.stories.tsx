@@ -22,48 +22,63 @@ type Story = StoryObj<typeof FreeResponse>;
 
 export const Primary: Story = {
     args: {
-        allowUnlimitedCharacters: false,
-        characterLimit: 500,
-        placeholder: "Enter your answer here",
-        question: "What is the theme of the essay?",
+        options: {
+            allowUnlimitedCharacters: false,
+            characterLimit: 500,
+            placeholder: "Enter your answer here",
+            question: "What is the theme of the essay?",
+            scoringCriteria: [],
+        },
     },
 };
 
 export const CharacterLimit: Story = {
     args: {
-        allowUnlimitedCharacters: false,
-        characterLimit: 500,
-        placeholder: "Enter your answer here",
-        question: "What is the theme of the essay?",
+        options: {
+            allowUnlimitedCharacters: false,
+            characterLimit: 500,
+            placeholder: "Enter your answer here",
+            question: "What is the theme of the essay?",
+            scoringCriteria: [],
+        },
     },
 };
 
 export const BoldedQuestion: Story = {
     args: {
-        allowUnlimitedCharacters: false,
-        characterLimit: 500,
-        placeholder: "Enter your answer here",
-        question: "**What is the theme of the essay?**",
+        options: {
+            allowUnlimitedCharacters: false,
+            characterLimit: 500,
+            placeholder: "Enter your answer here",
+            question: "**What is the theme of the essay?**",
+            scoringCriteria: [],
+        },
     },
 };
 
 export const UnlimitedCharacters: Story = {
     args: {
-        allowUnlimitedCharacters: true,
-        characterLimit: 500,
-        placeholder: "Enter your answer here",
-        question:
-            "What is the theme of the essay?\n\n**Put your answer in your own words.**",
+        options: {
+            allowUnlimitedCharacters: true,
+            characterLimit: 500,
+            placeholder: "Enter your answer here",
+            question:
+                "What is the theme of the essay?\n\n**Put your answer in your own words.**",
+            scoringCriteria: [],
+        },
     },
 };
 
 export const QuestionWithTex: Story = {
     name: "Question with TeX content",
     args: {
-        allowUnlimitedCharacters: true,
-        characterLimit: 500,
-        placeholder: "Enter your answer here",
-        question:
-            "What changes are required to solve the following equation? $\\dfrac{6-3}{1-0}=\\dfrac{3}{1}=3$",
+        options: {
+            allowUnlimitedCharacters: true,
+            characterLimit: 500,
+            placeholder: "Enter your answer here",
+            question:
+                "What changes are required to solve the following equation? $\\dfrac{6-3}{1-0}=\\dfrac{3}{1}=3$",
+            scoringCriteria: [],
+        },
     },
 };
