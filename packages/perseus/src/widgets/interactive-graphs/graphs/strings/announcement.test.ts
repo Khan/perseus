@@ -188,10 +188,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Line through point at 2 comma 0.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): To allow custom labels for sinusoid points so
-        // we can keep the root/peak wording.
-        it("weaves the custom label into the root/peak wording when one is set", () => {
+        it("uses the custom label with the root/peak wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-sinusoid-point",
@@ -264,9 +261,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at -3 comma -2.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for logarithm points so we can
-        // keep the point-1/point-2 wording.
-        it("weaves the custom label into the point-1/point-2 wording when one is set", () => {
+        it("uses the custom label with the point-1/point-2 wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-logarithm-point",
@@ -408,9 +403,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Control point at 4 comma -2.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for tangent points so we can
-        // keep the inflection/control-point wording.
-        it("weaves the custom label into the inflection/control-point wording when one is set", () => {
+        it("uses the custom label with the inflection/control-point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-tangent-point",
@@ -484,9 +477,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at -1 comma 4.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for exponential points so we
-        // can keep the point-1/point-2 wording.
-        it("weaves the custom label into the point-1/point-2 wording when one is set", () => {
+        it("uses the custom label with the point-1/point-2 wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-exponential-point",
@@ -592,10 +583,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point T, ending side at 2 comma 0.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): To allow custom labels for angle points so
-        // we can angle measures.
-        it("weaves the custom label into the vertex wording, keeping the angle measure", () => {
+        it("uses the custom label with the vertex wording, keeping the angle measure", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-angle-point",
@@ -695,10 +683,7 @@ describe("getAnnouncementText", () => {
             );
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for quadratic points so we
-        // can keep the quadrant/vertex wording alongside the custom label.
-        it("weaves the custom label into the quadrant wording, keeping the vertex string, when one is set", () => {
+        it("uses the custom label with the quadrant wording, keeping the vertex string, when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-quadratic-point",
@@ -771,10 +756,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Through point at 5 comma 6.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
-        // endpoint/through-point wording alongside the custom label.
-        it("weaves the custom label into the endpoint/through-point wording when one is set", () => {
+        it("uses the custom label with the endpoint/through-point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-ray-point",
@@ -869,10 +851,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 on line 2 at -3 comma 2.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for linear-system points so we can
-        // keep the line/point wording alongside the custom label.
-        it("weaves the custom label into the line/point wording when one is set", () => {
+        it("uses the custom label with the line/point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-linear-system-point",
@@ -948,10 +927,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Endpoint 1 on segment 2 at -3 comma 2.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for segment points so we can
-        // keep the endpoint wording alongside the custom label.
-        it("weaves the custom label into the endpoint wording when one is set", () => {
+        it("uses the custom label with the endpoint wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-segment-point",

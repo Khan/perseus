@@ -21,9 +21,7 @@ export function srAbsoluteValuePointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) is woven into the vertex/arm
-    // description so we keep the graph-specific semantics; the numeric default
-    // (sequence number) is omitted in favor of the point's role.
+
     const pointLabel =
         typeof state.pointLabel === "string" ? state.pointLabel : undefined;
 

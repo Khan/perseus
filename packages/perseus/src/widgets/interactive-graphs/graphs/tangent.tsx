@@ -78,7 +78,7 @@ function TangentGraph(props: TangentGraphProps) {
         srTangentGraph,
         srTangentDescription,
         srTangentInflectionPoint,
-        srTangentSecondPoint,
+        srTangentControlPoint,
     } = describeTangentGraph(graphState, i18n);
 
     return (
@@ -109,7 +109,7 @@ function TangentGraph(props: TangentGraphProps) {
                         buildLabel(i, coord) ??
                         (i === 0
                             ? srTangentInflectionPoint
-                            : srTangentSecondPoint)
+                            : srTangentControlPoint)
                     }
                     key={"point-" + i}
                     point={coord}
