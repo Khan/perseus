@@ -19,4 +19,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "explanation",
     "deprecated-standin",
     "free-response",
+    "video",
 ];
