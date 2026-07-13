@@ -1,5 +1,94 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article: article with JIPT placeholders 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      crwdns1:0crwdne1
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="1"
+    >
+      crwdns2:0crwdne2
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-perseus-component-index attributes in an exercise: exercise with JIPT placeholder 1`] = `
+<div>
+  <div
+    data-perseus-component-index="42"
+  >
+    crwdns123:0crwdne123
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an article: JIPT-translated article 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        first paragraph
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        second paragraph
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the translated content of an exercise: JIPT-translated exercise 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <a
+          href="https://khanacademy.org"
+          target="_blank"
+        >
+          link
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renderer rendering should render a table when isMobile: false 1`] = `
 <div>
   <div
@@ -325,6 +414,39 @@ exports[`renderer rendering should render the math 1`] = `
         </span>
       </div>
     </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots JIPT article: JIPT article 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="0"
+    >
+      crwdns1:0crwdne1
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-component-index="42"
+      data-perseus-paragraph-index="1"
+    >
+      crwdns2:0crwdne2
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer snapshots JIPT exercise: JIPT exercise 1`] = `
+<div>
+  <div
+    data-perseus-component-index="42"
+  >
+    crwdns123:0crwdne123
   </div>
 </div>
 `;

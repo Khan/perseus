@@ -22,6 +22,7 @@ import {
     isDifferentQuestion,
     type DifferentQuestionPartialProps,
 } from "../renderer";
+import RendererNew from "../renderer.new";
 import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
@@ -138,6 +139,51 @@ describe("renderer", () => {
 
             // Assert
             expect(container).toMatchSnapshot("deprecated widget");
+        });
+
+        test("JIPT exercise", async () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: () => 42,
+                    removeComponentAtIndex() {},
+                },
+            });
+
+            // Act
+            const {container} = renderQuestion({
+                ...question1,
+                content: "crwdns123:0crwdne123",
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT exercise");
+        });
+
+        test("JIPT article", async () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: () => 42,
+                    removeComponentAtIndex() {},
+                },
+            });
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    ...question1,
+                    content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                },
+                {isArticle: true},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT article");
         });
     });
 
@@ -1469,6 +1515,143 @@ describe("renderer", () => {
             const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+        });
+    });
+
+    describe("in a JIPT context", () => {
+        // JIPT stands for just-in-place-translation.
+        // See: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4860248066/JIPT+just-in-place+translation+in+Perseus
+
+        it("registers itself via rendererTranslationComponents", () => {
+            // Arrange
+            const addComponent = jest.fn().mockReturnValue(42);
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent,
+                    removeComponentAtIndex() {},
+                },
+            });
+
+            renderQuestion({
+                ...question1,
+                content: "crwdns123:0crwdne123",
+            });
+
+            expect(addComponent).toHaveBeenCalledWith(expect.any(RendererNew));
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index attributes in an exercise", async () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: () => 42,
+                    removeComponentAtIndex() {},
+                },
+            });
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    ...question1,
+                    content: "crwdns123:0crwdne123",
+                },
+                {isArticle: false},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("exercise with JIPT placeholder");
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article", async () => {
+            // Arrange
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: () => 42,
+                    removeComponentAtIndex() {},
+                },
+            });
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    ...question1,
+                    content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                },
+                {isArticle: true},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("article with JIPT placeholders");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an exercise", () => {
+            // Arrange
+            const addComponent = jest.fn().mockReturnValue(42);
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent,
+                    removeComponentAtIndex() {},
+                },
+            });
+            const {container} = renderQuestion(
+                {
+                    ...question1,
+                    content: "crwdns123:0crwdne123",
+                },
+                {isArticle: false},
+            );
+
+            // Act
+            const renderer: RendererNew = addComponent.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent(
+                    "[link](https://khanacademy.org)",
+                    undefined,
+                );
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated exercise");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an article", () => {
+            // Arrange
+            const addComponent = jest.fn().mockReturnValue(42);
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent,
+                    removeComponentAtIndex() {},
+                },
+            });
+            const {container} = renderQuestion(
+                {
+                    ...question1,
+                    content: "crwdns1:0crwdne1:0\n\ncrwdns2:0crwdne2:0",
+                },
+                {isArticle: true},
+            );
+
+            // Act
+            const renderer: RendererNew = addComponent.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent("first paragraph", 0);
+            });
+            act(() => {
+                renderer.replaceJiptContent("second paragraph", 1);
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated article");
         });
     });
 });
