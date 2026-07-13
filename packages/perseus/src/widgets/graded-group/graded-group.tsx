@@ -250,9 +250,8 @@ export class GradedGroup
         );
 
         let gradeStatus: string | null = null;
-        let icon = null;
+        let icon: React.ReactElement | null = null;
         if (this.state.status === GRADING_STATUSES.correct) {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = (
                 <InlineIcon
                     {...iconOk}
@@ -263,7 +262,6 @@ export class GradedGroup
             );
             gradeStatus = this.context.strings.correct;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = (
                 <InlineIcon
                     {...iconRemove}
