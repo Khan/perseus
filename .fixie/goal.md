@@ -481,7 +481,7 @@ review and commit the changes.
 - [x] Migrate `sorter` to `WidgetPropsV2`.
 - [x] Migrate `definition` to `WidgetPropsV2`.
 - [x] Migrate `explanation` to `WidgetPropsV2`.
-- [ ] Migrate `deprecated-standin` to `WidgetPropsV2`.
+- [x] Migrate `deprecated-standin` to `WidgetPropsV2`.
 - [ ] Migrate `free-response` to `WidgetPropsV2` (its `defaultProps` is
       `userInput`-only, so no option-field defaults to relocate).
 - [ ] Migrate `video` to `WidgetPropsV2`.
