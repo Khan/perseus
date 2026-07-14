@@ -330,7 +330,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point on arm at 4 comma -2. The slope is 2.");
         });
 
-        it("weaves the custom label into the vertex wording when one is set", () => {
+        it("uses the custom label with the vertex wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -347,7 +347,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Vertex point V at -3 comma 1.");
         });
 
-        it("weaves the custom label into the arm wording, keeping the slope", () => {
+        it("uses the custom label with the arm wording, keeping the slope", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -566,7 +566,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 3, starting side at 0 comma 2.");
         });
 
-        it("weaves the custom label into the side wording when one is set", () => {
+        it("uses the custom label with the side wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-angle-point",
