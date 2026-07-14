@@ -140,53 +140,6 @@ describe("renderer", () => {
             // Assert
             expect(container).toMatchSnapshot("deprecated widget");
         });
-
-        test("JIPT exercise", async () => {
-            // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent: () => 42,
-                    removeComponentAtIndex() {},
-                },
-            });
-
-            // Act
-            const {container} = renderQuestion({
-                content: "crwdns123:0crwdne123",
-                widgets: {},
-                images: {},
-            });
-
-            // Assert
-            expect(container).toMatchSnapshot("JIPT exercise");
-        });
-
-        test("JIPT article", async () => {
-            // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent: () => 42,
-                    removeComponentAtIndex() {},
-                },
-            });
-
-            // Act
-            const {container} = renderQuestion(
-                {
-                    content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
-                    widgets: {},
-                    images: {},
-                },
-                {isArticle: true},
-            );
-
-            // Assert
-            expect(container).toMatchSnapshot("JIPT article");
-        });
     });
 
     describe("linting (TranslationLinter)", () => {
@@ -1524,37 +1477,34 @@ describe("renderer", () => {
         // JIPT stands for just-in-place-translation.
         // See: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4860248066/JIPT+just-in-place+translation+in+Perseus
 
-        it("registers itself via rendererTranslationComponents", () => {
-            // Arrange
-            const addComponent = jest.fn().mockReturnValue(42);
+        let addComponentMock = jest.fn();
+        beforeEach(() => {
+            addComponentMock = jest.fn().mockReturnValue(0);
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
                 ...testDependencies,
                 JIPT: {useJIPT: true},
                 rendererTranslationComponents: {
-                    addComponent,
+                    addComponent: addComponentMock,
                     removeComponentAtIndex() {},
                 },
             });
+        });
 
+        it("registers itself via rendererTranslationComponents", () => {
             renderQuestion({
                 content: "crwdns123:0crwdne123",
                 widgets: {},
                 images: {},
             });
 
-            expect(addComponent).toHaveBeenCalledWith(expect.any(RendererNew));
+            expect(addComponentMock).toHaveBeenCalledWith(
+                expect.any(RendererNew),
+            );
         });
 
         it("renders `crwdn` placeholders with data-perseus-component-index attributes in an exercise", async () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent: () => 42,
-                    removeComponentAtIndex() {},
-                },
-            });
+            addComponentMock.mockReturnValue(42);
 
             // Act
             const {container} = renderQuestion(
@@ -1572,14 +1522,7 @@ describe("renderer", () => {
 
         it("renders `crwdn` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article", async () => {
             // Arrange
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent: () => 42,
-                    removeComponentAtIndex() {},
-                },
-            });
+            addComponentMock.mockReturnValue(42);
 
             // Act
             const {container} = renderQuestion(
@@ -1597,15 +1540,7 @@ describe("renderer", () => {
 
         it("replaces the `crwdn` placeholder with the translated content of an exercise", () => {
             // Arrange
-            const addComponent = jest.fn().mockReturnValue(42);
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent,
-                    removeComponentAtIndex() {},
-                },
-            });
+            addComponentMock.mockReturnValue(42);
             const {container} = renderQuestion(
                 {
                     content: "crwdns123:0crwdne123",
@@ -1616,7 +1551,7 @@ describe("renderer", () => {
             );
 
             // Act
-            const renderer: RendererNew = addComponent.mock.calls[0][0];
+            const renderer: RendererNew = addComponentMock.mock.calls[0][0];
             act(() => {
                 renderer.replaceJiptContent(
                     "[link](https://khanacademy.org)",
@@ -1630,15 +1565,7 @@ describe("renderer", () => {
 
         it("replaces the `crwdn` placeholder with the translated content of an article", () => {
             // Arrange
-            const addComponent = jest.fn().mockReturnValue(42);
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                JIPT: {useJIPT: true},
-                rendererTranslationComponents: {
-                    addComponent,
-                    removeComponentAtIndex() {},
-                },
-            });
+            addComponentMock.mockReturnValue(42);
             const {container} = renderQuestion(
                 {
                     content: "crwdns1:0crwdne1:0\n\ncrwdns2:0crwdne2:0",
@@ -1649,7 +1576,7 @@ describe("renderer", () => {
             );
 
             // Act
-            const renderer: RendererNew = addComponent.mock.calls[0][0];
+            const renderer: RendererNew = addComponentMock.mock.calls[0][0];
             act(() => {
                 renderer.replaceJiptContent("first paragraph", 0);
             });
