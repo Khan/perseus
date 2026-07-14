@@ -121,7 +121,10 @@ export const WithImages: Story = {
             "![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/8d0cbfb1d32d421b366091ab3453d13b610d4bc6)",
             "![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/2280e396ebb64c6e8840c624dfd52bf223bbd58d)",
         ],
-        right: ["A rhombus that's a square", "Half of an Acorn"],
+        right: [
+            "![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/8d0cbfb1d32d421b366091ab3453d13b610d4bc6)",
+            "![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/2280e396ebb64c6e8840c624dfd52bf223bbd58d)",
+        ],
         orderMatters: false,
         padding: true,
     },
