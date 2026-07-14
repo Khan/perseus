@@ -376,7 +376,16 @@ describe("parseWidgetsMap", () => {
                 type: "image",
                 version: {major: 0, minor: 0},
                 options: {
+                    alt: "the alt text",
                     backgroundImage: {},
+                    box: [1, 2],
+                    caption: "the caption",
+                    decorative: true,
+                    labels: [],
+                    longDescription: "the long description",
+                    range: [[0, 1], [2, 3]],
+                    scale: 7,
+                    title: "the title",
                 },
             },
         };

@@ -1,5 +1,7 @@
 import {describe, it, expect} from "@jest/globals";
 
+import {generateImageOptions} from "@khanacademy/perseus-core";
+
 import {
     getAnswersFromWidgets,
     getPerseusAIData,
@@ -346,14 +348,14 @@ describe("injectWidgets", () => {
         const widgets: PerseusWidgetsMap = {
             "image 1": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "image alt text",
                     backgroundImage: {
                         url: "",
                         width: 100,
                         height: 100,
                     },
-                },
+                }),
             },
         } as const;
         const content = injectWidgets(

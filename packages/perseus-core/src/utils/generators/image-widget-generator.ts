@@ -1,14 +1,16 @@
-import type {PerseusImageWidgetOptions, ImageWidget} from "../../data-schema";
+import type {ImageWidget, PerseusImageWidgetOptions} from "../../data-schema";
 
 export function generateImageOptions(
     options?: Partial<PerseusImageWidgetOptions>,
 ): PerseusImageWidgetOptions {
-    const defaultImageOptions: PerseusImageWidgetOptions = {
-        backgroundImage: {},
-    };
-
     return {
-        ...defaultImageOptions,
+        title: "",
+        caption: "",
+        alt: "",
+        longDescription: "",
+        decorative: false,
+        backgroundImage: {},
+        scale: 1,
         ...options,
     };
 }

@@ -69,7 +69,9 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
             281,
           ],
           "caption": "This production possibilities frontier shows a tradeoff between devoting social resources to healthcare and devoting them to education. At A all resources go to healthcare and at B, most go to healthcare. At D most resources go to education, and at F, all go to education.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -80,7 +82,7 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "A Healthcare vs. Education Production Possibilities Frontier ",
         },
         "static": false,
@@ -146,7 +148,9 @@ The particular mix of goods and services being produced—that is, the specific 
             313,
           ],
           "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -157,7 +161,7 @@ The particular mix of goods and services being produced—that is, the specific 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
         "static": false,
@@ -208,7 +212,9 @@ The slope of the PPF gives the opportunity cost of producing an additional unit 
             401,
           ],
           "caption": "The U.S. PPF is flatter than the Brazil PPF implying that the opportunity cost of wheat in term of sugar cane is lower in the U.S. than in Brazil. Conversely, the opportunity cost of sugar cane is lower in Brazil. The U.S. has comparative advantage in wheat and Brazil has comparative advantage in sugar cane.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -219,7 +225,7 @@ The slope of the PPF gives the opportunity cost of producing an additional unit 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Production Possibility Frontier for the U.S. and Brazil ",
         },
         "static": false,
@@ -332,7 +338,9 @@ Both the budget constraint and the PPF show the constraint that each operates un
             313,
           ],
           "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -343,7 +351,7 @@ Both the budget constraint and the PPF show the constraint that each operates un
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
         "static": false,
@@ -2483,7 +2491,9 @@ more explanation",
             233,
           ],
           "caption": "*Incandescent light bulbs with tungsten filaments*",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -2494,7 +2504,7 @@ more explanation",
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -2653,7 +2663,9 @@ more explanation",
             233,
           ],
           "caption": "*Incandescent light bulbs with tungsten filaments*",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -2665,7 +2677,6 @@ more explanation",
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -3937,6 +3948,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
         "image 1": {
           "graded": true,
           "options": {
+            "alt": "",
             "backgroundImage": {
               "height": 215,
               "url": "https://s3.amazonaws.com/ka-cs-algorithms/hanoi_exercise_step2_1.png",
@@ -3946,7 +3958,10 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
               304,
               215,
             ],
+            "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -3957,6 +3972,8 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
                 10,
               ],
             ],
+            "scale": 1,
+            "title": "",
           },
           "type": "image",
           "version": {
@@ -4226,6 +4243,122 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 }
 `;
 
+exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ image 1]]",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": null,
+        "options": {
+          "alt": "",
+          "backgroundImage": {
+            "url": null,
+          },
+          "box": [
+            400,
+            400,
+          ],
+          "caption": "",
+          "decorative": false,
+          "labels": [],
+          "longDescription": "",
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "scale": 1,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ image 1]]",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": null,
+        "options": {
+          "alt": "",
+          "backgroundImage": {
+            "url": null,
+          },
+          "box": [
+            400,
+            400,
+          ],
+          "caption": "",
+          "decorative": false,
+          "labels": [],
+          "longDescription": "",
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "scale": 1,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -4270,7 +4403,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4281,7 +4416,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4319,7 +4454,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4330,7 +4467,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4368,7 +4505,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4379,7 +4518,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4424,7 +4563,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             325,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -4435,7 +4576,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -4563,7 +4704,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             325,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -4575,7 +4718,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -9851,7 +9993,9 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
               151,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -9862,7 +10006,7 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -9919,7 +10063,9 @@ $\\begin{align}
                     156,
                   ],
                   "caption": "",
+                  "decorative": false,
                   "labels": [],
+                  "longDescription": "",
                   "range": [
                     [
                       0,
@@ -9930,7 +10076,7 @@ $\\begin{align}
                       10,
                     ],
                   ],
-                  "static": false,
+                  "scale": 1,
                   "title": "",
                 },
                 "static": false,
@@ -11686,7 +11832,9 @@ ___
             600,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -11697,7 +11845,7 @@ ___
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -11845,7 +11993,9 @@ ___
             600,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -11857,7 +12007,6 @@ ___
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -15468,6 +15617,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
         "image 1": {
           "graded": true,
           "options": {
+            "alt": "",
             "backgroundImage": {
               "height": 0,
               "url": null,
@@ -15478,7 +15628,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
               400,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15489,6 +15641,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
                 10,
               ],
             ],
+            "scale": 1,
             "title": "",
           },
           "type": "image",
@@ -15943,7 +16096,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15954,7 +16109,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -15992,7 +16147,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -16003,7 +16160,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -16041,7 +16198,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -16052,7 +16211,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -16118,7 +16277,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             275,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16129,7 +16290,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -16345,7 +16506,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             275,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16357,7 +16520,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -16541,7 +16703,9 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
               252,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -16552,7 +16716,7 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -16615,7 +16779,9 @@ Stella landed $1.68$ kilometers from the skydiving center.",
             270,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16626,7 +16792,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -16758,7 +16924,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
             270,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16770,7 +16938,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -18432,7 +18599,9 @@ A free body diagram of the **box** is shown below.
             263,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18443,7 +18612,7 @@ A free body diagram of the **box** is shown below.
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -18468,7 +18637,9 @@ A free body diagram of the **box** is shown below.
             306,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18479,7 +18650,7 @@ A free body diagram of the **box** is shown below.
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -18632,7 +18803,9 @@ A free body diagram of the **box** is shown below.
             263,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18644,7 +18817,6 @@ A free body diagram of the **box** is shown below.
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -18669,7 +18841,9 @@ A free body diagram of the **box** is shown below.
             306,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18681,7 +18855,6 @@ A free body diagram of the **box** is shown below.
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -20718,7 +20891,9 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             3448,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20729,7 +20904,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -20932,7 +21107,9 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             3448,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20944,7 +21121,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -21305,7 +21481,9 @@ ___
             782,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -21316,7 +21494,7 @@ ___
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -21476,7 +21654,9 @@ ___
             782,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -21488,7 +21668,6 @@ ___
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
