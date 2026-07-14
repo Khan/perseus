@@ -64,7 +64,6 @@ const keypadArgs: NonNullable<Story["args"]> = {
     extraKeys: ["x", "y"],
 };
 
-// Focus input, keypad closed
 export const FocusedInput: Story = {
     decorators: [expressionRendererDecorator],
     args: {
@@ -77,6 +76,24 @@ export const FocusedInput: Story = {
     play: async ({canvas, userEvent}) => {
         const mathInput = canvas.getByRole("textbox");
         await userEvent.click(mathInput);
+    },
+};
+
+export const FocusedInputMobile: Story = {
+    decorators: [expressionRendererDecorator],
+    args: {
+        answerForms: [],
+        buttonSets: ["basic"],
+        functions: [],
+        times: false,
+        extraKeys: [],
+    },
+    parameters: {
+        apiOptions: {customKeypad: true},
+    },
+    play: async ({canvas, userEvent}) => {
+        const mobileInput = canvas.getByRole("textbox");
+        await userEvent.click(mobileInput);
     },
 };
 
@@ -97,10 +114,26 @@ export const FocusedMathButton: Story = {
     },
 };
 
+export const HoveredMathButton: Story = {
+    decorators: [expressionRendererDecorator],
+    args: {
+        answerForms: [],
+        buttonSets: ["basic"],
+        functions: [],
+        times: false,
+        extraKeys: [],
+    },
+    play: async ({canvas, userEvent}) => {
+        const openButton = canvas.getByRole("button", {
+            name: "open math keypad",
+        });
+        await userEvent.hover(openButton);
+    },
+};
+
 // A keypad button has keyboard focus (focus ring visible) without being
 // pressed. `.focus()` isolates the focus state from the pressed state.
-export const FocusedTabButtonInKeypad: Story = {
-    name: "Keypad open, Button in tab focused",
+export const KeypadButtonFocused: Story = {
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -118,10 +151,45 @@ export const FocusedTabButtonInKeypad: Story = {
     },
 };
 
+/**
+ * Button within the keypad being actively pressed.
+ */
+export const KeypadButtonPressed: Story = {
+    decorators: [expressionRendererDecorator],
+    args: keypadArgs,
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // Keypad renders into a React portal outside the canvas
+        const button = within(document.body).getByRole("button", {name: "1"});
+        await userEvent.pointer({target: button, keys: "[MouseLeft>]"});
+    },
+};
+
+/**
+ * After user has typed text into the input field.
+ */
+export const WithTextInField: Story = {
+    decorators: [expressionRendererDecorator],
+    args: {
+        answerForms: [],
+        buttonSets: ["basic"],
+        functions: [],
+        times: false,
+        extraKeys: [],
+    },
+    play: async ({canvas, userEvent}) => {
+        const mathInput = canvas.getByRole("textbox");
+        await userEvent.click(mathInput);
+        await userEvent.type(mathInput, "x+1");
+    },
+};
+
+/**************** Keypad open ****************/
+
 // Only the "basic" set is selected, so the keypad renders with just the
 // Numbers tab (no Operators/Geometry/Extras tabs are generated).
-export const KeypadOpenBasicOnly: Story = {
-    name: "Keypad open - basic",
+export const OpenBasicOnly: Story = {
+    name: "[Open] Basic",
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -137,8 +205,8 @@ export const KeypadOpenBasicOnly: Story = {
 
 // "Basic relations" + "advanced relations" both map to the Operators tab,
 // so the keypad shows Numbers + Operators tabs.
-export const KeypadOpenSimpleMath: Story = {
-    name: "Keypad open - simple math",
+export const OpenSimpleMath: Story = {
+    name: "[Open] Simple math",
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -154,8 +222,8 @@ export const KeypadOpenSimpleMath: Story = {
 
 // `times: true` renders multiplication as "x" instead of a center dot.
 // "prealgebra" adds the Operators tab; "scientific" enriches the Numbers tab.
-export const KeypadOpenScience: Story = {
-    name: "Keypad open - science",
+export const OpenScience: Story = {
+    name: "[Open] Science",
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -171,8 +239,8 @@ export const KeypadOpenScience: Story = {
 
 // "trig" adds the Geometry tab and "prealgebra" adds the Operators tab,
 // so the keypad shows Numbers + Operators + Geometry tabs.
-export const KeypadOpenAdvancedMath: Story = {
-    name: "Keypad open - advanced math",
+export const OpenAdvancedMath: Story = {
+    name: "[Open] Advanced math",
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -187,8 +255,8 @@ export const KeypadOpenAdvancedMath: Story = {
 };
 
 // Every button set selected at once — the fullest keypad configuration.
-export const KeypadOpenAllButtonSets: Story = {
-    name: "Keypad open - all button sets",
+export const OpenAllButtonSets: Story = {
+    name: "[Open] All button sets",
     decorators: [expressionRendererDecorator],
     args: {
         answerForms: [],
@@ -211,31 +279,42 @@ export const KeypadOpenAllButtonSets: Story = {
     },
 };
 
-// With "prealgebra" selected the tabs are Numbers + Operators, so the second
-// tab is Operators. `functions` is set to non-default letters; note it only
-// affects scoring/parsing today and has no visible effect on the keypad.
-export const KeypadOpenSecondTabWithFunctions: Story = {
-    name: "Keypad open - second tab with functions",
+export const OpenExtrasTabWithFunctionSet: Story = {
+    name: "[Open] Extras tab with function set",
     decorators: [expressionRendererDecorator],
     args: {
-        answerForms: [],
+        answerForms: [
+            {
+                value: "f(2)=g(2)",
+                considered: "correct",
+                form: true,
+                simplify: false,
+            },
+        ],
         buttonSets: ["basic", "prealgebra"],
-        functions: ["a", "b", "c"],
+        functions: ["f", "g"],
         times: false,
-        extraKeys: [],
+        // Letter buttons only render on the Extras tab, sourced from
+        // `extraKeys`. In authored content this array is derived from the
+        // answer forms by `deriveExtraKeys`, but Storybook builds the widget
+        // options directly and never runs that derivation, so the keys must be
+        // listed explicitly here for them to appear on the keypad.
+        extraKeys: ["f", "g"],
     },
     play: async ({canvas, userEvent}) => {
         await openKeypad({canvas, userEvent});
 
         // The keypad popout renders into a React portal outside the canvas.
-        // Operators is the second tab for this button-set configuration.
-        const operatorsTab = within(document.body).getByLabelText("Operators");
-        await userEvent.click(operatorsTab);
+        // Letter/variable keys live on the Extras tab (the Operators tab only
+        // renders fixed operator keys, never function letters).
+        const extrasTab = within(document.body).getByLabelText("Extras");
+        await userEvent.click(extrasTab);
     },
 };
 
 // Number buttons (0–9, operators, backspace)
-export const KeypadOpenNumbersTab: Story = {
+export const OpenNumbersTab: Story = {
+    name: "[Open] Numbers tab",
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
@@ -244,7 +323,8 @@ export const KeypadOpenNumbersTab: Story = {
 };
 
 // Pre-algebra, logarithm, and relation buttons
-export const KeypadOpenOperatorsTab: Story = {
+export const OpenOperatorsTab: Story = {
+    name: "[Open] Operators tab",
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
@@ -257,7 +337,8 @@ export const KeypadOpenOperatorsTab: Story = {
 };
 
 // Trigonometry buttons (sin, cos, tan, etc.)
-export const KeypadOpenGeometryTab: Story = {
+export const OpenGeometryTab: Story = {
+    name: "[Open] Geometry tab",
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
@@ -271,6 +352,7 @@ export const KeypadOpenGeometryTab: Story = {
 
 // Extra variable key buttons (x, y)
 export const KeypadOpenExtrasTab: Story = {
+    name: "[Open] Extras tab",
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
     play: async ({canvas, userEvent}) => {
@@ -279,67 +361,5 @@ export const KeypadOpenExtrasTab: Story = {
         // The keypad popout renders into a React portal outside the canvas
         const extrasTab = within(document.body).getByLabelText("Extras");
         await userEvent.click(extrasTab);
-    },
-};
-
-export const IconButtonHovered: Story = {
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.hover(openButton);
-    },
-};
-
-export const WithTextInField: Story = {
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        const mathInput = canvas.getByRole("textbox");
-        await userEvent.click(mathInput);
-        await userEvent.type(mathInput, "x+1");
-    },
-};
-
-export const KeypadButtonPressed: Story = {
-    decorators: [expressionRendererDecorator],
-    args: keypadArgs,
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-        // Keypad renders into a React portal outside the canvas
-        const button = within(document.body).getByRole("button", {name: "1"});
-        await userEvent.pointer({target: button, keys: "[MouseLeft>]"});
-    },
-};
-
-export const MobileInputFocused: Story = {
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    parameters: {
-        apiOptions: {customKeypad: true},
-    },
-    play: async ({canvas, userEvent}) => {
-        const mobileInput = canvas.getByRole("textbox");
-        await userEvent.click(mobileInput);
     },
 };
