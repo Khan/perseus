@@ -1,28 +1,13 @@
-import * as React from "react";
-
 import {themeModes} from "../../../../../../.storybook/modes";
+import {
+    narrowViewportDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {matcherRendererDecorator} from "./matcher-renderer-decorator";
 
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
-import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
-
-// Renders the matcher inside a right-to-left context so we can confirm the
-// vertical column divider and the header underline still render correctly when
-// the writing direction is flipped.
-const rtlDecorator: Decorator = (Story) => (
-    <div dir="rtl">
-        <Story />
-    </div>
-);
-
-// Constrains the matcher to a narrow container to confirm the two-column
-// layout holds when horizontal space is tight.
-const narrowContainerDecorator: Decorator = (Story) => (
-    <div style={{maxWidth: 256}}>
-        <Story />
-    </div>
-);
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusMatcherWidgetOptions> = {
     title: "Widgets/Matcher/Visual Regression Tests/Initial State",
@@ -148,10 +133,11 @@ export const RightToLeft: Story = {
     args: sharedArgs,
 };
 
-// Verifies the two-column layout holds when horizontal space is tight.
+// Verifies the two-column layout holds when the matcher's *container* is narrow
+// (constrained via a CSS containment context, not the viewport).
 // NOTE: Remove if the columns/lines shift unpredictably
 export const NarrowContainer: Story = {
-    decorators: [matcherRendererDecorator, narrowContainerDecorator],
+    decorators: [matcherRendererDecorator, narrowViewportDecorator],
     args: sharedArgs,
 };
 
