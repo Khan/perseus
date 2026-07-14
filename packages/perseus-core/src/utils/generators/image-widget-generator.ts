@@ -11,6 +11,12 @@ export function generateImageOptions(
         decorative: false,
         backgroundImage: {},
         scale: 1,
+        box: [400, 400],
+        labels: [],
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
         ...options,
     };
 }
