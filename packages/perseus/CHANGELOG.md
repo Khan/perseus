@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 80.0.1
+
+### Patch Changes
+
+-   [#3892](https://github.com/Khan/perseus/pull/3892) [`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sync deps from Frontend
+
+-   Updated dependencies [[`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e)]:
+    -   @khanacademy/math-input@26.6.1
+
 ## 80.0.0
 
 ### Major Changes

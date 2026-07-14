@@ -84,6 +84,9 @@ type Props = {
      * with the content that aren't linted/detected by Perseus itself.
      */
     issues?: Issue[];
+    /** The problem number, used for deterministic random seeding in the
+     * preview. */
+    problemNum?: number;
 };
 
 type DefaultProps = {
@@ -104,7 +107,6 @@ type State = {
 };
 
 class EditorPage extends React.Component<Props, State> {
-    _isMounted: boolean;
     a11yCheckerTimeoutId: ReturnType<typeof setTimeout> | undefined;
 
     itemEditor = React.createRef<ItemEditor>();
@@ -129,16 +131,9 @@ class EditorPage extends React.Component<Props, State> {
             axeCoreIssues: [],
             showAxeCoreIssues: false,
         };
-
-        this._isMounted = false;
     }
 
     componentDidMount() {
-        // NOTE(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
-
-        this.updateRenderer();
         this.setState({
             issues: gatherLinterIssues(
                 this.props.question,
@@ -159,17 +154,6 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     componentDidUpdate(previousProps: Props, prevState: State, snapshot: any) {
-        // NOTE: It is required to delay the preview update until after the
-        // current frame, to allow for ItemEditor to render its widgets.
-        // This then enables to serialize the widgets properties correctly,
-        // in order to send data to the preview iframe (IframeContentRenderer).
-        // Otherwise, widgets will render in an "empty" state in the preview.
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            this.updateRenderer();
-        });
-
         // Use serialized snapshot from before unmount
         if (snapshot) {
             this.setState({json: snapshot});
@@ -207,7 +191,6 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
-        this._isMounted = false;
         clearTimeout(this.a11yCheckerTimeoutId);
     }
 
@@ -241,41 +224,6 @@ class EditorPage extends React.Component<Props, State> {
             },
         );
     };
-
-    updateRenderer() {
-        // Some widgets (namely the image widget) like to call onChange before
-        // anything has actually been mounted, which causes problems here. We
-        // just ensure don't update until we've mounted
-        const hasEditor = !this.props.developerMode || !this.props.jsonMode;
-        if (!this._isMounted || !hasEditor) {
-            return;
-        }
-
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        this.itemEditor.current?.triggerPreviewUpdate({
-            type: "question",
-            data: _({
-                item: this.serialize(),
-                apiOptions: deviceBasedApiOptions,
-                initialHintsVisible: 0,
-                device: this.props.previewDevice,
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: this.state.highlightLint,
-                },
-                reviewMode: true,
-                legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(_(this.props).pick("problemNum")),
-        });
-    }
 
     getApiOptions(): APIOptionsWithDefaults {
         return {
@@ -442,6 +390,8 @@ class EditorPage extends React.Component<Props, State> {
                             apiOptions={deviceBasedApiOptions}
                             previewURL={this.props.previewURL}
                             additionalTemplates={this.props.additionalTemplates}
+                            highlightLint={this.state.highlightLint}
+                            problemNum={this.props.problemNum}
                         />
                     )}
 
