@@ -418,39 +418,6 @@ exports[`renderer rendering should render the math 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots JIPT article: JIPT article 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-component-index="42"
-      data-perseus-paragraph-index="0"
-    >
-      crwdns1:0crwdne1
-    </div>
-    <div
-      class="paragraph"
-      data-perseus-component-index="42"
-      data-perseus-paragraph-index="1"
-    >
-      crwdns2:0crwdne2
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renderer snapshots JIPT exercise: JIPT exercise 1`] = `
-<div>
-  <div
-    data-perseus-component-index="42"
-  >
-    crwdns123:0crwdne123
-  </div>
-</div>
-`;
-
 exports[`renderer snapshots correct answer: correct answer 1`] = `
 <div>
   <div
