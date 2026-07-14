@@ -890,11 +890,13 @@ export type PerseusImageWidgetOptions = {
      * but still appear in old content.
      */
     labels: Array<PerseusImageLabel>;
-    /** @deprecated - range for labels was removed from the image widget editor
+    /**
+     * @deprecated - range for labels was removed from the image widget editor
      * in 2017, but still appears in old content.
      */
     range: [Interval, Interval];
-    /** @deprecated - box for labels was removed from the image widget editor
+    /**
+     * @deprecated - box for labels was removed from the image widget editor
      * in 2017, but still appears in old content.
      */
     box: Size;
