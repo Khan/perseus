@@ -399,21 +399,23 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
-    srRayEndpoint: ({
+    srRayEndpoint: ({x, y}: {x: string; y: string}) => string;
+    srRayEndpointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srRayTerminalPoint: ({
+    srRayTerminalPoint: ({x, y}: {x: string; y: string}) => string;
+    srRayTerminalPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
@@ -535,39 +537,43 @@ export type PerseusStrings = {
     }) => string;
     srUnlimitedPolygonEmpty: string;
     srSinusoidGraph: string;
-    srSinusoidRootPoint: ({
+    srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidRootPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srSinusoidMaxPoint: ({
+    srSinusoidMaxPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMaxPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srSinusoidMinPoint: ({
+    srSinusoidMinPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMinPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srSinusoidFlatPoint: ({
+    srSinusoidFlatPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidFlatPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
@@ -773,21 +779,23 @@ export type PerseusStrings = {
     }) => string;
     srLogarithmAsymptote: ({asymptoteX}: {asymptoteX: string}) => string;
     srAbsoluteValueGraph: string;
-    srAbsoluteValueVertexPoint: ({
+    srAbsoluteValueVertexPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueVertexPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srAbsoluteValueArmPoint: ({
+    srAbsoluteValueArmPoint: ({x, y}: {x: string; y: string}) => string;
+    srAbsoluteValueArmPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
@@ -819,21 +827,23 @@ export type PerseusStrings = {
         slope: string;
     }) => string;
     srTangentGraph: string;
-    srTangentInflectionPoint: ({
+    srTangentInflectionPoint: ({x, y}: {x: string; y: string}) => string;
+    srTangentInflectionPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
-    srTangentControlPoint: ({
+    srTangentControlPoint: ({x, y}: {x: string; y: string}) => string;
+    srTangentControlPointWithLabel: ({
         pointLabel,
         x,
         y,
     }: {
-        pointLabel?: string;
+        pointLabel: string;
         x: string;
         y: string;
     }) => string;
@@ -1304,11 +1314,21 @@ export const strings = {
     srRayEndpoint: {
         context:
             "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget.",
+        message: "Endpoint at %(x)s comma %(y)s.",
+    },
+    srRayEndpointWithLabel: {
+        context:
+            "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Endpoint %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srRayTerminalPoint: {
         context:
             "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
+        message: "Through point at %(x)s comma %(y)s.",
+    },
+    srRayTerminalPointWithLabel: {
+        context:
+            "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Through point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srVectorGraph: {
@@ -1477,21 +1497,41 @@ export const strings = {
     srSinusoidRootPoint: {
         context:
             "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget.",
+        message: "Midline intersection at %(x)s comma %(y)s.",
+    },
+    srSinusoidRootPointWithLabel: {
+        context:
+            "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Midline intersection %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidMaxPoint: {
         context:
             "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget.",
+        message: "Maximum point at %(x)s comma %(y)s.",
+    },
+    srSinusoidMaxPointWithLabel: {
+        context:
+            "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Maximum point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidMinPoint: {
         context:
             "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget.",
+        message: "Minimum point at %(x)s comma %(y)s.",
+    },
+    srSinusoidMinPointWithLabel: {
+        context:
+            "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Minimum point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidFlatPoint: {
         context:
             "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0.",
+        message: "Line through point at %(x)s comma %(y)s.",
+    },
+    srSinusoidFlatPointWithLabel: {
+        context:
+            "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Line through point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidDescription: {
@@ -1648,11 +1688,21 @@ export const strings = {
     srAbsoluteValueVertexPoint: {
         context:
             "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget.",
+        message: "Vertex point at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueVertexPointWithLabel: {
+        context:
+            "Aria label for the Point defining the vertex of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Vertex point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srAbsoluteValueArmPoint: {
         context:
             "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget.",
+        message: "Point on arm at %(x)s comma %(y)s.",
+    },
+    srAbsoluteValueArmPointWithLabel: {
+        context:
+            "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Point on arm %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srAbsoluteValueSlope: {
@@ -1710,11 +1760,21 @@ export const strings = {
     srTangentInflectionPoint: {
         context:
             "Aria label for the Point defining the inflection point of the Tangent function in the interactive graph widget.",
+        message: "Inflection point at %(x)s comma %(y)s.",
+    },
+    srTangentInflectionPointWithLabel: {
+        context:
+            "Aria label for the Point defining the inflection point of the Tangent function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Inflection point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srTangentControlPoint: {
         context:
             "Aria label for the second control point of the Tangent function in the interactive graph widget.",
+        message: "Control point at %(x)s comma %(y)s.",
+    },
+    srTangentControlPointWithLabel: {
+        context:
+            "Aria label for the second control point of the Tangent function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
         message: "Control point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srTangentDescriptionPoints: {
@@ -2037,14 +2097,12 @@ export const mockStrings: PerseusStrings = {
         `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
     srRayGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
         `Ray with endpoint ${point1X} comma ${point1Y} going through point ${point2X} comma ${point2Y}.`,
-    srRayEndpoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Endpoint ${pointLabel} at ${x} comma ${y}.`
-            : `Endpoint at ${x} comma ${y}.`,
-    srRayTerminalPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Through point ${pointLabel} at ${x} comma ${y}.`
-            : `Through point at ${x} comma ${y}.`,
+    srRayEndpoint: ({x, y}) => `Endpoint at ${x} comma ${y}.`,
+    srRayEndpointWithLabel: ({pointLabel, x, y}) =>
+        `Endpoint ${pointLabel} at ${x} comma ${y}.`,
+    srRayTerminalPoint: ({x, y}) => `Through point at ${x} comma ${y}.`,
+    srRayTerminalPointWithLabel: ({pointLabel, x, y}) =>
+        `Through point ${pointLabel} at ${x} comma ${y}.`,
     srVectorGraph: "A vector on a coordinate plane.",
     srVectorPoints: ({tailX, tailY, headX, headY}) =>
         `The tail is at ${tailX} comma ${tailY} and the head is at ${headX} comma ${headY}.`,
@@ -2097,22 +2155,18 @@ export const mockStrings: PerseusStrings = {
         `A line segment, length approximately equal to ${length} units, connects to point ${pointNum}.`,
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
-    srSinusoidRootPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Midline intersection ${pointLabel} at ${x} comma ${y}.`
-            : `Midline intersection at ${x} comma ${y}.`,
-    srSinusoidMaxPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Maximum point ${pointLabel} at ${x} comma ${y}.`
-            : `Maximum point at ${x} comma ${y}.`,
-    srSinusoidMinPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Minimum point ${pointLabel} at ${x} comma ${y}.`
-            : `Minimum point at ${x} comma ${y}.`,
-    srSinusoidFlatPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Line through point ${pointLabel} at ${x} comma ${y}.`
-            : `Line through point at ${x} comma ${y}.`,
+    srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
+    srSinusoidRootPointWithLabel: ({pointLabel, x, y}) =>
+        `Midline intersection ${pointLabel} at ${x} comma ${y}.`,
+    srSinusoidMaxPoint: ({x, y}) => `Maximum point at ${x} comma ${y}.`,
+    srSinusoidMaxPointWithLabel: ({pointLabel, x, y}) =>
+        `Maximum point ${pointLabel} at ${x} comma ${y}.`,
+    srSinusoidMinPoint: ({x, y}) => `Minimum point at ${x} comma ${y}.`,
+    srSinusoidMinPointWithLabel: ({pointLabel, x, y}) =>
+        `Minimum point ${pointLabel} at ${x} comma ${y}.`,
+    srSinusoidFlatPoint: ({x, y}) => `Line through point at ${x} comma ${y}.`,
+    srSinusoidFlatPointWithLabel: ({pointLabel, x, y}) =>
+        `Line through point ${pointLabel} at ${x} comma ${y}.`,
     srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
@@ -2209,14 +2263,12 @@ export const mockStrings: PerseusStrings = {
     srLogarithmAsymptote: ({asymptoteX}) =>
         `Vertical asymptote at x equals ${asymptoteX}.`,
     srAbsoluteValueGraph: "An absolute value on a coordinate plane.",
-    srAbsoluteValueVertexPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Vertex point ${pointLabel} at ${x} comma ${y}.`
-            : `Vertex point at ${x} comma ${y}.`,
-    srAbsoluteValueArmPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Point on arm ${pointLabel} at ${x} comma ${y}.`
-            : `Point on arm at ${x} comma ${y}.`,
+    srAbsoluteValueVertexPoint: ({x, y}) => `Vertex point at ${x} comma ${y}.`,
+    srAbsoluteValueVertexPointWithLabel: ({pointLabel, x, y}) =>
+        `Vertex point ${pointLabel} at ${x} comma ${y}.`,
+    srAbsoluteValueArmPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
+    srAbsoluteValueArmPointWithLabel: ({pointLabel, x, y}) =>
+        `Point on arm ${pointLabel} at ${x} comma ${y}.`,
     srAbsoluteValueSlope: ({slope}) => `The slope is ${slope}.`,
     srAbsoluteValueOpensUp: "The graph opens upward.",
     srAbsoluteValueOpensDown: "The graph opens downward.",
@@ -2237,14 +2289,13 @@ export const mockStrings: PerseusStrings = {
     }) =>
         `Absolute value graph with vertex point at ${point1X} comma ${point1Y}, arm point at ${point2X} comma ${point2Y} and slope of ${slope}.`,
     srTangentGraph: "A tangent curve on a coordinate plane.",
-    srTangentInflectionPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Inflection point ${pointLabel} at ${x} comma ${y}.`
-            : `Inflection point at ${x} comma ${y}.`,
-    srTangentControlPoint: ({pointLabel, x, y}) =>
-        pointLabel
-            ? `Control point ${pointLabel} at ${x} comma ${y}.`
-            : `Control point at ${x} comma ${y}.`,
+    srTangentInflectionPoint: ({x, y}) =>
+        `Inflection point at ${x} comma ${y}.`,
+    srTangentInflectionPointWithLabel: ({pointLabel, x, y}) =>
+        `Inflection point ${pointLabel} at ${x} comma ${y}.`,
+    srTangentControlPoint: ({x, y}) => `Control point at ${x} comma ${y}.`,
+    srTangentControlPointWithLabel: ({pointLabel, x, y}) =>
+        `Control point ${pointLabel} at ${x} comma ${y}.`,
     srTangentDescriptionPoints: ({
         inflectionX,
         inflectionY,

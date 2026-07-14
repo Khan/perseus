@@ -26,9 +26,14 @@ export function srTangentPointLabel(
         typeof state.pointLabel === "string" ? state.pointLabel : undefined;
 
     // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
-    return state.pointIndex === 0
-        ? strings.srTangentInflectionPoint({pointLabel, x, y})
-        : strings.srTangentControlPoint({pointLabel, x, y});
+    if (state.pointIndex === 0) {
+        return pointLabel
+            ? strings.srTangentInflectionPointWithLabel({pointLabel, x, y})
+            : strings.srTangentInflectionPoint({x, y});
+    }
+    return pointLabel
+        ? strings.srTangentControlPointWithLabel({pointLabel, x, y})
+        : strings.srTangentControlPoint({x, y});
 }
 
 type TangentGraphDescriptionStrings = {

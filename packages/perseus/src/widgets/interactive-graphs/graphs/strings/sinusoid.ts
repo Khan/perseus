@@ -24,19 +24,27 @@ export function srSinusoidPointLabel(
     // default (sequence number) is omitted in favor of the point's role.
     const pointLabel =
         typeof state.pointLabel === "string" ? state.pointLabel : undefined;
-    const formatted = {pointLabel, x, y};
 
     // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
     // label depends on its y relative to the root's y.
     if (state.pointIndex === 0) {
-        return strings.srSinusoidRootPoint(formatted);
+        return pointLabel
+            ? strings.srSinusoidRootPointWithLabel({pointLabel, x, y})
+            : strings.srSinusoidRootPoint({x, y});
     }
     if (state.y === state.otherY) {
-        return strings.srSinusoidFlatPoint(formatted);
+        return pointLabel
+            ? strings.srSinusoidFlatPointWithLabel({pointLabel, x, y})
+            : strings.srSinusoidFlatPoint({x, y});
     }
-    return state.y > state.otherY
-        ? strings.srSinusoidMaxPoint(formatted)
-        : strings.srSinusoidMinPoint(formatted);
+    if (state.y > state.otherY) {
+        return pointLabel
+            ? strings.srSinusoidMaxPointWithLabel({pointLabel, x, y})
+            : strings.srSinusoidMaxPoint({x, y});
+    }
+    return pointLabel
+        ? strings.srSinusoidMinPointWithLabel({pointLabel, x, y})
+        : strings.srSinusoidMinPoint({x, y});
 }
 
 type SinusoidGraphDescriptionStrings = {

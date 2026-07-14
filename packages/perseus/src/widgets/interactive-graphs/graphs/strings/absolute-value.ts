@@ -27,9 +27,13 @@ export function srAbsoluteValuePointLabel(
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
     if (state.pointIndex === 0) {
-        return strings.srAbsoluteValueVertexPoint({pointLabel, x, y});
+        return pointLabel
+            ? strings.srAbsoluteValueVertexPointWithLabel({pointLabel, x, y})
+            : strings.srAbsoluteValueVertexPoint({x, y});
     }
-    const armLabel = strings.srAbsoluteValueArmPoint({pointLabel, x, y});
+    const armLabel = pointLabel
+        ? strings.srAbsoluteValueArmPointWithLabel({pointLabel, x, y})
+        : strings.srAbsoluteValueArmPoint({x, y});
     const slopeLabel = strings.srAbsoluteValueSlope({
         slope: srFormatNumber(state.slope, locale),
     });

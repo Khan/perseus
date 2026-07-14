@@ -24,9 +24,14 @@ export function srRayPointLabel(
 
     // Index 0 is the ray's endpoint; index 1 is a point the ray passes
     // through. They use different labels.
-    return state.pointIndex === 0
-        ? strings.srRayEndpoint({pointLabel, x, y})
-        : strings.srRayTerminalPoint({pointLabel, x, y});
+    if (state.pointIndex === 0) {
+        return pointLabel
+            ? strings.srRayEndpointWithLabel({pointLabel, x, y})
+            : strings.srRayEndpoint({x, y});
+    }
+    return pointLabel
+        ? strings.srRayTerminalPointWithLabel({pointLabel, x, y})
+        : strings.srRayTerminalPoint({x, y});
 }
 
 type RayGraphDescriptionStrings = {
