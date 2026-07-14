@@ -768,10 +768,7 @@ class Renderer
         );
     };
 
-    replaceJiptContent(
-        content: string,
-        paragraphIndex: number | undefined,
-    ): void {
+    replaceJiptContent(content: string, paragraphIndex?: number): void {
         if (paragraphIndex == null) {
             // we're not translating paragraph-wise; replace the whole content
             // (we could also theoretically check for apiOptions.isArticle
