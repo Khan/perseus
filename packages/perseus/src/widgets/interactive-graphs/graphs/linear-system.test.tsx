@@ -1,13 +1,10 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
-import {getLinearSystemGraphDescription} from "./linear-system";
 
 import type {InteractiveGraphState} from "../types";
 
@@ -374,49 +371,5 @@ describe("Linear System graph pointLabels", () => {
         // default; index 1 is a usable string and overrides.
         expect(line1Point1).toBeInTheDocument();
         expect(line1Point2).toBeInTheDocument();
-    });
-});
-
-describe("getLinearSystemGraphDescription", () => {
-    test("describes a default linear system graph", () => {
-        // Arrange
-
-        // Act
-        const linearSystemGraphDescription = getLinearSystemGraphDescription(
-            baseLinearSystemState,
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(linearSystemGraphDescription).toEqual(
-            "Interactive elements: Two lines on a coordinate plane. Line 1 has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5. Line 2 has two points, point 1 at -5 comma -5 and point 2 at 5 comma -5.",
-        );
-    });
-
-    test("describes a linear system graph with updated points", () => {
-        // Arrange
-
-        // Act
-        const linearSystemGraphDescription = getLinearSystemGraphDescription(
-            {
-                ...baseLinearSystemState,
-                coords: [
-                    [
-                        [-2, 3],
-                        [3, 3],
-                    ],
-                    [
-                        [-2, -3],
-                        [3, -3],
-                    ],
-                ],
-            },
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(linearSystemGraphDescription).toEqual(
-            "Interactive elements: Two lines on a coordinate plane. Line 1 has two points, point 1 at -2 comma 3 and point 2 at 3 comma 3. Line 2 has two points, point 1 at -2 comma -3 and point 2 at 3 comma -3.",
-        );
     });
 });

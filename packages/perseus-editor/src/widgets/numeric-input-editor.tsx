@@ -1,6 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {
-    ApiOptions,
     components,
     Changeable,
     EditorJsonify,
@@ -84,7 +83,6 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     static defaultProps = {
         ...numericInputLogic.defaultWidgetOptions,
-        apiOptions: ApiOptions.defaults,
     };
 
     constructor(props: Props) {

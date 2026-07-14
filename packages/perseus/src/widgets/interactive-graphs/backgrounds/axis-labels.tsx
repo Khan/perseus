@@ -39,6 +39,8 @@ export default function AxisLabels({
                     position: "absolute",
                     left: xAxisLabelLocation[X],
                     top: xAxisLabelLocation[Y],
+                    // Using `fontSize` instead of semantic tokens here in
+                    // order to stay consistent with our graph calculations.
                     fontSize: fontSize + "px",
                     transform: xLabelTransform,
                 }}
@@ -55,6 +57,8 @@ export default function AxisLabels({
                     position: "absolute",
                     left: yAxisLabelLocation[X],
                     top: yAxisLabelLocation[Y],
+                    // Using `fontSize` instead of semantic tokens here in
+                    // order to stay consistent with our graph calculations.
                     fontSize: fontSize + "px",
                     transform: yLabelTransform,
                 }}

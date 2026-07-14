@@ -1,17 +1,12 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {
-    describeQuadraticGraph,
-    getQuadraticCoefficients,
-    getQuadraticKeyboardConstraint,
-} from "./quadratic";
+import {getQuadraticKeyboardConstraint} from "./quadratic";
 
 import type {QuadraticGraphState, InteractiveGraphState} from "../types";
 import type {vec} from "mafs";
@@ -335,76 +330,6 @@ describe("Quadratic graph pointLabels", () => {
         expect(
             screen.getByRole("button", {name: "Point C at 5 comma 5."}),
         ).toBeInTheDocument();
-    });
-});
-
-describe("describedQuadraticGraph interactive elements", () => {
-    test("describes interactive elements on a default quadratic graph", () => {
-        // Arrange
-
-        // Act
-        const strings = describeQuadraticGraph(
-            baseQuadraticState,
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srQuadraticInteractiveElements).toBe(
-            "Interactive elements: Parabola with points at -5 comma 5, 0 comma -5, and 5 comma 5.",
-        );
-    });
-
-    test("describes interactive elements on a quadratic graph with updated points", () => {
-        // Arrange
-
-        // Act
-        const strings = describeQuadraticGraph(
-            {
-                ...baseQuadraticState,
-                coords: [
-                    [-1, 2],
-                    [3, 4],
-                    [5, 5],
-                ],
-            },
-            mockPerseusI18nContext,
-        );
-
-        // Assert
-        expect(strings.srQuadraticInteractiveElements).toBe(
-            "Interactive elements: Parabola with points at -1 comma 2, 3 comma 4, and 5 comma 5.",
-        );
-    });
-});
-
-describe("getQuadraticCoefficients", () => {
-    it("should accurately calculate coefficients", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [-5, 5],
-            [0, -5],
-            [4, 5],
-        ];
-        const expected: [number, number, number] = [0.5, 0.5, -5];
-        expect(getQuadraticCoefficients(coords)).toEqual(expected);
-    });
-
-    it("should accurately calculate coefficients regardless of the provided order", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [-5, 5],
-            [4, 5],
-            [0, -5],
-        ];
-        const expected: [number, number, number] = [0.5, 0.5, -5];
-        expect(getQuadraticCoefficients(coords)).toEqual(expected);
-    });
-
-    it("should return undefined when the coefficients are invalid", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ];
-        expect(getQuadraticCoefficients(coords)).toBe(undefined);
     });
 });
 

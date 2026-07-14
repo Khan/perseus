@@ -126,7 +126,8 @@
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
     opacity: 0.25;
-    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
+    /* Not using a semantic token here because there's no equivalent that
+     * would work for the drop shadow filter. */
     filter: drop-shadow(0 5px 5px #0008);
 }
 
@@ -278,7 +279,8 @@
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%;
-    /* offBlack16 shadow — no semantic shadow-with-alpha token; left hardcoded */
+    /* Not using a semantic token here because there's no equivalent that
+     * would work for the drop shadow filter. */
     filter: drop-shadow(0 1px 4px rgba(33, 36, 44, 0.16));
 }
 
@@ -332,7 +334,8 @@
 
 .MafsView .movable-pill-handle-halo {
     opacity: 0.25;
-    /* ~50% black shadow — no semantic shadow-with-alpha token; left hardcoded */
+    /* Not using a semantic token here because there's no equivalent that
+     * would work for the drop shadow filter. */
     filter: drop-shadow(0 5px 5px #0008);
 }
 
@@ -353,6 +356,14 @@
 
 .MafsView pattern g {
     stroke: var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+/* 1px graph frame; non-scaling-stroke keeps it crisp under viewBox scaling. */
+.MafsView .mafs-graph-border {
+    fill: none;
+    stroke: var(--wb-semanticColor-core-border-neutral-default);
+    stroke-width: var(--wb-border-width-thin);
+    vector-effect: non-scaling-stroke;
 }
 
 .MafsView .angle-arc-interactive {

@@ -198,6 +198,14 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                           />
                         </g>
                       </svg>
+                      <rect
+                        class="mafs-graph-border"
+                        data-testid="graph-border"
+                        height="400"
+                        width="400"
+                        x="-200"
+                        y="-200"
+                      />
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"

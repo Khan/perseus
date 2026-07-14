@@ -193,6 +193,12 @@ const KeyConfigs = (
             ariaLabel: strings.cube,
         }),
     },
+    SUB: {
+        ...getDefaultOperatorFields({
+            key: "SUB",
+            ariaLabel: strings.subscript,
+        }),
+    },
     SQRT: {
         ...getDefaultOperatorFields({
             key: "SQRT",

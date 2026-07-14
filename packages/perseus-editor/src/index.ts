@@ -9,11 +9,14 @@ export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
+export {default as IssuesPanel} from "./components/issues-panel";
 export type {Issue} from "./components/issues-panel";
 
 // Preview system hooks and utilities
 export {usePreviewController} from "./preview/use-preview-controller";
 export {usePreviewPresenter} from "./preview/use-preview-presenter";
+export {default as PreviewWithIframe} from "./preview-with-iframe";
+export type {PreviewContent} from "./preview/message-types";
 
 import "./styles/perseus-editor.css";
 

@@ -1,5 +1,42 @@
 # @khanacademy/perseus
 
+## 80.0.1
+
+### Patch Changes
+
+-   [#3892](https://github.com/Khan/perseus/pull/3892) [`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sync deps from Frontend
+
+-   Updated dependencies [[`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e)]:
+    -   @khanacademy/math-input@26.6.1
+
+## 80.0.0
+
+### Major Changes
+
+-   [#3843](https://github.com/Khan/perseus/pull/3843) [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [number-line] Narrow `labelStyle` type to the supported list of styles: "decimal", "improper", "mixed", and "non-reduced". Also removes legacy code for long-removed label style `"decimal ticks"`.
+
+### Patch Changes
+
+-   [#3849](https://github.com/Khan/perseus/pull/3849) [`45fbde7`](https://github.com/Khan/perseus/commit/45fbde7323b775e63d32cda12c9c4dfac32c36d1) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync][Plotter] Add Plotter visual regression stories
+
+-   [#3753](https://github.com/Khan/perseus/pull/3753) [`cbd7ea7`](https://github.com/Khan/perseus/commit/cbd7ea77f72cab10334190e8032f1a011bc0710e) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Re-organize interactive graph string files to centralize string patterns and streamline testing.
+
+-   [#3844](https://github.com/Khan/perseus/pull/3844) [`86593cf`](https://github.com/Khan/perseus/commit/86593cf72f137c53011f40024cf48d27e76ce6ef) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix crash in Graphie consumers when a labelStyle is used that is invalid (causing an 'undefined' entity to be added to Graphi'es tracking list of entities - resulting in a call to `.toFront()` on this `undefined` entity).
+
+-   [#3856](https://github.com/Khan/perseus/pull/3856) [`387df6c`](https://github.com/Khan/perseus/commit/387df6cc29442ea3dbd7911df66cb4ae9ea011be) Thanks [@nishasy](https://github.com/nishasy)! - [ColorSync] [Interactive Graph] Use semantic tokens in the Interactive Graph widget
+
+-   [#3870](https://github.com/Khan/perseus/pull/3870) [`15bdd71`](https://github.com/Khan/perseus/commit/15bdd71343c97f393cd27877e2970a0dbaf203e7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix thin border around the interactive graph
+
+-   [#3771](https://github.com/Khan/perseus/pull/3771) [`024ef46`](https://github.com/Khan/perseus/commit/024ef46592113b75311545f48574b7a2a927fc52) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix table (and block math) text not scaling with the device font scale on mobile: Zoomable now fits content to the zoom-adjusted container width instead of cancelling out the CSS zoom applied for font enlargement
+
+-   Updated dependencies [[`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61), [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13)]:
+    -   @khanacademy/perseus-core@31.0.0
+    -   @khanacademy/math-input@26.6.0
+    -   @khanacademy/keypad-context@3.2.73
+    -   @khanacademy/kmath@2.4.32
+    -   @khanacademy/perseus-linter@5.1.13
+    -   @khanacademy/perseus-score@8.12.5
+
 ## 79.2.0
 
 ### Minor Changes

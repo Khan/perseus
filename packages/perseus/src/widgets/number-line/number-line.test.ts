@@ -177,20 +177,6 @@ describe("number-line widget", () => {
             // Assert
             expect(container).toMatchSnapshot("show fractions");
         });
-
-        it(`all tick labels show when "Style" is "decimal ticks" (deprecated option)`, () => {
-            // Arrange
-            const question = createNumberLineQuestionWithOptions({
-                labelTicks: false,
-                labelStyle: "decimal ticks",
-            });
-
-            // Act
-            const {container} = renderQuestion(question, apiOptions);
-
-            // Assert
-            expect(container).toMatchSnapshot("show decimal ticks");
-        });
     });
 
     it("should send analytics event when widget is rendered", () => {
