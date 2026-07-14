@@ -383,7 +383,10 @@ describe("parseWidgetsMap", () => {
                     decorative: true,
                     labels: [],
                     longDescription: "the long description",
-                    range: [[0, 1], [2, 3]],
+                    range: [
+                        [0, 1],
+                        [2, 3],
+                    ],
                     scale: 7,
                     title: "the title",
                 },

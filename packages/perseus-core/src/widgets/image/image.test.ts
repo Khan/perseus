@@ -1,4 +1,4 @@
-import {generateImageOptions} from "@khanacademy/perseus-core";
+import {generateImageOptions} from "../../utils/generators/image-widget-generator";
 
 import type {PerseusImageWidgetOptions} from "../../data-schema";
 

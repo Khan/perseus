@@ -1,7 +1,5 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {generateImageOptions} from "@khanacademy/perseus-core";
-
 import {
     getAnswersFromWidgets,
     getPerseusAIData,
@@ -24,6 +22,7 @@ import {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
 } from "./generators/graded-group-widget-generator";
+import {generateImageOptions} from "./generators/image-widget-generator";
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
