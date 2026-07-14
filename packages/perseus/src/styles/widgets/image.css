@@ -41,6 +41,20 @@
     margin: 0px 0px;
 }
 
+/* Referencing this WB background color is needed to aid in Dark Mode preview */
+.perseus-image-preview-container {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+
+.perseus-image-preview-container[data-wb-theme$="-dark"] {
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie,
+    .perseus-block-math .mathjax-wrapper {
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+}
+
 /* This prevents the image from overflowing its container in editor previews */
 .perseus-image-preview-container .image-loader-img {
     overflow: hidden;

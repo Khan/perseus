@@ -29,6 +29,12 @@ interface ImagePreviewProps {
      * If not provided, the image will render at its natural size.
      */
     height?: number;
+
+    /**
+     * The Wonder Blocks theme to use in the preview area.
+     * This is primarily used to preview Dark Mode rendering.
+     */
+    wbTheme?: string;
 }
 
 /**
@@ -40,9 +46,13 @@ export default function ImagePreview({
     alt,
     width,
     height,
+    wbTheme,
 }: ImagePreviewProps): React.ReactElement {
     return (
-        <div className="perseus-image-preview-container">
+        <div
+            className="perseus-image-preview-container"
+            data-wb-theme={wbTheme}
+        >
             <SvgImage
                 src={src}
                 alt={alt}
