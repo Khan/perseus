@@ -75,9 +75,6 @@ export function useControlPoint(params: Params): Return {
         onMove,
         onDragEnd,
         constrainKeyboardMovement: constrain,
-        // A point is a small handle: a touch that lands on it is always a grab,
-        // so claim it immediately rather than let iOS scroll the page first.
-        claimOnPointerDown: true,
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
@@ -88,7 +85,6 @@ export function useControlPoint(params: Params): Return {
         onDragStart,
         onDragEnd,
         constrainKeyboardMovement: constrain,
-        claimOnPointerDown: true,
     });
 
     // if custom aria label is not provided, will use default of sequence number and point coordinates

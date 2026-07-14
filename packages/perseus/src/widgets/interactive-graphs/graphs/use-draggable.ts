@@ -34,17 +34,6 @@ export type Params = {
     onDragEnd?: () => unknown;
     point: vec.Vector2;
     constrainKeyboardMovement: KeyboardMovementConstraint;
-    /**
-     * For small, unambiguous handles (points, arrowheads), claim a touch
-     * gesture the moment it lands on the handle instead of waiting for
-     * movement. A touch that starts exactly on a small handle is always a
-     * grab, never an intended page scroll, so claiming immediately stops iOS
-     * from starting a scroll on the first frame (its compositor can beat our
-     * main-thread preventDefault on a fast flick). Leave this off (default) for
-     * large bodies like lines and polygons, where a swipe that begins on the
-     * shape may be an intended page scroll and should still scroll through.
-     */
-    claimOnPointerDown?: boolean;
 };
 
 export type KeyboardMovementConstraint =
@@ -75,7 +64,6 @@ export function useDraggable(args: Params): DragState {
         onDragEnd,
         point,
         constrainKeyboardMovement,
-        claimOnPointerDown = false,
     } = args;
     const [dragging, setDragging] = React.useState(false);
     const {xSpan, ySpan} = useSpanContext();
@@ -188,32 +176,16 @@ export function useDraggable(args: Params): DragState {
                     dragStarted.current = false;
                 }
                 if (vec.mag(pixelMovement) === 0) {
-                    // No movement yet. For small handles (points/arrowheads) a
-                    // touch that lands here is unambiguously a grab, so claim
-                    // it now to stop iOS starting a scroll on the first frame.
-                    // We restrict this to touch so mouse focus/selection is
-                    // unchanged, and we still don't *start* the drag until
-                    // there's real movement below.
-                    if (claimOnPointerDown && isTouchEvent(event)) {
-                        event?.stopPropagation();
-                        event?.preventDefault();
-                        return;
-                    }
-                    // Otherwise we can't yet tell a drag from the start of a
-                    // page scroll, so leave the event alone (don't claim it) so
-                    // a plain touch-and-swipe over the graph still scrolls the
-                    // page. This matters on iOS 26.5+, where WebKit now honors
-                    // default-prevention during the pointer-down phase and
-                    // would otherwise block scroll.
+                    // No movement yet: can't tell a drag from the start of a
+                    // page scroll, so leave the event alone and let a swipe
+                    // scroll the page (iOS 26.5+ honors pointer-down
+                    // suppression and would otherwise block scroll).
                     return;
                 }
-                // A real drag is underway: claim the gesture and suppress the
-                // browser's default touch-scroll so dragging doesn't also
-                // scroll the page. We do this in JS rather than via
-                // `touch-action: none` because Safari doesn't reliably honor
-                // `touch-action` on SVG (which every draggable body is).
-                // Only on move (not pointer-down), so a plain swipe still
-                // scrolls.
+                // Real drag underway: suppress touch-scroll so dragging doesn't
+                // also scroll the page. Done in JS because Safari doesn't
+                // reliably honor `touch-action` on SVG; only on move, so a
+                // plain swipe still scrolls.
                 event?.stopPropagation();
                 event?.preventDefault();
                 // Don't start a drag if no movement; a click with zero
@@ -260,21 +232,6 @@ const directionForKey: Record<
     ArrowUp: "up",
     ArrowDown: "down",
 };
-
-// True for touch input. Mouse/pen drags never scroll the page, so the
-// early-claim behavior in useDraggable is scoped to touch to avoid changing
-// their focus/selection semantics. Real iOS Safari delivers PointerEvents
-// (pointerType "touch"); some environments deliver TouchEvents instead, so we
-// accept either. Mouse events report neither and are treated as non-touch.
-function isTouchEvent(event: unknown): boolean {
-    if (event == null || typeof event !== "object") {
-        return false;
-    }
-    if ("pointerType" in event) {
-        return event.pointerType === "touch";
-    }
-    return typeof TouchEvent !== "undefined" && event instanceof TouchEvent;
-}
 
 function getInverseTransform(transform: vec.Matrix) {
     const invert = vec.matrixInvert(transform);

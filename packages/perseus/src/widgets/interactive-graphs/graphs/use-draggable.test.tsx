@@ -17,7 +17,6 @@ function TestDraggable(props: {
     constrainKeyboardMovement?: KeyboardMovementConstraint;
     onDragStart?: () => unknown;
     onMove?: (point: vec.Vector2) => unknown;
-    claimOnPointerDown?: boolean;
 }) {
     const {onMove = () => {}, constrainKeyboardMovement = (p) => p} = props;
     const gestureTarget = useRef<HTMLButtonElement>(null);
@@ -27,7 +26,6 @@ function TestDraggable(props: {
         onMove,
         constrainKeyboardMovement,
         gestureTarget,
-        claimOnPointerDown: props.claimOnPointerDown,
     });
     return (
         <button ref={gestureTarget} tabIndex={0}>
@@ -368,23 +366,6 @@ describe("useDraggable", () => {
         expect(moveMouseTo(element, 0, 0)).toBe(true);
         // ...but a move that actually drags the shape should.
         expect(moveMouseTo(element, 20, 20)).toBe(false);
-    });
-
-    it("does not claim a mouse press on pointer-down even with claimOnPointerDown", () => {
-        // claimOnPointerDown claims a *touch* the instant it lands, to beat
-        // iOS's first-frame scroll. Mouse input never scrolls the page, so it
-        // must stay movement-gated: claiming a mouse press on pointer-down
-        // would suppress native focus/selection for no benefit.
-        // Arrange
-        render(
-            <Mafs width={200} height={200}>
-                <TestDraggable point={[0, 0]} claimOnPointerDown={true} />
-            </Mafs>,
-        );
-
-        // Act, Assert: the mouse press is not prevented (fireEvent returns false
-        // only when a handler called preventDefault).
-        expect(mouseDownAt(screen.getByRole("button"), 0, 0)).toBe(true);
     });
 });
 
