@@ -124,7 +124,7 @@ describe("Ray graph pointLabels", () => {
         );
     });
 
-    it("uses custom pointLabels and overrides the semantic Endpoint / Through point defaults", () => {
+    it("uses custom pointLabels with the Endpoint / Through point roles", () => {
         // Arrange, Act
         render(
             <MafsGraph
@@ -135,14 +135,14 @@ describe("Ray graph pointLabels", () => {
         const [point1, , point2] = screen.getAllByRole("button");
 
         // Assert
-        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
-        expect(
-            screen.queryByLabelText("Endpoint at -5 comma 5."),
-        ).not.toBeInTheDocument();
-        expect(
-            screen.queryByLabelText("Through point at 5 comma 5."),
-        ).not.toBeInTheDocument();
+        expect(point1).toHaveAttribute(
+            "aria-label",
+            "Endpoint A at -5 comma 5.",
+        );
+        expect(point2).toHaveAttribute(
+            "aria-label",
+            "Through point B at 5 comma 5.",
+        );
     });
 
     it("falls back to the semantic Endpoint / Through point labels for indices without a custom label", () => {
@@ -156,7 +156,10 @@ describe("Ray graph pointLabels", () => {
         const [point1, , point2] = screen.getAllByRole("button");
 
         // Assert
-        expect(point1).toHaveAttribute("aria-label", "Point A at -5 comma 5.");
+        expect(point1).toHaveAttribute(
+            "aria-label",
+            "Endpoint A at -5 comma 5.",
+        );
         expect(point2).toHaveAttribute(
             "aria-label",
             "Through point at 5 comma 5.",
@@ -177,7 +180,10 @@ describe("Ray graph pointLabels", () => {
 
         // Assert
         expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+        expect(point2).toHaveAttribute(
+            "aria-label",
+            "Through point B at 5 comma 5.",
+        );
     });
 
     it("falls back to the semantic default for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
@@ -188,7 +194,7 @@ describe("Ray graph pointLabels", () => {
                 state={{
                     ...baseRayState,
                     // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
-                    pointLabels: [42, "B"] as unknown as string[],
+                    pointLabels: [{number: 42}, "B"] as unknown as string[],
                 }}
             />,
         );
@@ -196,6 +202,9 @@ describe("Ray graph pointLabels", () => {
 
         // Assert
         expect(point1).toHaveAttribute("aria-label", "Endpoint at -5 comma 5.");
-        expect(point2).toHaveAttribute("aria-label", "Point B at 5 comma 5.");
+        expect(point2).toHaveAttribute(
+            "aria-label",
+            "Through point B at 5 comma 5.",
+        );
     });
 });

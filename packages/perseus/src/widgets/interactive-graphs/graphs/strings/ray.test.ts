@@ -69,4 +69,32 @@ describe("describeRayGraph", () => {
             "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
         );
     });
+
+    test("folds custom pointLabels into the endpoint / through-point roles", () => {
+        // Arrange, Act
+        const strings = describeRayGraph(
+            {...baseRayState, pointLabels: ["A", "B"]},
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srRayEndpoint).toBe("Endpoint A at -5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe(
+            "Through point B at 5 comma 5.",
+        );
+    });
+
+    test("falls back to the plain role label for empty-string entries", () => {
+        // Arrange, Act
+        const strings = describeRayGraph(
+            {...baseRayState, pointLabels: ["", "B"]},
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srRayEndpoint).toBe("Endpoint at -5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe(
+            "Through point B at 5 comma 5.",
+        );
+    });
 });

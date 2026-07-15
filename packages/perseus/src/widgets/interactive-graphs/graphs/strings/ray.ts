@@ -7,7 +7,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srRayPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | number | undefined;
         x: number;
         y: number;
     },
@@ -59,14 +59,30 @@ export function describeRayGraph(
         point2X: srFormatNumber(line[1][0], locale),
         point2Y: srFormatNumber(line[1][1], locale),
     });
-    const srRayEndpoint = strings.srRayEndpoint({
-        x: srFormatNumber(line[0][0], locale),
-        y: srFormatNumber(line[0][1], locale),
-    });
-    const srRayTerminalPoint = strings.srRayTerminalPoint({
-        x: srFormatNumber(line[1][0], locale),
-        y: srFormatNumber(line[1][1], locale),
-    });
+    // A custom author label keeps the point's ray-specific role: the endpoint
+    // (index 0) becomes "Endpoint A ...", the through point (index 1) becomes
+    // "Through point B ...". Unlabeled, empty-string, or malformed entries fall
+    // back to the plain role label inside srRayPointLabel.
+    const srRayEndpoint = srRayPointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: state.pointLabels?.[0],
+            x: line[0][0],
+            y: line[0][1],
+        },
+        strings,
+        locale,
+    );
+    const srRayTerminalPoint = srRayPointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: state.pointLabels?.[1],
+            x: line[1][0],
+            y: line[1][1],
+        },
+        strings,
+        locale,
+    );
     const srRayGrabHandle = strings.srRayGrabHandle({
         point1X: srFormatNumber(line[0][0], locale),
         point1Y: srFormatNumber(line[0][1], locale),

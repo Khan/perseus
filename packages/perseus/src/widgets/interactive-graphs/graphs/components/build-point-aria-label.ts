@@ -38,17 +38,19 @@ export function buildPointAriaLabel(
     strings: PerseusStrings,
     locale: string,
 ): string | undefined {
-    const label = resolvePointLabel(pointLabels, index);
     // Returns the custom-label string when the resolved label is a string, or
     // undefined when it's the numeric default — in which case
     // `useControlPoint` keeps its existing fallback behavior.
+    const customLabel = pointLabels?.[index];
+    // Fall back to the default (return undefined) unless we have a genuine,
+    // non-empty custom string. An empty string or a malformed non-string entry
+    // must not be woven into the label.
+    if (typeof customLabel !== "string" || customLabel === "") {
+        return undefined;
+    }
     const x = srFormatNumber(point[0], locale);
     const y = srFormatNumber(point[1], locale);
-    const customLabel =
-        typeof label === "string"
-            ? strings.srPointAtCoordinates({pointLabel: label, x, y})
-            : undefined;
-    return customLabel;
+    return strings.srPointAtCoordinates({pointLabel: customLabel, x, y});
 }
 
 /**
