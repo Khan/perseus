@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Fix ios-26.5 interactive graph scroll
+Interactive Graph: fix graphs blocking page scroll on touch devices (iOS 26.5+)
