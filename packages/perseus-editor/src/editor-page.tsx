@@ -1,9 +1,4 @@
-import {
-    components,
-    ApiOptions,
-    ClassNames,
-    Dependencies,
-} from "@khanacademy/perseus";
+import {components, ClassNames, Dependencies} from "@khanacademy/perseus";
 import {
     getDefaultAnswerArea,
     parseAndMigratePerseusItem,
@@ -18,13 +13,13 @@ import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
+import {createDeviceApiOptionsDeriver} from "./util/derive-device-api-options";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
 
 import type {A11yIssue, Issue} from "./components/issues-panel";
 import type {A11yReport} from "./preview/use-preview-controller";
 import type {
     APIOptions,
-    APIOptionsWithDefaults,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -112,6 +107,10 @@ type State = {
 class EditorPage extends React.Component<Props, State> {
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
+
+    // Derives the preview's device-adjusted apiOptions with a stable reference
+    // across renders (see createDeviceApiOptionsDeriver for why that matters).
+    deriveDeviceApiOptions = createDeviceApiOptionsDeriver();
 
     static defaultProps: DefaultProps = {
         answerArea: getDefaultAnswerArea(),
@@ -244,13 +243,6 @@ class EditorPage extends React.Component<Props, State> {
         );
     };
 
-    getApiOptions(): APIOptionsWithDefaults {
-        return {
-            ...ApiOptions.defaults,
-            ...this.props.apiOptions,
-        };
-    }
-
     getSaveWarnings(): any {
         const issues1 = this.itemEditor.current?.getSaveWarnings();
         const issues2 = this.hintsEditor.current?.getSaveWarnings();
@@ -300,11 +292,10 @@ class EditorPage extends React.Component<Props, State> {
         const touch =
             this.props.previewDevice === "phone" ||
             this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
+        const deviceBasedApiOptions = this.deriveDeviceApiOptions({
+            apiOptions: this.props.apiOptions,
+            touch,
+        });
 
         const showEditor = !this.props.developerMode || !this.props.jsonMode;
 
