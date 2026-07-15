@@ -6,8 +6,8 @@ import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {srFormatNumber} from "../strings/format-number";
-import {pointToPixel} from "../use-transform";
 import {useDraggable} from "../use-draggable";
+import {pointToPixel} from "../use-transform";
 
 import {HitboxLayerContext} from "./hitbox-layer-context";
 import {MovablePointView} from "./movable-point-view";
@@ -158,9 +158,16 @@ export function useControlPoint(params: Params): Return {
     // back in over the otherwise pass-through layer. This is the gesture target
     // and also carries the point's click/hover, since it sits on top of the
     // SVG and receives the pointer input.
+    //
+    // This <div> is a pointer-only hit surface, so the jsx-a11y rules below are
+    // intentionally disabled: all keyboard and assistive-tech interaction lives
+    // on the sibling `focusableHandle` (a focusable `<g role="button">` with
+    // arrow-key movement). Giving this div a role + keyboard handlers would
+    // create a duplicate control and a second tab stop for the same point.
     const hitbox =
         hitboxLayer &&
         createPortal(
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
             <div
                 ref={hitboxDivRef}
                 data-testid="movable-point__hitbox"

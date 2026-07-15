@@ -35,11 +35,11 @@ import {
 } from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
-import {HitboxLayerContext} from "./graphs/components/hitbox-layer-context";
 import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
+import {HitboxLayerContext} from "./graphs/components/hitbox-layer-context";
 import MovablePointLabelsLayer from "./graphs/components/movable-point-labels-layer";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";

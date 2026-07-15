@@ -71,7 +71,9 @@ describe("StatefulMafsGraph", () => {
     it("renders", () => {
         render(<StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />);
 
-        expect(screen.getAllByTestId("movable-point").length).toBeGreaterThan(0);
+        expect(screen.getAllByTestId("movable-point").length).toBeGreaterThan(
+            0,
+        );
     });
 
     it("calls onChange when using graph", async () => {
