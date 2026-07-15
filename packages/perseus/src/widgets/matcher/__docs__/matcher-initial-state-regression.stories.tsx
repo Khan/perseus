@@ -101,8 +101,6 @@ export const UnevenSize: Story = {
     },
 };
 
-// Verifies the padding: false state produces tighter spacing between cards
-// than the default padding: true.
 export const PaddingOff: Story = {
     decorators: [matcherRendererDecorator],
     args: {
@@ -130,45 +128,39 @@ export const WithImages: Story = {
     },
 };
 
-//Verifies the table actually aligns and orders itself from right to left for rtl languages
 export const RightToLeft: Story = {
     decorators: [matcherRendererDecorator, rtlDecorator],
     args: sharedArgs,
 };
 
-// Verifies the two-column layout holds when the matcher's *container* is narrow
-// (constrained via a CSS containment context, not the viewport).
-// NOTE: Remove if the columns/lines shift unpredictably
 export const NarrowContainer: Story = {
     decorators: [matcherRendererDecorator, narrowViewportDecorator],
     args: sharedArgs,
 };
 
-// Verifies a tall list with colorful (TeX-colored) content renders each row at
-// a consistent height across both columns.
 export const TallColorfulList: Story = {
     decorators: [matcherRendererDecorator],
     args: {
         labels: ["Term", "Color"],
         left: [
-            "$\\color{red}{\\text{Cardinal}}$",
-            "$\\color{orange}{\\text{Tangerine}}$",
-            "$\\color{#ca337c}{\\text{Magenta}}$",
-            "$\\color{green}{\\text{Emerald}}$",
-            "$\\color{blue}{\\text{Sapphire}}$",
-            "$\\color{purple}{\\text{Amethyst}}$",
-            "$\\color{#946700}{\\text{Ochre}}$",
-            "$\\color{#0c7f99}{\\text{Teal}}$",
+            "$\\color{#D92916}{\\text{Red}}$",
+            "$\\color{#946700}{\\text{Gold}}$",
+            "$\\color{#447A53}{\\text{Green}}$",
+            "$\\color{#3D7586}{\\text{Blue}}$",
+            "$\\color{#594094}{\\text{Purple}}$",
+            "$\\color{#8351E8}{\\text{Violet}}$",
+            "$\\color{#B25071}{\\text{Pink}}$",
+            "$\\color{#5D5F66}{\\text{Gray}}$",
         ],
         right: [
-            "$\\color{red}{\\blacksquare}$",
-            "$\\color{orange}{\\blacksquare}$",
-            "$\\color{#ca337c}{\\blacksquare}$",
-            "$\\color{green}{\\blacksquare}$",
-            "$\\color{blue}{\\blacksquare}$",
-            "$\\color{purple}{\\blacksquare}$",
+            "$\\color{#D92916}{\\blacksquare}$",
             "$\\color{#946700}{\\blacksquare}$",
-            "$\\color{#0c7f99}{\\blacksquare}$",
+            "$\\color{#447A53}{\\blacksquare}$",
+            "$\\color{#3D7586}{\\blacksquare}$",
+            "$\\color{#594094}{\\blacksquare}$",
+            "$\\color{#8351E8}{\\blacksquare}$",
+            "$\\color{#B25071}{\\blacksquare}$",
+            "$\\color{#5D5F66}{\\blacksquare}$",
         ],
         orderMatters: false,
         padding: true,
