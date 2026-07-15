@@ -143,6 +143,7 @@ export type MakeWidgetMap<TRegistry> = {
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
 export interface PerseusWidgetTypes {
+    blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
     definition: DefinitionWidget;
@@ -429,6 +430,8 @@ export type WidgetOptions<
 };
 
 // prettier-ignore
+export type BlankWidget = WidgetOptions<'blank', PerseusBlankWidgetOptions>;
+// prettier-ignore
 export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
 // prettier-ignore
 export type CSProgramWidget = WidgetOptions<'cs-program', PerseusCSProgramWidgetOptions>;
@@ -523,6 +526,16 @@ export type PerseusImageBackground = {
 export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type AxisLabelLocation = "onAxis" | "alongEdge";
+
+/** Options for the blank widget, used within "Drag And Drop" widgets as the dropzone for answer tiles */
+export type PerseusBlankWidgetOptions = {
+    /** ID for the blank */
+    id: string;
+    /** Display Type for how the blank should be rendered */
+    displayType: "normal | superscript | subscript";
+    /** ID for the correct answer tile for the blank */
+    correct: string;
+};
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
 export type PerseusCategorizerWidgetOptions = {
