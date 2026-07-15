@@ -132,6 +132,12 @@ export function usePreviewPresenter(
                     break;
 
                 case "highlight-issues":
+                    // Drop this command if it was computed against stale
+                    // content (its instanceIds belong to a scan whose element
+                    // map is no longer current).
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setHighlightTargets(
                         message.instanceIds.flatMap(
                             (instanceId) =>
@@ -167,11 +173,20 @@ export function usePreviewPresenter(
         a11yScanningEnabledRef.current = a11yScanningEnabled;
     }, [a11yScanningEnabled]);
 
-    // Same reason as above: `startScan` is memoized, so reading the version
-    // from its closure would report a stale one.
+    // Latest contentVersion, mirrored into a ref for the two readers that
+    // can't see live state: the message listener (registered once on mount,
+    // gating highlight commands) and the memoized `startScan`, which has to
+    // stamp its report with the version it scanned.
     const contentVersionRef = React.useRef(contentVersion);
     React.useEffect(() => {
         contentVersionRef.current = contentVersion;
+    }, [contentVersion]);
+
+    // A new content version means any highlight overlays drawn against the
+    // previous version's scan are stale — drop them until a fresh highlight
+    // command arrives.
+    React.useEffect(() => {
+        setHighlightTargets([]);
     }, [contentVersion]);
 
     // In-flight scan promise. Non-null means a scan is already running.
@@ -223,6 +238,7 @@ export function usePreviewPresenter(
                 {elementRef: true},
             );
 
+            // Don't send results if scanning was turned off mid-scan.
             if (!a11yScanningEnabledRef.current) {
                 return;
             }
