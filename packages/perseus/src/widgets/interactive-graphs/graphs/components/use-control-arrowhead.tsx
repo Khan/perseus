@@ -7,6 +7,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
+import {useHitbox} from "./hitbox";
 import {MovableArrowheadView} from "./movable-arrowhead-view";
 
 import type {KeyboardMovementConstraint} from "../use-draggable";
@@ -49,6 +50,7 @@ export function useControlArrowhead(params: Params): Return {
     const {strings, locale} = usePerseusI18n();
 
     const [focused, setFocused] = useState(false);
+    const [hovered, setHovered] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
 
     // Keyboard dragging is handled by the (invisible) focusable handle.
@@ -60,14 +62,26 @@ export function useControlArrowhead(params: Params): Return {
         constrainKeyboardMovement: constrain,
     });
 
-    // Mouse / touch dragging is handled by the visible arrowhead element.
+    // Mouse / touch dragging runs through an HTML hitbox so Safari doesn't
+    // scroll the page during a drag (see hitbox.tsx).
     const visibleRef = useRef<SVGGElement>(null);
+    const arrowheadHitboxRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
-        gestureTarget: visibleRef,
+        gestureTarget: arrowheadHitboxRef,
         point,
         onMove,
         onDragEnd,
         constrainKeyboardMovement: constrain,
+    });
+
+    const hitbox = useHitbox({
+        // 48px box matches the arrowhead's legacy hit target and the point.
+        shape: {kind: "box", center: point, sizePx: 48},
+        hitboxRef: arrowheadHitboxRef,
+        dragging,
+        onClick: () => focusableHandleRef.current?.focus(),
+        onHoverChange: setHovered,
+        testId: "movable-arrowhead__hitbox",
     });
 
     const pointAriaLabel =
@@ -102,17 +116,21 @@ export function useControlArrowhead(params: Params): Return {
     );
 
     const visibleArrowhead = (
-        <MovableArrowheadView
-            point={point}
-            angle={angle}
-            dragging={dragging}
-            focused={focused}
-            ref={visibleRef}
-            showFocusRing={focused}
-            onClick={() => {
-                focusableHandleRef.current?.focus();
-            }}
-        />
+        <>
+            <MovableArrowheadView
+                point={point}
+                angle={angle}
+                dragging={dragging}
+                focused={focused}
+                hovered={hovered}
+                ref={visibleRef}
+                showFocusRing={focused}
+                onClick={() => {
+                    focusableHandleRef.current?.focus();
+                }}
+            />
+            {hitbox}
+        </>
     );
 
     return {

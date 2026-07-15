@@ -72,6 +72,7 @@
 }
 
 .MafsView .movable-line:hover,
+.MafsView .movable-line--hover,
 .MafsView .movable-line:focus-visible,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
@@ -219,7 +220,7 @@
     fill: transparent;
 }
 
-.MafsView .movable-circle:hover .circle {
+.MafsView .movable-circle:is(:hover, .movable-circle--hover) .circle {
     fill: var(--mafs-blue);
     fill-opacity: 0.16;
 }
@@ -323,15 +324,21 @@
 }
 
 /* Hover: arms grow longer (stroke stays 2px), ring/halo/focus expand */
-.MafsView .movable-arrowhead:hover .movable-arrowhead-center {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-center {
     transform: scale(1.2);
 }
 
-.MafsView .movable-arrowhead:hover .movable-arrowhead-ring {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-ring {
     transform: scale(1.2);
 }
 
-.MafsView .movable-arrowhead:hover .movable-arrowhead-halo {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-halo {
     transform: scale(1.15);
 }
 

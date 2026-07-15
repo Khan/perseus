@@ -1514,16 +1514,24 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
-                    data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 257.14285714285717px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 142.85714285714286px; top: 114.2857142857143px; width: 114.2857142857143px; height: 114.2857142857143px; clip-path: polygon(114.2857142857143px 114.2857142857143px, 57.14285714285714px 0px, 0px 114.2857142857143px);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 200px; top: 114.2857142857143px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 257.14285714285717px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 114.2857142857143px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>
@@ -1936,16 +1944,24 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
-                    data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 275px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 125px; top: 125px; width: 150px; height: 125px; clip-path: polygon(150px 125px, 75px 0px, 0px 125px);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 200px; top: 125px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 275px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 125px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 125px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 125px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>
@@ -2845,16 +2861,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
-                    data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 371.42857142857144px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 142.85714285714286px; top: 57.14285714285717px; width: 228.57142857142858px; height: 171.42857142857144px; clip-path: polygon(228.57142857142858px 171.42857142857144px, 0px 0px, 0px 171.42857142857144px);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 142.85714285714286px; top: 57.14285714285717px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 371.42857142857144px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 57.14285714285717px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>
@@ -3267,16 +3291,24 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
-                    data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 50px; top: 375px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 50px; top: 300px; width: 175px; height: 75px; clip-path: polygon(0px 75px, 175px 0px, 75px 0px);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 225px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 50px; top: 375px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 125px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 225px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 125px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>
@@ -3591,16 +3623,19 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 200px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 75px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 75px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 150px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 150px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>
@@ -4123,20 +4158,29 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
-                    data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 116.66666666666666px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 116.66666666666666px; top: 16.666666666666657px; width: 150.00000000000003px; height: 250.00000000000003px; clip-path: polygon(0px 250.00000000000003px, 150.00000000000003px 0px, 150.00000000000003px 250.00000000000003px, 100px 200.00000000000003px);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 266.6666666666667px; top: 16.666666666666657px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 116.66666666666666px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 266.6666666666667px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 266.6666666666667px; top: 16.666666666666657px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                   <div
+                    aria-hidden="true"
                     data-testid="movable-point__hitbox"
-                    style="position: absolute; left: 216.66666666666666px; top: 216.66666666666669px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 266.6666666666667px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 216.66666666666666px; top: 216.66666666666669px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                   />
                 </div>
               </div>

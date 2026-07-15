@@ -11,6 +11,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
+import {useHitbox} from "./components/hitbox";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {describeCircleGraph} from "./strings/circle";
@@ -131,6 +132,7 @@ function MovableCircle(props: {
     const {snapStep, disableKeyboardInteraction, interactiveColor} =
         useGraphConfig();
     const [focused, setFocused] = React.useState(false);
+    const [hovered, setHovered] = React.useState(false);
 
     // Keeping focus and gesture targets on separate `<g>`s works around a
     // Safari-specific bug where dragging this group can result in the
@@ -138,6 +140,7 @@ function MovableCircle(props: {
     // Splitting them resolves it and better mirrors `useControlPoint`.
     const focusableHandleRef = useRef<SVGGElement>(null);
     const visibleGroupRef = useRef<SVGGElement>(null);
+    const circleHitboxRef = useRef<HTMLDivElement>(null);
 
     // Keyboard support (on focusableHandleRef)
     useDraggable({
@@ -147,12 +150,22 @@ function MovableCircle(props: {
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
-    // Mouse/Touch support (on the visibleGroupRef)
+    // Mouse/Touch support runs through an HTML hitbox so Safari doesn't scroll
+    // the page during a drag (see hitbox.tsx).
     const {dragging} = useDraggable({
-        gestureTarget: visibleGroupRef,
+        gestureTarget: circleHitboxRef,
         point: center,
         onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const circleHitbox = useHitbox({
+        shape: {kind: "ellipse", center, radius: [radius, radius]},
+        hitboxRef: circleHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-circle__hitbox",
     });
 
     React.useLayoutEffect(() => {
@@ -166,6 +179,7 @@ function MovableCircle(props: {
 
     return (
         <>
+            {circleHitbox}
             <g
                 ref={focusableHandleRef}
                 className="movable-circle-focusable-handle"
@@ -180,7 +194,7 @@ function MovableCircle(props: {
             <g
                 aria-hidden={true}
                 ref={visibleGroupRef}
-                className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
+                className={`movable-circle${dragging ? " movable-circle--dragging" : ""}${hovered ? " movable-circle--hover" : ""}`}
             >
                 <ClipToGraphBounds>
                     <ellipse

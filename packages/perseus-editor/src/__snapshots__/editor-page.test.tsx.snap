@@ -6400,12 +6400,19 @@ table: [[☃ table 1]]
                               style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
                             >
                               <div
-                                data-testid="movable-point__hitbox"
-                                style="position: absolute; left: 144px; top: 144px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                aria-hidden="true"
+                                data-testid="movable-line__hitbox"
+                                style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 151.2px; top: 136.8px; width: 20.36467529817258px; height: 44px; transform: translate(-50%, -50%) rotate(-45deg);"
                               />
                               <div
+                                aria-hidden="true"
                                 data-testid="movable-point__hitbox"
-                                style="position: absolute; left: 158.4px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 144px; top: 144px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                              />
+                              <div
+                                aria-hidden="true"
+                                data-testid="movable-point__hitbox"
+                                style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 158.4px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                               />
                             </div>
                           </div>
@@ -10625,12 +10632,19 @@ table: [[☃ table 1]]
                                 style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
                               >
                                 <div
-                                  data-testid="movable-point__hitbox"
-                                  style="position: absolute; left: 144px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                  aria-hidden="true"
+                                  data-testid="movable-line__hitbox"
+                                  style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 151.2px; top: 115.19999999999999px; width: 32.19937887599697px; height: 44px; transform: translate(-50%, -50%) rotate(-63.43494882292201deg);"
                                 />
                                 <div
+                                  aria-hidden="true"
                                   data-testid="movable-point__hitbox"
-                                  style="position: absolute; left: 158.4px; top: 100.8px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                  style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 144px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                                />
+                                <div
+                                  aria-hidden="true"
+                                  data-testid="movable-point__hitbox"
+                                  style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 158.4px; top: 100.8px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
                                 />
                               </div>
                             </div>

@@ -5,6 +5,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
+import {useHitbox} from "./hitbox";
 import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
 
@@ -51,17 +52,50 @@ export function MovableAsymptote(props: Props) {
         ariaLabel,
         children,
     } = props;
-    const {interactiveColor, disableKeyboardInteraction} = useGraphConfig();
+    const {interactiveColor, disableKeyboardInteraction, range} =
+        useGraphConfig();
 
     const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
 
     const groupRef = React.useRef<SVGGElement | null>(null);
-    const {dragging} = useDraggable({
+    const asymptoteHitboxRef = React.useRef<HTMLDivElement>(null);
+
+    // Keyboard drag stays on the focusable SVG group.
+    useDraggable({
         gestureTarget: groupRef,
         point,
         onMove,
         constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
+    });
+    // Pointer/touch drag runs through the HTML hitbox (Safari-safe).
+    const {dragging} = useDraggable({
+        gestureTarget: asymptoteHitboxRef,
+        point,
+        onMove,
+        constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
+    });
+
+    // The asymptote spans the full graph in graph-space: a horizontal line at
+    // y = point.y, or a vertical line at x = point.x. Reconstruct those
+    // endpoints so the hitbox lines up with the visible line.
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const hitStart: vec.Vector2 =
+        orientation === "horizontal" ? [xMin, point[1]] : [point[0], yMin];
+    const hitEnd: vec.Vector2 =
+        orientation === "horizontal" ? [xMax, point[1]] : [point[0], yMax];
+    const asymptoteHitbox = useHitbox({
+        shape: {
+            kind: "line",
+            start: hitStart,
+            end: hitEnd,
+            thicknessPx: TARGET_SIZE,
+        },
+        hitboxRef: asymptoteHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-asymptote__hitbox",
     });
 
     // When a touch drag starts the asymptote group does not naturally receive
@@ -75,61 +109,68 @@ export function MovableAsymptote(props: Props) {
     }, [dragging, focused]);
 
     return (
-        <g
-            ref={groupRef}
-            tabIndex={disableKeyboardInteraction ? -1 : 0}
-            aria-disabled={disableKeyboardInteraction}
-            aria-label={ariaLabel}
-            className="movable-line"
-            style={{cursor: dragging ? "grabbing" : "grab"}}
-            role="button"
-            data-testid="movable-asymptote"
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-            {/* Transparent hit target spanning the full line */}
-            <SVGLine
-                start={start}
-                end={end}
-                style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-            />
-            {/* Solid white line underneath so dashes are visible on grid lines/axes */}
-            <SVGLine
-                start={start}
-                end={end}
-                style={{
-                    stroke: semanticColor.core.background.base.default,
-                    strokeWidth: "var(--movable-asymptote-stroke-weight)",
-                    strokeLinecap: "round",
-                }}
-                className={dragging ? "movable-dragging" : ""}
-            />
-            {/* Dashed line */}
-            <SVGLine
-                start={start}
-                end={end}
-                style={{
-                    stroke: interactiveColor,
-                    strokeWidth: "var(--movable-asymptote-stroke-weight)",
-                    strokeDasharray:
-                        "var(--movable-asymptote-dash-length) var(--movable-asymptote-dash-gap)",
-                    strokeLinecap: "round",
-                }}
-                className={dragging ? "movable-dragging" : ""}
-                testId="movable-asymptote__line"
-            />
-            {/* Content between lines and handle (e.g. curve) renders
+        <>
+            {asymptoteHitbox}
+            <g
+                ref={groupRef}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
+                aria-disabled={disableKeyboardInteraction}
+                aria-label={ariaLabel}
+                className={
+                    hovered
+                        ? "movable-line movable-line--hover"
+                        : "movable-line"
+                }
+                style={{cursor: dragging ? "grabbing" : "grab"}}
+                role="button"
+                data-testid="movable-asymptote"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+            >
+                {/* Transparent hit target spanning the full line */}
+                <SVGLine
+                    start={start}
+                    end={end}
+                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
+                />
+                {/* Solid white line underneath so dashes are visible on grid lines/axes */}
+                <SVGLine
+                    start={start}
+                    end={end}
+                    style={{
+                        stroke: semanticColor.core.background.base.default,
+                        strokeWidth: "var(--movable-asymptote-stroke-weight)",
+                        strokeLinecap: "round",
+                    }}
+                    className={dragging ? "movable-dragging" : ""}
+                />
+                {/* Dashed line */}
+                <SVGLine
+                    start={start}
+                    end={end}
+                    style={{
+                        stroke: interactiveColor,
+                        strokeWidth: "var(--movable-asymptote-stroke-weight)",
+                        strokeDasharray:
+                            "var(--movable-asymptote-dash-length) var(--movable-asymptote-dash-gap)",
+                        strokeLinecap: "round",
+                    }}
+                    className={dragging ? "movable-dragging" : ""}
+                    testId="movable-asymptote__line"
+                />
+                {/* Content between lines and handle (e.g. curve) renders
                 above the dashed line but below the drag handle */}
-            {children}
-            {/* Drag handle at the midpoint */}
-            <MovablePillHandle
-                center={mid}
-                rotation={orientation === "vertical" ? 90 : 0}
-                active={dragging || focused || hovered}
-                focused={focused}
-            />
-        </g>
+                {children}
+                {/* Drag handle at the midpoint */}
+                <MovablePillHandle
+                    center={mid}
+                    rotation={orientation === "vertical" ? 90 : 0}
+                    active={dragging || focused || hovered}
+                    focused={focused}
+                />
+            </g>
+        </>
     );
 }
