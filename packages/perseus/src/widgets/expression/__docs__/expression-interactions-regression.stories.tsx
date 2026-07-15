@@ -1,3 +1,7 @@
+import {
+    generateExpressionOptions,
+    type PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {within} from "storybook/test";
 
@@ -6,7 +10,6 @@ import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusExpressionWidgetOptions> = {
@@ -168,205 +171,144 @@ export const WithTextInField: Story = {
     },
 };
 
-/**************** Keypad open ****************/
+export const RightToLeft: Story = {
+    name: "RTL",
+    decorators: [expressionRendererDecorator, rtlDecorator],
+    args: generateExpressionOptions({
+        buttonSets: ["basic"],
+        visibleLabel: "اپنا جواب درج کریں۔",
+        ariaLabel: "اپنا جواب درج کریں۔",
+    }),
+    parameters: {
+        initialUserInput: {"expression 1": "2x"},
+    },
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+    },
+};
 
-// Only the "basic" set is selected, so the keypad renders with just the
-// Numbers tab (no Operators/Geometry/Extras tabs are generated).
+/**************** Button sets ****************/
+
+// "basic" adds buttons in the Numbers tab
 export const OpenBasic: Story = {
     name: "[Open] Basic",
     decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
+    args: generateExpressionOptions({
         buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
+    }),
     play: async ({canvas, userEvent}) => {
         await openKeypad({canvas, userEvent});
     },
 };
 
-// "Basic relations" + "advanced relations" both map to the Operators tab,
-// so the keypad shows Numbers + Operators tabs.
-export const OpenSimpleMath: Story = {
-    name: "[Open] Simple math",
+// "basic+div" adds buttons in the Numbers tab
+export const OpenBasicDiv: Story = {
+    name: "[Open] Basic+Div",
     decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic", "basic relations", "advanced relations"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
+    args: generateExpressionOptions({
+        buttonSets: ["basic+div"],
+    }),
     play: async ({canvas, userEvent}) => {
         await openKeypad({canvas, userEvent});
     },
 };
 
-// `times: true` renders multiplication as "x" instead of a center dot.
-// "prealgebra" adds the Operators tab; "scientific" enriches the Numbers tab.
-export const OpenScience: Story = {
-    name: "[Open] Science",
+// "trig" adds buttons in the Geometry tab
+export const OpenTrig: Story = {
+    name: "[Open] Trig",
     decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic", "prealgebra", "scientific"],
-        functions: [],
-        times: true,
-        extraKeys: [],
-    },
+    args: generateExpressionOptions({
+        buttonSets: ["trig"],
+    }),
     play: async ({canvas, userEvent}) => {
         await openKeypad({canvas, userEvent});
-    },
-};
-
-// "trig" adds the Geometry tab and "prealgebra" adds the Operators tab,
-// so the keypad shows Numbers + Operators + Geometry tabs.
-export const OpenAdvancedMath: Story = {
-    name: "[Open] Advanced math",
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic", "trig", "prealgebra"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-    },
-};
-
-// Every button set selected at once — the fullest keypad configuration.
-export const OpenAllButtonSets: Story = {
-    name: "[Open] All button sets",
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: [
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-            "scientific",
-        ],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-    },
-};
-
-// Every button set selected at once, righ to left.
-export const OpenAllButtonSetsRTL: Story = {
-    name: "[Open] All button sets RTL",
-    decorators: [expressionRendererDecorator, rtlDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: [
-            "basic",
-            "basic+div",
-            "trig",
-            "prealgebra",
-            "logarithms",
-            "basic relations",
-            "advanced relations",
-            "scientific",
-        ],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-    },
-};
-
-export const OpenExtrasTabWithFunctionSet: Story = {
-    name: "[Open] Extras tab with function set",
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [
-            {
-                value: "f(2)=g(2)",
-                considered: "correct",
-                form: true,
-                simplify: false,
-            },
-        ],
-        buttonSets: ["basic", "prealgebra"],
-        functions: ["f", "g"],
-        times: false,
-        // Letter buttons only render on the Extras tab, sourced from
-        // `extraKeys`. In authored content this array is derived from the
-        // answer forms by `deriveExtraKeys`, but Storybook builds the widget
-        // options directly and never runs that derivation, so the keys must be
-        // listed explicitly here for them to appear on the keypad.
-        extraKeys: ["f", "g"],
-    },
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-
-        // The keypad popout renders into a React portal outside the canvas.
-        // Letter/variable keys live on the Extras tab (the Operators tab only
-        // renders fixed operator keys, never function letters).
-        const extrasTab = within(document.body).getByLabelText("Extras");
-        await userEvent.click(extrasTab);
-    },
-};
-
-// Number buttons (0–9, operators, backspace)
-export const OpenNumbersTab: Story = {
-    name: "[Open] Numbers tab",
-    decorators: [expressionRendererDecorator],
-    args: keypadArgs,
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-    },
-};
-
-// Pre-algebra, logarithm, and relation buttons
-export const OpenOperatorsTab: Story = {
-    name: "[Open] Operators tab",
-    decorators: [expressionRendererDecorator],
-    args: keypadArgs,
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-
-        // The keypad popout renders into a React portal outside the canvas
-        const operatorsTab = within(document.body).getByLabelText("Operators");
-        await userEvent.click(operatorsTab);
-    },
-};
-
-// Trigonometry buttons (sin, cos, tan, etc.)
-export const OpenGeometryTab: Story = {
-    name: "[Open] Geometry tab",
-    decorators: [expressionRendererDecorator],
-    args: keypadArgs,
-    play: async ({canvas, userEvent}) => {
-        await openKeypad({canvas, userEvent});
-
         // The keypad popout renders into a React portal outside the canvas
         const geometryTab = within(document.body).getByLabelText("Geometry");
         await userEvent.click(geometryTab);
     },
 };
 
-// Extra variable key buttons (x, y)
-export const OpenExtrasTab: Story = {
-    name: "[Open] Extras tab",
+// "prealgebra" adds buttons in the Operators tab
+export const OpenPrealgebra: Story = {
+    name: "[Open] Prealgebra",
     decorators: [expressionRendererDecorator],
-    args: keypadArgs,
+    args: generateExpressionOptions({
+        buttonSets: ["prealgebra"],
+    }),
     play: async ({canvas, userEvent}) => {
         await openKeypad({canvas, userEvent});
+        // The keypad popout renders into a React portal outside the canvas
+        const operatorsTab = within(document.body).getByLabelText("Operators");
+        await userEvent.click(operatorsTab);
+    },
+};
 
+// "logarithms" adds buttons in the Operators tab
+export const OpenLogarithms: Story = {
+    name: "[Open] Logarithms",
+    decorators: [expressionRendererDecorator],
+    args: generateExpressionOptions({
+        buttonSets: ["logarithms"],
+    }),
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // The keypad popout renders into a React portal outside the canvas
+        const operatorsTab = within(document.body).getByLabelText("Operators");
+        await userEvent.click(operatorsTab);
+    },
+};
+
+// "basic relations" adds buttons in the Operators tab
+export const OpenBasicRelations: Story = {
+    name: "[Open] Basic Relations",
+    decorators: [expressionRendererDecorator],
+    args: generateExpressionOptions({
+        buttonSets: ["basic relations"],
+    }),
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // The keypad popout renders into a React portal outside the canvas
+        const operatorsTab = within(document.body).getByLabelText("Operators");
+        await userEvent.click(operatorsTab);
+    },
+};
+
+// "advanced relations" adds buttons in the Operators tab
+export const OpenAdvancedRelations: Story = {
+    name: "[Open] Advanced Relations",
+    decorators: [expressionRendererDecorator],
+    args: generateExpressionOptions({
+        buttonSets: ["advanced relations"],
+    }),
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+        // The keypad popout renders into a React portal outside the canvas
+        const operatorsTab = within(document.body).getByLabelText("Operators");
+        await userEvent.click(operatorsTab);
+    },
+};
+
+// "scientific" adds buttons in the Numbers tab
+export const OpenScientific: Story = {
+    name: "[Open] Scientific",
+    decorators: [expressionRendererDecorator],
+    args: generateExpressionOptions({
+        buttonSets: ["scientific"],
+    }),
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+    },
+};
+
+// `extraKeys` adds buttons in the Extras tab
+export const OpenExtras: Story = {
+    name: "[Open] Extras",
+    decorators: [expressionRendererDecorator],
+    args: generateExpressionOptions({
+        extraKeys: ["x", "y"],
+    }),
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
         // The keypad popout renders into a React portal outside the canvas
         const extrasTab = within(document.body).getByLabelText("Extras");
         await userEvent.click(extrasTab);
