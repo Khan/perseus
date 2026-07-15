@@ -132,6 +132,15 @@ export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
  */
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
+/** User input for the LabelImage widget. */
+export type PerseusBlankUserInput = {
+    /**
+     * The user's selections for each image marker, parallel to the
+     * rubric's markers array.
+     */
+    selected?: string;
+};
+
 /** Scoring rubric for the Categorizer widget. */
 export type PerseusCategorizerRubric = {
     /**

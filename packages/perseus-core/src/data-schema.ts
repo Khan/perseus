@@ -532,9 +532,9 @@ export type PerseusBlankWidgetOptions = {
     /** ID for the blank */
     id: string;
     /** Display Type for how the blank should be rendered */
-    displayType: "normal | superscript | subscript";
+    displayType: "normal" | "superscript" | "subscript";
     /** ID for the correct answer tile for the blank */
-    correct: string;
+    correct?: string;
 };
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
@@ -2266,6 +2266,7 @@ export type PerseusMoleculeRendererWidgetOptions = {
 };
 
 export type PerseusWidgetOptions =
+    | PerseusBlankWidgetOptions
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
