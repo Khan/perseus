@@ -1318,12 +1318,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="200"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="200"
                               cy="-114.28571428571429"
@@ -1345,6 +1339,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="176"
+                              y="-138.28571428571428"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1388,12 +1393,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="142.85714285714286"
-                              cy="-228.57142857142858"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="142.85714285714286"
                               cy="-228.57142857142858"
@@ -1415,6 +1414,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="118.85714285714286"
+                              y="-252.57142857142858"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1458,12 +1468,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
                               cy="-114.28571428571429"
@@ -1485,6 +1489,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="61.71428571428572"
+                              y="-138.28571428571428"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1741,12 +1756,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="75"
-                              cy="50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="75"
                               cy="50"
@@ -1768,6 +1777,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="51"
+                              y="26"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1811,12 +1831,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="0"
-                              cy="-75"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="0"
                               cy="-75"
@@ -1838,6 +1852,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-24"
+                              y="-99"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1881,12 +1906,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-75"
-                              cy="50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-75"
                               cy="50"
@@ -1908,6 +1927,17 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-99"
+                              y="26"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2643,12 +2673,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="314.2857142857143"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="314.2857142857143"
                               cy="-114.28571428571429"
@@ -2670,6 +2694,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="290.2857142857143"
+                              y="-138.28571428571428"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2713,12 +2748,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-285.7142857142857"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
                               cy="-285.7142857142857"
@@ -2740,6 +2769,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="61.71428571428572"
+                              y="-309.7142857142857"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2783,12 +2823,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
                               cy="-114.28571428571429"
@@ -2810,6 +2844,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="61.71428571428572"
+                              y="-138.28571428571428"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3066,12 +3111,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-150"
-                              cy="175"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-150"
                               cy="175"
@@ -3093,6 +3132,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-174"
+                              y="151"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3136,12 +3186,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="25"
-                              cy="100"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="25"
                               cy="100"
@@ -3163,6 +3207,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="1"
+                              y="76"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3206,12 +3261,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-75"
-                              cy="100"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-75"
                               cy="100"
@@ -3233,6 +3282,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-99"
+                              y="76"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3479,12 +3539,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         style="--movable-point-color: var(--mafs-blue);"
                       >
                         <circle
-                          class="movable-point-hitbox"
-                          cx="0"
-                          cy="0"
-                          r="24"
-                        />
-                        <circle
                           class="movable-point-halo"
                           cx="0"
                           cy="0"
@@ -3506,6 +3560,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
+                        <foreignobject
+                          height="48"
+                          width="48"
+                          x="-24"
+                          y="-24"
+                        >
+                          <div
+                            class="movable-point-hitbox"
+                            style="width: 100%; height: 100%;"
+                          />
+                        </foreignobject>
                       </g>
                       <g
                         aria-disabled="false"
@@ -3522,12 +3587,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         style="--movable-point-color: var(--mafs-blue);"
                       >
                         <circle
-                          class="movable-point-hitbox"
-                          cx="-125"
-                          cy="0"
-                          r="24"
-                        />
-                        <circle
                           class="movable-point-halo"
                           cx="-125"
                           cy="0"
@@ -3549,6 +3608,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
+                        <foreignobject
+                          height="48"
+                          width="48"
+                          x="-149"
+                          y="-24"
+                        >
+                          <div
+                            class="movable-point-hitbox"
+                            style="width: 100%; height: 100%;"
+                          />
+                        </foreignobject>
                       </g>
                       <g
                         aria-disabled="false"
@@ -3565,12 +3635,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         style="--movable-point-color: var(--mafs-blue);"
                       >
                         <circle
-                          class="movable-point-hitbox"
-                          cx="-50"
-                          cy="0"
-                          r="24"
-                        />
-                        <circle
                           class="movable-point-halo"
                           cx="-50"
                           cy="0"
@@ -3592,6 +3656,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
+                        <foreignobject
+                          height="48"
+                          width="48"
+                          x="-74"
+                          y="-24"
+                        >
+                          <div
+                            class="movable-point-hitbox"
+                            style="width: 100%; height: 100%;"
+                          />
+                        </foreignobject>
                       </g>
                     </svg>
                   </div>
@@ -3860,12 +3935,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-83.33333333333334"
-                              cy="0"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-83.33333333333334"
                               cy="0"
@@ -3887,6 +3956,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-107.33333333333334"
+                              y="-24"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3930,12 +4010,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="66.66666666666667"
-                              cy="-250.00000000000003"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="66.66666666666667"
                               cy="-250.00000000000003"
@@ -3957,6 +4031,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="42.66666666666667"
+                              y="-274"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4000,12 +4085,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="66.66666666666667"
-                              cy="0"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="66.66666666666667"
                               cy="0"
@@ -4027,6 +4106,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="42.66666666666667"
+                              y="-24"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4070,12 +4160,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="16.666666666666668"
-                              cy="-50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="16.666666666666668"
                               cy="-50"
@@ -4097,6 +4181,17 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
+                            <foreignobject
+                              height="48"
+                              width="48"
+                              x="-7.333333333333332"
+                              y="-74"
+                            >
+                              <div
+                                class="movable-point-hitbox"
+                                style="width: 100%; height: 100%;"
+                              />
+                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span

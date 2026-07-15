@@ -78,8 +78,12 @@ export function useControlPoint(params: Params): Return {
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
+    // The touch/pointer drag is captured on an HTML hitbox (rendered inside the
+    // point's <foreignObject>) rather than the SVG group, because Safari doesn't
+    // reliably honor `touch-action` on SVG. See MovablePointView for details.
+    const hitboxDivRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
-        gestureTarget: visiblePointRef,
+        gestureTarget: hitboxDivRef,
         point,
         onMove,
         onDragStart,
@@ -142,6 +146,7 @@ export function useControlPoint(params: Params): Return {
             dragging={dragging}
             focused={focused}
             ref={visiblePointRef}
+            hitboxDivRef={hitboxDivRef}
             showFocusRing={focused}
         />
     );
