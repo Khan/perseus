@@ -48,8 +48,8 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
 // Jest workers sometimes segfault and crash. Reducing maxWorkers seems to
 // help. On our dev laptops with 12 cores, Jest defaults to 13 workers when
-// maxWorkers is not set, so I've reduced it to 10. 10 workers actually seems
-// faster than 12 (16s versus 18s). This setting is not applied on CI.
+// maxWorkers is not set, so I've reduced it to 10. The test suite seems to run
+// faster with 10 workers, too (16s vs. 18s). This setting is not applied on CI.
 const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 13};
 
 /** @type {import('jest').Config} */
