@@ -1148,14 +1148,6 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                         >
                           <line
                             aria-hidden="true"
-                            style="stroke: transparent; stroke-width: 44;"
-                            x1="-100"
-                            x2="100"
-                            y1="-100"
-                            y2="-100"
-                          />
-                          <line
-                            aria-hidden="true"
                             class="movable-line-focus-outline"
                             x1="-100"
                             x2="100"

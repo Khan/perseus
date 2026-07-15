@@ -139,6 +139,8 @@ function MovableCircle(props: {
     // selection of page content once the cursor crosses the graph's edge.
     // Splitting them resolves it and better mirrors `useControlPoint`.
     const focusableHandleRef = useRef<SVGGElement>(null);
+    // Ref to the visible SVG circle group; not a gesture target — pointer/touch
+    // dragging is captured on the HTML hitbox below.
     const visibleGroupRef = useRef<SVGGElement>(null);
     const circleHitboxRef = useRef<HTMLDivElement>(null);
 

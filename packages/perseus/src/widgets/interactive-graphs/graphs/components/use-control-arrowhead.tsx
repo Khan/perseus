@@ -7,7 +7,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
-import {useHitbox} from "./hitbox";
+import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovableArrowheadView} from "./movable-arrowhead-view";
 
 import type {KeyboardMovementConstraint} from "../use-draggable";
@@ -63,7 +63,8 @@ export function useControlArrowhead(params: Params): Return {
     });
 
     // Mouse / touch dragging runs through an HTML hitbox so Safari doesn't
-    // scroll the page during a drag (see hitbox.tsx).
+    // scroll the page during a drag (see hitbox.tsx). `visibleRef` is the SVG
+    // view ref (forwarded), not a gesture target.
     const visibleRef = useRef<SVGGElement>(null);
     const arrowheadHitboxRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
@@ -75,8 +76,7 @@ export function useControlArrowhead(params: Params): Return {
     });
 
     const hitbox = useHitbox({
-        // 48px box matches the arrowhead's legacy hit target and the point.
-        shape: {kind: "box", center: point, sizePx: 48},
+        shape: {kind: "box", center: point, sizePx: HANDLE_HITBOX_SIZE_PX},
         hitboxRef: arrowheadHitboxRef,
         dragging,
         onClick: () => focusableHandleRef.current?.focus(),

@@ -10,6 +10,13 @@ import {HitboxLayerContext} from "./hitbox-layer-context";
 import type {vec} from "mafs";
 
 /**
+ * Touch/click target size for small handles (movable points, arrowheads, the
+ * asymptote pill). Preserved from the legacy interactive graph (48×48px) and a
+ * comfortable target per WCAG 2.5.8.
+ */
+export const HANDLE_HITBOX_SIZE_PX = 48;
+
+/**
  * Drag hitbox for an interactive-graph element, rendered as a real HTML element
  * in the graph's overlay layer rather than as SVG. Safari doesn't reliably
  * honor `touch-action` on SVG, so under the container's `touch-action: pan-y`
@@ -62,6 +69,12 @@ export function useHitbox(params: HitboxParams): React.ReactNode {
 
     // Overlay not mounted yet (SSR / first render); no hitbox yet.
     if (!layerEl) {
+        return null;
+    }
+
+    // A polygon needs at least 3 vertices to have an interior to hit; fewer
+    // would produce a degenerate `clip-path` (and empty min/max math).
+    if (shape.kind === "polygon" && shape.vertices.length < 3) {
         return null;
     }
 

@@ -6091,14 +6091,6 @@ table: [[☃ table 1]]
                                     >
                                       <line
                                         aria-hidden="true"
-                                        style="stroke: transparent; stroke-width: 44;"
-                                        x1="0"
-                                        x2="14.4"
-                                        y1="0"
-                                        y2="-14.4"
-                                      />
-                                      <line
-                                        aria-hidden="true"
                                         class="movable-line-focus-outline"
                                         x1="0"
                                         x2="14.4"
@@ -10370,14 +10362,6 @@ table: [[☃ table 1]]
                                         style="cursor: grab;"
                                         tabindex="-1"
                                       >
-                                        <line
-                                          aria-hidden="true"
-                                          style="stroke: transparent; stroke-width: 44;"
-                                          x1="0"
-                                          x2="14.4"
-                                          y1="-14.4"
-                                          y2="-43.2"
-                                        />
                                         <line
                                           aria-hidden="true"
                                           class="movable-line-focus-outline"

@@ -105,14 +105,8 @@ export const Line = (props: LineProps) => {
                 // the screen reader skip over its empty children.
                 role="button"
             >
-                {/**
-                 * This transparent line creates a nice big click/touch target.
-                 */}
-                <SVGLine
-                    start={startPtPx}
-                    end={endPtPx}
-                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-                />
+                {/* Pointer/touch dragging is handled by the HTML hitbox
+                    (see lineHitbox); the SVG here is visual + keyboard focus. */}
                 <SVGLine
                     start={startPtPx}
                     end={endPtPx}

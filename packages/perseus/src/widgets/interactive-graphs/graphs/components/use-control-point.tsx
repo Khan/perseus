@@ -7,7 +7,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
-import {useHitbox} from "./hitbox";
+import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
@@ -79,6 +79,8 @@ export function useControlPoint(params: Params): Return {
         constrainKeyboardMovement: constrain,
     });
 
+    // Ref to the visible SVG point (for the forwarded ref); not a gesture
+    // target — pointer/touch dragging is captured on the HTML hitbox below.
     const visiblePointRef = useRef<SVGGElement>(null);
     // The touch/pointer drag is captured on an HTML hitbox that is portaled
     // into the graph's overlay layer, not the SVG group, because Safari doesn't
@@ -99,7 +101,7 @@ export function useControlPoint(params: Params): Return {
     };
 
     const hitbox = useHitbox({
-        shape: {kind: "box", center: point, sizePx: HITBOX_SIZE_PX},
+        shape: {kind: "box", center: point, sizePx: HANDLE_HITBOX_SIZE_PX},
         hitboxRef: hitboxDivRef,
         cursor,
         dragging,
@@ -128,7 +130,8 @@ export function useControlPoint(params: Params): Return {
             // If the point is being dragged, focus the focusable handle so that
             // users can continue to interact with the point using the keyboard or buttons.
             // This particular focus call ensures that the focus ring and hairlines are visible.
-            focusableHandleRef.current?.focus();
+            // `preventScroll` so focusing mid-drag never scrolls the page.
+            focusableHandleRef.current?.focus({preventScroll: true});
         }
     }, [dragging, focused]);
 
@@ -176,9 +179,6 @@ export function useControlPoint(params: Params): Return {
         visiblePointRef,
     };
 }
-
-// Hitbox size preserved from the legacy interactive graph (48x48px).
-const HITBOX_SIZE_PX = 48;
 
 function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T): void {
     if (typeof ref === "function") {

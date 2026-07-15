@@ -188,7 +188,8 @@ const PolygonGraph = (props: Props) => {
 
     return (
         <>
-            {coords.length >= 3 && polygonHitbox}
+            {/* useHitbox renders nothing until the polygon has ≥3 vertices. */}
+            {polygonHitbox}
             {numSides === "unlimited" ? (
                 <UnlimitedPolygonGraph {...statefulProps} />
             ) : (

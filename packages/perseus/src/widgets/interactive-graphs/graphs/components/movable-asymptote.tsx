@@ -5,7 +5,7 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
-import {useHitbox} from "./hitbox";
+import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
 
@@ -52,8 +52,7 @@ export function MovableAsymptote(props: Props) {
         ariaLabel,
         children,
     } = props;
-    const {interactiveColor, disableKeyboardInteraction, range} =
-        useGraphConfig();
+    const {interactiveColor, disableKeyboardInteraction} = useGraphConfig();
 
     const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
@@ -76,23 +75,15 @@ export function MovableAsymptote(props: Props) {
         constrainKeyboardMovement: constrainKeyboardMovement ?? ((p) => p),
     });
 
-    // The asymptote spans the full graph in graph-space: a horizontal line at
-    // y = point.y, or a vertical line at x = point.x. Reconstruct those
-    // endpoints so the hitbox lines up with the visible line.
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const hitStart: vec.Vector2 =
-        orientation === "horizontal" ? [xMin, point[1]] : [point[0], yMin];
-    const hitEnd: vec.Vector2 =
-        orientation === "horizontal" ? [xMax, point[1]] : [point[0], yMax];
+    // The asymptote is dragged by its pill handle (centered at `point`), not the
+    // whole line. So the hitbox is a box on the handle — this matches the
+    // affordance and lets the page scroll where the finger is elsewhere along
+    // the line (a full-line hitbox would block scrolling across a full-width or
+    // full-height band).
     const asymptoteHitbox = useHitbox({
-        shape: {
-            kind: "line",
-            start: hitStart,
-            end: hitEnd,
-            thicknessPx: TARGET_SIZE,
-        },
+        shape: {kind: "box", center: point, sizePx: HANDLE_HITBOX_SIZE_PX},
         hitboxRef: asymptoteHitboxRef,
-        layer: "body",
+        layer: "handle",
         dragging,
         onHoverChange: setHovered,
         testId: "movable-asymptote__hitbox",
@@ -102,9 +93,12 @@ export function MovableAsymptote(props: Props) {
     // focus, so any previously focused element (e.g. a movable point) keeps
     // its focus styling. Focus the group on drag so focus follows the last
     // element the user interacted with — matches `useControlPoint`.
+    // `preventScroll` is essential here: this group contains the plotted curve
+    // (passed as children), so its bounding box is tall, and a default
+    // focus() would scroll that box into view — jumping the page mid-drag.
     React.useLayoutEffect(() => {
         if (dragging && !focused) {
-            groupRef.current?.focus();
+            groupRef.current?.focus({preventScroll: true});
         }
     }, [dragging, focused]);
 

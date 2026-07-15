@@ -122,10 +122,6 @@
     opacity: 0;
 }
 
-.MafsView .movable-point-hitbox {
-    fill: transparent;
-}
-
 .MafsView
     :is(
         .movable-point-center,
@@ -271,10 +267,6 @@
 
 .MafsView .movable-arrowhead.movable-arrowhead--dragging {
     cursor: grabbing;
-}
-
-.MafsView .movable-arrowhead-hitbox {
-    fill: transparent;
 }
 
 .MafsView

@@ -32,14 +32,6 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
       >
         <line
           aria-hidden="true"
-          style="stroke: transparent; stroke-width: 44;"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-        <line
-          aria-hidden="true"
           class="movable-line-focus-outline"
           x1="0"
           x2="0"
@@ -168,14 +160,6 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
       >
         <line
           aria-hidden="true"
-          style="stroke: transparent; stroke-width: 44;"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-        <line
-          aria-hidden="true"
           class="movable-line-focus-outline"
           x1="0"
           x2="0"
@@ -302,14 +286,6 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         style="cursor: grab;"
         tabindex="0"
       >
-        <line
-          aria-hidden="true"
-          style="stroke: transparent; stroke-width: 44;"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
         <line
           aria-hidden="true"
           class="movable-line-focus-outline"

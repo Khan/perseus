@@ -200,17 +200,11 @@ const VectorBody = (props: VectorBodyProps) => {
                 data-testid="movable-vector"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
                 role="button"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
             >
-                {/* Transparent hit target for dragging the whole vector */}
-                <SVGLine
-                    start={tailPx}
-                    end={lineEndPx}
-                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-                />
+                {/* Pointer/touch dragging (and hover) is handled by the HTML
+                    hitbox (see vectorHitbox); the SVG is visual + keyboard. */}
                 {/* Visible line from tail to tip, pulled back slightly */}
                 <SVGLine
                     start={tailPx}
