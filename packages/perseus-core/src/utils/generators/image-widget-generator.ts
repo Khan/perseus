@@ -3,7 +3,7 @@ import type {ImageWidget, PerseusImageWidgetOptions} from "../../data-schema";
 export function generateImageOptions(
     options?: Partial<PerseusImageWidgetOptions>,
 ): PerseusImageWidgetOptions {
-    return {
+    const defaultImageOptions: PerseusImageWidgetOptions = {
         title: "",
         caption: "",
         alt: "",
@@ -17,6 +17,10 @@ export function generateImageOptions(
             [0, 10],
             [0, 10],
         ],
+    };
+
+    return {
+        ...defaultImageOptions,
         ...options,
     };
 }
