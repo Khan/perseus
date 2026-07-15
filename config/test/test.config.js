@@ -46,6 +46,11 @@ swcrc.jsc.experimental ??= {};
 swcrc.jsc.experimental.plugins ??= [];
 swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
+// Jest workers sometimes segfault and crash. Reducing maxWorkers seems to
+// help. On our dev laptops with 12 cores, Jest defaults to 13 workers.
+// This setting is not applied on CI.
+const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 10};
+
 /** @type {import('jest').Config} */
 module.exports = {
     setupFiles: [],
@@ -100,8 +105,5 @@ module.exports = {
         "!**/*.testdata.ts",
     ],
     coverageProvider: "v8",
-    // Disable watchman when running under Claude Code.
-    // Watchman doesn't work under Claude Code's sandbox, and `watchman: false`
-    // must be set at the global config level (not per-project) to take effect.
-    ...(!!process.env.CLAUDECODE && {watchman: false}),
+    ...maxWorkersConfig,
 };
