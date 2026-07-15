@@ -2,6 +2,7 @@ import * as React from "react";
 import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
@@ -171,7 +172,7 @@ export const WithTextInField: Story = {
 
 // Only the "basic" set is selected, so the keypad renders with just the
 // Numbers tab (no Operators/Geometry/Extras tabs are generated).
-export const OpenBasicOnly: Story = {
+export const OpenBasic: Story = {
     name: "[Open] Basic",
     decorators: [expressionRendererDecorator],
     args: {
@@ -241,6 +242,31 @@ export const OpenAdvancedMath: Story = {
 export const OpenAllButtonSets: Story = {
     name: "[Open] All button sets",
     decorators: [expressionRendererDecorator],
+    args: {
+        answerForms: [],
+        buttonSets: [
+            "basic",
+            "basic+div",
+            "trig",
+            "prealgebra",
+            "logarithms",
+            "basic relations",
+            "advanced relations",
+            "scientific",
+        ],
+        functions: [],
+        times: false,
+        extraKeys: [],
+    },
+    play: async ({canvas, userEvent}) => {
+        await openKeypad({canvas, userEvent});
+    },
+};
+
+// Every button set selected at once, righ to left.
+export const OpenAllButtonSetsRTL: Story = {
+    name: "[Open] All button sets RTL",
+    decorators: [expressionRendererDecorator, rtlDecorator],
     args: {
         answerForms: [],
         buttonSets: [
@@ -334,7 +360,7 @@ export const OpenGeometryTab: Story = {
 };
 
 // Extra variable key buttons (x, y)
-export const KeypadOpenExtrasTab: Story = {
+export const OpenExtrasTab: Story = {
     name: "[Open] Extras tab",
     decorators: [expressionRendererDecorator],
     args: keypadArgs,
