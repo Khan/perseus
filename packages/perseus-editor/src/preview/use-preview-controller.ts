@@ -137,6 +137,11 @@ export function usePreviewController(
                     break;
 
                 case "a11y-report":
+                    // Discard a report computed against content a newer edit
+                    // has since superseded.
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setA11yReport({
                         violations: message.violations,
                         incompletes: message.incompletes,

@@ -433,14 +433,11 @@ describe("usePreviewController", () => {
     });
 
     describe("receiving a11y-report message", () => {
-        it("surfaces the report from an a11y-report message", () => {
-            const {result} = renderHook(() => usePreviewController(iframeRef));
-
-            expect(result.current.a11yReport).toBeNull();
-
-            const violations = [issue("v1")];
-            const incompletes = [issue("i1")];
-
+        function dispatchA11yReport(
+            violations: Issue[],
+            incompletes: Issue[],
+            contentVersion: number,
+        ) {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
@@ -449,16 +446,44 @@ describe("usePreviewController", () => {
                             type: "a11y-report",
                             violations,
                             incompletes,
+                            contentVersion,
                         },
                         source: mockContentWindow,
                     }),
                 );
             });
+        }
+
+        it("surfaces a report whose contentVersion matches the current content", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            expect(result.current.a11yReport).toBeNull();
+
+            const violations = [issue("v1")];
+            const incompletes = [issue("i1")];
+
+            // The initial content version is 0 (nothing sent yet).
+            dispatchA11yReport(violations, incompletes, 0);
 
             expect(result.current.a11yReport).toEqual({
                 violations,
                 incompletes,
             });
+        });
+
+        it("ignores a report whose contentVersion is stale", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            // Two edits bump the current content version to 2.
+            act(() => {
+                result.current.sendData(createQuestionPreview());
+                result.current.sendData(createQuestionPreview());
+            });
+
+            // A report computed against the superseded version 1.
+            dispatchA11yReport([issue("v1")], [issue("i1")], 1);
+
+            expect(result.current.a11yReport).toBeNull();
         });
     });
 
