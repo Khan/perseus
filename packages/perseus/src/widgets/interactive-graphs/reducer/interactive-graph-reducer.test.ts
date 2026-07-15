@@ -516,7 +516,7 @@ describe("movePointInFigure", () => {
             segmentIndex: 1,
             pointIndex: 0,
             // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
-            pointLabel: 3,
+            pointLabel: "3",
             x: -3,
             y: 2,
             totalSegments: 2,
@@ -573,7 +573,7 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-segment-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(2);
+        expect(updated.stateAnnouncement.pointLabel).toBe("2");
     });
 
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
@@ -611,7 +611,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement).toEqual({
             type: "move-ray-point",
             pointIndex: 1,
-            pointLabel: 2,
+            pointLabel: "2",
             x: -3,
             y: 2,
         });
@@ -644,7 +644,7 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-ray-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 
     it("allows linear-system points to land on the graph edge", () => {
@@ -708,7 +708,7 @@ describe("movePointInFigure", () => {
             lineIndex: 1,
             pointIndex: 0,
             // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
-            pointLabel: 3,
+            pointLabel: "3",
             x: -3,
             y: 2,
         });
@@ -780,7 +780,7 @@ describe("movePointInFigure", () => {
         invariant(
             updated.stateAnnouncement?.type === "move-linear-system-point",
         );
-        expect(updated.stateAnnouncement.pointLabel).toBe(2);
+        expect(updated.stateAnnouncement.pointLabel).toBe("2");
     });
 
     it("allows linear points to land on the graph edge", () => {
@@ -1820,7 +1820,7 @@ describe("movePoint on a sinusoid graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 });
 
@@ -1891,7 +1891,7 @@ describe("movePoint on an absolute-value graph", () => {
         invariant(
             updated.stateAnnouncement?.type === "move-absolute-value-point",
         );
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 
     it("rejects the move when both points would share the same x-coordinate", () => {
@@ -1982,7 +1982,7 @@ describe("movePoint on a tangent graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-tangent-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 
     it("rejects the move when both points would share the same x-coordinate", () => {
@@ -2125,7 +2125,7 @@ describe("movePoint on a quadratic graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 });
 
@@ -3340,7 +3340,7 @@ describe("movePoint on an exponential graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-exponential-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 
     it("emits no announcement when the move is rejected", () => {
@@ -3662,7 +3662,7 @@ describe("movePoint on a logarithm graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe(1);
+        expect(updated.stateAnnouncement.pointLabel).toBe("1");
     });
 
     it("emits no announcement when the move is rejected", () => {
