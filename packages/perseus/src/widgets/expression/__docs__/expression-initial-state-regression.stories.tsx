@@ -1,5 +1,8 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    mobileDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {expressionRendererDecorator} from "./expression-renderer-decorator";
 
@@ -72,8 +75,11 @@ export const RightToLeft: Story = {
         functions: [],
         times: false,
         extraKeys: [],
-        visibleLabel: "Enter your answer",
-        ariaLabel: "Enter your answer",
+        visibleLabel: "اپنا جواب درج کریں۔",
+        ariaLabel: "اپنا جواب درج کریں۔",
+    },
+    parameters: {
+        initialUserInput: {"expression 1": "2x"},
     },
 };
 
@@ -95,7 +101,7 @@ export const Static: Story = {
 };
 
 export const Mobile: Story = {
-    decorators: [expressionRendererDecorator],
+    decorators: [expressionRendererDecorator, mobileDecorator],
     args: {
         answerForms: [],
         buttonSets: ["basic"],
