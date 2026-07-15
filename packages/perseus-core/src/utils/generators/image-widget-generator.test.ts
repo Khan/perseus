@@ -50,9 +50,15 @@ describe("generateImageWidget", () => {
         expect(widget.options).toEqual({
             alt: "",
             backgroundImage: {},
+            box: [400, 400],
             caption: "",
             decorative: false,
+            labels: [],
             longDescription: "",
+            range: [
+                [0, 10],
+                [0, 10],
+            ],
             scale: 1,
             title: "",
         });
