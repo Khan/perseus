@@ -69,16 +69,9 @@ describe("StatefulMafsGraph", () => {
     });
 
     it("renders", () => {
-        const {container} = render(
-            <StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />,
-        );
+        render(<StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />);
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const movablePoints = container.querySelectorAll(
-            "circle.movable-point-hitbox",
-        );
-
-        expect(movablePoints).not.toBe(0);
+        expect(screen.getAllByTestId("movable-point").length).toBeGreaterThan(0);
     });
 
     it("calls onChange when using graph", async () => {
