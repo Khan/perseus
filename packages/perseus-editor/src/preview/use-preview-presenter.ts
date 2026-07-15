@@ -87,6 +87,7 @@ export function usePreviewPresenter(
 ): UsePreviewPresenterResult {
     const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
+    const [contentVersion, setContentVersion] = React.useState(0);
     const [a11yEnabled, setA11yEnabled] = React.useState(false);
     const [highlightTargets, setHighlightTargets] = React.useState<Element[]>(
         [],
@@ -117,11 +118,13 @@ export function usePreviewPresenter(
             switch (message.type) {
                 case "content-data":
                     setContent(message.content);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "iframe-init":
                     setContent(message.content);
                     setA11yEnabled(message.a11yEnabled);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "set-a11y-enabled":
@@ -214,7 +217,11 @@ export function usePreviewPresenter(
                 ]);
 
                 window.parent.postMessage(
-                    createPreviewA11yReportMessage(violations, incompletes),
+                    createPreviewA11yReportMessage(
+                        violations,
+                        incompletes,
+                        contentVersion,
+                    ),
                     "/",
                 );
             })().finally(() => {
@@ -223,7 +230,7 @@ export function usePreviewPresenter(
         }, 1500);
 
         return () => scheduledScan.clear();
-    }, [content, a11yEnabled, contentContainerRef, schedule]);
+    }, [content, contentVersion, a11yEnabled, contentContainerRef, schedule]);
 
     // Memoized callback to report height
     const reportHeight = React.useCallback((height: number) => {

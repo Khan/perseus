@@ -90,6 +90,13 @@ export function usePreviewController(
     const currentContentRef = React.useRef<PreviewContent | null>(null);
     const currentA11yEnabledRef = React.useRef(false);
 
+    // Monotonic version of the preview content, incremented on every
+    // `sendData`. It's stamped onto each content update sent to the iframe and
+    // echoed back on the iframe's scan report, so a report (or a "Show Me"
+    // highlight) computed against content that a newer edit has since
+    // superseded can be discarded.
+    const contentVersionRef = React.useRef(0);
+
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -117,6 +124,7 @@ export function usePreviewController(
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
                             currentA11yEnabledRef.current,
+                            contentVersionRef.current,
                         ),
                         "/",
                     );
@@ -151,6 +159,7 @@ export function usePreviewController(
     const sendData = React.useCallback(
         (data: PreviewContent) => {
             currentContentRef.current = data;
+            contentVersionRef.current += 1;
 
             // If iframe hasn't sent iframe-ready yet, the iframe-init reply
             // above will carry this once it does.
@@ -167,6 +176,7 @@ export function usePreviewController(
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
                 content: sanitizePreviewData(data),
+                contentVersion: contentVersionRef.current,
             };
 
             contentWindow.postMessage(message, "/");
@@ -207,7 +217,10 @@ export function usePreviewController(
             }
 
             contentWindow.postMessage(
-                createPreviewHighlightIssuesMessage(previewIds),
+                createPreviewHighlightIssuesMessage(
+                    previewIds,
+                    contentVersionRef.current,
+                ),
                 "/",
             );
         },

@@ -152,6 +152,7 @@ describe("usePreviewPresenter", () => {
             source: PREVIEW_MESSAGE_SOURCE,
             type: "content-data",
             content,
+            contentVersion: 1,
         });
 
         it("updates data when receiving content-data message", () => {
@@ -298,6 +299,7 @@ describe("usePreviewPresenter", () => {
                     // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
+                contentVersion: 1,
             };
 
             act(() => {
@@ -828,6 +830,7 @@ describe("usePreviewPresenter", () => {
                     // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
+                contentVersion: 1,
             };
 
             act(() => {

@@ -31,11 +31,12 @@ const questionContent: PreviewContent = {
 
 describe("message constructors", () => {
     describe("createPreviewIframeInitMessage", () => {
-        it("builds an iframe-init message carrying content and a11yEnabled", () => {
+        it("builds an iframe-init message carrying content, a11yEnabled, and contentVersion", () => {
             // Arrange, Act
             const message = createPreviewIframeInitMessage(
                 questionContent,
                 true,
+                7,
             );
 
             // Assert
@@ -44,12 +45,13 @@ describe("message constructors", () => {
                 type: "iframe-init",
                 content: questionContent,
                 a11yEnabled: true,
+                contentVersion: 7,
             });
         });
 
         it("carries null content when nothing has been sent yet", () => {
             // Arrange, Act
-            const message = createPreviewIframeInitMessage(null, false);
+            const message = createPreviewIframeInitMessage(null, false, 0);
 
             // Assert
             expect(message).toEqual({
@@ -57,6 +59,7 @@ describe("message constructors", () => {
                 type: "iframe-init",
                 content: null,
                 a11yEnabled: false,
+                contentVersion: 0,
             });
         });
     });
@@ -88,18 +91,19 @@ describe("message constructors", () => {
     });
 
     describe("createPreviewHighlightIssuesMessage", () => {
-        it("builds a highlight-issues command carrying the previewIds", () => {
+        it("builds a highlight-issues command carrying the previewIds and contentVersion", () => {
             // Arrange, Act
-            const message = createPreviewHighlightIssuesMessage([
-                "violation-1",
-                "incomplete-2",
-            ]);
+            const message = createPreviewHighlightIssuesMessage(
+                ["violation-1", "incomplete-2"],
+                4,
+            );
 
             // Assert
             expect(message).toEqual({
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "highlight-issues",
                 previewIds: ["violation-1", "incomplete-2"],
+                contentVersion: 4,
             });
         });
     });
@@ -127,6 +131,7 @@ describe("message constructors", () => {
             const message = createPreviewA11yReportMessage(
                 violations,
                 incompletes,
+                3,
             );
 
             // Assert
@@ -135,6 +140,7 @@ describe("message constructors", () => {
                 type: "a11y-report",
                 violations,
                 incompletes,
+                contentVersion: 3,
             });
         });
     });
