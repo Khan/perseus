@@ -161,6 +161,108 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               style="clear: both;"
             >
               <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  title: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "Original Image"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  title: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "Updated Image"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  caption: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "This is the original image"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  caption: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "This is the updated image"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
+                class="removed diff-row before"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  alt: 
+                  <span
+                    class="inner-value dark removed"
+                  >
+                    "Original image description"
+                  </span>
+                </div>
+              </div>
+              <div
+                class="added diff-row after"
+              >
+                <div
+                  style="padding-left: 20px;"
+                >
+                  alt: 
+                  <span
+                    class="inner-value dark added"
+                  >
+                    "Updated image description"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="clear: both;"
+            >
+              <div
                 class="diff-row before"
               >
                 <div
@@ -288,105 +390,47 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               </div>
             </div>
           </div>
-          <div>
+          <div
+            style="clear: both;"
+          >
             <div
-              style="clear: both;"
+              class="diff-row collapsed before"
             >
               <div
-                class="removed diff-row before"
+                style="padding-left: 20px;"
               >
-                <div
-                  style="padding-left: 20px;"
+                <button
+                  aria-disabled="false"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+                  data-kind="secondary"
+                  type="button"
                 >
-                  title: 
                   <span
-                    class="inner-value dark removed"
+                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
                   >
-                    "Original Image"
+                    show unmodified
                   </span>
-                </div>
-              </div>
-              <div
-                class="added diff-row after"
-              >
-                <div
-                  style="padding-left: 20px;"
-                >
-                  title: 
-                  <span
-                    class="inner-value dark added"
-                  >
-                    "Updated Image"
-                  </span>
-                </div>
+                </button>
               </div>
             </div>
-          </div>
-          <div>
             <div
-              style="clear: both;"
+              class="diff-row collapsed after"
             >
               <div
-                class="removed diff-row before"
+                style="padding-left: 20px;"
               >
-                <div
-                  style="padding-left: 20px;"
+                <button
+                  aria-disabled="false"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
+                  data-kind="secondary"
+                  type="button"
                 >
-                  caption: 
                   <span
-                    class="inner-value dark removed"
+                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
                   >
-                    "This is the original image"
+                    show unmodified
                   </span>
-                </div>
-              </div>
-              <div
-                class="added diff-row after"
-              >
-                <div
-                  style="padding-left: 20px;"
-                >
-                  caption: 
-                  <span
-                    class="inner-value dark added"
-                  >
-                    "This is the updated image"
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              style="clear: both;"
-            >
-              <div
-                class="removed diff-row before"
-              >
-                <div
-                  style="padding-left: 20px;"
-                >
-                  alt: 
-                  <span
-                    class="inner-value dark removed"
-                  >
-                    "Original image description"
-                  </span>
-                </div>
-              </div>
-              <div
-                class="added diff-row after"
-              >
-                <div
-                  style="padding-left: 20px;"
-                >
-                  alt: 
-                  <span
-                    class="inner-value dark added"
-                  >
-                    "Updated image description"
-                  </span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
