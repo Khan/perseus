@@ -11,31 +11,34 @@ import {decodeGifFrames, isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
-import type {CommonImageProps, GifProps} from "./image-info-area";
+import type {GifProps, ImageInfoProps} from "./image-info-area";
 import type {ParsedFrame} from "gifuct-js";
 
 const MODAL_HEIGHT = 568;
 
-type Props = CommonImageProps &
+type Props = ImageInfoProps &
     GifProps & {
         captionId: string;
         longDescId: string;
     };
 
 export default function ExploreImageModalContent({
-    backgroundImage,
-    scale: contentScale,
-    caption,
-    alt,
-    longDescription,
+    options,
     linterContext,
     apiOptions,
-    box,
-    labels,
-    range,
     captionId,
     longDescId,
 }: Props) {
+    const {
+        backgroundImage,
+        scale: contentScale,
+        caption,
+        alt,
+        longDescription,
+        box,
+        labels,
+        range,
+    } = options;
     const [isGifPlaying, setIsGifPlaying] = React.useState(false);
     // Decoded GIF frames; null until decoding completes.
     const [gifFrames, setGifFrames] = React.useState<ParsedFrame[] | null>(

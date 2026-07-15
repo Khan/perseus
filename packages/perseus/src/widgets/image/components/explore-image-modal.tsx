@@ -9,9 +9,9 @@ import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
 
-import type {CommonImageProps, GifProps} from "./image-info-area";
+import type {GifProps, ImageInfoProps} from "./image-info-area";
 
-type Props = CommonImageProps & GifProps;
+type Props = ImageInfoProps & GifProps;
 
 export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
@@ -37,7 +37,8 @@ export const ExploreImageModal = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const titleText = props.title || context.strings.imageAlternativeTitle;
+    const titleText =
+        props.options.title || context.strings.imageAlternativeTitle;
     const title = (
         <h1
             className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
@@ -69,7 +70,9 @@ export const ExploreImageModal = (props: Props) => {
                     />
                 }
                 aria-describedby={
-                    props.caption ? `${captionId} ${longDescId}` : longDescId
+                    props.options.caption
+                        ? `${captionId} ${longDescId}`
+                        : longDescId
                 }
                 styles={{
                     root: wbStyles.root,

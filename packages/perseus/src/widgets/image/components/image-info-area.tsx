@@ -1,9 +1,3 @@
-import {
-    type Interval,
-    type PerseusImageBackground,
-    type PerseusImageLabel,
-    type Size,
-} from "@khanacademy/perseus-core";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
@@ -17,6 +11,7 @@ import {ExploreImageModal} from "./explore-image-modal";
 import {GifControlsIcon} from "./gif-controls-icon";
 
 import type {APIOptions} from "../../../types";
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 export interface GifProps {
@@ -24,22 +19,18 @@ export interface GifProps {
     setIsGifPlaying: (isPaused: boolean) => void;
 }
 
-export interface CommonImageProps {
-    backgroundImage: PerseusImageBackground;
-    scale: number;
-    title: string;
-    caption: string;
-    alt: string;
-    longDescription: string;
-    box: Size;
-    labels: Array<PerseusImageLabel>;
-    range: [Interval, Interval];
+/**
+ * The image widget's options together with the rendering context needed to
+ * display the image's info area and explore-image modal.
+ */
+export interface ImageInfoProps {
+    options: PerseusImageWidgetOptions;
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
     widgetId: string;
 }
 
-type Props = GifProps & CommonImageProps & {isAnimatedGif: boolean};
+type Props = GifProps & ImageInfoProps & {isAnimatedGif: boolean};
 
 /**
  * The ImageInfoArea component includes the GIF controls, description modal
@@ -48,9 +39,7 @@ type Props = GifProps & CommonImageProps & {isAnimatedGif: boolean};
  */
 export const ImageInfoArea = (props: Props) => {
     const {
-        backgroundImage,
-        caption,
-        longDescription,
+        options,
         apiOptions,
         linterContext,
         isGifPlaying,
@@ -58,6 +47,7 @@ export const ImageInfoArea = (props: Props) => {
         isAnimatedGif,
         widgetId,
     } = props;
+    const {backgroundImage, caption, longDescription} = options;
 
     const context = React.useContext(PerseusI18nContext);
     const {analytics} = useDependencies();
