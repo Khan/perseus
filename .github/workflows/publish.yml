@@ -404,26 +404,6 @@ jobs:
                       ---
                       Want to try again? Comment `/snapshot` once you've added a changeset.
 
-            - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: failure() && steps.check-release.outputs.release_count != '0'
-              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
-              with:
-                  issue-number: ${{ steps.pr.outputs.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
-                      # npm Snapshot: **NOT** Published
-
-                      Oh noes!! We couldn't publish an npm snapshot for you because
-                      there is a release in progress. Please wait for the release to
-                      finish, then retry this workflow.
-
-                      [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
-
-                      ---
-                      Want to try again? Comment `/snapshot` once the release has finished.
-
             - name: React to /snapshot comment on success
               if: >-
                   github.event_name == 'issue_comment' &&
