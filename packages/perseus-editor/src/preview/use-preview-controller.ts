@@ -105,6 +105,13 @@ export function usePreviewController(
         [iframeRef],
     );
 
+    // Monotonic version of the preview content, incremented on every
+    // `sendData`. It's stamped onto each content update sent to the iframe and
+    // echoed back on the iframe's scan report, so a report (or a "Show Me"
+    // highlight) computed against content that a newer edit has since
+    // superseded can be discarded.
+    const contentVersionRef = React.useRef(0);
+
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -132,6 +139,7 @@ export function usePreviewController(
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
                             currentA11yScanningEnabledRef.current,
+                            contentVersionRef.current,
                         ),
                     );
                     setIsIframeReady(true);
@@ -165,6 +173,7 @@ export function usePreviewController(
     const sendData = React.useCallback(
         (data: PreviewContent) => {
             currentContentRef.current = data;
+            contentVersionRef.current += 1;
 
             // We can safely bail here. We'll send a full init message later
             // once the iframe sends it's 'iframe-ready' message.
@@ -176,6 +185,7 @@ export function usePreviewController(
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
                 content: sanitizePreviewData(data),
+                contentVersion: contentVersionRef.current,
             };
 
             postToIframe(message);
@@ -202,7 +212,12 @@ export function usePreviewController(
     // Highlights elements in the iframe by instanceId
     const highlightIssues = React.useCallback(
         (instanceIds: string[]) => {
-            postToIframe(createPreviewHighlightIssuesMessage(instanceIds));
+            postToIframe(
+                createPreviewHighlightIssuesMessage(
+                    instanceIds,
+                    contentVersionRef.current,
+                ),
+            );
         },
         [postToIframe],
     );

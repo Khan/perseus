@@ -87,6 +87,7 @@ export function usePreviewPresenter(
 ): UsePreviewPresenterResult {
     const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
+    const [contentVersion, setContentVersion] = React.useState(0);
     const [a11yScanningEnabled, setA11yScanningEnabled] = React.useState(false);
     const [highlightTargets, setHighlightTargets] = React.useState<Element[]>(
         [],
@@ -117,11 +118,13 @@ export function usePreviewPresenter(
             switch (message.type) {
                 case "content-data":
                     setContent(message.content);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "iframe-init":
                     setContent(message.content);
                     setA11yScanningEnabled(message.a11yScanningEnabled);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "set-a11y-scanning-enabled":
@@ -164,6 +167,13 @@ export function usePreviewPresenter(
         a11yScanningEnabledRef.current = a11yScanningEnabled;
     }, [a11yScanningEnabled]);
 
+    // Same reason as above: `startScan` is memoized, so reading the version
+    // from its closure would report a stale one.
+    const contentVersionRef = React.useRef(contentVersion);
+    React.useEffect(() => {
+        contentVersionRef.current = contentVersion;
+    }, [contentVersion]);
+
     // In-flight scan promise. Non-null means a scan is already running.
     const scanPromiseRef = React.useRef<Promise<void> | null>(null);
 
@@ -190,6 +200,13 @@ export function usePreviewPresenter(
             rescanRequestedRef.current = true;
             return;
         }
+
+        // Read before awaiting: the report has to name the version this scan
+        // actually looked at. If the content changes mid-scan, these results
+        // describe the older DOM, so they must be tagged with the older
+        // version for the parent to discard — the rescan below then reports
+        // the new one.
+        const scannedVersion = contentVersionRef.current;
 
         scanPromiseRef.current = (async () => {
             // Delay-loading axe-core so that we can easily bundle-split it
@@ -221,7 +238,11 @@ export function usePreviewPresenter(
             ]);
 
             window.parent.postMessage(
-                createPreviewA11yReportMessage(violations, incompletes),
+                createPreviewA11yReportMessage(
+                    violations,
+                    incompletes,
+                    scannedVersion,
+                ),
                 "/",
             );
         })().finally(() => {
@@ -247,6 +268,7 @@ export function usePreviewPresenter(
         return () => scheduledScan.clear();
     }, [
         content,
+        contentVersion,
         a11yScanningEnabled,
         contentContainerRef,
         schedule,

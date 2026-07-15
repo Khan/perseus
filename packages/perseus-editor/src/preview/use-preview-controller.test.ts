@@ -140,6 +140,7 @@ describe("usePreviewController", () => {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "highlight-issues",
                     instanceIds: ["violation-1", "incomplete-2"],
+                    contentVersion: 0,
                 },
                 "/",
             );
@@ -365,6 +366,7 @@ describe("usePreviewController", () => {
                     type: "iframe-init",
                     content: null,
                     a11yScanningEnabled: false,
+                    contentVersion: 0,
                 },
                 "/",
             );
