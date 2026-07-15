@@ -113,21 +113,18 @@ const isParagraphWithBlockWidget = (node: any): boolean =>
 
 /**
  * Widget types that render as inline content but CANNOT safely live inside a
- * paragraph (`<p>`). These widgets will cause the <p> element to not render,
- * but no additional processing is done on the sibling nodes.
+ * paragraph (`<p>`). These widgets (specifically the Explanation widget) will
+ * cause the containing <p> element to not render, but no additional processing
+ * is done on the sibling nodes.
  */
-export const SPECIAL_WIDGET_TYPES: ReadonlySet<string> = new Set([
-    "explanation",
-]);
+const isExplanationWidgetNode = (node: any): boolean =>
+    node?.type === "widget" && node.widgetType === "explanation";
 
-const isSpecialWidgetNode = (node: any): boolean =>
-    node?.type === "widget" && SPECIAL_WIDGET_TYPES.has(node.widgetType);
-
-export const contentHasSpecialWidget = (node: any): boolean =>
-    Array.isArray(node.content) && node.content.some(isSpecialWidgetNode);
+export const contentHasExplanationWidget = (node: any): boolean =>
+    Array.isArray(node.content) && node.content.some(isExplanationWidgetNode);
 
 const isWhitespaceOnlyTextNode = (node: any): boolean =>
-    node?.type === "text" && !/\S/.test(node.content);
+    node?.type === "text" && node.content.trim() === "";
 
 /**
  * Trim whitespace-only text nodes from the start and end of an array of inline
@@ -154,7 +151,7 @@ const mergeInlineNodes = (
     inlineNodes: Array<any>,
     blockNodes: Array<any>,
     referenceNode: any,
-): any | undefined => {
+): Array<any> => {
     const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
     if (trimmedContentNodes.length > 0) {
         blockNodes.push({...referenceNode, content: trimmedContentNodes});
