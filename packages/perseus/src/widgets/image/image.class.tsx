@@ -9,7 +9,7 @@ import {ImageComponent} from "./image";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
-import type {Range, PerseusBlankWidgetOptions} from "@khanacademy/perseus-core";
+import type {Range, PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -19,20 +19,37 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-type ExternalProps = WidgetProps<
-    PerseusBlankWidgetOptions,
-    PerseusBlankUserInput
->;
+type ExternalProps = WidgetProps<PerseusImageWidgetOptions>;
 
-export type BlankWidgetProps = ExternalProps & {
-    id: string;
-    displayType: NonNullable<ExternalProps["displayType"]>;
-};
+export interface ImageWidgetProps extends ExternalProps {
+    alignment: NonNullable<ExternalProps["alignment"]>;
+    title: NonNullable<ExternalProps["title"]>;
+    range: NonNullable<ExternalProps["range"]>;
+    box: NonNullable<ExternalProps["box"]>;
+    backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
+    scale: NonNullable<ExternalProps["scale"]>;
+    labels: NonNullable<ExternalProps["labels"]>;
+    alt: NonNullable<ExternalProps["alt"]>;
+    longDescription: NonNullable<ExternalProps["longDescription"]>;
+    decorative: NonNullable<ExternalProps["decorative"]>;
+    caption: NonNullable<ExternalProps["caption"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
+}
 
-type DefaultProps = Pick<
-    BlankWidgetProps,
-    |
->;
+interface DefaultProps extends Partial<ImageWidgetProps> {
+    alignment: ImageWidgetProps["alignment"];
+    title: ImageWidgetProps["title"];
+    range: ImageWidgetProps["range"];
+    box: ImageWidgetProps["box"];
+    backgroundImage: ImageWidgetProps["backgroundImage"];
+    scale: ImageWidgetProps["scale"];
+    labels: ImageWidgetProps["labels"];
+    alt: ImageWidgetProps["alt"];
+    longDescription: ImageWidgetProps["longDescription"];
+    decorative: ImageWidgetProps["decorative"];
+    caption: ImageWidgetProps["caption"];
+    linterContext: ImageWidgetProps["linterContext"];
+}
 
 class ImageWidget extends React.Component<ImageWidgetProps> implements Widget {
     static contextType = PerseusI18nContext;
