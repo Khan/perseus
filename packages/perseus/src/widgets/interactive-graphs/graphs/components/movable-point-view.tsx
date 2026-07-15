@@ -18,21 +18,19 @@ type Props = {
     point: vec.Vector2;
     dragging: boolean;
     focused: boolean;
+    // Hover is driven by the HTML hitbox (see useControlPoint), not CSS
+    // `:hover`, because the hitbox sits on top of the SVG in a separate DOM
+    // subtree and intercepts the pointer.
+    hovered?: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
-    // Ref for the HTML hitbox that captures pointer/touch drags. See the
-    // `foreignObject` note below for why the hitbox is HTML rather than SVG.
-    hitboxDivRef?: React.Ref<HTMLDivElement>;
 };
-
-// The hitbox size of 48px by 48px is preserved from the legacy interactive
-// graph.
-const hitboxSizePx = 48;
 
 // MovablePointView is a purely presentational component (i.e. it is a pure
 // function with no state or effects) that renders the SVG for a movable point
-// on an interactive graph.
+// on an interactive graph. The drag hitbox is not here — it's an HTML element
+// in the graph's hitbox overlay layer (see useControlPoint / HitboxLayerContext).
 export const MovablePointView = forwardRef(function MovablePointViewWithRef(
     props: Props,
     hitboxRef: ForwardedRef<SVGGElement>,
@@ -48,10 +46,10 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
         point,
         dragging,
         focused,
+        hovered,
         cursor,
         showFocusRing,
         onClick = () => {},
-        hitboxDivRef,
     } = props;
 
     // WB Tooltip requires a WB color name for the background color.
@@ -68,6 +66,7 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
         "movable-point",
         dragging && "movable-point--dragging",
         showFocusRing && "movable-point--focus",
+        hovered && "movable-point--hover",
     );
 
     const [[x, y]] = useTransformVectorsToPixels(point);
@@ -106,37 +105,6 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
                 style={{fill: interactiveColor}}
                 data-testid="movable-point__center"
             />
-            {/*
-             * The drag hitbox is an HTML <div> inside a <foreignObject>, not an
-             * SVG element. WebKit (Safari) does not reliably honor
-             * `touch-action` on SVG, so an SVG hitbox with `touch-action: none`
-             * lets a vertical point-drag scroll the page (the container is
-             * `touch-action: pan-y` so page scroll can pass over the graph). An
-             * HTML element's `touch-action` *is* honored, so the compositor
-             * blocks scrolling the instant the touch lands on the point — no
-             * first-frame race, no JS `preventDefault` fallback needed. Rendered
-             * last so it sits on top and wins hit-testing; it's transparent so
-             * the visuals above show through.
-             *
-             * UPSTREAM (Mafs): this HTML-hitbox technique, plus relaxing
-             * `.MafsView { touch-action: none }` in mafs/core.css, is the fix to
-             * contribute to Mafs' own `MovablePoint`/`useMovable` so any library
-             * consumer gets scroll-over-graph with working drags. Perseus forked
-             * these components, so the upstream change won't flow back here
-             * automatically — keep the two in sync if/when the Mafs PR lands.
-             */}
-            <foreignObject
-                x={x - hitboxSizePx / 2}
-                y={y - hitboxSizePx / 2}
-                width={hitboxSizePx}
-                height={hitboxSizePx}
-            >
-                <div
-                    ref={hitboxDivRef}
-                    className="movable-point-hitbox"
-                    style={{width: "100%", height: "100%", touchAction: "none"}}
-                />
-            </foreignObject>
         </g>
     );
 

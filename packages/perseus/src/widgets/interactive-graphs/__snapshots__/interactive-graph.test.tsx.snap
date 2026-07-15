@@ -1086,6 +1086,10 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                     />
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
           </div>
@@ -1339,17 +1343,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="176"
-                              y="-138.28571428571428"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1414,17 +1407,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="118.85714285714286"
-                              y="-252.57142857142858"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1489,17 +1471,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="61.71428571428572"
-                              y="-138.28571428571428"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1537,6 +1508,23 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 257.14285714285717px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 200px; top: 114.2857142857143px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>
@@ -1777,17 +1765,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="51"
-                              y="26"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1852,17 +1829,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-24"
-                              y="-99"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1927,17 +1893,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-99"
-                              y="26"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -1975,6 +1930,23 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 275px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 200px; top: 125px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 125px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>
@@ -2179,6 +2151,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     </svg>
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
             <div
@@ -2437,6 +2413,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     </svg>
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
             <div
@@ -2694,17 +2674,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="290.2857142857143"
-                              y="-138.28571428571428"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2769,17 +2738,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="61.71428571428572"
-                              y="-309.7142857142857"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2844,17 +2802,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="61.71428571428572"
-                              y="-138.28571428571428"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -2892,6 +2839,23 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 371.42857142857144px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 142.85714285714286px; top: 57.14285714285717px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>
@@ -3132,17 +3096,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-174"
-                              y="151"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3207,17 +3160,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="1"
-                              y="76"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3282,17 +3224,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-99"
-                              y="76"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -3330,6 +3261,23 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 50px; top: 375px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 225px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 125px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>
@@ -3560,17 +3508,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
-                        <foreignobject
-                          height="48"
-                          width="48"
-                          x="-24"
-                          y="-24"
-                        >
-                          <div
-                            class="movable-point-hitbox"
-                            style="width: 100%; height: 100%;"
-                          />
-                        </foreignobject>
                       </g>
                       <g
                         aria-disabled="false"
@@ -3608,17 +3545,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
-                        <foreignobject
-                          height="48"
-                          width="48"
-                          x="-149"
-                          y="-24"
-                        >
-                          <div
-                            class="movable-point-hitbox"
-                            style="width: 100%; height: 100%;"
-                          />
-                        </foreignobject>
                       </g>
                       <g
                         aria-disabled="false"
@@ -3656,20 +3582,26 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           data-testid="movable-point__center"
                           style="fill: var(--mafs-blue);"
                         />
-                        <foreignobject
-                          height="48"
-                          width="48"
-                          x="-74"
-                          y="-24"
-                        >
-                          <div
-                            class="movable-point-hitbox"
-                            style="width: 100%; height: 100%;"
-                          />
-                        </foreignobject>
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 200px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 75px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 150px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>
@@ -3956,17 +3888,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-107.33333333333334"
-                              y="-24"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4031,17 +3952,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="42.66666666666667"
-                              y="-274"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4106,17 +4016,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="42.66666666666667"
-                              y="-24"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4181,17 +4080,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                               data-testid="movable-point__center"
                               style="fill: var(--mafs-blue);"
                             />
-                            <foreignobject
-                              height="48"
-                              width="48"
-                              x="-7.333333333333332"
-                              y="-74"
-                            >
-                              <div
-                                class="movable-point-hitbox"
-                                style="width: 100%; height: 100%;"
-                              />
-                            </foreignobject>
                           </g>
                           <foreignobject>
                             <span
@@ -4229,6 +4117,27 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 116.66666666666666px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 266.6666666666667px; top: 16.666666666666657px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 266.6666666666667px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
+                  <div
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; left: 216.66666666666666px; top: 216.66666666666669px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                  />
                 </div>
               </div>
             </div>

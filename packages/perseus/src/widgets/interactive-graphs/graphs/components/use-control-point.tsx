@@ -1,12 +1,15 @@
 import * as React from "react";
-import {useState, useRef, useLayoutEffect} from "react";
+import {useState, useRef, useLayoutEffect, useContext} from "react";
+import {createPortal} from "react-dom";
 
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {srFormatNumber} from "../strings/format-number";
+import {pointToPixel} from "../use-transform";
 import {useDraggable} from "../use-draggable";
 
+import {HitboxLayerContext} from "./hitbox-layer-context";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
@@ -47,7 +50,8 @@ type Return = {
 };
 
 export function useControlPoint(params: Params): Return {
-    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
+    const graphConfig = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction} = graphConfig;
     const {
         point,
         ariaDescribedBy,
@@ -67,6 +71,7 @@ export function useControlPoint(params: Params): Return {
     const {strings, locale} = usePerseusI18n();
 
     const [focused, setFocused] = useState(false);
+    const [hovered, setHovered] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
 
     useDraggable({
@@ -78,9 +83,10 @@ export function useControlPoint(params: Params): Return {
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
-    // The touch/pointer drag is captured on an HTML hitbox (rendered inside the
-    // point's <foreignObject>) rather than the SVG group, because Safari doesn't
-    // reliably honor `touch-action` on SVG. See MovablePointView for details.
+    // The touch/pointer drag is captured on an HTML hitbox <div> that is
+    // portaled into the graph's HTML overlay layer, not the SVG group, because
+    // Safari doesn't reliably honor `touch-action` on SVG. See
+    // HitboxLayerContext for the full rationale.
     const hitboxDivRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
         gestureTarget: hitboxDivRef,
@@ -90,6 +96,17 @@ export function useControlPoint(params: Params): Return {
         onDragEnd,
         constrainKeyboardMovement: constrain,
     });
+
+    // The overlay layer that the hitbox is portaled into, and this point's
+    // position in that layer's (pixel) coordinate space. Null before the layer
+    // mounts, in which case the hitbox isn't rendered yet.
+    const hitboxLayer = useContext(HitboxLayerContext);
+    const [hitboxX, hitboxY] = pointToPixel(point, graphConfig);
+
+    const focusPoint = () => {
+        onClick();
+        focusableHandleRef.current?.focus();
+    };
 
     // if custom aria label is not provided, will use default of sequence number and point coordinates
     const pointAriaLabel =
@@ -135,20 +152,50 @@ export function useControlPoint(params: Params): Return {
             }}
         />
     );
+    // HTML drag hitbox, portaled into the overlay layer above the SVG and
+    // centered on the point. `touch-action: none` (honored on HTML, unlike SVG)
+    // stops a touch-drag from scrolling the page; `pointer-events: auto` opts
+    // back in over the otherwise pass-through layer. This is the gesture target
+    // and also carries the point's click/hover, since it sits on top of the
+    // SVG and receives the pointer input.
+    const hitbox =
+        hitboxLayer &&
+        createPortal(
+            <div
+                ref={hitboxDivRef}
+                data-testid="movable-point__hitbox"
+                style={{
+                    position: "absolute",
+                    left: hitboxX,
+                    top: hitboxY,
+                    width: HITBOX_SIZE_PX,
+                    height: HITBOX_SIZE_PX,
+                    transform: "translate(-50%, -50%)",
+                    touchAction: "none",
+                    pointerEvents: "auto",
+                    cursor: dragging ? "grabbing" : cursor ?? "grab",
+                }}
+                onClick={focusPoint}
+                onPointerEnter={() => setHovered(true)}
+                onPointerLeave={() => setHovered(false)}
+            />,
+            hitboxLayer,
+        );
+
     const visiblePoint = (
-        <MovablePointView
-            cursor={cursor}
-            onClick={() => {
-                onClick();
-                focusableHandleRef.current?.focus();
-            }}
-            point={point}
-            dragging={dragging}
-            focused={focused}
-            ref={visiblePointRef}
-            hitboxDivRef={hitboxDivRef}
-            showFocusRing={focused}
-        />
+        <>
+            <MovablePointView
+                cursor={cursor}
+                onClick={focusPoint}
+                point={point}
+                dragging={dragging}
+                focused={focused}
+                hovered={hovered}
+                ref={visiblePointRef}
+                showFocusRing={focused}
+            />
+            {hitbox}
+        </>
     );
 
     return {
@@ -158,6 +205,9 @@ export function useControlPoint(params: Params): Return {
         visiblePointRef,
     };
 }
+
+// Hitbox size preserved from the legacy interactive graph (48x48px).
+const HITBOX_SIZE_PX = 48;
 
 function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T): void {
     if (typeof ref === "function") {

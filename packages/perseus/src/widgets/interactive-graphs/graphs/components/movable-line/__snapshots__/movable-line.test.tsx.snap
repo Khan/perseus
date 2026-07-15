@@ -101,17 +101,6 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
       <g
         aria-hidden="true"
@@ -141,17 +130,6 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
     </svg>
   </div>
@@ -259,17 +237,6 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
       <g
         aria-hidden="true"
@@ -299,17 +266,6 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
     </svg>
   </div>
@@ -477,17 +433,6 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
       <g
         aria-hidden="true"
@@ -517,17 +462,6 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           data-testid="movable-point__center"
           style="fill: var(--mafs-blue);"
         />
-        <foreignobject
-          height="48"
-          width="48"
-          x="-24"
-          y="-24"
-        >
-          <div
-            class="movable-point-hitbox"
-            style="width: 100%; height: 100%;"
-          />
-        </foreignobject>
       </g>
     </svg>
   </div>

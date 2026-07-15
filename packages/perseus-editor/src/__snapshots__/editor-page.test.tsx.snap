@@ -6316,12 +6316,6 @@ table: [[☃ table 1]]
                                       style="--movable-point-color: var(--static-gray);"
                                     >
                                       <circle
-                                        class="movable-point-hitbox"
-                                        cx="0"
-                                        cy="0"
-                                        r="24"
-                                      />
-                                      <circle
                                         class="movable-point-halo"
                                         cx="0"
                                         cy="0"
@@ -6350,12 +6344,6 @@ table: [[☃ table 1]]
                                       data-testid="movable-point"
                                       style="--movable-point-color: var(--static-gray);"
                                     >
-                                      <circle
-                                        class="movable-point-hitbox"
-                                        cx="14.4"
-                                        cy="-14.4"
-                                        r="24"
-                                      />
                                       <circle
                                         class="movable-point-halo"
                                         cx="14.4"
@@ -6406,6 +6394,19 @@ table: [[☃ table 1]]
                                   </g>
                                 </svg>
                               </div>
+                            </div>
+                            <div
+                              class="interactive-graph-hitbox-layer"
+                              style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                            >
+                              <div
+                                data-testid="movable-point__hitbox"
+                                style="position: absolute; left: 144px; top: 144px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                              />
+                              <div
+                                data-testid="movable-point__hitbox"
+                                style="position: absolute; left: 158.4px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                              />
                             </div>
                           </div>
                         </div>
@@ -10540,12 +10541,6 @@ table: [[☃ table 1]]
                                         style="--movable-point-color: var(--static-gray);"
                                       >
                                         <circle
-                                          class="movable-point-hitbox"
-                                          cx="0"
-                                          cy="-14.4"
-                                          r="24"
-                                        />
-                                        <circle
                                           class="movable-point-halo"
                                           cx="0"
                                           cy="-14.4"
@@ -10574,12 +10569,6 @@ table: [[☃ table 1]]
                                         data-testid="movable-point"
                                         style="--movable-point-color: var(--static-gray);"
                                       >
-                                        <circle
-                                          class="movable-point-hitbox"
-                                          cx="14.4"
-                                          cy="-43.2"
-                                          r="24"
-                                        />
                                         <circle
                                           class="movable-point-halo"
                                           cx="14.4"
@@ -10630,6 +10619,19 @@ table: [[☃ table 1]]
                                     </g>
                                   </svg>
                                 </div>
+                              </div>
+                              <div
+                                class="interactive-graph-hitbox-layer"
+                                style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                              >
+                                <div
+                                  data-testid="movable-point__hitbox"
+                                  style="position: absolute; left: 144px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                />
+                                <div
+                                  data-testid="movable-point__hitbox"
+                                  style="position: absolute; left: 158.4px; top: 100.8px; width: 48px; height: 48px; transform: translate(-50%, -50%); pointer-events: auto; cursor: grab;"
+                                />
                               </div>
                             </div>
                           </div>
