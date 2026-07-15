@@ -4257,7 +4257,6 @@ exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts retu
   "question": {
     "content": "[[☃ image 1]]",
     "images": {},
-    "metadata": null,
     "widgets": {
       "image 1": {
         "alignment": "block",
@@ -4315,7 +4314,6 @@ exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts retu
   "question": {
     "content": "[[☃ image 1]]",
     "images": {},
-    "metadata": null,
     "widgets": {
       "image 1": {
         "alignment": "block",

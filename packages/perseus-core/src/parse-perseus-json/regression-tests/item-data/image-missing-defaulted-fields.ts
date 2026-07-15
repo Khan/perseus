@@ -21,8 +21,6 @@ export default {
                 },
             },
         },
-        replace: null,
-        metadata: null,
         images: {},
     },
 };
