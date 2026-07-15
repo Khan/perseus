@@ -90,11 +90,10 @@ export function usePreviewController(
     const currentContentRef = React.useRef<PreviewContent | null>(null);
     const currentA11yEnabledRef = React.useRef(false);
 
-    // Monotonic version of the preview content, incremented on every
-    // `sendData`. It's stamped onto each content update sent to the iframe and
-    // echoed back on the iframe's scan report, so a report (or a "Show Me"
-    // highlight) computed against content that a newer edit has since
-    // superseded can be discarded.
+    // Monotonic version of the preview content, bumped on every `sendData`.
+    // Lets us discard scan results and highlights that a newer edit has
+    // already superseded: we stamp each content update with it and the iframe
+    // echoes it back.
     const contentVersionRef = React.useRef(0);
 
     // Listen for messages from iframe

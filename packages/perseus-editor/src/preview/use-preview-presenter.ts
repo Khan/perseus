@@ -132,6 +132,12 @@ export function usePreviewPresenter(
                     break;
 
                 case "highlight-issues":
+                    // Drop this command if it was computed against stale
+                    // content (its previewIds belong to a scan whose element
+                    // map is no longer current).
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setHighlightTargets(
                         message.previewIds.flatMap(
                             (previewId) =>
@@ -159,12 +165,28 @@ export function usePreviewPresenter(
         };
     }, []);
 
-    // Tracks the latest a11yEnabled value for the async scan below, which
-    // needs to check it after awaiting rather than the value it closed over.
+    // Tracks the latest a11yEnabled value. Because the scan is async and we
+    // want to avoid sending results if scanning is disabled mid-scan, we need
+    // a ref instead of using the original value it closed over.
     const a11yEnabledRef = React.useRef(a11yEnabled);
     React.useEffect(() => {
         a11yEnabledRef.current = a11yEnabled;
     }, [a11yEnabled]);
+
+    // Latest contentVersion, mirrored into a ref because the message listener
+    // is registered once on mount and so can't read live state when gating
+    // highlight commands.
+    const contentVersionRef = React.useRef(contentVersion);
+    React.useEffect(() => {
+        contentVersionRef.current = contentVersion;
+    }, [contentVersion]);
+
+    // A new content version means any highlight overlays drawn against the
+    // previous version's scan are stale — drop them until a fresh highlight
+    // command arrives.
+    React.useEffect(() => {
+        setHighlightTargets([]);
+    }, [contentVersion]);
 
     // In-flight scan promise. Non-null means a scan is already running, so a
     // debounce firing mid-scan is dropped rather than starting a second run.
@@ -202,6 +224,8 @@ export function usePreviewPresenter(
                     {elementRef: true},
                 );
 
+                // Don't send the results if a11yEnabled was turned off during
+                // the scan!
                 if (!a11yEnabledRef.current) {
                     return;
                 }
