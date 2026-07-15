@@ -50,7 +50,7 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 // help. On our dev laptops with 12 cores, Jest defaults to 13 workers when
 // maxWorkers is not set, so I've reduced it to 10. The test suite seems to run
 // faster with 10 workers, too (16s vs. 18s). This setting is not applied on CI.
-const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 13};
+const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 10};
 
 /** @type {import('jest').Config} */
 module.exports = {
