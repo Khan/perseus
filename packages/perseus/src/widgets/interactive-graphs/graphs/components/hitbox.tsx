@@ -27,7 +27,7 @@ export const HANDLE_HITBOX_SIZE_PX = 48;
  * pixel space with the same `pointToPixel` transform movable points use, so
  * hitboxes line up exactly with the SVG shapes they cover.
  */
-export type HitboxShape =
+type HitboxShape =
     // Square centered on a point (movable points, arrowheads).
     | {kind: "box"; center: vec.Vector2; sizePx: number}
     // Thick segment between two points (lines, vectors, asymptotes).
