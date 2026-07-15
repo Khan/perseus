@@ -8,6 +8,20 @@ code {
     font-size: 1.25em;
     padding: 4px 10px;
     border-radius: 3px 3px 0 0;
+    /* Pin the section/question header to the top of its scrolling editor cell
+     * (the same mechanism as the Issues panel) so authors always know which
+     * section the scrolled content belongs to. The opaque #eee background
+     * keeps content from showing through when pinned. Sticky is a no-op when
+     * the cell isn't tall enough to scroll. */
+    position: sticky;
+    top: 0;
+    z-index: 15;
+}
+/* In the article editor the Issues panel and the section header live in the
+ * same scrolling cell, so offset the header to pin just below the (collapsed)
+ * Issues panel rather than overlapping it. */
+.perseus-article-editor .pod-title {
+    top: 35px;
 }
 .pod-title.closed {
     border-radius: 3px;
@@ -104,7 +118,6 @@ code {
 .perseus-widget-editor {
     border: 1px solid #ddd;
     border-radius: 3px;
-    margin-top: 10px;
 }
 .perseus-widget-editor .perseus-widget-editor-title {
     background-color: #eee;
@@ -285,6 +298,7 @@ code {
     /* Keep the left cell scroll area within the viewport. (244px to account
      * for the header.) */
     max-height: calc(95vh - 244px);
+    margin-inline-end: var(--wb-sizing-size_480);
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
@@ -301,6 +315,29 @@ code {
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
+}
+/* Frame the exercise editor's previews (question and each hint) to match the
+ * article editor's bordered preview. Scoped to the question and hint rows so
+ * the (empty) answer row's right cell doesn't render an empty bordered box. */
+.perseus-question-container .perseus-editor-right-cell,
+.perseus-combined-hint-editor .perseus-editor-right-cell {
+    border: 2px solid var(--wb-semanticColor-core-border-neutral-subtle);
+}
+/* Keep the Issues panel pinned to the top of its scroll area so authors can
+ * always see the issue count while scrolling the editor. Used in both the
+ * exercise editor (editor-page) and the article editor. The opaque background
+ * prevents scrolled content from showing through the panel. */
+.perseus-editor-issues-panel-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+/* Space each hint section apart in the exercise editor. This class only
+ * appears in the exercise editor's hints area, so it doesn't affect the
+ * article editor. */
+.perseus-combined-hint-editor {
+    margin-bottom: var(--wb-sizing-size_480);
 }
 .perseus-hint-editor {
     padding-bottom: 20px;
@@ -327,11 +364,6 @@ code {
 .perseus-hints-editor .add-hint {
     font-size: 13px;
 }
-.perseus-hints-editor
-    .perseus-editor-row:first-child
-    .perseus-editor-right-cell {
-    border-top: 0;
-}
 .perseus-hint-editor + div .perseus-hint-renderer {
     width: 100%;
 }
@@ -341,6 +373,12 @@ code {
 .perseus-article-editor {
     margin-bottom: 20px;
     margin-top: 20px;
+}
+/* Space each section apart in the article editor. Scoped to the article
+ * editor so it doesn't reintroduce the gap between the exercise editor's
+ * Question and Question extras rows. */
+.perseus-article-editor .perseus-editor-row {
+    margin-bottom: var(--wb-sizing-size_480);
 }
 .perseus-article-editor .perseus-single-editor {
     margin-bottom: 10px;
@@ -379,6 +417,7 @@ code {
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
+    border: 2px solid var(--wb-semanticColor-core-border-neutral-subtle);
 }
 .perseus-article-editor .editor-preview.full-width {
     width: 100%;

@@ -28,10 +28,12 @@ type IssuesPanelProps = {
         callback: () => void;
         isChecked: boolean;
     };
+    /** Extra class(es) applied to the panel's root, e.g. to position it. */
+    className?: string;
 };
 
 const IssuesPanel = (props: IssuesPanelProps) => {
-    const {issues = []} = props;
+    const {issues = [], className} = props;
     const a11yCheck = props.a11yCheck || {
         callback: () => {},
         isChecked: false,
@@ -60,7 +62,13 @@ const IssuesPanel = (props: IssuesPanelProps) => {
     });
 
     return (
-        <div className="perseus-widget-editor">
+        <div
+            className={
+                className
+                    ? `perseus-widget-editor ${className}`
+                    : "perseus-widget-editor"
+            }
+        >
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
                     <View

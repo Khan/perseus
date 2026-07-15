@@ -191,6 +191,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                 <fieldset disabled={editingDisabled}>
                                     <IssuesPanel
                                         issues={this.state.issues[i]}
+                                        className="perseus-editor-issues-panel-sticky"
                                     />
                                     <div className="pod-title">
                                         Section {i + 1}

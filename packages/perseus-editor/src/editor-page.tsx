@@ -356,6 +356,7 @@ class EditorPage extends React.Component<Props, State> {
                             <div className="perseus-editor-row">
                                 <div className="perseus-editor-left-cell">
                                     <IssuesPanel
+                                        className="perseus-editor-issues-panel-sticky"
                                         issues={this.state.issues.concat(
                                             this.state.showAxeCoreIssues
                                                 ? this.state.axeCoreIssues
