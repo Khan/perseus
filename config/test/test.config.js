@@ -107,4 +107,8 @@ module.exports = {
     ],
     coverageProvider: "v8",
     ...maxWorkersConfig,
+    // Disable watchman when running under Claude Code.
+    // Watchman doesn't work under Claude Code's sandbox, and `watchman: false`
+    // must be set at the global config level (not per-project) to take effect.
+    ...(!!process.env.CLAUDECODE && {watchman: false}),
 };
