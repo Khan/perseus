@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 32.0.0
+
+### Major Changes
+
+-   [#3899](https://github.com/Khan/perseus/pull/3899) [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the image widget required. Perseus consumers should, as always, use the parsers to upgrade data to the latest schema.
+
 ## 31.0.0
 
 ### Major Changes
