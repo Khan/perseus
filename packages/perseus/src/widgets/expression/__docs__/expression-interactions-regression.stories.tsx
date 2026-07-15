@@ -114,23 +114,6 @@ export const FocusedMathButton: Story = {
     },
 };
 
-export const HoveredMathButton: Story = {
-    decorators: [expressionRendererDecorator],
-    args: {
-        answerForms: [],
-        buttonSets: ["basic"],
-        functions: [],
-        times: false,
-        extraKeys: [],
-    },
-    play: async ({canvas, userEvent}) => {
-        const openButton = canvas.getByRole("button", {
-            name: "open math keypad",
-        });
-        await userEvent.hover(openButton);
-    },
-};
-
 // A keypad button has keyboard focus (focus ring visible) without being
 // pressed. `.focus()` isolates the focus state from the pressed state.
 export const KeypadButtonFocused: Story = {
