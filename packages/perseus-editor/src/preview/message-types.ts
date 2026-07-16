@@ -125,15 +125,18 @@ interface PreviewDataMessage extends PreviewMessageBase {
 interface PreviewIframeInitMessage extends PreviewMessageBase {
     type: "iframe-init";
     content: PreviewContent | null;
+    a11yEnabled: boolean;
 }
 
 export function createPreviewIframeInitMessage(
     content: PreviewContent | null,
+    a11yEnabled: boolean,
 ): PreviewIframeInitMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-init",
         content,
+        a11yEnabled,
     };
 }
 
@@ -231,13 +234,11 @@ interface PreviewA11yReportMessage extends PreviewMessageBase {
 
 /**
  * Union of all messages sent from iframe to parent
- *
- * TODO: add PreviewA11yReportMessage here once usePreviewController handles it
- * (the exhaustive switch obligates a handler to land in the same change).
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
-    | PreviewHeightUpdateMessage;
+    | PreviewHeightUpdateMessage
+    | PreviewA11yReportMessage;
 
 export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {
