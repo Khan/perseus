@@ -1,4 +1,3 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -166,10 +165,7 @@ export const MovableArrowheadView = forwardRef(
                         opened={true}
                         backgroundColor={wbColorName}
                         content={tooltipContent}
-                        contentStyle={{
-                            color: semanticColor.core.foreground.knockout
-                                .default,
-                        }}
+                        variant="strong"
                     >
                         {svgForArrowhead}
                     </Tooltip>
