@@ -4,7 +4,7 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
-import type {Issue} from "../components/issues-panel";
+import type {A11yIssue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusItem,
@@ -228,8 +228,8 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
  */
 interface PreviewA11yReportMessage extends PreviewMessageBase {
     type: "a11y-report";
-    violations: Issue[];
-    incompletes: Issue[];
+    violations: A11yIssue[];
+    incompletes: A11yIssue[];
 }
 
 /**
@@ -248,8 +248,8 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
 }
 
 export function createPreviewA11yReportMessage(
-    violations: Issue[],
-    incompletes: Issue[],
+    violations: A11yIssue[],
+    incompletes: A11yIssue[],
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,

@@ -12,15 +12,43 @@ import LabeledSwitch from "./labeled-switch";
 import ToggleableCaret from "./toggleable-caret";
 
 export type IssueImpact = "low" | "medium" | "high";
-export type Issue = {
+
+/** Fields shared by all issue types. */
+type BaseIssue = {
     id: string;
     description: string;
-    elements?: Element[];
     helpUrl: string;
     help: string;
     impact: IssueImpact;
     message: string;
 };
+
+/**
+ * An issue surfaced by the axe-core accessibility scanner.
+ */
+export type A11yIssue = BaseIssue & {
+    /**
+     * The unique preview-side ID for this issue (for "Show Me" highlighting).
+     */
+    previewId: string;
+};
+
+/**
+ * An issue surfaced by the editor-side linter (tex, widget, and content-lint
+ * rules).
+ */
+export type LinterIssue = BaseIssue;
+
+export type Issue = A11yIssue | LinterIssue;
+
+/**
+ * A unique identifier for an issue, suitable for use as a React key or a
+ * Record key. `A11yIssue.id` is the axe rule id (shared by every violation
+ * of that rule) so it's not unique on its own — `previewId` is.
+ */
+export function getIssueKey(issue: Issue): string {
+    return "previewId" in issue ? issue.previewId : issue.id;
+}
 
 type IssuesPanelProps = {
     issues?: Issue[];
@@ -89,7 +117,10 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
                         {sortedIssues.map((issue) => (
-                            <IssueDetails key={issue.id} issue={issue} />
+                            <IssueDetails
+                                key={getIssueKey(issue)}
+                                issue={issue}
+                            />
                         ))}
                         {issues.length === 0 && <div>No issues found</div>}
                         <LabeledSwitch

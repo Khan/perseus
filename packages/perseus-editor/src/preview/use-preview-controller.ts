@@ -12,11 +12,11 @@ import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
-import type {Issue} from "../components/issues-panel";
+import type {A11yIssue} from "../components/issues-panel";
 
 export type A11yReport = {
-    violations: Issue[];
-    incompletes: Issue[];
+    violations: A11yIssue[];
+    incompletes: A11yIssue[];
 };
 
 type UsePreviewControllerResult = {

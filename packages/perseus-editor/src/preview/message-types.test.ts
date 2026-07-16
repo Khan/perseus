@@ -8,15 +8,16 @@ import {
 } from "./message-types";
 
 import type {PreviewContent} from "./message-types";
-import type {Issue} from "../components/issues-panel";
+import type {A11yIssue} from "../components/issues-panel";
 
-const issue = (id: string): Issue => ({
+const issue = (id: string): A11yIssue => ({
     id,
     description: `description ${id}`,
     helpUrl: "https://example.com/help",
     help: "Learn more",
     impact: "medium",
     message: `message ${id}`,
+    previewId: id,
 });
 
 const questionContent: PreviewContent = {
