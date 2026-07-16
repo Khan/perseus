@@ -1,4 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {matrixRendererDecorator} from "./matrix-renderer-decorator";
 
@@ -8,7 +9,6 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<MatrixPublicWidgetOptions> = {
     title: "Widgets/Matrix/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
-    decorators: [matrixRendererDecorator],
     parameters: {
         docs: {
             description: {
@@ -29,6 +29,7 @@ type Story = StoryObj<typeof meta>;
 // grid become active (white, #fff). Focuses the bottom-right cell (row 2,
 // col 2), which is index 8 in row-major order.
 export const FocusedOutsideCell: Story = {
+    decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [3, 3],
     },
@@ -36,5 +37,39 @@ export const FocusedOutsideCell: Story = {
         const inputs = canvas.getAllByRole("textbox");
         // Cell (row=2, col=2) is at index 8 in a 3×3 row-major grid
         inputs[8].focus();
+    },
+};
+
+// Verifies that typing into the cells fills the grid: the typed values appear
+// in each cell and the active (highlighted) area — bounded by the brackets —
+// expands to cover the whole 3×3 grid once every cell has a value.
+export const TypeIntoCells: Story = {
+    decorators: [matrixRendererDecorator],
+    args: {
+        matrixBoardSize: [3, 3],
+    },
+    play: async ({canvas, userEvent}) => {
+        const inputs = canvas.getAllByRole("textbox");
+        // Fill every cell in row-major order so the brackets grow to enclose
+        // the full grid as it fills.
+        for (let i = 0; i < inputs.length; i++) {
+            await userEvent.type(inputs[i], String(i + 1));
+        }
+    },
+};
+
+// Verifies the RTL layout when a cell is focused. Focuses the "first"
+// (col 0) cell of the middle row, which appears rightmost when the grid is
+// flipped for RTL.
+export const RightToLeftFocused: Story = {
+    decorators: [matrixRendererDecorator, rtlDecorator],
+    args: {
+        matrixBoardSize: [3, 3],
+    },
+    play: async ({canvas}) => {
+        const inputs = canvas.getAllByRole("textbox");
+        // Cell (row=1, col=0) is at index 3 in a 3×3 row-major grid; in RTL
+        // this is the rightmost cell of the middle row.
+        inputs[3].focus();
     },
 };
