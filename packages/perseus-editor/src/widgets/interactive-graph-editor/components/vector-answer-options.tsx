@@ -1,6 +1,5 @@
 import {components} from "@khanacademy/perseus";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
@@ -21,17 +20,8 @@ export default function VectorAnswerOptions({correct, onChange}: Props) {
         <LabeledRow label="Student answer must">
             <TypedSingleSelect
                 selectedValue={correct.match || "exact"}
-                onChange={(newValue) => {
-                    invariant(
-                        correct.type === "vector",
-                        `Expected graph type to be vector, but got ${correct.type}`,
-                    );
-                    onChange({
-                        correct: {
-                            ...correct,
-                            match: newValue,
-                        },
-                    });
+                onChange={(match) => {
+                    onChange({correct: {...correct, match}});
                 }}
                 options={{
                     exact: "match exactly",

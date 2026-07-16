@@ -2,7 +2,6 @@ import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -105,37 +104,17 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
             <LabeledRow label="Student answer must">
                 <TypedSingleSelect
                     selectedValue={correct.match || "exact"}
-                    onChange={(newValue) => {
-                        invariant(
-                            correct.type === "angle",
-                            `Expected graph type to be angle, but got ${correct.type}`,
-                        );
-                        // "exact" is not a real `match` value: an absent
-                        // (undefined) `match` means exact matching. Translate
-                        // the selected option to the value the scorer expects.
-                        // The switch is exhaustive over the option keys, which
-                        // UnreachableCaseError enforces at compile time.
-                        let match: PerseusGraphTypeAngle["match"];
-                        switch (newValue) {
-                            case "exact":
-                                match = undefined;
-                                break;
-                            case "congruent":
-                                match = "congruent";
-                                break;
-                            default:
-                                throw new UnreachableCaseError(newValue);
-                        }
-                        onChange({
-                            correct: {
-                                ...correct,
-                                match,
-                            },
-                        });
-                    }}
                     options={{
                         exact: "match exactly",
                         congruent: "be congruent",
+                    }}
+                    onChange={(newValue) => {
+                        // "exact" is not a real `match` value: an absent
+                        // (undefined) `match` means exact matching. Translate
+                        // the selected option to the value the scorer expects.
+                        const match =
+                            newValue === "exact" ? undefined : newValue;
+                        onChange({correct: {...correct, match}});
                     }}
                     // Never uses placeholder, always has value
                     placeholder=""

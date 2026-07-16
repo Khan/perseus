@@ -1,9 +1,11 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
+import _ from "underscore";
 
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 import {parsePointCount} from "../../../util/points";
@@ -18,24 +20,15 @@ import type {
 
 const {InfoTip} = components;
 
-// The number-of-sides options, keyed by their `<select>` value. Typed as
-// `Record<string, string>` so the union stays `string`: `selectedValue` is
-// built from `numSides` via a template literal (a plain `string`), and the
-// value is parsed back with `parsePointCount`, so nothing is gained by
-// narrowing to the individual literals here.
-const POLYGON_SIDE_OPTIONS: Record<string, string> = {
-    "3": "3 sides",
-    "4": "4 sides",
-    "5": "5 sides",
-    "6": "6 sides",
-    "7": "7 sides",
-    "8": "8 sides",
-    "9": "9 sides",
-    "10": "10 sides",
-    "11": "11 sides",
-    "12": "12 sides",
-    unlimited: "unlimited sides",
-};
+const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
+    return (
+        <OptionItem
+            key={`polygon-sides-${value}`}
+            value={`${value}`}
+            label={`${value} sides`}
+        />
+    );
+});
 
 interface Props {
     correct: PerseusGraphTypePolygon;
@@ -51,7 +44,7 @@ export default function PolygonAnswerOptions({
     return (
         <>
             <LabeledRow label="Number of sides:">
-                <TypedSingleSelect
+                <SingleSelect
                     key="polygon-select"
                     selectedValue={
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -81,20 +74,35 @@ export default function PolygonAnswerOptions({
                             },
                         });
                     }}
-                    options={POLYGON_SIDE_OPTIONS}
                     className={styles.singleSelectShort}
-                />
+                >
+                    {[
+                        ...POLYGON_SIDES,
+                        <OptionItem
+                            key="unlimited"
+                            value="unlimited"
+                            label="unlimited sides"
+                        />,
+                    ]}
+                </SingleSelect>
             </LabeledRow>
             <LabeledRow label="Snap to:">
                 <TypedSingleSelect
-                    selectedValue={correct?.snapTo || "grid"}
+                    selectedValue={correct.snapTo || "grid"}
                     // Never uses placeholder, always has value
                     placeholder=""
+                    options={{
+                        grid: "grid",
+                        // "interior angles" and "side measures" only apply to
+                        // polygons with a fixed number of sides; hide them (via
+                        // a falsey label) when the side count is unlimited.
+                        angles:
+                            correct.numSides !== "unlimited" &&
+                            "interior angles",
+                        sides:
+                            correct.numSides !== "unlimited" && "side measures",
+                    }}
                     onChange={(newValue) => {
-                        invariant(
-                            correct.type === "polygon",
-                            `Expected correct answer type to be polygon, but got ${correct.type}`,
-                        );
                         invariant(
                             graph?.type === "polygon",
                             `Expected graph type to be polygon, but got ${graph?.type}`,
@@ -115,18 +123,6 @@ export default function PolygonAnswerOptions({
                                 ...updates,
                             },
                         });
-                    }}
-                    options={{
-                        grid: "grid",
-                        // "interior angles" and "side measures" only apply to
-                        // polygons with a fixed number of sides; hide them (via
-                        // a falsey label) when the side count is unlimited.
-                        angles:
-                            correct?.numSides !== "unlimited" &&
-                            "interior angles",
-                        sides:
-                            correct?.numSides !== "unlimited" &&
-                            "side measures",
                     }}
                     className={styles.singleSelectShort}
                 />
@@ -213,16 +209,8 @@ export default function PolygonAnswerOptions({
             <LabeledRow label="Student answer must">
                 <TypedSingleSelect
                     selectedValue={correct.match || "exact"}
-                    onChange={(newValue) => {
-                        invariant(
-                            correct.type === "polygon",
-                            `Expected graph type to be polygon, but got ${correct.type}`,
-                        );
-                        const updatedCorrect = {
-                            ...correct,
-                            match: newValue,
-                        };
-                        onChange({correct: updatedCorrect});
+                    onChange={(match) => {
+                        onChange({correct: {...correct, match}});
                     }}
                     options={{
                         exact: "match exactly",
