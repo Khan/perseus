@@ -81,6 +81,10 @@ const IssueDetails = ({issue}: IssueProps) => {
                 Issue:
             </BodyText>
             <span style={messageStyling}>{issue.message}</span>
+            {/* Transitional no-op: `Issue.elements` is removed in this PR, so
+                ShowMe has nothing to highlight and renders nothing for now. A
+                later PR in this stack rewires it to drive highlight state
+                through A11yContext. */}
             <ShowMe />
             <IssueCta issue={issue} />
         </PerseusEditorAccordion>
