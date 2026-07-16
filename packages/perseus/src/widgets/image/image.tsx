@@ -12,12 +12,12 @@ import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
 import {isGif, decodeGifFrames} from "./utils";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, Widget, WidgetPropsV2} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
 
-type ImageWidgetProps = WidgetProps<PerseusImageWidgetOptions>;
+type ImageWidgetProps = WidgetPropsV2<PerseusImageWidgetOptions>;
 
 // Widget interface methods exposed via ref
 type WidgetHandle = Pick<Widget, "getPromptJSON">;
@@ -35,7 +35,7 @@ const ImageWidget = forwardRef<WidgetHandle, ImageWidgetProps>(
             labels,
             range,
             title,
-        } = props;
+        } = props.options;
         const context = React.useContext(PerseusI18nContext);
         const {analytics} = useDependencies();
 
@@ -92,7 +92,7 @@ const ImageWidget = forwardRef<WidgetHandle, ImageWidgetProps>(
         const isAnimatedGif =
             imageIsGif && gifFrames != null && gifFrames.length > 1;
 
-        let scale = props.scale;
+        let scale = props.options.scale;
         // Set the scale to 1 if the scale is invalid.
         if (scale <= 0 || scale === Infinity || scale === -Infinity) {
             scale = 1;
@@ -198,7 +198,7 @@ const ImageWidget = forwardRef<WidgetHandle, ImageWidgetProps>(
                         isGifPlaying={isGifPlaying}
                         setIsGifPlaying={setIsGifPlaying}
                         isAnimatedGif={isAnimatedGif}
-                        {...props}
+                        {...props.options}
                         apiOptions={apiOptions}
                         linterContext={linterContext}
                         widgetId={widgetId}
