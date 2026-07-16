@@ -612,9 +612,7 @@ class NumericInputEditor extends React.Component<Props, State> {
 
                         <label>
                             Text alignment
-                            <TypedSingleSelect<
-                                PerseusNumericInputWidgetOptions["textAlign"]
-                            >
+                            <TypedSingleSelect
                                 selectedValue={this.props.textAlign}
                                 onChange={(value) => {
                                     this.props.onChange({textAlign: value});

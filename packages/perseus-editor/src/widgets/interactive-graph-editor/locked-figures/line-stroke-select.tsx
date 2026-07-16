@@ -30,7 +30,7 @@ const LineStrokeSelect = (props: Props) => {
             style={containerStyle}
         >
             stroke
-            <TypedSingleSelect<StyleOptions>
+            <TypedSingleSelect
                 selectedValue={selectedValue}
                 disabled={editingDisabled}
                 onChange={onChange}

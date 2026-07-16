@@ -74,7 +74,7 @@ export function TypedSingleSelect<ValueT extends string>(props: Props<ValueT>) {
                         />
                     );
                 }
-                // String form: a non-empty string is the label. Anything
+                // String form: a non-empty string is a label. Anything
                 // falsey (empty string, false, null, undefined) hides the
                 // option.
                 if (typeof option === "string" && option !== "") {

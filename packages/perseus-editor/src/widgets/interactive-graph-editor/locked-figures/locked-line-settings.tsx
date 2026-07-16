@@ -242,7 +242,7 @@ const LockedLineSettings = (props: Props) => {
                 className={`${styles.row} ${styles.spaceUnder} ${styles.kindLabel}`}
             >
                 kind
-                <TypedSingleSelect<LockedLineType["kind"]>
+                <TypedSingleSelect
                     selectedValue={kind}
                     disabled={editingDisabled}
                     onChange={(value) => onChangeProps({kind: value})}

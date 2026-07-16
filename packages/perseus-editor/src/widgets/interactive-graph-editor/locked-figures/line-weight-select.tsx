@@ -30,7 +30,7 @@ const LineWeightSelect = (props: Props) => {
             style={containerStyle}
         >
             weight
-            <TypedSingleSelect<StrokeWeight>
+            <TypedSingleSelect
                 selectedValue={selectedValue}
                 disabled={editingDisabled}
                 onChange={onChange}

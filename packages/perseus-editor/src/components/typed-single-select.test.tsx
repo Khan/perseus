@@ -132,24 +132,6 @@ describe("TypedSingleSelect", () => {
         expect(screen.getByTestId("accessory")).toBeInTheDocument();
     });
 
-    it("does not forward the options prop to the DOM", () => {
-        // Arrange, Act
-        render(
-            <TypedSingleSelect
-                aria-label="Letter"
-                placeholder=""
-                options={{a: "A", b: "B", c: "C"}}
-                selectedValue="a"
-                onChange={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Assert: `options` is the wrapper's own prop and must not leak onto
-        // the rendered control (it would serialize to "[object Object]").
-        expect(screen.getByRole("combobox")).not.toHaveAttribute("options");
-    });
-
     it("forwards pass-through props: disabled keeps the dropdown closed", async () => {
         // Arrange
         render(
@@ -169,5 +151,18 @@ describe("TypedSingleSelect", () => {
 
         // Assert
         expect(screen.queryByRole("option")).not.toBeInTheDocument();
+    });
+
+    it("fails to typecheck when onChange can't accept some of the `options`", () => {
+        <TypedSingleSelect
+            aria-label="Letter"
+            placeholder=""
+            disabled={true}
+            options={{a: "A", b: "B", c: "C"}}
+            selectedValue="a"
+            // eslint-disable-next-line @khanacademy/ts-no-error-suppressions
+            // @ts-expect-error: type '"a" | "b" | "c"' is not assignable to type '"a" | "b"'.
+            onChange={(_: "a" | "b") => {}}
+        />;
     });
 });

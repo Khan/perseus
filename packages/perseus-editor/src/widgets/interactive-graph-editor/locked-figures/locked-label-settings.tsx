@@ -171,7 +171,7 @@ export default function LockedLabelSettings(props: Props) {
                     className={`${styles.row} ${styles.sizeLabel}`}
                 >
                     size
-                    <TypedSingleSelect<LockedLabelType["size"]>
+                    <TypedSingleSelect
                         selectedValue={size}
                         disabled={editingDisabled}
                         onChange={(newValue) => onChangeProps({size: newValue})}
