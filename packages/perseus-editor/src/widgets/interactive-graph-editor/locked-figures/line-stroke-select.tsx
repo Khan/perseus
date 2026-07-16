@@ -1,6 +1,7 @@
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
+
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import styles from "./line-stroke-select.module.css";
 
@@ -29,17 +30,14 @@ const LineStrokeSelect = (props: Props) => {
             style={containerStyle}
         >
             stroke
-            <SingleSelect
+            <TypedSingleSelect<StyleOptions>
                 selectedValue={selectedValue}
                 disabled={editingDisabled}
-                // eslint-disable-next-line no-restricted-syntax
-                onChange={onChange as any}
+                onChange={onChange}
+                options={{solid: "solid", dashed: "dashed"}}
                 // Placeholder is required, but never gets used.
                 placeholder=""
-            >
-                <OptionItem value="solid" label="solid" />
-                <OptionItem value="dashed" label="dashed" />
-            </SingleSelect>
+            />
         </BodyText>
     );
 };

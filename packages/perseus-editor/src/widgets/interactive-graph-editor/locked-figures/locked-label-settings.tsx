@@ -11,7 +11,6 @@ import {
     type LockedLabelType,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -19,6 +18,7 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
@@ -171,25 +171,19 @@ export default function LockedLabelSettings(props: Props) {
                     className={`${styles.row} ${styles.sizeLabel}`}
                 >
                     size
-                    <SingleSelect
+                    <TypedSingleSelect<LockedLabelType["size"]>
                         selectedValue={size}
                         disabled={editingDisabled}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            // eslint-disable-next-line no-restricted-syntax
-                            ((newValue: "small" | "medium" | "large") =>
-                                onChangeProps({
-                                    size: newValue,
-                                })) as any
-                        }
+                        onChange={(newValue) => onChangeProps({size: newValue})}
+                        options={{
+                            small: "small",
+                            medium: "medium",
+                            large: "large",
+                        }}
                         // Placeholder is required, but never gets used since
                         // we have a label for the select.
                         placeholder=""
-                    >
-                        <OptionItem value="small" label="small" />
-                        <OptionItem value="medium" label="medium" />
-                        <OptionItem value="large" label="large" />
-                    </SingleSelect>
+                    />
                 </BodyText>
             </View>
 

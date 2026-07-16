@@ -11,7 +11,6 @@ import {
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -23,6 +22,7 @@ import {
     SegmentedControl,
     ToggleButtonGroup,
 } from "../components/segmented-control";
+import {TypedSingleSelect} from "../components/typed-single-select";
 import Editor from "../editor";
 
 import styles from "./numeric-input-editor.module.css";
@@ -612,17 +612,20 @@ class NumericInputEditor extends React.Component<Props, State> {
 
                         <label>
                             Text alignment
-                            <SingleSelect
+                            <TypedSingleSelect<
+                                PerseusNumericInputWidgetOptions["textAlign"]
+                            >
                                 selectedValue={this.props.textAlign}
                                 onChange={(value) => {
                                     this.props.onChange({textAlign: value});
                                 }}
+                                options={{
+                                    left: "Left",
+                                    center: "Center",
+                                    right: "Right",
+                                }}
                                 placeholder="Select text alignment"
-                            >
-                                <OptionItem value="left" label="Left" />
-                                <OptionItem value="center" label="Center" />
-                                <OptionItem value="right" label="Right" />
-                            </SingleSelect>
+                            />
                         </label>
 
                         {coefficientCheck}

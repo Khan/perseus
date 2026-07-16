@@ -132,6 +132,24 @@ describe("TypedSingleSelect", () => {
         expect(screen.getByTestId("accessory")).toBeInTheDocument();
     });
 
+    it("does not forward the options prop to the DOM", () => {
+        // Arrange, Act
+        render(
+            <TypedSingleSelect
+                aria-label="Letter"
+                placeholder=""
+                options={{a: "A", b: "B", c: "C"}}
+                selectedValue="a"
+                onChange={() => {}}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Assert: `options` is the wrapper's own prop and must not leak onto
+        // the rendered control (it would serialize to "[object Object]").
+        expect(screen.getByRole("combobox")).not.toHaveAttribute("options");
+    });
+
     it("forwards pass-through props: disabled keeps the dropdown closed", async () => {
         // Arrange
         render(

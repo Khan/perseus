@@ -48,45 +48,42 @@ export type Props<ValueT extends string> = OwnProps<ValueT> &
  * cast or runtime check is needed at the call site.
  */
 export function TypedSingleSelect<ValueT extends string>(props: Props<ValueT>) {
+    // `options` is this wrapper's own prop; don't forward it to `SingleSelect`
+    // (and thence to the DOM). `onChange` is re-typed below.
+    const {options, onChange, ...rest} = props;
     return (
         <SingleSelect
-            {...props}
+            {...rest}
             // Wonder Blocks types `onChange` as `(value: string) => void`.
             // Every value `SingleSelect` can emit is one of the option keys we
             // gave it, so narrowing that `string` back to `ValueT` is sound.
             // This is the single unavoidable cast; it lets call sites stay
             // cast-free.
             // eslint-disable-next-line no-restricted-syntax
-            onChange={props.onChange as (selectedValue: string) => void}
+            onChange={onChange as (selectedValue: string) => void}
         >
-            {Object.entries<SelectOption>(props.options).map(
-                ([value, option]) => {
-                    // Object form: a label plus an optional accessory.
-                    if (typeof option === "object" && option !== null) {
-                        return (
-                            <OptionItem
-                                key={value}
-                                value={value}
-                                label={option.label}
-                                leftAccessory={option.leftAccessory}
-                            />
-                        );
-                    }
-                    // String form: a non-empty string is the label. Anything
-                    // falsey (empty string, false, null, undefined) hides the
-                    // option.
-                    if (typeof option === "string" && option !== "") {
-                        return (
-                            <OptionItem
-                                key={value}
-                                value={value}
-                                label={option}
-                            />
-                        );
-                    }
-                    return null;
-                },
-            )}
+            {Object.entries<SelectOption>(options).map(([value, option]) => {
+                // Object form: a label plus an optional accessory.
+                if (typeof option === "object" && option !== null) {
+                    return (
+                        <OptionItem
+                            key={value}
+                            value={value}
+                            label={option.label}
+                            leftAccessory={option.leftAccessory}
+                        />
+                    );
+                }
+                // String form: a non-empty string is the label. Anything
+                // falsey (empty string, false, null, undefined) hides the
+                // option.
+                if (typeof option === "string" && option !== "") {
+                    return (
+                        <OptionItem key={value} value={value} label={option} />
+                    );
+                }
+                return null;
+            })}
         </SingleSelect>
     );
 }

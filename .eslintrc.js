@@ -97,6 +97,11 @@ module.exports = {
                 BlurInput: "input",
                 TextInput: "input",
                 NumberInput: "input",
+                // TypedSingleSelect wraps Wonder Blocks' SingleSelect, whose
+                // closest DOM equivalent is a `select`. Mapping it lets
+                // jsx-a11y associate labels with the control (see the
+                // SingleSelect mapping in @khanacademy/eslint-config/a11y).
+                TypedSingleSelect: "select",
             },
         },
     },

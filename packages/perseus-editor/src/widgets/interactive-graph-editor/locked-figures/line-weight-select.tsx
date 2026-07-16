@@ -1,6 +1,7 @@
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
+
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import styles from "./line-weight-select.module.css";
 
@@ -29,18 +30,14 @@ const LineWeightSelect = (props: Props) => {
             style={containerStyle}
         >
             weight
-            <SingleSelect
+            <TypedSingleSelect<StrokeWeight>
                 selectedValue={selectedValue}
                 disabled={editingDisabled}
-                // eslint-disable-next-line no-restricted-syntax
-                onChange={(value) => onChange(value as StrokeWeight)}
+                onChange={onChange}
+                options={{thin: "thin", medium: "medium", thick: "thick"}}
                 // Placeholder is required, but never gets used.
                 placeholder=""
-            >
-                <OptionItem value="thin" label="thin" />
-                <OptionItem value="medium" label="medium" />
-                <OptionItem value="thick" label="thick" />
-            </SingleSelect>
+            />
         </BodyText>
     );
 };

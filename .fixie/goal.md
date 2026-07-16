@@ -284,16 +284,16 @@ union (as above) for the wrapper to accept them.
 
 ### Static string-literal unions (remove existing casts)
 
-- [ ] Convert `line-weight-select.tsx` (`StrokeWeight`); drop the
+- [x] Convert `line-weight-select.tsx` (`StrokeWeight`); drop the
   `value as StrokeWeight` cast and its suppression.
-- [ ] Convert `line-stroke-select.tsx` (`"solid" | "dashed"`); drop the
+- [x] Convert `line-stroke-select.tsx` (`"solid" | "dashed"`); drop the
   `onChange as any` cast and its suppression.
-- [ ] Convert the size select in `locked-label-settings.tsx`
+- [x] Convert the size select in `locked-label-settings.tsx`
   (`"small" | "medium" | "large"`); drop the handler `as any`.
-- [ ] Convert the kind select in `locked-line-settings.tsx`
+- [x] Convert the kind select in `locked-line-settings.tsx`
   (`"line" | "ray" | "segment"`); drop the handler `as any`, and drop the stray
   `as any` on the `LineStrokeSelect` `onChange` in the same file.
-- [ ] Convert the text-align select in `numeric-input-editor.tsx`
+- [x] Convert the text-align select in `numeric-input-editor.tsx`
   (`"left" | "center" | "right"`).
 
 ### graph-type-selector chain
