@@ -10,15 +10,7 @@ import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
 import {GifControlsIcon} from "./gif-controls-icon";
 
-import type {APIOptions} from "../../../types";
-import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import {CommonImageProps} from "./common-image-props";
-
-export interface GifProps {
-    isGifPlaying: boolean;
-    setIsGifPlaying: (isPaused: boolean) => void;
-}
+import type {CommonImageProps} from "./common-image-props";
 
 interface Props extends CommonImageProps {
     isAnimatedGif: boolean;

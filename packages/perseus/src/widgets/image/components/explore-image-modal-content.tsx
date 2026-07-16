@@ -11,8 +11,8 @@ import {decodeGifFrames, isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
+import type {CommonImageProps} from "./common-image-props";
 import type {ParsedFrame} from "gifuct-js";
-import {CommonImageProps} from "./common-image-props";
 
 const MODAL_HEIGHT = 568;
 
