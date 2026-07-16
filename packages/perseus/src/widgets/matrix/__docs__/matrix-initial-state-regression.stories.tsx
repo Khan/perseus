@@ -158,7 +158,7 @@ export const WithPrefixAndSuffixRightToLeft: Story = {
     },
 };
 
-// REGRESSION: Matrices do NOT flip in right-to-left languages. This story should
+// KNOWN ISSUE: Matrices do NOT flip in right-to-left languages. This story should
 // be no different from the DefaultEmptyMatrix story.
 export const EmptyMatrixRTL: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
