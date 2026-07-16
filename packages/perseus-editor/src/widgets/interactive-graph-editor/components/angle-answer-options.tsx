@@ -1,11 +1,12 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
 
@@ -102,34 +103,44 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
                 </InfoTip>
             </View>
             <LabeledRow label="Student answer must">
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={correct.match || "exact"}
                     onChange={(newValue) => {
                         invariant(
                             correct.type === "angle",
                             `Expected graph type to be angle, but got ${correct.type}`,
                         );
+                        // "exact" is not a real `match` value: an absent
+                        // (undefined) `match` means exact matching. Translate
+                        // the selected option to the value the scorer expects.
+                        // The switch is exhaustive over the option keys, which
+                        // UnreachableCaseError enforces at compile time.
+                        let match: PerseusGraphTypeAngle["match"];
+                        switch (newValue) {
+                            case "exact":
+                                match = undefined;
+                                break;
+                            case "congruent":
+                                match = "congruent";
+                                break;
+                            default:
+                                throw new UnreachableCaseError(newValue);
+                        }
                         onChange({
                             correct: {
                                 ...correct,
-                                // TODO(benchristel): this cast is necessary
-                                // because "exact" is not actually a valid
-                                // value for `match`; a value of undefined
-                                // means exact matching. The code happens
-                                // to work because "exact" falls through
-                                // to the correct else branch when scoring
-                                // eslint-disable-next-line no-restricted-syntax
-                                match: newValue as PerseusGraphTypeAngle["match"],
+                                match,
                             },
                         });
+                    }}
+                    options={{
+                        exact: "match exactly",
+                        congruent: "be congruent",
                     }}
                     // Never uses placeholder, always has value
                     placeholder=""
                     className={styles.singleSelectShort}
-                >
-                    <OptionItem value="exact" label="match exactly" />
-                    <OptionItem value="congruent" label="be congruent" />
-                </SingleSelect>
+                />
                 <InfoTip>
                     <p>
                         Congruency requires only that the angle measures are the

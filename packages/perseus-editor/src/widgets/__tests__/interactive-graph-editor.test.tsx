@@ -568,6 +568,44 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
+    it("sets angle match to undefined when 'match exactly' is chosen", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "angle"}}
+                correct={{
+                    type: "angle",
+                    match: "congruent",
+                }}
+                onChange={onChangeMock}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const input = await screen.findByLabelText("Student answer must");
+        await userEvent.click(input);
+        const answerMustSelection = screen.getByText("match exactly");
+        await userEvent.click(answerMustSelection);
+
+        // Assert
+        // "exact" is not a real `match` value; an absent (undefined) `match`
+        // means exact matching, so the editor writes `undefined`.
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                correct: {
+                    type: "angle",
+                    match: undefined,
+                },
+            }),
+        );
+    });
+
     it("changes number of segments when segment prop changes", async () => {
         // Arrange
 

@@ -1,8 +1,8 @@
 import {components} from "@khanacademy/perseus";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
 
@@ -19,7 +19,7 @@ interface Props {
 export default function VectorAnswerOptions({correct, onChange}: Props) {
     return (
         <LabeledRow label="Student answer must">
-            <SingleSelect
+            <TypedSingleSelect
                 selectedValue={correct.match || "exact"}
                 onChange={(newValue) => {
                     invariant(
@@ -29,18 +29,18 @@ export default function VectorAnswerOptions({correct, onChange}: Props) {
                     onChange({
                         correct: {
                             ...correct,
-                            // eslint-disable-next-line no-restricted-syntax
-                            match: newValue as PerseusGraphTypeVector["match"],
+                            match: newValue,
                         },
                     });
+                }}
+                options={{
+                    exact: "match exactly",
+                    congruent: "be congruent",
                 }}
                 // Never uses placeholder, always has value
                 placeholder=""
                 className={styles.singleSelectShort}
-            >
-                <OptionItem value="exact" label="match exactly" />
-                <OptionItem value="congruent" label="be congruent" />
-            </SingleSelect>
+            />
             <InfoTip>
                 <p>
                     Congruency requires only that the vector has the same

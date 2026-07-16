@@ -1,12 +1,11 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import {parsePointCount} from "../../../util/points";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
@@ -19,15 +18,24 @@ import type {
 
 const {InfoTip} = components;
 
-const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
-    return (
-        <OptionItem
-            key={`polygon-sides-${value}`}
-            value={`${value}`}
-            label={`${value} sides`}
-        />
-    );
-});
+// The number-of-sides options, keyed by their `<select>` value. Typed as
+// `Record<string, string>` so the union stays `string`: `selectedValue` is
+// built from `numSides` via a template literal (a plain `string`), and the
+// value is parsed back with `parsePointCount`, so nothing is gained by
+// narrowing to the individual literals here.
+const POLYGON_SIDE_OPTIONS: Record<string, string> = {
+    "3": "3 sides",
+    "4": "4 sides",
+    "5": "5 sides",
+    "6": "6 sides",
+    "7": "7 sides",
+    "8": "8 sides",
+    "9": "9 sides",
+    "10": "10 sides",
+    "11": "11 sides",
+    "12": "12 sides",
+    unlimited: "unlimited sides",
+};
 
 interface Props {
     correct: PerseusGraphTypePolygon;
@@ -43,7 +51,7 @@ export default function PolygonAnswerOptions({
     return (
         <>
             <LabeledRow label="Number of sides:">
-                <SingleSelect
+                <TypedSingleSelect
                     key="polygon-select"
                     selectedValue={
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -73,20 +81,12 @@ export default function PolygonAnswerOptions({
                             },
                         });
                     }}
+                    options={POLYGON_SIDE_OPTIONS}
                     className={styles.singleSelectShort}
-                >
-                    {[
-                        ...POLYGON_SIDES,
-                        <OptionItem
-                            key="unlimited"
-                            value="unlimited"
-                            label="unlimited sides"
-                        />,
-                    ]}
-                </SingleSelect>
+                />
             </LabeledRow>
             <LabeledRow label="Snap to:">
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={correct?.snapTo || "grid"}
                     // Never uses placeholder, always has value
                     placeholder=""
@@ -101,8 +101,7 @@ export default function PolygonAnswerOptions({
                         );
 
                         const updates = {
-                            // eslint-disable-next-line no-restricted-syntax
-                            snapTo: newValue as PerseusGraphTypePolygon["snapTo"],
+                            snapTo: newValue,
                             coords: null,
                         } as const;
 
@@ -117,16 +116,20 @@ export default function PolygonAnswerOptions({
                             },
                         });
                     }}
+                    options={{
+                        grid: "grid",
+                        // "interior angles" and "side measures" only apply to
+                        // polygons with a fixed number of sides; hide them (via
+                        // a falsey label) when the side count is unlimited.
+                        angles:
+                            correct?.numSides !== "unlimited" &&
+                            "interior angles",
+                        sides:
+                            correct?.numSides !== "unlimited" &&
+                            "side measures",
+                    }}
                     className={styles.singleSelectShort}
-                >
-                    <OptionItem value="grid" label="grid" />
-                    {correct?.numSides !== "unlimited" && (
-                        <OptionItem value="angles" label="interior angles" />
-                    )}
-                    {correct?.numSides !== "unlimited" && (
-                        <OptionItem value="sides" label="side measures" />
-                    )}
-                </SingleSelect>
+                />
                 <InfoTip>
                     <p>
                         These options affect the movement of the vertex points.
@@ -208,7 +211,7 @@ export default function PolygonAnswerOptions({
                 </InfoTip>
             </View>
             <LabeledRow label="Student answer must">
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={correct.match || "exact"}
                     onChange={(newValue) => {
                         invariant(
@@ -217,29 +220,20 @@ export default function PolygonAnswerOptions({
                         );
                         const updatedCorrect = {
                             ...correct,
-                            // TODO(benchristel): this cast is necessary
-                            // because "exact" is not actually a valid
-                            // value for `match`; a value of undefined
-                            // means exact matching. The code happens
-                            // to work because "exact" falls through
-                            // to the correct else branch when scoring
-                            // eslint-disable-next-line no-restricted-syntax
-                            match: newValue as PerseusGraphTypePolygon["match"],
+                            match: newValue,
                         };
                         onChange({correct: updatedCorrect});
+                    }}
+                    options={{
+                        exact: "match exactly",
+                        congruent: "be congruent",
+                        approx: "be approximately congruent",
+                        similar: "be similar",
                     }}
                     // Never uses placeholder, always has value
                     placeholder=""
                     className={styles.singleSelectShort}
-                >
-                    <OptionItem value="exact" label="match exactly" />
-                    <OptionItem value="congruent" label="be congruent" />
-                    <OptionItem
-                        value="approx"
-                        label="be approximately congruent"
-                    />
-                    <OptionItem value="similar" label="be similar" />
-                </SingleSelect>
+                />
 
                 <InfoTip>
                     <ul>

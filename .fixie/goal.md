@@ -316,23 +316,23 @@ union (as above) for the wrapper to accept them.
 
 ### Answer-options match/snap selects
 
-- [ ] Convert the match select in `vector-answer-options.tsx`
+- [x] Convert the match select in `vector-answer-options.tsx`
   (`"exact" | "congruent"`) and assign `match` directly — vector's `match`
   already admits `"exact"`, so the cast is removed with no conversion.
-- [ ] Convert the match select in `polygon-answer-options.tsx`
+- [x] Convert the match select in `polygon-answer-options.tsx`
   (`"exact" | "congruent" | "approx" | "similar"`) and assign `match` directly,
   removing the cast (polygon's `match` admits all four).
-- [ ] Convert the snapTo select in `polygon-answer-options.tsx`
+- [x] Convert the snapTo select in `polygon-answer-options.tsx`
   (`"grid" | "angles" | "sides"`), hiding `angles`/`sides` for unlimited sides
   via falsey labels; assign `snapTo` directly, removing the cast.
-- [ ] Convert the numSides select in `polygon-answer-options.tsx` to an explicit
+- [x] Convert the numSides select in `polygon-answer-options.tsx` to an explicit
   string-keyed options object (`"3".."12"` + `"unlimited"`), keeping
   `parsePointCount`.
-- [ ] Convert the match select in `angle-answer-options.tsx`
+- [x] Convert the match select in `angle-answer-options.tsx`
   (`"exact" | "congruent"`); replace the cast with a `switch` mapping
   `"exact" → undefined` and `"congruent" → "congruent"`, guarded by
   `UnreachableCaseError` for exhaustiveness.
-- [ ] Test: selecting "match exactly" for an angle sets `correct.match` to
+- [x] Test: selecting "match exactly" for an angle sets `correct.match` to
   `undefined` (add to `widgets/__tests__/interactive-graph-editor.test.tsx`;
   the `congruent` branch is already covered).
 
