@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import * as React from "react";
 
 import {snap} from "../../../math";
@@ -7,6 +7,7 @@ import {TARGET_SIZE} from "../../../utils";
 import {useDraggable} from "../../use-draggable";
 import {useTransformVectorsToPixels} from "../../use-transform";
 import {getIntersectionOfRayWithBox} from "../../utils";
+import {useHitbox} from "../hitbox";
 import {SVGLine} from "../svg-line";
 import {Vector} from "../vector";
 
@@ -55,22 +56,48 @@ export const Line = (props: LineProps) => {
     const endExtend = extend?.end ? computeExtensionTip(end, start) : undefined;
 
     const line = useRef<SVGGElement>(null);
-    const {dragging} = useDraggable({
+    const lineHitboxRef = useRef<HTMLDivElement>(null);
+    const [hovered, setHovered] = useState(false);
+
+    // Keyboard drag stays on the focusable SVG group.
+    useDraggable({
         gestureTarget: line,
         point: start,
         onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
+    // Pointer/touch drag runs through an HTML hitbox so Safari doesn't scroll
+    // the page during a drag (see hitbox.tsx).
+    const {dragging} = useDraggable({
+        gestureTarget: lineHitboxRef,
+        point: start,
+        onMove,
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const lineHitbox = useHitbox({
+        shape: {kind: "line", start, end, thicknessPx: TARGET_SIZE},
+        hitboxRef: lineHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-line__hitbox",
+    });
 
     return (
         <>
+            {lineHitbox}
             <g
                 ref={line}
                 tabIndex={disableKeyboardInteraction ? -1 : 0}
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
                 aria-disabled={disableKeyboardInteraction}
-                className="movable-line"
+                className={
+                    hovered
+                        ? "movable-line movable-line--hover"
+                        : "movable-line"
+                }
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
                 // Indicate that this element is interactive.
@@ -78,14 +105,8 @@ export const Line = (props: LineProps) => {
                 // the screen reader skip over its empty children.
                 role="button"
             >
-                {/**
-                 * This transparent line creates a nice big click/touch target.
-                 */}
-                <SVGLine
-                    start={startPtPx}
-                    end={endPtPx}
-                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-                />
+                {/* Pointer/touch dragging is handled by the HTML hitbox
+                    (see lineHitbox); the SVG here is visual + keyboard focus. */}
                 <SVGLine
                     start={startPtPx}
                     end={endPtPx}

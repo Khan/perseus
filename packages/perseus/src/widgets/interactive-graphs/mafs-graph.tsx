@@ -39,6 +39,7 @@ import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
+import {HitboxLayerContext} from "./graphs/components/hitbox-layer-context";
 import MovablePointLabelsLayer from "./graphs/components/movable-point-labels-layer";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
@@ -127,6 +128,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    // HTML overlay that holds movable points' drag hitboxes. Populated via ref
+    // callback after mount; movable points portal their hitbox into it. See
+    // HitboxLayerContext for why the hitboxes are HTML rather than SVG.
+    const [hitboxLayerEl, setHitboxLayerEl] =
+        React.useState<HTMLDivElement | null>(null);
     const {analytics} = useDependencies();
 
     const i18n = usePerseusI18n();
@@ -458,29 +464,49 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             !props.static && (
                                 <MovablePointLabelsLayer state={state} />
                             )}
-                        <View style={{position: "absolute"}}>
-                            <Mafs
-                                preserveAspectRatio={false}
-                                viewBox={{
-                                    x: state.range[X],
-                                    y: state.range[Y],
-                                    padding: 0,
+                        <HitboxLayerContext.Provider value={hitboxLayerEl}>
+                            <View style={{position: "absolute"}}>
+                                <Mafs
+                                    preserveAspectRatio={false}
+                                    viewBox={{
+                                        x: state.range[X],
+                                        y: state.range[Y],
+                                        padding: 0,
+                                    }}
+                                    pan={false}
+                                    zoom={false}
+                                    width={width}
+                                    height={height}
+                                >
+                                    {/* Protractor clipped to graph bounds */}
+                                    {props.showProtractor && (
+                                        <ClipToGraphBounds>
+                                            <Protractor />
+                                        </ClipToGraphBounds>
+                                    )}
+                                    {/* Interactive layer.*/}
+                                    {graph}
+                                </Mafs>
+                            </View>
+                            {/* HTML overlay above the SVG holding movable-point
+                                drag hitboxes. `pointer-events: none` so empty
+                                graph area falls through to the SVG (page scroll
+                                / click-to-add-point); hitboxes opt back in.
+                                Positioned at the graph origin, matching the
+                                pixel coordinates from `pointToPixel`. */}
+                            <div
+                                ref={setHitboxLayerEl}
+                                className="interactive-graph-hitbox-layer"
+                                style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width,
+                                    height,
+                                    pointerEvents: "none",
                                 }}
-                                pan={false}
-                                zoom={false}
-                                width={width}
-                                height={height}
-                            >
-                                {/* Protractor clipped to graph bounds */}
-                                {props.showProtractor && (
-                                    <ClipToGraphBounds>
-                                        <Protractor />
-                                    </ClipToGraphBounds>
-                                )}
-                                {/* Interactive layer.*/}
-                                {graph}
-                            </Mafs>
-                        </View>
+                            />
+                        </HitboxLayerContext.Provider>
                     </View>
                     {interactionPrompt && (
                         <View

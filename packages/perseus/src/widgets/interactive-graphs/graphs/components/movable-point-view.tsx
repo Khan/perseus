@@ -18,18 +18,19 @@ type Props = {
     point: vec.Vector2;
     dragging: boolean;
     focused: boolean;
+    // Hover is driven by the HTML hitbox (see useControlPoint), not CSS
+    // `:hover`, because the hitbox sits on top of the SVG in a separate DOM
+    // subtree and intercepts the pointer.
+    hovered?: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
 };
 
-// The hitbox size of 48px by 48px is preserved from the legacy interactive
-// graph.
-const hitboxSizePx = 48;
-
 // MovablePointView is a purely presentational component (i.e. it is a pure
 // function with no state or effects) that renders the SVG for a movable point
-// on an interactive graph.
+// on an interactive graph. The drag hitbox is not here — it's an HTML element
+// in the graph's hitbox overlay layer (see useControlPoint / HitboxLayerContext).
 export const MovablePointView = forwardRef(function MovablePointViewWithRef(
     props: Props,
     hitboxRef: ForwardedRef<SVGGElement>,
@@ -45,6 +46,7 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
         point,
         dragging,
         focused,
+        hovered,
         cursor,
         showFocusRing,
         onClick = () => {},
@@ -64,6 +66,7 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
         "movable-point",
         dragging && "movable-point--dragging",
         showFocusRing && "movable-point--focus",
+        hovered && "movable-point--hover",
     );
 
     const [[x, y]] = useTransformVectorsToPixels(point);
@@ -92,12 +95,6 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
             data-testid="movable-point"
             onClick={onClick}
         >
-            <circle
-                className="movable-point-hitbox"
-                r={hitboxSizePx / 2}
-                cx={x}
-                cy={y}
-            />
             <circle className="movable-point-halo" cx={x} cy={y} />
             <circle className="movable-point-ring" cx={x} cy={y} />
             <circle className="movable-point-focus-outline" cx={x} cy={y} />
