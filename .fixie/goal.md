@@ -264,3 +264,97 @@ union (as above) for the wrapper to accept them.
 - **Changeset.** perseus-editor is published; a `pnpm changeset` (patch) is
   normally required. Confirm whether this internal-only refactor needs one.
     - Answer: Generate a patch-release changeset.
+
+## Checklist
+
+### New component
+
+- [ ] Add `TypedSingleSelect` at
+  `packages/perseus-editor/src/components/typed-single-select.tsx`: infer
+  `ValueT` from `options` keys, type `selectedValue`/`onChange` as
+  `NoInfer<ValueT>`, spread through the rest of WB `SingleSelect`'s props, and
+  keep the single unavoidable `onChange` cast internal to the wrapper. The
+  option value is `string | false | null | undefined | {label: string;
+  leftAccessory?: React.ReactNode}`; a falsey label hides that option.
+- [ ] Test: renders one dropdown option per entry with a truthy label
+- [ ] Test: omits entries whose label is `false`/`null`/`undefined`
+- [ ] Test: reflects `selectedValue` as the selected option
+- [ ] Test: calls `onChange` with the chosen option's key
+- [ ] Test: renders an object-form option's `label` and its `leftAccessory`
+
+### Static string-literal unions (remove existing casts)
+
+- [ ] Convert `line-weight-select.tsx` (`StrokeWeight`); drop the
+  `value as StrokeWeight` cast and its suppression.
+- [ ] Convert `line-stroke-select.tsx` (`"solid" | "dashed"`); drop the
+  `onChange as any` cast and its suppression.
+- [ ] Convert the size select in `locked-label-settings.tsx`
+  (`"small" | "medium" | "large"`); drop the handler `as any`.
+- [ ] Convert the kind select in `locked-line-settings.tsx`
+  (`"line" | "ray" | "segment"`); drop the handler `as any`, and drop the stray
+  `as any` on the `LineStrokeSelect` `onChange` in the same file.
+- [ ] Convert the text-align select in `numeric-input-editor.tsx`
+  (`"left" | "center" | "right"`).
+
+### graph-type-selector chain
+
+- [ ] Narrow `GraphTypeSelector`'s `graphType`/`onChange` props from `string` to
+  the graph-type union, convert it to `TypedSingleSelect` (preserving today's
+  16 options, labels, and order), and remove the `as any` `onChange` cast on
+  `<GraphTypeSelector>` in `interactive-graph-editor.tsx`.
+
+### Dynamic unions rewritten as explicit options objects
+
+- [ ] Convert `color-select.tsx` to `TypedSingleSelect<LockedFigureColor>` with
+  an explicit `SelectOptions` object built from `lockedFigureColorNames`, using
+  the `{label, leftAccessory: <ColorSwatch/>}` form; drop the `onChange as any`.
+- [ ] Convert the fill select in `locked-ellipse-settings.tsx` to
+  `TypedSingleSelect<LockedFigureFillType>` with an explicit options object
+  (replacing `Object.keys(lockedFigureFillStyles)`); drop the handler `as any`.
+- [ ] Convert the fill select in `locked-polygon-settings.tsx` the same way;
+  drop the handler `as any`.
+
+### Answer-options match/snap selects
+
+- [ ] Convert the match select in `vector-answer-options.tsx`
+  (`"exact" | "congruent"`) and assign `match` directly — vector's `match`
+  already admits `"exact"`, so the cast is removed with no conversion.
+- [ ] Convert the match select in `polygon-answer-options.tsx`
+  (`"exact" | "congruent" | "approx" | "similar"`) and assign `match` directly,
+  removing the cast (polygon's `match` admits all four).
+- [ ] Convert the snapTo select in `polygon-answer-options.tsx`
+  (`"grid" | "angles" | "sides"`), hiding `angles`/`sides` for unlimited sides
+  via falsey labels; assign `snapTo` directly, removing the cast.
+- [ ] Convert the numSides select in `polygon-answer-options.tsx` to an explicit
+  string-keyed options object (`"3".."12"` + `"unlimited"`), keeping
+  `parsePointCount`.
+- [ ] Convert the match select in `angle-answer-options.tsx`
+  (`"exact" | "congruent"`); replace the cast with a `switch` mapping
+  `"exact" → undefined` and `"congruent" → "congruent"`, guarded by
+  `UnreachableCaseError` for exhaustiveness.
+- [ ] Test: selecting "match exactly" for an angle sets `correct.match` to
+  `undefined` (add to `widgets/__tests__/interactive-graph-editor.test.tsx`;
+  the `congruent` branch is already covered).
+
+### Numeric-string count selectors (consistency only)
+
+- [ ] Convert `segment-count-selector.tsx` to `TypedSingleSelect` with an
+  explicit string-keyed options object, keeping the `+newValue` conversion.
+- [ ] Convert `graph-points-count-selector.tsx` likewise, keeping `UNLIMITED`
+  and `parsePointCount`.
+
+### Remaining selects
+
+- [ ] Convert `alignment-select.tsx` (`ValueT` stays `string`; options built
+  from `supportedAlignments`); keep the synthetic-`ChangeEvent` cast, which is
+  an unrelated concern.
+- [ ] Convert the directional-axis (`"x" | "y"`) and example-category (explicit
+  options from `Object.keys(examples)`, `ValueT` `string`) selects in
+  `locked-function-settings.tsx`.
+
+### Wrap-up
+
+- [ ] Add a patch changeset for `@khanacademy/perseus-editor`.
+- [ ] Run `pnpm tsc`, `pnpm fixc`, and `pnpm tesc`; confirm they pass and that no
+  `no-restricted-syntax` suppression or `TODO(LEMS-2656)` remains that existed
+  only to paper over `SingleSelect`'s `string` value type.
