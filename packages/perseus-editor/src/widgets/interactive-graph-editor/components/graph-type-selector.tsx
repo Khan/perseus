@@ -1,43 +1,45 @@
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
+
+type GraphType = PerseusGraphType["type"];
+
 interface GraphTypeSelectorProps {
-    graphType: string;
+    graphType: GraphType;
     disabled?: boolean;
-    onChange: (newGraphType: string) => void;
+    onChange: (newGraphType: GraphType) => void;
 }
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     return (
-        <SingleSelect
+        <TypedSingleSelect
             selectedValue={props.graphType}
             onChange={props.onChange}
             placeholder="Select an answer type"
             className={styles.singleSelectShort}
             disabled={props.disabled}
-        >
-            <OptionItem value="none" label="None" />
-            <OptionItem
-                value="absolute-value"
-                label="Absolute value function"
-            />
-            <OptionItem value="exponential" label="Exponential function" />
-            <OptionItem value="linear" label="Linear function" />
-            <OptionItem value="logarithm" label="Logarithmic function" />
-            <OptionItem value="quadratic" label="Quadratic function" />
-            <OptionItem value="sinusoid" label="Sinusoidal function" />
-            <OptionItem value="tangent" label="Tangent function" />
-            <OptionItem value="angle" label="Angle" />
-            <OptionItem value="circle" label="Circle" />
-            <OptionItem value="linear-system" label="Linear system" />
-            <OptionItem value="segment" label="Line segment(s)" />
-            <OptionItem value="point" label="Point(s)" />
-            <OptionItem value="polygon" label="Polygon" />
-            <OptionItem value="ray" label="Ray" />
-            <OptionItem value="vector" label="Vector" />
-        </SingleSelect>
+            options={{
+                none: "None",
+                "absolute-value": "Absolute value function",
+                exponential: "Exponential function",
+                linear: "Linear function",
+                logarithm: "Logarithmic function",
+                quadratic: "Quadratic function",
+                sinusoid: "Sinusoidal function",
+                tangent: "Tangent function",
+                angle: "Angle",
+                circle: "Circle",
+                "linear-system": "Linear system",
+                segment: "Line segment(s)",
+                point: "Point(s)",
+                polygon: "Polygon",
+                ray: "Ray",
+                vector: "Vector",
+            }}
+        />
     );
 };
 

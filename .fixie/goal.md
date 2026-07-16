@@ -298,20 +298,20 @@ union (as above) for the wrapper to accept them.
 
 ### graph-type-selector chain
 
-- [ ] Narrow `GraphTypeSelector`'s `graphType`/`onChange` props from `string` to
+- [x] Narrow `GraphTypeSelector`'s `graphType`/`onChange` props from `string` to
   the graph-type union, convert it to `TypedSingleSelect` (preserving today's
   16 options, labels, and order), and remove the `as any` `onChange` cast on
   `<GraphTypeSelector>` in `interactive-graph-editor.tsx`.
 
 ### Dynamic unions rewritten as explicit options objects
 
-- [ ] Convert `color-select.tsx` to `TypedSingleSelect<LockedFigureColor>` with
+- [x] Convert `color-select.tsx` to `TypedSingleSelect<LockedFigureColor>` with
   an explicit `SelectOptions` object built from `lockedFigureColorNames`, using
   the `{label, leftAccessory: <ColorSwatch/>}` form; drop the `onChange as any`.
-- [ ] Convert the fill select in `locked-ellipse-settings.tsx` to
+- [x] Convert the fill select in `locked-ellipse-settings.tsx` to
   `TypedSingleSelect<LockedFigureFillType>` with an explicit options object
   (replacing `Object.keys(lockedFigureFillStyles)`); drop the handler `as any`.
-- [ ] Convert the fill select in `locked-polygon-settings.tsx` the same way;
+- [x] Convert the fill select in `locked-polygon-settings.tsx` the same way;
   drop the handler `as any`.
 
 ### Answer-options match/snap selects

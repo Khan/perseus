@@ -9,6 +9,19 @@ import {
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+/**
+ * Dropdown options for a locked figure's fill style. Each label is the
+ * fill-type name itself. Shared by the ellipse and polygon settings so their
+ * fill selects can't drift apart. Written as an explicit record so TypeScript
+ * proves every fill type is covered.
+ */
+export const fillStyleOptions: Record<LockedFigureFillType, string> = {
+    none: "none",
+    white: "white",
+    translucent: "translucent",
+    solid: "solid",
+};
+
 export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
     strokeStyle: LockedLineStyle = "solid",
