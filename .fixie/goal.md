@@ -269,18 +269,18 @@ union (as above) for the wrapper to accept them.
 
 ### New component
 
-- [ ] Add `TypedSingleSelect` at
+- [x] Add `TypedSingleSelect` at
   `packages/perseus-editor/src/components/typed-single-select.tsx`: infer
   `ValueT` from `options` keys, type `selectedValue`/`onChange` as
   `NoInfer<ValueT>`, spread through the rest of WB `SingleSelect`'s props, and
   keep the single unavoidable `onChange` cast internal to the wrapper. The
   option value is `string | false | null | undefined | {label: string;
   leftAccessory?: React.ReactNode}`; a falsey label hides that option.
-- [ ] Test: renders one dropdown option per entry with a truthy label
-- [ ] Test: omits entries whose label is `false`/`null`/`undefined`
-- [ ] Test: reflects `selectedValue` as the selected option
-- [ ] Test: calls `onChange` with the chosen option's key
-- [ ] Test: renders an object-form option's `label` and its `leftAccessory`
+- [x] Test: renders one dropdown option per entry with a truthy label
+- [x] Test: omits entries whose label is `false`/`null`/`undefined`
+- [x] Test: reflects `selectedValue` as the selected option
+- [x] Test: calls `onChange` with the chosen option's key
+- [x] Test: renders an object-form option's `label` and its `leftAccessory`
 
 ### Static string-literal unions (remove existing casts)
 
