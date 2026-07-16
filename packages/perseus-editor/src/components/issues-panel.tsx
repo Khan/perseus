@@ -14,7 +14,7 @@ import ToggleableCaret from "./toggleable-caret";
 export type IssueImpact = "low" | "medium" | "high";
 
 /** Fields shared by all issue types. */
-export type BaseIssue = {
+type BaseIssue = {
     id: string;
     description: string;
     helpUrl: string;
