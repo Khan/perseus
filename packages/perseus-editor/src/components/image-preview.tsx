@@ -51,6 +51,7 @@ export default function ImagePreview({
     return (
         <div
             className="perseus-image-preview-container"
+            data-testid="image-preview-container"
             data-wb-theme={wbTheme}
         >
             <SvgImage

@@ -24,18 +24,25 @@ export default function DarkModeToggle({
     editingDisabled = false,
 }: Props) {
     const [showDarkMode, setShowDarkMode] = React.useState(false);
-    const [suppressFilter, setSuppressFilter] = React.useState(
-        backgroundImage.url?.endsWith("?dark-mode=off") ?? false,
-    );
+    const suppressFilter =
+        backgroundImage.url?.endsWith("?dark-mode=off") ?? false;
+
+    const imageIsPng = backgroundImage.url?.match(/\.png(\?.*)?$/);
+
+    React.useEffect(() => {
+        setShowDarkMode(imageIsPng ? showDarkMode : false);
+    }, [imageIsPng, showDarkMode]);
+
+    if (!imageIsPng) {
+        onShowToggle(undefined);
+        return null;
+    }
 
     const toggleDarkMode = () => {
         onShowToggle(showDarkMode ? undefined : "syl-dark");
         setShowDarkMode(!showDarkMode);
     };
     const toggleSuppressFilter = () => {
-
-        // Graphie URLs don't end in svg or jpg, so need to figure out how to get the query string to the rendered URL.
-
         onSuppressToggle({
             backgroundImage: {
                 ...backgroundImage,
@@ -45,7 +52,6 @@ export default function DarkModeToggle({
                     : backgroundImage.url + "?dark-mode=off",
             },
         });
-        setSuppressFilter(!suppressFilter);
     };
 
     return (

@@ -1046,4 +1046,315 @@ describe("image editor", () => {
             ).not.toBeInTheDocument();
         });
     });
+
+    describe("dark mode toggles", () => {
+        const pngImage = {
+            url: "https://cdn.kastatic.org/ka-content-images/test-image.png",
+            width: 400,
+            height: 225,
+        };
+
+        it("does not render for JPG images", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toBeInTheDocument();
+        });
+
+        it("does not render for Graphie images", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2ac8f769a7323f55e41c12cfa39e774be08bc138",
+                        width: 400,
+                        height: 225,
+                    }}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toBeInTheDocument();
+        });
+
+        it("renders both toggles for PNG images", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Show in Dark Mode"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).toBeInTheDocument();
+        });
+
+        it("renders Show in Dark Mode toggle as unchecked by default", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Show in Dark Mode"}),
+            ).not.toBeChecked();
+        });
+
+        it('renders Suppress Dark Mode Filter toggle as unchecked when URL has no "dark-mode=off" suffix', () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toBeChecked();
+        });
+
+        it('renders Suppress Dark Mode Filter toggle as checked when URL ends with "?dark-mode=off"', () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        ...pngImage,
+                        url: pngImage.url + "?dark-mode=off",
+                    }}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).toBeChecked();
+        });
+
+        it("toggles Show in Dark Mode on click", async () => {
+            // Arrange
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+            const toggle = screen.getByRole("switch", {
+                name: "Show in Dark Mode",
+            });
+
+            // Act
+            await userEvent.click(toggle);
+
+            // Assert
+            expect(toggle).toBeChecked();
+        });
+
+        it("applies dark mode theme to image preview when Show in Dark Mode is toggled on", async () => {
+            // Arrange
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Show in Dark Mode"}),
+            );
+
+            // Assert
+            expect(
+                screen.getByTestId("image-preview-container"),
+            ).toHaveAttribute("data-wb-theme", "syl-dark");
+        });
+
+        it("removes dark mode theme from image preview when Show in Dark Mode is toggled off", async () => {
+            // Arrange
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+            const toggle = screen.getByRole("switch", {
+                name: "Show in Dark Mode",
+            });
+            await userEvent.click(toggle);
+
+            // Act
+            await userEvent.click(toggle);
+
+            // Assert
+            expect(
+                screen.getByTestId("image-preview-container"),
+            ).not.toHaveAttribute("data-wb-theme", "syl-dark");
+        });
+
+        it('calls onChange with "?dark-mode=off" appended when Suppress Dark Mode Filter is toggled on', async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            );
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                backgroundImage: {
+                    ...pngImage,
+                    url: pngImage.url + "?dark-mode=off",
+                },
+            });
+        });
+
+        it('calls onChange with "?dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        ...pngImage,
+                        url: pngImage.url + "?dark-mode=off",
+                    }}
+                    onChange={onChangeMock}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            );
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                backgroundImage: {
+                    ...pngImage,
+                    url: pngImage.url,
+                },
+            });
+        });
+
+        it("hides both toggles and resets dark mode preview when URL changes from PNG to non-PNG", async () => {
+            // Arrange
+            const {rerender} = render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+            await userEvent.click(
+                screen.getByRole("switch", {name: "Show in Dark Mode"}),
+            );
+            expect(
+                screen.getByTestId("image-preview-container"),
+            ).toHaveAttribute("data-wb-theme", "syl-dark");
+
+            // Act
+            rerender(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.getByTestId("image-preview-container"),
+            ).not.toHaveAttribute("data-wb-theme", "syl-dark");
+        });
+
+        it("disables both toggles when editingDisabled is true", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
+                    backgroundImage={pngImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {name: "Show in Dark Mode"}),
+            ).toHaveAttribute("aria-disabled", "true");
+            expect(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+    });
 });
