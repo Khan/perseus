@@ -158,6 +158,7 @@ export function useControlPoint(params: Params): Return {
 
     const visiblePoint = (
         <>
+            {hitbox}
             <MovablePointView
                 cursor={cursor}
                 onClick={focusPoint}
@@ -168,7 +169,6 @@ export function useControlPoint(params: Params): Return {
                 ref={visiblePointRef}
                 showFocusRing={focused}
             />
-            {hitbox}
         </>
     );
 

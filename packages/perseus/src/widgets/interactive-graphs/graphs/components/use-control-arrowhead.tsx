@@ -117,6 +117,7 @@ export function useControlArrowhead(params: Params): Return {
 
     const visibleArrowhead = (
         <>
+            {hitbox}
             <MovableArrowheadView
                 point={point}
                 angle={angle}
@@ -129,7 +130,6 @@ export function useControlArrowhead(params: Params): Return {
                     focusableHandleRef.current?.focus();
                 }}
             />
-            {hitbox}
         </>
     );
 
