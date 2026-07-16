@@ -485,7 +485,7 @@ review and commit the changes.
 - [x] Migrate `free-response` to `WidgetPropsV2` (its `defaultProps` is
       `userInput`-only, so no option-field defaults to relocate).
 - [x] Migrate `video` to `WidgetPropsV2`.
-- [ ] Migrate `image` to `WidgetPropsV2`.
+- [x] Migrate `image` to `WidgetPropsV2`.
 - [ ] Migrate `molecule` to `WidgetPropsV2`.
 - [ ] Migrate `measurer` to `WidgetPropsV2`.
 - [ ] Migrate `number-line` to `WidgetPropsV2`.
