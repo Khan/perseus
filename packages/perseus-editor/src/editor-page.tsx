@@ -1,9 +1,4 @@
-import {
-    components,
-    ApiOptions,
-    ClassNames,
-    Dependencies,
-} from "@khanacademy/perseus";
+import {components, ClassNames, Dependencies} from "@khanacademy/perseus";
 import {
     getDefaultAnswerArea,
     parseAndMigratePerseusItem,
@@ -12,18 +7,19 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
+import {A11yContext, createA11yContextValue} from "./components/a11y-context";
 import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
-import {runAxeCoreOnUpdate} from "./util/a11y-checker";
+import {createDeviceApiOptionsDeriver} from "./util/derive-device-api-options";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
 
-import type {Issue} from "./components/issues-panel";
+import type {A11yIssue, Issue} from "./components/issues-panel";
+import type {A11yReport} from "./preview/use-preview-controller";
 import type {
     APIOptions,
-    APIOptionsWithDefaults,
     DeviceType,
     ImageUploader,
     PerseusDependenciesV2,
@@ -102,15 +98,19 @@ type State = {
     highlightLint: boolean;
     widgetsAreOpen: boolean;
     issues: Issue[];
-    axeCoreIssues: Issue[];
+    axeCoreIssues: A11yIssue[];
     showAxeCoreIssues: boolean;
+    /** Active "Show Me" highlights, keyed by issue id. */
+    highlights: Record<string, string>;
 };
 
 class EditorPage extends React.Component<Props, State> {
-    a11yCheckerTimeoutId: ReturnType<typeof setTimeout> | undefined;
-
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
+
+    // Derives the preview's device-adjusted apiOptions with a stable reference
+    // across renders (see createDeviceApiOptionsDeriver for why that matters).
+    deriveDeviceApiOptions = createDeviceApiOptionsDeriver();
 
     static defaultProps: DefaultProps = {
         answerArea: getDefaultAnswerArea(),
@@ -130,6 +130,7 @@ class EditorPage extends React.Component<Props, State> {
             issues: [],
             axeCoreIssues: [],
             showAxeCoreIssues: false,
+            highlights: {},
         };
     }
 
@@ -181,18 +182,35 @@ class EditorPage extends React.Component<Props, State> {
                     this.props.issues,
                 ),
             });
-
-            this.a11yCheckerTimeoutId = runAxeCoreOnUpdate(
-                this.a11yCheckerTimeoutId,
-                (axeCoreIssues) => this.setState({axeCoreIssues}),
-                this.state.showAxeCoreIssues,
-            );
         }
     }
 
-    componentWillUnmount() {
-        clearTimeout(this.a11yCheckerTimeoutId);
-    }
+    // Activates or clears (previewId === null) an issue's "Show Me"
+    // highlight. Keyed by issueId so multiple issues can be highlighted at
+    // once.
+    setIssueHighlight = (issueId: string, previewId: string | null) => {
+        this.setState((prevState) => {
+            const highlights = {...prevState.highlights};
+            if (previewId == null) {
+                delete highlights[issueId];
+            } else {
+                highlights[issueId] = previewId;
+            }
+            return {highlights};
+        });
+    };
+
+    handleA11yReport = (report: A11yReport | null) => {
+        this.setState({
+            axeCoreIssues: report
+                ? [...report.violations, ...report.incompletes]
+                : [],
+        });
+    };
+
+    setA11yEnabled = (enabled: boolean) => {
+        this.setState({showAxeCoreIssues: enabled});
+    };
 
     /**
      * Updates JSON state when props change from the parent.
@@ -224,13 +242,6 @@ class EditorPage extends React.Component<Props, State> {
             },
         );
     };
-
-    getApiOptions(): APIOptionsWithDefaults {
-        return {
-            ...ApiOptions.defaults,
-            ...this.props.apiOptions,
-        };
-    }
 
     getSaveWarnings(): any {
         const issues1 = this.itemEditor.current?.getSaveWarnings();
@@ -281,11 +292,10 @@ class EditorPage extends React.Component<Props, State> {
         const touch =
             this.props.previewDevice === "phone" ||
             this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
+        const deviceBasedApiOptions = this.deriveDeviceApiOptions({
+            apiOptions: this.props.apiOptions,
+            touch,
+        });
 
         const showEditor = !this.props.developerMode || !this.props.jsonMode;
 
@@ -351,49 +361,50 @@ class EditorPage extends React.Component<Props, State> {
                         </div>
                     )}
 
-                    {showEditor && (
-                        <div className="perseus-editor-table">
-                            <div className="perseus-editor-row">
-                                <div className="perseus-editor-left-cell">
-                                    <IssuesPanel
-                                        issues={this.state.issues.concat(
-                                            this.state.showAxeCoreIssues
-                                                ? this.state.axeCoreIssues
-                                                : [],
-                                        )}
-                                        a11yCheck={{
-                                            callback: () =>
-                                                this.setState({
-                                                    showAxeCoreIssues:
-                                                        !this.state
-                                                            .showAxeCoreIssues,
-                                                }),
-                                            isChecked:
-                                                this.state.showAxeCoreIssues,
-                                        }}
-                                    />
+                    <A11yContext.Provider
+                        value={createA11yContextValue({
+                            setIssueHighlight: this.setIssueHighlight,
+                            a11yEnabled: this.state.showAxeCoreIssues,
+                            setA11yEnabled: this.setA11yEnabled,
+                            highlightPreviewIds: Object.values(
+                                this.state.highlights,
+                            ),
+                            onA11yReport: this.handleA11yReport,
+                            axeCoreIssues: this.state.axeCoreIssues,
+                        })}
+                    >
+                        {showEditor && (
+                            <div className="perseus-editor-table">
+                                <div className="perseus-editor-row">
+                                    <div className="perseus-editor-left-cell">
+                                        <IssuesPanel
+                                            issues={this.state.issues}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {showEditor && (
-                        <ItemEditor
-                            ref={this.itemEditor}
-                            itemId={this.props.itemId}
-                            question={this.props.question}
-                            answerArea={this.props.answerArea}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            additionalTemplates={this.props.additionalTemplates}
-                            highlightLint={this.state.highlightLint}
-                            problemNum={this.props.problemNum}
-                        />
-                    )}
+                        {showEditor && (
+                            <ItemEditor
+                                ref={this.itemEditor}
+                                itemId={this.props.itemId}
+                                question={this.props.question}
+                                answerArea={this.props.answerArea}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
+                                deviceType={this.props.previewDevice}
+                                widgetIsOpen={this.state.widgetsAreOpen}
+                                apiOptions={deviceBasedApiOptions}
+                                previewURL={this.props.previewURL}
+                                additionalTemplates={
+                                    this.props.additionalTemplates
+                                }
+                                highlightLint={this.state.highlightLint}
+                                problemNum={this.props.problemNum}
+                            />
+                        )}
+                    </A11yContext.Provider>
 
                     {showEditor && (
                         <CombinedHintsEditor
