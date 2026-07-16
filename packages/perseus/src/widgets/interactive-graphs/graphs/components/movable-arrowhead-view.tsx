@@ -1,4 +1,3 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -87,12 +86,7 @@ export const MovableArrowheadView = forwardRef(
         props: Props,
         hitboxRef: ForwardedRef<SVGGElement>,
     ) {
-        const {
-            showTooltips,
-            interactiveColor,
-            disableKeyboardInteraction,
-            snapStep,
-        } = useGraphConfig();
+        const {showTooltips, interactiveColor, snapStep} = useGraphConfig();
         const {
             point,
             angle,
@@ -102,10 +96,6 @@ export const MovableArrowheadView = forwardRef(
             showFocusRing,
             onClick = () => {},
         } = props;
-
-        const wbColorName = disableKeyboardInteraction
-            ? "fadedOffBlack64"
-            : "blue";
 
         const classes = classNames(
             "movable-arrowhead",
@@ -164,12 +154,8 @@ export const MovableArrowheadView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         opened={true}
-                        backgroundColor={wbColorName}
                         content={tooltipContent}
-                        contentStyle={{
-                            color: semanticColor.core.foreground.knockout
-                                .default,
-                        }}
+                        variant="strong"
                     >
                         {svgForArrowhead}
                     </Tooltip>

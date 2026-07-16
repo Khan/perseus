@@ -1,4 +1,3 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -35,13 +34,8 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
     props: Props,
     hitboxRef: ForwardedRef<SVGGElement>,
 ) {
-    const {
-        markings,
-        showTooltips,
-        interactiveColor,
-        disableKeyboardInteraction,
-        snapStep,
-    } = useGraphConfig();
+    const {markings, showTooltips, interactiveColor, snapStep} =
+        useGraphConfig();
     const {
         point,
         dragging,
@@ -51,16 +45,6 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
         showFocusRing,
         onClick = () => {},
     } = props;
-
-    // WB Tooltip requires a WB color name for the background color.
-    // We use the blue color when the points are interactive, and
-    // offBlack64 when they are disabled.
-    // Note: The disabled point color is offBlack50 to contrast with
-    // the interactive blue color, but the tooltip background has to be
-    // darker to contrast with its white text - using offBlack64.
-    const wbColorName = disableKeyboardInteraction
-        ? "fadedOffBlack64" // not see-through
-        : "blue";
 
     const pointClasses = classNames(
         "movable-point",
@@ -115,11 +99,8 @@ export const MovablePointView = forwardRef(function MovablePointViewWithRef(
                 <Tooltip
                     autoUpdate={true}
                     opened={true}
-                    backgroundColor={wbColorName}
+                    variant="strong"
                     content={pointTooltipContent}
-                    contentStyle={{
-                        color: semanticColor.core.foreground.knockout.default,
-                    }}
                 >
                     {svgForPoint}
                 </Tooltip>
