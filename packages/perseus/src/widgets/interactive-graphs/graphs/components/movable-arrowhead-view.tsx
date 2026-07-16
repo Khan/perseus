@@ -163,7 +163,6 @@ export const MovableArrowheadView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         opened={true}
-                        backgroundColor={wbColorName}
                         content={tooltipContent}
                         variant="strong"
                     >
