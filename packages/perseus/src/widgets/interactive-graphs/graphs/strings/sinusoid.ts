@@ -9,7 +9,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srSinusoidPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | number | undefined;
         x: number;
         y: number;
         otherY: number;
@@ -66,15 +66,6 @@ export function describeSinusoidGraph(
     const diffX = Math.abs(peak[X] - root[X]);
     const diffY = Math.abs(peak[Y] - root[Y]);
 
-    const formattedRoot = {
-        x: srFormatNumber(root[X], locale),
-        y: srFormatNumber(root[Y], locale),
-    };
-    const formattedPeak = {
-        x: srFormatNumber(peak[X], locale),
-        y: srFormatNumber(peak[Y], locale),
-    };
-
     const srSinusoidGraph = strings.srSinusoidGraph;
     const srSinusoidDescription = strings.srSinusoidDescription({
         minValue: srFormatNumber(root[Y] - diffY, locale),
@@ -82,13 +73,33 @@ export function describeSinusoidGraph(
         cycleStart: srFormatNumber(root[X] - 2 * diffX, locale),
         cycleEnd: srFormatNumber(root[X] + 2 * diffX, locale),
     });
-    const srSinusoidRootPoint = strings.srSinusoidRootPoint(formattedRoot);
-    const srSinusoidPeakPoint =
-        peak[Y] === root[Y]
-            ? strings.srSinusoidFlatPoint(formattedPeak)
-            : peak[Y] > root[Y]
-              ? strings.srSinusoidMaxPoint(formattedPeak)
-              : strings.srSinusoidMinPoint(formattedPeak);
+    // srSinusoidPointLabel folds any custom author label into the point's role
+    // ("Midline intersection A ...", "Maximum point B ...") and falls back to
+    // the plain role label for unlabeled, empty-string, or malformed entries.
+    // The peak's role (max / min / flat) depends on its y relative to the
+    // root's, so each call passes the other point's y as `otherY`.
+    const srSinusoidRootPoint = srSinusoidPointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: state.pointLabels?.[0],
+            x: root[X],
+            y: root[Y],
+            otherY: peak[Y],
+        },
+        strings,
+        locale,
+    );
+    const srSinusoidPeakPoint = srSinusoidPointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: state.pointLabels?.[1],
+            x: peak[X],
+            y: peak[Y],
+            otherY: root[Y],
+        },
+        strings,
+        locale,
+    );
     const srSinusoidInteractiveElements = strings.srInteractiveElements({
         elements: strings.srSinusoidInteractiveElements({
             point1X: srFormatNumber(root[X], locale),

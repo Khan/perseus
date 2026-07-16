@@ -527,7 +527,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point 2, ending side at 2 comma 0.");
+            expect(result).toBe("Point 1, ending side at 2 comma 0.");
         });
 
         it("uses the vertex label with angle measure for index 1", () => {
@@ -545,7 +545,7 @@ describe("getAnnouncementText", () => {
             );
 
             expect(result).toBe(
-                "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+                "Point 2, vertex at 0 comma 0. Angle 90 degrees.",
             );
         });
 

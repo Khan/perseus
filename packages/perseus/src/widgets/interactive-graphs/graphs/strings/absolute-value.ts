@@ -59,14 +59,37 @@ export function describeAbsoluteValueGraph(
     const coeffs = getAbsoluteValueCoefficients(coords);
 
     const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
-    const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-    });
-    const srAbsoluteValueArmPoint = strings.srAbsoluteValueArmPoint({
-        x: srFormatNumber(armPoint[X], locale),
-        y: srFormatNumber(armPoint[Y], locale),
-    });
+
+    // Fold any custom author label into the point's role, mirroring the
+    // announcement logic (srAbsoluteValuePointLabel). Unlike the announcement,
+    // the slope is NOT appended here — the graph attaches it separately via
+    // aria-describedby — so we can't reuse that helper directly. Unlabeled,
+    // empty-string, and malformed entries fall back to the plain role label.
+    const roleLabel = (
+        pointLabel: string | number | undefined,
+        x: string,
+        y: string,
+        withLabel: (a: {pointLabel: string; x: string; y: string}) => string,
+        plain: (a: {x: string; y: string}) => string,
+    ): string =>
+        typeof pointLabel === "string" && pointLabel !== ""
+            ? withLabel({pointLabel, x, y})
+            : plain({x, y});
+
+    const srAbsoluteValueVertexPoint = roleLabel(
+        state.pointLabels?.[0],
+        srFormatNumber(vertex[X], locale),
+        srFormatNumber(vertex[Y], locale),
+        strings.srAbsoluteValueVertexPointWithLabel,
+        strings.srAbsoluteValueVertexPoint,
+    );
+    const srAbsoluteValueArmPoint = roleLabel(
+        state.pointLabels?.[1],
+        srFormatNumber(armPoint[X], locale),
+        srFormatNumber(armPoint[Y], locale),
+        strings.srAbsoluteValueArmPointWithLabel,
+        strings.srAbsoluteValueArmPoint,
+    );
     const srAbsoluteValueDescription = buildAbsoluteValueDescription(
         coeffs,
         locale,

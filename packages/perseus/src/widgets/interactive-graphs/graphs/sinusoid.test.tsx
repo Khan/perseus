@@ -208,10 +208,12 @@ describe("Sinusoid graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Midline intersection A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Maximum point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -226,7 +228,9 @@ describe("Sinusoid graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Midline intersection A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Maximum point at 2 comma 2."}),
@@ -251,7 +255,7 @@ describe("Sinusoid graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Maximum point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -275,7 +279,7 @@ describe("Sinusoid graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Maximum point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 });

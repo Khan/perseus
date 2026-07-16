@@ -10,7 +10,7 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function srTangentPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | number | undefined;
         x: number;
         y: number;
     },
@@ -52,25 +52,35 @@ export function describeTangentGraph(
     const {coords} = state;
     const [inflection, secondPoint] = coords;
 
-    const formattedInflection = {
-        x: srFormatNumber(inflection[X], locale),
-        y: srFormatNumber(inflection[Y], locale),
-    };
-    const formattedSecondPoint = {
-        x: srFormatNumber(secondPoint[X], locale),
-        y: srFormatNumber(secondPoint[Y], locale),
-    };
-
     const srTangentGraph = strings.srTangentGraph;
     const srTangentDescription = buildTangentDescription(
         coords,
         locale,
         strings,
     );
-    const srTangentInflectionPoint =
-        strings.srTangentInflectionPoint(formattedInflection);
-    const srTangentControlPoint =
-        strings.srTangentControlPoint(formattedSecondPoint);
+    // srTangentPointLabel folds any custom author label into the point's role
+    // ("Inflection point A ...") and falls back to the plain role label for
+    // unlabeled, empty-string, or malformed entries.
+    const srTangentInflectionPoint = srTangentPointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: state.pointLabels?.[0],
+            x: inflection[X],
+            y: inflection[Y],
+        },
+        strings,
+        locale,
+    );
+    const srTangentControlPoint = srTangentPointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: state.pointLabels?.[1],
+            x: secondPoint[X],
+            y: secondPoint[Y],
+        },
+        strings,
+        locale,
+    );
     const srTangentInteractiveElements = strings.srInteractiveElements({
         elements: strings.srTangentInteractiveElements({
             point1X: srFormatNumber(inflection[X], locale),
