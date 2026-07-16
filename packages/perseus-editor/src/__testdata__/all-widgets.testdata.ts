@@ -17,6 +17,7 @@ import {
     generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
+    generateImageOptions,
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
@@ -137,10 +138,11 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 initialX: 2,
                 correctX: 2,
                 labelRange: [-5, 5],
-                labelStyle: "integer",
+                labelStyle: "decimal",
                 isTickCtrl: false,
                 isInequality: false,
                 divisionRange: [1, 12],
+                numDivisions: 5,
                 snapDivisions: 2,
                 labelTicks: true,
                 static: false,
@@ -175,7 +177,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             }),
         }),
         "image 1": generateImageWidget({
-            options: {
+            options: generateImageOptions({
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
                     width: 300,
@@ -188,7 +190,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         alignment: "center",
                     },
                 ],
-            },
+            }),
         }),
         "table 1": {
             graded: true,

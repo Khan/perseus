@@ -869,30 +869,37 @@ export type PerseusGroupWidgetOptions = PerseusRenderer;
 /** Options for the image widget. Shows an image with a caption and alt text. */
 export type PerseusImageWidgetOptions = {
     /** Translatable Markdown; Text to be shown for the title of the image */
-    title?: string;
+    title: string;
     /** Translatable Markdown; Text to be shown in the caption section of an image */
-    caption?: string;
+    caption: string;
     /** Translatable Text; The alt text to be shown in the img.alt attribute */
-    alt?: string;
+    alt: string;
     /** Translatable Markdown; Text to be shown as the long description of an image */
-    longDescription?: string;
+    longDescription: string;
     /**
      * When true, standalone image will be rendered with alt="" and without any alt
      * text, caption, title, or long description.
      */
-    decorative?: boolean;
+    decorative: boolean;
     /** The image details for the image to be displayed */
     backgroundImage: PerseusImageBackground;
     /** The size scale of the image */
-    scale?: number;
-    /** Always false. Not used for this widget */
-    static?: boolean;
-    /** @deprecated - labels were removed from the image widget in 2017 */
-    labels?: Array<PerseusImageLabel>;
-    /** @deprecated - range for labels was removed from the image widget in 2017 */
-    range?: [Interval, Interval];
-    /** @deprecated - box for labels was removed from the image widget in 2017 */
-    box?: Size;
+    scale: number;
+    /**
+     * @deprecated - labels were removed from the image widget editor in 2017,
+     * but still appear in old content.
+     */
+    labels: Array<PerseusImageLabel>;
+    /**
+     * @deprecated - range for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    range: [Interval, Interval];
+    /**
+     * @deprecated - box for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    box: Size;
 };
 
 export type PerseusImageLabel = {
@@ -1702,10 +1709,9 @@ export type PerseusNumberLineWidgetOptions = {
     labelRange: Array<number | null>;
     /**
      * This controls the styling of the labels for the two main labels as well
-     * as all the tick mark labels, if applicable. Options: "decimal",
-     * "improper", "mixed", "non-reduced"
+     * as all the tick mark labels, if applicable.
      */
-    labelStyle: string;
+    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
     /** Show label ticks */
     labelTicks: boolean;
     /** Show tick controller */

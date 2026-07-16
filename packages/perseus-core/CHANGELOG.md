@@ -1,5 +1,21 @@
 # @khanacademy/perseus-core
 
+## 32.0.0
+
+### Major Changes
+
+-   [#3899](https://github.com/Khan/perseus/pull/3899) [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the image widget required. Perseus consumers should, as always, use the parsers to upgrade data to the latest schema.
+
+## 31.0.0
+
+### Major Changes
+
+-   [#3843](https://github.com/Khan/perseus/pull/3843) [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [number-line] Narrow `labelStyle` type to the supported list of styles: "decimal", "improper", "mixed", and "non-reduced". Also removes legacy code for long-removed label style `"decimal ticks"`.
+
+### Minor Changes
+
+-   [#3862](https://github.com/Khan/perseus/pull/3862) [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for subscript in the MathInput keypad
+
 ## 30.1.1
 
 ### Patch Changes

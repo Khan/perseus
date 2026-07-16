@@ -3,9 +3,8 @@
  */
 import {vector as kvector} from "@khanacademy/kmath";
 import {pluck} from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
-
-import KhanColors from "../util/colors";
 
 import InteractiveUtil from "./interactive-util";
 import MovableLineOptions from "./movable-line-options";
@@ -112,17 +111,20 @@ _.extend(MovableLine.prototype, {
             normalizeOptions(options),
         ));
 
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+        const movableColor = tokenValue(
+            state.static
+                ? semanticColor.core.foreground.disabled.strong
+                : semanticColor.core.foreground.instructive.default,
+        );
         // Default things inside the state.normalStyle object, because
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPERTIES!)
-        const normalColor = state.static
-            ? KhanColors.DYNAMIC
-            : KhanColors.INTERACTIVE;
         state.normalStyle = _.extend(
             {
-                stroke: normalColor,
+                stroke: movableColor,
                 "stroke-width": 2,
             },
             state.normalStyle,
@@ -130,7 +132,7 @@ _.extend(MovableLine.prototype, {
 
         state.highlightStyle = _.extend(
             {
-                stroke: KhanColors.INTERACTING,
+                stroke: movableColor,
                 "stroke-width": 3,
             },
             state.highlightStyle,

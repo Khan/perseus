@@ -51,12 +51,12 @@
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import {Errors, PerseusError, pluck} from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
-import KhanColors from "../util/colors";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -182,18 +182,21 @@ export class MovablePoint {
 
         assert(kpoint.is(state.coord));
 
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+        const movableColor = tokenValue(
+            state.static
+                ? semanticColor.core.foreground.disabled.strong
+                : semanticColor.core.foreground.instructive.default,
+        );
         // Default things inside the state.normalStyle object, because
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        const normalColor = state.static
-            ? KhanColors.DYNAMIC
-            : KhanColors.INTERACTIVE;
         state.normalStyle = _.extend(
             {
-                fill: normalColor,
-                stroke: normalColor,
+                fill: movableColor,
+                stroke: movableColor,
                 scale: 1,
             },
             state.normalStyle,
@@ -201,8 +204,8 @@ export class MovablePoint {
 
         state.highlightStyle = _.extend(
             {
-                fill: KhanColors.INTERACTING,
-                stroke: KhanColors.INTERACTING,
+                fill: movableColor,
+                stroke: movableColor,
                 scale: 2,
             },
             state.highlightStyle,
@@ -236,7 +239,7 @@ export class MovablePoint {
                             {...iconTrash}
                             style={{
                                 position: "static",
-                                color: KhanColors.INTERACTIVE,
+                                color: movableColor,
                                 marginLeft: 9,
                                 marginRight: 9,
                             }}

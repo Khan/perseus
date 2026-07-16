@@ -22,6 +22,7 @@ import {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
 } from "./generators/graded-group-widget-generator";
+import {generateImageOptions} from "./generators/image-widget-generator";
 import {
     generateInputNumberAnswer,
     generateInputNumberOptions,
@@ -346,14 +347,14 @@ describe("injectWidgets", () => {
         const widgets: PerseusWidgetsMap = {
             "image 1": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "image alt text",
                     backgroundImage: {
                         url: "",
                         width: 100,
                         height: 100,
                     },
-                },
+                }),
             },
         } as const;
         const content = injectWidgets(

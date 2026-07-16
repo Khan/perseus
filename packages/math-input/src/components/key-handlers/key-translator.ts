@@ -9,6 +9,7 @@ import {mathQuillInstance} from "../input/mathquill-instance";
 import handleArrow from "./handle-arrow";
 import handleExponent from "./handle-exponent";
 import handleJumpOut from "./handle-jump-out";
+import handleSubscript from "./handle-subscript";
 
 import type {
     MathFieldInterface,
@@ -82,6 +83,7 @@ export const getKeyTranslator = (
     EXP: handleExponent,
     EXP_2: handleExponent,
     EXP_3: handleExponent,
+    SUB: handleSubscript,
 
     JUMP_OUT_PARENTHESES: handleJumpOut,
     JUMP_OUT_EXPONENT: handleJumpOut,

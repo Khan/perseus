@@ -79,6 +79,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     onChange={() => {}}
                     backgroundImage={backgroundImage}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -112,6 +114,7 @@ describe("image editor", () => {
                 longDescription="Earth and moon long description"
                 caption="Earth and moon caption"
                 title="Earth and moon title"
+                decorative={false}
                 onChange={() => {}}
             />,
         );
@@ -167,6 +170,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -220,6 +225,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -241,6 +248,8 @@ describe("image editor", () => {
                 // frescoImage is very large (1698 x 955)
                 backgroundImage={frescoImage}
                 onChange={() => {}}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -260,6 +269,8 @@ describe("image editor", () => {
                 // earthMoonImage is small (400 x 225)
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -282,6 +293,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     alt="Earth and moon alt"
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />
             </DependenciesContext.Provider>,
         );
@@ -304,6 +317,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />
             </DependenciesContext.Provider>,
         );
@@ -325,6 +340,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={{}}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -352,6 +369,8 @@ describe("image editor", () => {
             <ImageEditorWithDependencies
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -380,6 +399,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={{url: "abc"}}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -413,6 +434,8 @@ describe("image editor", () => {
                     height: earthMoonImage.height / 2,
                 }}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -436,6 +459,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -457,6 +482,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -480,6 +507,8 @@ describe("image editor", () => {
                 backgroundImage={earthMoonImage}
                 alt="Earth and moon"
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -501,6 +530,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -526,6 +557,7 @@ describe("image editor", () => {
                 backgroundImage={earthMoonImage}
                 longDescription="Earth and moon long description"
                 onChange={onChangeMock}
+                decorative={false}
             />,
         );
 
@@ -549,6 +581,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -572,6 +606,8 @@ describe("image editor", () => {
                 backgroundImage={earthMoonImage}
                 caption="Earth and moon"
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -592,6 +628,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -615,6 +653,8 @@ describe("image editor", () => {
                 backgroundImage={earthMoonImage}
                 title="Earth and moon"
                 onChange={onChangeMock}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -636,6 +676,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -659,6 +701,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -680,6 +724,8 @@ describe("image editor", () => {
                 onChange={onChangeMock}
                 backgroundImage={earthMoonImage}
                 alt="aaa" // Start with short alt text that will trigger error on blur
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -707,6 +753,8 @@ describe("image editor", () => {
                 onChange={() => {}}
                 backgroundImage={earthMoonImage}
                 alt="123456789"
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -722,6 +770,8 @@ describe("image editor", () => {
                 apiOptions={apiOptions}
                 backgroundImage={earthMoonImage}
                 onChange={() => {}}
+                longDescription={""}
+                decorative={false}
             />,
         );
 
@@ -738,6 +788,7 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     decorative={true}
                     onChange={() => {}}
+                    longDescription={""}
                 />,
             );
 
@@ -757,6 +808,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -781,6 +834,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -813,6 +868,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     scale={2}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -839,6 +896,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -863,6 +922,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -889,6 +950,8 @@ describe("image editor", () => {
                     backgroundImage={earthMoonImage}
                     scale={1}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -917,6 +980,8 @@ describe("image editor", () => {
                         backgroundImage={earthMoonImage}
                         scale={1}
                         onChange={onChangeMock}
+                        longDescription={""}
+                        decorative={false}
                     />,
                 );
 
@@ -944,6 +1009,8 @@ describe("image editor", () => {
                         url: earthMoonImage.url,
                     }}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -967,6 +1034,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={{url: earthMoonImage.url}}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -989,6 +1058,8 @@ describe("image editor", () => {
                         height: 0,
                     }}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1012,6 +1083,8 @@ describe("image editor", () => {
                         height: earthMoonImage.height,
                     }}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1035,6 +1108,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
