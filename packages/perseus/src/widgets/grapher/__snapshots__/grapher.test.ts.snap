@@ -1148,14 +1148,6 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                         >
                           <line
                             aria-hidden="true"
-                            style="stroke: transparent; stroke-width: 44;"
-                            x1="-100"
-                            x2="100"
-                            y1="-100"
-                            y2="-100"
-                          />
-                          <line
-                            aria-hidden="true"
                             class="movable-line-focus-outline"
                             x1="-100"
                             x2="100"
@@ -1257,12 +1249,6 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                           style="--movable-point-color: var(--mafs-blue);"
                         >
                           <circle
-                            class="movable-point-hitbox"
-                            cx="-100"
-                            cy="-100"
-                            r="24"
-                          />
-                          <circle
                             class="movable-point-halo"
                             cx="-100"
                             cy="-100"
@@ -1291,12 +1277,6 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                           data-testid="movable-point"
                           style="--movable-point-color: var(--mafs-blue);"
                         >
-                          <circle
-                            class="movable-point-hitbox"
-                            cx="100"
-                            cy="-100"
-                            r="24"
-                          />
                           <circle
                             class="movable-point-halo"
                             cx="100"
@@ -1347,6 +1327,26 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-line__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 200px; top: 100px; width: 200px; height: 44px; transform: translate(-50%, -50%) rotate(0deg);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 100px; top: 100px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 300px; top: 100px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>

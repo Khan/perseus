@@ -44,6 +44,25 @@
     --movable-asymptote-dash-length-active: 8;
     --movable-asymptote-dash-gap-active: 12;
     overflow: visible !important;
+
+    /* Override Mafs' `touch-action: none` so the page can scroll over the graph
+       (iOS 26.5+ honors `none` and trapped scrolling). Dragging is kept from
+       scrolling by preventDefault in use-draggable.ts (Safari ignores
+       `touch-action` on SVG); the per-element `none` below is a fast path for
+       browsers that honor it. */
+    touch-action: pan-y;
+
+    /* Prevent Android Chrome pull-to-refresh when page scroll passes through. */
+    overscroll-behavior-y: contain;
+}
+
+/* Re-block scrolling on draggable gesture targets so vertical drags move the
+   shape. `.movable-point__focusable-handle` is an invisible a11y drag target. */
+.MafsView .movable-line,
+.MafsView .movable-circle,
+.MafsView .movable-polygon,
+.MafsView .movable-point__focusable-handle {
+    touch-action: none;
 }
 
 .MafsView > svg {
@@ -53,6 +72,7 @@
 }
 
 .MafsView .movable-line:hover,
+.MafsView .movable-line--hover,
 .MafsView .movable-line:focus-visible,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
@@ -102,10 +122,6 @@
     opacity: 0;
 }
 
-.MafsView .movable-point-hitbox {
-    fill: transparent;
-}
-
 .MafsView
     :is(
         .movable-point-center,
@@ -136,20 +152,22 @@
     fill: var(--wb-semanticColor-core-border-knockout-default);
 }
 
-.MafsView .movable-point:hover .movable-point-center {
+.MafsView
+    .movable-point:is(:hover, .movable-point--hover)
+    .movable-point-center {
     r: calc(
         var(--movable-point-hover-expansion) +
             var(--movable-point-center-radius)
     );
 }
 
-.MafsView .movable-point:hover .movable-point-ring {
+.MafsView .movable-point:is(:hover, .movable-point--hover) .movable-point-ring {
     r: calc(
         var(--movable-point-hover-expansion) + var(--movable-point-ring-radius)
     );
 }
 
-.MafsView .movable-point:hover .movable-point-halo {
+.MafsView .movable-point:is(:hover, .movable-point--hover) .movable-point-halo {
     r: calc(
         var(--movable-point-hover-expansion) + var(--movable-point-halo-radius)
     );
@@ -166,7 +184,9 @@
     stroke: var(--mafs-blue);
 }
 
-.MafsView .movable-point:hover .movable-point-focus-outline {
+.MafsView
+    .movable-point:is(:hover, .movable-point--hover)
+    .movable-point-focus-outline {
     r: calc(
         var(--movable-point-hover-expansion) + var(--movable-point-halo-radius) +
             var(--movable-point-focus-ring-offset)
@@ -196,7 +216,7 @@
     fill: transparent;
 }
 
-.MafsView .movable-circle:hover .circle {
+.MafsView .movable-circle:is(:hover, .movable-circle--hover) .circle {
     fill: var(--mafs-blue);
     fill-opacity: 0.16;
 }
@@ -249,10 +269,6 @@
     cursor: grabbing;
 }
 
-.MafsView .movable-arrowhead-hitbox {
-    fill: transparent;
-}
-
 .MafsView
     :is(
         .movable-arrowhead-center,
@@ -300,15 +316,21 @@
 }
 
 /* Hover: arms grow longer (stroke stays 2px), ring/halo/focus expand */
-.MafsView .movable-arrowhead:hover .movable-arrowhead-center {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-center {
     transform: scale(1.2);
 }
 
-.MafsView .movable-arrowhead:hover .movable-arrowhead-ring {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-ring {
     transform: scale(1.2);
 }
 
-.MafsView .movable-arrowhead:hover .movable-arrowhead-halo {
+.MafsView
+    .movable-arrowhead:is(:hover, .movable-arrowhead--hover)
+    .movable-arrowhead-halo {
     transform: scale(1.15);
 }
 

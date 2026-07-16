@@ -18,13 +18,14 @@ type Props = {
     angle: number; // degrees counterclockwise from the positive x-axis
     dragging: boolean;
     focused: boolean;
+    // Hover is driven by the HTML hitbox (see useControlArrowhead), not CSS
+    // `:hover`, because the hitbox sits on top of the SVG and intercepts the
+    // pointer.
+    hovered?: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
 };
-
-// The hitbox size of 48px by 48px matches the movable point.
-const hitboxSizePx = 48;
 
 // Straight-line chevron arrowhead: two lines meeting at the tip.
 // Wings at (-5, ±5) give exactly 45° per side (90° total opening).
@@ -96,6 +97,7 @@ export const MovableArrowheadView = forwardRef(
             point,
             angle,
             dragging,
+            hovered,
             cursor,
             showFocusRing,
             onClick = () => {},
@@ -109,6 +111,7 @@ export const MovableArrowheadView = forwardRef(
             "movable-arrowhead",
             dragging && "movable-arrowhead--dragging",
             showFocusRing && "movable-arrowhead--focus",
+            hovered && "movable-arrowhead--hover",
         );
 
         const [[x, y]] = useTransformVectorsToPixels(point);
@@ -134,14 +137,6 @@ export const MovableArrowheadView = forwardRef(
                 data-testid="movable-arrowhead"
                 onClick={onClick}
             >
-                {/* Transparent circular hit target (48 × 48 px) */}
-                <circle
-                    className="movable-arrowhead-hitbox"
-                    r={hitboxSizePx / 2}
-                    cx={x}
-                    cy={y}
-                />
-
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
                     {/* Halo — filled rounded triangle.  On focus,
                             a 2px stroke is added for the focus ring. */}
