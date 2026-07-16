@@ -2,6 +2,7 @@
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
+import Blank from "./widgets/blank";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
@@ -35,6 +36,7 @@ import type {WidgetExports} from "./types";
 
 // eslint-disable-next-line no-restricted-syntax
 export default [
+    Blank,
     CSProgram,
     Categorizer,
     Definition,

@@ -1,1 +1,1 @@
-export {default} from "./blank";
+export {default} from "./blank.class";

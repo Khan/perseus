@@ -529,8 +529,6 @@ export type AxisLabelLocation = "onAxis" | "alongEdge";
 
 /** Options for the blank widget, used within "Drag And Drop" widgets as the dropzone for answer tiles */
 export type PerseusBlankWidgetOptions = {
-    /** ID for the blank */
-    id: string;
     /** Display Type for how the blank should be rendered */
     displayType: "normal" | "superscript" | "subscript";
     /** ID for the correct answer tile for the blank */

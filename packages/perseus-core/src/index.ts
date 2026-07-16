@@ -273,7 +273,7 @@ export {
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
-export type {PublicBlankWidgetOptions} from "./widgets/blank/blank-util";
+export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
 /** @hidden */
 export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 /** @hidden */
@@ -335,6 +335,11 @@ export {
 } from "./utils/util.graphie";
 
 // Generators
+/** @hidden */
+export {
+    generateBlankOptions,
+    generateBlankWidget,
+} from "./utils/generators/blank-widget-generator";
 /** @hidden */
 export {
     generateDefinitionOptions,

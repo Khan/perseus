@@ -5,14 +5,12 @@ import * as React from "react";
 import type {PerseusBlankWidgetOptions} from "@khanacademy/perseus-core";
 
 type DefaultProps = {
-    id: PerseusBlankWidgetOptions["id"];
     displayType: PerseusBlankWidgetOptions["displayType"];
     correct: PerseusBlankWidgetOptions["correct"];
 };
 
 type Props = DefaultProps & {
     onChange: (arg1: {
-        id: PerseusBlankWidgetOptions["id"];
         displayType: PerseusBlankWidgetOptions["displayType"];
         correct: PerseusBlankWidgetOptions["correct"];
     }) => void;
@@ -20,7 +18,6 @@ type Props = DefaultProps & {
 
 class BlankEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
-        id: "",
         displayType: "normal",
         correct: undefined,
     };
@@ -28,14 +25,11 @@ class BlankEditor extends React.Component<Props> {
     static widgetName = "my-new-widget" as const;
 
     render(): React.ReactNode {
-        return (
-          // Add your HTML here
-        );
+        return <span>Blank Widget Stub</span>;
     }
 
     serialize(): PerseusBlankWidgetOptions {
         return {
-            id: this.props.id,
             displayType: this.props.displayType,
             correct: this.props.correct,
         };
