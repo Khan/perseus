@@ -13,24 +13,16 @@ import {GifControlsIcon} from "./gif-controls-icon";
 import type {APIOptions} from "../../../types";
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import {CommonImageProps} from "./common-image-props";
 
 export interface GifProps {
     isGifPlaying: boolean;
     setIsGifPlaying: (isPaused: boolean) => void;
 }
 
-/**
- * The image widget's options together with the rendering context needed to
- * display the image's info area and explore-image modal.
- */
-export interface ImageInfoProps {
-    options: PerseusImageWidgetOptions;
-    linterContext: LinterContextProps;
-    apiOptions: APIOptions;
-    widgetId: string;
+interface Props extends CommonImageProps {
+    isAnimatedGif: boolean;
 }
-
-type Props = GifProps & ImageInfoProps & {isAnimatedGif: boolean};
 
 /**
  * The ImageInfoArea component includes the GIF controls, description modal

@@ -11,16 +11,15 @@ import {decodeGifFrames, isGif, isSvg} from "../utils";
 
 import {GifControlsButton} from "./gif-controls-button";
 
-import type {GifProps, ImageInfoProps} from "./image-info-area";
 import type {ParsedFrame} from "gifuct-js";
+import {CommonImageProps} from "./common-image-props";
 
 const MODAL_HEIGHT = 568;
 
-type Props = ImageInfoProps &
-    GifProps & {
-        captionId: string;
-        longDescId: string;
-    };
+interface Props extends CommonImageProps {
+    captionId: string;
+    longDescId: string;
+}
 
 export default function ExploreImageModalContent({
     options,

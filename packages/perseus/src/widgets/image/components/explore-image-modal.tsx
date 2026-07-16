@@ -8,12 +8,9 @@ import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
 import ExploreImageModalContent from "./explore-image-modal-content";
+import {CommonImageProps} from "./common-image-props";
 
-import type {GifProps, ImageInfoProps} from "./image-info-area";
-
-type Props = ImageInfoProps & GifProps;
-
-export const ExploreImageModal = (props: Props) => {
+export const ExploreImageModal = (props: CommonImageProps) => {
     const context = React.useContext(PerseusI18nContext);
     const uniqueId = React.useId();
     const captionId = `${uniqueId}-caption`;
