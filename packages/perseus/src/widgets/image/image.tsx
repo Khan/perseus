@@ -17,7 +17,7 @@ import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
 
-export type ImageWidgetProps = WidgetProps<PerseusImageWidgetOptions>;
+type ImageWidgetProps = WidgetProps<PerseusImageWidgetOptions>;
 
 // Widget interface methods exposed via ref
 type WidgetHandle = Pick<Widget, "getPromptJSON">;
