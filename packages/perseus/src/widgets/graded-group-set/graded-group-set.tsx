@@ -316,14 +316,10 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotFocused: {
-        // Full Wonder Blocks focus indicator: a white inner ring
-        // (semanticColor.focus.inner) hugging the pip with a blue outer ring
-        // (semanticColor.focus.outer) around it, so focus stays visible on any
-        // background. The outer ring is an outline rather than a border — a
-        // border's gap would be filled by the active pip's fill (border-box
-        // clip), and an outline also survives forced-colors/high-contrast mode
-        // where box-shadow is dropped. The inner white ring is a box-shadow
-        // that fills the outline's offset gap.
+        // Wonder Blocks-style focus indicator: an offset outer outline
+        // (semanticColor.focus.outer) with a white inner ring
+        // (semanticColor.focus.inner) via box-shadow, so focus stays visible
+        // on any background.
         outlineColor: semanticColor.focus.outer,
         outlineStyle: "solid",
         outlineWidth: border.width.medium,
@@ -332,11 +328,8 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        // Paint the whole pip — background and border — in the fill color.
-        // The background sits under the border (default background-clip:
-        // border-box) and the border matches it, so the pip renders as one
-        // seamless solid circle at the same outer diameter as the non-active
-        // ring pips.
+        // The active pip is filled in — background and border both in the fill
+        // color — so it shows up as a solid circle the same size as the ring pips.
         backgroundColor: semanticColor.core.foreground.instructive.default,
         borderColor: semanticColor.core.foreground.instructive.default,
     },

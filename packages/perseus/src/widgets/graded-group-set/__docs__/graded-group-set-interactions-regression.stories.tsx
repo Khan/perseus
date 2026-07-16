@@ -1,17 +1,19 @@
-import {
-    generateGradedGroupOptions,
-    generateGradedGroupSetWidget,
-    generateTestPerseusRenderer,
-} from "@khanacademy/perseus-core";
+import {generateGradedGroupOptions} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ArticleRendererWithDebugUI} from "../../../testing/article-renderer-with-debug-ui";
+import {articleDecorator} from "../../__testutils__/story-decorators";
 import {Indicators} from "../graded-group-set";
 
+import {
+    gradedGroupSetRendererDecorator,
+    twoGroupArgs,
+} from "./graded-group-set-renderer-decorator";
+
+import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta = {
+const meta: Meta<PerseusGradedGroupSetWidgetOptions> = {
     title: "Widgets/Graded Group Set/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {
@@ -35,28 +37,9 @@ type Story = StoryObj<typeof meta>;
 // resting visuals are covered by the IndicatorPips story in the Initial State
 // file, and answering → answer-bar-state transitions are covered by
 // graded-group's unit tests plus the answer-bar regression story.
-const twoGroupArticle = generateTestPerseusRenderer({
-    content: "[[☃ graded-group-set 1]]",
-    widgets: {
-        "graded-group-set 1": generateGradedGroupSetWidget({
-            options: {
-                gradedGroups: [
-                    generateGradedGroupOptions({
-                        title: "Problem 1a",
-                        content: "The first problem in the set.",
-                    }),
-                    generateGradedGroupOptions({
-                        title: "Problem 1b",
-                        content: "The second problem in the set.",
-                    }),
-                ],
-            },
-        }),
-    },
-});
-
 export const IndicatorNavigation: Story = {
-    render: () => <ArticleRendererWithDebugUI json={twoGroupArticle} />,
+    decorators: [gradedGroupSetRendererDecorator, articleDecorator],
+    args: twoGroupArgs,
     play: async ({canvas, userEvent}) => {
         const secondIndicator = canvas.getByRole("button", {
             name: "Problem 1b",

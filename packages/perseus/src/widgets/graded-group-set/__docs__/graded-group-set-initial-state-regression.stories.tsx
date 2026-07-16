@@ -1,17 +1,22 @@
-import {
-    generateGradedGroupOptions,
-    generateGradedGroupSetWidget,
-    generateTestPerseusRenderer,
-} from "@khanacademy/perseus-core";
+import {generateGradedGroupOptions} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ArticleRendererWithDebugUI} from "../../../testing/article-renderer-with-debug-ui";
+import {
+    articleDecorator,
+    mobileArticleDecorator,
+} from "../../__testutils__/story-decorators";
 import {Indicators} from "../graded-group-set";
 
+import {
+    gradedGroupSetRendererDecorator,
+    twoGroupArgs,
+} from "./graded-group-set-renderer-decorator";
+
+import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta = {
+const meta: Meta<PerseusGradedGroupSetWidgetOptions> = {
     title: "Widgets/Graded Group Set/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
@@ -30,46 +35,24 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// This story exists to snapshot the graded-group-set chrome — the title and
-// the indicator pips — through the real container/renderer path. The group
-// content is plain text (no child widget) so the snapshot isn't coupled to any
-// other widget's visuals. The pips themselves are also covered in isolation by
-// the IndicatorPips story below.
-const twoGroupArticle = generateTestPerseusRenderer({
-    content: "[[☃ graded-group-set 1]]",
-    widgets: {
-        "graded-group-set 1": generateGradedGroupSetWidget({
-            options: {
-                gradedGroups: [
-                    generateGradedGroupOptions({
-                        title: "Problem 1a",
-                        content: "The first problem in the set.",
-                    }),
-                    generateGradedGroupOptions({
-                        title: "Problem 1b",
-                        content: "The second problem in the set.",
-                    }),
-                ],
-            },
-        }),
-    },
-});
-
+// Snapshots the graded-group-set chrome — the title and indicator pips — through
+// the real renderer path in an article context. The pips are also covered in
+// isolation by the IndicatorPips story below.
 export const DefaultArticle: Story = {
-    render: () => <ArticleRendererWithDebugUI json={twoGroupArticle} />,
+    decorators: [gradedGroupSetRendererDecorator, articleDecorator],
+    args: twoGroupArgs,
 };
 
-export const MobileUnanswered: Story = {
-    render: () => (
-        <ArticleRendererWithDebugUI
-            json={twoGroupArticle}
-            apiOptions={{isMobile: true}}
-        />
-    ),
+export const DefaultMobile: Story = {
+    decorators: [gradedGroupSetRendererDecorator, mobileArticleDecorator],
+    args: twoGroupArgs,
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
 };
 
 // Indicators only reads each group's `title`, so a few generated groups are all
-// it needs — no ArticleRenderer or child widget required to visualize the pips.
+// it needs — no renderer or child widget required to visualize the pips.
 const makeGroups = (count: number) =>
     Array.from({length: count}, (_, i) =>
         generateGradedGroupOptions({title: `Problem ${i + 1}`}),

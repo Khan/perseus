@@ -8,7 +8,10 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ApiOptions} from "../../../perseus-api";
 import {phoneMargin} from "../../../styles/constants";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    mobileDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 import GradedGroupAnswerBar from "../graded-group-answer-bar";
 
 import {gradedGroupRendererDecorator} from "./graded-group-renderer-decorator";
@@ -67,8 +70,8 @@ export const DefaultDesktop: Story = {
     args: sharedArgs,
 };
 
-export const MobileUnanswered: Story = {
-    decorators: [gradedGroupRendererDecorator],
+export const DefaultMobile: Story = {
+    decorators: [gradedGroupRendererDecorator, mobileDecorator],
     args: sharedArgs,
     parameters: {
         apiOptions: {isMobile: true},
