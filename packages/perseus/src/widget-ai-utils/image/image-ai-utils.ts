@@ -37,10 +37,10 @@ export const getPromptJSON = (
     return {
         type: "image",
         options: {
-            altText: widgetData.alt,
-            title: widgetData.title,
-            caption: widgetData.caption,
-            imageUrl: widgetData.backgroundImage.url,
+            altText: widgetData.options.alt,
+            title: widgetData.options.title,
+            caption: widgetData.options.caption,
+            imageUrl: widgetData.options.backgroundImage.url,
         },
     };
 };
