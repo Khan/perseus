@@ -1,7 +1,10 @@
+import {useActionScheduler} from "@khanacademy/wonder-blocks-timing";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
+import {mapAxeResults} from "./a11y/map-axe-results";
 import {
+    createPreviewA11yReportMessage,
     createPreviewIframeReadyMessage,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
@@ -12,6 +15,14 @@ import type {
     ParentToIframeMessage,
     PreviewContent,
 } from "./message-types";
+
+type UsePreviewPresenterOptions = {
+    /**
+     * Ref to the element containing the rendered preview content. Used as
+     * the root for axe-core accessibility scans.
+     */
+    contentContainerRef?: React.RefObject<HTMLElement | null>;
+};
 
 type UsePreviewPresenterResult = {
     /**
@@ -30,6 +41,16 @@ type UsePreviewPresenterResult = {
      * Function to report the current height of the iframe content to the parent
      */
     reportHeight: (height: number) => void;
+    /**
+     * Whether axe-core accessibility scanning is enabled
+     */
+    a11yEnabled: boolean;
+    /**
+     * Elements to draw "Show Me" highlight overlays over, resolved from the
+     * latest scan's element map via the previewIds in a highlight-issues
+     * message.
+     */
+    highlightTargets: Element[];
 };
 
 /**
@@ -61,8 +82,16 @@ type UsePreviewPresenterResult = {
  * }
  * ```
  */
-export function usePreviewPresenter(): UsePreviewPresenterResult {
+export function usePreviewPresenter(
+    options: UsePreviewPresenterOptions = {},
+): UsePreviewPresenterResult {
+    const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
+    const [a11yEnabled, setA11yEnabled] = React.useState(false);
+    const [highlightTargets, setHighlightTargets] = React.useState<Element[]>(
+        [],
+    );
+    const schedule = useActionScheduler();
 
     // eslint-disable-next-line no-restricted-syntax
     const iframe = window.frameElement as HTMLIFrameElement | null;
@@ -92,6 +121,24 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
 
                 case "iframe-init":
                     setContent(message.content);
+                    setA11yEnabled(message.a11yEnabled);
+                    break;
+
+                case "set-a11y-enabled":
+                    setA11yEnabled(message.enabled);
+                    break;
+
+                case "highlight-issues":
+                    setHighlightTargets(
+                        message.previewIds.flatMap(
+                            (previewId) =>
+                                elementMapRef.current.get(previewId) ?? [],
+                        ),
+                    );
+                    break;
+
+                case "clear-highlights":
+                    setHighlightTargets([]);
                     break;
 
                 default:
@@ -108,6 +155,75 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
             window.removeEventListener("message", handleMessage);
         };
     }, []);
+
+    // Tracks the latest a11yEnabled value for the async scan below, which
+    // needs to check it after awaiting rather than the value it closed over.
+    const a11yEnabledRef = React.useRef(a11yEnabled);
+    React.useEffect(() => {
+        a11yEnabledRef.current = a11yEnabled;
+    }, [a11yEnabled]);
+
+    // In-flight scan promise. Non-null means a scan is already running, so a
+    // debounce firing mid-scan is dropped rather than starting a second run.
+    const scanPromiseRef = React.useRef<Promise<void> | null>(null);
+
+    // The latest scan's previewId -> elements map, used to resolve
+    // highlight-issues messages to the elements they refer to.
+    const elementMapRef = React.useRef<Map<string, Element[]>>(new Map());
+
+    // Run an axe-core scan (debounced) whenever content changes and
+    // scanning is enabled.
+    React.useEffect(() => {
+        const container = contentContainerRef?.current;
+        if (!a11yEnabled || content == null || container == null) {
+            return;
+        }
+
+        const scheduledScan = schedule.timeout(() => {
+            if (scanPromiseRef.current != null) {
+                return;
+            }
+
+            scanPromiseRef.current = (async () => {
+                // Delay-loading axe-core so that we can easily bundle-split it
+                // out and avoid loading it if we aren't using it.
+                const axe = (await import("axe-core")).default;
+                axe.configure({reporter: "v2"});
+                const results = await axe.run(
+                    {
+                        include: container,
+                        exclude: [['[target="lint-help-window"]']],
+                    },
+                    // elementRef populates node.element on each result, which
+                    // mapAxeResults needs to resolve "Show Me" highlighting.
+                    {elementRef: true},
+                );
+
+                if (!a11yEnabledRef.current) {
+                    return;
+                }
+
+                const {issues: violations, elementMap: violationMap} =
+                    mapAxeResults(results.violations, "Alert");
+                const {issues: incompletes, elementMap: incompleteMap} =
+                    mapAxeResults(results.incomplete, "Warning");
+
+                elementMapRef.current = new Map([
+                    ...violationMap,
+                    ...incompleteMap,
+                ]);
+
+                window.parent.postMessage(
+                    createPreviewA11yReportMessage(violations, incompletes),
+                    "/",
+                );
+            })().finally(() => {
+                scanPromiseRef.current = null;
+            });
+        }, 1500);
+
+        return () => scheduledScan.clear();
+    }, [content, a11yEnabled, contentContainerRef, schedule]);
 
     // Memoized callback to report height
     const reportHeight = React.useCallback((height: number) => {
@@ -128,5 +244,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
         isMobile: iframe.dataset.mobile === "true",
         hasLintGutter: iframe.dataset.lintGutter === "true",
         reportHeight,
+        a11yEnabled,
+        highlightTargets,
     };
 }

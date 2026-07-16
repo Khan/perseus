@@ -5,19 +5,35 @@ import {usePreviewPresenter} from "./use-preview-presenter";
 
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 
+const mockAxeRun = jest.fn().mockResolvedValue({
+    violations: [],
+    incomplete: [],
+});
+
+jest.mock("axe-core", () => ({
+    __esModule: true,
+    default: {
+        configure: jest.fn(),
+        run: mockAxeRun,
+    },
+}));
+
 describe("usePreviewPresenter", () => {
     let mockIframeElement: {
         dataset: {[key: string]: string | undefined};
     };
     let mockParentWindow: Window;
+    let mockPostMessage: jest.Mock;
     let originalFrameElement: Element | null;
     let originalParent: Window;
 
     beforeEach(() => {
-        // Mock parent window with postMessage
+        mockAxeRun.mockResolvedValue({violations: [], incomplete: []});
+
+        mockPostMessage = jest.fn();
         // eslint-disable-next-line no-restricted-syntax
         mockParentWindow = {
-            postMessage: jest.fn(),
+            postMessage: mockPostMessage,
         } as unknown as Window;
 
         // Mock iframe element with dataset
@@ -354,7 +370,7 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("receiving iframe-init message", () => {
-        it("sets content from an iframe-init message", () => {
+        it("sets content and a11yEnabled together from one message", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             const questionContent: PreviewContent = {
@@ -380,6 +396,7 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "iframe-init",
                             content: questionContent,
+                            a11yEnabled: true,
                         },
                         source: mockParentWindow,
                     }),
@@ -387,6 +404,7 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toEqual(questionContent);
+            expect(result.current.a11yEnabled).toBe(true);
         });
 
         it("handles null content (nothing sent yet)", () => {
@@ -399,6 +417,7 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "iframe-init",
                             content: null,
+                            a11yEnabled: false,
                         },
                         source: mockParentWindow,
                     }),
@@ -406,6 +425,328 @@ describe("usePreviewPresenter", () => {
             });
 
             expect(result.current.content).toBeNull();
+            expect(result.current.a11yEnabled).toBe(false);
+        });
+    });
+
+    describe("receiving set-a11y-enabled message", () => {
+        it("updates a11yEnabled when receiving set-a11y-enabled message", () => {
+            const {result} = renderHook(() => usePreviewPresenter());
+
+            expect(result.current.a11yEnabled).toBe(false);
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "set-a11y-enabled",
+                            enabled: true,
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            expect(result.current.a11yEnabled).toBe(true);
+        });
+    });
+
+    describe("axe-core scanning", () => {
+        const enableA11yScanning = () => {
+            window.dispatchEvent(
+                new MessageEvent("message", {
+                    data: {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "set-a11y-enabled",
+                        enabled: true,
+                    },
+                    source: mockParentWindow,
+                }),
+            );
+        };
+
+        const sendContent = (content: PreviewContent) => {
+            window.dispatchEvent(
+                new MessageEvent("message", {
+                    data: {
+                        source: PREVIEW_MESSAGE_SOURCE,
+                        type: "content-data",
+                        content,
+                    },
+                    source: mockParentWindow,
+                }),
+            );
+        };
+
+        it("posts an a11y-report message 1500ms after content changes while scanning is enabled", async () => {
+            // Arrange
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+
+            renderHook(() => usePreviewPresenter({contentContainerRef}));
+
+            // Act
+            act(() => {
+                enableA11yScanning();
+                sendContent({
+                    type: "question",
+                    data: {
+                        question: {
+                            content: "What is 2+2?",
+                            widgets: {},
+                            images: {},
+                        },
+                        apiOptions: {readOnly: true},
+                        linterContext: {
+                            contentType: "exercise",
+                            highlightLint: false,
+                        },
+                    },
+                });
+            });
+
+            act(() => {
+                jest.advanceTimersByTime(1500);
+            });
+
+            // Assert
+            await waitFor(() => {
+                expect(mockAxeRun).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        include: contentContainerRef.current,
+                    }),
+                    expect.objectContaining({elementRef: true}),
+                );
+            });
+
+            expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
+                expect.objectContaining({type: "a11y-report"}),
+                "/",
+            );
+        });
+    });
+
+    describe("receiving highlight-issues message", () => {
+        it("resolves previewIds to elements via the latest scan's element map", async () => {
+            // Arrange
+            const targetElement = document.createElement("button");
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+
+            mockAxeRun.mockResolvedValue({
+                violations: [
+                    {
+                        id: "button-name",
+                        helpUrl: "https://example.com",
+                        help: "Buttons must have discernible text",
+                        impact: "serious",
+                        nodes: [
+                            {
+                                element: targetElement,
+                                all: [],
+                                any: [],
+                                none: [],
+                            },
+                        ],
+                    },
+                ],
+                incomplete: [],
+            });
+
+            const {result} = renderHook(() =>
+                usePreviewPresenter({contentContainerRef}),
+            );
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "set-a11y-enabled",
+                            enabled: true,
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "content-data",
+                            content: {
+                                type: "question",
+                                data: {
+                                    question: {
+                                        content: "What is 2+2?",
+                                        widgets: {},
+                                        images: {},
+                                    },
+                                    apiOptions: {readOnly: true},
+                                    linterContext: {
+                                        contentType: "exercise",
+                                        highlightLint: false,
+                                    },
+                                },
+                            },
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            act(() => {
+                jest.advanceTimersByTime(1500);
+            });
+
+            await waitFor(() => {
+                expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
+                    expect.objectContaining({type: "a11y-report"}),
+                    "/",
+                );
+            });
+
+            const reportCall = mockPostMessage.mock.calls.find(
+                (call) => call[0].type === "a11y-report",
+            );
+            const previewId = reportCall[0].violations[0].previewId;
+
+            // Act
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "highlight-issues",
+                            previewIds: [previewId],
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            // Assert
+            expect(result.current.highlightTargets).toEqual([targetElement]);
+        });
+    });
+
+    describe("receiving clear-highlights message", () => {
+        it("resets highlightTargets to empty", async () => {
+            // Arrange
+            const targetElement = document.createElement("button");
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+
+            mockAxeRun.mockResolvedValue({
+                violations: [
+                    {
+                        id: "button-name",
+                        helpUrl: "https://example.com",
+                        help: "Buttons must have discernible text",
+                        impact: "serious",
+                        nodes: [
+                            {
+                                element: targetElement,
+                                all: [],
+                                any: [],
+                                none: [],
+                            },
+                        ],
+                    },
+                ],
+                incomplete: [],
+            });
+
+            const {result} = renderHook(() =>
+                usePreviewPresenter({contentContainerRef}),
+            );
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "set-a11y-enabled",
+                            enabled: true,
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "content-data",
+                            content: {
+                                type: "question",
+                                data: {
+                                    question: {
+                                        content: "What is 2+2?",
+                                        widgets: {},
+                                        images: {},
+                                    },
+                                    apiOptions: {readOnly: true},
+                                    linterContext: {
+                                        contentType: "exercise",
+                                        highlightLint: false,
+                                    },
+                                },
+                            },
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            act(() => {
+                jest.advanceTimersByTime(1500);
+            });
+
+            await waitFor(() => {
+                expect(mockParentWindow.postMessage).toHaveBeenCalledWith(
+                    expect.objectContaining({type: "a11y-report"}),
+                    "/",
+                );
+            });
+
+            const reportCall = mockPostMessage.mock.calls.find(
+                (call) => call[0].type === "a11y-report",
+            );
+            const previewId = reportCall[0].violations[0].previewId;
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "highlight-issues",
+                            previewIds: [previewId],
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            expect(result.current.highlightTargets).toEqual([targetElement]);
+
+            // Act
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "clear-highlights",
+                        },
+                        source: mockParentWindow,
+                    }),
+                );
+            });
+
+            // Assert
+            expect(result.current.highlightTargets).toEqual([]);
         });
     });
 
