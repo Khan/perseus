@@ -291,7 +291,7 @@
 
 .MafsView .movable-arrowhead-ring {
     stroke: var(--wb-semanticColor-core-border-knockout-default);
-    stroke-width: 8px;
+    stroke-width: var(--wb-sizing-size_080);
     vector-effect: non-scaling-stroke;
     transform-box: fill-box;
     transform-origin: 100% 50%;
