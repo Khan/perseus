@@ -7,8 +7,8 @@ import {
     createPreviewSetA11yEnabledMessage,
 } from "./message-types";
 
-import type {Issue} from "../components/issues-panel";
 import type {PreviewContent} from "./message-types";
+import type {Issue} from "../components/issues-panel";
 
 const issue = (id: string): Issue => ({
     id,
