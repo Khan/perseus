@@ -235,6 +235,10 @@ union (as above) for the wrapper to accept them.
   or (b) map `"exact" → undefined` before writing `match` (removes the cast and
   the hack, but is a behavioral/semantics change worth confirming). Recommend
   (a) unless we explicitly want to also close LEMS-2656's `match` hack here.
+    - Answer: use a switch statement to convert the selected value to a valid
+      `match` value. Use `UnreachableCaseError` to prove the switch is
+      exhaustive. Do not cast.
+
 - **Dynamic options and the `Object.fromEntries` widening.** Building `options`
   from an array/`Object.keys` yields a `Record<string, ...>`, so `ValueT`
   infers to `string` and no narrowing is gained. To keep type safety for
@@ -242,13 +246,21 @@ union (as above) for the wrapper to accept them.
   argument explicitly (`TypedSingleSelect<LockedFigureColor>` etc.) so
   `options` must cover the union. Confirm this explicit-type-arg approach is
   acceptable versus writing each `options` object as a literal.
+    - Answer: Rewrite the `Object.keys` cases to use a separate, explicit
+      options object.
+
 - **`OptionItem` extras (`leftAccessory`).** `color-select.tsx` renders a
   `<ColorSwatch/>` via `OptionItem`'s `leftAccessory`. The current wrapper's
   `options` model only carries a label string. Either extend the wrapper's
   option value to allow richer content, or leave `color-select` on raw
   `SingleSelect`. Which do we want? (If extending, keep the label-string form
   working for the other 15 sites.)
+    - Answer: Extend the option value to have a type like `string | {label: string, leftAccessory: ReactNode}`.
+
 - **Should `TypedSingleSelect` get a Storybook story?** The repo convention adds
   stories for components in `components/`; the task doesn't ask for one.
+    - Answer: No story.
+
 - **Changeset.** perseus-editor is published; a `pnpm changeset` (patch) is
   normally required. Confirm whether this internal-only refactor needs one.
+    - Answer: Generate a patch-release changeset.
