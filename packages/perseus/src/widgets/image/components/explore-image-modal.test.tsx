@@ -20,7 +20,6 @@ import {
 
 import {ExploreImageModal} from "./explore-image-modal";
 
-import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 jest.mock("../utils", () => ({
@@ -46,12 +45,11 @@ function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
 
 const defaultProps = {
     options: generateImageOptions({
-        // Images should have alt text, and need alt text to be detectable
-        // by the testing library.
-        alt: "widget alt text",
-        // Explore image modal is only showing up because there is
-        // a long description.
-        longDescription: "widget long description",
+        backgroundImage: earthMoonImage,
+        // Images need alt text to be detectable by the testing library.
+        alt: "default alt text - do not assert",
+        // The ExploreImageModal is only shown when there is a long description.
+        longDescription: "default long description - do not assert",
     }),
     linterContext: {
         contentType: "",
@@ -63,15 +61,6 @@ const defaultProps = {
     setIsGifPlaying: () => {},
     widgetId: "image 1",
 };
-
-// Render the modal with the default props, overriding specific widget options
-// (e.g. the background image) merged onto the defaults.
-function renderModalWithOptions(options: Partial<PerseusImageWidgetOptions>) {
-    return renderModal({
-        ...defaultProps,
-        options: {...defaultProps.options, ...options},
-    });
-}
 
 describe("ExploreImageModal", () => {
     let userEvent: UserEvent;
@@ -128,14 +117,21 @@ describe("ExploreImageModal", () => {
     });
 
     it("should have null content if there is no background image URL", () => {
-        // Arrange, Act
-        renderModalWithOptions({
-            backgroundImage: {
-                url: undefined,
-                width: 100,
-                height: 100,
+        // Arrange
+        const props = {
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: undefined,
+                    width: 100,
+                    height: 100,
+                },
             },
-        });
+        };
+
+        // Act
+        renderModal(props);
         act(() => {
             jest.runAllTimers();
         });
@@ -150,14 +146,21 @@ describe("ExploreImageModal", () => {
     });
 
     it("should still render the modal content if the width is not provided", () => {
-        // Arrange, Act
-        renderModalWithOptions({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: undefined,
-                height: 100,
+        // Arrange
+        const props = {
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: undefined,
+                    height: 100,
+                },
             },
-        });
+        };
+
+        // Act
+        renderModal(props);
         act(() => {
             jest.runAllTimers();
         });
@@ -172,14 +175,21 @@ describe("ExploreImageModal", () => {
     });
 
     it("should still render the modal content if the height is not provided", () => {
-        // Arrange, Act
-        renderModalWithOptions({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 100,
-                height: undefined,
+        // Arrange
+        const props = {
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: 100,
+                    height: undefined,
+                },
             },
-        });
+        };
+
+        // Act
+        renderModal(props);
         act(() => {
             jest.runAllTimers();
         });
@@ -209,7 +219,10 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        renderModalWithOptions({title: "widget title"});
+        renderModal({
+            ...defaultProps,
+            options: {...defaultProps.options, title: "widget title"},
+        });
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -221,9 +234,12 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        renderModalWithOptions({
-            backgroundImage: earthMoonImage,
-            caption: "widget caption",
+        renderModal({
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                caption: "widget caption",
+            },
         });
 
         // Assert
@@ -234,22 +250,28 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        renderModalWithOptions({
-            backgroundImage: earthMoonImage,
-            longDescription: "widget long description",
+        renderModal({
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                longDescription: "a lengthy description",
+            },
         });
 
         // Assert
         const descriptionLabel = screen.getByText("Description");
         expect(descriptionLabel).toBeInTheDocument();
-        expect(screen.getByText("widget long description")).toBeInTheDocument();
+        expect(screen.getByText("a lengthy description")).toBeInTheDocument();
     });
 
     it("sets the describedby to short and long description IDs if there is a caption", () => {
         // Arrange, Act
-        renderModalWithOptions({
-            backgroundImage: earthMoonImage,
-            caption: "widget caption",
+        renderModal({
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                caption: "widget caption",
+            },
         });
 
         // Assert
@@ -262,9 +284,12 @@ describe("ExploreImageModal", () => {
 
     it("sets the describedby to long description ID if there is no caption", () => {
         // Arrange, Act
-        renderModalWithOptions({
-            backgroundImage: earthMoonImage,
-            longDescription: "widget long description",
+        renderModal({
+            ...defaultProps,
+            options: {
+                ...defaultProps.options,
+                caption: "",
+            },
         });
 
         // Assert
@@ -287,8 +312,12 @@ describe("ExploreImageModal", () => {
 
         it("should render gif controls if the image is a multi frame gif", async () => {
             // Arrange, Act — beforeEach decodes the gif into two frames
-            renderModalWithOptions({
-                backgroundImage: animatedGifLandscape,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Assert — wait for the async GIF decode to report frame count
@@ -303,8 +332,12 @@ describe("ExploreImageModal", () => {
             // eslint-disable-next-line no-restricted-syntax
             (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
             //Act
-            renderModalWithOptions({
-                backgroundImage: nonAnimatedGif,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: nonAnimatedGif,
+                },
             });
 
             // Assert
@@ -324,8 +357,12 @@ describe("ExploreImageModal", () => {
 
         it("should not render gif controls if the image is not a gif", () => {
             // Arrange, Act
-            renderModalWithOptions({
-                backgroundImage: earthMoonImage,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: earthMoonImage,
+                },
             });
 
             // Assert
@@ -341,8 +378,12 @@ describe("ExploreImageModal", () => {
 
         it("should show the pause icon when the gif is playing when it is a multi frame gif", async () => {
             // Arrange
-            renderModalWithOptions({
-                backgroundImage: animatedGifLandscape,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — the modal starts paused, so click Play first
@@ -359,9 +400,14 @@ describe("ExploreImageModal", () => {
         });
 
         it("should show the play icon when the gif is paused", async () => {
-            // Arrange — the modal always opens in a paused state
-            renderModalWithOptions({
-                backgroundImage: animatedGifLandscape,
+            // Arrange
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
+                isGifPlaying: false,
             });
 
             // Act
@@ -375,8 +421,12 @@ describe("ExploreImageModal", () => {
 
         it("should toggle the gif playing state when the play button is clicked when it is a multi frame gif", async () => {
             // Arrange
-            renderModalWithOptions({
-                backgroundImage: animatedGifLandscape,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — modal starts paused, click Play
@@ -393,8 +443,12 @@ describe("ExploreImageModal", () => {
 
         it("should toggle the gif playing state when the pause button is clicked when it is a multi frame gif", async () => {
             // Arrange
-            renderModalWithOptions({
-                backgroundImage: animatedGifLandscape,
+            renderModal({
+                ...defaultProps,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — click Play then Pause
