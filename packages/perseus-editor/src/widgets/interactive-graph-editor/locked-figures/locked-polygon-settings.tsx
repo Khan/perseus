@@ -1,16 +1,16 @@
 import {
-    getDefaultFigureForType,
     type Coord,
-    type LockedFigureFillType,
-    type LockedPolygonType,
+    getDefaultFigureForType,
     type LockedFigureColor,
+    type LockedFigureFillType,
     type LockedLabelType,
+    type LockedPolygonType,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
-import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowFatDown from "@phosphor-icons/core/regular/arrow-fat-down.svg";
 import arrowFatLeft from "@phosphor-icons/core/regular/arrow-fat-left.svg";
@@ -34,7 +34,6 @@ import LockedLabelSettings from "./locked-label-settings";
 import styles from "./locked-polygon-settings.module.css";
 import PolygonSwatch from "./polygon-swatch";
 import {
-    fillStyleOptions,
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
@@ -225,7 +224,12 @@ const LockedPolygonSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={fillStyleOptions}
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     />

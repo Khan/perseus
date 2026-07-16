@@ -3,7 +3,7 @@ import {components} from "@khanacademy/perseus";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
@@ -22,7 +22,6 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
-    fillStyleOptions,
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
@@ -31,7 +30,6 @@ import {
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     Coord,
-    LockedFigureFillType,
     LockedEllipseType,
     LockedFigureColor,
     LockedLabelType,
@@ -234,11 +232,16 @@ const LockedEllipseSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <TypedSingleSelect<LockedFigureFillType>
+                    <TypedSingleSelect
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={fillStyleOptions}
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     />

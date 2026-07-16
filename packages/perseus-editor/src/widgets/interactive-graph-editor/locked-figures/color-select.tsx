@@ -17,52 +17,33 @@ interface Props {
     onChange: (newColor: LockedFigureColor) => void;
 }
 
-// Each color's label is its name, shown alongside a swatch of that color.
-// This is written as an explicit record (rather than mapped from
-// `lockedFigureColorNames`) so TypeScript proves every color is covered.
-const colorOptions: Record<
-    LockedFigureColor,
-    {label: string; leftAccessory: React.ReactNode}
-> = {
-    blue: {
-        label: "blue",
-        leftAccessory: <ColorSwatch color="blue" decorative />,
-    },
-    gold: {
-        label: "gold",
-        leftAccessory: <ColorSwatch color="gold" decorative />,
-    },
-    green: {
-        label: "green",
-        leftAccessory: <ColorSwatch color="green" decorative />,
-    },
-    grayH: {
-        label: "grayH",
-        leftAccessory: <ColorSwatch color="grayH" decorative />,
-    },
-    purple: {
-        label: "purple",
-        leftAccessory: <ColorSwatch color="purple" decorative />,
-    },
-    pink: {
-        label: "pink",
-        leftAccessory: <ColorSwatch color="pink" decorative />,
-    },
-    red: {label: "red", leftAccessory: <ColorSwatch color="red" decorative />},
-};
-
 const ColorSelect = (props: Props) => {
     const {selectedValue, style, editingDisabled = false, onChange} = props;
+
+    function option(color: LockedFigureColor) {
+        return {
+            label: color,
+            leftAccessory: <ColorSwatch color={color} decorative />,
+        };
+    }
 
     return (
         <View className={styles.row} style={style}>
             <BodyText tag="label" className={styles.row}>
                 color
-                <TypedSingleSelect<LockedFigureColor>
+                <TypedSingleSelect
                     selectedValue={selectedValue}
                     disabled={editingDisabled}
                     onChange={onChange}
-                    options={colorOptions}
+                    options={{
+                        blue: option("blue"),
+                        gold: option("gold"),
+                        green: option("green"),
+                        grayH: option("grayH"),
+                        purple: option("purple"),
+                        pink: option("pink"),
+                        red: option("red"),
+                    }}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 />
