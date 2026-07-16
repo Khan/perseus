@@ -2,8 +2,8 @@ import * as React from "react";
 
 import {usePreviewController} from "./preview/use-preview-controller";
 
-import type {A11yReport} from "./preview/use-preview-controller";
 import type {PreviewContent} from "./preview/message-types";
+import type {A11yReport} from "./preview/use-preview-controller";
 
 type Props = {
     /**
@@ -96,9 +96,12 @@ function PreviewWithIframe(props: Props) {
         }
     }, [highlightIssues, clearHighlights, props.highlightPreviewIds]);
 
+    // Destructured so the effect depends on the specific prop rather than the
+    // whole `props` object (which changes on every render).
+    const {onA11yReport} = props;
     React.useEffect(() => {
-        props.onA11yReport?.(a11yReport);
-    }, [a11yReport, props.onA11yReport]);
+        onA11yReport?.(a11yReport);
+    }, [a11yReport, onA11yReport]);
 
     // Update container height based on iframe content height if we're in
     // seamless mode.
