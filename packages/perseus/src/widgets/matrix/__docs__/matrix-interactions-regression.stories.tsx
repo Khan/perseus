@@ -58,18 +58,18 @@ export const TypeIntoCells: Story = {
     },
 };
 
-// Verifies the RTL layout when a cell is focused. Focuses the "first"
-// (col 0) cell of the middle row, which appears rightmost when the grid is
-// flipped for RTL.
-export const RightToLeftFocused: Story = {
+// Verifies the RTL layout when a cell is focused. Focuses the bottom-right
+// cell (row 2, col 2), which is index 8 in row-major order.
+// REGRESSION: Matrices do NOT flip in right-to-left languages. This story should
+// be no different from the FocusedOutsideCell story.
+export const FocusedOutsideCellRTL: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
     args: {
         matrixBoardSize: [3, 3],
     },
     play: async ({canvas}) => {
         const inputs = canvas.getAllByRole("textbox");
-        // Cell (row=1, col=0) is at index 3 in a 3×3 row-major grid; in RTL
-        // this is the rightmost cell of the middle row.
-        inputs[3].focus();
+        // Cell (row=2, col=2) is at index 8 in a 3×3 row-major grid
+        inputs[8].focus();
     },
 };
