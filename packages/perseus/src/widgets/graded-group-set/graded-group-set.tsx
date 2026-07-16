@@ -33,11 +33,7 @@ type IndicatorsProps = {
     onChangeCurrentGroup: (groupNumber: number) => void;
 };
 
-// Exported so its visual regression story can render the pips in isolation,
-// without an ArticleRenderer or a child widget to visualize them. The pips are
-// driven purely by the group count and the current group, so nothing else is
-// needed to snapshot them.
-export class Indicators extends React.Component<IndicatorsProps> {
+class Indicators extends React.Component<IndicatorsProps> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

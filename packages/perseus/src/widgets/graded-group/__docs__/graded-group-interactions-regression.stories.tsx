@@ -1,13 +1,11 @@
 import {
-    generateNumericInputAnswer,
-    generateNumericInputOptions,
-    generateNumericInputWidget,
-    generateRadioChoice,
-    generateRadioOptions,
-    generateRadioWidget,
+    generateDropdownOptions,
+    generateDropdownWidget,
 } from "@khanacademy/perseus-core";
+import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {gradedGroupRendererDecorator} from "./graded-group-renderer-decorator";
 
@@ -34,48 +32,25 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// Content is kept to a bare dropdown with self-describing options so the
+// snapshots stay focused on graded-group's own chrome, not the question. Two
+// options are needed so the incorrect-answer stories have a wrong choice to pick.
 const sharedArgs = {
     title: "Check your understanding!",
-    content:
-        "Which of the following is a renewable energy source?\n\n[[☃ radio 1]]\n\n",
+    content: "[[☃ dropdown 1]]",
     widgets: {
-        "radio 1": generateRadioWidget({
-            options: generateRadioOptions({
+        "dropdown 1": generateDropdownWidget({
+            options: generateDropdownOptions({
+                placeholder: "Select an answer",
                 choices: [
-                    generateRadioChoice("Coal"),
-                    generateRadioChoice("Natural gas"),
-                    generateRadioChoice("Solar power", {correct: true}),
-                    generateRadioChoice("Petroleum"),
+                    {content: "Correct answer", correct: true},
+                    {content: "Incorrect answer", correct: false},
                 ],
             }),
         }),
     },
     hint: {
-        content:
-            "Solar power is renewable because sunlight is continuously available.",
-        images: {},
-        widgets: {},
-    },
-    hasHint: true,
-    images: {},
-} satisfies Partial<PerseusGradedGroupWidgetOptions>;
-
-// Correct-answer stories use numeric-input rather than radio: on a correct
-// answer graded-group renders a radio widget's full grading UI (highlighted
-// choices), which would obscure graded-group's own correct-answer chrome.
-const numericInputArgs = {
-    title: "Check your understanding!",
-    content: "$0.5 + 0.4 =$ [[☃ numeric-input 1]]",
-    widgets: {
-        "numeric-input 1": generateNumericInputWidget({
-            options: generateNumericInputOptions({
-                answers: [generateNumericInputAnswer({value: 0.9})],
-            }),
-        }),
-    },
-    hint: {
-        content:
-            "Think in tenths: $5$ tenths $+ 4$ tenths $= 9$ tenths $= 0.9$.",
+        content: "This is a hint.",
         images: {},
         widgets: {},
     },
@@ -84,10 +59,14 @@ const numericInputArgs = {
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
 export const DesktopCorrectAnswer: Story = {
-    args: numericInputArgs,
+    args: sharedArgs,
     play: async ({canvas, userEvent}) => {
-        const input = canvas.getByRole("textbox");
-        await userEvent.type(input, "0.9");
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const correctOption = within(document.body).getByRole("option", {
+            name: "Correct answer",
+        });
+        await userEvent.click(correctOption);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },
@@ -96,10 +75,12 @@ export const DesktopCorrectAnswer: Story = {
 export const DesktopIncorrectAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
-        const incorrectChoice = canvas.getByRole("button", {
-            name: /^\(Choice A\)/,
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const wrongOption = within(document.body).getByRole("option", {
+            name: "Incorrect answer",
         });
-        await userEvent.click(incorrectChoice);
+        await userEvent.click(wrongOption);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },
@@ -113,7 +94,7 @@ export const DesktopInvalidAnswer: Story = {
     },
 };
 
-export const HintExpanded: Story = {
+export const DesktopHintExpanded: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
@@ -123,11 +104,67 @@ export const HintExpanded: Story = {
 
 export const MobileHintExpanded: Story = {
     args: sharedArgs,
+    decorators: [mobileDecorator],
     parameters: {
         apiOptions: {isMobile: true},
     },
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
         await userEvent.click(explainButton);
+    },
+};
+
+// Mobile answer bar states, reached through the real learner flow: on mobile the
+// graded group renders its Check button in an answer bar at the bottom, so these
+// stories drive it into each state the way a learner would rather than rendering
+// the bar in isolation. (The "Next question" state lives in the graded-group-set
+// stories — a standalone graded group never shows that button.)
+
+// Selecting an option makes the group answerable, enabling the Check button.
+export const MobileAnswerBarActive: Story = {
+    args: sharedArgs,
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}},
+    play: async ({canvas, userEvent}) => {
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const option = within(document.body).getByRole("option", {
+            name: "Correct answer",
+        });
+        await userEvent.click(option);
+    },
+};
+
+// A wrong answer swaps the Check button for the neutral "try again" icon.
+export const MobileAnswerBarIncorrect: Story = {
+    args: sharedArgs,
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}},
+    play: async ({canvas, userEvent}) => {
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const wrongOption = within(document.body).getByRole("option", {
+            name: "Incorrect answer",
+        });
+        await userEvent.click(wrongOption);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+// A correct answer shows the success star in the answer bar.
+export const MobileAnswerBarCorrect: Story = {
+    args: sharedArgs,
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}},
+    play: async ({canvas, userEvent}) => {
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const correctOption = within(document.body).getByRole("option", {
+            name: "Correct answer",
+        });
+        await userEvent.click(correctOption);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
     },
 };

@@ -1,9 +1,15 @@
-import {generateGradedGroupOptions} from "@khanacademy/perseus-core";
-import * as React from "react";
+import {
+    generateDropdownOptions,
+    generateDropdownWidget,
+    generateGradedGroupOptions,
+} from "@khanacademy/perseus-core";
+import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {articleDecorator} from "../../__testutils__/story-decorators";
-import {Indicators} from "../graded-group-set";
+import {
+    articleDecorator,
+    mobileArticleDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {
     gradedGroupSetRendererDecorator,
@@ -32,40 +38,62 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Group content is plain text (no child widget): navigating between groups by
-// clicking the indicator pips doesn't require a scorable widget. The pips'
-// resting visuals are covered by the IndicatorPips story in the Initial State
-// file, and answering → answer-bar-state transitions are covered by
-// graded-group's unit tests plus the answer-bar regression story.
+// Keyboard-navigates between groups: the pips come first in tab order, so two
+// tabs focus the second pip and Enter navigates to it. This one snapshot covers
+// three things — the focus ring on a pip, that navigation works, and that the
+// content changes to the second group ("Problem 1b"). Group content is plain
+// text (no child widget) since navigation doesn't need a scorable widget.
 export const IndicatorNavigation: Story = {
     decorators: [gradedGroupSetRendererDecorator, articleDecorator],
     args: twoGroupArgs,
-    play: async ({canvas, userEvent}) => {
-        const secondIndicator = canvas.getByRole("button", {
-            name: "Problem 1b",
-        });
-        await userEvent.click(secondIndicator);
+    play: async ({userEvent}) => {
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.keyboard("{Enter}");
     },
 };
 
-// Indicators only reads each group's `title`, so a few generated groups are all
-// it needs to render the pips in isolation — no child widget required.
-const makeGroups = (count: number) =>
-    Array.from({length: count}, (_, i) =>
-        generateGradedGroupOptions({title: `Problem ${i + 1}`}),
-    );
+// A set with a scorable first group so the answer bar's "Next question" button
+// can be reached the way a learner reaches it: answer the first group correctly
+// on mobile and, because a later group remains, the set passes onNextQuestion to
+// the group, surfacing the button. This state only exists in a set — a
+// standalone graded group never shows "Next question".
+const firstGroupScorableArgs = {
+    gradedGroups: [
+        generateGradedGroupOptions({
+            title: "Problem 1a",
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        placeholder: "Select an answer",
+                        choices: [
+                            {content: "Correct answer", correct: true},
+                            {content: "Incorrect answer", correct: false},
+                        ],
+                    }),
+                }),
+            },
+        }),
+        generateGradedGroupOptions({
+            title: "Problem 1b",
+            content: "The second problem in the set.",
+        }),
+    ],
+} satisfies Partial<PerseusGradedGroupSetWidgetOptions>;
 
-// Tabbing to the first pip focuses it, which draws the hover/focus outline
-// ring. Hover produces the same ring, so this one snapshot covers both.
-export const IndicatorPipFocused: Story = {
-    render: () => (
-        <Indicators
-            currentGroup={0}
-            gradedGroups={makeGroups(5)}
-            onChangeCurrentGroup={() => {}}
-        />
-    ),
-    play: async ({userEvent}) => {
-        await userEvent.tab();
+export const MobileFirstGroupCorrectAnswer: Story = {
+    decorators: [gradedGroupSetRendererDecorator, mobileArticleDecorator],
+    args: firstGroupScorableArgs,
+    parameters: {apiOptions: {isMobile: true}},
+    play: async ({canvas, userEvent}) => {
+        const dropdown = canvas.getByRole("combobox");
+        await userEvent.click(dropdown);
+        const correctOption = within(document.body).getByRole("option", {
+            name: "Correct answer",
+        });
+        await userEvent.click(correctOption);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
     },
 };
