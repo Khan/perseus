@@ -86,12 +86,7 @@ export const MovableArrowheadView = forwardRef(
         props: Props,
         hitboxRef: ForwardedRef<SVGGElement>,
     ) {
-        const {
-            showTooltips,
-            interactiveColor,
-            disableKeyboardInteraction,
-            snapStep,
-        } = useGraphConfig();
+        const {showTooltips, interactiveColor, snapStep} = useGraphConfig();
         const {
             point,
             angle,
@@ -101,10 +96,6 @@ export const MovableArrowheadView = forwardRef(
             showFocusRing,
             onClick = () => {},
         } = props;
-
-        const wbColorName = disableKeyboardInteraction
-            ? "fadedOffBlack64"
-            : "blue";
 
         const classes = classNames(
             "movable-arrowhead",
