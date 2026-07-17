@@ -90,6 +90,12 @@ export function usePreviewController(
     const currentContentRef = React.useRef<PreviewContent | null>(null);
     const currentA11yEnabledRef = React.useRef(false);
 
+    // Monotonic version of the preview content, bumped on every `sendData`.
+    // Lets us discard scan results and highlights that a newer edit has
+    // already superseded: we stamp each content update with it and the iframe
+    // echoes it back.
+    const contentVersionRef = React.useRef(0);
+
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -117,6 +123,7 @@ export function usePreviewController(
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
                             currentA11yEnabledRef.current,
+                            contentVersionRef.current,
                         ),
                         "/",
                     );
@@ -129,6 +136,11 @@ export function usePreviewController(
                     break;
 
                 case "a11y-report":
+                    // Discard a report computed against content a newer edit
+                    // has since superseded.
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setA11yReport({
                         violations: message.violations,
                         incompletes: message.incompletes,
@@ -151,6 +163,7 @@ export function usePreviewController(
     const sendData = React.useCallback(
         (data: PreviewContent) => {
             currentContentRef.current = data;
+            contentVersionRef.current += 1;
 
             // If iframe hasn't sent iframe-ready yet, the iframe-init reply
             // above will carry this once it does.
@@ -167,6 +180,7 @@ export function usePreviewController(
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
                 content: sanitizePreviewData(data),
+                contentVersion: contentVersionRef.current,
             };
 
             contentWindow.postMessage(message, "/");
@@ -207,7 +221,10 @@ export function usePreviewController(
             }
 
             contentWindow.postMessage(
-                createPreviewHighlightIssuesMessage(previewIds),
+                createPreviewHighlightIssuesMessage(
+                    previewIds,
+                    contentVersionRef.current,
+                ),
                 "/",
             );
         },
