@@ -1,5 +1,14 @@
 # @khanacademy/perseus-linter
 
+## 5.1.15
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.3.1
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/kmath@2.4.34
+
 ## 5.1.14
 
 ### Patch Changes
