@@ -19,11 +19,7 @@ concurrency:
 jobs:
     chromatic:
         name: Publish Storybook to Chromatic
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.18.0]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             # chromaui/@action doesn't work with shallow checkouts which is the
             # default for actions/checkout so we need to force it to checkout
@@ -43,8 +39,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
 
             - name: Publish to Chromatic for visual testing
               uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
