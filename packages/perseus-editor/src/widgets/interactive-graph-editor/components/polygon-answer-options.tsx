@@ -1,11 +1,9 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 import {parsePointCount} from "../../../util/points";
@@ -20,15 +18,22 @@ import type {
 
 const {InfoTip} = components;
 
-const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
-    return (
-        <OptionItem
-            key={`polygon-sides-${value}`}
-            value={`${value}`}
-            label={`${value} sides`}
-        />
-    );
-});
+// Keys are the side counts (plus the "unlimited" sigil); values are the
+// visible labels. `ValueT` is `string` here — the count is parsed back with
+// `parsePointCount` in `onChange`.
+const POLYGON_SIDES_OPTIONS: Record<string, string> = {
+    "3": "3 sides",
+    "4": "4 sides",
+    "5": "5 sides",
+    "6": "6 sides",
+    "7": "7 sides",
+    "8": "8 sides",
+    "9": "9 sides",
+    "10": "10 sides",
+    "11": "11 sides",
+    "12": "12 sides",
+    unlimited: "unlimited sides",
+};
 
 interface Props {
     correct: PerseusGraphTypePolygon;
@@ -44,13 +49,14 @@ export default function PolygonAnswerOptions({
     return (
         <>
             <LabeledRow label="Number of sides:">
-                <SingleSelect
+                <TypedSingleSelect
                     key="polygon-select"
                     selectedValue={
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         correct?.numSides ? `${correct.numSides}` : "3"
                     }
                     placeholder=""
+                    options={POLYGON_SIDES_OPTIONS}
                     onChange={(newValue) => {
                         invariant(graph?.type === "polygon");
                         const updates = {
@@ -75,16 +81,7 @@ export default function PolygonAnswerOptions({
                         });
                     }}
                     className={styles.singleSelectShort}
-                >
-                    {[
-                        ...POLYGON_SIDES,
-                        <OptionItem
-                            key="unlimited"
-                            value="unlimited"
-                            label="unlimited sides"
-                        />,
-                    ]}
-                </SingleSelect>
+                />
             </LabeledRow>
             <LabeledRow label="Snap to:">
                 <TypedSingleSelect

@@ -1,7 +1,6 @@
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
-import _ from "underscore";
 
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
 
@@ -17,13 +16,27 @@ interface Props {
     onChange: (props: Partial<EditorProps>) => void;
 }
 
+// Keys are the segment counts; values are the visible labels. `ValueT` is
+// `string` here — the count is parsed back to a number in `onChange` — so this
+// gains no type safety, but keeps the options model consistent with the other
+// selectors.
+const segmentCountOptions: Record<string, string> = {
+    "1": "1 segment",
+    "2": "2 segments",
+    "3": "3 segments",
+    "4": "4 segments",
+    "5": "5 segments",
+    "6": "6 segments",
+};
+
 const SegmentCountSelector = ({correct, graph, onChange}: Props) => (
     <LabeledRow label="Number of segments:">
-        <SingleSelect
+        <TypedSingleSelect
             key="segment-select"
             selectedValue={`${correct.numSegments ?? 1}`}
             // Never uses placeholder, always has value
             placeholder=""
+            options={segmentCountOptions}
             onChange={(newValue) => {
                 const sides = +newValue;
 
@@ -40,15 +53,7 @@ const SegmentCountSelector = ({correct, graph, onChange}: Props) => (
                 });
             }}
             className={styles.singleSelectShort}
-        >
-            {_.range(1, 7).map((n) => (
-                <OptionItem
-                    key={n}
-                    value={`${n}`}
-                    label={`${n} segment${n > 1 ? "s" : ""}`}
-                />
-            ))}
-        </SingleSelect>
+        />
     </LabeledRow>
 );
 

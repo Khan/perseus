@@ -7,7 +7,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -19,6 +18,7 @@ import * as React from "react";
 import {useEffect, useId, useState} from "react";
 
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
@@ -144,6 +144,11 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     const exampleCategories = Object.keys(examples);
+    // Keys and labels are the category names. `ValueT` is `string` here (the
+    // categories are read from `examples`), so no narrowing is gained.
+    const exampleCategoryOptions: Record<string, string> = Object.fromEntries(
+        exampleCategories.map((category) => [category, category]),
+    );
     const exampleCategorySelected = exampleCategory !== "";
     const exampleContent = exampleCategorySelected
         ? examples[exampleCategory]
@@ -229,9 +234,10 @@ const LockedFunctionSettings = (props: Props) => {
                 className={`${styles.row} ${styles.rowSpace} ${styles.axisRow}`}
             >
                 {/* Directional axis (x or y) */}
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={directionalAxis}
                     disabled={editingDisabled}
+                    options={{x: "y =", y: "x ="}}
                     onChange={(newValue) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
@@ -239,10 +245,7 @@ const LockedFunctionSettings = (props: Props) => {
                     className={`${styles.dropdownLabel} ${styles.axisMenu}`}
                     // Placeholder is required, but never gets used.
                     placeholder=""
-                >
-                    <OptionItem value="x" label="y =" />
-                    <OptionItem value="y" label="x =" />
-                </SingleSelect>
+                />
                 {/* Equation entry */}
                 <TextField
                     type="text"
@@ -316,22 +319,13 @@ const LockedFunctionSettings = (props: Props) => {
             >
                 <BodyText tag="label" className={styles.dropdownLabel}>
                     {"Choose a category"}
-                    <SingleSelect
+                    <TypedSingleSelect
                         selectedValue={exampleCategory}
                         disabled={editingDisabled}
+                        options={exampleCategoryOptions}
                         onChange={setExampleCategory}
                         placeholder="examples"
-                    >
-                        {exampleCategories.map((category) => {
-                            return (
-                                <OptionItem
-                                    key={category}
-                                    value={category}
-                                    label={category}
-                                />
-                            );
-                        })}
-                    </SingleSelect>
+                    />
                 </BodyText>
                 {exampleCategorySelected && (
                     <ul className={styles.exampleContainer}>

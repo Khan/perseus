@@ -1,12 +1,12 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 
+import {TypedSingleSelect} from "./typed-single-select";
 import {alignmentInfoMap} from "./util";
 
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
@@ -30,6 +30,12 @@ export function AlignmentSelect({
     style,
 }: Props) {
     const labelId = useId();
+    // Keys and labels are the same alignment string. `ValueT` is `string` here
+    // (the options come from a prop), so no narrowing is gained; the value is
+    // re-wrapped into a synthetic event below to match the parent's onChange.
+    const alignmentOptions: Record<string, string> = Object.fromEntries(
+        supportedAlignments.map((alignment) => [alignment, alignment]),
+    );
     return (
         <View
             style={[
@@ -44,10 +50,11 @@ export function AlignmentSelect({
             <BodyText id={labelId} tag="span">
                 Alignment
             </BodyText>
-            <SingleSelect
+            <TypedSingleSelect
                 aria-labelledby={labelId}
                 selectedValue={widgetInfo.alignment ?? "default"}
                 disabled={isEditingDisabled}
+                options={alignmentOptions}
                 onChange={(value) => {
                     // Create a synthetic-like event to match the existing
                     // onChange signature expected by WidgetEditor
@@ -59,15 +66,7 @@ export function AlignmentSelect({
                 }}
                 placeholder="Select alignment"
                 style={styles.singleSelectShort}
-            >
-                {supportedAlignments.map((alignment) => (
-                    <OptionItem
-                        key={alignment}
-                        value={alignment}
-                        label={alignment}
-                    />
-                ))}
-            </SingleSelect>
+            />
             <InfoTip>
                 <ul>
                     {supportedAlignments.map((alignment, index) => (
