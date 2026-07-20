@@ -76,16 +76,8 @@ class Indicators extends React.Component<IndicatorsProps> {
                                     <View
                                         style={[
                                             styles.indicatorDot,
-                                            // The active pip fills its whole
-                                            // circle in the fill color (border
-                                            // included) so it reads as one solid
-                                            // dot at the same outer diameter as
-                                            // the non-active ring pips.
                                             isCurrent &&
                                                 styles.indicatorDotActive,
-                                            // Hover/focus adds an offset outline
-                                            // ring to every pip (see the style
-                                            // for why an outline, not a border).
                                             (hovered || focused || pressed) &&
                                                 styles.indicatorDotFocused,
                                         ]}

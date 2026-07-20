@@ -58,15 +58,19 @@ const sharedArgs = {
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
+// A group with no scorable widget scores as correct on Check (zero widgets =
+// 0/0 points), and the desktop Check button is always enabled — so the correct
+// state needs no widget, keeping the snapshot to graded-group's own chrome.
+const textOnlyArgs = {
+    title: "Check your understanding!",
+    content: "This group is marked correct when checked.",
+    widgets: {},
+    images: {},
+} satisfies Partial<PerseusGradedGroupWidgetOptions>;
+
 export const DesktopCorrectAnswer: Story = {
-    args: sharedArgs,
+    args: textOnlyArgs,
     play: async ({canvas, userEvent}) => {
-        const dropdown = canvas.getByRole("combobox");
-        await userEvent.click(dropdown);
-        const correctOption = within(document.body).getByRole("option", {
-            name: "Correct answer",
-        });
-        await userEvent.click(correctOption);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },

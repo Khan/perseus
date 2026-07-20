@@ -43,7 +43,7 @@ type Story = StoryObj<typeof meta>;
 // three things — the focus ring on a pip, that navigation works, and that the
 // content changes to the second group ("Problem 1b"). Group content is plain
 // text (no child widget) since navigation doesn't need a scorable widget.
-export const IndicatorNavigation: Story = {
+export const IndicatorKeyboardNavigation: Story = {
     decorators: [gradedGroupSetRendererDecorator, articleDecorator],
     args: twoGroupArgs,
     play: async ({userEvent}) => {
@@ -53,11 +53,22 @@ export const IndicatorNavigation: Story = {
     },
 };
 
-// A set with a scorable first group so the answer bar's "Next question" button
-// can be reached the way a learner reaches it: answer the first group correctly
-// on mobile and, because a later group remains, the set passes onNextQuestion to
-// the group, surfacing the button. This state only exists in a set — a
-// standalone graded group never shows "Next question".
+// The "Next question" button appears after a correct answer while a later group
+// remains. On desktop, an empty (text-only) group scores correct on Check and
+// the desktop Check button is always enabled, so no widget is needed here. This
+// state only exists in a set — a standalone graded group never shows it.
+export const DesktopNextQuestionButton: Story = {
+    decorators: [gradedGroupSetRendererDecorator, articleDecorator],
+    args: twoGroupArgs,
+    play: async ({canvas, userEvent}) => {
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+// On mobile the answer bar's Check button only enables once the group is
+// answerable (has widget input), so the mobile "Next question" story needs a
+// scorable first group to reach the correct state and surface the button.
 const firstGroupScorableArgs = {
     gradedGroups: [
         generateGradedGroupOptions({
@@ -82,7 +93,7 @@ const firstGroupScorableArgs = {
     ],
 } satisfies Partial<PerseusGradedGroupSetWidgetOptions>;
 
-export const MobileFirstGroupCorrectAnswer: Story = {
+export const MobileNextQuestionButton: Story = {
     decorators: [gradedGroupSetRendererDecorator, mobileArticleDecorator],
     args: firstGroupScorableArgs,
     parameters: {apiOptions: {isMobile: true}},
