@@ -3,6 +3,8 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 
+import {BlankComponent} from "./blank";
+
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusBlankWidgetOptions,
@@ -27,7 +29,7 @@ class BlankWidget extends React.Component<BlankProps> implements Widget {
     }
 
     render(): React.ReactNode {
-        return <BlankWidget {...this.props} />;
+        return <BlankComponent {...this.props} />;
     }
 }
 

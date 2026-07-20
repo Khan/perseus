@@ -22,7 +22,7 @@ class BlankEditor extends React.Component<Props> {
         correct: undefined,
     };
 
-    static widgetName = "my-new-widget" as const;
+    static widgetName = "blank" as const;
 
     render(): React.ReactNode {
         return <span>Blank Widget Stub</span>;

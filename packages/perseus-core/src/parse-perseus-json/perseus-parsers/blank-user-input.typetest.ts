@@ -4,7 +4,6 @@ import {ctx} from "../general-purpose-parsers/test-helpers";
 
 import {parseBlankUserInput} from "./blank-user-input";
 
-// eslint-disable-next-line import/no-restricted-paths
 import type {PerseusBlankUserInput} from "../../validation.types";
 import type {ParseResult} from "../parser-types";
 
