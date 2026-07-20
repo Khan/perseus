@@ -268,7 +268,7 @@ export class PhetSimulation
                 target="_blank"
                 kind="tertiary"
                 actionType="neutral"
-                aria-label={this.context.strings.openSimulationInNewTab}
+                aria-label={this.context.strings.openInNewTab}
                 style={styles.cornerButton}
             />
         );
