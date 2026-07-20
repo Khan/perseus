@@ -10,6 +10,7 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateRadioWidget,
+    generateImageOptions,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
@@ -278,8 +279,7 @@ And what follows are _hints_...
                 alignment: "block",
                 static: false,
                 graded: true,
-                options: {
-                    static: false,
+                options: generateImageOptions({
                     title: "",
                     backgroundImage: {
                         url: "https://ka-perseus-graphie.s3.amazonaws.com/532e339d4d95f9cf6423e66bdc70dd06f1143a97.png",
@@ -289,7 +289,7 @@ And what follows are _hints_...
                     alt: "A right triangle word problem. How far does the parachute fall?",
                     caption:
                         "A right triangle word problem. How far does the parachute fall?",
-                },
+                }),
                 version: {
                     major: 0,
                     minor: 0,
@@ -300,7 +300,7 @@ And what follows are _hints_...
                 alignment: "block",
                 static: false,
                 graded: true,
-                options: {
+                options: generateImageOptions({
                     backgroundImage: {
                         url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
                         width: 2317,
@@ -309,7 +309,7 @@ And what follows are _hints_...
                     alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
                     caption:
                         "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
-                },
+                }),
                 version: {
                     major: 0,
                     minor: 0,
@@ -320,8 +320,7 @@ And what follows are _hints_...
                 alignment: "block",
                 static: false,
                 graded: true,
-                options: {
-                    static: false,
+                options: generateImageOptions({
                     title: "",
                     range: [
                         [0, 10],
@@ -337,7 +336,7 @@ And what follows are _hints_...
                     alt: "A chemical diagram with O atom in the center connected on one side to an R atom by a single bond and on the other side to an H atom by a single bond.",
                     caption:
                         "A chemical diagram with O atom in the center connected on one side to an R atom by a single bond and on the other side to an H atom by a single bond.",
-                },
+                }),
                 version: {major: 0, minor: 0},
             },
             "image 4": {
@@ -345,8 +344,7 @@ And what follows are _hints_...
                 alignment: "block",
                 static: false,
                 graded: true,
-                options: {
-                    static: false,
+                options: generateImageOptions({
                     title: "",
                     backgroundImage: {
                         url: "https://ka-perseus-images.s3.amazonaws.com/c983f96a29a07e5c3369a85f2c9b6ae9d2d07d2b.jpg",
@@ -356,7 +354,7 @@ And what follows are _hints_...
                     alt: "Milo dreaming he is riding on a bird's back to the moon.",
                     caption:
                         "Milo dreaming he is riding on a bird's back to the moon.",
-                },
+                }),
                 version: {
                     major: 0,
                     minor: 0,
@@ -375,7 +373,7 @@ And what follows are _hints_...
                     alignment: "block",
                     static: false,
                     graded: true,
-                    options: {
+                    options: generateImageOptions({
                         backgroundImage: {
                             url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
                             width: 2317,
@@ -384,7 +382,7 @@ And what follows are _hints_...
                         alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
                         caption:
                             "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
-                    },
+                    }),
                     version: {
                         major: 0,
                         minor: 0,
@@ -402,7 +400,7 @@ And what follows are _hints_...
                     alignment: "block",
                     static: false,
                     graded: true,
-                    options: {
+                    options: generateImageOptions({
                         backgroundImage: {
                             url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
                             width: 2317,
@@ -411,7 +409,7 @@ And what follows are _hints_...
                         alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
                         caption:
                             "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
-                    },
+                    }),
                     version: {
                         major: 0,
                         minor: 0,

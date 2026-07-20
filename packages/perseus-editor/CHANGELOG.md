@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 35.0.2
+
+### Patch Changes
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   Updated dependencies [[`7f6bf7a`](https://github.com/Khan/perseus/commit/7f6bf7a2970febb79fe897e4a295a9df5682c5a9), [`f08b5fb`](https://github.com/Khan/perseus/commit/f08b5fb3adc235a6c7f9e419539cd8574d9b9bcf), [`7fa63fa`](https://github.com/Khan/perseus/commit/7fa63fad47c9f7ef80479b99d89f877498cb08c1), [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf), [`920391b`](https://github.com/Khan/perseus/commit/920391bee8c414ac290ee681d672e59155f2c121)]:
+    -   @khanacademy/perseus@81.0.1
+    -   @khanacademy/math-input@26.6.3
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/perseus-linter@5.1.15
+    -   @khanacademy/keypad-context@3.2.75
+    -   @khanacademy/kmath@2.4.34
+
+## 35.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`995be3f`](https://github.com/Khan/perseus/commit/995be3f2f1fedc7354148381fb1acd3b7f3785cc), [`7ca90d3`](https://github.com/Khan/perseus/commit/7ca90d3668010bd6d1c91a8d0250a4c1e77fe860), [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf)]:
+    -   @khanacademy/perseus@81.0.0
+    -   @khanacademy/perseus-core@32.0.0
+    -   @khanacademy/keypad-context@3.2.74
+    -   @khanacademy/kmath@2.4.33
+    -   @khanacademy/math-input@26.6.2
+    -   @khanacademy/perseus-linter@5.1.14
+
 ## 35.0.0
 
 ### Major Changes
