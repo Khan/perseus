@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 81.0.1
+
+### Patch Changes
+
+-   [#3913](https://github.com/Khan/perseus/pull/3913) [`7f6bf7a`](https://github.com/Khan/perseus/commit/7f6bf7a2970febb79fe897e4a295a9df5682c5a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Image widget is now a functional component.
+
+-   [#3918](https://github.com/Khan/perseus/pull/3918) [`f08b5fb`](https://github.com/Khan/perseus/commit/f08b5fb3adc235a6c7f9e419539cd8574d9b9bcf) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Increase Vector arrowhead border from 5px to 8px.
+
+-   [#3882](https://github.com/Khan/perseus/pull/3882) [`7fa63fa`](https://github.com/Khan/perseus/commit/7fa63fad47c9f7ef80479b99d89f877498cb08c1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: fix graphs blocking page scroll on touch devices (iOS 26.5+)
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   [#3919](https://github.com/Khan/perseus/pull/3919) [`920391b`](https://github.com/Khan/perseus/commit/920391bee8c414ac290ee681d672e59155f2c121) Thanks [@jandrade](https://github.com/jandrade)! - Update primitive HEX colors to use semanticColor tokens (to support multiple WB themes including dark mode)
+
+-   Updated dependencies [[`03eced8`](https://github.com/Khan/perseus/commit/03eced8c7ee90996c407c33f382b46b08aee06a2), [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf)]:
+    -   @khanacademy/simple-markdown@3.0.0
+    -   @khanacademy/math-input@26.6.3
+    -   @khanacademy/pure-markdown@2.3.1
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/perseus-linter@5.1.15
+    -   @khanacademy/keypad-context@3.2.75
+    -   @khanacademy/kmath@2.4.34
+    -   @khanacademy/perseus-score@8.12.7
+
 ## 81.0.0
 
 ### Major Changes
