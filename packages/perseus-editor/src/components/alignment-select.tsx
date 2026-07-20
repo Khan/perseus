@@ -18,7 +18,7 @@ interface Props {
     supportedAlignments: ReadonlyArray<Alignment>;
     widgetInfo: PerseusWidget;
     isEditingDisabled: boolean;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    onChange: (newAlignment: Alignment) => void;
     style?: StyleType;
 }
 
@@ -30,12 +30,6 @@ export function AlignmentSelect({
     style,
 }: Props) {
     const labelId = useId();
-    // Keys and labels are the same alignment string. `ValueT` is `string` here
-    // (the options come from a prop), so no narrowing is gained; the value is
-    // re-wrapped into a synthetic event below to match the parent's onChange.
-    const alignmentOptions: Record<string, string> = Object.fromEntries(
-        supportedAlignments.map((alignment) => [alignment, alignment]),
-    );
     return (
         <View
             style={[
@@ -52,18 +46,30 @@ export function AlignmentSelect({
             </BodyText>
             <TypedSingleSelect
                 aria-labelledby={labelId}
-                selectedValue={widgetInfo.alignment ?? "default"}
+                // TODO(benchristel): properly type widgetInfo.alignment and
+                //  remove this cast.
+                // eslint-disable-next-line no-restricted-syntax
+                selectedValue={(widgetInfo.alignment as Alignment) ?? "default"}
                 disabled={isEditingDisabled}
-                options={alignmentOptions}
-                onChange={(value) => {
-                    // Create a synthetic-like event to match the existing
-                    // onChange signature expected by WidgetEditor
-                    // eslint-disable-next-line no-restricted-syntax
-                    const syntheticEvent = {
-                        currentTarget: {value},
-                    } as React.ChangeEvent<HTMLSelectElement>;
-                    onChange(syntheticEvent);
+                options={{
+                    default:
+                        supportedAlignments.includes("default") && "default",
+                    block: supportedAlignments.includes("block") && "block",
+                    "inline-block":
+                        supportedAlignments.includes("inline-block") &&
+                        "inline-block",
+                    inline: supportedAlignments.includes("inline") && "inline",
+                    "wrap-left":
+                        supportedAlignments.includes("wrap-left") &&
+                        "wrap-left",
+                    "wrap-right":
+                        supportedAlignments.includes("wrap-right") &&
+                        "wrap-right",
+                    "full-width":
+                        supportedAlignments.includes("full-width") &&
+                        "full-width",
                 }}
+                onChange={onChange}
                 placeholder="Select alignment"
                 style={styles.singleSelectShort}
             />

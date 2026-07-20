@@ -17,12 +17,8 @@ interface Props {
     onChange: (props: Partial<EditorProps>) => void;
 }
 
-// Keys are the point counts (plus the `UNLIMITED` sigil); values are the
-// visible labels. `ValueT` is `string` here — the count is parsed back with
-// `parsePointCount` in `onChange` — so this gains no type safety, but keeps the
-// options model consistent with the other selectors.
 const pointsCountOptions: Record<string, string> = {
-    "0": "0 point",
+    "0": "0 points",
     "1": "1 point",
     "2": "2 points",
     "3": "3 points",

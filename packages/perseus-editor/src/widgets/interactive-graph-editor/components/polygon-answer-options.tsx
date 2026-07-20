@@ -18,9 +18,6 @@ import type {
 
 const {InfoTip} = components;
 
-// Keys are the side counts (plus the "unlimited" sigil); values are the
-// visible labels. `ValueT` is `string` here — the count is parsed back with
-// `parsePointCount` in `onChange`.
 const POLYGON_SIDES_OPTIONS: Record<string, string> = {
     "3": "3 sides",
     "4": "4 sides",

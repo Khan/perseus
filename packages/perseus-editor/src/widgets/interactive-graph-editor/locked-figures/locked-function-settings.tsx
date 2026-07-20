@@ -26,7 +26,7 @@ import LineSwatch from "./line-swatch";
 import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import examples from "./locked-function-examples";
+import {examples} from "./locked-function-examples";
 import styles from "./locked-function-settings.module.css";
 import LockedLabelSettings from "./locked-label-settings";
 import {
@@ -35,6 +35,7 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {ExampleCategory} from "./locked-function-examples";
 import type {
     LockedFigureColor,
     LockedFunctionType,
@@ -81,7 +82,8 @@ const LockedFunctionSettings = (props: Props) => {
         getDomainStringValues(domain),
     );
 
-    const [exampleCategory, setExampleCategory] = useState("");
+    const [exampleCategory, setExampleCategory] =
+        useState<ExampleCategory | null>(null);
 
     useEffect(() => {
         // "useEffect" used to maintain parity between domain/range constraints and their string representation.
@@ -143,16 +145,10 @@ const LockedFunctionSettings = (props: Props) => {
         onChangeProps({domain: newDomain});
     }
 
-    const exampleCategories = Object.keys(examples);
-    // Keys and labels are the category names. `ValueT` is `string` here (the
-    // categories are read from `examples`), so no narrowing is gained.
-    const exampleCategoryOptions: Record<string, string> = Object.fromEntries(
-        exampleCategories.map((category) => [category, category]),
-    );
-    const exampleCategorySelected = exampleCategory !== "";
-    const exampleContent = exampleCategorySelected
-        ? examples[exampleCategory]
-        : ["Select category to see example equations"];
+    const exampleContent =
+        exampleCategory != null
+            ? examples[exampleCategory]
+            : ["Select category to see example equations"];
 
     function handleColorChange(newValue: LockedFigureColor) {
         const newProps: Partial<LockedFunctionType> = {
@@ -322,12 +318,16 @@ const LockedFunctionSettings = (props: Props) => {
                     <TypedSingleSelect
                         selectedValue={exampleCategory}
                         disabled={editingDisabled}
-                        options={exampleCategoryOptions}
+                        options={{
+                            linear: "linear",
+                            polynomial: "polynomial",
+                            trigonometric: "trigonometric",
+                        }}
                         onChange={setExampleCategory}
                         placeholder="examples"
                     />
                 </BodyText>
-                {exampleCategorySelected && (
+                {exampleCategory != null && (
                     <ul className={styles.exampleContainer}>
                         {exampleContent.map((example, index) => (
                             <ExampleItem
