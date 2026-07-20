@@ -1,5 +1,62 @@
 # @khanacademy/perseus-editor
 
+## 35.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`995be3f`](https://github.com/Khan/perseus/commit/995be3f2f1fedc7354148381fb1acd3b7f3785cc), [`7ca90d3`](https://github.com/Khan/perseus/commit/7ca90d3668010bd6d1c91a8d0250a4c1e77fe860), [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf)]:
+    -   @khanacademy/perseus@81.0.0
+    -   @khanacademy/perseus-core@32.0.0
+    -   @khanacademy/keypad-context@3.2.74
+    -   @khanacademy/kmath@2.4.33
+    -   @khanacademy/math-input@26.6.2
+    -   @khanacademy/perseus-linter@5.1.14
+
+## 35.0.0
+
+### Major Changes
+
+-   [#3581](https://github.com/Khan/perseus/pull/3581) [`73a2d90`](https://github.com/Khan/perseus/commit/73a2d90b6066c19a369cdb16e8cedce9a1c0455e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Perseus to use the new preview system (`PreviewWithIframe` and
+    `usePreviewController`).
+
+-   [#3581](https://github.com/Khan/perseus/pull/3581) [`73a2d90`](https://github.com/Khan/perseus/commit/73a2d90b6066c19a369cdb16e8cedce9a1c0455e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Replace deprecated `Changeable.ChangeableProps` / `ChangeHandler` with concrete typed `onChange` signatures on `Editor` and `ArticleEditor`.
+
+-   [#3590](https://github.com/Khan/perseus/pull/3590) [`283cafe`](https://github.com/Khan/perseus/commit/283cafeb3aed30f4841e41cbfbc9c16fb5c14313) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rework the preview message data shapes exposed by `usePreviewController`/`usePreviewPresenter` with clearer field names and a serializable `apiOptions` type.
+
+### Minor Changes
+
+-   [#3762](https://github.com/Khan/perseus/pull/3762) [`f4e74dc`](https://github.com/Khan/perseus/commit/f4e74dc65a40de4c07f0c2ee0f933fdb9a891aab) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add an `"exercise"` variant to the typed preview protocol (`ExercisePreviewData`: `{item, apiOptions, showRationales}`) so the interactive exercise preview can move onto the new hook-based message passing. Purely additive — the existing content variants and hooks are unchanged.
+
+-   [#3764](https://github.com/Khan/perseus/pull/3764) [`5e9ada9`](https://github.com/Khan/perseus/commit/5e9ada90eec96a1565ff160f2e7afe6c29de1c20) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export PreviewContent type and PreviewWithIframe component
+
+-   [#3764](https://github.com/Khan/perseus/pull/3764) [`5e9ada9`](https://github.com/Khan/perseus/commit/5e9ada90eec96a1565ff160f2e7afe6c29de1c20) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export `PreviewContent` and `PreviewWithIframe` from `@khanacademy/perseus-editor` so the Frontend can drive the typed preview protocol. Purely additive — both symbols already existed internally; this only adds them to the package's public entry point.
+
+### Patch Changes
+
+-   [#3892](https://github.com/Khan/perseus/pull/3892) [`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sync deps from Frontend
+
+-   [#3851](https://github.com/Khan/perseus/pull/3851) [`8f74bfb`](https://github.com/Khan/perseus/commit/8f74bfb58c4545da1562bf6e827cae9a85f0da3d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove apiOptions from defaultProps in ExpressionEditor, NumericInputEditor, and FreeResponseEditor. Its provided by the widget editor wrapper always.
+
+-   Updated dependencies [[`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e)]:
+    -   @khanacademy/math-input@26.6.1
+    -   @khanacademy/perseus@80.0.1
+
+## 34.2.1
+
+### Patch Changes
+
+-   [#3870](https://github.com/Khan/perseus/pull/3870) [`15bdd71`](https://github.com/Khan/perseus/commit/15bdd71343c97f393cd27877e2970a0dbaf203e7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix thin border around the interactive graph
+
+-   [#3827](https://github.com/Khan/perseus/pull/3827) [`4ca460f`](https://github.com/Khan/perseus/commit/4ca460f192d7324419aa3876480198517c88d7ea) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Moves issues panel out of item editor into editor
+
+-   Updated dependencies [[`45fbde7`](https://github.com/Khan/perseus/commit/45fbde7323b775e63d32cda12c9c4dfac32c36d1), [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61), [`cbd7ea7`](https://github.com/Khan/perseus/commit/cbd7ea77f72cab10334190e8032f1a011bc0710e), [`86593cf`](https://github.com/Khan/perseus/commit/86593cf72f137c53011f40024cf48d27e76ce6ef), [`387df6c`](https://github.com/Khan/perseus/commit/387df6cc29442ea3dbd7911df66cb4ae9ea011be), [`15bdd71`](https://github.com/Khan/perseus/commit/15bdd71343c97f393cd27877e2970a0dbaf203e7), [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13), [`024ef46`](https://github.com/Khan/perseus/commit/024ef46592113b75311545f48574b7a2a927fc52)]:
+    -   @khanacademy/perseus@80.0.0
+    -   @khanacademy/perseus-core@31.0.0
+    -   @khanacademy/math-input@26.6.0
+    -   @khanacademy/keypad-context@3.2.73
+    -   @khanacademy/kmath@2.4.32
+    -   @khanacademy/perseus-linter@5.1.13
+
 ## 34.2.0
 
 ### Minor Changes

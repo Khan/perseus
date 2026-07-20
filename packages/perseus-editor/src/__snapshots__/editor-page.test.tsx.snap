@@ -135,7 +135,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
       class="perseus-editor-table"
     >
       <div
-        class="perseus-editor-row perseus-question-container"
+        class="perseus-editor-row"
       >
         <div
           class="perseus-editor-left-cell"
@@ -161,12 +161,24 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 </div>
               </div>
               <span
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_x420fm"
-                data-testid="issues-icon-check-circle-fill.svg"
+                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_6947y3"
+                data-testid="issues-icon-warning-octagon-fill.svg"
               />
-              0 issues
+              16 issues
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="perseus-editor-table"
+    >
+      <div
+        class="perseus-editor-row perseus-question-container"
+      >
+        <div
+          class="perseus-editor-left-cell"
+        >
           <div
             class="pod-title"
           >
@@ -1302,7 +1314,7 @@ table: [[☃ table 1]]
                           >
                             <input
                               checked=""
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1334,7 +1346,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -1366,7 +1378,7 @@ table: [[☃ table 1]]
                             class="dropdown-choice"
                           >
                             <input
-                              name="perseus_dropdown_12"
+                              name="perseus_dropdown_13"
                               type="radio"
                             />
                             <input
@@ -6195,14 +6207,6 @@ table: [[☃ table 1]]
                                     >
                                       <line
                                         aria-hidden="true"
-                                        style="stroke: transparent; stroke-width: 44;"
-                                        x1="0"
-                                        x2="14.4"
-                                        y1="0"
-                                        y2="-14.4"
-                                      />
-                                      <line
-                                        aria-hidden="true"
                                         class="movable-line-focus-outline"
                                         x1="0"
                                         x2="14.4"
@@ -6304,12 +6308,6 @@ table: [[☃ table 1]]
                                       style="--movable-point-color: var(--static-gray);"
                                     >
                                       <circle
-                                        class="movable-point-hitbox"
-                                        cx="0"
-                                        cy="0"
-                                        r="24"
-                                      />
-                                      <circle
                                         class="movable-point-halo"
                                         cx="0"
                                         cy="0"
@@ -6338,12 +6336,6 @@ table: [[☃ table 1]]
                                       data-testid="movable-point"
                                       style="--movable-point-color: var(--static-gray);"
                                     >
-                                      <circle
-                                        class="movable-point-hitbox"
-                                        cx="14.4"
-                                        cy="-14.4"
-                                        r="24"
-                                      />
                                       <circle
                                         class="movable-point-halo"
                                         cx="14.4"
@@ -6394,6 +6386,26 @@ table: [[☃ table 1]]
                                   </g>
                                 </svg>
                               </div>
+                            </div>
+                            <div
+                              class="interactive-graph-hitbox-layer"
+                              style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                            >
+                              <div
+                                aria-hidden="true"
+                                data-testid="movable-line__hitbox"
+                                style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 151.2px; top: 136.8px; width: 20.36467529817258px; height: 44px; transform: translate(-50%, -50%) rotate(-45deg);"
+                              />
+                              <div
+                                aria-hidden="true"
+                                data-testid="movable-point__hitbox"
+                                style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 144px; top: 144px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                              />
+                              <div
+                                aria-hidden="true"
+                                data-testid="movable-point__hitbox"
+                                style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 158.4px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                              />
                             </div>
                           </div>
                         </div>
@@ -10419,14 +10431,6 @@ table: [[☃ table 1]]
                                       >
                                         <line
                                           aria-hidden="true"
-                                          style="stroke: transparent; stroke-width: 44;"
-                                          x1="0"
-                                          x2="14.4"
-                                          y1="-14.4"
-                                          y2="-43.2"
-                                        />
-                                        <line
-                                          aria-hidden="true"
                                           class="movable-line-focus-outline"
                                           x1="0"
                                           x2="14.4"
@@ -10528,12 +10532,6 @@ table: [[☃ table 1]]
                                         style="--movable-point-color: var(--static-gray);"
                                       >
                                         <circle
-                                          class="movable-point-hitbox"
-                                          cx="0"
-                                          cy="-14.4"
-                                          r="24"
-                                        />
-                                        <circle
                                           class="movable-point-halo"
                                           cx="0"
                                           cy="-14.4"
@@ -10562,12 +10560,6 @@ table: [[☃ table 1]]
                                         data-testid="movable-point"
                                         style="--movable-point-color: var(--static-gray);"
                                       >
-                                        <circle
-                                          class="movable-point-hitbox"
-                                          cx="14.4"
-                                          cy="-43.2"
-                                          r="24"
-                                        />
                                         <circle
                                           class="movable-point-halo"
                                           cx="14.4"
@@ -10618,6 +10610,26 @@ table: [[☃ table 1]]
                                     </g>
                                   </svg>
                                 </div>
+                              </div>
+                              <div
+                                class="interactive-graph-hitbox-layer"
+                                style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                              >
+                                <div
+                                  aria-hidden="true"
+                                  data-testid="movable-line__hitbox"
+                                  style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 151.2px; top: 115.19999999999999px; width: 32.19937887599697px; height: 44px; transform: translate(-50%, -50%) rotate(-63.43494882292201deg);"
+                                />
+                                <div
+                                  aria-hidden="true"
+                                  data-testid="movable-point__hitbox"
+                                  style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 144px; top: 129.6px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                                />
+                                <div
+                                  aria-hidden="true"
+                                  data-testid="movable-point__hitbox"
+                                  style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 158.4px; top: 100.8px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                                />
                               </div>
                             </div>
                           </div>
@@ -13219,7 +13231,7 @@ table: [[☃ table 1]]
                          
                         <input
                           class="number-input normal"
-                          format="integer"
+                          format="decimal"
                           placeholder="answer"
                           type="text"
                           value="2"
@@ -13237,7 +13249,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="2"
@@ -13249,13 +13261,13 @@ table: [[☃ table 1]]
                         >
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="-5"
                           />
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="5"
                           />
@@ -13275,7 +13287,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="-5"
                             type="text"
                             value="-5"
@@ -13285,7 +13297,7 @@ table: [[☃ table 1]]
                           </span>
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             placeholder="5"
                             type="text"
                             value="5"
@@ -13305,7 +13317,7 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
                             title="Decimals"
                             type="button"
                           >
@@ -13481,7 +13493,7 @@ table: [[☃ table 1]]
                              
                             <input
                               class="number-input"
-                              format="integer"
+                              format="decimal"
                               placeholder="2"
                               type="text"
                               value=""
@@ -13501,7 +13513,7 @@ table: [[☃ table 1]]
                            
                           <input
                             class="number-input"
-                            format="integer"
+                            format="decimal"
                             type="text"
                             value="2"
                           />
@@ -15678,18 +15690,13 @@ table: [[☃ table 1]]
               style="width: 726px;"
             >
               <div>
-                <div
+                <iframe
+                  data-lint-gutter="true"
+                  data-mobile="false"
+                  src=""
                   style="width: 100%; height: 100%;"
-                >
-                  <iframe
-                    data-id="4"
-                    data-lint-gutter="true"
-                    data-mobile="false"
-                    data-name="content-preview"
-                    src=""
-                    style="width: 100%; height: 100%;"
-                  />
-                </div>
+                  title="perseus-preview"
+                />
               </div>
             </div>
           </div>

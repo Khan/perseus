@@ -9,9 +9,9 @@ describe("generateImageOptions", () => {
     test("builds a default image options", () => {
         const options: PerseusImageWidgetOptions = generateImageOptions();
 
-        expect(options.title).toBe(undefined);
-        expect(options.caption).toBe(undefined);
-        expect(options.alt).toBe(undefined);
+        expect(options.title).toBe("");
+        expect(options.caption).toBe("");
+        expect(options.alt).toBe("");
         expect(options.backgroundImage).toEqual({});
     });
 
@@ -39,7 +39,7 @@ describe("generateImageOptions", () => {
 });
 
 describe("generateImageWidget", () => {
-    test("builds a default image widget", () => {
+    it("builds a default image widget", () => {
         const widget: ImageWidget = generateImageWidget();
 
         expect(widget.type).toBe("image");
@@ -47,26 +47,26 @@ describe("generateImageWidget", () => {
         expect(widget.static).toBe(false);
         expect(widget.version).toEqual({major: 0, minor: 0});
         expect(widget.alignment).toBe("default");
-        expect(widget.options).toEqual({backgroundImage: {}});
+        expect(widget.options).toEqual({
+            alt: "",
+            backgroundImage: {},
+            box: [400, 400],
+            caption: "",
+            decorative: false,
+            labels: [],
+            longDescription: "",
+            range: [
+                [0, 10],
+                [0, 10],
+            ],
+            scale: 1,
+            title: "",
+        });
     });
 
-    test("builds an image widget with all props", () => {
+    it("lets you override the defaults", () => {
         const widget: ImageWidget = generateImageWidget({
             graded: false,
-            version: {major: 1, minor: 0},
-            static: true,
-            alignment: "block",
-            options: {backgroundImage: {url: "image.png"}},
-        });
-
-        expect(widget.static).toBe(true);
-        expect(widget.graded).toBe(false);
-        expect(widget.alignment).toBe("block");
-        expect(widget.options).toEqual({backgroundImage: {url: "image.png"}});
-    });
-
-    test("adds options when option builder is used", () => {
-        const widget: ImageWidget = generateImageWidget({
             static: true,
             alignment: "block",
             options: generateImageOptions({
@@ -81,6 +81,7 @@ describe("generateImageWidget", () => {
             }),
         });
 
+        expect(widget.graded).toBe(false);
         expect(widget.static).toBe(true);
         expect(widget.alignment).toBe("block");
         expect(widget.options.title).toBe("the title");

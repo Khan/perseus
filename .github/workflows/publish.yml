@@ -3,6 +3,8 @@ name: Release
 on:
     push:
         branches: [main]
+    pull_request:
+        types: [opened]
     issue_comment:
         types: [created]
 
@@ -20,6 +22,13 @@ on:
                 description: "PR number (required when run_type is snapshot)"
                 required: false
                 type: string
+
+env:
+    # Identifies the PR comment that documents/reports on npm snapshots, so
+    # that we only ever create one comment related to snapshots for any given
+    # PR. This also makes it very easy to find the comment to update it when
+    # needed.
+    SNAPSHOT_COMMENT_MARKER: "<!-- perseus-snapshot-comment -->"
 
 # IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
 # meaning that this workflow can only run one instance, per branch, at a time.
@@ -44,6 +53,45 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
+    # Posts a comment on newly-opened PRs explaining how to request an npm
+    # snapshot. The `publish_snapshot` job below looks up this same comment
+    # (via the `<!-- perseus-snapshot-comment -->` marker, shared across this
+    # comment and the snapshot success/failure comments) and rewrites it in
+    # place, so a PR only ever has one snapshot-related comment.
+    post_snapshot_info:
+        name: Post snapshot info comment
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write # For creating the "how to snapshot" comment
+        steps:
+            # Guards against creating a second comment if this job is manually
+            # re-run (e.g. via "Re-run jobs" in the Actions UI). If a snapshot
+            # comment already exists, we leave it untouched rather than
+            # overwrite it, since it may already reflect a snapshot someone
+            # requested.
+            - name: Find existing comment
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
+              id: find-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "${{ env.SNAPSHOT_COMMENT_MARKER }}"
+
+            - name: Create snapshot info comment
+              if: steps.find-comment.outputs.comment-id == ''
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  body: >-
+                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
+
+                      # npm Snapshot
+
+                      Want to try this PR's changes before it merges? Comment
+                      `/snapshot` below and we'll publish an npm snapshot you
+                      can install right away.
+
     # Production Release
     #
     # This workflow will run changesets depending on two different scenarios:
@@ -111,9 +159,12 @@ jobs:
             - name: ⬆️ Upgrade npm for OIDC support
               shell: bash
               run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+
+                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
+                  # the new v12, which is broken when detecting which packages
+                  # need to be published!
+                  #
                   # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@latest
+                  npm install -g npm@11
                   echo "✅ npm upgraded to $(npm --version)"
 
             - name: Create Release Pull Request or Publish to npm
@@ -250,31 +301,10 @@ jobs:
                   git checkout main
                   git checkout $REF
 
-            # Helper to get the URL of the current run, if we need it.
+            # Helper to get the URL of the current run.
             - name: Get workflow run URL
               id: get-run-url
               run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-
-            # We need to see if any releases are in progress.
-            # We do not want to try and publish anything if a publish is
-            # pending. We fail here, but we make sure to update the
-            # PR comment later. This has to come after the checkout.
-            - name: Check for release
-              id: check-release
-              env:
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  # Releases are triggered by merging "Version Packages" PRs.
-                  # So we look for instances of the publish.yml workflow, with
-                  # a title containing "Version Packages", that are in progress.
-                  release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
-                  echo "release_count=$release_count" >> $GITHUB_OUTPUT
-                  if [ "$release_count" -ne 0 ]; then
-                    echo "Error: There are $release_count releases in progress."
-                    exit 1
-                  else
-                    echo "No releases in progress."
-                  fi
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -284,9 +314,12 @@ jobs:
             - name: ⬆️ Upgrade npm for OIDC support
               shell: bash
               run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+
+                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
+                  # the new v12, which is broken when detecting which packages
+                  # need to be published!
+                  #
                   # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@latest
+                  npm install -g npm@11
                   echo "✅ npm upgraded to $(npm --version)"
 
             - name: Publish Snapshot Release to npm
@@ -316,7 +349,7 @@ jobs:
               with:
                   issue-number: ${{ steps.pr.outputs.number }}
                   comment-author: "github-actions[bot]"
-                  body-includes: "npm Snapshot:"
+                  body-includes: "${{ env.SNAPSHOT_COMMENT_MARKER }}"
 
             - name: Create or update npm snapshot comment - success
               if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
@@ -326,6 +359,7 @@ jobs:
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
+                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
                       # npm Snapshot: Published
 
                       Good news!! We've packaged up the latest commit from this PR (${{
@@ -349,6 +383,9 @@ jobs:
                       ./dev/tools/bump_perseus_version.js -t PR${{ steps.pr.outputs.number }}
                       ```
 
+                      ---
+                      Want another snapshot? Comment `/snapshot` again.
+
             - name: Create or update npm snapshot comment - failure, snapshot publish failed
               if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
               uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
@@ -357,27 +394,15 @@ jobs:
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
+                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
                       # npm Snapshot: **NOT** Published
 
                       Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
 
-            - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: failure() && steps.check-release.outputs.release_count != '0'
-              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
-              with:
-                  issue-number: ${{ steps.pr.outputs.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # npm Snapshot: **NOT** Published
-
-                      Oh noes!! We couldn't publish an npm snapshot for you because
-                      there is a release in progress. Please wait for the release to
-                      finish, then retry this workflow.
-
-                      [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
+                      ---
+                      Want to try again? Comment `/snapshot` once you've added a changeset.
 
             - name: React to /snapshot comment on success
               if: >-

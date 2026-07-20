@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {ApiOptions, components, Expression} from "@khanacademy/perseus";
+import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
@@ -64,7 +64,6 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     static defaultProps = {
         ...expressionLogic.defaultWidgetOptions,
-        apiOptions: ApiOptions.defaults,
     };
 
     constructor(props: Props) {
