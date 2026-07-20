@@ -124,7 +124,7 @@ export type PerseusStrings = {
     tan: string;
     simulationLoadFail: string;
     simulationLocaleWarning: string;
-    openSimulationInNewTab: string;
+    openInNewTab: string;
     fullscreen: string;
     exitFullscreen: string;
     selectAnAnswer: string;
@@ -939,7 +939,7 @@ export const strings = {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
-    openSimulationInNewTab: "Open simulation in a new tab",
+    openInNewTab: "Open simulation in a new tab",
     fullscreen: "Fullscreen",
     exitFullscreen: "Exit fullscreen",
     selectAnAnswer: "Select an answer",
@@ -1816,7 +1816,7 @@ export const mockStrings: PerseusStrings = {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
-    openSimulationInNewTab: "Open simulation in a new tab",
+    openInNewTab: "Open simulation in a new tab",
     fullscreen: "Fullscreen",
     exitFullscreen: "Exit fullscreen",
     selectAnAnswer: "Select an answer",
