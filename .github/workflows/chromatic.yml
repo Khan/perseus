@@ -23,7 +23,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.16.0]
+                node-version: [24.18.0]
         steps:
             # chromaui/@action doesn't work with shallow checkouts which is the
             # default for actions/checkout so we need to force it to checkout
