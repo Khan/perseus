@@ -1,0 +1,12 @@
+.dark-mode-toggle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-block-end: 0.8rem;
+}
+.dark-mode-suppression-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    align-items: center;
+}
