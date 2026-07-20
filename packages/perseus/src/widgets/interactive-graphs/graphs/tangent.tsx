@@ -10,9 +10,11 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
+import {DashedAsymptoteLine} from "./components/dashed-asymptote-line";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {describeTangentGraph} from "./strings/tangent";
+import {useTransformVectorsToPixels} from "./use-transform";
 
 import type {
     TangentGraphState,
@@ -67,9 +69,15 @@ function TangentGraph(props: TangentGraphProps) {
         coeffRef.current = coeffs;
     }
 
-    // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
+    // Asymptote positions derive from the two control points, so they move
+    // live with the points. Used for both the dashed lines and the segment
+    // splitting that works around the Mafs discontinuity below.
     const xRange: [number, number] = [range[0][0], range[0][1]];
-    const segments = getPlotSegments(coeffRef.current, xRange);
+    const yRange: [number, number] = [range[1][0], range[1][1]];
+    const asymptotes = getAsymptotePositions(coeffRef.current, xRange);
+
+    // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
+    const segments = getPlotSegments(asymptotes, xRange);
 
     // Aria strings
     const {
@@ -85,6 +93,11 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
+            <TangentAsymptotes
+                asymptotes={asymptotes}
+                yRange={yRange}
+                color={interactiveColor}
+            />
             <ClipToGraphBounds>
                 {segments.map(([segStart, segEnd], i) => (
                     <Plot.OfX
@@ -277,10 +290,9 @@ function getAsymptotePositions(
 //    <Plot.OfX y={(x) => computeTangent(x, coeffRef.current)}
 //        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />
 function getPlotSegments(
-    coeffs: NamedTangentCoefficient,
+    asymptotes: ReadonlyArray<number>,
     xRange: [number, number],
 ): Array<[number, number]> {
-    const asymptotes = getAsymptotePositions(coeffs, xRange);
     // Small epsilon to avoid plotting at exactly the asymptote
     const eps = 0.01;
     const segments: Array<[number, number]> = [];
@@ -293,4 +305,38 @@ function getPlotSegments(
     segments.push([start, xRange[1]]);
 
     return segments;
+}
+
+// Renders the tangent's vertical asymptotes as dashed lines, styled like the
+// exp/log graph asymptotes. Unlike those (one draggable asymptote in graph
+// state), a tangent's asymptotes derive from the control points — so they're
+// visible and announced to screen readers, but not independently interactive.
+function TangentAsymptotes(props: {
+    asymptotes: ReadonlyArray<number>;
+    yRange: [number, number];
+    color: string | undefined;
+}) {
+    const {asymptotes, yRange, color} = props;
+
+    // Flatten endpoints to [bottom, top, bottom, top, ...] so one transform
+    // call converts every asymptote's endpoints to pixel space.
+    const endpoints: vec.Vector2[] = asymptotes.flatMap((x): vec.Vector2[] => [
+        [x, yRange[0]],
+        [x, yRange[1]],
+    ]);
+    const pixels = useTransformVectorsToPixels(...endpoints);
+
+    return (
+        <>
+            {asymptotes.map((x, i) => (
+                <DashedAsymptoteLine
+                    key={`asymptote-${x}`}
+                    start={pixels[i * 2]}
+                    end={pixels[i * 2 + 1]}
+                    color={color}
+                    testId="tangent-asymptote__line"
+                />
+            ))}
+        </>
+    );
 }

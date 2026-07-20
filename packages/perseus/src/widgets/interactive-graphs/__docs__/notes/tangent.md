@@ -1,215 +1,276 @@
-# Tangent Graph - Interactive Graph Widget
+# Tangent Graph — Technical Reference
 
-## Overview
+Technical specification for the tangent graph type in the Interactive Graph widget.
+This document defines expected behavior, architecture, and design decisions. It is intended
+as context for future development and Claude Code sessions.
 
-Research and POC for adding tangent graph support to the Interactive Graph widget,
-allowing content creators to define tangent function exercises using two movable points.
+## Traceability
 
-- **Ticket:** [LEMS-3937](https://khanacademy.atlassian.net/browse/LEMS-3937)
+- **Original ticket:** [LEMS-3937](https://khanacademy.atlassian.net/browse/LEMS-3937)
 - **POC:** https://github.com/Khan/perseus/pull/3311
-- **Branch:** `LEMS-3937/poc-interactive-tangent-graph`
+- **Asymptote follow-up:** [LEMS-4100](https://khanacademy.atlassian.net/browse/LEMS-4100) —
+  added the visible vertical asymptotes described below. The original implementation
+  intentionally omitted them; a content-editor interview later confirmed a tangent graph is
+  mathematically expected to show its asymptotes.
 
-## Scenarios
+## Architecture Overview
 
-### Learner: Interacting with a Tangent Graph
+### File Map
 
-> As a learner working on trigonometry problems,
-> I want to interact with a tangent graph by dragging it, adjusting its period, amplitude, and phase shift,
-> So that I can visually construct the correct tangent function and check my answer.
+| File | Purpose |
+|------|---------|
+| `graphs/tangent.tsx` | Main rendering component: curve segments, asymptote lines, points, SR descriptions |
+| `graphs/components/svg-line.tsx` | Reusable SVG `<line>` used to draw the dashed asymptotes |
+| `graphs/strings/tangent.ts` | `describeTangentGraph()` and the SR graph description (`buildTangentDescription`) |
+| `reducer/interactive-graph-reducer.ts` | `movePoint` case for tangent (same-x rejection) |
+| `reducer/initialize-graph-state.ts` | Default coords + snap step |
+| `types.ts` | `TangentGraphState` (coords + snapStep) |
+| `interactive-graph.tsx` | Registers the tangent graph type |
+| `@khanacademy/kmath` `coefficients.ts` | `getTangentCoefficients()` — shared math utility |
+| `@khanacademy/kmath` `geometry.ts` | `canonicalTangentCoefficients()` — canonical form for scoring |
+| `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeTangent`, `TangentGraphCorrect` |
+| `@khanacademy/perseus-score` `score-interactive-graph.ts` | Tangent scoring block |
+| `@khanacademy/perseus-editor` `graph-type-selector.tsx` | "Tangent function" option |
 
-- A tangent graph renders in the Interactive Graph widget using two movable control points
-- The curve updates in real time as the user drags either control point
-- The graph correctly renders `f(x) = a * tan(b*x - c) + d` based on point positions
-- No vertical lines are drawn across asymptotes (discontinuities are handled correctly)
-- Keyboard navigation works on both control points (arrow keys move the point by snap step)
-- If both points share the same x-coordinate, the move is rejected gracefully (no crash, no invalid state)
-- The graph is scorable — the correct answer is compared using canonical coefficient normalization (angular frequency > 0, phase in [0, π))
-- Screen reader announces the graph label and point positions correctly
-- The widget renders correctly on mobile
+### Data Flow
 
-### Content Creator: Configuring a Tangent Graph Exercise
+```
+User interaction (drag/keyboard)
+  → Dispatch action (movePoint)
+  → Reducer applies constraints (reject same-x), updates TangentGraphState
+  → TangentGraph component re-renders:
+      1. Computes coefficients from coords (getTangentCoefficients)
+      2. Computes asymptote x-positions in view (getAsymptotePositions)
+      3. Renders the dashed asymptote lines (TangentAsymptotes)
+      4. Splits the curve into segments between asymptotes and renders one
+         <Plot.OfX> per segment (Mafs discontinuity workaround)
+      5. Renders MovablePoints
+  → On submit: coefficients extracted from coords
+  → Scoring: canonical coefficient comparison via approximateDeepEqual
+```
 
-> As a content creator building trigonometry exercises,
-> I want to select Tangent as an answer type in the Interactive Graph widget and configure its correct answer, starting position, axis settings, and asymptote visibility,
-> So that I can create accurate and customizable tangent graph exercises for learners.
+## Expected Behavior
 
-- "Tangent function" appears as a selectable option in the Interactive Graph editor's answer type dropdown
-- Selecting tangent renders the tangent graph in the editor's correct answer preview
-- The editor displays the correct equation string in the format `y = a * tan(b*x - c) + d`
-- The content creator can drag the control points in the editor to set the correct answer
-- Start coordinates are supported — the editor can configure where the points start before the learner interacts
-- Switching away from tangent and back preserves the graph state correctly
-- The editor does not crash or show TypeScript errors when tangent is selected
+### Curve Rendering
 
-## References
+- The curve renders `f(x) = a * tan(b * x - c) + d`.
+- Because the tangent function is discontinuous at each asymptote, the curve is **split into
+  segments** between consecutive asymptotes; each segment is a separate `<Plot.OfX>` with its
+  own `domain`. This works around a Mafs rendering issue (see
+  [Workaround: Mafs Discontinuity Rendering](#workaround-mafs-discontinuity-rendering)).
+- `computeTangent()` additionally returns `NaN` within `0.001` of an asymptote as a defensive
+  backup, so even a single `<Plot.OfX>` would not draw a connecting line across a gap.
+- The curve updates in real time as either control point is dragged.
+- `coeffRef` caches the last valid coefficients so the curve keeps rendering during transient
+  invalid states (e.g. mid-drag where the two points momentarily share an x-coordinate).
 
-### Grapher Widget (Legacy Tangent)
+### Asymptote Rendering
 
-The Grapher widget already has a tangent graph type that served as the mathematical reference:
+- A tangent has **multiple** vertical asymptotes. Their x-positions are **fully derived from
+  the two control points** (the curve's period and phase) — they are *not* an independent,
+  user-set value. Every asymptote that falls within the visible x-range is drawn.
+- Asymptotes occur where `b*x - c = π/2 + n*π`, i.e. `x = (c + π/2 + n*π) / b`. The nearest
+  two sit half a period on either side of the inflection point.
+- The positions are computed once by `getAsymptotePositions()` and feed **both** the visible
+  dashed lines (`TangentAsymptotes`) and the curve segment splitting, keeping them in sync.
+- Each asymptote is a full-height vertical **dashed** line, drawn to match the exponential and
+  logarithm graphs' asymptotes: a solid background-colored backing line (so dashes stay visible
+  on grid lines and axes) with a dashed `interactiveColor` line on top and rounded ends
+  (`stroke-linecap: round`). Styling reuses the shared CSS variables
+  `--movable-asymptote-stroke-weight`, `--movable-asymptote-dash-length`, and
+  `--movable-asymptote-dash-gap` from `mafs-styles.css`.
+- The lines render **behind** the curve and the movable points in the SVG DOM.
 
-- `packages/perseus-core/src/utils/grapher-util.ts` — Tangent coefficient computation (`getTangentCoefficients`), equation string generation, and its own copy of `canonicalTangentCoefficients()` that uses a different normalization strategy than the kmath version: it guarantees both `a > 0` and `b > 0` by using a `phase += period/2` step, whereas the kmath version only guarantees `b > 0` via the odd function identity (see [Canonical Normalization](#canonical-normalization) for details). Uses the same `f(x) = a * tan(b*x - c) + d` model. Also contains the `"sin("` → `"tan("` label bug (see [Related: Grapher Widget Bug](#related-grapher-widget-bug)).
-- `packages/perseus-core/src/utils/grapher-types.ts` — `TangentPlotDefaults` type with default coords and asymptote config
-- `packages/perseus-core/src/data-schema.ts` — Existing `PerseusGrapherWidgetOptions` already includes `"tangent"` as a valid plot type
-- `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher scoring uses `coefficients.getTangentCoefficients()` and `geometry.canonicalTangentCoefficients()` for comparison
+### Asymptote Interaction
 
-### Interactive Graph: Sinusoid (Pattern Reference)
+- **The tangent asymptotes are visible but not interactive.** Unlike exponential and logarithm
+  — where the single asymptote is an independent value stored in graph state and is draggable
+  via `MovableAsymptote` — a tangent's asymptotes are a consequence of the control points, so
+  there is nothing to drag independently. The learner adjusts period, amplitude, and phase by
+  moving the two points, and the asymptotes move with them.
+- The asymptote lines are `aria-hidden` and carry no drag handle or hit target. They stay at
+  the resting stroke weight/dash values at all times (they are not inside a `.movable-line`
+  group, so the hover/focus/drag CSS variants never activate).
 
-The sinusoid graph type was the primary pattern reference for the tangent implementation:
+### Point Behavior
 
-- `packages/perseus/src/widgets/interactive-graphs/graphs/sinusoid.tsx` — Two-point interaction model, coefficient extraction, `Plot.OfX` rendering, keyboard constraints, and screen reader descriptions. The tangent graph mirrors this structure.
-- `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.ts` — Sinusoid reducer case (movePoint action with same-x constraint). Tangent adds an analogous case.
-- `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts` — Sinusoid state initialization pattern (default coords, snap step). Tangent follows the same approach.
-- `packages/perseus/src/widgets/interactive-graphs/types.ts` — `SinusoidGraphState` type. `TangentGraphState` follows the same shape.
-- `packages/perseus-score/src/widgets/interactive-graph/score-interactive-graph.ts` — Sinusoid scoring block (canonical coefficient comparison with `approximateDeepEqual`). Tangent scoring is modeled after this.
-- `packages/kmath/src/geometry.ts` — `canonicalSineCoefficients()`. The tangent equivalent normalizes with period `π` instead of `2π`, and can only guarantee `b > 0` (not both `a > 0` and `b > 0` like sine).
-- `packages/kmath/src/coefficients.ts` — `getSinusoidCoefficients()`. `getTangentCoefficients()` was added alongside it.
+- Two movable control points define the curve:
+  - `coords[0]` — the **inflection point** (where `tan = 0`, i.e. the curve crosses its
+    vertical offset).
+  - `coords[1]` — a **quarter-period away**; sets the amplitude and period.
+- The two points **cannot share the same x-coordinate** (the coefficient computation would be
+  undefined). Invalid moves are rejected gracefully (no crash, no invalid state).
 
-### Mafs Graphing Library
+### Keyboard Navigation
 
-- `mafs` npm package — Provides `Plot.OfX` for rendering function curves on coordinate planes
-- https://github.com/stevenpetryk/mafs/issues/133 — Upstream issue for discontinuity rendering (lineTo vs moveTo after non-finite gaps)
+- Arrow keys move the focused point by the snap step (`getTangentKeyboardConstraint`).
+- If a horizontal move would land the point on the other point's x-coordinate, the constraint
+  moves it one additional snap step in the same direction so the two points never share an x.
+
+### Scoring
+
+- Coefficients `{amplitude, angularFrequency, phase, verticalOffset}` are computed for both the
+  user answer and the rubric via `getTangentCoefficients()`.
+- Both are normalized to canonical form (`canonicalTangentCoefficients()`) before comparison
+  with `approximateDeepEqual`, so two different point placements that produce the same curve
+  score as correct.
+- Canonical form guarantees `b > 0` using the odd-function identity
+  `a * tan(-|b|x - c) = (-a) * tan(|b|x - (-c))` (which flips the signs of `a` and `c`) and
+  normalizes `c` to the smallest positive value within the period `π`. Unlike sine, tangent
+  has no half-period identity (`sin(x + π) = -sin(x)`), so only `b > 0` — not both `a > 0` and
+  `b > 0` — can be guaranteed.
+
+### Accessibility
+
+- `aria-label` on the graph container (`srTangentGraph`).
+- Localized labels for each point (`srTangentInflectionPoint`, `srTangentSecondPoint`), with
+  custom author `pointLabels` taking precedence.
+- The graph description (`buildTangentDescription`) states the two points, whether the curve
+  is increasing or decreasing through the inflection point, the period, and the **positions of
+  the nearest vertical asymptotes** (`srTangentAsymptotes`). The asymptotes are therefore
+  described to screen readers even though they are not a separate interactive element.
+- Interactive elements description (`srTangentInteractiveElements`) lists **only the two
+  points** — consistent with the asymptotes being visual/derived rather than interactive.
+- All number values use `srFormatNumber` for locale-appropriate formatting.
+
+### Mobile
+
+- Both control points support touch dragging (same as the sinusoid graph).
+- The asymptote lines are non-interactive, so there is no touch target to size for them.
 
 ## Mathematical Model
 
-The tangent curve uses the form:
+### Formula
 
 ```
 f(x) = a * tan(b * x - c) + d
 ```
 
-Where:
+Derived from the two control points (`p1` = inflection, `p2` = quarter-period point):
+
 - `a` = amplitude (vertical stretch) = `p2[y] - p1[y]`
 - `b` = angular frequency = `π / (4 * (p2[x] - p1[x]))`
 - `c` = phase = `p1[x] * b`
 - `d` = vertical offset = `p1[y]`
 
-Two movable points define the curve (same pattern as sinusoid):
-- `p1` is the inflection point (where `tan = 0`, i.e. the curve crosses through its vertical offset)
-- `p2` is a quarter-period away and determines the amplitude and period
-
 ### Key Differences from Sinusoid
 
-- **Period:** Tangent has period `π` (vs `2π` for sine)
-- **Vertical asymptotes:** Occur where `b*x - c = π/2 + n*π`, i.e. `x = (c + π/2 + n*π) / b`
-- **Discontinuities:** The function is undefined at asymptotes, requiring special rendering
+- **Period:** `π` (vs `2π` for sine); the on-screen period is `4 * |p2[x] - p1[x]|`.
+- **Vertical asymptotes:** at `x = (c + π/2 + n*π) / b`. Sine has none.
+- **Discontinuities:** the function is undefined at each asymptote, requiring segment-based
+  rendering.
 
-## Solution Approach
+### When `getTangentCoefficients` returns `undefined`
 
-The implementation follows the same patterns established by the sinusoid graph type:
+Returned when the two points share an x-coordinate (`p2[x] === p1[x]`), which would make
+`angularFrequency` divide by zero. The renderer falls back to the cached `coeffRef` value so
+the graph keeps drawing until a valid configuration returns.
 
-### Rendering (`tangent.tsx`)
+## Workaround: Mafs Discontinuity Rendering
 
-1. Compute coefficients from the two movable point coordinates (delegates to `@khanacademy/kmath`'s `getTangentCoefficients()` to keep the formula in one place)
-2. Determine asymptote positions within the visible x-range
-3. Split the curve into segments between asymptotes
-4. Render each segment as a separate `<Plot.OfX>` with its own domain
-5. Return `NaN` near asymptotes (within `0.001` distance) to create SVG path gaps
+**Problem:** Mafs `Plot.OfX` renders a single SVG `<path>`. When it hits non-finite values
+(like at asymptotes) it skips them but uses `L` (lineTo) for the next valid point, drawing
+unwanted vertical lines across discontinuities.
 
-### Scoring (`score-interactive-graph.ts`)
+**Workaround:** Split the curve into separate `<Plot.OfX>` components, one per segment between
+asymptotes (`getPlotSegments()`), each getting its own SVG `<path>`. Isolated in
+`getPlotSegments()` / `getAsymptotePositions()` so it is easy to remove later.
 
-1. Extract tangent coefficients from both user and rubric coordinates
-2. Normalize to canonical form (ensure `b > 0`, phase minimized)
-3. Use `approximateDeepEqual` to compare canonical coefficients
+- **Tracked upstream:** https://github.com/stevenpetryk/mafs/issues/133
+- **Prior research:** LEMS-2262.
 
-### Canonical Form Normalization (`geometry.ts`)
+**To remove this workaround** once Mafs uses `M` (moveTo) after non-finite gaps:
 
-Ensures equivalent curves compare as equal:
-- Guarantee `b > 0` using the odd function identity: `a * tan(-|b|x - c) = (-a) * tan(|b|x - (-c))`, which flips the signs of `a` and `c`
-- Normalize `c` to smallest positive value within period `π`
-- Note: unlike sine (where `sin(x + π) = -sin(x)` allows guaranteeing both `a > 0` and `b > 0`), tangent has no such half-period identity, so only `b > 0` can be guaranteed
+1. Delete `getPlotSegments()`. (Keep `getAsymptotePositions()` — the visible asymptote lines
+   still need it.)
+2. Replace the `segments.map(...)` in `TangentGraph` with a single `<Plot.OfX>` covering the
+   full x-range.
 
-### Constraints
+## State Management
 
-- Two points **cannot share the same x-coordinate** (would make coefficients undefined)
-- Keyboard movement skips positions where `x1 === x2`
+### `TangentGraphState`
 
-## Workaround: Mafs Discontinuity Rendering Issue
+```typescript
+interface TangentGraphState {
+    type: "tangent";
+    coords: [Coord, Coord];    // [inflection point, quarter-period control point]
+    snapStep: vec.Vector2;
+    range: [Interval, Interval];
+    hasBeenInteractedWith: boolean;
+}
+```
 
-**Problem:** Mafs `Plot.OfX` renders a single SVG `<path>` element. When it encounters
-non-finite values (like at asymptotes), it skips them but uses `L` (lineTo) for the
-next valid point. This draws unwanted vertical lines across discontinuities.
+Note there is **no `asymptote` field** (contrast with `LogarithmGraphState` /
+`ExponentialGraphState`): the asymptotes are derived, not stored.
 
-**Prior research:** This was initially reported in LEMS-2262: \[LX\] \[Locked Function\] Spike -
-Does Mafs support discontinuities in plot functions?
+### Actions
 
-**Workaround:** Split the tangent curve into separate `<Plot.OfX>` components, one per
-segment between asymptotes. Each component gets its own SVG `<path>` element, preventing
-cross-discontinuity lines. The workaround is isolated within `getPlotSegments()` and
-`getAsymptotePositions()` helper functions so it will be easy to swap out later once the
-library is updated.
+- `actions.tangent.movePoint(index, destination)` → `MOVE_POINT`
 
-### Upstream Status
+## Decisions Log
 
-The current plan to avoid blocking our project timeline:
+1. **Reuse sinusoid patterns** — Two-point interaction model and coefficient extraction mirror
+   the sinusoid graph type.
 
-1. **Implement our own solution** — Handle discontinuities in our code, but isolate it in
-   a way that makes it easy to update later once the library addresses the issue.
-2. **Raise the issue in the library** — No similar issue had been raised, so we filed one.
-3. **Propose a fix upstream** — Contribute a solution to the Mafs library.
+2. **Asymptotes are derived, not draggable** — A tangent's asymptotes follow from the control
+   points, so (unlike exponential/logarithm) they are rendered as visible dashed lines but are
+   not independent, draggable elements. This also keeps the SR interactive-elements contract to
+   just the two points. (LEMS-4100)
 
-Steps 2 and 3 are expected to take longer than our current project timeline, so step 1
-is the approach used in the POC.
+3. **Shared asymptote-position source** — `getAsymptotePositions()` feeds both the visible
+   dashed lines and the curve segment splitting, so the lines can never drift out of sync with
+   the gaps in the curve.
 
-### Upstream Links
+4. **Match exp/log asymptote appearance** — The dashed lines reuse the same colors, stroke
+   weight, dash pattern, and CSS variables as `MovableAsymptote`, so all three graph types read
+   as the same visual language. Because the tangent lines are non-interactive, they never enter
+   the hover/focus/drag "active" styling.
 
-- **Mafs issues:** https://github.com/stevenpetryk/mafs/issues
-- **Related Issue filed:** https://github.com/stevenpetryk/mafs/issues/133
-- **Closest existing work:** https://github.com/stevenpetryk/mafs/pull/134/changes — A stale
-  draft PR that touches related path generation logic but does not address the discontinuity problem.
+5. **Segment-based rendering** — Rather than relying on Mafs to handle discontinuities, the
+   curve is split into segments between asymptotes. More code, but correct visuals.
 
-### To Remove This Workaround
+6. **NaN + segments (belt and suspenders)** — `computeTangent()` returns `NaN` near asymptotes
+   as an extra safety net on top of the segment splitting.
 
-Once Mafs fixes path generation to use `M` (moveTo) after non-finite gaps instead of `L` (lineTo):
+7. **Ref-based coefficient caching** — `coeffRef` stores the last valid coefficients so the
+   graph does not break during transient invalid states (e.g. mid-drag same-x).
 
-1. Delete `getPlotSegments()` and `getAsymptotePositions()`
-2. Replace the `segments.map(...)` with a single `<Plot.OfX>` covering the full x-range
+8. **Canonical form for scoring** — Normalization makes equivalent tangent curves score as
+   equal. Tangent has no half-period phase identity, so canonical form guarantees only `b > 0`,
+   not both `a > 0` and `b > 0`.
 
-## Files Modified (POC)
+## Comparison with Other Graph Types
 
-### New files
-- `packages/perseus/src/widgets/interactive-graphs/graphs/tangent.tsx` — Main component
+### vs. Logarithm / Exponential
 
-### Modified files
-- `packages/kmath/src/geometry.ts` — `TangentCoefficient` type, `canonicalTangentCoefficients()`
-- `packages/kmath/src/coefficients.ts` — `getTangentCoefficients()`, `NamedTangentCoefficient` type
-- `packages/kmath/src/index.ts` — Re-exports `NamedTangentCoefficient`
-- `packages/perseus-core/src/data-schema.ts` — `PerseusGraphTypeTangent`, `TangentGraphCorrect`
-- `packages/perseus-core/.../interactive-graph-widget.ts` — Parser for tangent type
-- `packages/perseus-score/.../score-interactive-graph.ts` — Tangent scoring logic
-- `packages/perseus/src/strings.ts` — Screen reader strings (`srTangentGraph`, etc.)
-- `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx` — Register tangent type
-- `packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx` — Render tangent graph
-- `packages/perseus/src/widgets/interactive-graphs/reducer/` — Actions, reducer, state, init
-- `packages/perseus/src/widgets/interactive-graphs/types.ts` — `TangentGraphState`
-- `packages/perseus-editor/.../graph-type-selector.tsx` — Add "Tangent function" option
-- `packages/perseus-editor/.../interactive-graph-editor.tsx` — Editor support
-- `packages/perseus/src/widgets/interactive-graphs/interactive-graph.testdata.ts` — Test data
-- `packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder.ts` — Builder
+| Aspect | Tangent | Logarithm / Exponential |
+|--------|---------|-------------------------|
+| Formula | `a * tan(b*x - c) + d` | `a * ln(b*x + c)` / `a * e^(b*x) + c` |
+| Interactive elements | 2 points | 2 points + 1 draggable asymptote |
+| Asymptotes | Multiple, periodic, **derived** from points | Single, **user-movable**, stored in state |
+| Asymptote UI | Visible dashed lines, non-interactive | `MovableAsymptote` with drag handle |
+| State | coords + snapStep (no asymptote field) | coords + `asymptote` number |
+| Rendering | Segment splitting (multiple `Plot.OfX`) | Single `Plot.OfX` with `domain` prop |
+| Canonical normalization | Yes | No |
 
-## Related: Grapher Widget Bug
+### vs. Sinusoid
 
-The legacy Grapher widget has a tangent graph type, but its `getEquationString` method
-in `packages/perseus-core/src/utils/grapher-util.ts` displays `"sin("` instead of `"tan("`
-in the equation label. This was fixed in a separate PR on branch
-`LEMS-3984/fix-grapher-tangent-label`.
+| Aspect | Sinusoid | Tangent |
+|--------|----------|---------|
+| Period | `2π` | `π` |
+| Asymptotes | None | Multiple (periodic, derived) |
+| Rendering | Single `Plot.OfX` | Segment splitting |
+| Canonical guarantee | `a > 0` **and** `b > 0` | `b > 0` only |
 
-## Decisions
+## Legacy Reference: Grapher Widget
 
-1. **Reuse sinusoid patterns** — The tangent graph follows the same two-point interaction
-   model and coefficient extraction approach as the sinusoid graph type.
+The Grapher widget has a tangent graph type that served as the mathematical reference:
 
-2. **Segment-based rendering** — Rather than relying on Mafs to handle discontinuities,
-   we manually split the curve into segments. This is more code but produces correct visuals.
-
-3. **NaN + segments (belt and suspenders)** — `computeTangent()` returns `NaN` near
-   asymptotes as an additional safety net, even though the segment splitting already
-   prevents cross-asymptote rendering.
-
-4. **Ref-based coefficient caching** — `coeffRef` stores the last valid coefficients so
-   the graph doesn't break during transient invalid states (e.g., mid-drag where points
-   momentarily share an x-coordinate).
-
-5. **Canonical form for scoring** — Normalization ensures equivalent tangent curves
-   (which can be expressed with different coefficient signs) are scored correctly.
-   Unlike sine, tangent has no half-period phase shift identity (`sin(x + π) = -sin(x)`),
-   so the canonical form can only guarantee `b > 0`, not both `a > 0` and `b > 0`.
+- `packages/perseus-core/src/utils/grapher-util.ts` — `getTangentCoefficients`, equation string
+  generation, and its own `canonicalTangentCoefficients()` (guarantees both `a > 0` and `b > 0`
+  via a `phase += period/2` step, unlike the kmath version). Historically contained a
+  `"sin("` → `"tan("` label bug, fixed separately on `LEMS-3984/fix-grapher-tangent-label`.
+- `packages/perseus-core/src/utils/grapher-types.ts` — `TangentPlotDefaults`.
+- `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher tangent scoring.
+</content>
+</invoke>
