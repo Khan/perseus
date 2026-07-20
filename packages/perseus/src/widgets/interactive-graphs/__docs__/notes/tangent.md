@@ -20,7 +20,8 @@ as context for future development and Claude Code sessions.
 | File | Purpose |
 |------|---------|
 | `graphs/tangent.tsx` | Main rendering component: curve segments, asymptote lines, points, SR descriptions |
-| `graphs/components/svg-line.tsx` | Reusable SVG `<line>` used to draw the dashed asymptotes |
+| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair for an asymptote; used by both `TangentAsymptotes` and `MovableAsymptote` (exp/log) |
+| `graphs/components/svg-line.tsx` | Low-level reusable SVG `<line>` (used by `DashedAsymptoteLine` and other components) |
 | `graphs/strings/tangent.ts` | `describeTangentGraph()` and the SR graph description (`buildTangentDescription`) |
 | `reducer/interactive-graph-reducer.ts` | `movePoint` case for tangent (same-x rejection) |
 | `reducer/initialize-graph-state.ts` | Default coords + snap step |
@@ -73,12 +74,12 @@ User interaction (drag/keyboard)
   two sit half a period on either side of the inflection point.
 - The positions are computed once by `getAsymptotePositions()` and feed **both** the visible
   dashed lines (`TangentAsymptotes`) and the curve segment splitting, keeping them in sync.
-- Each asymptote is a full-height vertical **dashed** line, drawn to match the exponential and
-  logarithm graphs' asymptotes: a solid background-colored backing line (so dashes stay visible
-  on grid lines and axes) with a dashed `interactiveColor` line on top and rounded ends
-  (`stroke-linecap: round`). Styling reuses the shared CSS variables
-  `--movable-asymptote-stroke-weight`, `--movable-asymptote-dash-length`, and
-  `--movable-asymptote-dash-gap` from `mafs-styles.css`.
+- Each asymptote is a full-height vertical **dashed** line, drawn by the shared
+  `DashedAsymptoteLine` component so it matches the exponential and logarithm graphs' asymptotes
+  exactly: a solid background-colored backing line (so dashes stay visible on grid lines and
+  axes) with a dashed `interactiveColor` line on top and rounded ends (`stroke-linecap: round`).
+  Styling uses the shared CSS variables `--movable-asymptote-stroke-weight`,
+  `--movable-asymptote-dash-length`, and `--movable-asymptote-dash-gap` from `mafs-styles.css`.
 - The lines render **behind** the curve and the movable points in the SVG DOM.
 
 ### Asymptote Interaction
@@ -191,17 +192,16 @@ asymptotes (`getPlotSegments()`), each getting its own SVG `<path>`. Isolated in
 ### `TangentGraphState`
 
 ```typescript
-interface TangentGraphState {
+interface TangentGraphState extends InteractiveGraphStateCommon {
     type: "tangent";
-    coords: [Coord, Coord];    // [inflection point, quarter-period control point]
-    snapStep: vec.Vector2;
-    range: [Interval, Interval];
-    hasBeenInteractedWith: boolean;
+    coords: [vec.Vector2, vec.Vector2]; // [inflection point, quarter-period control point]
 }
 ```
 
-Note there is **no `asymptote` field** (contrast with `LogarithmGraphState` /
-`ExponentialGraphState`): the asymptotes are derived, not stored.
+`InteractiveGraphStateCommon` supplies the shared fields (`snapStep`, `range`,
+`hasBeenInteractedWith`, etc.). Note there is **no `asymptote` field** (contrast with
+`LogarithmGraphState` / `ExponentialGraphState`, which add one): the tangent asymptotes are
+derived, not stored.
 
 ### Actions
 
@@ -221,10 +221,12 @@ Note there is **no `asymptote` field** (contrast with `LogarithmGraphState` /
    dashed lines and the curve segment splitting, so the lines can never drift out of sync with
    the gaps in the curve.
 
-4. **Match exp/log asymptote appearance** — The dashed lines reuse the same colors, stroke
-   weight, dash pattern, and CSS variables as `MovableAsymptote`, so all three graph types read
-   as the same visual language. Because the tangent lines are non-interactive, they never enter
-   the hover/focus/drag "active" styling.
+4. **Shared `DashedAsymptoteLine` visual** — The backing+dashed line pair is one shared
+   presentational component (`graphs/components/dashed-asymptote-line.tsx`) used by both
+   `TangentAsymptotes` and `MovableAsymptote` (exp/log), so all three graph types render the
+   exact same asymptote visual and cannot drift apart. The component is visual-only: the drag
+   hitbox and handle stay in `MovableAsymptote`, so the tangent lines remain non-interactive and
+   never enter the hover/focus/drag "active" styling. (LEMS-4100)
 
 5. **Segment-based rendering** — Rather than relying on Mafs to handle discontinuities, the
    curve is split into segments between asymptotes. More code, but correct visuals.
