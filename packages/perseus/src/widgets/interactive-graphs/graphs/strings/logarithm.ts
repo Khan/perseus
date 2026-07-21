@@ -1,6 +1,7 @@
 import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {resolvePointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -94,28 +95,28 @@ export function describeLogarithmGraph(
         srLogarithmAsymptote: strings.srLogarithmAsymptote({
             asymptoteX: asymptoteXFormatted,
         }),
-        // When no curve is plotted, drop the "on a curve"
-        // phrasing in favor of plain point coordinates.
-        srLogarithmPoint1:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({
-                      pointLabel: "1",
-                      ...formattedPoint1,
-                  })
-                : strings.srLogarithmPoint({
-                      pointLabel: "1",
-                      ...formattedPoint1,
-                  }),
-        srLogarithmPoint2:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({
-                      pointLabel: "2",
-                      ...formattedPoint2,
-                  })
-                : strings.srLogarithmPoint({
-                      pointLabel: "2",
-                      ...formattedPoint2,
-                  }),
+        srLogarithmPoint1: srLogarithmPointLabel(
+            {
+                pointIndex: 0,
+                pointLabel: resolvePointLabel(state.pointLabels, 0),
+                x: point1[X],
+                y: point1[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
+        srLogarithmPoint2: srLogarithmPointLabel(
+            {
+                pointIndex: 1,
+                pointLabel: resolvePointLabel(state.pointLabels, 1),
+                x: point2[X],
+                y: point2[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
         srLogarithmInteractiveElements: strings.srInteractiveElements({
             elements: strings.srLogarithmInteractiveElements(descriptionArgs),
         }),

@@ -1,6 +1,7 @@
 import {coefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {resolvePointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -96,28 +97,28 @@ export function describeExponentialGraph(
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
-        // When no curve is plotted, drop the "on an exponential curve"
-        // phrasing in favor of plain point coordinates.
-        srExponentialPoint1:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({
-                      pointLabel: "1",
-                      ...formattedPoint1,
-                  })
-                : strings.srExponentialPoint({
-                      pointLabel: "1",
-                      ...formattedPoint1,
-                  }),
-        srExponentialPoint2:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({
-                      pointLabel: "2",
-                      ...formattedPoint2,
-                  })
-                : strings.srExponentialPoint({
-                      pointLabel: "2",
-                      ...formattedPoint2,
-                  }),
+        srExponentialPoint1: srExponentialPointLabel(
+            {
+                pointIndex: 0,
+                pointLabel: resolvePointLabel(state.pointLabels, 0),
+                x: point1[X],
+                y: point1[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
+        srExponentialPoint2: srExponentialPointLabel(
+            {
+                pointIndex: 1,
+                pointLabel: resolvePointLabel(state.pointLabels, 1),
+                x: point2[X],
+                y: point2[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
         srExponentialInteractiveElements: strings.srInteractiveElements({
             elements: strings.srExponentialInteractiveElements(descriptionArgs),
         }),

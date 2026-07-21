@@ -12,16 +12,28 @@ export function srCircleRadiusPointLabel(
     centerX: number,
     strings: PerseusStrings,
     locale: string,
+    pointLabel?: string,
 ): string {
-    return x >= centerX
-        ? strings.srCircleRadiusPointRight({
-              radiusPointX: srFormatNumber(x, locale),
-              radiusPointY: srFormatNumber(y, locale),
+    const radiusPointX = srFormatNumber(x, locale);
+    const radiusPointY = srFormatNumber(y, locale);
+    const hasLabel = typeof pointLabel === "string" && pointLabel !== "";
+
+    if (x >= centerX) {
+        return hasLabel
+            ? strings.srCircleRadiusPointRightWithLabel({
+                  pointLabel,
+                  radiusPointX,
+                  radiusPointY,
+              })
+            : strings.srCircleRadiusPointRight({radiusPointX, radiusPointY});
+    }
+    return hasLabel
+        ? strings.srCircleRadiusPointLeftWithLabel({
+              pointLabel,
+              radiusPointX,
+              radiusPointY,
           })
-        : strings.srCircleRadiusPointLeft({
-              radiusPointX: srFormatNumber(x, locale),
-              radiusPointY: srFormatNumber(y, locale),
-          });
+        : strings.srCircleRadiusPointLeft({radiusPointX, radiusPointY});
 }
 
 export function srCircleCenterLabel(
@@ -51,7 +63,7 @@ export function describeCircleGraph(
     i18n: I18nContextType,
 ): CircleGraphDescriptionStrings {
     const {strings, locale} = i18n;
-    const {center, radiusPoint} = state;
+    const {center, radiusPoint, pointLabels} = state;
     const radius = getRadius(state);
 
     // Aria label strings
@@ -68,6 +80,7 @@ export function describeCircleGraph(
         center[0],
         strings,
         locale,
+        pointLabels?.[0],
     );
     const srCircleRadius = strings.srCircleRadius({
         radius,

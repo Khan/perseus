@@ -61,6 +61,7 @@ type MoveRadiusPointAnnouncement = {
     y: number;
     centerX: number;
     radius: number;
+    pointLabel?: string;
 };
 
 type MoveCenterAnnouncement = {

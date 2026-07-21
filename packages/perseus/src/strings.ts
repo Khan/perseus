@@ -166,6 +166,24 @@ export type PerseusStrings = {
         radiusPointX: string;
         radiusPointY: string;
     }) => string;
+    srCircleRadiusPointRightWithLabel: ({
+        pointLabel,
+        radiusPointX,
+        radiusPointY,
+    }: {
+        pointLabel: string;
+        radiusPointX: string;
+        radiusPointY: string;
+    }) => string;
+    srCircleRadiusPointLeftWithLabel: ({
+        pointLabel,
+        radiusPointX,
+        radiusPointY,
+    }: {
+        pointLabel: string;
+        radiusPointX: string;
+        radiusPointY: string;
+    }) => string;
     srCircleRadius: ({radius}: {radius: number}) => string;
     srCircleOuterPoints: ({
         point1X,
@@ -1115,6 +1133,18 @@ export const strings = {
         message:
             "Left radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
     },
+    srCircleRadiusPointRightWithLabel: {
+        context:
+            "Aria label for the interactive Point element that represents the radius endpoint when it's on the right side of the Circle in the interactive graph widget, including the author's custom point label.",
+        message:
+            "Right radius endpoint %(pointLabel)s at %(radiusPointX)s comma %(radiusPointY)s.",
+    },
+    srCircleRadiusPointLeftWithLabel: {
+        context:
+            "Aria label for the interactive Point element that represents the radius endpoint when it's on the left side of the Circle in the interactive graph widget, including the author's custom point label.",
+        message:
+            "Left radius endpoint %(pointLabel)s at %(radiusPointX)s comma %(radiusPointY)s.",
+    },
     srCircleRadius: {
         context:
             "Screen reader description for the radius of the Circle in the interactive graph widget.",
@@ -1996,6 +2026,18 @@ export const mockStrings: PerseusStrings = {
         `Right radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
     srCircleRadiusPointLeft: ({radiusPointX, radiusPointY}) =>
         `Left radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointRightWithLabel: ({
+        pointLabel,
+        radiusPointX,
+        radiusPointY,
+    }) =>
+        `Right radius endpoint ${pointLabel} at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointLeftWithLabel: ({
+        pointLabel,
+        radiusPointX,
+        radiusPointY,
+    }) =>
+        `Left radius endpoint ${pointLabel} at ${radiusPointX} comma ${radiusPointY}.`,
     srCircleRadius: ({radius}) => `Circle radius is ${radius}.`,
     srCircleOuterPoints: ({
         point1X,

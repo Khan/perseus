@@ -1074,6 +1074,7 @@ function doMoveRadiusPoint(
                     y: nextRadiusPoint[Y],
                     centerX: state.center[X],
                     radius: vec.dist(state.center, nextRadiusPoint),
+                    pointLabel: state.pointLabels?.[0],
                 },
             };
         }
