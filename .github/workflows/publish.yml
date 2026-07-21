@@ -301,31 +301,10 @@ jobs:
                   git checkout main
                   git checkout $REF
 
-            # Helper to get the URL of the current run, if we need it.
+            # Helper to get the URL of the current run.
             - name: Get workflow run URL
               id: get-run-url
               run: echo "run_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-
-            # We need to see if any releases are in progress.
-            # We do not want to try and publish anything if a publish is
-            # pending. We fail here, but we make sure to update the
-            # PR comment later. This has to come after the checkout.
-            - name: Check for release
-              id: check-release
-              env:
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  # Releases are triggered by merging "Version Packages" PRs.
-                  # So we look for instances of the publish.yml workflow, with
-                  # a title containing "Version Packages", that are in progress.
-                  release_count=$(gh run list --workflow publish.yml --json status,displayTitle --jq '[.[] | select(.status == "in_progress" and ((.displayTitle | contains("Version Packages")) or (.displayTitle | contains("RELEASING:"))))] | length')
-                  echo "release_count=$release_count" >> $GITHUB_OUTPUT
-                  if [ "$release_count" -ne 0 ]; then
-                    echo "Error: There are $release_count releases in progress."
-                    exit 1
-                  else
-                    echo "No releases in progress."
-                  fi
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -424,26 +403,6 @@ jobs:
 
                       ---
                       Want to try again? Comment `/snapshot` once you've added a changeset.
-
-            - name: Create or update npm snapshot comment - failure, concurrent with release
-              if: failure() && steps.check-release.outputs.release_count != '0'
-              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
-              with:
-                  issue-number: ${{ steps.pr.outputs.number }}
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      ${{ env.SNAPSHOT_COMMENT_MARKER }}
-                      # npm Snapshot: **NOT** Published
-
-                      Oh noes!! We couldn't publish an npm snapshot for you because
-                      there is a release in progress. Please wait for the release to
-                      finish, then retry this workflow.
-
-                      [View the workflow run](${{ steps.get-run-url.outputs.run_url }})
-
-                      ---
-                      Want to try again? Comment `/snapshot` once the release has finished.
 
             - name: React to /snapshot comment on success
               if: >-

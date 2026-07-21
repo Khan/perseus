@@ -1,5 +1,49 @@
 # @khanacademy/perseus
 
+## 81.0.1
+
+### Patch Changes
+
+-   [#3913](https://github.com/Khan/perseus/pull/3913) [`7f6bf7a`](https://github.com/Khan/perseus/commit/7f6bf7a2970febb79fe897e4a295a9df5682c5a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Image widget is now a functional component.
+
+-   [#3918](https://github.com/Khan/perseus/pull/3918) [`f08b5fb`](https://github.com/Khan/perseus/commit/f08b5fb3adc235a6c7f9e419539cd8574d9b9bcf) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Increase Vector arrowhead border from 5px to 8px.
+
+-   [#3882](https://github.com/Khan/perseus/pull/3882) [`7fa63fa`](https://github.com/Khan/perseus/commit/7fa63fad47c9f7ef80479b99d89f877498cb08c1) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Interactive Graph: fix graphs blocking page scroll on touch devices (iOS 26.5+)
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   [#3919](https://github.com/Khan/perseus/pull/3919) [`920391b`](https://github.com/Khan/perseus/commit/920391bee8c414ac290ee681d672e59155f2c121) Thanks [@jandrade](https://github.com/jandrade)! - Update primitive HEX colors to use semanticColor tokens (to support multiple WB themes including dark mode)
+
+-   Updated dependencies [[`03eced8`](https://github.com/Khan/perseus/commit/03eced8c7ee90996c407c33f382b46b08aee06a2), [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf)]:
+    -   @khanacademy/simple-markdown@3.0.0
+    -   @khanacademy/math-input@26.6.3
+    -   @khanacademy/pure-markdown@2.3.1
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/perseus-linter@5.1.15
+    -   @khanacademy/keypad-context@3.2.75
+    -   @khanacademy/kmath@2.4.34
+    -   @khanacademy/perseus-score@8.12.7
+
+## 81.0.0
+
+### Major Changes
+
+-   [#3899](https://github.com/Khan/perseus/pull/3899) [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the image widget required. Perseus consumers should, as always, use the parsers to upgrade data to the latest schema.
+
+### Patch Changes
+
+-   [#3891](https://github.com/Khan/perseus/pull/3891) [`995be3f`](https://github.com/Khan/perseus/commit/995be3f2f1fedc7354148381fb1acd3b7f3785cc) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve type safety and tests of Crowdin just-in-place-translation (JIPT) code.
+
+-   [#3790](https://github.com/Khan/perseus/pull/3790) [`7ca90d3`](https://github.com/Khan/perseus/commit/7ca90d3668010bd6d1c91a8d0250a4c1e77fe860) Thanks [@Myranae](https://github.com/Myranae)! - Update the movable points and lines in the grapher, interaction, and number-line widgets to use Wonder Blocks semantic color tokens so they render correctly across themes. Interactive points and lines that were green are now blue in the default theme, and static (non-interactive) ones now render in a muted gray.
+
+-   Updated dependencies [[`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf)]:
+    -   @khanacademy/perseus-core@32.0.0
+    -   @khanacademy/keypad-context@3.2.74
+    -   @khanacademy/kmath@2.4.33
+    -   @khanacademy/math-input@26.6.2
+    -   @khanacademy/perseus-linter@5.1.14
+    -   @khanacademy/perseus-score@8.12.6
+
 ## 80.0.1
 
 ### Patch Changes

@@ -17,6 +17,7 @@ import {
     generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
+    generateImageOptions,
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
@@ -176,7 +177,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             }),
         }),
         "image 1": generateImageWidget({
-            options: {
+            options: generateImageOptions({
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
                     width: 300,
@@ -189,7 +190,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         alignment: "center",
                     },
                 ],
-            },
+            }),
         }),
         "table 1": {
             graded: true,
