@@ -58,10 +58,9 @@ export const TypeIntoCells: Story = {
     },
 };
 
-// Verifies the RTL layout when a cell is focused. Focuses the bottom-right
-// cell (row 2, col 2), which is index 8 in row-major order.
-// KNOWN ISSUE: Matrices do NOT flip in right-to-left languages. This story should
-// be no different from the FocusedOutsideCell story.
+// Verifies that the matrix stays left-to-right on an RTL page. Matrices always
+// render LTR, even in RTL languages, so this story should look identical to
+// the FocusedOutsideCell story but right-aligned within the page.
 export const FocusedOutsideCellRTL: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
     args: {
