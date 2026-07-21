@@ -60,18 +60,11 @@ export const categorizerOptions: PerseusCategorizerWidgetOptions =
         randomizeItems: false,
     });
 
-// The items are the graphs being classified. They reference the same raster
-// PNG assets question1 uses, by "https://...png" URL, so they load as plain
-// images. NOTE: a graphie-protocol URL ("web+graphie://...") would instead
-// need graphie data to exist for that hash AND an images map supplying
-// width/height -- and the categorizer renders items through an inner Renderer
-// that receives no images map, so graphie/dimensionless images there just
-// spin forever.
 export const categorizerWithImagesOptions: PerseusCategorizerWidgetOptions =
     generateCategorizerOptions({
         items: [
-            "![Graph 1](https://ka-perseus-graphie.s3.amazonaws.com/049c091ed0978112aba3a36b0591d992baf7b1ac.png)",
-            "![Graph 2](https://ka-perseus-graphie.s3.amazonaws.com/40df186f39fb6d65de6bee0d8b681502d10cb37a.png)",
+            "![Graph 1](web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f)",
+            "![Graph 2](web+graphie://cdn.kastatic.org/ka-perseus-graphie/7c0a5afb8670fad738df800ffe16c5e516b48777)",
         ],
         categories: [
             "No relationship",
