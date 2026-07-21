@@ -486,7 +486,7 @@ review and commit the changes.
       `userInput`-only, so no option-field defaults to relocate).
 - [x] Migrate `video` to `WidgetPropsV2`.
 - [x] Migrate `image` to `WidgetPropsV2`.
-- [ ] Migrate `molecule` to `WidgetPropsV2`.
+- [x] Migrate `molecule` to `WidgetPropsV2`. WON'T DO - `molecule` will be deleted
 - [ ] Migrate `measurer` to `WidgetPropsV2`.
 - [ ] Migrate `number-line` to `WidgetPropsV2`.
 - [ ] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
