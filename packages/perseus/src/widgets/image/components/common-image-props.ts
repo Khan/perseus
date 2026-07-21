@@ -8,5 +8,5 @@ export interface CommonImageProps {
     apiOptions: APIOptions;
     widgetId: string;
     isGifPlaying: boolean;
-    setIsGifPlaying: (isPaused: boolean) => void;
+    setIsGifPlaying: (isPlaying: boolean) => void;
 }
