@@ -1,8 +1,12 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
+import {waitForError, waitForNumberLine} from "./number-line-story-helpers";
 
-import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumberLineWidgetOptions,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusNumberLineWidgetOptions> = {
@@ -13,7 +17,9 @@ const meta: Meta<PerseusNumberLineWidgetOptions> = {
             description: {
                 component:
                     "Regression tests for the Number Line widget that do NOT " +
-                    "need any interactions to test.",
+                    "need any interactions to test. Each story's play function " +
+                    "only waits for the asynchronous graphie/TeX render to " +
+                    "settle before the snapshot is taken.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
@@ -23,114 +29,205 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Verifies the default interactive state: highlighted tick marks at both
-// endpoints (labelRange defaults to range endpoints), interactive point
-// in instructive color.
-export const Default: Story = {
-    decorators: [numberLineRendererDecorator],
-    args: {} satisfies Partial<PerseusNumberLineWidgetOptions>,
+// Wait-only play: every static story shares the same "wait until fully drawn"
+// step so Chromatic never snapshots a half-rendered number line.
+const waitForRender: Story["play"] = async ({canvasElement}) => {
+    await waitForNumberLine(canvasElement);
 };
 
-// Verifies the static (display-only) state where the point is shown in
-// instructive color and cannot be moved.
+// Shared configuration for the inequality stories: a range that crosses zero
+// with one tick per unit so the ray direction and length read clearly.
+const inequalityArgs = {
+    isInequality: true,
+    range: [-5, 5],
+    divisionRange: [1, 12],
+    snapDivisions: 1,
+    tickStep: 1,
+} satisfies Partial<PerseusNumberLineWidgetOptions>;
+
+// getStartUserInput always initializes an inequality's relation to "ge", so a
+// story showing any other relation must seed the whole userInput map itself
+// (initialUserInput fully replaces the computed start input).
+const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
+    "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
+});
+
+// Shared configuration for the fraction-label stories: 0–2 in half-unit steps
+// produces both whole-number and fractional tick values so the difference
+// between label styles is visible.
+const fractionArgs = {
+    range: [0, 2],
+    divisionRange: [1, 10],
+    numDivisions: 4,
+    snapDivisions: 1,
+} satisfies Partial<PerseusNumberLineWidgetOptions>;
+
+// The point is placed at a specific value (3) that falls between tick marks,
+// so this covers both the default line (highlighted blue endpoint ticks,
+// decimal labels) and a point positioned away from an endpoint.
+export const Default: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 5,
+        initialX: 3,
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+export const ImproperFractionLabels: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        ...fractionArgs,
+        labelStyle: "improper",
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+export const MixedFractionLabels: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        ...fractionArgs,
+        labelStyle: "mixed",
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+export const NonReducedFractionLabels: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        ...fractionArgs,
+        labelStyle: "non-reduced",
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+// Interior tick labels are hidden; the two highlighted endpoint labels still
+// render.
+export const TickLabelsHidden: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 5,
+        labelTicks: false,
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+// The highlighted endpoint labels (2 and 8) differ from the range endpoints
+// (0 and 10).
+export const CustomEndLabels: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 5,
+        labelRange: [2, 8],
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+export const TickController: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 5,
+        isTickCtrl: true,
+        divisionRange: [1, 10],
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
+};
+
+// The number of divisions (15) is outside the allowed division range (1–10),
+// so the widget shows an error message in place of the line.
+export const TickControllerInvalid: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: {
+        range: [0, 10],
+        numDivisions: 15,
+        isTickCtrl: true,
+        divisionRange: [1, 10],
+    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: async ({canvasElement}) => {
+        await waitForError(canvasElement);
+    },
+};
+
+export const InequalityClosedRight: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: inequalityArgs,
+    parameters: {
+        initialUserInput: inequalityInput("ge"),
+    },
+    play: waitForRender,
+};
+
+export const InequalityOpenRight: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: inequalityArgs,
+    parameters: {
+        initialUserInput: inequalityInput("gt"),
+    },
+    play: waitForRender,
+};
+
+export const InequalityClosedLeft: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: inequalityArgs,
+    parameters: {
+        initialUserInput: inequalityInput("le"),
+    },
+    play: waitForRender,
+};
+
+export const InequalityOpenLeft: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: inequalityArgs,
+    parameters: {
+        initialUserInput: inequalityInput("lt"),
+    },
+    play: waitForRender,
+};
+
+// Static mode: the answer is shown as a non-editable point and cannot be moved.
 export const StaticPoint: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
         static: true,
+        range: [0, 10],
+        numDivisions: 5,
+        correctX: 6,
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    play: waitForRender,
 };
 
-// Verifies the inequality state with a closed dot (≥ or ≤ relation):
-// the arrow line and filled dot both render in instructive color.
-export const InequalityClosedDot: Story = {
-    decorators: [numberLineRendererDecorator],
-    args: {
-        isInequality: true,
-        range: [-5, 5],
-        divisionRange: [1, 12],
-        snapDivisions: 1,
-        tickStep: 1,
-        correctRel: "ge",
-        correctX: 0,
-    } satisfies Partial<PerseusNumberLineWidgetOptions>,
-};
-
-// Verifies the open-dot inequality state (> or < relation): the dot
-// renders hollow with background fill and instructive-color stroke.
-// numDivisions is 10 because range width (10) / tickStep (1) = 10.
-export const InequalityOpenDot: Story = {
-    decorators: [numberLineRendererDecorator],
-    args: {
-        isInequality: true,
-        range: [-5, 5],
-        divisionRange: [1, 12],
-        snapDivisions: 1,
-        tickStep: 1,
-        correctRel: "gt",
-        correctX: 0,
-    } satisfies Partial<PerseusNumberLineWidgetOptions>,
-    parameters: {
-        initialUserInput: {
-            "number-line 1": {
-                rel: "gt",
-                numDivisions: 10,
-                numLinePosition: -5,
-            },
-        },
-    },
-};
-
-// Verifies the mobile layout: narrower 288px canvas and mobileDotStyle
-// stroke in instructive color.
 export const Mobile: Story = {
     decorators: [numberLineRendererDecorator],
-    args: {} satisfies Partial<PerseusNumberLineWidgetOptions>,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-};
-
-// Verifies the mobile inequality layout with a closed dot: the mobileDotStyle
-// stroke and the inequality ray both render in instructive color on the
-// narrower mobile canvas.
-export const MobileInequalityClosedDot: Story = {
-    decorators: [numberLineRendererDecorator],
     args: {
-        isInequality: true,
-        range: [-5, 5],
-        divisionRange: [1, 12],
-        snapDivisions: 1,
-        tickStep: 1,
-        correctRel: "ge",
-        correctX: 0,
+        range: [0, 10],
+        numDivisions: 5,
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
     parameters: {
         apiOptions: {isMobile: true},
     },
+    play: waitForRender,
 };
 
-// Verifies the mobile inequality layout with an open dot: the hollow dot
-// (background fill, zero fill-opacity) plus the mobileDotStyle stroke and
-// inequality ray in instructive color on the mobile canvas.
-export const MobileInequalityOpenDot: Story = {
+export const MobileInequalityClosed: Story = {
     decorators: [numberLineRendererDecorator],
-    args: {
-        isInequality: true,
-        range: [-5, 5],
-        divisionRange: [1, 12],
-        snapDivisions: 1,
-        tickStep: 1,
-        correctRel: "gt",
-        correctX: 0,
-    } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    args: inequalityArgs,
     parameters: {
         apiOptions: {isMobile: true},
-        initialUserInput: {
-            "number-line 1": {
-                rel: "gt",
-                numDivisions: 10,
-                numLinePosition: -5,
-            },
-        },
+        initialUserInput: inequalityInput("ge"),
     },
+    play: waitForRender,
+};
+
+export const MobileInequalityOpen: Story = {
+    decorators: [numberLineRendererDecorator],
+    args: inequalityArgs,
+    parameters: {
+        apiOptions: {isMobile: true},
+        initialUserInput: inequalityInput("gt"),
+    },
+    play: waitForRender,
 };
