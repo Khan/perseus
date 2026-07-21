@@ -46,7 +46,7 @@ jobs:
             - name: Force Node version
               uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
               with:
-                  node-version: ">=24.18 <25"
+                  node-version: "^24.18.0"
                   # Note that we don't specify 'cache: pnpm' here because we
                   # don't install node_modules in this workflow/job!
 
