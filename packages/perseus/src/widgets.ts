@@ -58,6 +58,7 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("passage", "deprecated-standin");
     replaceWidget("passage-ref", "deprecated-standin");
     replaceWidget("passage-ref-target", "deprecated-standin");
+    replaceWidget("molecule-renderer", "deprecated-standin");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -103,6 +104,7 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("passage", "deprecated-standin");
     replaceEditor("passage-ref", "deprecated-standin");
     replaceEditor("passage-ref-target", "deprecated-standin");
+    replaceEditor("molecule-renderer", "deprecated-standin");
 };
 
 export const getWidget = (
