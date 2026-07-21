@@ -8,9 +8,9 @@ import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
+import {useDependencies} from "../../../dependencies";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
-import {isGif} from "../utils";
 
 import ExploreImageButton from "./explore-image-button";
 import {ExploreImageModal} from "./explore-image-modal";
@@ -36,9 +36,10 @@ export interface CommonImageProps {
     range: [Interval, Interval];
     linterContext: LinterContextProps;
     apiOptions: APIOptions;
+    widgetId: string;
 }
 
-type Props = GifProps & CommonImageProps;
+type Props = GifProps & CommonImageProps & {isAnimatedGif: boolean};
 
 /**
  * The ImageInfoArea component includes the GIF controls, description modal
@@ -54,20 +55,21 @@ export const ImageInfoArea = (props: Props) => {
         linterContext,
         isGifPlaying,
         setIsGifPlaying,
+        isAnimatedGif,
+        widgetId,
     } = props;
 
     const context = React.useContext(PerseusI18nContext);
+    const {analytics} = useDependencies();
 
     if (!backgroundImage.url) {
         return null;
     }
 
-    const imageIsGif = isGif(backgroundImage.url);
-
     return (
         <div className={styles.infoAreaContainer}>
             {/* GIF controls */}
-            {imageIsGif && (
+            {isAnimatedGif && (
                 <GifControlsIcon
                     isPlaying={isGifPlaying}
                     onToggle={() => setIsGifPlaying(!isGifPlaying)}
@@ -75,7 +77,7 @@ export const ImageInfoArea = (props: Props) => {
             )}
 
             {/* Spacer if both GIF controls and description are shown */}
-            {imageIsGif && longDescription && (
+            {isAnimatedGif && longDescription && (
                 <div className={styles.spacerHorizontal} />
             )}
 
@@ -85,7 +87,17 @@ export const ImageInfoArea = (props: Props) => {
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}
-                            onClick={openModal}
+                            onClick={() => {
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:image:explore-modal-opened:ti",
+                                    payload: {
+                                        // No SubType exists yet
+                                        widgetSubType: "null",
+                                        widgetId,
+                                    },
+                                });
+                                openModal();
+                            }}
                         />
                     )}
                 </ModalLauncher>

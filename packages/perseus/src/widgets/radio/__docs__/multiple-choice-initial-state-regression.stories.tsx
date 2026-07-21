@@ -8,6 +8,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
+    mobileDecorator,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -113,38 +114,6 @@ export const SingleSelectRTL: Story = {
     },
 };
 
-export const SingleSelectWithRationale = {
-    decorators: [radioRendererDecorator],
-    args: {
-        choices: [
-            generateRadioChoice("USS Voyager (NCC-74656)", {
-                rationale: "Commanded by Captain Kathryn Janeway.",
-            }),
-            generateRadioChoice("USS Enterprise (NCC-1701)", {
-                rationale:
-                    "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
-                    "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
-                    "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
-                    "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
-                    '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
-            }),
-            generateRadioChoice("USS Enterprise (NX-01)", {
-                rationale: "Commanded by Captain Jonathan Archer.",
-            }),
-            generateRadioChoice("USS Stargazer (NCC-2893)", {
-                correct: true,
-                rationale:
-                    "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
-            }),
-        ],
-    },
-    parameters: {
-        content:
-            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
-        showSolutions: "all",
-    },
-};
-
 export const SingleSelectWithImages: Story = {
     decorators: [radioRendererDecorator],
     args: choicesWithImagesArgs,
@@ -189,6 +158,30 @@ export const SingleSelectWithLongMathjax: Story = {
     },
 };
 
+export const SingleSelectWithGraphie = {
+    decorators: [radioRendererDecorator],
+    args: choicesWithGraphieArgs,
+    parameters: {
+        content: choicesWithGraphieContent,
+        images: choicesWithGraphieImages,
+    },
+};
+
+export const SingleSelectWithColoredMath: Story = {
+    decorators: [radioRendererDecorator],
+    args: {
+        choices: [
+            generateRadioChoice("$\\greenA{Choice}$ + $\\goldD{One}$", {
+                correct: true,
+            }),
+            generateRadioChoice("$\\blueD{Choice}$ + $\\redE{Two}$"),
+            generateRadioChoice("$\\maroonC{Choice}$ + $\\purpleB{Three}$"),
+            generateRadioChoice("$\\tealC{Choice}$ + $\\maroonA{Four}$"),
+            generateRadioChoice("$\\blueC{Choice}$ + $\\blueB{Five}$"),
+        ],
+    },
+};
+
 export const SingleSelectWithLongText: Story = {
     decorators: [radioRendererDecorator],
     args: {
@@ -210,12 +203,35 @@ export const SingleSelectWithLongText: Story = {
     },
 };
 
-export const SingleSelectWithGraphie = {
+export const SingleSelectWithRationale = {
     decorators: [radioRendererDecorator],
-    args: choicesWithGraphieArgs,
+    args: {
+        choices: [
+            generateRadioChoice("USS Voyager (NCC-74656)", {
+                rationale: "Commanded by Captain Kathryn Janeway.",
+            }),
+            generateRadioChoice("USS Enterprise (NCC-1701)", {
+                rationale:
+                    "\nThis rationale has a blank line at the start, which should **NOT** affect the rendered rationale. More text: " +
+                    "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. " +
+                    "The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of patterns used by our transporters. " +
+                    "Captain, the most elementary and valuable statement in science, the beginning of wisdom, is 'I do not know.'" +
+                    '\n\n**Top tip!** This is the ship he commands in the series, but it is not his first command. Watch *"The Battle"* (Season 1, Episode 9) for more. And, as always, beware of Ferengi!',
+            }),
+            generateRadioChoice("USS Enterprise (NX-01)", {
+                rationale: "Commanded by Captain Jonathan Archer.",
+            }),
+            generateRadioChoice("USS Stargazer (NCC-2893)", {
+                correct: true,
+                rationale:
+                    "**This is the correct choice.** In one of the battles with the Ferengi, he killed the son of DaiMon Bok, who later sought revenge on Picard.",
+            }),
+        ],
+    },
     parameters: {
-        content: choicesWithGraphieContent,
-        images: choicesWithGraphieImages,
+        content:
+            "What ship was Jean-Luc Picard's first command?\n\n[[\u2603 radio 1]]\n\n",
+        showSolutions: "all",
     },
 };
 
@@ -312,6 +328,21 @@ export const MultiSelectRTL: Story = {
             }),
             generateRadioChoice("Choice 3"),
             generateRadioChoice("Choice 4"),
+        ],
+    },
+};
+
+export const SingleSelectWithLongMathjaxMobile: Story = {
+    decorators: [radioRendererDecorator, mobileDecorator],
+    args: {
+        choices: [
+            generateRadioChoice(
+                "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                {correct: true},
+            ),
+            generateRadioChoice("$100-50$"),
+            generateRadioChoice("$200-125+10$"),
+            generateRadioChoice("$10+10+10+10$"),
         ],
     },
 };

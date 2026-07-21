@@ -29,7 +29,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             - name: Checkout repository
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -85,7 +85,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -105,14 +105,6 @@ jobs:
               uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
               id: changed
 
-            - name: Check formatting
-              run: |
-                  pnpm prettier --check .
-
-            - name: Check for dead code
-              run: |
-                  pnpm knip
-
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
               uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
@@ -128,33 +120,6 @@ jobs:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: ".eslintrc.js,package.json,pnpm-lock.yaml,.eslintignore"
 
-            # Linting / type checking
-            - name: Eslint
-              uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
-              with:
-                  full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-                  full: pnpm lint packages
-                  limited-trigger: ${{ steps.js-files.outputs.filtered }}
-                  limited: pnpm lint {}
-
-            - name: Typecheck
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-              run: pnpm typecheck
-
-            - name: Typetest
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-              run: pnpm tstyche
-
-            - name: Build types
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-              run: pnpm build:types
-
-            # We build the docs in this job so that typedoc can check any
-            # comment changes to ensure they are valid.
-            - name: Build docs
-              run: pnpm build:docs
-
-            # Run tests for our target matrix
             - id: jest-reset
               uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
               name: Files that would trigger a full jest run
@@ -162,19 +127,53 @@ jobs:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "jest.config.js,package.json,pnpm-lock.yaml,test.config.js,test.transform.js"
 
-            - name: Jest
-              uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
-              with:
-                  full-trigger: ${{ steps.jest-reset.outputs.filtered }}
-                  full: pnpm jest
-                  limited-trigger: ${{ steps.js-files.outputs.filtered }}
-                  limited: pnpm jest --passWithNoTests --findRelatedTests {}
+            - parallel:
+                  - name: Check formatting
+                    run: pnpm prettier --check .
 
-            # We use STOPSHIP internally to mark code that's not safe to go live yet.
-            # We use an if block because we want to return the exact inverse of what
-            # `git grep` returns (0 on none found, 1 on some found).
-            - name: Checks that STOPSHIP is not used in any files.
-              run: ./utils/stopship-check.sh
+                  - name: Check for dead code
+                    run: pnpm knip
+
+                  # We use STOPSHIP internally to mark code that's not safe to
+                  # go live yet. We use an if block because we want to return
+                  # the exact inverse of what `git grep` returns (0 on none
+                  # found, 1 on some found).
+                  - name: Checks that STOPSHIP is not used in any files.
+                    run: ./utils/stopship-check.sh
+
+                  - name: Eslint
+                    uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    with:
+                        full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
+                        full: pnpm lint packages
+                        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                        limited: pnpm lint {}
+
+                  - name: Typecheck
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm typecheck
+
+                  - name: Typetest
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm tstyche
+
+                  - name: Build types
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm build:types
+
+                  # We build the docs here so that typedoc can check any
+                  # comment changes to ensure they are valid.
+                  - name: Build docs
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm build:docs
+
+                  - name: Jest
+                    uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    with:
+                        full-trigger: ${{ steps.jest-reset.outputs.filtered }}
+                        full: pnpm jest
+                        limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                        limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
     cypress:
         name: Cypress
@@ -182,7 +181,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -235,7 +234,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node-version: [24.x]
+                node-version: [24.16.0]
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2

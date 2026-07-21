@@ -154,8 +154,27 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for at least one point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("passes when showPointLabels is true and only some pointLabels entries are provided", () => {
+        expectPass(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                showPointLabels: true,
+                                pointLabels: ["A", "", "C"],
+                            }),
+                        }),
+                    }),
+                },
             },
         );
     });
@@ -169,7 +188,6 @@ describe("interactive-graph-widget-error", () => {
                     "interactive-graph 1": generateInteractiveGraphWidget({
                         options: generateInteractiveGraphOptions({
                             correct: generateIGPolygonGraph({
-                                numSides: 3,
                                 showPointLabels: true,
                                 pointLabels: ["", "", ""],
                             }),
@@ -179,7 +197,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but every pointLabels entry is empty. Provide a label for at least one point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -202,7 +220,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for at least one point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -217,7 +235,6 @@ describe("interactive-graph-widget-error", () => {
                     "interactive-graph 1": generateInteractiveGraphWidget({
                         options: generateInteractiveGraphOptions({
                             correct: generateIGPolygonGraph({
-                                numSides: 3,
                                 showPointLabels: true,
                                 pointLabels: ["A", "B", "C"],
                             }),
@@ -228,7 +245,7 @@ describe("interactive-graph-widget-error", () => {
         );
     });
 
-    it("passes when at least one pointLabels entry is non-empty (sparse array)", () => {
+    it("passes when showPointLabels is false (no requirement on pointLabels)", () => {
         expectPass(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
@@ -237,10 +254,49 @@ describe("interactive-graph-widget-error", () => {
                     "interactive-graph 1": generateInteractiveGraphWidget({
                         options: generateInteractiveGraphOptions({
                             correct: generateIGPolygonGraph({
-                                numSides: 3,
-                                showPointLabels: true,
-                                pointLabels: ["A", "", "C"],
+                                showPointLabels: false,
                             }),
+                        }),
+                    }),
+                },
+            },
+        );
+    });
+
+    it("passes when showPointLabels is absent on the `graph` field", () => {
+        expectPass(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            graph: generateIGPolygonGraph({
+                                pointLabels: ["A", "B", "C"],
+                            }),
+                        }),
+                    }),
+                },
+            },
+        );
+    });
+
+    it('passes when graph type is "none" even with showPointLabels true via a cast (defense-in-depth backstop)', () => {
+        expectPass(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            // The schema disallows showPointLabels on `none`, so we
+                            // cast to assert the defensive guard fires when the
+                            // backstop is asked to look at this shape.
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                            correct: {
+                                type: "none",
+                                showPointLabels: true,
+                            } as any,
                         }),
                     }),
                 },
@@ -308,8 +364,6 @@ describe("interactive-graph-widget-error", () => {
                         options: generateInteractiveGraphOptions({
                             correct: generateIGPolygonGraph({
                                 numSides: "unlimited",
-                                // `coords` required so we don't trip the
-                                // unrelated "Polygon must be closed" rule.
                                 coords: [
                                     [0, 0],
                                     [1, 0],
@@ -318,65 +372,6 @@ describe("interactive-graph-widget-error", () => {
                                 showPointLabels: true,
                                 pointLabels: ["A", "B"],
                             }),
-                        }),
-                    }),
-                },
-            },
-        );
-    });
-
-    it("passes when showPointLabels is false (no requirement on pointLabels)", () => {
-        expectPass(
-            interactiveGraphWidgetErrorRule,
-            "[[☃ interactive-graph 1]]",
-            {
-                widgets: {
-                    "interactive-graph 1": generateInteractiveGraphWidget({
-                        options: generateInteractiveGraphOptions({
-                            correct: generateIGPolygonGraph({
-                                showPointLabels: false,
-                            }),
-                        }),
-                    }),
-                },
-            },
-        );
-    });
-
-    it("passes when showPointLabels is absent on the `graph` field", () => {
-        expectPass(
-            interactiveGraphWidgetErrorRule,
-            "[[☃ interactive-graph 1]]",
-            {
-                widgets: {
-                    "interactive-graph 1": generateInteractiveGraphWidget({
-                        options: generateInteractiveGraphOptions({
-                            graph: generateIGPolygonGraph({
-                                pointLabels: ["A", "B", "C"],
-                            }),
-                        }),
-                    }),
-                },
-            },
-        );
-    });
-
-    it('passes when graph type is "none" even with showPointLabels true via a cast (defense-in-depth backstop)', () => {
-        expectPass(
-            interactiveGraphWidgetErrorRule,
-            "[[☃ interactive-graph 1]]",
-            {
-                widgets: {
-                    "interactive-graph 1": generateInteractiveGraphWidget({
-                        options: generateInteractiveGraphOptions({
-                            // The schema disallows showPointLabels on `none`, so we
-                            // cast to assert the defensive guard fires when the
-                            // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
-                            correct: {
-                                type: "none",
-                                showPointLabels: true,
-                            } as any,
                         }),
                     }),
                 },

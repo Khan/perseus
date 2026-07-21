@@ -1,4 +1,4 @@
-import type image from "../../widgets/image/image.class";
+import type image from "../../widgets/image/image";
 import type React from "react";
 
 /**

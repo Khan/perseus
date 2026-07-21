@@ -2,6 +2,7 @@ import {
     generateExpressionAnswerForm,
     generateExpressionOptions,
     generateExpressionWidget,
+    generateImageOptions,
     generateTestPerseusRenderer,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -16,8 +17,7 @@ export const singleSectionArticle: PerseusRenderer = {
             alignment: "block",
             static: false,
             graded: true,
-            options: {
-                static: false,
+            options: generateImageOptions({
                 title: "",
                 range: [
                     [0, 10],
@@ -33,7 +33,7 @@ export const singleSectionArticle: PerseusRenderer = {
                 alt: 'A scene from Pixar\'s film "Toy Story 3" where the characters are swimming in a sea of trash and look very afraid.',
                 caption:
                     'A scene from Pixar\'s film "Toy Story 3" where the characters are swimming in a sea of trash and look very afraid."',
-            },
+            }),
             version: {major: 0, minor: 0},
         },
     },

@@ -1,8 +1,8 @@
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
-import {success} from "../result";
+import {assertSuccess, success} from "../result";
 
-import {parseSimplify} from "./numeric-input-widget";
+import {parseNumericInputWidget, parseSimplify} from "./numeric-input-widget";
 
 describe("parseSimplify", () => {
     it(`preserves "required"`, () => {
@@ -43,5 +43,126 @@ describe("parseSimplify", () => {
 
     it(`rejects an arbitrary string`, () => {
         expect(parse("foobar", parseSimplify)).toEqual(anyFailure);
+    });
+});
+
+describe("textAlign", () => {
+    function numericInputWidget(
+        options: Record<string, unknown>,
+        version: {major: number; minor: number},
+    ) {
+        return {
+            type: "numeric-input",
+            options: {
+                answers: [{status: "correct", simplify: "required"}],
+                size: "normal",
+                coefficient: false,
+                ...options,
+            },
+            version,
+        };
+    }
+
+    it("migrates from v0 to v1 when rightAlign is undefined", () => {
+        // Arrange
+        const widget = numericInputWidget({}, {major: 0, minor: 0});
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("migrates from v0 to v1 when rightAlign is true", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {rightAlign: true},
+            {major: 0, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.textAlign).toBe("right");
+    });
+
+    it("migrates from v0 to v1 when rightAlign is false", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {rightAlign: false},
+            {major: 0, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("handles v1 undefined textAlign", () => {
+        // Arrange
+        const widget = numericInputWidget({}, {major: 1, minor: 0});
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.version).toEqual({major: 1, minor: 0});
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("handles v1 left textAlign", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {textAlign: "left"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("left");
+    });
+
+    it("handles v1 right textAlign", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {textAlign: "right"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("right");
+    });
+
+    it("handles v1 center textAlign", () => {
+        // Arrange
+        const widget = numericInputWidget(
+            {textAlign: "center"},
+            {major: 1, minor: 0},
+        );
+
+        // Act
+        const result = parse(widget, parseNumericInputWidget);
+
+        // Assert
+        assertSuccess(result);
+        expect(result.value.options.textAlign).toBe("center");
     });
 });

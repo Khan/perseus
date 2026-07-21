@@ -1,29 +1,13 @@
-import {MathFieldActionType} from "../../types";
-import {mathQuillInstance} from "../input/mathquill-instance";
+import insertBaseParens from "./insert-base-parens";
 
 import type {MathFieldInterface} from "../input/mathquill-types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
-
-const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
-const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];
 
 export default function handleExponent(
     mathField: MathFieldInterface,
     key: KeypadKey,
 ) {
-    const cursor = mathField.cursor();
-    // If there's an invalid operator preceding the cursor (anything that
-    // knowingly cannot be raised to a power), add an empty set of
-    // parentheses and apply the exponent to that.
-    const invalidPrefixes = [...ArithmeticOperators, ...EqualityOperators];
-
-    const precedingNode = cursor[mathQuillInstance.L];
-    const shouldPrefixWithParens =
-        precedingNode === MathFieldActionType.MQ_END ||
-        invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
-    if (shouldPrefixWithParens) {
-        mathField.write("\\left(\\right)");
-    }
+    const insertedParens = insertBaseParens(mathField);
 
     // Insert the appropriate exponent operator.
     switch (key) {
@@ -39,7 +23,7 @@ export default function handleExponent(
             // within the newly inserted parens, if they exist. This takes
             // exactly four left strokes, since the cursor by default would
             // end up to the right of the exponent.
-            if (shouldPrefixWithParens) {
+            if (insertedParens) {
                 mathField.keystroke("Left");
                 mathField.keystroke("Left");
                 mathField.keystroke("Left");

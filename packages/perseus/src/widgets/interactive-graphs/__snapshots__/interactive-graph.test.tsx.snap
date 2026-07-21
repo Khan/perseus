@@ -153,6 +153,68 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                           <g
                             stroke="var(--mafs-origin-color)"
                             stroke-width="var(--mafs-axis-stroke-width)"
+                          />
+                          <g
+                            class="mafs-shadow"
+                          />
+                        </g>
+                      </svg>
+                      <rect
+                        class="mafs-graph-border"
+                        data-testid="graph-border"
+                        height="400"
+                        width="400"
+                        x="-200"
+                        y="-200"
+                      />
+                      <svg
+                        height="400"
+                        preserveAspectRatio="xMidYMin"
+                        viewBox="-200 -200 400 400"
+                        width="400"
+                        x="-200"
+                        y="-200"
+                      >
+                        <g
+                          fill="none"
+                        >
+                          <pattern
+                            height="20"
+                            id="cartesian-1"
+                            patternUnits="userSpaceOnUse"
+                            width="20"
+                            x="0"
+                            y="0"
+                          >
+                            <pattern
+                              height="20"
+                              id="cartesian-1-subdivision"
+                              patternUnits="userSpaceOnUse"
+                              width="20"
+                            >
+                              <g
+                                stroke="var(--grid-line-subdivision-color)"
+                              />
+                            </pattern>
+                            <rect
+                              fill="url(#cartesian-1-subdivision)"
+                              height="20"
+                              width="20"
+                            />
+                            <g
+                              stroke="var(--mafs-line-color)"
+                            />
+                          </pattern>
+                          <rect
+                            fill="url(#cartesian-1)"
+                            height="640"
+                            width="640"
+                            x="-320"
+                            y="-320"
+                          />
+                          <g
+                            stroke="var(--mafs-origin-color)"
+                            stroke-width="var(--mafs-axis-stroke-width)"
                           >
                             <line
                               x1="-320"
@@ -1024,6 +1086,10 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                     />
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
           </div>
@@ -1256,12 +1322,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="200"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="200"
                               cy="-114.28571428571429"
@@ -1325,12 +1385,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             data-testid="movable-point"
                             style="--movable-point-color: var(--mafs-blue);"
                           >
-                            <circle
-                              class="movable-point-hitbox"
-                              cx="142.85714285714286"
-                              cy="-228.57142857142858"
-                              r="24"
-                            />
                             <circle
                               class="movable-point-halo"
                               cx="142.85714285714286"
@@ -1396,12 +1450,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
                               cy="-114.28571428571429"
@@ -1460,6 +1508,31 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 142.85714285714286px; top: 114.2857142857143px; width: 114.2857142857143px; height: 114.2857142857143px; clip-path: polygon(114.2857142857143px 114.2857142857143px, 57.14285714285714px 0px, 0px 114.2857142857143px);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 257.14285714285717px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 114.2857142857143px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>
@@ -1679,12 +1752,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="75"
-                              cy="50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="75"
                               cy="50"
@@ -1748,12 +1815,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             data-testid="movable-point"
                             style="--movable-point-color: var(--mafs-blue);"
                           >
-                            <circle
-                              class="movable-point-hitbox"
-                              cx="0"
-                              cy="-75"
-                              r="24"
-                            />
                             <circle
                               class="movable-point-halo"
                               cx="0"
@@ -1819,12 +1880,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-75"
-                              cy="50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-75"
                               cy="50"
@@ -1883,6 +1938,31 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 125px; top: 125px; width: 150px; height: 125px; clip-path: polygon(150px 125px, 75px 0px, 0px 125px);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 275px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 125px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 125px; top: 250px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>
@@ -2079,7 +2159,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     >
                       <rect
                         height="400"
-                        style="fill: rgba(0,0,0,0); cursor: crosshair;"
+                        style="fill: none; pointer-events: all; cursor: crosshair;"
                         width="400"
                         x="-200"
                         y="-200"
@@ -2087,6 +2167,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     </svg>
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
             <div
@@ -2336,7 +2420,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                         <rect
                           aria-hidden="true"
                           height="400"
-                          style="fill: rgba(0,0,0,0); cursor: crosshair;"
+                          style="fill: none; pointer-events: all; cursor: crosshair;"
                           width="400"
                           x="-200"
                           y="-266.6666666666667"
@@ -2345,6 +2429,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                     </svg>
                   </div>
                 </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                />
               </div>
             </div>
             <div
@@ -2581,12 +2669,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="314.2857142857143"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="314.2857142857143"
                               cy="-114.28571428571429"
@@ -2650,12 +2732,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             data-testid="movable-point"
                             style="--movable-point-color: var(--mafs-blue);"
                           >
-                            <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-285.7142857142857"
-                              r="24"
-                            />
                             <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
@@ -2721,12 +2797,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="85.71428571428572"
-                              cy="-114.28571428571429"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="85.71428571428572"
                               cy="-114.28571428571429"
@@ -2785,6 +2855,31 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 142.85714285714286px; top: 57.14285714285717px; width: 228.57142857142858px; height: 171.42857142857144px; clip-path: polygon(228.57142857142858px 171.42857142857144px, 0px 0px, 0px 171.42857142857144px);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 371.42857142857144px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 57.14285714285717px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 142.85714285714286px; top: 228.5714285714286px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>
@@ -3004,12 +3099,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-150"
-                              cy="175"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-150"
                               cy="175"
@@ -3073,12 +3162,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             data-testid="movable-point"
                             style="--movable-point-color: var(--mafs-blue);"
                           >
-                            <circle
-                              class="movable-point-hitbox"
-                              cx="25"
-                              cy="100"
-                              r="24"
-                            />
                             <circle
                               class="movable-point-halo"
                               cx="25"
@@ -3144,12 +3227,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-75"
-                              cy="100"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-75"
                               cy="100"
@@ -3208,6 +3285,31 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 50px; top: 300px; width: 175px; height: 75px; clip-path: polygon(0px 75px, 175px 0px, 75px 0px);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 50px; top: 375px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 225px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 125px; top: 300px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>
@@ -3417,12 +3519,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         style="--movable-point-color: var(--mafs-blue);"
                       >
                         <circle
-                          class="movable-point-hitbox"
-                          cx="0"
-                          cy="0"
-                          r="24"
-                        />
-                        <circle
                           class="movable-point-halo"
                           cx="0"
                           cy="0"
@@ -3459,12 +3555,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         data-testid="movable-point"
                         style="--movable-point-color: var(--mafs-blue);"
                       >
-                        <circle
-                          class="movable-point-hitbox"
-                          cx="-125"
-                          cy="0"
-                          r="24"
-                        />
                         <circle
                           class="movable-point-halo"
                           cx="-125"
@@ -3503,12 +3593,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                         style="--movable-point-color: var(--mafs-blue);"
                       >
                         <circle
-                          class="movable-point-hitbox"
-                          cx="-50"
-                          cy="0"
-                          r="24"
-                        />
-                        <circle
                           class="movable-point-halo"
                           cx="-50"
                           cy="0"
@@ -3533,6 +3617,26 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 200px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 75px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 150px; top: 200px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>
@@ -3798,12 +3902,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="-83.33333333333334"
-                              cy="0"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="-83.33333333333334"
                               cy="0"
@@ -3867,12 +3965,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             data-testid="movable-point"
                             style="--movable-point-color: var(--mafs-blue);"
                           >
-                            <circle
-                              class="movable-point-hitbox"
-                              cx="66.66666666666667"
-                              cy="-250.00000000000003"
-                              r="24"
-                            />
                             <circle
                               class="movable-point-halo"
                               cx="66.66666666666667"
@@ -3938,12 +4030,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="66.66666666666667"
-                              cy="0"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="66.66666666666667"
                               cy="0"
@@ -4008,12 +4094,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
                             style="--movable-point-color: var(--mafs-blue);"
                           >
                             <circle
-                              class="movable-point-hitbox"
-                              cx="16.666666666666668"
-                              cy="-50"
-                              r="24"
-                            />
-                            <circle
                               class="movable-point-halo"
                               cx="16.666666666666668"
                               cy="-50"
@@ -4072,6 +4152,36 @@ exports[`Interactive Graph question Should render user input predictably: with u
                       </g>
                     </svg>
                   </div>
+                </div>
+                <div
+                  class="interactive-graph-hitbox-layer"
+                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                >
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-polygon__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 1; cursor: grab; left: 116.66666666666666px; top: 16.666666666666657px; width: 150.00000000000003px; height: 250.00000000000003px; clip-path: polygon(0px 250.00000000000003px, 150.00000000000003px 0px, 150.00000000000003px 250.00000000000003px, 100px 200.00000000000003px);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 116.66666666666666px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 266.6666666666667px; top: 16.666666666666657px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 266.6666666666667px; top: 266.6666666666667px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
+                  <div
+                    aria-hidden="true"
+                    data-testid="movable-point__hitbox"
+                    style="position: absolute; pointer-events: auto; z-index: 2; cursor: grab; left: 216.66666666666666px; top: 216.66666666666669px; width: 48px; height: 48px; transform: translate(-50%, -50%);"
+                  />
                 </div>
               </div>
             </div>

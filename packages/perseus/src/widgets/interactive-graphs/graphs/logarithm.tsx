@@ -16,7 +16,7 @@ import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovableAsymptote} from "./components/movable-asymptote";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeLogarithmGraph} from "./strings/logarithm";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {
     getAsymptoteGraphKeyboardConstraint,
@@ -43,7 +43,8 @@ export function renderLogarithmGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <LogarithmGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getLogarithmDescription(state, i18n),
+        interactiveElementsDescription: describeLogarithmGraph(state, i18n)
+            .srLogarithmInteractiveElements,
     };
 }
 
@@ -269,56 +270,4 @@ function renderLogarithmCurve({
             />
         </ClipToGraphBounds>
     );
-}
-
-function getLogarithmDescription(
-    state: LogarithmGraphState,
-    i18n: I18nContextType,
-): string {
-    const strings = describeLogarithmGraph(state, i18n);
-    return strings.srLogarithmInteractiveElements;
-}
-
-function describeLogarithmGraph(
-    state: LogarithmGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords, asymptote} = state;
-    const [point1, point2] = coords;
-
-    const formattedPoint1 = {
-        x: srFormatNumber(point1[X], locale),
-        y: srFormatNumber(point1[Y], locale),
-    };
-    const formattedPoint2 = {
-        x: srFormatNumber(point2[X], locale),
-        y: srFormatNumber(point2[Y], locale),
-    };
-    const asymptoteXFormatted = srFormatNumber(asymptote, locale);
-
-    return {
-        srLogarithmGraph: strings.srLogarithmGraph,
-        srLogarithmDescription: strings.srLogarithmDescription({
-            point1X: formattedPoint1.x,
-            point1Y: formattedPoint1.y,
-            point2X: formattedPoint2.x,
-            point2Y: formattedPoint2.y,
-            asymptoteX: asymptoteXFormatted,
-        }),
-        srLogarithmAsymptote: strings.srLogarithmAsymptote({
-            asymptoteX: asymptoteXFormatted,
-        }),
-        srLogarithmPoint1: strings.srLogarithmPoint1(formattedPoint1),
-        srLogarithmPoint2: strings.srLogarithmPoint2(formattedPoint2),
-        srLogarithmInteractiveElements: strings.srInteractiveElements({
-            elements: strings.srLogarithmInteractiveElements({
-                point1X: srFormatNumber(point1[X], locale),
-                point1Y: srFormatNumber(point1[Y], locale),
-                point2X: srFormatNumber(point2[X], locale),
-                point2Y: srFormatNumber(point2[Y], locale),
-                asymptoteX: asymptoteXFormatted,
-            }),
-        }),
-    };
 }

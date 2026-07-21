@@ -4,9 +4,10 @@ import {useState, useRef, useLayoutEffect} from "react";
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {srFormatNumber} from "../screenreader-text";
+import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
+import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
@@ -67,6 +68,7 @@ export function useControlPoint(params: Params): Return {
     const {strings, locale} = usePerseusI18n();
 
     const [focused, setFocused] = useState(false);
+    const [hovered, setHovered] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
 
     useDraggable({
@@ -77,14 +79,35 @@ export function useControlPoint(params: Params): Return {
         constrainKeyboardMovement: constrain,
     });
 
+    // Ref to the visible SVG point (for the forwarded ref); not a gesture
+    // target — pointer/touch dragging is captured on the HTML hitbox below.
     const visiblePointRef = useRef<SVGGElement>(null);
+    // The touch/pointer drag is captured on an HTML hitbox that is portaled
+    // into the graph's overlay layer, not the SVG group, because Safari doesn't
+    // reliably honor `touch-action` on SVG. See hitbox.tsx / HitboxLayerContext.
+    const hitboxDivRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
-        gestureTarget: visiblePointRef,
+        gestureTarget: hitboxDivRef,
         point,
         onMove,
         onDragStart,
         onDragEnd,
         constrainKeyboardMovement: constrain,
+    });
+
+    const focusPoint = () => {
+        onClick();
+        focusableHandleRef.current?.focus();
+    };
+
+    const hitbox = useHitbox({
+        shape: {kind: "box", center: point, sizePx: HANDLE_HITBOX_SIZE_PX},
+        hitboxRef: hitboxDivRef,
+        cursor,
+        dragging,
+        onClick: focusPoint,
+        onHoverChange: setHovered,
+        testId: "movable-point__hitbox",
     });
 
     // if custom aria label is not provided, will use default of sequence number and point coordinates
@@ -107,7 +130,8 @@ export function useControlPoint(params: Params): Return {
             // If the point is being dragged, focus the focusable handle so that
             // users can continue to interact with the point using the keyboard or buttons.
             // This particular focus call ensures that the focus ring and hairlines are visible.
-            focusableHandleRef.current?.focus();
+            // `preventScroll` so focusing mid-drag never scrolls the page.
+            focusableHandleRef.current?.focus({preventScroll: true});
         }
     }, [dragging, focused]);
 
@@ -131,19 +155,21 @@ export function useControlPoint(params: Params): Return {
             }}
         />
     );
+
     const visiblePoint = (
-        <MovablePointView
-            cursor={cursor}
-            onClick={() => {
-                onClick();
-                focusableHandleRef.current?.focus();
-            }}
-            point={point}
-            dragging={dragging}
-            focused={focused}
-            ref={visiblePointRef}
-            showFocusRing={focused}
-        />
+        <>
+            {hitbox}
+            <MovablePointView
+                cursor={cursor}
+                onClick={focusPoint}
+                point={point}
+                dragging={dragging}
+                focused={focused}
+                hovered={hovered}
+                ref={visiblePointRef}
+                showFocusRing={focused}
+            />
+        </>
     );
 
     return {

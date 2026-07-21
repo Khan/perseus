@@ -1,0 +1,7 @@
+{
+    "verify": "pnpm --silent tsc && pnpm --silent tesc && pnpm --silent linc",
+    "fix": "pnpm --silent fixc",
+    "todoPatterns": [
+        "(^| )TODO(:|\\([a-z])"
+    ]
+}

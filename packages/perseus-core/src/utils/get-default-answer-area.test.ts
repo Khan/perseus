@@ -4,7 +4,7 @@ describe("getDefaultAnswerArea", () => {
     it("creates a default answer area", () => {
         expect(getDefaultAnswerArea()).toEqual({
             calculator: false,
-            calculatorVariant: null,
+            calculatorVariant: undefined,
             financialCalculatorMonthlyPayment: false,
             financialCalculatorTimeToPayOff: false,
             financialCalculatorTotalAmount: false,

@@ -295,6 +295,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     }
                 },
             );
+        } else {
+            // When the graph is undefined (such as when the settings are invalid).
+            // Fall back to the last-known graph/correct from props.
+            // This preserves the graph rendering in our preview editor and avoids
+            // cascading issues as a result of undefined props being passed to
+            // the interactive graph widget.
+            _.extend(json, {
+                graph: this.props.graph,
+                correct: this.props.correct,
+            });
         }
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;

@@ -9,6 +9,7 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -17,17 +18,16 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {useHitbox} from "./components/hitbox";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
-import {srFormatNumber} from "./screenreader-text";
+import {srFormatNumber} from "./strings/format-number";
+import {describePolygonGraph} from "./strings/polygon";
 import {useDraggable} from "./use-draggable";
 import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 import {
@@ -62,11 +62,11 @@ export function renderPolygonGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getPolygonGraphDescription(
+        interactiveElementsDescription: describePolygonGraph(
             state,
             i18n,
             markings,
-        ),
+        ).srPolygonInteractiveElements,
     };
 }
 
@@ -93,6 +93,9 @@ const PolygonGraph = (props: Props) => {
 
     // Ref to implement the dragging behavior on a Limited/Closed Polygon.
     const polygonRef = React.useRef<SVGPolygonElement>(null);
+    // HTML hitbox that captures the whole-shape pointer/touch drag (Safari
+    // doesn't honor `touch-action` on the SVG polygon; see hitbox.tsx).
+    const polygonHitboxRef = React.useRef<HTMLDivElement>(null);
     // Ref to manage dynamic focus for the points in Unlimited Polygon
     const pointsRef = React.useRef<Array<SVGElement | null>>([]);
     // Ref to manage the last move time for a Limited Polygon.
@@ -109,12 +112,21 @@ const PolygonGraph = (props: Props) => {
     const constrain: KeyboardMovementConstraint =
         getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
-    const {dragging} = useDraggable({
+    const moveAll = (newStart: vec.Vector2) => {
+        dispatch(actions.polygon.moveAll(newStart));
+    };
+    // Keyboard drag stays on the focusable SVG polygon.
+    useDraggable({
         gestureTarget: polygonRef,
         point: dragReferencePoint,
-        onMove: (newStart) => {
-            dispatch(actions.polygon.moveAll(newStart));
-        },
+        onMove: moveAll,
+        constrainKeyboardMovement: constrain,
+    });
+    // Pointer/touch drag runs through the HTML hitbox.
+    const {dragging} = useDraggable({
+        gestureTarget: polygonHitboxRef,
+        point: dragReferencePoint,
+        onMove: moveAll,
         constrainKeyboardMovement: constrain,
     });
 
@@ -123,6 +135,18 @@ const PolygonGraph = (props: Props) => {
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
     const [focusVisible, setFocusVisible] = React.useState(false);
+
+    // Whole-shape drag hitbox: an HTML polygon (via clip-path) matching the
+    // current vertices. Only meaningful once the polygon has an interior
+    // (≥ 3 vertices); while it's still being drawn, points are the interaction.
+    const polygonHitbox = useHitbox({
+        shape: {kind: "polygon", vertices: coords},
+        hitboxRef: polygonHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-polygon__hitbox",
+    });
 
     // This useEffect is to handle the focus snapping for Unlimited Polygon.
     React.useEffect(() => {
@@ -162,10 +186,16 @@ const PolygonGraph = (props: Props) => {
         setFocusVisible,
     };
 
-    return numSides === "unlimited" ? (
-        <UnlimitedPolygonGraph {...statefulProps} />
-    ) : (
-        <LimitedPolygonGraph {...statefulProps} />
+    return (
+        <>
+            {/* useHitbox renders nothing until the polygon has ≥3 vertices. */}
+            {polygonHitbox}
+            {numSides === "unlimited" ? (
+                <UnlimitedPolygonGraph {...statefulProps} />
+            ) : (
+                <LimitedPolygonGraph {...statefulProps} />
+            )}
+        </>
     );
 };
 
@@ -473,7 +503,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 // This is okay because the graph has its own aria-label.
                 aria-hidden={true}
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}
@@ -630,87 +664,6 @@ export const hasFocusVisible = (
         return matches(":focus");
     }
 };
-
-function getPolygonGraphDescription(
-    state: PolygonGraphState,
-    i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
-): string | null {
-    const strings = describePolygonGraph(state, i18n, markings);
-    return strings.srPolygonInteractiveElements;
-}
-
-type PolygonGraphDescriptionStrings = {
-    srPolygonGraph: string;
-    srPolygonGraphPointsNum: string;
-    srPolygonGraphPoints?: string;
-    srPolygonElementsNum: string;
-    srPolygonInteractiveElements: string | null;
-};
-
-function describePolygonGraph(
-    state: PolygonGraphState,
-    i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
-): PolygonGraphDescriptionStrings {
-    const {strings, locale} = i18n;
-    const {coords, pointLabels} = state;
-    const buildLabel = (index: number, point: vec.Vector2) =>
-        buildPointAriaLabel(pointLabels, index, point, strings, locale);
-    const isCoordinatePlane = markings === "axes" || markings === "graph";
-    const hasOnePoint = coords.length === 1;
-
-    // Figure out graph aria label based on markings.
-    const srPolygonGraph = isCoordinatePlane
-        ? strings.srPolygonGraphCoordinatePlane
-        : strings.srPolygonGraph;
-
-    const srPolygonGraphPointsNum = hasOnePoint
-        ? strings.srPolygonGraphPointsOne
-        : strings.srPolygonGraphPointsNum({
-              num: coords.length,
-          });
-    let srPolygonGraphPoints;
-    // Figure out graph description based on markings.
-    // If the graph is not on a coordinate plane, we should not include
-    // the points' coordinates in the description.
-    if (isCoordinatePlane) {
-        const pointsString = coords.map(
-            (coord, i) =>
-                // Share the helper's defensive rules with the MovablePoint handle's aria-label.
-                buildLabel(i, coord) ??
-                strings.srPointAtCoordinates({
-                    num: i + 1,
-                    x: srFormatNumber(coord[0], locale),
-                    y: srFormatNumber(coord[1], locale),
-                }),
-        );
-        srPolygonGraphPoints = pointsString.join(" ");
-    }
-
-    const srPolygonElementsNum = hasOnePoint
-        ? strings.srPolygonElementsOne
-        : strings.srPolygonElementsNum({
-              num: coords.length,
-          });
-
-    const srPolygonInteractiveElements =
-        coords.length > 0
-            ? strings.srInteractiveElements({
-                  elements: [srPolygonElementsNum, srPolygonGraphPoints].join(
-                      " ",
-                  ),
-              })
-            : null;
-
-    return {
-        srPolygonGraph,
-        srPolygonGraphPointsNum,
-        srPolygonGraphPoints,
-        srPolygonElementsNum,
-        srPolygonInteractiveElements,
-    };
-}
 
 function getKeyboardMovementConstraintForPoint(
     points: ReadonlyArray<Coord>,

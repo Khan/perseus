@@ -46,6 +46,12 @@ swcrc.jsc.experimental ??= {};
 swcrc.jsc.experimental.plugins ??= [];
 swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
+// Jest workers sometimes segfault and crash. Reducing maxWorkers seems to
+// help. On our dev laptops with 12 cores, Jest defaults to 13 workers when
+// maxWorkers is not set, so I've reduced it to 10. The test suite seems to run
+// faster with 10 workers, too (16s vs. 18s). This setting is not applied on CI.
+const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 10};
+
 /** @type {import('jest').Config} */
 module.exports = {
     setupFiles: [],
@@ -70,6 +76,11 @@ module.exports = {
         "<rootDir>/**/*.test.ts",
         "<rootDir>/**/*.test.tsx",
     ],
+    // Exclude in-repo git worktrees (e.g. Claude Code agent worktrees under
+    // .claude/) so their duplicate package.json files don't collide in Jest's
+    // Haste module map and their tests aren't discovered twice.
+    modulePathIgnorePatterns: ["<rootDir>/\\.claude/"],
+    testPathIgnorePatterns: ["/node_modules/", "<rootDir>/\\.claude/"],
     setupFilesAfterEnv: [
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
@@ -95,6 +106,7 @@ module.exports = {
         "!**/*.testdata.ts",
     ],
     coverageProvider: "v8",
+    ...maxWorkersConfig,
     // Disable watchman when running under Claude Code.
     // Watchman doesn't work under Claude Code's sandbox, and `watchman: false`
     // must be set at the global config level (not per-project) to take effect.

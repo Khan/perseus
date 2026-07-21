@@ -8,6 +8,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
 import EditorPage from "./editor-page";
 import {
     testDependencies,
@@ -31,6 +32,7 @@ describe("EditorPage", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        Dependencies.setDependencies(testDependencies);
     });
 
     // Regression (LEMS-3252)
@@ -334,5 +336,32 @@ describe("EditorPage", () => {
                 },
             },
         });
+    });
+
+    it("should match snapshot for editing disabled for all widgets", () => {
+        // Arrange, Act
+        const {container} = render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={comprehensiveQuestion} // question with all widgets
+                apiOptions={{editingDisabled: true}} // editing disabled
+                onChange={() => {}}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Assert
+        // Note: the interactive-graph movable point renders fill/stroke="none"
+        // here because its color now comes from tokenValue(), which reads a CSS
+        // custom property. jsdom doesn't define those variables, so it resolves
+        // to "" and Raphael renders it as "none". The real color resolves in a
+        // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
+        expect(container).toMatchSnapshot();
     });
 });

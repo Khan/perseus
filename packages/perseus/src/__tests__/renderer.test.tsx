@@ -1,6 +1,7 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file.
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
+    generateImageOptions,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -815,14 +816,14 @@ describe("renderer", () => {
                         "image 1": {
                             alignment: "block",
                             graded: true,
-                            options: {
+                            options: generateImageOptions({
                                 alt: "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
                                 backgroundImage: {
                                     height: 80,
                                     url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                     width: 380,
                                 },
-                            },
+                            }),
                             static: false,
                             type: "image",
                             version: {major: 0, minor: 0},
@@ -1180,13 +1181,13 @@ describe("renderer", () => {
                     "image 1": {
                         type: "image",
                         graded: false,
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "https://example.com/cat.png",
                                 width: 100,
                                 height: 100,
                             },
-                        },
+                        }),
                     },
                 },
             });
@@ -1223,13 +1224,13 @@ describe("renderer", () => {
                     "image 1": {
                         type: "image",
                         graded: false,
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "https://example.com/cat.png",
                                 width: 100,
                                 height: 100,
                             },
-                        },
+                        }),
                     },
                 },
             });

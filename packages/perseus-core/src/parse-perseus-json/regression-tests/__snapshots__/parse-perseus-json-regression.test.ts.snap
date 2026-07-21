@@ -69,7 +69,9 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
             281,
           ],
           "caption": "This production possibilities frontier shows a tradeoff between devoting social resources to healthcare and devoting them to education. At A all resources go to healthcare and at B, most go to healthcare. At D most resources go to education, and at F, all go to education.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -80,7 +82,7 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "A Healthcare vs. Education Production Possibilities Frontier ",
         },
         "static": false,
@@ -146,7 +148,9 @@ The particular mix of goods and services being produced—that is, the specific 
             313,
           ],
           "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -157,7 +161,7 @@ The particular mix of goods and services being produced—that is, the specific 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
         "static": false,
@@ -208,7 +212,9 @@ The slope of the PPF gives the opportunity cost of producing an additional unit 
             401,
           ],
           "caption": "The U.S. PPF is flatter than the Brazil PPF implying that the opportunity cost of wheat in term of sugar cane is lower in the U.S. than in Brazil. Conversely, the opportunity cost of sugar cane is lower in Brazil. The U.S. has comparative advantage in wheat and Brazil has comparative advantage in sugar cane.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -219,7 +225,7 @@ The slope of the PPF gives the opportunity cost of producing an additional unit 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Production Possibility Frontier for the U.S. and Brazil ",
         },
         "static": false,
@@ -332,7 +338,9 @@ Both the budget constraint and the PPF show the constraint that each operates un
             313,
           ],
           "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -343,7 +351,7 @@ Both the budget constraint and the PPF show the constraint that each operates un
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
         "static": false,
@@ -432,7 +440,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -489,7 +496,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -540,7 +546,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -586,7 +591,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -634,7 +638,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -692,7 +695,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -743,7 +745,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -804,10 +805,11 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
           "coefficient": false,
           "labelText": "",
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -820,7 +822,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -877,17 +878,18 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.ts returns t
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -900,7 +902,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -932,7 +933,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -971,7 +971,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1037,7 +1036,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1103,7 +1101,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1168,7 +1165,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1241,7 +1237,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1290,7 +1285,6 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1348,7 +1342,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1420,10 +1413,11 @@ $r =  $ [[☃ numeric-input 1]] ",
           "coefficient": false,
           "labelText": "",
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -1436,7 +1430,6 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1488,17 +1481,18 @@ $r =  $ [[☃ numeric-input 1]] ",
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -1511,7 +1505,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1573,7 +1566,6 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1627,7 +1619,6 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1696,7 +1687,6 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1760,7 +1750,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1812,7 +1801,6 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -1865,7 +1853,6 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2125,7 +2112,6 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2505,7 +2491,9 @@ more explanation",
             233,
           ],
           "caption": "*Incandescent light bulbs with tungsten filaments*",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -2516,7 +2504,7 @@ more explanation",
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -2675,7 +2663,9 @@ more explanation",
             233,
           ],
           "caption": "*Incandescent light bulbs with tungsten filaments*",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -2687,7 +2677,6 @@ more explanation",
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -2706,7 +2695,6 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -2908,7 +2896,6 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3296,7 +3283,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3390,7 +3376,6 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3482,7 +3467,6 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3582,13 +3566,13 @@ $\\begin{align}
                       ],
                       "coefficient": false,
                       "labelText": "value of x",
-                      "rightAlign": false,
                       "size": "small",
+                      "textAlign": "left",
                     },
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3612,13 +3596,13 @@ $\\begin{align}
                       ],
                       "coefficient": false,
                       "labelText": "value of y",
-                      "rightAlign": false,
                       "size": "small",
+                      "textAlign": "left",
                     },
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3689,13 +3673,13 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                       ],
                       "coefficient": false,
                       "labelText": "value of x",
-                      "rightAlign": false,
                       "size": "small",
+                      "textAlign": "left",
                     },
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3715,13 +3699,13 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                       ],
                       "coefficient": false,
                       "labelText": "value of y",
-                      "rightAlign": false,
                       "size": "small",
+                      "textAlign": "left",
                     },
                     "static": false,
                     "type": "numeric-input",
                     "version": {
-                      "major": 0,
+                      "major": 1,
                       "minor": 0,
                     },
                   },
@@ -3763,7 +3747,6 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.ts returns the sam
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3800,7 +3783,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3879,7 +3861,6 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3951,7 +3932,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -3968,6 +3948,7 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
         "image 1": {
           "graded": true,
           "options": {
+            "alt": "",
             "backgroundImage": {
               "height": 215,
               "url": "https://s3.amazonaws.com/ka-cs-algorithms/hanoi_exercise_step2_1.png",
@@ -3977,7 +3958,10 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
               304,
               215,
             ],
+            "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -3988,6 +3972,8 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
                 10,
               ],
             ],
+            "scale": 1,
+            "title": "",
           },
           "type": "image",
           "version": {
@@ -4046,7 +4032,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4112,7 +4097,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4144,7 +4128,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4189,7 +4172,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4239,7 +4221,6 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4262,11 +4243,124 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.ts returns the s
 }
 `;
 
+exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ image 1]]",
+    "images": {},
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": null,
+        "options": {
+          "alt": "",
+          "backgroundImage": {
+            "url": null,
+          },
+          "box": [
+            400,
+            400,
+          ],
+          "caption": "",
+          "decorative": false,
+          "labels": [],
+          "longDescription": "",
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "scale": 1,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ image 1]]",
+    "images": {},
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "key": null,
+        "options": {
+          "alt": "",
+          "backgroundImage": {
+            "url": null,
+          },
+          "box": [
+            400,
+            400,
+          ],
+          "caption": "",
+          "decorative": false,
+          "labels": [],
+          "longDescription": "",
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "scale": 1,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4307,7 +4401,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4318,7 +4414,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4356,7 +4452,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4367,7 +4465,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4405,7 +4503,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               325,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -4416,7 +4516,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -4461,7 +4561,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             325,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -4472,7 +4574,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -4540,7 +4642,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4601,7 +4702,9 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             325,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -4613,7 +4716,6 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -4673,7 +4775,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4723,32 +4824,48 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
       "input-number 1": {
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": true,
+              "value": 0,
+            },
+          ],
+          "coefficient": false,
           "size": "small",
-          "value": 0,
+          "textAlign": "left",
         },
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
       "input-number 2": {
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": true,
+              "value": 0,
+            },
+          ],
+          "coefficient": false,
           "size": "small",
-          "value": "true",
+          "textAlign": "left",
         },
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -4807,7 +4924,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -4852,18 +4968,24 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
         "alignment": "default",
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "rightAlign": false,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
           "size": "small",
-          "value": 0,
+          "textAlign": "left",
         },
         "static": false,
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -4871,18 +4993,24 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
         "alignment": "default",
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "rightAlign": false,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
           "size": "small",
-          "value": 0,
+          "textAlign": "left",
         },
         "static": false,
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -4931,11 +5059,159 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.ts ret
 }
 `;
 
+exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns2937155:0crwdne2937155:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2937153:0crwdne2937153:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2688103:0{1.20}crwdne2688103:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns2689139:0{1.2}crwdne2689139:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "crwdns3120949:0crwdne3120949:0",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "input-number 1": {
+        "alignment": "",
+        "graded": true,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": true,
+              "value": 18,
+            },
+          ],
+          "coefficient": false,
+          "size": "normal",
+          "textAlign": "left",
+        },
+        "static": false,
+        "type": "input-number",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "crwdns3120949:0crwdne3120949:0",
+    "images": {},
+    "metadata": null,
+    "widgets": {
+      "input-number 1": {
+        "alignment": "",
+        "graded": true,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": [],
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
+          "size": "normal",
+          "textAlign": "left",
+        },
+        "static": false,
+        "type": "input-number",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5134,7 +5410,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5335,7 +5610,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -5819,7 +6093,6 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6313,7 +6586,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6442,7 +6714,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-angle-offset-deg-nul
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6552,7 +6823,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6702,7 +6972,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6830,7 +7099,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -6998,7 +7266,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figure-colors
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7166,7 +7433,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7443,7 +7709,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7720,7 +7985,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7811,7 +8075,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -7898,11 +8161,184 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "none",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "coord": [
+                0,
+                0,
+              ],
+              "size": "medium",
+              "text": "",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-label-with-missing-color-size-text.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "coord": [
+                0,
+                0,
+              ],
+              "size": "medium",
+              "text": "",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
+          "showAxisTicks": {
+            "x": true,
+            "y": true,
+          },
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -8747,7 +9183,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -9513,7 +9948,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -9557,7 +9991,9 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
               151,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -9568,7 +10004,7 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -9625,7 +10061,9 @@ $\\begin{align}
                     156,
                   ],
                   "caption": "",
+                  "decorative": false,
                   "labels": [],
+                  "longDescription": "",
                   "range": [
                     [
                       0,
@@ -9636,7 +10074,7 @@ $\\begin{align}
                       10,
                     ],
                   ],
-                  "static": false,
+                  "scale": 1,
                   "title": "",
                 },
                 "static": false,
@@ -9806,7 +10244,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -9912,7 +10349,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10129,7 +10565,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10279,7 +10714,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10391,7 +10825,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.ts re
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10493,7 +10926,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10649,7 +11081,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10766,7 +11197,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -10920,7 +11350,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11054,7 +11483,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-l
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11173,7 +11601,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-without-show-point-l
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11271,7 +11698,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11404,7 +11830,9 @@ ___
             600,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -11415,7 +11843,7 @@ ___
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -11434,7 +11862,6 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11564,7 +11991,9 @@ ___
             600,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -11576,7 +12005,6 @@ ___
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -11595,7 +12023,6 @@ exports[`parseAndMigratePerseusItem given label-image.ts returns the same result
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11739,13 +12166,13 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
           ],
           "coefficient": false,
           "labelText": "product",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -11758,7 +12185,6 @@ exports[`parseAndMigratePerseusItem given label-image.ts returns the same result
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -11854,17 +12280,18 @@ $9 \\times 5 =$ [[☃ numeric-input 1]]",
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "product",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -11877,7 +12304,6 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12022,7 +12448,6 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12174,7 +12599,6 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12221,7 +12645,6 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12274,7 +12697,6 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12317,7 +12739,6 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.ts returns t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12367,7 +12788,6 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12474,7 +12894,6 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12565,7 +12984,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -12628,7 +13046,6 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13024,7 +13441,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13124,7 +13540,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13237,7 +13652,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13281,7 +13695,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13327,7 +13740,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13434,7 +13846,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13554,7 +13965,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13777,7 +14187,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13913,7 +14322,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -13969,7 +14377,6 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.ts returns 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14027,7 +14434,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14158,7 +14564,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14273,7 +14678,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14354,10 +14758,11 @@ $=(31-31) -8$",
           ],
           "coefficient": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14370,7 +14775,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14449,17 +14853,18 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.ts retu
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14472,7 +14877,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14502,10 +14906,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
           ],
           "coefficient": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14518,7 +14923,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14543,17 +14947,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.t
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14566,7 +14971,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14608,10 +15012,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
           "coefficient": false,
           "labelText": "",
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14624,7 +15029,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14662,17 +15066,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14685,7 +15090,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14769,13 +15173,13 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14788,7 +15192,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14855,17 +15258,137 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.ts 
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "$= \\dfrac{9 \\times 1}{2 \\times 4}$",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "$= \\dfrac{9}{8}$",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 1.125,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+          "textAlign": "center",
+        },
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-center-aligned.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+          "textAlign": "center",
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14878,7 +15401,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14912,10 +15434,11 @@ What is the radius of the mattress when it is rolled up into a cylinder.
           ],
           "coefficient": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14928,7 +15451,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -14957,17 +15479,18 @@ What is the radius of the mattress when it is rolled up into a cylinder.
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -14980,7 +15503,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15028,16 +15550,24 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
         "input-number 1": {
           "graded": true,
           "options": {
-            "answerType": "number",
-            "inexact": false,
-            "maxError": 0.1,
-            "simplify": "required",
+            "answers": [
+              {
+                "answerForms": [],
+                "maxError": 0,
+                "message": "",
+                "simplify": "required",
+                "status": "correct",
+                "strict": true,
+                "value": 0,
+              },
+            ],
+            "coefficient": false,
             "size": "normal",
-            "value": 0,
+            "textAlign": "left",
           },
           "type": "input-number",
           "version": {
-            "major": 0,
+            "major": 1,
             "minor": 0,
           },
         },
@@ -15085,6 +15615,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
         "image 1": {
           "graded": true,
           "options": {
+            "alt": "",
             "backgroundImage": {
               "height": 0,
               "url": null,
@@ -15095,7 +15626,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
               400,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15106,6 +15639,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
                 10,
               ],
             ],
+            "scale": 1,
             "title": "",
           },
           "type": "image",
@@ -15216,10 +15750,11 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
           ],
           "coefficient": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15249,7 +15784,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.ts ret
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15358,17 +15892,18 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15396,11 +15931,129 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
+exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "$= \\dfrac{9 \\times 1}{2 \\times 4}$",
+      "images": {},
+      "widgets": {},
+    },
+    {
+      "content": "$= \\dfrac{9}{8}$",
+      "images": {},
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 1.125,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+          "textAlign": "right",
+        },
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-right-aligned.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+    {
+      "content": "",
+      "images": {},
+      "placeholder": true,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**$ \\dfrac{9}{2} \\times \\dfrac{1}{4} $**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+          "textAlign": "right",
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15441,7 +16094,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15452,7 +16107,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -15490,7 +16145,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15501,7 +16158,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -15539,7 +16196,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               275,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -15550,7 +16209,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -15616,7 +16275,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             275,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -15627,7 +16288,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -15655,13 +16316,13 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15683,13 +16344,13 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15711,13 +16372,13 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15765,7 +16426,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -15844,7 +16504,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             275,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -15856,7 +16518,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -15878,17 +16539,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15904,17 +16566,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -15930,17 +16593,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16037,7 +16701,9 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
               252,
             ],
             "caption": "",
+            "decorative": false,
             "labels": [],
+            "longDescription": "",
             "range": [
               [
                 0,
@@ -16048,7 +16714,7 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
                 10,
               ],
             ],
-            "static": false,
+            "scale": 1,
             "title": "",
           },
           "static": false,
@@ -16111,7 +16777,9 @@ Stella landed $1.68$ kilometers from the skydiving center.",
             270,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16122,7 +16790,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -16172,13 +16840,13 @@ Stella landed $1.68$ kilometers from the skydiving center.",
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16254,7 +16922,9 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
             270,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -16266,7 +16936,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -16287,6 +16956,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
             {
               "answerForms": undefined,
@@ -16294,6 +16964,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "simplify": "required",
               "status": "ungraded",
               "strict": false,
+              "value": null,
             },
             {
               "answerForms": undefined,
@@ -16301,6 +16972,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "simplify": "required",
               "status": "ungraded",
               "strict": false,
+              "value": null,
             },
             {
               "answerForms": undefined,
@@ -16308,17 +16980,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
               "simplify": "required",
               "status": "wrong",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16331,7 +17004,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16369,13 +17041,13 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16388,7 +17060,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16421,17 +17092,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.ts r
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16444,7 +17116,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16564,11 +17235,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
           "coefficient": false,
           "labelText": "",
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16581,7 +17253,6 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -16675,17 +17346,18 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
               "simplify": "required",
               "status": "correct",
               "strict": false,
+              "value": null,
             },
           ],
           "coefficient": false,
           "labelText": "",
-          "rightAlign": false,
           "size": "normal",
+          "textAlign": "left",
         },
         "static": false,
         "type": "numeric-input",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -16698,7 +17370,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17397,11 +18068,12 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                   "coefficient": false,
                   "labelText": "",
                   "size": "normal",
+                  "textAlign": "left",
                 },
                 "static": false,
                 "type": "numeric-input",
                 "version": {
-                  "major": 0,
+                  "major": 1,
                   "minor": 0,
                 },
               },
@@ -17480,7 +18152,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.ts retur
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17531,7 +18202,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17658,7 +18328,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17741,7 +18410,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17819,7 +18487,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.ts returns
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17889,7 +18556,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -17931,7 +18597,9 @@ A free body diagram of the **box** is shown below.
             263,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -17942,7 +18610,7 @@ A free body diagram of the **box** is shown below.
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -17967,7 +18635,9 @@ A free body diagram of the **box** is shown below.
             306,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -17978,7 +18648,7 @@ A free body diagram of the **box** is shown below.
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -18090,7 +18760,6 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18132,7 +18801,9 @@ A free body diagram of the **box** is shown below.
             263,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18144,7 +18815,6 @@ A free body diagram of the **box** is shown below.
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -18169,7 +18839,9 @@ A free body diagram of the **box** is shown below.
             306,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -18181,7 +18853,6 @@ A free body diagram of the **box** is shown below.
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -18276,7 +18947,6 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18327,16 +18997,24 @@ $\\green5 - \\red3= \\purple{2}$",
       "input-number 1": {
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": true,
+              "value": 2,
+            },
+          ],
+          "coefficient": false,
           "size": "normal",
-          "value": 2,
+          "textAlign": "left",
         },
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -18385,7 +19063,6 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18430,18 +19107,24 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
         "alignment": "default",
         "graded": true,
         "options": {
-          "answerType": "number",
-          "inexact": false,
-          "maxError": 0.1,
-          "rightAlign": false,
-          "simplify": "required",
+          "answers": [
+            {
+              "answerForms": [],
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": null,
+            },
+          ],
+          "coefficient": false,
           "size": "normal",
-          "value": 0,
+          "textAlign": "left",
         },
         "static": false,
         "type": "input-number",
         "version": {
-          "major": 0,
+          "major": 1,
           "minor": 0,
         },
       },
@@ -18495,7 +19178,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18615,7 +19297,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18699,7 +19380,6 @@ exports[`parseAndMigratePerseusItem given question-missing-content.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18719,7 +19399,6 @@ exports[`parseAndMigratePerseusItem given question-missing-content.ts returns th
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18739,7 +19418,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18819,7 +19497,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.t
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -18889,7 +19566,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19166,7 +19842,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19427,7 +20102,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19704,7 +20378,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-v2-with-rationale.ts retu
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -19965,7 +20638,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20028,7 +20700,6 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.ts return
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20087,7 +20758,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20219,7 +20889,9 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             3448,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20230,7 +20902,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -20305,7 +20977,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20434,7 +21105,9 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             3448,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20446,7 +21119,6 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -20509,7 +21181,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20630,7 +21301,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20720,7 +21390,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20810,7 +21479,9 @@ ___
             782,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20821,7 +21492,7 @@ ___
               10,
             ],
           ],
-          "static": false,
+          "scale": 1,
           "title": "",
         },
         "static": false,
@@ -20895,7 +21566,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.ts returns the
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -20982,7 +21652,9 @@ ___
             782,
           ],
           "caption": "",
+          "decorative": false,
           "labels": [],
+          "longDescription": "",
           "range": [
             [
               0,
@@ -20994,7 +21666,6 @@ ___
             ],
           ],
           "scale": 1,
-          "static": false,
           "title": "",
         },
         "static": false,
@@ -21057,7 +21728,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21112,7 +21782,6 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21171,7 +21840,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
@@ -21336,7 +22004,6 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
 {
   "answerArea": {
     "calculator": false,
-    "calculatorVariant": null,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,

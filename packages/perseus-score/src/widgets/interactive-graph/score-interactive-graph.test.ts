@@ -974,7 +974,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
             type: "absolute-value",
             coords: [
                 [0, 0],
-                [0, 2], // same x as vertex → getAbsoluteValueCoefficients returns undefined
+                [0, 2], // same x as vertex → infinite slope
             ],
         };
         const rubric: PerseusInteractiveGraphRubric = {

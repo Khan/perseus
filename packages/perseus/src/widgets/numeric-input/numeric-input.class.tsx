@@ -26,9 +26,13 @@ type ExternalProps = WidgetProps<
 
 export type NumericInputProps = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
-    rightAlign: NonNullable<ExternalProps["rightAlign"]>;
+    textAlign: NonNullable<ExternalProps["textAlign"]>;
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
+    // TODO(benchristel): answerForms is not actually passed to NumericInput.
+    //  It seems to be here because this props type is reused by
+    //  NumericInputComponent, which does take answerForms.
+    //  Use separate prop types that reflect the actual props of each component.
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -37,7 +41,6 @@ export type NumericInputProps = ExternalProps & {
 type DefaultProps = Pick<
     NumericInputProps,
     | "size"
-    | "rightAlign"
     | "apiOptions"
     | "coefficient"
     | "answerForms"
@@ -74,7 +77,6 @@ export class NumericInput
 
     static defaultProps: DefaultProps = {
         size: "normal",
-        rightAlign: false,
         apiOptions: ApiOptions.defaults,
         coefficient: false,
         answerForms: [],
@@ -90,9 +92,6 @@ export class NumericInput
         return true;
     };
 
-    // TODO(LEMS-4085): While we cannot find any callers of this method,
-    // adding it is the simplest way to resolve temporary type issues
-    // regarding rendering the Input Number widget as a Numeric Input
     blur: () => void = () => {
         this.inputRef.current?.blur();
     };

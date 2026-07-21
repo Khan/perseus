@@ -17,6 +17,7 @@ import {
     generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
+    generateImageOptions,
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
@@ -36,7 +37,7 @@ import {
  * the full range of Perseus widgets.
  */
 export const comprehensiveQuestion: PerseusRenderer = {
-    content: `[[\u2603 categorizer 1]] [[\u2603 definition 1]] [[\u2603 dropdown 1]] [[\u2603 expression 1]] [[\u2603 explanation 1]] [[\u2603 free-response 1]] [[\u2603 graded-group 1]] [[\u2603 graded-group-set 1]] [[\u2603 grapher 1]] [[\u2603 group 1]] [[\u2603 image 1]] [[\u2603 input-number 1]] [[\u2603 interaction 1]] [[\u2603 interactive-graph 1]] [[\u2603 label-image 1]] [[\u2603 matcher 1]] [[\u2603 matrix 1]] [[\u2603 measurer 1]] [[\u2603 number-line 1]] [[\u2603 numeric-input 1]] [[\u2603 orderer 1]] [[\u2603 plotter 1]] [[\u2603 radio 1]] [[\u2603 sorter 1]] [[\u2603 table 1]]`,
+    content: `categorizer: [[\u2603 categorizer 1]]\n\ndefinition: [[\u2603 definition 1]]\n\ndropdown: [[\u2603 dropdown 1]]\n\nexpression: [[\u2603 expression 1]]\n\nexplanation: [[\u2603 explanation 1]]\n\nfree: [[\u2603 free-response 1]]\n\ngraded: [[\u2603 graded-group 1]]\n\ngraded: [[\u2603 graded-group-set 1]]\n\ngrapher: [[\u2603 grapher 1]]\n\ngroup: [[\u2603 group 1]]\n\nimage: [[\u2603 image 1]]\n\ninput: [[\u2603 input-number 1]]\n\ninteraction: [[\u2603 interaction 1]]\n\ninteractive-graph: [[\u2603 interactive-graph 1]]\n\nlabel: [[\u2603 label-image 1]]\n\nmatcher: [[\u2603 matcher 1]]\n\nmatrix: [[\u2603 matrix 1]]\n\nmeasurer: [[\u2603 measurer 1]]\n\nnumber-line: [[\u2603 number-line 1]]\n\nnumeric: [[\u2603 numeric-input 1]]\n\norderer: [[\u2603 orderer 1]]\n\nplotter: [[\u2603 plotter 1]]\n\nradio: [[\u2603 radio 1]]\n\nsorter: [[\u2603 sorter 1]]\n\ntable: [[\u2603 table 1]]`,
     images: {
         "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png": {
             width: 300,
@@ -137,10 +138,11 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 initialX: 2,
                 correctX: 2,
                 labelRange: [-5, 5],
-                labelStyle: "integer",
+                labelStyle: "decimal",
                 isTickCtrl: false,
                 isInequality: false,
                 divisionRange: [1, 12],
+                numDivisions: 5,
                 snapDivisions: 2,
                 labelTicks: true,
                 static: false,
@@ -175,7 +177,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             }),
         }),
         "image 1": generateImageWidget({
-            options: {
+            options: generateImageOptions({
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
                     width: 300,
@@ -188,7 +190,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         alignment: "center",
                     },
                 ],
-            },
+            }),
         }),
         "table 1": {
             graded: true,
@@ -239,12 +241,20 @@ export const comprehensiveQuestion: PerseusRenderer = {
             static: false,
             type: "input-number",
             options: {
-                value: 0.5,
-                simplify: "optional",
                 size: "normal",
-                inexact: false,
-                maxError: 0.1,
-                answerType: "rational",
+                coefficient: false,
+                textAlign: "left",
+                answers: [
+                    {
+                        status: "correct",
+                        value: 0.5,
+                        simplify: "optional",
+                        maxError: 0,
+                        answerForms: ["integer", "proper", "improper", "mixed"],
+                        message: "",
+                        strict: true,
+                    },
+                ],
             },
         },
         "free-response 1": generateFreeResponseWidget({

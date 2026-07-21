@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "33.1.0",
+    "version": "35.0.2",
     "publishConfig": {
         "access": "public"
     },
@@ -41,7 +41,6 @@
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-linter": "workspace:*",
-        "@khanacademy/perseus-score": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
         "axe-core": "^4.11.0",
         "katex": "0.11.1",
@@ -114,6 +113,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "6cc1eef6c5c59c5b"
+        "catalogHash": "257c11435eb77df5"
     }
 }

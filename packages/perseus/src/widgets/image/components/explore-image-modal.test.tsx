@@ -1,4 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
+import {act, render, waitFor, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -10,12 +10,30 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
-import {earthMoonImage, animatedGifLandscape} from "../utils";
+import {
+    earthMoonImage,
+    animatedGifLandscape,
+    nonAnimatedGif,
+    decodeGifFrames,
+} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
 import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+jest.mock("../utils", () => ({
+    ...jest.requireActual("../utils"),
+    decodeGifFrames: jest.fn(),
+}));
+
+// A minimal fake frame from gifuct-js with a 50ms delay.
+const fakeFrame = {
+    patch: new Uint8ClampedArray(4), // 1x1 RGBA
+    delay: 50,
+    dims: {width: 1, height: 1, top: 0, left: 0},
+    disposalType: 0,
+};
 
 function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
     return render(
@@ -52,6 +70,7 @@ const defaultProps = {
     apiOptions: ApiOptions.defaults,
     isGifPlaying: false,
     setIsGifPlaying: () => {},
+    widgetId: "image 1",
 };
 
 describe("ExploreImageModal", () => {
@@ -68,16 +87,30 @@ describe("ExploreImageModal", () => {
 
         unmockImageLoading = mockImageLoading();
 
-        // GifImage (rendered via SvgImage when gif controls are active)
-        // calls fetch() to decode GIF frames. jsdom doesn't provide
-        // fetch, so we stub it here.
+        // jsdom doesn't implement canvas getContext or ImageData.
         // eslint-disable-next-line no-restricted-syntax
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                ok: true,
-                arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-            }),
-        ) as jest.Mock;
+        jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+            putImageData: jest.fn(),
+            clearRect: jest.fn(),
+            drawImage: jest.fn(),
+            imageSmoothingEnabled: true,
+        } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D);
+
+        // @ts-expect-error - jsdom doesn't have ImageData
+        global.ImageData = class ImageData {
+            data: Uint8ClampedArray;
+            width: number;
+            height: number;
+            constructor(
+                data: Uint8ClampedArray,
+                width: number,
+                height: number,
+            ) {
+                this.data = data;
+                this.width = width;
+                this.height = height;
+            }
+        };
     });
 
     afterEach(() => {
@@ -259,18 +292,52 @@ describe("ExploreImageModal", () => {
     });
 
     describe("gif controls", () => {
-        it("should render gif controls if the image is a gif", () => {
-            // Arrange, Act
+        beforeEach(() => {
+            // Decode resolves to two fake frames (an animated GIF) by default.
+            // eslint-disable-next-line no-restricted-syntax
+            (decodeGifFrames as jest.Mock).mockResolvedValue([
+                fakeFrame,
+                fakeFrame,
+            ]);
+        });
+
+        it("should render gif controls if the image is a multi frame gif", async () => {
+            // Arrange, Act — beforeEach decodes the gif into two frames
             renderModal({
                 ...defaultProps,
                 backgroundImage: animatedGifLandscape,
             });
 
-            // Assert
-            const playButton = screen.getByRole("button", {
+            // Assert — wait for the async GIF decode to report frame count
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             expect(playButton).toBeVisible();
+        });
+
+        it("should not render gif controls if the image is a single frame gif", async () => {
+            // Arrange
+            // eslint-disable-next-line no-restricted-syntax
+            (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
+            //Act
+            renderModal({
+                ...defaultProps,
+                backgroundImage: nonAnimatedGif,
+            });
+
+            // Assert
+            await waitFor(() => {
+                expect(decodeGifFrames).toHaveBeenCalled();
+            });
+
+            const playButton = screen.queryByRole("button", {
+                name: "Play Animation",
+            });
+            const pauseButton = screen.queryByRole("button", {
+                name: "Pause Animation",
+            });
+            expect(playButton).not.toBeInTheDocument();
+            expect(pauseButton).not.toBeInTheDocument();
         });
 
         it("should not render gif controls if the image is not a gif", () => {
@@ -292,7 +359,7 @@ describe("ExploreImageModal", () => {
             expect(pauseButton).not.toBeInTheDocument();
         });
 
-        it("should show the pause icon when the gif is playing", async () => {
+        it("should show the pause icon when the gif is playing when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,
@@ -300,7 +367,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act — the modal starts paused, so click Play first
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             await userEvent.click(playButton);
@@ -321,7 +388,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
 
@@ -329,7 +396,7 @@ describe("ExploreImageModal", () => {
             expect(playButton).toBeVisible();
         });
 
-        it("should toggle the gif playing state when the play button is clicked", async () => {
+        it("should toggle the gif playing state when the play button is clicked when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,
@@ -337,7 +404,7 @@ describe("ExploreImageModal", () => {
             });
 
             // Act — modal starts paused, click Play
-            const playButton = screen.getByRole("button", {
+            const playButton = await screen.findByRole("button", {
                 name: "Play Animation",
             });
             await userEvent.click(playButton);
@@ -348,7 +415,7 @@ describe("ExploreImageModal", () => {
             ).toBeVisible();
         });
 
-        it("should toggle the gif playing state when the pause button is clicked", async () => {
+        it("should toggle the gif playing state when the pause button is clicked when it is a multi frame gif", async () => {
             // Arrange
             renderModal({
                 ...defaultProps,
@@ -357,7 +424,7 @@ describe("ExploreImageModal", () => {
 
             // Act — click Play then Pause
             await userEvent.click(
-                screen.getByRole("button", {name: "Play Animation"}),
+                await screen.findByRole("button", {name: "Play Animation"}),
             );
             await userEvent.click(
                 screen.getByRole("button", {name: "Pause Animation"}),

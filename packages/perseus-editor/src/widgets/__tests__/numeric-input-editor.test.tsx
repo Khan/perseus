@@ -1,4 +1,4 @@
-import {Dependencies} from "@khanacademy/perseus";
+import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -7,7 +7,28 @@ import {useState} from "react";
 import {testDependencies} from "../../testing/test-dependencies";
 import NumericInputEditor from "../numeric-input-editor";
 
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+const HarnessedEditor = React.forwardRef<
+    NumericInputEditor,
+    Partial<PropsFor<typeof NumericInputEditor>>
+>(
+    (
+        {onChange = () => undefined, apiOptions = ApiOptions.defaults, ...rest},
+        ref,
+    ) => {
+        return (
+            <NumericInputEditor
+                apiOptions={apiOptions}
+                onChange={onChange}
+                ref={ref}
+                {...rest}
+            />
+        );
+    },
+);
+HarnessedEditor.displayName = "Harnessed NumericInputEditor";
 
 describe("numeric-input-editor", () => {
     let userEvent: UserEvent;
@@ -22,7 +43,7 @@ describe("numeric-input-editor", () => {
     });
 
     it("should render", async () => {
-        render(<NumericInputEditor onChange={() => undefined} />);
+        render(<HarnessedEditor />);
 
         await waitFor(async () =>
             expect(
@@ -34,7 +55,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to select normal width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(screen.getByRole("radiogroup", {name: /^Width/})).getByRole(
@@ -52,7 +73,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to select small width", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(screen.getByRole("radiogroup", {name: /^Width/})).getByRole(
@@ -67,24 +88,30 @@ describe("numeric-input-editor", () => {
         );
     });
 
-    it("should be possible to select right alignment", async () => {
+    it("should be possible to change text alignment", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
-        await userEvent.click(
-            within(
-                screen.getByRole("radiogroup", {name: /^Alignment/}),
-            ).getByRole("radio", {name: "Right"}),
+        // Act
+        const opener = await screen.findByRole("combobox", {
+            name: "Text alignment",
+        });
+        await userEvent.click(opener);
+        await userEvent.click(await screen.findByText("Center"));
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                textAlign: "center",
+            }),
         );
-
-        expect(onChangeMock).toHaveBeenCalledWith({rightAlign: true});
     });
 
     it("should be possible to select coefficient", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(
@@ -98,7 +125,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to select strictly match only these formats", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(
@@ -124,7 +151,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to update label text", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         const input = screen.getByRole("textbox", {
             name: "aria label",
@@ -149,7 +176,7 @@ describe("numeric-input-editor", () => {
                 });
             }
 
-            return <NumericInputEditor onChange={mergeProps} {...props} />;
+            return <HarnessedEditor onChange={mergeProps} {...props} />;
         }
 
         render(<StatefulNumericInputEditor />);
@@ -166,7 +193,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to ungraded", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(
@@ -188,7 +215,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to accepted", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(
@@ -210,7 +237,7 @@ describe("numeric-input-editor", () => {
     it("should be possible to set unsimplified answers to wrong", async () => {
         const onChangeMock = jest.fn();
 
-        render(<NumericInputEditor onChange={onChangeMock} />);
+        render(<HarnessedEditor onChange={onChangeMock} />);
 
         await userEvent.click(
             within(
@@ -242,7 +269,7 @@ describe("numeric-input-editor", () => {
         it(`should be possible to set suggested answer format to: ${name}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumericInputEditor onChange={onChangeMock} />);
+            render(<HarnessedEditor onChange={onChangeMock} />);
 
             await userEvent.click(screen.getByRole("checkbox", {name: name}));
 

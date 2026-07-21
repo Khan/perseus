@@ -133,6 +133,30 @@ export const FocusMultiSelect: Story = {
     },
 };
 
+export const SelectChoiceMoveFocusAfter: Story = {
+    decorators: [radioRendererDecoratorWithDebugUI],
+    args: {
+        multipleSelect: true,
+        choices: [
+            generateRadioChoice("Choice 1", {correct: true}),
+            generateRadioChoice("Choice 2"),
+            generateRadioChoice("Choice 3"),
+            generateRadioChoice("Choice 4"),
+        ],
+    },
+    play: async ({canvas, userEvent}) => {
+        const choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice B\)/,
+        });
+        choiceToFocus.focus();
+    },
+};
+
 /* The following stories don't use the Radio args, beacuse they are not
    directly rendered Radio widgets. These are examples of other environments
    that Radio can be rendered within. */

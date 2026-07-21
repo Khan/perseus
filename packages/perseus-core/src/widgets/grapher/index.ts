@@ -40,7 +40,10 @@ const grapherWidgetLogic: WidgetLogic<
     name: "grapher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getGrapherPublicWidgetOptions,
-    accessible: false,
+    accessible: (options) =>
+        !options.graph.backgroundImage.url &&
+        options.availableTypes.length === 1 &&
+        options.availableTypes[0] !== "quadratic",
 };
 
 export default grapherWidgetLogic;

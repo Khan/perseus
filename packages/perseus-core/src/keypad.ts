@@ -20,6 +20,7 @@ export const KeypadKeys = [
     "EXP",
     "EXP_2",
     "EXP_3",
+    "SUB",
     "SQRT",
     "CUBE_ROOT",
     "RADICAL",

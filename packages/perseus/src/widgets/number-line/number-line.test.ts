@@ -71,6 +71,11 @@ describe("number-line widget", () => {
             const {container} = renderQuestion(question1, mobileApiOptions);
 
             // Assert
+            // Note: MovablePoint colors appear as fill/stroke="none" in this
+            // snapshot because tokenValue() reads CSS custom properties at
+            // runtime — jsdom doesn't define them, so it returns "". The
+            // correct hex values resolve in a real browser and are covered
+            // by Chromatic visual regression tests.
             expect(container).toMatchSnapshot("first mobile render");
         });
 
@@ -171,20 +176,6 @@ describe("number-line widget", () => {
 
             // Assert
             expect(container).toMatchSnapshot("show fractions");
-        });
-
-        it(`all tick labels show when "Style" is "decimal ticks" (deprecated option)`, () => {
-            // Arrange
-            const question = createNumberLineQuestionWithOptions({
-                labelTicks: false,
-                labelStyle: "decimal ticks",
-            });
-
-            // Act
-            const {container} = renderQuestion(question, apiOptions);
-
-            // Assert
-            expect(container).toMatchSnapshot("show decimal ticks");
         });
     });
 

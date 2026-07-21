@@ -7,7 +7,7 @@ import {
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import _ from "underscore";
 
-import {getAbsoluteValueCoefficients} from "./graphs/absolute-value";
+import {getAbsoluteValueCoefficients} from "./graphs/utils";
 
 import type {Props} from "./interactive-graph";
 import type {QuadraticGraphState} from "./types";
@@ -478,11 +478,10 @@ function getAbsoluteValueEquationString(props: Props): string {
     if (userInput.type !== "absolute-value" || !userInput.coords) {
         return "";
     }
-    const coeffs = getAbsoluteValueCoefficients(userInput.coords);
-    if (coeffs === undefined) {
+    const {m, h, v} = getAbsoluteValueCoefficients(userInput.coords);
+    if (!Number.isFinite(m)) {
         return "";
     }
-    const {m, h, v} = coeffs;
     return (
         "y = " + m.toFixed(3) + "|x - " + h.toFixed(3) + "| + " + v.toFixed(3)
     );

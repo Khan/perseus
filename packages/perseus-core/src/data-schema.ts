@@ -364,7 +364,7 @@ export const ItemExtras = [
 export type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean> & {
-    calculatorVariant: CalculatorVariant | null;
+    calculatorVariant?: CalculatorVariant;
 };
 
 /**
@@ -869,30 +869,37 @@ export type PerseusGroupWidgetOptions = PerseusRenderer;
 /** Options for the image widget. Shows an image with a caption and alt text. */
 export type PerseusImageWidgetOptions = {
     /** Translatable Markdown; Text to be shown for the title of the image */
-    title?: string;
+    title: string;
     /** Translatable Markdown; Text to be shown in the caption section of an image */
-    caption?: string;
+    caption: string;
     /** Translatable Text; The alt text to be shown in the img.alt attribute */
-    alt?: string;
+    alt: string;
     /** Translatable Markdown; Text to be shown as the long description of an image */
-    longDescription?: string;
+    longDescription: string;
     /**
      * When true, standalone image will be rendered with alt="" and without any alt
      * text, caption, title, or long description.
      */
-    decorative?: boolean;
+    decorative: boolean;
     /** The image details for the image to be displayed */
     backgroundImage: PerseusImageBackground;
     /** The size scale of the image */
-    scale?: number;
-    /** Always false. Not used for this widget */
-    static?: boolean;
-    /** @deprecated - labels were removed from the image widget in 2017 */
-    labels?: Array<PerseusImageLabel>;
-    /** @deprecated - range for labels was removed from the image widget in 2017 */
-    range?: [Interval, Interval];
-    /** @deprecated - box for labels was removed from the image widget in 2017 */
-    box?: Size;
+    scale: number;
+    /**
+     * @deprecated - labels were removed from the image widget editor in 2017,
+     * but still appear in old content.
+     */
+    labels: Array<PerseusImageLabel>;
+    /**
+     * @deprecated - range for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    range: [Interval, Interval];
+    /**
+     * @deprecated - box for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    box: Size;
 };
 
 export type PerseusImageLabel = {
@@ -1652,17 +1659,19 @@ export type PerseusNumericInputWidgetOptions = {
      * empty string to mean 1.
      */
     coefficient: boolean;
-    /** Whether to right-align the text or not */
-    rightAlign?: boolean;
+    /**
+     * How to align the text in the input
+     */
+    textAlign: "left" | "right" | "center";
 };
 
 export type PerseusNumericInputAnswer = {
     /**
      * Translatable Display; A description for why this answer is correct,
-     * wrong, or ungraded
+     * wrong, or ungraded. Always the empty string in answerless data.
      */
     message: string;
-    /** The expected answer */
+    /** The expected answer. Null in answerless data. */
     value?: number | null;
     /** Whether this answer is "correct", "wrong", or "ungraded" */
     status: string;
@@ -1673,12 +1682,15 @@ export type PerseusNumericInputAnswer = {
     /**
      * Whether we should check the answer strictly against the configured
      * answerForms (strict = true) or include the set of default answerForms
-     * (strict = false).
+     * (strict = false). Always false in answerless data.
      */
     strict: boolean;
-    /** A range of error +/- the value */
+    /**
+     * The maximum difference between the answer key and a correct user
+     * input. Omitted in answerless data.
+     */
     maxError?: number | null;
-    /** Unsimplified answers are Ungraded, Accepted, or Wrong. */
+    /** How unsimplified responses should be handled. */
     simplify: PerseusNumericInputSimplify;
 };
 
@@ -1697,10 +1709,9 @@ export type PerseusNumberLineWidgetOptions = {
     labelRange: Array<number | null>;
     /**
      * This controls the styling of the labels for the two main labels as well
-     * as all the tick mark labels, if applicable. Options: "decimal",
-     * "improper", "mixed", "non-reduced"
+     * as all the tick mark labels, if applicable.
      */
-    labelStyle: string;
+    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
     /** Show label ticks */
     labelTicks: boolean;
     /** Show tick controller */
@@ -2237,26 +2248,9 @@ export type PerseusVideoWidgetOptions = {
     static?: boolean;
 };
 
-export type PerseusInputNumberAnswerType =
-    | "number"
-    | "decimal"
-    | "integer"
-    | "rational"
-    | "improper"
-    | "mixed"
-    | "percent"
-    | "pi";
+export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
-/** Options for the input-number widget (deprecated; prefer numeric-input). */
-export type PerseusInputNumberWidgetOptions = {
-    answerType?: PerseusInputNumberAnswerType;
-    inexact?: boolean;
-    maxError?: number | string;
-    rightAlign?: boolean;
-    simplify: "required" | "optional" | "enforced";
-    size: "normal" | "small";
-    value: string | number;
-};
+export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 /** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
 export type PerseusMoleculeRendererWidgetOptions = {

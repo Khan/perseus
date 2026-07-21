@@ -235,9 +235,12 @@ const parseStrokeWeight = defaulted(
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
-    text: string,
-    color: parseLockedFigureColor,
-    size: enumeration("small", "medium", "large"),
+    text: defaulted(string, () => ""),
+    color: defaulted(parseLockedFigureColor, () => "grayH" as const),
+    size: defaulted(
+        enumeration("small", "medium", "large"),
+        () => "medium" as const,
+    ),
 });
 
 const parseLockedPointType = object({

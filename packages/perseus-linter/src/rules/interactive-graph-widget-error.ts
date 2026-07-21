@@ -115,21 +115,12 @@ function checkShowPointLabelsHasLabels(
         return;
     }
     const labels = g.pointLabels;
-    if (labels == null || labels.length === 0) {
+    if (labels === undefined || labels.every((l) => l == null || l === "")) {
         issues.push(
-            "showPointLabels is true but pointLabels is missing. Provide a label for at least one point.",
+            "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
         );
         return;
     }
-    if (labels.every((l) => l == null || l === "")) {
-        issues.push(
-            "showPointLabels is true but every pointLabels entry is empty. Provide a label for at least one point.",
-        );
-        return;
-    }
-    // The `pointLabels` array is index-aligned with the graph's points, so
-    // its length must match the number of points on the graph. Use empty
-    // strings ("") to skip labels for specific points, e.g. ["A", "", "C"].
     const expected = expectedLabelCount(g);
     if (expected !== undefined && labels.length !== expected) {
         issues.push(
