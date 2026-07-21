@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.6.4
+
+### Patch Changes
+
+-   [#3925](https://github.com/Khan/perseus/pull/3925) [`6db4fc8`](https://github.com/Khan/perseus/commit/6db4fc87370fdd2488a14a9eab514a22b6ad3dcc) Thanks [@jandrade](https://github.com/jandrade)! - Updates ButtonAsset SVG elements to use "currentColor" (inherited color) instead of a hard-coded value
+
 ## 26.6.3
 
 ### Patch Changes

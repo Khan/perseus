@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 35.0.3
+
+### Patch Changes
+
+-   [#3924](https://github.com/Khan/perseus/pull/3924) [`a318ff2`](https://github.com/Khan/perseus/commit/a318ff2115e05e6d194ca42d40993b7fe68e856b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix editor crash content editors hit when toggling the JSON view
+
+-   Updated dependencies [[`6db4fc8`](https://github.com/Khan/perseus/commit/6db4fc87370fdd2488a14a9eab514a22b6ad3dcc)]:
+    -   @khanacademy/math-input@26.6.4
+    -   @khanacademy/perseus@81.0.2
+
 ## 35.0.2
 
 ### Patch Changes
