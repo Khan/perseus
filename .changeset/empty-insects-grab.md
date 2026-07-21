@@ -4,4 +4,4 @@
 "@khanacademy/perseus": major
 ---
 
-Created new blank widget
+Created a new blank widget which will require schema updates in both frontend and webapp
