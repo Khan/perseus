@@ -163,7 +163,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
     orderer: OrdererWidget;
@@ -176,6 +175,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "molecule-renderer": DeprecatedStandinWidget;
     "passage-ref-target": DeprecatedStandinWidget;
     "passage-ref": DeprecatedStandinWidget;
     passage: DeprecatedStandinWidget;
@@ -486,8 +486,6 @@ export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
-// prettier-ignore
-export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -2252,13 +2250,6 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
-/** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
-export type PerseusMoleculeRendererWidgetOptions = {
-    widgetId: string;
-    rotationAngle?: number;
-    smiles?: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
@@ -2278,7 +2269,6 @@ export type PerseusWidgetOptions =
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
-    | PerseusMoleculeRendererWidgetOptions
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
     | PerseusOrdererWidgetOptions
