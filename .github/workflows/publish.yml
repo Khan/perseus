@@ -150,17 +150,6 @@ jobs:
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
 
-            - name: ⬆️ Upgrade npm for OIDC support
-              shell: bash
-              run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
-                  # the new v12, which is broken when detecting which packages
-                  # need to be published!
-                  #
-                  # We force the install here to be sure we're on npm 11
-                  npm install -g npm@11
-                  echo "✅ npm upgraded to $(npm --version)"
-
             - name: Create Release Pull Request or Publish to npm
               id: changesets
               uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
@@ -298,17 +287,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-
-            - name: ⬆️ Upgrade npm for OIDC support
-              shell: bash
-              run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
-                  # the new v12, which is broken when detecting which packages
-                  # need to be published!
-                  #
-                  # We force the install here to be sure we're on npm 11
-                  npm install -g npm@11
-                  echo "✅ npm upgraded to $(npm --version)"
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
