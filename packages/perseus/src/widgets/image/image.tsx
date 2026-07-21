@@ -198,7 +198,7 @@ const ImageWidget = forwardRef<WidgetHandle, ImageWidgetProps>(
                         isGifPlaying={isGifPlaying}
                         setIsGifPlaying={setIsGifPlaying}
                         isAnimatedGif={isAnimatedGif}
-                        {...props.options}
+                        options={props.options}
                         apiOptions={apiOptions}
                         linterContext={linterContext}
                         widgetId={widgetId}
