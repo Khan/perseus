@@ -674,6 +674,10 @@ class Editor extends React.Component<Props, State> {
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
+        // TODO(benchristel): get rid of all these different ways of
+        //  initializing widget options. We should probably standardize on
+        //  getting the initial options from
+        //  CoreWidgetRegistry.getDefaultWidgetOptions().
         const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
             initializeWidgetOptionsParams,
         );
