@@ -1,5 +1,8 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {
+    mobileDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {matrixRendererDecorator} from "./matrix-renderer-decorator";
 
@@ -30,6 +33,68 @@ export const DefaultEmptyMatrix: Story = {
     decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [3, 3],
+    },
+};
+
+export const SingleRowMatrix: Story = {
+    decorators: [matrixRendererDecorator],
+    args: {
+        matrixBoardSize: [1, 4],
+    },
+};
+
+export const SingleColumnMatrix: Story = {
+    decorators: [matrixRendererDecorator],
+    args: {
+        matrixBoardSize: [4, 1],
+    },
+};
+
+// Verifies the mobile keypad rendering: with `customKeypad` enabled, the cells
+// render as the larger keypad-style inputs (SimpleKeypadInput) instead of the
+// normal text inputs.
+export const Mobile: Story = {
+    decorators: [matrixRendererDecorator, mobileDecorator],
+    parameters: {
+        apiOptions: {customKeypad: true},
+    },
+    args: {
+        matrixBoardSize: [3, 3],
+    },
+};
+
+// Verifies the disabled/read-only state
+export const DisabledMatrix: Story = {
+    decorators: [matrixRendererDecorator],
+    parameters: {
+        apiOptions: {readOnly: true},
+        initialUserInput: {
+            "matrix 1": {
+                answers: [
+                    ["1", "2", "3"],
+                    ["4", "5", "6"],
+                    ["7", "8", "9"],
+                ],
+            },
+        },
+    },
+    args: {
+        matrixBoardSize: [3, 3],
+    },
+};
+
+// Verifies the matrix renders correctly inside a markdown table cell — the
+// most common way it appears in Test Everything content.
+export const InMarkdownTable: Story = {
+    decorators: [matrixRendererDecorator],
+    parameters: {
+        content:
+            "| Matrix | Description |\n" +
+            "| --- | --- |\n" +
+            "| [[☃ matrix 1]] | A $2 \\times 2$ matrix |",
+    },
+    args: {
+        matrixBoardSize: [2, 2],
     },
 };
 
@@ -90,5 +155,14 @@ export const WithPrefixAndSuffixRightToLeft: Story = {
         matrixBoardSize: [2, 2],
         prefix: "Given $A =$",
         suffix: "($2 \\times 2$ matrix)",
+    },
+};
+
+// KNOWN ISSUE: Matrices do NOT flip in right-to-left languages. This story should
+// be no different from the DefaultEmptyMatrix story.
+export const EmptyMatrixRTL: Story = {
+    decorators: [matrixRendererDecorator, rtlDecorator],
+    args: {
+        matrixBoardSize: [3, 3],
     },
 };
