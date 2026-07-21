@@ -11,10 +11,10 @@ runs:
           with:
               run_install: false
 
-        - name: "Setup Node.js: >=24.18 <25"
+        - name: "Setup Node.js: ^24.18.0"
           uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
           with:
-              node-version: ">=24.18 <25"
+              node-version: "^24.18.0"
               cache: pnpm
 
         - name: pnpm install
