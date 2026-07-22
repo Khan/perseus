@@ -1,18 +1,16 @@
 import {
-    getDefaultFigureForType,
-    lockedFigureFillStyles,
     type Coord,
-    type LockedFigureFillType,
-    type LockedPolygonType,
+    getDefaultFigureForType,
     type LockedFigureColor,
     type LockedLabelType,
+    type LockedPolygonType,
+    type LockedFigureFillType,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
-import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowFatDown from "@phosphor-icons/core/regular/arrow-fat-down.svg";
 import arrowFatLeft from "@phosphor-icons/core/regular/arrow-fat-left.svg";
@@ -25,6 +23,7 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import LabeledSwitch from "../../../components/labeled-switch";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
@@ -221,26 +220,17 @@ const LockedPolygonSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <SingleSelect
+                    <TypedSingleSelect<LockedFigureFillType>
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            // eslint-disable-next-line no-restricted-syntax
-                            ((value: LockedFigureFillType) =>
-                                onChangeProps({fillStyle: value})) as any
-                        }
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                    >
-                        {Object.keys(lockedFigureFillStyles).map((option) => (
-                            <OptionItem
-                                key={option}
-                                value={option}
-                                label={option}
-                            />
-                        ))}
-                    </SingleSelect>
+                        onChange={(value) => onChangeProps({fillStyle: value})}
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
+                    />
                 </BodyText>
             </View>
 

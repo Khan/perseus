@@ -19032,11 +19032,14 @@ $\\green5 - \\red3= \\purple{2}$",
             1,
             1,
           ],
+          "labelInterval": 1,
           "labels": [
             "Child",
             "Baskets",
           ],
           "maxY": 5,
+          "picBoxHeight": 36,
+          "picSize": 30,
           "picUrl": "http://i.imgur.com/B8mGnxB.png",
           "plotDimensions": [
             380,
@@ -19138,7 +19141,9 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
             "Michaela",
             "James",
           ],
-          "correct": [],
+          "correct": [
+            1,
+          ],
           "labelInterval": 1,
           "labels": [
             "Child",
@@ -19204,6 +19209,9 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "",
             ],
             "maxY": 10,
+            "picBoxHeight": 36,
+            "picSize": 30,
+            "picUrl": null,
             "plotDimensions": [
               380,
               300,

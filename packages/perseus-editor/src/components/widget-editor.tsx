@@ -130,16 +130,11 @@ class WidgetEditor extends React.Component<
         this.props.onChange(newWidgetInfo);
     };
 
-    _handleAlignmentChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-        // eslint-disable-next-line no-restricted-syntax
-        const newAlignment = e.currentTarget.value as Alignment;
-        // eslint-disable-next-line no-restricted-syntax
-        const newWidgetInfo = Object.assign(
-            {},
-            this.state.widgetInfo,
-        ) as PerseusWidget;
-        newWidgetInfo.alignment = newAlignment;
-        this.props.onChange(newWidgetInfo);
+    _handleAlignmentChange = (newAlignment: Alignment) => {
+        this.props.onChange({
+            ...this.state.widgetInfo,
+            alignment: newAlignment,
+        });
     };
 
     getSaveWarnings = () => {
