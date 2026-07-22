@@ -57,6 +57,14 @@ export type Props = LockedFigureSettingsCommonProps &
         onChangeProps: (newProps: Partial<LockedEllipseType>) => void;
     };
 
+// Exported for typetesting.
+export const fillStyleOptions = {
+    none: "none",
+    white: "white",
+    translucent: "translucent",
+    solid: "solid",
+};
+
 const LockedEllipseSettings = (props: Props) => {
     const {
         center,
@@ -236,12 +244,7 @@ const LockedEllipseSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={{
-                            none: "none",
-                            white: "white",
-                            translucent: "translucent",
-                            solid: "solid",
-                        }}
+                        options={fillStyleOptions}
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     />
