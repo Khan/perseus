@@ -45,10 +45,8 @@ jobs:
 
             - name: Force Node version
               uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
-              with:
-                  node-version: "^24.18.0"
-                  # Note that we don't specify 'cache: pnpm' here because we
-                  # don't install node_modules in this workflow/job!
+              # Note that we don't specify 'cache: pnpm' here because we
+              # don't install node_modules in this workflow/job!
 
             - name: Get changed files
               uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
