@@ -24,9 +24,6 @@ inputs:
     github-token:
         description: "The Github token to use for authenticated requests."
         required: true
-    node-version:
-        description: "Node version to install for the build (e.g. 24.x)."
-        required: true
     build-command:
         description: "The command that generates the artifact to compare."
         required: true
@@ -75,8 +72,6 @@ runs:
         - name: Install & cache node_modules
           if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}
           uses: ./.github/actions/shared-node-cache
-          with:
-              node-version: ${{ inputs.node-version }}
 
         - name: Build artifact for current PR
           if: ${{ github.event.action != 'labeled' && github.event.action != 'unlabeled' }}

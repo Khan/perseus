@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "hooks": {
+        "sessionStart": [
+            {
+                "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.cursor/hooks/git-token-init.mjs\"'",
+                "timeout": 60
+            },
+            {
+                "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.cursor/hooks/gh-install.mjs\"'",
+                "timeout": 120
+            },
+            {
+                "command": "$(git rev-parse --show-toplevel)/.cursor/hooks/pnpm-install.mjs",
+                "timeout": 120
+            }
+        ],
+        "beforeShellExecution": [
+            {
+                "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.cursor/hooks/git-filter.mjs\"'",
+                "matcher": "\\bgit\\b"
+            },
+            {
+                "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.cursor/hooks/gh-filter.mjs\"'",
+                "matcher": "\\bgh\\b"
+            }
+        ],
+        "preToolUse": [
+            {
+                "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.cursor/hooks/inject-shell-env.mjs\"'",
+                "matcher": "Shell",
+                "timeout": 30
+            }
+        ]
+    }
+}

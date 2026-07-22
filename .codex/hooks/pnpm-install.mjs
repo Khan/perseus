@@ -6,9 +6,9 @@
  * Node via nvm and persist the PATH/NVM_* env vars to CLAUDE_ENV_FILE so
  * subsequent commands in the session pick them up.
  */
-import { spawnSync } from "child_process";
-import { existsSync, appendFileSync } from "fs";
-import { dirname } from "path";
+import {spawnSync} from "child_process";
+import {existsSync, appendFileSync} from "fs";
+import {dirname} from "path";
 
 if (!existsSync("package.json")) process.exit(0);
 
@@ -16,7 +16,7 @@ const NVM_DIR = "/opt/nvm";
 const NVM_SCRIPT = `${NVM_DIR}/nvm.sh`;
 const NODE_VERSION = "24.18";
 
-let env = { ...process.env };
+let env = {...process.env};
 
 if (process.env.CLAUDE_CODE_REMOTE && existsSync(NVM_SCRIPT)) {
     const nvmResult = spawnSync(
@@ -25,7 +25,7 @@ if (process.env.CLAUDE_CODE_REMOTE && existsSync(NVM_SCRIPT)) {
             "-c",
             `export NVM_DIR="${NVM_DIR}" && source "${NVM_SCRIPT}" && nvm install ${NODE_VERSION} >/dev/null 2>&1 && nvm which ${NODE_VERSION}`,
         ],
-        { encoding: "utf8" },
+        {encoding: "utf8"},
     );
 
     if (nvmResult.status === 0) {
@@ -60,7 +60,11 @@ const result = spawnSync("pnpm", ["install"], {
 });
 
 if (result.status !== 0) {
-    const output = [result.stdout?.trim(), result.stderr?.trim()].filter(Boolean).join("\n");
-    process.stderr.write(output ? `pnpm install failed:\n${output}\n` : "pnpm install failed\n");
+    const output = [result.stdout?.trim(), result.stderr?.trim()]
+        .filter(Boolean)
+        .join("\n");
+    process.stderr.write(
+        output ? `pnpm install failed:\n${output}\n` : "pnpm install failed\n",
+    );
     process.exit(2);
 }

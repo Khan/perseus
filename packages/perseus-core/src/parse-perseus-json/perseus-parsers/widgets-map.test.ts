@@ -543,7 +543,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("accepts a molecule-renderer widget", () => {
+    it("converts a molecule-renderer widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "molecule-renderer 1": {
                 type: "molecule-renderer",
@@ -554,9 +554,19 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "molecule-renderer 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    widgetId: "",
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
     });
 
     it("accepts a number-line widget", () => {
