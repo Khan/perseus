@@ -26,20 +26,14 @@ type Props = {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    height: Props["height"];
-};
-
 /**
  * This renders the program in an iframe.
  */
+// TODO(benchristel): Rewrite PythonProgram as a functional component,
+//  following dropdown.tsx's example.
 class PythonProgram extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        height: 400,
-    };
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
