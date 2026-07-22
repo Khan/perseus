@@ -1,4 +1,5 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -9,7 +10,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srSinusoidPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number | undefined;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         otherY: number;
@@ -19,11 +20,9 @@ export function srSinusoidPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) is woven into the root/peak
-    // description so we keep the sinusoid-specific semantics; the numeric
-    // default (sequence number) is omitted in favor of the point's role.
-    const pointLabel =
-        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    // A custom author label is woven into the root/peak description so we
+    // keep the sinusoid-specific semantics.
+    const {pointLabel} = state;
 
     // Coord layout in sinusoid graphs: [root(0), peak(1)]. The peak's
     // label depends on its y relative to the root's y.
@@ -81,7 +80,7 @@ export function describeSinusoidGraph(
     const srSinusoidRootPoint = srSinusoidPointLabel(
         {
             pointIndex: 0,
-            pointLabel: state.pointLabels?.[0],
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
             x: root[X],
             y: root[Y],
             otherY: peak[Y],
@@ -92,7 +91,7 @@ export function describeSinusoidGraph(
     const srSinusoidPeakPoint = srSinusoidPointLabel(
         {
             pointIndex: 1,
-            pointLabel: state.pointLabels?.[1],
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
             x: peak[X],
             y: peak[Y],
             otherY: root[Y],

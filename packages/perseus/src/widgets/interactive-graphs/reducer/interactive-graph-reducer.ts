@@ -10,7 +10,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
+import {
+    getCustomPointLabel,
+    resolvePointLabel,
+} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -301,9 +304,12 @@ function doMovePointInFigure(
 
             // pointLabels is a flat array across all lines/segments, indexed
             // by figureIndex * 2 + pointIndex (matching the render side).
+            // Unlabeled points pass undefined so the announcement helpers
+            // fall back to within-figure numbering ("Endpoint 1 on segment 2"),
+            // matching the point's aria-label.
             const sharedAnnouncement = {
                 pointIndex: action.pointIndex,
-                pointLabel: resolvePointLabel(
+                pointLabel: getCustomPointLabel(
                     state.pointLabels,
                     action.figureIndex * 2 + action.pointIndex,
                 ),
@@ -355,7 +361,7 @@ function doMovePointInFigure(
                 stateAnnouncement = {
                     type: "move-ray-point",
                     pointIndex: action.pointIndex,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.pointIndex,
                     ),
@@ -372,8 +378,9 @@ function doMovePointInFigure(
             } else {
                 stateAnnouncement = {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
                     ),
                     x: newValue[X],
                     y: newValue[Y],
@@ -566,20 +573,18 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            // A custom author label (when set) overrides the side/vertex
-            // wording in the announcement. resolvePointLabel returns the
-            // 1-indexed number when no custom label is set, so narrow to
-            // just the string case here.
-            const resolvedAngleLabel = resolvePointLabel(
-                state.pointLabels,
-                action.index,
-            );
             return {
                 ...newState,
                 stateAnnouncement: {
                     type: "move-angle-point",
                     pointIndex: action.index,
-                    pointLabel: resolvedAngleLabel,
+                    // A custom author label (when set) identifies the point
+                    // in the side/vertex wording; the announcement helper
+                    // falls back to the sequence number otherwise.
+                    pointLabel: getCustomPointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
                     x: newState.coords[action.index][X],
                     y: newState.coords[action.index][Y],
                     angleMeasure: getClockwiseAngle(
@@ -629,8 +634,9 @@ function doMovePoint(
                 coords: newCoords,
                 stateAnnouncement: {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.index),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
                     ),
                     x: newValue[X],
                     y: newValue[Y],
@@ -652,8 +658,9 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.index),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
                     ),
                     x: newCoord[X],
                     y: newCoord[Y],
@@ -687,7 +694,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-sinusoid-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -734,7 +741,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-exponential-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -792,7 +799,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-logarithm-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -829,7 +836,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-absolute-value-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -865,7 +872,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-tangent-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -904,7 +911,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-quadratic-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -1074,7 +1081,8 @@ function doMoveRadiusPoint(
                     y: nextRadiusPoint[Y],
                     centerX: state.center[X],
                     radius: vec.dist(state.center, nextRadiusPoint),
-                    pointLabel: state.pointLabels?.[0],
+                    // Circle's pointLabels is [radiusPointLabel].
+                    pointLabel: getCustomPointLabel(state.pointLabels, 0),
                 },
             };
         }

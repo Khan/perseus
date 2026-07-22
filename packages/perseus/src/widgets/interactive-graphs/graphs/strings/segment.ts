@@ -1,4 +1,6 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
+import {getLengthOfSegment} from "../utils";
 
 import {srFormatNumber} from "./format-number";
 
@@ -10,7 +12,7 @@ export function srSegmentPointLabel(
     state: {
         segmentIndex: number;
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         totalSegments: number;
         x: number;
         y: number;
@@ -20,13 +22,9 @@ export function srSegmentPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) identifies the endpoint in place of its
-    // sequence number, keeping the endpoint/segment semantics; a numeric
-    // pointLabel falls back to the endpoint's sequence number.
-    const pointLabel =
-        typeof state.pointLabel === "string"
-            ? state.pointLabel
-            : `${state.pointIndex + 1}`;
+    // A custom author label identifies the endpoint in place of its
+    // within-segment number, keeping the endpoint/segment semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
 
     // Single- vs multi-segment graphs use different endpoint labels.
     return state.totalSegments === 1
@@ -39,24 +37,132 @@ export function srSegmentPointLabel(
           });
 }
 
+type SegmentDescription = {
+    // Aria-labels for the two draggable endpoints and the whole-segment grab
+    // handle. Endpoint labels weave in any custom author label.
+    point1AriaLabel: string;
+    point2AriaLabel: string;
+    grabHandleAriaLabel: string;
+    // Aria-label for the segment's group element (used when the graph has
+    // multiple segments; a single-segment graph is labeled as a whole).
+    individualAriaLabel: string;
+    // Screen-reader description of the segment's length, surfaced via
+    // aria-describedby.
+    lengthDescription: string;
+};
+
+type SegmentGraphDescriptionStrings = {
+    srSegmentGraph: string;
+    srSegmentInteractiveElements: string;
+    // Description of every segment's endpoints, for the whole graph's
+    // aria-describedby.
+    srWholeGraphDescription: string;
+    srSegments: ReadonlyArray<SegmentDescription>;
+};
+
 // Exported for testing
 export function describeSegmentGraph(
     state: SegmentGraphState,
     i18n: I18nContextType,
-): string {
+): SegmentGraphDescriptionStrings {
     const {strings, locale} = i18n;
+    const {coords: segments, pointLabels} = state;
+    const totalSegments = segments.length;
 
-    const segmentDescriptions = state.coords.map(([point1, point2], index) =>
-        strings.srMultipleSegmentIndividualLabel({
-            point1X: srFormatNumber(point1[X], locale),
-            point1Y: srFormatNumber(point1[Y], locale),
-            point2X: srFormatNumber(point2[X], locale),
-            point2Y: srFormatNumber(point2[Y], locale),
-            indexOfSegment: index + 1,
-        }),
+    const srSegmentGraph =
+        totalSegments > 1
+            ? strings.srMultipleSegmentGraphAriaLabel({
+                  countOfSegments: totalSegments,
+              })
+            : strings.srSingleSegmentGraphAriaLabel;
+
+    const segmentDescriptions = segments.map(
+        (segment, i): SegmentDescription => {
+            const [point1, point2] = segment;
+            const point1X = srFormatNumber(point1[X], locale);
+            const point1Y = srFormatNumber(point1[Y], locale);
+            const point2X = srFormatNumber(point2[X], locale);
+            const point2Y = srFormatNumber(point2[Y], locale);
+
+            return {
+                // srSegmentPointLabel weaves in any custom author label
+                // (pointLabels is flat across segments: [seg0Start, seg0End,
+                // seg1Start, seg1End, …]) and falls back to the
+                // within-segment number, matching the move announcement.
+                point1AriaLabel: srSegmentPointLabel(
+                    {
+                        segmentIndex: i,
+                        pointIndex: 0,
+                        pointLabel: getCustomPointLabel(pointLabels, i * 2),
+                        totalSegments,
+                        x: point1[X],
+                        y: point1[Y],
+                    },
+                    strings,
+                    locale,
+                ),
+                point2AriaLabel: srSegmentPointLabel(
+                    {
+                        segmentIndex: i,
+                        pointIndex: 1,
+                        pointLabel: getCustomPointLabel(pointLabels, i * 2 + 1),
+                        totalSegments,
+                        x: point2[X],
+                        y: point2[Y],
+                    },
+                    strings,
+                    locale,
+                ),
+                grabHandleAriaLabel: strings.srSegmentGrabHandle({
+                    point1X,
+                    point1Y,
+                    point2X,
+                    point2Y,
+                }),
+                individualAriaLabel:
+                    totalSegments === 1
+                        ? strings.srSingleSegmentLabel({
+                              point1X,
+                              point1Y,
+                              point2X,
+                              point2Y,
+                          })
+                        : strings.srMultipleSegmentIndividualLabel({
+                              point1X,
+                              point1Y,
+                              point2X,
+                              point2Y,
+                              indexOfSegment: i + 1,
+                          }),
+                lengthDescription: strings.srSegmentLength({
+                    length: srFormatNumber(getLengthOfSegment(segment), locale),
+                }),
+            };
+        },
     );
 
-    return strings.srInteractiveElements({
-        elements: segmentDescriptions.join(" "),
+    const srWholeGraphDescription = segmentDescriptions
+        .map((segment) => segment.individualAriaLabel)
+        .join(" ");
+
+    const srSegmentInteractiveElements = strings.srInteractiveElements({
+        elements: segments
+            .map(([point1, point2], index) =>
+                strings.srMultipleSegmentIndividualLabel({
+                    point1X: srFormatNumber(point1[X], locale),
+                    point1Y: srFormatNumber(point1[Y], locale),
+                    point2X: srFormatNumber(point2[X], locale),
+                    point2Y: srFormatNumber(point2[Y], locale),
+                    indexOfSegment: index + 1,
+                }),
+            )
+            .join(" "),
     });
+
+    return {
+        srSegmentGraph,
+        srSegmentInteractiveElements,
+        srWholeGraphDescription,
+        srSegments: segmentDescriptions,
+    };
 }

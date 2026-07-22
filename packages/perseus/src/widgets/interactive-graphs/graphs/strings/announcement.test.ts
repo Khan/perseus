@@ -28,7 +28,14 @@ describe("getAnnouncementText", () => {
     describe("move-radius-point", () => {
         it("returns the correct string when point is to the right", () => {
             const result = getAnnouncementText(
-                {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
+                {
+                    type: "move-radius-point",
+                    x: 2,
+                    y: 0,
+                    centerX: 0,
+                    radius: 2,
+                    pointLabel: undefined,
+                },
                 mockStrings,
                 "en",
             );
@@ -40,7 +47,14 @@ describe("getAnnouncementText", () => {
 
         it("returns the correct string when point is to the left", () => {
             const result = getAnnouncementText(
-                {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
+                {
+                    type: "move-radius-point",
+                    x: -2,
+                    y: 0,
+                    centerX: 0,
+                    radius: 2,
+                    pointLabel: undefined,
+                },
                 mockStrings,
                 "en",
             );
@@ -125,7 +139,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: 1,
                     y: 1,
                     otherY: 3,
@@ -142,7 +156,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: 3,
                     otherY: 0,
@@ -159,7 +173,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: -3,
                     otherY: 0,
@@ -176,7 +190,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: 0,
                     otherY: 0,
@@ -213,7 +227,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: -2,
                     hasCurve: true,
@@ -232,7 +246,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: 5,
                     hasCurve: true,
@@ -249,7 +263,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: -2,
                     hasCurve: false,
@@ -301,7 +315,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-absolute-value-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 1,
                     slope: 2,
@@ -318,7 +332,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-absolute-value-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: -2,
                     slope: 2,
@@ -376,7 +390,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-tangent-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 1,
                 },
@@ -392,7 +406,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-tangent-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: -2,
                 },
@@ -427,7 +441,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -1,
                     y: 4,
                     hasCurve: true,
@@ -446,7 +460,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 3,
                     y: 7,
                     hasCurve: true,
@@ -465,7 +479,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -1,
                     y: 4,
                     hasCurve: false,
@@ -518,7 +532,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: 2,
                     y: 0,
                     angleMeasure: 90,
@@ -535,7 +549,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 0,
                     y: 0,
                     angleMeasure: 90,
@@ -554,7 +568,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 2,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: 0,
                     y: 2,
                     angleMeasure: 90,
@@ -612,7 +626,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -2,
                     y: 4,
                     vertex: [1, -1],
@@ -631,7 +645,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 3,
                     y: 0,
                     vertex: [0, 0],
@@ -650,7 +664,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 2,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: 0,
                     y: 0,
                     vertex: [0, 2],
@@ -669,7 +683,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -2,
                     y: -2,
                     vertex: undefined,
@@ -729,7 +743,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-ray-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                 },
@@ -745,7 +759,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-ray-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 5,
                     y: 6,
                 },
@@ -840,7 +854,7 @@ describe("getAnnouncementText", () => {
                     type: "move-linear-system-point",
                     lineIndex: 1,
                     pointIndex: 0,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                 },
@@ -897,7 +911,7 @@ describe("getAnnouncementText", () => {
                     type: "move-segment-point",
                     segmentIndex: 0,
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                     totalSegments: 1,
@@ -915,7 +929,7 @@ describe("getAnnouncementText", () => {
                     type: "move-segment-point",
                     segmentIndex: 1,
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                     totalSegments: 2,

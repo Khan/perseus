@@ -45,13 +45,13 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const {srSegmentInteractiveElements} = describeSegmentGraph(
             baseSingleSegmentState,
             mockPerseusI18nContext,
         );
 
         // Assert
-        expect(interactiveElementsString).toBe(
+        expect(srSegmentInteractiveElements).toBe(
             "Interactive elements: Segment 1: Endpoint 1 at -5 comma 5. Endpoint 2 at 5 comma 5.",
         );
     });
@@ -60,13 +60,13 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const {srSegmentInteractiveElements} = describeSegmentGraph(
             baseMultipleSegmentState,
             mockPerseusI18nContext,
         );
 
         // Assert
-        expect(interactiveElementsString).toBe(
+        expect(srSegmentInteractiveElements).toBe(
             "Interactive elements: Segment 1: Endpoint 1 at -5 comma 5. Endpoint 2 at 5 comma 5. Segment 2: Endpoint 1 at -5 comma -5. Endpoint 2 at 5 comma -5.",
         );
     });
@@ -75,7 +75,7 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const {srSegmentInteractiveElements} = describeSegmentGraph(
             {
                 ...baseSingleSegmentState,
                 coords: [
@@ -89,7 +89,7 @@ describe("describeSegmentGraph", () => {
         );
 
         // Assert
-        expect(interactiveElementsString).toBe(
+        expect(srSegmentInteractiveElements).toBe(
             "Interactive elements: Segment 1: Endpoint 1 at -1 comma 2. Endpoint 2 at 3 comma 4.",
         );
     });
@@ -98,7 +98,7 @@ describe("describeSegmentGraph", () => {
         // Arrange
 
         // Act
-        const interactiveElementsString = describeSegmentGraph(
+        const {srSegmentInteractiveElements} = describeSegmentGraph(
             {
                 ...baseMultipleSegmentState,
                 coords: [
@@ -116,7 +116,7 @@ describe("describeSegmentGraph", () => {
         );
 
         // Assert
-        expect(interactiveElementsString).toBe(
+        expect(srSegmentInteractiveElements).toBe(
             "Interactive elements: Segment 1: Endpoint 1 at -1 comma 2. Endpoint 2 at 3 comma 4. Segment 2: Endpoint 1 at -1 comma -2. Endpoint 2 at 3 comma -4.",
         );
     });

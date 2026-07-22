@@ -1,3 +1,5 @@
+import {getCustomPointLabel} from "../components/build-point-aria-label";
+
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -7,7 +9,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srRayPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number | undefined;
+        pointLabel: string | undefined;
         x: number;
         y: number;
     },
@@ -16,11 +18,9 @@ export function srRayPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) is woven into the endpoint/through-point
-    // description so we keep the ray-specific semantics; the numeric default
-    // (sequence number) is omitted in favor of the point's role.
-    const pointLabel =
-        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    // A custom author label is woven into the endpoint/through-point
+    // description so we keep the ray-specific semantics.
+    const {pointLabel} = state;
 
     // Index 0 is the ray's endpoint; index 1 is a point the ray passes
     // through. They use different labels.
@@ -66,7 +66,7 @@ export function describeRayGraph(
     const srRayEndpoint = srRayPointLabel(
         {
             pointIndex: 0,
-            pointLabel: state.pointLabels?.[0],
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
             x: line[0][0],
             y: line[0][1],
         },
@@ -76,7 +76,7 @@ export function describeRayGraph(
     const srRayTerminalPoint = srRayPointLabel(
         {
             pointIndex: 1,
-            pointLabel: state.pointLabels?.[1],
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
             x: line[1][0],
             y: line[1][1],
         },

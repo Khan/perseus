@@ -1,7 +1,7 @@
 import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
-import {resolvePointLabel} from "../components/build-point-aria-label";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -15,7 +15,7 @@ const {getLogarithmCoefficients} = kmathCoefficients;
 export function srLogarithmPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         hasCurve: boolean;
@@ -25,12 +25,9 @@ export function srLogarithmPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) identifies the point in place of its
-    // sequence number, keeping the point-1/point-2 semantics; a numeric
-    // pointLabel falls back to the point's sequence number.
-    const customLabel =
-        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
-    const pointLabel = customLabel ?? `${state.pointIndex + 1}`;
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the point-1/point-2 semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
 
     // When no curve is plotted, drop the "on a curve" phrasing
     // in favor of plain point coordinates, matching logarithm.tsx.
@@ -98,7 +95,7 @@ export function describeLogarithmGraph(
         srLogarithmPoint1: srLogarithmPointLabel(
             {
                 pointIndex: 0,
-                pointLabel: resolvePointLabel(state.pointLabels, 0),
+                pointLabel: getCustomPointLabel(state.pointLabels, 0),
                 x: point1[X],
                 y: point1[Y],
                 hasCurve: coeffs !== undefined,
@@ -109,7 +106,7 @@ export function describeLogarithmGraph(
         srLogarithmPoint2: srLogarithmPointLabel(
             {
                 pointIndex: 1,
-                pointLabel: resolvePointLabel(state.pointLabels, 1),
+                pointLabel: getCustomPointLabel(state.pointLabels, 1),
                 x: point2[X],
                 y: point2[Y],
                 hasCurve: coeffs !== undefined,

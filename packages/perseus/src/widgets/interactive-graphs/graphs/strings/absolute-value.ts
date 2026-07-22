@@ -1,4 +1,5 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {getAbsoluteValueCoefficients} from "../utils";
 
 import {srFormatNumber} from "./format-number";
@@ -11,7 +12,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srAbsoluteValuePointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         slope: number;
@@ -21,9 +22,7 @@ export function srAbsoluteValuePointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-
-    const pointLabel =
-        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    const {pointLabel} = state;
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
     if (state.pointIndex === 0) {
@@ -63,28 +62,24 @@ export function describeAbsoluteValueGraph(
     // Fold any custom author label into the point's role, mirroring the
     // announcement logic (srAbsoluteValuePointLabel). Unlike the announcement,
     // the slope is NOT appended here — the graph attaches it separately via
-    // aria-describedby — so we can't reuse that helper directly. Unlabeled,
-    // empty-string, and malformed entries fall back to the plain role label.
+    // aria-describedby — so we can't reuse that helper directly.
     const roleLabel = (
-        pointLabel: string | number | undefined,
+        pointLabel: string | undefined,
         x: string,
         y: string,
         withLabel: (a: {pointLabel: string; x: string; y: string}) => string,
         plain: (a: {x: string; y: string}) => string,
-    ): string =>
-        typeof pointLabel === "string" && pointLabel !== ""
-            ? withLabel({pointLabel, x, y})
-            : plain({x, y});
+    ): string => (pointLabel ? withLabel({pointLabel, x, y}) : plain({x, y}));
 
     const srAbsoluteValueVertexPoint = roleLabel(
-        state.pointLabels?.[0],
+        getCustomPointLabel(state.pointLabels, 0),
         srFormatNumber(vertex[X], locale),
         srFormatNumber(vertex[Y], locale),
         strings.srAbsoluteValueVertexPointWithLabel,
         strings.srAbsoluteValueVertexPoint,
     );
     const srAbsoluteValueArmPoint = roleLabel(
-        state.pointLabels?.[1],
+        getCustomPointLabel(state.pointLabels, 1),
         srFormatNumber(armPoint[X], locale),
         srFormatNumber(armPoint[Y], locale),
         strings.srAbsoluteValueArmPointWithLabel,

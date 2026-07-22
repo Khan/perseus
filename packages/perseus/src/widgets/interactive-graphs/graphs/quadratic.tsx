@@ -5,7 +5,7 @@ import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {resolvePointLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -44,7 +44,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
     const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const quadraticDirectionId = id + "-direction";
     const quadraticVertexId = id + "-vertex";
@@ -93,8 +92,11 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 />
             </ClipToGraphBounds>
             {coords.map((coord, i) => {
+                // Weave any custom author label into the quadrant-specific point
+                // string (matching the move announcement), falling back to the
+                // sequence number for unlabeled/empty/malformed entries.
                 const srQuadraticPoint = getQuadraticPointString(
-                    `${i + 1}`,
+                    resolvePointLabel(pointLabels, i),
                     coord,
                     strings,
                     locale,
@@ -107,10 +109,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 return (
                     <MovablePoint
                         key={"point-" + i}
-                        ariaLabel={
-                            buildLabel(i, coord) ??
-                            `${srQuadraticPoint}${srVertex}`
-                        }
+                        ariaLabel={`${srQuadraticPoint}${srVertex}`}
                         point={coord}
                         sequenceNumber={i + 1}
                         constrain={getQuadraticKeyboardConstraint(

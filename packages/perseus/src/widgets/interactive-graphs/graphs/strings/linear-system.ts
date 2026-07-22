@@ -1,5 +1,6 @@
 import {geometry} from "@khanacademy/kmath";
 
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {getInterceptStringForLine, getSlopeStringForLine} from "../utils";
 
 import {srFormatNumber} from "./format-number";
@@ -12,7 +13,7 @@ export function srLinearSystemPointLabel(
     state: {
         lineIndex: number;
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
     },
@@ -21,13 +22,9 @@ export function srLinearSystemPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) identifies the point in place of its
-    // sequence number, keeping the line/point semantics; a numeric pointLabel
-    // falls back to the point's sequence number.
-    const pointLabel =
-        typeof state.pointLabel === "string"
-            ? state.pointLabel
-            : `${state.pointIndex + 1}`;
+    // A custom author label identifies the point in place of its within-line
+    // number, keeping the line/point semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
 
     return strings.srLinearSystemPoint({
         lineNumber: state.lineIndex + 1,
@@ -35,20 +32,6 @@ export function srLinearSystemPointLabel(
         x,
         y,
     });
-}
-
-// pointLabels is flat across both lines: [line0Start, line0End, line1Start,
-// line1End]. Use a non-empty custom label when present; otherwise the point's
-// within-line number (1 or 2).
-function resolveLinePointLabel(
-    pointLabels: ReadonlyArray<string> | undefined,
-    flatIndex: number,
-    pointNumber: number,
-): string {
-    const custom = pointLabels?.[flatIndex];
-    return typeof custom === "string" && custom !== ""
-        ? custom
-        : `${pointNumber}`;
 }
 
 type LinearSystemLineDescription = {
@@ -60,7 +43,7 @@ type LinearSystemLineDescription = {
     slopeDescription: string;
 };
 
-type LinearSystemGraphDescription = {
+type LinearSystemGraphDescriptionStrings = {
     srLinearSystemGraph: string;
     srLinearSystemInteractiveElements: string;
     srIntersectionDescription: string;
@@ -71,7 +54,7 @@ type LinearSystemGraphDescription = {
 export function describeLinearSystemGraph(
     state: LinearSystemGraphState,
     i18n: I18nContextType,
-): LinearSystemGraphDescription {
+): LinearSystemGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords: lines, pointLabels} = state;
 
@@ -86,22 +69,32 @@ export function describeLinearSystemGraph(
             const point2Y = srFormatNumber(point2[1], locale);
 
             return {
-                point1AriaLabel: strings.srLinearSystemPoint({
-                    lineNumber: i + 1,
-                    pointLabel: resolveLinePointLabel(pointLabels, i * 2, 1),
-                    x: point1X,
-                    y: point1Y,
-                }),
-                point2AriaLabel: strings.srLinearSystemPoint({
-                    lineNumber: i + 1,
-                    pointLabel: resolveLinePointLabel(
-                        pointLabels,
-                        i * 2 + 1,
-                        2,
-                    ),
-                    x: point2X,
-                    y: point2Y,
-                }),
+                // srLinearSystemPointLabel weaves in any custom author label
+                // (pointLabels is flat across both lines: [line0Start,
+                // line0End, line1Start, line1End]) and falls back to the
+                // within-line number, matching the move announcement.
+                point1AriaLabel: srLinearSystemPointLabel(
+                    {
+                        lineIndex: i,
+                        pointIndex: 0,
+                        pointLabel: getCustomPointLabel(pointLabels, i * 2),
+                        x: point1[0],
+                        y: point1[1],
+                    },
+                    strings,
+                    locale,
+                ),
+                point2AriaLabel: srLinearSystemPointLabel(
+                    {
+                        lineIndex: i,
+                        pointIndex: 1,
+                        pointLabel: getCustomPointLabel(pointLabels, i * 2 + 1),
+                        x: point2[0],
+                        y: point2[1],
+                    },
+                    strings,
+                    locale,
+                ),
                 grabHandleAriaLabel: strings.srLinearSystemGrabHandle({
                     lineNumber: i + 1,
                     point1X,

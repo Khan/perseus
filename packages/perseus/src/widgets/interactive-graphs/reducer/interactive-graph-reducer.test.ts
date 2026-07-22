@@ -515,8 +515,7 @@ describe("movePointInFigure", () => {
             type: "move-segment-point",
             segmentIndex: 1,
             pointIndex: 0,
-            // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
-            pointLabel: "3",
+            pointLabel: undefined,
             x: -3,
             y: 2,
             totalSegments: 2,
@@ -550,7 +549,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty (the announcement helper owns the fallback)", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -566,14 +565,13 @@ describe("movePointInFigure", () => {
             pointLabels: ["A", "", "C", "D"],
         };
 
-        // Move segment 0, point 1 → flat index 1, which is empty → default.
         const updated = interactiveGraphReducer(
             state,
             actions.segment.movePointInFigure(0, 1, [-3, 2]),
         );
 
         invariant(updated.stateAnnouncement?.type === "move-segment-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("2");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("allows the ray's tail (index 0) to land on the graph edge", () => {
@@ -611,7 +609,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement).toEqual({
             type: "move-ray-point",
             pointIndex: 1,
-            pointLabel: "2",
+            pointLabel: undefined,
             x: -3,
             y: 2,
         });
@@ -632,7 +630,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("A");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             ...baseRayGraphState,
             pointLabels: ["", "B"],
@@ -644,7 +642,7 @@ describe("movePointInFigure", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-ray-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("allows linear-system points to land on the graph edge", () => {
@@ -707,8 +705,7 @@ describe("movePointInFigure", () => {
             type: "move-linear-system-point",
             lineIndex: 1,
             pointIndex: 0,
-            // Flat index 1 * 2 + 0 = 2, no custom label → 1-indexed default.
-            pointLabel: "3",
+            pointLabel: undefined,
             x: -3,
             y: 2,
         });
@@ -749,7 +746,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             hasBeenInteractedWith: false,
             type: "linear-system",
@@ -771,7 +768,7 @@ describe("movePointInFigure", () => {
             pointLabels: ["A", "", "C", "D"],
         };
 
-        // Move line 0, point 1 → flat index 1, which is empty → default.
+        // Move line 0, point 1 → flat index 1.
         const updated = interactiveGraphReducer(
             state,
             actions.linearSystem.movePointInFigure(0, 1, [-3, 2]),
@@ -780,7 +777,7 @@ describe("movePointInFigure", () => {
         invariant(
             updated.stateAnnouncement?.type === "move-linear-system-point",
         );
-        expect(updated.stateAnnouncement.pointLabel).toBe("2");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("allows linear points to land on the graph edge", () => {
@@ -1804,7 +1801,7 @@ describe("movePoint on a sinusoid graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("T");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty (the announcement helper owns the fallback)", () => {
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [
@@ -1820,7 +1817,7 @@ describe("movePoint on a sinusoid graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-sinusoid-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 });
 
@@ -1877,7 +1874,7 @@ describe("movePoint on an absolute-value graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("V");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             ...baseAbsoluteValueGraphState,
             pointLabels: ["", "P"],
@@ -1891,7 +1888,7 @@ describe("movePoint on an absolute-value graph", () => {
         invariant(
             updated.stateAnnouncement?.type === "move-absolute-value-point",
         );
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("rejects the move when both points would share the same x-coordinate", () => {
@@ -1967,7 +1964,7 @@ describe("movePoint on a tangent graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("I");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state = generateTangentGraphState({
             coords: [
                 [0, 0],
@@ -1982,7 +1979,7 @@ describe("movePoint on a tangent graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-tangent-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("rejects the move when both points would share the same x-coordinate", () => {
@@ -2108,7 +2105,7 @@ describe("movePoint on a quadratic graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("A");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             ...baseQuadraticGraphState,
             coords: [
@@ -2125,7 +2122,7 @@ describe("movePoint on a quadratic graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-quadratic-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 });
 
@@ -3331,7 +3328,7 @@ describe("movePoint on an exponential graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state = generateExponentialGraphState({pointLabels: ["", "B"]});
 
         const updated = interactiveGraphReducer(
@@ -3340,7 +3337,7 @@ describe("movePoint on an exponential graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-exponential-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("emits no announcement when the move is rejected", () => {
@@ -3653,7 +3650,7 @@ describe("movePoint on a logarithm graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 
-    it("falls back to the numeric default when the pointLabel slot is empty", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state = generateLogarithmGraphState({pointLabels: ["", "B"]});
 
         const updated = interactiveGraphReducer(
@@ -3662,7 +3659,7 @@ describe("movePoint on a logarithm graph", () => {
         );
 
         invariant(updated.stateAnnouncement?.type === "move-logarithm-point");
-        expect(updated.stateAnnouncement.pointLabel).toBe("1");
+        expect(updated.stateAnnouncement.pointLabel).toBeUndefined();
     });
 
     it("emits no announcement when the move is rejected", () => {

@@ -18,7 +18,7 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function srQuadraticPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         vertex?: Coord;
@@ -26,13 +26,9 @@ export function srQuadraticPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label (a string) identifies the point in place of its
-    // sequence number, keeping the quadrant/vertex semantics; a numeric
-    // pointLabel falls back to the point's sequence number.
-    const pointLabel =
-        typeof state.pointLabel === "string"
-            ? state.pointLabel
-            : `${state.pointIndex + 1}`;
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the quadrant/vertex semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
     const pointString = getQuadraticPointString(
         pointLabel,
         [state.x, state.y],

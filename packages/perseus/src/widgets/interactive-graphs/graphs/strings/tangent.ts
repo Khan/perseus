@@ -1,4 +1,5 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -10,7 +11,7 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function srTangentPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number | undefined;
+        pointLabel: string | undefined;
         x: number;
         y: number;
     },
@@ -19,11 +20,9 @@ export function srTangentPointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A custom author label (a string) is woven into the inflection/control-
-    // point description so we keep the tangent-specific semantics; the numeric
-    // default (sequence number) is omitted in favor of the point's role.
-    const pointLabel =
-        typeof state.pointLabel === "string" ? state.pointLabel : undefined;
+    // A custom author label is woven into the inflection/control-point
+    // description so we keep the tangent-specific semantics.
+    const {pointLabel} = state;
 
     // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
     if (state.pointIndex === 0) {
@@ -64,7 +63,7 @@ export function describeTangentGraph(
     const srTangentInflectionPoint = srTangentPointLabel(
         {
             pointIndex: 0,
-            pointLabel: state.pointLabels?.[0],
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
             x: inflection[X],
             y: inflection[Y],
         },
@@ -74,7 +73,7 @@ export function describeTangentGraph(
     const srTangentControlPoint = srTangentPointLabel(
         {
             pointIndex: 1,
-            pointLabel: state.pointLabels?.[1],
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
             x: secondPoint[X],
             y: secondPoint[Y],
         },

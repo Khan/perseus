@@ -1,4 +1,5 @@
 import {getRadius} from "../../reducer/interactive-graph-state";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -16,10 +17,9 @@ export function srCircleRadiusPointLabel(
 ): string {
     const radiusPointX = srFormatNumber(x, locale);
     const radiusPointY = srFormatNumber(y, locale);
-    const hasLabel = typeof pointLabel === "string" && pointLabel !== "";
 
     if (x >= centerX) {
-        return hasLabel
+        return pointLabel
             ? strings.srCircleRadiusPointRightWithLabel({
                   pointLabel,
                   radiusPointX,
@@ -27,7 +27,7 @@ export function srCircleRadiusPointLabel(
               })
             : strings.srCircleRadiusPointRight({radiusPointX, radiusPointY});
     }
-    return hasLabel
+    return pointLabel
         ? strings.srCircleRadiusPointLeftWithLabel({
               pointLabel,
               radiusPointX,
@@ -80,7 +80,7 @@ export function describeCircleGraph(
         center[0],
         strings,
         locale,
-        pointLabels?.[0],
+        getCustomPointLabel(pointLabels, 0),
     );
     const srCircleRadius = strings.srCircleRadius({
         radius,

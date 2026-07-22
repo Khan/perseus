@@ -1,6 +1,7 @@
 import {angles} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
@@ -13,7 +14,7 @@ const {getClockwiseAngle} = angles;
 export function srAnglePointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number | undefined;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         angleMeasure: number;
@@ -23,15 +24,9 @@ export function srAnglePointLabel(
 ): string {
     const x = srFormatNumber(state.x, locale);
     const y = srFormatNumber(state.y, locale);
-    // A non-empty custom author label identifies the point in place of its
-    // sequence number, keeping the side/vertex semantics. An empty string,
-    // numeric, or malformed pointLabel falls back to the point's coord-index
-    // sequence number. (Empty string must be excluded here: the `?? ` fallback
-    // below is nullish-only, so `"" ?? seq` would otherwise keep the "".)
-    const customLabel =
-        typeof state.pointLabel === "string" && state.pointLabel !== ""
-            ? state.pointLabel
-            : undefined;
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the side/vertex semantics.
+    const customLabel = state.pointLabel;
 
     // Coord layout in angle graphs: [endingSide, vertex, startingSide].
     switch (state.pointIndex) {
@@ -93,7 +88,7 @@ export function describeAngleGraph(
     const srAngleEndingSide = srAnglePointLabel(
         {
             pointIndex: 0,
-            pointLabel: state.pointLabels?.[0],
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
             x: endingSide[X],
             y: endingSide[Y],
             angleMeasure: angleMeasureValue,
@@ -104,7 +99,7 @@ export function describeAngleGraph(
     const srAngleVertex = srAnglePointLabel(
         {
             pointIndex: 1,
-            pointLabel: state.pointLabels?.[1],
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
             x: vertex[X],
             y: vertex[Y],
             angleMeasure: angleMeasureValue,
@@ -115,7 +110,7 @@ export function describeAngleGraph(
     const srAngleStartingSide = srAnglePointLabel(
         {
             pointIndex: 2,
-            pointLabel: state.pointLabels?.[2],
+            pointLabel: getCustomPointLabel(state.pointLabels, 2),
             x: startingSide[X],
             y: startingSide[Y],
             angleMeasure: angleMeasureValue,
