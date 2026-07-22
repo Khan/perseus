@@ -1807,7 +1807,7 @@ export type PerseusPlotterWidgetOptions = {
      * Which ticks to display the labels for. For instance, setting this to "4"
      * will only show every 4th label (plus the last one)
      */
-    labelInterval?: number | null;
+    labelInterval: number;
     /**
      * Creates the specified number of divisions between the horizontal lines.
      * Fewer snaps between lines makes the graph easier for the student to
@@ -1819,11 +1819,11 @@ export type PerseusPlotterWidgetOptions = {
     /** The Y values that represent the correct answer expected */
     correct: number[];
     /** A picture to represent items in a graph. */
-    picUrl?: string | null;
+    picUrl: string | null;
     /** @deprecated */
-    picSize?: number | null;
+    picSize: number;
     /** @deprecated */
-    picBoxHeight?: number | null;
+    picBoxHeight: number;
     /** @deprecated */
     plotDimensions: number[];
 };
