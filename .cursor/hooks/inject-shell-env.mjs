@@ -30,10 +30,10 @@
  * so the (~200ms) `gh api` validation only runs when the source token
  * actually changes — keeping this hook cheap on every Shell invocation.
  */
-import { execSync } from "child_process";
-import { chmodSync, existsSync, readFileSync, writeFileSync } from "fs";
-import { homedir, tmpdir } from "os";
-import { join } from "path";
+import {execSync} from "child_process";
+import {chmodSync, existsSync, readFileSync, writeFileSync} from "fs";
+import {homedir, tmpdir} from "os";
+import {join} from "path";
 
 const REQUIRED_SCOPES = ["read:org", "read:packages", "repo", "workflow"];
 
@@ -58,8 +58,8 @@ function readJsonKeyOrNull(path, key) {
 }
 
 const SOURCES = [
-    { label: "env GH_TOKEN", get: () => process.env.GH_TOKEN || null },
-    { label: "env GITHUB_TOKEN", get: () => process.env.GITHUB_TOKEN || null },
+    {label: "env GH_TOKEN", get: () => process.env.GH_TOKEN || null},
+    {label: "env GITHUB_TOKEN", get: () => process.env.GITHUB_TOKEN || null},
     {
         label: "~/.config/ka-agent-gh-token",
         get: () => readFileOrNull(`${HOME}/.config/ka-agent-gh-token`),
@@ -71,9 +71,9 @@ const SOURCES = [
 ];
 
 function findRawToken() {
-    for (const { label, get } of SOURCES) {
+    for (const {label, get} of SOURCES) {
         const token = get();
-        if (token) return { token, label };
+        if (token) return {token, label};
     }
     return null;
 }
@@ -82,22 +82,24 @@ function validateScopes(token) {
     let out;
     try {
         out = execSync("gh api -i user", {
-            env: { ...process.env, GH_TOKEN: token, GITHUB_TOKEN: token },
+            env: {...process.env, GH_TOKEN: token, GITHUB_TOKEN: token},
             encoding: "utf8",
             stdio: ["pipe", "pipe", "pipe"],
         });
     } catch {
-        return { valid: false, scopes: [] };
+        return {valid: false, scopes: []};
     }
-    const headerLine = out.split(/\r?\n/).find((line) => /^x-oauth-scopes\s*:/i.test(line));
-    if (!headerLine) return { valid: false, scopes: [] };
+    const headerLine = out
+        .split(/\r?\n/)
+        .find((line) => /^x-oauth-scopes\s*:/i.test(line));
+    if (!headerLine) return {valid: false, scopes: []};
     const scopes = headerLine
         .replace(/^[^:]*:\s*/, "")
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean);
     const missing = REQUIRED_SCOPES.filter((s) => !scopes.includes(s));
-    return { valid: missing.length === 0, scopes };
+    return {valid: missing.length === 0, scopes};
 }
 
 function readCache() {
@@ -132,8 +134,8 @@ function getValidatedToken() {
         return found.token;
     }
 
-    const { valid, scopes } = validateScopes(found.token);
-    writeCache({ token: found.token, valid, scopes, validatedAt: Date.now() });
+    const {valid, scopes} = validateScopes(found.token);
+    writeCache({token: found.token, valid, scopes, validatedAt: Date.now()});
     return valid ? found.token : null;
 }
 
@@ -145,7 +147,7 @@ try {
     input = JSON.parse(raw);
 } catch {
     // Malformed input — fail open.
-    process.stdout.write(JSON.stringify({ permission: "allow" }));
+    process.stdout.write(JSON.stringify({permission: "allow"}));
     process.exit(0);
 }
 
@@ -153,7 +155,7 @@ const toolInput = input.tool_input ?? {};
 const command = toolInput.command ?? input.command ?? "";
 
 if (typeof command !== "string" || command.length === 0) {
-    process.stdout.write(JSON.stringify({ permission: "allow" }));
+    process.stdout.write(JSON.stringify({permission: "allow"}));
     process.exit(0);
 }
 
@@ -204,6 +206,6 @@ const newCommand = `${exports}; ${rewrittenCommand}`;
 process.stdout.write(
     JSON.stringify({
         permission: "allow",
-        updated_input: { ...toolInput, command: newCommand },
+        updated_input: {...toolInput, command: newCommand},
     }),
 );

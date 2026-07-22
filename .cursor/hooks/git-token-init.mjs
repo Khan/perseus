@@ -17,9 +17,9 @@
  * On failure: logs a warning to stderr and exits 0 so workflows that don't
  * need GitHub access can still proceed.
  */
-import { readFileSync, appendFileSync } from "fs";
-import { execSync } from "child_process";
-import { homedir } from "os";
+import {readFileSync, appendFileSync} from "fs";
+import {execSync} from "child_process";
+import {homedir} from "os";
 
 const REQUIRED_SCOPES = ["read:org", "read:packages", "repo", "workflow"];
 const home = homedir();
@@ -49,8 +49,8 @@ function readJsonKeyOrNull(path, key) {
 }
 
 const SOURCES = [
-    { label: "env GH_TOKEN", get: () => process.env.GH_TOKEN || null },
-    { label: "env GITHUB_TOKEN", get: () => process.env.GITHUB_TOKEN || null },
+    {label: "env GH_TOKEN", get: () => process.env.GH_TOKEN || null},
+    {label: "env GITHUB_TOKEN", get: () => process.env.GITHUB_TOKEN || null},
     {
         label: "KA Agent GH Token",
         get: () => readFileOrNull(`${home}/.config/ka-agent-gh-token`),
@@ -64,53 +64,69 @@ const SOURCES = [
 function validateToken(token) {
     try {
         const raw = execSync("gh api -i user", {
-            env: { ...process.env, GH_TOKEN: token, GITHUB_TOKEN: token },
+            env: {...process.env, GH_TOKEN: token, GITHUB_TOKEN: token},
             encoding: "utf8",
             stdio: ["pipe", "pipe", "pipe"],
         });
         // Match the literal X-OAuth-Scopes header line (not a substring of
         // Access-Control-Expose-Headers, which lists header names).
-        const headerLine = raw.split(/\r?\n/).find((line) => /^x-oauth-scopes\s*:/i.test(line));
-        if (!headerLine) return { valid: false, scopes: [] };
+        const headerLine = raw
+            .split(/\r?\n/)
+            .find((line) => /^x-oauth-scopes\s*:/i.test(line));
+        if (!headerLine) return {valid: false, scopes: []};
         const scopes = headerLine
             .replace(/^[^:]*:\s*/, "")
             .split(",")
             .map((s) => s.trim())
             .filter(Boolean);
-        return { valid: true, scopes };
+        return {valid: true, scopes};
     } catch {
-        return { valid: false, scopes: [] };
+        return {valid: false, scopes: []};
     }
 }
 
-for (const { label, get } of SOURCES) {
+for (const {label, get} of SOURCES) {
     const token = get();
     if (!token) continue;
 
     console.error(`Trying token from ${label}...`);
-    const { valid, scopes } = validateToken(token);
+    const {valid, scopes} = validateToken(token);
 
     if (!valid) {
-        console.error(`Token from ${label} is invalid or could not be verified.`);
+        console.error(
+            `Token from ${label} is invalid or could not be verified.`,
+        );
         continue;
     }
 
     const missing = REQUIRED_SCOPES.filter((s) => !scopes.includes(s));
     if (missing.length > 0) {
-        console.error(`Token from ${label} is missing scopes: ${missing.join(", ")}`);
+        console.error(
+            `Token from ${label} is missing scopes: ${missing.join(", ")}`,
+        );
         continue;
     }
 
-    console.error(`Valid token from ${label} with scopes: ${scopes.join(", ")}`);
+    console.error(
+        `Valid token from ${label} with scopes: ${scopes.join(", ")}`,
+    );
 
     if (harness === "cursor") {
         // Cursor sessionStart contract: emit env JSON to stdout so downstream
         // hooks receive the token.
-        process.stdout.write(JSON.stringify({ env: { GH_TOKEN: token, GITHUB_TOKEN: token } }));
+        process.stdout.write(
+            JSON.stringify({env: {GH_TOKEN: token, GITHUB_TOKEN: token}}),
+        );
     } else if (harness === "claude" && process.env.CLAUDE_ENV_FILE) {
         // Claude Code: persist to env file so all subsequent tool calls see it.
-        appendFileSync(process.env.CLAUDE_ENV_FILE, `export GH_TOKEN=${token}\n`);
-        appendFileSync(process.env.CLAUDE_ENV_FILE, `export GITHUB_TOKEN=${token}\n`);
+        appendFileSync(
+            process.env.CLAUDE_ENV_FILE,
+            `export GH_TOKEN=${token}\n`,
+        );
+        appendFileSync(
+            process.env.CLAUDE_ENV_FILE,
+            `export GITHUB_TOKEN=${token}\n`,
+        );
     }
 
     process.exit(0);

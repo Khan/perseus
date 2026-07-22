@@ -3,7 +3,7 @@
  * SessionStart hook to ensure the `gh` CLI and `jq` are installed.
  * Installs missing tools via Homebrew or apt-get.
  */
-import { spawnSync } from "child_process";
+import {spawnSync} from "child_process";
 
 // Which agent harness is running this hook, by its install path (.claude/.codex/.cursor).
 const hookPath = process.argv[1] ?? "";
@@ -20,19 +20,27 @@ const harness = hookPath.includes("/.codex/")
 function emitSessionContext(reason) {
     const out =
         harness === "cursor"
-            ? { additional_context: reason }
-            : { hookSpecificOutput: { hookEventName: "SessionStart", additionalContext: reason } };
+            ? {additional_context: reason}
+            : {
+                  hookSpecificOutput: {
+                      hookEventName: "SessionStart",
+                      additionalContext: reason,
+                  },
+              };
     console.log(JSON.stringify(out));
 }
 
 function commandExists(cmd) {
-    return spawnSync("sh", ["-c", `command -v ${cmd}`], { stdio: "ignore" }).status === 0;
+    return (
+        spawnSync("sh", ["-c", `command -v ${cmd}`], {stdio: "ignore"})
+            .status === 0
+    );
 }
 
 // Run a command, routing its stdout to our stderr so it never pollutes the hook's
 // stdout (which the agent parses as the SessionStart contract).
 function run(cmd, args) {
-    return spawnSync(cmd, args, { stdio: ["ignore", 2, 2] }).status === 0;
+    return spawnSync(cmd, args, {stdio: ["ignore", 2, 2]}).status === 0;
 }
 
 function installPkg(pkg) {
@@ -47,10 +55,15 @@ function installPkg(pkg) {
             process.exit(0);
         }
     } else if (commandExists("apt-get")) {
-        if (run("apt-get", ["update"]) && run("apt-get", ["install", "-y", pkg])) {
+        if (
+            run("apt-get", ["update"]) &&
+            run("apt-get", ["install", "-y", pkg])
+        ) {
             process.stderr.write(`${pkg} installed successfully.\n`);
         } else {
-            emitSessionContext(`Failed to install ${pkg} via apt-get. Please install it manually.`);
+            emitSessionContext(
+                `Failed to install ${pkg} via apt-get. Please install it manually.`,
+            );
             process.exit(0);
         }
     } else {

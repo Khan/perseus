@@ -23,19 +23,27 @@ const toolName = inputData.tool_name ?? "";
 // Cursor's beforeShellExecution puts the command at the top level; Claude Code
 // and Codex pass it as tool_input.command on a Bash tool call.
 const command =
-    harness === "cursor" ? (inputData.command ?? "") : ((inputData.tool_input ?? {}).command ?? "");
+    harness === "cursor"
+        ? inputData.command ?? ""
+        : (inputData.tool_input ?? {}).command ?? "";
 
 function allow() {
-    if (harness === "cursor") return { permission: "allow" };
+    if (harness === "cursor") return {permission: "allow"};
     // Codex: a bare permissionDecision:"allow" is unsupported and surfaces a hook
     // error, so emit a no-op (no decision) and let the command run under Codex's
     // own sandbox/approval policy.
-    if (harness === "codex") return { hookSpecificOutput: { hookEventName: "PreToolUse" } };
-    return { hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "allow" } };
+    if (harness === "codex")
+        return {hookSpecificOutput: {hookEventName: "PreToolUse"}};
+    return {
+        hookSpecificOutput: {
+            hookEventName: "PreToolUse",
+            permissionDecision: "allow",
+        },
+    };
 }
 
 function ask(reason) {
-    if (harness === "cursor") return { permission: "ask", agent_message: reason };
+    if (harness === "cursor") return {permission: "ask", agent_message: reason};
     // Codex cannot prompt from a PreToolUse hook ("ask" is unsupported), so deny
     // to gate the sensitive operation; the reason is surfaced to the model.
     if (harness === "codex") {
@@ -237,7 +245,7 @@ function parseGhArgs(argsStr) {
             i++;
         }
     }
-    return { flags, positional };
+    return {flags, positional};
 }
 
 /**
@@ -245,10 +253,14 @@ function parseGhArgs(argsStr) {
  * Returns null if valid, or an error string if invalid.
  */
 function validateApiCommand(argsStr) {
-    const { flags, positional } = parseGhArgs(argsStr);
+    const {flags, positional} = parseGhArgs(argsStr);
 
     // Determine HTTP method (default GET)
-    const method = (flags.get("-X") || flags.get("--method") || "GET").toUpperCase();
+    const method = (
+        flags.get("-X") ||
+        flags.get("--method") ||
+        "GET"
+    ).toUpperCase();
     if (!["GET", "POST", "PATCH"].includes(method)) {
         return `gh api: HTTP method '${method}' requires user approval. Only GET, POST, and PATCH are auto-approved.`;
     }
@@ -267,7 +279,9 @@ function validateApiCommand(argsStr) {
         .replace(/^\//, "") // strip leading slash — patterns match without it
         .split("?")[0]; // strip query string before matching
 
-    const isAllowed = ALLOWED_API_PATHS.some((pattern) => pattern.test(normalizedPath));
+    const isAllowed = ALLOWED_API_PATHS.some((pattern) =>
+        pattern.test(normalizedPath),
+    );
     if (!isAllowed) {
         return `gh api: path "${apiPath}" requires user approval — not in the auto-approved API paths list.`;
     }
@@ -291,8 +305,12 @@ const commandForParsing = stripHeredocs(command);
 // by &&, ||, ;, or pipes contain multiple invocations and each one needs to
 // be validated — using a single-match regex would let later invocations slip
 // past whatever check the first invocation passes.
-const ghInvocationPattern = /\bgh\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/g;
-const invocations = Array.from(commandForParsing.matchAll(ghInvocationPattern), (m) => m[1].trim());
+const ghInvocationPattern =
+    /\bgh\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/g;
+const invocations = Array.from(
+    commandForParsing.matchAll(ghInvocationPattern),
+    (m) => m[1].trim(),
+);
 
 // If we couldn't parse any invocations but gh is present, ask to be safe
 if (invocations.length === 0) {
@@ -318,13 +336,17 @@ for (const invocation of invocations) {
     if (BLOCKED_COMMANDS.includes(twoWord)) {
         console.log(
             JSON.stringify(
-                ask(`gh ${twoWord} requires user approval — this is a sensitive operation.`),
+                ask(
+                    `gh ${twoWord} requires user approval — this is a sensitive operation.`,
+                ),
             ),
         );
         process.exit(0);
     }
     if (BLOCKED_COMMANDS.includes(oneWord)) {
-        console.log(JSON.stringify(ask(`gh ${oneWord} requires user approval.`)));
+        console.log(
+            JSON.stringify(ask(`gh ${oneWord} requires user approval.`)),
+        );
         process.exit(0);
     }
 
@@ -340,7 +362,10 @@ for (const invocation of invocations) {
     }
 
     // Check allowed (two-word first, then one-word)
-    if (ALLOWED_COMMANDS.includes(twoWord) || ALLOWED_COMMANDS.includes(oneWord)) {
+    if (
+        ALLOWED_COMMANDS.includes(twoWord) ||
+        ALLOWED_COMMANDS.includes(oneWord)
+    ) {
         continue;
     }
 

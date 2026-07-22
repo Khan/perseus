@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { execSync } from "child_process";
+import {execSync} from "child_process";
 /**
  * PreToolUse hook to filter git CLI commands.
  * Allows safe operations; denies dangerous operations.
@@ -27,19 +27,27 @@ const toolName = inputData.tool_name ?? "";
 // Cursor's beforeShellExecution puts the command at the top level; Claude Code
 // and Codex pass it as tool_input.command on a Bash tool call.
 const command =
-    harness === "cursor" ? (inputData.command ?? "") : ((inputData.tool_input ?? {}).command ?? "");
+    harness === "cursor"
+        ? inputData.command ?? ""
+        : (inputData.tool_input ?? {}).command ?? "";
 
 function allow() {
-    if (harness === "cursor") return { permission: "allow" };
+    if (harness === "cursor") return {permission: "allow"};
     // Codex: a bare permissionDecision:"allow" is unsupported and surfaces a hook
     // error, so emit a no-op (no decision) and let the command run under Codex's
     // own sandbox/approval policy.
-    if (harness === "codex") return { hookSpecificOutput: { hookEventName: "PreToolUse" } };
-    return { hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "allow" } };
+    if (harness === "codex")
+        return {hookSpecificOutput: {hookEventName: "PreToolUse"}};
+    return {
+        hookSpecificOutput: {
+            hookEventName: "PreToolUse",
+            permissionDecision: "allow",
+        },
+    };
 }
 
 function ask(reason) {
-    if (harness === "cursor") return { permission: "ask", agent_message: reason };
+    if (harness === "cursor") return {permission: "ask", agent_message: reason};
     // Codex cannot prompt from a PreToolUse hook ("ask" is unsupported), so deny
     // to gate the sensitive operation; the reason is surfaced to the model.
     if (harness === "codex") {
@@ -63,13 +71,13 @@ function ask(reason) {
 function allowWithRewrite(rewrittenCommand) {
     if (harness === "cursor") {
         // Cursor does not support command rewriting — allow as-is.
-        return { permission: "allow" };
+        return {permission: "allow"};
     }
     return {
         hookSpecificOutput: {
             hookEventName: "PreToolUse",
             permissionDecision: "allow",
-            updatedInput: { command: rewrittenCommand },
+            updatedInput: {command: rewrittenCommand},
         },
     };
 }
@@ -169,7 +177,12 @@ function hasFlag(tokens, flag) {
 // ---------------------------------------------------------------------------
 
 // Flags that are unconditionally blocked regardless of subcommand.
-const GLOBALLY_BLOCKED_FLAGS = ["--upload-pack", "--exec", "--receive-pack", "--config"];
+const GLOBALLY_BLOCKED_FLAGS = [
+    "--upload-pack",
+    "--exec",
+    "--receive-pack",
+    "--config",
+];
 
 // Subcommands that are allowed (deny anything not listed).
 const ALLOWED_SUBCOMMANDS = new Set([
@@ -245,9 +258,11 @@ const commandForParsing = stripHeredocs(command);
 // by &&, ||, ;, or pipes contain multiple invocations and each one needs to
 // be validated — using a single-match regex would let later invocations slip
 // past whatever check the first invocation passes.
-const gitInvocationPattern = /\bgit\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/g;
-const invocations = Array.from(commandForParsing.matchAll(gitInvocationPattern), (m) =>
-    m[1].trim(),
+const gitInvocationPattern =
+    /\bgit\s+((?:[^\n;|&`$(){}<>]|\\.)+?)(?=\s*[;&|`$(){}<>\n]|$)/g;
+const invocations = Array.from(
+    commandForParsing.matchAll(gitInvocationPattern),
+    (m) => m[1].trim(),
 );
 
 // If we couldn't parse any invocations but git is present, ask to be safe.
@@ -295,7 +310,10 @@ for (const invocation of invocations) {
         "--namespace",
     ]);
     let subCmdIndex = 0;
-    while (subCmdIndex < rawTokens.length && rawTokens[subCmdIndex].startsWith("-")) {
+    while (
+        subCmdIndex < rawTokens.length &&
+        rawTokens[subCmdIndex].startsWith("-")
+    ) {
         if (GIT_GLOBAL_FLAGS_WITH_VALUE.has(rawTokens[subCmdIndex])) {
             subCmdIndex++; // skip the value token too
         }
@@ -326,7 +344,11 @@ for (const invocation of invocations) {
 
     // --- push ---
     if (subcommand === "push") {
-        const forceFlags = ["--force", "--force-with-lease", "--force-if-includes"];
+        const forceFlags = [
+            "--force",
+            "--force-with-lease",
+            "--force-if-includes",
+        ];
         for (const flag of forceFlags) {
             if (hasFlag(normalized, flag)) {
                 console.log(
@@ -393,13 +415,16 @@ for (const invocation of invocations) {
                 try {
                     const remoteHead = execSync(
                         "git rev-parse origin/main 2>/dev/null || git rev-parse origin/master 2>/dev/null",
-                        { encoding: "utf8", stdio: "pipe", shell: true },
+                        {encoding: "utf8", stdio: "pipe", shell: true},
                     ).trim();
                     if (remoteHead) {
-                        baseRef = execSync(`git merge-base HEAD ${remoteHead}`, {
-                            encoding: "utf8",
-                            stdio: "pipe",
-                        }).trim();
+                        baseRef = execSync(
+                            `git merge-base HEAD ${remoteHead}`,
+                            {
+                                encoding: "utf8",
+                                stdio: "pipe",
+                            },
+                        ).trim();
                     }
                 } catch {
                     /* no remote ref found */
@@ -420,7 +445,7 @@ for (const invocation of invocations) {
                     .split("\n")
                     .filter(Boolean);
 
-                for (const { pattern, message } of BLOCKED_PUSH_PATHS) {
+                for (const {pattern, message} of BLOCKED_PUSH_PATHS) {
                     if (changedFiles.some((f) => pattern.test(f))) {
                         console.log(JSON.stringify(ask(message)));
                         process.exit(0);
@@ -433,7 +458,11 @@ for (const invocation of invocations) {
     }
 
     // --- commit / merge / am ---
-    if (subcommand === "commit" || subcommand === "merge" || subcommand === "am") {
+    if (
+        subcommand === "commit" ||
+        subcommand === "merge" ||
+        subcommand === "am"
+    ) {
         if (hasFlag(normalized, "--no-verify")) {
             console.log(
                 JSON.stringify(
