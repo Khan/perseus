@@ -19,6 +19,8 @@ type SelectOption =
     | null
     | undefined
     | false
+    // FUTURE: add `rightAccessory`, `labelAsText`, or other options as needed
+    // to configure the underlying Option component.
     | {label: string; leftAccessory?: React.ReactNode};
 
 /**
