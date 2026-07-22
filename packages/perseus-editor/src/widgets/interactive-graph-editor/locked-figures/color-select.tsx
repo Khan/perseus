@@ -17,15 +17,26 @@ interface Props {
     onChange: (newColor: LockedFigureColor) => void;
 }
 
+function option(color: LockedFigureColor) {
+    return {
+        label: color,
+        leftAccessory: <ColorSwatch color={color} decorative />,
+    };
+}
+
+// Exported for typetesting.
+export const colorOptions = {
+    blue: option("blue"),
+    gold: option("gold"),
+    green: option("green"),
+    grayH: option("grayH"),
+    purple: option("purple"),
+    pink: option("pink"),
+    red: option("red"),
+};
+
 const ColorSelect = (props: Props) => {
     const {selectedValue, style, editingDisabled = false, onChange} = props;
-
-    function option(color: LockedFigureColor) {
-        return {
-            label: color,
-            leftAccessory: <ColorSwatch color={color} decorative />,
-        };
-    }
 
     return (
         <View className={styles.row} style={style}>
@@ -35,15 +46,7 @@ const ColorSelect = (props: Props) => {
                     selectedValue={selectedValue}
                     disabled={editingDisabled}
                     onChange={onChange}
-                    options={{
-                        blue: option("blue"),
-                        gold: option("gold"),
-                        green: option("green"),
-                        grayH: option("grayH"),
-                        purple: option("purple"),
-                        pink: option("pink"),
-                        red: option("red"),
-                    }}
+                    options={colorOptions}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 />
