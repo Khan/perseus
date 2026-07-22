@@ -7,6 +7,7 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "./color-select.module.css";
 import ColorSwatch from "./color-swatch";
 
+import type {SelectOptions} from "../../../components/typed-single-select";
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -17,26 +18,15 @@ interface Props {
     onChange: (newColor: LockedFigureColor) => void;
 }
 
-function option(color: LockedFigureColor) {
-    return {
-        label: color,
-        leftAccessory: <ColorSwatch color={color} decorative />,
-    };
-}
-
-// Exported for typetesting.
-export const colorOptions = {
-    blue: option("blue"),
-    gold: option("gold"),
-    green: option("green"),
-    grayH: option("grayH"),
-    purple: option("purple"),
-    pink: option("pink"),
-    red: option("red"),
-};
-
 const ColorSelect = (props: Props) => {
     const {selectedValue, style, editingDisabled = false, onChange} = props;
+
+    function option(color: LockedFigureColor) {
+        return {
+            label: color,
+            leftAccessory: <ColorSwatch color={color} decorative />,
+        };
+    }
 
     return (
         <View className={styles.row} style={style}>
@@ -46,7 +36,17 @@ const ColorSelect = (props: Props) => {
                     selectedValue={selectedValue}
                     disabled={editingDisabled}
                     onChange={onChange}
-                    options={colorOptions}
+                    options={
+                        {
+                            blue: option("blue"),
+                            gold: option("gold"),
+                            green: option("green"),
+                            grayH: option("grayH"),
+                            purple: option("purple"),
+                            pink: option("pink"),
+                            red: option("red"),
+                        } satisfies SelectOptions<LockedFigureColor>
+                    }
                 />
             </BodyText>
         </View>

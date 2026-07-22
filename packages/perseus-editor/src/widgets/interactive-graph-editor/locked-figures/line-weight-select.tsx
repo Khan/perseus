@@ -5,6 +5,7 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import styles from "./line-weight-select.module.css";
 
+import type {SelectOptions} from "../../../components/typed-single-select";
 import type {StrokeWeight} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -34,7 +35,13 @@ const LineWeightSelect = (props: Props) => {
                 selectedValue={selectedValue}
                 disabled={editingDisabled}
                 onChange={onChange}
-                options={{thin: "thin", medium: "medium", thick: "thick"}}
+                options={
+                    {
+                        thin: "thin",
+                        medium: "medium",
+                        thick: "thick",
+                    } satisfies SelectOptions<StrokeWeight>
+                }
             />
         </BodyText>
     );

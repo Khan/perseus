@@ -28,11 +28,13 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {SelectOptions} from "../../../components/typed-single-select";
 import type {
     Coord,
     LockedEllipseType,
     LockedFigureColor,
     LockedLabelType,
+    LockedFigureFillType,
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -56,14 +58,6 @@ export type Props = LockedFigureSettingsCommonProps &
          */
         onChangeProps: (newProps: Partial<LockedEllipseType>) => void;
     };
-
-// Exported for typetesting.
-export const fillStyleOptions = {
-    none: "none",
-    white: "white",
-    translucent: "translucent",
-    solid: "solid",
-};
 
 const LockedEllipseSettings = (props: Props) => {
     const {
@@ -244,7 +238,14 @@ const LockedEllipseSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={fillStyleOptions}
+                        options={
+                            {
+                                none: "none",
+                                white: "white",
+                                translucent: "translucent",
+                                solid: "solid",
+                            } satisfies SelectOptions<LockedFigureFillType>
+                        }
                     />
                 </BodyText>
             </View>

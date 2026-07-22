@@ -29,7 +29,7 @@ type SelectOption =
  * property value describes how that option appears in the dropdown. If a
  * property value is falsey, the corresponding option is hidden.
  */
-type SelectOptions<ValueT extends string> = Record<ValueT, SelectOption>;
+export type SelectOptions<ValueT extends string> = Record<ValueT, SelectOption>;
 
 interface OwnProps<ValueT extends string> {
     options: SelectOptions<ValueT>;
@@ -37,7 +37,7 @@ interface OwnProps<ValueT extends string> {
     onChange: (selectedValue: NoInfer<ValueT>) => void;
     // Override the required `placeholder` prop from `SingleSelect`, making it
     // optional.
-    placeholder?: string
+    placeholder?: string;
 }
 
 export type Props<ValueT extends string> = OwnProps<ValueT> &

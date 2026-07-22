@@ -9,6 +9,7 @@ import {useId} from "react";
 import {TypedSingleSelect} from "./typed-single-select";
 import {alignmentInfoMap} from "./util";
 
+import type {SelectOptions} from "./typed-single-select";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -51,24 +52,28 @@ export function AlignmentSelect({
                 // eslint-disable-next-line no-restricted-syntax
                 selectedValue={(widgetInfo.alignment as Alignment) ?? "default"}
                 disabled={isEditingDisabled}
-                options={{
-                    default:
-                        supportedAlignments.includes("default") && "default",
-                    block: supportedAlignments.includes("block") && "block",
-                    "inline-block":
-                        supportedAlignments.includes("inline-block") &&
-                        "inline-block",
-                    inline: supportedAlignments.includes("inline") && "inline",
-                    "wrap-left":
-                        supportedAlignments.includes("wrap-left") &&
-                        "wrap-left",
-                    "wrap-right":
-                        supportedAlignments.includes("wrap-right") &&
-                        "wrap-right",
-                    "full-width":
-                        supportedAlignments.includes("full-width") &&
-                        "full-width",
-                }}
+                options={
+                    {
+                        default:
+                            supportedAlignments.includes("default") &&
+                            "default",
+                        block: supportedAlignments.includes("block") && "block",
+                        "inline-block":
+                            supportedAlignments.includes("inline-block") &&
+                            "inline-block",
+                        inline:
+                            supportedAlignments.includes("inline") && "inline",
+                        "wrap-left":
+                            supportedAlignments.includes("wrap-left") &&
+                            "wrap-left",
+                        "wrap-right":
+                            supportedAlignments.includes("wrap-right") &&
+                            "wrap-right",
+                        "full-width":
+                            supportedAlignments.includes("full-width") &&
+                            "full-width",
+                    } satisfies SelectOptions<Alignment>
+                }
                 onChange={onChange}
                 placeholder="Select alignment"
                 style={styles.singleSelectShort}

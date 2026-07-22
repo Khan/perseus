@@ -4,6 +4,7 @@ import {
     type LockedFigureColor,
     type LockedLabelType,
     type LockedPolygonType,
+    type LockedFigureFillType,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -39,6 +40,7 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {SelectOptions} from "../../../components/typed-single-select";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 // Passed to Wonder Blocks `StyleType`-only props (PerseusEditorAccordion's
@@ -223,12 +225,14 @@ const LockedPolygonSettings = (props: Props) => {
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={{
-                            none: "none",
-                            white: "white",
-                            translucent: "translucent",
-                            solid: "solid",
-                        }}
+                        options={
+                            {
+                                none: "none",
+                                white: "white",
+                                translucent: "translucent",
+                                solid: "solid",
+                            } satisfies SelectOptions<LockedFigureFillType>
+                        }
                     />
                 </BodyText>
             </View>

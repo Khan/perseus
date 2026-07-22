@@ -36,6 +36,7 @@ import {
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {ExampleCategory} from "./locked-function-examples";
+import type {SelectOptions} from "../../../components/typed-single-select";
 import type {
     LockedFigureColor,
     LockedFunctionType,
@@ -316,11 +317,13 @@ const LockedFunctionSettings = (props: Props) => {
                     <TypedSingleSelect
                         selectedValue={exampleCategory}
                         disabled={editingDisabled}
-                        options={{
-                            linear: "linear",
-                            polynomial: "polynomial",
-                            trigonometric: "trigonometric",
-                        }}
+                        options={
+                            {
+                                linear: "linear",
+                                polynomial: "polynomial",
+                                trigonometric: "trigonometric",
+                            } satisfies SelectOptions<ExampleCategory>
+                        }
                         onChange={setExampleCategory}
                         placeholder="examples"
                     />
