@@ -67,6 +67,7 @@ describe("generatePlotterWidget", () => {
         expect(widget.options.picUrl).toBe("the url");
         expect(widget.options.picSize).toBe(3);
         expect(widget.options.picBoxHeight).toBe(4);
+        expect(widget.options.labelInterval).toBe(1);
     });
 
     it("accepts options built with the options generator", () => {
