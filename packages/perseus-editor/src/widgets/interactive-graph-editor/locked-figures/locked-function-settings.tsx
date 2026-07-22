@@ -7,7 +7,6 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -19,6 +18,7 @@ import * as React from "react";
 import {useEffect, useId, useState} from "react";
 
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
@@ -26,7 +26,7 @@ import LineSwatch from "./line-swatch";
 import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import examples from "./locked-function-examples";
+import {examples} from "./locked-function-examples";
 import styles from "./locked-function-settings.module.css";
 import LockedLabelSettings from "./locked-label-settings";
 import {
@@ -35,6 +35,7 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {ExampleCategory} from "./locked-function-examples";
 import type {
     LockedFigureColor,
     LockedFunctionType,
@@ -81,7 +82,8 @@ const LockedFunctionSettings = (props: Props) => {
         getDomainStringValues(domain),
     );
 
-    const [exampleCategory, setExampleCategory] = useState("");
+    const [exampleCategory, setExampleCategory] =
+        useState<ExampleCategory | null>(null);
 
     useEffect(() => {
         // "useEffect" used to maintain parity between domain/range constraints and their string representation.
@@ -143,11 +145,10 @@ const LockedFunctionSettings = (props: Props) => {
         onChangeProps({domain: newDomain});
     }
 
-    const exampleCategories = Object.keys(examples);
-    const exampleCategorySelected = exampleCategory !== "";
-    const exampleContent = exampleCategorySelected
-        ? examples[exampleCategory]
-        : ["Select category to see example equations"];
+    const exampleContent =
+        exampleCategory != null
+            ? examples[exampleCategory]
+            : ["Select category to see example equations"];
 
     function handleColorChange(newValue: LockedFigureColor) {
         const newProps: Partial<LockedFunctionType> = {
@@ -229,20 +230,16 @@ const LockedFunctionSettings = (props: Props) => {
                 className={`${styles.row} ${styles.rowSpace} ${styles.axisRow}`}
             >
                 {/* Directional axis (x or y) */}
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={directionalAxis}
                     disabled={editingDisabled}
+                    options={{x: "y =", y: "x ="}}
                     onChange={(newValue) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
                     aria-label="equation prefix"
                     className={`${styles.dropdownLabel} ${styles.axisMenu}`}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    <OptionItem value="x" label="y =" />
-                    <OptionItem value="y" label="x =" />
-                </SingleSelect>
+                />
                 {/* Equation entry */}
                 <TextField
                     type="text"
@@ -316,24 +313,19 @@ const LockedFunctionSettings = (props: Props) => {
             >
                 <BodyText tag="label" className={styles.dropdownLabel}>
                     {"Choose a category"}
-                    <SingleSelect
+                    <TypedSingleSelect<ExampleCategory>
                         selectedValue={exampleCategory}
                         disabled={editingDisabled}
+                        options={{
+                            linear: "linear",
+                            polynomial: "polynomial",
+                            trigonometric: "trigonometric",
+                        }}
                         onChange={setExampleCategory}
                         placeholder="examples"
-                    >
-                        {exampleCategories.map((category) => {
-                            return (
-                                <OptionItem
-                                    key={category}
-                                    value={category}
-                                    label={category}
-                                />
-                            );
-                        })}
-                    </SingleSelect>
+                    />
                 </BodyText>
-                {exampleCategorySelected && (
+                {exampleCategory != null && (
                     <ul className={styles.exampleContainer}>
                         {exampleContent.map((example, index) => (
                             <ExampleItem
