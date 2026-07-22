@@ -42,6 +42,7 @@ describe("generatePlotterWidget", () => {
             options: {
                 type: "histogram",
                 labels: ["Score range", "Frequency"],
+                labelInterval: 1,
                 categories: ["0-10", "10-20", "20-30"],
                 starting: [2, 5, 8],
                 correct: [2, 5, 8],
@@ -49,6 +50,9 @@ describe("generatePlotterWidget", () => {
                 scaleY: 1,
                 snapsPerLine: 1,
                 plotDimensions: [380, 300],
+                picUrl: "the url",
+                picSize: 3,
+                picBoxHeight: 4,
             },
         });
 
@@ -60,6 +64,10 @@ describe("generatePlotterWidget", () => {
         expect(widget.options.type).toBe("histogram");
         expect(widget.options.categories).toEqual(["0-10", "10-20", "20-30"]);
         expect(widget.options.starting).toEqual([2, 5, 8]);
+        expect(widget.options.picUrl).toBe("the url");
+        expect(widget.options.picSize).toBe(3);
+        expect(widget.options.picBoxHeight).toBe(4);
+        expect(widget.options.labelInterval).toBe(1);
     });
 
     it("accepts options built with the options generator", () => {

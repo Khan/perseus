@@ -163,7 +163,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
     orderer: OrdererWidget;
@@ -176,6 +175,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "molecule-renderer": DeprecatedStandinWidget;
     "passage-ref-target": DeprecatedStandinWidget;
     "passage-ref": DeprecatedStandinWidget;
     passage: DeprecatedStandinWidget;
@@ -486,8 +486,6 @@ export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
-// prettier-ignore
-export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -1809,7 +1807,7 @@ export type PerseusPlotterWidgetOptions = {
      * Which ticks to display the labels for. For instance, setting this to "4"
      * will only show every 4th label (plus the last one)
      */
-    labelInterval?: number | null;
+    labelInterval: number;
     /**
      * Creates the specified number of divisions between the horizontal lines.
      * Fewer snaps between lines makes the graph easier for the student to
@@ -1821,11 +1819,11 @@ export type PerseusPlotterWidgetOptions = {
     /** The Y values that represent the correct answer expected */
     correct: number[];
     /** A picture to represent items in a graph. */
-    picUrl?: string | null;
+    picUrl: string | null;
     /** @deprecated */
-    picSize?: number | null;
+    picSize: number;
     /** @deprecated */
-    picBoxHeight?: number | null;
+    picBoxHeight: number;
     /** @deprecated */
     plotDimensions: number[];
 };
@@ -2252,13 +2250,6 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
-/** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
-export type PerseusMoleculeRendererWidgetOptions = {
-    widgetId: string;
-    rotationAngle?: number;
-    smiles?: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
@@ -2278,7 +2269,6 @@ export type PerseusWidgetOptions =
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
-    | PerseusMoleculeRendererWidgetOptions
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
     | PerseusOrdererWidgetOptions

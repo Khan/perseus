@@ -8,7 +8,6 @@ import {vector as kvector} from "@khanacademy/kmath";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -17,6 +16,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
@@ -242,22 +242,12 @@ const LockedLineSettings = (props: Props) => {
                 className={`${styles.row} ${styles.spaceUnder} ${styles.kindLabel}`}
             >
                 kind
-                <SingleSelect
+                <TypedSingleSelect
                     selectedValue={kind}
                     disabled={editingDisabled}
-                    // TODO(LEMS-2656): remove TS suppression
-                    onChange={
-                        // eslint-disable-next-line no-restricted-syntax
-                        ((value: "line" | "segment" | "ray") =>
-                            onChangeProps({kind: value})) as any
-                    }
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    <OptionItem value="line" label="line" />
-                    <OptionItem value="ray" label="ray" />
-                    <OptionItem value="segment" label="segment" />
-                </SingleSelect>
+                    onChange={(value) => onChangeProps({kind: value})}
+                    options={{line: "line", ray: "ray", segment: "segment"}}
+                />
             </BodyText>
 
             <View
@@ -274,11 +264,7 @@ const LockedLineSettings = (props: Props) => {
                 <LineStrokeSelect
                     selectedValue={lineStyle}
                     editingDisabled={editingDisabled}
-                    onChange={
-                        // eslint-disable-next-line no-restricted-syntax
-                        ((value: "solid" | "dashed") =>
-                            onChangeProps({lineStyle: value})) as any
-                    }
+                    onChange={(value) => onChangeProps({lineStyle: value})}
                 />
             </View>
             <LineWeightSelect

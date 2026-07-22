@@ -30,7 +30,6 @@ export const Demo = (): React.ReactElement => {
             images={question1.images}
             disabled={false}
             widgetEnabled={true}
-            immutableWidgets={false}
             showWordCount={true}
             warnNoPrompt={true}
             warnNoWidgets={true}
@@ -68,7 +67,6 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             images={images}
                             disabled={false}
                             widgetEnabled={true}
-                            immutableWidgets={false}
                             showWordCount={true}
                             warnNoPrompt={false}
                             warnNoWidgets={true}

@@ -94,7 +94,6 @@ class GradedGroupEditor extends React.Component<Props> {
                     apiOptions={this.props.apiOptions}
                     images={this.props.images}
                     widgetEnabled={true}
-                    immutableWidgets={false}
                     onChange={this.props.onChange}
                     warnNoPrompt={true}
                     warnNoWidgets={true}
@@ -123,7 +122,6 @@ class GradedGroupEditor extends React.Component<Props> {
                             apiOptions={this.props.apiOptions}
                             images={this.props.hint && this.props.hint.images}
                             widgetEnabled={true}
-                            immutableWidgets={false}
                             onChange={(props) => {
                                 // Copy all props over from the existing hint
                                 // and then add new props.
