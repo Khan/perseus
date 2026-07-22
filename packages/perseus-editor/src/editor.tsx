@@ -123,7 +123,6 @@ type Props = Readonly<{
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
-    immutableWidgets: boolean;
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
@@ -136,7 +135,6 @@ type DefaultProps = {
     content: string;
     disabled: boolean;
     images: Record<any, any>;
-    immutableWidgets: boolean;
     placeholder: string;
     showWordCount: boolean;
     warnNoPrompt: boolean;
@@ -187,7 +185,6 @@ class Editor extends React.Component<Props, State> {
         images: {},
         disabled: false,
         widgetEnabled: true,
-        immutableWidgets: false,
         showWordCount: false,
         warnNoPrompt: false,
         warnNoWidgets: false,
@@ -948,22 +945,18 @@ class Editor extends React.Component<Props, State> {
                 </select>
             );
 
-            if (!this.props.immutableWidgets) {
-                // eslint-disable-next-line no-restricted-syntax
-                const widgetNodes = Object.values(widgets) as React.ReactNode;
-                widgetsAndTemplates = (
-                    <div className="perseus-editor-widgets">
-                        <div className="perseus-editor-widgets-selectors">
-                            <WidgetSelect onChange={this._addWidget} />
-                            {templatesDropDown}
-                            {wordCountDisplay}
-                        </div>
-                        {widgetNodes}
+            // eslint-disable-next-line no-restricted-syntax
+            const widgetNodes = Object.values(widgets) as React.ReactNode;
+            widgetsAndTemplates = (
+                <div className="perseus-editor-widgets">
+                    <div className="perseus-editor-widgets-selectors">
+                        <WidgetSelect onChange={this._addWidget} />
+                        {templatesDropDown}
+                        {wordCountDisplay}
                     </div>
-                );
-                // Prevent word count from being displayed elsewhere
-                wordCountDisplay = null;
-            }
+                    {widgetNodes}
+                </div>
+            );
         } else {
             underlayPieces = [this.props.content];
         }
@@ -1045,7 +1038,6 @@ class Editor extends React.Component<Props, State> {
                         Graded Groups should contain at least one widget
                     </div>
                 )}
-                {wordCountDisplay}
                 {widgetsAndTemplates}
             </div>
         );
