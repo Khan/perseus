@@ -14,8 +14,7 @@ interface Props {
     labels?: [string, string];
     error?: boolean;
     style?: StyleType;
-    // TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite
-    labelStyle?: StyleType;
+    labelClassName?: string;
     disabled?: boolean;
     onChange: (newCoord: Coord) => void;
 }
@@ -34,7 +33,7 @@ const CoordinatePairInput = (props: Props) => {
         labels,
         error,
         style,
-        labelStyle,
+        labelClassName,
         disabled = false,
         onChange,
     } = props;
@@ -77,12 +76,7 @@ const CoordinatePairInput = (props: Props) => {
     return (
         <View className={styles.container} style={style}>
             <BodyText tag="label" className={styles.label}>
-                {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
-                {labelStyle != null ? (
-                    <View style={labelStyle}>{xLabel}</View>
-                ) : (
-                    xLabel
-                )}
+                <span className={labelClassName}>{xLabel}</span>
 
                 <ScrolllessNumberTextField
                     value={coordState[0]}
@@ -96,12 +90,7 @@ const CoordinatePairInput = (props: Props) => {
             </BodyText>
 
             <BodyText tag="label" className={styles.label}>
-                {/* TODO(LEMS-3995) simplifying styling after custom label work + change deprecated WonderBlocks component / aphrodite */}
-                {labelStyle != null ? (
-                    <View style={labelStyle}>{yLabel}</View>
-                ) : (
-                    yLabel
-                )}
+                <span className={labelClassName}>{yLabel}</span>
 
                 <ScrolllessNumberTextField
                     value={coordState[1]}
