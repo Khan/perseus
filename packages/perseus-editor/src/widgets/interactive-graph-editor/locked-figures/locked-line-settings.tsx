@@ -247,8 +247,6 @@ const LockedLineSettings = (props: Props) => {
                     disabled={editingDisabled}
                     onChange={(value) => onChangeProps({kind: value})}
                     options={{line: "line", ray: "ray", segment: "segment"}}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
                 />
             </BodyText>
 

@@ -35,8 +35,6 @@ const LineStrokeSelect = (props: Props) => {
                 disabled={editingDisabled}
                 onChange={onChange}
                 options={{solid: "solid", dashed: "dashed"}}
-                // Placeholder is required, but never gets used.
-                placeholder=""
             />
         </BodyText>
     );

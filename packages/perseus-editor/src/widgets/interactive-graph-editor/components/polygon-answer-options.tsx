@@ -52,7 +52,6 @@ export default function PolygonAnswerOptions({
                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         correct?.numSides ? `${correct.numSides}` : "3"
                     }
-                    placeholder=""
                     options={POLYGON_SIDES_OPTIONS}
                     onChange={(newValue) => {
                         invariant(graph?.type === "polygon");
@@ -83,8 +82,6 @@ export default function PolygonAnswerOptions({
             <LabeledRow label="Snap to:">
                 <TypedSingleSelect
                     selectedValue={correct.snapTo || "grid"}
-                    // Never uses placeholder, always has value
-                    placeholder=""
                     options={{
                         grid: "grid",
                         // "interior angles" and "side measures" only apply to
@@ -212,8 +209,6 @@ export default function PolygonAnswerOptions({
                         approx: "be approximately congruent",
                         similar: "be similar",
                     }}
-                    // Never uses placeholder, always has value
-                    placeholder=""
                     className={styles.singleSelectShort}
                 />
 

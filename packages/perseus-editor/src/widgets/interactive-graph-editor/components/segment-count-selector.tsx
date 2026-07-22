@@ -34,8 +34,6 @@ const SegmentCountSelector = ({correct, graph, onChange}: Props) => (
         <TypedSingleSelect
             key="segment-select"
             selectedValue={`${correct.numSegments ?? 1}`}
-            // Never uses placeholder, always has value
-            placeholder=""
             options={segmentCountOptions}
             onChange={(newValue) => {
                 const sides = +newValue;

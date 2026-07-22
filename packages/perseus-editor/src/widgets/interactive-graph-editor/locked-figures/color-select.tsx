@@ -47,8 +47,6 @@ const ColorSelect = (props: Props) => {
                     disabled={editingDisabled}
                     onChange={onChange}
                     options={colorOptions}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
                 />
             </BodyText>
         </View>

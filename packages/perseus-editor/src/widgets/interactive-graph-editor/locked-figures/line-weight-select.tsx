@@ -35,8 +35,6 @@ const LineWeightSelect = (props: Props) => {
                 disabled={editingDisabled}
                 onChange={onChange}
                 options={{thin: "thin", medium: "medium", thick: "thick"}}
-                // Placeholder is required, but never gets used.
-                placeholder=""
             />
         </BodyText>
     );

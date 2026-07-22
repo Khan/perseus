@@ -48,8 +48,6 @@ const GraphPointsCountSelector = ({correct, graph, onChange}: Props) => {
                         },
                     });
                 }}
-                // Never uses placeholder, always has value
-                placeholder=""
                 className={styles.singleSelectShort}
             />
         </LabeledRow>

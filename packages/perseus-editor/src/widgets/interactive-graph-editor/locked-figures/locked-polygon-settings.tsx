@@ -229,8 +229,6 @@ const LockedPolygonSettings = (props: Props) => {
                             translucent: "translucent",
                             solid: "solid",
                         }}
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
                     />
                 </BodyText>
             </View>

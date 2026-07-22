@@ -116,8 +116,6 @@ export default function AngleAnswerOptions({correct, graph, onChange}: Props) {
                             newValue === "exact" ? undefined : newValue;
                         onChange({correct: {...correct, match}});
                     }}
-                    // Never uses placeholder, always has value
-                    placeholder=""
                     className={styles.singleSelectShort}
                 />
                 <InfoTip>

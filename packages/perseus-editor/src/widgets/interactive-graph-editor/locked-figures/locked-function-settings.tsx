@@ -239,8 +239,6 @@ const LockedFunctionSettings = (props: Props) => {
                     }}
                     aria-label="equation prefix"
                     className={`${styles.dropdownLabel} ${styles.axisMenu}`}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
                 />
                 {/* Equation entry */}
                 <TextField

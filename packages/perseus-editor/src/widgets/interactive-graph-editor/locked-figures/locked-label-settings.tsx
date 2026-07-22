@@ -180,9 +180,6 @@ export default function LockedLabelSettings(props: Props) {
                             medium: "medium",
                             large: "large",
                         }}
-                        // Placeholder is required, but never gets used since
-                        // we have a label for the select.
-                        placeholder=""
                     />
                 </BodyText>
             </View>

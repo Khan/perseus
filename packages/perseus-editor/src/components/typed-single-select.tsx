@@ -35,6 +35,9 @@ interface OwnProps<ValueT extends string> {
     options: SelectOptions<ValueT>;
     selectedValue?: NoInfer<ValueT> | null | undefined;
     onChange: (selectedValue: NoInfer<ValueT>) => void;
+    // Override the required `placeholder` prop from `SingleSelect`, making it
+    // optional.
+    placeholder?: string
 }
 
 export type Props<ValueT extends string> = OwnProps<ValueT> &
@@ -52,10 +55,11 @@ export type Props<ValueT extends string> = OwnProps<ValueT> &
 export function TypedSingleSelect<ValueT extends string>(props: Props<ValueT>) {
     // `options` is this wrapper's own prop; don't forward it to `SingleSelect`
     // (and thence to the DOM). `onChange` is re-typed below.
-    const {options, onChange, ...rest} = props;
+    const {options, onChange, placeholder, ...rest} = props;
     return (
         <SingleSelect
             {...rest}
+            placeholder={placeholder ?? ""}
             // Wonder Blocks types `onChange` as `(value: string) => void`.
             // Every value `SingleSelect` can emit is one of the option keys we
             // gave it, so narrowing that `string` back to `ValueT` is sound.

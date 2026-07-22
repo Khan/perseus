@@ -27,8 +27,6 @@ export default function VectorAnswerOptions({correct, onChange}: Props) {
                     exact: "match exactly",
                     congruent: "be congruent",
                 }}
-                // Never uses placeholder, always has value
-                placeholder=""
                 className={styles.singleSelectShort}
             />
             <InfoTip>

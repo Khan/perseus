@@ -245,8 +245,6 @@ const LockedEllipseSettings = (props: Props) => {
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
                         options={fillStyleOptions}
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
                     />
                 </BodyText>
             </View>
