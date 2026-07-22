@@ -40,7 +40,6 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {SelectOptions} from "../../../components/typed-single-select";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 // Passed to Wonder Blocks `StyleType`-only props (PerseusEditorAccordion's
@@ -221,18 +220,16 @@ const LockedPolygonSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <TypedSingleSelect
+                    <TypedSingleSelect<LockedFigureFillType>
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={
-                            {
-                                none: "none",
-                                white: "white",
-                                translucent: "translucent",
-                                solid: "solid",
-                            } satisfies SelectOptions<LockedFigureFillType>
-                        }
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
                     />
                 </BodyText>
             </View>

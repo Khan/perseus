@@ -7,7 +7,6 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "./color-select.module.css";
 import ColorSwatch from "./color-swatch";
 
-import type {SelectOptions} from "../../../components/typed-single-select";
 import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -32,21 +31,19 @@ const ColorSelect = (props: Props) => {
         <View className={styles.row} style={style}>
             <BodyText tag="label" className={styles.row}>
                 color
-                <TypedSingleSelect
+                <TypedSingleSelect<LockedFigureColor>
                     selectedValue={selectedValue}
                     disabled={editingDisabled}
                     onChange={onChange}
-                    options={
-                        {
-                            blue: option("blue"),
-                            gold: option("gold"),
-                            green: option("green"),
-                            grayH: option("grayH"),
-                            purple: option("purple"),
-                            pink: option("pink"),
-                            red: option("red"),
-                        } satisfies SelectOptions<LockedFigureColor>
-                    }
+                    options={{
+                        blue: option("blue"),
+                        gold: option("gold"),
+                        green: option("green"),
+                        grayH: option("grayH"),
+                        purple: option("purple"),
+                        pink: option("pink"),
+                        red: option("red"),
+                    }}
                 />
             </BodyText>
         </View>

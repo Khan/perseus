@@ -28,7 +28,6 @@ import {
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {SelectOptions} from "../../../components/typed-single-select";
 import type {
     Coord,
     LockedEllipseType,
@@ -234,18 +233,16 @@ const LockedEllipseSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <TypedSingleSelect
+                    <TypedSingleSelect<LockedFigureFillType>
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
-                        options={
-                            {
-                                none: "none",
-                                white: "white",
-                                translucent: "translucent",
-                                solid: "solid",
-                            } satisfies SelectOptions<LockedFigureFillType>
-                        }
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
                     />
                 </BodyText>
             </View>
