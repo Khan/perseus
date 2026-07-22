@@ -1,12 +1,38 @@
-/**
- *  A widget that creates blank dropzones for "Drag And Drop" widgets to drop answer tiles into.
- */
-
 import * as React from "react";
+import {forwardRef, useImperativeHandle} from "react";
+import _ from "underscore";
 
-import type {BlankProps} from "./blank.class";
+//import {PerseusI18nContext} from "../../components/i18n-context";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
 
-export const BlankComponent = (props: BlankProps) => {
-    const {displayType} = props;
-    return <span>Blank Widget Stub, displayType is: {displayType}</span>;
-};
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {BlankPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
+import type {
+    PerseusBlankWidgetOptions,
+    PerseusBlankUserInput,
+} from "@khanacademy/perseus-core";
+
+type WidgetHandle = Pick<Widget, "getPromptJSON">;
+
+export type BlankProps = WidgetProps<
+    PerseusBlankWidgetOptions,
+    PerseusBlankUserInput
+>;
+
+const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
+    function BlankWidget(props, ref) {
+        //const context = React.useContext(PerseusI18nContext);
+
+        useImperativeHandle(ref, () => ({
+            getPromptJSON: (): BlankPromptJSON => _getPromptJSON(props),
+        }));
+
+        return <span>Blank Widget Stub</span>;
+    },
+);
+export default {
+    name: "blank",
+    displayName: "Blank",
+    widget: BlankWidget,
+    isLintable: true,
+} satisfies WidgetExports<typeof BlankWidget>;
