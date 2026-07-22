@@ -5,6 +5,8 @@ import _ from "underscore";
 //import {PerseusI18nContext} from "../../components/i18n-context";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
 
+import styles from "./blank-widget.module.css";
+
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {BlankPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
 import type {
@@ -26,8 +28,11 @@ const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
         useImperativeHandle(ref, () => ({
             getPromptJSON: (): BlankPromptJSON => _getPromptJSON(props),
         }));
+        const classes = [styles.container]
+            .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
+            .join(" ");
 
-        return <span>Blank Widget Stub</span>;
+        return <div className={classes}> </div>;
     },
 );
 export default {

@@ -14,3 +14,14 @@ export const question1 = generateTestPerseusRenderer({
         }),
     },
 });
+export const question2 = generateTestPerseusRenderer({
+    content: "Hello my name is [[☃ blank 1]]",
+    widgets: {
+        "blank 1": generateBlankWidget({
+            options: generateBlankOptions({
+                displayType: "subscript",
+                correct: "answer-tile-1",
+            }),
+        }),
+    },
+});
