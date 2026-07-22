@@ -488,27 +488,29 @@ review and commit the changes.
 - [x] Migrate `image` to `WidgetPropsV2`.
 - [x] Migrate `molecule` to `WidgetPropsV2`. WON'T DO - `molecule` will be deleted
 - [ ] Migrate `measurer` to `WidgetPropsV2`.
+- [ ] Convert `number-line` to a functional component, a la `dropdown`.
 - [ ] Migrate `number-line` to `WidgetPropsV2`.
 - [ ] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
+- [ ] Convert `cs-program` to a functional component, a la `dropdown`.
 - [ ] Migrate `cs-program` to `WidgetPropsV2`.
+- [ ] Convert `python-program` to a functional component, a la `dropdown`.
 - [ ] Migrate `python-program` to `WidgetPropsV2`.
 - [ ] Migrate `interaction` to `WidgetPropsV2`.
-- [ ] Migrate `input-number` to `WidgetPropsV2`.
+- [ ] Migrate `numeric-input` and `input-number` (alias of `numeric-input`)
+      to `WidgetPropsV2`.
 
 ### Class / `ExternalProps` widgets
 
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
+- [ ] Convert `categorizer` to a functional component, a la `dropdown`.
 - [ ] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `matcher` to `WidgetPropsV2`.
 - [ ] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
       `satisfies PropsFor` assertion).
 - [ ] Migrate `table` to `WidgetPropsV2` (update its editor preview).
-- [ ] Migrate `numeric-input` to `WidgetPropsV2` (`ExternalProps["<field>"]` →
-      `ExternalProps["options"]["<field>"]`; rebuild the `satisfies PropsFor`
-      assertion into the nested shape).
 - [ ] Migrate `expression` to `WidgetPropsV2` (same `ExternalProps` pattern;
       update its editor preview).
 
