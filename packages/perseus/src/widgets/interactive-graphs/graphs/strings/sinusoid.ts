@@ -75,8 +75,6 @@ export function describeSinusoidGraph(
     // srSinusoidPointLabel folds any custom author label into the point's role
     // ("Midline intersection A ...", "Maximum point B ...") and falls back to
     // the plain role label for unlabeled, empty-string, or malformed entries.
-    // The peak's role (max / min / flat) depends on its y relative to the
-    // root's, so each call passes the other point's y as `otherY`.
     const srSinusoidRootPoint = srSinusoidPointLabel(
         {
             pointIndex: 0,

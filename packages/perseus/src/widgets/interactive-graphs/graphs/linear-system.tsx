@@ -41,9 +41,7 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {srLinearSystemGraph, srIntersectionDescription, srLines} =
         describeLinearSystemGraph(props.graphState, i18n);
 
-    // DOM ids for the per-line description elements. These live here (rather
-    // than in describeLinearSystemGraph) because they depend on the
-    // component's useId.
+    // DOM ids for the per-line description elements.
     const lineIds = lines.map((_, i) => ({
         pointsDescriptionId: `${id}-line${i + 1}-points`,
         interceptDescriptionId: `${id}-line${i + 1}-intercept`,

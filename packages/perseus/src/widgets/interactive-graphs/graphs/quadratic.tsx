@@ -92,9 +92,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                 />
             </ClipToGraphBounds>
             {coords.map((coord, i) => {
-                // Weave any custom author label into the quadrant-specific point
-                // string (matching the move announcement), falling back to the
-                // sequence number for unlabeled/empty/malformed entries.
                 const srQuadraticPoint = getQuadraticPointString(
                     resolvePointLabel(pointLabels, i),
                     coord,

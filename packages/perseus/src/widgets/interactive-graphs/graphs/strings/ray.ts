@@ -62,7 +62,7 @@ export function describeRayGraph(
     // A custom author label keeps the point's ray-specific role: the endpoint
     // (index 0) becomes "Endpoint A ...", the through point (index 1) becomes
     // "Through point B ...". Unlabeled, empty-string, or malformed entries fall
-    // back to the plain role label inside srRayPointLabel.
+    // back to the plain role label.
     const srRayEndpoint = srRayPointLabel(
         {
             pointIndex: 0,

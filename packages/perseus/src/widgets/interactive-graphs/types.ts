@@ -61,8 +61,7 @@ type MoveRadiusPointAnnouncement = {
     y: number;
     centerX: number;
     radius: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
 };
 
@@ -80,8 +79,7 @@ type MoveCenterAnnouncement = {
 type MoveQuadraticPointAnnouncement = {
     type: "move-quadratic-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -104,8 +102,7 @@ type MoveSegmentPointAnnouncement = {
     type: "move-segment-point";
     segmentIndex: number;
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -125,8 +122,7 @@ type MoveLinearSystemPointAnnouncement = {
     type: "move-linear-system-point";
     lineIndex: number;
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -137,8 +133,7 @@ type MoveLinearSystemPointAnnouncement = {
 type MoveRayPointAnnouncement = {
     type: "move-ray-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -179,8 +174,7 @@ type MoveLinearLineAnnouncement = {
 type MoveSinusoidPointAnnouncement = {
     type: "move-sinusoid-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -192,8 +186,7 @@ type MoveSinusoidPointAnnouncement = {
 type MoveExponentialPointAnnouncement = {
     type: "move-exponential-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -207,8 +200,7 @@ type MoveExponentialPointAnnouncement = {
 type MoveLogarithmPointAnnouncement = {
     type: "move-logarithm-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -228,8 +220,7 @@ type MoveExponentialAsymptoteAnnouncement = {
 type MoveTangentPointAnnouncement = {
     type: "move-tangent-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -248,8 +239,7 @@ type MoveLogarithmAsymptoteAnnouncement = {
 type MoveAbsoluteValuePointAnnouncement = {
     type: "move-absolute-value-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;
@@ -262,8 +252,7 @@ type MoveAbsoluteValuePointAnnouncement = {
 type MoveAnglePointAnnouncement = {
     type: "move-angle-point";
     pointIndex: number;
-    // The author's custom label when one is set; undefined otherwise. The
-    // announcement string helpers own the fallback wording.
+    // The author's custom label when one is set; undefined otherwise.
     pointLabel: string | undefined;
     x: number;
     y: number;

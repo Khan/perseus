@@ -81,10 +81,6 @@ export function describeAngleGraph(
         endingSideX: srFormatNumber(endingSide[X], locale),
         endingSideY: srFormatNumber(endingSide[Y], locale),
     });
-    // srAnglePointLabel folds any custom author label into the point's role
-    // ("Point A, ending side ..."), keeping the vertex's angle measure, and
-    // falls back to the point's coord-index sequence number for unlabeled,
-    // empty-string, or malformed entries.
     const srAngleEndingSide = srAnglePointLabel(
         {
             pointIndex: 0,

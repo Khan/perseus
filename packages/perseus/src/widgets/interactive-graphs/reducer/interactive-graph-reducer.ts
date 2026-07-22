@@ -304,9 +304,6 @@ function doMovePointInFigure(
 
             // pointLabels is a flat array across all lines/segments, indexed
             // by figureIndex * 2 + pointIndex (matching the render side).
-            // Unlabeled points pass undefined so the announcement helpers
-            // fall back to within-figure numbering ("Endpoint 1 on segment 2"),
-            // matching the point's aria-label.
             const sharedAnnouncement = {
                 pointIndex: action.pointIndex,
                 pointLabel: getCustomPointLabel(
@@ -1081,7 +1078,6 @@ function doMoveRadiusPoint(
                     y: nextRadiusPoint[Y],
                     centerX: state.center[X],
                     radius: vec.dist(state.center, nextRadiusPoint),
-                    // Circle's pointLabels is [radiusPointLabel].
                     pointLabel: getCustomPointLabel(state.pointLabels, 0),
                 },
             };

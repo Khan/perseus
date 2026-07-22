@@ -72,7 +72,7 @@ export function describeLinearSystemGraph(
                 // srLinearSystemPointLabel weaves in any custom author label
                 // (pointLabels is flat across both lines: [line0Start,
                 // line0End, line1Start, line1End]) and falls back to the
-                // within-line number, matching the move announcement.
+                // within-line number.
                 point1AriaLabel: srLinearSystemPointLabel(
                     {
                         lineIndex: i,

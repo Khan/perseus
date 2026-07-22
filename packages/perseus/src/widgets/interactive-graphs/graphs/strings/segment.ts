@@ -38,24 +38,16 @@ export function srSegmentPointLabel(
 }
 
 type SegmentDescription = {
-    // Aria-labels for the two draggable endpoints and the whole-segment grab
-    // handle. Endpoint labels weave in any custom author label.
     point1AriaLabel: string;
     point2AriaLabel: string;
     grabHandleAriaLabel: string;
-    // Aria-label for the segment's group element (used when the graph has
-    // multiple segments; a single-segment graph is labeled as a whole).
     individualAriaLabel: string;
-    // Screen-reader description of the segment's length, surfaced via
-    // aria-describedby.
     lengthDescription: string;
 };
 
 type SegmentGraphDescriptionStrings = {
     srSegmentGraph: string;
     srSegmentInteractiveElements: string;
-    // Description of every segment's endpoints, for the whole graph's
-    // aria-describedby.
     srWholeGraphDescription: string;
     srSegments: ReadonlyArray<SegmentDescription>;
 };
@@ -88,7 +80,7 @@ export function describeSegmentGraph(
                 // srSegmentPointLabel weaves in any custom author label
                 // (pointLabels is flat across segments: [seg0Start, seg0End,
                 // seg1Start, seg1End, …]) and falls back to the
-                // within-segment number, matching the move announcement.
+                // within-segment number.
                 point1AriaLabel: srSegmentPointLabel(
                     {
                         segmentIndex: i,

@@ -549,7 +549,7 @@ describe("movePointInFigure", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("B");
     });
 
-    it("passes an undefined pointLabel when the slot is empty (the announcement helper owns the fallback)", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
             coords: [
@@ -1801,7 +1801,7 @@ describe("movePoint on a sinusoid graph", () => {
         expect(updated.stateAnnouncement.pointLabel).toBe("T");
     });
 
-    it("passes an undefined pointLabel when the slot is empty (the announcement helper owns the fallback)", () => {
+    it("passes an undefined pointLabel when the slot is empty", () => {
         const state: InteractiveGraphState = {
             ...baseSinusoidGraphState,
             coords: [

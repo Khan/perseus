@@ -7,9 +7,7 @@ import type {vec} from "mafs";
 /**
  * Returns the author's custom label for a point, or `undefined` when the
  * entry is missing, an empty string, or malformed (a non-string that slipped
- * past the parser in hand-authored JSON). This is the single source of truth
- * for "is there a genuine custom label?" — callers own the fallback
- * (sequence number, role wording, etc.).
+ * past the parser in hand-authored JSON).
  */
 export function getCustomPointLabel(
     pointLabels: ReadonlyArray<string> | undefined,
@@ -48,8 +46,7 @@ export function buildPointAriaLabel(
     locale: string,
 ): string | undefined {
     // Fall back to the default (return undefined) unless we have a genuine,
-    // non-empty custom string — in which case `useControlPoint` keeps its
-    // existing fallback behavior.
+    // non-empty custom string.
     const customLabel = getCustomPointLabel(pointLabels, index);
     if (customLabel === undefined) {
         return undefined;
