@@ -2,7 +2,6 @@ import {
     type Coord,
     getDefaultFigureForType,
     type LockedFigureColor,
-    type LockedFigureFillType,
     type LockedLabelType,
     type LockedPolygonType,
 } from "@khanacademy/perseus-core";
@@ -220,7 +219,7 @@ const LockedPolygonSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <TypedSingleSelect<LockedFigureFillType>
+                    <TypedSingleSelect
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
                         onChange={(value) => onChangeProps({fillStyle: value})}
