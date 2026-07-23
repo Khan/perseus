@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.1.16
+
+### Patch Changes
+
+-   [#3930](https://github.com/Khan/perseus/pull/3930) [`e50990e`](https://github.com/Khan/perseus/commit/e50990e172e0c6a28c69384a3a0f01240694efc6) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Interactive graph: lint rule warns on mis-sized `pointLabels` arrays, and the correct-answer preview hides point labels when the widget is static.
+
+-   Updated dependencies [[`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd), [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0), [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0), [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684)]:
+    -   @khanacademy/perseus-core@33.0.0
+    -   @khanacademy/kmath@2.4.35
+
 ## 5.1.15
 
 ### Patch Changes
