@@ -44,7 +44,7 @@ import {Log} from "./logging/log";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
-import QuestionParagraph from "./question-paragraph";
+import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -885,7 +885,7 @@ class Renderer
                 // There is only one node being rendered,
                 // and it's a full-width widget.
                 "perseus-paragraph-full-width":
-                    state.foundFullWidth && ast.content.length === 1,
+                    state.foundFullWidth && ast.content?.length === 1,
             });
         }
 
@@ -1605,7 +1605,7 @@ class Renderer
         this._isTwoColumn = false;
 
         // Parse the string of markdown to a parse tree
-        const parsedMarkdown = this.props.inline
+        let parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
                   // Recognize crowdin IDs while translating articles
                   // (This should never be hit by exercises, though if you
@@ -1616,6 +1616,13 @@ class Renderer
             : PerseusMarkdown.parse(content, {
                   isJipt: this.translationIndex != null,
               });
+
+        // Recover from malformed markdown where a block-level widget (e.g.
+        // radio) is parsed as an inline child of a paragraph because the
+        // content author didn't separate the widget reference with blank
+        // lines. Splitting the paragraph here keeps block widgets out of the
+        // <p> emitted by the paragraph rule, avoiding invalid HTML.
+        parsedMarkdown = Util.splitBlockWidgetsFromParagraphs(parsedMarkdown);
 
         // Optionally apply the linter to the parse tree
         if (this.props.linterContext.highlightLint) {

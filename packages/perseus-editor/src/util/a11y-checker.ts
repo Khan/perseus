@@ -168,8 +168,8 @@ const runAxeCore = (
         ? axeCore
         : // @ts-expect-error TS2339: Property axe does not exist on type Window.
           previewWindow?.contentWindow?.axe;
-    axeCoreProper.configure({reporter: "v2"});
-    axeCoreProper.run(options).then(
+    axeCoreProper?.configure({reporter: "v2"});
+    axeCoreProper?.run(options).then(
         (results) => {
             log(`Accessibility Results: `, results);
             const violations = mapResultsToIssues(

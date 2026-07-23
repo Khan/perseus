@@ -12,6 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
+import {contentHasExplanationWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -273,6 +274,23 @@ const rules = {
                     {output(node.content, state)}
                 </Lint>
             );
+        },
+    },
+    paragraph: {
+        // NOTE: This overrides the rendering of "paragraphs" in simple-markdown.
+        //       If simple-markdown is ever corrected (back to a <p> tag),
+        //           then this rule can be removed.
+        ...pureMarkdownRules.paragraph,
+        react: (node, output, state) => {
+            if (contentHasExplanationWidget(node)) {
+                // The Explanation widget can appear inline with text, but
+                // shouldn't be contained by a <p> element (e.g. explanation),
+                // so just render the content and let the parent handle layout,
+                // etc.
+                return output(node.content, state);
+            } else {
+                return <p>{output(node.content, state)}</p>;
+            }
         },
     },
 } as const;

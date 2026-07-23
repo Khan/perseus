@@ -86,11 +86,132 @@ function inputPathsEqual(
     );
 }
 
-const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))]]/;
 const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
+
+/**
+ * Widget types that render as inline content and may safely live inside a
+ * paragraph (`<p>`). Any widget type NOT in this set is treated as block-level.
+ */
+const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
+    "definition",
+    "expression",
+    "input-number",
+    "numeric-input",
+]);
+
+const isBlockWidgetNode = (node: any): boolean =>
+    node?.type === "widget" && !INLINE_WIDGET_TYPES.has(node.widgetType);
+
+const isParagraphWithBlockWidget = (node: any): boolean =>
+    node?.type === "paragraph" &&
+    Array.isArray(node.content) &&
+    node.content.some(isBlockWidgetNode);
+
+/**
+ * Widget types that render as inline content but CANNOT safely live inside a
+ * paragraph (`<p>`). These widgets (specifically the Explanation widget) will
+ * cause the containing <p> element to not render, but no additional processing
+ * is done on the sibling nodes.
+ */
+const isExplanationWidgetNode = (node: any): boolean =>
+    node?.type === "widget" && node.widgetType === "explanation";
+
+export const contentHasExplanationWidget = (node: any): boolean =>
+    Array.isArray(node.content) && node.content.some(isExplanationWidgetNode);
+
+const isWhitespaceOnlyTextNode = (node: any): boolean =>
+    node?.type === "text" && node.content.trim() === "";
+
+/**
+ * Trim whitespace-only text nodes from the start and end of an array of inline
+ * markdown AST nodes. Used to avoid generating empty `<p> </p>` wrappers around
+ * stray newlines that might surround a block widget in malformed markdown.
+ */
+const trimEdgeWhitespaceNodes = (nodes: ReadonlyArray<any>): Array<any> => {
+    let start = 0;
+    let end = nodes.length;
+    while (start < end && isWhitespaceOnlyTextNode(nodes[start])) {
+        start++;
+    }
+    while (end > start && isWhitespaceOnlyTextNode(nodes[end - 1])) {
+        end--;
+    }
+    return nodes.slice(start, end);
+};
+
+/**
+ * Takes the accumulated inline nodes and packages them into a containing node
+ * (based upon the reference node). It ensures that the edge nodes aren't empty.
+ */
+const mergeInlineNodes = (
+    inlineNodes: Array<any>,
+    blockNodes: Array<any>,
+    referenceNode: any,
+): void => {
+    const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
+    if (trimmedContentNodes.length > 0) {
+        blockNodes.push({...referenceNode, content: trimmedContentNodes});
+    }
+};
+
+/**
+ * Handle situations in the markdown where a block-level widget doesn't have the
+ * expected double-newline characters in place. The blockRegex function in
+ * perseus-markdown.tsx expects a double-newline. When only a single newline
+ * character exists, then the widget is contained by a <p> element, which is
+ * invalid HTML. This function splits out the widget from the inline text so
+ * that the HTML is valid (<p> elements surround inline content, block-level
+ * widgets are by themselves).
+ *
+ * Only direct children of top-level paragraphs are considered; block widgets
+ * nested inside inline formatting (e.g. `strong`) or inside other containers
+ * (tables, columns) are not split out.
+ */
+function splitBlockWidgetsFromParagraphs(ast: any): any {
+    if (!Array.isArray(ast)) {
+        return ast;
+    }
+
+    return ast.flatMap((node) => {
+        // Traverse all the nodes for this renderer.
+
+        if (!isParagraphWithBlockWidget(node)) {
+            // Don't process nodes that aren't paragraphs with block-level or
+            // special widgets.
+            return node;
+        }
+
+        const blockNodes: Array<any> = [];
+        const inlineNodes: Array<any> = [];
+
+        node.content.forEach((childNode) => {
+            if (isBlockWidgetNode(childNode)) {
+                // If the current child node is a block-level widget, then
+                // put all accumulated inline nodes into their own paragraph
+                mergeInlineNodes(inlineNodes, blockNodes, node);
+                // ... add the widget node (by itself, not in a container)
+                blockNodes.push(childNode);
+                // ... and clear the accumulated inline nodes.
+                inlineNodes.length = 0;
+            } else {
+                // If the current child node is NOT a block-level widget,
+                // then it is inline and should be batched with other inline
+                // nodes.
+                inlineNodes.push(childNode);
+            }
+        });
+
+        // Put all remaining inline nodes into their own paragraph, then return
+        // all the split-out nodes for this initial paragraph node.
+        mergeInlineNodes(inlineNodes, blockNodes, node);
+
+        return blockNodes;
+    });
+}
 
 /**
  * Return the first valid interpretation of 'text' as a number, in the form
@@ -551,6 +672,8 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
+    INLINE_WIDGET_TYPES,
+    splitBlockWidgetsFromParagraphs,
     firstNumericalParse,
     stringArrayOfSize,
     stringArrayOfSize2D,
