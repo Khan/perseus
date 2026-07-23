@@ -74,7 +74,7 @@ export const DefaultUnanswered: Story = {
 };
 
 // Verifies the "select all that apply" instruction variant.
-// Markers can carry more than one correct answer.
+// Markers can have more than one correct answer.
 export const MultipleAnswers: Story = {
     decorators: [labelImageRendererDecorator],
     args: {...barGraphArgs, multipleAnswers: true},
