@@ -67,21 +67,13 @@ class Measurer extends React.Component<Props> implements Widget {
             allowScratchpad: true,
         });
 
-        // Both tools default to the center of the graph so the whole tool is
-        // visible; the learner can then drag them where they need them.
-        // TODO: extract center calculation to a function center() in box.ts
-        const center: Coord = [
-            (range[0][0] + range[0][1]) / 2,
-            (range[1][0] + range[1][1]) / 2,
-        ];
-
         if (this.protractor) {
             this.protractor.remove();
         }
 
         if (this.props.options.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
-            this.protractor = graphie.protractor(center);
+            this.protractor = graphie.protractor([]);
         }
 
         if (this.ruler) {
@@ -91,7 +83,10 @@ class Measurer extends React.Component<Props> implements Widget {
         if (this.props.options.showRuler) {
             // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
             this.ruler = graphie.ruler({
-                center: center,
+                center: [
+                    (range[0][0] + range[0][1]) / 2,
+                    (range[1][0] + range[1][1]) / 2,
+                ],
                 label: this.props.options.rulerLabel,
                 pixelsPerUnit: this.props.options.rulerPixels,
                 ticksPerUnit: this.props.options.rulerTicks,

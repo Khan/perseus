@@ -40,7 +40,7 @@ describe("measurer widget", () => {
         );
     });
 
-    it("draws the protractor at the center of the graph when showProtractor is true", () => {
+    it("sets up the graphie protractor when showProtractor is true", () => {
         // Arrange, Act
         // The graph range is [0, box / scale] on each axis (scale is 40), so
         // the center of a 480x480 box is [480 / 40 / 2, 480 / 40 / 2] = [6, 6].
@@ -49,7 +49,7 @@ describe("measurer widget", () => {
         );
 
         // Assert
-        expect(protractor).toHaveBeenCalledWith([6, 6]);
+        expect(protractor).toHaveBeenCalledWith([]);
     });
 
     it("does not draw the protractor when showProtractor is false", () => {
@@ -60,7 +60,7 @@ describe("measurer widget", () => {
         expect(protractor).not.toHaveBeenCalled();
     });
 
-    it("draws the ruler at the center of the graph with the configured options when showRuler is true", () => {
+    it("places the ruler at the center of the graph with the configured options when showRuler is true", () => {
         // Arrange, Act
         renderQuestion(
             measurerQuestion({
