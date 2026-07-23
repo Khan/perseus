@@ -18,8 +18,9 @@ type Props = WidgetPropsV2<PerseusMeasurerWidgetOptions> & {
     // them — the renderer only passes `options` plus the universal props, and
     // no other caller sets them. As a result, when `showProtractor` is true
     // (the default) the protractor is drawn at an undefined position. This is
-    // long-standing behavior, preserved as-is; fixing it (removing these props
-    // or wiring up a real center) is a behavior change for a separate follow-up.
+    // long-standing behavior, preserved as-is.
+    // FIXME: remove the protractor props and use reasonable defaults for the
+    //  position, e.g. (0, 0)
     protractorX: number;
     protractorY: number;
 };
@@ -37,6 +38,7 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     componentDidUpdate(prevProps: Props) {
+        // FIXME: use Array#some() instead of _.any()
         const shouldSetupGraphie = _.any(
             [
                 "box",
@@ -46,7 +48,7 @@ class Measurer extends React.Component<Props> implements Widget {
                 "rulerTicks",
                 "rulerPixels",
                 "rulerLength",
-            ] as const,
+            ] satisfies Array<keyof PerseusMeasurerWidgetOptions>,
             (prop) => {
                 return prevProps.options[prop] !== this.props.options[prop];
             },
