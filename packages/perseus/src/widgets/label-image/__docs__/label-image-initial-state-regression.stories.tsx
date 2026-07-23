@@ -1,4 +1,11 @@
+import {expect, waitFor} from "storybook/test";
+
 import {themeModes} from "../../../../../../.storybook/modes";
+import {
+    mobileDecorator,
+    reducedMotionDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import {labelImageRendererDecorator} from "./label-image-renderer-decorator";
 
@@ -23,46 +30,141 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const barGraphArgs: PerseusLabelImageWidgetOptions = {
+    static: false,
+    imageUrl:
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
+    imageWidth: 415,
+    imageHeight: 314,
+    imageAlt: "A bar graph with four unlabeled bar lines.",
+    choices: ["Trucks", "Vans", "Cars", "SUVs"],
+    markers: [
+        {
+            answers: ["SUVs"],
+            label: "The fourth unlabeled bar line.",
+            x: 25,
+            y: 17.7,
+        },
+        {
+            answers: ["Trucks"],
+            label: "The third unlabeled bar line.",
+            x: 25,
+            y: 35.3,
+        },
+        {
+            answers: ["Cars"],
+            label: "The second unlabeled bar line.",
+            x: 25,
+            y: 53,
+        },
+        {
+            answers: ["Vans"],
+            label: "The first unlabeled bar line.",
+            x: 25,
+            y: 70.3,
+        },
+    ],
+    multipleAnswers: false,
+    hideChoicesFromInstructions: true,
+};
+
 // Verifies the default unanswered state: all markers visible and pulsating,
 // no answers selected, text choices hidden from instructions.
 export const DefaultUnanswered: Story = {
     decorators: [labelImageRendererDecorator],
+    args: barGraphArgs,
+};
+
+// Verifies the "select all that apply" instruction variant.
+// Markers can have more than one correct answer.
+export const MultipleAnswers: Story = {
+    decorators: [labelImageRendererDecorator],
+    args: {...barGraphArgs, multipleAnswers: true},
+};
+
+export const RightToLeft: Story = {
+    decorators: [labelImageRendererDecorator, rtlDecorator],
     args: {
         imageUrl:
             "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
         imageWidth: 415,
         imageHeight: 314,
         imageAlt: "A bar graph with four unlabeled bar lines.",
-        choices: ["Trucks", "Vans", "Cars", "SUVs"],
+        choices: [
+            "الشاحنات",
+            "الحافلات الصغيرة",
+            "السيارات",
+            "سيارات الدفع الرباعي",
+        ],
         markers: [
             {
-                answers: ["SUVs"],
-                label: "The fourth unlabeled bar line.",
+                answers: ["سيارات الدفع الرباعي"],
+                label: "الخط الرابع غير المعنون.",
                 x: 25,
                 y: 17.7,
             },
             {
-                answers: ["Trucks"],
-                label: "The third unlabeled bar line.",
+                answers: ["الشاحنات"],
+                label: "الخط الثالث غير المعنون.",
                 x: 25,
                 y: 35.3,
             },
             {
-                answers: ["Cars"],
-                label: "The second unlabeled bar line.",
+                answers: ["السيارات"],
+                label: "الخط الثاني غير المعنون.",
                 x: 25,
                 y: 53,
             },
             {
-                answers: ["Vans"],
-                label: "The first unlabeled bar line.",
+                answers: ["الحافلات الصغيرة"],
+                label: "الخط الأول غير المعنون.",
                 x: 25,
                 y: 70.3,
             },
         ],
         multipleAnswers: false,
-        hideChoicesFromInstructions: true,
+        hideChoicesFromInstructions: false,
     },
+};
+
+// Verifies the reduced-motion rendering of the markers. The markers use the
+// finite "pulsate once" animation and settle rather than pulsating infinitely.
+export const ReducedMotionMarkers: Story = {
+    decorators: [labelImageRendererDecorator, reducedMotionDecorator],
+    args: barGraphArgs,
+    // Only take the snapshot after the singular pulse animation has finished.
+    play: async ({canvasElement}) => {
+        // The finite (iteration-count: 2) "pulsate once" animations are only
+        // present while running. An empty result is ambiguous — it means either
+        // "not applied yet" or "already finished" — so we assert (with retry)
+        // that at least one finite animation exists before awaiting it. This
+        // fails loudly if the reduced-motion path regresses to the infinite
+        // animation (which would otherwise make the snapshot silently no-op).
+        const getFiniteAnimations = () =>
+            canvasElement
+                .getAnimations({subtree: true})
+                .filter(
+                    (animation) =>
+                        animation.effect?.getTiming().iterations !== Infinity,
+                );
+
+        await waitFor(() =>
+            expect(getFiniteAnimations().length).toBeGreaterThan(0),
+        );
+        await Promise.all(
+            getFiniteAnimations().map((animation) => animation.finished),
+        );
+    },
+};
+
+// Verifies the mobile instruction text. On mobile, the caption reads
+// `strings.tapSingle` ("Tap each dot ...") instead of the desktop "Click ..."
+export const MobileInstructions: Story = {
+    decorators: [labelImageRendererDecorator, mobileDecorator],
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+    args: barGraphArgs,
 };
 
 // Verifies choices shown in the instructions section (hideChoicesFromInstructions: false),
@@ -85,35 +187,5 @@ export const WithChoicesInInstructions: Story = {
         ],
         multipleAnswers: false,
         hideChoicesFromInstructions: false,
-    },
-};
-
-// Verifies the incorrect marker state: marker dot renders with neutral
-// background (semanticColor.core.border.neutral.default) when showCorrectness
-// is "incorrect". No answer pill is shown because no answer is selected in
-// this static state.
-// Note: showCorrectness is runtime UI state injected by the renderer, not part
-// of PerseusLabelImageMarker schema, so the marker requires a type cast.
-export const IncorrectMarker: Story = {
-    decorators: [labelImageRendererDecorator],
-    args: {
-        imageUrl:
-            "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
-        imageWidth: 415,
-        imageHeight: 314,
-        imageAlt: "A bar graph with four unlabeled bar lines.",
-        choices: ["Trucks", "Vans", "Cars", "SUVs"],
-        markers: [
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
-            {
-                answers: ["SUVs"],
-                label: "The fourth unlabeled bar line.",
-                x: 25,
-                y: 17.7,
-                showCorrectness: "incorrect",
-            } as any,
-        ],
-        multipleAnswers: false,
-        hideChoicesFromInstructions: true,
     },
 };
