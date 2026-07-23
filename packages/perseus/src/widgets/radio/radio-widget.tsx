@@ -13,7 +13,7 @@ import RadioComponent from "./radio-component";
 import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
+import type {WidgetPropsV2, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -59,7 +59,11 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     correct?: boolean;
 }
 
-type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
+type Props = WidgetPropsV2<
+    RadioProps,
+    PerseusRadioUserInput,
+    PerseusRadioRubric
+>;
 
 /**
  * RadioWidget implements the Widget interface for multiple choice questions.
@@ -75,9 +79,9 @@ type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
  */
 const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
     function RadioWidget(props, ref) {
+        const {options} = props;
+        const {multipleSelect = false, countChoices = false} = options;
         const {
-            multipleSelect = false,
-            countChoices = false,
             showSolutions = "none",
             apiOptions,
             handleUserInput,
@@ -94,13 +98,13 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const choices = useMemo(() => {
             return [
                 ...choiceTransform(
-                    props.choices,
-                    props.randomize,
+                    options.choices,
+                    options.randomize,
                     strings,
                     randomSeed,
                 ),
             ];
-        }, [props.choices, props.randomize, strings, randomSeed]);
+        }, [options.choices, options.randomize, strings, randomSeed]);
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({
@@ -128,7 +132,10 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                  * @returns A structured JSON object representing the widget's prompt
                  */
                 getPromptJSON: (): RadioPromptJSON => {
-                    return _getPromptJSON({...props, choices}, props.userInput);
+                    return _getPromptJSON(
+                        {...props, options: {...props.options, choices}},
+                        props.userInput,
+                    );
                 },
                 /**
                  * @deprecated and likely very broken API
@@ -137,15 +144,17 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 getSerializedState() {
                     const {
                         userInput: _,
-                        randomize: __,
-                        static: ___,
-                        ...rest
+                        static: __,
+                        options,
+                        ...otherProps
                     } = props;
+                    const {randomize: ___, ...otherOptions} = options;
                     return {
-                        ...rest,
-                        numCorrect: props.numCorrect ?? 0,
+                        ...otherOptions,
+                        ...otherProps,
+                        numCorrect: options.numCorrect ?? 0,
                         choices,
-                        hasNoneOfTheAbove: props.hasNoneOfTheAbove ?? false,
+                        hasNoneOfTheAbove: options.hasNoneOfTheAbove ?? false,
                         choiceStates: choices.map((choice) => {
                             // TODO(LEMS-3861): Investigate if this code path is used and fix root cause
                             const selected =
@@ -260,7 +269,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const announceChoiceChange = (newCheckedCount: number) => {
             let screenReaderMessage = "";
 
-            if (!props.multipleSelect) {
+            if (!multipleSelect) {
                 // Single-select choice only announces when it is de-selected
                 screenReaderMessage =
                     newCheckedCount === 0 ? strings.notSelected : "";
@@ -273,7 +282,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
             announceMessage({message: screenReaderMessage});
             // Temporary setup to enable proper reading of multiple-select announcements
             // Waiting on WB Announcer fix (WB-2240 - https://khanacademy.atlassian.net/browse/WB-2240)
-            if (props.multipleSelect) {
+            if (multipleSelect) {
                 setTimeout(() => {
                     announceMessage({message: ""});
                 }, 300);
@@ -352,7 +361,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         };
 
         const choicesProps = prepareChoicesProps();
-        const numCorrect = props.numCorrect;
+        const numCorrect = options.numCorrect;
 
         // This is strange, but currently we're showing the same view for both
         // reviewMode, and showSolutions === "all". We may wish to
