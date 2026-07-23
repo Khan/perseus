@@ -269,10 +269,14 @@ describe("Logarithm graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at -4 comma -3."}),
+            screen.getByRole("button", {
+                name: "Point A on a logarithmic curve at -4 comma -3.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at -5 comma -7."}),
+            screen.getByRole("button", {
+                name: "Point B on a logarithmic curve at -5 comma -7.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -282,7 +286,9 @@ describe("Logarithm graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at -4 comma -3."}),
+            screen.getByRole("button", {
+                name: "Point A on a logarithmic curve at -4 comma -3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {
@@ -304,7 +310,9 @@ describe("Logarithm graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at -5 comma -7."}),
+            screen.getByRole("button", {
+                name: "Point B on a logarithmic curve at -5 comma -7.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -322,7 +330,9 @@ describe("Logarithm graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at -5 comma -7."}),
+            screen.getByRole("button", {
+                name: "Point B on a logarithmic curve at -5 comma -7.",
+            }),
         ).toBeInTheDocument();
     });
 });

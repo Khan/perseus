@@ -314,7 +314,9 @@ describe("Circle graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point R at 1 comma 0."}),
+            screen.getByRole("button", {
+                name: "Right radius endpoint R at 1 comma 0. Circle radius is 1.",
+            }),
         ).toBeInTheDocument();
     });
 
