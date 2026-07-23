@@ -10639,11 +10639,11 @@ table: [[☃ table 1]]
                             <label
                               class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                             >
-                              <div
-                                class="default_7zhre1-o_O-inlineStyles_f0ivqv"
+                              <span
+                                class="label-prefix"
                               >
                                 x
-                              </div>
+                              </span>
                               <input
                                 aria-disabled="false"
                                 aria-invalid="false"
@@ -10657,11 +10657,11 @@ table: [[☃ table 1]]
                             <label
                               class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                             >
-                              <div
-                                class="default_7zhre1-o_O-inlineStyles_f0ivqv"
+                              <span
+                                class="label-prefix"
                               >
                                 y
-                              </div>
+                              </span>
                               <input
                                 aria-disabled="false"
                                 aria-invalid="false"
@@ -10712,11 +10712,11 @@ table: [[☃ table 1]]
                             <label
                               class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                             >
-                              <div
-                                class="default_7zhre1-o_O-inlineStyles_f0ivqv"
+                              <span
+                                class="label-prefix"
                               >
                                 x
-                              </div>
+                              </span>
                               <input
                                 aria-disabled="false"
                                 aria-invalid="false"
@@ -10730,11 +10730,11 @@ table: [[☃ table 1]]
                             <label
                               class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                             >
-                              <div
-                                class="default_7zhre1-o_O-inlineStyles_f0ivqv"
+                              <span
+                                class="label-prefix"
                               >
                                 y
-                              </div>
+                              </span>
                               <input
                                 aria-disabled="false"
                                 aria-invalid="false"
@@ -11799,7 +11799,9 @@ table: [[☃ table 1]]
                                   <label
                                     class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                                   >
-                                    x coord
+                                    <span>
+                                      x coord
+                                    </span>
                                     <input
                                       aria-disabled="true"
                                       aria-invalid="false"
@@ -11814,7 +11816,9 @@ table: [[☃ table 1]]
                                   <label
                                     class="label text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
                                   >
-                                    y coord
+                                    <span>
+                                      y coord
+                                    </span>
                                     <input
                                       aria-disabled="true"
                                       aria-invalid="false"
