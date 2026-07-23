@@ -888,7 +888,7 @@ class Renderer
                 // There is only one node being rendered,
                 // and it's a full-width widget.
                 "perseus-paragraph-full-width":
-                    state.foundFullWidth && ast.content.length === 1,
+                    state.foundFullWidth && ast.content?.length === 1,
             });
         }
 

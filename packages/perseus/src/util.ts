@@ -151,12 +151,11 @@ const mergeInlineNodes = (
     inlineNodes: Array<any>,
     blockNodes: Array<any>,
     referenceNode: any,
-): Array<any> => {
+): void => {
     const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
     if (trimmedContentNodes.length > 0) {
         blockNodes.push({...referenceNode, content: trimmedContentNodes});
     }
-    return blockNodes;
 };
 
 /**
@@ -186,36 +185,31 @@ export function splitBlockWidgetsFromParagraphs(ast: any): any {
             return node;
         }
 
-        type ContentNodes = {blockNodes: Array<any>; inlineNodes: Array<any>};
-        // Break the paragraph node into as many nodes as needed so that any
-        // block-level widgets are in their own node.
-        const {blockNodes, inlineNodes} = node.content.reduce(
-            (contentNodes: ContentNodes, childNode: any) => {
-                if (isBlockWidgetNode(childNode)) {
-                    // If the current child node is a block-level widget, then
-                    // put all accumulated inline nodes into their own paragraph
-                    contentNodes.blockNodes = mergeInlineNodes(
-                        contentNodes.inlineNodes,
-                        contentNodes.blockNodes,
-                        node,
-                    );
-                    // ... add the widget node (by itself, not in a container)
-                    contentNodes.blockNodes.push(childNode);
-                    // ... and clear the accumulated inline nodes.
-                    contentNodes.inlineNodes = [];
-                } else {
-                    // If the current child node is NOT a block-level widget,
-                    // then it is inline and should be batched with other inline
-                    // nodes.
-                    contentNodes.inlineNodes.push(childNode);
-                }
-                return contentNodes;
-            },
-            {blockNodes: [], inlineNodes: []},
-        );
+        const blockNodes: Array<any> = [];
+        const inlineNodes: Array<any> = [];
+
+        node.content.forEach((childNode) => {
+            if (isBlockWidgetNode(childNode)) {
+                // If the current child node is a block-level widget, then
+                // put all accumulated inline nodes into their own paragraph
+                mergeInlineNodes(inlineNodes, blockNodes, node);
+                // ... add the widget node (by itself, not in a container)
+                blockNodes.push(childNode);
+                // ... and clear the accumulated inline nodes.
+                inlineNodes.splice(0, inlineNodes.length);
+            } else {
+                // If the current child node is NOT a block-level widget,
+                // then it is inline and should be batched with other inline
+                // nodes.
+                inlineNodes.push(childNode);
+            }
+        });
+
         // Put all remaining inline nodes into their own paragraph, then return
         // all the split-out nodes for this initial paragraph node.
-        return mergeInlineNodes(inlineNodes, blockNodes, node);
+        mergeInlineNodes(inlineNodes, blockNodes, node);
+
+        return blockNodes;
     });
 }
 

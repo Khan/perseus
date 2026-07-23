@@ -1474,19 +1474,14 @@ describe("renderer", () => {
         });
     });
 
-    describe("block-level widgets in paragraphs (malformed markdown)", () => {
-        // Content authors sometimes forget to separate a block-level widget
-        // reference with blank lines (\n\n). The single \n before "[[☃ radio
-        // 1]]" here causes the radio widget to parse as an inline child of the
-        // paragraph. The renderer must split it out so the block widget is not
-        // nested inside a <p> (which would be invalid HTML).
-        const malformedContent =
+    describe("block-level widgets within paragraphs", () => {
+        const content =
             "**Which picture shows how to measure the pink square?** \n" +
             "[[☃ radio 1]]\n" +
             "**The pink square is** [[☃ input-number 2]] ** blue squares tall.**";
 
-        const malformedQuestion: PerseusRenderer = {
-            content: malformedContent,
+        const question: PerseusRenderer = {
+            content: content,
             images: {},
             widgets: {
                 "radio 1": generateRadioWidget(),
@@ -1496,25 +1491,29 @@ describe("renderer", () => {
 
         it("does not render the block widget inside a <p> element", () => {
             // Arrange, Act
-            const {container} = renderQuestion(malformedQuestion);
+            const {container} = renderQuestion(question);
 
             // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
             const blockWidget = container.querySelector(
                 ".perseus-widget-container.widget-block",
             );
             expect(blockWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
             expect(blockWidget?.closest("p")).toBeNull();
         });
 
         it("keeps the inline input-number widget within a <p> element", () => {
             // Arrange, Act
-            const {container} = renderQuestion(malformedQuestion);
+            const {container} = renderQuestion(question);
 
             // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
             const inlineWidget = container.querySelector(
                 ".perseus-widget-container.widget-inline-block",
             );
             expect(inlineWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
             expect(inlineWidget?.closest("p")).not.toBeNull();
         });
     });
