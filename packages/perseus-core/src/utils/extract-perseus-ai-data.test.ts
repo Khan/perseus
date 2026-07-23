@@ -38,6 +38,7 @@ import {
     generateNumericInputOptions,
     generateNumericInputWidget,
 } from "./generators/numeric-input-widget-generator";
+import {generatePlotterOptions} from "./generators/plotter-widget-generator";
 import {
     generateRadioChoice,
     generateRadioWidget,
@@ -1067,7 +1068,7 @@ describe("getAnswersFromWidgets", () => {
         const widget: PlotterWidget = {
             type: "plotter",
             graded: true,
-            options: {
+            options: generatePlotterOptions({
                 correct: [9, 6, 10, 5],
                 starting: [0, 0, 0, 0],
                 type: "bar",
@@ -1077,13 +1078,7 @@ describe("getAnswersFromWidgets", () => {
                 maxY: 10,
                 snapsPerLine: 1,
                 labelInterval: 1,
-
-                // deprecated
-                picUrl: null,
-                picSize: null,
-                picBoxHeight: null,
-                plotDimensions: [],
-            },
+            }),
         };
 
         const answer = getAnswersFromWidgets({"plotter 1": widget});

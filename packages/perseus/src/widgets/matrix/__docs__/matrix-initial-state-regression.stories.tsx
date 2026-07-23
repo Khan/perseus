@@ -142,24 +142,26 @@ export const WithPrefixAndSuffix: Story = {
     decorators: [matrixRendererDecorator],
     args: {
         matrixBoardSize: [2, 2],
-        prefix: "Given $A =$",
-        suffix: "($2 \\times 2$ matrix)",
+        prefix: "Prefix $A =$",
+        suffix: "($2 \\times 2$ suffix)",
     },
 };
 
-// Verifies that the RTL layout renders the matrix and its prefix/suffix
-// correctly when the page direction is right-to-left.
+// Verifies that the matrix and its prefix/suffix stay left-to-right when the
+// page direction is right-to-left, matching the WithPrefixAndSuffix story
+// but right-aligned within the page.
 export const WithPrefixAndSuffixRightToLeft: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
     args: {
         matrixBoardSize: [2, 2],
-        prefix: "Given $A =$",
-        suffix: "($2 \\times 2$ matrix)",
+        prefix: "Prefix $A =$",
+        suffix: "($2 \\times 2$ suffix)",
     },
 };
 
-// KNOWN ISSUE: Matrices do NOT flip in right-to-left languages. This story should
-// be no different from the DefaultEmptyMatrix story.
+// Verifies that the matrix stays left-to-right on an RTL page. Matrices always
+// render LTR, even in RTL languages, so this story should look identical to
+// the DefaultEmptyMatrix story but right-aligned within the page.
 export const EmptyMatrixRTL: Story = {
     decorators: [matrixRendererDecorator, rtlDecorator],
     args: {

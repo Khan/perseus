@@ -1,0 +1,27 @@
+{
+    "additionalReadwritePaths": [
+        "/tmp",
+        "/private/tmp",
+        "~/.cursor-agent",
+        "~/.cache/gh",
+        "~/khan/devtools/khan-linter",
+        "~/.npm",
+        "~/.local/share/mise",
+        "~/.local/state/mise",
+        "~/.cache/node/corepack",
+        "~/Library/pnpm",
+        "~/Library/Caches/pnpm"
+    ],
+    "networkPolicy": {
+        "default": "deny",
+        "allow": [
+            "localhost",
+            "github.com",
+            "api.github.com",
+            "registry.npmjs.org",
+            "npm.pkg.github.com",
+            "download.cypress.io",
+            "cdn.cypress.io"
+        ]
+    }
+}

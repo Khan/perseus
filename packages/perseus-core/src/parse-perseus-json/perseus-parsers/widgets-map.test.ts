@@ -744,7 +744,8 @@ describe("parseWidgetsMap", () => {
                 version: {major: 0, minor: 0},
                 options: {
                     labels: [],
-                    categories: [],
+                    labelInterval: 42,
+                    categories: [""],
                     type: "bar",
                     maxY: 0,
                     scaleY: 0,
@@ -752,6 +753,9 @@ describe("parseWidgetsMap", () => {
                     starting: [],
                     correct: [],
                     plotDimensions: [],
+                    picUrl: null,
+                    picSize: 1,
+                    picBoxHeight: 2,
                 },
             },
         };

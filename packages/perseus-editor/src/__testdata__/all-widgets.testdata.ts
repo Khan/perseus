@@ -24,6 +24,7 @@ import {
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generatePlotterOptions,
     generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
@@ -212,7 +213,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             static: false,
             type: "plotter",
-            options: {
+            options: generatePlotterOptions({
                 type: "pic",
                 labels: ["x", "y"],
                 categories: ["blue"],
@@ -222,7 +223,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 correct: [2, 4, 3],
                 starting: [0, 0, 0, 2],
                 plotDimensions: [300, 300],
-            },
+            }),
         },
         "sorter 1": {
             graded: true,

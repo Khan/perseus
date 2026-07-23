@@ -23,11 +23,6 @@ permissions:
     pull-requests: write
     issues: write
 
-# Single source of truth for the Node version these checks build under.
-# (See the note on each job for why these jobs deliberately avoid a matrix.)
-env:
-    NODE_VERSION: "24.16.0"
-
 jobs:
     check_schema_change:
         name: "Schema Change"
@@ -41,8 +36,7 @@ jobs:
         # name (e.g. "Schema Change (ubuntu-latest, 24.x)"), so bumping Node
         # would rename the required check and cause the Ruleset that protects
         # against unintended schema changes to break. A single, suffix-free
-        # name (Node comes from the NODE_VERSION env above) keeps the
-        # required-status rules stable across upgrades.
+        # name keeps the required-status rules stable across upgrades.
         # See ruleset: https://github.com/Khan/perseus/settings/rules/17139544
         steps:
             - name: Check out latest commit
@@ -62,7 +56,6 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  node-version: ${{ env.NODE_VERSION }}
                   build-command: |
                       pnpm install && \
                       pnpm tsc --declaration --emitDeclarationOnly --removeComments \
@@ -102,8 +95,8 @@ jobs:
         # name (e.g. "Item Splitting (ubuntu-latest, 24.x)"), so bumping Node
         # would rename the required check and cause the Ruleset that protects
         # against unintended item-splitting changes to break. A single,
-        # suffix-free name (Node comes from the NODE_VERSION env above) keeps
-        # the required-status rules stable across upgrades.
+        # suffix-free name keeps the required-status rules stable across
+        # upgrades.
         # See ruleset: https://github.com/Khan/perseus/settings/rules/17139544
         steps:
             - name: Check out latest commit
@@ -123,7 +116,6 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  node-version: ${{ env.NODE_VERSION }}
                   # esbuild produces a deliberately non-minified bundle for
                   # comparison purposes — the production build pipeline
                   # (rollup + swc + minification) is too noisy for diffs.
