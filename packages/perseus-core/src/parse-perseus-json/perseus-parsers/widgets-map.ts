@@ -6,6 +6,7 @@ import {
 } from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
+import {parseBlankWidget} from "./blank-widget";
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
 import {parseDefinitionWidget} from "./definition-widget";
@@ -97,6 +98,8 @@ const parseWidgetsMapEntry: (
     }
 
     switch (type) {
+        case "blank":
+            return parseAndAssign(`blank ${n}`, parseBlankWidget);
         case "categorizer":
             return parseAndAssign(`categorizer ${n}`, parseCategorizerWidget);
         case "cs-program":

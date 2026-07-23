@@ -1,0 +1,15 @@
+.container {
+    width: 65px;
+    height: 48px;
+    padding: var(--wb-sizing-size_0);
+    gap: var(--wb-sizing-size_240);
+
+    border-radius: var(--wb-border-radius-radius_040);
+    border: var(--wb-border-width-thin) dashed var(--wb-semanticColor-core-border-neutral-default);
+    background:  var(--wb-semanticColor-core-background-base-subtle)
+}
+
+.container.super-sub {
+    width: 26px;
+    height: 28px;
+}

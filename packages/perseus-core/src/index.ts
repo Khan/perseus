@@ -82,6 +82,10 @@ export * from "./data-schema";
 export {pluck, mapObject} from "./utils/objective_";
 
 /** @hidden */
+export {default as blankLogic} from "./widgets/blank";
+/** @hidden */
+export type {BlankDefaultWidgetOptions} from "./widgets/blank";
+/** @hidden */
 export {default as categorizerLogic} from "./widgets/categorizer";
 /** @hidden */
 export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
@@ -269,6 +273,8 @@ export {
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
+export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
+/** @hidden */
 export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
@@ -329,6 +335,11 @@ export {
 } from "./utils/util.graphie";
 
 // Generators
+/** @hidden */
+export {
+    generateBlankOptions,
+    generateBlankWidget,
+} from "./utils/generators/blank-widget-generator";
 /** @hidden */
 export {
     generateDefinitionOptions,
