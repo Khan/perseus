@@ -9,11 +9,17 @@ import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
+type Props = WidgetPropsV2<PerseusMeasurerWidgetOptions> & {
+    // NOTE: These are declared as required, but nothing actually supplies
+    // them — the renderer only passes `options` plus the universal props, and
+    // no other caller sets them. As a result, when `showProtractor` is true
+    // (the default) the protractor is drawn at an undefined position. This is
+    // long-standing behavior, preserved as-is; fixing it (removing these props
+    // or wiring up a real center) is a behavior change for a separate follow-up.
     protractorX: number;
     protractorY: number;
 };
@@ -30,7 +36,7 @@ class Measurer extends React.Component<Props> implements Widget {
         this.setupGraphie();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         const shouldSetupGraphie = _.any(
             [
                 "box",
@@ -40,9 +46,9 @@ class Measurer extends React.Component<Props> implements Widget {
                 "rulerTicks",
                 "rulerPixels",
                 "rulerLength",
-            ],
+            ] as const,
             (prop) => {
-                return prevProps[prop] !== this.props[prop];
+                return prevProps.options[prop] !== this.props.options[prop];
             },
             this,
         );
@@ -62,8 +68,8 @@ class Measurer extends React.Component<Props> implements Widget {
 
         const scale: Coord = [40, 40];
         const range: [Interval, Interval] = [
-            [0, this.props.box[0] / scale[0]],
-            [0, this.props.box[1] / scale[1]],
+            [0, this.props.options.box[0] / scale[0]],
+            [0, this.props.options.box[1] / scale[1]],
         ];
         graphie.init({
             range: range,
@@ -77,7 +83,7 @@ class Measurer extends React.Component<Props> implements Widget {
             this.protractor.remove();
         }
 
-        if (this.props.showProtractor) {
+        if (this.props.options.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
             this.protractor = graphie.protractor([
                 this.props.protractorX,
@@ -89,17 +95,17 @@ class Measurer extends React.Component<Props> implements Widget {
             this.ruler.remove();
         }
 
-        if (this.props.showRuler) {
+        if (this.props.options.showRuler) {
             // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
             this.ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2,
                 ],
-                label: this.props.rulerLabel,
-                pixelsPerUnit: this.props.rulerPixels,
-                ticksPerUnit: this.props.rulerTicks,
-                units: this.props.rulerLength,
+                label: this.props.options.rulerLabel,
+                pixelsPerUnit: this.props.options.rulerPixels,
+                ticksPerUnit: this.props.options.rulerTicks,
+                units: this.props.options.rulerLength,
             });
         }
     }
@@ -109,7 +115,7 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     render() {
-        const {image} = this.props;
+        const {image} = this.props.options;
 
         return (
             <div
@@ -117,7 +123,10 @@ class Measurer extends React.Component<Props> implements Widget {
                     "perseus-widget perseus-widget-measurer " +
                     "graphie-container blank-background"
                 }
-                style={{width: this.props.box[0], height: this.props.box[1]}}
+                style={{
+                    width: this.props.options.box[0],
+                    height: this.props.options.box[1],
+                }}
             >
                 {image.url && (
                     <div
