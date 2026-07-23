@@ -12,7 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-import {rWidgetRule, contentHasExplanationWidget} from "./util";
+import {contentHasExplanationWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some

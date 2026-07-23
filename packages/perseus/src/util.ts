@@ -96,7 +96,7 @@ const snowman = "\u2603";
  * Widget types that render as inline content and may safely live inside a
  * paragraph (`<p>`). Any widget type NOT in this set is treated as block-level.
  */
-export const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
+const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
     "definition",
     "expression",
     "input-number",
@@ -171,7 +171,7 @@ const mergeInlineNodes = (
  * nested inside inline formatting (e.g. `strong`) or inside other containers
  * (tables, columns) are not split out.
  */
-export function splitBlockWidgetsFromParagraphs(ast: any): any {
+function splitBlockWidgetsFromParagraphs(ast: any): any {
     if (!Array.isArray(ast)) {
         return ast;
     }
