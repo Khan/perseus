@@ -6,7 +6,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof BlankEditor> = {
     component: BlankEditor,
-    title: "PerseusEditor/Widgets/My New Widget Editor",
+    title: "PerseusEditor/Widgets/Blank Editor",
 };
 
 export default meta;
