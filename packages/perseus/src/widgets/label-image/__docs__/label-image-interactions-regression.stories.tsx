@@ -507,8 +507,6 @@ export const CorrectAnswerGraded: Story = {
         await userEvent.click(suvsChoice);
 
         const checkButton = canvas.getByRole("button", {name: "Check answer"});
-        // Check is clicked twice due to a server-side scoring quirk in Storybook.
-        await userEvent.click(checkButton);
         await userEvent.click(checkButton);
     },
 };
