@@ -1,10 +1,10 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
+import {DashedAsymptoteLine} from "./dashed-asymptote-line";
 import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovablePillHandle} from "./movable-pill-handle";
 import {SVGLine} from "./svg-line";
@@ -129,28 +129,10 @@ export function MovableAsymptote(props: Props) {
                     end={end}
                     style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
                 />
-                {/* Solid white line underneath so dashes are visible on grid lines/axes */}
-                <SVGLine
+                <DashedAsymptoteLine
                     start={start}
                     end={end}
-                    style={{
-                        stroke: semanticColor.core.background.base.default,
-                        strokeWidth: "var(--movable-asymptote-stroke-weight)",
-                        strokeLinecap: "round",
-                    }}
-                    className={dragging ? "movable-dragging" : ""}
-                />
-                {/* Dashed line */}
-                <SVGLine
-                    start={start}
-                    end={end}
-                    style={{
-                        stroke: interactiveColor,
-                        strokeWidth: "var(--movable-asymptote-stroke-weight)",
-                        strokeDasharray:
-                            "var(--movable-asymptote-dash-length) var(--movable-asymptote-dash-gap)",
-                        strokeLinecap: "round",
-                    }}
+                    color={interactiveColor}
                     className={dragging ? "movable-dragging" : ""}
                     testId="movable-asymptote__line"
                 />
