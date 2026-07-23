@@ -387,6 +387,11 @@ export {
     generateMatcherOptions,
     generateMatcherWidget,
 } from "./utils/generators/matcher-widget-generator";
+/** @hidden */
+export {
+    generateCategorizerOptions,
+    generateCategorizerWidget,
+} from "./utils/generators/categorizer-widget-generator";
 export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,
