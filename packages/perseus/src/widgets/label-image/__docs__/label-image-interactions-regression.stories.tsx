@@ -322,6 +322,52 @@ export const OpenMultipleAnswers: Story = {
     },
 };
 
+// Verifies that label overlaps render as expected - choice list opens
+// in front of markers.
+export const OpenDenseCluster: Story = {
+    name: "[Open] Dense Cluster",
+    decorators: [labelImageRendererDecorator],
+    args: {
+        imageUrl:
+            "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
+        imageWidth: 415,
+        imageHeight: 314,
+        imageAlt: "A bar graph with four unlabeled bar lines.",
+        choices: ["Trucks", "Vans", "Cars", "SUVs"],
+        markers: [
+            {answers: ["Trucks"], label: "Cluster marker one", x: 45, y: 45},
+            {answers: ["Vans"], label: "Cluster marker two", x: 55, y: 45},
+            {answers: ["Cars"], label: "Cluster marker three", x: 45, y: 55},
+            {answers: ["SUVs"], label: "Cluster marker four", x: 55, y: 55},
+            {answers: ["Trucks"], label: "Cluster marker five", x: 50, y: 50},
+        ],
+        multipleAnswers: false,
+        hideChoicesFromInstructions: true,
+    },
+    play: async ({canvasElement, userEvent}) => {
+        // Select most of the answers, and open the choice list for the
+        // last marker.
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByLabelText("Cluster marker one"));
+        await userEvent.click(
+            within(document.body).getByRole("option", {name: "Trucks"}),
+        );
+        await userEvent.click(canvas.getByLabelText("Cluster marker two"));
+        await userEvent.click(
+            within(document.body).getByRole("option", {name: "Vans"}),
+        );
+        await userEvent.click(canvas.getByLabelText("Cluster marker three"));
+        await userEvent.click(
+            within(document.body).getByRole("option", {name: "Cars"}),
+        );
+        await userEvent.click(canvas.getByLabelText("Cluster marker four"));
+        await userEvent.click(
+            within(document.body).getByRole("option", {name: "SUVs"}),
+        );
+        await userEvent.click(canvas.getByLabelText("Cluster marker five"));
+    },
+};
+
 /***********************************************************************
  *  Selected state stories
  ***********************************************************************/
