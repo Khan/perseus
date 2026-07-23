@@ -192,7 +192,7 @@ describe("splitBlockWidgetsFromParagraphs", () => {
         expect(result).toEqual([widget("radio", "radio 1")]);
     });
 
-    it("removes whitespace between inline nodes block nodes", () => {
+    it("removes whitespace between inline nodes and block nodes", () => {
         // Arrange
         const ast = [
             paragraph([
