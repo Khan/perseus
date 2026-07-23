@@ -21,4 +21,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "free-response",
     "video",
     "image",
+    "measurer",
 ];

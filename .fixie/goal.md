@@ -487,7 +487,7 @@ review and commit the changes.
 - [x] Migrate `video` to `WidgetPropsV2`.
 - [x] Migrate `image` to `WidgetPropsV2`.
 - [x] Migrate `molecule` to `WidgetPropsV2`. WON'T DO - `molecule` will be deleted
-- [ ] Migrate `measurer` to `WidgetPropsV2`.
+- [x] Migrate `measurer` to `WidgetPropsV2`.
 - [ ] Convert `number-line` to a functional component, a la `dropdown`.
 - [ ] Migrate `number-line` to `WidgetPropsV2`.
 - [ ] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
