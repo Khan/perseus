@@ -5,8 +5,13 @@ import {
     generateExplanationWidget,
     generateGradedGroupOptions,
     generateGradedGroupWidget,
+    generateIGPointGraph,
     generateImageOptions,
     generateImageWidget,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
+    generateInteractiveGraphOptions,
+    generateInteractiveGraphWidget,
     generateRadioChoice,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -107,6 +112,39 @@ export const gradedGroupWithRadioAndDefinition: PerseusRenderer =
         },
     });
 
+export const gradedGroupWithInteractiveGraphAndRadio: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "A graph with a point",
+                    content:
+                        "[[☃ interactive-graph 1]]\n\nTrue or false: The above graph has one point on it.\n\n[[☃ radio 1]]",
+                    widgets: {
+                        "interactive-graph 1": generateInteractiveGraphWidget({
+                            options: generateInteractiveGraphOptions({
+                                graph: generateIGPointGraph({
+                                    numPoints: 1,
+                                }),
+                            }),
+                        }),
+                        "radio 1": generateRadioWidget({
+                            options: {
+                                choices: [
+                                    generateRadioChoice("True", {
+                                        correct: true,
+                                    }),
+                                    generateRadioChoice("False"),
+                                ],
+                            },
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
 export const videoInContent: PerseusRenderer = generateTestPerseusRenderer({
     content: `Warp energy efficiency has improved significantly!
                 A simple remodulization of the warp field was all that was needed.
@@ -179,6 +217,69 @@ export const definitionInContentAndExplanation: PerseusRenderer =
                                 definition:
                                     "The Axis powers were Germany, Japan, and Italy, the group of countries who opposed the Allies during World War II.",
                                 togglePrompt: "Axis powers",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const numericInputInTable: PerseusRenderer = generateTestPerseusRenderer(
+    {
+        content:
+            "| Normal-size input | Small-size input |\n" +
+            "| --- | --- |\n" +
+            "| [[☃ numeric-input 1]] | [[☃ numeric-input 2]] |",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({size: "normal"}),
+            }),
+            "numeric-input 2": generateNumericInputWidget({
+                options: generateNumericInputOptions({size: "small"}),
+            }),
+        },
+    },
+);
+
+export const numericInputInGradedGroup: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "USS Enterprise registry",
+                    content:
+                        "What is the registry number of the original USS " +
+                        "Enterprise?\n\nNCC-[[☃ numeric-input 1]]",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
+                            }),
+                        }),
+                    },
+                }),
+            }),
+        },
+    });
+
+export const numericInputInExplanation: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "Warp factors are not linear.\n\n[[☃ explanation 1]]",
+        widgets: {
+            "explanation 1": generateExplanationWidget({
+                options: generateExplanationOptions({
+                    showPrompt: "Show practice problem",
+                    hidePrompt: "Hide practice problem",
+                    explanation:
+                        "Warp 1 equals the speed of light. Enter the warp " +
+                        "factor that equals twice the speed of light: " +
+                        "[[☃ numeric-input 1]]",
+                    widgets: {
+                        "numeric-input 1": generateNumericInputWidget({
+                            options: generateNumericInputOptions({
+                                size: "normal",
                             }),
                         }),
                     },

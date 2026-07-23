@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
 # This script uses the `changeset` tool to version each package as a snapshot
-# release (with an version suffix representing the PR the snapshot came from)
+# release (with a version suffix representing the PR the snapshot came from)
 # and then publishes that release to npm with a tag named after the PR.
 #
-# It is designed to be run in a Github Action, and by default will abort if the
-# `CI`, `GITHUB_EVENT_NAME`, or `GITHUB_REF` environment variables are unset.
+# Usage: env GITHUB_OUTPUT=<path> ./utils/publish-snapshot.sh <pr-number>
 
 # https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
 set -e # Exit immediately if a command exits with a non-zero status.
@@ -18,8 +17,8 @@ MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # ROOT is the root directory of our project.
 ROOT="$MYPATH/.."
 
-# This is used in prepublishOnly hooks to verify that the package is correctly
-# versioned for a snapshot release before proceeding.
+# This environment variable is checked in `prepublishOnly` hooks to verify that
+# the package is correctly versioned for a snapshot release before proceeding.
 # This is done to catch a race condition where a main release is occurring
 # while a snapshot release is requested, avoiding us publishing packages
 # that we shouldn't be.
@@ -27,50 +26,40 @@ ROOT="$MYPATH/.."
 # Need to export this so that the invoked commands see it.
 export SNAPSHOT_RELEASE=1
 
-pushd "$ROOT"
+pushd "$ROOT" > /dev/null
+
+parse_args() {
+    if [[ $# -eq 0 ]]; then
+        echo "Error: missing required argument <pr-number>" >&2
+        exit 1
+    fi
+
+    case "$1" in
+        ''|*[!0-9]*)
+            echo "Error: <pr-number> must be a positive integer, got: '$1'" >&2
+            exit 1
+            ;;
+        *)
+            PR_NUMBER="PR$1"
+            ;;
+    esac
+}
 
 verify_env() {
-    if [ -z ${CI+CI_UNSET} ]; then
-        echo "Required 'CI' environment variable is unset. Exiting!"
-        exit 1
-    fi
-
-    if [ -z ${GITHUB_EVENT_NAME+GITHUB_EVENT_NAME_UNSET} ]; then
-        echo "Required 'GITHUB_EVENT_NAME' environment variable is unset. Exiting!"
-        exit 1
-    fi
-
-    if [ -z ${GITHUB_REF+GITHUB_REF_UNSET} ]; then
-        echo "Required 'GITHUB_REF' environment variable is unset. Exiting!"
-        exit 1
-    fi
-
-    if [[
-        "$GITHUB_EVENT_NAME" != "workflow_dispatch" \
-        && "$GITHUB_EVENT_NAME" != "pull_request"
-    ]]; then
-        exit
-    fi
-
-    # Example GITHUB_REF
-    # refs/pull/:prNumber/merge
-    if [[ "$GITHUB_REF" =~ refs/pull/([[:digit:]]+)/merge ]]; then
-        echo "Found PR #${BASH_REMATCH[1]}"
-        PR_NUMBER="PR${BASH_REMATCH[1]}"
-    else
-        echo "Pull Request number not found in ref. Exiting!"
+    if [ -z "${GITHUB_OUTPUT:-}" ]; then
+        echo "Error: required GITHUB_OUTPUT environment variable is unset." >&2
         exit 1
     fi
 }
 
 check_for_changes() {
-    # Check if we need to do any work
+    # Check if we need to do any work.
     # NOTE: changeset's --output flag has a bug where it always prefixes whatever
     # you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
     # we just allow it to write the file in our local dir (although I would prefer
     # to use `mktemp`).
     pnpm changeset status --verbose --output changeset-status.json
-    # We use jq to check if the json outpu has changesets. If not, we exit the
+    # We use jq to check if the json output has changesets. If not, we exit the
     # process (but not with a non-zero exit status because we don't want to cause
     # the github action to exit with a failure status).
     jq -e '.releases | length | if . > 0 then . else "No changesets found" | halt_error(1) end' \
@@ -95,7 +84,9 @@ pre_publish_check() {
 ## A similar set of steps to the 'publish:ci' package.json script
 ##
 
+parse_args "$@"
 verify_env
+
 check_for_changes
 pre_publish_check
 

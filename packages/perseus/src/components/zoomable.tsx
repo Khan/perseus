@@ -6,6 +6,8 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {getCSSZoomFactor} from "../util/css-zoom-utils";
+
 type Bounds = {
     width: number;
     height: number;
@@ -220,8 +222,15 @@ class Zoomable extends React.Component<Props, State> {
         const childWidth = childBounds.width + 1;
         const childHeight = childBounds.height + 1;
 
-        if (childWidth > parentBounds.width) {
-            const scale = parentBounds.width / childWidth;
+        // Fit to the zoom-adjusted width so the fitted content's visual
+        // size grows with the device font scale instead of being scaled
+        // back down to its unzoomed size. Overflow at the enlarged size is
+        // handled by the parent's overflowX scrolling and tap-to-zoom.
+        const availableWidth =
+            parentBounds.width * getCSSZoomFactor(this._node);
+
+        if (childWidth > availableWidth) {
+            const scale = availableWidth / childWidth;
 
             this.setState({
                 scale,

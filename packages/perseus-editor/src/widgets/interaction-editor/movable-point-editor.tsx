@@ -12,7 +12,6 @@ import MathquillInput from "./mathquill-input";
 type ChangeFn = typeof Changeable.change;
 
 const {NumberInput} = components;
-const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
     startX: string;
@@ -55,7 +54,7 @@ class MovablePointEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div className="graph-settings">

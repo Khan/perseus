@@ -142,7 +142,10 @@ describe("splitPerseusRenderer", () => {
                             {
                                 simplify: "required",
                                 status: "correct",
+                                value: null,
                                 answerForms: ["pi"],
+                                message: "",
+                                strict: false,
                             },
                         ],
                     },

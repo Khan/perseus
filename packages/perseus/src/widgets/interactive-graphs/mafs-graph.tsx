@@ -9,10 +9,9 @@
  * - Protractor
  * - Interactive Graph Elements
  */
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {boxShadow, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
@@ -24,6 +23,7 @@ import {useDependencies} from "../../dependencies";
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
+import {GraphBorder} from "./backgrounds/graph-border";
 import {Axes, Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import {
@@ -38,6 +38,7 @@ import {renderAbsoluteValueGraph} from "./graphs/absolute-value";
 import {renderAngleGraph} from "./graphs/angle";
 import {renderCircleGraph} from "./graphs/circle";
 import {ClipToGraphBounds} from "./graphs/components/clip-to-graph-bounds";
+import {HitboxLayerContext} from "./graphs/components/hitbox-layer-context";
 import MovablePointLabelsLayer from "./graphs/components/movable-point-labels-layer";
 import {SvgDefs} from "./graphs/components/text-label";
 import {renderExponentialGraph} from "./graphs/exponential";
@@ -70,7 +71,6 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
-import type {APIOptionsWithDefaults} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -100,7 +100,6 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
     widgetId: string;
     ungradedDescriptionId?: string;
-    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -126,6 +125,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const unlimitedGraphKeyboardPromptId = `unlimited-graph-keyboard-prompt-${uniqueId}`;
     const instructionsId = `instructions-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    // HTML overlay that holds movable points' drag hitboxes. Populated via ref
+    // callback after mount; movable points portal their hitbox into it. See
+    // HitboxLayerContext for why the hitboxes are HTML rather than SVG.
+    const [hitboxLayerEl, setHitboxLayerEl] =
+        React.useState<HTMLDivElement | null>(null);
     const {analytics} = useDependencies();
 
     const i18n = usePerseusI18n();
@@ -215,6 +219,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
         bottom: yMin === 0 ? halfStroke : 0,
         top: yMax === 0 ? halfStroke : 0,
     };
+
+    // Points are fixed-radius markers, so a point on the boundary would be
+    // sliced in half by the clip — render them unclipped. Other figures are
+    // geometry that should be clipped to the visible range.
+    const lockedPointFigures = props.lockedFigures.filter(
+        (figure) => figure.type === "point",
+    );
+    const clippedLockedFigures = props.lockedFigures.filter(
+        (figure) => figure.type !== "point",
+    );
 
     return (
         <GraphConfigContext.Provider
@@ -386,6 +400,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         height={height}
                                     />
                                 </ClipToGraphBounds>
+                                <GraphBorder
+                                    range={state.range}
+                                    width={width}
+                                    height={height}
+                                    markings={props.markings}
+                                />
                                 {/* Axis lines, ticks, and arrows. Only
                                     rendered when the markings include axes. */}
                                 {showsAxisLabels && (
@@ -415,49 +435,71 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )}
                                 {/* Locked figures clipped to graph bounds */}
-                                {props.lockedFigures.length > 0 && (
+                                {clippedLockedFigures.length > 0 && (
                                     <ClipToGraphBounds>
                                         <GraphLockedLayer
-                                            lockedFigures={props.lockedFigures}
+                                            lockedFigures={clippedLockedFigures}
                                             range={state.range}
                                         />
                                     </ClipToGraphBounds>
+                                )}
+                                {lockedPointFigures.length > 0 && (
+                                    <GraphLockedLayer
+                                        lockedFigures={lockedPointFigures}
+                                        range={state.range}
+                                    />
                                 )}
                             </Mafs>
                         </View>
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
-                        {isFeatureOn(
-                            {apiOptions: props.apiOptions},
-                            "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
-                        ) &&
-                            !props.static && (
-                                <MovablePointLabelsLayer state={state} />
-                            )}
-                        <View style={{position: "absolute"}}>
-                            <Mafs
-                                preserveAspectRatio={false}
-                                viewBox={{
-                                    x: state.range[X],
-                                    y: state.range[Y],
-                                    padding: 0,
+                        {!props.static && (
+                            <MovablePointLabelsLayer state={state} />
+                        )}
+                        <HitboxLayerContext.Provider value={hitboxLayerEl}>
+                            <View style={{position: "absolute"}}>
+                                <Mafs
+                                    preserveAspectRatio={false}
+                                    viewBox={{
+                                        x: state.range[X],
+                                        y: state.range[Y],
+                                        padding: 0,
+                                    }}
+                                    pan={false}
+                                    zoom={false}
+                                    width={width}
+                                    height={height}
+                                >
+                                    {/* Protractor clipped to graph bounds */}
+                                    {props.showProtractor && (
+                                        <ClipToGraphBounds>
+                                            <Protractor />
+                                        </ClipToGraphBounds>
+                                    )}
+                                    {/* Interactive layer.*/}
+                                    {graph}
+                                </Mafs>
+                            </View>
+                            {/* HTML overlay above the SVG holding movable-point
+                                drag hitboxes. `pointer-events: none` so empty
+                                graph area falls through to the SVG (page scroll
+                                / click-to-add-point); hitboxes opt back in.
+                                Positioned at the graph origin, matching the
+                                pixel coordinates from `pointToPixel`. */}
+                            <div
+                                ref={setHitboxLayerEl}
+                                className="interactive-graph-hitbox-layer"
+                                style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width,
+                                    height,
+                                    pointerEvents: "none",
                                 }}
-                                pan={false}
-                                zoom={false}
-                                width={width}
-                                height={height}
-                            >
-                                {/* Protractor clipped to graph bounds */}
-                                {props.showProtractor && (
-                                    <ClipToGraphBounds>
-                                        <Protractor />
-                                    </ClipToGraphBounds>
-                                )}
-                                {/* Interactive layer.*/}
-                                {graph}
-                            </Mafs>
-                        </View>
+                            />
+                        </HitboxLayerContext.Provider>
                     </View>
                     {interactionPrompt && (
                         <View
@@ -470,8 +512,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     semanticColor.core.background.base.default,
                                 border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
                                 padding: "16px 0",
-                                // offBlack at ~8% — no semantic shadow-with-alpha token; left hardcoded
-                                boxShadow: "0px 8px 8px 0px #21242C14",
+                                boxShadow: boxShadow.mid,
 
                                 // This translates the box to the center of the
                                 // graph Then backs it off by half of its

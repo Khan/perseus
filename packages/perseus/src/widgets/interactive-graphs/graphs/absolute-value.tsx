@@ -13,9 +13,11 @@ import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {srFormatNumber} from "./screenreader-text";
+import {describeAbsoluteValueGraph} from "./strings/absolute-value";
+import {srFormatNumber} from "./strings/format-number";
+import {getAbsoluteValueCoefficients} from "./utils";
 
-import type {PerseusStrings} from "../../../strings";
+import type {AbsoluteValueCoefficients} from "./utils";
 import type {
     AbsoluteValueGraphState,
     Dispatch,
@@ -119,32 +121,6 @@ function AbsoluteValueGraph(props: AbsoluteValueGraphProps) {
     );
 }
 
-export type AbsoluteValueCoefficients = {
-    m: number;
-    h: number;
-    v: number;
-};
-
-/**
- * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two
- * control points: p1 (vertex) and p2 (a point on one arm).
- */
-export function getAbsoluteValueCoefficients(
-    coords: ReadonlyArray<Coord>,
-): AbsoluteValueCoefficients {
-    const p1 = coords[0];
-    const p2 = coords[1];
-
-    const denom = p2[X] - p1[X];
-    const num = p2[Y] - p1[Y];
-    let m = Math.abs(num / denom);
-    if (p2[Y] < p1[Y]) {
-        m = -m;
-    }
-
-    return {m, h: p1[X], v: p1[Y]};
-}
-
 /**
  * Keyboard constraint for absolute value control points.
  * Skips any horizontal position where both points would share the same x.
@@ -199,97 +175,4 @@ function getAbsoluteValueDescription(
             slope: srFormatNumber(slope, locale),
         }),
     });
-}
-
-function describeAbsoluteValueGraph(
-    state: AbsoluteValueGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {coords} = state;
-    const [vertex, armPoint] = coords;
-
-    const coeffs = getAbsoluteValueCoefficients(coords);
-
-    const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
-    const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-    });
-    const srAbsoluteValueSecondPoint = strings.srAbsoluteValueSecondPoint({
-        x: srFormatNumber(armPoint[X], locale),
-        y: srFormatNumber(armPoint[Y], locale),
-    });
-    const srAbsoluteValueDescription = buildAbsoluteValueDescription(
-        coeffs,
-        locale,
-        strings,
-    );
-    const srAbsoluteValueSlope = strings.srAbsoluteValueSlope({
-        slope: srFormatNumber(coeffs.m, locale),
-    });
-
-    return {
-        srAbsoluteValueGraph,
-        srAbsoluteValueVertexPoint,
-        srAbsoluteValueSecondPoint,
-        srAbsoluteValueDescription,
-        srAbsoluteValueSlope,
-    };
-}
-
-function buildAbsoluteValueDescription(
-    coeffs: AbsoluteValueCoefficients,
-    locale: string,
-    strings: PerseusStrings,
-): string {
-    const {m, h, v} = coeffs;
-    const atOrigin = h === 0 && v === 0;
-
-    const opens =
-        m < 0
-            ? strings.srAbsoluteValueOpensDown
-            : strings.srAbsoluteValueOpensUp;
-
-    const vertex = atOrigin
-        ? strings.srAbsoluteValueVertexOrigin
-        : strings.srAbsoluteValueVertex({
-              x: srFormatNumber(h, locale),
-              y: srFormatNumber(v, locale),
-          });
-
-    // When the vertex is at the origin both intercepts are also at the origin,
-    // so we skip them to avoid repeating "0 comma 0".
-    let xIntercepts = "";
-    let yIntercept = "";
-    if (!atOrigin) {
-        // The x-intercepts solve m·|x − h| + v = 0, i.e. |x − h| = −v/m. There
-        // are two when −v/m > 0 (vertex on the opposite side of the x-axis
-        // from the arms), exactly one when v = 0 (the vertex sits on the
-        // x-axis), and none otherwise.
-        const t = -v / m;
-        if (isFinite(t) && t > 0) {
-            xIntercepts = strings.srAbsoluteValueTwoXIntercepts({
-                intercept1: srFormatNumber(h - t, locale),
-                intercept2: srFormatNumber(h + t, locale),
-            });
-        } else if (t === 0) {
-            xIntercepts = strings.srAbsoluteValueOneXIntercept({
-                intercept: srFormatNumber(h, locale),
-            });
-        }
-
-        // The y-intercept always exists: f(0) = m·|h| + v.
-        yIntercept = strings.srAbsoluteValueYIntercept({
-            intercept: srFormatNumber(m * Math.abs(h) + v, locale),
-        });
-    }
-
-    const slope = strings.srAbsoluteValueSlope({
-        slope: srFormatNumber(m, locale),
-    });
-
-    return [opens, vertex, xIntercepts, yIntercept, slope]
-        .filter(Boolean)
-        .join(" ");
 }

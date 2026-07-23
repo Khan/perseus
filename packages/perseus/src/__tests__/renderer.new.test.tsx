@@ -3,6 +3,7 @@ import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
     generateInputNumberWidget,
     generateRadioWidget,
+    generateImageOptions,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -24,6 +25,7 @@ import {
     isDifferentQuestion,
     type DifferentQuestionPartialProps,
 } from "../renderer";
+import RendererNew from "../renderer.new";
 import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
@@ -817,14 +819,14 @@ describe("renderer", () => {
                         "image 1": {
                             alignment: "block",
                             graded: true,
-                            options: {
+                            options: generateImageOptions({
                                 alt: "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
                                 backgroundImage: {
                                     height: 80,
                                     url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                     width: 380,
                                 },
-                            },
+                            }),
                             static: false,
                             type: "image",
                             version: {major: 0, minor: 0},
@@ -1182,13 +1184,13 @@ describe("renderer", () => {
                     "image 1": {
                         type: "image",
                         graded: false,
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "https://example.com/cat.png",
                                 width: 100,
                                 height: 100,
                             },
-                        },
+                        }),
                     },
                 },
             });
@@ -1225,13 +1227,13 @@ describe("renderer", () => {
                     "image 1": {
                         type: "image",
                         graded: false,
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "https://example.com/cat.png",
                                 width: 100,
                                 height: 100,
                             },
-                        },
+                        }),
                     },
                 },
             });
@@ -1471,6 +1473,122 @@ describe("renderer", () => {
             const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+        });
+    });
+
+    describe("in a JIPT context", () => {
+        // JIPT stands for just-in-place-translation.
+        // See: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4860248066/JIPT+just-in-place+translation+in+Perseus
+
+        let addComponentMock = jest.fn();
+        beforeEach(() => {
+            addComponentMock = jest.fn().mockReturnValue(0);
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: addComponentMock,
+                    removeComponentAtIndex() {},
+                },
+            });
+        });
+
+        it("registers itself via rendererTranslationComponents", () => {
+            renderQuestion({
+                content: "crwdns123:0crwdne123",
+                widgets: {},
+                images: {},
+            });
+
+            expect(addComponentMock).toHaveBeenCalledWith(
+                expect.any(RendererNew),
+            );
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index attributes in an exercise", async () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
+                },
+                {isArticle: false},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("exercise with JIPT placeholder");
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article", async () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                    widgets: {},
+                    images: {},
+                },
+                {isArticle: true},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("article with JIPT placeholders");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an exercise", () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
+                },
+                {isArticle: false},
+            );
+
+            // Act
+            const renderer: RendererNew = addComponentMock.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent(
+                    "[link](https://khanacademy.org)",
+                    undefined,
+                );
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated exercise");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an article", () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns1:0crwdne1:0\n\ncrwdns2:0crwdne2:0",
+                    widgets: {},
+                    images: {},
+                },
+                {isArticle: true},
+            );
+
+            // Act
+            const renderer: RendererNew = addComponentMock.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent("first paragraph", 0);
+            });
+            act(() => {
+                renderer.replaceJiptContent("second paragraph", 1);
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated article");
         });
     });
 

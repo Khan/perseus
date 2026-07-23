@@ -1,4 +1,5 @@
 import {
+    generatePlotterOptions,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -39,7 +40,7 @@ describe("Plotter serialization", () => {
             widgets: {
                 "plotter 1": {
                     type: "plotter",
-                    options: {
+                    options: generatePlotterOptions({
                         categories: ["0", "1", "2"],
                         plotDimensions: [300, 300],
                         correct: [0, 1, 2],
@@ -49,7 +50,7 @@ describe("Plotter serialization", () => {
                         snapsPerLine: 1,
                         starting: [0, 0, 0],
                         type: "bar",
-                    },
+                    }),
                 },
             },
         });

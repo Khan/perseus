@@ -17,10 +17,17 @@ import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
+import {generateExpressionWidget} from "./generators/expression-widget-generator";
 import {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
 } from "./generators/graded-group-widget-generator";
+import {generateImageOptions} from "./generators/image-widget-generator";
+import {
+    generateInputNumberAnswer,
+    generateInputNumberOptions,
+    generateInputNumberWidget,
+} from "./generators/input-number-widget-generator";
 import {
     generateIGPolygonGraph,
     generateInteractiveGraphOptions,
@@ -31,6 +38,7 @@ import {
     generateNumericInputOptions,
     generateNumericInputWidget,
 } from "./generators/numeric-input-widget-generator";
+import {generatePlotterOptions} from "./generators/plotter-widget-generator";
 import {
     generateRadioChoice,
     generateRadioWidget,
@@ -58,6 +66,7 @@ import type {
     NumericInputWidget,
     ExpressionWidget,
     CategorizerWidget,
+    InputNumberWidget,
 } from "../data-schema";
 
 const stub: jest.MockedFunction<any> = jest.fn();
@@ -86,7 +95,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -127,7 +136,7 @@ describe("getPerseusAIData", () => {
             }),
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -203,7 +212,7 @@ describe("getPerseusAIData", () => {
             },
             answerArea: {
                 calculator: false,
-                calculatorVariant: null,
+                calculatorVariant: undefined,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -339,14 +348,14 @@ describe("injectWidgets", () => {
         const widgets: PerseusWidgetsMap = {
             "image 1": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "image alt text",
                     backgroundImage: {
                         url: "",
                         width: 100,
                         height: 100,
                     },
-                },
+                }),
             },
         } as const;
         const content = injectWidgets(
@@ -812,50 +821,9 @@ describe("injectWidgets", () => {
 
     it("should inject ? placeholder string for input widgets", () => {
         const widgets: PerseusWidgetsMap = {
-            "numeric-input 1": {
-                type: "numeric-input",
-                options: {
-                    answers: [
-                        {
-                            message: "rationale",
-                            value: 42,
-                            status: "correct",
-                            strict: false,
-                            maxError: 0,
-                            simplify: "required",
-                        },
-                    ],
-                    labelText: "Enter a number",
-                    size: "normal",
-                    coefficient: false,
-                    textAlign: "left",
-                },
-            },
-            "input-number 1": {
-                type: "input-number",
-                options: {
-                    value: 42,
-                    simplify: "required",
-                    size: "normal",
-                },
-            },
-            "expression 1": {
-                type: "expression",
-                options: {
-                    answerForms: [
-                        {
-                            value: "27\\pi",
-                            form: false,
-                            simplify: false,
-                            considered: "correct",
-                            key: "0",
-                        },
-                    ],
-                    buttonSets: ["basic", "prealgebra"],
-                    functions: ["f", "g", "h"],
-                    times: false,
-                },
-            },
+            "numeric-input 1": generateNumericInputWidget(),
+            "input-number 1": generateInputNumberWidget(),
+            "expression 1": generateExpressionWidget(),
         };
         const content = injectWidgets(
             "Enter your numeric-input [[☃ numeric-input 1]], Enter your input-number [[☃ input-number 1]], Enter your expression [[☃ expression 1]]",
@@ -957,14 +925,11 @@ describe("getAnswersFromWidgets", () => {
     });
 
     it("should get the answer from a input-number widget", () => {
-        const widget = {
-            type: "input-number",
-            options: {
-                value: 42,
-                simplify: "required",
-                size: "normal",
-            },
-        } as const;
+        const widget: InputNumberWidget = generateInputNumberWidget({
+            options: generateInputNumberOptions({
+                answers: [generateInputNumberAnswer({value: 42})],
+            }),
+        });
         const answer = getAnswersFromWidgets({"input-number 1": widget});
         expect(answer).toEqual(["42"]);
     });
@@ -1052,14 +1017,11 @@ describe("getAnswersFromWidgets", () => {
                             ],
                         },
                     },
-                    "input-number 1": {
-                        type: "input-number",
-                        options: {
-                            value: 42,
-                            simplify: "required",
-                            size: "normal",
-                        },
-                    },
+                    "input-number 1": generateInputNumberWidget({
+                        options: generateInputNumberOptions({
+                            answers: [generateInputNumberAnswer({value: 42})],
+                        }),
+                    }),
                 },
             },
         };
@@ -1106,7 +1068,7 @@ describe("getAnswersFromWidgets", () => {
         const widget: PlotterWidget = {
             type: "plotter",
             graded: true,
-            options: {
+            options: generatePlotterOptions({
                 correct: [9, 6, 10, 5],
                 starting: [0, 0, 0, 0],
                 type: "bar",
@@ -1116,13 +1078,7 @@ describe("getAnswersFromWidgets", () => {
                 maxY: 10,
                 snapsPerLine: 1,
                 labelInterval: 1,
-
-                // deprecated
-                picUrl: null,
-                picSize: null,
-                picBoxHeight: null,
-                plotDimensions: [],
-            },
+            }),
         };
 
         const answer = getAnswersFromWidgets({"plotter 1": widget});

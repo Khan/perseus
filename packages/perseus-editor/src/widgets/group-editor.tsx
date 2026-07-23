@@ -52,7 +52,6 @@ class GroupEditor extends React.Component<Props> {
                     apiOptions={this.props.apiOptions}
                     images={this.props.images}
                     widgetEnabled={true}
-                    immutableWidgets={false}
                     onChange={this.props.onChange}
                 />
             </div>

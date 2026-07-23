@@ -1,8 +1,8 @@
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Interactive2 from "../interactive2";
-import KhanColors from "../util/colors";
 
 import GraphieClasses from "./graphie-classes";
 
@@ -12,49 +12,35 @@ const MovablePoint: any = GraphieClasses.createClass({
     movableProps: ["children"],
 
     _getProps: function () {
-        if (this.props.isMobile) {
-            const isMobile = this.props.isMobile;
-
-            const commonStyle = isMobile
-                ? {
-                      stroke: "#ffffff",
-                      "stroke-width": 3,
-                      fill: KhanColors.INTERACTIVE,
-                  }
-                : {
-                      stroke: KhanColors.INTERACTIVE,
-                      fill: KhanColors.INTERACTIVE,
-                  };
-
-            const normalStyle = isMobile
-                ? Object.assign(
-                      commonStyle,
-                      this.props.mobileStyleOverride || {},
-                  )
-                : Object.assign(commonStyle, this.props.normalStyle);
-
-            const highlightStyle = isMobile
-                ? {
-                      ...commonStyle,
-                      "stroke-width": 0,
-                      scale: 0.75,
-                  }
-                : this.props.highlightStyle;
-            /* eslint-enable indent */
-
-            const addedProps = Object.assign(
-                {
-                    normalStyle: normalStyle,
-                    highlightStyle: highlightStyle,
-                    shadow: isMobile,
-                    tooltip: isMobile && this.props.showTooltips,
-                },
-                isMobile ? {pointSize: 7} : {},
-            );
-
-            return Object.assign(this.props, addedProps);
+        if (!this.props.isMobile) {
+            return this.props;
         }
-        return this.props;
+
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+        const interactiveColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
+
+        const commonStyle = {
+            stroke: tokenValue(semanticColor.core.foreground.knockout.default),
+            "stroke-width": 3,
+            fill: interactiveColor,
+        };
+
+        return Object.assign(this.props, {
+            normalStyle: {
+                ...commonStyle,
+                ...(this.props.mobileStyleOverride || {}),
+            },
+            highlightStyle: {
+                ...commonStyle,
+                "stroke-width": 0,
+                scale: 0.75,
+            },
+            shadow: true,
+            tooltip: this.props.showTooltips,
+            pointSize: 7,
+        });
     },
 
     add: function (graphie) {
@@ -254,9 +240,13 @@ const PlotParametric: any = GraphieClasses.createSimpleClass(
 );
 
 const Point: any = GraphieClasses.createSimpleClass((graphie, props) => {
+    // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
+    const neutralColor = tokenValue(
+        semanticColor.core.foreground.neutral.strong,
+    );
     return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-        fill: props.color || KhanColors.BLACK,
-        stroke: props.color || KhanColors.BLACK,
+        fill: props.color || neutralColor,
+        stroke: props.color || neutralColor,
     });
 });
 

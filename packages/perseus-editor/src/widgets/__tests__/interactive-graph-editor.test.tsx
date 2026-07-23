@@ -5,7 +5,6 @@ import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
@@ -108,6 +107,35 @@ describe("InteractiveGraphEditor", () => {
         expect(
             await screen.findByText("This is an error message"),
         ).toBeInTheDocument();
+    });
+
+    it("preserves the configured graph and correct answer when `valid` is a string", () => {
+        // Arrange
+        const ref = React.createRef<InteractiveGraphEditor>();
+
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                // An invalid state (e.g. a too-large tick step) unmounts the
+                // InteractiveGraph component, so serialize() can't read the
+                // answer from its ref. It must not fall back to a default
+                // graph.
+                valid="Step is too large, there must be at least 3 ticks."
+                ref={ref}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const json = ref.current!.serialize();
+
+        // Assert
+        expect(json.graph.type).toBe("segment");
+        expect(json.correct.type).toBe("segment");
     });
 
     it("uses default graph type if one is not provided", async () => {
@@ -875,22 +903,11 @@ describe("InteractiveGraphEditor", () => {
     );
 
     describe("show point labels toggle gate", () => {
-        const apiOptionsWithFlag = (on: boolean) => ({
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({
-                "perseus-enable-point-label-field": on,
-            }),
-        });
-
-        it("renders the toggle when the flag is on and the graph is interactive with a supported type", () => {
+        it("renders the toggle for an interactive graph with a supported type", () => {
             // Arrange, Act
-            render(
-                <InteractiveGraphEditor
-                    {...segmentProps}
-                    apiOptions={apiOptionsWithFlag(true)}
-                />,
-                {wrapper: RenderStateRoot},
-            );
+            render(<InteractiveGraphEditor {...segmentProps} />, {
+                wrapper: RenderStateRoot,
+            });
 
             // Assert
             expect(
@@ -898,32 +915,11 @@ describe("InteractiveGraphEditor", () => {
             ).toBeInTheDocument();
         });
 
-        it("does not render the toggle when the feature flag is off", () => {
+        it("does not render the toggle for a static graph", () => {
             // Arrange, Act
-            render(
-                <InteractiveGraphEditor
-                    {...segmentProps}
-                    apiOptions={apiOptionsWithFlag(false)}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            expect(
-                screen.queryByLabelText("Show point labels"),
-            ).not.toBeInTheDocument();
-        });
-
-        it("does not render the toggle for a static graph, even with the flag on", () => {
-            // Arrange, Act
-            render(
-                <InteractiveGraphEditor
-                    {...segmentProps}
-                    apiOptions={apiOptionsWithFlag(true)}
-                    static={true}
-                />,
-                {wrapper: RenderStateRoot},
-            );
+            render(<InteractiveGraphEditor {...segmentProps} static={true} />, {
+                wrapper: RenderStateRoot,
+            });
 
             // Assert
             expect(
@@ -938,7 +934,6 @@ describe("InteractiveGraphEditor", () => {
                     {...baseProps}
                     graph={{type: "vector"}}
                     correct={{type: "vector"}}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -956,7 +951,6 @@ describe("InteractiveGraphEditor", () => {
                     {...baseProps}
                     graph={{type: "none"}}
                     correct={{type: "none"}}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
                 {wrapper: RenderStateRoot},
             );

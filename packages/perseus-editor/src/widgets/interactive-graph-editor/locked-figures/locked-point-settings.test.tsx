@@ -1,10 +1,14 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedPointSettings from "./locked-point-settings";
+import {
+    mockedGenerateSpokenMathDetailsForTests,
+    mockedJoinLabelsAsSpokenMathForTests,
+} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -16,6 +20,15 @@ const defaultProps = {
 };
 
 const defaultLabel = getDefaultFigureForType("label");
+
+// Mock the async functions
+jest.mock("./util", () => ({
+    ...jest.requireActual("./util"),
+    generateSpokenMathDetails: (input) =>
+        mockedGenerateSpokenMathDetailsForTests(input),
+    joinLabelsAsSpokenMath: (input) =>
+        mockedJoinLabelsAsSpokenMathForTests(input),
+}));
 
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
@@ -402,13 +415,10 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(
-            () =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Point at 0 comma 0. Appearance solid gray.",
-                }),
-            {timeout: 5000},
-        );
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel:
+                "Point at spoken $0$ comma spoken $0$. Appearance solid gray.",
+        });
     });
 
     test("aria label auto-generates (one label)", async () => {
@@ -436,15 +446,13 @@ describe("LockedPointSettings", () => {
         await userEvent.click(autoGenButton);
 
         // Assert
+        expect(onChangeProps).toHaveBeenCalled();
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(
-            () =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Point A at 0 comma 0. Appearance solid gray.",
-                }),
-            {timeout: 5000},
-        );
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel:
+                "Point spoken A at spoken $0$ comma spoken $0$. Appearance solid gray.",
+        });
     });
 
     test("aria label auto-generates (multiple labels)", async () => {
@@ -478,14 +486,10 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(
-            () =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Point A, B at 0 comma 0. Appearance solid gray.",
-                }),
-            {timeout: 5000},
-        );
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel:
+                "Point spoken A, spoken B at spoken $0$ comma spoken $0$. Appearance solid gray.",
+        });
     });
 
     test("aria label does not include fill when filled is false", async () => {
@@ -511,13 +515,9 @@ describe("LockedPointSettings", () => {
         // Assert
         // generateSpokenMathDetails is mocked to return the input string
         // with "Spoken math details for " prepended.
-        await waitFor(
-            () =>
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Point at 0 comma 0. Appearance solid gray border, with no fill.",
-                }),
-            {timeout: 5000},
-        );
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel:
+                "Point at spoken $0$ comma spoken $0$. Appearance solid gray border, with no fill.",
+        });
     });
 });

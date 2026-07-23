@@ -11,13 +11,10 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
+import {useHitbox} from "./components/hitbox";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
-import {
-    srCircleCenterLabel,
-    srCircleRadiusPointLabel,
-    srFormatNumber,
-} from "./screenreader-text";
+import {describeCircleGraph} from "./strings/circle";
 import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
@@ -39,7 +36,8 @@ export function renderCircleGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <CircleGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getCircleGraphDescription(state, i18n),
+        interactiveElementsDescription: describeCircleGraph(state, i18n)
+            .srCircleInteractiveElement,
     };
 }
 
@@ -134,13 +132,17 @@ function MovableCircle(props: {
     const {snapStep, disableKeyboardInteraction, interactiveColor} =
         useGraphConfig();
     const [focused, setFocused] = React.useState(false);
+    const [hovered, setHovered] = React.useState(false);
 
     // Keeping focus and gesture targets on separate `<g>`s works around a
     // Safari-specific bug where dragging this group can result in the
     // selection of page content once the cursor crosses the graph's edge.
     // Splitting them resolves it and better mirrors `useControlPoint`.
     const focusableHandleRef = useRef<SVGGElement>(null);
+    // Ref to the visible SVG circle group; not a gesture target — pointer/touch
+    // dragging is captured on the HTML hitbox below.
     const visibleGroupRef = useRef<SVGGElement>(null);
+    const circleHitboxRef = useRef<HTMLDivElement>(null);
 
     // Keyboard support (on focusableHandleRef)
     useDraggable({
@@ -150,12 +152,22 @@ function MovableCircle(props: {
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
-    // Mouse/Touch support (on the visibleGroupRef)
+    // Mouse/Touch support runs through an HTML hitbox so Safari doesn't scroll
+    // the page during a drag (see hitbox.tsx).
     const {dragging} = useDraggable({
-        gestureTarget: visibleGroupRef,
+        gestureTarget: circleHitboxRef,
         point: center,
         onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const circleHitbox = useHitbox({
+        shape: {kind: "ellipse", center, radius: [radius, radius]},
+        hitboxRef: circleHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-circle__hitbox",
     });
 
     React.useLayoutEffect(() => {
@@ -169,6 +181,7 @@ function MovableCircle(props: {
 
     return (
         <>
+            {circleHitbox}
             <g
                 ref={focusableHandleRef}
                 className="movable-circle-focusable-handle"
@@ -183,7 +196,7 @@ function MovableCircle(props: {
             <g
                 aria-hidden={true}
                 ref={visibleGroupRef}
-                className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
+                className={`movable-circle${dragging ? " movable-circle--dragging" : ""}${hovered ? " movable-circle--hover" : ""}`}
             >
                 <ClipToGraphBounds>
                     <ellipse
@@ -270,14 +283,6 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     return result;
 }
 
-function getCircleGraphDescription(
-    state: CircleGraphState,
-    i18n: I18nContextType,
-) {
-    const strings = describeCircleGraph(state, i18n);
-    return strings.srCircleInteractiveElement;
-}
-
 export const getCircleKeyboardConstraint = (
     center: vec.Vector2,
     radiusPoint: vec.Vector2,
@@ -321,55 +326,3 @@ export const getCircleKeyboardConstraint = (
         ),
     };
 };
-
-// Exported for testing
-export function describeCircleGraph(
-    state: CircleGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {strings, locale} = i18n;
-    const {center, radiusPoint} = state;
-    const radius = getRadius(state);
-
-    // Aria label strings
-    const srCircleGraph = strings.srCircleGraph;
-    const srCircleShape = srCircleCenterLabel(
-        center[0],
-        center[1],
-        strings,
-        locale,
-    );
-    const srCircleRadiusPoint = srCircleRadiusPointLabel(
-        radiusPoint[0],
-        radiusPoint[1],
-        center[0],
-        strings,
-        locale,
-    );
-    const srCircleRadius = strings.srCircleRadius({
-        radius,
-    });
-    const srCircleOuterPoints = strings.srCircleOuterPoints({
-        point1X: srFormatNumber(center[0] + radius, locale),
-        point1Y: srFormatNumber(center[1], locale),
-        point2X: srFormatNumber(center[0], locale),
-        point2Y: srFormatNumber(center[1] + radius, locale),
-        point3X: srFormatNumber(center[0] - radius, locale),
-        point3Y: srFormatNumber(center[1], locale),
-        point4X: srFormatNumber(center[0], locale),
-        point4Y: srFormatNumber(center[1] - radius, locale),
-    });
-
-    const srCircleInteractiveElement = strings.srInteractiveElements({
-        elements: [srCircleShape, srCircleRadius].join(" "),
-    });
-
-    return {
-        srCircleGraph,
-        srCircleShape,
-        srCircleRadiusPoint,
-        srCircleRadius,
-        srCircleOuterPoints,
-        srCircleInteractiveElement,
-    };
-}

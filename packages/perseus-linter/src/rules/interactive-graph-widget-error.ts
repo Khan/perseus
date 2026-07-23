@@ -92,14 +92,20 @@ export default Rule.makeRule({
     },
 }) as Rule;
 
+// Fields checked in addition to `type`, `showPointLabels`, and `pointLabels`
+// so we can compute the expected label count for graph types whose number
+// of labelable points depends on runtime configuration.
+type ShowPointLabelsShape = {
+    type: string;
+    showPointLabels?: boolean;
+    pointLabels?: readonly string[];
+    numPoints?: number | "unlimited";
+    numSides?: number | "unlimited";
+    numSegments?: number;
+};
+
 function checkShowPointLabelsHasLabels(
-    g:
-        | {
-              type: string;
-              showPointLabels?: boolean;
-              pointLabels?: readonly string[];
-          }
-        | undefined,
+    g: ShowPointLabelsShape | undefined,
     issues: Array<string>,
 ) {
     if (g == null || g.type === "none" || g.type === "vector") {
@@ -109,15 +115,57 @@ function checkShowPointLabelsHasLabels(
         return;
     }
     const labels = g.pointLabels;
-    if (labels == null || labels.length === 0) {
+    if (labels === undefined || labels.every((l) => l == null || l === "")) {
         issues.push(
-            "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+            "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
         );
         return;
     }
-    if (labels.some((l) => l == null || l === "")) {
+    const expected = expectedLabelCount(g);
+    if (expected !== undefined && labels.length !== expected) {
         issues.push(
-            "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+            `pointLabels has ${labels.length} entries but this graph type expects ${expected}. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].`,
         );
+    }
+}
+
+// Returns the number of labelable points on `g`, or `undefined` when the
+// count depends on runtime state that isn't authored (e.g. `numPoints:
+// "unlimited"`) and therefore can't be validated at lint time.
+function expectedLabelCount(g: ShowPointLabelsShape): number | undefined {
+    switch (g.type) {
+        case "angle":
+        case "quadratic":
+            return 3;
+        case "linear":
+        case "ray":
+        case "sinusoid":
+        case "absolute-value":
+        case "exponential":
+        case "logarithm":
+        case "tangent":
+            return 2;
+        case "circle":
+            return 1;
+        case "linear-system":
+            // Two lines, two endpoints each, flat-indexed.
+            return 4;
+        case "segment":
+            // Two endpoints per segment, flat-indexed. Default to one
+            // segment if `numSegments` isn't set (matches the widget's
+            // default).
+            return (g.numSegments ?? 1) * 2;
+        case "point":
+            if (g.numPoints === "unlimited" || g.numPoints == null) {
+                return undefined;
+            }
+            return g.numPoints;
+        case "polygon":
+            if (g.numSides === "unlimited" || g.numSides == null) {
+                return undefined;
+            }
+            return g.numSides;
+        default:
+            return undefined;
     }
 }

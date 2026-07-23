@@ -9,7 +9,6 @@ import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
@@ -90,9 +89,7 @@ const _label = (
 ): any => {
     value = value || pos;
 
-    // TODO(jack): Find out if any exercises have "decimal ticks" set,
-    // and if so, re-save them and remove this check.
-    if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
+    if (labelStyle === "decimal") {
         return graphie.label(
             [pos, -0.53],
             Math.round(value * 100) / 100,
@@ -188,7 +185,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
         graphie.style(lineStyle, () => {
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
         });
-        if (labelTicks || tickIsHighlighted || labelStyle === "decimal ticks") {
+        if (labelTicks || tickIsHighlighted) {
             graphie.style(textStyle, () => {
                 results.push(_label(graphie, labelStyle, tick, tick, base));
             });
@@ -212,19 +209,6 @@ type CalculatedProps = Props & {
     tickStep: number;
 };
 
-type DefaultProps = {
-    range: Props["range"];
-    labelStyle: Props["labelStyle"];
-    labelRange: Props["labelRange"];
-    divisionRange: Props["divisionRange"];
-    labelTicks: Props["labelTicks"];
-    isTickCtrl: Props["isTickCtrl"];
-    isInequality: Props["isInequality"];
-    snapDivisions: Props["snapDivisions"];
-    showTooltips: Props["showTooltips"];
-    apiOptions: Props["apiOptions"];
-};
-
 type State = {
     numDivisionsEmpty: boolean;
 };
@@ -232,20 +216,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    static defaultProps: DefaultProps = {
-        range: [0, 10],
-        labelStyle: "decimal",
-        labelRange: [null, null],
-        divisionRange: [1, 12],
-        labelTicks: true,
-        isTickCtrl: false,
-        isInequality: false,
-        snapDivisions: 2,
-        showTooltips: false,
-        apiOptions: ApiOptions.defaults,
-    };
-
-    state: any = {
+    state = {
         numDivisionsEmpty: false,
     };
 
@@ -258,26 +229,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 widgetId: this.props.widgetId,
             },
         });
-    }
-
-    /**
-     * isTickCtrl seems like it can be null
-     * but default props only work with undefined,
-     * so this handles both null/undefined
-     */
-    getIsTickCtrl() {
-        return this.props.isTickCtrl ?? NumberLine.defaultProps.isTickCtrl;
-    }
-
-    /**
-     * snapDivisions seems like it can be null
-     * but default props only work with undefined,
-     * so this handles both null/undefined
-     */
-    getSnapDivisions() {
-        return (
-            this.props.snapDivisions ?? NumberLine.defaultProps.snapDivisions
-        );
     }
 
     isValid: () => boolean = () => {
@@ -293,7 +244,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             knumber.sign(initialX - range[1]) <= 0 &&
             divisionRange[0] < divisionRange[1] &&
             0 < this.props.userInput?.numDivisions &&
-            0 < this.getSnapDivisions()
+            0 < this.props.snapDivisions
         );
     };
 
@@ -353,7 +304,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     };
 
     focus() {
-        if (this.getIsTickCtrl()) {
+        if (this.props.isTickCtrl) {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
@@ -379,7 +330,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     };
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        if (this.getIsTickCtrl()) {
+        if (this.props.isTickCtrl) {
             return [["tick-ctrl"]];
         }
         return [];
@@ -400,7 +351,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
         const options = {
             range: this.props.range,
-            isTickCtrl: this.getIsTickCtrl(),
+            isTickCtrl: this.props.isTickCtrl,
         };
 
         const props: CalculatedProps = {
@@ -448,7 +399,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     ) => {
         const left = props.range[0];
         const right = props.range[1];
-        const snapX = props.tickStep / this.getSnapDivisions();
+        const snapX = props.tickStep / this.props.snapDivisions;
 
         let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
@@ -523,7 +474,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 }}
                 isMobile={this.props.apiOptions.isMobile}
                 mobileStyleOverride={mobileDotStyle}
-                showTooltips={this.props.showTooltips}
+                showTooltips={this.props.showTooltips ?? false}
                 xOnlyTooltip={true}
             />
         );
@@ -684,7 +635,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         );
 
         let tickCtrl;
-        if (this.getIsTickCtrl()) {
+        if (this.props.isTickCtrl) {
             let Input;
             if (this.props.apiOptions.customKeypad) {
                 Input = SimpleKeypadInput;
@@ -728,7 +679,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     <div className="perseus-error">
                         Invalid number line configuration.
                     </div>
-                ) : this.getIsTickCtrl() && invalidNumDivisions ? (
+                ) : this.props.isTickCtrl && invalidNumDivisions ? (
                     <div className="perseus-error">
                         {strings.divisions({divRangeString: divRangeString})}
                     </div>

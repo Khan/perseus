@@ -11,11 +11,12 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import Hairlines from "./components/hairlines";
+import {useHitbox} from "./components/hitbox";
 import {MovablePillHandle} from "./components/movable-pill-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
 import {useControlArrowhead} from "./components/use-control-arrowhead";
-import {srFormatNumber} from "./screenreader-text";
+import {describeVectorGraph} from "./strings/vector";
 import {useDraggable} from "./use-draggable";
 import {useTransformVectorsToPixels} from "./use-transform";
 
@@ -40,7 +41,8 @@ export function renderVectorGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <VectorGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getVectorGraphDescription(state, i18n),
+        interactiveElementsDescription: describeVectorGraph(state, i18n)
+            .srVectorInteractiveElement,
     };
 }
 
@@ -128,8 +130,18 @@ const VectorBody = (props: VectorBodyProps) => {
     const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
 
     const bodyRef = useRef<SVGGElement>(null);
-    const {dragging} = useDraggable({
+    const vectorHitboxRef = useRef<HTMLDivElement>(null);
+
+    // Keyboard drag stays on the focusable SVG group.
+    useDraggable({
         gestureTarget: bodyRef,
+        point: tail,
+        onMove,
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+    // Pointer/touch drag runs through the HTML hitbox (Safari-safe).
+    const {dragging} = useDraggable({
+        gestureTarget: vectorHitboxRef,
         point: tail,
         onMove,
         onDragEnd: () => {
@@ -138,6 +150,15 @@ const VectorBody = (props: VectorBodyProps) => {
             bodyRef.current?.blur();
         },
         constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const vectorHitbox = useHitbox({
+        shape: {kind: "line", start: tail, end: tip, thicknessPx: TARGET_SIZE},
+        hitboxRef: vectorHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-vector__hitbox",
     });
 
     // Calculate angle for drag handle rotation
@@ -163,45 +184,49 @@ const VectorBody = (props: VectorBodyProps) => {
     const active = hovered || dragging || focused;
 
     return (
-        <g
-            ref={bodyRef}
-            tabIndex={disableKeyboardInteraction ? -1 : 0}
-            aria-label={ariaLabel}
-            aria-describedby={ariaDescribedBy}
-            aria-disabled={disableKeyboardInteraction}
-            className="movable-line"
-            data-testid="movable-vector"
-            style={{cursor: dragging ? "grabbing" : "grab"}}
-            role="button"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-        >
-            {/* Transparent hit target for dragging the whole vector */}
-            <SVGLine
-                start={tailPx}
-                end={lineEndPx}
-                style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-            />
-            {/* Visible line from tail to tip, pulled back slightly */}
-            <SVGLine
-                start={tailPx}
-                end={lineEndPx}
-                className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
-                style={{stroke: interactiveColor, strokeWidth: sizing.size_020}}
-                testId="movable-vector__line"
-            />
-            {/* Drag handle pill — only visible on hover / focus / drag */}
-            {active && (
-                <MovablePillHandle
-                    center={handlePx}
-                    rotation={angleDeg}
-                    active={active}
-                    focused={focused}
+        <>
+            {vectorHitbox}
+            <g
+                ref={bodyRef}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-disabled={disableKeyboardInteraction}
+                className={
+                    hovered
+                        ? "movable-line movable-line--hover"
+                        : "movable-line"
+                }
+                data-testid="movable-vector"
+                style={{cursor: dragging ? "grabbing" : "grab"}}
+                role="button"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+            >
+                {/* Pointer/touch dragging (and hover) is handled by the HTML
+                    hitbox (see vectorHitbox); the SVG is visual + keyboard. */}
+                {/* Visible line from tail to tip, pulled back slightly */}
+                <SVGLine
+                    start={tailPx}
+                    end={lineEndPx}
+                    className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
+                    style={{
+                        stroke: interactiveColor,
+                        strokeWidth: sizing.size_020,
+                    }}
+                    testId="movable-vector__line"
                 />
-            )}
-        </g>
+                {/* Drag handle pill — only visible on hover / focus / drag */}
+                {active && (
+                    <MovablePillHandle
+                        center={handlePx}
+                        rotation={angleDeg}
+                        active={active}
+                        focused={focused}
+                    />
+                )}
+            </g>
+        </>
     );
 };
 
@@ -266,69 +291,3 @@ export const getVectorTipKeyboardConstraint = (
         right: moveWithConstraint((coord) => vec.add(coord, [snapStep[X], 0])),
     };
 };
-
-function getVectorGraphDescription(
-    state: VectorGraphState,
-    i18n: I18nContextType,
-) {
-    const strings = describeVectorGraph(state, i18n);
-    return strings.srVectorInteractiveElement;
-}
-
-// Exported for testing
-export function describeVectorGraph(
-    state: VectorGraphState,
-    i18n: I18nContextType,
-): Record<string, string> {
-    const {coords} = state;
-    const [tail, tip] = coords;
-    const {strings, locale} = i18n;
-
-    const srVectorGraph = strings.srVectorGraph;
-    const srVectorPoints = strings.srVectorPoints({
-        tailX: srFormatNumber(tail[X], locale),
-        tailY: srFormatNumber(tail[Y], locale),
-        headX: srFormatNumber(tip[X], locale),
-        headY: srFormatNumber(tip[Y], locale),
-    });
-    const srVectorHeadPoint = strings.srVectorHeadPoint({
-        x: srFormatNumber(tip[X], locale),
-        y: srFormatNumber(tip[Y], locale),
-    });
-    const srVectorGrabHandle = strings.srVectorGrabHandle({
-        tailX: srFormatNumber(tail[X], locale),
-        tailY: srFormatNumber(tail[Y], locale),
-        headX: srFormatNumber(tip[X], locale),
-        headY: srFormatNumber(tip[Y], locale),
-    });
-
-    // Magnitude (length) and direction (angle measured counterclockwise from
-    // the positive x-axis, normalized to [0, 360) degrees) of the vector from
-    // tail to head. The tail and head can never overlap, so the magnitude is
-    // always positive and the angle is always well-defined.
-    const dx = tip[X] - tail[X];
-    const dy = tip[Y] - tail[Y];
-    const magnitude = Math.sqrt(dx * dx + dy * dy);
-    const directionDegrees = (Math.atan2(dy, dx) * 180) / Math.PI;
-    const normalizedDirection =
-        directionDegrees < 0 ? directionDegrees + 360 : directionDegrees;
-    const srVectorMagnitudeDirection = strings.srVectorMagnitudeDirection({
-        magnitude: srFormatNumber(magnitude, locale),
-        direction: srFormatNumber(normalizedDirection, locale),
-    });
-
-    const srVectorDescription = `${srVectorPoints} ${srVectorMagnitudeDirection}`;
-
-    const srVectorInteractiveElement = strings.srInteractiveElements({
-        elements: [srVectorGraph, srVectorPoints].join(" "),
-    });
-
-    return {
-        srVectorGraph,
-        srVectorPoints,
-        srVectorDescription,
-        srVectorHeadPoint,
-        srVectorGrabHandle,
-        srVectorInteractiveElement,
-    };
-}

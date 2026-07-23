@@ -8,6 +8,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
 import EditorPage from "./editor-page";
 import {
     testDependencies,
@@ -31,6 +32,7 @@ describe("EditorPage", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        Dependencies.setDependencies(testDependencies);
     });
 
     // Regression (LEMS-3252)
@@ -280,6 +282,53 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
+    it("does not crash when toggling JSON mode with a widget whose stored type has no editor", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const question: PerseusRenderer = {
+            content:
+                "Find the area of a circle with a radius of 3.\n\n" +
+                "[[☃ expression 1]] \\text{ units}^2",
+            images: {},
+            // The content marker resolves to the (real) "expression" editor, but
+            // the stored widget's type does not resolve to any editor, so the
+            // inner widget editor never mounts and its ref stays null.
+            // eslint-disable-next-line no-restricted-syntax
+            widgets: {
+                "expression 1": {
+                    type: "unknown-widget",
+                    options: {},
+                },
+            } as any,
+        };
+
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={question}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        // Clicking the toggle runs EditorPage.serialize() synchronously in the
+        // event handler, walking down to the widget editor with the null ref.
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: /Developer JSON Mode/i}),
+        );
+
+        // Assert
+        // Pre-fix the click threw inside serialize; now the toggle completes.
+        expect(onChangeMock).toHaveBeenCalledWith({jsonMode: true});
+    });
+
     it("should call initializeWidgetOptions if available", async () => {
         const onChangeMock = jest.fn();
 
@@ -334,5 +383,32 @@ describe("EditorPage", () => {
                 },
             },
         });
+    });
+
+    it("should match snapshot for editing disabled for all widgets", () => {
+        // Arrange, Act
+        const {container} = render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={comprehensiveQuestion} // question with all widgets
+                apiOptions={{editingDisabled: true}} // editing disabled
+                onChange={() => {}}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Assert
+        // Note: the interactive-graph movable point renders fill/stroke="none"
+        // here because its color now comes from tokenValue(), which reads a CSS
+        // custom property. jsdom doesn't define those variables, so it resolves
+        // to "" and Raphael renders it as "none". The real color resolves in a
+        // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
+        expect(container).toMatchSnapshot();
     });
 });

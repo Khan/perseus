@@ -154,14 +154,14 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
     });
 
-    it("warns when showPointLabels is true but pointLabels has an empty entry", () => {
-        expectWarning(
+    it("passes when showPointLabels is true and only some pointLabels entries are provided", () => {
+        expectPass(
             interactiveGraphWidgetErrorRule,
             "[[☃ interactive-graph 1]]",
             {
@@ -176,9 +176,28 @@ describe("interactive-graph-widget-error", () => {
                     }),
                 },
             },
+        );
+    });
+
+    it("warns when showPointLabels is true but every pointLabels entry is empty", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                showPointLabels: true,
+                                pointLabels: ["", "", ""],
+                            }),
+                        }),
+                    }),
+                },
+            },
             {
                 message:
-                    "showPointLabels is true but pointLabels has empty entries. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -201,7 +220,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 message:
-                    "showPointLabels is true but pointLabels is missing. Provide a label for every point.",
+                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -278,6 +297,81 @@ describe("interactive-graph-widget-error", () => {
                                 type: "none",
                                 showPointLabels: true,
                             } as any,
+                        }),
+                    }),
+                },
+            },
+        );
+    });
+
+    it("warns when pointLabels is shorter than the expected number of points", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: 3,
+                                showPointLabels: true,
+                                pointLabels: ["A", "C"],
+                            }),
+                        }),
+                    }),
+                },
+            },
+            {
+                message:
+                    'pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when pointLabels is longer than the expected number of points", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: 3,
+                                showPointLabels: true,
+                                pointLabels: ["A", "B", "C", "D"],
+                            }),
+                        }),
+                    }),
+                },
+            },
+            {
+                message:
+                    'pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("passes on an unlimited polygon (length check skipped when numSides is unlimited)", () => {
+        expectPass(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: "unlimited",
+                                coords: [
+                                    [0, 0],
+                                    [1, 0],
+                                    [0, 1],
+                                ],
+                                showPointLabels: true,
+                                pointLabels: ["A", "B"],
+                            }),
                         }),
                     }),
                 },

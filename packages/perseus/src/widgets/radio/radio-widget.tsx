@@ -198,6 +198,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                 >
                     <Renderer
                         key="choiceContentRenderer"
+                        apiOptions={apiOptions}
                         content={content}
                         findExternalWidgets={findWidgets}
                         alwaysUpdate={true}

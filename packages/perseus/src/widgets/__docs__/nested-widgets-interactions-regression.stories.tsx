@@ -13,6 +13,7 @@ import {
     gradedGroupWithRadioAndDefinition,
     gradedGroupWithRadioAndExplanation,
     imageInContent,
+    numericInputInExplanation,
     videoInContent,
 } from "./nested-widgets.testdata";
 
@@ -142,5 +143,18 @@ export const ExplanationWithDefinition: ExplanationStory = {
             name: "Definition of: Allies",
         });
         await userEvent.click(definitionTrigger);
+    },
+};
+
+export const NumericInputInExplanation: StoryObj = {
+    decorators: [articleRendererDecorator],
+    parameters: {
+        question: numericInputInExplanation,
+    },
+    play: async ({canvas, userEvent}) => {
+        const explanationTrigger = canvas.getByRole("button", {
+            name: "Show practice problem",
+        });
+        await userEvent.click(explanationTrigger);
     },
 };

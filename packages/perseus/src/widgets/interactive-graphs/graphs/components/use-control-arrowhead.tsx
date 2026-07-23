@@ -4,9 +4,10 @@ import {useState, useRef, useLayoutEffect} from "react";
 import {usePerseusI18n} from "../../../../components/i18n-context";
 import {snap, X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {srFormatNumber} from "../screenreader-text";
+import {srFormatNumber} from "../strings/format-number";
 import {useDraggable} from "../use-draggable";
 
+import {HANDLE_HITBOX_SIZE_PX, useHitbox} from "./hitbox";
 import {MovableArrowheadView} from "./movable-arrowhead-view";
 
 import type {KeyboardMovementConstraint} from "../use-draggable";
@@ -49,6 +50,7 @@ export function useControlArrowhead(params: Params): Return {
     const {strings, locale} = usePerseusI18n();
 
     const [focused, setFocused] = useState(false);
+    const [hovered, setHovered] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
 
     // Keyboard dragging is handled by the (invisible) focusable handle.
@@ -60,14 +62,26 @@ export function useControlArrowhead(params: Params): Return {
         constrainKeyboardMovement: constrain,
     });
 
-    // Mouse / touch dragging is handled by the visible arrowhead element.
+    // Mouse / touch dragging runs through an HTML hitbox so Safari doesn't
+    // scroll the page during a drag (see hitbox.tsx). `visibleRef` is the SVG
+    // view ref (forwarded), not a gesture target.
     const visibleRef = useRef<SVGGElement>(null);
+    const arrowheadHitboxRef = useRef<HTMLDivElement>(null);
     const {dragging} = useDraggable({
-        gestureTarget: visibleRef,
+        gestureTarget: arrowheadHitboxRef,
         point,
         onMove,
         onDragEnd,
         constrainKeyboardMovement: constrain,
+    });
+
+    const hitbox = useHitbox({
+        shape: {kind: "box", center: point, sizePx: HANDLE_HITBOX_SIZE_PX},
+        hitboxRef: arrowheadHitboxRef,
+        dragging,
+        onClick: () => focusableHandleRef.current?.focus(),
+        onHoverChange: setHovered,
+        testId: "movable-arrowhead__hitbox",
     });
 
     const pointAriaLabel =
@@ -102,17 +116,21 @@ export function useControlArrowhead(params: Params): Return {
     );
 
     const visibleArrowhead = (
-        <MovableArrowheadView
-            point={point}
-            angle={angle}
-            dragging={dragging}
-            focused={focused}
-            ref={visibleRef}
-            showFocusRing={focused}
-            onClick={() => {
-                focusableHandleRef.current?.focus();
-            }}
-        />
+        <>
+            {hitbox}
+            <MovableArrowheadView
+                point={point}
+                angle={angle}
+                dragging={dragging}
+                focused={focused}
+                hovered={hovered}
+                ref={visibleRef}
+                showFocusRing={focused}
+                onClick={() => {
+                    focusableHandleRef.current?.focus();
+                }}
+            />
+        </>
     );
 
     return {

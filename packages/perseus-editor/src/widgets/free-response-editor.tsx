@@ -1,8 +1,8 @@
-import {ApiOptions, Util} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus";
 import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Checkbox, TextArea, TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -16,7 +16,6 @@ import type {
     PerseusFreeResponseWidgetOptions,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "@khanacademy/perseus-core";
-import type {ChangeEventHandler} from "react";
 
 type Props = PerseusFreeResponseWidgetOptions & {
     apiOptions: APIOptions;
@@ -30,7 +29,6 @@ type Props = PerseusFreeResponseWidgetOptions & {
 class FreeResponseEditor extends React.Component<Props> {
     static defaultProps = {
         ...freeResponseLogic.defaultWidgetOptions,
-        apiOptions: ApiOptions.defaults,
     };
 
     static widgetName = "free-response" as const;
@@ -58,8 +56,8 @@ class FreeResponseEditor extends React.Component<Props> {
         return warnings;
     };
 
-    handleUpdateCharacterLimit: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const val = parseInt(e.target.value);
+    handleUpdateCharacterLimit = (newValue: string) => {
+        const val = parseInt(newValue);
         if (isNaN(val)) {
             return;
         }
@@ -124,10 +122,10 @@ class FreeResponseEditor extends React.Component<Props> {
                 <LabeledField
                     label="Question"
                     field={
-                        <textarea
+                        <TextArea
                             value={this.props.question}
-                            onChange={(e) =>
-                                this.props.onChange({question: e.target.value})
+                            onChange={(newValue) =>
+                                this.props.onChange({question: newValue})
                             }
                         />
                     }
@@ -136,11 +134,11 @@ class FreeResponseEditor extends React.Component<Props> {
                 <LabeledField
                     label="Placeholder"
                     field={
-                        <textarea
+                        <TextArea
                             value={this.props.placeholder}
-                            onChange={(e) =>
+                            onChange={(newValue) =>
                                 this.props.onChange({
-                                    placeholder: e.target.value,
+                                    placeholder: newValue,
                                 })
                             }
                         />
@@ -165,10 +163,10 @@ class FreeResponseEditor extends React.Component<Props> {
                     <LabeledField
                         label="Character limit"
                         field={
-                            <input
+                            <TextField
                                 type="number"
                                 min={1}
-                                value={this.props.characterLimit}
+                                value={String(this.props.characterLimit)}
                                 onChange={this.handleUpdateCharacterLimit}
                             />
                         }

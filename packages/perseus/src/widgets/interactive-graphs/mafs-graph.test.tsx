@@ -5,8 +5,6 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
@@ -19,7 +17,7 @@ import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "../../types";
+import type {PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -113,6 +111,39 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
         expect(line.getAttribute("x2")).toBe(expectedX2 + "");
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    describe("graph border", () => {
+        it("renders a 1px border spanning the full graph bounds", () => {
+            // Arrange, Act
+            render(<MafsGraph {...baseMafsProps} markings="graph" />);
+
+            // Assert
+            const border = screen.getByTestId("graph-border");
+            const {viewboxX, viewboxY} = calculateNestedSVGCoords(
+                baseMafsProps.state.range,
+                400,
+                400,
+            );
+            expect(border).toBeInTheDocument();
+            expect(border).toHaveAttribute("x", String(viewboxX));
+            expect(border).toHaveAttribute("y", String(viewboxY));
+            expect(border).toHaveAttribute("width", "400");
+            expect(border).toHaveAttribute("height", "400");
+        });
+
+        it.each(["axes", "none"] as const)(
+            "does not render a border when markings are %s",
+            (markings) => {
+                // Arrange, Act
+                render(<MafsGraph {...baseMafsProps} markings={markings} />);
+
+                // Assert
+                expect(
+                    screen.queryByTestId("graph-border"),
+                ).not.toBeInTheDocument();
+            },
+        );
     });
 
     it("should send analytics even when widget is rendered", () => {
@@ -1299,12 +1330,7 @@ describe("MafsGraph", () => {
         });
     });
 
-    describe("MovablePointLabelsLayer flag gate", () => {
-        const apiOptionsWithFlag = (on: boolean): APIOptionsWithDefaults => ({
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({"perseus-enable-point-label-field": on}),
-        });
-
+    describe("MovablePointLabelsLayer", () => {
         function pointStateWith({
             showPointLabels,
             pointLabels,
@@ -1330,7 +1356,7 @@ describe("MafsGraph", () => {
             };
         }
 
-        it("does not mount the layer when the feature flag is off, even with showPointLabels: true + pointLabels populated", () => {
+        it("mounts the layer when showPointLabels is true", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1340,27 +1366,6 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(false)}
-                />,
-            );
-
-            // Assert
-            expect(
-                screen.queryByTestId("movable-point__visible-label"),
-            ).not.toBeInTheDocument();
-        });
-
-        it("mounts the layer when the feature flag is on and showPointLabels: true", () => {
-            // Arrange, Act
-            render(
-                <MafsGraph
-                    {...baseMafsProps}
-                    state={pointStateWith({
-                        showPointLabels: true,
-                        pointLabels: ["A"],
-                    })}
-                    dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 
@@ -1370,15 +1375,13 @@ describe("MafsGraph", () => {
             ).toBeInTheDocument();
         });
 
-        it("does not render a visible label when flag is on but showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
-            // Existing content sets pointLabels for screen-reader purposes without intending visible labels. Even with the flag on, the renderer must not start drawing those.
+        it("does not render a visible label when showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
             // Arrange, Act
             render(
                 <MafsGraph
                     {...baseMafsProps}
                     state={pointStateWith({pointLabels: ["A"]})}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 
@@ -1388,9 +1391,7 @@ describe("MafsGraph", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("does not show the toggle for static graphs, when flag on and showPointLabels: true", () => {
-            // showPointLabels is specifically about labeling movable points;
-            // a static graph has no movable points, so the labels are skipped.
+        it("does not render labels for static graphs, even when showPointLabels is true", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1400,7 +1401,6 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                     static={true}
                 />,
             );

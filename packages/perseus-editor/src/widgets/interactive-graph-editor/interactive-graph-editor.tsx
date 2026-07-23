@@ -17,7 +17,6 @@ import {
     interactiveGraphLogic,
     type ShowAxisArrows,
     type ShowAxisTicks,
-    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -295,6 +294,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     }
                 },
             );
+        } else {
+            // When the graph is undefined (such as when the settings are invalid).
+            // Fall back to the last-known graph/correct from props.
+            // This preserves the graph rendering in our preview editor and avoids
+            // cascading issues as a result of undefined props being passed to
+            // the interactive graph widget.
+            _.extend(json, {
+                graph: this.props.graph,
+                correct: this.props.correct,
+            });
         }
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;
@@ -413,7 +422,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // Set the "correct answer" graph to static when editing is disabled
                 static: this.props.apiOptions?.editingDisabled ?? false,
                 trackInteraction: function () {},
-                userInput: correct,
+                userInput:
+                    this.props.static === true &&
+                    correct != null &&
+                    "showPointLabels" in correct
+                        ? {...correct, showPointLabels: false}
+                        : correct,
                 handleUserInput: (
                     newGraph: InteractiveGraphProps["userInput"],
                 ) => {
@@ -421,6 +435,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     // TODO(benchristel): can we improve the type of onChange
                     // so this invariant isn't necessary?
                     invariant(newGraph != null);
+                    // Preserve author's showPointLabels: the state echo
+                    // from StatefulMafsGraph would otherwise clobber it
+                    // with the render-time override's `false`.
+                    if (
+                        this.props.static === true &&
+                        newGraph != null &&
+                        "showPointLabels" in newGraph
+                    ) {
+                        newGraph = {
+                            ...newGraph,
+                            showPointLabels:
+                                "showPointLabels" in correct
+                                    ? correct.showPointLabels
+                                    : undefined,
+                        };
+                    }
                     if (correct.type === newGraph.type) {
                         correct = mergeGraphs(correct, newGraph);
                     } else {
@@ -470,18 +500,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.graph?.type ??
                                     InteractiveGraph.defaultProps.userInput.type
                                 }
-                                // TODO(LEMS-2656): remove TS suppression
-                                onChange={
-                                    // eslint-disable-next-line no-restricted-syntax
-                                    ((
-                                        type: Required<InteractiveGraphProps>["userInput"]["type"],
-                                    ) => {
-                                        this.props.onChange({
-                                            graph: {type},
-                                            correct: {type},
-                                        });
-                                    }) as any
-                                }
+                                onChange={(type) => {
+                                    this.props.onChange({
+                                        graph: {type},
+                                        correct: {type},
+                                    });
+                                }}
                             />
                         </LabeledRow>
                         <InteractiveGraphDescription
@@ -536,12 +560,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         )}
 
-                        {/* TODO(AITQ-385): clean up feature flag */}
-                        {isFeatureOn(
-                            {apiOptions: this.props.apiOptions},
-                            "perseus-enable-point-label-field",
-                        ) &&
-                            !this.props.static &&
+                        {!this.props.static &&
                             this.props.graph?.type &&
                             this.props.graph.type !== "vector" &&
                             this.props.graph.type !== "none" && (

@@ -1,5 +1,66 @@
 # @khanacademy/perseus-core
 
+## 32.0.1
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.3.1
+
+## 32.0.0
+
+### Major Changes
+
+-   [#3899](https://github.com/Khan/perseus/pull/3899) [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the image widget required. Perseus consumers should, as always, use the parsers to upgrade data to the latest schema.
+
+## 31.0.0
+
+### Major Changes
+
+-   [#3843](https://github.com/Khan/perseus/pull/3843) [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [number-line] Narrow `labelStyle` type to the supported list of styles: "decimal", "improper", "mixed", and "non-reduced". Also removes legacy code for long-removed label style `"decimal ticks"`.
+
+### Minor Changes
+
+-   [#3862](https://github.com/Khan/perseus/pull/3862) [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for subscript in the MathInput keypad
+
+## 30.1.1
+
+### Patch Changes
+
+-   [#3815](https://github.com/Khan/perseus/pull/3815) [`5e27b11`](https://github.com/Khan/perseus/commit/5e27b112bdeaabd6f4f2d0587838a7706eb0ef71) Thanks [@Evelas78](https://github.com/Evelas78)! - Adding analytics events to explore image modal for tracking amount of uses and how long users linger on the widget
+
+## 30.1.0
+
+### Minor Changes
+
+-   [#3854](https://github.com/Khan/perseus/pull/3854) [`4306c90`](https://github.com/Khan/perseus/commit/4306c9056d5ca6b5cc788e11ada2e1f1d4e5c669) Thanks [@benchristel](https://github.com/benchristel)! - The Grapher widget is now marked **accessible** if it has a single available function type that is not `quadratic`, and no background image.
+
+### Patch Changes
+
+-   [#3859](https://github.com/Khan/perseus/pull/3859) [`eec5371`](https://github.com/Khan/perseus/commit/eec537190369c6c428aa96f715c6f46fa2a1c41a) Thanks [@benchristel](https://github.com/benchristel)! - The now-unused feature flag "input-number-to-numeric-input" has been removed.
+
+-   [#3855](https://github.com/Khan/perseus/pull/3855) [`8d25dbd`](https://github.com/Khan/perseus/commit/8d25dbd2ac07b8584c0e6b81938cca63ba1b3059) Thanks [@benchristel](https://github.com/benchristel)! - The `grapher-to-interactive-graph` feature flag has been removed. Graphers now render as Interactive Graphs if they have a single available function type that is not `quadratic`.
+
+## 30.0.2
+
+### Patch Changes
+
+-   [#3852](https://github.com/Khan/perseus/pull/3852) [`6dd4cb8`](https://github.com/Khan/perseus/commit/6dd4cb8d009d541cb40ca1c4498065cf9c3c0abf) Thanks [@benchristel](https://github.com/benchristel)! - Input Number widgets with `version: null` are now parsed successfully. This fixes an error in the translation editor.
+
+## 30.0.1
+
+### Patch Changes
+
+-   [#3833](https://github.com/Khan/perseus/pull/3833) [`ea9fec7`](https://github.com/Khan/perseus/commit/ea9fec7d8682830f77adace875b9f2f2f0055ec1) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes calculator variant optional instead of null when calculator is set to false
+
+-   [#3794](https://github.com/Khan/perseus/pull/3794) [`3d2c95c`](https://github.com/Khan/perseus/commit/3d2c95c68056c859619dfd9d53000ae5c2868ab8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Mark the input-number widget as accessible. Items using input-number are no longer reported as inaccessible, as input-number now renders and scores as a NumericInput.
+
+## 30.0.0
+
+### Major Changes
+
+-   [#3760](https://github.com/Khan/perseus/pull/3760) [`e2c9785`](https://github.com/Khan/perseus/commit/e2c97852f2507c32906b5bd5a51e70cd0ee711fe) Thanks [@benchristel](https://github.com/benchristel)! - The InputNumber widget code has been removed; widgets with type "input-number" will now render as NumericInput widgets. This involves a breaking change to the InputNumber widget types in data-schema. Callers should, as always, use the parser to migrate Perseus JSON to the latest schema version before using it, and avoid depending directly on the schema types.
+
 ## 29.0.0
 
 ### Major Changes

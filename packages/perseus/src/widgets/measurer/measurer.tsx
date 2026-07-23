@@ -13,49 +13,16 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-const defaultImage = {
-    url: null,
-    top: 0,
-    left: 0,
-} as const;
-
 type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
     protractorX: number;
     protractorY: number;
 };
 
-type DefaultProps = {
-    box: Props["box"];
-    image: Props["image"];
-    showProtractor: Props["showProtractor"];
-    protractorX: Props["protractorX"];
-    protractorY: Props["protractorY"];
-    showRuler: Props["showRuler"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
-    rulerPixels: Props["rulerPixels"];
-    rulerLength: Props["rulerLength"];
-};
-
 class Measurer extends React.Component<Props> implements Widget {
-    static defaultProps: DefaultProps = {
-        box: [480, 480],
-        image: defaultImage,
-        showProtractor: true,
-        protractorX: 7.5,
-        protractorY: 0.5,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
-        rulerPixels: 40,
-        rulerLength: 10,
-    };
-
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
 
-    state = {};
     ruler;
     protractor;
 
@@ -142,7 +109,7 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     render() {
-        const image = _.extend({}, defaultImage, this.props.image);
+        const {image} = this.props;
 
         return (
             <div
@@ -156,8 +123,8 @@ class Measurer extends React.Component<Props> implements Widget {
                     <div
                         style={{
                             position: "relative",
-                            top: image.top,
-                            left: image.left,
+                            top: image.top ?? 0,
+                            left: image.left ?? 0,
                         }}
                     >
                         {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}

@@ -1,20 +1,16 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../utils";
 
-import {
-    buildPointAriaLabel,
-    usePointAriaLabel,
-} from "./components/build-point-aria-label";
+import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
-import {srFormatNumber} from "./screenreader-text";
+import {describePointGraph} from "./strings/point";
 import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
 
 import type {I18nContextType} from "../../../components/i18n-context";
-import type {PerseusStrings} from "../../../strings";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     PointGraphState,
@@ -30,7 +26,7 @@ export function renderPointGraph(
 ): InteractiveGraphElementSuite {
     return {
         graph: <PointGraph graphState={state} dispatch={dispatch} />,
-        interactiveElementsDescription: getPointGraphDescription(state, i18n),
+        interactiveElementsDescription: describePointGraph(state, i18n),
     };
 }
 
@@ -129,7 +125,11 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                 when dragging a points around */}
             <rect
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}
@@ -187,36 +187,4 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
             ))}
         </>
     );
-}
-
-// Exported for testing
-export function getPointGraphDescription(
-    state: PointGraphState,
-    i18n: {strings: PerseusStrings; locale: string},
-): string {
-    const {strings, locale} = i18n;
-
-    if (state.coords.length === 0) {
-        return strings.srNoInteractiveElements;
-    }
-
-    const pointDescriptions = state.coords.map(
-        (point, index) =>
-            buildPointAriaLabel(
-                state.pointLabels,
-                index,
-                point,
-                strings,
-                locale,
-            ) ??
-            strings.srPointAtCoordinates({
-                num: index + 1,
-                x: srFormatNumber(point[0], locale),
-                y: srFormatNumber(point[1], locale),
-            }),
-    );
-
-    return strings.srInteractiveElements({
-        elements: pointDescriptions.join(" "),
-    });
 }
