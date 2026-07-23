@@ -209,7 +209,7 @@ describe("Sinusoid graph pointLabels", () => {
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Midline intersection A at 0 comma 0.",
+                name: "Midline intersection point A at 0 comma 0.",
             }),
         ).toBeInTheDocument();
         expect(
@@ -229,7 +229,7 @@ describe("Sinusoid graph pointLabels", () => {
         // Assert
         expect(
             screen.getByRole("button", {
-                name: "Midline intersection A at 0 comma 0.",
+                name: "Midline intersection point A at 0 comma 0.",
             }),
         ).toBeInTheDocument();
         expect(

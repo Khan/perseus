@@ -1532,7 +1532,8 @@ export const strings = {
     srSinusoidRootPointWithLabel: {
         context:
             "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
-        message: "Midline intersection %(pointLabel)s at %(x)s comma %(y)s.",
+        message:
+            "Midline intersection point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srSinusoidMaxPoint: {
         context:
@@ -2199,7 +2200,7 @@ export const mockStrings: PerseusStrings = {
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
     srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
     srSinusoidRootPointWithLabel: ({pointLabel, x, y}) =>
-        `Midline intersection ${pointLabel} at ${x} comma ${y}.`,
+        `Midline intersection point ${pointLabel} at ${x} comma ${y}.`,
     srSinusoidMaxPoint: ({x, y}) => `Maximum point at ${x} comma ${y}.`,
     srSinusoidMaxPointWithLabel: ({pointLabel, x, y}) =>
         `Maximum point ${pointLabel} at ${x} comma ${y}.`,

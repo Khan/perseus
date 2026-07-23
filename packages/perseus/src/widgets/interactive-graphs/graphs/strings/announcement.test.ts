@@ -216,7 +216,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Midline intersection T at 1 comma 1.");
+            expect(result).toBe("Midline intersection point T at 1 comma 1.");
         });
     });
 
