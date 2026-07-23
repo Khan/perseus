@@ -161,10 +161,9 @@ export const Point: Story = {
 
 /**
  * A point graph whose interactive point uses a custom label ("T") via
- * `pointLabels`. With `showPointLabels: true` (paired with the
- * `perseus-enable-point-label-field` flag) the same string drives both
- * the screen-reader announcement ("Plot point T …") and the visible
- * on-canvas label.
+ * `pointLabels`. With `showPointLabels: true` the same string drives
+ * both the screen-reader announcement ("Plot point T …") and the
+ * visible on-canvas label.
  */
 export const PointWithCustomLabel: Story = {
     args: {
@@ -197,8 +196,7 @@ export const Polygon: Story = {
 
 /**
  * A polygon graph whose vertices use custom labels ("A", "B", "C") via
- * `pointLabels`. With `showPointLabels: true` (paired with the
- * `perseus-enable-point-label-field` flag) each vertex carries its
+ * `pointLabels`. With `showPointLabels: true` each vertex carries its
  * letter both as the screen-reader announcement and as the visible
  * on-canvas label.
  */
