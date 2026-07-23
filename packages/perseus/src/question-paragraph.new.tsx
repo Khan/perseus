@@ -10,26 +10,24 @@ type Props = {
 
 class QuestionParagraph extends React.Component<Props> {
     render(): React.ReactNode {
-        if (
-            this.props.translationIndex == null &&
-            this.props.className == null
-        ) {
+        const isJIPT = this.props.translationIndex != null;
+        const classProvided = (this.props.className ?? "").trim().length > 0;
+
+        if (!isJIPT && !classProvided) {
             return this.props.children;
         }
 
         const className =
-            `${this.props.className ?? ""} ${this.props.translationIndex != null ? "paragraph" : ""}`.trim();
+            `${this.props.className ?? ""} ${isJIPT && !this.props.inline ? "paragraph" : ""}`.trim();
         // For perseus-article just-in-place-translation (jipt), we need
         // to attach some metadata to top-level QuestionParagraphs:
         return (
             <div
-                className={
-                    this.props.inline
-                        ? this.props.className ?? undefined
-                        : className
-                }
+                className={className.length > 0 ? className : undefined}
                 data-perseus-component-index={this.props.translationIndex}
-                data-perseus-paragraph-index={this.props.paragraphIndex}
+                data-perseus-paragraph-index={
+                    isJIPT ? this.props.paragraphIndex : undefined
+                }
             >
                 {this.props.children}
             </div>

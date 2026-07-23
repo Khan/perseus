@@ -19,6 +19,20 @@ describe("QuestionParagraph", () => {
         expect(child.parentElement).toBe(container);
     });
 
+    it("renders children without a wrapper when className is empty and JIPT information is absent", () => {
+        // Arrange, Act
+        const {container} = render(
+            <QuestionParagraph className="   ">
+                <span data-testid="child">Hello</span>
+            </QuestionParagraph>,
+        );
+
+        // Assert
+        const child = screen.getByTestId("child");
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(child.parentElement).toBe(container);
+    });
+
     it("wraps children in a <div> when a className is provided", () => {
         // Arrange, Act
         render(
@@ -97,6 +111,20 @@ describe("QuestionParagraph", () => {
         expect(wrapper).toHaveAttribute("data-perseus-paragraph-index", "5");
     });
 
+    it("does not set paragraphIndex metadata when JIPT information is absent", () => {
+        // Arrange, Act
+        render(
+            <QuestionParagraph className="my-class" paragraphIndex={5}>
+                <span data-testid="child">Hello</span>
+            </QuestionParagraph>,
+        );
+
+        // Assert
+        // eslint-disable-next-line testing-library/no-node-access
+        const wrapper = screen.getByTestId("child").parentElement;
+        expect(wrapper).not.toHaveAttribute("data-perseus-paragraph-index");
+    });
+
     it("uses only the className (without 'paragraph') when inline is true", () => {
         // Arrange, Act
         render(
@@ -114,5 +142,20 @@ describe("QuestionParagraph", () => {
         const wrapper = screen.getByTestId("child").parentElement;
         expect(wrapper).toHaveClass("my-class");
         expect(wrapper).not.toHaveClass("paragraph");
+    });
+
+    it("omits the class attribute when the computed className is empty", () => {
+        // Arrange, Act
+        // JIPT information forces a wrapper, but with no className and inline
+        // suppressing the "paragraph" class, the computed className is empty.
+        render(
+            <QuestionParagraph translationIndex={2} inline={true}>
+                <span data-testid="child">Hello</span>
+            </QuestionParagraph>,
+        );
+
+        // Assert
+        const wrapper = screen.getByTestId("child").parentElement;
+        expect(wrapper).not.toHaveAttribute("class");
     });
 });

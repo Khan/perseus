@@ -236,17 +236,21 @@ exports[`renderer rendering should render block math 1`] = `
       This is some block math
     </p>
     <div
-      class="perseus-block-math"
+      class="perseus-paragraph-centered"
     >
       <div
-        class="perseus-block-math-inner"
-        style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+        class="perseus-block-math"
       >
-        <span
-          class="mock-TeX"
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
         >
-          1 + 2
-        </span>
+          <span
+            class="mock-TeX"
+          >
+            1 + 2
+          </span>
+        </div>
       </div>
     </div>
     <p>
@@ -265,22 +269,26 @@ exports[`renderer rendering should render block math on mobile 1`] = `
       This is some block math
     </p>
     <div
-      class="perseus-block-math"
-      style="margin-left: -16px; margin-right: -16px;"
+      class="perseus-paragraph-centered"
     >
       <div
-        class="perseus-block-math-inner"
-        style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
+        class="perseus-block-math"
+        style="margin-left: -16px; margin-right: -16px;"
       >
-        <span
-          style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1;"
+        <div
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
         >
           <span
-            class="mock-TeX"
+            style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1;"
           >
-            1 + 2
+            <span
+              class="mock-TeX"
+            >
+              1 + 2
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
     <p>
