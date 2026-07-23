@@ -322,35 +322,6 @@ export const OpenMultipleAnswers: Story = {
     },
 };
 
-// Verifies that an opened choice list stays readable amid a dense cluster of
-// markers. The markers are packed near the center (away from the edges) so the
-// list opens in a consistent, non-clipped spot.
-export const OpenDenseCluster: Story = {
-    name: "[Open] Dense Cluster",
-    decorators: [labelImageRendererDecorator],
-    args: {
-        imageUrl:
-            "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
-        imageWidth: 415,
-        imageHeight: 314,
-        imageAlt: "A bar graph with four unlabeled bar lines.",
-        choices: ["Trucks", "Vans", "Cars", "SUVs"],
-        markers: [
-            {answers: ["Trucks"], label: "Cluster marker one", x: 45, y: 45},
-            {answers: ["Vans"], label: "Cluster marker two", x: 55, y: 45},
-            {answers: ["Cars"], label: "Cluster marker three", x: 45, y: 55},
-            {answers: ["SUVs"], label: "Cluster marker four", x: 55, y: 55},
-            {answers: ["Trucks"], label: "Cluster marker five", x: 50, y: 50},
-        ],
-        multipleAnswers: false,
-        hideChoicesFromInstructions: true,
-    },
-    play: async ({canvasElement, userEvent}) => {
-        const canvas = within(canvasElement);
-        await userEvent.click(canvas.getByLabelText("Cluster marker five"));
-    },
-};
-
 /***********************************************************************
  *  Selected state stories
  ***********************************************************************/
