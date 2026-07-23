@@ -376,7 +376,7 @@ describe("getAnnouncementText", () => {
             );
 
             expect(result).toBe(
-                "Point on arm V at 4 comma -2. The slope is 2.",
+                "Point V on arm at 4 comma -2. The slope is 2.",
             );
         });
     });

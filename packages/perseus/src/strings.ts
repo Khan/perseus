@@ -1107,8 +1107,8 @@ export const strings = {
     },
     srPointAtCoordinates: {
         context:
-            "Aria label for an interactive Point element in the interactive graph widget, including the count for its order in the points (e.g. 'Point 1 at 0 comma 0'). Coordinate (x, y) is written out as 'x comma y'.",
-        message: "Point %(num)s at %(x)s comma %(y)s.",
+            "Aria label for an interactive Point element in the interactive graph widget. %(pointLabel)s is the author-provided custom label for the point (e.g. 'A'), or the count for its order in the points (e.g. 'Point 1 at 0 comma 0'). Coordinate (x, y) is written out as 'x comma y'.",
+        message: "Point %(pointLabel)s at %(x)s comma %(y)s.",
     },
     srCircleGraph: {
         context:
@@ -1733,7 +1733,7 @@ export const strings = {
     srAbsoluteValueArmPointWithLabel: {
         context:
             "Aria label for the second Point defining the slope of the Absolute Value function in the interactive graph widget. %(pointLabel)s is an author-provided custom label for the point (e.g. 'A').",
-        message: "Point on arm %(pointLabel)s at %(x)s comma %(y)s.",
+        message: "Point %(pointLabel)s on arm at %(x)s comma %(y)s.",
     },
     srAbsoluteValueSlope: {
         context:
@@ -2310,7 +2310,7 @@ export const mockStrings: PerseusStrings = {
         `Vertex point ${pointLabel} at ${x} comma ${y}.`,
     srAbsoluteValueArmPoint: ({x, y}) => `Point on arm at ${x} comma ${y}.`,
     srAbsoluteValueArmPointWithLabel: ({pointLabel, x, y}) =>
-        `Point on arm ${pointLabel} at ${x} comma ${y}.`,
+        `Point ${pointLabel} on arm at ${x} comma ${y}.`,
     srAbsoluteValueSlope: ({slope}) => `The slope is ${slope}.`,
     srAbsoluteValueOpensUp: "The graph opens upward.",
     srAbsoluteValueOpensDown: "The graph opens downward.",
