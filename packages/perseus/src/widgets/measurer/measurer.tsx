@@ -69,6 +69,7 @@ class Measurer extends React.Component<Props> implements Widget {
 
         // Both tools default to the center of the graph so the whole tool is
         // visible; the learner can then drag them where they need them.
+        // TODO: extract center calculation to a function center() in box.ts
         const center: Coord = [
             (range[0][0] + range[0][1]) / 2,
             (range[1][0] + range[1][1]) / 2,
