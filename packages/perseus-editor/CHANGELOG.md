@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 35.1.1
+
+### Patch Changes
+
+-   [#3941](https://github.com/Khan/perseus/pull/3941) [`f31798d`](https://github.com/Khan/perseus/commit/f31798df0c8e49d05b3a6c794793962307914716) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph][Editor]: internal cleanup of the start-coords components — no behavior change. Converts `StartCoordsPoint`'s props to a named interface, removes a dead CSS class, and migrates `CoordinatePairInput` off the deprecated `labelStyle` (Aphrodite `StyleType`) prop to a `labelClassName` prop.
+
 ## 35.1.0
 
 ### Minor Changes
