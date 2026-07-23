@@ -155,6 +155,7 @@ describe("QuestionParagraph", () => {
         );
 
         // Assert
+        // eslint-disable-next-line testing-library/no-node-access
         const wrapper = screen.getByTestId("child").parentElement;
         expect(wrapper).not.toHaveAttribute("class");
     });
