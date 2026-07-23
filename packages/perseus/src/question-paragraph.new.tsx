@@ -10,13 +10,15 @@ type Props = {
 
 class QuestionParagraph extends React.Component<Props> {
     render(): React.ReactNode {
-        if (this.props.translationIndex == null) {
+        if (
+            this.props.translationIndex == null &&
+            this.props.className == null
+        ) {
             return this.props.children;
         }
 
-        const className = this.props.className
-            ? "paragraph " + this.props.className
-            : "paragraph";
+        const className =
+            `${this.props.className ?? ""} ${this.props.translationIndex != null ? "paragraph" : ""}`.trim();
         // For perseus-article just-in-place-translation (jipt), we need
         // to attach some metadata to top-level QuestionParagraphs:
         return (
