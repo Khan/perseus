@@ -1,9 +1,4 @@
-import {generateCategorizerOptions} from "@khanacademy/perseus-core";
-
-import type {
-    PerseusCategorizerWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -51,35 +46,3 @@ export const question1: PerseusRenderer = {
         },
     },
 };
-
-export const categorizerOptions: PerseusCategorizerWidgetOptions =
-    generateCategorizerOptions({
-        items: ["Apple", "Broccoli", "Banana", "Carrot"],
-        categories: ["Fruit", "Vegetable"],
-        values: [0, 1, 0, 1],
-        randomizeItems: false,
-    });
-
-export const categorizerWithImagesOptions: PerseusCategorizerWidgetOptions =
-    generateCategorizerOptions({
-        items: [
-            "![Graph 1](web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f)",
-            "![Graph 2](web+graphie://cdn.kastatic.org/ka-perseus-graphie/7c0a5afb8670fad738df800ffe16c5e516b48777)",
-        ],
-        categories: [
-            "No relationship",
-            "Positive linear relationship",
-            "Negative linear relationship",
-            "Nonlinear relationship",
-        ],
-        values: [1, 3],
-        randomizeItems: false,
-    });
-
-export const categorizerWithMathOptions: PerseusCategorizerWidgetOptions =
-    generateCategorizerOptions({
-        items: ["$2x + 4$", "$x^2 - 9$", "$3x$", "$x^2 + 5x + 6$"],
-        categories: ["$\\text{Linear}$", "$\\text{Quadratic}$"],
-        values: [0, 1, 0, 1],
-        randomizeItems: false,
-    });

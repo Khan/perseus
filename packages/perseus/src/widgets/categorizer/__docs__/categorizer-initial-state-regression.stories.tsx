@@ -1,33 +1,25 @@
+import {generateCategorizerOptions} from "@khanacademy/perseus-core";
+
 import {themeModes} from "../../../../../../.storybook/modes";
 import {
     mobileDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
-import {
-    categorizerOptions,
-    categorizerWithImagesOptions,
-    categorizerWithMathOptions,
-} from "../categorizer.testdata";
 
 import {categorizerRendererDecorator} from "./categorizer-renderer-decorator";
 
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-/**
- * Visual regression stories for the Categorizer widget.
- *
- * The Categorizer isn't keyboard/interaction accessible, so there are no
- * interaction stories. The "answered", "mobile", and "static" states are
- * produced statically (via the `initialUserInput`/`apiOptions`/`static` story
- * parameters the decorator reads) and live here alongside the initial state.
- */
-// NOTE: `categorizerRendererDecorator` is applied per-story (as the first,
-// innermost decorator) rather than at the meta level. It renders its own
-// content and ignores the story passed to it, so if it were the outermost
-// (meta-level) decorator it would discard story-level decorators like
-// `rtlDecorator`/`mobileDecorator`. Listing it first inside each story lets
-// those wrappers compose around the rendered widget.
+// Shared by most stories below (Default, Answered, AnsweredMobile,
+// RightToLeft, Static), so it lives at the top of the file.
+const categorizerOptions = generateCategorizerOptions({
+    items: ["Apple", "Broccoli", "Banana", "Carrot"],
+    categories: ["Fruit", "Vegetable"],
+    values: [0, 1, 0, 1],
+    randomizeItems: false,
+});
+
 const meta: Meta<PerseusCategorizerWidgetOptions> = {
     title: "Widgets/Categorizer/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
@@ -59,12 +51,30 @@ export const Default: Story = {
 
 export const WithImages: Story = {
     decorators: [categorizerRendererDecorator],
-    args: categorizerWithImagesOptions,
+    args: generateCategorizerOptions({
+        items: [
+            "![Graph 1](web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f)",
+            "![Graph 2](web+graphie://cdn.kastatic.org/ka-perseus-graphie/7c0a5afb8670fad738df800ffe16c5e516b48777)",
+        ],
+        categories: [
+            "No relationship",
+            "Positive linear relationship",
+            "Negative linear relationship",
+            "Nonlinear relationship",
+        ],
+        values: [1, 3],
+        randomizeItems: false,
+    }),
 };
 
 export const WithMath: Story = {
     decorators: [categorizerRendererDecorator],
-    args: categorizerWithMathOptions,
+    args: generateCategorizerOptions({
+        items: ["$2x + 4$", "$x^2 - 9$", "$3x$", "$x^2 + 5x + 6$"],
+        categories: ["$\\text{Linear}$", "$\\text{Quadratic}$"],
+        values: [0, 1, 0, 1],
+        randomizeItems: false,
+    }),
 };
 
 export const Answered: Story = {
@@ -89,13 +99,5 @@ export const RightToLeft: Story = {
     args: categorizerOptions,
     parameters: {
         initialUserInput: answer,
-    },
-};
-
-export const Static: Story = {
-    decorators: [categorizerRendererDecorator],
-    args: categorizerOptions,
-    parameters: {
-        static: true,
     },
 };

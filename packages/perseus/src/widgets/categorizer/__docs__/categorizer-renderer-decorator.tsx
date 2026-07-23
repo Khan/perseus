@@ -19,7 +19,6 @@ export const categorizerRendererDecorator: Decorator = (
     }: {
         args: Record<string, unknown>;
         parameters?: {
-            content?: string;
             apiOptions?: APIOptions;
             initialUserInput?: UserInputMap;
             static?: boolean;
@@ -29,7 +28,7 @@ export const categorizerRendererDecorator: Decorator = (
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ categorizer 1]]",
+                content: "[[☃ categorizer 1]]",
                 widgets: {
                     "categorizer 1": generateCategorizerWidget({
                         static: parameters?.static ?? false,
