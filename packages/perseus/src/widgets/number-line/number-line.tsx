@@ -344,6 +344,48 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return null;
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState() {
+        const props = this.props;
+        return {
+            alignment: props.alignment,
+            static: props.static,
+            range: props.range,
+            labelRange: props.labelRange,
+            labelStyle: props.labelStyle,
+            labelTicks: props.labelTicks,
+            divisionRange: props.divisionRange,
+            snapDivisions: props.snapDivisions,
+            isInequality: props.isInequality,
+            showTooltips: props.showTooltips,
+            isTickCtrl: props.isTickCtrl,
+            numDivisions: props.userInput.numDivisions,
+            numLinePosition: props.userInput.numLinePosition,
+            // this seems like a bug, but I'm maintaining the
+            // existing behavior on a deprecated API. Probably
+            // should be:
+            // rel: userInput.rel,
+            rel: "ge",
+        };
+    }
+
+    getPromptJSON(): NumberLinePromptJSON {
+        return _getPromptJSON(this.props);
+    }
+
+    // This function is intended to be used by tests to directly set the
+    // point's position.
+    movePosition: (arg1: number) => void = (targetPosition) => {
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            numLinePosition: targetPosition,
+        });
+        this.props.trackInteraction();
+    };
+
     _renderGraphie: () => React.ReactElement = () => {
         // Position variables
         const range = this.props.range;
@@ -405,17 +447,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         x = left + knumber.roundTo(x - left, snapX);
         assert(_.isFinite(x));
         return x;
-    };
-
-    // This function is intended to be used by the client code
-    // and by test code to directly set the target number line
-    // position
-    movePosition: (arg1: number) => void = (targetPosition) => {
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            numLinePosition: targetPosition,
-        });
-        this.props.trackInteraction();
     };
 
     _renderNumberLinePoint: (arg1: CalculatedProps) => React.ReactElement = (
@@ -571,38 +602,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         graphie.line([center, 0], [right, 0], {arrows: "->"});
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
-
-    getPromptJSON(): NumberLinePromptJSON {
-        return _getPromptJSON(this.props);
-    }
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState() {
-        const props = this.props;
-        return {
-            alignment: props.alignment,
-            static: props.static,
-            range: props.range,
-            labelRange: props.labelRange,
-            labelStyle: props.labelStyle,
-            labelTicks: props.labelTicks,
-            divisionRange: props.divisionRange,
-            snapDivisions: props.snapDivisions,
-            isInequality: props.isInequality,
-            showTooltips: props.showTooltips,
-            isTickCtrl: props.isTickCtrl,
-            numDivisions: props.userInput.numDivisions,
-            numLinePosition: props.userInput.numLinePosition,
-            // this seems like a bug, but I'm maintaining the
-            // existing behavior on a deprecated API. Probably
-            // should be:
-            // rel: userInput.rel,
-            rel: "ge",
-        };
-    }
 
     render(): React.ReactNode {
         const {strings} = this.context;
