@@ -37,20 +37,20 @@ export function srSegmentPointLabel(
           });
 }
 
-type SegmentDescription = {
+interface SegmentDescription {
     point1AriaLabel: string;
     point2AriaLabel: string;
     grabHandleAriaLabel: string;
     individualAriaLabel: string;
     lengthDescription: string;
-};
+}
 
-type SegmentGraphDescriptionStrings = {
+interface SegmentGraphDescriptionStrings {
     srSegmentGraph: string;
     srSegmentInteractiveElements: string;
     srWholeGraphDescription: string;
     srSegments: ReadonlyArray<SegmentDescription>;
-};
+}
 
 // Exported for testing
 export function describeSegmentGraph(

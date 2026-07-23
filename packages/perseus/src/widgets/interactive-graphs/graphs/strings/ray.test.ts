@@ -19,7 +19,7 @@ const baseRayState: InteractiveGraphState = {
 };
 
 describe("describeRayGraph", () => {
-    test("describes a default ray", () => {
+    it("describes a default ray", () => {
         // Arrange
 
         // Act
@@ -40,7 +40,7 @@ describe("describeRayGraph", () => {
         );
     });
 
-    test("describes a ray with updated points", () => {
+    it("describes a ray with updated points", () => {
         // Arrange
 
         // Act
@@ -70,7 +70,7 @@ describe("describeRayGraph", () => {
         );
     });
 
-    test("folds custom pointLabels into the endpoint / through-point roles", () => {
+    it("folds custom pointLabels into the endpoint / through-point roles", () => {
         // Arrange, Act
         const strings = describeRayGraph(
             {...baseRayState, pointLabels: ["A", "B"]},
@@ -84,7 +84,7 @@ describe("describeRayGraph", () => {
         );
     });
 
-    test("falls back to the plain role label for empty-string entries", () => {
+    it("falls back to the plain role label for empty-string entries", () => {
         // Arrange, Act
         const strings = describeRayGraph(
             {...baseRayState, pointLabels: ["", "B"]},

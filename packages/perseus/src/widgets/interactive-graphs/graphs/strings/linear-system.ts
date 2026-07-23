@@ -34,21 +34,21 @@ export function srLinearSystemPointLabel(
     });
 }
 
-type LinearSystemLineDescription = {
+interface LinearSystemLineDescription {
     point1AriaLabel: string;
     point2AriaLabel: string;
     grabHandleAriaLabel: string;
     pointsDescription: string;
     interceptDescription: string;
     slopeDescription: string;
-};
+}
 
-type LinearSystemGraphDescriptionStrings = {
+interface LinearSystemGraphDescriptionStrings {
     srLinearSystemGraph: string;
     srLinearSystemInteractiveElements: string;
     srIntersectionDescription: string;
     srLines: ReadonlyArray<LinearSystemLineDescription>;
-};
+}
 
 // Exported for testing
 export function describeLinearSystemGraph(

@@ -25,7 +25,7 @@ const baseLinearSystemState: InteractiveGraphState = {
 };
 
 describe("describeLinearSystemGraph", () => {
-    test("describes a default linear system graph", () => {
+    it("describes a default linear system graph", () => {
         // Arrange, Act
         const linearSystemGraphDescription = describeLinearSystemGraph(
             baseLinearSystemState,
@@ -40,7 +40,7 @@ describe("describeLinearSystemGraph", () => {
         );
     });
 
-    test("describes a linear system graph with updated points", () => {
+    it("describes a linear system graph with updated points", () => {
         // Arrange, Act
         const linearSystemGraphDescription = describeLinearSystemGraph(
             {
@@ -67,7 +67,7 @@ describe("describeLinearSystemGraph", () => {
         );
     });
 
-    test("returns the whole-graph aria-label", () => {
+    it("returns the whole-graph aria-label", () => {
         // Arrange, Act
         const {srLinearSystemGraph} = describeLinearSystemGraph(
             baseLinearSystemState,
@@ -78,7 +78,7 @@ describe("describeLinearSystemGraph", () => {
         expect(srLinearSystemGraph).toEqual("Two lines on a coordinate plane.");
     });
 
-    test("returns aria strings for each line", () => {
+    it("returns aria strings for each line", () => {
         // Arrange, Act
         const {srLines} = describeLinearSystemGraph(
             baseLinearSystemState,
@@ -112,7 +112,7 @@ describe("describeLinearSystemGraph", () => {
         ]);
     });
 
-    test("describes the intersection point when the lines intersect", () => {
+    it("describes the intersection point when the lines intersect", () => {
         // Arrange, Act — y = x and y = -x cross at the origin.
         const {srIntersectionDescription} = describeLinearSystemGraph(
             {
@@ -137,7 +137,7 @@ describe("describeLinearSystemGraph", () => {
         );
     });
 
-    test("describes parallel lines that never intersect", () => {
+    it("describes parallel lines that never intersect", () => {
         // Arrange, Act — the base state's lines are both horizontal.
         const {srIntersectionDescription} = describeLinearSystemGraph(
             baseLinearSystemState,
@@ -150,7 +150,7 @@ describe("describeLinearSystemGraph", () => {
         );
     });
 
-    test("weaves custom pointLabels into each point's aria-label", () => {
+    it("weaves custom pointLabels into each point's aria-label", () => {
         // Arrange, Act — pointLabels is flat across both lines:
         // [line0Start, line0End, line1Start, line1End].
         const {srLines} = describeLinearSystemGraph(
@@ -176,7 +176,7 @@ describe("describeLinearSystemGraph", () => {
         );
     });
 
-    test("falls back to the within-line point number for missing and empty-string labels", () => {
+    it("falls back to the within-line point number for missing and empty-string labels", () => {
         // Arrange, Act — only line 1's start point is named; line 1's end
         // point is an explicit empty string and line 2 has no entries.
         const {srLines} = describeLinearSystemGraph(
