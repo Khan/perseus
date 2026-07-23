@@ -85,56 +85,73 @@ const multipleAnswerArgs: Partial<PerseusLabelImageWidgetOptions> = {
     hideChoicesFromInstructions: true,
 };
 
-// Long lorem ipsum choices for the layout stress tests. Broken out into named
-// constants so the `choices` array and the marker `answers` share the exact
-// same strings (answers are matched to choices by string equality).
+// Long lorem ipsum choices for the layout stress tests, in two variants.
 //
-// The Perseus Renderer starts a new block-level element at each comma and puts
-// a trailing period in its own block, so a punctuated choice wraps onto several
-// lines. We keep a few choices punctuated (b, f, h) to exercise that layout and
-// leave the rest as plain phrases that render as one continuous wrapped block.
-const longChoices = {
+// When a choice is rendered inline (the open answer list and the selected
+// answer pill), the Perseus Renderer puts each comma-separated clause and a
+// trailing period in its own block-level element. So a punctuated choice wraps
+// onto multiple lines, while an unpunctuated one renders as a single wrapped
+// line. The two variants below isolate those cases into separate stories.
+//
+// Broken out into named constants so each `choices` array and the marker
+// `answers` share the exact same strings (answers are matched to choices by
+// string equality).
+const longChoicesNoPunctuation = {
     a: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore",
-    b: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    b: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo",
     c: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
     d: "Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est",
     e: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
-    f: "Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.",
+    f: "Totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta",
     g: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni",
-    h: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+    h: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non",
     i: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur",
 };
 
-// Shared args for the long-choice layout stress tests: many choices (9)
-// combined with long choice text.
-const longChoicesArgs: Partial<PerseusLabelImageWidgetOptions> = {
+const longChoicesWithPunctuation = {
+    a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+    b: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    c: "Duis aute irure dolor in reprehenderit, in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    d: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id laborum.",
+    e: "Sed ut perspiciatis unde omnis iste natus error, sit voluptatem accusantium doloremque laudantium.",
+    f: "Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.",
+    g: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur, aut odit aut fugit, sed quia consequuntur magni.",
+    h: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+    i: "Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+};
+
+// Builds the shared args for a long-choice variant: nine long choices shown in
+// the instructions, with four markers whose answers reference specific choices.
+const makeLongChoicesArgs = (
+    choices: typeof longChoicesNoPunctuation,
+): Partial<PerseusLabelImageWidgetOptions> => ({
     imageUrl:
         "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
     imageWidth: 415,
     imageHeight: 314,
     imageAlt: "A bar graph with four unlabeled bar lines.",
-    choices: Object.values(longChoices),
+    choices: Object.values(choices),
     markers: [
         {
-            answers: [longChoices.d],
+            answers: [choices.d],
             label: "The fourth unlabeled bar line.",
             x: 25,
             y: 17.7,
         },
         {
-            answers: [longChoices.a],
+            answers: [choices.a],
             label: "The third unlabeled bar line.",
             x: 25,
             y: 35.3,
         },
         {
-            answers: [longChoices.e],
+            answers: [choices.e],
             label: "The second unlabeled bar line.",
             x: 25,
             y: 53,
         },
         {
-            answers: [longChoices.i],
+            answers: [choices.i],
             label: "The first unlabeled bar line.",
             x: 25,
             y: 70.3,
@@ -142,7 +159,14 @@ const longChoicesArgs: Partial<PerseusLabelImageWidgetOptions> = {
     ],
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
-};
+});
+
+const longChoicesNoPunctuationArgs = makeLongChoicesArgs(
+    longChoicesNoPunctuation,
+);
+const longChoicesWithPunctuationArgs = makeLongChoicesArgs(
+    longChoicesWithPunctuation,
+);
 
 /***********************************************************************
  *  Focus state stories
@@ -261,11 +285,23 @@ export const OpenMathChoices: Story = {
     },
 };
 
-// Stress-tests the open options list with many long choices.
+// Stress-tests the open options list with many long, unpunctuated choices.
 export const OpenLongChoices: Story = {
     name: "[Open] Long Choices",
     decorators: [labelImageRendererDecorator],
-    args: longChoicesArgs,
+    args: longChoicesNoPunctuationArgs,
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+    },
+};
+
+// Stress-tests the open options list with many long, punctuated choices.
+export const OpenLongChoicesWithPunctuation: Story = {
+    name: "[Open] Long Choices with Punctuation",
+    decorators: [labelImageRendererDecorator],
+    args: longChoicesWithPunctuationArgs,
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
         const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
@@ -337,20 +373,39 @@ export const SelectedDefault: Story = {
     },
 };
 
-// Stress-tests the selected state with long choice text.
+// Stress-tests the selected pill with a long, unpunctuated choice.
 export const SelectedLongChoices: Story = {
     name: "[Selected] Long Choices",
     decorators: [labelImageRendererDecorator],
-    args: longChoicesArgs,
+    args: longChoicesNoPunctuationArgs,
     play: async ({canvasElement, userEvent}) => {
         const canvas = within(canvasElement);
         const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
         await userEvent.click(marker);
 
         // WonderBlocks SingleSelect renders options into a React portal outside
-        // the canvas, so we scope to document.body.
-        // Use a partial regex match to avoid brittle exact string matches
-        // caused by the renderer's handling of punctuation.
+        // the canvas, so we scope to document.body. A partial regex match on the
+        // leading (punctuation-free) fragment finds the option in both variants.
+        const choice = within(document.body).getByRole("option", {
+            name: /Ut enim/,
+        });
+        await userEvent.click(choice);
+    },
+};
+
+// Stress-tests the selected pill with a long, punctuated choice.
+export const SelectedLongChoicesWithPunctuation: Story = {
+    name: "[Selected] Long Choices with Punctuation",
+    decorators: [labelImageRendererDecorator],
+    args: longChoicesWithPunctuationArgs,
+    play: async ({canvasElement, userEvent}) => {
+        const canvas = within(canvasElement);
+        const marker = canvas.getByLabelText("The fourth unlabeled bar line.");
+        await userEvent.click(marker);
+
+        // WonderBlocks SingleSelect renders options into a React portal outside
+        // the canvas, so we scope to document.body. A partial regex match on the
+        // leading (punctuation-free) fragment finds the option in both variants.
         const choice = within(document.body).getByRole("option", {
             name: /Ut enim/,
         });
