@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 35.1.0
+
+### Minor Changes
+
+-   [#3932](https://github.com/Khan/perseus/pull/3932) [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0) Thanks [@benchristel](https://github.com/benchristel)! - The Molecule widget (already deprecated and hidden from the editor) has been removed. It now renders as the DeprecatedStandin widget.
+
+-   [#3943](https://github.com/Khan/perseus/pull/3943) [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Remove the `perseus-enable-point-label-field` feature flag (AITQ-385). `showPointLabels` is now honored unconditionally on interactive graphs and in the editor toggle.
+
+### Patch Changes
+
+-   [#3936](https://github.com/Khan/perseus/pull/3936) [`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the Plotter widget required, and default them in the parser.
+
+-   [#3940](https://github.com/Khan/perseus/pull/3940) [`5583d12`](https://github.com/Khan/perseus/commit/5583d12becdc7ae882f8d9f711162e023cb5e8ad) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The `immutableWidgets` prop of `Editor` has been removed. It was always set to false.
+
+-   [#3930](https://github.com/Khan/perseus/pull/3930) [`e50990e`](https://github.com/Khan/perseus/commit/e50990e172e0c6a28c69384a3a0f01240694efc6) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Interactive graph: lint rule warns on mis-sized `pointLabels` arrays, and the correct-answer preview hides point labels when the widget is static.
+
+-   [#3929](https://github.com/Khan/perseus/pull/3929) [`83d4555`](https://github.com/Khan/perseus/commit/83d4555fe253062540b04aebf9b04a488d4f34ad) Thanks [@benchristel](https://github.com/benchristel)! - Add a typesafe `TypedSingleSelect` wrapper around Wonder Blocks' `SingleSelect` and use it for the editor's dropdowns. Its `selectedValue`/`onChange` are constrained to the union inferred from the `options` keys, letting call sites drop the `as` casts they previously used to narrow `SingleSelect`'s `string` value type. No user-visible behavior change.
+
+-   Updated dependencies [[`469b559`](https://github.com/Khan/perseus/commit/469b55948daa2897756a83842378ff74cadb5037), [`bfb1191`](https://github.com/Khan/perseus/commit/bfb11914e4052fe1938e55f75732b742533f37d1), [`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd), [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0), [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0), [`53d364e`](https://github.com/Khan/perseus/commit/53d364e51313887960ebec480a10d97f70a54d57), [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684), [`e50990e`](https://github.com/Khan/perseus/commit/e50990e172e0c6a28c69384a3a0f01240694efc6), [`da5054f`](https://github.com/Khan/perseus/commit/da5054fb310803a9db446052533121dbce3a149f), [`4278b68`](https://github.com/Khan/perseus/commit/4278b68ab445c90c8efeb23924ffce5d9471dc73)]:
+    -   @khanacademy/perseus@82.0.0
+    -   @khanacademy/perseus-core@33.0.0
+    -   @khanacademy/perseus-linter@5.1.16
+    -   @khanacademy/keypad-context@3.2.76
+    -   @khanacademy/kmath@2.4.35
+    -   @khanacademy/math-input@26.6.5
+
 ## 35.0.3
 
 ### Patch Changes
