@@ -28,8 +28,6 @@ export const pureSmMax = "767px";
 export const pureMdMax = "1023px";
 // @pure-lg-max: (@pure-xl-min - 1);
 export const pureLgMax = "1279px";
-// @tableBackgroundAccent: #f9f9f9; // for striping
-export const tableBackgroundAccent = "#F9F9F9";
 // @phoneMargin: 16px;
 export const phoneMargin = 16;
 

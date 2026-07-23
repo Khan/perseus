@@ -2,7 +2,7 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -10,12 +10,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
-import {
-    gray76,
-    tableBackgroundAccent,
-    phoneMargin,
-    negativePhoneMargin,
-} from "../../styles/constants";
+import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
@@ -60,37 +55,38 @@ class Indicators extends React.Component<IndicatorsProps> {
                     "indicatorContainer",
                 )}
             >
-                {this.props.gradedGroups.map(({title}, i) => (
-                    // Note: Use index as key — titles are user-authored and not
-                    // guaranteed unique. Groups are never reordered at runtime,
-                    // so index keys are stable.
-                    <li className={css(styles.indicator)} key={i}>
-                        <Clickable
-                            role="button"
-                            aria-label={title}
-                            aria-current={i === this.props.currentGroup}
-                            style={styles.indicatorButton}
-                            onClick={() => this.props.onChangeCurrentGroup(i)}
-                            onKeyDown={(e) => this.handleKeyDown(e, i)}
-                        >
-                            {({hovered, focused, pressed}) => (
-                                <View
-                                    style={[
-                                        styles.indicatorDot,
-                                        (hovered || focused || pressed) &&
-                                            styles.indicatorDotFocused,
-                                    ]}
-                                >
-                                    {i === this.props.currentGroup && (
-                                        <View
-                                            style={styles.indicatorDotActive}
-                                        />
-                                    )}
-                                </View>
-                            )}
-                        </Clickable>
-                    </li>
-                ))}
+                {this.props.gradedGroups.map(({title}, i) => {
+                    const isCurrent = i === this.props.currentGroup;
+                    return (
+                        // Note: Use index as key — titles are user-authored and
+                        // not guaranteed unique. Groups are never reordered at
+                        // runtime, so index keys are stable.
+                        <li className={css(styles.indicator)} key={i}>
+                            <Clickable
+                                role="button"
+                                aria-label={title}
+                                aria-current={isCurrent}
+                                style={styles.indicatorButton}
+                                onClick={() =>
+                                    this.props.onChangeCurrentGroup(i)
+                                }
+                                onKeyDown={(e) => this.handleKeyDown(e, i)}
+                            >
+                                {({hovered, focused, pressed}) => (
+                                    <View
+                                        style={[
+                                            styles.indicatorDot,
+                                            isCurrent &&
+                                                styles.indicatorDotActive,
+                                            (hovered || focused || pressed) &&
+                                                styles.indicatorDotFocused,
+                                        ]}
+                                    />
+                                )}
+                            </Clickable>
+                        </li>
+                    );
+                })}
             </ul>
         );
     }
@@ -263,8 +259,8 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 12,
-        color: semanticColor.core.foreground.neutral.subtle,
+        fontSize: font.heading.size.small,
+        color: semanticColor.core.foreground.neutral.default,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
@@ -301,27 +297,35 @@ const styles = StyleSheet.create({
         boxSizing: "content-box",
         width: 10,
         height: 10,
-        borderRadius: "100%",
-        borderWidth: 2,
+        borderRadius: border.radius.radius_full,
+        borderWidth: border.width.medium,
         borderColor: semanticColor.core.border.instructive.default,
         borderStyle: "solid",
     },
 
     indicatorDotFocused: {
-        borderWidth: 5,
-        borderStyle: "double",
+        // Wonder Blocks-style focus indicator: an offset outer outline
+        // (semanticColor.focus.outer) with a white inner ring
+        // (semanticColor.focus.inner) via box-shadow, so focus stays visible
+        // on any background.
+        outlineColor: semanticColor.focus.outer,
+        outlineStyle: "solid",
+        outlineWidth: border.width.medium,
+        outlineOffset: border.width.medium,
+        boxShadow: `0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
     },
 
     indicatorDotActive: {
-        backgroundColor: semanticColor.core.background.instructive.default,
-        width: "100%",
-        height: "100%",
+        // The active pip is filled in — background and border both in the fill
+        // color — so it shows up as a solid circle the same size as the ring pips.
+        backgroundColor: semanticColor.core.foreground.instructive.default,
+        borderColor: semanticColor.core.foreground.instructive.default,
     },
 
     container: {
-        borderTop: `1px solid ${gray76}`,
-        borderBottom: `1px solid ${gray76}`,
-        backgroundColor: tableBackgroundAccent,
+        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBottom: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        backgroundColor: semanticColor.core.background.base.subtle,
         marginLeft: negativePhoneMargin,
         marginRight: negativePhoneMargin,
         paddingBottom: phoneMargin,
