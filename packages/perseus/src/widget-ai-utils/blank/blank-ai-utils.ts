@@ -2,9 +2,9 @@ import type blank from "../../widgets/blank/blank";
 import type React from "react";
 
 /**
- * JSON describing a numeric-input widget. Intended for consumption by AI tools.
- * A numeric-input widget displays a single text field where the learner types
- * a numeric answer (integer, decimal, fraction, etc.).
+ * JSON describing a blank widget. Intended for consumption by AI tools.
+ * A blank widget is a fill-in-the-blank slot where the learner selects an
+ * answer tile to place into the blank.
  */
 export type BlankPromptJSON = {
     type: "blank";
@@ -15,7 +15,7 @@ export type BlankPromptJSON = {
      */
     userInput: {
         /**
-         * The text currently entered in the input field by the learner.
+         * The ID of the answer tile the learner has selected for the blank.
          */
         selected?: string;
     };

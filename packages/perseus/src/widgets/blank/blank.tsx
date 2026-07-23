@@ -32,7 +32,7 @@ const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
             .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
             .join(" ");
 
-        return <div className={classes}> </div>;
+        return <div className={classes} data-testid="blank-widget" />;
     },
 );
 export default {

@@ -10,6 +10,6 @@ describe("Blank Widget", function () {
         renderQuestion(question1);
 
         // Assert
-        expect(screen.getByText(/Blank Widget Stub/)).toBeInTheDocument();
+        expect(screen.getByTestId("blank-widget")).toBeInTheDocument();
     });
 });
