@@ -1,3 +1,5 @@
+import {expect, waitFor} from "storybook/test";
+
 import {themeModes} from "../../../../../../.storybook/modes";
 import {
     mobileDecorator,
@@ -132,14 +134,25 @@ export const ReducedMotionMarkers: Story = {
     args: barGraphArgs,
     // Only take the snapshot after the singular pulse animation has finished.
     play: async ({canvasElement}) => {
-        const finiteAnimations = canvasElement
-            .getAnimations({subtree: true})
-            .filter(
-                (animation) =>
-                    animation.effect?.getTiming().iterations !== Infinity,
-            );
+        // The finite (iteration-count: 2) "pulsate once" animations are only
+        // present while running. An empty result is ambiguous — it means either
+        // "not applied yet" or "already finished" — so we assert (with retry)
+        // that at least one finite animation exists before awaiting it. This
+        // fails loudly if the reduced-motion path regresses to the infinite
+        // animation (which would otherwise make the snapshot silently no-op).
+        const getFiniteAnimations = () =>
+            canvasElement
+                .getAnimations({subtree: true})
+                .filter(
+                    (animation) =>
+                        animation.effect?.getTiming().iterations !== Infinity,
+                );
+
+        await waitFor(() =>
+            expect(getFiniteAnimations().length).toBeGreaterThan(0),
+        );
         await Promise.all(
-            finiteAnimations.map((animation) => animation.finished),
+            getFiniteAnimations().map((animation) => animation.finished),
         );
     },
 };
