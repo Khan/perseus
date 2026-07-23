@@ -16,6 +16,10 @@ type Props = DefaultProps & {
     }) => void;
 };
 
+/**
+ * Editor is going to be handled by the Parent DnD widget (such as FITB)
+ * This editor is just a stub
+ */
 class BlankEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         displayType: "normal",
