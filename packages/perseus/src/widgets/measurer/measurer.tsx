@@ -2,7 +2,6 @@ import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
@@ -13,17 +12,7 @@ import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetPropsV2<PerseusMeasurerWidgetOptions> & {
-    // NOTE: These are declared as required, but nothing actually supplies
-    // them — the renderer only passes `options` plus the universal props, and
-    // no other caller sets them. As a result, when `showProtractor` is true
-    // (the default) the protractor is drawn at an undefined position. This is
-    // long-standing behavior, preserved as-is.
-    // FIXME: remove the protractor props and use reasonable defaults for the
-    //  position, e.g. (0, 0)
-    protractorX: number;
-    protractorY: number;
-};
+type Props = WidgetPropsV2<PerseusMeasurerWidgetOptions>;
 
 class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
@@ -38,21 +27,18 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     componentDidUpdate(prevProps: Props) {
-        // FIXME: use Array#some() instead of _.any()
-        const shouldSetupGraphie = _.any(
-            [
-                "box",
-                "showProtractor",
-                "showRuler",
-                "rulerLabel",
-                "rulerTicks",
-                "rulerPixels",
-                "rulerLength",
-            ] satisfies Array<keyof PerseusMeasurerWidgetOptions>,
-            (prop) => {
-                return prevProps.options[prop] !== this.props.options[prop];
-            },
-            this,
+        const propsAffectingGraphie = [
+            "box",
+            "showProtractor",
+            "showRuler",
+            "rulerLabel",
+            "rulerTicks",
+            "rulerPixels",
+            "rulerLength",
+        ] satisfies Array<keyof PerseusMeasurerWidgetOptions>;
+
+        const shouldSetupGraphie = propsAffectingGraphie.some(
+            (prop) => prevProps.options[prop] !== this.props.options[prop],
         );
 
         if (shouldSetupGraphie) {
@@ -81,16 +67,20 @@ class Measurer extends React.Component<Props> implements Widget {
             allowScratchpad: true,
         });
 
+        // Both tools default to the center of the graph so the whole tool is
+        // visible; the learner can then drag them where they need them.
+        const center: Coord = [
+            (range[0][0] + range[0][1]) / 2,
+            (range[1][0] + range[1][1]) / 2,
+        ];
+
         if (this.protractor) {
             this.protractor.remove();
         }
 
         if (this.props.options.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
-            this.protractor = graphie.protractor([
-                this.props.protractorX,
-                this.props.protractorY,
-            ]);
+            this.protractor = graphie.protractor(center);
         }
 
         if (this.ruler) {
@@ -100,10 +90,7 @@ class Measurer extends React.Component<Props> implements Widget {
         if (this.props.options.showRuler) {
             // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
             this.ruler = graphie.ruler({
-                center: [
-                    (range[0][0] + range[0][1]) / 2,
-                    (range[1][0] + range[1][1]) / 2,
-                ],
+                center: center,
                 label: this.props.options.rulerLabel,
                 pixelsPerUnit: this.props.options.rulerPixels,
                 ticksPerUnit: this.props.options.rulerTicks,
