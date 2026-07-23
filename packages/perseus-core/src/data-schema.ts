@@ -1820,11 +1820,14 @@ export type PerseusPlotterWidgetOptions = {
     correct: number[];
     /** A picture to represent items in a graph. */
     picUrl: string | null;
-    /** @deprecated */
+    // picSize has no editor controls, but is still present in published
+    // content as of July 2026.
     picSize: number;
-    /** @deprecated */
+    // picBoxHeight has no editor controls, but is still present in published
+    // content as of July 2026.
     picBoxHeight: number;
-    /** @deprecated */
+    // plotDimensions has no editor controls, but is still present in published
+    // content as of July 2026.
     plotDimensions: number[];
 };
 

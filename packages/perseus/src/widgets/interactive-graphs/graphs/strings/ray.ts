@@ -1,4 +1,5 @@
-import {withCustomPointLabel} from "./custom-point-label";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
+
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -8,23 +9,28 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srRayPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
     },
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the endpoint/through-point semantics,
-    // matching the static aria-label behavior in ray.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label is woven into the endpoint/through-point
+    // description so we keep the ray-specific semantics.
+    const {pointLabel} = state;
+
     // Index 0 is the ray's endpoint; index 1 is a point the ray passes
     // through. They use different labels.
-    return state.pointIndex === 0
-        ? strings.srRayEndpoint({x, y})
+    if (state.pointIndex === 0) {
+        return pointLabel
+            ? strings.srRayEndpointWithLabel({pointLabel, x, y})
+            : strings.srRayEndpoint({x, y});
+    }
+    return pointLabel
+        ? strings.srRayTerminalPointWithLabel({pointLabel, x, y})
         : strings.srRayTerminalPoint({x, y});
 }
 
@@ -53,14 +59,30 @@ export function describeRayGraph(
         point2X: srFormatNumber(line[1][0], locale),
         point2Y: srFormatNumber(line[1][1], locale),
     });
-    const srRayEndpoint = strings.srRayEndpoint({
-        x: srFormatNumber(line[0][0], locale),
-        y: srFormatNumber(line[0][1], locale),
-    });
-    const srRayTerminalPoint = strings.srRayTerminalPoint({
-        x: srFormatNumber(line[1][0], locale),
-        y: srFormatNumber(line[1][1], locale),
-    });
+    // A custom author label keeps the point's ray-specific role: the endpoint
+    // (index 0) becomes "Endpoint A ...", the through point (index 1) becomes
+    // "Through point B ...". Unlabeled, empty-string, or malformed entries fall
+    // back to the plain role label.
+    const srRayEndpoint = srRayPointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
+            x: line[0][0],
+            y: line[0][1],
+        },
+        strings,
+        locale,
+    );
+    const srRayTerminalPoint = srRayPointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
+            x: line[1][0],
+            y: line[1][1],
+        },
+        strings,
+        locale,
+    );
     const srRayGrabHandle = strings.srRayGrabHandle({
         point1X: srFormatNumber(line[0][0], locale),
         point1Y: srFormatNumber(line[0][1], locale),

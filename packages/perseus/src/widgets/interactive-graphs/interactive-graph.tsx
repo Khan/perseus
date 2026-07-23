@@ -295,7 +295,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                     ungradedDescriptionId={
                         showUngradedText ? ungradedDescriptionId : undefined
                     }
-                    apiOptions={this.props.apiOptions} // TODO(AITQ-385): clean up feature flag
                 />
             </>
         );

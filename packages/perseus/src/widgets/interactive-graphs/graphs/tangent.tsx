@@ -9,7 +9,6 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -48,8 +47,7 @@ function TangentGraph(props: TangentGraphProps) {
     // Destructure the coordinates from the graph state
     // coords[0] is the inflection point (where tan crosses the midline)
     // coords[1] is a quarter-period away (where amplitude is reached)
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, snapStep} = graphState;
 
     // The coefficients are used to calculate the tangent equation, plot
     // the graph, and to indicate to content creators the currently selected
@@ -78,7 +76,7 @@ function TangentGraph(props: TangentGraphProps) {
         srTangentGraph,
         srTangentDescription,
         srTangentInflectionPoint,
-        srTangentSecondPoint,
+        srTangentControlPoint,
     } = describeTangentGraph(graphState, i18n);
 
     return (
@@ -106,10 +104,9 @@ function TangentGraph(props: TangentGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
-                        buildLabel(i, coord) ??
-                        (i === 0
+                        i === 0
                             ? srTangentInflectionPoint
-                            : srTangentSecondPoint)
+                            : srTangentControlPoint
                     }
                     key={"point-" + i}
                     point={coord}

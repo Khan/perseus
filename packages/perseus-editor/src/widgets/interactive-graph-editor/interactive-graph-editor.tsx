@@ -17,7 +17,6 @@ import {
     interactiveGraphLogic,
     type ShowAxisArrows,
     type ShowAxisTicks,
-    isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -561,12 +560,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         )}
 
-                        {/* TODO(AITQ-385): clean up feature flag */}
-                        {isFeatureOn(
-                            {apiOptions: this.props.apiOptions},
-                            "perseus-enable-point-label-field",
-                        ) &&
-                            !this.props.static &&
+                        {!this.props.static &&
                             this.props.graph?.type &&
                             this.props.graph.type !== "vector" &&
                             this.props.graph.type !== "none" && (

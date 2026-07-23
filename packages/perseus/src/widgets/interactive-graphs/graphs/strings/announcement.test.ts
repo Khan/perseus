@@ -28,7 +28,14 @@ describe("getAnnouncementText", () => {
     describe("move-radius-point", () => {
         it("returns the correct string when point is to the right", () => {
             const result = getAnnouncementText(
-                {type: "move-radius-point", x: 2, y: 0, centerX: 0, radius: 2},
+                {
+                    type: "move-radius-point",
+                    x: 2,
+                    y: 0,
+                    centerX: 0,
+                    radius: 2,
+                    pointLabel: undefined,
+                },
                 mockStrings,
                 "en",
             );
@@ -40,7 +47,14 @@ describe("getAnnouncementText", () => {
 
         it("returns the correct string when point is to the left", () => {
             const result = getAnnouncementText(
-                {type: "move-radius-point", x: -2, y: 0, centerX: 0, radius: 2},
+                {
+                    type: "move-radius-point",
+                    x: -2,
+                    y: 0,
+                    centerX: 0,
+                    radius: 2,
+                    pointLabel: undefined,
+                },
                 mockStrings,
                 "en",
             );
@@ -125,7 +139,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: 1,
                     y: 1,
                     otherY: 3,
@@ -142,7 +156,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: 3,
                     otherY: 0,
@@ -159,7 +173,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: -3,
                     otherY: 0,
@@ -176,7 +190,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-sinusoid-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 2,
                     y: 0,
                     otherY: 0,
@@ -188,10 +202,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Line through point at 2 comma 0.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): To allow custom labels for sinusoid points so
-        // we can keep the root/peak wording.
-        it("uses the custom label, overriding the root/peak wording, when one is set", () => {
+        it("uses the custom label with the root/peak wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-sinusoid-point",
@@ -205,7 +216,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point T at 1 comma 1.");
+            expect(result).toBe("Midline intersection point T at 1 comma 1.");
         });
     });
 
@@ -216,7 +227,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: -2,
                     hasCurve: true,
@@ -235,7 +246,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: 5,
                     hasCurve: true,
@@ -252,7 +263,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-logarithm-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: -2,
                     hasCurve: false,
@@ -264,9 +275,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at -3 comma -2.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for logarithm points so we can
-        // keep the point-1/point-2 wording.
-        it("uses the custom label, overriding the point-1/point-2 wording, when one is set", () => {
+        it("uses the custom label with the point-1/point-2 wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-logarithm-point",
@@ -280,7 +289,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point A at -3 comma -2.");
+            expect(result).toBe(
+                "Point A on a logarithmic curve at -3 comma -2.",
+            );
         });
     });
 
@@ -304,7 +315,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-absolute-value-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 1,
                     slope: 2,
@@ -321,7 +332,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-absolute-value-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: -2,
                     slope: 2,
@@ -333,9 +344,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point on arm at 4 comma -2. The slope is 2.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for absolute-value points so
-        // we can keep the vertex/arm wording.
-        it("uses the custom label, overriding the vertex/arm wording, when one is set", () => {
+        it("uses the custom label with the vertex wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-absolute-value-point",
@@ -349,7 +358,26 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point V at -3 comma 1.");
+            expect(result).toBe("Vertex point V at -3 comma 1.");
+        });
+
+        it("uses the custom label with the arm wording, keeping the slope", () => {
+            const result = getAnnouncementText(
+                {
+                    type: "move-absolute-value-point",
+                    pointIndex: 1,
+                    pointLabel: "V",
+                    x: 4,
+                    y: -2,
+                    slope: 2,
+                },
+                mockStrings,
+                "en",
+            );
+
+            expect(result).toBe(
+                "Point V on arm at 4 comma -2. The slope is 2.",
+            );
         });
     });
 
@@ -362,7 +390,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-tangent-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 1,
                 },
@@ -378,7 +406,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-tangent-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 4,
                     y: -2,
                 },
@@ -389,9 +417,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Control point at 4 comma -2.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for tangent points so we can
-        // keep the inflection/control-point wording.
-        it("uses the custom label, overriding the inflection/control-point wording, when one is set", () => {
+        it("uses the custom label with the inflection/control-point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-tangent-point",
@@ -404,7 +430,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point I at -3 comma 1.");
+            expect(result).toBe("Inflection point I at -3 comma 1.");
         });
     });
 
@@ -415,7 +441,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -1,
                     y: 4,
                     hasCurve: true,
@@ -434,7 +460,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 3,
                     y: 7,
                     hasCurve: true,
@@ -453,7 +479,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-exponential-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -1,
                     y: 4,
                     hasCurve: false,
@@ -465,9 +491,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 at -1 comma 4.");
         });
 
-        // TODO(LEMS-4206): allow custom labels for exponential points so we
-        // can keep the point-1/point-2 wording.
-        it("uses the custom label, overriding the point-1/point-2 wording, when one is set", () => {
+        it("uses the custom label with the point-1/point-2 wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-exponential-point",
@@ -481,7 +505,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point A at -1 comma 4.");
+            expect(result).toBe(
+                "Point A on an exponential curve at -1 comma 4.",
+            );
         });
     });
 
@@ -506,7 +532,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: 2,
                     y: 0,
                     angleMeasure: 90,
@@ -515,7 +541,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point 2, ending side at 2 comma 0.");
+            expect(result).toBe("Point 1, ending side at 2 comma 0.");
         });
 
         it("uses the vertex label with angle measure for index 1", () => {
@@ -523,7 +549,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 0,
                     y: 0,
                     angleMeasure: 90,
@@ -533,7 +559,7 @@ describe("getAnnouncementText", () => {
             );
 
             expect(result).toBe(
-                "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+                "Point 2, vertex at 0 comma 0. Angle 90 degrees.",
             );
         });
 
@@ -542,7 +568,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-angle-point",
                     pointIndex: 2,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: 0,
                     y: 2,
                     angleMeasure: 90,
@@ -554,7 +580,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 3, starting side at 0 comma 2.");
         });
 
-        it("uses the custom label, overriding the side/vertex wording, when one is set", () => {
+        it("uses the custom label with the side wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-angle-point",
@@ -568,13 +594,10 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point T at 2 comma 0.");
+            expect(result).toBe("Point T, ending side at 2 comma 0.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): To allow custom labels for angle points so
-        // we can angle measures.
-        it("uses the custom label for the vertex, dropping the angle measure", () => {
+        it("uses the custom label with the vertex wording, keeping the angle measure", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-angle-point",
@@ -588,7 +611,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point V at 0 comma 0.");
+            expect(result).toBe(
+                "Point V, vertex at 0 comma 0. Angle 90 degrees.",
+            );
         });
     });
 
@@ -601,7 +626,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -2,
                     y: 4,
                     vertex: [1, -1],
@@ -620,7 +645,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 3,
                     y: 0,
                     vertex: [0, 0],
@@ -639,7 +664,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 2,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: 0,
                     y: 0,
                     vertex: [0, 2],
@@ -658,7 +683,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-quadratic-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -2,
                     y: -2,
                     vertex: undefined,
@@ -672,10 +697,7 @@ describe("getAnnouncementText", () => {
             );
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for quadratic points so we
-        // can keep the quadrant/vertex wording alongside the custom label.
-        it("uses the custom label, overriding the quadrant/vertex wording, when one is set", () => {
+        it("uses the custom label with the quadrant wording, keeping the vertex string, when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-quadratic-point",
@@ -689,7 +711,9 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point A at -2 comma 4.");
+            expect(result).toBe(
+                "Point A on parabola in quadrant 2 at -2 comma 4. Vertex is in quadrant 4.",
+            );
         });
     });
 
@@ -719,7 +743,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-ray-point",
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                 },
@@ -735,7 +759,7 @@ describe("getAnnouncementText", () => {
                 {
                     type: "move-ray-point",
                     pointIndex: 1,
-                    pointLabel: 2,
+                    pointLabel: undefined,
                     x: 5,
                     y: 6,
                 },
@@ -746,10 +770,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Through point at 5 comma 6.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for ray points so we can keep the
-        // endpoint/through-point wording alongside the custom label.
-        it("uses the custom label, overriding the endpoint/through-point wording, when one is set", () => {
+        it("uses the custom label with the endpoint/through-point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-ray-point",
@@ -762,7 +783,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point T at -3 comma 2.");
+            expect(result).toBe("Endpoint T at -3 comma 2.");
         });
     });
 
@@ -833,7 +854,7 @@ describe("getAnnouncementText", () => {
                     type: "move-linear-system-point",
                     lineIndex: 1,
                     pointIndex: 0,
-                    pointLabel: 3,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                 },
@@ -844,10 +865,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Point 1 on line 2 at -3 comma 2.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for linear-system points so we can
-        // keep the line/point wording alongside the custom label.
-        it("uses the custom label, overriding the line/point wording, when one is set", () => {
+        it("uses the custom label with the line/point wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-linear-system-point",
@@ -861,7 +879,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point C at -3 comma 2.");
+            expect(result).toBe("Point C on line 2 at -3 comma 2.");
         });
     });
 
@@ -893,7 +911,7 @@ describe("getAnnouncementText", () => {
                     type: "move-segment-point",
                     segmentIndex: 0,
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                     totalSegments: 1,
@@ -911,7 +929,7 @@ describe("getAnnouncementText", () => {
                     type: "move-segment-point",
                     segmentIndex: 1,
                     pointIndex: 0,
-                    pointLabel: 1,
+                    pointLabel: undefined,
                     x: -3,
                     y: 2,
                     totalSegments: 2,
@@ -923,10 +941,7 @@ describe("getAnnouncementText", () => {
             expect(result).toBe("Endpoint 1 on segment 2 at -3 comma 2.");
         });
 
-        // This is a draw back of the current implementation.
-        // TODO(LEMS-4206): Allow custom labels for segment points so we can
-        // keep the endpoint wording alongside the custom label.
-        it("uses the custom label, overriding the endpoint wording, when one is set", () => {
+        it("uses the custom label with the endpoint wording when one is set", () => {
             const result = getAnnouncementText(
                 {
                     type: "move-segment-point",
@@ -941,7 +956,7 @@ describe("getAnnouncementText", () => {
                 "en",
             );
 
-            expect(result).toBe("Point C at -3 comma 2.");
+            expect(result).toBe("Endpoint C on segment 2 at -3 comma 2.");
         });
     });
 

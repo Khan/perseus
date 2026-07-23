@@ -26,7 +26,7 @@ export function describePointGraph(
                 locale,
             ) ??
             strings.srPointAtCoordinates({
-                num: index + 1,
+                pointLabel: `${index + 1}`,
                 x: srFormatNumber(point[0], locale),
                 y: srFormatNumber(point[1], locale),
             }),
