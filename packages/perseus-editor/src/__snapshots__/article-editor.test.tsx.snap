@@ -4996,7 +4996,7 @@ table: [[☃ table 1]]
                             id="instructions-:r25:"
                             tabindex="-1"
                           >
-                            Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                            Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
                           </div>
                           <div
                             class="default_7zhre1 mafs-sr-only"
@@ -9257,7 +9257,7 @@ table: [[☃ table 1]]
                               id="instructions-:r3p:"
                               tabindex="-1"
                             >
-                              Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
+                              Enable Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
                             </div>
                             <div
                               class="default_7zhre1 mafs-sr-only"
