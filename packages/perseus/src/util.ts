@@ -196,7 +196,7 @@ function splitBlockWidgetsFromParagraphs(ast: any): any {
                 // ... add the widget node (by itself, not in a container)
                 blockNodes.push(childNode);
                 // ... and clear the accumulated inline nodes.
-                inlineNodes.splice(0, inlineNodes.length);
+                inlineNodes.length = 0;
             } else {
                 // If the current child node is NOT a block-level widget,
                 // then it is inline and should be batched with other inline
