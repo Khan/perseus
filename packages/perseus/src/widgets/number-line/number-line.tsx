@@ -1,10 +1,10 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {
     forwardRef,
     useRef,
     useCallback,
-    useEffect,
     useImperativeHandle,
     useState,
     type ReactElement,
@@ -246,7 +246,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
         // for focus management.
         const tickCtrlRef = useRef<NumberInput | SimpleKeypadInput>(null);
 
-        useEffect(() => {
+        useOnMountEffect(() => {
             props.dependencies.analytics.onAnalyticsEvent({
                 type: "perseus:widget:rendered:ti",
                 payload: {
@@ -255,8 +255,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                     widgetId: props.widgetId,
                 },
             });
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+        });
 
         const isValid = (): boolean => {
             const range = props.range;
@@ -414,9 +413,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
         const renderNumberLinePoint = (
             calculatedProps: CalculatedProps,
         ): ReactElement => {
-            const isOpen = ["lt", "gt"].includes(
-                calculatedProps.userInput.rel,
-            );
+            const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
 
             // In static mode the point's fill and stroke is blue to signify that
             // it can't be interacted with.
