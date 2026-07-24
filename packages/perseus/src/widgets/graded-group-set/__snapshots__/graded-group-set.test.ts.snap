@@ -24,13 +24,13 @@ exports[`graded group set widget should snapshot 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="container_14sgdtb"
+            class="container_w7zzoh"
           >
             <div
               class="top_cjo0m2"
             >
               <div
-                class="title_t78eih"
+                class="title_2impyw"
               >
                 Problem 1a
               </div>
@@ -52,12 +52,8 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-indicatorDotActive_xgych8"
-                      />
-                    </div>
+                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j-o_O-indicatorDotActive_dfn32l"
+                    />
                   </button>
                 </li>
                 <li
@@ -71,7 +67,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
+                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j"
                     />
                   </button>
                 </li>
@@ -86,7 +82,7 @@ exports[`graded group set widget should snapshot 1`] = `
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1ppx7bq"
+                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j"
                     />
                   </button>
                 </li>
@@ -172,7 +168,7 @@ exports[`graded group set widget should snapshot 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_1n4y2tp"
+                class="showHintLink_4ow82o"
                 tabindex="0"
               >
                 Explain
