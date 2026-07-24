@@ -11,12 +11,12 @@ import {
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {ParentToIframeMessage, PreviewContent, PreviewMessageBase} from "./message-types";
 import type {Issue} from "../components/issues-panel";
 
 export type A11yReport = {
     violations: Issue[];
-    incompletes: Issue[];
+    unsures: Issue[];
 };
 
 type UsePreviewControllerResult = {
@@ -90,6 +90,17 @@ export function usePreviewController(
     const currentContentRef = React.useRef<PreviewContent | null>(null);
     const currentA11yEnabledRef = React.useRef(false);
 
+    // Sends a message to the iframe, dropping it if the iframe isn't
+    // currently mounted (eg. during a reload/remount).
+    const postToIframe = React.useCallback(
+        // TODO(LEMS-4402): Change this to ParentToIframeMessage when all A11y
+        // message types are integrated.
+        (message: PreviewMessageBase) => {
+            iframeRef.current?.contentWindow?.postMessage(message, "/");
+        },
+        [iframeRef],
+    );
+
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -111,14 +122,13 @@ export function usePreviewController(
             // Handle the message
             switch (message.type) {
                 case "iframe-ready": {
-                    iframeRef.current.contentWindow.postMessage(
+                    postToIframe(
                         createPreviewIframeInitMessage(
                             currentContentRef.current
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
                             currentA11yEnabledRef.current,
                         ),
-                        "/",
                     );
                     setIsIframeReady(true);
                     break;
@@ -131,7 +141,7 @@ export function usePreviewController(
                 case "a11y-report":
                     setA11yReport({
                         violations: message.violations,
-                        incompletes: message.incompletes,
+                        unsures: message.unsures,
                     });
                     break;
 
@@ -145,7 +155,7 @@ export function usePreviewController(
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-    }, [iframeRef]);
+    }, [iframeRef, postToIframe]);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
@@ -158,20 +168,15 @@ export function usePreviewController(
                 return;
             }
 
-            const contentWindow = iframeRef.current?.contentWindow;
-            if (!contentWindow) {
-                return;
-            }
-
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
                 content: sanitizePreviewData(data),
             };
 
-            contentWindow.postMessage(message, "/");
+            postToIframe(message);
         },
-        [iframeRef, isIframeReady],
+        [isIframeReady, postToIframe],
     );
 
     // Enables/disables accessibility scanning in the iframe
@@ -185,44 +190,23 @@ export function usePreviewController(
                 return;
             }
 
-            const contentWindow = iframeRef.current?.contentWindow;
-            if (!contentWindow) {
-                return;
-            }
-
-            contentWindow.postMessage(
-                createPreviewSetA11yEnabledMessage(enabled),
-                "/",
-            );
+            postToIframe(createPreviewSetA11yEnabledMessage(enabled));
         },
-        [iframeRef, isIframeReady],
+        [isIframeReady, postToIframe],
     );
 
     // Highlights elements in the iframe by previewId
     const highlightIssues = React.useCallback(
         (previewIds: string[]) => {
-            const contentWindow = iframeRef.current?.contentWindow;
-            if (!contentWindow) {
-                return;
-            }
-
-            contentWindow.postMessage(
-                createPreviewHighlightIssuesMessage(previewIds),
-                "/",
-            );
+            postToIframe(createPreviewHighlightIssuesMessage(previewIds));
         },
-        [iframeRef],
+        [postToIframe],
     );
 
     // Clears any highlighted elements in the iframe
     const clearHighlights = React.useCallback(() => {
-        const contentWindow = iframeRef.current?.contentWindow;
-        if (!contentWindow) {
-            return;
-        }
-
-        contentWindow.postMessage(createPreviewClearHighlightsMessage(), "/");
-    }, [iframeRef]);
+        postToIframe(createPreviewClearHighlightsMessage());
+    }, [postToIframe]);
 
     return {
         sendData,

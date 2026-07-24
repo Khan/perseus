@@ -100,7 +100,7 @@ describe("usePreviewController", () => {
     describe("setA11yEnabled", () => {
         it("posts a set-a11y-enabled command to the iframe once ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
-            markIframeReady();
+            sendIframeReadyMessage();
 
             act(() => {
                 result.current.setA11yEnabled(true);
@@ -401,7 +401,7 @@ describe("usePreviewController", () => {
                 result.current.setA11yEnabled(false);
                 result.current.setA11yEnabled(true);
             });
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(messagesOfType("iframe-init")).toEqual([
                 expect.objectContaining({a11yEnabled: true}),
@@ -437,7 +437,7 @@ describe("usePreviewController", () => {
             expect(result.current.a11yReport).toBeNull();
 
             const violations = [issue("v1")];
-            const incompletes = [issue("i1")];
+            const unsures = [issue("i1")];
 
             act(() => {
                 window.dispatchEvent(
@@ -446,7 +446,7 @@ describe("usePreviewController", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "a11y-report",
                             violations,
-                            incompletes,
+                            unsures,
                         },
                         source: mockContentWindow,
                     }),
@@ -455,7 +455,7 @@ describe("usePreviewController", () => {
 
             expect(result.current.a11yReport).toEqual({
                 violations,
-                incompletes,
+                unsures,
             });
         });
     });
