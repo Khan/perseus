@@ -2,7 +2,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
@@ -97,6 +96,12 @@ class MobileKeypadInternals
             this._throttleResizeHandler,
         );
         this._containerResizeObserver?.disconnect?.();
+
+        // Notify consumers that the keypad element is gone so they don't hold
+        // on to a stale reference to this now-unmounted component (e.g.
+        // `KeypadContext.keypadElement`), which would otherwise let them call
+        // `getDOMNode` on an unmounted instance.
+        this.props.onElementMounted?.(null);
     }
 
     _resize = () => {
@@ -153,8 +158,14 @@ class MobileKeypadInternals
         this.setState({keyHandler});
     };
 
-    getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode> = () => {
-        return ReactDOM.findDOMNode(this);
+    getDOMNode: () => HTMLElement | null = () => {
+        // Return the container ref rather than `ReactDOM.findDOMNode(this)`.
+        // `findDOMNode` throws "Unable to find node on an unmounted component"
+        // when called after the keypad unmounts (which happens when consumers
+        // read the keypad's height on a deferred callback during teardown), and
+        // it is deprecated / removed in React 19. A ref resolves to `null`
+        // after unmount instead of throwing.
+        return this._containerRef.current;
     };
 
     _handleClickKey(key: KeypadKey) {
