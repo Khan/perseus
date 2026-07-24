@@ -177,16 +177,16 @@ const runAxeCore = (
                 "Alert",
                 isInStorybook ? null : previewWindow,
             );
-            const incompletes = mapResultsToIssues(
+            const unsures = mapResultsToIssues(
                 results.incomplete,
                 "Warning",
                 isInStorybook ? null : previewWindow,
             );
-            const issues = violations.concat(incompletes);
+            const issues = violations.concat(unsures);
             log(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
-                incompletes.length === 0 &&
+                unsures.length === 0 &&
                 results.passes.length === 0
             ) {
                 setTimeout(runAxeCore, 1500, updateIssuesFn, logToConsole); // No valid results indicates that content may not be fully loaded yet

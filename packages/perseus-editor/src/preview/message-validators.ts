@@ -21,8 +21,9 @@ export function isIframeToParentMessage(
         typeof message === "object" &&
         message !== null &&
         "source" in message &&
-        typeof message.source === "string" &&
-        message.source === PREVIEW_MESSAGE_SOURCE
+        message.source === PREVIEW_MESSAGE_SOURCE &&
+        "type" in message &&
+        typeof message.type === "string"
     );
 }
 
@@ -42,7 +43,8 @@ export function isParentToIframeMessage(
         typeof message === "object" &&
         message !== null &&
         "source" in message &&
-        typeof message.source === "string" &&
-        message.source === PREVIEW_MESSAGE_SOURCE
+        message.source === PREVIEW_MESSAGE_SOURCE &&
+        "type" in message &&
+        typeof message.type === "string"
     );
 }
