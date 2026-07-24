@@ -33,7 +33,7 @@ describe("usePreviewController", () => {
         iframeRef = {current: mockIframe as any};
     });
 
-    function markIframeReady() {
+    function sendIframeReadyMessage() {
         act(() => {
             window.dispatchEvent(
                 new MessageEvent("message", {
@@ -119,7 +119,7 @@ describe("usePreviewController", () => {
             // iframe is now set
             localIframeRef.current = iframeRef.current;
 
-            markIframeReady();
+            sendIframeReadyMessage();
 
             // The pending content is flushed via iframe-init now that a
             // contentWindow exists
@@ -146,7 +146,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
 
             // Simulate iframe requesting data
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
                 expect.objectContaining({
@@ -166,7 +166,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
-            markIframeReady();
+            sendIframeReadyMessage();
 
             // Now send data
             const previewData = createQuestionPreview();
@@ -190,7 +190,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
-            markIframeReady();
+            sendIframeReadyMessage();
 
             const previewData = createQuestionPreview({
                 apiOptions: {onFocusChange: jest.fn()},
@@ -257,7 +257,7 @@ describe("usePreviewController", () => {
             });
 
             // Now iframe tells parent its ready
-            markIframeReady();
+            sendIframeReadyMessage();
 
             await waitFor(() => {
                 expect(mockContentWindow.postMessage).toHaveBeenCalled();
@@ -280,7 +280,7 @@ describe("usePreviewController", () => {
         it("sends null content when nothing has been set", () => {
             renderHook(() => usePreviewController(iframeRef));
 
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
                 {
@@ -301,7 +301,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(previewData1);
                 result.current.sendData(previewData2);
             });
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(messagesOfType("iframe-init")).toEqual([
                 expect.objectContaining({
@@ -323,12 +323,12 @@ describe("usePreviewController", () => {
             act(() => {
                 result.current.sendData(previewData);
             });
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(messagesOfType("iframe-init")).toHaveLength(1);
 
             // Simulate a genuine reload: the iframe announces ready again.
-            markIframeReady();
+            sendIframeReadyMessage();
 
             expect(messagesOfType("iframe-init")).toHaveLength(2);
         });
@@ -481,7 +481,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // 1. Iframe requests data
-            markIframeReady();
+            sendIframeReadyMessage();
 
             // 2. Send preview data
             const previewData = createQuestionPreview();
@@ -514,7 +514,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Setup: iframe requests data
-            markIframeReady();
+            sendIframeReadyMessage();
 
             // Send first data
             const data1 = createQuestionPreview();
@@ -551,7 +551,7 @@ describe("usePreviewController", () => {
         it("handles article-all with multiple sections", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
-            markIframeReady();
+            sendIframeReadyMessage();
 
             const articleData: PreviewContent = {
                 type: "article-all",
