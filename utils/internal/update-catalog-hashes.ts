@@ -17,12 +17,18 @@ import {getCatalogDepsHash} from "./get-catalog-deps-hash";
  * @param isDryRun If true, will not update the catalog hashes, but will log
  * what would be updated.
  * @param verbose If true, will log detailed information about catalog dependencies.
+ * @returns The names of the published packages whose catalog hash changed (i.e.
+ * the packages affected by the update). In dry-run mode, these are the packages
+ * that *would* be updated.
  */
-export function updateCatalogHashes(isDryRun: boolean, verbose = false): void {
+export function updateCatalogHashes(
+    isDryRun: boolean,
+    verbose = false,
+): string[] {
     const allPackagePaths = findAllPackageJsons();
     const pnpmWorkspace = loadPnpmWorkspace();
 
-    let updatedCount = 0;
+    const updatedPackageNames: string[] = [];
 
     for (const packageJsonPath of allPackagePaths) {
         const packageJsonContent = fs.readFileSync(packageJsonPath, "utf-8");
@@ -68,15 +74,21 @@ export function updateCatalogHashes(isDryRun: boolean, verbose = false): void {
                 );
             }
 
-            updatedCount++;
+            updatedPackageNames.push(name);
         }
     }
 
     console.log("");
 
     if (isDryRun) {
-        console.log(`🔮 Would update ${updatedCount} package.json files`);
+        console.log(
+            `🔮 Would update ${updatedPackageNames.length} package.json files`,
+        );
     } else {
-        console.log(`✅ Updated ${updatedCount} package.json files`);
+        console.log(
+            `✅ Updated ${updatedPackageNames.length} package.json files`,
+        );
     }
+
+    return updatedPackageNames;
 }
