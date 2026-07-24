@@ -127,18 +127,18 @@ interface PreviewDataMessage extends PreviewMessageBase {
 interface PreviewIframeInitMessage extends PreviewMessageBase {
     type: "iframe-init";
     content: PreviewContent | null;
-    a11yEnabled: boolean;
+    a11yScanningEnabled: boolean;
 }
 
 export function createPreviewIframeInitMessage(
     content: PreviewContent | null,
-    a11yEnabled: boolean,
+    a11yScanningEnabled: boolean,
 ): PreviewIframeInitMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-init",
         content,
-        a11yEnabled,
+        a11yScanningEnabled,
     };
 }
 
@@ -148,7 +148,7 @@ export function createPreviewIframeInitMessage(
  * when disabled, it neither imports nor runs axe-core.
  */
 interface PreviewSetA11yScanningEnabledMessage extends PreviewMessageBase {
-    type: "set-a11y-enabled";
+    type: "set-a11y-scanning-enabled";
     enabled: boolean;
 }
 
@@ -157,7 +157,7 @@ export function createPreviewSetA11yScanningEnabledMessage(
 ): PreviewSetA11yScanningEnabledMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
-        type: "set-a11y-enabled",
+        type: "set-a11y-scanning-enabled",
         enabled,
     };
 }

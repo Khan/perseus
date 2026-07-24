@@ -92,7 +92,7 @@ export function usePreviewController(
     // (re)loaded iframe never has to rely on messages sent before it was
     // listening.
     const currentContentRef = React.useRef<PreviewContent | null>(null);
-    const currentA11yEnabledRef = React.useRef(false);
+    const currentA11yScanningEnabledRef = React.useRef(false);
 
     // Sends a message to the iframe, dropping it if the iframe isn't
     // currently mounted (eg. during a reload/remount).
@@ -131,7 +131,7 @@ export function usePreviewController(
                             currentContentRef.current
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
-                            currentA11yEnabledRef.current,
+                            currentA11yScanningEnabledRef.current,
                         ),
                     );
                     setIsIframeReady(true);
@@ -186,7 +186,7 @@ export function usePreviewController(
     // Enables/disables accessibility scanning in the iframe
     const setA11yScanningEnabled = React.useCallback(
         (enabled: boolean) => {
-            currentA11yEnabledRef.current = enabled;
+            currentA11yScanningEnabledRef.current = enabled;
 
             // We can safely bail here. We'll send a full init message later
             // once the iframe sends it's 'iframe-ready' message.
