@@ -61,10 +61,18 @@ const sharedArgs = {
 // A group with no scorable widget scores as correct on Check (zero widgets =
 // 0/0 points), and the desktop Check button is always enabled — so the correct
 // state needs no widget, keeping the snapshot to graded-group's own chrome.
+// Contains a hint so the Explain link gives some buffer space below the Check
+// button; otherwise Chromatic cuts off the bottom of the button.
 const textOnlyArgs = {
     title: "Check your understanding!",
     content: "This group is marked correct when checked.",
     widgets: {},
+    hint: {
+        content: "This is a hint.",
+        images: {},
+        widgets: {},
+    },
+    hasHint: true,
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
