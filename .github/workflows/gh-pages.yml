@@ -26,8 +26,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: 24.16.0
 
             - name: Generate API docs
               run: pnpm build:docs

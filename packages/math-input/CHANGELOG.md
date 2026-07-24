@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 26.6.4
+
+### Patch Changes
+
+-   [#3925](https://github.com/Khan/perseus/pull/3925) [`6db4fc8`](https://github.com/Khan/perseus/commit/6db4fc87370fdd2488a14a9eab514a22b6ad3dcc) Thanks [@jandrade](https://github.com/jandrade)! - Updates ButtonAsset SVG elements to use "currentColor" (inherited color) instead of a hard-coded value
+
+## 26.6.3
+
+### Patch Changes
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/keypad-context@3.2.75
+
 ## 26.6.2
 
 ### Patch Changes

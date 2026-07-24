@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -131,16 +130,11 @@ class WidgetEditor extends React.Component<
         this.props.onChange(newWidgetInfo);
     };
 
-    _handleAlignmentChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-        // eslint-disable-next-line no-restricted-syntax
-        const newAlignment = e.currentTarget.value as Alignment;
-        // eslint-disable-next-line no-restricted-syntax
-        const newWidgetInfo = Object.assign(
-            {},
-            this.state.widgetInfo,
-        ) as PerseusWidget;
-        newWidgetInfo.alignment = newAlignment;
-        this.props.onChange(newWidgetInfo);
+    _handleAlignmentChange = (newAlignment: Alignment) => {
+        this.props.onChange({
+            ...this.state.widgetInfo,
+            alignment: newAlignment,
+        });
     };
 
     getSaveWarnings = () => {
@@ -155,9 +149,13 @@ class WidgetEditor extends React.Component<
             alignment: widgetInfo.alignment,
             static: widgetInfo.static,
             graded: widgetInfo.graded,
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            options: this.widget.current.serialize(),
+            // The inner widget editor (`this.widget.current`) can be absent
+            // even while this WidgetEditor is mounted — e.g. when the widget's
+            // type has no registered editor, so `Ed` never renders (see the
+            // `{Ed && ...}` guard in render()). In that case fall back to the
+            // last-known options rather than dereferencing a null ref, which
+            // previously crashed the editor when toggling JSON mode.
+            options: this.widget.current?.serialize() ?? widgetInfo.options,
             version: widgetInfo.version,
         };
     };

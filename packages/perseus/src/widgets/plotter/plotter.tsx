@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
 import {
-    CoreWidgetRegistry,
     type PerseusPlotterUserInput,
     type PerseusPlotterWidgetOptions,
     type PlotterPublicWidgetOptions,
@@ -31,30 +30,12 @@ type Props = WidgetProps<
     PlotterPublicWidgetOptions,
     PerseusPlotterUserInput
 > & {
-    labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
-    picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
     dependencies: PerseusDependenciesV2;
-};
-
-type DefaultProps = {
-    type: Props["type"];
-    labels: Props["labels"];
-    categories: Props["categories"];
-    scaleY: Props["scaleY"];
-    maxY: Props["maxY"];
-    snapsPerLine: Props["snapsPerLine"];
-    picSize: Props["picSize"];
-    picBoxHeight: Props["picBoxHeight"];
-    picUrl: Props["picUrl"];
-    plotDimensions: Props["plotDimensions"];
-    labelInterval: Props["labelInterval"];
 };
 
 type State = {
     categoryHeights: Record<string, number>;
 };
-
-const plotterDefaults = CoreWidgetRegistry.getDefaultWidgetOptions("plotter");
 
 class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
@@ -67,8 +48,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
     graphie: any;
     horizHairline: any;
     hairlineRange: any;
-
-    static defaultProps: DefaultProps = plotterDefaults;
 
     state: State = {
         // The measured rendered height of category strings. Used to calculate

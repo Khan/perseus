@@ -28,7 +28,7 @@ type WidgetName =
     | "matcher"
     | "matrix"
     | "measurer"
-    | "molecule-renderer"
+    | "molecule-renderer" // Deprecated
     | "number-line"
     | "numeric-input"
     | "orderer"

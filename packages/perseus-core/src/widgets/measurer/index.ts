@@ -15,8 +15,7 @@ export type MeasurerDefaultWidgetOptions = Pick<
 
 const defaultWidgetOptions: MeasurerDefaultWidgetOptions = {
     box: [480, 480],
-    // eslint-disable-next-line no-restricted-syntax
-    image: {} as any,
+    image: {},
     showProtractor: true,
     showRuler: false,
     rulerLabel: "",

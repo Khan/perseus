@@ -4,7 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
-import {act, render, screen, fireEvent} from "@testing-library/react";
+import {act, render, screen, fireEvent, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -1129,7 +1129,7 @@ describe("image editor", () => {
             height: 225,
         };
 
-        it("does not render for JPG images", () => {
+        it("suppression toggle disabled for JPG images", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
@@ -1141,16 +1141,13 @@ describe("image editor", () => {
 
             // Assert
             expect(
-                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
-            ).not.toBeInTheDocument();
-            expect(
                 screen.queryByRole("switch", {
                     name: "Suppress Dark Mode Filter",
                 }),
-            ).not.toBeInTheDocument();
+            ).toHaveAttribute("aria-disabled", "true");
         });
 
-        it("does not render for Graphie images", () => {
+        it("suppression toggle disabled for Graphie images", () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
@@ -1166,13 +1163,36 @@ describe("image editor", () => {
 
             // Assert
             expect(
-                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
-            ).not.toBeInTheDocument();
-            expect(
                 screen.queryByRole("switch", {
                     name: "Suppress Dark Mode Filter",
                 }),
-            ).not.toBeInTheDocument();
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("tooltip shows note about image format for non-PNG images", async () => {
+            // Arrange
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={earthMoonImage}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Act
+            const infoIcon = screen.queryByRole("switch", {
+                name: "Suppress Dark Mode Filter",
+            })?.parentElement?.parentElement?.nextElementSibling as HTMLElement;
+            await userEvent.click(infoIcon);
+
+            // Assert
+            const tooltip = screen.getByRole("tooltip");
+            expect(
+                within(tooltip).getByText(
+                    "This option is only available for PNG images!",
+                    {exact: false},
+                ),
+            ).toBeInTheDocument();
         });
 
         it("renders both toggles for PNG images", () => {
@@ -1230,14 +1250,14 @@ describe("image editor", () => {
             ).not.toBeChecked();
         });
 
-        it('renders Suppress Dark Mode Filter toggle as checked when URL ends with "?dark-mode=off"', () => {
+        it('renders Suppress Dark Mode Filter toggle as checked when URL contains "dark-mode" anywhere in the query string', () => {
             // Arrange, Act
             render(
                 <ImageEditorWithDependencies
                     apiOptions={apiOptions}
                     backgroundImage={{
                         ...pngImage,
-                        url: pngImage.url + "?dark-mode=off",
+                        url: pngImage.url + "?foo=bar&dark-mode=off",
                     }}
                     onChange={() => {}}
                 />,
@@ -1315,7 +1335,7 @@ describe("image editor", () => {
             ).not.toHaveAttribute("data-wb-theme", "syl-dark");
         });
 
-        it('calls onChange with "?dark-mode=off" appended when Suppress Dark Mode Filter is toggled on', async () => {
+        it('calls onChange with "dark-mode=off" included in the URL query string when Suppress Dark Mode Filter is toggled on', async () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
@@ -1342,7 +1362,7 @@ describe("image editor", () => {
             });
         });
 
-        it('calls onChange with "?dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
+        it('calls onChange with "dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
@@ -1372,7 +1392,7 @@ describe("image editor", () => {
             });
         });
 
-        it("hides both toggles and resets dark mode preview when URL changes from PNG to non-PNG", async () => {
+        it("disables Suppress Dark Mode Filter toggle when URL changes from PNG to non-PNG", async () => {
             // Arrange
             const {rerender} = render(
                 <ImageEditorWithDependencies
@@ -1381,12 +1401,11 @@ describe("image editor", () => {
                     onChange={() => {}}
                 />,
             );
-            await userEvent.click(
-                screen.getByRole("switch", {name: "Show in Dark Mode"}),
-            );
             expect(
-                screen.getByTestId("image-preview-container"),
-            ).toHaveAttribute("data-wb-theme", "syl-dark");
+                screen.queryByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toHaveAttribute("aria-disabled", "true");
 
             // Act
             rerender(
@@ -1399,16 +1418,10 @@ describe("image editor", () => {
 
             // Assert
             expect(
-                screen.queryByRole("switch", {name: "Show in Dark Mode"}),
-            ).not.toBeInTheDocument();
-            expect(
                 screen.queryByRole("switch", {
                     name: "Suppress Dark Mode Filter",
                 }),
-            ).not.toBeInTheDocument();
-            expect(
-                screen.getByTestId("image-preview-container"),
-            ).not.toHaveAttribute("data-wb-theme", "syl-dark");
+            ).toHaveAttribute("aria-disabled", "true");
         });
 
         it("disables both toggles when editingDisabled is true", () => {

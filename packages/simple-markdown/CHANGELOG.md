@@ -1,5 +1,13 @@
 # @khanacademy/simple-markdown
 
+## 3.0.0
+
+### Major Changes
+
+-   [#2690](https://github.com/Khan/perseus/pull/2690) [`03eced8`](https://github.com/Khan/perseus/commit/03eced8c7ee90996c407c33f382b46b08aee06a2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove HTML output support from `@khanacademy/simple-markdown`. The package now only produces React output.
+
+    Removed APIs: `markdownToHtml`, `htmlFor`, `defaultHtmlOutput`, `htmlTag`, and the HTML-related types (`HtmlOutput`, `HtmlNodeOutput`, `HtmlOutputRule`, `HtmlRules`). The `html` field on default rules and on rules passed to `parserFor`/`outputFor` is no longer used; only `react` is supported. Consumers that need an HTML string should call `react`-output and serialize the resulting React tree.
+
 ## 2.2.3
 
 ### Patch Changes

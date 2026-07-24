@@ -1,0 +1,34 @@
+{
+    "enabled": true,
+    "network": {
+        "allowedDomains": [
+            "localhost",
+            "github.com",
+            "api.github.com",
+            "registry.npmjs.org",
+            "npm.pkg.github.com",
+            "download.cypress.io",
+            "cdn.cypress.io"
+        ],
+        "deniedDomains": [],
+        "allowLocalBinding": true
+    },
+    "filesystem": {
+        "allowWrite": [
+            ".",
+            "/tmp",
+            "/private/tmp",
+            "~/.npm",
+            "~/.local/share/mise",
+            "~/.local/state/mise",
+            "~/.cache/node/corepack",
+            "~/Library/pnpm",
+            "~/Library/Caches/pnpm"
+        ],
+        "denyRead": [],
+        "denyWrite": []
+    },
+    "excludedCommands": [
+        "pbcopy"
+    ]
+}
