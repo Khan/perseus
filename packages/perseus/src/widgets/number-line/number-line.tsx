@@ -248,6 +248,20 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         );
     };
 
+    snapNumLinePosition: (arg1: any, arg2: number) => number = (
+        props,
+        numLinePosition,
+    ) => {
+        const left = props.range[0];
+        const right = props.range[1];
+        const snapX = props.tickStep / this.props.snapDivisions;
+
+        let x = bound(numLinePosition, left, right);
+        x = left + knumber.roundTo(x - left, snapX);
+        assert(_.isFinite(x));
+        return x;
+    };
+
     onNumDivisionsChange: (arg1: number, arg2: any) => void = (
         numDivisions,
         cb,
@@ -301,6 +315,219 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
     _handleTickCtrlBlur: () => void = () => {
         this.props.onBlur(["tick-ctrl"]);
+    };
+
+    // This function is intended to be used by tests to directly set the
+    // point's position.
+    movePosition: (arg1: number) => void = (targetPosition) => {
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            numLinePosition: targetPosition,
+        });
+        this.props.trackInteraction();
+    };
+
+    handleReverse: () => void = () => {
+        const newRel = reverseRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
+    };
+
+    handleToggleStrict: () => void = () => {
+        const newRel = toggleStrictRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
+    };
+
+    _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
+        // Ensure a sane configuration to avoid infinite loops
+        if (!this.isValid()) {
+            return;
+        }
+
+        // Position variables
+        const widthInPixels = this.props.apiOptions.isMobile
+            ? 288 - horizontalPadding * 2
+            : 400;
+        const range = options.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = horizontalPadding * scale;
+
+        // Initiate the graphie without actually drawing anything
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+
+        const hasFractionalLabels =
+            this.props.labelStyle === "improper" ||
+            this.props.labelStyle === "mixed" ||
+            this.props.labelStyle === "non-reduced";
+        const bottom = hasFractionalLabels ? -1.5 : -1;
+        const top = 1;
+
+        graphie.init({
+            range: [
+                [left, right],
+                [bottom, top],
+            ],
+            scale: [1 / scale, 40],
+            isMobile: this.props.apiOptions.isMobile,
+        });
+
+        // Draw the number line
+        const center = (range[0] + range[1]) / 2;
+        graphie.line([center, 0], [right, 0], {arrows: "->"});
+        graphie.line([center, 0], [left, 0], {arrows: "->"});
+    };
+
+    _renderNumberLinePoint: (arg1: CalculatedProps) => React.ReactElement = (
+        props,
+    ) => {
+        const isOpen = _(["lt", "gt"]).contains(props.userInput.rel);
+
+        // In static mode the point's fill and stroke is blue to signify that
+        // it can't be interacted with.
+        let fill;
+        if (isOpen) {
+            fill = KhanColors._BACKGROUND;
+        } else if (props.static) {
+            fill = KhanColors.BLUE;
+        } else {
+            fill = KhanColors.GREEN;
+        }
+        const normalStyle = {
+            fill: fill,
+            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
+            "stroke-width": isOpen ? 3 : 1,
+        } as const;
+        const highlightStyle = {
+            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            "stroke-width": isOpen ? 3 : 1,
+        } as const;
+
+        const mobileDotStyle = props.isInequality
+            ? {
+                  stroke: KhanColors.GREEN,
+                  "fill-opacity": isOpen ? 0 : 1,
+              }
+            : {};
+
+        return (
+            <MovablePoint
+                // eslint-disable-next-line react/no-string-refs
+                ref="numberLinePoint"
+                pointSize={6}
+                coord={[props.userInput.numLinePosition, 0]}
+                constraints={[
+                    (coord: any, prevCoord) => {
+                        // constrain-y
+                        return [coord[0], prevCoord[1]];
+                    },
+                    (coord: any, prevCoord) => {
+                        // snap X
+                        const x = this.snapNumLinePosition(props, coord[0]);
+                        return [x, coord[1]];
+                    },
+                ]}
+                normalStyle={normalStyle}
+                highlightStyle={highlightStyle}
+                onMove={(coord) => {
+                    this.movePosition(coord[0]);
+                }}
+                isMobile={this.props.apiOptions.isMobile}
+                mobileStyleOverride={mobileDotStyle}
+                showTooltips={this.props.showTooltips ?? false}
+                xOnlyTooltip={true}
+            />
+        );
+    };
+
+    _getInequalityEndpoint(props: CalculatedProps): [number, number] {
+        const isGreater = _(["ge", "gt"]).contains(this.props.userInput.rel);
+        const widthInPixels = 400;
+        const range = props.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = horizontalPadding * scale;
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+        const end: [number, number] = isGreater ? [right, 0] : [left, 0];
+        return end;
+    }
+
+    _renderInequality(props: CalculatedProps): React.ReactElement | null {
+        if (props.isInequality) {
+            const end = this._getInequalityEndpoint(props);
+            const style = {
+                arrows: "->",
+                stroke: this.props.apiOptions.isMobile
+                    ? KhanColors.GREEN
+                    : KhanColors.BLUE,
+                strokeWidth: 3.5,
+            } as const;
+
+            return (
+                <Line
+                    // We shift the line to either side of the dot so they don't
+                    // intersect
+                    start={[props.userInput.numLinePosition, 0]}
+                    end={end}
+                    style={style}
+                />
+            );
+        }
+        return null;
+    }
+
+    _renderGraphie: () => React.ReactElement = () => {
+        // Position variables
+        const range = this.props.range;
+        const width = range[1] - range[0];
+
+        const options = {
+            range: this.props.range,
+            isTickCtrl: this.props.isTickCtrl,
+        };
+
+        const props: CalculatedProps = {
+            ...this.props,
+            tickStep: width / this.props.userInput.numDivisions,
+        };
+
+        return (
+            <Graphie
+                // eslint-disable-next-line react/no-string-refs
+                ref="graphie"
+                // HACK(emily): We key this graphie on the label style because
+                // when the label style changes we want to resize the graphie,
+                // which isn't doable without throwing away the graphie and
+                // making a new one.
+                key={this.props.labelStyle}
+                box={[this.props.apiOptions.isMobile ? 288 : 460, 80]}
+                options={options}
+                onMouseDown={(coord) => {
+                    // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
+                    this.refs.graphie.movables.numberLinePoint.grab(coord);
+                }}
+                setup={this._setupGraphie}
+                isMobile={this.props.apiOptions.isMobile}
+            >
+                <TickMarks
+                    range={props.range}
+                    labelTicks={props.labelTicks}
+                    labelStyle={props.labelStyle}
+                    labelRange={props.labelRange}
+                    tickStep={props.tickStep}
+                    numDivisions={props.userInput.numDivisions}
+                    isMobile={props.apiOptions.isMobile}
+                />
+                {this._renderInequality(props)}
+                {this._renderNumberLinePoint(props)}
+            </Graphie>
+        );
     };
 
     focus() {
@@ -375,233 +602,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     getPromptJSON(): NumberLinePromptJSON {
         return _getPromptJSON(this.props);
     }
-
-    // This function is intended to be used by tests to directly set the
-    // point's position.
-    movePosition: (arg1: number) => void = (targetPosition) => {
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            numLinePosition: targetPosition,
-        });
-        this.props.trackInteraction();
-    };
-
-    _renderGraphie: () => React.ReactElement = () => {
-        // Position variables
-        const range = this.props.range;
-        const width = range[1] - range[0];
-
-        const options = {
-            range: this.props.range,
-            isTickCtrl: this.props.isTickCtrl,
-        };
-
-        const props: CalculatedProps = {
-            ...this.props,
-            tickStep: width / this.props.userInput.numDivisions,
-        };
-
-        return (
-            <Graphie
-                // eslint-disable-next-line react/no-string-refs
-                ref="graphie"
-                // HACK(emily): We key this graphie on the label style because
-                // when the label style changes we want to resize the graphie,
-                // which isn't doable without throwing away the graphie and
-                // making a new one.
-                key={this.props.labelStyle}
-                box={[this.props.apiOptions.isMobile ? 288 : 460, 80]}
-                options={options}
-                onMouseDown={(coord) => {
-                    // eslint-disable-next-line react/no-string-refs
-                    // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
-                    this.refs.graphie.movables.numberLinePoint.grab(coord);
-                }}
-                setup={this._setupGraphie}
-                isMobile={this.props.apiOptions.isMobile}
-            >
-                <TickMarks
-                    range={props.range}
-                    labelTicks={props.labelTicks}
-                    labelStyle={props.labelStyle}
-                    labelRange={props.labelRange}
-                    tickStep={props.tickStep}
-                    numDivisions={props.userInput.numDivisions}
-                    isMobile={props.apiOptions.isMobile}
-                />
-                {this._renderInequality(props)}
-                {this._renderNumberLinePoint(props)}
-            </Graphie>
-        );
-    };
-
-    snapNumLinePosition: (arg1: any, arg2: number) => number = (
-        props,
-        numLinePosition,
-    ) => {
-        const left = props.range[0];
-        const right = props.range[1];
-        const snapX = props.tickStep / this.props.snapDivisions;
-
-        let x = bound(numLinePosition, left, right);
-        x = left + knumber.roundTo(x - left, snapX);
-        assert(_.isFinite(x));
-        return x;
-    };
-
-    _renderNumberLinePoint: (arg1: CalculatedProps) => React.ReactElement = (
-        props,
-    ) => {
-        const isOpen = _(["lt", "gt"]).contains(props.userInput.rel);
-
-        // In static mode the point's fill and stroke is blue to signify that
-        // it can't be interacted with.
-        let fill;
-        if (isOpen) {
-            fill = KhanColors._BACKGROUND;
-        } else if (props.static) {
-            fill = KhanColors.BLUE;
-        } else {
-            fill = KhanColors.GREEN;
-        }
-        const normalStyle = {
-            fill: fill,
-            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
-            "stroke-width": isOpen ? 3 : 1,
-        } as const;
-        const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
-            "stroke-width": isOpen ? 3 : 1,
-        } as const;
-
-        const mobileDotStyle = props.isInequality
-            ? {
-                  stroke: KhanColors.GREEN,
-                  "fill-opacity": isOpen ? 0 : 1,
-              }
-            : {};
-
-        return (
-            <MovablePoint
-                // eslint-disable-next-line react/no-string-refs
-                ref="numberLinePoint"
-                pointSize={6}
-                coord={[props.userInput.numLinePosition, 0]}
-                constraints={[
-                    (coord: any, prevCoord) => {
-                        // constrain-y
-                        return [coord[0], prevCoord[1]];
-                    },
-                    (coord: any, prevCoord) => {
-                        // snap X
-                        const x = this.snapNumLinePosition(props, coord[0]);
-                        return [x, coord[1]];
-                    },
-                ]}
-                normalStyle={normalStyle}
-                highlightStyle={highlightStyle}
-                onMove={(coord) => {
-                    this.movePosition(coord[0]);
-                }}
-                isMobile={this.props.apiOptions.isMobile}
-                mobileStyleOverride={mobileDotStyle}
-                showTooltips={this.props.showTooltips ?? false}
-                xOnlyTooltip={true}
-            />
-        );
-    };
-
-    handleReverse: () => void = () => {
-        const newRel = reverseRel[this.props.userInput.rel];
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            rel: newRel,
-        });
-    };
-
-    handleToggleStrict: () => void = () => {
-        const newRel = toggleStrictRel[this.props.userInput.rel];
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            rel: newRel,
-        });
-    };
-
-    _getInequalityEndpoint(props: CalculatedProps): [number, number] {
-        const isGreater = _(["ge", "gt"]).contains(this.props.userInput.rel);
-        const widthInPixels = 400;
-        const range = props.range;
-        const scale = (range[1] - range[0]) / widthInPixels;
-        const buffer = horizontalPadding * scale;
-        const left = range[0] - buffer;
-        const right = range[1] + buffer;
-        const end: [number, number] = isGreater ? [right, 0] : [left, 0];
-        return end;
-    }
-
-    _renderInequality(props: CalculatedProps): React.ReactElement | null {
-        if (props.isInequality) {
-            const end = this._getInequalityEndpoint(props);
-            const style = {
-                arrows: "->",
-                stroke: this.props.apiOptions.isMobile
-                    ? KhanColors.GREEN
-                    : KhanColors.BLUE,
-                strokeWidth: 3.5,
-            } as const;
-
-            return (
-                <Line
-                    // We shift the line to either side of the dot so they don't
-                    // intersect
-                    start={[props.userInput.numLinePosition, 0]}
-                    end={end}
-                    style={style}
-                />
-            );
-        }
-        return null;
-    }
-
-    _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
-        // Ensure a sane configuration to avoid infinite loops
-        if (!this.isValid()) {
-            return;
-        }
-
-        // Position variables
-        const widthInPixels = this.props.apiOptions.isMobile
-            ? 288 - horizontalPadding * 2
-            : 400;
-        const range = options.range;
-        const scale = (range[1] - range[0]) / widthInPixels;
-        const buffer = horizontalPadding * scale;
-
-        // Initiate the graphie without actually drawing anything
-        const left = range[0] - buffer;
-        const right = range[1] + buffer;
-
-        const hasFractionalLabels =
-            this.props.labelStyle === "improper" ||
-            this.props.labelStyle === "mixed" ||
-            this.props.labelStyle === "non-reduced";
-        const bottom = hasFractionalLabels ? -1.5 : -1;
-        const top = 1;
-
-        graphie.init({
-            range: [
-                [left, right],
-                [bottom, top],
-            ],
-            scale: [1 / scale, 40],
-            isMobile: this.props.apiOptions.isMobile,
-        });
-
-        // Draw the number line
-        const center = (range[0] + range[1]) / 2;
-        graphie.line([center, 0], [right, 0], {arrows: "->"});
-        graphie.line([center, 0], [left, 0], {arrows: "->"});
-    };
 
     render(): React.ReactNode {
         const {strings} = this.context;
