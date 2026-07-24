@@ -10,7 +10,6 @@ import {
     type ReactElement,
 } from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import Graphie from "../../components/graphie";
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -133,7 +132,7 @@ const _label = (
 // eslint-disable-next-line no-restricted-syntax
 const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     // Avoid infinite loop
-    if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
+    if (!Number.isFinite(props.tickStep) || props.tickStep <= 0) {
         return []; // this has screwed me for the last time!
     }
 
@@ -154,8 +153,8 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
             fractions.push(x);
         }
         const getDenom = (x: any) => knumber.toFraction(x)[1];
-        const denoms = _.map(fractions, getDenom);
-        base = _.reduce(denoms, (x, y) => KhanMath.getLCM(x, y));
+        const denoms = fractions.map(getDenom);
+        base = denoms.reduce((x, y) => KhanMath.getLCM(x, y));
     } else {
         base = undefined;
     }
@@ -287,7 +286,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
 
             let x = bound(numLinePosition, left, right);
             x = left + knumber.roundTo(x - left, snapX);
-            assert(_.isFinite(x));
+            assert(Number.isFinite(x));
             return x;
         };
 
@@ -415,7 +414,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
         const renderNumberLinePoint = (
             calculatedProps: CalculatedProps,
         ): ReactElement => {
-            const isOpen = _(["lt", "gt"]).contains(
+            const isOpen = ["lt", "gt"].includes(
                 calculatedProps.userInput.rel,
             );
 
@@ -482,7 +481,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
         };
 
         const getInequalityEndpoint = (): [number, number] => {
-            const isGreater = _(["ge", "gt"]).contains(props.userInput.rel);
+            const isGreater = ["ge", "gt"].includes(props.userInput.rel);
             const widthInPixels = 400;
             const range = props.range;
             const scale = (range[1] - range[0]) / widthInPixels;
