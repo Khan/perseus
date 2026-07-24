@@ -19,7 +19,7 @@ export function generateBlankWidget(
     return {
         type: "blank",
         graded: true,
-        version: {major: 1, minor: 0},
+        version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
         options: generateBlankOptions({}), // default options

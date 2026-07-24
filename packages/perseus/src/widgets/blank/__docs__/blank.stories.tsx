@@ -1,7 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {question1, question2} from "../blank.testdata";
+import {basicBlankQuestion, subscriptQuestion} from "../blank.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -22,13 +22,13 @@ export default meta;
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-export const Question1: Story = {
+export const BasicBlankQuestion: Story = {
     args: {
-        item: generateTestPerseusItem({question: question1}),
+        item: generateTestPerseusItem({question: basicBlankQuestion}),
     },
 };
-export const Question2: Story = {
+export const SubscriptQuestion: Story = {
     args: {
-        item: generateTestPerseusItem({question: question2}),
+        item: generateTestPerseusItem({question: subscriptQuestion}),
     },
 };

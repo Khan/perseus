@@ -18,7 +18,7 @@ const blankWidgetLogic: WidgetLogic<
     BlankPublicWidgetOptions
 > = {
     name: "blank",
-    version: {major: 1, minor: 0},
+    version: {major: 0, minor: 0},
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getBlankPublicWidgetOptions,

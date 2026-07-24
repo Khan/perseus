@@ -4,7 +4,7 @@ import {
     generateBlankWidget,
 } from "@khanacademy/perseus-core";
 
-export const question1 = generateTestPerseusRenderer({
+export const basicBlankQuestion = generateTestPerseusRenderer({
     content: "Hello my name is [[☃ blank 1]]",
     widgets: {
         "blank 1": generateBlankWidget({
@@ -14,7 +14,7 @@ export const question1 = generateTestPerseusRenderer({
         }),
     },
 });
-export const question2 = generateTestPerseusRenderer({
+export const subscriptQuestion = generateTestPerseusRenderer({
     content: "Hello my name is [[☃ blank 1]]",
     widgets: {
         "blank 1": generateBlankWidget({

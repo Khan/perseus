@@ -135,17 +135,14 @@ export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 /** User input for the LabelImage widget. */
 export type PerseusBlankUserInput = {
     /**
-     * The user's selections for each image marker, parallel to the
-     * rubric's markers array.
+     * The user's placed answer tile on the blank
      */
     selected?: string;
 };
 
 export type PerseusBlankRubric = {
     /**
-     * The correct category index for each item. The array index corresponds to
-     * the item; the value is the category index.
-     * e.g. [0, 1, 0, 1, 2]
+     * The ID of the correct answer tile
      */
     correct: string;
 };

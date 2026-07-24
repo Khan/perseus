@@ -362,11 +362,6 @@ table: [[☃ table 1]]
                       --
                     </option>
                     <option
-                      value="blank"
-                    >
-                      Blank
-                    </option>
-                    <option
                       value="categorizer"
                     >
                       Categorizer
@@ -2218,11 +2213,6 @@ table: [[☃ table 1]]
                                   --
                                 </option>
                                 <option
-                                  value="blank"
-                                >
-                                  Blank
-                                </option>
-                                <option
                                   value="categorizer"
                                 >
                                   Categorizer
@@ -2698,11 +2688,6 @@ table: [[☃ table 1]]
                                 disabled=""
                               >
                                 --
-                              </option>
-                              <option
-                                value="blank"
-                              >
-                                Blank
                               </option>
                               <option
                                 value="categorizer"
@@ -3506,11 +3491,6 @@ table: [[☃ table 1]]
                                   --
                                 </option>
                                 <option
-                                  value="blank"
-                                >
-                                  Blank
-                                </option>
-                                <option
                                   value="categorizer"
                                 >
                                   Categorizer
@@ -3779,11 +3759,6 @@ table: [[☃ table 1]]
                                   disabled=""
                                 >
                                   --
-                                </option>
-                                <option
-                                  value="blank"
-                                >
-                                  Blank
                                 </option>
                                 <option
                                   value="categorizer"
@@ -6403,11 +6378,6 @@ table: [[☃ table 1]]
                                 disabled=""
                               >
                                 --
-                              </option>
-                              <option
-                                value="blank"
-                              >
-                                Blank
                               </option>
                               <option
                                 value="categorizer"

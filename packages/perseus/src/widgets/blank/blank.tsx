@@ -2,7 +2,6 @@ import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 import _ from "underscore";
 
-//import {PerseusI18nContext} from "../../components/i18n-context";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
 
 import styles from "./blank-widget.module.css";
@@ -23,8 +22,6 @@ export type BlankProps = WidgetProps<
 
 const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
     function BlankWidget(props, ref) {
-        //const context = React.useContext(PerseusI18nContext);
-
         useImperativeHandle(ref, () => ({
             getPromptJSON: (): BlankPromptJSON => _getPromptJSON(props),
         }));
@@ -40,4 +37,5 @@ export default {
     displayName: "Blank",
     widget: BlankWidget,
     isLintable: true,
+    hidden: true,
 } satisfies WidgetExports<typeof BlankWidget>;
