@@ -90,8 +90,12 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
                     setContent(message.content);
                     break;
 
+                case "iframe-init":
+                    setContent(message.content);
+                    break;
+
                 default:
-                    throw new UnreachableCaseError(message.type);
+                    throw new UnreachableCaseError(message);
             }
         };
 
