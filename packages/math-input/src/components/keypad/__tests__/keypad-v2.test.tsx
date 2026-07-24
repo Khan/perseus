@@ -1,6 +1,8 @@
 import {act, render, screen} from "@testing-library/react";
+import * as React from "react";
+
+import Keypad from "..";
 import {mockStrings} from "../../../strings";
-import Keypad from "../../../components/keypad";
 
 import {getTestDataTabs} from "./test-data-tabs";
 
