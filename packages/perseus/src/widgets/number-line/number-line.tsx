@@ -7,7 +7,6 @@ import {
     useCallback,
     useImperativeHandle,
     useState,
-    type ReactElement,
 } from "react";
 import ReactDOM from "react-dom";
 
@@ -257,7 +256,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             });
         });
 
-        const isValid = (): boolean => {
+        function isValid(): boolean {
             const range = props.range;
             let initialX = props.userInput?.numLinePosition;
             const divisionRange = props.divisionRange;
@@ -272,12 +271,12 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 0 < props.userInput?.numDivisions &&
                 0 < props.snapDivisions
             );
-        };
+        }
 
-        const snapNumLinePosition = (
+        function snapNumLinePosition(
             calculatedProps: CalculatedProps,
             numLinePosition: number,
-        ): number => {
+        ): number {
             const left = calculatedProps.range[0];
             const right = calculatedProps.range[1];
             const snapX =
@@ -287,12 +286,9 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             x = left + knumber.roundTo(x - left, snapX);
             assert(Number.isFinite(x));
             return x;
-        };
+        }
 
-        const onNumDivisionsChange = (
-            numDivisions: number,
-            cb?: () => void,
-        ) => {
+        function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
             const width = props.range[1] - props.range[0];
 
             // Don't allow a fraction for the number of divisions
@@ -324,40 +320,40 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 setNumDivisionsEmpty(true);
                 cb?.();
             }
-        };
+        }
 
-        const handleTickCtrlFocus = () => {
+        function handleTickCtrlFocus() {
             props.onFocus(["tick-ctrl"]);
-        };
+        }
 
-        const handleTickCtrlBlur = () => {
+        function handleTickCtrlBlur() {
             props.onBlur(["tick-ctrl"]);
-        };
+        }
 
         // Moves the point to the given position and records the interaction.
-        const movePosition = (targetPosition: number) => {
+        function movePosition(targetPosition: number) {
             props.handleUserInput({
                 ...props.userInput,
                 numLinePosition: targetPosition,
             });
             props.trackInteraction();
-        };
+        }
 
-        const handleReverse = () => {
+        function handleReverse() {
             const newRel = reverseRel[props.userInput.rel];
             props.handleUserInput({
                 ...props.userInput,
                 rel: newRel,
             });
-        };
+        }
 
-        const handleToggleStrict = () => {
+        function handleToggleStrict() {
             const newRel = toggleStrictRel[props.userInput.rel];
             props.handleUserInput({
                 ...props.userInput,
                 rel: newRel,
             });
-        };
+        }
 
         // <Graphie> logs an error if the identity of its `setup` prop changes
         // between renders, so we keep a single stable `setupGraphie` that delegates
@@ -410,9 +406,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             [],
         );
 
-        const renderNumberLinePoint = (
-            calculatedProps: CalculatedProps,
-        ): ReactElement => {
+        function renderNumberLinePoint(calculatedProps: CalculatedProps) {
             const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
 
             // In static mode the point's fill and stroke is blue to signify that
@@ -475,9 +469,9 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                     xOnlyTooltip={true}
                 />
             );
-        };
+        }
 
-        const getInequalityEndpoint = (): [number, number] => {
+        function getInequalityEndpoint(): [number, number] {
             const isGreater = ["ge", "gt"].includes(props.userInput.rel);
             const widthInPixels = 400;
             const range = props.range;
@@ -487,9 +481,9 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             const right = range[1] + buffer;
             const end: [number, number] = isGreater ? [right, 0] : [left, 0];
             return end;
-        };
+        }
 
-        const renderInequality = (): ReactElement | null => {
+        function renderInequality() {
             if (props.isInequality) {
                 const end = getInequalityEndpoint();
                 const style = {
@@ -511,9 +505,9 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 );
             }
             return null;
-        };
+        }
 
-        const renderGraphie = (): ReactElement => {
+        function renderGraphie() {
             // Position variables
             const range = props.range;
             const width = range[1] - range[0];
@@ -563,7 +557,7 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                     {renderNumberLinePoint(calculatedProps)}
                 </Graphie>
             );
-        };
+        }
 
         useImperativeHandle(ref, () => ({
             focus: () => {
