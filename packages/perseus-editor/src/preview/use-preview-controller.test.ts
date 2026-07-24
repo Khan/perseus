@@ -97,13 +97,13 @@ describe("usePreviewController", () => {
         });
     });
 
-    describe("setA11yEnabled", () => {
+    describe("setA11yScanningEnabled", () => {
         it("posts a set-a11y-enabled command to the iframe once ready", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             sendIframeReadyMessage();
 
             act(() => {
-                result.current.setA11yEnabled(true);
+                result.current.setA11yScanningEnabled(true);
             });
 
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
@@ -120,7 +120,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
-                result.current.setA11yEnabled(true);
+                result.current.setA11yScanningEnabled(true);
             });
 
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
@@ -398,8 +398,8 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             act(() => {
-                result.current.setA11yEnabled(false);
-                result.current.setA11yEnabled(true);
+                result.current.setA11yScanningEnabled(false);
+                result.current.setA11yScanningEnabled(true);
             });
             sendIframeReadyMessage();
 
@@ -414,7 +414,7 @@ describe("usePreviewController", () => {
 
             act(() => {
                 result.current.sendData(previewData);
-                result.current.setA11yEnabled(true);
+                result.current.setA11yScanningEnabled(true);
             });
             sendIframeReadyMessage();
 

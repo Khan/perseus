@@ -5,13 +5,17 @@ import {
     createPreviewClearHighlightsMessage,
     createPreviewHighlightIssuesMessage,
     createPreviewIframeInitMessage,
-    createPreviewSetA11yEnabledMessage,
+    createPreviewSetA11yScanningEnabledMessage,
     PREVIEW_MESSAGE_SOURCE,
 } from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent, PreviewMessageBase} from "./message-types";
+import type {
+    ParentToIframeMessage,
+    PreviewContent,
+    PreviewMessageBase,
+} from "./message-types";
 import type {Issue} from "../components/issues-panel";
 
 export type A11yReport = {
@@ -31,7 +35,7 @@ type UsePreviewControllerResult = {
     /**
      * Enable or disable axe-core accessibility scanning in the iframe
      */
-    setA11yEnabled: (enabled: boolean) => void;
+    setA11yScanningEnabled: (enabled: boolean) => void;
     /**
      * Highlight the elements for the given previewIds in the iframe
      */
@@ -162,8 +166,8 @@ export function usePreviewController(
         (data: PreviewContent) => {
             currentContentRef.current = data;
 
-            // If iframe hasn't sent iframe-ready yet, the iframe-init reply
-            // above will carry this once it does.
+            // We can safely bail here. We'll send a full init message later
+            // once the iframe sends it's 'iframe-ready' message.
             if (!isIframeReady) {
                 return;
             }
@@ -180,17 +184,17 @@ export function usePreviewController(
     );
 
     // Enables/disables accessibility scanning in the iframe
-    const setA11yEnabled = React.useCallback(
+    const setA11yScanningEnabled = React.useCallback(
         (enabled: boolean) => {
             currentA11yEnabledRef.current = enabled;
 
-            // If iframe hasn't sent iframe-ready yet, the iframe-init reply
-            // above will carry this once it does.
+            // We can safely bail here. We'll send a full init message later
+            // once the iframe sends it's 'iframe-ready' message.
             if (!isIframeReady) {
                 return;
             }
 
-            postToIframe(createPreviewSetA11yEnabledMessage(enabled));
+            postToIframe(createPreviewSetA11yScanningEnabledMessage(enabled));
         },
         [isIframeReady, postToIframe],
     );
@@ -211,7 +215,7 @@ export function usePreviewController(
     return {
         sendData,
         height,
-        setA11yEnabled,
+        setA11yScanningEnabled,
         highlightIssues,
         clearHighlights,
         a11yReport,

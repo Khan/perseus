@@ -147,14 +147,14 @@ export function createPreviewIframeInitMessage(
  * accessibility scanning. When enabled, the iframe runs scans and reports back;
  * when disabled, it neither imports nor runs axe-core.
  */
-interface PreviewSetA11yEnabledMessage extends PreviewMessageBase {
+interface PreviewSetA11yScanningEnabledMessage extends PreviewMessageBase {
     type: "set-a11y-enabled";
     enabled: boolean;
 }
 
-export function createPreviewSetA11yEnabledMessage(
+export function createPreviewSetA11yScanningEnabledMessage(
     enabled: boolean,
-): PreviewSetA11yEnabledMessage {
+): PreviewSetA11yScanningEnabledMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "set-a11y-enabled",
@@ -199,7 +199,7 @@ export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMes
 /**
  * Union of all messages sent from parent to iframe
  *
- * TODO: add PreviewSetA11yEnabledMessage/PreviewHighlightIssuesMessage/
+ * TODO: add PreviewSetA11yScanningEnabledMessage/PreviewHighlightIssuesMessage/
  * PreviewClearHighlightsMessage here once usePreviewPresenter handles them
  * (the exhaustive switch obligates a handler to land in the same change).
  */
