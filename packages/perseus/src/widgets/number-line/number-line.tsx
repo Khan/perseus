@@ -1,5 +1,14 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import * as React from "react";
+import {
+    forwardRef,
+    useRef,
+    useCallback,
+    useEffect,
+    useImperativeHandle,
+    useState,
+    type ReactElement,
+} from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
@@ -225,20 +234,20 @@ type WidgetHandle = Pick<
     movePosition: (targetPosition: number) => void;
 };
 
-const NumberLine = React.forwardRef<WidgetHandle, Props>(
+const NumberLine = forwardRef<WidgetHandle, Props>(
     function NumberLine(props, ref) {
         const {strings} = usePerseusI18n();
-        const [numDivisionsEmpty, setNumDivisionsEmpty] = React.useState(false);
+        const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
 
         // Ref to the <Graphie> instance. Its `movables` map is populated by the
         // string `ref` on <MovablePoint> below (Graphie consumes those children
         // itself rather than rendering them into the React tree).
-        const graphieRef = React.useRef<Graphie>(null);
+        const graphieRef = useRef<Graphie>(null);
         // Ref to the tick-count input (a NumberInput or SimpleKeypadInput), used
         // for focus management.
-        const tickCtrlRef = React.useRef<NumberInput | SimpleKeypadInput>(null);
+        const tickCtrlRef = useRef<NumberInput | SimpleKeypadInput>(null);
 
-        React.useEffect(() => {
+        useEffect(() => {
             props.dependencies.analytics.onAnalyticsEvent({
                 type: "perseus:widget:rendered:ti",
                 payload: {
@@ -355,9 +364,9 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
         // <Graphie> logs an error if the identity of its `setup` prop changes
         // between renders, so we keep a single stable `setupGraphie` that delegates
         // to the latest render's logic via a ref.
-        const setupGraphieRef = React.useRef<
-            (graphie: any, options: any) => void
-        >(() => {});
+        const setupGraphieRef = useRef<(graphie: any, options: any) => void>(
+            () => {},
+        );
         setupGraphieRef.current = (graphie, options) => {
             // Ensure a sane configuration to avoid infinite loops
             if (!isValid()) {
@@ -397,7 +406,7 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
             graphie.line([center, 0], [right, 0], {arrows: "->"});
             graphie.line([center, 0], [left, 0], {arrows: "->"});
         };
-        const setupGraphie = React.useCallback(
+        const setupGraphie = useCallback(
             (graphie: any, options: any) =>
                 setupGraphieRef.current(graphie, options),
             [],
@@ -405,7 +414,7 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
 
         const renderNumberLinePoint = (
             calculatedProps: CalculatedProps,
-        ): React.ReactElement => {
+        ): ReactElement => {
             const isOpen = _(["lt", "gt"]).contains(
                 calculatedProps.userInput.rel,
             );
@@ -484,7 +493,7 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
             return end;
         };
 
-        const renderInequality = (): React.ReactElement | null => {
+        const renderInequality = (): ReactElement | null => {
             if (props.isInequality) {
                 const end = getInequalityEndpoint();
                 const style = {
@@ -508,7 +517,7 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
             return null;
         };
 
-        const renderGraphie = (): React.ReactElement => {
+        const renderGraphie = (): ReactElement => {
             // Position variables
             const range = props.range;
             const width = range[1] - range[0];
@@ -560,7 +569,7 @@ const NumberLine = React.forwardRef<WidgetHandle, Props>(
             );
         };
 
-        React.useImperativeHandle(ref, () => ({
+        useImperativeHandle(ref, () => ({
             focus: () => {
                 if (props.isTickCtrl) {
                     tickCtrlRef.current?.focus();
