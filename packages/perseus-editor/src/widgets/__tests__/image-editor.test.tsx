@@ -1136,6 +1136,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1158,6 +1160,8 @@ describe("image editor", () => {
                         height: 225,
                     }}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1176,14 +1180,18 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
             // Act
             const infoIcon = screen.queryByRole("switch", {
                 name: "Suppress Dark Mode Filter",
-            })?.parentElement?.parentElement?.nextElementSibling as HTMLElement;
-            await userEvent.click(infoIcon);
+                // eslint-disable-next-line testing-library/no-node-access
+            })?.parentElement?.parentElement?.nextElementSibling;
+            expect(infoIcon).toBeInTheDocument();
+            await userEvent.click(infoIcon!);
 
             // Assert
             const tooltip = screen.getByRole("tooltip");
@@ -1202,6 +1210,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1223,6 +1233,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1239,6 +1251,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1260,6 +1274,8 @@ describe("image editor", () => {
                         url: pngImage.url + "?foo=bar&dark-mode=off",
                     }}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1271,6 +1287,31 @@ describe("image editor", () => {
             ).toBeChecked();
         });
 
+        it("renders Suppress Dark Mode Filter toggle as unchecked when URL is not parseable", () => {
+            // Arrange, Act
+            render(
+                <ImageEditorWithDependencies
+                    apiOptions={apiOptions}
+                    backgroundImage={{
+                        ...pngImage,
+                        // A relative path is not a valid absolute URL, so
+                        // URL.canParse returns false and parsing is skipped.
+                        url: "not a valid url.png",
+                    }}
+                    onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("switch", {
+                    name: "Suppress Dark Mode Filter",
+                }),
+            ).not.toBeChecked();
+        });
+
         it("toggles Show in Dark Mode on click", async () => {
             // Arrange
             render(
@@ -1278,6 +1319,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
             const toggle = screen.getByRole("switch", {
@@ -1298,6 +1341,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1319,6 +1364,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
             const toggle = screen.getByRole("switch", {
@@ -1343,6 +1390,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1373,6 +1422,8 @@ describe("image editor", () => {
                         url: pngImage.url + "?dark-mode=off",
                     }}
                     onChange={onChangeMock}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1399,6 +1450,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
             expect(
@@ -1413,6 +1466,8 @@ describe("image editor", () => {
                     apiOptions={apiOptions}
                     backgroundImage={earthMoonImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 
@@ -1431,6 +1486,8 @@ describe("image editor", () => {
                     apiOptions={{...ApiOptions.defaults, editingDisabled: true}}
                     backgroundImage={pngImage}
                     onChange={() => {}}
+                    longDescription={""}
+                    decorative={false}
                 />,
             );
 

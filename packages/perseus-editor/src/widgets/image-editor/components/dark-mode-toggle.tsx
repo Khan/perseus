@@ -24,8 +24,16 @@ export default function DarkModeToggle({
     editingDisabled = false,
 }: Props) {
     const [showDarkMode, setShowDarkMode] = React.useState(false);
-    const suppressFilter =
-        new URL(backgroundImage.url ?? "").searchParams.keys().toArray().includes("dark-mode");
+    // Using `new URL()` instead of `URL.canParse`, because it unavailable
+    // before Safari 17 (current minimum is Safari 16.6).
+    const imageUrl: URL | null = (() => {
+        try {
+            return new URL(backgroundImage.url ?? "");
+        } catch {
+            return null;
+        }
+    })();
+    const suppressFilter = imageUrl?.searchParams.has("dark-mode") ?? false;
 
     // Determine if the image is a PNG, regardless of any possible query string.
     const imageIsPng = /\.png(\?.*)?$/.test(backgroundImage.url ?? "");
@@ -38,7 +46,7 @@ export default function DarkModeToggle({
         onSuppressToggle({
             backgroundImage: {
                 ...backgroundImage,
-                url: setDarkModeOptionInUrl(suppressFilter ? undefined : "off")
+                url: setDarkModeOptionInUrl(suppressFilter ? undefined : "off"),
             },
         });
     };
@@ -53,7 +61,7 @@ export default function DarkModeToggle({
      */
     const setDarkModeOptionInUrl = (darkModeSetting?: string): string => {
         try {
-            const url = new URL(backgroundImage.url);
+            const url = new URL(backgroundImage.url ?? "");
             if (darkModeSetting === "off") {
                 url.searchParams.append("dark-mode", "off");
             } else {
@@ -81,11 +89,14 @@ export default function DarkModeToggle({
                     onChange={toggleSuppressFilter}
                 />
                 <InfoTip>
-                    When the color in the image is important (like in an
-                    image of a flag), you can suppress the filter that is
-                    used to make images compatible with dark mode.
+                    When the color in the image is important (like in an image
+                    of a flag), you can suppress the filter that is used to make
+                    images compatible with dark mode.
                     {!imageIsPng && (
-                        <strong> This option is only available for PNG images!</strong>
+                        <strong>
+                            {" "}
+                            This option is only available for PNG images!
+                        </strong>
                     )}
                 </InfoTip>
             </div>
