@@ -75,15 +75,15 @@ describe("message constructors", () => {
     });
 
     describe("createPreviewA11yReportMessage", () => {
-        it("builds an a11y-report carrying violations and incompletes", () => {
+        it("builds an a11y-report carrying violations and unsures", () => {
             // Arrange
             const violations = [issue("v1")];
-            const incompletes = [issue("i1")];
+            const unsures = [issue("i1")];
 
             // Act
             const message = createPreviewA11yReportMessage(
                 violations,
-                incompletes,
+                unsures,
             );
 
             // Assert
@@ -91,7 +91,7 @@ describe("message constructors", () => {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "a11y-report",
                 violations,
-                incompletes,
+                unsures,
             });
         });
     });

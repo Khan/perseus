@@ -221,12 +221,17 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
 
 /**
  * Message from iframe reporting axe-core accessibility scan results back to the
- * parent. `violations` are confirmed issues; `incompletes` need manual review.
+ * parent.
  */
 interface PreviewA11yReportMessage extends PreviewMessageBase {
     type: "a11y-report";
+    /** Violations are issues that are confirmed by the a11y scanner. **/
     violations: Issue[];
-    incompletes: Issue[];
+    /**
+     * Unsures are issues that the scanner cannot definitively say is a
+     * violation or not. Requires manual review. *
+     */
+    unsures: Issue[];
 }
 
 /**
@@ -248,12 +253,12 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
 
 export function createPreviewA11yReportMessage(
     violations: Issue[],
-    incompletes: Issue[],
+    unsures: Issue[],
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "a11y-report",
         violations,
-        incompletes,
+        unsures,
     };
 }
