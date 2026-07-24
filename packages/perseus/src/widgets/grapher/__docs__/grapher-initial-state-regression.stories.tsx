@@ -2,9 +2,11 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     multipleAvailableTypesQuestion,
     quadraticQuestion,
+    staticExponentialQuestion,
 } from "../grapher.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -44,4 +46,25 @@ export const ChooseYourOwnFunction: Story = {
             question: multipleAvailableTypesQuestion,
         }),
     },
+};
+
+// When the grapher is static, all of its movables should render in a muted
+// gray (rather than the interactive blue) to signal that they can't be
+// manipulated — matching the interactive-graph's static styling. This uses a
+// multi-function grapher with an exponential answer so a single story covers
+// the movable points, the plotted curve, and the asymptote MovableLine.
+export const Static: Story = {
+    args: {
+        item: generateTestPerseusItem({question: staticExponentialQuestion}),
+    },
+};
+
+// On mobile the plotted curve renders in a different stroke color and width
+// than on desktop, so it needs its own snapshot.
+export const Mobile: Story = {
+    args: {
+        item: generateTestPerseusItem({question: quadraticQuestion}),
+        apiOptions: {isMobile: true},
+    },
+    decorators: [mobileDecorator],
 };
