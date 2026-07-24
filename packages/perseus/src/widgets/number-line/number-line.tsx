@@ -276,6 +276,73 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             });
         });
 
+        useImperativeHandle(ref, () => ({
+            focus: () => {
+                if (props.isTickCtrl) {
+                    tickCtrlRef.current?.focus();
+                    return true;
+                }
+                return false;
+            },
+
+            focusInputPath: (path) => {
+                if (path?.length === 1) {
+                    tickCtrlRef.current?.focus();
+                }
+            },
+
+            blurInputPath: (path) => {
+                if (path?.length === 1) {
+                    tickCtrlRef.current?.blur();
+                }
+            },
+
+            getInputPaths: () => {
+                if (props.isTickCtrl) {
+                    return [["tick-ctrl"]];
+                }
+                return [];
+            },
+
+            getDOMNodeForPath: (inputPath) => {
+                if (inputPath?.length === 1) {
+                    return ReactDOM.findDOMNode(tickCtrlRef.current);
+                }
+                return null;
+            },
+
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: () => ({
+                alignment: props.alignment,
+                static: props.static,
+                range: props.range,
+                labelRange: props.labelRange,
+                labelStyle: props.labelStyle,
+                labelTicks: props.labelTicks,
+                divisionRange: props.divisionRange,
+                snapDivisions: props.snapDivisions,
+                isInequality: props.isInequality,
+                showTooltips: props.showTooltips,
+                isTickCtrl: props.isTickCtrl,
+                numDivisions: props.userInput.numDivisions,
+                numLinePosition: props.userInput.numLinePosition,
+                // this seems like a bug, but I'm maintaining the
+                // existing behavior on a deprecated API. Probably
+                // should be:
+                // rel: userInput.rel,
+                rel: "ge",
+            }),
+
+            getPromptJSON(): NumberLinePromptJSON {
+                return _getPromptJSON(props);
+            },
+
+            movePosition,
+        }));
+
         function snapNumLinePosition(
             calculatedProps: CalculatedProps,
             numLinePosition: number,
@@ -558,73 +625,6 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 </Graphie>
             );
         }
-
-        useImperativeHandle(ref, () => ({
-            focus: () => {
-                if (props.isTickCtrl) {
-                    tickCtrlRef.current?.focus();
-                    return true;
-                }
-                return false;
-            },
-
-            focusInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.focus();
-                }
-            },
-
-            blurInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.blur();
-                }
-            },
-
-            getInputPaths: () => {
-                if (props.isTickCtrl) {
-                    return [["tick-ctrl"]];
-                }
-                return [];
-            },
-
-            getDOMNodeForPath: (inputPath) => {
-                if (inputPath?.length === 1) {
-                    return ReactDOM.findDOMNode(tickCtrlRef.current);
-                }
-                return null;
-            },
-
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: () => ({
-                alignment: props.alignment,
-                static: props.static,
-                range: props.range,
-                labelRange: props.labelRange,
-                labelStyle: props.labelStyle,
-                labelTicks: props.labelTicks,
-                divisionRange: props.divisionRange,
-                snapDivisions: props.snapDivisions,
-                isInequality: props.isInequality,
-                showTooltips: props.showTooltips,
-                isTickCtrl: props.isTickCtrl,
-                numDivisions: props.userInput.numDivisions,
-                numLinePosition: props.userInput.numLinePosition,
-                // this seems like a bug, but I'm maintaining the
-                // existing behavior on a deprecated API. Probably
-                // should be:
-                // rel: userInput.rel,
-                rel: "ge",
-            }),
-
-            getPromptJSON(): NumberLinePromptJSON {
-                return _getPromptJSON(props);
-            },
-
-            movePosition,
-        }));
 
         const divisionRange = props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
