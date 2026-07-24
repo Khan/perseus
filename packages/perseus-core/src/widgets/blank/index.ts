@@ -13,7 +13,7 @@ const defaultWidgetOptions: BlankDefaultWidgetOptions = {
     displayType: "normal",
 };
 
-const numericInputWidgetLogic: WidgetLogic<
+const blankWidgetLogic: WidgetLogic<
     PerseusBlankWidgetOptions,
     BlankPublicWidgetOptions
 > = {
@@ -25,4 +25,4 @@ const numericInputWidgetLogic: WidgetLogic<
     accessible: true,
 };
 
-export default numericInputWidgetLogic;
+export default blankWidgetLogic;
