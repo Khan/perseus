@@ -354,7 +354,7 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("receiving iframe-init message", () => {
-        it("sets content from an iframe-init message", () => {
+        it("sets the question content", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             const questionContent: PreviewContent = {
