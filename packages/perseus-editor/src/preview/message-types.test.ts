@@ -81,10 +81,7 @@ describe("message constructors", () => {
             const unsures = [issue("i1")];
 
             // Act
-            const message = createPreviewA11yReportMessage(
-                violations,
-                unsures,
-            );
+            const message = createPreviewA11yReportMessage(violations, unsures);
 
             // Assert
             expect(message).toEqual({
