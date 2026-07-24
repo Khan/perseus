@@ -1,12 +1,12 @@
 import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 
+import {TypedSingleSelect} from "./typed-single-select";
 import {alignmentInfoMap} from "./util";
 
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
@@ -18,7 +18,7 @@ interface Props {
     supportedAlignments: ReadonlyArray<Alignment>;
     widgetInfo: PerseusWidget;
     isEditingDisabled: boolean;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    onChange: (newAlignment: Alignment) => void;
     style?: StyleType;
 }
 
@@ -44,30 +44,35 @@ export function AlignmentSelect({
             <BodyText id={labelId} tag="span">
                 Alignment
             </BodyText>
-            <SingleSelect
+            <TypedSingleSelect<Alignment>
                 aria-labelledby={labelId}
-                selectedValue={widgetInfo.alignment ?? "default"}
+                // TODO(benchristel): properly type widgetInfo.alignment and
+                //  remove this cast.
+                // eslint-disable-next-line no-restricted-syntax
+                selectedValue={(widgetInfo.alignment as Alignment) ?? "default"}
                 disabled={isEditingDisabled}
-                onChange={(value) => {
-                    // Create a synthetic-like event to match the existing
-                    // onChange signature expected by WidgetEditor
-                    // eslint-disable-next-line no-restricted-syntax
-                    const syntheticEvent = {
-                        currentTarget: {value},
-                    } as React.ChangeEvent<HTMLSelectElement>;
-                    onChange(syntheticEvent);
+                options={{
+                    default:
+                        supportedAlignments.includes("default") && "default",
+                    block: supportedAlignments.includes("block") && "block",
+                    "inline-block":
+                        supportedAlignments.includes("inline-block") &&
+                        "inline-block",
+                    inline: supportedAlignments.includes("inline") && "inline",
+                    "wrap-left":
+                        supportedAlignments.includes("wrap-left") &&
+                        "wrap-left",
+                    "wrap-right":
+                        supportedAlignments.includes("wrap-right") &&
+                        "wrap-right",
+                    "full-width":
+                        supportedAlignments.includes("full-width") &&
+                        "full-width",
                 }}
+                onChange={onChange}
                 placeholder="Select alignment"
                 style={styles.singleSelectShort}
-            >
-                {supportedAlignments.map((alignment) => (
-                    <OptionItem
-                        key={alignment}
-                        value={alignment}
-                        label={alignment}
-                    />
-                ))}
-            </SingleSelect>
+            />
             <InfoTip>
                 <ul>
                     {supportedAlignments.map((alignment, index) => (

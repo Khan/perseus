@@ -31,10 +31,7 @@ const CoordInput = (props: CoordInputProps) => {
                     coord={coord}
                     labels={["x", "y"]}
                     onChange={onChange}
-                    labelStyle={{
-                        minWidth: 40,
-                        textAlign: "right",
-                    }}
+                    labelClassName={styles.labelPrefix}
                 />
                 <BodyText tag="label" className={styles.labelField}>
                     <span className={styles.labelPrefix}>Label</span>

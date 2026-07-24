@@ -9,7 +9,6 @@
  * - Protractor
  * - Interactive Graph Elements
  */
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {boxShadow, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -72,7 +71,6 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
-import type {APIOptionsWithDefaults} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -102,7 +100,6 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
     widgetId: string;
     ungradedDescriptionId?: string;
-    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -457,13 +454,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <GraphLockedLabelsLayer
                             lockedFigures={props.lockedFigures}
                         />
-                        {isFeatureOn(
-                            {apiOptions: props.apiOptions},
-                            "perseus-enable-point-label-field", // TODO(AITQ-385): clean up feature flag
-                        ) &&
-                            !props.static && (
-                                <MovablePointLabelsLayer state={state} />
-                            )}
+                        {!props.static && (
+                            <MovablePointLabelsLayer state={state} />
+                        )}
                         <HitboxLayerContext.Provider value={hitboxLayerEl}>
                             <View style={{position: "absolute"}}>
                                 <Mafs

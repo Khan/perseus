@@ -311,10 +311,10 @@ describe("Segment graph pointLabels", () => {
             />,
         );
         const point1 = screen.getByRole("button", {
-            name: "Point A at -5 comma 5.",
+            name: "Endpoint A at -5 comma 5.",
         });
         const point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
+            name: "Endpoint B at 5 comma 5.",
         });
 
         // Assert
@@ -334,16 +334,16 @@ describe("Segment graph pointLabels", () => {
             />,
         );
         const seg1Point1 = screen.getByRole("button", {
-            name: "Point A at -5 comma 5.",
+            name: "Endpoint A on segment 1 at -5 comma 5.",
         });
         const seg1Point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
+            name: "Endpoint B on segment 1 at 5 comma 5.",
         });
         const seg2Point1 = screen.getByRole("button", {
-            name: "Point C at -5 comma -5.",
+            name: "Endpoint C on segment 2 at -5 comma -5.",
         });
         const seg2Point2 = screen.getByRole("button", {
-            name: "Point D at 5 comma -5.",
+            name: "Endpoint D on segment 2 at 5 comma -5.",
         });
 
         // Assert — each interactive endpoint gets its custom label
@@ -365,7 +365,7 @@ describe("Segment graph pointLabels", () => {
             />,
         );
         const seg1Point1 = screen.getByRole("button", {
-            name: "Point A at -5 comma 5.",
+            name: "Endpoint A on segment 1 at -5 comma 5.",
         });
         const seg2Point1 = screen.getByRole("button", {
             name: "Endpoint 1 on segment 2 at -5 comma -5.",
@@ -399,10 +399,10 @@ describe("Segment graph pointLabels", () => {
             name: "Endpoint 2 on segment 1 at 5 comma 5.",
         });
         const seg2Point1 = screen.getByRole("button", {
-            name: "Point C at -5 comma -5.",
+            name: "Endpoint C on segment 2 at -5 comma -5.",
         });
         const seg2Point2 = screen.getByRole("button", {
-            name: "Point D at 5 comma -5.",
+            name: "Endpoint D on segment 2 at 5 comma -5.",
         });
 
         // Assert
@@ -428,7 +428,7 @@ describe("Segment graph pointLabels", () => {
             name: "Endpoint 1 at -5 comma 5.",
         });
         const point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
+            name: "Endpoint B at 5 comma 5.",
         });
 
         // Assert — index 0 is a non-string and falls back to the default;
