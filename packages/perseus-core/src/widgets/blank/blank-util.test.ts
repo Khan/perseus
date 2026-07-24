@@ -2,7 +2,7 @@ import {getBlankPublicWidgetOptions} from "./blank-util";
 
 import type {PerseusBlankWidgetOptions} from "../../data-schema";
 
-describe("getNumericInputPublicWidgetOptions", () => {
+describe("getBlankPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {
         // Arrange
         const options: PerseusBlankWidgetOptions = {
