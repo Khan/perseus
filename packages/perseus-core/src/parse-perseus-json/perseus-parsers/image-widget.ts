@@ -2,9 +2,9 @@ import {
     array,
     boolean,
     constant,
+    defaulted,
     number,
     object,
-    optional,
     pair,
     string,
 } from "../general-purpose-parsers";
@@ -17,15 +17,14 @@ const pairOfNumbers = pair(number, number);
 export const parseImageWidget = parseWidget(
     constant("image"),
     object({
-        title: optional(string),
-        caption: optional(string),
-        alt: optional(string),
-        longDescription: optional(string),
-        decorative: optional(boolean),
+        title: defaulted(string, () => ""),
+        caption: defaulted(string, () => ""),
+        alt: defaulted(string, () => ""),
+        longDescription: defaulted(string, () => ""),
+        decorative: defaulted(boolean, () => false),
         backgroundImage: parsePerseusImageBackground,
-        scale: optional(number),
-        static: optional(boolean),
-        labels: optional(
+        scale: defaulted(number, () => 1),
+        labels: defaulted(
             array(
                 object({
                     content: string,
@@ -33,8 +32,15 @@ export const parseImageWidget = parseWidget(
                     coordinates: array(number),
                 }),
             ),
+            () => [],
         ),
-        range: optional(pair(pairOfNumbers, pairOfNumbers)),
-        box: optional(pairOfNumbers),
+        range: defaulted(
+            pair(pairOfNumbers, pairOfNumbers),
+            (): [[number, number], [number, number]] => [
+                [0, 10],
+                [0, 10],
+            ],
+        ),
+        box: defaulted(pairOfNumbers, (): [number, number] => [400, 400]),
     }),
 );

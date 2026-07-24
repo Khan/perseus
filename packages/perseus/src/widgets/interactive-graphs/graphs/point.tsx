@@ -1,9 +1,9 @@
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../utils";
 
 import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovablePoint} from "./components/movable-point";
@@ -125,7 +125,11 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                 when dragging a points around */}
             <rect
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}

@@ -1,6 +1,6 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -11,30 +11,35 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function srTangentPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
     },
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the inflection/control-point semantics,
-    // matching the static aria-label behavior in tangent.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label is woven into the inflection/control-point
+    // description so we keep the tangent-specific semantics.
+    const {pointLabel} = state;
+
     // Coord layout in tangent graphs: [inflection(0), second/control point(1)].
-    return state.pointIndex === 0
-        ? strings.srTangentInflectionPoint({x, y})
-        : strings.srTangentSecondPoint({x, y});
+    if (state.pointIndex === 0) {
+        return pointLabel
+            ? strings.srTangentInflectionPointWithLabel({pointLabel, x, y})
+            : strings.srTangentInflectionPoint({x, y});
+    }
+    return pointLabel
+        ? strings.srTangentControlPointWithLabel({pointLabel, x, y})
+        : strings.srTangentControlPoint({x, y});
 }
 
 type TangentGraphDescriptionStrings = {
     srTangentGraph: string;
     srTangentDescription: string;
     srTangentInflectionPoint: string;
-    srTangentSecondPoint: string;
+    srTangentControlPoint: string;
     srTangentInteractiveElements: string;
 };
 
@@ -46,25 +51,35 @@ export function describeTangentGraph(
     const {coords} = state;
     const [inflection, secondPoint] = coords;
 
-    const formattedInflection = {
-        x: srFormatNumber(inflection[X], locale),
-        y: srFormatNumber(inflection[Y], locale),
-    };
-    const formattedSecondPoint = {
-        x: srFormatNumber(secondPoint[X], locale),
-        y: srFormatNumber(secondPoint[Y], locale),
-    };
-
     const srTangentGraph = strings.srTangentGraph;
     const srTangentDescription = buildTangentDescription(
         coords,
         locale,
         strings,
     );
-    const srTangentInflectionPoint =
-        strings.srTangentInflectionPoint(formattedInflection);
-    const srTangentSecondPoint =
-        strings.srTangentSecondPoint(formattedSecondPoint);
+    // srTangentPointLabel folds any custom author label into the point's role
+    // ("Inflection point A ...") and falls back to the plain role label for
+    // unlabeled, empty-string, or malformed entries.
+    const srTangentInflectionPoint = srTangentPointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
+            x: inflection[X],
+            y: inflection[Y],
+        },
+        strings,
+        locale,
+    );
+    const srTangentControlPoint = srTangentPointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
+            x: secondPoint[X],
+            y: secondPoint[Y],
+        },
+        strings,
+        locale,
+    );
     const srTangentInteractiveElements = strings.srInteractiveElements({
         elements: strings.srTangentInteractiveElements({
             point1X: srFormatNumber(inflection[X], locale),
@@ -78,7 +93,7 @@ export function describeTangentGraph(
         srTangentGraph,
         srTangentDescription,
         srTangentInflectionPoint,
-        srTangentSecondPoint,
+        srTangentControlPoint,
         srTangentInteractiveElements,
     };
 }

@@ -246,6 +246,13 @@ export const MultipleSegmentsOverlapping: Story = {
     } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
 };
 
+export const VectorWithTooltips: Story = {
+    args: {
+        correct: generateIGVectorGraph(),
+        showTooltips: true,
+    },
+};
+
 /** Unlimited points graph seeded with two points (via `startCoords`). */
 export const UnlimitedPointGraphWithTwoPoints: Story = {
     args: {

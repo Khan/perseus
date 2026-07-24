@@ -3,7 +3,6 @@ import {
     object,
     array,
     number,
-    string,
     boolean,
     optional,
     nullable,
@@ -27,7 +26,7 @@ export const parseNumberLineWidget = parseWidget(
         // in data-schema.ts and number-line.tsx.
         range: array(number),
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
-        labelStyle: string,
+        labelStyle: enumeration("decimal", "improper", "mixed", "non-reduced"),
         labelTicks: boolean,
         // NOTE(matthewcurtis): I copied the default isTickCtrl from
         // number-line.tsx. See the parse-perseus-json/README.md for

@@ -75,12 +75,12 @@ export const question1: PerseusRenderer = generateTestPerseusRenderer({
                             },
                             box: [380, 80],
                             caption: "",
+                            longDescription: "",
                             labels: [],
                             range: [
                                 [0, 10],
                                 [0, 10],
                             ],
-                            static: false,
                             title: "",
                         }),
                     }),

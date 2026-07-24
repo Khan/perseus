@@ -123,7 +123,6 @@ type Props = Readonly<{
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
-    immutableWidgets: boolean;
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
@@ -136,7 +135,6 @@ type DefaultProps = {
     content: string;
     disabled: boolean;
     images: Record<any, any>;
-    immutableWidgets: boolean;
     placeholder: string;
     showWordCount: boolean;
     warnNoPrompt: boolean;
@@ -187,7 +185,6 @@ class Editor extends React.Component<Props, State> {
         images: {},
         disabled: false,
         widgetEnabled: true,
-        immutableWidgets: false,
         showWordCount: false,
         warnNoPrompt: false,
         warnNoWidgets: false,
@@ -674,6 +671,10 @@ class Editor extends React.Component<Props, State> {
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
+        // TODO(benchristel): get rid of all these different ways of
+        //  initializing widget options. We should probably standardize on
+        //  getting the initial options from
+        //  CoreWidgetRegistry.getDefaultWidgetOptions().
         const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
             initializeWidgetOptionsParams,
         );
@@ -948,22 +949,18 @@ class Editor extends React.Component<Props, State> {
                 </select>
             );
 
-            if (!this.props.immutableWidgets) {
-                // eslint-disable-next-line no-restricted-syntax
-                const widgetNodes = Object.values(widgets) as React.ReactNode;
-                widgetsAndTemplates = (
-                    <div className="perseus-editor-widgets">
-                        <div className="perseus-editor-widgets-selectors">
-                            <WidgetSelect onChange={this._addWidget} />
-                            {templatesDropDown}
-                            {wordCountDisplay}
-                        </div>
-                        {widgetNodes}
+            // eslint-disable-next-line no-restricted-syntax
+            const widgetNodes = Object.values(widgets) as React.ReactNode;
+            widgetsAndTemplates = (
+                <div className="perseus-editor-widgets">
+                    <div className="perseus-editor-widgets-selectors">
+                        <WidgetSelect onChange={this._addWidget} />
+                        {templatesDropDown}
+                        {wordCountDisplay}
                     </div>
-                );
-                // Prevent word count from being displayed elsewhere
-                wordCountDisplay = null;
-            }
+                    {widgetNodes}
+                </div>
+            );
         } else {
             underlayPieces = [this.props.content];
         }
@@ -1045,7 +1042,6 @@ class Editor extends React.Component<Props, State> {
                         Graded Groups should contain at least one widget
                     </div>
                 )}
-                {wordCountDisplay}
                 {widgetsAndTemplates}
             </div>
         );

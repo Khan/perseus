@@ -4,14 +4,14 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {components, iconTrash} from "@khanacademy/perseus";
+import {ApiOptions, components, iconTrash} from "@khanacademy/perseus";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
+import PreviewWithIframe from "./preview-with-iframe";
 import {
     iconCircleArrowDown,
     iconCircleArrowUp,
@@ -182,7 +182,7 @@ type CombinedHintEditorProps = {
     apiOptions?: APIOptions;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
-    highlightLint?: boolean;
+    highlightLint: boolean;
     isLast: boolean;
     isFirst: boolean;
     hint: Hint;
@@ -198,35 +198,7 @@ type CombinedHintEditorProps = {
 
 /* A single hint-row containing a hint editor and preview */
 class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
-    static defaultProps = {
-        highlightLint: false,
-    };
-
     editor = React.createRef<HintEditor>();
-    frame = React.createRef<IframeContentRenderer>();
-
-    componentDidMount() {
-        this.updatePreview();
-    }
-
-    componentDidUpdate() {
-        this.updatePreview();
-    }
-
-    updatePreview = () => {
-        this.frame.current?.sendNewData({
-            type: "hint",
-            data: {
-                hint: this.props.hint,
-                pos: this.props.pos,
-                apiOptions: this.props.apiOptions,
-                linterContext: {
-                    contentType: "hint",
-                    highlightLint: this.props.highlightLint,
-                },
-            },
-        });
-    };
 
     getSaveWarnings = () => {
         return this.editor.current?.getSaveWarnings();
@@ -277,12 +249,24 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
-                        <IframeContentRenderer
-                            ref={this.frame}
-                            datasetKey="mobile"
-                            datasetValue={isMobile}
+                        <PreviewWithIframe
+                            isMobile={isMobile}
                             seamless={true}
                             url={this.props.previewURL}
+                            content={{
+                                type: "hint",
+                                data: {
+                                    hint: this.props.hint,
+                                    pos: this.props.pos,
+                                    apiOptions:
+                                        this.props.apiOptions ||
+                                        ApiOptions.defaults,
+                                    linterContext: {
+                                        contentType: "hint",
+                                        highlightLint: this.props.highlightLint,
+                                    },
+                                },
+                            }}
                         />
                     </DeviceFramer>
                 </div>
@@ -295,7 +279,7 @@ type CombinedHintsEditorProps = {
     apiOptions?: APIOptions;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
-    highlightLint?: boolean;
+    highlightLint: boolean;
     hints: Hint[];
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
@@ -317,13 +301,11 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     static HintEditor: typeof HintEditor = HintEditor;
 
     static defaultProps: {
-        highlightLint: boolean;
         hints: ReadonlyArray<any>;
         onChange: () => void;
     } = {
-        onChange: () => {},
         hints: [],
-        highlightLint: false,
+        onChange: () => {},
     };
 
     handleHintChange(i: number, newProps: CombinedHintsEditorProps): void {
@@ -386,7 +368,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const hintElems = _.map(
             hints,
-            function (hint, i) {
+            (hint, i) => {
                 return (
                     <fieldset disabled={editingDisabled} key={"hintEditor" + i}>
                         <CombinedHintEditor
@@ -396,26 +378,18 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                             itemId={itemId}
                             hint={hint}
                             pos={i}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             imageUploader={this.props.imageUploader}
                             // eslint-disable-next-line react/jsx-no-bind
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onChange={this.handleHintChange.bind(this, i)}
                             // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onRemove={this.handleHintRemove.bind(this, i)}
                             // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onMove={this.handleHintMove.bind(this, i)}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             deviceType={this.props.deviceType}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             apiOptions={this.props.apiOptions}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             highlightLint={this.props.highlightLint}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             previewURL={this.props.previewURL}
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             widgetIsOpen={this.props.widgetIsOpen}
                         />
                     </fieldset>

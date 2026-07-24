@@ -1,0 +1,10 @@
+{
+    "packages": [
+        {
+            "source": "git:git@github.com:khan/agent-settings",
+            "extensions": [
+                "pi/extensions/sandbox/sandbox.ts"
+            ]
+        }
+    ]
+}

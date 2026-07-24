@@ -1,3 +1,5 @@
+import {generateImageOptions} from "@khanacademy/perseus-core";
+
 import {getImagesWithoutAltData} from "./extract-perseus-data";
 
 import type {
@@ -11,30 +13,30 @@ describe("getImagesWithoutAltData", () => {
         const widgets: PerseusWidgetsMap = {
             "image 1": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "",
                     backgroundImage: {
                         url: "https://example.com/image1.jpg",
                     },
-                },
+                }),
             },
             "image 2": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "Has alt data!",
                     backgroundImage: {
                         url: "https://example.com/image2.jpg",
                     },
-                },
+                }),
             },
             "image 3": {
                 type: "image",
-                options: {
+                options: generateImageOptions({
                     alt: "",
                     backgroundImage: {
                         url: "",
                     },
-                },
+                }),
             },
         };
         const perseusRenderer: PerseusRenderer = {

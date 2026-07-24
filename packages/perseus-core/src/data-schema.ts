@@ -163,7 +163,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
     orderer: OrdererWidget;
@@ -176,6 +175,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "molecule-renderer": DeprecatedStandinWidget;
     "passage-ref-target": DeprecatedStandinWidget;
     "passage-ref": DeprecatedStandinWidget;
     passage: DeprecatedStandinWidget;
@@ -486,8 +486,6 @@ export type SorterWidget = WidgetOptions<'sorter', PerseusSorterWidgetOptions>;
 export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
-// prettier-ignore
-export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -869,30 +867,37 @@ export type PerseusGroupWidgetOptions = PerseusRenderer;
 /** Options for the image widget. Shows an image with a caption and alt text. */
 export type PerseusImageWidgetOptions = {
     /** Translatable Markdown; Text to be shown for the title of the image */
-    title?: string;
+    title: string;
     /** Translatable Markdown; Text to be shown in the caption section of an image */
-    caption?: string;
+    caption: string;
     /** Translatable Text; The alt text to be shown in the img.alt attribute */
-    alt?: string;
+    alt: string;
     /** Translatable Markdown; Text to be shown as the long description of an image */
-    longDescription?: string;
+    longDescription: string;
     /**
      * When true, standalone image will be rendered with alt="" and without any alt
      * text, caption, title, or long description.
      */
-    decorative?: boolean;
+    decorative: boolean;
     /** The image details for the image to be displayed */
     backgroundImage: PerseusImageBackground;
     /** The size scale of the image */
-    scale?: number;
-    /** Always false. Not used for this widget */
-    static?: boolean;
-    /** @deprecated - labels were removed from the image widget in 2017 */
-    labels?: Array<PerseusImageLabel>;
-    /** @deprecated - range for labels was removed from the image widget in 2017 */
-    range?: [Interval, Interval];
-    /** @deprecated - box for labels was removed from the image widget in 2017 */
-    box?: Size;
+    scale: number;
+    /**
+     * @deprecated - labels were removed from the image widget editor in 2017,
+     * but still appear in old content.
+     */
+    labels: Array<PerseusImageLabel>;
+    /**
+     * @deprecated - range for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    range: [Interval, Interval];
+    /**
+     * @deprecated - box for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    box: Size;
 };
 
 export type PerseusImageLabel = {
@@ -1702,10 +1707,9 @@ export type PerseusNumberLineWidgetOptions = {
     labelRange: Array<number | null>;
     /**
      * This controls the styling of the labels for the two main labels as well
-     * as all the tick mark labels, if applicable. Options: "decimal",
-     * "improper", "mixed", "non-reduced"
+     * as all the tick mark labels, if applicable.
      */
-    labelStyle: string;
+    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
     /** Show label ticks */
     labelTicks: boolean;
     /** Show tick controller */
@@ -1803,7 +1807,7 @@ export type PerseusPlotterWidgetOptions = {
      * Which ticks to display the labels for. For instance, setting this to "4"
      * will only show every 4th label (plus the last one)
      */
-    labelInterval?: number | null;
+    labelInterval: number;
     /**
      * Creates the specified number of divisions between the horizontal lines.
      * Fewer snaps between lines makes the graph easier for the student to
@@ -1815,12 +1819,15 @@ export type PerseusPlotterWidgetOptions = {
     /** The Y values that represent the correct answer expected */
     correct: number[];
     /** A picture to represent items in a graph. */
-    picUrl?: string | null;
-    /** @deprecated */
-    picSize?: number | null;
-    /** @deprecated */
-    picBoxHeight?: number | null;
-    /** @deprecated */
+    picUrl: string | null;
+    // picSize has no editor controls, but is still present in published
+    // content as of July 2026.
+    picSize: number;
+    // picBoxHeight has no editor controls, but is still present in published
+    // content as of July 2026.
+    picBoxHeight: number;
+    // plotDimensions has no editor controls, but is still present in published
+    // content as of July 2026.
     plotDimensions: number[];
 };
 
@@ -2246,13 +2253,6 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
-/** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
-export type PerseusMoleculeRendererWidgetOptions = {
-    widgetId: string;
-    rotationAngle?: number;
-    smiles?: string;
-};
-
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
@@ -2272,7 +2272,6 @@ export type PerseusWidgetOptions =
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
-    | PerseusMoleculeRendererWidgetOptions
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
     | PerseusOrdererWidgetOptions

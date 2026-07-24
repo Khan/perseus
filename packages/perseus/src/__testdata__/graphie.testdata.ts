@@ -1,4 +1,5 @@
 import {
+    generateImageOptions,
     getDefaultAnswerArea,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -13,7 +14,7 @@ export const itemWithPieChart: PerseusItem = {
             "image 1": {
                 alignment: "block",
                 graded: true,
-                options: {
+                options: generateImageOptions({
                     alt: "This chart presents a pie graph divided into 2 sectors: 28 percent are unsuccessful and 72 percent are successful.",
                     backgroundImage: {
                         height: 210,
@@ -27,9 +28,8 @@ export const itemWithPieChart: PerseusItem = {
                         [0, 10],
                         [0, 10],
                     ],
-                    static: false,
                     title: "Percentage of Successful Cometary Missions (1978-2014)",
-                },
+                }),
                 static: false,
                 type: "image",
                 version: {

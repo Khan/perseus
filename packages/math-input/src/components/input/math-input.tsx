@@ -838,6 +838,7 @@ class MathInput extends React.Component<Props, State> {
             ">": "GT",
             "<": "LT",
             "^": "EXP",
+            _: "SUB",
         } as const;
 
         // Numbers

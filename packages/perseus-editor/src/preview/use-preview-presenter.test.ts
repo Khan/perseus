@@ -56,10 +56,10 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("initialization", () => {
-        it("initializes with null data", () => {
+        it("initializes with null content", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
             expect(result.current.isMobile).toBe(false);
             expect(result.current.hasLintGutter).toBe(false);
         });
@@ -144,20 +144,12 @@ describe("usePreviewPresenter", () => {
             const questionContent: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {
-                            content: "What is 2+2?",
-                            widgets: {},
-                            images: {},
-                        },
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
+                    question: {
+                        content: "What is 2+2?",
+                        widgets: {},
+                        images: {},
                     },
                     apiOptions: {readOnly: true},
-                    initialHintsVisible: 0,
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -176,7 +168,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(questionContent);
+            expect(result.current.content).toEqual(questionContent);
         });
 
         it("updates data for hint content", () => {
@@ -210,22 +202,20 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(hintContent);
+            expect(result.current.content).toEqual(hintContent);
         });
 
         it("updates data for article content", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
             const articleContent: PreviewContent = {
-                type: "article",
+                type: "article-section",
                 data: {
-                    json: [
-                        {
-                            content: "# Article Title\n\nArticle content",
-                            widgets: {},
-                            images: {},
-                        },
-                    ],
+                    article: {
+                        content: "# Article Title\n\nArticle content",
+                        widgets: {},
+                        images: {},
+                    },
                     apiOptions: {},
                     linterContext: {
                         contentType: "article",
@@ -245,7 +235,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(articleContent);
+            expect(result.current.content).toEqual(articleContent);
         });
 
         it("updates data for article-all content", () => {
@@ -253,24 +243,13 @@ describe("usePreviewPresenter", () => {
 
             const articleAllContent: PreviewContent = {
                 type: "article-all",
-                data: [
-                    {
-                        json: [{content: "Section 1", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                    {
-                        json: [{content: "Section 2", widgets: {}, images: {}}],
-                        apiOptions: {},
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                ],
+                data: {
+                    article: [
+                        {content: "Section 1", widgets: {}, images: {}},
+                        {content: "Section 2", widgets: {}, images: {}},
+                    ],
+                    apiOptions: {},
+                },
             };
 
             const message = createContentDataMessage(articleAllContent);
@@ -284,7 +263,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(articleAllContent);
+            expect(result.current.content).toEqual(articleAllContent);
         });
 
         it("ignores content-data from non-parent source", () => {
@@ -315,7 +294,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("updates data multiple times", () => {
@@ -324,20 +303,12 @@ describe("usePreviewPresenter", () => {
             const content1: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {
-                            content: "Question 1",
-                            widgets: {},
-                            images: {},
-                        },
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
+                    question: {
+                        content: "Question 1",
+                        widgets: {},
+                        images: {},
                     },
                     apiOptions: {},
-                    initialHintsVisible: 0,
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -354,7 +325,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content1);
+            expect(result.current.content).toEqual(content1);
 
             const content2: PreviewContent = {
                 type: "hint",
@@ -378,7 +349,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content2);
+            expect(result.current.content).toEqual(content2);
         });
     });
 
@@ -472,7 +443,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores messages without correct source identifier", () => {
@@ -493,7 +464,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Data should remain null
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores non-Perseus messages", () => {
@@ -512,7 +483,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Should not crash or change state
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
 
         it("ignores malformed messages", () => {
@@ -527,7 +498,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
 
             act(() => {
                 window.dispatchEvent(
@@ -538,7 +509,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toBeNull();
+            expect(result.current.content).toBeNull();
         });
     });
 
@@ -614,16 +585,8 @@ describe("usePreviewPresenter", () => {
             const content: PreviewContent = {
                 type: "question",
                 data: {
-                    item: {
-                        question: {content: "Test", widgets: {}, images: {}},
-                        // eslint-disable-next-line no-restricted-syntax
-                        answerArea: {calculator: false} as any,
-                        hints: [],
-                    },
+                    question: {content: "Test", widgets: {}, images: {}},
                     apiOptions: {},
-                    initialHintsVisible: 0,
-                    // eslint-disable-next-line no-restricted-syntax
-                    device: {type: "phone"} as any,
                     linterContext: {
                         contentType: "exercise",
                         highlightLint: false,
@@ -645,7 +608,7 @@ describe("usePreviewPresenter", () => {
                 );
             });
 
-            expect(result.current.data).toEqual(content);
+            expect(result.current.content).toEqual(content);
 
             // 3. Report height
             act(() => {
@@ -668,16 +631,8 @@ describe("usePreviewPresenter", () => {
                 {
                     type: "question",
                     data: {
-                        item: {
-                            question: {content: "Q1", widgets: {}, images: {}},
-                            // eslint-disable-next-line no-restricted-syntax
-                            answerArea: {calculator: false} as any,
-                            hints: [],
-                        },
+                        question: {content: "Q1", widgets: {}, images: {}},
                         apiOptions: {},
-                        initialHintsVisible: 0,
-                        // eslint-disable-next-line no-restricted-syntax
-                        device: {type: "phone"} as any,
                         linterContext: {
                             contentType: "exercise",
                             highlightLint: false,
@@ -697,9 +652,9 @@ describe("usePreviewPresenter", () => {
                     },
                 },
                 {
-                    type: "article",
+                    type: "article-section",
                     data: {
-                        json: [{content: "A1", widgets: {}, images: {}}],
+                        article: {content: "A1", widgets: {}, images: {}},
                         apiOptions: {},
                         linterContext: {
                             contentType: "article",
@@ -727,7 +682,7 @@ describe("usePreviewPresenter", () => {
             });
 
             // Should have the last content
-            expect(result.current.data).toEqual(contents[2]);
+            expect(result.current.content).toEqual(contents[2]);
         });
     });
 });

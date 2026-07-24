@@ -102,11 +102,26 @@ describe("message-validators", () => {
                 content: {
                     type: "question" as const,
                     data: {
+                        question: {content: "test"},
+                        apiOptions: {},
+                        linterContext: {contentType: "exercise" as const},
+                    },
+                },
+            };
+
+            expect(isParentToIframeMessage(message)).toBe(true);
+        });
+
+        it("returns true for valid exercise content-data message", () => {
+            const message = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "content-data" as const,
+                content: {
+                    type: "exercise" as const,
+                    data: {
                         item: {question: {content: "test"}},
                         apiOptions: {},
-                        initialHintsVisible: 0,
-                        device: {type: "phone" as const},
-                        linterContext: {contentType: "exercise" as const},
+                        showRationales: true,
                     },
                 },
             };

@@ -122,6 +122,7 @@ class Graphie extends React.Component<Props> {
     }
 
     componentWillUnmount() {
+        this._removeMovables();
         this._graphie.cleanup();
     }
 

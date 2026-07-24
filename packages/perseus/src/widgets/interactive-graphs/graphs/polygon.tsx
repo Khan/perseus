@@ -9,6 +9,7 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -17,10 +18,11 @@ import {
     calculateSideSnap,
 } from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {bound, getCSSZoomFactor, TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {usePointAriaLabel} from "./components/build-point-aria-label";
+import {useHitbox} from "./components/hitbox";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
@@ -91,6 +93,9 @@ const PolygonGraph = (props: Props) => {
 
     // Ref to implement the dragging behavior on a Limited/Closed Polygon.
     const polygonRef = React.useRef<SVGPolygonElement>(null);
+    // HTML hitbox that captures the whole-shape pointer/touch drag (Safari
+    // doesn't honor `touch-action` on the SVG polygon; see hitbox.tsx).
+    const polygonHitboxRef = React.useRef<HTMLDivElement>(null);
     // Ref to manage dynamic focus for the points in Unlimited Polygon
     const pointsRef = React.useRef<Array<SVGElement | null>>([]);
     // Ref to manage the last move time for a Limited Polygon.
@@ -107,12 +112,21 @@ const PolygonGraph = (props: Props) => {
     const constrain: KeyboardMovementConstraint =
         getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
-    const {dragging} = useDraggable({
+    const moveAll = (newStart: vec.Vector2) => {
+        dispatch(actions.polygon.moveAll(newStart));
+    };
+    // Keyboard drag stays on the focusable SVG polygon.
+    useDraggable({
         gestureTarget: polygonRef,
         point: dragReferencePoint,
-        onMove: (newStart) => {
-            dispatch(actions.polygon.moveAll(newStart));
-        },
+        onMove: moveAll,
+        constrainKeyboardMovement: constrain,
+    });
+    // Pointer/touch drag runs through the HTML hitbox.
+    const {dragging} = useDraggable({
+        gestureTarget: polygonHitboxRef,
+        point: dragReferencePoint,
+        onMove: moveAll,
         constrainKeyboardMovement: constrain,
     });
 
@@ -121,6 +135,18 @@ const PolygonGraph = (props: Props) => {
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
     const [focusVisible, setFocusVisible] = React.useState(false);
+
+    // Whole-shape drag hitbox: an HTML polygon (via clip-path) matching the
+    // current vertices. Only meaningful once the polygon has an interior
+    // (≥ 3 vertices); while it's still being drawn, points are the interaction.
+    const polygonHitbox = useHitbox({
+        shape: {kind: "polygon", vertices: coords},
+        hitboxRef: polygonHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-polygon__hitbox",
+    });
 
     // This useEffect is to handle the focus snapping for Unlimited Polygon.
     React.useEffect(() => {
@@ -160,10 +186,16 @@ const PolygonGraph = (props: Props) => {
         setFocusVisible,
     };
 
-    return numSides === "unlimited" ? (
-        <UnlimitedPolygonGraph {...statefulProps} />
-    ) : (
-        <LimitedPolygonGraph {...statefulProps} />
+    return (
+        <>
+            {/* useHitbox renders nothing until the polygon has ≥3 vertices. */}
+            {polygonHitbox}
+            {numSides === "unlimited" ? (
+                <UnlimitedPolygonGraph {...statefulProps} />
+            ) : (
+                <LimitedPolygonGraph {...statefulProps} />
+            )}
+        </>
     );
 };
 
@@ -471,7 +503,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                 // This is okay because the graph has its own aria-label.
                 aria-hidden={true}
                 style={{
-                    fill: "rgba(0,0,0,0)",
+                    // Make this rectangle invisible.
+                    fill: "none",
+                    // Capture mouse events on this rectangle so that points
+                    // can be added and moved.
+                    pointerEvents: "all",
                     cursor: "crosshair",
                 }}
                 width={widthPx}

@@ -1,3 +1,5 @@
+import {generateImageOptions} from "@khanacademy/perseus-core";
+
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const articleWithImages: PerseusRenderer = {
@@ -10,8 +12,7 @@ export const articleWithImages: PerseusRenderer = {
             alignment: "block",
             static: false,
             graded: true,
-            options: {
-                static: false,
+            options: generateImageOptions({
                 title: "",
                 range: [
                     [0, 10],
@@ -27,7 +28,7 @@ export const articleWithImages: PerseusRenderer = {
                 alt: "From space, the sun appears over Earth's horizon, illuminating the atmosphere as a blue layer above Earth. Above the atmosphere, space appears black.",
                 caption:
                     "*Sunrise photo from the International Space Station. Earth's atmosphere scatters electromagnetic radiation from the sun, producing a bright sky during the day.*",
-            },
+            }),
             version: {
                 major: 0,
                 minor: 0,
@@ -38,8 +39,7 @@ export const articleWithImages: PerseusRenderer = {
             alignment: "block",
             static: false,
             graded: true,
-            options: {
-                static: false,
+            options: generateImageOptions({
                 title: "",
                 range: [
                     [0, 10],
@@ -54,7 +54,7 @@ export const articleWithImages: PerseusRenderer = {
                 labels: [],
                 alt: "An animation shows a blue electric field arrow oscillating up and down. Connected to the base of the electric field arrow is a magnetic field arrow, which oscillates from side to side. The two fields oscillate in unison: when one extends the other extends too, creating a repeating wave pattern.",
                 caption: "",
-            },
+            }),
             version: {
                 major: 0,
                 minor: 0,
@@ -65,8 +65,7 @@ export const articleWithImages: PerseusRenderer = {
             alignment: "block",
             static: false,
             graded: true,
-            options: {
-                static: false,
+            options: generateImageOptions({
                 title: "",
                 range: [
                     [0, 10],
@@ -81,7 +80,7 @@ export const articleWithImages: PerseusRenderer = {
                 labels: [],
                 alt: "A squiggly curve drawn from left to right. The right end of the curve has an arrow point. The curve begins with a small amount of wiggle on the left, which grows in amplitude in the middle and then decreases again on the right. The result is a small wave packet.",
                 caption: "",
-            },
+            }),
             version: {
                 major: 0,
                 minor: 0,

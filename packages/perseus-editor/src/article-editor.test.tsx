@@ -115,6 +115,11 @@ describe("ArticleEditor", () => {
         );
 
         // Assert
+        // Note: the interactive-graph movable point renders fill/stroke="none"
+        // here because its color now comes from tokenValue(), which reads a CSS
+        // custom property. jsdom doesn't define those variables, so it resolves
+        // to "" and Raphael renders it as "none". The real color resolves in a
+        // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
         expect(container).toMatchSnapshot();
     });
 });

@@ -20,9 +20,10 @@ type Props = {
     seamless: boolean;
 
     /**
-     * The content to render in the preview area.
+     * The content to render in the preview area. `null` means no data has
+     * been provided yet and the iframe should render an empty placeholder.
      */
-    content: PreviewContent;
+    content: PreviewContent | null;
 };
 
 /**
@@ -52,7 +53,9 @@ function PreviewWithIframe(props: Props) {
     // IframeContentRenderer. If performance becomes an issue, we can look at
     // using React.memo() on this component or some other performance fix.
     React.useEffect(() => {
-        sendData(props.content);
+        if (props.content != null) {
+            sendData(props.content);
+        }
     }, [sendData, props.content]);
 
     // Update container height based on iframe content height if we're in

@@ -1,4 +1,4 @@
-import {ApiOptions, Util} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus";
 import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -29,7 +29,6 @@ type Props = PerseusFreeResponseWidgetOptions & {
 class FreeResponseEditor extends React.Component<Props> {
     static defaultProps = {
         ...freeResponseLogic.defaultWidgetOptions,
-        apiOptions: ApiOptions.defaults,
     };
 
     static widgetName = "free-response" as const;

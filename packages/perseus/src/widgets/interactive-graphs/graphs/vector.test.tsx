@@ -97,9 +97,10 @@ describe("Vector graph screen reader", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseVectorState} />);
 
-        // Act — hover the vector body to make the pill visible
-        const vectorBody = screen.getByTestId("movable-vector");
-        await userEvent.hover(vectorBody);
+        // Act — hover the vector's hitbox to make the pill visible. The hitbox
+        // is the HTML pointer surface layered over the SVG body (see hitbox.tsx).
+        const vectorHitbox = screen.getByTestId("movable-vector__hitbox");
+        await userEvent.hover(vectorHitbox);
         const dragHandle = screen.getByTestId("movable-pill-handle");
 
         // Assert

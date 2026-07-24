@@ -206,10 +206,10 @@ describe("Absolute value graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {name: "Vertex point A at 0 comma 0."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Point B on arm at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -224,7 +224,7 @@ describe("Absolute value graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {name: "Vertex point A at 0 comma 0."}),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Point on arm at 2 comma 2."}),
@@ -247,7 +247,7 @@ describe("Absolute value graph pointLabels", () => {
             screen.getByRole("button", {name: "Vertex point at 0 comma 0."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Point B on arm at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -269,7 +269,7 @@ describe("Absolute value graph pointLabels", () => {
             screen.getByRole("button", {name: "Vertex point at 0 comma 0."}),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Point B on arm at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 });

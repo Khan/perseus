@@ -330,6 +330,77 @@ describe("Zoomable", () => {
         });
     });
 
+    describe("under ancestor CSS zoom (device font scale)", () => {
+        // The mobile apps enlarge text by applying CSS `zoom` to <body>.
+        // Zoomable must fit content to the zoom-adjusted width, otherwise
+        // its fit-to-width scale exactly cancels the font scaling
+        // (LEMS-3885).
+
+        const mockBodyZoom = (zoom: string) => {
+            const realGetComputedStyle = window.getComputedStyle;
+            jest.spyOn(window, "getComputedStyle").mockImplementation(
+                (el: Element) => {
+                    const style = realGetComputedStyle(el);
+                    if (el === document.body) {
+                        Object.defineProperty(style, "zoom", {value: zoom});
+                    }
+                    return style;
+                },
+            );
+        };
+
+        it("scales to the zoom-adjusted width when the child overflows it", () => {
+            // Arrange
+            mockBodyZoom("1.5");
+            const {container} = render(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            const rootNode = container.firstElementChild as HTMLElement;
+            mockSize(rootNode, {width: 400, height: 100});
+            mockSize(screen.getByText("Some zoomable text"), {
+                width: 800,
+                height: 200,
+            });
+
+            // Act
+            act(() => jest.runAllTimers());
+
+            // Assert
+            // scale = (400 * 1.5) / 801, instead of 400 / 801 unzoomed
+            const scale = 600 / 801;
+            expect(rootNode.style.transform).toBe(`scale(${scale}, ${scale})`);
+            expect(rootNode.style.height).toBe(`${Math.ceil(scale * 201)}px`);
+        });
+
+        it("does not scale down when the child fits the zoom-adjusted width", () => {
+            // Arrange
+            mockBodyZoom("1.5");
+            const {container} = render(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            const rootNode = container.firstElementChild as HTMLElement;
+            mockSize(rootNode, {width: 400, height: 100});
+            mockSize(screen.getByText("Some zoomable text"), {
+                width: 500,
+                height: 200,
+            });
+
+            // Act
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(rootNode.style.transform).toBe("scale(1, 1)");
+        });
+    });
+
     describe("child node mutations", () => {
         let computeChildBounds;
         let componentContainer;

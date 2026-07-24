@@ -1,8 +1,8 @@
 import {angles} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -14,7 +14,7 @@ const {getClockwiseAngle} = angles;
 export function srAnglePointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         angleMeasure: number;
@@ -22,25 +22,33 @@ export function srAnglePointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the side/vertex semantics, matching
-    // the static aria-label behavior in angle.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the side/vertex semantics.
+    const customLabel = state.pointLabel;
 
     // Coord layout in angle graphs: [endingSide, vertex, startingSide].
     switch (state.pointIndex) {
         case 0:
-            return strings.srAngleEndingSide({x, y});
+            return strings.srAngleEndingSide({
+                pointLabel: customLabel ?? `${state.pointIndex + 1}`,
+                x,
+                y,
+            });
         case 1:
             return strings.srAngleVertexWithAngleMeasure({
+                pointLabel: customLabel ?? `${state.pointIndex + 1}`,
                 x,
                 y,
                 angleMeasure: srFormatNumber(state.angleMeasure, locale),
             });
         default:
-            return strings.srAngleStartingSide({x, y});
+            return strings.srAngleStartingSide({
+                pointLabel: customLabel ?? `${state.pointIndex + 1}`,
+                x,
+                y,
+            });
     }
 }
 
@@ -60,10 +68,8 @@ export function describeAngleGraph(
     const {coords, allowReflexAngles} = state;
     const [endingSide, vertex, startingSide] = coords;
 
-    const angleMeasure = srFormatNumber(
-        getClockwiseAngle(coords, allowReflexAngles),
-        locale,
-    );
+    const angleMeasureValue = getClockwiseAngle(coords, allowReflexAngles);
+    const angleMeasure = srFormatNumber(angleMeasureValue, locale);
 
     const srAngleGraphAriaLabel = strings.srAngleGraphAriaLabel;
     const srAngleGraphAriaDescription = strings.srAngleGraphAriaDescription({
@@ -75,19 +81,39 @@ export function describeAngleGraph(
         endingSideX: srFormatNumber(endingSide[X], locale),
         endingSideY: srFormatNumber(endingSide[Y], locale),
     });
-    const srAngleStartingSide = strings.srAngleStartingSide({
-        x: srFormatNumber(startingSide[X], locale),
-        y: srFormatNumber(startingSide[Y], locale),
-    });
-    const srAngleEndingSide = strings.srAngleEndingSide({
-        x: srFormatNumber(endingSide[X], locale),
-        y: srFormatNumber(endingSide[Y], locale),
-    });
-    const srAngleVertex = strings.srAngleVertexWithAngleMeasure({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-        angleMeasure,
-    });
+    const srAngleEndingSide = srAnglePointLabel(
+        {
+            pointIndex: 0,
+            pointLabel: getCustomPointLabel(state.pointLabels, 0),
+            x: endingSide[X],
+            y: endingSide[Y],
+            angleMeasure: angleMeasureValue,
+        },
+        strings,
+        locale,
+    );
+    const srAngleVertex = srAnglePointLabel(
+        {
+            pointIndex: 1,
+            pointLabel: getCustomPointLabel(state.pointLabels, 1),
+            x: vertex[X],
+            y: vertex[Y],
+            angleMeasure: angleMeasureValue,
+        },
+        strings,
+        locale,
+    );
+    const srAngleStartingSide = srAnglePointLabel(
+        {
+            pointIndex: 2,
+            pointLabel: getCustomPointLabel(state.pointLabels, 2),
+            x: startingSide[X],
+            y: startingSide[Y],
+            angleMeasure: angleMeasureValue,
+        },
+        strings,
+        locale,
+    );
 
     return {
         srAngleGraphAriaLabel,

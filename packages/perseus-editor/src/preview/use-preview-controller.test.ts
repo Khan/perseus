@@ -141,10 +141,8 @@ describe("usePreviewController", () => {
                 expect.objectContaining({
                     content: expect.objectContaining({
                         data: expect.objectContaining({
-                            item: expect.objectContaining({
-                                question: expect.objectContaining({
-                                    content: "Question 2",
-                                }),
+                            question: expect.objectContaining({
+                                content: "Question 2",
                             }),
                         }),
                     }),
@@ -587,32 +585,18 @@ describe("usePreviewController", () => {
 
             const articleData: PreviewContent = {
                 type: "article-all",
-                data: [
-                    {
-                        json: [{content: "Section 1", widgets: {}, images: {}}],
-                        // eslint-disable-next-line no-restricted-syntax
-                        apiOptions: {
-                            readOnly: true,
-                            onFocusChange: jest.fn(),
-                        } as any,
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                    {
-                        json: [{content: "Section 2", widgets: {}, images: {}}],
-                        // eslint-disable-next-line no-restricted-syntax
-                        apiOptions: {
-                            isMobile: true,
-                            trackInteraction: jest.fn(),
-                        } as any,
-                        linterContext: {
-                            contentType: "article",
-                            highlightLint: false,
-                        },
-                    },
-                ],
+                data: {
+                    article: [
+                        {content: "Section 1", widgets: {}, images: {}},
+                        {content: "Section 2", widgets: {}, images: {}},
+                    ],
+                    // eslint-disable-next-line no-restricted-syntax
+                    apiOptions: {
+                        readOnly: true,
+                        onFocusChange: jest.fn(),
+                        trackInteraction: jest.fn(),
+                    } as any,
+                },
             };
 
             act(() => {
@@ -623,16 +607,15 @@ describe("usePreviewController", () => {
             const sentMessage = (mockContentWindow.postMessage as jest.Mock)
                 .mock.calls[0][0];
 
-            // Both sections should have apiOptions sanitized
-            expect(sentMessage.content.data).toHaveLength(2);
+            // The shared apiOptions should be sanitized
+            expect(sentMessage.content.data.article).toHaveLength(2);
             expect(
-                sentMessage.content.data[0].apiOptions.onFocusChange,
+                sentMessage.content.data.apiOptions.onFocusChange,
             ).toBeUndefined();
-            expect(sentMessage.content.data[0].apiOptions.readOnly).toBe(true);
             expect(
-                sentMessage.content.data[1].apiOptions.trackInteraction,
+                sentMessage.content.data.apiOptions.trackInteraction,
             ).toBeUndefined();
-            expect(sentMessage.content.data[1].apiOptions.isMobile).toBe(true);
+            expect(sentMessage.content.data.apiOptions.readOnly).toBe(true);
         });
     });
 });
@@ -644,23 +627,15 @@ function createQuestionPreview(overrides?: {
     return {
         type: "question",
         data: {
-            item: {
-                question: {
-                    content: overrides?.content ?? "What is 2+2?",
-                    widgets: {},
-                    images: {},
-                },
-                // eslint-disable-next-line no-restricted-syntax
-                answerArea: {calculator: false} as any,
-                hints: [],
+            question: {
+                content: overrides?.content ?? "What is 2+2?",
+                widgets: {},
+                images: {},
             },
             apiOptions: {
                 readOnly: true,
                 ...overrides?.apiOptions,
             },
-            initialHintsVisible: 0,
-            // eslint-disable-next-line no-restricted-syntax
-            device: {type: "phone"} as any,
             linterContext: {
                 contentType: "exercise",
                 highlightLint: false,

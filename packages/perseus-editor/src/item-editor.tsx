@@ -1,13 +1,15 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
+import PreviewWithIframe from "./preview-with-iframe";
 import {ItemEditorContext} from "./util/item-editor-context";
 
+import type {PreviewContent} from "./preview/message-types";
 import type {
     APIOptions,
     ImageUploader,
@@ -21,13 +23,15 @@ import type {
     PerseusItem,
 } from "@khanacademy/perseus-core";
 
+type QuestionPreviewData = Extract<PreviewContent, {type: "question"}>;
+
 type Props = {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
      */
     additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
+    deviceType: DeviceType;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     question?: PerseusRenderer;
@@ -39,6 +43,11 @@ type Props = {
      * for non-content library exercise questions.
      */
     itemId?: string;
+    /** Whether to highlight lint warnings in the preview. */
+    highlightLint: boolean;
+    /** The problem number, used for deterministic random seeding in the
+     * preview. */
+    problemNum?: number;
 };
 
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
@@ -53,7 +62,6 @@ class ItemEditor extends React.Component<Props> {
         question: {},
         answerArea: {},
     };
-    frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -62,10 +70,6 @@ class ItemEditor extends React.Component<Props> {
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps));
-    };
-
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        this.frame.current?.sendNewData(newData);
     };
 
     // eslint-disable-next-line import/no-deprecated
@@ -98,6 +102,36 @@ class ItemEditor extends React.Component<Props> {
         return {
             question: this.questionEditor.current.serialize(),
             answerArea: this.itemExtrasEditor.current.serialize(),
+        };
+    }
+
+    // Builds the preview content from props.
+    _derivePreviewContent(): QuestionPreviewData | null {
+        const question = this.props.question;
+
+        if (!question) {
+            return null;
+        }
+
+        return {
+            type: "question",
+            data: {
+                question,
+                apiOptions: {
+                    ...ApiOptions.defaults,
+                    ...this.props.apiOptions,
+                    customKeypad:
+                        this.props.deviceType === "phone" ||
+                        this.props.deviceType === "tablet",
+                },
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: this.props.highlightLint,
+                },
+                reviewMode: true,
+                legacyPerseusLint: this.getSaveWarnings(),
+                problemNum: this.props.problemNum,
+            },
         };
     }
 
@@ -147,13 +181,12 @@ class ItemEditor extends React.Component<Props> {
                                     deviceType={this.props.deviceType}
                                     nochrome={true}
                                 >
-                                    <IframeContentRenderer
-                                        ref={this.frame}
+                                    <PreviewWithIframe
                                         key={this.props.deviceType}
-                                        datasetKey="mobile"
-                                        datasetValue={isMobile}
+                                        isMobile={isMobile}
                                         seamless={true}
                                         url={this.props.previewURL}
+                                        content={this._derivePreviewContent()}
                                     />
                                 </DeviceFramer>
                             </div>

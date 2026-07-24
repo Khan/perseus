@@ -1,5 +1,55 @@
 # @khanacademy/math-input
 
+## 26.6.5
+
+### Patch Changes
+
+-   Updated dependencies [[`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd), [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0), [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0), [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684)]:
+    -   @khanacademy/perseus-core@33.0.0
+    -   @khanacademy/keypad-context@3.2.76
+
+## 26.6.4
+
+### Patch Changes
+
+-   [#3925](https://github.com/Khan/perseus/pull/3925) [`6db4fc8`](https://github.com/Khan/perseus/commit/6db4fc87370fdd2488a14a9eab514a22b6ad3dcc) Thanks [@jandrade](https://github.com/jandrade)! - Updates ButtonAsset SVG elements to use "currentColor" (inherited color) instead of a hard-coded value
+
+## 26.6.3
+
+### Patch Changes
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/keypad-context@3.2.75
+
+## 26.6.2
+
+### Patch Changes
+
+-   Updated dependencies [[`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf)]:
+    -   @khanacademy/perseus-core@32.0.0
+    -   @khanacademy/keypad-context@3.2.74
+
+## 26.6.1
+
+### Patch Changes
+
+-   [#3892](https://github.com/Khan/perseus/pull/3892) [`cb770a1`](https://github.com/Khan/perseus/commit/cb770a15596e6fd2986ba504f9d5402d3f39ce7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sync deps from Frontend
+
+## 26.6.0
+
+### Minor Changes
+
+-   [#3862](https://github.com/Khan/perseus/pull/3862) [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for subscript in the MathInput keypad
+
+### Patch Changes
+
+-   Updated dependencies [[`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61), [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13)]:
+    -   @khanacademy/perseus-core@31.0.0
+    -   @khanacademy/keypad-context@3.2.73
+
 ## 26.5.0
 
 ### Minor Changes

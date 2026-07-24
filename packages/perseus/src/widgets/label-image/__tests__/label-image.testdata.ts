@@ -1,3 +1,5 @@
+import {generateImageOptions} from "@khanacademy/perseus-core";
+
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const textQuestion: PerseusRenderer = {
@@ -333,8 +335,7 @@ export const mixedContentQuestion: PerseusRenderer = {
             alignment: "block",
             static: false,
             graded: true,
-            options: {
-                static: false,
+            options: generateImageOptions({
                 title: "",
                 range: [
                     [0, 10],
@@ -349,7 +350,7 @@ export const mixedContentQuestion: PerseusRenderer = {
                 labels: [],
                 alt: "An inflated beach ball floats on the surface of water. Only a small portion of the ball is underwater.",
                 caption: "",
-            },
+            }),
             version: {
                 major: 0,
                 minor: 0,

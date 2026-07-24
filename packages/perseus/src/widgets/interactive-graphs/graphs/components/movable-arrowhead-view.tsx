@@ -1,4 +1,3 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -18,13 +17,14 @@ type Props = {
     angle: number; // degrees counterclockwise from the positive x-axis
     dragging: boolean;
     focused: boolean;
+    // Hover is driven by the HTML hitbox (see useControlArrowhead), not CSS
+    // `:hover`, because the hitbox sits on top of the SVG and intercepts the
+    // pointer.
+    hovered?: boolean;
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
 };
-
-// The hitbox size of 48px by 48px matches the movable point.
-const hitboxSizePx = 48;
 
 // Straight-line chevron arrowhead: two lines meeting at the tip.
 // Wings at (-5, ±5) give exactly 45° per side (90° total opening).
@@ -86,29 +86,22 @@ export const MovableArrowheadView = forwardRef(
         props: Props,
         hitboxRef: ForwardedRef<SVGGElement>,
     ) {
-        const {
-            showTooltips,
-            interactiveColor,
-            disableKeyboardInteraction,
-            snapStep,
-        } = useGraphConfig();
+        const {showTooltips, interactiveColor, snapStep} = useGraphConfig();
         const {
             point,
             angle,
             dragging,
+            hovered,
             cursor,
             showFocusRing,
             onClick = () => {},
         } = props;
 
-        const wbColorName = disableKeyboardInteraction
-            ? "fadedOffBlack64"
-            : "blue";
-
         const classes = classNames(
             "movable-arrowhead",
             dragging && "movable-arrowhead--dragging",
             showFocusRing && "movable-arrowhead--focus",
+            hovered && "movable-arrowhead--hover",
         );
 
         const [[x, y]] = useTransformVectorsToPixels(point);
@@ -134,14 +127,6 @@ export const MovableArrowheadView = forwardRef(
                 data-testid="movable-arrowhead"
                 onClick={onClick}
             >
-                {/* Transparent circular hit target (48 × 48 px) */}
-                <circle
-                    className="movable-arrowhead-hitbox"
-                    r={hitboxSizePx / 2}
-                    cx={x}
-                    cy={y}
-                />
-
                 <g transform={`translate(${x} ${y}) rotate(${angle})`}>
                     {/* Halo — filled rounded triangle.  On focus,
                             a 2px stroke is added for the focus ring. */}
@@ -169,12 +154,8 @@ export const MovableArrowheadView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         opened={true}
-                        backgroundColor={wbColorName}
                         content={tooltipContent}
-                        contentStyle={{
-                            color: semanticColor.core.foreground.knockout
-                                .default,
-                        }}
+                        variant="strong"
                     >
                         {svgForArrowhead}
                     </Tooltip>

@@ -21,7 +21,7 @@ export function srPolygonLabel(
             strings.srPointAtCoordinates({
                 // Use the author's custom label when set, otherwise the
                 // 1-indexed default ("Point 1", "Point 2", …).
-                num: resolvePointLabel(pointLabels, i),
+                pointLabel: resolvePointLabel(pointLabels, i),
                 x: srFormatNumber(x, locale),
                 y: srFormatNumber(y, locale),
             }),
@@ -74,7 +74,7 @@ export function describePolygonGraph(
                 // Share the helper's defensive rules with the MovablePoint handle's aria-label.
                 buildLabel(i, coord) ??
                 strings.srPointAtCoordinates({
-                    num: i + 1,
+                    pointLabel: `${i + 1}`,
                     x: srFormatNumber(coord[0], locale),
                     y: srFormatNumber(coord[1], locale),
                 }),

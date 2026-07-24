@@ -129,7 +129,7 @@ describe("isItemAccessible", () => {
                     content: "Here's an image: [[☃ image 1]]",
                     widgets: {
                         "image 1": generateImageWidget({
-                            options: {
+                            options: generateImageOptions({
                                 backgroundImage: {
                                     url: "https://example.com/image.png",
                                     width: 400,
@@ -137,7 +137,7 @@ describe("isItemAccessible", () => {
                                 },
                                 // No alt text makes this image inaccessible
                                 alt: "",
-                            },
+                            }),
                         }),
                     },
                 }),

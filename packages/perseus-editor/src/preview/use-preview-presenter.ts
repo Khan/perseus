@@ -15,9 +15,9 @@ import type {
 
 type UsePreviewPresenterResult = {
     /**
-     * The preview content data received from the parent, or null if not yet loaded
+     * The preview content received from the parent, or null if not yet loaded
      */
-    data: PreviewContent | null;
+    content: PreviewContent | null;
     /**
      * Whether the preview should render in mobile mode (from data-mobile attribute)
      */
@@ -44,25 +44,25 @@ type UsePreviewPresenterResult = {
  * @example
  * ```tsx
  * function PreviewPage() {
- *   const { data, isMobile, reportHeight } = usePreviewPresenter();
+ *   const { content, isMobile, reportHeight } = usePreviewPresenter();
  *
  *   React.useEffect(() => {
  *     if (containerRef.current) {
  *       reportHeight(containerRef.current.scrollHeight);
  *     }
- *   }, [data, reportHeight]);
+ *   }, [content, reportHeight]);
  *
- *   if (!data) return <div>Loading...</div>;
+ *   if (!content) return <div>Loading...</div>;
  *   return <PreviewRenderer
  *       ref={containerRef}
- *       data={data}
+ *       content={content}
  *       isMobile={isMobile}
  *   />;
  * }
  * ```
  */
 export function usePreviewPresenter(): UsePreviewPresenterResult {
-    const [data, setData] = React.useState<PreviewContent | null>(null);
+    const [content, setContent] = React.useState<PreviewContent | null>(null);
 
     // eslint-disable-next-line no-restricted-syntax
     const iframe = window.frameElement as HTMLIFrameElement | null;
@@ -87,7 +87,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
 
             switch (message.type) {
                 case "content-data":
-                    setData(message.content);
+                    setContent(message.content);
                     break;
 
                 default:
@@ -120,7 +120,7 @@ export function usePreviewPresenter(): UsePreviewPresenterResult {
     }, []);
 
     return {
-        data,
+        content,
         isMobile: iframe.dataset.mobile === "true",
         hasLintGutter: iframe.dataset.lintGutter === "true",
         reportHeight,

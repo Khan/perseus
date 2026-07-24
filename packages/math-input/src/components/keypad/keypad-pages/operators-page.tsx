@@ -41,6 +41,11 @@ export default function OperatorsPage(props: Props) {
                         coord={[1, 0]}
                     />
                     <KeypadButton
+                        keyConfig={Keys.SUB}
+                        onClickKey={onClickKey}
+                        coord={[3, 1]}
+                    />
+                    <KeypadButton
                         keyConfig={Keys.SQRT}
                         onClickKey={onClickKey}
                         coord={[2, 0]}

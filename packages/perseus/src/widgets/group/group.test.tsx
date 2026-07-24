@@ -224,12 +224,14 @@ describe("group widget", () => {
                     },
                     box: [380, 80],
                     caption: "",
+                    decorative: false,
                     labels: [],
+                    longDescription: "",
                     range: [
                         [0, 10],
                         [0, 10],
                     ],
-                    static: false,
+                    scale: 1,
                     title: "",
                 },
                 "numeric-input 1": {

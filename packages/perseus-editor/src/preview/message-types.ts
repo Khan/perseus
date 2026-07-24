@@ -3,11 +3,11 @@
  * the preview iframe.
  */
 
-import type {APIOptions, DeviceType} from "@khanacademy/perseus";
+import type {SerializableApiOptions} from "./sanitize-api-options";
 import type {
     Hint,
-    PerseusArticle,
     PerseusItem,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -34,13 +34,16 @@ interface PreviewMessageBase {
 }
 
 /**
- * Data for question preview (full item with question, answer area, and hints)
+ * Data for the read-only question preview shown while editing an exercise.
+ *
+ * This carries just the question's `PerseusRenderer` — the content under edit —
+ * rather than a full `PerseusItem`. The answer widgets live inside the question
+ * renderer itself; the legacy answer-area tools and hints are previewed
+ * elsewhere.
  */
 export type QuestionPreviewData = {
-    item: PerseusItem;
-    apiOptions: APIOptions;
-    initialHintsVisible: number;
-    device: DeviceType;
+    question: PerseusRenderer;
+    apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;
@@ -53,18 +56,42 @@ export type QuestionPreviewData = {
 export type HintPreviewData = {
     hint: Hint;
     pos: number;
-    apiOptions: APIOptions;
+    apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
 };
 
 /**
- * Data for article section preview
+ * Data for a single article section preview (used in edit mode for one section)
  */
-export type ArticlePreviewData = {
-    apiOptions: APIOptions;
-    json: PerseusArticle;
+export type ArticleSectionPreviewData = {
+    article: PerseusRenderer;
+    apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
+};
+
+/**
+ * Data for article-all preview (used in preview mode to render all sections at once)
+ */
+export type ArticleAllPreviewData = {
+    article: ReadonlyArray<PerseusRenderer>;
+    apiOptions: SerializableApiOptions;
+};
+
+/**
+ * Data for the interactive exercise preview (drives the exercise editor's
+ * "Preview" tab in khan/frontend).
+ *
+ * Unlike the read-only `question` preview, this signals the iframe to mount the
+ * full interactive `ExercisePreview` component (hint controls, answer checking,
+ * scoring) rather than a `ServerItemRenderer`. All of that interactivity lives
+ * inside the iframe — the parent only sends these fields and never observes or
+ * controls the exercise state.
+ */
+export type ExercisePreviewData = {
+    item: PerseusItem;
+    apiOptions: SerializableApiOptions;
+    showRationales: boolean;
 };
 
 /**
@@ -73,8 +100,9 @@ export type ArticlePreviewData = {
 export type PreviewContent =
     | {type: "question"; data: QuestionPreviewData}
     | {type: "hint"; data: HintPreviewData}
-    | {type: "article"; data: ArticlePreviewData}
-    | {type: "article-all"; data: ArticlePreviewData[]};
+    | {type: "article-section"; data: ArticleSectionPreviewData}
+    | {type: "article-all"; data: ArticleAllPreviewData}
+    | {type: "exercise"; data: ExercisePreviewData};
 
 // ---- Parent → Iframe messages ----
 

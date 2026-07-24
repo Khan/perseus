@@ -167,7 +167,7 @@ export type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
-    jiptContent: any;
+    jiptContent: string | null;
 };
 
 type FullLinterContext = LinterContextProps & {
@@ -760,10 +760,7 @@ class Renderer
         );
     };
 
-    replaceJiptContent: (content: string, paragraphIndex: number) => void = (
-        content: string,
-        paragraphIndex: number,
-    ) => {
+    replaceJiptContent(content: string, paragraphIndex?: number): void {
         if (paragraphIndex == null) {
             // we're not translating paragraph-wise; replace the whole content
             // (we could also theoretically check for apiOptions.isArticle
@@ -809,7 +806,7 @@ class Renderer
                 jiptContent: JiptParagraphs.joinFromArray(paragraphs),
             });
         }
-    };
+    }
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css

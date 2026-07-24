@@ -1,13 +1,9 @@
 import {angles} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {
-    getDefaultFigureForType,
-    lockedFigureFillStyles,
-} from "@khanacademy/perseus-core";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {sizing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
@@ -15,6 +11,7 @@ import * as React from "react";
 import AngleInput from "../../../components/angle-input";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
@@ -33,10 +30,10 @@ import {
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     Coord,
-    LockedFigureFillType,
     LockedEllipseType,
     LockedFigureColor,
     LockedLabelType,
+    LockedFigureFillType,
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -236,26 +233,17 @@ const LockedEllipseSettings = (props: Props) => {
                     className={`${styles.row} ${styles.truncatedWidth} ${styles.fillLabel}`}
                 >
                     fill
-                    <SingleSelect
+                    <TypedSingleSelect<LockedFigureFillType>
                         selectedValue={fillStyle}
                         disabled={editingDisabled}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            // eslint-disable-next-line no-restricted-syntax
-                            ((value: LockedFigureFillType) =>
-                                onChangeProps({fillStyle: value})) as any
-                        }
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                    >
-                        {Object.keys(lockedFigureFillStyles).map((option) => (
-                            <OptionItem
-                                key={option}
-                                value={option}
-                                label={option}
-                            />
-                        ))}
-                    </SingleSelect>
+                        onChange={(value) => onChangeProps({fillStyle: value})}
+                        options={{
+                            none: "none",
+                            white: "white",
+                            translucent: "translucent",
+                            solid: "solid",
+                        }}
+                    />
                 </BodyText>
             </View>
 

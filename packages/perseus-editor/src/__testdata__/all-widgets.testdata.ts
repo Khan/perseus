@@ -17,12 +17,14 @@ import {
     generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
+    generateImageOptions,
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generatePlotterOptions,
     generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
@@ -137,10 +139,11 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 initialX: 2,
                 correctX: 2,
                 labelRange: [-5, 5],
-                labelStyle: "integer",
+                labelStyle: "decimal",
                 isTickCtrl: false,
                 isInequality: false,
                 divisionRange: [1, 12],
+                numDivisions: 5,
                 snapDivisions: 2,
                 labelTicks: true,
                 static: false,
@@ -175,7 +178,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             }),
         }),
         "image 1": generateImageWidget({
-            options: {
+            options: generateImageOptions({
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
                     width: 300,
@@ -188,7 +191,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         alignment: "center",
                     },
                 ],
-            },
+            }),
         }),
         "table 1": {
             graded: true,
@@ -210,7 +213,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             static: false,
             type: "plotter",
-            options: {
+            options: generatePlotterOptions({
                 type: "pic",
                 labels: ["x", "y"],
                 categories: ["blue"],
@@ -220,7 +223,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 correct: [2, 4, 3],
                 starting: [0, 0, 0, 2],
                 plotDimensions: [300, 300],
-            },
+            }),
         },
         "sorter 1": {
             graded: true,

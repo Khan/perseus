@@ -376,7 +376,19 @@ describe("parseWidgetsMap", () => {
                 type: "image",
                 version: {major: 0, minor: 0},
                 options: {
+                    alt: "the alt text",
                     backgroundImage: {},
+                    box: [1, 2],
+                    caption: "the caption",
+                    decorative: true,
+                    labels: [],
+                    longDescription: "the long description",
+                    range: [
+                        [0, 1],
+                        [2, 3],
+                    ],
+                    scale: 7,
+                    title: "the title",
                 },
             },
         };
@@ -531,7 +543,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("accepts a molecule-renderer widget", () => {
+    it("converts a molecule-renderer widget to the deprecated-standin widget", () => {
         const widgetsMap: unknown = {
             "molecule-renderer 1": {
                 type: "molecule-renderer",
@@ -542,9 +554,19 @@ describe("parseWidgetsMap", () => {
             },
         };
 
+        const expected: PerseusWidgetsMap = {
+            "molecule-renderer 1": {
+                type: "deprecated-standin",
+                version: {major: 0, minor: 0},
+                options: {
+                    widgetId: "",
+                },
+            },
+        };
+
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(success(expected));
     });
 
     it("accepts a number-line widget", () => {
@@ -555,7 +577,7 @@ describe("parseWidgetsMap", () => {
                 options: {
                     range: [],
                     labelRange: [],
-                    labelStyle: "",
+                    labelStyle: "decimal",
                     labelTicks: false,
                     isInequality: false,
                     divisionRange: [],
@@ -722,7 +744,8 @@ describe("parseWidgetsMap", () => {
                 version: {major: 0, minor: 0},
                 options: {
                     labels: [],
-                    categories: [],
+                    labelInterval: 42,
+                    categories: [""],
                     type: "bar",
                     maxY: 0,
                     scaleY: 0,
@@ -730,6 +753,9 @@ describe("parseWidgetsMap", () => {
                     starting: [],
                     correct: [],
                     plotDimensions: [],
+                    picUrl: null,
+                    picSize: 1,
+                    picBoxHeight: 2,
                 },
             },
         };

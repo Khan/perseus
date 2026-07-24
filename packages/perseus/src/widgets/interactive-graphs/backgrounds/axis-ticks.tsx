@@ -14,6 +14,9 @@ import {
 import type {Interval, vec} from "mafs";
 
 // The size of the ticks and labels in pixels
+// Note that we can't use semantic font tokens here, because the semantic
+// tokens are in rems, whereas we need the font size to be in px to stay
+// consistent with our graph calculations.
 const tickSize = 10;
 const tickLabelSize = 14;
 

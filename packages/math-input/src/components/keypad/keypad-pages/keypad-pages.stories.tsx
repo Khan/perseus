@@ -20,13 +20,13 @@ export default {
     },
 } satisfies Meta;
 
-export const NumericInput = (): React.ReactElement => (
+export const NumbersPageLayout = (): React.ReactElement => (
     <RenderKeyPadPanel selectedPage="Numbers" onClickKey={() => {}}>
         <NumbersPage onClickKey={action("onClickKey")} />
     </RenderKeyPadPanel>
 );
 
-export const PreAlgebraInput = (): React.ReactElement => (
+export const OperatorsPageLayout = (): React.ReactElement => (
     <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
         <OperatorsPage
             onClickKey={action("onClickKey")}
@@ -38,7 +38,55 @@ export const PreAlgebraInput = (): React.ReactElement => (
     </RenderKeyPadPanel>
 );
 
-export const TrigonometryInput = (): React.ReactElement => (
+export const OperatorsPageOnlyPreAlgebra = (): React.ReactElement => (
+    <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
+        <OperatorsPage
+            onClickKey={action("onClickKey")}
+            preAlgebra={true}
+            logarithms={false}
+            basicRelations={false}
+            advancedRelations={false}
+        />
+    </RenderKeyPadPanel>
+);
+
+export const OperatorsPageOnlyLogarithms = (): React.ReactElement => (
+    <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
+        <OperatorsPage
+            onClickKey={action("onClickKey")}
+            preAlgebra={false}
+            logarithms={true}
+            basicRelations={false}
+            advancedRelations={false}
+        />
+    </RenderKeyPadPanel>
+);
+
+export const OperatorsPageOnlyBasicRelations = (): React.ReactElement => (
+    <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
+        <OperatorsPage
+            onClickKey={action("onClickKey")}
+            preAlgebra={false}
+            logarithms={false}
+            basicRelations={true}
+            advancedRelations={false}
+        />
+    </RenderKeyPadPanel>
+);
+
+export const OperatorsPageOnlyAdvancedRelations = (): React.ReactElement => (
+    <RenderKeyPadPanel selectedPage="Operators" onClickKey={() => {}}>
+        <OperatorsPage
+            onClickKey={action("onClickKey")}
+            preAlgebra={false}
+            logarithms={false}
+            basicRelations={false}
+            advancedRelations={true}
+        />
+    </RenderKeyPadPanel>
+);
+
+export const GeometryInputPageLayout = (): React.ReactElement => (
     <RenderKeyPadPanel selectedPage="Extras" onClickKey={() => {}}>
         <GeometryInputPage onClickKey={action("onClickKey")} />
     </RenderKeyPadPanel>

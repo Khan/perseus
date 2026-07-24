@@ -1,3 +1,5 @@
+import {generateImageOptions} from "@khanacademy/perseus-core";
+
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./image-ai-utils";
@@ -16,7 +18,7 @@ const question = {
         "image 1": {
             alignment: "block",
             graded: true,
-            options: {
+            options: generateImageOptions({
                 alt: "An array of isosceles triangles. A triangle has height A. Two smaller triangle, one with height B and one with height C, have approximately the same combined height as A.",
                 title: "Image Title",
                 caption: "Image Caption",
@@ -31,8 +33,7 @@ const question = {
                     [0, 10],
                     [0, 10],
                 ],
-                static: false,
-            },
+            }),
             static: false,
             type: "image",
             version: {major: 0, minor: 0},

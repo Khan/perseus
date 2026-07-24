@@ -31,10 +31,12 @@ export default function SharedKeys(props: Props) {
     const Keys = KeyConfigs(strings);
 
     // Fraction position depends on the page
-    const fractionCoord: readonly [number, number] =
-        selectedPage === "Numbers" || selectedPage === "Operators"
-            ? [3, 1]
-            : [3, 0];
+    let fractionCoord: readonly [number, number] = [3, 0];
+    if (selectedPage === "Numbers") {
+        fractionCoord = [3, 1];
+    } else if (selectedPage === "Operators") {
+        fractionCoord = [3, 2];
+    }
 
     return (
         <>

@@ -323,6 +323,50 @@ describe("useDraggable", () => {
         // Assert: the element moved one step to the right and then one step up
         expect(onMoveSpy.mock.calls).toEqual([[[1, 0]], [[0, 1]]]);
     });
+
+    it("lets a press with no movement propagate so a swipe can still scroll the page", () => {
+        // A touch that lands on a draggable but doesn't move yet is
+        // indistinguishable from the start of a page scroll. We must not claim
+        // it (stopPropagation), or the page can't scroll over the graph. This
+        // regressed on iOS 26.5+, where WebKit began honoring default/gesture
+        // suppression during the pointer-down phase.
+        const parentMouseDownSpy = jest.fn();
+        // Arrange, Act
+        render(
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div onMouseDown={parentMouseDownSpy}>
+                <Mafs width={200} height={200}>
+                    <TestDraggable point={[0, 0]} />
+                </Mafs>
+            </div>,
+        );
+        mouseDownAt(screen.getByRole("button"), 0, 0);
+
+        // Assert: the press reached the ancestor (propagation was not stopped)
+        expect(parentMouseDownSpy).toHaveBeenCalled();
+    });
+
+    it("prevents default scrolling once a drag actually moves", () => {
+        // Dragging a shape must not also scroll the page. Safari doesn't
+        // reliably honor `touch-action: none` on the SVG draggable bodies, so
+        // once a real drag starts we suppress the browser's default scroll in
+        // JS. This must NOT happen before there's movement (see the test
+        // above), or a plain swipe over the graph could no longer scroll.
+        // Arrange
+        render(
+            <Mafs width={200} height={200}>
+                <TestDraggable point={[0, 0]} />
+            </Mafs>,
+        );
+        const element = screen.getByRole("button");
+        mouseDownAt(element, 0, 0);
+
+        // Act, Assert: a press with no movement should not prevent default
+        // (fireEvent returns false only when a handler called preventDefault)...
+        expect(moveMouseTo(element, 0, 0)).toBe(true);
+        // ...but a move that actually drags the shape should.
+        expect(moveMouseTo(element, 20, 20)).toBe(false);
+    });
 });
 
 function mouseDownAt(element: Element, clientX: number, clientY: number) {
@@ -330,7 +374,7 @@ function mouseDownAt(element: Element, clientX: number, clientY: number) {
     // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
     // I went with that approach.
     // eslint-disable-next-line testing-library/prefer-user-event
-    fireEvent.mouseDown(element, {
+    return fireEvent.mouseDown(element, {
         pointerId: 1,
         buttons: 1,
         clientX,
@@ -343,7 +387,7 @@ function moveMouseTo(element: Element, clientX: number, clientY: number) {
     // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
     // I went with that approach.
     // eslint-disable-next-line testing-library/prefer-user-event
-    fireEvent.mouseMove(element, {
+    return fireEvent.mouseMove(element, {
         pointerId: 1,
         buttons: 1,
         clientX,

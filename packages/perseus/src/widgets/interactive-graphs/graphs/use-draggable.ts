@@ -3,9 +3,9 @@ import {useTransformContext, vec} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {getCSSZoomFactor} from "../../../util/css-zoom-utils";
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-import {getCSSZoomFactor} from "../utils";
 
 import type {RefObject} from "react";
 
@@ -83,11 +83,13 @@ export function useDraggable(args: Params): DragState {
     useDrag(
         (state) => {
             const {type, event} = state;
-            event?.stopPropagation();
 
             const isKeyboard = type.includes("key");
             if (isKeyboard) {
                 invariant(event instanceof KeyboardEvent);
+                // Keyboard interactions should never bubble or trigger the
+                // browser's default scroll-on-arrow-key behavior.
+                event?.stopPropagation();
                 event?.preventDefault();
 
                 // When a key is held down, we see multiple "keydown" events,
@@ -174,8 +176,18 @@ export function useDraggable(args: Params): DragState {
                     dragStarted.current = false;
                 }
                 if (vec.mag(pixelMovement) === 0) {
+                    // No movement yet: can't tell a drag from the start of a
+                    // page scroll, so leave the event alone and let a swipe
+                    // scroll the page (iOS 26.5+ honors pointer-down
+                    // suppression and would otherwise block scroll).
                     return;
                 }
+                // Real drag underway: suppress touch-scroll so dragging doesn't
+                // also scroll the page. Done in JS because Safari doesn't
+                // reliably honor `touch-action` on SVG; only on move, so a
+                // plain swipe still scrolls.
+                event?.stopPropagation();
+                event?.preventDefault();
                 // Don't start a drag if no movement; a click with zero
                 // movement should not set isCurrentlyDragging and block
                 // subsequent click-to-add-point events.

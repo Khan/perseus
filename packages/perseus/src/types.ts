@@ -261,7 +261,7 @@ export type JiptLabelStore = {
 };
 
 export interface JiptRenderer {
-    replaceJiptContent: (content: string, paragraphIndex: number) => void;
+    replaceJiptContent(content: string, paragraphIndex?: number): void;
 }
 
 type JiptTranslationComponents = {

@@ -1,5 +1,44 @@
 # @khanacademy/perseus-core
 
+## 33.0.0
+
+### Major Changes
+
+-   [#3936](https://github.com/Khan/perseus/pull/3936) [`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the Plotter widget required, and default them in the parser.
+
+### Minor Changes
+
+-   [#3932](https://github.com/Khan/perseus/pull/3932) [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0) Thanks [@benchristel](https://github.com/benchristel)! - The Molecule widget (already deprecated and hidden from the editor) has been removed. It now renders as the DeprecatedStandin widget.
+
+-   [#3943](https://github.com/Khan/perseus/pull/3943) [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Remove the `perseus-enable-point-label-field` feature flag (AITQ-385). `showPointLabels` is now honored unconditionally on interactive graphs and in the editor toggle.
+
+### Patch Changes
+
+-   [#3933](https://github.com/Khan/perseus/pull/3933) [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the unused default props of the Measurer widget have been removed.
+
+## 32.0.1
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.3.1
+
+## 32.0.0
+
+### Major Changes
+
+-   [#3899](https://github.com/Khan/perseus/pull/3899) [`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the image widget required. Perseus consumers should, as always, use the parsers to upgrade data to the latest schema.
+
+## 31.0.0
+
+### Major Changes
+
+-   [#3843](https://github.com/Khan/perseus/pull/3843) [`47f9f11`](https://github.com/Khan/perseus/commit/47f9f1167452aa9d91ca49f5525a22f0d01bbd13) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - [number-line] Narrow `labelStyle` type to the supported list of styles: "decimal", "improper", "mixed", and "non-reduced". Also removes legacy code for long-removed label style `"decimal ticks"`.
+
+### Minor Changes
+
+-   [#3862](https://github.com/Khan/perseus/pull/3862) [`b5f7a73`](https://github.com/Khan/perseus/commit/b5f7a73e2fa7a75ded9abf73ab7d037153b0ed61) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for subscript in the MathInput keypad
+
 ## 30.1.1
 
 ### Patch Changes
