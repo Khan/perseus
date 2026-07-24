@@ -3,11 +3,9 @@ import {
     articleDecorator,
     mobileArticleDecorator,
 } from "../../__testutils__/story-decorators";
+import {twoGroupArgs} from "../graded-group-set.testdata";
 
-import {
-    gradedGroupSetRendererDecorator,
-    twoGroupArgs,
-} from "./graded-group-set-renderer-decorator";
+import {gradedGroupSetRendererDecorator} from "./graded-group-set-renderer-decorator";
 
 import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

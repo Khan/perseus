@@ -9,6 +9,7 @@ import {
     generateRadioChoice,
     generateRadioWidget,
     generateTestPerseusRenderer,
+    type PerseusGradedGroupSetWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -280,3 +281,20 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer =
             }),
         },
     });
+
+// Two graded groups whose content is plain text (no child widget), so snapshots
+// stay focused on the graded-group-set chrome — the title and indicator pips —
+// and aren't coupled to any other widget's visuals. Shared by the initial-state
+// and interactions regression stories.
+export const twoGroupArgs: Partial<PerseusGradedGroupSetWidgetOptions> = {
+    gradedGroups: [
+        generateGradedGroupOptions({
+            title: "Problem 1a",
+            content: "The first problem in the set.",
+        }),
+        generateGradedGroupOptions({
+            title: "Problem 1b",
+            content: "The second problem in the set.",
+        }),
+    ],
+};
