@@ -23,9 +23,7 @@ export function generateCategorizerWidget(
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
-        options: generateCategorizerOptions(
-            categorizerWidgetProperties?.options,
-        ),
+        options: generateCategorizerOptions(),
         ...categorizerWidgetProperties,
     };
 }

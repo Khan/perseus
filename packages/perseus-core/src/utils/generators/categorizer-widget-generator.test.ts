@@ -47,7 +47,7 @@ describe("generateCategorizerOptions", () => {
 });
 
 describe("generateCategorizerWidget", () => {
-    it("builds a default definition widget", () => {
+    it("builds a default categorizer widget", () => {
         // Arrange, Act
         const widget = generateCategorizerWidget();
 
@@ -67,13 +67,13 @@ describe("generateCategorizerWidget", () => {
         });
     });
 
-    it("builds a definition widget with all props", () => {
+    it("builds a categorizer widget with all props", () => {
         // Arrange, Act
         const widget = generateCategorizerWidget({
-            graded: true,
+            graded: false,
             version: {major: 0, minor: 0},
-            static: false,
-            alignment: "default",
+            static: true,
+            alignment: "block",
             options: generateCategorizerOptions({
                 items: ["Choose 1", "Choose 2", "Choose 3", "Choose 4"],
                 categories: [
@@ -90,10 +90,10 @@ describe("generateCategorizerWidget", () => {
         // Assert
         expect(widget).toStrictEqual({
             type: "categorizer",
-            graded: true,
-            static: false,
+            graded: false,
+            static: true,
             version: {major: 0, minor: 0},
-            alignment: "default",
+            alignment: "block",
             options: {
                 items: ["Choose 1", "Choose 2", "Choose 3", "Choose 4"],
                 categories: [
