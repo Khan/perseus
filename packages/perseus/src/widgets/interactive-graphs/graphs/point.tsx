@@ -71,10 +71,10 @@ function PointGraph(props: Props) {
     };
 
     if (numPoints === "unlimited") {
-        return UnlimitedPointGraph(statefulProps);
+        return <UnlimitedPointGraph {...statefulProps} />;
     }
 
-    return LimitedPointGraph(statefulProps);
+    return <LimitedPointGraph {...statefulProps} />;
 }
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
