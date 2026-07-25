@@ -2158,6 +2158,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                       width="400"
                     >
                       <rect
+                        data-testid="unlimited-point-graph-add-target"
                         height="400"
                         style="fill: none; pointer-events: all; cursor: crosshair;"
                         width="400"

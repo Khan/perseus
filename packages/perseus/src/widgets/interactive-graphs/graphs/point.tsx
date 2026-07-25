@@ -124,6 +124,7 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
             <rect
+                data-testid="unlimited-point-graph-add-target"
                 style={{
                     // Make this rectangle invisible.
                     fill: "none",

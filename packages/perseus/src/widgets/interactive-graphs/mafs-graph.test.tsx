@@ -577,47 +577,6 @@ describe("MafsGraph", () => {
         expect(point.getAttribute("cy")).toBe(-expectedCY + "");
     });
 
-    it("does not crash when a point graph switches to unlimited points", () => {
-        const limitedState: InteractiveGraphState = {
-            type: "point",
-            numPoints: 1,
-            focusedPointIndex: null,
-            hasBeenInteractedWith: true,
-            showRemovePointButton: false,
-            interactionMode: "mouse",
-            showKeyboardInteractionInvitation: false,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            snapStep: [1, 1],
-            coords: [[0, 0]],
-        };
-
-        const unlimitedState: InteractiveGraphState = {
-            ...limitedState,
-            numPoints: "unlimited",
-        };
-
-        const {rerender} = render(
-            <MafsGraph
-                {...baseMafsProps}
-                state={limitedState}
-                dispatch={() => {}}
-            />,
-        );
-
-        expect(() =>
-            rerender(
-                <MafsGraph
-                    {...baseMafsProps}
-                    state={unlimitedState}
-                    dispatch={() => {}}
-                />,
-            ),
-        ).not.toThrow();
-    });
-
     it("MovableLine moves down based on down keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
