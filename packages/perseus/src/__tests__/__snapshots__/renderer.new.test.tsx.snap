@@ -6,14 +6,12 @@ exports[`renderer in a JIPT context renders \`crwdn\` placeholders with data-per
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
       crwdns1:0crwdne1
     </div>
     <div
-      class="paragraph"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="1"
     >
@@ -39,7 +37,6 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
@@ -48,7 +45,6 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       </p>
     </div>
     <div
-      class="paragraph"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="1"
     >
@@ -66,7 +62,6 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >

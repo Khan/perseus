@@ -277,16 +277,12 @@ const rules = {
         },
     },
     paragraph: {
-        // NOTE: This overrides the rendering of "paragraphs" in simple-markdown.
-        //       If simple-markdown is ever corrected (back to a <p> tag),
-        //           then this rule can be removed.
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
             if (contentHasExplanationWidget(node)) {
                 // The Explanation widget can appear inline with text, but
-                // shouldn't be contained by a <p> element (e.g. explanation),
-                // so just render the content and let the parent handle layout,
-                // etc.
+                // shouldn't be contained by a <p> element, so just render the
+                // content and let the parent handle layout, etc.
                 return output(node.content, state);
             } else {
                 return <p>{output(node.content, state)}</p>;

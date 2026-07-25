@@ -10,6 +10,7 @@ import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import type {Coord, Range} from "@khanacademy/perseus-core";
+import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 import type * as React from "react";
 
 type WordPosition = {
@@ -103,27 +104,27 @@ const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
     "numeric-input",
 ]);
 
-const isBlockWidgetNode = (node: any): boolean =>
+const isBlockWidgetNode = (node: SingleASTNode): boolean =>
     node?.type === "widget" && !INLINE_WIDGET_TYPES.has(node.widgetType);
 
-const isParagraphWithBlockWidget = (node: any): boolean =>
+const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     node?.type === "paragraph" &&
     Array.isArray(node.content) &&
     node.content.some(isBlockWidgetNode);
 
 /**
- * Widget types that render as inline content but CANNOT safely live inside a
- * paragraph (`<p>`). These widgets (specifically the Explanation widget) will
- * cause the containing <p> element to not render, but no additional processing
- * is done on the sibling nodes.
+ * The Explanation widget renders as inline content but CANNOT safely live
+ * inside a paragraph (`<p>`). When this function returns true, the
+ * QuestionParagraph component will not render the containing <p> element.
+ * No additional processing is done on the sibling nodes.
  */
-const isExplanationWidgetNode = (node: any): boolean =>
+const isExplanationWidgetNode = (node: SingleASTNode): boolean =>
     node?.type === "widget" && node.widgetType === "explanation";
 
-export const contentHasExplanationWidget = (node: any): boolean =>
+export const contentHasExplanationWidget = (node: SingleASTNode): boolean =>
     Array.isArray(node.content) && node.content.some(isExplanationWidgetNode);
 
-const isWhitespaceOnlyTextNode = (node: any): boolean =>
+const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
     node?.type === "text" && node.content.trim() === "";
 
 /**
@@ -131,7 +132,9 @@ const isWhitespaceOnlyTextNode = (node: any): boolean =>
  * markdown AST nodes. Used to avoid generating empty `<p> </p>` wrappers around
  * stray newlines that might surround a block widget in malformed markdown.
  */
-const trimEdgeWhitespaceNodes = (nodes: ReadonlyArray<any>): Array<any> => {
+const trimEdgeWhitespaceNodes = (
+    nodes: ReadonlyArray<SingleASTNode>,
+): Array<ASTNode> => {
     let start = 0;
     let end = nodes.length;
     while (start < end && isWhitespaceOnlyTextNode(nodes[start])) {
@@ -148,9 +151,9 @@ const trimEdgeWhitespaceNodes = (nodes: ReadonlyArray<any>): Array<any> => {
  * (based upon the reference node). It ensures that the edge nodes aren't empty.
  */
 const mergeInlineNodes = (
-    inlineNodes: Array<any>,
-    blockNodes: Array<any>,
-    referenceNode: any,
+    inlineNodes: Array<SingleASTNode>,
+    blockNodes: Array<SingleASTNode>,
+    referenceNode: SingleASTNode,
 ): void => {
     const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
     if (trimmedContentNodes.length > 0) {
@@ -171,7 +174,7 @@ const mergeInlineNodes = (
  * nested inside inline formatting (e.g. `strong`) or inside other containers
  * (tables, columns) are not split out.
  */
-function splitBlockWidgetsFromParagraphs(ast: any): any {
+function splitBlockWidgetsFromParagraphs(ast: ASTNode): ASTNode {
     if (!Array.isArray(ast)) {
         return ast;
     }
@@ -185,10 +188,10 @@ function splitBlockWidgetsFromParagraphs(ast: any): any {
             return node;
         }
 
-        const blockNodes: Array<any> = [];
-        const inlineNodes: Array<any> = [];
+        const blockNodes: Array<SingleASTNode> = [];
+        const inlineNodes: Array<SingleASTNode> = [];
 
-        node.content.forEach((childNode) => {
+        node.content.forEach((childNode: SingleASTNode) => {
             if (isBlockWidgetNode(childNode)) {
                 // If the current child node is a block-level widget, then
                 // put all accumulated inline nodes into their own paragraph
@@ -275,6 +278,7 @@ function gridDimensionConfig(
         unityLabel: unityLabel,
     };
 }
+
 /**
  * Given the range, step, and boxSize, calculate the reasonable gridStep.
  * Used for when one was not given explicitly.
