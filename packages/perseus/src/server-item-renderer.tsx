@@ -126,10 +126,6 @@ export class ServerItemRenderer
         this.maybeCallOnRendered();
     }
 
-    componentDidUpdate() {
-        this.maybeCallOnRendered();
-    }
-
     componentWillUnmount() {
         if (this.blurTimeoutID != null) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
@@ -139,6 +135,13 @@ export class ServerItemRenderer
         }
     }
 
+    /**
+     * Reports that we've finished rendering, if every asset has settled.
+     *
+     * Called once we've mounted (to cover content with no assets at all) and
+     * again on every status change, so it doesn't depend on a render pass
+     * happening at the right moment. Only ever reports once.
+     */
     maybeCallOnRendered() {
         if (!this._fullyRendered) {
             const assetsLoaded = Object.values(this._assetStatuses).every(
