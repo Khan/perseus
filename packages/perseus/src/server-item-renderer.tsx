@@ -61,16 +61,6 @@ type DefaultProps = Required<
     Pick<Props, "apiOptions" | "onRendered" | "linterContext">
 >;
 
-type State = {
-    /**
-     * Keeps track of whether each asset (SvgImage or TeX) rendered by
-     * the questionRenderer has finished loading or rendering.
-     */
-    assetStatuses: {
-        [assetKey: string]: boolean;
-    };
-};
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
@@ -81,7 +71,7 @@ type SerializedState = {
 };
 
 export class ServerItemRenderer
-    extends React.Component<Props, State>
+    extends React.Component<Props>
     implements
         RendererInterface,
         KeypadContextRendererInterface,
@@ -95,6 +85,16 @@ export class ServerItemRenderer
     hintsRenderer: any;
     _currentFocus: FocusPath;
     _fullyRendered: boolean;
+    /**
+     * Tracks whether each asset rendered below us (images, math, anything else
+     * that takes extra passes to settle) has finished rendering.
+     *
+     * This is deliberately not React state: assets register themselves in
+     * their constructors, while we're still rendering, and a state update
+     * from there isn't visible to us until a later pass — by which point we'd
+     * already have decided we were done rendering.
+     */
+    _assetStatuses: {[assetKey: string]: boolean};
     blurTimeoutID: number | null | undefined;
     userInput: UserInputMap;
 
@@ -108,9 +108,7 @@ export class ServerItemRenderer
     constructor(props: Props) {
         super(props);
 
-        this.state = {
-            assetStatuses: {},
-        };
+        this._assetStatuses = {};
         this._fullyRendered = false;
         this.userInput = {};
     }
@@ -122,9 +120,9 @@ export class ServerItemRenderer
         // In cases where we are rendering content that doesn't have any assets
         // (things that are async loaded/rendered, such as images or TeX), we
         // want to ensure that we fire the onRendered callback at least once.
-        // By the time the component mounts, assets will already be registered,
-        // but may not be loaded. So we will know if all assets are loaded at
-        // this point in the component lifecycle.
+        // Assets register themselves in their constructors, so by the time we
+        // mount they're all in _assetStatuses (unloaded) and we can tell
+        // whether there's anything to wait for.
         this.maybeCallOnRendered();
     }
 
@@ -143,7 +141,7 @@ export class ServerItemRenderer
 
     maybeCallOnRendered() {
         if (!this._fullyRendered) {
-            const assetsLoaded = Object.values(this.state.assetStatuses).every(
+            const assetsLoaded = Object.values(this._assetStatuses).every(
                 Boolean,
             );
 
@@ -317,12 +315,8 @@ export class ServerItemRenderer
         assetKey,
         status,
     ) => {
-        // setState doesn't properly merge objects so we have to do it ourselves
-        const assetStatuses = {
-            ...this.state.assetStatuses,
-            [assetKey]: status,
-        } as const;
-        this.setState({assetStatuses});
+        this._assetStatuses[assetKey] = status;
+        this.maybeCallOnRendered();
     };
 
     render(): React.ReactNode {
@@ -333,7 +327,7 @@ export class ServerItemRenderer
         } as const;
 
         const contextValue = {
-            assetStatuses: this.state.assetStatuses,
+            assetStatuses: this._assetStatuses,
             setAssetStatus: this.setAssetStatus,
         } as const;
 
