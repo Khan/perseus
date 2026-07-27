@@ -4,7 +4,6 @@
 
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
-import $ from "jquery";
 import React, {forwardRef, useEffect, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -90,9 +89,9 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
                 });
             };
 
-            $(window).on("message", handleMessageEvent);
+            window.addEventListener("message", handleMessageEvent);
             return () => {
-                $(window).off("message", handleMessageEvent);
+                window.removeEventListener("message", handleMessageEvent);
             };
         }, [propsRef]);
 
