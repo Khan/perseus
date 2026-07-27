@@ -28,10 +28,10 @@ const defaultLoadingContext: LoadingContextValue = {
  * </LoadingContext.Provider>
  * ```
  */
- // Internally, this context's signal is produced by the ServerItemRenderer by
- // its render tree in an AssetContext and then notifying the LoadingContext
- // when all reported assets report being loaded.
- // No other renderers (as of July 2026) integrate with this LoadingContext.
+// Internally, this context's signal is produced by the ServerItemRenderer by
+// its render tree in an AssetContext and then notifying the LoadingContext
+// when all reported assets report being loaded.
+// No other renderers (as of July 2026) integrate with this LoadingContext.
 const LoadingContext: React.Context<LoadingContextValue> = React.createContext(
     defaultLoadingContext,
 );
