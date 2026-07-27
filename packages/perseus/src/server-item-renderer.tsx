@@ -329,7 +329,6 @@ export class ServerItemRenderer
         } as const;
 
         const contextValue = {
-            assetStatuses: this._assetStatuses,
             setAssetStatus: this.setAssetStatus,
         } as const;
 

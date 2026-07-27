@@ -529,9 +529,7 @@ describe("Zoomable", () => {
         ): {setAssetStatus: jest.Mock} => {
             const setAssetStatus = jest.fn();
             render(
-                <AssetContext.Provider
-                    value={{assetStatuses: {}, setAssetStatus}}
-                >
+                <AssetContext.Provider value={{setAssetStatus}}>
                     {component}
                 </AssetContext.Provider>,
             );
@@ -615,9 +613,7 @@ describe("Zoomable", () => {
             // Arrange
             const setAssetStatus = jest.fn();
             const {container} = render(
-                <AssetContext.Provider
-                    value={{assetStatuses: {}, setAssetStatus}}
-                >
+                <AssetContext.Provider value={{setAssetStatus}}>
                     <Zoomable>
                         <span>Some zoomable text</span>
                     </Zoomable>
