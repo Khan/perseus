@@ -17,6 +17,8 @@ describe("blank editor", () => {
         render(<BlankEditor onChange={() => {}} />);
 
         // Assert
-        expect(screen.getByText("Blank Widget Stub")).toBeInTheDocument();
+        expect(
+            screen.getByText(/Blank Widget Editor Stub/),
+        ).toBeInTheDocument();
     });
 });

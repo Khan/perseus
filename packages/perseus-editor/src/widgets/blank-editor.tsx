@@ -29,7 +29,13 @@ class BlankEditor extends React.Component<Props> {
     static widgetName = "blank" as const;
 
     render(): React.ReactNode {
-        return <span>Blank Widget Stub</span>;
+        return (
+            <span>
+                Blank Widget Editor Stub : Do not use this blank widget editor.
+                The Blank Widget should only be used within the Fill in the
+                Blank widget, which will handle the holistic editor experience.
+            </span>
+        );
     }
 
     serialize(): PerseusBlankWidgetOptions {
