@@ -248,6 +248,20 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         );
     };
 
+    snapNumLinePosition: (arg1: any, arg2: number) => number = (
+        props,
+        numLinePosition,
+    ) => {
+        const left = props.range[0];
+        const right = props.range[1];
+        const snapX = props.tickStep / this.props.snapDivisions;
+
+        let x = bound(numLinePosition, left, right);
+        x = left + knumber.roundTo(x - left, snapX);
+        assert(_.isFinite(x));
+        return x;
+    };
+
     onNumDivisionsChange: (arg1: number, arg2: any) => void = (
         numDivisions,
         cb,
@@ -303,119 +317,70 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         this.props.onBlur(["tick-ctrl"]);
     };
 
-    focus() {
-        if (this.props.isTickCtrl) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["tick-ctrl"].focus();
-            return true;
-        }
-        return false;
-    }
-
-    focusInputPath: (arg1: any) => void = (path) => {
-        if (path.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs[path[0]].focus();
-        }
-    };
-
-    blurInputPath: (arg1: any) => void = (path) => {
-        if (path.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs[path[0]].blur();
-        }
-    };
-
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        if (this.props.isTickCtrl) {
-            return [["tick-ctrl"]];
-        }
-        return [];
-    };
-
-    getDOMNodeForPath(inputPath: FocusPath) {
-        if (inputPath?.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
-        }
-        return null;
-    }
-
-    _renderGraphie: () => React.ReactElement = () => {
-        // Position variables
-        const range = this.props.range;
-        const width = range[1] - range[0];
-
-        const options = {
-            range: this.props.range,
-            isTickCtrl: this.props.isTickCtrl,
-        };
-
-        const props: CalculatedProps = {
-            ...this.props,
-            tickStep: width / this.props.userInput.numDivisions,
-        };
-
-        return (
-            <Graphie
-                // eslint-disable-next-line react/no-string-refs
-                ref="graphie"
-                // HACK(emily): We key this graphie on the label style because
-                // when the label style changes we want to resize the graphie,
-                // which isn't doable without throwing away the graphie and
-                // making a new one.
-                key={this.props.labelStyle}
-                box={[this.props.apiOptions.isMobile ? 288 : 460, 80]}
-                options={options}
-                onMouseDown={(coord) => {
-                    // eslint-disable-next-line react/no-string-refs
-                    // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
-                    this.refs.graphie.movables.numberLinePoint.grab(coord);
-                }}
-                setup={this._setupGraphie}
-                isMobile={this.props.apiOptions.isMobile}
-            >
-                <TickMarks
-                    range={props.range}
-                    labelTicks={props.labelTicks}
-                    labelStyle={props.labelStyle}
-                    labelRange={props.labelRange}
-                    tickStep={props.tickStep}
-                    numDivisions={props.userInput.numDivisions}
-                    isMobile={props.apiOptions.isMobile}
-                />
-                {this._renderInequality(props)}
-                {this._renderNumberLinePoint(props)}
-            </Graphie>
-        );
-    };
-
-    snapNumLinePosition: (arg1: any, arg2: number) => number = (
-        props,
-        numLinePosition,
-    ) => {
-        const left = props.range[0];
-        const right = props.range[1];
-        const snapX = props.tickStep / this.props.snapDivisions;
-
-        let x = bound(numLinePosition, left, right);
-        x = left + knumber.roundTo(x - left, snapX);
-        assert(_.isFinite(x));
-        return x;
-    };
-
-    // This function is intended to be used by the client code
-    // and by test code to directly set the target number line
-    // position
+    // This function is intended to be used by tests to directly set the
+    // point's position.
     movePosition: (arg1: number) => void = (targetPosition) => {
         this.props.handleUserInput({
             ...this.props.userInput,
             numLinePosition: targetPosition,
         });
         this.props.trackInteraction();
+    };
+
+    handleReverse: () => void = () => {
+        const newRel = reverseRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
+    };
+
+    handleToggleStrict: () => void = () => {
+        const newRel = toggleStrictRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
+    };
+
+    _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
+        // Ensure a sane configuration to avoid infinite loops
+        if (!this.isValid()) {
+            return;
+        }
+
+        // Position variables
+        const widthInPixels = this.props.apiOptions.isMobile
+            ? 288 - horizontalPadding * 2
+            : 400;
+        const range = options.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = horizontalPadding * scale;
+
+        // Initiate the graphie without actually drawing anything
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+
+        const hasFractionalLabels =
+            this.props.labelStyle === "improper" ||
+            this.props.labelStyle === "mixed" ||
+            this.props.labelStyle === "non-reduced";
+        const bottom = hasFractionalLabels ? -1.5 : -1;
+        const top = 1;
+
+        graphie.init({
+            range: [
+                [left, right],
+                [bottom, top],
+            ],
+            scale: [1 / scale, 40],
+            isMobile: this.props.apiOptions.isMobile,
+        });
+
+        // Draw the number line
+        const center = (range[0] + range[1]) / 2;
+        graphie.line([center, 0], [right, 0], {arrows: "->"});
+        graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
     _renderNumberLinePoint: (arg1: CalculatedProps) => React.ReactElement = (
@@ -480,22 +445,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         );
     };
 
-    handleReverse: () => void = () => {
-        const newRel = reverseRel[this.props.userInput.rel];
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            rel: newRel,
-        });
-    };
-
-    handleToggleStrict: () => void = () => {
-        const newRel = toggleStrictRel[this.props.userInput.rel];
-        this.props.handleUserInput({
-            ...this.props.userInput,
-            rel: newRel,
-        });
-    };
-
     _getInequalityEndpoint(props: CalculatedProps): [number, number] {
         const isGreater = _(["ge", "gt"]).contains(this.props.userInput.rel);
         const widthInPixels = 400;
@@ -532,48 +481,94 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return null;
     }
 
-    _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
-        // Ensure a sane configuration to avoid infinite loops
-        if (!this.isValid()) {
-            return;
-        }
-
+    _renderGraphie: () => React.ReactElement = () => {
         // Position variables
-        const widthInPixels = this.props.apiOptions.isMobile
-            ? 288 - horizontalPadding * 2
-            : 400;
-        const range = options.range;
-        const scale = (range[1] - range[0]) / widthInPixels;
-        const buffer = horizontalPadding * scale;
+        const range = this.props.range;
+        const width = range[1] - range[0];
 
-        // Initiate the graphie without actually drawing anything
-        const left = range[0] - buffer;
-        const right = range[1] + buffer;
+        const options = {
+            range: this.props.range,
+            isTickCtrl: this.props.isTickCtrl,
+        };
 
-        const hasFractionalLabels =
-            this.props.labelStyle === "improper" ||
-            this.props.labelStyle === "mixed" ||
-            this.props.labelStyle === "non-reduced";
-        const bottom = hasFractionalLabels ? -1.5 : -1;
-        const top = 1;
+        const props: CalculatedProps = {
+            ...this.props,
+            tickStep: width / this.props.userInput.numDivisions,
+        };
 
-        graphie.init({
-            range: [
-                [left, right],
-                [bottom, top],
-            ],
-            scale: [1 / scale, 40],
-            isMobile: this.props.apiOptions.isMobile,
-        });
-
-        // Draw the number line
-        const center = (range[0] + range[1]) / 2;
-        graphie.line([center, 0], [right, 0], {arrows: "->"});
-        graphie.line([center, 0], [left, 0], {arrows: "->"});
+        return (
+            <Graphie
+                // eslint-disable-next-line react/no-string-refs
+                ref="graphie"
+                // HACK(emily): We key this graphie on the label style because
+                // when the label style changes we want to resize the graphie,
+                // which isn't doable without throwing away the graphie and
+                // making a new one.
+                key={this.props.labelStyle}
+                box={[this.props.apiOptions.isMobile ? 288 : 460, 80]}
+                options={options}
+                onMouseDown={(coord) => {
+                    // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
+                    this.refs.graphie.movables.numberLinePoint.grab(coord);
+                }}
+                setup={this._setupGraphie}
+                isMobile={this.props.apiOptions.isMobile}
+            >
+                <TickMarks
+                    range={props.range}
+                    labelTicks={props.labelTicks}
+                    labelStyle={props.labelStyle}
+                    labelRange={props.labelRange}
+                    tickStep={props.tickStep}
+                    numDivisions={props.userInput.numDivisions}
+                    isMobile={props.apiOptions.isMobile}
+                />
+                {this._renderInequality(props)}
+                {this._renderNumberLinePoint(props)}
+            </Graphie>
+        );
     };
 
-    getPromptJSON(): NumberLinePromptJSON {
-        return _getPromptJSON(this.props);
+    focus() {
+        if (this.props.isTickCtrl) {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            this.refs["tick-ctrl"].focus();
+            return true;
+        }
+        return false;
+    }
+
+    focusInputPath: (arg1: any) => void = (path) => {
+        if (path.length === 1) {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            this.refs[path[0]].focus();
+        }
+    };
+
+    blurInputPath: (arg1: any) => void = (path) => {
+        if (path.length === 1) {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            this.refs[path[0]].blur();
+        }
+    };
+
+    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+        if (this.props.isTickCtrl) {
+            return [["tick-ctrl"]];
+        }
+        return [];
+    };
+
+    getDOMNodeForPath(inputPath: FocusPath) {
+        if (inputPath?.length === 1) {
+            // eslint-disable-next-line react/no-string-refs
+            return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
+        }
+        return null;
     }
 
     /**
@@ -602,6 +597,10 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             // rel: userInput.rel,
             rel: "ge",
         };
+    }
+
+    getPromptJSON(): NumberLinePromptJSON {
+        return _getPromptJSON(this.props);
     }
 
     render(): React.ReactNode {
