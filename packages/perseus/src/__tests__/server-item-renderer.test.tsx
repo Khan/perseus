@@ -319,6 +319,52 @@ describe("server item renderer", () => {
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
+    it("does not call the onRendered callback until zoomable math has settled", () => {
+        // On mobile, block math is wrapped in a Zoomable, which needs several
+        // asynchronous passes to measure and scale the math after MathJax has
+        // rendered it. Until those finish, we're not done rendering.
+
+        // Arrange
+        // The default test TeX never fires onRender, so we need one that does
+        // in order to get the Zoomable measuring.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).not.toHaveBeenCalled();
+
+        act(() => jest.runOnlyPendingTimers());
+        act(() => jest.runOnlyPendingTimers());
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
     it("should call the onRendered callback with no assets in content", () => {
         const content: PerseusItem = {
             question: {
