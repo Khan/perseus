@@ -74,7 +74,17 @@ function TangentGraph(props: TangentGraphProps) {
     // splitting that works around the Mafs discontinuity below.
     const xRange: [number, number] = [range[0][0], range[0][1]];
     const yRange: [number, number] = [range[1][0], range[1][1]];
-    const asymptotes = getAsymptotePositions(coeffRef.current, xRange);
+
+    // A tangent only has asymptotes when it's a genuine curve. It degenerates
+    // — and mathematically has no asymptotes — when the two control points
+    // coincide or form a vertical line (coeffs undefined) or a horizontal line
+    // (amplitude 0, so a·tan(…) collapses to the constant midline). In those
+    // cases we render no asymptotes, mirroring how the vertical-line case is
+    // already rejected at the reducer.
+    const hasAsymptotes = coeffs !== undefined && coeffs.amplitude !== 0;
+    const asymptotes = hasAsymptotes
+        ? getAsymptotePositions(coeffRef.current, xRange)
+        : [];
 
     // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
     const segments = getPlotSegments(asymptotes, xRange);
@@ -153,17 +163,22 @@ export const getTangentKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
 
-    // Create a helper function that checks if the new point is on the same
-    // vertical line as the other point. If it is, we need to move the point
-    // an additional snapStep.
+    // Create a helper function that checks if the new point lands on the same
+    // vertical or horizontal line as the other point. If it does, we move the
+    // point an additional snapStep so the two points never share an x (which
+    // makes the frequency undefined) or a y (which zeroes the amplitude) —
+    // neither of which is a valid tangent. This mirrors the reducer guard so
+    // arrow keys step over the degenerate position instead of stalling on it.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
         // Move the point
         let movedCoord = moveFunc(coordToBeMoved);
-        // If the moved point overlaps with the other point in the line,
-        // move the point again.
-        if (movedCoord[X] === otherPoint[X]) {
+        // If the moved point lines up with the other point, move it again.
+        if (
+            movedCoord[X] === otherPoint[X] ||
+            movedCoord[Y] === otherPoint[Y]
+        ) {
             movedCoord = moveFunc(movedCoord);
         }
         return movedCoord;

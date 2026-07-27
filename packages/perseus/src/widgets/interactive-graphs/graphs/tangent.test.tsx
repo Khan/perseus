@@ -76,6 +76,32 @@ describe("Tangent graph screen reader", () => {
         );
     });
 
+    it("omits the asymptote description when the points form a horizontal line", () => {
+        // Arrange, Act — same y on both points gives amplitude 0, so the curve
+        // is the flat midline and has no asymptotes to announce.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    coords: [
+                        [0, 0],
+                        [2, 0],
+                    ],
+                }}
+            />,
+        );
+        const graph = screen.getByLabelText(
+            "A tangent curve on a coordinate plane.",
+        );
+
+        // Assert — the description stops after the direction sentence; no
+        // "The nearest vertical asymptotes are at…" clause is appended.
+        expect(graph).toHaveAccessibleDescription(
+            "The curve passes through an inflection point at 0 comma 0 and a control point at 2 comma 0. The curve decreases through the inflection point, repeating every 8 units.",
+        );
+    });
+
     it("should have aria labels for tangent graph points", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
@@ -239,6 +265,28 @@ describe("Tangent graph asymptotes", () => {
             screen.getAllByTestId("tangent-asymptote__line").length,
         ).toBeGreaterThan(2);
     });
+
+    it("renders no asymptote lines when the points form a horizontal line", () => {
+        // Arrange, Act — same y on both points gives amplitude 0, so the curve
+        // is the flat midline and has no asymptotes.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    coords: [
+                        [0, 0],
+                        [2, 0],
+                    ],
+                }}
+            />,
+        );
+
+        // Assert
+        expect(screen.queryAllByTestId("tangent-asymptote__line")).toHaveLength(
+            0,
+        );
+    });
 });
 
 describe("TangentGraph", () => {
@@ -280,7 +328,11 @@ describe("TangentGraph", () => {
 });
 
 describe("getTangentKeyboardConstraint", () => {
-    it("should snap to the grid and avoid putting points on a vertical line", () => {
+    it("snaps to the grid and steps over both the vertical and horizontal lines through the other point", () => {
+        // Moving point 0 ([0, 0]) while point 1 sits at [1, 1]: an up move
+        // would land on y=1 (same horizontal line) and a right move on x=1
+        // (same vertical line), so each takes an extra snapStep to skip the
+        // degenerate position.
         const coords: TangentGraphState["coords"] = [
             [0, 0],
             [1, 1],
@@ -289,10 +341,10 @@ describe("getTangentKeyboardConstraint", () => {
         const constraint = getTangentKeyboardConstraint(coords, snapStep, 0);
 
         expect(constraint).toEqual({
-            up: [0, 1],
+            up: [0, 2], // Skips the horizontal line at y=1
             down: [0, -1],
             left: [-1, 0],
-            right: [2, 0], // Avoids putting the point on a vertical line
+            right: [2, 0], // Skips the vertical line at x=1
         });
     });
 });

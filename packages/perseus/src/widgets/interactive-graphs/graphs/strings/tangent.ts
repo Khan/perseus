@@ -127,6 +127,15 @@ function buildTangentDescription(
         ? strings.srTangentIncreasing({period: periodFormatted})
         : strings.srTangentDecreasing({period: periodFormatted});
 
+    // A tangent only has asymptotes when it's a genuine curve. It degenerates
+    // — with no asymptotes to announce — when the two control points form a
+    // vertical line (dx === 0) or a horizontal line (dy === 0, so the curve is
+    // the flat midline). This mirrors the visible asymptote lines, which are
+    // likewise omitted in these cases.
+    if (dx === 0 || dy === 0) {
+        return `${points} ${direction}`;
+    }
+
     // The nearest vertical asymptotes sit half a period on either side of the
     // inflection point.
     const halfPeriod = period / 2;

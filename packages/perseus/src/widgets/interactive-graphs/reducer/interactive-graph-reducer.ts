@@ -850,11 +850,17 @@ function doMovePoint(
             );
 
             // Reject the move if it would place both points on the same
-            // vertical line — same-x control points produce division by
-            // zero in getTangentCoefficients (angularFrequency = π/(4*0)).
+            // vertical or horizontal line. Neither is a valid tangent:
+            // same-x control points produce division by zero in
+            // getTangentCoefficients (angularFrequency = π/(4*0)), and
+            // same-y control points produce a zero amplitude, collapsing
+            // the curve to a flat line with no asymptotes.
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
-            if (newCoords[0][X] === newCoords[1][X]) {
+            if (
+                newCoords[0][X] === newCoords[1][X] ||
+                newCoords[0][Y] === newCoords[1][Y]
+            ) {
                 return state;
             }
 
