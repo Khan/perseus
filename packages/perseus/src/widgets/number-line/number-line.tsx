@@ -276,6 +276,121 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             });
         });
 
+        useImperativeHandle(ref, () => ({
+            focus: () => {
+                if (props.isTickCtrl) {
+                    tickCtrlRef.current?.focus();
+                    return true;
+                }
+                return false;
+            },
+
+            focusInputPath: (path) => {
+                if (path?.length === 1) {
+                    tickCtrlRef.current?.focus();
+                }
+            },
+
+            blurInputPath: (path) => {
+                if (path?.length === 1) {
+                    tickCtrlRef.current?.blur();
+                }
+            },
+
+            getInputPaths: () => {
+                if (props.isTickCtrl) {
+                    return [["tick-ctrl"]];
+                }
+                return [];
+            },
+
+            getDOMNodeForPath: (inputPath) => {
+                if (inputPath?.length === 1) {
+                    return ReactDOM.findDOMNode(tickCtrlRef.current);
+                }
+                return null;
+            },
+
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: () => ({
+                alignment: props.alignment,
+                static: props.static,
+                range: props.range,
+                labelRange: props.labelRange,
+                labelStyle: props.labelStyle,
+                labelTicks: props.labelTicks,
+                divisionRange: props.divisionRange,
+                snapDivisions: props.snapDivisions,
+                isInequality: props.isInequality,
+                showTooltips: props.showTooltips,
+                isTickCtrl: props.isTickCtrl,
+                numDivisions: props.userInput.numDivisions,
+                numLinePosition: props.userInput.numLinePosition,
+                // this seems like a bug, but I'm maintaining the
+                // existing behavior on a deprecated API. Probably
+                // should be:
+                // rel: userInput.rel,
+                rel: "ge",
+            }),
+
+            getPromptJSON(): NumberLinePromptJSON {
+                return _getPromptJSON(props);
+            },
+
+            movePosition,
+        }));
+
+        // <Graphie> logs an error if the identity of its `setup` prop changes
+        // between renders, so `setupGraphie` must stay stable. It reads the
+        // latest render's props through `propsRef` instead of closing over them.
+        const setupGraphie = useCallback(
+            (graphie: any, options: any) => {
+                const latestProps = propsRef.current;
+
+                // Ensure a sane configuration to avoid infinite loops
+                if (!isValid(latestProps)) {
+                    return;
+                }
+
+                // Position variables
+                const widthInPixels = latestProps.apiOptions.isMobile
+                    ? 288 - horizontalPadding * 2
+                    : 400;
+                const range = options.range;
+                const scale = (range[1] - range[0]) / widthInPixels;
+                const buffer = horizontalPadding * scale;
+
+                // Initiate the graphie without actually drawing anything
+                const left = range[0] - buffer;
+                const right = range[1] + buffer;
+
+                const hasFractionalLabels =
+                    latestProps.labelStyle === "improper" ||
+                    latestProps.labelStyle === "mixed" ||
+                    latestProps.labelStyle === "non-reduced";
+                const bottom = hasFractionalLabels ? -1.5 : -1;
+                const top = 1;
+
+                graphie.init({
+                    range: [
+                        [left, right],
+                        [bottom, top],
+                    ],
+                    scale: [1 / scale, 40],
+                    isMobile: latestProps.apiOptions.isMobile,
+                });
+
+                // Draw the number line
+                const center = (range[0] + range[1]) / 2;
+                graphie.line([center, 0], [right, 0], {arrows: "->"});
+                graphie.line([center, 0], [left, 0], {arrows: "->"});
+            },
+            [propsRef],
+        );
+
         function snapNumLinePosition(
             calculatedProps: CalculatedProps,
             numLinePosition: number,
@@ -357,54 +472,6 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 rel: newRel,
             });
         }
-
-        // <Graphie> logs an error if the identity of its `setup` prop changes
-        // between renders, so `setupGraphie` must stay stable. It reads the
-        // latest render's props through `propsRef` instead of closing over them.
-        const setupGraphie = useCallback(
-            (graphie: any, options: any) => {
-                const latestProps = propsRef.current;
-
-                // Ensure a sane configuration to avoid infinite loops
-                if (!isValid(latestProps)) {
-                    return;
-                }
-
-                // Position variables
-                const widthInPixels = latestProps.apiOptions.isMobile
-                    ? 288 - horizontalPadding * 2
-                    : 400;
-                const range = options.range;
-                const scale = (range[1] - range[0]) / widthInPixels;
-                const buffer = horizontalPadding * scale;
-
-                // Initiate the graphie without actually drawing anything
-                const left = range[0] - buffer;
-                const right = range[1] + buffer;
-
-                const hasFractionalLabels =
-                    latestProps.labelStyle === "improper" ||
-                    latestProps.labelStyle === "mixed" ||
-                    latestProps.labelStyle === "non-reduced";
-                const bottom = hasFractionalLabels ? -1.5 : -1;
-                const top = 1;
-
-                graphie.init({
-                    range: [
-                        [left, right],
-                        [bottom, top],
-                    ],
-                    scale: [1 / scale, 40],
-                    isMobile: latestProps.apiOptions.isMobile,
-                });
-
-                // Draw the number line
-                const center = (range[0] + range[1]) / 2;
-                graphie.line([center, 0], [right, 0], {arrows: "->"});
-                graphie.line([center, 0], [left, 0], {arrows: "->"});
-            },
-            [propsRef],
-        );
 
         function renderNumberLinePoint(calculatedProps: CalculatedProps) {
             const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
@@ -558,73 +625,6 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 </Graphie>
             );
         }
-
-        useImperativeHandle(ref, () => ({
-            focus: () => {
-                if (props.isTickCtrl) {
-                    tickCtrlRef.current?.focus();
-                    return true;
-                }
-                return false;
-            },
-
-            focusInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.focus();
-                }
-            },
-
-            blurInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.blur();
-                }
-            },
-
-            getInputPaths: () => {
-                if (props.isTickCtrl) {
-                    return [["tick-ctrl"]];
-                }
-                return [];
-            },
-
-            getDOMNodeForPath: (inputPath) => {
-                if (inputPath?.length === 1) {
-                    return ReactDOM.findDOMNode(tickCtrlRef.current);
-                }
-                return null;
-            },
-
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: () => ({
-                alignment: props.alignment,
-                static: props.static,
-                range: props.range,
-                labelRange: props.labelRange,
-                labelStyle: props.labelStyle,
-                labelTicks: props.labelTicks,
-                divisionRange: props.divisionRange,
-                snapDivisions: props.snapDivisions,
-                isInequality: props.isInequality,
-                showTooltips: props.showTooltips,
-                isTickCtrl: props.isTickCtrl,
-                numDivisions: props.userInput.numDivisions,
-                numLinePosition: props.userInput.numLinePosition,
-                // this seems like a bug, but I'm maintaining the
-                // existing behavior on a deprecated API. Probably
-                // should be:
-                // rel: userInput.rel,
-                rel: "ge",
-            }),
-
-            getPromptJSON(): NumberLinePromptJSON {
-                return _getPromptJSON(props);
-            },
-
-            movePosition,
-        }));
 
         const divisionRange = props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
