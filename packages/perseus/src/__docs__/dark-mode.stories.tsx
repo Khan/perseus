@@ -10,7 +10,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj;
 
 const meta: Meta = {
-    title: "Renderers/Dark Mode",
+    title: "Renderers/Visual Regression Tests/Dark Mode",
     tags: ["!manifest"],
     parameters: {
         docs: {
@@ -58,6 +58,15 @@ export const Icons: Story = {
         "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n" +
             "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)\n\n" +
             "![Integer Chips Crossed Out](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e18fd25718efebb6a812d7edd5c8a6521f997d34)",
+    ),
+};
+
+export const DarkModeOff: Story = {
+    // Images have a query parameter that prevents the dark mode filter from being applied
+    render: RenderImages(
+        "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png?dark-mode=off)\n\n" +
+            "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png?dark-mode=off)\n\n" +
+            "![The flag of Sweden](https://ka-perseus-images.s3.amazonaws.com/9292c231118d9e00f9435c98aba4788d517b3ad8.png?dark-mode=off)",
     ),
 };
 
