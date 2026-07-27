@@ -134,15 +134,13 @@ export const ReducedMotionMarkers: Story = {
     args: barGraphArgs,
     // Only take the snapshot after the singular pulse animation has finished.
     play: async ({canvasElement}) => {
-        // The finite (iteration-count: 2) "pulsate once" animations are only
-        // present while running. An empty result is ambiguous — it means either
-        // "not applied yet" or "already finished" — so we assert (with retry)
-        // that at least one finite animation exists before awaiting it. This
-        // fails loudly if the reduced-motion path regresses to the infinite
-        // animation (which would otherwise make the snapshot silently no-op).
         const getFiniteAnimations = () =>
             canvasElement
                 .getAnimations({subtree: true})
+                // Fail if the animation is infinite (i.e. not reduced-motion).
+                // If the animation is infinite, it will be filtered out,
+                // `getFiniteAnimations` will return an empty array, and the
+                // test will fail.
                 .filter(
                     (animation) =>
                         animation.effect?.getTiming().iterations !== Infinity,
