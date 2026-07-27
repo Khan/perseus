@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`cs-program widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="container_1v2yujs"
+          >
+            <iframe
+              allowfullscreen=""
+              class="perseus-scratchpad"
+              sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
+              src="https://khanacademy.org/computer-programming/program/6293105639817216/embedded?embed=yes&author=no&editor=no&width=688&buttons=no&settings=%7B%7D&lang=en"
+              style="height: 540px; width: 100%;"
+              title="Computer science program"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`cs-program widget should snapshot: first render 1`] = `
 <div>
   <div
