@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 82.0.1
+
+### Patch Changes
+
+-   [#3836](https://github.com/Khan/perseus/pull/3836) [`3ade343`](https://github.com/Khan/perseus/commit/3ade34395ead8a25f2dc1e909275d736b6b4298a) Thanks [@Myranae](https://github.com/Myranae)! - Convert the `graded-group`, `graded-group-answer-bar`, and `graded-group-set` widgets to use Wonder Blocks semantic color and typography tokens. These widgets now follow the active theme (including dark mode).
+
+-   [#3898](https://github.com/Khan/perseus/pull/3898) [`a23cf05`](https://github.com/Khan/perseus/commit/a23cf05c82bc9ef3e78f8f11b4b8b44d8a99ca37) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add asympote to tangent interactive graph
+
+-   [#3946](https://github.com/Khan/perseus/pull/3946) [`839e471`](https://github.com/Khan/perseus/commit/839e471be4108f6103cede4d1e7f9391872de519) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Number Line widget has been refactored.
+
+-   [#3951](https://github.com/Khan/perseus/pull/3951) [`38d9791`](https://github.com/Khan/perseus/commit/38d9791debec5865a3e4eaf5801323636a8516d5) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix editor crash when point graph is set to unlimited (0/unlimited points), and deleted unused '0 points' dropdown selection
+
 ## 82.0.0
 
 ### Major Changes
