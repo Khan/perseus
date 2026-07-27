@@ -102,7 +102,7 @@ export class ServerItemRenderer
         // eslint-disable-next-line no-restricted-syntax
         apiOptions: {} as any, // a deep default is done in `this.update()`
         linterContext: PerseusLinter.linterContextDefault,
-        onRendered: (isRendered: boolean) => {},
+        onRendered: () => {},
     };
 
     constructor(props: Props) {
