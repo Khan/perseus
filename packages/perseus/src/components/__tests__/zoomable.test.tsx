@@ -3,6 +3,7 @@ import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import AssetContext from "../../asset-context";
 import Zoomable from "../zoomable";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -515,6 +516,197 @@ describe("Zoomable", () => {
                   </span>
                 </div>
             `);
+        });
+    });
+
+    describe("asset loading status", () => {
+        // Zoomable measures and scales its content over several asynchronous
+        // passes, so it reports to the AssetContext to keep the renderers from
+        // announcing they're done rendering too early.
+
+        const renderWithAssetContext = (
+            component: React.ReactElement,
+        ): {setAssetStatus: jest.Mock} => {
+            const setAssetStatus = jest.fn();
+            render(
+                <AssetContext.Provider
+                    value={{assetStatuses: {}, setAssetStatus}}
+                >
+                    {component}
+                </AssetContext.Provider>,
+            );
+            return {setAssetStatus};
+        };
+
+        const settledKeys = (setAssetStatus: jest.Mock): Array<string> =>
+            setAssetStatus.mock.calls
+                .filter(([, loaded]) => loaded)
+                .map(([assetKey]) => assetKey);
+
+        it("registers as unsettled before it has been measured", () => {
+            // Arrange, Act
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+
+            // Assert
+            expect(setAssetStatus).toHaveBeenCalledTimes(1);
+            expect(setAssetStatus).toHaveBeenCalledWith(
+                expect.stringMatching(/^zoomable-\d+$/),
+                false,
+            );
+        });
+
+        it("reports settled once the entrance animation has finished", () => {
+            // Arrange
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+            const [assetKey] = setAssetStatus.mock.calls[0];
+
+            // Act
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
+        });
+
+        it("does not report settled while the entrance animation is running", () => {
+            // Arrange
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+
+            // Act
+            // Enough time for measuring to complete and the content to become
+            // visible, but not for the 300ms entrance animation to finish.
+            act(() => jest.advanceTimersByTime(299));
+
+            // Assert
+            expect(settledKeys(setAssetStatus)).toHaveLength(0);
+        });
+
+        it("reports settled as soon as content is visible when the entrance animation is disabled", () => {
+            // Arrange
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable disableEntranceAnimation={true}>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+            const [assetKey] = setAssetStatus.mock.calls[0];
+
+            // Act
+            // Enough time for measuring to complete and the content to become
+            // visible, but nowhere near the 300ms entrance animation.
+            act(() => jest.advanceTimersByTime(1));
+            act(() => jest.advanceTimersByTime(1));
+
+            // Assert
+            expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
+        });
+
+        it("reports settled when the content fits and doesn't need scaling", () => {
+            // Arrange
+            const setAssetStatus = jest.fn();
+            const {container} = render(
+                <AssetContext.Provider
+                    value={{assetStatuses: {}, setAssetStatus}}
+                >
+                    <Zoomable>
+                        <span>Some zoomable text</span>
+                    </Zoomable>
+                </AssetContext.Provider>,
+            );
+            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            mockSize(container.firstElementChild as HTMLElement, {
+                width: 400,
+                height: 100,
+            });
+            mockSize(screen.getByText("Some zoomable text"), {
+                width: 100,
+                height: 100,
+            });
+            const [assetKey] = setAssetStatus.mock.calls[0];
+
+            // Act
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
+        });
+
+        it("stays settled after a window resize forces a re-measure", () => {
+            // Arrange
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+            act(() => jest.runAllTimers());
+
+            // Act
+            act(() => window.dispatchEvent(new Event("resize")));
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(settledKeys(setAssetStatus)).toHaveLength(1);
+            expect(
+                setAssetStatus.mock.calls.filter(([, loaded]) => !loaded),
+            ).toHaveLength(1);
+        });
+
+        it("stays settled after a child mutation forces a re-measure", async () => {
+            // Arrange
+            const {setAssetStatus} = renderWithAssetContext(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+            act(() => jest.runAllTimers());
+
+            // Act
+            screen.getByText("Some zoomable text").innerHTML = "Some more text";
+            expect(await screen.findByText("Some more text")).toBeVisible();
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(settledKeys(setAssetStatus)).toHaveLength(1);
+        });
+
+        it("gives each instance its own asset key", () => {
+            // Arrange, Act
+            const {setAssetStatus} = renderWithAssetContext(
+                <>
+                    <Zoomable>
+                        <span>First zoomable text</span>
+                    </Zoomable>
+                    <Zoomable>
+                        <span>Second zoomable text</span>
+                    </Zoomable>
+                </>,
+            );
+
+            // Assert
+            const [[firstKey], [secondKey]] = setAssetStatus.mock.calls;
+            expect(firstKey).not.toEqual(secondKey);
+        });
+
+        it("renders without an AssetContext provider", () => {
+            // Arrange, Act
+            renderAndWaitToSettle(
+                <Zoomable>
+                    <span>Some zoomable text</span>
+                </Zoomable>,
+            );
+
+            // Assert
+            expect(screen.getByText("Some zoomable text")).toBeInTheDocument();
         });
     });
 });
