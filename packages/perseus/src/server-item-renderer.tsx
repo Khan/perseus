@@ -115,7 +115,6 @@ export class ServerItemRenderer
 
     componentDidMount() {
         this._currentFocus = null;
-        this._fullyRendered = false;
 
         // In cases where we are rendering content that doesn't have any assets
         // (things that are async loaded/rendered, such as images or TeX), we
