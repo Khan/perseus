@@ -343,6 +343,54 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             movePosition,
         }));
 
+        // <Graphie> logs an error if the identity of its `setup` prop changes
+        // between renders, so `setupGraphie` must stay stable. It reads the
+        // latest render's props through `propsRef` instead of closing over them.
+        const setupGraphie = useCallback(
+            (graphie: any, options: any) => {
+                const latestProps = propsRef.current;
+
+                // Ensure a sane configuration to avoid infinite loops
+                if (!isValid(latestProps)) {
+                    return;
+                }
+
+                // Position variables
+                const widthInPixels = latestProps.apiOptions.isMobile
+                    ? 288 - horizontalPadding * 2
+                    : 400;
+                const range = options.range;
+                const scale = (range[1] - range[0]) / widthInPixels;
+                const buffer = horizontalPadding * scale;
+
+                // Initiate the graphie without actually drawing anything
+                const left = range[0] - buffer;
+                const right = range[1] + buffer;
+
+                const hasFractionalLabels =
+                    latestProps.labelStyle === "improper" ||
+                    latestProps.labelStyle === "mixed" ||
+                    latestProps.labelStyle === "non-reduced";
+                const bottom = hasFractionalLabels ? -1.5 : -1;
+                const top = 1;
+
+                graphie.init({
+                    range: [
+                        [left, right],
+                        [bottom, top],
+                    ],
+                    scale: [1 / scale, 40],
+                    isMobile: latestProps.apiOptions.isMobile,
+                });
+
+                // Draw the number line
+                const center = (range[0] + range[1]) / 2;
+                graphie.line([center, 0], [right, 0], {arrows: "->"});
+                graphie.line([center, 0], [left, 0], {arrows: "->"});
+            },
+            [propsRef],
+        );
+
         function snapNumLinePosition(
             calculatedProps: CalculatedProps,
             numLinePosition: number,
@@ -424,54 +472,6 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
                 rel: newRel,
             });
         }
-
-        // <Graphie> logs an error if the identity of its `setup` prop changes
-        // between renders, so `setupGraphie` must stay stable. It reads the
-        // latest render's props through `propsRef` instead of closing over them.
-        const setupGraphie = useCallback(
-            (graphie: any, options: any) => {
-                const latestProps = propsRef.current;
-
-                // Ensure a sane configuration to avoid infinite loops
-                if (!isValid(latestProps)) {
-                    return;
-                }
-
-                // Position variables
-                const widthInPixels = latestProps.apiOptions.isMobile
-                    ? 288 - horizontalPadding * 2
-                    : 400;
-                const range = options.range;
-                const scale = (range[1] - range[0]) / widthInPixels;
-                const buffer = horizontalPadding * scale;
-
-                // Initiate the graphie without actually drawing anything
-                const left = range[0] - buffer;
-                const right = range[1] + buffer;
-
-                const hasFractionalLabels =
-                    latestProps.labelStyle === "improper" ||
-                    latestProps.labelStyle === "mixed" ||
-                    latestProps.labelStyle === "non-reduced";
-                const bottom = hasFractionalLabels ? -1.5 : -1;
-                const top = 1;
-
-                graphie.init({
-                    range: [
-                        [left, right],
-                        [bottom, top],
-                    ],
-                    scale: [1 / scale, 40],
-                    isMobile: latestProps.apiOptions.isMobile,
-                });
-
-                // Draw the number line
-                const center = (range[0] + range[1]) / 2;
-                graphie.line([center, 0], [right, 0], {arrows: "->"});
-                graphie.line([center, 0], [left, 0], {arrows: "->"});
-            },
-            [propsRef],
-        );
 
         function renderNumberLinePoint(calculatedProps: CalculatedProps) {
             const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
