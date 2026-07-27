@@ -355,6 +355,10 @@ const NumberLine = forwardRef<WidgetHandle, Props>(
             });
         }
 
+        // FIXME: use `const propsRef = useLatestRef(props)` to get a ref
+        //  to the props from the latest render. Then `setupGraphie` can simply
+        //  be a `useCallback` with empty deps array, referencing `propsRef`.
+
         // <Graphie> logs an error if the identity of its `setup` prop changes
         // between renders, so we keep a single stable `setupGraphie` that delegates
         // to the latest render's logic via a ref.
