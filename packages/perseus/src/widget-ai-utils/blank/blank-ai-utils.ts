@@ -1,5 +1,7 @@
-import type blank from "../../widgets/blank/blank";
-import type React from "react";
+import type {
+    PerseusBlankUserInput,
+    PerseusBlankWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 /**
  * JSON describing a blank widget. Intended for consumption by AI tools.
@@ -9,6 +11,11 @@ import type React from "react";
 export type BlankPromptJSON = {
     type: "blank";
 
+    /**
+     * Indicates to the AI if the blank is shown as a regular, superscript,
+     * or subscript blank
+     */
+    displayType: string;
     /**
      * The current state of the widget user interface. Usually represents a
      * learner's attempt to answer a question.
@@ -22,12 +29,14 @@ export type BlankPromptJSON = {
 };
 
 export const getPromptJSON = (
-    widgetData: React.ComponentProps<typeof blank.widget>,
+    widgetData: PerseusBlankWidgetOptions,
+    userInput: PerseusBlankUserInput,
 ): BlankPromptJSON => {
     return {
         type: "blank",
+        displayType: widgetData.displayType,
         userInput: {
-            selected: widgetData.userInput.selected,
+            selected: userInput.selected,
         },
     };
 };

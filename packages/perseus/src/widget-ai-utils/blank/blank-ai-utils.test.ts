@@ -1,6 +1,9 @@
 import {getPromptJSON} from "./blank-ai-utils";
 
-import type {PerseusBlankUserInput} from "@khanacademy/perseus-core";
+import type {
+    PerseusBlankUserInput,
+    PerseusBlankWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 describe("Blank getPromptJSON", () => {
     it("returns JSON with the expected format and fields", () => {
@@ -9,16 +12,18 @@ describe("Blank getPromptJSON", () => {
             selected: "answer-tile-1",
         };
 
-        const widgetData: any = {
-            userInput,
+        const widgetData: PerseusBlankWidgetOptions = {
+            displayType: "normal",
+            correct: "answer-tile-1",
         };
 
         // Act
-        const resultJSON = getPromptJSON(widgetData);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         // Assert
         expect(resultJSON).toEqual({
             type: "blank",
+            displayType: "normal",
             userInput: {
                 selected: "answer-tile-1",
             },
@@ -29,16 +34,18 @@ describe("Blank getPromptJSON", () => {
         // Arrange
         const userInput: PerseusBlankUserInput = {};
 
-        const widgetData: any = {
-            userInput,
+        const widgetData: PerseusBlankWidgetOptions = {
+            displayType: "normal",
+            correct: "answer-tile-1",
         };
 
         // Act
-        const resultJSON = getPromptJSON(widgetData);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         // Assert
         expect(resultJSON).toEqual({
             type: "blank",
+            displayType: "normal",
             userInput: {
                 selected: undefined,
             },
