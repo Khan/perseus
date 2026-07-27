@@ -1,6 +1,9 @@
 import type {PerseusBlankWidgetOptions} from "../../data-schema";
 
-export type BlankPublicWidgetOptions = PerseusBlankWidgetOptions;
+export type BlankPublicWidgetOptions = Omit<
+    PerseusBlankWidgetOptions,
+    "correct"
+>;
 
 /**
  * Given a PerseusBlankWidgetOptions object, return a new object with only

@@ -23,7 +23,8 @@ export type BlankProps = WidgetProps<
 const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
     function BlankWidget(props, ref) {
         useImperativeHandle(ref, () => ({
-            getPromptJSON: (): BlankPromptJSON => _getPromptJSON(props),
+            getPromptJSON: (): BlankPromptJSON =>
+                _getPromptJSON(props, props.userInput),
         }));
         const classes = [styles.container]
             .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])

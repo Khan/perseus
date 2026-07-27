@@ -23,7 +23,7 @@ type Props = DefaultProps & {
 class BlankEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         displayType: "normal",
-        correct: undefined,
+        correct: "answer-tile-1",
     };
 
     static widgetName = "blank" as const;

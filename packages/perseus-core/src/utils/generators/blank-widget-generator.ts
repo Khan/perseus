@@ -3,12 +3,13 @@ import type {PerseusBlankWidgetOptions, BlankWidget} from "../../data-schema";
 export function generateBlankOptions(
     options?: Partial<PerseusBlankWidgetOptions>,
 ): PerseusBlankWidgetOptions {
-    const defaultImageOptions: PerseusBlankWidgetOptions = {
+    const defaultBlankOptions: PerseusBlankWidgetOptions = {
         displayType: "normal",
+        correct: "answer-tile-1",
     };
 
     return {
-        ...defaultImageOptions,
+        ...defaultBlankOptions,
         ...options,
     };
 }

@@ -1,6 +1,5 @@
 import {
     constant,
-    optional,
     enumeration,
     object,
     string,
@@ -16,6 +15,6 @@ export const parseBlankWidget = parseWidget(
             enumeration("normal", "superscript", "subscript"),
             () => "normal" as const,
         ),
-        correct: optional(string),
+        correct: string,
     }),
 );
