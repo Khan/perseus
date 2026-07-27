@@ -132,7 +132,6 @@ export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
  */
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
-/** User input for the LabelImage widget. */
 export type PerseusBlankUserInput = {
     /**
      * The user's placed answer tile on the blank
