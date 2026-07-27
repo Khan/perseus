@@ -13,9 +13,7 @@ const defaultLoadingContext: LoadingContextValue = {
  * that renders asynchronously: images, math, and zoomable content.
  *
  * Consumers of Perseus provide this context, and ServerItemRenderer consumes
- * it — the wrapper at the bottom of server-item-renderer.tsx passes
- * `onRendered` down to the renderer as a prop, so callers don't have to thread
- * it through their own component tree.
+ * it, so callers don't have to thread it through their own component tree.
  *
  * `onRendered` is called at most once per item, and only ever with `true`.
  * There is no signal for "not rendered yet"; the absence of the call is the
