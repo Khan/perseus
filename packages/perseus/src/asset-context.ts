@@ -16,9 +16,12 @@ const defaultAssetContext: AssetContextValue = {
 };
 
 /**
- * A React context for keeping track of whether a component is fully loaded.
- * This is how components that take extra rendering passes before they settle
- * let the renderers know they're not done yet.
+ * An internal React context for keeping track of whether a component is fully
+ * loaded. This is how components that take extra rendering passes before they
+ * settle let the renderers know they're not done yet.
+ *
+ * This context is closely related to the LoadingContext, which external
+ * consumers provide so Perseus can notify them once assets have settled.
  *
  * The context carries only `setAssetStatus` because reporting is all assets
  * ever do with it. The record of who has settled belongs to whoever is waiting
