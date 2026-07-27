@@ -280,9 +280,12 @@ describe("server item renderer", () => {
 
     it("calls onRendered only once when an asset settles during mount", () => {
         // Arrange
-        // A layout effect runs before the parent ServerItemRenderer's
-        // componentDidMount, which reproduces an asset settling synchronously
-        // during the mount lifecycle.
+        // `useLayoutEffect` fires in the same commit phase as a class
+        // component's `componentDidMount`, and React commits children before
+        // parents — so this TeX settles its asset before ServerItemRenderer
+        // has mounted, which is the case we're covering. (`useEffect` runs
+        // after paint, so it would land after `componentDidMount` instead.)
+        // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             TeX: ({
