@@ -72,7 +72,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        const optionProps: Array<keyof PlotterPublicWidgetOptions> = [
+        const optionsKeys: Array<keyof PlotterPublicWidgetOptions> = [
             "type",
             "labels",
             "categories",
@@ -83,25 +83,21 @@ class Plotter extends React.Component<Props, State> implements Widget {
             "labelInterval",
         ];
 
+        const options = this.props.options;
+        const nextOptions = nextProps.options;
+
         this.shouldSetupGraphie =
             this.props.static !== nextProps.static ||
-            optionProps.some(
-                (prop) =>
-                    !_.isEqual(
-                        this.props.options[prop],
-                        nextProps.options[prop],
-                    ),
+            optionsKeys.some(
+                (key) => !_.isEqual(options[key], nextOptions[key]),
             );
 
         if (
-            !_.isEqual(
-                this.props.options.starting,
-                nextProps.options.starting,
-            ) &&
-            !_.isEqual(this.props.userInput, nextProps.options.starting)
+            !_.isEqual(options.starting, nextOptions.starting) &&
+            !_.isEqual(this.props.userInput, nextOptions.starting)
         ) {
             this.shouldSetupGraphie = true;
-            this.props.handleUserInput(nextProps.options.starting);
+            this.props.handleUserInput(nextOptions.starting);
         }
     }
 
