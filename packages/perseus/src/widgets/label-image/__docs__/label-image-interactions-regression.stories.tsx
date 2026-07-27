@@ -285,7 +285,6 @@ export const OpenMathChoices: Story = {
     },
 };
 
-// Stress-tests the open options list with many long, unpunctuated choices.
 export const OpenLongChoices: Story = {
     name: "[Open] Long Choices",
     decorators: [labelImageRendererDecorator],
@@ -297,7 +296,6 @@ export const OpenLongChoices: Story = {
     },
 };
 
-// Stress-tests the open options list with many long, punctuated choices.
 export const OpenLongChoicesWithPunctuation: Story = {
     name: "[Open] Long Choices with Punctuation",
     decorators: [labelImageRendererDecorator],
@@ -390,7 +388,6 @@ export const SelectedDefault: Story = {
     },
 };
 
-// Stress-tests the selected pill with a long, unpunctuated choice.
 export const SelectedLongChoices: Story = {
     name: "[Selected] Long Choices",
     decorators: [labelImageRendererDecorator],
@@ -401,8 +398,7 @@ export const SelectedLongChoices: Story = {
         await userEvent.click(marker);
 
         // WonderBlocks SingleSelect renders options into a React portal outside
-        // the canvas, so we scope to document.body. A partial regex match on the
-        // leading (punctuation-free) fragment finds the option in both variants.
+        // the canvas, so we scope to document.body.
         const choice = within(document.body).getByRole("option", {
             name: /Ut enim/,
         });
@@ -410,7 +406,6 @@ export const SelectedLongChoices: Story = {
     },
 };
 
-// Stress-tests the selected pill with a long, punctuated choice.
 export const SelectedLongChoicesWithPunctuation: Story = {
     name: "[Selected] Long Choices with Punctuation",
     decorators: [labelImageRendererDecorator],
@@ -421,8 +416,7 @@ export const SelectedLongChoicesWithPunctuation: Story = {
         await userEvent.click(marker);
 
         // WonderBlocks SingleSelect renders options into a React portal outside
-        // the canvas, so we scope to document.body. A partial regex match on the
-        // leading (punctuation-free) fragment finds the option in both variants.
+        // the canvas, so we scope to document.body.
         const choice = within(document.body).getByRole("option", {
             name: /Ut enim/,
         });
