@@ -51,7 +51,7 @@ const defaultAssetContext: AssetContextValue = {
  * registers on a later render pass can register after a provider has already
  * decided everything was done.
  */
-const assetContext: React.Context<AssetContextValue> =
+const AssetContext: React.Context<AssetContextValue> =
     React.createContext(defaultAssetContext);
 
-export default assetContext;
+export default AssetContext;
