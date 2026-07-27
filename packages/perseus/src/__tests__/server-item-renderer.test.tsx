@@ -278,6 +278,44 @@ describe("server item renderer", () => {
         expect(onRendered).not.toHaveBeenCalled();
     });
 
+    it("calls onRendered only once when an asset settles during mount", () => {
+        // Arrange
+        // A layout effect runs before the parent ServerItemRenderer's
+        // componentDidMount, which reproduces an asset settling synchronously
+        // during the mount lifecycle.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useLayoutEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledTimes(1);
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
     it("should call the onRendered callback with no assets in content", () => {
         const content: PerseusItem = {
             question: {
