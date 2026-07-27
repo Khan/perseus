@@ -4,7 +4,6 @@
 
 import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
-import $ from "jquery";
 import React, {forwardRef, useEffect, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -71,10 +70,10 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
         // {testsPassed: true/false} and use that to set the status. It could
         // also contain an optional message.
         useEffect(() => {
-            const handleMessageEvent = (e: any) => {
+            const handleMessageEvent = (e: MessageEvent) => {
                 let data: Record<string, any> = {};
                 try {
-                    data = JSON.parse(e.originalEvent.data);
+                    data = JSON.parse(e.data);
                 } catch {
                     return;
                 }
@@ -90,10 +89,9 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
                 });
             };
 
-            // FIXME: remove this usage of jQuery, use addEventListener/removeEventListener
-            $(window).on("message", handleMessageEvent);
+            window.addEventListener("message", handleMessageEvent);
             return () => {
-                $(window).off("message", handleMessageEvent);
+                window.removeEventListener("message", handleMessageEvent);
             };
         }, [propsRef]);
 
