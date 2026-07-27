@@ -130,8 +130,7 @@ let originalMatchMedia: typeof window.matchMedia | null = null;
 const ReducedMotionWrapper = ({children}: {children: React.ReactNode}) => {
     React.useEffect(() => {
         if (matchMediaMockReferences === 0) {
-            const original = window.matchMedia;
-            originalMatchMedia = original;
+            originalMatchMedia = window.matchMedia;
             window.matchMedia = (query: string) => {
                 if (query.includes("prefers-reduced-motion: reduce")) {
                     // Casts are needed here because we intentionally build a
@@ -143,7 +142,7 @@ const ReducedMotionWrapper = ({children}: {children: React.ReactNode}) => {
                         matches: true,
                     } as MediaQueryList;
                 }
-                return original.call(window, query);
+                return originalMatchMedia!.call(window, query);
             };
         }
         matchMediaMockReferences++;
