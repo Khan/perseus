@@ -22,11 +22,11 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PlotterPublicWidgetOptions,
     PerseusPlotterUserInput
 > & {
@@ -72,7 +72,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        const props = [
+        const optionsKeys: Array<keyof PlotterPublicWidgetOptions> = [
             "type",
             "labels",
             "categories",
@@ -81,21 +81,23 @@ class Plotter extends React.Component<Props, State> implements Widget {
             "snapsPerLine",
             "picUrl",
             "labelInterval",
-            "static",
         ];
 
-        this.shouldSetupGraphie = _.any(
-            props,
-            (prop) => !_.isEqual(this.props[prop], nextProps[prop]),
-            this,
-        );
+        const options = this.props.options;
+        const nextOptions = nextProps.options;
+
+        this.shouldSetupGraphie =
+            this.props.static !== nextProps.static ||
+            optionsKeys.some(
+                (key) => !_.isEqual(options[key], nextOptions[key]),
+            );
 
         if (
-            !_.isEqual(this.props.starting, nextProps.starting) &&
-            !_.isEqual(this.props.userInput, nextProps.starting)
+            !_.isEqual(options.starting, nextOptions.starting) &&
+            !_.isEqual(this.props.userInput, nextOptions.starting)
         ) {
             this.shouldSetupGraphie = true;
-            this.props.handleUserInput(nextProps.starting);
+            this.props.handleUserInput(nextOptions.starting);
         }
     }
 
@@ -139,11 +141,11 @@ class Plotter extends React.Component<Props, State> implements Widget {
         self.graphie.pics = [];
         self.graphie.dotTicks = [];
 
-        const isBar = self.props.type === "bar";
-        const isLine = self.props.type === "line";
-        const isPic = self.props.type === "pic";
-        const isHistogram = self.props.type === "histogram";
-        const isDotplot = self.props.type === "dotplot";
+        const isBar = self.props.options.type === "bar";
+        const isLine = self.props.options.type === "line";
+        const isPic = self.props.options.type === "pic";
+        const isHistogram = self.props.options.type === "histogram";
+        const isDotplot = self.props.options.type === "dotplot";
 
         const isTiledPlot = isPic || isDotplot;
 
@@ -158,11 +160,11 @@ class Plotter extends React.Component<Props, State> implements Widget {
             points: [],
             dividers: [],
         };
-        c.scaleY = self.props.scaleY;
-        c.dimX = self.props.categories.length;
+        c.scaleY = self.props.options.scaleY;
+        c.dimX = self.props.options.categories.length;
         const plotDimensions = isMobile
             ? [288, 336]
-            : self.props.plotDimensions;
+            : self.props.options.plotDimensions;
         if (isLine) {
             // Subtracting 0.2 makes line have equal padding on each side
             c.dimX += isMobile ? -0.2 : 1;
@@ -174,8 +176,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
             c.barWidth = 1 - 2 * c.barPad;
             c.dimX += (isMobile ? -2 : 2) * c.barPad;
         } else if (isTiledPlot) {
-            c.picBoxHeight = self.props.picBoxHeight;
-            c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
+            c.picBoxHeight = self.props.options.picBoxHeight;
+            c.picBoxWidthPx =
+                plotDimensions[0] / self.props.options.categories.length;
             const picPadAllWidth = plotDimensions[0] - c.dimX * c.picBoxWidthPx;
             c.picPad = picPadAllWidth / (2 * c.dimX + 2);
             const picFullWidth = c.picBoxWidthPx + 2 * c.picPad;
@@ -191,12 +194,12 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 this.DOT_PLOT_POINT_SIZE() * 2 + this.DOT_PLOT_POINT_PADDING();
         }
 
-        c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
+        c.dimY = Math.ceil(self.props.options.maxY / c.scaleY) * c.scaleY;
 
         let padX = 25;
 
         if ((isBar || isLine) && isMobile) {
-            padX = self.props.labels[1].length !== 0 ? 17 : 11;
+            padX = self.props.options.labels[1].length !== 0 ? 17 : 11;
         }
 
         // Since dotplot doesn't have an axis along the left it looks weird
@@ -205,7 +208,11 @@ class Plotter extends React.Component<Props, State> implements Widget {
             padX /= 2;
         }
 
-        if (isMobile && isTiledPlot && self.props.labels[1].length === 0) {
+        if (
+            isMobile &&
+            isTiledPlot &&
+            self.props.options.labels[1].length === 0
+        ) {
             padX = 0;
         }
 
@@ -344,7 +351,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         graphie.line([0, 0], [c.dimX, 0]);
 
                         // Draw the left axis for non-dotplots
-                        if (self.props.labels[1].length !== 0 || !isMobile) {
+                        if (
+                            self.props.options.labels[1].length !== 0 ||
+                            !isMobile
+                        ) {
                             graphie.style(
                                 {
                                     stroke: isMobile
@@ -386,7 +396,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const xAxisLabel = graphie
             .label(
                 [c.dimX / 2, isMobile ? -padBottom : -35 / c.scale[1]],
-                self.props.labels[0],
+                self.props.options.labels[0],
                 isMobile ? "above" : "below",
                 false,
             )
@@ -398,7 +408,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const yAxisLabel = graphie
             .label(
                 [(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
-                self.props.labels[1],
+                self.props.options.labels[1],
                 "center",
                 false,
             )
@@ -512,9 +522,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
         // The deferred measurements returned from `labelCategory`.
         const categoryHeightPromises = [];
 
-        if (self.props.type === "histogram") {
+        if (self.props.options.type === "histogram") {
             // Histograms with n labels/categories have n - 1 buckets
-            _.times(self.props.categories.length - 1, function (i) {
+            _.times(self.props.options.categories.length - 1, function (i) {
                 self.setupBar({
                     index: i,
                     startHeight: self.props.userInput[i],
@@ -524,7 +534,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
             });
 
             // Label categories
-            _.each(self.props.categories, function (category, i) {
+            _.each(self.props.options.categories, function (category, i) {
                 const x = 0.5 + i * c.barWidth;
 
                 // @ts-expect-error - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
@@ -542,40 +552,40 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 );
             });
         } else {
-            _.each(self.props.categories, function (category, i) {
+            _.each(self.props.options.categories, function (category, i) {
                 const startHeight = self.props.userInput[i];
 
                 let x;
 
-                if (self.props.type === "bar") {
+                if (self.props.options.type === "bar") {
                     x = self.setupBar({
                         index: i,
                         startHeight: startHeight,
                         config: config,
                         isHistogram: false,
                     });
-                } else if (self.props.type === "line") {
+                } else if (self.props.options.type === "line") {
                     x = self.setupLine(i, startHeight, config);
-                } else if (self.props.type === "pic") {
+                } else if (self.props.options.type === "pic") {
                     x = self.setupPic(i, config);
-                } else if (self.props.type === "dotplot") {
+                } else if (self.props.options.type === "dotplot") {
                     x = self.setupDotplot(i, config);
                 }
 
                 let tickStart = 0;
                 let tickEnd = -6 / c.scale[1];
 
-                if (self.props.type === "dotplot" && !isMobile) {
+                if (self.props.options.type === "dotplot" && !isMobile) {
                     tickStart = -tickEnd;
                 }
 
-                if (self.props.type === "dotplot") {
+                if (self.props.options.type === "dotplot") {
                     // Dotplot lets you specify to only show labels every 'n'
                     // ticks. It also looks nicer if it makes the labelled
                     // ticks a bit bigger.
                     if (
-                        i % self.props.labelInterval === 0 ||
-                        i === self.props.categories.length - 1
+                        i % self.props.options.labelInterval === 0 ||
+                        i === self.props.options.categories.length - 1
                     ) {
                         categoryHeightPromises.push(
                             // @ts-expect-error - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
@@ -746,7 +756,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         if (isMobile) {
-            const snap = config.scaleY / self.props.snapsPerLine;
+            const snap = config.scaleY / self.props.options.snapsPerLine;
             config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(
                 this,
                 {
@@ -796,7 +806,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
             config.graph.lines[i] = graphie.addMovableLineSegment({
                 coordA: [x - barHalfWidth, startHeight],
                 coordZ: [x + barHalfWidth, startHeight],
-                snapY: config.scaleY / self.props.snapsPerLine,
+                snapY: config.scaleY / self.props.options.snapsPerLine,
                 constraints: {
                     constrainX: true,
                 },
@@ -848,7 +858,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const x = i + (isMobile ? 0.4 : 1);
 
         if (isMobile) {
-            const snap = config.scaleY / self.props.snapsPerLine;
+            const snap = config.scaleY / self.props.options.snapsPerLine;
             c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: [x, startHeight],
                 constraints: [
@@ -900,7 +910,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     fill: KhanColors.INTERACTIVE,
                     stroke: KhanColors.INTERACTIVE,
                 },
-                snapY: c.scaleY / self.props.snapsPerLine,
+                snapY: c.scaleY / self.props.options.snapsPerLine,
             });
             c.graph.points[i].onMove = function (x, y) {
                 y = Math.min(Math.max(y, 0), c.dimY);
@@ -951,9 +961,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const graphie = this.graphie;
         return this.setupTiledPlot(i, 0, config, (x, y) => {
             const scaledCenter = graphie.scalePoint([x, y]);
-            const size = this.props.picSize;
+            const size = this.props.options.picSize;
             return graphie.raphael.image(
-                this.props.picUrl,
+                this.props.options.picUrl,
                 scaledCenter[0] - size / 2,
                 scaledCenter[1] - size / 2,
                 size,
@@ -1094,10 +1104,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         _.each(pics, function (ps, i) {
             _.each(ps, function (pic, j) {
-                const y = (j + 1) * self.props.scaleY;
+                const y = (j + 1) * self.props.options.scaleY;
                 const show = y <= values[i];
 
-                if (self.props.type === "dotplot") {
+                if (self.props.options.type === "dotplot") {
                     const wasShown = y <= prevValues[i];
                     const wasJustShown = show && !wasShown;
                     if (wasJustShown) {
@@ -1133,8 +1143,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
             values: this.props.userInput,
         };
@@ -1143,7 +1154,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
     render(): React.ReactNode {
         const paddingForBottomLabel = 75;
         const style = {
-            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
+            marginBottom: this.props.options.labels[0]
+                ? paddingForBottomLabel
+                : 0,
         } as const;
 
         return (
