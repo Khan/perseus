@@ -13,7 +13,7 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusCSProgramWidgetOptions,
@@ -22,7 +22,7 @@ import type {
 
 const {updateQueryString} = Util;
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusCSProgramWidgetOptions,
     PerseusCSProgramUserInput
 >;
@@ -59,7 +59,7 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
             settings,
             showEditor = false,
             showButtons = false,
-        } = props;
+        } = props.options;
 
         // We receive data from the iframe that contains
         // {testsPassed: true/false} and use that to set the status. It could
@@ -100,10 +100,11 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
              * [LEMS-3185] do not trust serializedState
              */
             getSerializedState: (): any => {
-                const {userInput: _, alignment: __, ...rest} = props;
+                const {userInput: _, alignment: __, options, ...rest} = props;
                 return {
+                    ...options,
                     ...rest,
-                    programType: rest.programType || null,
+                    programType: options.programType || null,
                 };
             },
         }));
