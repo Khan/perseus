@@ -3745,24 +3745,23 @@ table: [[☃ table 1]]
                           </div>
                         </div>
                         <button
-                          class="remove-hint simple-button orange"
-                          disabled=""
+                          aria-disabled="true"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-disabled_12emz8w-o_O-small_tjsyec-o_O-inlineStyles_9zitve"
+                          data-kind="tertiary"
                           type="button"
                         >
-                          <svg
-                            aria-hidden="true"
-                            height="1em"
-                            role="img"
-                            style="vertical-align: middle;"
-                            viewBox="0 0 91.681 100"
-                            width="0.91681em"
+                          <div
+                            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
                           >
-                            <path
-                              d="M31.293 37.506q2.052 0 2.052 2.109l0 37.506q0 1.995-2.052 2.109l-4.218 0q-.912-.057-1.482-.627t-.57-1.482l0-37.506q0-2.109 2.052-2.109l4.218 0zm18.753 2.109l0 37.506q0 .912-.57 1.482t-1.539.627l-4.161 0q-1.995 0-2.109-2.109l0-37.506q.057-.912.627-1.482t1.482-.627l4.161 0q.969.057 1.539.627t.57 1.482zm14.592-2.109q2.052 0 2.052 2.109l0 37.506q0 1.995-2.052 2.109l-4.161 0q-.969-.057-1.539-.627t-.57-1.482l0-37.506q0-2.109 2.109-2.109l4.161 0zm10.431 49.248l0-61.731l-58.368 0l0 61.731q.057 2.679.969 3.819t1.083 1.14l54.207 0q.171 0 1.14-1.083t.969-3.876zm-43.776-70.11l29.184 0l-3.135-7.581q-.456-.57-1.14-.741l-20.634 0q-.627.114-1.083.741zm-31.293 2.109q0-1.995 2.109-2.109l20.121 0l4.56-10.83q.969-2.394 3.477-4.104 2.565-1.71 5.187-1.71l20.805 0q2.622 0 5.187 1.71t3.477 4.104l4.56 10.83l20.178 0q.912.057 1.482.627t.57 1.482l0 4.161q0 1.995-2.052 2.109l-6.27 0l0 61.731q0 5.415-3.078 9.348t-7.353 3.933l-54.207 0q-4.275 0-7.353-3.819t-3.078-9.177l0-62.016l-6.213 0q-.969 0-1.539-.57t-.57-1.539l0-4.161z"
-                              fill="currentColor"
+                            <span
+                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-startIcon_1ll1fk7-o_O-tertiaryStartIcon_121powu-o_O-inlineStyles_1rwimpc"
                             />
-                          </svg>
-                           Remove this hint
+                          </div>
+                          <span
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                          >
+                            Remove this hint
+                          </span>
                         </button>
                       </div>
                     </div>
@@ -4631,24 +4630,23 @@ table: [[☃ table 1]]
                           </div>
                         </div>
                         <button
-                          class="add-hint simple-button orange add-hint-button"
-                          disabled=""
+                          aria-disabled="true"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-disabled_12emz8w-o_O-small_tjsyec"
+                          data-kind="tertiary"
                           type="button"
                         >
-                          <svg
-                            aria-hidden="true"
-                            height="1em"
-                            role="img"
-                            style="vertical-align: middle;"
-                            viewBox="0 0 100 100"
-                            width="1em"
+                          <div
+                            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
                           >
-                            <path
-                              d="M99.758 43.09l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-29.45 0l0 29.45q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-29.45l-29.45 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l29.45 0l0-29.45q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836l0 29.45l29.45 0q2.852 0 4.836 1.984t1.984 4.836z"
-                              fill="currentColor"
+                            <span
+                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-startIcon_1ll1fk7-o_O-tertiaryStartIcon_121powu-o_O-inlineStyles_o37hp2"
                             />
-                          </svg>
-                           Add a hint
+                          </div>
+                          <span
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                          >
+                            Add a hint
+                          </span>
                         </button>
                       </div>
                       <button
@@ -15917,30 +15915,25 @@ table: [[☃ table 1]]
       <div
         class="perseus-editor-row"
       >
-        <div
-          class="add-hint-container perseus-editor-left-cell"
+        <button
+          aria-disabled="true"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_15p2wrd-o_O-disabled_okj0ts-o_O-small_tjsyec"
+          data-kind="primary"
+          type="button"
         >
-          <button
-            class="add-hint simple-button orange"
-            disabled=""
-            type="button"
+          <div
+            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
           >
-            <svg
-              aria-hidden="true"
-              height="1em"
-              role="img"
-              style="vertical-align: middle;"
-              viewBox="0 0 100 100"
-              width="1em"
-            >
-              <path
-                d="M99.758 43.09l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-29.45 0l0 29.45q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-29.45l-29.45 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l29.45 0l0-29.45q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836l0 29.45l29.45 0q2.852 0 4.836 1.984t1.984 4.836z"
-                fill="currentColor"
-              />
-            </svg>
-             Add a hint
-          </button>
-        </div>
+            <span
+              class="svg_1q6jc65-o_O-small_6q1hy-o_O-startIcon_1ll1fk7-o_O-inlineStyles_o37hp2"
+            />
+          </div>
+          <span
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+          >
+            Add a hint
+          </span>
+        </button>
       </div>
     </div>
   </div>
