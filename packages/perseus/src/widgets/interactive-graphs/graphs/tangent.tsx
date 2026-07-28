@@ -1,5 +1,6 @@
 import {Plot, vec} from "mafs";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import {
     usePerseusI18n,
@@ -51,23 +52,19 @@ function TangentGraph(props: TangentGraphProps) {
     // coords[1] is a quarter-period away (where amplitude is reached)
     const {coords, snapStep} = graphState;
 
-    // The coefficients are used to calculate the tangent equation, plot
-    // the graph, and to indicate to content creators the currently selected
-    // "correct answer" in the Content Editor. While we should technically
-    // never have invalid coordinates, we want to ensure that we have a
-    // fallback so that the graph can still be plotted without crashing.
-    const coeffRef = React.useRef<NamedTangentCoefficient>({
-        amplitude: 1,
-        angularFrequency: 1,
-        phase: 1,
-        verticalOffset: 0,
-    });
+    // The coefficients are used to calculate the tangent equation, plot the
+    // graph, and to indicate to content creators the currently selected
+    // "correct answer" in the Content Editor. A genuine tangent requires two
+    // control points that differ in both x and y. The reducer enforces this,
+    // so invalid coefficients — undefined for a vertical line, amplitude 0 for
+    // a horizontal one — should never reach render. Assert it here to narrow
+    // the type and surface the bug if a degenerate state ever slips through
+    // (e.g. hand-authored coordinates).
     const coeffs = getTangentCoefficients(coords);
-
-    // If the coefficients are valid, update the reference
-    if (coeffs !== undefined) {
-        coeffRef.current = coeffs;
-    }
+    invariant(
+        coeffs !== undefined && coeffs.amplitude !== 0,
+        "Tangent requires two control points that differ in both x and y.",
+    );
 
     // Asymptote positions derive from the two control points, so they move
     // live with the points. Used for both the dashed lines and the segment
@@ -75,16 +72,7 @@ function TangentGraph(props: TangentGraphProps) {
     const xRange: [number, number] = [range[0][0], range[0][1]];
     const yRange: [number, number] = [range[1][0], range[1][1]];
 
-    // A tangent only has asymptotes when it's a genuine curve. It degenerates
-    // — and mathematically has no asymptotes — when the two control points
-    // coincide or form a vertical line (coeffs undefined) or a horizontal line
-    // (amplitude 0, so a·tan(…) collapses to the constant midline). In those
-    // cases we render no asymptotes, mirroring how the vertical-line case is
-    // already rejected at the reducer.
-    const hasAsymptotes = coeffs !== undefined && coeffs.amplitude !== 0;
-    const asymptotes = hasAsymptotes
-        ? getAsymptotePositions(coeffRef.current, xRange)
-        : [];
+    const asymptotes = getAsymptotePositions(coeffs, xRange);
 
     // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
     const segments = getPlotSegments(asymptotes, xRange);
@@ -112,7 +100,7 @@ function TangentGraph(props: TangentGraphProps) {
                 {segments.map(([segStart, segEnd], i) => (
                     <Plot.OfX
                         key={`tangent-segment-${i}`}
-                        y={(x) => computeTangent(x, coeffRef.current)}
+                        y={(x) => computeTangent(x, coeffs)}
                         domain={[segStart, segEnd]}
                         color={interactiveColor}
                         svgPathProps={{
@@ -302,7 +290,7 @@ function getAsymptotePositions(
 // To remove this workaround:
 // 1. Delete getPlotSegments() and getAsymptotePositions()
 // 2. Replace the segments.map(...) in TangentGraph with a single:
-//    <Plot.OfX y={(x) => computeTangent(x, coeffRef.current)}
+//    <Plot.OfX y={(x) => computeTangent(x, coeffs)}
 //        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />
 function getPlotSegments(
     asymptotes: ReadonlyArray<number>,

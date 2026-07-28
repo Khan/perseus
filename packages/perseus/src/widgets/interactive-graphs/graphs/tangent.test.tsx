@@ -76,32 +76,6 @@ describe("Tangent graph screen reader", () => {
         );
     });
 
-    it("omits the asymptote description when the points form a horizontal line", () => {
-        // Arrange, Act — same y on both points gives amplitude 0, so the curve
-        // is the flat midline and has no asymptotes to announce.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseTangentState,
-                    coords: [
-                        [0, 0],
-                        [2, 0],
-                    ],
-                }}
-            />,
-        );
-        const graph = screen.getByLabelText(
-            "A tangent curve on a coordinate plane.",
-        );
-
-        // Assert — the description stops after the direction sentence; no
-        // "The nearest vertical asymptotes are at…" clause is appended.
-        expect(graph).toHaveAccessibleDescription(
-            "The curve passes through an inflection point at 0 comma 0 and a control point at 2 comma 0. The curve decreases through the inflection point, repeating every 8 units.",
-        );
-    });
-
     it("should have aria labels for tangent graph points", () => {
         // Arrange
         render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
@@ -266,25 +240,25 @@ describe("Tangent graph asymptotes", () => {
         ).toBeGreaterThan(2);
     });
 
-    it("renders no asymptote lines when the points form a horizontal line", () => {
-        // Arrange, Act — same y on both points gives amplitude 0, so the curve
-        // is the flat midline and has no asymptotes.
-        render(
-            <MafsGraph
-                {...baseMafsGraphProps}
-                state={{
-                    ...baseTangentState,
-                    coords: [
-                        [0, 0],
-                        [2, 0],
-                    ],
-                }}
-            />,
-        );
+    it.each`
+        description          | coords
+        ${"vertical line"}   | ${[[0, 0], [0, 2]]}
+        ${"horizontal line"} | ${[[0, 0], [2, 0]]}
+    `("throws when the points form a degenerate $description", ({coords}) => {
+        // A degenerate line has no well-defined tangent, so rendering asserts
+        // against it. Silence React's expected error logging for the throw.
+        jest.spyOn(console, "error").mockImplementation(() => {});
 
-        // Assert
-        expect(screen.queryAllByTestId("tangent-asymptote__line")).toHaveLength(
-            0,
+        // Arrange, Act, Assert
+        expect(() =>
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={{...baseTangentState, coords}}
+                />,
+            ),
+        ).toThrow(
+            "Tangent requires two control points that differ in both x and y.",
         );
     });
 });

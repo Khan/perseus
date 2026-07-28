@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import {X, Y} from "../../math";
 import {getCustomPointLabel} from "../components/build-point-aria-label";
 
@@ -107,6 +109,14 @@ function buildTangentDescription(
     const dx = control[X] - inflection[X];
     const dy = control[Y] - inflection[Y];
 
+    // A degenerate vertical (dx === 0) or horizontal (dy === 0) line has no
+    // asymptotes to announce. The reducer prevents these, so assert rather
+    // than defensively handle them.
+    invariant(
+        dx !== 0 && dy !== 0,
+        "Tangent requires two control points that differ in both x and y.",
+    );
+
     const points = strings.srTangentDescriptionPoints({
         inflectionX: srFormatNumber(inflection[X], locale),
         inflectionY: srFormatNumber(inflection[Y], locale),
@@ -126,15 +136,6 @@ function buildTangentDescription(
     const direction = increasing
         ? strings.srTangentIncreasing({period: periodFormatted})
         : strings.srTangentDecreasing({period: periodFormatted});
-
-    // A tangent only has asymptotes when it's a genuine curve. It degenerates
-    // — with no asymptotes to announce — when the two control points form a
-    // vertical line (dx === 0) or a horizontal line (dy === 0, so the curve is
-    // the flat midline). This mirrors the visible asymptote lines, which are
-    // likewise omitted in these cases.
-    if (dx === 0 || dy === 0) {
-        return `${points} ${direction}`;
-    }
 
     // The nearest vertical asymptotes sit half a period on either side of the
     // inflection point.
