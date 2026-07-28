@@ -7337,7 +7337,76 @@ table: [[☃ table 1]]
                         </label>
                       </div>
                       <div
+                        class="dark-mode-toggle-container"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-row_hmnbrr"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
+                          >
+                            <input
+                              aria-disabled="true"
+                              class="hidden_1tmfokp"
+                              id=":r3m:"
+                              role="switch"
+                              type="checkbox"
+                            />
+                            <span
+                              class="slider_1uievy5-o_O-slider_1rl6toa"
+                            />
+                          </div>
+                          <div
+                            aria-hidden="true"
+                            class="default_7zhre1-o_O-inlineStyles_ubt02n"
+                          />
+                          <label
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
+                            for=":r3m:"
+                          >
+                            Show in Dark Mode
+                          </label>
+                        </div>
+                        <div
+                          class="dark-mode-suppression-container"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-row_hmnbrr"
+                          >
+                            <div
+                              class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
+                            >
+                              <input
+                                aria-disabled="true"
+                                class="hidden_1tmfokp"
+                                id=":r3o:"
+                                role="switch"
+                                type="checkbox"
+                              />
+                              <span
+                                class="slider_1uievy5-o_O-slider_1rl6toa"
+                              />
+                            </div>
+                            <div
+                              aria-hidden="true"
+                              class="default_7zhre1-o_O-inlineStyles_ubt02n"
+                            />
+                            <label
+                              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
+                              for=":r3o:"
+                            >
+                              Suppress Dark Mode Filter
+                            </label>
+                          </div>
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
+                          />
+                        </div>
+                      </div>
+                      <div
                         class="perseus-image-preview-container"
+                        data-testid="image-preview-container"
                       >
                         <div
                           class="fixed-to-responsive svg-image"
@@ -7414,25 +7483,25 @@ table: [[☃ table 1]]
                         >
                           <label
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithDescription_jspf4t-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
-                            for=":r3m:-labeled-field-field"
-                            id=":r3m:-labeled-field-label"
+                            for=":r3q:-labeled-field-field"
+                            id=":r3q:-labeled-field-label"
                           >
                             Scale
                           </label>
                         </div>
                         <p
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingBelowHelperText_grnrp-o_O-disabledHelperText_1dxxvir"
-                          id=":r3m:-labeled-field-description"
+                          id=":r3q:-labeled-field-description"
                         >
                           Use 1 to display image at original size.
                         </p>
                         <input
-                          aria-describedby=":r3m:-labeled-field-description"
+                          aria-describedby=":r3q:-labeled-field-description"
                           aria-disabled="true"
                           aria-invalid="false"
                           aria-required="false"
                           class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc"
-                          id=":r3m:-labeled-field-field"
+                          id=":r3q:-labeled-field-field"
                           min="0"
                           readonly=""
                           type="number"
@@ -7442,7 +7511,7 @@ table: [[☃ table 1]]
                           aria-atomic="true"
                           aria-live="assertive"
                           class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                          id=":r3m:-labeled-field-error"
+                          id=":r3q:-labeled-field-error"
                         />
                       </div>
                       <div
@@ -7456,8 +7525,8 @@ table: [[☃ table 1]]
                           >
                             <label
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
-                              for=":r3o:-labeled-field-field"
-                              id=":r3o:-labeled-field-label"
+                              for=":r3s:-labeled-field-field"
+                              id=":r3s:-labeled-field-label"
                             >
                               Scaled Width
                             </label>
@@ -7468,7 +7537,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc"
-                            id=":r3o:-labeled-field-field"
+                            id=":r3s:-labeled-field-field"
                             min="0"
                             readonly=""
                             type="number"
@@ -7478,7 +7547,7 @@ table: [[☃ table 1]]
                             aria-atomic="true"
                             aria-live="assertive"
                             class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                            id=":r3o:-labeled-field-error"
+                            id=":r3s:-labeled-field-error"
                           />
                         </div>
                         <span
@@ -7494,8 +7563,8 @@ table: [[☃ table 1]]
                           >
                             <label
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
-                              for=":r3q:-labeled-field-field"
-                              id=":r3q:-labeled-field-label"
+                              for=":r3u:-labeled-field-field"
+                              id=":r3u:-labeled-field-label"
                             >
                               Scaled Height
                             </label>
@@ -7506,7 +7575,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc"
-                            id=":r3q:-labeled-field-field"
+                            id=":r3u:-labeled-field-field"
                             min="0"
                             readonly=""
                             type="number"
@@ -7516,7 +7585,7 @@ table: [[☃ table 1]]
                             aria-atomic="true"
                             aria-live="assertive"
                             class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                            id=":r3q:-labeled-field-error"
+                            id=":r3u:-labeled-field-error"
                           />
                         </div>
                       </div>
@@ -7536,7 +7605,7 @@ table: [[☃ table 1]]
                             <input
                               aria-disabled="true"
                               class="hidden_1tmfokp"
-                              id=":r3s:"
+                              id=":r40:"
                               role="switch"
                               type="checkbox"
                             />
@@ -7550,7 +7619,7 @@ table: [[☃ table 1]]
                           />
                           <label
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                            for=":r3s:"
+                            for=":r40:"
                           >
                             Decorative
                           </label>
@@ -7569,96 +7638,10 @@ table: [[☃ table 1]]
                       >
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
-                          for=":r3u:-labeled-field-field"
-                          id=":r3u:-labeled-field-label"
-                        >
-                          Title
-                        </label>
-                      </div>
-                      <div
-                        class="default_7zhre1-o_O-inlineStyles_zdxht7"
-                      >
-                        <textarea
-                          aria-describedby=""
-                          aria-disabled="true"
-                          aria-invalid="false"
-                          aria-required="false"
-                          class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                          id=":r3u:-labeled-field-field"
-                          readonly=""
-                          style=""
-                        />
-                      </div>
-                      <div
-                        aria-atomic="true"
-                        aria-live="assertive"
-                        class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                        id=":r3u:-labeled-field-error"
-                      />
-                    </div>
-                    <div
-                      class="alt-text-field-container"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-inlineStyles_14iip2q"
-                      >
-                        <div
-                          class="default_7zhre1-o_O-labelContainer_1qlbwdv"
-                        >
-                          <label
-                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithDescription_jspf4t-o_O-disabledLabel_12or4dq-o_O-inlineStyles_19rjtmm"
-                            for=":r40:-labeled-field-field"
-                            id=":r40:-labeled-field-label"
-                          >
-                            Alt text
-                          </label>
-                        </div>
-                        <p
-                          class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingBelowHelperText_grnrp-o_O-disabledHelperText_1dxxvir-o_O-inlineStyles_fi5o4v"
-                          id=":r40:-labeled-field-description"
-                        >
-                          Summarize the image using up to 125 characters.
-                        </p>
-                        <div
-                          class="default_7zhre1-o_O-inlineStyles_zdxht7"
-                        >
-                          <textarea
-                            aria-describedby=":r40:-labeled-field-description"
-                            aria-disabled="true"
-                            aria-invalid="false"
-                            aria-required="false"
-                            class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r40:-labeled-field-field"
-                            readonly=""
-                            style=""
-                          />
-                        </div>
-                        <div
-                          aria-atomic="true"
-                          aria-live="assertive"
-                          class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                          id=":r40:-labeled-field-error"
-                        />
-                      </div>
-                      <span
-                        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-characterCounter_1remeb4"
-                      >
-                        0
-                         characters
-                      </span>
-                    </div>
-                    <div
-                      class="default_7zhre1-o_O-inlineStyles_14iip2q"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-labelContainer_1qlbwdv"
-                      >
-                        <label
-                          class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
                           for=":r42:-labeled-field-field"
                           id=":r42:-labeled-field-label"
                         >
-                          Long description
+                          Title
                         </label>
                       </div>
                       <div
@@ -7683,6 +7666,57 @@ table: [[☃ table 1]]
                       />
                     </div>
                     <div
+                      class="alt-text-field-container"
+                    >
+                      <div
+                        class="default_7zhre1-o_O-inlineStyles_14iip2q"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                        >
+                          <label
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithDescription_jspf4t-o_O-disabledLabel_12or4dq-o_O-inlineStyles_19rjtmm"
+                            for=":r44:-labeled-field-field"
+                            id=":r44:-labeled-field-label"
+                          >
+                            Alt text
+                          </label>
+                        </div>
+                        <p
+                          class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingBelowHelperText_grnrp-o_O-disabledHelperText_1dxxvir-o_O-inlineStyles_fi5o4v"
+                          id=":r44:-labeled-field-description"
+                        >
+                          Summarize the image using up to 125 characters.
+                        </p>
+                        <div
+                          class="default_7zhre1-o_O-inlineStyles_zdxht7"
+                        >
+                          <textarea
+                            aria-describedby=":r44:-labeled-field-description"
+                            aria-disabled="true"
+                            aria-invalid="false"
+                            aria-required="false"
+                            class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
+                            id=":r44:-labeled-field-field"
+                            readonly=""
+                            style=""
+                          />
+                        </div>
+                        <div
+                          aria-atomic="true"
+                          aria-live="assertive"
+                          class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
+                          id=":r44:-labeled-field-error"
+                        />
+                      </div>
+                      <span
+                        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-characterCounter_1remeb4"
+                      >
+                        0
+                         characters
+                      </span>
+                    </div>
+                    <div
                       class="default_7zhre1-o_O-inlineStyles_14iip2q"
                     >
                       <div
@@ -7690,8 +7724,43 @@ table: [[☃ table 1]]
                       >
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
-                          for=":r44:-labeled-field-field"
-                          id=":r44:-labeled-field-label"
+                          for=":r46:-labeled-field-field"
+                          id=":r46:-labeled-field-label"
+                        >
+                          Long description
+                        </label>
+                      </div>
+                      <div
+                        class="default_7zhre1-o_O-inlineStyles_zdxht7"
+                      >
+                        <textarea
+                          aria-describedby=""
+                          aria-disabled="true"
+                          aria-invalid="false"
+                          aria-required="false"
+                          class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
+                          id=":r46:-labeled-field-field"
+                          readonly=""
+                          style=""
+                        />
+                      </div>
+                      <div
+                        aria-atomic="true"
+                        aria-live="assertive"
+                        class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
+                        id=":r46:-labeled-field-error"
+                      />
+                    </div>
+                    <div
+                      class="default_7zhre1-o_O-inlineStyles_14iip2q"
+                    >
+                      <div
+                        class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                      >
+                        <label
+                          class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc-o_O-disabledLabel_12or4dq-o_O-inlineStyles_1slo5sh"
+                          for=":r48:-labeled-field-field"
+                          id=":r48:-labeled-field-label"
                         >
                           Caption
                         </label>
@@ -7705,7 +7774,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           aria-required="false"
                           class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                          id=":r44:-labeled-field-field"
+                          id=":r48:-labeled-field-field"
                           readonly=""
                           style=""
                         />
@@ -7714,7 +7783,7 @@ table: [[☃ table 1]]
                         aria-atomic="true"
                         aria-live="assertive"
                         class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                        id=":r44:-labeled-field-error"
+                        id=":r48:-labeled-field-error"
                       />
                     </div>
                   </div>
@@ -7766,7 +7835,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r46:"
+                            id=":r4a:"
                             role="switch"
                             type="checkbox"
                           />
@@ -7780,7 +7849,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r46:"
+                          for=":r4a:"
                         >
                           Static
                         </label>
@@ -7864,13 +7933,13 @@ table: [[☃ table 1]]
                               class="default_7zhre1-o_O-menuWrapper_1rs652y"
                             >
                               <button
-                                aria-controls=":r48:"
+                                aria-controls=":r4c:"
                                 aria-expanded="false"
                                 aria-haspopup="listbox"
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-                                id=":r49:"
+                                id=":r4d:"
                                 role="combobox"
                                 type="button"
                               >
@@ -7992,17 +8061,17 @@ table: [[☃ table 1]]
                             >
                               <div
                                 class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
-                                id=":r4b:"
+                                id=":r4f:"
                               >
                                 <h2
                                   class="text_f1191h-o_O-header_bicv4w-o_O-Heading_czb6bz-o_O-HeadingMediumBoldWeight_m3f5sj-o_O-heading_1wk4vy6"
                                 >
                                   <button
-                                    aria-controls=":r4d:"
+                                    aria-controls=":r4h:"
                                     aria-disabled="false"
                                     aria-expanded="true"
                                     class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
-                                    id=":r4c:"
+                                    id=":r4g:"
                                     type="button"
                                   >
                                     <div
@@ -8020,9 +8089,9 @@ table: [[☃ table 1]]
                                   </button>
                                 </h2>
                                 <div
-                                  aria-labelledby=":r4c:"
+                                  aria-labelledby=":r4g:"
                                   class="default_7zhre1-o_O-contentWrapper_y9ev9r-o_O-contentWrapperExpanded_xsrqq9-o_O-contentWrapper_m95ukg"
-                                  id=":r4d:"
+                                  id=":r4h:"
                                   role="region"
                                 >
                                   <div
@@ -8636,7 +8705,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-invalid="false"
                                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1y2x28c"
-                                          id=":r4e:"
+                                          id=":r4i:"
                                           type="checkbox"
                                         />
                                       </div>
@@ -8645,7 +8714,7 @@ table: [[☃ table 1]]
                                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                                     >
                                       <label
-                                        for=":r4e:"
+                                        for=":r4i:"
                                       >
                                         Show tooltips
                                       </label>
@@ -9115,7 +9184,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r4f:"
+                            id=":r4j:"
                             role="switch"
                             type="checkbox"
                           />
@@ -9129,7 +9198,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r4f:"
+                          for=":r4j:"
                         >
                           Static
                         </label>
@@ -9143,7 +9212,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r4h:"
+                            id=":r4l:"
                             role="switch"
                             type="checkbox"
                           />
@@ -9157,7 +9226,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r4h:"
+                          for=":r4l:"
                         >
                           Interactive but ungraded
                         </label>
@@ -9185,14 +9254,14 @@ table: [[☃ table 1]]
                             class="default_7zhre1-o_O-menuWrapper_1rs652y single-select-short"
                           >
                             <button
-                              aria-controls=":r4k:"
+                              aria-controls=":r4o:"
                               aria-disabled="true"
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-invalid="false"
                               aria-required="false"
                               class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8-o_O-disabled_1bd2lp"
-                              id=":r4l:"
+                              id=":r4p:"
                               role="combobox"
                               type="button"
                             >
@@ -9249,7 +9318,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_157hyer"
-                            id=":r4n:"
+                            id=":r4r:"
                             readonly=""
                             type="text"
                             value=""
@@ -9257,7 +9326,7 @@ table: [[☃ table 1]]
                         </label>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
-                          for=":r4m:-description-textarea"
+                          for=":r4q:-description-textarea"
                         >
                           Description
                         </label>
@@ -9269,7 +9338,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r4m:-description-textarea"
+                            id=":r4q:-description-textarea"
                             readonly=""
                             style=""
                           />
@@ -9292,7 +9361,7 @@ table: [[☃ table 1]]
                       </button>
                       <div
                         class="default_7zhre1"
-                        id=":r4j:"
+                        id=":r4n:"
                       >
                         <div
                           class="default_7zhre1"
@@ -9312,21 +9381,21 @@ table: [[☃ table 1]]
                           class="default_7zhre1 mafs-graph-container"
                         >
                           <div
-                            aria-describedby="interactive-graph-interactive-elements-description-:r4p:"
+                            aria-describedby="interactive-graph-interactive-elements-description-:r4t:"
                             class="default_7zhre1-o_O-inlineStyles_n0eqhk mafs-graph"
                             role="figure"
                             tabindex="0"
                           >
                             <div
                               class="default_7zhre1 mafs-sr-only"
-                              id="instructions-:r4p:"
+                              id="instructions-:r4t:"
                               tabindex="-1"
                             >
                               Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.
                             </div>
                             <div
                               class="default_7zhre1 mafs-sr-only"
-                              id="interactive-graph-interactive-elements-description-:r4p:"
+                              id="interactive-graph-interactive-elements-description-:r4t:"
                               tabindex="-1"
                             >
                               Interactive elements: A line on a coordinate plane. The line has two points, point 1 at 0 comma 1 and point 2 at 1 comma 3.
@@ -10405,11 +10474,11 @@ table: [[☃ table 1]]
                                     width="288"
                                   >
                                     <g
-                                      aria-describedby=":r4q:-points :r4q:-intercept :r4q:-slope"
+                                      aria-describedby=":r4u:-points :r4u:-intercept :r4u:-slope"
                                       aria-label="A line on a coordinate plane."
                                     >
                                       <g
-                                        aria-describedby=":r4q:-intercept :r4q:-slope"
+                                        aria-describedby=":r4u:-intercept :r4u:-slope"
                                         aria-disabled="true"
                                         aria-label="Point 1 at 0 comma 1."
                                         class="movable-point__focusable-handle"
@@ -10418,7 +10487,7 @@ table: [[☃ table 1]]
                                         tabindex="-1"
                                       />
                                       <g
-                                        aria-describedby=":r4q:-intercept :r4q:-slope"
+                                        aria-describedby=":r4u:-intercept :r4u:-slope"
                                         aria-disabled="true"
                                         aria-label="Line going through point 0 comma 1 and point 1 comma 3."
                                         class="movable-line"
@@ -10515,7 +10584,7 @@ table: [[☃ table 1]]
                                         </g>
                                       </g>
                                       <g
-                                        aria-describedby=":r4q:-intercept :r4q:-slope"
+                                        aria-describedby=":r4u:-intercept :r4u:-slope"
                                         aria-disabled="true"
                                         aria-label="Point 2 at 1 comma 3."
                                         class="movable-point__focusable-handle"
@@ -10584,7 +10653,7 @@ table: [[☃ table 1]]
                                       <foreignobject>
                                         <span
                                           aria-hidden="true"
-                                          id=":r4q:-points"
+                                          id=":r4u:-points"
                                         >
                                           The line has two points, point 1 at 0 comma 1 and point 2 at 1 comma 3.
                                         </span>
@@ -10592,7 +10661,7 @@ table: [[☃ table 1]]
                                       <foreignobject>
                                         <span
                                           aria-hidden="true"
-                                          id=":r4q:-intercept"
+                                          id=":r4u:-intercept"
                                         >
                                           The line crosses the X-axis at -0.5 comma 0 and the Y-axis at 0 comma 1.
                                         </span>
@@ -10600,7 +10669,7 @@ table: [[☃ table 1]]
                                       <foreignobject>
                                         <span
                                           aria-hidden="true"
-                                          id=":r4q:-slope"
+                                          id=":r4u:-slope"
                                         >
                                           Its slope increases from left to right.
                                         </span>
@@ -10645,7 +10714,7 @@ table: [[☃ table 1]]
                             <input
                               aria-disabled="true"
                               class="hidden_1tmfokp"
-                              id=":r4r:"
+                              id=":r4v:"
                               role="switch"
                               type="checkbox"
                             />
@@ -10659,7 +10728,7 @@ table: [[☃ table 1]]
                           />
                           <label
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                            for=":r4r:"
+                            for=":r4v:"
                           >
                             Show point labels
                           </label>
@@ -10714,7 +10783,7 @@ table: [[☃ table 1]]
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1asri2u"
-                                id=":r4t:"
+                                id=":r51:"
                                 type="number"
                                 value="0"
                               />
@@ -10732,7 +10801,7 @@ table: [[☃ table 1]]
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1asri2u"
-                                id=":r4u:"
+                                id=":r52:"
                                 type="number"
                                 value="1"
                               />
@@ -10755,7 +10824,7 @@ table: [[☃ table 1]]
                                 aria-label="Point 1 name"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
-                                id=":r4v:"
+                                id=":r53:"
                                 placeholder="1"
                                 type="text"
                                 value=""
@@ -10787,7 +10856,7 @@ table: [[☃ table 1]]
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1asri2u"
-                                id=":r50:"
+                                id=":r54:"
                                 type="number"
                                 value="1"
                               />
@@ -10805,7 +10874,7 @@ table: [[☃ table 1]]
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1asri2u"
-                                id=":r51:"
+                                id=":r55:"
                                 type="number"
                                 value="3"
                               />
@@ -10828,7 +10897,7 @@ table: [[☃ table 1]]
                                 aria-label="Point 2 name"
                                 aria-required="false"
                                 class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
-                                id=":r52:"
+                                id=":r56:"
                                 placeholder="2"
                                 type="text"
                                 value=""
@@ -10887,7 +10956,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r53:"
+                            id=":r57:"
                             role="switch"
                             type="checkbox"
                           />
@@ -10897,7 +10966,7 @@ table: [[☃ table 1]]
                         </div>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
-                          for=":r53:"
+                          for=":r57:"
                         >
                           Show HTML roles/tags
                         </label>
@@ -11306,80 +11375,9 @@ table: [[☃ table 1]]
                               >
                                 <label
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
-                                  for=":r55:"
-                                >
-                                  x min
-                                </label>
-                                <div
-                                  aria-hidden="true"
-                                  class="default_7zhre1-o_O-inlineStyles_ubt02n"
-                                />
-                                <div
-                                  class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
-                                >
-                                  <input
-                                    aria-disabled="true"
-                                    checked=""
-                                    class="hidden_1tmfokp"
-                                    id=":r55:"
-                                    role="switch"
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    class="slider_1uievy5-o_O-slider_1xersl4"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              class="perseus-widget-right-col"
-                            >
-                              <div
-                                class="default_7zhre1-o_O-row_hmnbrr"
-                              >
-                                <label
-                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
-                                  for=":r57:"
-                                >
-                                  y min
-                                </label>
-                                <div
-                                  aria-hidden="true"
-                                  class="default_7zhre1-o_O-inlineStyles_ubt02n"
-                                />
-                                <div
-                                  class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
-                                >
-                                  <input
-                                    aria-disabled="true"
-                                    checked=""
-                                    class="hidden_1tmfokp"
-                                    id=":r57:"
-                                    role="switch"
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    class="slider_1uievy5-o_O-slider_1xersl4"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="perseus-widget-row"
-                            style="display: flex; flex-direction: row; align-items: center; gap: var(--wb-sizing-size_060);"
-                          >
-                            <div
-                              class="perseus-widget-left-col"
-                            >
-                              <div
-                                class="default_7zhre1-o_O-row_hmnbrr"
-                              >
-                                <label
-                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
                                   for=":r59:"
                                 >
-                                  x max
+                                  x min
                                 </label>
                                 <div
                                   aria-hidden="true"
@@ -11412,7 +11410,7 @@ table: [[☃ table 1]]
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
                                   for=":r5b:"
                                 >
-                                  y max
+                                  y min
                                 </label>
                                 <div
                                   aria-hidden="true"
@@ -11436,11 +11434,6 @@ table: [[☃ table 1]]
                               </div>
                             </div>
                           </div>
-                          <p
-                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
-                          >
-                            Ticks
-                          </p>
                           <div
                             class="perseus-widget-row"
                             style="display: flex; flex-direction: row; align-items: center; gap: var(--wb-sizing-size_060);"
@@ -11455,7 +11448,7 @@ table: [[☃ table 1]]
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
                                   for=":r5d:"
                                 >
-                                  x-axis
+                                  x max
                                 </label>
                                 <div
                                   aria-hidden="true"
@@ -11488,7 +11481,7 @@ table: [[☃ table 1]]
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
                                   for=":r5f:"
                                 >
-                                  y-axis
+                                  y max
                                 </label>
                                 <div
                                   aria-hidden="true"
@@ -11502,6 +11495,82 @@ table: [[☃ table 1]]
                                     checked=""
                                     class="hidden_1tmfokp"
                                     id=":r5f:"
+                                    role="switch"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="slider_1uievy5-o_O-slider_1xersl4"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <p
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
+                          >
+                            Ticks
+                          </p>
+                          <div
+                            class="perseus-widget-row"
+                            style="display: flex; flex-direction: row; align-items: center; gap: var(--wb-sizing-size_060);"
+                          >
+                            <div
+                              class="perseus-widget-left-col"
+                            >
+                              <div
+                                class="default_7zhre1-o_O-row_hmnbrr"
+                              >
+                                <label
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
+                                  for=":r5h:"
+                                >
+                                  x-axis
+                                </label>
+                                <div
+                                  aria-hidden="true"
+                                  class="default_7zhre1-o_O-inlineStyles_ubt02n"
+                                />
+                                <div
+                                  class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
+                                >
+                                  <input
+                                    aria-disabled="true"
+                                    checked=""
+                                    class="hidden_1tmfokp"
+                                    id=":r5h:"
+                                    role="switch"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="slider_1uievy5-o_O-slider_1xersl4"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="perseus-widget-right-col"
+                            >
+                              <div
+                                class="default_7zhre1-o_O-row_hmnbrr"
+                              >
+                                <label
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf"
+                                  for=":r5j:"
+                                >
+                                  y-axis
+                                </label>
+                                <div
+                                  aria-hidden="true"
+                                  class="default_7zhre1-o_O-inlineStyles_ubt02n"
+                                />
+                                <div
+                                  class="default_7zhre1-o_O-switch_19x0b1b-o_O-switchFocus_wzw16s-o_O-switch_1m6uire-o_O-disabled_gphj95-o_O-disabledFocus_wzw16s"
+                                >
+                                  <input
+                                    aria-disabled="true"
+                                    checked=""
+                                    class="hidden_1tmfokp"
+                                    id=":r5j:"
                                     role="switch"
                                     type="checkbox"
                                   />
@@ -11704,7 +11773,7 @@ table: [[☃ table 1]]
                                       aria-invalid="false"
                                       class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                                       disabled=""
-                                      id=":r5h:"
+                                      id=":r5l:"
                                       type="checkbox"
                                     />
                                   </div>
@@ -11713,7 +11782,7 @@ table: [[☃ table 1]]
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                                 >
                                   <label
-                                    for=":r5h:"
+                                    for=":r5l:"
                                   >
                                     Show tooltips
                                   </label>
@@ -11769,7 +11838,7 @@ table: [[☃ table 1]]
                                       aria-invalid="false"
                                       class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                                       disabled=""
-                                      id=":r5i:"
+                                      id=":r5m:"
                                       type="checkbox"
                                     />
                                   </div>
@@ -11778,7 +11847,7 @@ table: [[☃ table 1]]
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                                 >
                                   <label
-                                    for=":r5i:"
+                                    for=":r5m:"
                                   >
                                     Show protractor
                                   </label>
@@ -11814,17 +11883,17 @@ table: [[☃ table 1]]
                         >
                           <div
                             class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
-                            id=":r5k:"
+                            id=":r5o:"
                           >
                             <h2
                               class="text_f1191h-o_O-header_bicv4w-o_O-Heading_czb6bz-o_O-HeadingMediumBoldWeight_m3f5sj-o_O-heading_1wk4vy6"
                             >
                               <button
-                                aria-controls=":r5m:"
+                                aria-controls=":r5q:"
                                 aria-disabled="false"
                                 aria-expanded="true"
                                 class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
-                                id=":r5l:"
+                                id=":r5p:"
                                 type="button"
                               >
                                 <div
@@ -11850,9 +11919,9 @@ table: [[☃ table 1]]
                               </button>
                             </h2>
                             <div
-                              aria-labelledby=":r5l:"
+                              aria-labelledby=":r5p:"
                               class="default_7zhre1-o_O-contentWrapper_y9ev9r-o_O-contentWrapperExpanded_xsrqq9-o_O-contentWrapper_m95ukg"
-                              id=":r5m:"
+                              id=":r5q:"
                               role="region"
                             >
                               <div
@@ -11872,7 +11941,7 @@ table: [[☃ table 1]]
                                       aria-invalid="false"
                                       aria-required="false"
                                       class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_1asri2u"
-                                      id=":r5n:"
+                                      id=":r5r:"
                                       readonly=""
                                       type="number"
                                       value="5"
@@ -11889,7 +11958,7 @@ table: [[☃ table 1]]
                                       aria-invalid="false"
                                       aria-required="false"
                                       class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_1asri2u"
-                                      id=":r5o:"
+                                      id=":r5s:"
                                       readonly=""
                                       type="number"
                                       value="5"
@@ -11907,14 +11976,14 @@ table: [[☃ table 1]]
                                       class="default_7zhre1-o_O-menuWrapper_1rs652y"
                                     >
                                       <button
-                                        aria-controls=":r5p:"
+                                        aria-controls=":r5t:"
                                         aria-disabled="true"
                                         aria-expanded="false"
                                         aria-haspopup="listbox"
                                         aria-invalid="false"
                                         aria-required="false"
                                         class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8-o_O-disabled_1bd2lp"
-                                        id=":r5q:"
+                                        id=":r5u:"
                                         role="combobox"
                                         type="button"
                                       >
@@ -11940,7 +12009,7 @@ table: [[☃ table 1]]
                                     <input
                                       aria-disabled="true"
                                       class="hidden_1tmfokp"
-                                      id=":r5r:"
+                                      id=":r5v:"
                                       role="switch"
                                       type="checkbox"
                                     />
@@ -11954,7 +12023,7 @@ table: [[☃ table 1]]
                                   />
                                   <label
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                                    for=":r5r:"
+                                    for=":r5v:"
                                   >
                                     open point
                                   </label>
@@ -11970,7 +12039,7 @@ table: [[☃ table 1]]
                                   >
                                     <label
                                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                                      for="aria-label-:r5t:"
+                                      for="aria-label-:r61:"
                                     >
                                       Aria label
                                     </label>
@@ -11996,7 +12065,7 @@ table: [[☃ table 1]]
                                       aria-invalid="false"
                                       aria-required="false"
                                       class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-vertical_1cx4zeh-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_r0q6ib"
-                                      id="aria-label-:r5t:"
+                                      id="aria-label-:r61:"
                                       placeholder="Ex. Point at (x, y)"
                                       readonly=""
                                     />
@@ -12134,13 +12203,13 @@ table: [[☃ table 1]]
                               class="default_7zhre1-o_O-menuWrapper_1rs652y add-element-select"
                             >
                               <button
-                                aria-controls=":r60:"
+                                aria-controls=":r64:"
                                 aria-disabled="true"
                                 aria-expanded="false"
                                 aria-haspopup="menu"
                                 class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy-o_O-disabled_12emz8w"
                                 data-kind="tertiary"
-                                id=":r5v:"
+                                id=":r63:"
                                 tabindex="0"
                                 type="button"
                               >
@@ -12223,7 +12292,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r61:"
+                            id=":r65:"
                             role="switch"
                             type="checkbox"
                           />
@@ -12237,7 +12306,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r61:"
+                          for=":r65:"
                         >
                           Static
                         </label>
@@ -12678,7 +12747,7 @@ table: [[☃ table 1]]
                                   aria-checked="false"
                                   aria-invalid="false"
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1y2x28c"
-                                  id=":r63:"
+                                  id=":r67:"
                                   type="checkbox"
                                 />
                               </div>
@@ -12687,7 +12756,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r63:"
+                                for=":r67:"
                               >
                                 Order of the matched pairs matters:
                               </label>
@@ -12719,7 +12788,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r64:"
+                                  id=":r68:"
                                   type="checkbox"
                                 />
                                 <span
@@ -12731,7 +12800,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r64:"
+                                for=":r68:"
                               >
                                 Padding:
                               </label>
@@ -12793,7 +12862,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r65:"
+                            id=":r69:"
                             role="switch"
                             type="checkbox"
                           />
@@ -12807,7 +12876,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r65:"
+                          for=":r69:"
                         >
                           Static
                         </label>
@@ -13090,7 +13159,7 @@ table: [[☃ table 1]]
                                     aria-checked="false"
                                     aria-invalid="false"
                                     class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1y2x28c"
-                                    id=":r6b:"
+                                    id=":r6f:"
                                     type="checkbox"
                                   />
                                 </div>
@@ -13099,7 +13168,7 @@ table: [[☃ table 1]]
                                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                               >
                                 <label
-                                  for=":r6b:"
+                                  for=":r6f:"
                                 >
                                   Show ruler
                                 </label>
@@ -13129,7 +13198,7 @@ table: [[☃ table 1]]
                                     aria-invalid="false"
                                     checked=""
                                     class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                    id=":r6c:"
+                                    id=":r6g:"
                                     type="checkbox"
                                   />
                                   <span
@@ -13141,7 +13210,7 @@ table: [[☃ table 1]]
                                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                               >
                                 <label
-                                  for=":r6c:"
+                                  for=":r6g:"
                                 >
                                   Show protractor
                                 </label>
@@ -13200,7 +13269,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r6d:"
+                            id=":r6h:"
                             role="switch"
                             type="checkbox"
                           />
@@ -13214,7 +13283,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r6d:"
+                          for=":r6h:"
                         >
                           Static
                         </label>
@@ -13412,7 +13481,7 @@ table: [[☃ table 1]]
                                     aria-checked="false"
                                     aria-invalid="false"
                                     class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1y2x28c"
-                                    id=":r6f:"
+                                    id=":r6j:"
                                     type="checkbox"
                                   />
                                 </div>
@@ -13421,7 +13490,7 @@ table: [[☃ table 1]]
                                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                               >
                                 <label
-                                  for=":r6f:"
+                                  for=":r6j:"
                                 >
                                   Show tick controller
                                 </label>
@@ -13451,7 +13520,7 @@ table: [[☃ table 1]]
                                     aria-invalid="false"
                                     checked=""
                                     class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                    id=":r6g:"
+                                    id=":r6k:"
                                     type="checkbox"
                                   />
                                   <span
@@ -13463,7 +13532,7 @@ table: [[☃ table 1]]
                                 class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                               >
                                 <label
-                                  for=":r6g:"
+                                  for=":r6k:"
                                 >
                                   Show label ticks
                                 </label>
@@ -13493,7 +13562,7 @@ table: [[☃ table 1]]
                                   aria-checked="false"
                                   aria-invalid="false"
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1y2x28c"
-                                  id=":r6h:"
+                                  id=":r6l:"
                                   type="checkbox"
                                 />
                               </div>
@@ -13502,7 +13571,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r6h:"
+                                for=":r6l:"
                               >
                                 Show tooltips
                               </label>
@@ -13611,7 +13680,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r6i:"
+                            id=":r6m:"
                             role="switch"
                             type="checkbox"
                           />
@@ -13625,7 +13694,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r6i:"
+                          for=":r6m:"
                         >
                           Static
                         </label>
@@ -13709,13 +13778,13 @@ table: [[☃ table 1]]
                               class="default_7zhre1-o_O-menuWrapper_1rs652y"
                             >
                               <button
-                                aria-controls=":r6k:"
+                                aria-controls=":r6o:"
                                 aria-expanded="false"
                                 aria-haspopup="listbox"
                                 aria-invalid="false"
                                 aria-required="false"
                                 class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-                                id=":r6l:"
+                                id=":r6p:"
                                 role="combobox"
                                 type="button"
                               >
@@ -13837,17 +13906,17 @@ table: [[☃ table 1]]
                             >
                               <div
                                 class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
-                                id=":r6n:"
+                                id=":r6r:"
                               >
                                 <h2
                                   class="text_f1191h-o_O-header_bicv4w-o_O-Heading_czb6bz-o_O-HeadingMediumBoldWeight_m3f5sj-o_O-heading_1wk4vy6"
                                 >
                                   <button
-                                    aria-controls=":r6p:"
+                                    aria-controls=":r6t:"
                                     aria-disabled="false"
                                     aria-expanded="true"
                                     class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
-                                    id=":r6o:"
+                                    id=":r6s:"
                                     type="button"
                                   >
                                     <div
@@ -13865,9 +13934,9 @@ table: [[☃ table 1]]
                                   </button>
                                 </h2>
                                 <div
-                                  aria-labelledby=":r6o:"
+                                  aria-labelledby=":r6s:"
                                   class="default_7zhre1-o_O-contentWrapper_y9ev9r-o_O-contentWrapperExpanded_xsrqq9-o_O-contentWrapper_m95ukg"
-                                  id=":r6p:"
+                                  id=":r6t:"
                                   role="region"
                                 >
                                   <div
@@ -14378,7 +14447,7 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="true"
                             class="hidden_1tmfokp"
-                            id=":r6q:"
+                            id=":r6u:"
                             role="switch"
                             type="checkbox"
                           />
@@ -14392,7 +14461,7 @@ table: [[☃ table 1]]
                         />
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                          for=":r6q:"
+                          for=":r6u:"
                         >
                           Static
                         </label>
@@ -14883,7 +14952,7 @@ table: [[☃ table 1]]
                               aria-disabled="true"
                               checked=""
                               class="hidden_1tmfokp"
-                              id=":r6s:"
+                              id=":r70:"
                               role="switch"
                               type="checkbox"
                             />
@@ -14897,7 +14966,7 @@ table: [[☃ table 1]]
                           />
                           <label
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                            for=":r6s:"
+                            for=":r70:"
                           >
                             Randomize order
                           </label>
@@ -14911,7 +14980,7 @@ table: [[☃ table 1]]
                             <input
                               aria-disabled="true"
                               class="hidden_1tmfokp"
-                              id=":r6u:"
+                              id=":r72:"
                               role="switch"
                               type="checkbox"
                             />
@@ -14925,7 +14994,7 @@ table: [[☃ table 1]]
                           />
                           <label
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
-                            for=":r6u:"
+                            for=":r72:"
                           >
                             Multiple selections
                           </label>
@@ -14989,7 +15058,7 @@ table: [[☃ table 1]]
                         </fieldset>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallBoldWeight_zklkdn-o_O-inlineStyles_10n8xdq"
-                          for=":r71:-content-textarea"
+                          for=":r75:-content-textarea"
                         >
                           Content
                         </label>
@@ -15001,7 +15070,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r71:-content-textarea"
+                            id=":r75:-content-textarea"
                             placeholder="Type a choice here..."
                             readonly=""
                             style=""
@@ -15030,7 +15099,7 @@ table: [[☃ table 1]]
                         </button>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallBoldWeight_zklkdn-o_O-inlineStyles_abgm0w"
-                          for=":r70:-rationale-textarea"
+                          for=":r74:-rationale-textarea"
                         >
                           Rationale
                         </label>
@@ -15042,7 +15111,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r70:-rationale-textarea"
+                            id=":r74:-rationale-textarea"
                             placeholder="Why is this choice correct?"
                             readonly=""
                             style=""
@@ -15180,7 +15249,7 @@ table: [[☃ table 1]]
                         </fieldset>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallBoldWeight_zklkdn-o_O-inlineStyles_10n8xdq"
-                          for=":r75:-content-textarea"
+                          for=":r79:-content-textarea"
                         >
                           Content
                         </label>
@@ -15192,7 +15261,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r75:-content-textarea"
+                            id=":r79:-content-textarea"
                             placeholder="Type a choice here..."
                             readonly=""
                             style=""
@@ -15221,7 +15290,7 @@ table: [[☃ table 1]]
                         </button>
                         <label
                           class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallBoldWeight_zklkdn-o_O-inlineStyles_abgm0w"
-                          for=":r74:-rationale-textarea"
+                          for=":r78:-rationale-textarea"
                         >
                           Rationale
                         </label>
@@ -15233,7 +15302,7 @@ table: [[☃ table 1]]
                             aria-invalid="false"
                             aria-required="false"
                             class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-autoResize_1m0oq5d-o_O-inlineStyles_8zrxtn"
-                            id=":r74:-rationale-textarea"
+                            id=":r78:-rationale-textarea"
                             placeholder="Why is this choice incorrect?"
                             readonly=""
                             style=""
@@ -15492,7 +15561,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r78:"
+                                  id=":r7c:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15504,7 +15573,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r78:"
+                                for=":r7c:"
                               >
                                 Padding:
                               </label>
@@ -15779,7 +15848,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r79:"
+                          id=":r7d:"
                           type="checkbox"
                         />
                       </div>
@@ -15788,7 +15857,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r79:"
+                        for=":r7d:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -15827,7 +15896,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r7a:"
+                          id=":r7e:"
                           type="checkbox"
                         />
                       </div>
@@ -15836,7 +15905,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r7a:"
+                        for=":r7e:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -15875,7 +15944,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r7b:"
+                          id=":r7f:"
                           type="checkbox"
                         />
                       </div>
@@ -15884,7 +15953,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r7b:"
+                        for=":r7f:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
