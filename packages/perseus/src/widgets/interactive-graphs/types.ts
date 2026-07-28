@@ -61,6 +61,8 @@ type MoveRadiusPointAnnouncement = {
     y: number;
     centerX: number;
     radius: number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
 };
 
 type MoveCenterAnnouncement = {
@@ -77,7 +79,8 @@ type MoveCenterAnnouncement = {
 type MoveQuadraticPointAnnouncement = {
     type: "move-quadratic-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     vertex: Coord | undefined;
@@ -99,7 +102,8 @@ type MoveSegmentPointAnnouncement = {
     type: "move-segment-point";
     segmentIndex: number;
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     totalSegments: number;
@@ -118,7 +122,8 @@ type MoveLinearSystemPointAnnouncement = {
     type: "move-linear-system-point";
     lineIndex: number;
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
 };
@@ -128,7 +133,8 @@ type MoveLinearSystemPointAnnouncement = {
 type MoveRayPointAnnouncement = {
     type: "move-ray-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
 };
@@ -168,7 +174,8 @@ type MoveLinearLineAnnouncement = {
 type MoveSinusoidPointAnnouncement = {
     type: "move-sinusoid-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     otherY: number;
@@ -179,7 +186,8 @@ type MoveSinusoidPointAnnouncement = {
 type MoveExponentialPointAnnouncement = {
     type: "move-exponential-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     // Whether a curve currently fits; when false the announcement drops the
@@ -192,7 +200,8 @@ type MoveExponentialPointAnnouncement = {
 type MoveLogarithmPointAnnouncement = {
     type: "move-logarithm-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     hasCurve: boolean;
@@ -211,7 +220,8 @@ type MoveExponentialAsymptoteAnnouncement = {
 type MoveTangentPointAnnouncement = {
     type: "move-tangent-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
 };
@@ -229,7 +239,8 @@ type MoveLogarithmAsymptoteAnnouncement = {
 type MoveAbsoluteValuePointAnnouncement = {
     type: "move-absolute-value-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     slope: number;
@@ -241,7 +252,8 @@ type MoveAbsoluteValuePointAnnouncement = {
 type MoveAnglePointAnnouncement = {
     type: "move-angle-point";
     pointIndex: number;
-    pointLabel: string | number;
+    // The author's custom label when one is set; undefined otherwise.
+    pointLabel: string | undefined;
     x: number;
     y: number;
     angleMeasure: number;

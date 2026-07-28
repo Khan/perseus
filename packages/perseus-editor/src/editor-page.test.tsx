@@ -282,6 +282,53 @@ describe("EditorPage", () => {
         ).toBeInTheDocument();
     });
 
+    it("does not crash when toggling JSON mode with a widget whose stored type has no editor", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        const question: PerseusRenderer = {
+            content:
+                "Find the area of a circle with a radius of 3.\n\n" +
+                "[[☃ expression 1]] \\text{ units}^2",
+            images: {},
+            // The content marker resolves to the (real) "expression" editor, but
+            // the stored widget's type does not resolve to any editor, so the
+            // inner widget editor never mounts and its ref stays null.
+            // eslint-disable-next-line no-restricted-syntax
+            widgets: {
+                "expression 1": {
+                    type: "unknown-widget",
+                    options: {},
+                },
+            } as any,
+        };
+
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={question}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // Act
+        // Clicking the toggle runs EditorPage.serialize() synchronously in the
+        // event handler, walking down to the widget editor with the null ref.
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: /Developer JSON Mode/i}),
+        );
+
+        // Assert
+        // Pre-fix the click threw inside serialize; now the toggle completes.
+        expect(onChangeMock).toHaveBeenCalledWith({jsonMode: true});
+    });
+
     it("should call initializeWidgetOptions if available", async () => {
         const onChangeMock = jest.fn();
 

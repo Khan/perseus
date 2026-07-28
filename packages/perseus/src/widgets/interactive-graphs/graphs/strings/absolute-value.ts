@@ -1,7 +1,7 @@
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {getAbsoluteValueCoefficients} from "../utils";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -12,7 +12,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 export function srAbsoluteValuePointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         slope: number;
@@ -20,18 +20,19 @@ export function srAbsoluteValuePointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the vertex/arm semantics, matching
-    // the static aria-label behavior in absolute-value.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    const {pointLabel} = state;
 
     // Coord layout in absolute-value graphs: [vertex(0), arm point(1)].
     if (state.pointIndex === 0) {
-        return strings.srAbsoluteValueVertexPoint({x, y});
+        return pointLabel
+            ? strings.srAbsoluteValueVertexPointWithLabel({pointLabel, x, y})
+            : strings.srAbsoluteValueVertexPoint({x, y});
     }
-    const armLabel = strings.srAbsoluteValueSecondPoint({x, y});
+    const armLabel = pointLabel
+        ? strings.srAbsoluteValueArmPointWithLabel({pointLabel, x, y})
+        : strings.srAbsoluteValueArmPoint({x, y});
     const slopeLabel = strings.srAbsoluteValueSlope({
         slope: srFormatNumber(state.slope, locale),
     });
@@ -41,7 +42,7 @@ export function srAbsoluteValuePointLabel(
 type AbsoluteValueGraphDescriptionStrings = {
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: string;
-    srAbsoluteValueSecondPoint: string;
+    srAbsoluteValueArmPoint: string;
     srAbsoluteValueDescription: string;
     srAbsoluteValueSlope: string;
 };
@@ -57,14 +58,30 @@ export function describeAbsoluteValueGraph(
     const coeffs = getAbsoluteValueCoefficients(coords);
 
     const srAbsoluteValueGraph = strings.srAbsoluteValueGraph;
-    const srAbsoluteValueVertexPoint = strings.srAbsoluteValueVertexPoint({
-        x: srFormatNumber(vertex[X], locale),
-        y: srFormatNumber(vertex[Y], locale),
-    });
-    const srAbsoluteValueSecondPoint = strings.srAbsoluteValueSecondPoint({
-        x: srFormatNumber(armPoint[X], locale),
-        y: srFormatNumber(armPoint[Y], locale),
-    });
+
+    // Fold any custom author label into the point's role.
+    const pointLabel = (
+        label: string | undefined,
+        x: string,
+        y: string,
+        withLabel: (a: {pointLabel: string; x: string; y: string}) => string,
+        plain: (a: {x: string; y: string}) => string,
+    ): string => (label ? withLabel({pointLabel: label, x, y}) : plain({x, y}));
+
+    const srAbsoluteValueVertexPoint = pointLabel(
+        getCustomPointLabel(state.pointLabels, 0),
+        srFormatNumber(vertex[X], locale),
+        srFormatNumber(vertex[Y], locale),
+        strings.srAbsoluteValueVertexPointWithLabel,
+        strings.srAbsoluteValueVertexPoint,
+    );
+    const srAbsoluteValueArmPoint = pointLabel(
+        getCustomPointLabel(state.pointLabels, 1),
+        srFormatNumber(armPoint[X], locale),
+        srFormatNumber(armPoint[Y], locale),
+        strings.srAbsoluteValueArmPointWithLabel,
+        strings.srAbsoluteValueArmPoint,
+    );
     const srAbsoluteValueDescription = buildAbsoluteValueDescription(
         coeffs,
         locale,
@@ -77,7 +94,7 @@ export function describeAbsoluteValueGraph(
     return {
         srAbsoluteValueGraph,
         srAbsoluteValueVertexPoint,
-        srAbsoluteValueSecondPoint,
+        srAbsoluteValueArmPoint,
         srAbsoluteValueDescription,
         srAbsoluteValueSlope,
     };

@@ -73,7 +73,6 @@ class ExplanationEditor extends React.Component<Props, State> {
                         content={this.props.explanation}
                         widgets={this.props.widgets}
                         widgetEnabled={true}
-                        immutableWidgets={false}
                         onChange={(props) => {
                             const newProps: Record<string, any> = {};
                             if (_.has(props, "content")) {

@@ -25,11 +25,7 @@ jobs:
     changeset:
         name: Check for .changeset entries for all changed files
         if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -49,10 +45,8 @@ jobs:
 
             - name: Force Node version
               uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  # Note that we don't specify 'cache: pnpm' here because we
-                  # don't install node_modules in this workflow/job!
+              # Note that we don't specify 'cache: pnpm' here because we
+              # don't install node_modules in this workflow/job!
 
             - name: Get changed files
               uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
@@ -81,11 +75,7 @@ jobs:
 
     lint:
         name: Lint, Typecheck, Format, and Test
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -98,8 +88,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
 
             - name: Get All Changed Files
               uses: Khan/actions@30cadf1146cce2e3cdd2510dc8378063e9b08b58 # get-changed-files-v3
@@ -177,11 +165,7 @@ jobs:
 
     cypress:
         name: Cypress
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -207,8 +191,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
 
             # We _should_ have a valid Cypress binary in place at this point,
             # but we _could_ have had a cache miss on `~/.cache/Cypress` but a
@@ -230,11 +212,7 @@ jobs:
 
     check_builds:
         name: Check builds for changes in size
-        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && '${{ matrix.os }}' || 'ephemeral-runner' }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -247,8 +225,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
 
             # Make sure our packages aren't growing unexpectedly. This must come
             # last as it builds the old code last and so leaves the wrong code

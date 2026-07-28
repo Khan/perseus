@@ -29,8 +29,6 @@ type Props = WidgetProps<
     PerseusFreeResponseUserInput
 >;
 
-type DefaultProps = Pick<Props, "userInput">;
-
 // TODO(agoforth): Create a custom validator for the widget that will cause
 //   renderer.emptyWidgets() to work when there is no user input.
 
@@ -41,12 +39,6 @@ export class FreeResponse extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
-    static defaultProps: DefaultProps = {
-        userInput: {
-            currentValue: "",
-        },
-    };
 
     announceCharacterCount = (message: string, isOverLimit: boolean) => {
         const level = isOverLimit ? "assertive" : "polite";

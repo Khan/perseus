@@ -8,7 +8,6 @@ import {
     getQuadraticPointString,
     getQuadraticVertexString,
 } from "./coord-quadrant";
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -19,7 +18,7 @@ import type {Coord} from "@khanacademy/perseus-core";
 export function srQuadraticPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         vertex?: Coord;
@@ -27,14 +26,11 @@ export function srQuadraticPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the quadrant/vertex semantics, matching
-    // the static aria-label behavior in quadratic.tsx.
-    const {customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the quadrant/vertex semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
     const pointString = getQuadraticPointString(
-        state.pointIndex + 1,
+        pointLabel,
         [state.x, state.y],
         strings,
         locale,

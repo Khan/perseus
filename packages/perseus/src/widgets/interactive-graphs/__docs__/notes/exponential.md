@@ -15,8 +15,9 @@ as context for future development and Claude Code sessions.
 | File | Purpose |
 |------|---------|
 | `graphs/exponential.tsx` | Main rendering component: curve, asymptote, points, SR descriptions |
-| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with logarithm) |
-| `graphs/components/asymptote-drag-handle.tsx` | Pill-shaped SVG drag handle (shared with logarithm) |
+| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with logarithm); renders its visible line via `DashedAsymptoteLine` |
+| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair (also used by the tangent graph) |
+| `graphs/components/movable-pill-handle.tsx` | Pill-shaped SVG drag handle (also used by the vector graph) |
 | `reducer/interactive-graph-reducer.ts` | `doMovePoint` and `doMoveCenter` cases for exponential |
 | `reducer/initialize-graph-state.ts` | `getExponentialCoords()` — default coords and asymptote |
 | `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for exponential |
@@ -85,8 +86,9 @@ applies to the logarithm graph.
 ### Asymptote Rendering
 
 - The asymptote is a full-width horizontal **dashed** line using `MovableAsymptote` with `orientation="horizontal"`.
-- The line is rendered as two stacked SVG lines: a solid white backing line (so dashes are
-  visible on grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
+- The visible line is rendered by the shared `DashedAsymptoteLine` component (also used by the
+  tangent graph) as two stacked SVG lines: a solid white backing line (so dashes are visible on
+  grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
 - **Resting state**: stroke weight 2px, dash length 6, gap 8.
 - **Hover/focus/drag state**: stroke weight 4px, dash length 8, gap 12.
 - These are controlled by CSS variables `--movable-asymptote-stroke-weight`,
@@ -315,8 +317,16 @@ Numbered decisions with rationale for future context.
    produces no fit for a different reason). This differs from logarithm, where both same-x
    and same-y are rejected at the reducer level.
 
-9. **Full-line draggable asymptote** — Uses `useDraggable` + `SVGLine` pattern from `MovableLine`,
-   making the entire line interactive. A pill-shaped handle provides visual affordance.
+9. **Handle-box HTML hitbox for touch drag (LEMS-4353)** — Pointer/touch dragging goes through
+   an HTML `<div>` hitbox — a box centered on the pill handle (`HANDLE_HITBOX_SIZE_PX`), portaled
+   into the graph's overlay layer via the shared `useHitbox` primitive
+   (`graphs/components/hitbox.tsx`) — not the SVG line. Safari ignores `touch-action` on SVG
+   elements, so a real-HTML hitbox with `touch-action: none` is the only reliable way to capture
+   the drag while letting the page scroll over the rest of the graph. Keyboard dragging stays on
+   the focusable SVG `<g role="button">` (a second `useDraggable`). The transparent full-line
+   `SVGLine` is kept as the visual hit affordance but no longer carries a pointer gesture, so
+   touches along the line away from the handle fall through to page scroll. The pill handle
+   provides the visual affordance.
 
 10. **Y-padding NaN cutoff for curve termination** — Uses a fixed `4 × (yMax - yMin)` padding
     multiplier. This works for exponential because the curve exits horizontally off the
@@ -347,7 +357,8 @@ Numbered decisions with rationale for future context.
     dashed blue) and the drag handle in the SVG DOM. This ensures the curve is visible where
     it approaches the asymptote (not hidden behind the white backing line) while keeping the
     drag handle visually above the curve. The curve has `pointerEvents: "none"` so it does
-    not intercept events meant for the asymptote's hit target underneath.
+    not intercept pointer events meant for the asymptote (the touch/pointer hit target is now
+    the handle-box HTML overlay, not the SVG line underneath).
 
 16. **CSS modules (not Aphrodite)** — All component styling uses `.module.css` files with class
     names, following the project convention.

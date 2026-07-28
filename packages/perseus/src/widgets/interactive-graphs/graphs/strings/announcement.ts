@@ -26,12 +26,12 @@ export function getAnnouncementText(
     switch (state.type) {
         case "move-point":
             return strings.srPointAtCoordinates({
-                num: state.pointLabel, // TODO(LEMS-4206): fix num -> pointLabel
+                pointLabel: state.pointLabel,
                 x: srFormatNumber(state.x, locale),
                 y: srFormatNumber(state.y, locale),
             });
         case "move-radius-point":
-            return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale)} ${strings.srCircleRadius({radius: state.radius})}`;
+            return `${srCircleRadiusPointLabel(state.x, state.y, state.centerX, strings, locale, state.pointLabel)} ${strings.srCircleRadius({radius: state.radius})}`;
         case "move-center":
             return srCircleCenterLabel(state.x, state.y, strings, locale);
         case "move-quadratic-point":

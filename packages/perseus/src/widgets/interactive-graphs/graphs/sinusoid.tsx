@@ -9,7 +9,6 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -48,8 +47,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
     // Destructure the coordinates from the graph state
     // Note: The order of the coordinates is important:
     // The coords[0] is the root and the coords[1] is the first peak
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, snapStep} = graphState;
 
     // The coefficients are used to calculate the sinusoid equation, plot the graph, and to indicate
     // to content creators the currently selected "correct answer" in the Content Editor.
@@ -97,8 +95,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
-                        buildLabel(i, coord) ??
-                        (i === 0 ? srSinusoidRootPoint : srSinusoidPeakPoint)
+                        i === 0 ? srSinusoidRootPoint : srSinusoidPeakPoint
                     }
                     key={"point-" + i}
                     point={coord}

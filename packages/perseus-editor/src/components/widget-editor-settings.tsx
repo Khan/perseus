@@ -25,7 +25,7 @@ interface WidgetEditorSettingsProps {
     onGradedChange: (value: boolean) => unknown;
     supportedAlignments: ReadonlyArray<Alignment>;
     widgetInfo: PerseusWidget;
-    onAlignmentChange: (e: React.SyntheticEvent<HTMLSelectElement>) => unknown;
+    onAlignmentChange: (newAlignment: Alignment) => unknown;
     isEditingDisabled: boolean;
 }
 

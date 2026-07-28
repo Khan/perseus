@@ -124,10 +124,12 @@ describe("Tangent graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Inflection point A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -142,7 +144,9 @@ describe("Tangent graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Inflection point A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Control point at 2 comma 2."}),
@@ -167,7 +171,7 @@ describe("Tangent graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -191,8 +195,49 @@ describe("Tangent graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
+    });
+});
+
+describe("Tangent graph asymptotes", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("renders a visible dashed line for each asymptote in view", () => {
+        // Arrange, Act — points [0,0] and [2,2] give a period of 8, so the
+        // nearest asymptotes sit at x = -4 and x = 4 (both within [-10, 10]).
+        render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
+
+        // Assert
+        expect(screen.getAllByTestId("tangent-asymptote__line")).toHaveLength(
+            2,
+        );
+    });
+
+    it("renders more asymptote lines as the period shrinks", () => {
+        // Arrange, Act — a smaller horizontal gap between the points shortens
+        // the period, so more asymptotes fall within the visible range.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    coords: [
+                        [0, 0],
+                        [1, 2],
+                    ],
+                }}
+            />,
+        );
+
+        // Assert — period is 4, so asymptotes sit at x = ..., -6, -2, 2, 6, ...
+        expect(
+            screen.getAllByTestId("tangent-asymptote__line").length,
+        ).toBeGreaterThan(2);
     });
 });
 

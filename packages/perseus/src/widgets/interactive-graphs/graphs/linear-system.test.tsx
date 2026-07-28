@@ -268,16 +268,16 @@ describe("Linear System graph pointLabels", () => {
             />,
         );
         const line1Point1 = screen.getByRole("button", {
-            name: "Point A at -5 comma 5.",
+            name: "Point A on line 1 at -5 comma 5.",
         });
         const line1Point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
+            name: "Point B on line 1 at 5 comma 5.",
         });
         const line2Point1 = screen.getByRole("button", {
-            name: "Point C at -5 comma -5.",
+            name: "Point C on line 2 at -5 comma -5.",
         });
         const line2Point2 = screen.getByRole("button", {
-            name: "Point D at 5 comma -5.",
+            name: "Point D on line 2 at 5 comma -5.",
         });
 
         // Assert — each interactive endpoint gets its custom label
@@ -299,7 +299,7 @@ describe("Linear System graph pointLabels", () => {
             />,
         );
         const line1Point1 = screen.getByRole("button", {
-            name: "Point A at -5 comma 5.",
+            name: "Point A on line 1 at -5 comma 5.",
         });
         const line2Point1 = screen.getByRole("button", {
             name: "Point 1 on line 2 at -5 comma -5.",
@@ -335,10 +335,10 @@ describe("Linear System graph pointLabels", () => {
             name: "Point 2 on line 1 at 5 comma 5.",
         });
         const line2Point1 = screen.getByRole("button", {
-            name: "Point C at -5 comma -5.",
+            name: "Point C on line 2 at -5 comma -5.",
         });
         const line2Point2 = screen.getByRole("button", {
-            name: "Point D at 5 comma -5.",
+            name: "Point D on line 2 at 5 comma -5.",
         });
 
         // Assert
@@ -364,7 +364,7 @@ describe("Linear System graph pointLabels", () => {
             name: "Point 1 on line 1 at -5 comma 5.",
         });
         const line1Point2 = screen.getByRole("button", {
-            name: "Point B at 5 comma 5.",
+            name: "Point B on line 1 at 5 comma 5.",
         });
 
         // Assert — index 0 is a non-string and falls back to the per-line
