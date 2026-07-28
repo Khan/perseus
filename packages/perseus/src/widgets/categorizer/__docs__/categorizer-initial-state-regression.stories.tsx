@@ -12,7 +12,7 @@ import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 // Shared by most stories below (Default, Answered, AnsweredMobile,
-// RightToLeft), so it lives at the top of the file.
+// RightToLeft, Static), so it lives at the top of the file.
 const categorizerOptions = generateCategorizerOptions({
     items: ["Apple", "Broccoli", "Banana", "Carrot"],
     categories: ["Fruit", "Vegetable"],
@@ -81,6 +81,15 @@ export const Answered: Story = {
     decorators: [categorizerRendererDecorator],
     args: categorizerOptions,
     parameters: {
+        initialUserInput: answer,
+    },
+};
+
+export const Static: Story = {
+    decorators: [categorizerRendererDecorator],
+    args: categorizerOptions,
+    parameters: {
+        static: true,
         initialUserInput: answer,
     },
 };

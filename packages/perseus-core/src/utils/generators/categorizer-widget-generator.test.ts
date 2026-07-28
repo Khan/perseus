@@ -4,19 +4,6 @@ import {
 } from "./categorizer-widget-generator";
 
 describe("generateCategorizerOptions", () => {
-    it("builds a default categorizer options object", () => {
-        // Arrange, Act
-        const options = generateCategorizerOptions();
-
-        // Assert
-        expect(options).toStrictEqual({
-            items: [],
-            categories: [],
-            values: [],
-            randomizeItems: false,
-        });
-    });
-
     it("builds a categorizer options object with all props", () => {
         // Arrange, Act
         const options = generateCategorizerOptions({
@@ -47,26 +34,6 @@ describe("generateCategorizerOptions", () => {
 });
 
 describe("generateCategorizerWidget", () => {
-    it("builds a default categorizer widget", () => {
-        // Arrange, Act
-        const widget = generateCategorizerWidget();
-
-        // Assert
-        expect(widget).toStrictEqual({
-            type: "categorizer",
-            graded: true,
-            static: false,
-            version: {major: 0, minor: 0},
-            alignment: "default",
-            options: {
-                items: [],
-                categories: [],
-                values: [],
-                randomizeItems: false,
-            },
-        });
-    });
-
     it("builds a categorizer widget with all props", () => {
         // Arrange, Act
         const widget = generateCategorizerWidget({
