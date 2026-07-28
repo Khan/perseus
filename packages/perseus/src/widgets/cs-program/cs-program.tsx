@@ -2,7 +2,6 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {useLatestRef} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
 import React, {forwardRef, useEffect, useImperativeHandle} from "react";
 
@@ -52,10 +51,6 @@ function getUrlFromProgramID(programID: any) {
 const CSProgram = forwardRef<WidgetHandle, Props>(
     function CSProgram(props, ref) {
         const {strings, locale} = usePerseusI18n();
-        // The message listener is registered once on mount, but must always
-        // forward results to the latest `handleUserInput`, so it reads props
-        // through this ref rather than closing over them.
-        const propsRef = useLatestRef(props);
 
         const {
             programID,
@@ -83,7 +78,7 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
                 }
 
                 const status = data.testsPassed ? "correct" : "incorrect";
-                propsRef.current.handleUserInput({
+                props.handleUserInput({
                     status: status,
                     message: data.message,
                 });
@@ -93,7 +88,7 @@ const CSProgram = forwardRef<WidgetHandle, Props>(
             return () => {
                 window.removeEventListener("message", handleMessageEvent);
             };
-        }, [propsRef]);
+        }, [props]);
 
         useImperativeHandle(ref, () => ({
             getPromptJSON: (): UnsupportedWidgetPromptJSON => {
