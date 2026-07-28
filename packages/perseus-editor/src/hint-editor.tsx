@@ -145,7 +145,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                     }}
                 >
                     {this.props.showMoveButtons && (
-                        <span className="reorder-hints">
+                        <div className="reorder-hints">
                             <IconButton
                                 icon={arrowCircleDownIcon}
                                 size="small"
@@ -160,7 +160,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                                 onClick={_.partial(this.props.onMove, -1)}
                                 disabled={this.props.isFirst}
                             />
-                        </span>
+                        </div>
                     )}
                     <Checkbox
                         checked={this.props.replace}
