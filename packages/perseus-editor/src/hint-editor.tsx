@@ -145,10 +145,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                     }}
                 >
                     {this.props.showMoveButtons && (
-                        <span
-                            className="reorder-hints"
-                            style={{display: "flex", alignItems: "center"}}
-                        >
+                        <span className="reorder-hints">
                             <IconButton
                                 icon={arrowCircleDownIcon}
                                 size="small"
