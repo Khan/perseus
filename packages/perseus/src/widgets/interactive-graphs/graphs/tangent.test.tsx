@@ -239,6 +239,28 @@ describe("Tangent graph asymptotes", () => {
             screen.getAllByTestId("tangent-asymptote__line").length,
         ).toBeGreaterThan(2);
     });
+
+    it.each`
+        description          | coords
+        ${"vertical line"}   | ${[[0, 0], [0, 2]]}
+        ${"horizontal line"} | ${[[0, 0], [2, 0]]}
+    `("throws when the points form a degenerate $description", ({coords}) => {
+        // A degenerate line has no well-defined tangent, so rendering asserts
+        // against it. Silence React's expected error logging for the throw.
+        jest.spyOn(console, "error").mockImplementation(() => {});
+
+        // Arrange, Act, Assert
+        expect(() =>
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={{...baseTangentState, coords}}
+                />,
+            ),
+        ).toThrow(
+            "Tangent requires two control points that differ in both x and y.",
+        );
+    });
 });
 
 describe("TangentGraph", () => {
@@ -280,7 +302,11 @@ describe("TangentGraph", () => {
 });
 
 describe("getTangentKeyboardConstraint", () => {
-    it("should snap to the grid and avoid putting points on a vertical line", () => {
+    it("snaps to the grid and steps over both the vertical and horizontal lines through the other point", () => {
+        // Moving point 0 ([0, 0]) while point 1 sits at [1, 1]: an up move
+        // would land on y=1 (same horizontal line) and a right move on x=1
+        // (same vertical line), so each takes an extra snapStep to skip the
+        // degenerate position.
         const coords: TangentGraphState["coords"] = [
             [0, 0],
             [1, 1],
@@ -289,10 +315,10 @@ describe("getTangentKeyboardConstraint", () => {
         const constraint = getTangentKeyboardConstraint(coords, snapStep, 0);
 
         expect(constraint).toEqual({
-            up: [0, 1],
+            up: [0, 2], // Skips the horizontal line at y=1
             down: [0, -1],
             left: [-1, 0],
-            right: [2, 0], // Avoids putting the point on a vertical line
+            right: [2, 0], // Skips the vertical line at x=1
         });
     });
 });
