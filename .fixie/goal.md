@@ -493,8 +493,8 @@ review and commit the changes.
 - [x] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
 - [x] Convert `cs-program` to a functional component, a la `dropdown`.
 - [x] Migrate `cs-program` to `WidgetPropsV2`.
-- [ ] Convert `python-program` to a functional component, a la `dropdown`.
-- [ ] Migrate `python-program` to `WidgetPropsV2`.
+- [x] Convert `python-program` to a functional component, a la `dropdown`.
+- [x] Migrate `python-program` to `WidgetPropsV2`.
 - [ ] Migrate `interaction` to `WidgetPropsV2`.
 - [ ] Migrate `numeric-input` and `input-number` (alias of `numeric-input`)
       to `WidgetPropsV2`.
