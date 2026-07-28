@@ -490,7 +490,7 @@ review and commit the changes.
 - [x] Migrate `measurer` to `WidgetPropsV2`.
 - [x] Convert `number-line` to a functional component, a la `dropdown`.
 - [x] Migrate `number-line` to `WidgetPropsV2`.
-- [ ] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
+- [x] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
 - [ ] Convert `cs-program` to a functional component, a la `dropdown`.
 - [ ] Migrate `cs-program` to `WidgetPropsV2`.
 - [ ] Convert `python-program` to a functional component, a la `dropdown`.
