@@ -33,7 +33,7 @@ export const getPromptJSON = (
 ): NumericInputPromptJSON => {
     return {
         type: "numeric-input",
-        label: widgetData.labelText,
+        label: widgetData.labelText ?? "",
         userInput: {
             value: widgetData.userInput.currentValue,
         },

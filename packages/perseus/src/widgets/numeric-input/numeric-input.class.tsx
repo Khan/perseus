@@ -1,8 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
-import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
@@ -30,17 +28,12 @@ export type NumericInputProps = ExternalProps & {
     //  NumericInputComponent, which does take answerForms.
     //  Use separate prop types that reflect the actual props of each component.
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
-    labelText: string;
 };
-
-type DefaultProps = Pick<NumericInputProps, "labelText">;
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
-// defaultProps into account, which is important because
-// PerseusNumericInputWidgetOptions has optional fields which receive defaults
-// via defaultProps.
+// defaultProps into account.
 // eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
@@ -60,10 +53,6 @@ export class NumericInput
     implements Widget
 {
     inputRef = React.createRef<Focusable>();
-
-    static defaultProps: DefaultProps = {
-        labelText: "",
-    };
 
     focus: () => boolean = () => {
         this.inputRef.current?.focus();
@@ -102,9 +91,11 @@ export class NumericInput
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, answers: _, ...rest} = this.props;
+        const {userInput, labelText, answers: _, ...rest} = this.props;
         return {
             ...rest,
+            answerForms: [],
+            labelText: labelText ?? "",
             currentValue: userInput.currentValue,
         };
     }
