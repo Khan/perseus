@@ -48,6 +48,8 @@ export type NumericInputProps = ExternalProps & {
  * components. While we cannot fully migrate this component yet, we can start
  * by using the functional component for the rendering the UI of the widget.
  */
+// TODO-NEXT: Rewrite NumericInput as a functional component. Follow the
+//  pattern established by dropdown.tsx and number-line.tsx.
 export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
