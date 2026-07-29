@@ -10,6 +10,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import SimpleKeypadInput from "../../components/simple-keypad-input";
 import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
@@ -22,7 +23,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import NumericInputWidgetExport, {
     findCommonFractions,
     findPrecision,
-} from "./numeric-input.class";
+} from "./numeric-input";
 import {
     correctAndWrongAnswers,
     duplicatedAnswers,
@@ -40,6 +41,21 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+// React's `useId` values (":rc:", ":r1i:", ...) come off a counter that spans
+// the whole test file, so without this the DOM snapshots below would change
+// whenever a test that renders is added earlier in the file.
+expect.addSnapshotSerializer({
+    test: (value) => typeof value === "string" && /:r[0-9a-z]+:/.test(value),
+    serialize: (value, config, indentation, depth, refs, printer) =>
+        printer(
+            value.replace(/:r[0-9a-z]+:/g, ":reactId:"),
+            config,
+            indentation,
+            depth,
+            refs,
+        ),
+});
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
@@ -246,6 +262,27 @@ describe("numeric-input widget", () => {
         expect(othersTextContainer).toHaveTextContent("an integer");
         expect(othersTextContainer).toHaveTextContent("an exact decimal");
         expect(othersTextContainer).toHaveTextContent("a multiple of pi");
+    });
+
+    it("sends the rendered analytics event once per mount, not once per render", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.spyOn(
+            testDependenciesV2.analytics,
+            "onAnalyticsEvent",
+        );
+        renderQuestion(question);
+
+        // Act - typing changes the widget's userInput prop, re-rendering it
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "123",
+        );
+
+        // Assert
+        const renderedEvents = onAnalyticsEventSpy.mock.calls.filter(
+            ([event]) => event.type === "perseus:widget:rendered:ti",
+        );
+        expect(renderedEvents).toHaveLength(1);
     });
 });
 
@@ -466,6 +503,48 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
+    });
+
+    it("returns a single empty input path from getInputPaths()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        const numericInput = renderer.findWidgets("numeric-input 1")[0];
+
+        // Act, Assert
+        // The widget is itself an input, so it reports one path: its own.
+        expect(numericInput.getInputPaths()).toEqual([[]]);
+    });
+
+    it("focuses and blurs the input via focusInputPath()/blurInputPath()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        const numericInput = renderer.findWidgets("numeric-input 1")[0];
+        const input = screen.getByRole("textbox", {hidden: true});
+
+        // Act, Assert
+        act(() => numericInput.focusInputPath([]));
+        expect(input).toHaveFocus();
+
+        act(() => numericInput.blurInputPath([]));
+        expect(input).not.toHaveFocus();
+    });
+
+    // The mobile keypad input doesn't move DOM focus under jsdom the way the
+    // desktop <input> does, so this checks its focus/blur calls instead.
+    it("delegates focusInputPath()/blurInputPath() to the mobile keypad input", () => {
+        // Arrange
+        const focus = jest.spyOn(SimpleKeypadInput.prototype, "focus");
+        const blur = jest.spyOn(SimpleKeypadInput.prototype, "blur");
+        const {renderer} = renderQuestion(question1, {customKeypad: true});
+        const numericInput = renderer.findWidgets("numeric-input 1")[0];
+
+        // Act
+        act(() => numericInput.focusInputPath([]));
+        act(() => numericInput.blurInputPath([]));
+
+        // Assert
+        expect(focus).toHaveBeenCalled();
+        expect(blur).toHaveBeenCalled();
     });
 
     it("renders default aria-label when labelText is not provided", () => {

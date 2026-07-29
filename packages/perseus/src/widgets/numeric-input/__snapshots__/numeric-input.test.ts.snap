@@ -102,13 +102,13 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1d9sp8 perseus-input perseus-focused input-with-examples is-focused"
             data-testid="input-with-examples"
-            id=":r6:"
+            id=":reactId:"
             tabindex="0"
             type="text"
             value="1252"
           />
           <span
-            id="aria-for-:r6:"
+            id="aria-for-:reactId:"
             style="display: none;"
           />
         </div>
@@ -156,13 +156,13 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
-            id=":r6:"
+            id=":reactId:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:r6:"
+            id="aria-for-:reactId:"
             style="display: none;"
           />
         </div>
@@ -201,7 +201,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           class="perseus-widget-container widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:ri:"
+            aria-describedby="aria-for-:reactId:"
             aria-disabled="false"
             aria-invalid="false"
             aria-label="Your answer:"
@@ -211,13 +211,13 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
-            id=":ri:"
+            id=":reactId:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:ri:"
+            id="aria-for-:reactId:"
             style="display: none;"
           >
             Your answer should be 
@@ -261,7 +261,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           class="perseus-widget-container widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:rl:"
+            aria-describedby="aria-for-:reactId:"
             aria-disabled="false"
             aria-invalid="false"
             aria-label="What's the answer?"
@@ -271,13 +271,13 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
-            id=":rl:"
+            id=":reactId:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:rl:"
+            id="aria-for-:reactId:"
             style="display: none;"
           >
             Your answer should be 
@@ -319,7 +319,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           class="perseus-widget-container widget-inline-block"
         >
           <input
-            aria-describedby="aria-for-:rc:"
+            aria-describedby="aria-for-:reactId:"
             aria-disabled="false"
             aria-invalid="false"
             aria-label="Your answer:"
@@ -329,13 +329,13 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             autocorrect="off"
             class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
             data-testid="input-with-examples"
-            id=":rc:"
+            id=":reactId:"
             tabindex="0"
             type="text"
             value=""
           />
           <span
-            id="aria-for-:rc:"
+            id="aria-for-:reactId:"
             style="display: none;"
           >
             Your answer should be 

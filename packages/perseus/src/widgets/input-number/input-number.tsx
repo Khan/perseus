@@ -1,4 +1,4 @@
-import numericInput from "../numeric-input/numeric-input.class";
+import numericInput from "../numeric-input/numeric-input";
 
 import type {WidgetExports} from "../../types";
 import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-core";
