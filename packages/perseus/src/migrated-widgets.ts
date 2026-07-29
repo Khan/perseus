@@ -23,4 +23,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "image",
     "measurer",
     "plotter",
+    "cs-program",
 ];
