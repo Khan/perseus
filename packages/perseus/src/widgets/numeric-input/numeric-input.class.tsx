@@ -44,12 +44,12 @@ export type NumericInputProps = ExternalProps & {
  * The NumericInput widget is a numeric input field that supports a variety of
  * answer forms, including integers, decimals, fractions, and mixed numbers.
  *
- * [Jan 2025] We're currenly migrating from class-based components to functional
- * components. While we cannot fully migrate this component yet, we can start
- * by using the functional component for the rendering the UI of the widget.
+ * [Jan 2025] We're currently migrating from class-based components to
+ * functional components. This class is a leftover of a partial migration: the
+ * UI already lives in the functional NumericInputComponent, while the Widget
+ * interface methods are still implemented here. Collapsing the two into a
+ * single functional component is planned; see .fixie/goal.md.
  */
-// TODO-NEXT: Rewrite NumericInput as a functional component. Follow the
-//  pattern established by dropdown.tsx and number-line.tsx.
 export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
