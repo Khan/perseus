@@ -158,9 +158,17 @@ Internal: the Numeric Input widget is now a functional component.
   `blurInputPath`). Drop it from the handle, or keep it for safety? Dropping it
   is the tidier choice and matches number-line, which exposes only what the
   renderers call.
+    - Answer: remove `blur()`. Only methods on the `Widget` interface need to
+      be implemented, and `blur()` is not part of that interface.
+
 - The Storybook `Meta<typeof NumericInput>` currently points at the class purely
   to derive argTypes. Does pointing it at the `forwardRef` component still give
   Storybook usable prop inference, or should the stories be typed off the widget
   options instead?
+    - Answer: Storybook should work just fine with a functional component.
+      Don't make changes to the stories unless there are errors you need to
+      fix.
+
 - Should `findPrecision`/`findCommonFractions` (exported only for tests) move to
   `utils.ts`, where the widget's other pure helpers already live?
+    - Answer: no, this is out of scope.
