@@ -35,6 +35,8 @@ type Props = WidgetProps<
 };
 
 // Widget interface methods exposed via ref
+// TODO(benchristel): get rid of all WidgetHandle types, use Widget as the
+//  forwarded ref type
 type WidgetHandle = Pick<
     Widget,
     "focus" | "getPromptJSON" | "getSerializedState"

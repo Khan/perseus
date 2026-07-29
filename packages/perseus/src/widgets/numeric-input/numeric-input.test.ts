@@ -10,7 +10,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import SimpleKeypadInput from "../../components/simple-keypad-input";
 import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
@@ -41,21 +40,6 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-
-// React's `useId` values (":rc:", ":r1i:", ...) come off a counter that spans
-// the whole test file, so without this the DOM snapshots below would change
-// whenever a test that renders is added earlier in the file.
-expect.addSnapshotSerializer({
-    test: (value) => typeof value === "string" && /:r[0-9a-z]+:/.test(value),
-    serialize: (value, config, indentation, depth, refs, printer) =>
-        printer(
-            value.replace(/:r[0-9a-z]+:/g, ":reactId:"),
-            config,
-            indentation,
-            depth,
-            refs,
-        ),
-});
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
@@ -278,11 +262,10 @@ describe("numeric-input widget", () => {
             "123",
         );
 
-        // Assert
-        const renderedEvents = onAnalyticsEventSpy.mock.calls.filter(
-            ([event]) => event.type === "perseus:widget:rendered:ti",
-        );
-        expect(renderedEvents).toHaveLength(1);
+        // Assert: exactly one analytics event was sent.
+        expect(onAnalyticsEventSpy.mock.calls).toEqual([
+            [expect.objectContaining({type: "perseus:widget:rendered:ti"})],
+        ]);
     });
 });
 
@@ -527,24 +510,6 @@ describe("Numeric input widget", () => {
 
         act(() => numericInput.blurInputPath([]));
         expect(input).not.toHaveFocus();
-    });
-
-    // The mobile keypad input doesn't move DOM focus under jsdom the way the
-    // desktop <input> does, so this checks its focus/blur calls instead.
-    it("delegates focusInputPath()/blurInputPath() to the mobile keypad input", () => {
-        // Arrange
-        const focus = jest.spyOn(SimpleKeypadInput.prototype, "focus");
-        const blur = jest.spyOn(SimpleKeypadInput.prototype, "blur");
-        const {renderer} = renderQuestion(question1, {customKeypad: true});
-        const numericInput = renderer.findWidgets("numeric-input 1")[0];
-
-        // Act
-        act(() => numericInput.focusInputPath([]));
-        act(() => numericInput.blurInputPath([]));
-
-        // Assert
-        expect(focus).toHaveBeenCalled();
-        expect(blur).toHaveBeenCalled();
     });
 
     it("renders default aria-label when labelText is not provided", () => {

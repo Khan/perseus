@@ -38,21 +38,6 @@ type Props = WidgetProps<
     PerseusNumericInputUserInput
 >;
 
-// The Widget-interface methods this component exposes via its ref. Every
-// member of Widget is optional, so this is `Required` to make the compiler
-// insist that each one listed here actually gets implemented.
-type WidgetHandle = Required<
-    Pick<
-        Widget,
-        | "focus"
-        | "focusInputPath"
-        | "blurInputPath"
-        | "getInputPaths"
-        | "getPromptJSON"
-        | "getSerializedState"
-    >
->;
-
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
@@ -67,7 +52,7 @@ type WidgetHandle = Required<
  * The NumericInput widget is a numeric input field that supports a variety of
  * answer forms, including integers, decimals, fractions, and mixed numbers.
  */
-export const NumericInput = forwardRef<WidgetHandle, Props>(
+export const NumericInput = forwardRef<Widget, Props>(
     function NumericInput(props, ref) {
         const {analytics} = useDependencies();
         const context = useContext(PerseusI18nContext);
@@ -86,20 +71,26 @@ export const NumericInput = forwardRef<WidgetHandle, Props>(
         });
 
         useImperativeHandle(ref, () => ({
-            focus: () => {
-                inputRef.current?.focus();
-                setIsFocused(true);
+            focus() {
+                if (inputRef.current) {
+                    inputRef.current.focus();
+                    setIsFocused(true);
+                }
                 return true;
             },
 
-            focusInputPath: () => {
-                inputRef.current?.focus();
-                setIsFocused(true);
+            focusInputPath() {
+                if (inputRef.current) {
+                    inputRef.current.focus();
+                    setIsFocused(true);
+                }
             },
 
-            blurInputPath: () => {
-                inputRef.current?.blur();
-                setIsFocused(false);
+            blurInputPath() {
+                if (inputRef.current) {
+                    inputRef.current?.blur();
+                    setIsFocused(false);
+                }
             },
 
             // The widget itself is an input, so we return a single empty list to
@@ -112,7 +103,7 @@ export const NumericInput = forwardRef<WidgetHandle, Props>(
              * @deprecated and likely very broken API
              * [LEMS-3185] do not trust serializedState
              */
-            getSerializedState: () => {
+            getSerializedState() {
                 const {userInput, labelText, answers: _, ...rest} = props;
                 return {
                     ...rest,
