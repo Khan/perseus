@@ -25,4 +25,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "plotter",
     "cs-program",
     "python-program",
+    "interaction",
 ];
