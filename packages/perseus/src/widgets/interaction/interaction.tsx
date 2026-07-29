@@ -79,32 +79,12 @@ function KAScompile(expr: any, options: KASOptions) {
 
 type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
-type DefaultProps = {
-    graph: Props["graph"];
-    elements: Props["elements"];
-};
-
 type State = {
     variables: any;
     functions: any;
 };
 
 class Interaction extends React.Component<Props, State> implements Widget {
-    static defaultProps: DefaultProps = {
-        graph: {
-            box: [400, 400],
-            labels: ["x", "y"],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            tickStep: [1, 1],
-            gridStep: [1, 1],
-            markings: "graph",
-        },
-        elements: [],
-    };
-
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
