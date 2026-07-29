@@ -25,29 +25,15 @@ type ExternalProps = WidgetProps<
 >;
 
 export type NumericInputProps = ExternalProps & {
-    size: NonNullable<ExternalProps["size"]>;
-    textAlign: NonNullable<ExternalProps["textAlign"]>;
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
-    coefficient: NonNullable<ExternalProps["coefficient"]>;
     // TODO(benchristel): answerForms is not actually passed to NumericInput.
     //  It seems to be here because this props type is reused by
     //  NumericInputComponent, which does take answerForms.
     //  Use separate prop types that reflect the actual props of each component.
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
 };
 
-type DefaultProps = Pick<
-    NumericInputProps,
-    | "size"
-    | "apiOptions"
-    | "coefficient"
-    | "answerForms"
-    | "labelText"
-    | "linterContext"
-    | "userInput"
->;
+type DefaultProps = Pick<NumericInputProps, "labelText">;
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
@@ -59,7 +45,7 @@ type DefaultProps = Pick<
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput
-> satisfies PropsFor<typeof NumericInput>;
+> satisfies Omit<PropsFor<typeof NumericInput>, "answerForms">;
 
 /**
  * The NumericInput widget is a numeric input field that supports a variety of
@@ -76,15 +62,7 @@ export class NumericInput
     inputRef = React.createRef<Focusable>();
 
     static defaultProps: DefaultProps = {
-        size: "normal",
-        apiOptions: ApiOptions.defaults,
-        coefficient: false,
-        answerForms: [],
         labelText: "",
-        linterContext: linterContextDefault,
-        userInput: {
-            currentValue: "",
-        },
     };
 
     focus: () => boolean = () => {
