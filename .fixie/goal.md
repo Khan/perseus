@@ -172,3 +172,33 @@ Internal: the Numeric Input widget is now a functional component.
 - Should `findPrecision`/`findCommonFractions` (exported only for tests) move to
   `utils.ts`, where the widget's other pure helpers already live?
     - Answer: no, this is out of scope.
+
+## Checklist
+
+- [ ] Add a test that mounting the widget fires exactly one
+      `perseus:widget:rendered:ti` analytics event, and that re-rendering with
+      new props fires no further events.
+- [ ] Add a test that the widget ref's `focus()` returns `true` and focuses the
+      input; add one that `getInputPaths()` returns `[[]]`.
+- [ ] Add a test that `focusInputPath()`/`blurInputPath()` focus and blur the
+      rendered input, in both the desktop (`InputWithExamples`) and mobile
+      (`apiOptions.customKeypad`) renderings.
+- [ ] Drop the `answerForms` prop: derive it inside `NumericInputComponent`
+      from `props.answers` via `normalizeCorrectAnswerForms`, retype its props
+      as plain `WidgetProps<PerseusNumericInputWidgetOptions,
+      PerseusNumericInputUserInput>`, and stop passing `answerForms` from the
+      class. Delete `NumericInputProps` and the `PropsFor` assertion's `Omit`.
+- [ ] Move the imperative `Widget` methods into `NumericInputComponent`: define
+      `WidgetHandle` as a `Pick<Widget, ...>` of `focus`, `focusInputPath`,
+      `blurInputPath`, `getInputPaths`, `getPromptJSON`, `getSerializedState`,
+      and implement them in the single `useImperativeHandle`. The class now
+      forwards its ref and delegates each method to it.
+- [ ] Delete `numeric-input.class.tsx`: move the pure helpers and the
+      `WidgetExports` default export into `numeric-input.tsx`, rename the
+      component to `NumericInput`, and drop the class.
+- [ ] Update importers to point at `./numeric-input`: `index.ts`,
+      `input-number/input-number.tsx`,
+      `widget-ai-utils/numeric-input/prompt-utils.ts`,
+      `__docs__/numeric-input.stories.tsx`, and `numeric-input.test.ts`.
+- [ ] Add a changeset: `patch` on `@khanacademy/perseus`, "Internal: the Numeric
+      Input widget is now a functional component."
