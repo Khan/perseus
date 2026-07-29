@@ -27,9 +27,6 @@ type Props = WidgetProps<
     PerseusCSProgramUserInput
 >;
 
-// The Widget-interface methods this component exposes via its ref.
-type WidgetHandle = Pick<Widget, "getPromptJSON" | "getSerializedState">;
-
 function getUrlFromProgramID(programID: any) {
     const {InitialRequestUrl} = getDependencies();
 
@@ -48,144 +45,142 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-const CSProgram = forwardRef<WidgetHandle, Props>(
-    function CSProgram(props, ref) {
-        const {strings, locale} = usePerseusI18n();
+const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
+    const {strings, locale} = usePerseusI18n();
 
-        const {
-            programID,
-            programType,
-            height,
-            settings,
-            showEditor = false,
-            showButtons = false,
-        } = props;
+    const {
+        programID,
+        programType,
+        height,
+        settings,
+        showEditor = false,
+        showButtons = false,
+    } = props;
 
-        // We receive data from the iframe that contains
-        // {testsPassed: true/false} and use that to set the status. It could
-        // also contain an optional message.
-        useEffect(() => {
-            const handleMessageEvent = (e: MessageEvent) => {
-                let data: Record<string, any> = {};
-                try {
-                    data = JSON.parse(e.data);
-                } catch {
-                    return;
-                }
-
-                if (data.testsPassed === undefined) {
-                    return;
-                }
-
-                const status = data.testsPassed ? "correct" : "incorrect";
-                props.handleUserInput({
-                    status: status,
-                    message: data.message,
-                });
-            };
-
-            window.addEventListener("message", handleMessageEvent);
-            return () => {
-                window.removeEventListener("message", handleMessageEvent);
-            };
-        }, [props]);
-
-        useImperativeHandle(ref, () => ({
-            getPromptJSON: (): UnsupportedWidgetPromptJSON => {
-                return _getPromptJSON();
-            },
-
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: (): any => {
-                const {userInput: _, alignment: __, ...rest} = props;
-                return {
-                    ...rest,
-                    programType: rest.programType || null,
-                };
-            },
-        }));
-
-        if (!programID) {
-            return <div />;
-        }
-
-        let styleContainer = false;
-        let url = getUrlFromProgramID(programID);
-        let className;
-
-        if (showEditor) {
-            url += "&editor=yes";
-            className = "perseus-scratchpad-editor";
-        } else {
-            url += `&editor=no&width=${articleMaxWidthInPx}`;
-            className = "perseus-scratchpad";
-            if (programType !== "webpage") {
-                styleContainer = true;
+    // We receive data from the iframe that contains
+    // {testsPassed: true/false} and use that to set the status. It could
+    // also contain an optional message.
+    useEffect(() => {
+        const handleMessageEvent = (e: MessageEvent) => {
+            let data: Record<string, any> = {};
+            try {
+                data = JSON.parse(e.data);
+            } catch {
+                return;
             }
-        }
 
-        if (showButtons) {
-            url += "&buttons=yes";
-        } else {
-            url += "&buttons=no";
-        }
+            if (data.testsPassed === undefined) {
+                return;
+            }
 
-        // Turn array of [{name: "", value: ""}] into object
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (settings) {
-            const settingsObject: Record<string, any> = {};
-            settings.forEach((setting) => {
-                if (setting.name && setting.value) {
-                    settingsObject[setting.name] = setting.value;
-                }
+            const status = data.testsPassed ? "correct" : "incorrect";
+            props.handleUserInput({
+                status: status,
+                message: data.message,
             });
-            // This becomes available to programs as Program.settings()
-            url = updateQueryString(
-                url,
-                "settings",
-                JSON.stringify(settingsObject),
-            );
+        };
+
+        window.addEventListener("message", handleMessageEvent);
+        return () => {
+            window.removeEventListener("message", handleMessageEvent);
+        };
+    }, [props]);
+
+    useImperativeHandle(ref, () => ({
+        getPromptJSON: (): UnsupportedWidgetPromptJSON => {
+            return _getPromptJSON();
+        },
+
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput: _, alignment: __, ...rest} = props;
+            return {
+                ...rest,
+                programType: rest.programType || null,
+            };
+        },
+    }));
+
+    if (!programID) {
+        return <div />;
+    }
+
+    let styleContainer = false;
+    let url = getUrlFromProgramID(programID);
+    let className;
+
+    if (showEditor) {
+        url += "&editor=yes";
+        className = "perseus-scratchpad-editor";
+    } else {
+        url += `&editor=no&width=${articleMaxWidthInPx}`;
+        className = "perseus-scratchpad";
+        if (programType !== "webpage") {
+            styleContainer = true;
         }
+    }
 
-        if (locale) {
-            url = updateQueryString(url, "lang", locale);
-        }
+    if (showButtons) {
+        url += "&buttons=yes";
+    } else {
+        url += "&buttons=no";
+    }
 
-        // Matches templates/scratchpads/embed_script.js: when the execute buttons
-        // are shown, the toolbar adds 66px of height and the border adds 1px.
-        const style = {
-            height: showButtons ? height + 67 : height,
-            width: "100%",
-        } as const;
-
-        const sandboxOptions = [
-            "allow-popups",
-            "allow-same-origin",
-            "allow-scripts",
-            "allow-top-navigation",
-        ].join(" ");
-
-        // We sandbox the iframe so that we allowlist only the functionality
-        //  that we need. This makes it a bit safer in case some content
-        //  creator "went wild".
-        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return (
-            <div className={css(styleContainer && styles.container)}>
-                <iframe
-                    title={strings.computerScienceProgram}
-                    sandbox={sandboxOptions}
-                    src={url}
-                    style={style}
-                    className={className}
-                    allowFullScreen={true}
-                />
-            </div>
+    // Turn array of [{name: "", value: ""}] into object
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (settings) {
+        const settingsObject: Record<string, any> = {};
+        settings.forEach((setting) => {
+            if (setting.name && setting.value) {
+                settingsObject[setting.name] = setting.value;
+            }
+        });
+        // This becomes available to programs as Program.settings()
+        url = updateQueryString(
+            url,
+            "settings",
+            JSON.stringify(settingsObject),
         );
-    },
-);
+    }
+
+    if (locale) {
+        url = updateQueryString(url, "lang", locale);
+    }
+
+    // Matches templates/scratchpads/embed_script.js: when the execute buttons
+    // are shown, the toolbar adds 66px of height and the border adds 1px.
+    const style = {
+        height: showButtons ? height + 67 : height,
+        width: "100%",
+    } as const;
+
+    const sandboxOptions = [
+        "allow-popups",
+        "allow-same-origin",
+        "allow-scripts",
+        "allow-top-navigation",
+    ].join(" ");
+
+    // We sandbox the iframe so that we allowlist only the functionality
+    //  that we need. This makes it a bit safer in case some content
+    //  creator "went wild".
+    // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+    return (
+        <div className={css(styleContainer && styles.container)}>
+            <iframe
+                title={strings.computerScienceProgram}
+                sandbox={sandboxOptions}
+                src={url}
+                style={style}
+                className={className}
+                allowFullScreen={true}
+            />
+        </div>
+    );
+});
 
 const styles = StyleSheet.create({
     // Note: we used to have a width override here to make sure the widget does
