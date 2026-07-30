@@ -1,8 +1,10 @@
-import type inputNumber from "../../widgets/input-number/input-number";
-import type React from "react";
-
 /**
  * JSON describing an InputNumber widget. Intended for consumption by AI tools.
+ *
+ * Nothing produces this shape any more: the input-number widget renders the
+ * numeric-input component, which reports itself as a `numeric-input` prompt.
+ * The type remains part of the public prompt-JSON union so consumers can still
+ * handle prompts recorded before that change.
  * An InputNumber displays a text field where users can enter numbers in a
  * variety of formats: decimals, integers, fractions, mixed numbers,
  * percentages, and multiples of pi. The allowed formats are configurable by
@@ -27,17 +29,5 @@ export type InputNumberPromptJSON = {
          * The text currently entered in the input field by the learner.
          */
         value: string;
-    };
-};
-
-export const getPromptJSON = (
-    widgetData: React.ComponentProps<typeof inputNumber.widget>,
-): InputNumberPromptJSON => {
-    return {
-        type: "input-number",
-        label: widgetData.labelText,
-        userInput: {
-            value: widgetData.userInput.currentValue,
-        },
     };
 };

@@ -6,7 +6,6 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {NumericInput} from "../numeric-input";
 import {
     decimalProblem,
     defaultQuestion,
@@ -35,9 +34,12 @@ const answersArray: string = `[
     }
 ]`;
 
-const meta: Meta<typeof NumericInput> = {
-    component: NumericInput,
+// Every story here renders a whole item and treats its args as the widget's
+// options, so the args describe options rather than component props. Each story
+// function types its own args; see `input-number.stories.tsx` for the same shape.
+const meta: Meta = {
     title: "Widgets/Numeric Input",
+    component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -50,7 +52,6 @@ const meta: Meta<typeof NumericInput> = {
     },
     args: {
         coefficient: false,
-        userInput: {currentValue: ""},
         textAlign: "left",
         size: "normal",
         answers: [
@@ -84,15 +85,6 @@ const meta: Meta<typeof NumericInput> = {
                 type: {
                     summary: "array",
                     detail: answersArray,
-                },
-            },
-        },
-        userInput: {
-            currentValue: {
-                control: {type: "text"},
-                description: "The current value of the input field",
-                table: {
-                    type: {summary: "string"},
                 },
             },
         },
@@ -132,25 +124,6 @@ const meta: Meta<typeof NumericInput> = {
             table: {
                 type: {summary: "string"},
                 defaultValue: {summary: "normal"},
-            },
-        },
-        static: {
-            control: {type: "boolean"},
-            description: "Always false.  Not used for this widget",
-            table: {
-                type: {summary: "boolean"},
-            },
-        },
-        // ApiOptions and linterContext are large objects and not particularly applicable to this story,
-        // so we're hiding them from view to simplify the UI.
-        apiOptions: {
-            table: {
-                disable: true,
-            },
-        },
-        linterContext: {
-            table: {
-                disable: true,
             },
         },
     },

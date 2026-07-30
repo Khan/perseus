@@ -3,12 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import {getPromptJSON} from "./input-number-ai-utils";
-
-import type {
-    PerseusRenderer,
-    PerseusInputNumberUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
@@ -53,29 +48,7 @@ describe("InputNumber AI utils", () => {
         });
     });
 
-    it("it returns JSON with the expected format and fields", () => {
-        const userInput: PerseusInputNumberUserInput = {
-            currentValue: "123",
-        };
-
-        const widgetData: any = {
-            simplify: "optional",
-            answerType: "integer",
-            userInput,
-        };
-
-        const resultJSON = getPromptJSON(widgetData);
-
-        expect(resultJSON).toEqual({
-            type: "input-number",
-            label: undefined,
-            userInput: {
-                value: "123",
-            },
-        });
-    });
-
-    it("should get prompt json which matches the state of the UI", async () => {
+    it("reports an input-number widget as a numeric-input prompt", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 

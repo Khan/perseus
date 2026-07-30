@@ -496,7 +496,7 @@ review and commit the changes.
 - [x] Convert `python-program` to a functional component, a la `dropdown`.
 - [x] Migrate `python-program` to `WidgetPropsV2`.
 - [x] Migrate `interaction` to `WidgetPropsV2`.
-- [ ] Migrate `numeric-input` and `input-number` (alias of `numeric-input`)
+- [x] Migrate `numeric-input` and `input-number` (alias of `numeric-input`)
       to `WidgetPropsV2`.
 
 ### Class / `ExternalProps` widgets
