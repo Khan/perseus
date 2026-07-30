@@ -31,7 +31,9 @@ export default meta;
 
 function RenderInDarkMode(renderer: PerseusRenderer): () => React.JSX.Element {
     return function Render() {
-        // This is needed to apply a fictitious dark mode theme to the body element.
+        // Apply the dark mode theme to the body element. The element with
+        // THEME_DATA_ATTRIBUTE needs to be outside the .framework-perseus
+        // element for our styles to work.
         useEffect(() => {
             setTimeout(() => {
                 document.body.setAttribute(
