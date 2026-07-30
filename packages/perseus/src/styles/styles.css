@@ -382,7 +382,10 @@
            default foreground color to dark so it will be light when inverted.
            If we don't do this, then math will inherit the theme's foreground
            color and invert it, resulting in dark-on-dark text.
+
+           The precise color used here is unimportant; off-black colors get
+           washed out by the brightness filter, so they end up as #fff anyway.
          */
-        color: #21242c;
+        color: black;
     }
 }
