@@ -42,6 +42,7 @@ type Props = WidgetProps<
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
 // defaultProps into account.
+// TODO(LEMS-4354): Remove these type assertions from all widgets.
 // eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusNumericInputWidgetOptions,
@@ -88,7 +89,7 @@ export const NumericInput = forwardRef<Widget, Props>(
 
             blurInputPath() {
                 if (inputRef.current) {
-                    inputRef.current?.blur();
+                    inputRef.current.blur();
                     setIsFocused(false);
                 }
             },
