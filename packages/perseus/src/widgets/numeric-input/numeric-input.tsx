@@ -282,37 +282,39 @@ function getCorrectUserInput(
     return {currentValue: ""};
 }
 
+function getOneCorrectAnswerFromRubric(
+    rubric: PerseusNumericInputRubric,
+): string | null | undefined {
+    const correctAnswers = rubric.answers.filter(
+        (answer) => answer.status === "correct",
+    );
+    const answerStrings = correctAnswers.map((answer) => {
+        // Either get the first answer form or default to decimal
+        const format: MathFormat =
+            answer.answerForms && answer.answerForms[0]
+                ? answer.answerForms[0]
+                : "decimal";
+
+        let answerString = KhanMath.toNumericString(answer.value!, format);
+        if (answer.maxError) {
+            answerString +=
+                " ± " + KhanMath.toNumericString(answer.maxError, format);
+        }
+        return answerString;
+    });
+    if (answerStrings.length === 0) {
+        return;
+    }
+    return answerStrings[0];
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
     isLintable: true,
     getCorrectUserInput,
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusNumericInputRubric,
-    ): string | null | undefined {
-        const correctAnswers = rubric.answers.filter(
-            (answer) => answer.status === "correct",
-        );
-        const answerStrings = correctAnswers.map((answer) => {
-            // Either get the first answer form or default to decimal
-            const format: MathFormat =
-                answer.answerForms && answer.answerForms[0]
-                    ? answer.answerForms[0]
-                    : "decimal";
-
-            let answerString = KhanMath.toNumericString(answer.value!, format);
-            if (answer.maxError) {
-                answerString +=
-                    " ± " + KhanMath.toNumericString(answer.maxError, format);
-            }
-            return answerString;
-        });
-        if (answerStrings.length === 0) {
-            return;
-        }
-        return answerStrings[0];
-    },
+    getOneCorrectAnswerFromRubric,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;
