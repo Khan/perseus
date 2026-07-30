@@ -99,11 +99,11 @@ export const NumericInput = forwardRef<Widget, Props>(
              * [LEMS-3185] do not trust serializedState
              */
             getSerializedState() {
-                const {userInput, options, ...universalProps} = props;
-                const {labelText, answers: _, ...optionFields} = options;
+                const {userInput, options, ...otherProps} = props;
+                const {labelText, answers: _, ...otherOptions} = options;
                 return {
-                    ...optionFields,
-                    ...universalProps,
+                    ...otherOptions,
+                    ...otherProps,
                     answerForms: [],
                     labelText: labelText ?? "",
                     currentValue: userInput.currentValue,

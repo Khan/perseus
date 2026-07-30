@@ -34,12 +34,8 @@ const answersArray: string = `[
     }
 ]`;
 
-// Every story here renders a whole item and treats its args as the widget's
-// options, so the args describe options rather than component props. Each story
-// function types its own args; see `input-number.stories.tsx` for the same shape.
-const meta: Meta = {
+const meta: Meta<PerseusNumericInputWidgetOptions> = {
     title: "Widgets/Numeric Input",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
         docs: {
