@@ -3,6 +3,8 @@ import * as React from "react";
 
 import MobileKeypadInternals from "../mobile-keypad-internals";
 
+import type {KeypadAPI} from "../../../types";
+
 describe("mobile keypad", () => {
     it("should render keypad when active", () => {
         // Arrange
@@ -114,7 +116,7 @@ describe("mobile keypad", () => {
 
     it("getDOMNode returns the keypad element while mounted", () => {
         // Arrange
-        let api: any;
+        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
 
         // Act
         render(
@@ -122,24 +124,18 @@ describe("mobile keypad", () => {
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
-                onElementMounted={(mounted) => {
-                    api = mounted;
-                }}
+                onElementMounted={onElementMounted}
             />,
         );
 
         // Assert
-        expect(api.getDOMNode()).toBeInstanceOf(HTMLElement);
+        const api = onElementMounted.mock.calls[0][0];
+        expect(api?.getDOMNode()).toBeInstanceOf(HTMLElement);
     });
 
     it("clears the element reference and returns null from getDOMNode on unmount", () => {
         // Arrange
-        let api: any;
-        const onElementMounted = jest.fn((mounted) => {
-            if (mounted) {
-                api = mounted;
-            }
-        });
+        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
         const {unmount} = render(
             <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}
@@ -152,9 +148,9 @@ describe("mobile keypad", () => {
         // Act
         unmount();
 
-        // Assert: consumers are told the element is gone, and reading the DOM
-        // node no longer throws "Unable to find node on an unmounted component".
+        // Assert
+        const api = onElementMounted.mock.calls[0][0];
         expect(onElementMounted).toHaveBeenLastCalledWith(null);
-        expect(api.getDOMNode()).toBeNull();
+        expect(api?.getDOMNode()).toBeNull();
     });
 });

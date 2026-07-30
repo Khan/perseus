@@ -19,7 +19,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 const AnimationDurationInMS = 200;
 
 type Props = {
-    onElementMounted?: (arg1: any) => void;
+    onElementMounted?: (api: KeypadAPI | null) => void;
     onDismiss?: () => void;
     style?: StyleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
@@ -97,10 +97,8 @@ class MobileKeypadInternals
         );
         this._containerResizeObserver?.disconnect?.();
 
-        // Notify consumers that the keypad element is gone so they don't hold
-        // on to a stale reference to this now-unmounted component (e.g.
-        // `KeypadContext.keypadElement`), which would otherwise let them call
-        // `getDOMNode` on an unmounted instance.
+        // Clear consumers' reference (e.g. `KeypadContext.keypadElement`) so
+        // they don't keep calling into an unmounted keypad.
         this.props.onElementMounted?.(null);
     }
 
@@ -159,12 +157,6 @@ class MobileKeypadInternals
     };
 
     getDOMNode: () => HTMLElement | null = () => {
-        // Return the container ref rather than `ReactDOM.findDOMNode(this)`.
-        // `findDOMNode` throws "Unable to find node on an unmounted component"
-        // when called after the keypad unmounts (which happens when consumers
-        // read the keypad's height on a deferred callback during teardown), and
-        // it is deprecated / removed in React 19. A ref resolves to `null`
-        // after unmount instead of throwing.
         return this._containerRef.current;
     };
 
