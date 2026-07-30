@@ -125,6 +125,7 @@ describe("widget-container", () => {
                 </Dependencies.DependenciesContext.Provider>,
             );
 
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
             return container.querySelector(".perseus-widget-container");
         };
 

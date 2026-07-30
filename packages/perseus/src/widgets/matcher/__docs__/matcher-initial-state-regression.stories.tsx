@@ -140,11 +140,6 @@ export const NarrowContainer: Story = {
 
 export const TallColorfulList: Story = {
     decorators: [matcherRendererDecorator],
-    // This story renders MathJax that can still be settling when Chromatic
-    // captures, causing flakiness. The delay helps to stabilize.
-    parameters: {
-        chromatic: {delay: 500},
-    },
     args: {
         labels: ["Term", "Color"],
         left: [

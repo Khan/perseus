@@ -60,9 +60,7 @@ export const Mobile: Story = {
 };
 
 export const Article = (): React.ReactNode => {
-    // Merge in the feature flags selected in the Storybook toolbar. Without
-    // this, ArticleRenderer falls back to its default apiOptions (which have no
-    // flags), so the toolbar's flag toggles have no effect on this story.
+    // Pull in the feature flags selected in the Storybook toolbar.
     const apiOptions = useStorybookApiOptions();
     return (
         <ArticleRenderer
