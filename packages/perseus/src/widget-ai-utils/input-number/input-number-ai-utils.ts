@@ -16,7 +16,7 @@ export type InputNumberPromptJSON = {
      * Shown to learners using screen readers to describe what value should
      * be entered.
      */
-    label: string;
+    label?: string;
 
     /**
      * The current state of the widget user interface. Usually represents a
