@@ -19,10 +19,7 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport, {
-    findCommonFractions,
-    findPrecision,
-} from "./numeric-input";
+import NumericInputWidgetExport from "./numeric-input";
 import {
     correctAndWrongAnswers,
     duplicatedAnswers,
@@ -33,6 +30,7 @@ import {
     question1AndAnswer,
     withCoefficient,
 } from "./numeric-input.testdata";
+import {findCommonFractions, findPrecision} from "./utils";
 
 import type {
     PerseusItem,
