@@ -368,8 +368,8 @@
 [data-wb-theme$="-dark"] .framework-perseus {
     img[src$=".png"],
     img[src$=".svg"],
-    .mathjax-wrapper
-    {
+    .graphie-label,
+    .mathjax-wrapper:not(.graphie-label *) {
         /* This filter is applied to all PNG/SVG images,
            and to the content of Graphie images (text labels, etc.),
            and to any MathJax.
