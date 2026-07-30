@@ -47,7 +47,7 @@ type Props = WidgetPropsV2<
  * The NumericInput widget is a numeric input field that supports a variety of
  * answer forms, including integers, decimals, fractions, and mixed numbers.
  */
-export const NumericInput = forwardRef<Widget, Props>(
+const NumericInput = forwardRef<Widget, Props>(
     function NumericInput(props, ref) {
         const {analytics} = useDependencies();
         const context = useContext(PerseusI18nContext);
