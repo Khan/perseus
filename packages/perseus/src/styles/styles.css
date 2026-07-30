@@ -368,13 +368,12 @@
 [data-wb-theme$="-dark"] .framework-perseus {
     img[src$=".png"],
     img[src$=".svg"],
-    .graphie-label,
-    .mathjax-wrapper:not(.graphie-label *) {
-        /* This filter is applied to all PNG/SVG images,
-           and to the content of Graphie images (text labels, etc.),
-           and to any MathJax.
-           It leaves JPEGs & GIFs untouched.
-        */
+    .graphie,
+    .mathjax-wrapper:not(.graphie *) {
+        /* This filter is applied to PNG/SVG images, Graphie (e.g. label
+           text), and MathJax. MathJax inside Graphie labels is excluded so it
+           doesn't get double-inverted. JPEGs & GIFs are untouched.
+         */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
 
