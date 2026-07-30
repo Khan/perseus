@@ -287,8 +287,13 @@ function getAsymptotePositions(
 //
 // Tracked upstream: https://github.com/stevenpetryk/mafs/issues/133
 //
-// To remove this workaround:
-// 1. Delete getPlotSegments() and getAsymptotePositions()
+// This workaround is expected to stay: the upstream fix was declined (LEMS-4010
+// "Won't Do"). See __docs__/notes/mafs-workarounds.md for the rationale.
+//
+// If it is ever removed (would require the upstream "discontinuities prop" fix):
+// 1. Delete getPlotSegments(). KEEP getAsymptotePositions() — since LEMS-4100 it
+//    also feeds the visible dashed asymptote lines (TangentAsymptotes), not just
+//    the segment splitting, so it can't be removed.
 // 2. Replace the segments.map(...) in TangentGraph with a single:
 //    <Plot.OfX y={(x) => computeTangent(x, coeffs)}
 //        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />

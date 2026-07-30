@@ -25,14 +25,13 @@ as context for future development and Claude Code sessions.
 | `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for logarithm |
 | `mafs-state-to-interactive-graph.ts` | Logarithm state → persisted data conversion |
 | `types.ts` | `LogarithmGraphState` (coords + asymptote + snapStep) |
-| `interactive-graph.tsx` | `getLogarithmEquationString()`, `defaultLogarithmCoords()` |
-| `interactive-graph-question-builder.ts` | `withLogarithm()` test helper |
-| `interactive-graph.testdata.ts` | `logarithmQuestion` fixture |
+| `get-equation-string.ts` | `getLogarithmEquationString()`, `defaultLogarithmCoords()` (the `getEquationString` switch dispatches here; `interactive-graph.tsx` only delegates) |
+| `interactive-graph.testdata.ts` | `logarithmQuestion` fixture (built via `generateIGLogarithmGraph` + `generateInteractiveGraphQuestion`) |
 | `@khanacademy/kmath` `coefficients.ts` | `getLogarithmCoefficients()` — shared math utility |
 | `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeLogarithm`, `LogarithmGraphCorrect` |
-| `@khanacademy/perseus-score` `score-interactive-graph.ts` | Logarithm scoring block |
-| `@khanacademy/perseus-editor` `start-coords-logarithm.tsx` | Editor start coords UI |
-| `__docs__/interactive-graph-asymptote-regression.stories.tsx` | Drag handle visual regression stories (shared with exponential) |
+| `@khanacademy/perseus-score` `sub-scorers/score-logarithm.ts` | `scoreLogarithm()` (`score-interactive-graph.ts` dispatches to it) |
+| `@khanacademy/perseus-editor` `start-coords/start-coords-logarithm.tsx` | Editor start coords UI |
+| `__docs__/interactive-graph-interactions-regression.stories.tsx` | Asymptote drag-handle visual regression stories (shared with exponential) |
 
 ### Data Flow
 
@@ -99,7 +98,11 @@ applies to the exponential graph.
 - These are controlled by CSS variables `--movable-asymptote-stroke-weight`,
   `--movable-asymptote-dash-length`, and `--movable-asymptote-dash-gap` in `mafs-styles.css`,
   activated via `:hover`, `:focus-visible`, and `.movable-dragging` selectors.
-- The entire line is draggable (not just the handle) via a transparent 44px-wide SVG hit target.
+- Pointer/touch dragging is captured by a 48px HTML hitbox box centered on the pill handle
+  (`HANDLE_HITBOX_SIZE_PX`, see [Decision 7](#decisions-log)), **not** the full line. The
+  transparent full-line `SVGLine` (`TARGET_SIZE = 44`) remains as a visual affordance and for
+  keyboard focus, but no longer carries a pointer gesture — so dragging along the line away from
+  the handle is not possible for pointer/touch.
 - A pill-shaped drag handle (`AsymptoteDragHandle`) is rendered at the midpoint:
   - **Active state** (hovered, focused, or dragging): 12px × 22px pill with 6 white grip dots (2×3 grid)
   - **Inactive state** (default): 6px × 16px pill, no grip dots
@@ -148,7 +151,7 @@ applies to the exponential graph.
 
 - Coefficients `{a, b, c}` are computed for both user answer and rubric using
   `getLogarithmCoefficients()`.
-- Comparison uses `approximateDeepEqual` on the coefficient objects.
+- Comparison uses `approximateDeepEqual` on the `[a, b, c]` coefficient arrays.
 - No canonical normalization needed (logarithm has no periodic equivalences).
 - Two different sets of control points that produce the same curve score as correct.
 - Returns `invalid` if coords or asymptote are missing, or coefficient computation fails.
@@ -165,15 +168,18 @@ applies to the exponential graph.
 
 ### Editor
 
-- "Logarithm function" appears in the graph type selector, gated by `interactive-graph-logarithm` feature flag.
-- `StartCoordsLogarithm` component provides: two coordinate pair inputs, a single number
-  input for asymptote x-position, and equation display showing `y = a * ln(b*x + c)`.
-- CSS module styling (not Aphrodite), following `start-coords-exponential.module.css` pattern.
+- "Logarithmic function" appears unconditionally in the graph type selector
+  (`graph-type-selector.tsx`). It is not behind a feature flag (there is no
+  `interactive-graph-logarithm` flag).
+- `StartCoordsLogarithm` component provides: two coordinate pair inputs and a single number
+  input for asymptote x-position (`getLogarithmEquation` from `./util` supplies the equation
+  string).
+- CSS module styling (not Aphrodite) via the shared `start-coords-shared.module.css`.
 
 ### Mobile
 
 - All interactions (drag points, drag asymptote) work via touch.
-- The 44px transparent hit target on the asymptote ensures adequate touch target size.
+- The 48px HTML handle hitbox (Decision 7) provides an adequate touch target on the pill handle.
 - Focus follows the dragged element on touch as well as pointer drags. Touch input
   doesn't move DOM focus the way a click does, so both `MovableAsymptote` and
   `useControlPoint` programmatically focus their group on drag start. Without this
@@ -270,15 +276,15 @@ Alternatives evaluated and rejected:
 ### `LogarithmGraphState`
 
 ```typescript
-interface LogarithmGraphState {
+interface LogarithmGraphState extends InteractiveGraphStateCommon {
     type: "logarithm";
-    coords: [Coord, Coord];    // Two curve control points
-    asymptote: number;          // X-value of the vertical asymptote
-    snapStep: vec.Vector2;
-    range: [Interval, Interval];
-    hasBeenInteractedWith: boolean;
+    coords: [vec.Vector2, vec.Vector2]; // Two curve control points
+    asymptote: number;                   // X-value of the vertical asymptote
 }
 ```
+
+`InteractiveGraphStateCommon` supplies the shared fields (`snapStep`, `range`,
+`hasBeenInteractedWith`, etc.).
 
 ### Actions
 
@@ -303,9 +309,10 @@ Reuses existing action creators (no new action types):
 
 ### Defaults
 
-`getLogarithmCoords()` returns default coords using normalized fractions `[0.55, 0.55]` and
-`[0.75, 0.75]` to ensure both points are to the right of the default asymptote at x=0
-(x=0.5 would land exactly on the asymptote after normalization).
+`getLogarithmCoords()` returns default coords using normalized fractions `[0.6, 0.55]` and
+`[0.75, 0.75]` (`[0.6, 0.55]` normalizes to `(2, 1)` in a `[-10, 10]` range) to ensure both
+points are to the right of the default asymptote at x=0 (x=0.5 would land exactly on the
+asymptote after normalization).
 
 ## Decisions Log
 
@@ -346,7 +353,8 @@ Numbered decisions with rationale for future context.
    the focusable SVG `<g role="button">` (a second `useDraggable`). The transparent full-line
    `SVGLine` is kept as the visual hit affordance but no longer carries a pointer gesture, so
    touches along the line away from the handle fall through to page scroll. The pill handle
-   provides the visual affordance.
+   provides the visual affordance. (This is one of two Mafs workarounds — see
+   [mafs-workarounds.md](./mafs-workarounds.md).)
 
 8. **Dynamic domain offset for curve-asymptote visual continuity** — The domain offset is
    computed from the current coefficients by solving for the x where y reaches a target
@@ -441,9 +449,11 @@ The Grapher widget has a complete logarithm implementation that served as the ma
 
 ## Visual Regression Testing
 
-A dedicated stories file (`interactive-graph-asymptote-regression.stories.tsx`) covers all drag
-handle visual states for both logarithm and exponential graphs. Located at
-"Widgets/Interactive Graph/Visual Regression Tests/Asymptote Drag Handle" in Storybook.
-Stories use `play` functions to programmatically focus elements, making states visible in both
-the Storybook UI and Chromatic snapshots. Follows the radio widget interaction regression pattern
-(`tags: ["!autodocs"]`).
+Asymptote drag-handle visual states for both logarithm and exponential live in
+`__docs__/interactive-graph-interactions-regression.stories.tsx` (Storybook title "Widgets/
+Interactive Graph/Visual Regression Tests/Interactions"), e.g. `LogarithmDragHandleDefault`,
+`LogarithmDragHandleFocused`, `LogarithmDragHandleNoOverlap`,
+`LogarithmPointFocusedHandleInactive`. The default logarithm render is covered by
+`DefaultLogarithmGraph` in `interactive-graph-initial-state-regression.stories.tsx` ("…/Initial
+State"). Stories use `play` functions to programmatically focus elements, making states visible in
+both the Storybook UI and Chromatic snapshots (`tags: ["!autodocs", "!manifest"]`).

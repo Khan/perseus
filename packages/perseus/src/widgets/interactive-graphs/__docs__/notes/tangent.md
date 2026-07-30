@@ -24,13 +24,14 @@ as context for future development and Claude Code sessions.
 | `graphs/components/svg-line.tsx` | Low-level reusable SVG `<line>` (used by `DashedAsymptoteLine` and other components) |
 | `graphs/strings/tangent.ts` | `describeTangentGraph()` and the SR graph description (`buildTangentDescription`) |
 | `reducer/interactive-graph-reducer.ts` | `movePoint` case for tangent (same-x rejection) |
-| `reducer/initialize-graph-state.ts` | Default coords + snap step |
+| `reducer/initialize-graph-state.ts` | `getTangentCoords()` — default coords |
 | `types.ts` | `TangentGraphState` (coords + snapStep) |
-| `interactive-graph.tsx` | Registers the tangent graph type |
-| `@khanacademy/kmath` `coefficients.ts` | `getTangentCoefficients()` — shared math utility |
+| `mafs-graph.tsx` | Registers the tangent graph type (`renderTangentGraph` in the `renderGraphElements` switch) |
+| `graphs/tangent.tsx` (local) | `getTangentCoefficients()` — **render-path** helper returning a named object (`{amplitude, angularFrequency, phase, verticalOffset}`) |
+| `@khanacademy/kmath` `coefficients.ts` | `getTangentCoefficients()` — **scoring-path** helper returning a tuple `[a, b, c, d]` (same name, different shape) |
 | `@khanacademy/kmath` `geometry.ts` | `canonicalTangentCoefficients()` — canonical form for scoring |
 | `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeTangent`, `TangentGraphCorrect` |
-| `@khanacademy/perseus-score` `score-interactive-graph.ts` | Tangent scoring block |
+| `@khanacademy/perseus-score` `sub-scorers/score-tangent.ts` | `scoreTangent()` — tangent scoring (`score-interactive-graph.ts` dispatches to it) |
 | `@khanacademy/perseus-editor` `graph-type-selector.tsx` | "Tangent function" option |
 
 ### Data Flow
@@ -110,8 +111,10 @@ User interaction (drag/keyboard)
 
 ### Scoring
 
-- Coefficients `{amplitude, angularFrequency, phase, verticalOffset}` are computed for both the
-  user answer and the rubric via `getTangentCoefficients()`.
+- Coefficients `[a, b, c, d]` (amplitude, angular frequency, phase, vertical offset) are computed
+  for both the user answer and the rubric via kmath's `getTangentCoefficients()` (`score-tangent.ts`).
+  Note this is the **tuple-returning** kmath helper — distinct from the same-named object-returning
+  helper the render component uses locally in `tangent.tsx`.
 - Both are normalized to canonical form (`canonicalTangentCoefficients()`) before comparison
   with `approximateDeepEqual`, so two different point placements that produce the same curve
   score as correct.
@@ -124,8 +127,8 @@ User interaction (drag/keyboard)
 ### Accessibility
 
 - `aria-label` on the graph container (`srTangentGraph`).
-- Localized labels for each point (`srTangentInflectionPoint`, `srTangentSecondPoint`), with
-  custom author `pointLabels` taking precedence.
+- Localized labels for each point (`srTangentInflectionPoint`, `srTangentControlPoint` — renders
+  as "Control point at X comma Y"), with custom author `pointLabels` taking precedence.
 - The graph description (`buildTangentDescription`) states the two points, whether the curve
   is increasing or decreasing through the inflection point, the period, and the **positions of
   the nearest vertical asymptotes** (`srTangentAsymptotes`). The asymptotes are therefore
@@ -174,16 +177,23 @@ the graph keeps drawing until a valid configuration returns.
 unwanted vertical lines across discontinuities.
 
 **Workaround:** Split the curve into separate `<Plot.OfX>` components, one per segment between
-asymptotes (`getPlotSegments()`), each getting its own SVG `<path>`. Isolated in
-`getPlotSegments()` / `getAsymptotePositions()` so it is easy to remove later.
+asymptotes (`getPlotSegments()`), each getting its own SVG `<path>`. This is deterministic — it
+breaks the curve at the computed asymptote positions regardless of where Mafs samples.
 
 - **Tracked upstream:** https://github.com/stevenpetryk/mafs/issues/133
 - **Prior research:** LEMS-2262.
 
-**To remove this workaround** once Mafs uses `M` (moveTo) after non-finite gaps:
+**This workaround is expected to stay.** The upstream fix was declined — **LEMS-4010 (open a Mafs
+PR) is Won't Do**, and the upstream issue/draft PR have been inactive since 2024. The full rationale
+(why the proposed `lineTo → moveTo` change wouldn't reliably remove this workaround, and why the
+robust "discontinuities prop" fix isn't worth pursuing) is in
+[mafs-workarounds.md](./mafs-workarounds.md).
 
-1. Delete `getPlotSegments()`. (Keep `getAsymptotePositions()` — the visible asymptote lines
-   still need it.)
+**If it is ever removed** (would require the upstream "discontinuities prop" fix to land + a Mafs
+version bump):
+
+1. Delete `getPlotSegments()`. **Keep `getAsymptotePositions()`** — since LEMS-4100 it also feeds the
+   visible dashed asymptote lines (`TangentAsymptotes`), not just the segment splitting.
 2. Replace the `segments.map(...)` in `TangentGraph` with a single `<Plot.OfX>` covering the
    full x-range.
 
@@ -268,11 +278,13 @@ derived, not stored.
 
 The Grapher widget has a tangent graph type that served as the mathematical reference:
 
-- `packages/perseus-core/src/utils/grapher-util.ts` — `getTangentCoefficients`, equation string
-  generation, and its own `canonicalTangentCoefficients()` (guarantees both `a > 0` and `b > 0`
-  via a `phase += period/2` step, unlike the kmath version). Historically contained a
-  `"sin("` → `"tan("` label bug, fixed separately on `LEMS-3984/fix-grapher-tangent-label`.
-- `packages/perseus-core/src/utils/grapher-types.ts` — `TangentPlotDefaults`.
-- `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher tangent scoring.
+- `packages/perseus-core/src/utils/grapher-util.ts` — the `Tangent` object, whose
+  `getCoefficients` method and equation-string generation are the math reference. Historically
+  contained a `"sin("` → `"tan("` label bug, fixed separately on
+  `LEMS-3984/fix-grapher-tangent-label`.
+- `packages/perseus-core/src/utils/grapher-types.ts` — `TangentType`.
+- `packages/perseus-score/src/widgets/grapher/score-grapher.ts` — Grapher tangent scoring. Note
+  it reuses **kmath's** `canonicalTangentCoefficients()` (there is no grapher-local canonical
+  helper).
 </content>
 </invoke>

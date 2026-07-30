@@ -45,7 +45,7 @@ export type PerseusGraphTypeVectorSum = {
 };
 ```
 
-Then add it to the `PerseusGraphType` union (~line 905):
+Then add it to the `PerseusGraphType` union (~line 1130):
 
 ```typescript
 export type PerseusGraphType =
@@ -55,7 +55,12 @@ export type PerseusGraphType =
     | PerseusGraphTypeVectorSum; // add here
 ```
 
-Then register it in parsePerseusGraphType:
+Then register the parser branch — this lives in a **different file**:
+
+**File:** `packages/perseus-core/src/parse-perseus-json/perseus-parsers/interactive-graph-widget.ts`
+
+Add a `parsePerseusGraphTypeVectorSum` parser (`object({...})`) and wire it into
+`parsePerseusGraphType` (~line 188) as a new `.withBranch(...)`:
 
 ```typescript
   export const parsePerseusGraphType = discriminatedUnionOn("type")
@@ -137,7 +142,7 @@ export const actions = {
 
 **File:** `packages/perseus/src/widgets/interactive-graphs/reducer/initialize-graph-state.ts`
 
-Add a `case` to the `initializeGraphState` switch (~line 42) to convert the `PerseusGraphType` → `InteractiveGraphState`:
+Add a `case` to the `initializeGraphState` switch (~line 52) to convert the `PerseusGraphType` → `InteractiveGraphState`:
 
 ```typescript
 case "vector-sum":
@@ -175,7 +180,7 @@ This function is also exported and used by the editor's `StartCoordsSettings` co
 
 **File:** `packages/perseus/src/widgets/interactive-graphs/reducer/interactive-graph-reducer.ts`
 
-Add handling for your new action in the main switch statement (~line 86). You can either add a new `case` at the top level or extend an existing one if your action type is shared (e.g., `MOVE_POINT`):
+Add handling for your new action in the main switch statement (~line 101). You can either add a new `case` at the top level or extend an existing one if your action type is shared (e.g., `MOVE_POINT`):
 
 ```typescript
 case MOVE_VECTOR_SUM_POINT:
@@ -261,7 +266,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {MovablePoint} from "./components/movable-point";
 import type {Dispatch, InteractiveGraphElementSuite, MafsGraphProps} from "../types";
 import type {VectorSumGraphState} from "../types";
-import type {I18nContextType} from "../../../strings";
+import type {I18nContextType} from "../../../components/i18n-context";
 
 export function renderVectorSumGraph(
     state: VectorSumGraphState,
@@ -301,7 +306,9 @@ function getVectorSumDescription(
     i18n: I18nContextType,
 ): React.ReactNode {
     // Return a screen-reader description of the graph's current state.
-    // See graphs/screenreader-text.ts for helper utilities.
+    // The convention is to put this builder in graphs/strings/<type>.ts as a
+    // describeXxxGraph(state, i18n) function (see graphs/strings/vector.ts), using the
+    // helpers in graphs/strings/format-number.ts and graphs/strings/coord-quadrant.ts.
     return null;
 }
 ```
@@ -336,11 +343,12 @@ These strings are consumed by your graph component (Step 7) via `usePerseusI18n(
 
 
 Reusable components available in `graphs/components/`:
-- `MovablePoint` — draggable point with keyboard support
-- `MovableLine` — draggable line segment
-- `useControlPoint` — hook for controlling a single draggable point
-- `Hairlines` — crosshair lines extending from a point
-- `TextLabel`, `AngleIndicator`, `Arrowhead`, `SvgLine` — rendering utilities
+- `MovablePoint` — draggable point with keyboard support (`movable-point.tsx`)
+- `MovableLine` — draggable line segment (`movable-line/movable-line.tsx`)
+- `useControlPoint` — hook for controlling a single draggable point (`use-control-point.tsx`)
+- `Hairlines` — crosshair lines extending from a point (`hairlines.tsx`)
+- `TextLabel` (`text-label.tsx`), `Arrowhead` (`arrowhead.tsx`), `SVGLine` (`svg-line.tsx`) — rendering utilities
+- `Angle` / `PolygonAngle` — angle indicators (`angle-indicators.tsx`)
 
 ---
 
@@ -354,7 +362,7 @@ Import your render function at the top:
 import {renderVectorSumGraph} from "./graphs/vector-sum";
 ```
 
-Add a `case` to the `renderGraphElements` switch (~line 748):
+Add a `case` to the `renderGraphElements` switch (~line 825):
 
 ```typescript
 case "vector-sum":
@@ -365,19 +373,21 @@ The `default` branch of this switch uses `UnreachableCaseError`, so TypeScript w
 
 Register the equation string
 
-File: `packages/perseus/src/widgets/interactive-graphs/interactive-graph.tsx`
+File: `packages/perseus/src/widgets/interactive-graphs/get-equation-string.ts`
 
-Add a case in `getEquationString()` so the editor can display the current equation to content creators:
+`getEquationString()` is a **module-level free function** here (the `getEquationString` static
+on `InteractiveGraph` in `interactive-graph.tsx` just delegates to it). Add a `case` to its
+`switch (type)` (~line 631) that calls a per-type free function:
 
 ```typescript
 case "vector-sum":
-    return InteractiveGraph.getVectorSumEquationString(props);
+    return getVectorSumEquationString(props);
 ```
 
-Then implement the static method:
+Then implement the free function in the same file (not a static method):
 
 ```typescript
-static getVectorSumEquationString(props: Props): string {
+function getVectorSumEquationString(props: Props): string {
   const userInput = props.userInput;
   if (userInput.type !== "vector-sum" || !userInput.coords) {
       return "";
@@ -415,37 +425,23 @@ Keep the dispatcher branch a thin guard — all comparison logic belongs in the 
 
 **File:** `packages/perseus-editor/src/widgets/interactive-graph-editor/components/graph-type-selector.tsx`
 
-Add an `<OptionItem>` for the new type (~line 18):
+The selector renders a single `TypedSingleSelect<GraphType>` whose `options` is an object
+literal mapping each type string to its display label. Add a key for your new type:
 
 ```tsx
-<OptionItem value="vector-sum" label="Vector Sum" />
+options={{
+    none: "None",
+    "absolute-value": "Absolute value function",
+    // ... existing types ...
+    "vector-sum": "Vector Sum", // add here
+}}
 ```
 
-#### Optional: Gate the option behind a feature flag
-
-If your graph type is not yet ready for all content creators, you can hide it behind a feature flag. The component already receives `apiOptions` as a prop, which carries feature flag data from the host application.
-
-1. Import `isFeatureOn` from `@khanacademy/perseus-core`.
-2. Call it at the top of the component body, passing `apiOptions` and your flag name:
-
-```tsx
-import {isFeatureOn} from "@khanacademy/perseus-core";
-
-const showVectorSum = isFeatureOn(
-    {apiOptions: props.apiOptions},
-    "interactive-graph-vector-sum",
-);
-```
-
-3. Render the `<OptionItem>` conditionally:
-
-```tsx
-{showVectorSum && (
-    <OptionItem value="vector-sum" label="Vector Sum" />
-)}
-```
-
-Remove the flag and render the `<OptionItem>` unconditionally once the graph type is fully launched.
+**Note on feature-gating:** This component does **not** gate options behind feature flags —
+every type is listed unconditionally, and `isFeatureOn`/`apiOptions` are not used here. The
+recently added types (exponential, logarithm, tangent, absolute-value, vector) shipped without
+flag gating in this selector. If you need to gate a not-yet-ready type, do it upstream of this
+component; don't add an `isFeatureOn` call here expecting an existing pattern to follow.
 
 ---
 
@@ -459,7 +455,7 @@ Import your `getVectorSumCoords` helper (it must be exported from `initialize-gr
 import {getVectorSumCoords} from "@khanacademy/perseus";
 ```
 
-Add a `case` to the `StartCoordsSettingsInner` switch (~line 44) to show coordinate inputs for authors:
+Add a `case` to the `StartCoordsSettingsInner` switch (~line 63) to show coordinate inputs for authors:
 
 ```typescript
 case "vector-sum":
@@ -501,7 +497,8 @@ This file provides structured prompt data for AI-powered features (e.g., hints, 
 Add a type for your graph's options and user input:
 
 ```typescript
-type VectorSumGraphOptions = BaseGraphOptions & {
+type VectorSumGraphOptions = {
+    type: "vector-sum";
     startCoords?: CollinearTuple;
 };
 
@@ -556,15 +553,18 @@ Both functions have `UnreachableCaseError` on the default branch, so TypeScript 
 | What | File | Notes |
 |------|------|-------|
 | Public data type | `perseus-core/src/data-schema.ts` | Add `PerseusGraphTypeXxx` and add to `PerseusGraphType` union |
+| Parser branch | `perseus-core/src/parse-perseus-json/perseus-parsers/interactive-graph-widget.ts` | Add `parsePerseusGraphTypeXxx` and a `.withBranch("xxx", …)` |
 | Internal state type | `interactive-graphs/types.ts` | Add `XxxGraphState`, add to `InteractiveGraphState` union |
 | Actions | `reducer/interactive-graph-action.ts` | Add constants, interfaces, factory fns, and entry in `actions` |
 | State initialization | `reducer/initialize-graph-state.ts` | Add `case` in `initializeGraphState`, implement `getXxxCoords()` |
 | Reducer transitions | `reducer/interactive-graph-reducer.ts` | Add `case` in main switch, implement `doXxx()` functions |
 | Gradable output | `reducer/interactive-graph-state.ts` | Add `if` branch in `getGradableGraph()` |
 | Graph component | `graphs/xxx.tsx` (new file) | Implement `renderXxxGraph()` and graph React component |
+| SR description | `graphs/strings/xxx.ts` (new file) | Implement `describeXxxGraph(state, i18n)` |
 | Render dispatch | `mafs-graph.tsx` | Import and add `case` in `renderGraphElements()` switch |
-| Scoring | `perseus-score/.../score-interactive-graph.ts` | Add `else if` branch in `scoreInteractiveGraph()` |
-| Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add `<OptionItem>`; optionally gate with `isFeatureOn()` |
+| Equation string | `interactive-graphs/get-equation-string.ts` | Add `case` in `getEquationString()` + a `getXxxEquationString()` free function |
+| Scoring | `perseus-score/.../sub-scorers/score-xxx.ts` (new file) | Implement `scoreXxx()`; wire an `else if` branch into `score-interactive-graph.ts` |
+| Editor selector | `interactive-graph-editor/components/graph-type-selector.tsx` | Add a key to the `TypedSingleSelect` `options` object |
 | Editor start coords | `interactive-graph-editor/start-coords/start-coords-settings.tsx` | Add `case` in switch |
 | Editor answer options | `interactive-graph-editor/components/xxx-answer-options.tsx` | New file if type-specific controls needed |
 | AI utils | `widget-ai-utils/interactive-graph/interactive-graph-ai-utils.ts` | Add types, `getGraphOptionsForProps()` case, `getUserInput()` case |
