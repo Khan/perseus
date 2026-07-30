@@ -114,10 +114,12 @@ describe("CombinedHintsEditor", () => {
             />,
         );
 
-        const removeButton = screen.getAllByText("Remove this hint")[0];
-        const addButton = screen.getByText("Add a hint");
+        const removeButton = screen.getAllByRole("button", {
+            name: "Remove this hint",
+        })[0];
+        const addButton = screen.getByRole("button", {name: "Add a hint"});
 
-        expect(removeButton).toBeDisabled();
-        expect(addButton).toBeDisabled();
+        expect(removeButton).toHaveAttribute("aria-disabled", "true");
+        expect(addButton).toHaveAttribute("aria-disabled", "true");
     });
 });

@@ -20,7 +20,7 @@ export function srVectorPointLabel(
     // Index 0 is the vector's tail (generic point label); index 1 is the tip,
     // which has a dedicated label.
     return state.pointIndex === 0
-        ? strings.srPointAtCoordinates({num: 1, x, y})
+        ? strings.srPointAtCoordinates({pointLabel: "1", x, y})
         : strings.srVectorHeadPoint({x, y});
 }
 

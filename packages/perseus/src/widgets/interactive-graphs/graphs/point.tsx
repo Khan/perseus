@@ -71,10 +71,10 @@ function PointGraph(props: Props) {
     };
 
     if (numPoints === "unlimited") {
-        return UnlimitedPointGraph(statefulProps);
+        return <UnlimitedPointGraph {...statefulProps} />;
     }
 
-    return LimitedPointGraph(statefulProps);
+    return <LimitedPointGraph {...statefulProps} />;
 }
 
 function LimitedPointGraph(statefulProps: StatefulProps) {
@@ -124,6 +124,7 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
             <rect
+                data-testid="unlimited-point-graph-add-target"
                 style={{
                     // Make this rectangle invisible.
                     fill: "none",

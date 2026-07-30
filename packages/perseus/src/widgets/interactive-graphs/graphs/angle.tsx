@@ -9,7 +9,6 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {Angle} from "./components/angle-indicators";
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
@@ -52,19 +51,8 @@ function AngleGraph(props: AngleGraphProps) {
     const id = React.useId();
     const descriptionId = id + "-description";
 
-    const {
-        coords,
-        pointLabels,
-        showAngles,
-        range,
-        allowReflexAngles,
-        snapDegrees,
-    } = graphState;
-    // pointLabels is indexed by `coords`: [0]=ending side, [1]=vertex,
-    // [2]=starting side. The MovablePoints below are rendered in a
-    // different order (vertex first), so each call site indexes pointLabels
-    // by the coords slot it is bound to.
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, showAngles, range, allowReflexAngles, snapDegrees} =
+        graphState;
 
     // Break the coords into the two end points and the center point
     const endPoints: [vec.Vector2, vec.Vector2] = [coords[0], coords[2]];
@@ -143,7 +131,7 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(1, destination))
                 }
-                ariaLabel={buildLabel(1, coords[1]) ?? srAngleVertex}
+                ariaLabel={srAngleVertex}
             />
             {/* side 1 */}
             <MovablePoint
@@ -157,7 +145,7 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(0, destination))
                 }
-                ariaLabel={buildLabel(0, coords[0]) ?? srAngleEndingSide}
+                ariaLabel={srAngleEndingSide}
             />
             {/* side 2 */}
             <MovablePoint
@@ -171,7 +159,7 @@ function AngleGraph(props: AngleGraphProps) {
                 onMove={(destination: vec.Vector2) =>
                     dispatch(actions.angle.movePoint(2, destination))
                 }
-                ariaLabel={buildLabel(2, coords[2]) ?? srAngleStartingSide}
+                ariaLabel={srAngleStartingSide}
             />
             <SRDescInSVG id={descriptionId}>
                 {srAngleGraphAriaDescription}

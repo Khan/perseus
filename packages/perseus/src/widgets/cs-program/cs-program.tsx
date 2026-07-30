@@ -3,11 +3,9 @@
  */
 
 import {StyleSheet, css} from "aphrodite";
-import $ from "jquery";
-import * as React from "react";
-import _ from "underscore";
+import React, {forwardRef, useEffect, useImperativeHandle} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
@@ -29,11 +27,8 @@ type Props = WidgetProps<
     PerseusCSProgramUserInput
 >;
 
-type DefaultProps = {
-    showEditor: Props["showEditor"];
-    showButtons: Props["showButtons"];
-    userInput: Props["userInput"];
-};
+// The Widget-interface methods this component exposes via its ref.
+type WidgetHandle = Pick<Widget, "getPromptJSON" | "getSerializedState">;
 
 function getUrlFromProgramID(programID: any) {
     const {InitialRequestUrl} = getDependencies();
@@ -53,115 +48,118 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-class CSProgram extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const CSProgram = forwardRef<WidgetHandle, Props>(
+    function CSProgram(props, ref) {
+        const {strings, locale} = usePerseusI18n();
 
-    static defaultProps: DefaultProps = {
-        showEditor: false,
-        showButtons: false,
-        userInput: {
-            status: "incomplete",
-            message: null,
-        },
-    };
+        const {
+            programID,
+            programType,
+            height,
+            settings,
+            showEditor = false,
+            showButtons = false,
+        } = props;
 
-    componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
-    }
+        // We receive data from the iframe that contains
+        // {testsPassed: true/false} and use that to set the status. It could
+        // also contain an optional message.
+        useEffect(() => {
+            const handleMessageEvent = (e: MessageEvent) => {
+                let data: Record<string, any> = {};
+                try {
+                    data = JSON.parse(e.data);
+                } catch {
+                    return;
+                }
 
-    componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
-    }
+                if (data.testsPassed === undefined) {
+                    return;
+                }
 
-    handleMessageEvent: (arg1: any) => void = (e) => {
-        // We receive data from the iframe that contains {passed: true/false}
-        //  and use that to set the status
-        // It could also contain an optional message
-        let data: Record<string, any> = {};
-        try {
-            data = JSON.parse(e.originalEvent.data);
-        } catch {
-            return;
-        }
+                const status = data.testsPassed ? "correct" : "incorrect";
+                props.handleUserInput({
+                    status: status,
+                    message: data.message,
+                });
+            };
 
-        if (_.isUndefined(data.testsPassed)) {
-            return;
-        }
+            window.addEventListener("message", handleMessageEvent);
+            return () => {
+                window.removeEventListener("message", handleMessageEvent);
+            };
+        }, [props]);
 
-        const status = data.testsPassed ? "correct" : "incorrect";
-        this.props.handleUserInput({
-            status: status,
-            message: data.message,
-        });
-    };
+        useImperativeHandle(ref, () => ({
+            getPromptJSON: (): UnsupportedWidgetPromptJSON => {
+                return _getPromptJSON();
+            },
 
-    getPromptJSON(): UnsupportedWidgetPromptJSON {
-        return _getPromptJSON();
-    }
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: (): any => {
+                const {userInput: _, alignment: __, ...rest} = props;
+                return {
+                    ...rest,
+                    programType: rest.programType || null,
+                };
+            },
+        }));
 
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState(): any {
-        const {userInput: _, alignment: __, ...rest} = this.props;
-        return {
-            ...rest,
-            programType: rest.programType || null,
-        };
-    }
-
-    render(): React.ReactNode {
-        if (!this.props.programID) {
+        if (!programID) {
             return <div />;
         }
 
         let styleContainer = false;
-        let url = getUrlFromProgramID(this.props.programID);
+        let url = getUrlFromProgramID(programID);
         let className;
-        const style = {
-            height: this.props.height,
-            width: "100%",
-        } as const;
 
-        if (this.props.showEditor) {
+        if (showEditor) {
             url += "&editor=yes";
             className = "perseus-scratchpad-editor";
         } else {
             url += `&editor=no&width=${articleMaxWidthInPx}`;
             className = "perseus-scratchpad";
-            if (this.props.programType !== "webpage") {
+            if (programType !== "webpage") {
                 styleContainer = true;
             }
         }
 
-        if (this.props.showButtons) {
+        if (showButtons) {
             url += "&buttons=yes";
-            // Matches templates/scratchpads/embed_script.js
-            // Toolbar height is 66, border height is 1 pixel
-            // @ts-expect-error - TS2540 - Cannot assign to 'height' because it is a read-only property.
-            style.height += 67;
         } else {
             url += "&buttons=no";
         }
 
         // Turn array of [{name: "", value: ""}] into object
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.props.settings) {
-            const settings: Record<string, any> = {};
-            _.each(this.props.settings, function (setting) {
+        if (settings) {
+            const settingsObject: Record<string, any> = {};
+            settings.forEach((setting) => {
                 if (setting.name && setting.value) {
-                    settings[setting.name] = setting.value;
+                    settingsObject[setting.name] = setting.value;
                 }
             });
             // This becomes available to programs as Program.settings()
-            url = updateQueryString(url, "settings", JSON.stringify(settings));
+            url = updateQueryString(
+                url,
+                "settings",
+                JSON.stringify(settingsObject),
+            );
         }
 
-        if (this.context?.locale) {
-            url = updateQueryString(url, "lang", this.context.locale);
+        if (locale) {
+            url = updateQueryString(url, "lang", locale);
         }
+
+        // Matches templates/scratchpads/embed_script.js: when the execute buttons
+        // are shown, the toolbar adds 66px of height and the border adds 1px.
+        const style = {
+            height: showButtons ? height + 67 : height,
+            width: "100%",
+        } as const;
 
         const sandboxOptions = [
             "allow-popups",
@@ -177,7 +175,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         return (
             <div className={css(styleContainer && styles.container)}>
                 <iframe
-                    title={this.context.strings.computerScienceProgram}
+                    title={strings.computerScienceProgram}
                     sandbox={sandboxOptions}
                     src={url}
                     style={style}
@@ -186,8 +184,8 @@ class CSProgram extends React.Component<Props> implements Widget {
                 />
             </div>
         );
-    }
-}
+    },
+);
 
 const styles = StyleSheet.create({
     // Note: we used to have a width override here to make sure the widget does

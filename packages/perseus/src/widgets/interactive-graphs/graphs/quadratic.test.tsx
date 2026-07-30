@@ -270,13 +270,19 @@ describe("Quadratic graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at -5 comma 5."}),
+            screen.getByRole("button", {
+                name: "Point A on parabola in quadrant 2 at -5 comma 5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+            screen.getByRole("button", {
+                name: "Point B on parabola at 0 comma -5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point C at 5 comma 5."}),
+            screen.getByRole("button", {
+                name: "Point C on parabola in quadrant 1 at 5 comma 5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -296,7 +302,9 @@ describe("Quadratic graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+            screen.getByRole("button", {
+                name: "Point B on parabola at 0 comma -5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {
@@ -325,10 +333,14 @@ describe("Quadratic graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma -5."}),
+            screen.getByRole("button", {
+                name: "Point B on parabola at 0 comma -5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point C at 5 comma 5."}),
+            screen.getByRole("button", {
+                name: "Point C on parabola in quadrant 1 at 5 comma 5. Vertex is on the Y-axis.",
+            }),
         ).toBeInTheDocument();
     });
 });
