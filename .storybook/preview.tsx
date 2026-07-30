@@ -104,7 +104,12 @@ const supportedThemes = {
             {
                 value: "thunderblocks",
                 icon: "lightning",
-                title: "Shape Your Learning (Thunder Blocks)",
+                title: "Shape Your Learning (thunderblocks)",
+            },
+            {
+                value: "syl-dark",
+                icon: "lightning",
+                title: "Shape Your Learning - Dark (syl-dark)",
             },
         ],
         // Change title based on selected value

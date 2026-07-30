@@ -1,5 +1,10 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
-import {THEME_DATA_ATTRIBUTE} from "@khanacademy/wonder-blocks-theming";
+import {
+    generateRadioOptions,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
+    PerseusRenderer
+} from "@khanacademy/perseus-core";
+import {SupportedThemes, THEME_DATA_ATTRIBUTE} from "@khanacademy/wonder-blocks-theming";
 import * as React from "react";
 import {useEffect} from "react";
 
@@ -23,14 +28,14 @@ const meta: Meta = {
 };
 export default meta;
 
-const RenderImages = (content: string): (() => React.JSX.Element) => {
+function RenderInDarkMode(renderer: PerseusRenderer): (() => React.JSX.Element) {
     return function Render() {
-        // This is needed to apply a fictitious dark mode them to the body element.
+        // This is needed to apply a fictitious dark mode theme to the body element.
         useEffect(() => {
             setTimeout(() => {
                 document.body.setAttribute(
                     THEME_DATA_ATTRIBUTE,
-                    "some-theme-in-dark",
+                    "syl-dark" satisfies SupportedThemes,
                 );
             }, 10);
         }, []);
@@ -38,7 +43,8 @@ const RenderImages = (content: string): (() => React.JSX.Element) => {
         return (
             <div
                 style={{
-                    background: "black",
+                    color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
+                    background: "var(--wb-semanticColor-core-background-base-subtle)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "20px",
@@ -46,11 +52,15 @@ const RenderImages = (content: string): (() => React.JSX.Element) => {
                 }}
             >
                 <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({content: content})}
+                    question={renderer}
                 />
             </div>
         );
     };
+}
+
+const RenderImages = (content: string): (() => React.JSX.Element) => {
+    return RenderInDarkMode(generateTestPerseusRenderer({content: content}))
 };
 
 export const Icons: Story = {
@@ -113,3 +123,12 @@ export const MathJax: Story = {
         }).join("\n\n"),
     ),
 };
+
+export const RadioWithMathJax: Story = {
+    render: RenderInDarkMode(generateTestPerseusRenderer({
+        content: "[[☃ radio 1]]",
+        widgets: {
+            "radio 1": generateRadioWidget({options: generateRadioOptions({choices: [{id: "1", content: "$42 \\red{42} \\blue{42} \\green{42}$"}]})})
+        }
+    }))
+}
