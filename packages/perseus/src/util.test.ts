@@ -1,4 +1,4 @@
-import Util from "./util";
+import Util, {noParagraphForInlineWidget} from "./util";
 
 describe("firstNumericalParse", () => {
     it("regression LEMS-2962: handles fractions properly", () => {
@@ -236,5 +236,65 @@ describe("splitBlockWidgetsFromParagraphs", () => {
             paragraph([text("a"), text(" "), text("b")]),
             widget("radio", "radio 1"),
         ]);
+    });
+});
+
+describe("noParagraphForInlineWidget", () => {
+    const widget = (widgetType: string) => ({
+        type: "widget",
+        widgetType,
+        id: `${widgetType} 1`,
+    });
+    const text = (content: string) => ({type: "text", content});
+    const nodeWithContent = (content: ReadonlyArray<any>) => ({
+        type: "paragraph",
+        content,
+    });
+
+    it.each(["dropdown", "explanation", "expression"])(
+        "returns true when content contains a %s widget",
+        (widgetType) => {
+            // Arrange, Act
+            const result = noParagraphForInlineWidget(
+                nodeWithContent([text("before "), widget(widgetType)]),
+            );
+
+            // Assert
+            expect(result).toBe(true);
+        },
+    );
+
+    it.each(["definition", "numeric-input", "input-number"])(
+        "returns false for the %s widget, which is not excluded from paragraphs",
+        (widgetType) => {
+            // Arrange, Act
+            const result = noParagraphForInlineWidget(
+                nodeWithContent([text("before "), widget(widgetType)]),
+            );
+
+            // Assert
+            expect(result).toBe(false);
+        },
+    );
+
+    it("returns false when content has no widgets", () => {
+        // Arrange, Act
+        const result = noParagraphForInlineWidget(
+            nodeWithContent([text("just some text")]),
+        );
+
+        // Assert
+        expect(result).toBe(false);
+    });
+
+    it("returns false when node content is not an array", () => {
+        // Arrange, Act
+        const result = noParagraphForInlineWidget({
+            type: "text",
+            content: "not an array",
+        });
+
+        // Assert
+        expect(result).toBe(false);
     });
 });

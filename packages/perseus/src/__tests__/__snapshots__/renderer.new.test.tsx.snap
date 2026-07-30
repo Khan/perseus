@@ -356,10 +356,8 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
   <div
     class="perseus-renderer perseus-renderer-responsive"
   >
-    <p>
-      The total number of boxes the forklift can carry is 
-    </p>
-    <div
+    The total number of boxes the forklift can carry is 
+    <span
       class="perseus-widget-container widget-inline-block"
     >
       <div
@@ -392,16 +390,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               <div
                 class="perseus-renderer perseus-renderer-responsive"
               >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    less than or equal to
-                  </div>
-                </div>
+                less than or equal to
               </div>
             </span>
             <span
@@ -411,21 +400,20 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
           </button>
         </div>
       </div>
-    </div>
-    <p>
+    </span>
+     
+    <span
+      style="white-space: nowrap;"
+    >
+      <span />
       <span
-        style="white-space: nowrap;"
+        class="mock-TeX"
       >
-        <span />
-        <span
-          class="mock-TeX"
-        >
-          60
-        </span>
-        <span />
+        60
       </span>
-      .
-    </p>
+      <span />
+    </span>
+    .
   </div>
 </div>
 `;
@@ -435,10 +423,8 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
   <div
     class="perseus-renderer perseus-renderer-responsive"
   >
-    <p>
-      The total number of boxes the forklift can carry is 
-    </p>
-    <div
+    The total number of boxes the forklift can carry is 
+    <span
       class="perseus-widget-container widget-inline-block"
     >
       <div
@@ -471,16 +457,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               <div
                 class="perseus-renderer perseus-renderer-responsive"
               >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    greater than or equal to
-                  </div>
-                </div>
+                greater than or equal to
               </div>
             </span>
             <span
@@ -490,21 +467,20 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
           </button>
         </div>
       </div>
-    </div>
-    <p>
+    </span>
+     
+    <span
+      style="white-space: nowrap;"
+    >
+      <span />
       <span
-        style="white-space: nowrap;"
+        class="mock-TeX"
       >
-        <span />
-        <span
-          class="mock-TeX"
-        >
-          60
-        </span>
-        <span />
+        60
       </span>
-      .
-    </p>
+      <span />
+    </span>
+    .
   </div>
 </div>
 `;
@@ -514,10 +490,8 @@ exports[`renderer snapshots initial render: initial render 1`] = `
   <div
     class="perseus-renderer perseus-renderer-responsive"
   >
-    <p>
-      The total number of boxes the forklift can carry is 
-    </p>
-    <div
+    The total number of boxes the forklift can carry is 
+    <span
       class="perseus-widget-container widget-inline-block"
     >
       <div
@@ -550,16 +524,8 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               <div
                 class="perseus-renderer perseus-renderer-responsive"
               >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    greater/less than or equal to
-                  </div>
-                </div>
+                greater
+                /less than or equal to
               </div>
             </span>
             <span
@@ -569,21 +535,20 @@ exports[`renderer snapshots initial render: initial render 1`] = `
           </button>
         </div>
       </div>
-    </div>
-    <p>
+    </span>
+     
+    <span
+      style="white-space: nowrap;"
+    >
+      <span />
       <span
-        style="white-space: nowrap;"
+        class="mock-TeX"
       >
-        <span />
-        <span
-          class="mock-TeX"
-        >
-          60
-        </span>
-        <span />
+        60
       </span>
-      .
-    </p>
+      <span />
+    </span>
+    .
   </div>
 </div>
 `;

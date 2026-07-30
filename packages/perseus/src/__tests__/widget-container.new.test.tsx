@@ -1,3 +1,11 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
+ *                                                                     *
+ ***********************************************************************/
+// TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.test.tsx.
+// This file is the new widget container test file that will replace the old container tests.
+
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -6,9 +14,10 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
-import WidgetContainer from "../widget-container";
+import WidgetContainer from "../widget-container.new";
 import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
+import Image from "../widgets/image";
 
 import type {PerseusDependenciesV2, WidgetExports} from "../types";
 
@@ -84,6 +93,102 @@ describe("widget-container", () => {
 
         // Assert - widget renders button
         expect(screen.getByText("Explanation")).toBeInTheDocument();
+    });
+
+    describe("container element by alignment", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            registerWidget("explanation", Explanation);
+            registerWidget("image", Image);
+            registerWidget("mock-widget", MockWidget);
+        });
+
+        const renderContainer = (
+            type: string,
+            widgetProps: Record<string, unknown>,
+        ) => {
+            const {container} = render(
+                <Dependencies.DependenciesContext.Provider
+                    value={testDependenciesV2}
+                >
+                    <WidgetContainer
+                        type={type}
+                        id={`${type} 1`}
+                        widgetProps={{
+                            findWidgets: () => [],
+                            apiOptions: {isMobile: false},
+                            ...widgetProps,
+                        }}
+                    />
+                </Dependencies.DependenciesContext.Provider>,
+            );
+
+            return container.querySelector(".perseus-widget-container");
+        };
+
+        it("renders a <div> for a widget with no alignment specified", () => {
+            // Arrange, Act
+            const containerElement = renderContainer("mock-widget", {
+                text: "Hello world!",
+                fail: false,
+            });
+
+            // Assert
+            expect(containerElement?.tagName).toBe("DIV");
+        });
+
+        it("renders a <div> for a block-aligned widget", () => {
+            // Arrange, Act - the image widget's default alignment is "block".
+            const containerElement = renderContainer("image", {
+                backgroundImage: {},
+            });
+
+            // Assert
+            expect(containerElement?.tagName).toBe("DIV");
+        });
+
+        it("renders a <span> for an inline-aligned widget", () => {
+            // Arrange, Act
+            const containerElement = renderContainer("explanation", {
+                showPrompt: "Explanation",
+                hidePrompt: "Hide explanation",
+                explanation: "This is an explanation",
+                widgets: {},
+            });
+
+            // Assert
+            expect(containerElement?.tagName).toBe("SPAN");
+        });
+
+        it("resolves a 'default' alignment through the registry", () => {
+            // Arrange, Act
+            const containerElement = renderContainer("explanation", {
+                alignment: "default",
+                showPrompt: "Explanation",
+                hidePrompt: "Hide explanation",
+                explanation: "This is an explanation",
+                widgets: {},
+            });
+
+            // Assert
+            expect(containerElement?.tagName).toBe("SPAN");
+        });
+
+        it("honors an explicitly-passed alignment over the widget default", () => {
+            // Arrange, Act
+            const containerElement = renderContainer("explanation", {
+                alignment: "block",
+                showPrompt: "Explanation",
+                hidePrompt: "Hide explanation",
+                explanation: "This is an explanation",
+                widgets: {},
+            });
+
+            // Assert
+            expect(containerElement?.tagName).toBe("DIV");
+        });
     });
 
     it("should send analytics even when widget rendering errors", () => {

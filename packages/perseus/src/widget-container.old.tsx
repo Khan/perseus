@@ -1,3 +1,11 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
+ *                                                                     *
+ ***********************************************************************/
+// TODO(LEMS-4304): feature flag cleanup - remove this file
+// This file is the original file that is being replaced by the new widget-container.
+
 /* eslint-disable react/no-unsafe */
 import {
     CoreWidgetRegistry,
@@ -32,7 +40,7 @@ type State = {
     sizeClass: "small" | "medium" | "large" | "xlarge";
 };
 
-class WidgetContainer extends React.Component<Props, State> {
+class WidgetContainerOld extends React.Component<Props, State> {
     widgetRef = React.createRef<React.ComponentType<any>>();
 
     static defaultProps: DefaultProps = {
@@ -189,4 +197,4 @@ class WidgetContainer extends React.Component<Props, State> {
     }
 }
 
-export default WidgetContainer;
+export default WidgetContainerOld;

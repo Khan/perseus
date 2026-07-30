@@ -48,7 +48,7 @@ import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container";
+import WidgetContainer from "./widget-container.new";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";

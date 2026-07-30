@@ -1,4 +1,5 @@
 import {
+    CoreWidgetRegistry,
     getRealImageUrl,
     getBaseUrl,
     getSvgUrl,
@@ -93,19 +94,11 @@ const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
 
-/**
- * Widget types that render as inline content and may safely live inside a
- * paragraph (`<p>`). Any widget type NOT in this set is treated as block-level.
- */
-const INLINE_WIDGET_TYPES: ReadonlySet<string> = new Set([
-    "definition",
-    "expression",
-    "input-number",
-    "numeric-input",
-]);
-
 const isBlockWidgetNode = (node: SingleASTNode): boolean =>
-    node?.type === "widget" && !INLINE_WIDGET_TYPES.has(node.widgetType);
+    node?.type === "widget" &&
+    !CoreWidgetRegistry.getDefaultAlignment(node.widgetType).startsWith(
+        "inline",
+    );
 
 const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     node?.type === "paragraph" &&
@@ -113,16 +106,24 @@ const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     node.content.some(isBlockWidgetNode);
 
 /**
- * The Explanation widget renders as inline content but CANNOT safely live
+ * These are the widgets that are marked as "inline", but should be excluded
+ * from certain containers, like a paragraph (<p>).
+ */
+const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
+    const widgetsToExclude = ["dropdown", "explanation", "expression"];
+    return (
+        node?.type === "widget" && widgetsToExclude.includes(node.widgetType)
+    );
+};
+
+/**
+ * Some widgets render as inline content but CANNOT safely live
  * inside a paragraph (`<p>`). When this function returns true, the
  * QuestionParagraph component will not render the containing <p> element.
  * No additional processing is done on the sibling nodes.
  */
-const isExplanationWidgetNode = (node: SingleASTNode): boolean =>
-    node?.type === "widget" && node.widgetType === "explanation";
-
-export const contentHasExplanationWidget = (node: SingleASTNode): boolean =>
-    Array.isArray(node.content) && node.content.some(isExplanationWidgetNode);
+export const noParagraphForInlineWidget = (node: SingleASTNode): boolean =>
+    Array.isArray(node.content) && node.content.some(inlineWidgetsToExclude);
 
 const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
     node?.type === "text" && node.content.trim() === "";
@@ -676,7 +677,6 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
-    INLINE_WIDGET_TYPES,
     splitBlockWidgetsFromParagraphs,
     firstNumericalParse,
     stringArrayOfSize,

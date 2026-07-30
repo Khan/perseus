@@ -12,7 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-import {contentHasExplanationWidget} from "./util";
+import {noParagraphForInlineWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -279,8 +279,8 @@ const rules = {
     paragraph: {
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
-            if (contentHasExplanationWidget(node)) {
-                // The Explanation widget can appear inline with text, but
+            if (noParagraphForInlineWidget(node)) {
+                // Some widgets can appear inline with text, but
                 // shouldn't be contained by a <p> element, so just render the
                 // content and let the parent handle layout, etc.
                 return output(node.content, state);
