@@ -45,10 +45,10 @@ type State = {
  * of the usual `Widget` methods, it can move a named option to a given index
  * within its column, as if the user had dragged it there.
  */
-export type MatcherHandle = Widget & {
+export interface MatcherHandle extends Widget {
     moveLeftOptionToIndex: (option: SortableOption, index: number) => void;
     moveRightOptionToIndex: (option: SortableOption, index: number) => void;
-};
+}
 
 export class Matcher
     extends React.Component<Props, State>
