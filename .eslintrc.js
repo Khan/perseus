@@ -232,6 +232,22 @@ module.exports = {
         "object-curly-spacing": "off",
         semi: "off",
 
+        /**
+         * Overrides @khanacademy/eslint-config, which exempts any variable
+         * named `_` (varsIgnorePattern: "^_*$"). That exemption also covers
+         * import bindings, so a dead `import _ from "underscore"` was
+         * invisible to the linter
+         */
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                args: "none",
+                caughtErrors: "none",
+                ignoreRestSiblings: true,
+                varsIgnorePattern: "^_[a-zA-Z]",
+            },
+        ],
+
         "no-alert": "error",
 
         /**
