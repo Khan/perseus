@@ -34,15 +34,7 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-// Widget interface methods exposed via ref
-// TODO(benchristel): get rid of all WidgetHandle types, use Widget as the
-//  forwarded ref type
-type WidgetHandle = Pick<
-    Widget,
-    "focus" | "getPromptJSON" | "getSerializedState"
->;
-
-const Dropdown = forwardRef<WidgetHandle, Props>(function Dropdown(props, ref) {
+const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
     const {strings} = usePerseusI18n();
     const dropdownId = useId();
 
