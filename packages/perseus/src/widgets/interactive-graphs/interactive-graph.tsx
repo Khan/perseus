@@ -1,6 +1,5 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Util from "../../util";
