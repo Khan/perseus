@@ -82,7 +82,6 @@ describe("generateMatrixWidget", () => {
             answers: [[5, -2, 1]],
             prefix: "Row 1:",
             suffix: "",
-            cursorPosition: [0, 0],
         });
     });
 
