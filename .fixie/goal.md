@@ -132,16 +132,9 @@ export default {
       `moveLeftOptionToIndex`, and `moveRightOptionToIndex` — and nothing else.
 - [ ] Verify the existing matcher snapshots still match unmodified; if the DOM
       shifted, fix the component rather than the snapshot.
-- [ ] Test: user input reads as `{left: [], right: []}` until the dummy `<TeX>`
-      fires `onRender` (existing "scored incorrect if the math renderer hasn't
-      loaded yet" case — confirm it still passes unchanged).
 - [ ] Test: both Sortables receive a height constraint equal to the max of the
       two measured heights, including the initial zero-height case.
-- [ ] Test: the `rendered:ti` analytics event fires once per mount and does not
-      re-fire on re-render.
 - [ ] Test: cell margin is 8px when `apiOptions.isMobile`, 5px otherwise.
-- [ ] Test: the widget's imperative handle has no `getSerializedState`, so the
-      renderer falls back to widget options (keep
-      `serialize-matcher.test.tsx` green).
+      (confirm margin is already present in snapshots).
 - [ ] Add a patch changeset for `@khanacademy/perseus` describing the
       class-to-function conversion.
