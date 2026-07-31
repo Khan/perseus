@@ -1,3 +1,11 @@
+/***********************************************************************
+ *                                                                     *
+ * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
+ *                                                                     *
+ ***********************************************************************/
+// TODO(LEMS-4304): feature flag cleanup - remove this file
+// This file is the original widget-container test file that is being replaced by the new test file.
+
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -6,7 +14,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
-import WidgetContainer from "../widget-container";
+import WidgetContainer from "../widget-container.old";
 import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 
