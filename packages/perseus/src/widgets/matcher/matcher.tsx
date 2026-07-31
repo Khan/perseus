@@ -49,12 +49,12 @@ export interface MatcherHandle extends Widget {
 const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
     const {strings} = usePerseusI18n();
 
+    const leftSortable = useRef<Sortable>(null);
+    const rightSortable = useRef<Sortable>(null);
+
     const [leftHeight, setLeftHeight] = useState(0);
     const [rightHeight, setRightHeight] = useState(0);
     const [texRendererLoaded, setTexRendererLoaded] = useState(false);
-
-    const leftSortable = useRef<Sortable>(null);
-    const rightSortable = useRef<Sortable>(null);
 
     useOnMountEffect(() => {
         props.dependencies.analytics.onAnalyticsEvent({
@@ -127,7 +127,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
     const showLabels = _.any(props.labels);
     const constraints = {
         height: _.max([leftHeight, rightHeight]),
-    } as const;
+    };
 
     const cellMarginPx = props.apiOptions.isMobile ? 8 : 5;
 
