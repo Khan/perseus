@@ -1,7 +1,6 @@
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
 import * as React from "react";
-import _ from "underscore";
 
 import type {ImageWidget} from "@khanacademy/perseus-core";
 
