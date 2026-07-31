@@ -1,3 +1,4 @@
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {screen, render, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
@@ -18,7 +19,7 @@ import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {PerseusDependenciesV2} from "../../types";
-import type {GraphRange} from "@khanacademy/perseus-core";
+import type {GraphRange, LockedFigure} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
@@ -1056,6 +1057,52 @@ describe("MafsGraph", () => {
                 "description",
                 "element-details",
             ]);
+        });
+    });
+
+    describe("locked figure reading order", () => {
+        it("renders locked figures in author order regardless of type", () => {
+            // Arrange
+            // A point authored before vectors must still read first, even
+            // though points and other figures render in separate clip passes.
+            const lockedFigures: LockedFigure[] = [
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [6, 3],
+                    ariaLabel: "Point A",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [6, 3],
+                        [4, 2],
+                    ],
+                    ariaLabel: "Arrow 1",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [4, 2],
+                        [2, 1],
+                    ],
+                    ariaLabel: "Arrow 2",
+                },
+            ];
+
+            // Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    lockedFigures={lockedFigures}
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const labels = screen
+                .getAllByRole("img")
+                .map((figure) => figure.getAttribute("aria-label"));
+            expect(labels).toEqual(["Point A", "Arrow 1", "Arrow 2"]);
         });
     });
 
