@@ -508,9 +508,7 @@ describe("parseWidgetsMap", () => {
                     prefix: "",
                     suffix: "",
                     answers: [],
-                    cursorPosition: [],
                     matrixBoardSize: [],
-                    static: false,
                 },
             },
         };

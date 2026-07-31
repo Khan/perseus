@@ -1,4 +1,5 @@
 import {
+    generateMatrixOptions,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -39,13 +40,13 @@ describe("Matrix serialization", () => {
             widgets: {
                 "matrix 1": {
                     type: "matrix",
-                    options: {
+                    options: generateMatrixOptions({
                         answers: [
                             [1, 2],
                             [3, 4],
                         ],
                         matrixBoardSize: [2, 2],
-                    },
+                    }),
                 },
             },
         });
