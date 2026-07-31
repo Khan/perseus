@@ -40,8 +40,6 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-// TODO-NEXT: Rewrite Matcher as a functional component. Follow the examples
-//  set by dropdown.tsx and number-line.tsx.
 export class Matcher extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
