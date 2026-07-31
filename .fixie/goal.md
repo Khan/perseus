@@ -108,6 +108,9 @@ export default {
   methods survive at all, or should the tests be rewritten to drive the
   Sortables through the DOM (drag/keyboard) instead? Keeping them is the
   smaller, lower-risk change and is what this plan assumes.
+      - Answer: keep them
+
 - `serialize-matcher.test.tsx` documents that those moves "don't seem to do
   anything" for serialization. That's expected given the missing
   `getSerializedState`; leave it as-is.
+    - Answer: confirmed.
