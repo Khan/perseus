@@ -219,7 +219,7 @@ export function migrateV0ToV1(
     widget: ParsedValue<typeof parseRadioWidgetV0>,
 ): ParsedValue<typeof parseRadioWidgetV1> {
     const {options} = widget;
-    const {noneOfTheAbove: _, ...rest} = options;
+    const {noneOfTheAbove, ...rest} = options;
     return {
         ...widget,
         version: {major: 1, minor: 0},

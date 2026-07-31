@@ -226,10 +226,10 @@ class NumberInput extends React.Component<any, any> {
         }
 
         const {
-            onFormatChange: _,
-            checkValidity: __,
-            useArrowKeys: ___,
-            allowPiTruncation: ____,
+            onFormatChange,
+            checkValidity,
+            useArrowKeys,
+            allowPiTruncation,
             ...restProps
         } = this.props;
 

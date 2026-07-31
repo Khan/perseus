@@ -281,12 +281,12 @@ export function generateInteractiveGraphQuestion(
     // This allows us to keep our test data more succinct.
     if (widgetOptions.correct && !widgetOptions.graph) {
         const {
-            coords: _,
-            coord: __,
-            center: ___,
-            radius: ____,
-            asymptote: _____,
-            match: ______,
+            coords,
+            coord,
+            center,
+            radius,
+            asymptote,
+            match,
             ...graphConfig
             // eslint-disable-next-line no-restricted-syntax
         } = widgetOptions.correct as Record<string, unknown>;

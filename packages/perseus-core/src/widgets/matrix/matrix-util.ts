@@ -8,6 +8,6 @@ export type MatrixPublicWidgetOptions = Pick<
 export function getMatrixPublicWidgetOptions(
     options: PerseusMatrixWidgetOptions,
 ): MatrixPublicWidgetOptions {
-    const {answers: _, ...publicOptions} = options;
+    const {answers, ...publicOptions} = options;
     return publicOptions;
 }

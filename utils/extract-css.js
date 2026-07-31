@@ -305,7 +305,7 @@ const getCssPropertyInfo = (property) => {
             } else {
                 const externalStyle = getImportedValues(property.argument.name);
                 if (externalStyle !== undefined) {
-                    const {importPath: _, ...styleProperties} = externalStyle;
+                    const {importPath, ...styleProperties} = externalStyle;
                     nestedRuleSet = Object.entries(styleProperties).map(
                         ([propertyName, value]) => {
                             const cssProperty = camelToKabob(propertyName);
@@ -377,7 +377,7 @@ const getImportedValues = (sourceName) => {
             )
             .forEach((node) => {
                 const filePath = getFilePath(node.source.value, fileDirectory);
-                const {_, parsedCode} = getCode(filePath);
+                const {parsedCode} = getCode(filePath);
                 const variablesFromCode = mapVariables(parsedCode);
                 if (variablesFromCode[sourceName] === undefined) {
                     importedModules[sourceName] = variablesFromCode;

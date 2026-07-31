@@ -131,7 +131,6 @@ const TabIconLabel = function ({tintColor, type}: Props): React.ReactElement {
 
         default: {
             // Ensure we handle all icon types
-            const _: never = type;
             throw new Error(`Invalid icon type: ${type}`);
         }
     }
