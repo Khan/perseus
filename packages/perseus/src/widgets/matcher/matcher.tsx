@@ -40,9 +40,25 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<Props, State> implements Widget {
+/**
+ * The imperative API the Matcher widget exposes to its parent renderer. On top
+ * of the usual `Widget` methods, it can move a named option to a given index
+ * within its column, as if the user had dragged it there.
+ */
+export type MatcherHandle = Widget & {
+    moveLeftOptionToIndex: (option: SortableOption, index: number) => void;
+    moveRightOptionToIndex: (option: SortableOption, index: number) => void;
+};
+
+export class Matcher
+    extends React.Component<Props, State>
+    implements MatcherHandle
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+
+    leftSortable = React.createRef<Sortable>();
+    rightSortable = React.createRef<Sortable>();
 
     state: State = {
         leftHeight: 0,
@@ -89,12 +105,8 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         }
 
         return {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-            left: this.refs.left.getOptions(),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-            right: this.refs.right.getOptions(),
+            left: this.leftSortable.current?.getOptions() ?? [],
+            right: this.rightSortable.current?.getOptions() ?? [],
         };
     };
 
@@ -108,9 +120,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         option,
         index,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.left.moveOptionToIndex(option, index);
+        this.leftSortable.current?.moveOptionToIndex(option, index);
     };
 
     // Programatic API for moving options
@@ -119,9 +129,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         option,
         index,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.right.moveOptionToIndex(option, index);
+        this.rightSortable.current?.moveOptionToIndex(option, index);
     };
 
     render(): React.ReactElement {
@@ -205,8 +213,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
                                 onChange={this.changeAndTrack}
                                 margin={cellMarginPx}
                                 linterContext={this.props.linterContext}
-                                // eslint-disable-next-line react/no-string-refs
-                                ref="left"
+                                ref={this.leftSortable}
                             />
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
@@ -219,8 +226,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
                                 onChange={this.changeAndTrack}
                                 margin={cellMarginPx}
                                 linterContext={this.props.linterContext}
-                                // eslint-disable-next-line react/no-string-refs
-                                ref="right"
+                                ref={this.rightSortable}
                             />
                         </td>
                     </tr>

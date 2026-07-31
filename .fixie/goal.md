@@ -117,11 +117,11 @@ export default {
 
 ## Checklist
 
-- [ ] Add a `MatcherHandle` type to `matcher.tsx` (the `Widget` interface plus
+- [x] Add a `MatcherHandle` type to `matcher.tsx` (the `Widget` interface plus
       `moveLeftOptionToIndex` / `moveRightOptionToIndex`), and use it to annotate
       the widget instances in `matcher.test.tsx` and `serialize-matcher.test.tsx`
       in place of `import type {Matcher}`. Tests still pass against the class.
-- [ ] Replace the string refs in the `Matcher` class with typed
+- [x] Replace the string refs in the `Matcher` class with typed
       `React.createRef<Sortable>()` fields, dropping the `react/no-string-refs`
       and `@ts-expect-error` suppressions.
 - [ ] Rewrite `Matcher` as a `forwardRef<MatcherHandle, Props>` functional
