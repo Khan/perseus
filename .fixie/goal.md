@@ -114,3 +114,34 @@ export default {
   anything" for serialization. That's expected given the missing
   `getSerializedState`; leave it as-is.
     - Answer: confirmed.
+
+## Checklist
+
+- [ ] Add a `MatcherHandle` type to `matcher.tsx` (the `Widget` interface plus
+      `moveLeftOptionToIndex` / `moveRightOptionToIndex`), and use it to annotate
+      the widget instances in `matcher.test.tsx` and `serialize-matcher.test.tsx`
+      in place of `import type {Matcher}`. Tests still pass against the class.
+- [ ] Replace the string refs in the `Matcher` class with typed
+      `React.createRef<Sortable>()` fields, dropping the `react/no-string-refs`
+      and `@ts-expect-error` suppressions.
+- [ ] Rewrite `Matcher` as a `forwardRef<MatcherHandle, Props>` functional
+      component: `useState` for `leftHeight`/`rightHeight`/`texRendererLoaded`,
+      `useRef<Sortable>` for the two columns, `usePerseusI18n()` for strings,
+      `useOnMountEffect()` for the `rendered:ti` analytics event, and
+      `useImperativeHandle` exposing `getPromptJSON`,
+      `moveLeftOptionToIndex`, and `moveRightOptionToIndex` — and nothing else.
+- [ ] Verify the existing matcher snapshots still match unmodified; if the DOM
+      shifted, fix the component rather than the snapshot.
+- [ ] Test: user input reads as `{left: [], right: []}` until the dummy `<TeX>`
+      fires `onRender` (existing "scored incorrect if the math renderer hasn't
+      loaded yet" case — confirm it still passes unchanged).
+- [ ] Test: both Sortables receive a height constraint equal to the max of the
+      two measured heights, including the initial zero-height case.
+- [ ] Test: the `rendered:ti` analytics event fires once per mount and does not
+      re-fire on re-render.
+- [ ] Test: cell margin is 8px when `apiOptions.isMobile`, 5px otherwise.
+- [ ] Test: the widget's imperative handle has no `getSerializedState`, so the
+      renderer falls back to widget options (keep
+      `serialize-matcher.test.tsx` green).
+- [ ] Add a patch changeset for `@khanacademy/perseus` describing the
+      class-to-function conversion.
