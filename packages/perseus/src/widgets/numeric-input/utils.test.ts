@@ -24,9 +24,9 @@ describe("generateExamples", () => {
         ];
 
         const expected = [
-            "**Your answer should be** ",
-            "an integer, like $6$",
-            "a *simplified proper* fraction, like $3/5$",
+            "**Your answer can be** ",
+            "an integer (like $-3$ or $45$)",
+            "a simplified proper fraction (like $1/2$ or $3/4$)",
         ];
 
         // Act
@@ -54,9 +54,9 @@ describe("generateExamples", () => {
         ];
 
         const expected = [
-            "**Your answer should be** ",
-            "an integer, like $6$",
-            "a *simplified proper* fraction, like $3/5$",
+            "**Your answer can be** ",
+            "an integer (like $-3$ or $45$)",
+            "a simplified proper fraction (like $1/2$ or $3/4$)",
         ];
 
         // Act
@@ -77,6 +77,31 @@ describe("generateExamples", () => {
 
         // Assert
         expect(result).toEqual(expected);
+    });
+
+    it(`changes "your answer" text based on answerForms length`, () => {
+        const answerForms: PerseusNumericInputAnswerForm[] = [
+            {
+                name: "integer",
+                simplify: "optional",
+            },
+        ];
+
+        expect(generateExamples(answerForms, mockStrings)).toEqual([
+            "**Your answer should be** ",
+            "an integer (like $-3$ or $45$)",
+        ]);
+
+        answerForms.push({
+            name: "proper",
+            simplify: "required",
+        });
+
+        expect(generateExamples(answerForms, mockStrings)).toEqual([
+            "**Your answer can be** ",
+            "an integer (like $-3$ or $45$)",
+            "a simplified proper fraction (like $1/2$ or $3/4$)",
+        ]);
     });
 });
 

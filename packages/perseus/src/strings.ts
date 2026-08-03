@@ -60,6 +60,7 @@ export type PerseusStrings = {
     percentExample: string;
     piExample: string;
     yourAnswer: string;
+    yourAnswerCan: string;
     yourAnswerLabel: string;
     addPoints: string;
     addVertices: string;
@@ -991,6 +992,7 @@ export const strings = {
     percentExample: "a percent, like $12.34\\\\%$",
     piExample: "a multiple of pi (like $2/3$ pi or $5$ pi)",
     yourAnswer: "**Your answer should be** ",
+    yourAnswerCan: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",
@@ -1936,6 +1938,7 @@ export const mockStrings: PerseusStrings = {
     percentExample: "a percent, like $12.34\\%$",
     piExample: "a multiple of pi (like $2/3$ pi or $5$ pi)",
     yourAnswer: "**Your answer should be** ",
+    yourAnswerCan: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",
