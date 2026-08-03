@@ -1,6 +1,6 @@
 import {shuffle} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import React, {forwardRef, useImperativeHandle, useMemo} from "react";
 import _ from "underscore";
@@ -22,8 +22,8 @@ import type {
 } from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
-    PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
+    PerseusCategorizerWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type ExternalProps = WidgetProps<
@@ -45,7 +45,6 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
         problemNum,
         apiOptions,
         linterContext,
-        static: isStatic,
         handleUserInput,
         trackInteraction,
         dependencies,
@@ -87,9 +86,6 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
         trackInteraction();
     }
 
-    // In this context, isMobile is used to differentiate mobile from
-    // desktop.
-    const isMobile = apiOptions.isMobile;
     let indexedItems: ReadonlyArray<Readonly<[string, number]>> = items.map(
         (item, n) => [item, n],
     );
@@ -159,7 +155,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                                 )
                                             }
                                         >
-                                            {isMobile && (
+                                            {apiOptions.isMobile && (
                                                 <input
                                                     type="radio"
                                                     name={uniqueId}
@@ -179,13 +175,13 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                                     }
                                                 />
                                             )}
-                                            {!isMobile && (
+                                            {!apiOptions.isMobile && (
                                                 <span
                                                     className={css(
                                                         styles.radioSpan,
                                                         selected &&
                                                             styles.checkedRadioSpan,
-                                                        isStatic &&
+                                                        props.static &&
                                                             selected &&
                                                             styles.staticCheckedRadioSpan,
                                                     )}
@@ -214,9 +210,9 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
 
     const extraClassNames = classNames({
         "categorizer-container": true,
-        "static-mode": isStatic,
+        "static-mode": props.static,
     });
-    const inlineStyles = isMobile ? [styles.fullBleedContainer] : [];
+    const inlineStyles = apiOptions.isMobile ? [styles.fullBleedContainer] : [];
 
     return (
         <div className={extraClassNames + " " + css(...inlineStyles)}>
