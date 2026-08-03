@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {shuffle} from "@khanacademy/perseus-core";
+import {font} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -269,7 +270,8 @@ const styles = StyleSheet.create({
     },
 
     radioSpan: {
-        fontSize: 30,
+        fontSize: font.heading.size.large,
+        fontWeight: font.weight.semi,
         paddingRight: 3,
 
         ":hover": {
