@@ -141,8 +141,8 @@ class Marker extends React.Component<MarkerProps, State> {
                 )}
                 ref={(node) => (this._marker = node)}
                 style={{
-                    left: `${x}%`,
-                    top: `${y}%`,
+                    insetInlineStart: `${x}%`,
+                    insetBlockStart: `${y}%`,
                 }}
                 title={
                     "Click to select marker answers or to delete marker. " +
@@ -198,8 +198,8 @@ const styles = StyleSheet.create({
 
         width: 16,
         height: 16,
-        marginLeft: -8,
-        marginTop: -8,
+        marginInlineStart: -8,
+        marginBlockStart: -8,
 
         cursor: "pointer",
 
@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
     markerSelected: {
         width: 28,
         height: 28,
-        marginLeft: -12,
-        marginTop: -12,
+        marginInlineStart: -12,
+        marginBlockStart: -12,
 
         border: "none",
         borderRadius: 28,
@@ -228,8 +228,8 @@ const styles = StyleSheet.create({
 
             width: 20,
             height: 20,
-            marginLeft: 2,
-            marginTop: 2,
+            marginInlineStart: 2,
+            marginBlockStart: 2,
 
             border: "solid 2px #ffffff",
             borderRadius: 20,
@@ -242,8 +242,8 @@ const styles = StyleSheet.create({
 
     dropdownPositionWithArrow: {
         // Position dropdown to the top right of the marker.
-        left: 46,
-        bottom: -12,
+        insetInlineStart: 46,
+        insetBlockEnd: -12,
 
         // With an arrow pointing left towards the marker.
         "::before": {
@@ -253,12 +253,12 @@ const styles = StyleSheet.create({
 
             width: 0,
             height: 0,
-            left: -16,
-            bottom: 8,
+            insetInlineStart: -16,
+            insetBlockEnd: 8,
 
-            borderRight: `solid 16px ${gray98}`,
-            borderTop: "solid 16px transparent",
-            borderBottom: "solid 16px transparent",
+            borderInlineEnd: `solid 16px ${gray98}`,
+            borderBlockStart: "solid 16px transparent",
+            borderBlockEnd: "solid 16px transparent",
         },
     },
 
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
         color: gray17,
         backgroundColor: gray98,
         borderRadius: 4,
-        maxHeight: 320,
+        maxBlockSize: 320,
         cursor: "pointer",
     },
 });

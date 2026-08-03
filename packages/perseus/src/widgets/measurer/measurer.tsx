@@ -116,8 +116,8 @@ class Measurer extends React.Component<Props> implements Widget {
                     <div
                         style={{
                             position: "relative",
-                            top: image.top ?? 0,
-                            left: image.left ?? 0,
+                            insetBlockStart: image.top ?? 0,
+                            insetInlineStart: image.left ?? 0,
                         }}
                     >
                         {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}

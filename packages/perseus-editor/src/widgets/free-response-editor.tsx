@@ -240,11 +240,11 @@ const styles = StyleSheet.create({
         gap: spacing.small_12,
     },
     criterionContainer: {
-        paddingTop: spacing.xSmall_8,
-        paddingBottom: spacing.xSmall_8,
-        borderBottom: `1px solid ${semanticColor.core.border.neutral.subtle}`,
+        paddingBlockStart: spacing.xSmall_8,
+        paddingBlockEnd: spacing.xSmall_8,
+        borderBlockEnd: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         ":last-child": {
-            borderBottom: "none",
+            borderBlockEnd: "none",
         },
     },
     deleteButtonContainer: {
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     labeledInputField: {
-        paddingBottom: spacing.large_24,
+        paddingBlockEnd: spacing.large_24,
     },
 });
 

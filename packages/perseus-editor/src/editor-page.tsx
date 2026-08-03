@@ -324,7 +324,7 @@ class EditorPage extends React.Component<Props, State> {
                     }}
                 >
                     <div id="perseus" className={className}>
-                        <div style={{marginBottom: 10}}>
+                        <div style={{marginBlockEnd: 10}}>
                             {this.props.developerMode && (
                                 <span>
                                     <label>

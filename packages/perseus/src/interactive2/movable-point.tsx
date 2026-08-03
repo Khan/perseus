@@ -240,8 +240,8 @@ export class MovablePoint {
                             style={{
                                 position: "static",
                                 color: movableColor,
-                                marginLeft: 9,
-                                marginRight: 9,
+                                marginInlineStart: 9,
+                                marginInlineEnd: 9,
                             }}
                         />
                     </span>,

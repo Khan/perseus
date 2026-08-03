@@ -196,7 +196,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                         <div
                                             style={{
                                                 display: "inline-block",
-                                                float: "right",
+                                                float: "inline-end",
                                             }}
                                         >
                                             {sectionImageUploadGenerator(i)}

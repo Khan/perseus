@@ -121,7 +121,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                     size="medium"
                     color={iconColor}
                     testId={`issues-icon-${icon}`}
-                    style={{marginRight: "0.25em"}}
+                    style={{marginInlineEnd: "0.25em"}}
                 />
                 {issuesCount}
             </div>

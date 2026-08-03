@@ -53,7 +53,7 @@ class PhetSimulationEditor extends React.Component<Props> {
                     value={this.props.url}
                     onChange={(url: string) => this.props.onChange({url})}
                     style={{
-                        marginBottom: spacing.large_24,
+                        marginBlockEnd: spacing.large_24,
                     }}
                 />
                 <LabeledTextField

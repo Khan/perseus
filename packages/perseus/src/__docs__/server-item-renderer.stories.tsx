@@ -28,7 +28,7 @@ const meta: Meta = {
                 // effectively moves it outside the components bounding box. We
                 // add a margin right here so we can actually see the linter
                 // warnings in any of these stories!
-                <View style={{marginRight: "40px"}}>
+                <View style={{marginInlineEnd: "40px"}}>
                     <Story />
                 </View>
             );

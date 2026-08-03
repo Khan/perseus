@@ -201,8 +201,8 @@ const styles = StyleSheet.create({
         },
         width: "100%",
         color: "inherit",
-        marginBottom: 0,
-        paddingLeft: 0,
+        marginBlockEnd: 0,
+        paddingInlineStart: 0,
         boxShadow: "none",
         padding: 0, // override Chrome's stylesheet
         margin: 0, // override Safari's stylesheet
@@ -226,12 +226,13 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 4,
         boxSizing: "border-box",
-        padding: "8px 10px",
+        paddingBlock: "8px",
+        paddingInline: "10px",
     },
     container: {
         display: "inline-flex",
         alignItems: "center",
-        marginBottom: 0,
+        marginBlockEnd: 0,
     },
     defaultBackground: {
         backgroundColor: semanticColor.core.background.base.default,

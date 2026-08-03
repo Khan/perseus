@@ -66,8 +66,8 @@ function MovablePointLabelView({
             aria-hidden={true}
             style={{
                 position: "absolute",
-                left: x,
-                top: y,
+                insetInlineStart: x,
+                insetBlockStart: y,
                 transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,
                 fontFamily: 'Symbola, "Times New Roman", serif',

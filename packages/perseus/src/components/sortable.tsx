@@ -863,7 +863,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 const styles = StyleSheet.create({
     sortable: {
         boxSizing: "border-box",
-        float: "left",
+        float: "inline-start",
 
         padding: 0,
         margin: 0,
@@ -875,8 +875,8 @@ const styles = StyleSheet.create({
         border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         borderRadius: 4,
         cursor: "pointer",
-        minWidth: 25,
-        minHeight: 44,
+        minInlineSize: 25,
+        minBlockSize: 44,
         padding: 10,
 
         listStyleType: "none",
@@ -895,12 +895,12 @@ const styles = StyleSheet.create({
     },
 
     horizontalCard: {
-        float: "left",
+        float: "inline-start",
         cursor: "ew-resize",
     },
 
     verticalCard: {
-        maxWidth: "100%",
+        maxInlineSize: "100%",
         cursor: "ns-resize",
     },
 

@@ -570,8 +570,8 @@ export class LabelImage
                     key={index}
                     style={{
                         position: "absolute",
-                        left: `${marker.x}%`,
-                        top: `${marker.y}%`,
+                        insetInlineStart: `${marker.x}%`,
+                        insetBlockStart: `${marker.y}%`,
                         // reset to allow child (answer pill) to control z-index
                         zIndex: "unset",
                     }}
@@ -712,8 +712,8 @@ export class LabelImage
                 <div
                     className={css(styles.markersCanvas)}
                     style={{
-                        maxWidth: imageWidth,
-                        maxHeight: imageHeight,
+                        maxInlineSize: imageWidth,
+                        maxBlockSize: imageHeight,
                     }}
                 >
                     <div
@@ -832,27 +832,29 @@ export default {
 
 const styles = StyleSheet.create({
     instructions: {
-        paddingBottom: 16,
+        paddingBlockEnd: 16,
     },
 
     instructionsCaption: {
         ...bodyXsmallBold,
 
-        paddingBottom: 16,
+        paddingBlockEnd: 16,
     },
 
     instructionsChoices: {
         display: "flex",
         flexWrap: "wrap",
 
-        margin: "-8px 0",
+        marginBlock: "-8px",
+        marginInline: "0",
     },
 
     instructionsChoice: {
         display: "flex",
         alignItems: "center",
 
-        margin: "8px 0",
+        marginBlock: "8px",
+        marginInline: "0",
 
         ":not(:last-child)": {
             "::after": {
@@ -863,8 +865,8 @@ const styles = StyleSheet.create({
                 width: 2,
                 height: 2,
 
-                marginLeft: 5,
-                marginRight: 5,
+                marginInlineStart: 5,
+                marginInlineEnd: 5,
 
                 background: semanticColor.core.border.neutral.default,
 

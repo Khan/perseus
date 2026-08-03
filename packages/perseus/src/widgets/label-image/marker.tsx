@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
         // Center marker position based on its maximum size.
         width: MARKER_SIZE,
         height: MARKER_SIZE,
-        marginLeft: MARKER_SIZE / -2,
-        marginTop: MARKER_SIZE / -2,
+        marginInlineStart: MARKER_SIZE / -2,
+        marginBlockStart: MARKER_SIZE / -2,
 
         // Add a shadow to the marker to make it stand out from the image.
         boxShadow: boxShadow.mid,

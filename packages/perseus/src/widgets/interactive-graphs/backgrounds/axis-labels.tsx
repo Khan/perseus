@@ -37,8 +37,8 @@ export default function AxisLabels({
                 aria-hidden={true}
                 style={{
                     position: "absolute",
-                    left: xAxisLabelLocation[X],
-                    top: xAxisLabelLocation[Y],
+                    insetInlineStart: xAxisLabelLocation[X],
+                    insetBlockStart: xAxisLabelLocation[Y],
                     // Using `fontSize` instead of semantic tokens here in
                     // order to stay consistent with our graph calculations.
                     fontSize: fontSize + "px",
@@ -55,8 +55,8 @@ export default function AxisLabels({
                 aria-hidden={true}
                 style={{
                     position: "absolute",
-                    left: yAxisLabelLocation[X],
-                    top: yAxisLabelLocation[Y],
+                    insetInlineStart: yAxisLabelLocation[X],
+                    insetBlockStart: yAxisLabelLocation[Y],
                     // Using `fontSize` instead of semantic tokens here in
                     // order to stay consistent with our graph calculations.
                     fontSize: fontSize + "px",
