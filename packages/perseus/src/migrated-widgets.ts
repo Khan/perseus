@@ -26,4 +26,6 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "cs-program",
     "python-program",
     "interaction",
+    "numeric-input",
+    "input-number",
 ];

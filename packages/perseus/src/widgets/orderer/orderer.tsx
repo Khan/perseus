@@ -320,6 +320,7 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
+// TODO(LEMS-4354): Remove these type assertions from all widgets.
 // eslint-disable-next-line no-restricted-syntax
 0 as any as WidgetProps<
     PerseusOrdererWidgetOptions,
