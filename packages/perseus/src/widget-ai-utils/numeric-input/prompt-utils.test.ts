@@ -9,9 +9,11 @@ describe("NumericInput getPromptJSON", () => {
         };
 
         const widgetData: any = {
-            labelText: "Numeric input label",
-            size: "Normal",
-            coefficient: false,
+            options: {
+                labelText: "Numeric input label",
+                size: "Normal",
+                coefficient: false,
+            },
             static: false,
             userInput,
         };
@@ -34,8 +36,10 @@ describe("NumericInput getPromptJSON", () => {
 
         // Arrange: no label text.
         const widgetData: any = {
-            size: "Normal",
-            coefficient: false,
+            options: {
+                size: "Normal",
+                coefficient: false,
+            },
             static: false,
             userInput,
         };

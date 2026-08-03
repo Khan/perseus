@@ -26,35 +26,28 @@ import {
     shouldShowExamples,
 } from "./utils";
 
-import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    Focusable,
+    Widget,
+    WidgetExports,
+    WidgetPropsV2,
+} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputUserInput,
     PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput
 >;
-
-// Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
-// as props to this component. This ensures that the PerseusNumericInputWidgetOptions
-// stays in sync with the prop types. The PropsFor<Component> type takes
-// defaultProps into account.
-// TODO(LEMS-4354): Remove these type assertions from all widgets.
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusNumericInputWidgetOptions,
-    PerseusNumericInputUserInput
-> satisfies PropsFor<typeof NumericInput>;
 
 /**
  * The NumericInput widget is a numeric input field that supports a variety of
  * answer forms, including integers, decimals, fractions, and mixed numbers.
  */
-export const NumericInput = forwardRef<Widget, Props>(
+const NumericInput = forwardRef<Widget, Props>(
     function NumericInput(props, ref) {
         const {analytics} = useDependencies();
         const context = useContext(PerseusI18nContext);
@@ -106,9 +99,11 @@ export const NumericInput = forwardRef<Widget, Props>(
              * [LEMS-3185] do not trust serializedState
              */
             getSerializedState() {
-                const {userInput, labelText, answers, ...rest} = props;
+                const {userInput, options, ...otherProps} = props;
+                const {labelText, answers, ...otherOptions} = options;
                 return {
-                    ...rest,
+                    ...otherOptions,
+                    ...otherProps,
                     answerForms: [],
                     labelText: labelText ?? "",
                     currentValue: userInput.currentValue,
@@ -116,7 +111,8 @@ export const NumericInput = forwardRef<Widget, Props>(
             },
         }));
 
-        const answerForms = normalizeCorrectAnswerForms(props.answers);
+        const {answers, labelText, size, textAlign} = props.options;
+        const answerForms = normalizeCorrectAnswerForms(answers);
 
         const handleChange = (newValue: string): void => {
             props.handleUserInput({currentValue: newValue});
@@ -134,9 +130,9 @@ export const NumericInput = forwardRef<Widget, Props>(
         };
 
         const alignmentStyles =
-            props.textAlign === "center"
+            textAlign === "center"
                 ? stylesLegacy.centerAlign
-                : props.textAlign === "right"
+                : textAlign === "right"
                   ? stylesLegacy.rightAlign
                   : {};
 
@@ -145,29 +141,27 @@ export const NumericInput = forwardRef<Widget, Props>(
             ...stylesLegacy.inputWithExamples,
             ...(isFocused ? stylesLegacy.isFocused : {}),
             ...alignmentStyles,
-            ...(props.size === "small" ? stylesLegacy.sizeSmall : {}),
+            ...(size === "small" ? stylesLegacy.sizeSmall : {}),
         };
 
         const classesToUse = [styles.inputWithExamples];
         if (isFocused) {
             classesToUse.push(styles.isFocused);
         }
-        if (props.textAlign !== "left") {
+        if (textAlign !== "left") {
             const alignmentClass =
-                props.textAlign === "center"
-                    ? styles.centerAlign
-                    : styles.rightAlign;
+                textAlign === "center" ? styles.centerAlign : styles.rightAlign;
             classesToUse.push(alignmentClass);
         }
-        if (props.size === "small") {
+        if (size === "small") {
             classesToUse.push(styles.sizeSmall);
         }
         // (mobile-only) If the custom keypad is enabled, use the SimpleKeypadInput component
         if (props.apiOptions.customKeypad) {
             const alignmentClass =
-                props.textAlign === "center"
+                textAlign === "center"
                     ? "perseus-input-center-align"
-                    : props.textAlign === "right"
+                    : textAlign === "right"
                       ? "perseus-input-right-align"
                       : undefined;
             return (
@@ -190,7 +184,7 @@ export const NumericInput = forwardRef<Widget, Props>(
                 ref={inputRef}
                 value={props.userInput.currentValue}
                 onChange={handleChange}
-                labelText={props.labelText || context.strings.yourAnswerLabel}
+                labelText={labelText || context.strings.yourAnswerLabel}
                 examples={generateExamples(answerForms, context.strings)}
                 shouldShowExamples={shouldShowExamples(answerForms)}
                 onFocus={handleFocus}

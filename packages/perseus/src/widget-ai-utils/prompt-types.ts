@@ -8,7 +8,6 @@ import type {GradedGroupSetPromptJSON} from "./graded-group-set/graded-group-set
 import type {GrapherPromptJSON} from "./grapher/grapher-ai-utils";
 import type {GroupPromptJSON} from "./group/group-ai-utils";
 import type {ImagePromptJSON} from "./image/image-ai-utils";
-import type {InputNumberPromptJSON} from "./input-number/input-number-ai-utils";
 import type {LabelImagePromptJSON} from "./label-image/label-image-ai-utils";
 import type {MatcherPromptJSON} from "./matcher/matcher-ai-utils";
 import type {MatrixPromptJSON} from "./matrix/matrix-ai-utils";
@@ -42,7 +41,6 @@ export type WidgetPromptJSON =
     | GrapherPromptJSON
     | GroupPromptJSON
     | ImagePromptJSON
-    | InputNumberPromptJSON
     | LabelImagePromptJSON
     | MatcherPromptJSON
     | MatrixPromptJSON
