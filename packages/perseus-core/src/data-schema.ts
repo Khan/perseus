@@ -1559,29 +1559,19 @@ export type PerseusMatrixWidgetAnswers = number[][];
 /** Options for the matrix widget. A grid of numeric cells to fill in. */
 export type PerseusMatrixWidgetOptions = {
     /** Translatable Text; Shown before the matrix */
-    prefix?: string | undefined;
+    prefix: string;
     /** Translatable Text; Shown after the matrix */
-    suffix?: string | undefined;
+    suffix: string;
     /**
      * A data matrix representing the "correct" answers to be entered into the
      * matrix
      */
     answers: PerseusMatrixWidgetAnswers;
     /**
-     * The coordinate location of the cursor position at start.
-     * default: [0, 0]
-     */
-    cursorPosition?: number[] | undefined;
-    /**
      * The coordinate size of the matrix. Only supports 2-dimensional matrix.
      * default: [3, 3]
      */
     matrixBoardSize: number[];
-    /**
-     * Whether this is meant to statically display the answers (true) or be
-     * used as an input field, graded against the answers
-     */
-    static?: boolean | undefined;
 };
 
 /** Options for the measurer widget. A virtual ruler and/or protractor. */
