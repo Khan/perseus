@@ -18,7 +18,7 @@ type Story = StoryObj;
 
 const meta: Meta<PerseusRenderer> = {
     title: "Renderers/Visual Regression Tests",
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
