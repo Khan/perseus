@@ -25,8 +25,8 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
             <View
                 style={{
                     position: "absolute",
-                    bottom: 0,
-                    left: 0,
+                    insetBlockEnd: 0,
+                    insetInlineStart: 0,
                 }}
             >
                 <AssetContext.Consumer>

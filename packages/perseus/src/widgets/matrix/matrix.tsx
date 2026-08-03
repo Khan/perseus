@@ -360,7 +360,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         className="matrix-bracket bracket-right"
                         style={{
                             height: bracketHeight,
-                            left: bracketOffset,
+                            insetInlineStart: bracketOffset,
                         }}
                     />
                     {_(maxRows).times((row) => {

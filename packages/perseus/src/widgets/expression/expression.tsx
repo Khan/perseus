@@ -370,10 +370,14 @@ export const Expression = forwardRef<Widget, Props>(function Expression(
 
 const styles = StyleSheet.create({
     mobileLabelInputWrapper: {
-        padding: "15px 4px 0",
+        paddingBlockStart: "15px",
+        paddingInline: "4px",
+        paddingBlockEnd: "0",
     },
     desktopLabelInputWrapper: {
-        margin: "5px 5px 0",
+        marginBlockStart: "5px",
+        marginInline: "5px",
+        marginBlockEnd: "0",
     },
 });
 

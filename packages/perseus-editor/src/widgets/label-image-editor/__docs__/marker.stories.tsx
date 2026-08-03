@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     wrapper: {
         // Push the component down as the popover that displays the choices
         // doesn't properly pop over everything.
-        marginTop: 150,
+        marginBlockStart: 150,
 
         position: "relative",
 

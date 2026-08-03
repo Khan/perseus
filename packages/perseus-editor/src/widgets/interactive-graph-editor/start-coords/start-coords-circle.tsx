@@ -114,7 +114,7 @@ const StartCoordsCircle = (props: StartCoordsCircleProps) => {
 const styles = StyleSheet.create({
     tile: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
-        marginTop: spacing.xSmall_8,
+        marginBlockStart: spacing.xSmall_8,
         padding: spacing.small_12,
         borderRadius: spacing.xSmall_8,
     },

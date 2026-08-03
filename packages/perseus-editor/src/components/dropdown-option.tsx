@@ -225,7 +225,8 @@ class OptionGroup extends React.Component<{
 
 const styles = StyleSheet.create({
     optionGroup: {
-        margin: "4px 0",
+        marginBlock: "4px",
+        marginInline: "0",
     },
     optionGroupNoMargin: {
         margin: 0,
@@ -234,8 +235,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        paddingLeft: 32,
-        paddingRight: 32,
+        paddingInlineStart: 32,
+        paddingInlineEnd: 32,
         height: optionHeight,
         whiteSpace: "nowrap",
         overflow: "hidden",
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
     },
     check: {
         position: "absolute",
-        left: 11,
+        insetInlineStart: 11,
     },
     notAButton: {
         backgroundColor: "transparent",

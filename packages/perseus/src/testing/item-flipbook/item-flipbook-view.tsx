@@ -32,7 +32,7 @@ export function ItemFlipbookView({viewModel}: ViewProps) {
                     id={itemNumberInputId}
                     value={viewModel.selectedItemNumber.value}
                     onChange={viewModel.selectedItemNumber.onChange}
-                    style={{width: "7ch", textAlign: "right"}}
+                    style={{width: "7ch", textAlign: "end"}}
                 />{" "}
                 of{" "}
                 <span style={{display: "inline-block", width: "7ch"}}>

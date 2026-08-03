@@ -96,20 +96,20 @@ const styles = StyleSheet.create({
         borderColor: semanticColor.core.border.knockout.default,
     },
     up: {
-        borderTopLeftRadius: borderRadiusPx,
-        borderTopRightRadius: borderRadiusPx,
+        borderStartStartRadius: borderRadiusPx,
+        borderStartEndRadius: borderRadiusPx,
     },
     right: {
-        borderTopRightRadius: borderRadiusPx,
-        borderBottomRightRadius: borderRadiusPx,
+        borderStartEndRadius: borderRadiusPx,
+        borderEndEndRadius: borderRadiusPx,
     },
     down: {
-        borderBottomLeftRadius: borderRadiusPx,
-        borderBottomRightRadius: borderRadiusPx,
+        borderEndStartRadius: borderRadiusPx,
+        borderEndEndRadius: borderRadiusPx,
     },
     left: {
-        borderTopLeftRadius: borderRadiusPx,
-        borderBottomLeftRadius: borderRadiusPx,
+        borderStartStartRadius: borderRadiusPx,
+        borderEndStartRadius: borderRadiusPx,
     },
     hovered: {
         borderColor: semanticColor.core.border.instructive.default,

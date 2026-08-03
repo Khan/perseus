@@ -35,8 +35,8 @@ export default function LockedLabel(props: LockedLabelType) {
                 className="locked-label"
                 style={{
                     position: "absolute",
-                    left: x,
-                    top: y,
+                    insetInlineStart: x,
+                    insetBlockStart: y,
                     color: lockedFigureColors[color],
                     fontSize: labelFontSize[size],
                     filter: "url(#math-stroke)",

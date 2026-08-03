@@ -281,7 +281,7 @@ const hintIndentation = baseUnitPx + hintBorderWidth;
 const styles = StyleSheet.create({
     // eslint-disable-next-line react-native/no-unused-styles
     rendererMargins: {
-        marginTop: baseUnitPx,
+        marginBlockStart: baseUnitPx,
     },
 
     linkButton: {
@@ -299,15 +299,15 @@ const styles = StyleSheet.create({
     plusText: {
         fontSize: 20,
         position: "absolute",
-        top: -3,
-        left: 0,
+        insetBlockStart: -3,
+        insetInlineStart: 0,
     },
     getAnotherHintText: {
-        marginLeft: 16,
+        marginInlineStart: 16,
     },
 
     mobileHintStylesHintsRenderer: {
-        marginTop: 4 * baseUnitPx,
+        marginBlockStart: 4 * baseUnitPx,
         border: `solid ${gray85}`,
         borderWidth: "1px 0 0 0",
 
@@ -330,41 +330,41 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: gray17,
 
-        paddingTop: baseUnitPx,
-        paddingBottom: 1.5 * baseUnitPx,
+        paddingBlockStart: baseUnitPx,
+        paddingBlockEnd: 1.5 * baseUnitPx,
 
         [mediaQueries.lgOrSmaller]: {
-            paddingLeft: 0,
+            paddingInlineStart: 0,
         },
         [mediaQueries.smOrSmaller]: {
             // On phones, ensure that the button is aligned with the hint body
             // content, which is inset at the standard `baseUnitPx`, plus an
             // additional `hintBorderWidth`.
-            paddingLeft: hintIndentation,
+            paddingInlineStart: hintIndentation,
         },
     },
 
     getAnotherHintButton: {
-        marginTop: 1.5 * baseUnitPx,
+        marginBlockStart: 1.5 * baseUnitPx,
     },
 
     mobileHintStylesGetAnotherHintButton: {
         [mediaQueries.lgOrSmaller]: {
-            paddingLeft: 0,
+            paddingInlineStart: 0,
         },
         [mediaQueries.smOrSmaller]: {
             // As with the title, on phones, ensure that the button is aligned
             // with the hint body content.
-            paddingLeft: hintIndentation,
+            paddingInlineStart: hintIndentation,
         },
     },
 
     mobileHintStylesPlusText: {
         [mediaQueries.lgOrSmaller]: {
-            left: 0,
+            insetInlineStart: 0,
         },
         [mediaQueries.smOrSmaller]: {
-            left: hintIndentation,
+            insetInlineStart: hintIndentation,
         },
     },
 });

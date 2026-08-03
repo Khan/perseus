@@ -738,7 +738,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
                         <LabeledRow
                             label="Background image URL"
-                            style={{marginTop: 0}}
+                            style={{marginBlockStart: 0}}
                         >
                             <input
                                 type="text"
@@ -774,7 +774,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         this.change({showProtractor: value});
                                     }}
                                     disabled={editingDisabled}
-                                    style={{marginTop: 0}}
+                                    style={{marginBlockStart: 0}}
                                 />
                             </View>
                             {this.props.showProtractor && (

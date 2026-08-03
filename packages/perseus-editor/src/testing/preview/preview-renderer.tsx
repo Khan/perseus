@@ -249,6 +249,6 @@ const styles = StyleSheet.create({
         containerName: "perseus-root",
     },
     gutter: {
-        marginRight: lintGutterWidth,
+        marginInlineEnd: lintGutterWidth,
     },
 });

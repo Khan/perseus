@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "0 1.5rem",
+        paddingBlock: "0",
+        paddingInline: "1.5rem",
     },
     grid: {
         width: 140,

@@ -21,8 +21,8 @@ class DeprecatedStandin extends React.Component<Props> implements Widget {
         return (
             <div
                 style={{
-                    paddingTop: 8,
-                    paddingBottom: 8,
+                    paddingBlockStart: 8,
+                    paddingBlockEnd: 8,
                 }}
             >
                 <Banner

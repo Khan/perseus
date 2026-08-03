@@ -23,8 +23,8 @@ export function InteractiveGraphCorrectAnswer(props: Props) {
                     <BodyText
                         size="xsmall"
                         style={{
-                            paddingTop: spacing.xxSmall_6,
-                            paddingBottom: spacing.xxSmall_6,
+                            paddingBlockStart: spacing.xxSmall_6,
+                            paddingBlockEnd: spacing.xxSmall_6,
                             color: semanticColor.core.foreground.neutral.subtle,
                         }}
                     >

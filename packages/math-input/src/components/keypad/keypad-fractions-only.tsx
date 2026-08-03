@@ -76,7 +76,7 @@ export function KeypadFractionsOnly(props: KeypadFractionsOnlyProps) {
                 {/* Header bar with dismiss button - mimics Tabs header */}
                 {showDismiss && (
                     <View style={headerBarStyle}>
-                        <View style={{marginLeft: "auto"}}>
+                        <View style={{marginInlineStart: "auto"}}>
                             <IconButton
                                 icon={xBold}
                                 kind="tertiary"

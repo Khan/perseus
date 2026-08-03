@@ -59,10 +59,10 @@ export default StyleSheet.create({
 
         boxSizing: "border-box",
         flexShrink: 0,
-        marginBottom: 1,
-        marginLeft: 1,
-        marginRight: 1,
-        marginTop: 1,
+        marginBlockEnd: 1,
+        marginInlineStart: 1,
+        marginInlineEnd: 1,
+        marginBlockStart: 1,
 
         height: circleSize - 2,
         width: circleSize - 2,
@@ -79,10 +79,10 @@ export default StyleSheet.create({
                 `inset 0px 0px 0px 2px white, ` +
                 `0 0px 0px 2px ${semanticColor.core.foreground.instructive.default}`,
 
-            marginTop: radioMarginWidth,
-            marginBottom: radioMarginWidth,
-            marginLeft: radioMarginWidth,
-            marginRight: radioMarginWidth,
+            marginBlockStart: radioMarginWidth,
+            marginBlockEnd: radioMarginWidth,
+            marginInlineStart: radioMarginWidth,
+            marginInlineEnd: radioMarginWidth,
 
             height: circleSize - 2 * radioMarginWidth,
             width: circleSize - 2 * radioMarginWidth,
@@ -104,10 +104,10 @@ export default StyleSheet.create({
         borderRadius: "50%",
         boxShadow: `0 0px 0px 2px ${semanticColor.core.border.neutral.strong}`,
 
-        marginTop: radioMarginWidth,
-        marginBottom: radioMarginWidth,
-        marginLeft: radioMarginWidth,
-        marginRight: radioMarginWidth,
+        marginBlockStart: radioMarginWidth,
+        marginBlockEnd: radioMarginWidth,
+        marginInlineStart: radioMarginWidth,
+        marginInlineEnd: radioMarginWidth,
 
         height: circleSize - 2 * radioMarginWidth,
         width: circleSize - 2 * radioMarginWidth,

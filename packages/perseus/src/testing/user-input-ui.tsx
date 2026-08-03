@@ -17,7 +17,7 @@ export default function UserInputUI({userInput}: Props) {
                 padding: `0 ${sizing.size_160} ${sizing.size_160}`,
             }}
         >
-            <Heading size="medium" style={{marginTop: sizing.size_100}}>
+            <Heading size="medium" style={{marginBlockStart: sizing.size_100}}>
                 User Input
             </Heading>
             <ReactJson

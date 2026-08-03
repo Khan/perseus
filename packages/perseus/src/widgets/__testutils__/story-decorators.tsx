@@ -110,7 +110,7 @@ export const articleFloatRightDecorator: Decorator = (Story) => (
 
 // Force overflow so the radio widget’s scroll controls render in these stories.
 export const narrowViewportDecorator: Decorator = (Story) => (
-    <div style={{maxWidth: "400px"}}>
+    <div style={{maxInlineSize: "400px"}}>
         <Story />
     </div>
 );

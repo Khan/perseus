@@ -41,7 +41,9 @@ class DiffSide extends React.Component<DiffSideProps> {
             <div className={className}>
                 <div
                     style={{
-                        paddingLeft: indentationFromDepth(this.props.depth),
+                        paddingInlineStart: indentationFromDepth(
+                            this.props.depth,
+                        ),
                     }}
                 >
                     {this.props.showKey && this.props.propKey + ": "}
@@ -78,9 +80,9 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
                         >
                             <div
                                 style={{
-                                    paddingTop: sizing.size_040,
-                                    paddingBottom: sizing.size_040,
-                                    paddingLeft: indentationFromDepth(
+                                    paddingBlockStart: sizing.size_040,
+                                    paddingBlockEnd: sizing.size_040,
+                                    paddingInlineStart: indentationFromDepth(
                                         self.props.depth,
                                     ),
                                 }}

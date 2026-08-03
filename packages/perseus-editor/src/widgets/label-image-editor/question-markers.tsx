@@ -108,8 +108,8 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
                     <div
                         className={css(styles.markersCanvas)}
                         style={{
-                            maxWidth: imageWidth,
-                            maxHeight: imageHeight,
+                            maxInlineSize: imageWidth,
+                            maxBlockSize: imageHeight,
                         }}
                     >
                         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error */}
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         lineHeight: "14px",
 
-        marginTop: 8,
-        marginBottom: 12,
+        marginBlockStart: 8,
+        marginBlockEnd: 12,
 
         color: gray68,
     },
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         display: "block",
 
         // Contain question image to the widget editor.
-        maxWidth: "100%",
+        maxInlineSize: "100%",
     },
 });
 

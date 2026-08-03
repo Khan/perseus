@@ -156,21 +156,21 @@ class HintRenderer extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     newHint: {
-        marginBottom: 1.5 * baseUnitPx,
+        marginBlockEnd: 1.5 * baseUnitPx,
 
-        borderLeftColor: gray97,
-        borderLeftStyle: "solid",
-        borderLeftWidth: hintBorderWidth,
+        borderInlineStartColor: gray97,
+        borderInlineStartStyle: "solid",
+        borderInlineStartWidth: hintBorderWidth,
 
         // Only apply left-padding on tablets, to avoid being flush with the
         // border. On phones, padding is applied internally by the child
         // renderers. Some content on phones that is rendered at full-bleed may
         // end up flush with the border, but that's acceptable for now.
         [mediaQueries.lgOrSmaller]: {
-            paddingLeft: baseUnitPx,
+            paddingInlineStart: baseUnitPx,
         },
         [mediaQueries.smOrSmaller]: {
-            paddingLeft: 0,
+            paddingInlineStart: 0,
         },
 
         ":focus": {
@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
     },
 
     lastRenderedNewHint: {
-        marginBottom: 0,
-        borderLeftColor: kaGreen,
+        marginBlockEnd: 0,
+        borderInlineStartColor: kaGreen,
     },
 });
 

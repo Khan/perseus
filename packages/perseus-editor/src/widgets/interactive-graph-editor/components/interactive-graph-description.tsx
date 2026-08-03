@@ -64,7 +64,7 @@ export default function InteractiveGraphDescription(props: Props) {
                                 })
                             }
                             disabled={editingDisabled}
-                            style={{marginTop: sizing.size_040}}
+                            style={{marginBlockStart: sizing.size_040}}
                         />
                     </BodyText>
                     <BodyText

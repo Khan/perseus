@@ -568,8 +568,8 @@ const styles = StyleSheet.create({
     wrapperFocused: inputFocused,
     popoverContent: {
         padding: 0,
-        paddingBottom: sizing.size_060,
-        maxWidth: "initial",
+        paddingBlockEnd: sizing.size_060,
+        maxInlineSize: "initial",
     },
 });
 

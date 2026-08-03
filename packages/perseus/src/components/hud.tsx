@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
     hud: {
         boxSizing: "border-box",
         height: 36,
-        padding: "9px 16px",
+        paddingBlock: "9px",
+        paddingInline: "16px",
         borderRadius: 18,
         fontFamily: constants.boldFontFamily,
         fontSize: "15px",
@@ -133,17 +134,17 @@ const styles = StyleSheet.create({
     // We want to render the element in-place in our fixtures, so allow us to
     // render in the bottom corner in production and in-place in testing.
     hudFixedPosition: {
-        bottom: 20,
+        insetBlockEnd: 20,
         position: "fixed",
-        right: 20,
+        insetInlineEnd: 20,
         zIndex: 1,
     },
 
     icon: {
         width: 24,
         height: 24,
-        marginRight: 8,
-        marginTop: -3,
+        marginInlineEnd: 8,
+        marginBlockStart: -3,
         verticalAlign: "middle",
     },
 

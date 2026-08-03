@@ -262,14 +262,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     role="figure"
                     style={{
                         position: "relative",
-                        padding: "25px 25px 0 0",
+                        paddingBlockStart: "25px",
+                        paddingInlineEnd: "25px",
+                        paddingBlockEnd: "0",
+                        paddingInlineStart: "0",
                         boxSizing: "content-box",
                         // Move the graph over by the label offset so that
                         // the label is visible
-                        marginLeft: needsExtraMargin
+                        marginInlineStart: needsExtraMargin
                             ? `${marginWithExtraOffset}px`
                             : `${GRAPH_LEFT_MARGIN}px`,
-                        marginBottom: graphMarginBottom,
+                        marginBlockEnd: graphMarginBottom,
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
                         width,
@@ -347,8 +350,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     <View
                         style={{
                             position: "absolute",
-                            bottom: 0,
-                            left: 0,
+                            insetBlockEnd: 0,
+                            insetInlineStart: 0,
                         }}
                     >
                         {(props.markings === "graph" ||
@@ -492,8 +495,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 className="interactive-graph-hitbox-layer"
                                 style={{
                                     position: "absolute",
-                                    top: 0,
-                                    left: 0,
+                                    insetBlockStart: 0,
+                                    insetInlineStart: 0,
                                     width,
                                     height,
                                     pointerEvents: "none",
@@ -511,13 +514,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 backgroundColor:
                                     semanticColor.core.background.base.default,
                                 border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-                                padding: "16px 0",
+                                paddingBlock: "16px",
+                                paddingInline: "0",
                                 boxShadow: boxShadow.mid,
 
                                 // This translates the box to the center of the
                                 // graph Then backs it off by half of its
                                 // overall height so it's perfectly centered
-                                top: "50%",
+                                insetBlockStart: "50%",
                                 transform: "translateY(-50%)",
                             }}
                         >
@@ -563,7 +567,7 @@ const renderPointGraphControls = (props: {
                     kind="secondary"
                     style={{
                         width: "100%",
-                        marginLeft: "20px",
+                        marginInlineStart: "20px",
                     }}
                     tabIndex={0}
                     onClick={() => {
@@ -583,7 +587,7 @@ const renderPointGraphControls = (props: {
                     tabIndex={-1}
                     style={{
                         width: "100%",
-                        marginLeft: "20px",
+                        marginInlineStart: "20px",
                         visibility: shouldShowRemoveButton
                             ? "visible"
                             : "hidden",
@@ -632,7 +636,7 @@ const renderPolygonGraphControls = (props: {
             kind="secondary"
             style={{
                 width: "100%",
-                marginLeft: "20px",
+                marginInlineStart: "20px",
             }}
             tabIndex={0}
             onClick={() => {
@@ -649,7 +653,7 @@ const renderPolygonGraphControls = (props: {
             disabled={disableCloseButton}
             style={{
                 width: "100%",
-                marginLeft: "20px",
+                marginInlineStart: "20px",
             }}
             tabIndex={disableCloseButton ? -1 : 0}
             onClick={() => {
@@ -676,7 +680,7 @@ const renderPolygonGraphControls = (props: {
                         kind="secondary"
                         style={{
                             width: "100%",
-                            marginLeft: "20px",
+                            marginInlineStart: "20px",
                         }}
                         // Disable button when polygon is closed.
                         disabled={closedPolygon}
@@ -705,7 +709,7 @@ const renderPolygonGraphControls = (props: {
                         tabIndex={-1}
                         style={{
                             width: "100%",
-                            marginLeft: "20px",
+                            marginInlineStart: "20px",
                         }}
                         onClick={(_event) => {
                             props.dispatch(
