@@ -107,7 +107,7 @@ const InteractiveUtil = {
         if (funcOrArray == null) {
             return [];
         }
-        if (_.isArray(funcOrArray)) {
+        if (Array.isArray(funcOrArray)) {
             return _.filter(_.flatten(funcOrArray), _.identity);
         }
         return [funcOrArray];

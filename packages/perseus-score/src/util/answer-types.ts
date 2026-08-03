@@ -121,7 +121,7 @@ const KhanAnswerTypes = {
             let acceptableForms;
             // this is maintaining backwards compatibility
             // TODO(merlob) fix all places that depend on this, then delete
-            if (!_.isArray(options.forms)) {
+            if (!Array.isArray(options.forms)) {
                 acceptableForms = options.forms.split(/\s*,\s*/);
             } else {
                 acceptableForms = options.forms;
