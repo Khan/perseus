@@ -241,7 +241,6 @@ export type {GradedGroupSetPromptJSON} from "./widget-ai-utils/graded-group-set/
 export type {GrapherPromptJSON} from "./widget-ai-utils/grapher/grapher-ai-utils";
 export type {GroupPromptJSON} from "./widget-ai-utils/group/group-ai-utils";
 export type {ImagePromptJSON} from "./widget-ai-utils/image/image-ai-utils";
-export type {InputNumberPromptJSON} from "./widget-ai-utils/input-number/input-number-ai-utils";
 export type {InteractiveGraphPromptJSON} from "./widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 export type {LabelImagePromptJSON} from "./widget-ai-utils/label-image/label-image-ai-utils";
 export type {MatcherPromptJSON} from "./widget-ai-utils/matcher/matcher-ai-utils";
