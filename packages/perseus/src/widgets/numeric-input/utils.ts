@@ -30,6 +30,7 @@ const NumericExampleStrings: {
             : strings.simplifiedImproperExample,
     mixed: (form, strings) => strings.mixedExample,
     decimal: (form, strings) => strings.decimalExample,
+    percent: (form, strings) => strings.percentExample,
     pi: (form, strings) => strings.piExample,
 };
 
