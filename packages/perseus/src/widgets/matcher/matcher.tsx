@@ -1,10 +1,10 @@
 import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
+import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef, useState} from "react";
-import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
@@ -124,9 +124,9 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
         );
     }
 
-    const showLabels = _.any(props.labels);
+    const showLabels = props.labels.some(isTruthy);
     const constraints = {
-        height: _.max([leftHeight, rightHeight]),
+        height: Math.max(leftHeight, rightHeight),
     };
 
     const cellMarginPx = props.apiOptions.isMobile ? 8 : 5;
@@ -167,7 +167,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                             disabled={!props.orderMatters}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
-                                setLeftHeight(_.max(dimensions.heights))
+                                setLeftHeight(Math.max(...dimensions.heights))
                             }
                             onChange={changeAndTrack}
                             margin={cellMarginPx}
@@ -182,7 +182,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                             padding={props.padding}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
-                                setRightHeight(_.max(dimensions.heights))
+                                setRightHeight(Math.max(...dimensions.heights))
                             }
                             onChange={changeAndTrack}
                             margin={cellMarginPx}
