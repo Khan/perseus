@@ -1,7 +1,7 @@
 import {shuffle} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {css, StyleSheet} from "aphrodite";
 import {font} from "@khanacademy/wonder-blocks-tokens";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import React, {forwardRef, useImperativeHandle, useMemo} from "react";
 import _ from "underscore";
