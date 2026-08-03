@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 82.1.0
+
+### Minor Changes
+
+-   [#3920](https://github.com/Khan/perseus/pull/3920) [`db0ae65`](https://github.com/Khan/perseus/commit/db0ae654acae519342d3d2f6b125348f9514c552) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Add option in the editor to suppress image dark-mode filter
+
+### Patch Changes
+
+-   [#3960](https://github.com/Khan/perseus/pull/3960) [`6c054db`](https://github.com/Khan/perseus/commit/6c054db4c26e7866cd9acaa63a156bcd59ee7317) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update code comments and technical notes related to IGP2 (Interactive Graph Phase 2) project
+
+-   [#3958](https://github.com/Khan/perseus/pull/3958) [`1d0db84`](https://github.com/Khan/perseus/commit/1d0db84be71ce1c864be4f948192f28fb3b6f38b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The CS Program widget is now a functional component.
+
+-   [#3947](https://github.com/Khan/perseus/pull/3947) [`1d19cca`](https://github.com/Khan/perseus/commit/1d19cca263c555454d785d5e78cafd3722acc8bc) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Number Line widget is now a functional component.
+
+-   [#3931](https://github.com/Khan/perseus/pull/3931) [`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2) Thanks [@Evelas78](https://github.com/Evelas78)! - Created Regression Story and Generator for Categorizer
+
+-   [#3954](https://github.com/Khan/perseus/pull/3954) [`a4e51fc`](https://github.com/Khan/perseus/commit/a4e51fc66a1666735869fe8d6e8dc3449729d340) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix tangent graph showing asymptotes for degenerate vertical/horizontal control-point line
+
+-   [#3889](https://github.com/Khan/perseus/pull/3889) [`d82ecda`](https://github.com/Khan/perseus/commit/d82ecda95e9800219c9092212fee4505b4247f02) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader instructions.
+
+-   [#3949](https://github.com/Khan/perseus/pull/3949) [`10a050e`](https://github.com/Khan/perseus/commit/10a050e0184cbe94a6a5ea8f191705b866431af8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor the NumberLine component, collecting hooks near the top.
+
+-   Updated dependencies [[`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2)]:
+    -   @khanacademy/perseus-core@33.0.1
+    -   @khanacademy/keypad-context@3.2.77
+    -   @khanacademy/kmath@2.4.36
+    -   @khanacademy/math-input@26.6.6
+    -   @khanacademy/perseus-linter@5.1.17
+    -   @khanacademy/perseus-score@8.12.9
+
+## 82.0.1
+
+### Patch Changes
+
+-   [#3836](https://github.com/Khan/perseus/pull/3836) [`3ade343`](https://github.com/Khan/perseus/commit/3ade34395ead8a25f2dc1e909275d736b6b4298a) Thanks [@Myranae](https://github.com/Myranae)! - Convert the `graded-group`, `graded-group-answer-bar`, and `graded-group-set` widgets to use Wonder Blocks semantic color and typography tokens. These widgets now follow the active theme (including dark mode).
+
+-   [#3898](https://github.com/Khan/perseus/pull/3898) [`a23cf05`](https://github.com/Khan/perseus/commit/a23cf05c82bc9ef3e78f8f11b4b8b44d8a99ca37) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add asympote to tangent interactive graph
+
+-   [#3946](https://github.com/Khan/perseus/pull/3946) [`839e471`](https://github.com/Khan/perseus/commit/839e471be4108f6103cede4d1e7f9391872de519) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Number Line widget has been refactored.
+
+-   [#3951](https://github.com/Khan/perseus/pull/3951) [`38d9791`](https://github.com/Khan/perseus/commit/38d9791debec5865a3e4eaf5801323636a8516d5) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix editor crash when point graph is set to unlimited (0/unlimited points), and deleted unused '0 points' dropdown selection
+
 ## 82.0.0
 
 ### Major Changes

@@ -138,10 +138,8 @@ describe("matrix widget", () => {
         const matrixOptions: PerseusMatrixWidgetOptions = {
             answers: [[5, -2]],
             matrixBoardSize: [1, 2],
-            cursorPosition: [0, 0],
             prefix: "",
             suffix: "",
-            static: false,
         };
 
         test("the answerless test data doesn't contain answers", () => {

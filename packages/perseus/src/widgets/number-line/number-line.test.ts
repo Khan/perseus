@@ -2,6 +2,7 @@ import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
+import {Log} from "../../logging/log";
 import {
     testDependencies,
     testDependenciesV2,
@@ -299,6 +300,28 @@ describe("number-line widget", () => {
             }) as HTMLInputElement;
 
             expect(tickCtrlInput.value).toBe("10");
+        });
+
+        test("reuses the same graphie setup function when its divisions change", async () => {
+            // <Graphie> logs an error if it's handed a new `setup` function
+            // after it mounts, so NumberLine must give it the same one on
+            // every render.
+
+            // Arrange
+            const logError = jest
+                .spyOn(Log, "error")
+                .mockImplementation(() => {});
+            renderQuestion(tickCtrl);
+            const tickCtrlInput = screen.getByRole("textbox", {
+                name: "Number of divisions:",
+            });
+
+            // Act
+            await userEvent.clear(tickCtrlInput);
+            await userEvent.type(tickCtrlInput, "5");
+
+            // Assert
+            expect(logError).not.toHaveBeenCalled();
         });
     });
 

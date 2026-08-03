@@ -4,7 +4,15 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
-import {ApiOptions, components, iconTrash} from "@khanacademy/perseus";
+import {ApiOptions} from "@khanacademy/perseus";
+import Button from "@khanacademy/wonder-blocks-button";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
+import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
+import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
@@ -12,11 +20,6 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import PreviewWithIframe from "./preview-with-iframe";
-import {
-    iconCircleArrowDown,
-    iconCircleArrowUp,
-    iconPlus,
-} from "./styles/icon-paths";
 
 import type {
     APIOptions,
@@ -31,8 +34,6 @@ import type {
     PerseusRenderer,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
-
-const {InfoTip, InlineIcon} = components;
 
 type HintEditorProps = {
     itemId?: string;
@@ -128,50 +129,62 @@ class HintEditor extends React.Component<HintEditorProps> {
                     onChange={this.props.onChange}
                     widgetIsOpen={this.props.widgetIsOpen}
                 />
-                <div className="hint-controls-container clearfix">
+
+                {this.props.isLast && (
+                    <BodyText size="xsmall">
+                        The last hint is automatically bolded.
+                    </BodyText>
+                )}
+
+                {/* Row that includes movement buttons and the "Replace previous hint" checkbox */}
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
                     {this.props.showMoveButtons && (
-                        <span className="reorder-hints">
-                            <button
-                                type="button"
-                                className={this.props.isLast ? "hidden" : ""}
+                        <div className="reorder-hints">
+                            <IconButton
+                                icon={arrowCircleDownIcon}
+                                size="small"
+                                kind="tertiary"
                                 onClick={_.partial(this.props.onMove, 1)}
-                            >
-                                <InlineIcon {...iconCircleArrowDown} />
-                            </button>{" "}
-                            <button
-                                type="button"
-                                className={this.props.isFirst ? "hidden" : ""}
+                                disabled={this.props.isLast}
+                            />
+                            <IconButton
+                                icon={arrowCircleUpIcon}
+                                size="small"
+                                kind="tertiary"
                                 onClick={_.partial(this.props.onMove, -1)}
-                            >
-                                <InlineIcon {...iconCircleArrowUp} />
-                            </button>{" "}
-                            {this.props.isLast && (
-                                <InfoTip>
-                                    <p>
-                                        The last hint is automatically bolded.
-                                    </p>
-                                </InfoTip>
-                            )}
-                        </span>
+                                disabled={this.props.isFirst}
+                            />
+                        </div>
                     )}
-                    <input
-                        type="checkbox"
-                        // @ts-expect-error - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
+                    <Checkbox
                         checked={this.props.replace}
-                        onChange={this.handleReplaceChanged}
+                        onChange={(newCheckedState) => {
+                            this.props.onChange({replace: newCheckedState});
+                        }}
+                        label="Replace previous hint"
+                        style={{display: "inline-block"}}
                     />
-                    Replace previous hint
-                    {this.props.showRemoveButton && (
-                        <button
-                            type="button"
-                            className="remove-hint simple-button orange"
-                            onClick={this.props.onRemove}
-                        >
-                            <InlineIcon {...iconTrash} />
-                            Remove this hint{" "}
-                        </button>
-                    )}
                 </div>
+
+                {this.props.showRemoveButton && (
+                    <Button
+                        startIcon={trashIcon}
+                        size="small"
+                        kind="tertiary"
+                        disabled={this.props.apiOptions?.editingDisabled}
+                        onClick={this.props.onRemove}
+                        // Have the "Remove" button align to the right.
+                        style={{marginInlineStart: "auto", display: "flex"}}
+                    >
+                        Remove this hint
+                    </Button>
+                )}
             </div>
         );
     }
@@ -402,16 +415,14 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             <div className="perseus-hints-editor perseus-editor-table">
                 {hintElems}
                 <div className="perseus-editor-row">
-                    <div className="add-hint-container perseus-editor-left-cell">
-                        <button
-                            type="button"
-                            className="add-hint simple-button orange"
-                            disabled={editingDisabled}
-                            onClick={this.addHint}
-                        >
-                            <InlineIcon {...iconPlus} /> Add a hint
-                        </button>
-                    </div>
+                    <Button
+                        startIcon={plusIcon}
+                        disabled={editingDisabled}
+                        size="small"
+                        onClick={this.addHint}
+                    >
+                        Add a hint
+                    </Button>
                 </div>
             </div>
         );

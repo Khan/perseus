@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {shuffle} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -37,11 +36,6 @@ type Props = ExternalProps & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = Pick<
-    Props,
-    "items" | "categories" | "linterContext" | "userInput"
->;
-
 type State = {
     uniqueId: string;
 };
@@ -49,13 +43,6 @@ type State = {
 class Categorizer extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        items: [],
-        categories: [],
-        linterContext: linterContextDefault,
-        userInput: {values: []},
-    };
 
     state: State = {
         uniqueId: _.uniqueId("perseus_radio_"),

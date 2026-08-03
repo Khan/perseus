@@ -3,6 +3,7 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     article,
@@ -59,10 +60,13 @@ export const Mobile: Story = {
 };
 
 export const Article = (): React.ReactNode => {
+    // Pull in the feature flags selected in the Storybook toolbar.
+    const apiOptions = useStorybookApiOptions();
     return (
         <ArticleRenderer
             json={article}
             dependencies={storybookDependenciesV2}
+            apiOptions={apiOptions}
         />
     );
 };

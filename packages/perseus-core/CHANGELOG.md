@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 33.0.1
+
+### Patch Changes
+
+-   [#3931](https://github.com/Khan/perseus/pull/3931) [`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2) Thanks [@Evelas78](https://github.com/Evelas78)! - Created Regression Story and Generator for Categorizer
+
 ## 33.0.0
 
 ### Major Changes

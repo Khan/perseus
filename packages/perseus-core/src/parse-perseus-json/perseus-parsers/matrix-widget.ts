@@ -1,10 +1,8 @@
 import {
     array,
-    boolean,
     constant,
     number,
     object,
-    optional,
     pipeParsers,
     string,
     union,
@@ -22,11 +20,9 @@ const numeric = pipeParsers(defaulted(numberOrStringOrNaN, () => NaN)).then(
 export const parseMatrixWidget = parseWidget(
     defaulted(constant("matrix"), () => "matrix" as const),
     object({
-        prefix: optional(string),
-        suffix: optional(string),
+        prefix: defaulted(string, () => ""),
+        suffix: defaulted(string, () => ""),
         answers: defaulted(array(array(numeric)), () => []),
-        cursorPosition: optional(array(number)),
         matrixBoardSize: array(number),
-        static: optional(boolean),
     }),
 );

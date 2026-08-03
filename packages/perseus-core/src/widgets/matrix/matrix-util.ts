@@ -2,7 +2,7 @@ import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 
 export type MatrixPublicWidgetOptions = Pick<
     PerseusMatrixWidgetOptions,
-    "prefix" | "suffix" | "cursorPosition" | "matrixBoardSize" | "static"
+    "prefix" | "suffix" | "matrixBoardSize"
 >;
 
 export function getMatrixPublicWidgetOptions(

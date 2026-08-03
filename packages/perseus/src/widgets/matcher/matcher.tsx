@@ -1,5 +1,4 @@
 import {shuffleMatcher} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -35,15 +34,6 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    labels: Props["labels"];
-    orderMatters: Props["orderMatters"];
-    padding: Props["padding"];
-    problemNum: Props["problemNum"];
-    linterContext: Props["linterContext"];
-    userInput: Props["userInput"];
-};
-
 type State = {
     leftHeight: number;
     rightHeight: number;
@@ -53,18 +43,6 @@ type State = {
 export class Matcher extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        labels: ["", ""],
-        orderMatters: false,
-        padding: true,
-        problemNum: 0,
-        linterContext: linterContextDefault,
-        userInput: {
-            left: [],
-            right: [],
-        },
-    };
 
     state: State = {
         leftHeight: 0,
