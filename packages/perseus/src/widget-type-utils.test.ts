@@ -73,6 +73,18 @@ describe("widget-type-utils", () => {
             const subType = getWidgetSubType(widget.type, widget.options);
             expect(subType).toBeNull();
         });
+
+        it("doesn't throw an error given the `options` option of an orderer", () => {
+            // This test verifies that orderer widgets (which have an `options`
+            // option) are handled when they haven't yet been migrated to
+            // WidgetPropsV2. Orderer widgets don't have subtypes, so we just
+            // have to make sure that getWidgetSubType won't blow up.
+            // TODO(LEMS-4354): delete this test once all widgets are using
+            //  WidgetPropsV2
+            const options: any = [];
+            const subType = getWidgetSubType("orderer", options);
+            expect(subType).toBeNull();
+        });
     });
 
     describe("getWidgetSubTypeByWidgetId", () => {
