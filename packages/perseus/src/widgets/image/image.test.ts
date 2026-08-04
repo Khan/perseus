@@ -938,7 +938,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
                 // Assert
                 const image = screen.getByRole("figure");
-                expect(image).toHaveStyle(`max-inline-size: ${expectedWidth}px`);
+                expect(image).toHaveStyle(
+                    `max-inline-size: ${expectedWidth}px`,
+                );
             },
         );
 
