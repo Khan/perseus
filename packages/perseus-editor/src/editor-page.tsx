@@ -268,13 +268,6 @@ class EditorPage extends React.Component<Props, State> {
         this.props.onChange(newProps);
     };
 
-    /**
-     * Merges a partial update into the question and notifies the parent.
-     *
-     * This backs `ItemEditorContext`, which lets components rendered outside
-     * of `ItemEditor` (such as the Issues panel and its CTAs) edit the
-     * question.
-     */
     handleEditorChange = (newProps: Partial<PerseusRenderer>) => {
         this.handleChange({
             question: {...this.props.question, ...newProps},
