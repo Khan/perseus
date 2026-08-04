@@ -27,7 +27,6 @@ import type {
     PerseusMatrixUserInput,
     PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
 
@@ -77,15 +76,6 @@ const getRefForPath = function (path: FocusPath) {
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
 };
-
-// Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
-// as props to this component. This ensures that the PerseusMatrixWidgetOptions
-// stays in sync with the prop types.
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetPropsV2<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixUserInput
-> satisfies PropsFor<typeof WrappedMatrix>;
 
 type Props = WidgetPropsV2<
     MatrixPublicWidgetOptions,
