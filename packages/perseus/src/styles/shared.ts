@@ -1,3 +1,4 @@
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
 import * as constants from "./constants";
@@ -5,8 +6,7 @@ import mediaQueries from "./media-queries";
 
 import type {StyleDeclaration} from "aphrodite";
 
-const {radioBorderColor, checkedColor, circleSize, radioMarginWidth} =
-    constants;
+const {circleSize, radioMarginWidth} = constants;
 
 // eslint-disable-next-line no-restricted-syntax
 export default StyleSheet.create({
@@ -54,7 +54,7 @@ export default StyleSheet.create({
 
         backgroundColor: "#fff",
         border: "2px solid #fff",
-        boxShadow: `0 0px 0px 1px ${radioBorderColor}`,
+        boxShadow: `0 0px 0px 1px ${semanticColor.core.border.neutral.subtle}`,
         outline: "none",
 
         boxSizing: "border-box",
@@ -72,12 +72,12 @@ export default StyleSheet.create({
         borderRadius: "50%",
 
         ":checked": {
-            backgroundColor: checkedColor,
+            backgroundColor: semanticColor.core.foreground.instructive.default,
             border: "none",
             borderRadius: "50%",
             boxShadow:
                 `inset 0px 0px 0px 2px white, ` +
-                `0 0px 0px 2px ${checkedColor}`,
+                `0 0px 0px 2px ${semanticColor.core.foreground.instructive.default}`,
 
             marginTop: radioMarginWidth,
             marginBottom: radioMarginWidth,
@@ -93,7 +93,7 @@ export default StyleSheet.create({
         backgroundColor: "#fff",
         border: "2px solid #fff",
         borderRadius: "50%",
-        boxShadow: `0 0px 0px 2px ${checkedColor}`,
+        boxShadow: `0 0px 0px 2px ${semanticColor.core.border.neutral.strong}`,
 
         marginTop: radioMarginWidth,
         marginBottom: radioMarginWidth,

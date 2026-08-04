@@ -1,6 +1,6 @@
 import {shuffle} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import React, {forwardRef, useImperativeHandle, useMemo} from "react";
@@ -249,12 +249,17 @@ const styles = StyleSheet.create({
     cell: {
         textAlign: "center",
         padding: 0,
-        color: "#ccc",
+        color: semanticColor.core.foreground.disabled.subtle,
         verticalAlign: "middle",
     },
 
     emptyHeaderCell: {
         backgroundColor: "inherit",
+        // Left hardcoded intentionally — matches the shared, un-tokenized
+        // `table th` border-bottom color in perseus-renderer-part-1.css.
+        // Converting one without the other would split the header row's
+        // divider line into two different colors. Tracked for a follow-up
+        // ticket covering shared table styles.
         borderBottom: "2px solid #ccc",
     },
 
@@ -263,19 +268,19 @@ const styles = StyleSheet.create({
         paddingRight: 3,
 
         ":hover": {
-            color: "#999",
+            color: semanticColor.core.foreground.disabled.strong,
         },
     },
 
     checkedRadioSpan: {
-        color: "#333",
+        color: semanticColor.core.foreground.instructive.default,
     },
 
     // .static-mode is applied by the Categorizer when the rendered
     // widget is static; in this case we gray out the choices to show
     // the user that the widget can't be interacted with.
     staticCheckedRadioSpan: {
-        color: "#888",
+        color: semanticColor.core.foreground.disabled.strong,
     },
 });
 

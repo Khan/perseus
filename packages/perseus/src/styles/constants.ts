@@ -52,8 +52,5 @@ export const warningColorActive = "#c75300";
 
 export const publishBlockingErrorColor = "#be2612";
 
-export const radioBorderColor = "#BABEC2";
-export const checkedColor = "#71B307";
-
 export const articleMaxWidthInPx = 688;
 export const articleMaxWidthTableInPx = 512;
