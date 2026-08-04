@@ -50,8 +50,8 @@ export const getPromptJSON = (
     return {
         type: "categorizer",
         options: {
-            items: widgetData.items,
-            categories: widgetData.categories,
+            items: widgetData.options.items,
+            categories: widgetData.options.categories,
         },
         userInput: {
             itemToCategoryMapping: widgetData.userInput.values,
