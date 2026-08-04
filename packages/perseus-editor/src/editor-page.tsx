@@ -19,6 +19,7 @@ import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 import {runAxeCoreOnUpdate} from "./util/a11y-checker";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
+import {ItemEditorContext} from "./util/item-editor-context";
 
 import type {Issue} from "./components/issues-panel";
 import type {
@@ -267,6 +268,19 @@ class EditorPage extends React.Component<Props, State> {
         this.props.onChange(newProps);
     };
 
+    /**
+     * Merges a partial update into the question and notifies the parent.
+     *
+     * This backs `ItemEditorContext`, which lets components rendered outside
+     * of `ItemEditor` (such as the Issues panel and its CTAs) edit the
+     * question.
+     */
+    handleEditorChange = (newProps: Partial<PerseusRenderer>) => {
+        this.handleChange({
+            question: {...this.props.question, ...newProps},
+        });
+    };
+
     changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {
         this.setState({
             json: newJson,
@@ -297,119 +311,129 @@ class EditorPage extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div id="perseus" className={className}>
-                    <div style={{marginBottom: 10}}>
-                        {this.props.developerMode && (
-                            <span>
-                                <label>
-                                    {" "}
-                                    Developer JSON Mode:{" "}
-                                    <input
-                                        type="checkbox"
-                                        checked={this.props.jsonMode}
-                                        disabled={
-                                            this.props.apiOptions
-                                                ?.editingDisabled
-                                        }
-                                        onChange={this.toggleJsonMode}
-                                    />
-                                </label>{" "}
-                            </span>
+                <ItemEditorContext.Provider
+                    value={{
+                        question: this.props.question,
+                        onEditorChange: this.handleEditorChange,
+                    }}
+                >
+                    <div id="perseus" className={className}>
+                        <div style={{marginBottom: 10}}>
+                            {this.props.developerMode && (
+                                <span>
+                                    <label>
+                                        {" "}
+                                        Developer JSON Mode:{" "}
+                                        <input
+                                            type="checkbox"
+                                            checked={this.props.jsonMode}
+                                            disabled={
+                                                this.props.apiOptions
+                                                    ?.editingDisabled
+                                            }
+                                            onChange={this.toggleJsonMode}
+                                        />
+                                    </label>{" "}
+                                </span>
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <ViewportResizer
+                                    deviceType={this.props.previewDevice}
+                                    onViewportSizeChanged={
+                                        this.props.onPreviewDeviceChange
+                                    }
+                                />
+                            )}
+
+                            {!this.props.jsonMode && (
+                                <HUD
+                                    message="Style warnings"
+                                    enabled={this.state.highlightLint}
+                                    onClick={() => {
+                                        this.setState({
+                                            highlightLint:
+                                                !this.state.highlightLint,
+                                        });
+                                    }}
+                                />
+                            )}
+                        </div>
+                        {this.props.developerMode && this.props.jsonMode && (
+                            <div>
+                                <JsonEditor
+                                    multiLine={true}
+                                    value={this.state.json}
+                                    parser={parseAndMigratePerseusItem}
+                                    onChange={this.changeJSON}
+                                    editingDisabled={editingDisabled}
+                                />
+                            </div>
                         )}
 
-                        {!this.props.jsonMode && (
-                            <ViewportResizer
+                        {showEditor && (
+                            <div className="perseus-editor-table">
+                                <div className="perseus-editor-row">
+                                    <div className="perseus-editor-left-cell">
+                                        <IssuesPanel
+                                            issues={this.state.issues.concat(
+                                                this.state.showAxeCoreIssues
+                                                    ? this.state.axeCoreIssues
+                                                    : [],
+                                            )}
+                                            a11yCheck={{
+                                                callback: () =>
+                                                    this.setState({
+                                                        showAxeCoreIssues:
+                                                            !this.state
+                                                                .showAxeCoreIssues,
+                                                    }),
+                                                isChecked:
+                                                    this.state
+                                                        .showAxeCoreIssues,
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {showEditor && (
+                            <ItemEditor
+                                ref={this.itemEditor}
+                                itemId={this.props.itemId}
+                                question={this.props.question}
+                                answerArea={this.props.answerArea}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
                                 deviceType={this.props.previewDevice}
-                                onViewportSizeChanged={
-                                    this.props.onPreviewDeviceChange
+                                widgetIsOpen={this.state.widgetsAreOpen}
+                                apiOptions={deviceBasedApiOptions}
+                                previewURL={this.props.previewURL}
+                                additionalTemplates={
+                                    this.props.additionalTemplates
                                 }
+                                highlightLint={this.state.highlightLint}
+                                problemNum={this.props.problemNum}
                             />
                         )}
 
-                        {!this.props.jsonMode && (
-                            <HUD
-                                message="Style warnings"
-                                enabled={this.state.highlightLint}
-                                onClick={() => {
-                                    this.setState({
-                                        highlightLint:
-                                            !this.state.highlightLint,
-                                    });
-                                }}
+                        {showEditor && (
+                            <CombinedHintsEditor
+                                ref={this.hintsEditor}
+                                itemId={this.props.itemId}
+                                hints={this.props.hints}
+                                imageUploader={this.props.imageUploader}
+                                onChange={this.handleChange}
+                                deviceType={this.props.previewDevice}
+                                apiOptions={deviceBasedApiOptions}
+                                previewURL={this.props.previewURL}
+                                highlightLint={this.state.highlightLint}
+                                widgetIsOpen={this.state.widgetsAreOpen}
                             />
                         )}
                     </div>
-                    {this.props.developerMode && this.props.jsonMode && (
-                        <div>
-                            <JsonEditor
-                                multiLine={true}
-                                value={this.state.json}
-                                parser={parseAndMigratePerseusItem}
-                                onChange={this.changeJSON}
-                                editingDisabled={editingDisabled}
-                            />
-                        </div>
-                    )}
-
-                    {showEditor && (
-                        <div className="perseus-editor-table">
-                            <div className="perseus-editor-row">
-                                <div className="perseus-editor-left-cell">
-                                    <IssuesPanel
-                                        issues={this.state.issues.concat(
-                                            this.state.showAxeCoreIssues
-                                                ? this.state.axeCoreIssues
-                                                : [],
-                                        )}
-                                        a11yCheck={{
-                                            callback: () =>
-                                                this.setState({
-                                                    showAxeCoreIssues:
-                                                        !this.state
-                                                            .showAxeCoreIssues,
-                                                }),
-                                            isChecked:
-                                                this.state.showAxeCoreIssues,
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {showEditor && (
-                        <ItemEditor
-                            ref={this.itemEditor}
-                            itemId={this.props.itemId}
-                            question={this.props.question}
-                            answerArea={this.props.answerArea}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            additionalTemplates={this.props.additionalTemplates}
-                            highlightLint={this.state.highlightLint}
-                            problemNum={this.props.problemNum}
-                        />
-                    )}
-
-                    {showEditor && (
-                        <CombinedHintsEditor
-                            ref={this.hintsEditor}
-                            itemId={this.props.itemId}
-                            hints={this.props.hints}
-                            imageUploader={this.props.imageUploader}
-                            onChange={this.handleChange}
-                            deviceType={this.props.previewDevice}
-                            apiOptions={deviceBasedApiOptions}
-                            previewURL={this.props.previewURL}
-                            highlightLint={this.state.highlightLint}
-                            widgetIsOpen={this.state.widgetsAreOpen}
-                        />
-                    )}
-                </div>
+                </ItemEditorContext.Provider>
             </Dependencies.DependenciesContext.Provider>
         );
     }

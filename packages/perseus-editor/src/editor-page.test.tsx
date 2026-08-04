@@ -1,12 +1,14 @@
-import {Dependencies} from "@khanacademy/perseus";
+import {Dependencies, Util} from "@khanacademy/perseus";
 import {
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+
+import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
 
 import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
 import EditorPage from "./editor-page";
@@ -410,5 +412,72 @@ describe("EditorPage", () => {
         // to "" and Raphael renders it as "none". The real color resolves in a
         // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
         expect(container).toMatchSnapshot();
+    });
+
+    // NOTE: This test must stay after the snapshot test above. Both React's
+    // useId counter and the perseus_dropdown_N counter are global to this file
+    // and are not reset between tests, so rendering ahead of the snapshot test
+    // shifts every generated ID in its snapshot.
+    it("converts image markdown to an image widget when the issue CTA is clicked", async () => {
+        // Arrange
+        const imageUrl = earthMoonImage.url;
+        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([
+            earthMoonImage.width,
+            earthMoonImage.height,
+        ]);
+
+        const onChangeMock = jest.fn();
+        const question: PerseusRenderer = {
+            content: `Which planet is this? ![The Earth](${imageUrl})`,
+            images: {},
+            widgets: {},
+        };
+
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={question}
+                onChange={onChangeMock}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        // The panel starts collapsed, so open it to reach the issue's CTA.
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {
+                name: "Convert all image markdown to widget",
+            }),
+        );
+
+        // Assert
+        // The conversion awaits the image's dimensions before it reports back.
+        await waitFor(() => expect(onChangeMock).toHaveBeenCalled());
+        expect(onChangeMock.mock.lastCall[0].question).toEqual(
+            expect.objectContaining({
+                content: "Which planet is this? [[☃ image 1]]",
+                widgets: expect.objectContaining({
+                    "image 1": expect.objectContaining({
+                        type: "image",
+                        options: expect.objectContaining({
+                            alt: "The Earth",
+                            backgroundImage: {
+                                url: imageUrl,
+                                width: earthMoonImage.width,
+                                height: earthMoonImage.height,
+                            },
+                        }),
+                    }),
+                }),
+            }),
+        );
     });
 });
