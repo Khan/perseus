@@ -235,7 +235,7 @@ class InteractiveGraph extends React.Component<Props, State> {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        const {userInput, ...rest} = this.props;
         return {
             ...rest,
             graph: this.props.userInput,

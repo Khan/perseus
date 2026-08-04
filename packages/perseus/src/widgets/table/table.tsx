@@ -184,7 +184,7 @@ class Table extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, editableHeaders: _, ...rest} = this.props;
+        const {userInput, editableHeaders, ...rest} = this.props;
         return {
             ...rest,
             answers: userInput,

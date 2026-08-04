@@ -96,7 +96,7 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState: (): any => {
-            const {userInput: _, alignment: __, ...rest} = props;
+            const {userInput, alignment, ...rest} = props;
             return {
                 ...rest,
                 programType: rest.programType || null,

@@ -170,13 +170,13 @@ class ExpressionEditor extends React.Component<Props, State> {
         // which in most case is what we want, but is not what we want
         // in the editing experience because we should recalculate them
         // when answers change
-        const {extraKeys: _, ...restProps} = this.props;
+        const {extraKeys, ...restProps} = this.props;
 
-        const extraKeys = deriveExtraKeys({
+        const derivedExtraKeys = deriveExtraKeys({
             ...restProps,
             answerForms,
         });
-        this.props.onChange({answerForms, extraKeys});
+        this.props.onChange({answerForms, extraKeys: derivedExtraKeys});
     }
 
     // called when the selected buttonset changes
