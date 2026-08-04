@@ -687,7 +687,7 @@ abstract class Seq extends Expr {
     // if no new term is provided, the old one is simply removed
     replace(oldTerm: Expr | number, newTerm?: Expr | Expr[]) {
         const index =
-            oldTerm instanceof Expr ? _.indexOf(this.terms, oldTerm) : oldTerm;
+            oldTerm instanceof Expr ? this.terms.indexOf(oldTerm) : oldTerm;
 
         var newTerms: Expr[] = [];
         if (Array.isArray(newTerm)) {
@@ -1545,7 +1545,7 @@ export class Mul extends Seq {
                                   ).fold(),
                               );
 
-                    const index = _.indexOf(expr.terms, trigLog);
+                    const index = expr.terms.indexOf(trigLog);
                     if (index === 0) {
                         return newTrigLog;
                     } else {
@@ -1580,8 +1580,8 @@ export class Mul extends Seq {
                 // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
                 _.every(numbers, posOrNeg)
             ) {
-                var firstNeg = _.indexOf(expr.terms, negNum);
-                var firstNum = _.indexOf(expr.terms, posNum);
+                var firstNeg = expr.terms.indexOf(negNum);
+                var firstNum = expr.terms.indexOf(posNum);
 
                 // e.g. -x*2 -> x*-2
                 if (firstNeg < firstNum) {

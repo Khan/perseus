@@ -76,7 +76,7 @@ const InteractiveUtil = {
      * Create getters for this.state, based on the default state, `defaults`
      */
     createGettersFor: function (Class: any, defaults: Record<any, any>) {
-        _.each(_.keys(defaults), function (key) {
+        _.each(Object.keys(defaults), function (key) {
             if (Class.prototype[key] === undefined) {
                 Class.prototype[key] = function () {
                     return this.state[key];

@@ -579,7 +579,7 @@ const functionTypeMapping = {
     absolute_value: AbsoluteValue,
 } as const;
 
-export const allTypes: any = _.keys(functionTypeMapping);
+export const allTypes: any = Object.keys(functionTypeMapping);
 
 export type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 
