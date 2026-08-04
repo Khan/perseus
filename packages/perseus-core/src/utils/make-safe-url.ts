@@ -15,10 +15,14 @@ export const makeSafeUrl = (
     locale: string,
     expectedOrigin: string,
 ): URL | null => {
-    if (!URL.canParse(urlString)) {
+    // Note: we intentionally avoid URL.canParse() here because it isn't
+    // available before Safari 17 / iOS 17 and throws on older devices.
+    let url: URL;
+    try {
+        url = new URL(urlString);
+    } catch {
         return null;
     }
-    const url = new URL(urlString);
     if (url.origin !== expectedOrigin) {
         return null;
     }
