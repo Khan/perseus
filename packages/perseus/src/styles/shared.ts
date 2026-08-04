@@ -1,4 +1,4 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
 import * as constants from "./constants";
@@ -54,7 +54,7 @@ export default StyleSheet.create({
 
         backgroundColor: "#fff",
         border: "2px solid #fff",
-        boxShadow: `0 0px 0px 1px ${semanticColor.core.border.neutral.subtle}`,
+        boxShadow: `0 0px 0px ${border.width.medium} ${semanticColor.core.border.neutral.subtle}`,
         outline: "none",
 
         boxSizing: "border-box",
