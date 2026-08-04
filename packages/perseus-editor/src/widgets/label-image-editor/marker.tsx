@@ -202,7 +202,8 @@ const styles = StyleSheet.create({
 
         width: 16,
         height: 16,
-        marginInlineStart: -8,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): centers the marker on its absolute image coordinate; must not mirror
+        marginLeft: -8,
         marginBlockStart: -8,
 
         cursor: "pointer",
@@ -219,7 +220,8 @@ const styles = StyleSheet.create({
     markerSelected: {
         width: 28,
         height: 28,
-        marginInlineStart: -12,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): centers the marker on its absolute image coordinate; must not mirror
+        marginLeft: -12,
         marginBlockStart: -12,
 
         border: "none",
