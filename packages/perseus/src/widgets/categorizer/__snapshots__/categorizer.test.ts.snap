@@ -166,7 +166,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -180,7 +180,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -194,7 +194,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -208,7 +208,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
@@ -251,7 +251,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -265,7 +265,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -279,7 +279,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -293,7 +293,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
@@ -583,14 +583,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -609,14 +609,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -635,14 +635,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -661,14 +661,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -716,14 +716,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -742,14 +742,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -768,14 +768,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
@@ -794,14 +794,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_1sl942g"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1cqf8h5"
+                        class="radioSpan_10ojurn"
                       >
                         <svg
                           aria-hidden="true"
