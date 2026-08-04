@@ -1,3 +1,4 @@
+import {generateMatcherOptions} from "@khanacademy/perseus-core";
 import {screen, within} from "@testing-library/react";
 import * as React from "react";
 
@@ -71,10 +72,12 @@ describe("Matcher AI utils", () => {
         };
 
         const widgetData: widgetDataPartial = {
-            labels: ["Number", "Letter"],
-            left: ["1", "2", "3"],
-            right: ["a", "b", "c"],
-            orderMatters: false,
+            options: generateMatcherOptions({
+                labels: ["Number", "Letter"],
+                left: ["1", "2", "3"],
+                right: ["a", "b", "c"],
+                orderMatters: false,
+            }),
             userInput,
         };
 
