@@ -80,6 +80,11 @@ class MatrixEditor extends React.Component<Props> {
                 this.change({answers: userInput.answers});
             },
             ...this.props,
+            options: {
+                matrixBoardSize: this.props.matrixBoardSize,
+                prefix: this.props.prefix,
+                suffix: this.props.suffix,
+            },
         };
 
         return (

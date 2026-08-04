@@ -19,7 +19,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
@@ -80,17 +80,17 @@ const getRefForPath = function (path: FocusPath) {
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusMatrixWidgetOptions
-// stays in sync with the prop types. The PropsFor<Component> type takes
-// defaultProps into account, which is important because
-// PerseusMatrixWidgetOptions has optional fields which receive defaults via
-// defaultProps.
+// stays in sync with the prop types.
 // eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
+0 as any as WidgetPropsV2<
     PerseusMatrixWidgetOptions,
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof WrappedMatrix>;
 
-type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
+type Props = WidgetPropsV2<
+    MatrixPublicWidgetOptions,
+    PerseusMatrixUserInput
+> & {
     dependencies: PerseusDependenciesV2;
 };
 
@@ -125,8 +125,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         const inputPaths: Array<ReadonlyArray<string>> = [];
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
+        const maxRows = this.props.options.matrixBoardSize[0];
+        const maxCols = this.props.options.matrixBoardSize[1];
 
         for (let row = 0; row < maxRows; row++) {
             for (let col = 0; col < maxCols; col++) {
@@ -180,8 +180,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         col,
         e,
     ) => {
-        const maxRow = this.props.matrixBoardSize[0];
-        const maxCol = this.props.matrixBoardSize[1];
+        const maxRow = this.props.options.matrixBoardSize[0];
+        const maxCol = this.props.options.matrixBoardSize[1];
 
         // eslint-disable-next-line react/no-string-refs
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
@@ -272,8 +272,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
             answers: userInput.answers,
             cursorPosition: this.state.cursorPosition,
@@ -293,8 +294,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const {INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH} = dimensions;
 
         const matrixSize = getMatrixSize(this.props.userInput.answers);
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
+        const maxRows = this.props.options.matrixBoardSize[0];
+        const maxCols = this.props.options.matrixBoardSize[1];
         const cursorRow = this.state.cursorPosition[0];
         const cursorCol = this.state.cursorPosition[1];
 
@@ -318,10 +319,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
         return (
             <div className={className}>
-                {this.props.prefix && (
+                {this.props.options.prefix && (
                     <div className="matrix-prefix">
                         <Renderer
-                            content={this.props.prefix}
+                            content={this.props.options.prefix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
                         />
@@ -467,10 +468,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         );
                     })}
                 </div>
-                {this.props.suffix && (
+                {this.props.options.suffix && (
                     <div className="matrix-suffix">
                         <Renderer
-                            content={this.props.suffix}
+                            content={this.props.options.suffix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
                         />
