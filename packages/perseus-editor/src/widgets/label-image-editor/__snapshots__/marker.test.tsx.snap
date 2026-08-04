@@ -4,12 +4,12 @@ exports[`Marker component rendering renders an empty marker 1`] = `
 <div>
   <div
     class="marker_16x82sb-o_O-markerSelected_18924vq"
-    style="inset-inline-start: 50%; inset-block-start: 50%;"
+    style="left: 50%; inset-block-start: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
     <div>
       <div
-        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_wktwy2"
+        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_xb6zwq"
       >
         <button
           class="notAButton_15oq5w2"
@@ -52,12 +52,12 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
 <div>
   <div
     class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_18924vq"
-    style="inset-inline-start: 50%; inset-block-start: 50%;"
+    style="left: 50%; inset-block-start: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
     <div>
       <div
-        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_wktwy2"
+        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_xb6zwq"
       >
         <button
           class="notAButton_15oq5w2"

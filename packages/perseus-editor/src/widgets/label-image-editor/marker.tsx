@@ -144,7 +144,8 @@ class Marker extends React.Component<MarkerProps, State> {
                 )}
                 ref={(node) => (this._marker = node)}
                 style={{
-                    insetInlineStart: `${x}%`,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                    left: `${x}%`,
                     insetBlockStart: `${y}%`,
                 }}
                 title={
@@ -245,7 +246,8 @@ const styles = StyleSheet.create({
 
     dropdownPositionWithArrow: {
         // Position dropdown to the top right of the marker.
-        insetInlineStart: 46,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+        left: 46,
         insetBlockEnd: -12,
 
         // With an arrow pointing left towards the marker.
@@ -256,7 +258,8 @@ const styles = StyleSheet.create({
 
             width: 0,
             height: 0,
-            insetInlineStart: -16,
+            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+            left: -16,
             insetBlockEnd: 8,
 
             borderInlineEnd: `solid 16px ${gray98}`,
