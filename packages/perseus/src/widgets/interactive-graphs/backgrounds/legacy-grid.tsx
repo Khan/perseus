@@ -26,7 +26,8 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
                 style={{
                     position: "absolute",
                     insetBlockEnd: 0,
-                    insetInlineStart: 0,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): graph coordinate-layer origin; must not mirror in RTL
+                    left: 0,
                 }}
             >
                 <AssetContext.Consumer>

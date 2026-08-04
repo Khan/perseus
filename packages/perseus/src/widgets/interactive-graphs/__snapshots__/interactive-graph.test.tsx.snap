@@ -24,7 +24,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
               tabindex="0"
             >
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <span
                   aria-hidden="true"
@@ -1088,7 +1088,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 />
               </div>
             </div>
@@ -1180,7 +1180,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -1511,7 +1511,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -1620,7 +1620,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -1649,7 +1649,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -1941,7 +1941,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -2066,7 +2066,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 No interactive elements
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2095,7 +2095,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -2170,7 +2170,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 />
               </div>
             </div>
@@ -2315,7 +2315,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 Press Shift + Enter to interact with the graph. Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2344,7 +2344,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -2432,7 +2432,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 />
               </div>
             </div>
@@ -2555,7 +2555,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -2859,7 +2859,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -2968,7 +2968,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2997,7 +2997,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -3289,7 +3289,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -3414,7 +3414,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 Interactive elements: Point 1 at 0 comma 0. Point 2 at -2.5 comma 0. Point 3 at -1 comma 0.
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -3443,7 +3443,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -3621,7 +3621,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -3771,7 +3771,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 Interactive elements: A polygon with 4 points. 
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -3800,7 +3800,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <div
                   aria-hidden="true"
@@ -4156,7 +4156,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
