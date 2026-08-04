@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     cell: {
         textAlign: "center",
         padding: 0,
-        color: semanticColor.core.foreground.disabled.subtle,
+        color: semanticColor.core.border.neutral.subtle,
         verticalAlign: "middle",
     },
 
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         paddingRight: 3,
 
         ":hover": {
-            color: semanticColor.core.foreground.disabled.strong,
+            color: semanticColor.core.border.neutral.default,
         },
     },
 
