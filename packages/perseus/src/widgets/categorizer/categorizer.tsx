@@ -19,7 +19,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
@@ -27,21 +27,18 @@ import type {
     PerseusCategorizerWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type ExternalProps = WidgetProps<
-    PerseusCategorizerWidgetOptions,
-    PerseusCategorizerUserInput
->;
-
-type Props = ExternalProps & {
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
+interface Props
+    extends WidgetPropsV2<
+        PerseusCategorizerWidgetOptions,
+        PerseusCategorizerUserInput
+    > {
+    // TODO(LEMS-4354): Make `dependencies` part of WidgetPropsV2.
     dependencies: PerseusDependenciesV2;
-};
+}
 
 const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
+    const {items, categories, randomizeItems} = props.options;
     const {
-        items,
-        categories,
-        randomizeItems,
         userInput,
         problemNum,
         apiOptions,
@@ -72,8 +69,9 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState(): any {
-            const {userInput, ...rest} = props;
+            const {userInput, options, ...rest} = props;
             return {
+                ...options,
                 ...rest,
                 values: userInput.values,
             };
