@@ -244,7 +244,7 @@ module.exports = {
                 args: "none",
                 caughtErrors: "none",
                 ignoreRestSiblings: true,
-                varsIgnorePattern: "^__+$",
+                varsIgnorePattern: "^_\\d+$",
             },
         ],
 
