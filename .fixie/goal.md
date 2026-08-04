@@ -505,7 +505,7 @@ Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
 - [x] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
-- [ ] Migrate `matcher` to `WidgetPropsV2`.
+- [x] Migrate `matcher` to `WidgetPropsV2`.
 - [ ] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
       `satisfies PropsFor` assertion).
