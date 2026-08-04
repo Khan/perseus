@@ -177,7 +177,9 @@ describe("numeric-input widget", () => {
             ),
         ).toBeInTheDocument();
         expect(
-            screen.getByText(/a mixed number \(like 1\\:3\/4 or 2\\:5\/6\)/),
+            screen.getByText(
+                /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
+            ),
         ).toBeInTheDocument();
     });
 
@@ -631,7 +633,7 @@ describe("interactive: full vs answerless", () => {
             ).toBeInTheDocument();
             expect(
                 screen.getByText(
-                    /a mixed number \(like 1\\:3\/4 or 2\\:5\/6\)/,
+                    /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
                 ),
             ).toBeInTheDocument();
 

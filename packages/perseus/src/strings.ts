@@ -60,7 +60,7 @@ export type PerseusStrings = {
     percentExample: string;
     piExample: string;
     yourAnswer: string;
-    yourAnswerCan: string;
+    yourAnswerCanBe: string;
     yourAnswerLabel: string;
     addPoints: string;
     addVertices: string;
@@ -987,12 +987,12 @@ export const strings = {
     improperExample: "an improper fraction (like $3/2$ or $17/15$)",
     simplifiedImproperExample:
         "a simplified improper fraction (like $5/4$ or $9/8$)",
-    mixedExample: "a mixed number (like $1\\:3/4$ or $2\\:5/6$)",
+    mixedExample: "a mixed number (like $1\\\\ 3/4$ or $2\\\\ 5/6$)",
     decimalExample: "an exact decimal (like $-0.85$ or $3.14$)",
     percentExample: "a percent (like $6\\\\%$ or $12.34\\\\%$)",
     piExample: "a multiple of pi (like $2/3$ pi or $5$ pi)",
     yourAnswer: "**Your answer should be** ",
-    yourAnswerCan: "**Your answer can be** ",
+    yourAnswerCanBe: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",
@@ -1933,12 +1933,12 @@ export const mockStrings: PerseusStrings = {
     improperExample: "an improper fraction (like $3/2$ or $17/15$)",
     simplifiedImproperExample:
         "a simplified improper fraction (like $5/4$ or $9/8$)",
-    mixedExample: "a mixed number (like $1\\:3/4$ or $2\\:5/6$)",
+    mixedExample: "a mixed number (like $1\\ 3/4$ or $2\\ 5/6$)",
     decimalExample: "an exact decimal (like $-0.85$ or $3.14$)",
-    percentExample: "a percent (like $6\\\\%$ or $12.34\\\\%$)",
-    piExample: "a multiple of pi (like $2/3$ pi or $5$ pi)",
+    percentExample: "a percent (like $6\\%$ or $12.34\\%$)",
+    piExample: "a multiple of pi (like $2/3\\ \\text{pi}$ or $5\\ \\text{pi}$)",
     yourAnswer: "**Your answer should be** ",
-    yourAnswerCan: "**Your answer can be** ",
+    yourAnswerCanBe: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",

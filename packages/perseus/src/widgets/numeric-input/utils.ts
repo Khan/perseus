@@ -57,7 +57,7 @@ export const generateExamples = (
     });
 
     const yourAnswerText =
-        uniqueForms.length > 1 ? strings.yourAnswerCan : strings.yourAnswer;
+        uniqueForms.length > 1 ? strings.yourAnswerCanBe : strings.yourAnswer;
 
     // Add the "Your answer" string to the beginning of the examples list.
     return [yourAnswerText].concat(examples);
