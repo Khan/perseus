@@ -75,12 +75,12 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
@@ -408,12 +408,12 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
@@ -741,12 +741,12 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
@@ -1074,12 +1074,12 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
@@ -1407,12 +1407,12 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          class="marker_yxvend-o_O-markerWithAnswers_hvf8qy"
           style="left: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />

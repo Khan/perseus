@@ -3,7 +3,7 @@
 exports[`Marker component rendering renders an empty marker 1`] = `
 <div>
   <div
-    class="marker_16x82sb-o_O-markerSelected_18924vq"
+    class="marker_yxvend-o_O-markerSelected_skdxd0"
     style="left: 50%; inset-block-start: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
@@ -51,7 +51,7 @@ exports[`Marker component rendering renders an empty marker 1`] = `
 exports[`Marker component rendering renders with answers and choices 1`] = `
 <div>
   <div
-    class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_18924vq"
+    class="marker_yxvend-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_skdxd0"
     style="left: 50%; inset-block-start: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
