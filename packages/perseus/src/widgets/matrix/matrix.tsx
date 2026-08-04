@@ -355,7 +355,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         className="matrix-bracket bracket-right"
                         style={{
                             height: bracketHeight,
-                            insetInlineStart: bracketOffset,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                            left: bracketOffset,
                         }}
                     />
                     {_(maxRows).times((row) => {

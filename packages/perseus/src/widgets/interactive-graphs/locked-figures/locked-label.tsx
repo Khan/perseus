@@ -35,7 +35,8 @@ export default function LockedLabel(props: LockedLabelType) {
                 className="locked-label"
                 style={{
                     position: "absolute",
-                    insetInlineStart: x,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                    left: x,
                     insetBlockStart: y,
                     color: lockedFigureColors[color],
                     fontSize: labelFontSize[size],

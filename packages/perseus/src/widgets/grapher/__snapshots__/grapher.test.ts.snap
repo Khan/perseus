@@ -67,7 +67,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
               >
                 <span
                   aria-hidden="true"
-                  style="position: absolute; inset-inline-start: 400px; inset-block-start: 200px; font-size: 14px; transform: translate(7px, -50%);"
+                  style="position: absolute; left: 400px; inset-block-start: 200px; font-size: 14px; transform: translate(7px, -50%);"
                 >
                   <span
                     class="mock-TeX"
@@ -77,7 +77,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 </span>
                 <span
                   aria-hidden="true"
-                  style="position: absolute; inset-inline-start: 200px; inset-block-start: -28px; font-size: 14px; transform: translate(-50%, 0px);"
+                  style="position: absolute; left: 200px; inset-block-start: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
                   <span
                     class="mock-TeX"

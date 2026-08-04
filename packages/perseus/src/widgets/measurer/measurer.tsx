@@ -117,7 +117,8 @@ class Measurer extends React.Component<Props> implements Widget {
                         style={{
                             position: "relative",
                             insetBlockStart: image.top ?? 0,
-                            insetInlineStart: image.left ?? 0,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                            left: image.left ?? 0,
                         }}
                     >
                         {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}

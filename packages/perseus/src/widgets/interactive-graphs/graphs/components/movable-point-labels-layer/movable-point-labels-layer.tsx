@@ -66,7 +66,8 @@ function MovablePointLabelView({
             aria-hidden={true}
             style={{
                 position: "absolute",
-                insetInlineStart: x,
+                // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                left: x,
                 insetBlockStart: y,
                 transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,

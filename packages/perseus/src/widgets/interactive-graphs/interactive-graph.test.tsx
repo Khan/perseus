@@ -1341,7 +1341,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "200px",
+                left: "200px",
                 insetBlockStart: "200px",
             });
         });
@@ -1607,19 +1607,19 @@ describe("Interactive Graph", function () {
             expect(labels[0]).toHaveStyle({
                 color: lockedFigureColors["pink"],
                 fontSize: "var(--wb-font-body-size-small)",
-                insetInlineStart: "80px",
+                left: "80px",
                 insetBlockStart: "160px",
             });
             expect(labels[1]).toHaveStyle({
                 color: lockedFigureColors["blue"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "220px",
+                left: "220px",
                 insetBlockStart: "160px",
             });
             expect(labels[2]).toHaveStyle({
                 color: lockedFigureColors["green"],
                 fontSize: "var(--wb-font-heading-size-medium)",
-                insetInlineStart: "140px",
+                left: "140px",
                 insetBlockStart: "240px",
             });
         });
@@ -1642,7 +1642,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "210px",
+                left: "210px",
                 insetBlockStart: "200px",
             });
         });
@@ -1664,7 +1664,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "150px",
+                left: "150px",
                 insetBlockStart: "280px",
             });
         });
@@ -1728,7 +1728,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "280px",
+                left: "280px",
                 insetBlockStart: "180px",
             });
         });
@@ -1751,7 +1751,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "200px",
+                left: "200px",
                 insetBlockStart: "200px",
             });
         });
@@ -1774,7 +1774,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
-                insetInlineStart: "200px",
+                left: "200px",
                 insetBlockStart: "200px",
             });
         });

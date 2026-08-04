@@ -570,7 +570,8 @@ export class LabelImage
                     key={index}
                     style={{
                         position: "absolute",
-                        insetInlineStart: `${marker.x}%`,
+                        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                        left: `${marker.x}%`,
                         insetBlockStart: `${marker.y}%`,
                         // reset to allow child (answer pill) to control z-index
                         zIndex: "unset",

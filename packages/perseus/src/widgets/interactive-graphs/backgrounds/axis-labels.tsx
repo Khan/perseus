@@ -37,7 +37,8 @@ export default function AxisLabels({
                 aria-hidden={true}
                 style={{
                     position: "absolute",
-                    insetInlineStart: xAxisLabelLocation[X],
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                    left: xAxisLabelLocation[X],
                     insetBlockStart: xAxisLabelLocation[Y],
                     // Using `fontSize` instead of semantic tokens here in
                     // order to stay consistent with our graph calculations.
@@ -55,7 +56,8 @@ export default function AxisLabels({
                 aria-hidden={true}
                 style={{
                     position: "absolute",
-                    insetInlineStart: yAxisLabelLocation[X],
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                    left: yAxisLabelLocation[X],
                     insetBlockStart: yAxisLabelLocation[Y],
                     // Using `fontSize` instead of semantic tokens here in
                     // order to stay consistent with our graph calculations.
