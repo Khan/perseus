@@ -48,8 +48,15 @@ class CategorizerEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
-            items: this.props.items,
-            categories: this.props.categories,
+            options: {
+                items: this.props.items,
+                categories: this.props.categories,
+                // The preview keeps the authored item order so the editor's
+                // item list lines up with the rows of the preview table.
+                randomizeItems: false,
+                static: false,
+                values: [],
+            },
             userInput: {values: this.props.values},
             handleUserInput: (userInput) => {
                 this.props.onChange({values: userInput.values});
