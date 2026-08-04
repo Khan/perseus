@@ -1,6 +1,6 @@
 import {shuffle} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {font} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import React, {forwardRef, useImperativeHandle, useMemo} from "react";
@@ -259,8 +259,7 @@ const styles = StyleSheet.create({
     },
 
     radioSpan: {
-        fontSize: font.heading.size.large,
-        fontWeight: font.weight.semi,
+        fontSize: sizing.size_280,
         paddingRight: 3,
 
         ":hover": {
