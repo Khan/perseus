@@ -26,15 +26,14 @@ import type {
     PerseusCategorizerWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type ExternalProps = WidgetPropsV2<
-    PerseusCategorizerWidgetOptions,
-    PerseusCategorizerUserInput
->;
-
-type Props = ExternalProps & {
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
+interface Props
+    extends WidgetPropsV2<
+        PerseusCategorizerWidgetOptions,
+        PerseusCategorizerUserInput
+    > {
+    // TODO(LEMS-4354): Make `dependencies` part of WidgetPropsV2.
     dependencies: PerseusDependenciesV2;
-};
+}
 
 const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
     const {items, categories, randomizeItems} = props.options;
