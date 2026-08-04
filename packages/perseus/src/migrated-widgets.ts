@@ -28,4 +28,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "interaction",
     "numeric-input",
     "input-number",
+    "categorizer",
 ];
