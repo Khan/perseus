@@ -377,7 +377,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
-        const graph = this.props.options.graph;
+        const {graph} = this.props.options;
         const plot = {
             ...this.props.userInput,
             ...defaultPlotProps(newType, graph),
@@ -582,7 +582,7 @@ class Grapher extends React.Component<Props> implements Widget {
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
-        const graph = this.props.options.graph;
+        const {graph} = this.props.options;
         const options = {
             ...graph,
             ...getGridAndSnapSteps(graph, box[0]),
@@ -637,6 +637,7 @@ class Grapher extends React.Component<Props> implements Widget {
         const interactiveGraphUserInput =
             convertGrapherUserInputToInteractiveGraph(this.props.userInput);
 
+        // TODO(LEMS-4354): delete the comment below.
         // InteractiveGraph has not yet migrated to nested options, so it takes
         // the converted options spread across its props.
         return (
