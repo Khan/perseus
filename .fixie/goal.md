@@ -518,13 +518,13 @@ review and commit the changes.
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
-- [ ] Migrate `label-image` to `WidgetPropsV2` (update `satisfies PropsFor`
+- [ ] Migrate `label-image` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
-- [ ] Migrate `interactive-graph` to `WidgetPropsV2` (update `satisfies PropsFor`
-      assertion and `interactive-graph-editor` preview; subtype lookup already
+- [ ] Migrate `interactive-graph` to `WidgetPropsV2` (delete `satisfies PropsFor`
+      assertion and update `interactive-graph-editor` preview; subtype lookup already
       handled by scaffolding).
 - [ ] Migrate `group` to `WidgetPropsV2` (renders a nested `Renderer`).
-- [ ] Migrate `graded-group` to `WidgetPropsV2` (update `satisfies PropsFor`
+- [ ] Migrate `graded-group` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
 - [ ] Migrate `graded-group-set` to `WidgetPropsV2`.
 
