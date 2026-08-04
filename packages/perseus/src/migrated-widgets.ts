@@ -30,4 +30,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "input-number",
     "categorizer",
     "matcher",
+    "matrix",
 ];
