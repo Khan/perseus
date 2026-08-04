@@ -29,4 +29,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "numeric-input",
     "input-number",
     "categorizer",
+    "matcher",
 ];
