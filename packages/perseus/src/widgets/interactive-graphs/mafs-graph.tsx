@@ -351,7 +351,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         style={{
                             position: "absolute",
                             insetBlockEnd: 0,
-                            insetInlineStart: 0,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): graph coordinate-layer origin; must not mirror in RTL
+                            left: 0,
                         }}
                     >
                         {(props.markings === "graph" ||
@@ -496,7 +497,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 style={{
                                     position: "absolute",
                                     insetBlockStart: 0,
-                                    insetInlineStart: 0,
+                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): graph coordinate-layer origin; must not mirror in RTL
+                                    left: 0,
                                     width,
                                     height,
                                     pointerEvents: "none",

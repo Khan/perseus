@@ -63,7 +63,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 Interactive elements: A line on a coordinate plane. The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
+                class="default_7zhre1-o_O-inlineStyles_16ttxov"
               >
                 <span
                   aria-hidden="true"
@@ -1330,7 +1330,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; left: 0px; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
