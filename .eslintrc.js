@@ -228,14 +228,16 @@ module.exports = {
     ],
     reportUnusedDisableDirectives: true,
     rules: {
-        // Adopt the Wonder Blocks RTL rule now. The other rules pulled in by
-        // the `wonder-blocks/strict` preset are deferred to a separate
-        // WB-strict adoption owned by the Perseus team.
+        // Enable the RTL rule now. Other wonder-blocks/strict rules stay off
+        // so this PR stays scoped to logical CSS properties.
         "@khanacademy/wonder-blocks/require-logical-properties-for-rtl":
             "error",
         "@khanacademy/wonder-blocks/no-hardcoded-color": "off",
         "@khanacademy/wonder-blocks/no-raw-button": "off",
         "@khanacademy/wonder-blocks/no-invalid-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-custom-tab-role": "off",
+        "@khanacademy/wonder-blocks/no-excessive-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-invalid-bodytext-parent": "off",
         "new-cap": "off",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
         "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
