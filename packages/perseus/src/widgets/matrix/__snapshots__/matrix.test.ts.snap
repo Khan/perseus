@@ -78,7 +78,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
               />
               <div
                 class="matrix-bracket bracket-right"
-                style="height: 36px; left: 46px;"
+                style="height: 36px; inset-inline-start: 46px;"
               />
               <div
                 class="matrix-row"
@@ -378,7 +378,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
               />
               <div
                 class="matrix-bracket bracket-right"
-                style="height: 36px; left: 46px;"
+                style="height: 36px; inset-inline-start: 46px;"
               />
               <div
                 class="matrix-row"

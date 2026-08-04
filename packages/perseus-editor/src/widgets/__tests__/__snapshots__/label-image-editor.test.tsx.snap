@@ -15,11 +15,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         class="image-row"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
           style="flex-grow: 1;"
         >
           <input
-            class="inputBase_w7cswd"
+            class="inputBase_ca6tue"
             placeholder="URL"
             value="https://example.com/test-image.png"
           />
@@ -27,7 +27,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
           type="button"
         >
@@ -40,11 +40,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </div>
     </div>
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
     >
       <input
-        class="inputBase_w7cswd"
+        class="inputBase_ca6tue"
         placeholder="Alt text (for screen readers)"
         value="Test image alt text"
       />
@@ -56,7 +56,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         Markers
       </span>
       <div
-        class="subtitle_1l9172p"
+        class="subtitle_1xez27u"
       >
         <span>
           Double-click on the image to add a marker.
@@ -67,21 +67,21 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </div>
       <div
         class="markersCanvas_kfnsd"
-        style="max-width: 400px; max-height: 300px;"
+        style="max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_17hjzsq"
+          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 25%; top: 25%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 50%; top: 50%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
       </div>
@@ -114,11 +114,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 1"
             />
           </form>
@@ -142,11 +142,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 2"
             />
           </form>
@@ -170,11 +170,11 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 3"
             />
           </form>
@@ -217,7 +217,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -240,7 +240,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -258,7 +258,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -281,7 +281,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -348,11 +348,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         class="image-row"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
           style="flex-grow: 1;"
         >
           <input
-            class="inputBase_w7cswd"
+            class="inputBase_ca6tue"
             placeholder="URL"
             value="https://example.com/test-image.png"
           />
@@ -360,7 +360,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
           type="button"
         >
@@ -373,11 +373,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </div>
     </div>
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
     >
       <input
-        class="inputBase_w7cswd"
+        class="inputBase_ca6tue"
         placeholder="Alt text (for screen readers)"
         value="Test image alt text"
       />
@@ -389,7 +389,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         Markers
       </span>
       <div
-        class="subtitle_1l9172p"
+        class="subtitle_1xez27u"
       >
         <span>
           Double-click on the image to add a marker.
@@ -400,21 +400,21 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </div>
       <div
         class="markersCanvas_kfnsd"
-        style="max-width: 400px; max-height: 300px;"
+        style="max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_17hjzsq"
+          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 25%; top: 25%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 50%; top: 50%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
       </div>
@@ -447,11 +447,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 1"
             />
           </form>
@@ -475,11 +475,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 2"
             />
           </form>
@@ -503,11 +503,11 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 3"
             />
           </form>
@@ -550,7 +550,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -573,7 +573,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -591,7 +591,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -614,7 +614,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -681,11 +681,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         class="image-row"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
           style="flex-grow: 1;"
         >
           <input
-            class="inputBase_w7cswd"
+            class="inputBase_ca6tue"
             placeholder="URL"
             value="https://example.com/test-image.png"
           />
@@ -693,7 +693,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
           type="button"
         >
@@ -706,11 +706,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </div>
     </div>
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
     >
       <input
-        class="inputBase_w7cswd"
+        class="inputBase_ca6tue"
         placeholder="Alt text (for screen readers)"
         value="Test image alt text"
       />
@@ -722,7 +722,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         Markers
       </span>
       <div
-        class="subtitle_1l9172p"
+        class="subtitle_1xez27u"
       >
         <span>
           Double-click on the image to add a marker.
@@ -733,21 +733,21 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </div>
       <div
         class="markersCanvas_kfnsd"
-        style="max-width: 400px; max-height: 300px;"
+        style="max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_17hjzsq"
+          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 25%; top: 25%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 50%; top: 50%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
       </div>
@@ -780,11 +780,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 1"
             />
           </form>
@@ -808,11 +808,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 2"
             />
           </form>
@@ -836,11 +836,11 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 3"
             />
           </form>
@@ -883,7 +883,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -906,7 +906,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -924,7 +924,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -947,7 +947,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -1014,11 +1014,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         class="image-row"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
           style="flex-grow: 1;"
         >
           <input
-            class="inputBase_w7cswd"
+            class="inputBase_ca6tue"
             placeholder="URL"
             value="https://example.com/test-image.png"
           />
@@ -1026,7 +1026,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
           type="button"
         >
@@ -1039,11 +1039,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </div>
     </div>
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
     >
       <input
-        class="inputBase_w7cswd"
+        class="inputBase_ca6tue"
         placeholder="Alt text (for screen readers)"
         value="Test image alt text"
       />
@@ -1055,7 +1055,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         Markers
       </span>
       <div
-        class="subtitle_1l9172p"
+        class="subtitle_1xez27u"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1066,21 +1066,21 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </div>
       <div
         class="markersCanvas_kfnsd"
-        style="max-width: 400px; max-height: 300px;"
+        style="max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_17hjzsq"
+          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 25%; top: 25%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 50%; top: 50%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
       </div>
@@ -1113,11 +1113,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 1"
             />
           </form>
@@ -1141,11 +1141,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 2"
             />
           </form>
@@ -1169,11 +1169,11 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 3"
             />
           </form>
@@ -1216,7 +1216,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -1239,7 +1239,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -1257,7 +1257,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -1280,7 +1280,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -1347,11 +1347,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         class="image-row"
       >
         <form
-          class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
           style="flex-grow: 1;"
         >
           <input
-            class="inputBase_w7cswd"
+            class="inputBase_ca6tue"
             placeholder="URL"
             value="https://example.com/test-image.png"
           />
@@ -1359,7 +1359,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_786qd8"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
           type="button"
         >
@@ -1372,11 +1372,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </div>
     </div>
     <form
-      class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
       style="width: 100%;"
     >
       <input
-        class="inputBase_w7cswd"
+        class="inputBase_ca6tue"
         placeholder="Alt text (for screen readers)"
         value="Test image alt text"
       />
@@ -1388,7 +1388,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         Markers
       </span>
       <div
-        class="subtitle_1l9172p"
+        class="subtitle_1xez27u"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1399,21 +1399,21 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </div>
       <div
         class="markersCanvas_kfnsd"
-        style="max-width: 400px; max-height: 300px;"
+        style="max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_17hjzsq"
+          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 25%; top: 25%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 25%; inset-block-start: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
         <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
-          style="left: 50%; top: 50%;"
+          class="marker_16x82sb-o_O-markerWithAnswers_hvf8qy"
+          style="inset-inline-start: 50%; inset-block-start: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
         />
       </div>
@@ -1446,11 +1446,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 1"
             />
           </form>
@@ -1474,11 +1474,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 2"
             />
           </form>
@@ -1502,11 +1502,11 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             </span>
           </button>
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="flex-grow: 1;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               value="Choice 3"
             />
           </form>
@@ -1549,7 +1549,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -1572,7 +1572,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>
@@ -1590,7 +1590,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             data-checked="false"
           >
             <svg
-              class="svg_a755yf"
+              class="svg_qna5vb"
               height="17"
               viewBox="-0.5 -0.5
                          17 17"
@@ -1613,7 +1613,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               </g>
             </svg>
             <input
-              class="checkbox_xe15d2"
+              class="checkbox_1v079b5"
               type="checkbox"
             />
           </div>

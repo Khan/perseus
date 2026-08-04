@@ -76,7 +76,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
             class="image image-removed"
           >
             <span
-              style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+              style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
             >
               <div
                 class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -104,7 +104,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
             class="image image-added"
           >
             <span
-              style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+              style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
             >
               <div
                 class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -135,7 +135,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               class="diff-row before"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 options: 
                 <span
@@ -147,7 +147,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               class="diff-row after"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 options: 
                 <span
@@ -164,7 +164,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="removed diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   title: 
                   <span
@@ -178,7 +178,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="added diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   title: 
                   <span
@@ -198,7 +198,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="removed diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   caption: 
                   <span
@@ -212,7 +212,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="added diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   caption: 
                   <span
@@ -232,7 +232,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="removed diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   alt: 
                   <span
@@ -246,7 +246,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="added diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   alt: 
                   <span
@@ -266,7 +266,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   backgroundImage: 
                   <span
@@ -278,7 +278,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   backgroundImage: 
                   <span
@@ -295,7 +295,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="removed diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     url: 
                     <span
@@ -309,7 +309,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="added diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     url: 
                     <span
@@ -329,7 +329,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="removed diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     width: 
                     <span
@@ -343,7 +343,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="added diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     width: 
                     <span
@@ -363,7 +363,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="removed diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     height: 
                     <span
@@ -377,7 +377,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
                   class="added diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     height: 
                     <span
@@ -397,7 +397,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               class="diff-row collapsed before"
             >
               <div
-                style="padding-left: 20px;"
+                style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
               >
                 <button
                   aria-disabled="false"
@@ -417,7 +417,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
               class="diff-row collapsed after"
             >
               <div
-                style="padding-left: 20px;"
+                style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
               >
                 <button
                   aria-disabled="false"
@@ -526,7 +526,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
               class="removed dark diff-row before"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 options: 
                 <span
@@ -538,7 +538,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
               class="blank-space diff-row after"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 <span
                   class="inner-value dark blank-space"
@@ -554,7 +554,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   choices: 
                   <span
@@ -566,7 +566,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -582,7 +582,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="removed dark diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     0: 
                     <span
@@ -594,7 +594,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="blank-space diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -610,7 +610,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -624,7 +624,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -641,7 +641,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -655,7 +655,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -673,7 +673,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="removed dark diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     1: 
                     <span
@@ -685,7 +685,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="blank-space diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -701,7 +701,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -715,7 +715,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -732,7 +732,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -746,7 +746,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -764,7 +764,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="removed dark diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     2: 
                     <span
@@ -776,7 +776,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="blank-space diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -792,7 +792,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -806,7 +806,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -823,7 +823,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -837,7 +837,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -855,7 +855,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="removed dark diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     3: 
                     <span
@@ -867,7 +867,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                   class="blank-space diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -883,7 +883,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -897,7 +897,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -914,7 +914,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="removed dark diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -928,7 +928,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                     class="blank-space diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -947,7 +947,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   randomize: 
                   <span
@@ -961,7 +961,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -978,7 +978,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   hasNoneOfTheAbove: 
                   <span
@@ -992,7 +992,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1009,7 +1009,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   multipleSelect: 
                   <span
@@ -1023,7 +1023,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1040,7 +1040,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   countChoices: 
                   <span
@@ -1054,7 +1054,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1071,7 +1071,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="removed dark diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   deselectEnabled: 
                   <span
@@ -1085,7 +1085,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
                 class="blank-space diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1180,7 +1180,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
               class="blank-space diff-row before"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 <span
                   class="inner-value dark blank-space"
@@ -1191,7 +1191,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
               class="added dark diff-row after"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 options: 
                 <span
@@ -1208,7 +1208,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1219,7 +1219,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   choices: 
                   <span
@@ -1236,7 +1236,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="blank-space diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -1247,7 +1247,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="added dark diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     0: 
                     <span
@@ -1264,7 +1264,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1275,7 +1275,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -1295,7 +1295,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1306,7 +1306,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -1327,7 +1327,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="blank-space diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -1338,7 +1338,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="added dark diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     1: 
                     <span
@@ -1355,7 +1355,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1366,7 +1366,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -1386,7 +1386,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1397,7 +1397,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -1418,7 +1418,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="blank-space diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -1429,7 +1429,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="added dark diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     2: 
                     <span
@@ -1446,7 +1446,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1457,7 +1457,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -1477,7 +1477,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1488,7 +1488,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -1509,7 +1509,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="blank-space diff-row before"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     <span
                       class="inner-value dark blank-space"
@@ -1520,7 +1520,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                   class="added dark diff-row after"
                 >
                   <div
-                    style="padding-left: 40px;"
+                    style="padding-inline-start: 40px;"
                   >
                     3: 
                     <span
@@ -1537,7 +1537,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1548,7 +1548,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       content: 
                       <span
@@ -1568,7 +1568,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="blank-space diff-row before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       <span
                         class="inner-value dark blank-space"
@@ -1579,7 +1579,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                     class="added dark diff-row after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-inline-start: 60px;"
                     >
                       id: 
                       <span
@@ -1601,7 +1601,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1612,7 +1612,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   randomize: 
                   <span
@@ -1632,7 +1632,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1643,7 +1643,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   hasNoneOfTheAbove: 
                   <span
@@ -1663,7 +1663,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1674,7 +1674,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   multipleSelect: 
                   <span
@@ -1694,7 +1694,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1705,7 +1705,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   countChoices: 
                   <span
@@ -1725,7 +1725,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="blank-space diff-row before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   <span
                     class="inner-value dark blank-space"
@@ -1736,7 +1736,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
                 class="added dark diff-row after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-inline-start: 20px;"
                 >
                   deselectEnabled: 
                   <span

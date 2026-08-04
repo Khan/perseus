@@ -27,7 +27,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 style="max-width: 428px; max-height: 480px;"
               >
                 <span
-                  style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                  style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
                     class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -521,7 +521,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         >
                           <figure
                             class="perseus-image-widget"
-                            style="max-width: 380px;"
+                            style="max-inline-size: 380px;"
                           >
                             <div
                               class="fixed-to-responsive svg-image"
@@ -529,7 +529,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               style="max-width: 380px; max-height: 80px;"
                             >
                               <span
-                                style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                               >
                                 <div
                                   class="default_7zhre1-o_O-spinnerContainer_agrn11"

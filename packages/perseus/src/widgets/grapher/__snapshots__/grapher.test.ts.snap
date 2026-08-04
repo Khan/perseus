@@ -44,7 +44,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
           >
             <div
               aria-describedby="instructions-:r0: interactive-graph-interactive-elements-description-:r0:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -63,11 +63,11 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 Interactive elements: A line on a coordinate plane. The line has two points, point 1 at -5 comma 5 and point 2 at 5 comma 5.
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_16155wj"
+                class="default_7zhre1-o_O-inlineStyles_18vsrqw"
               >
                 <span
                   aria-hidden="true"
-                  style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
+                  style="position: absolute; inset-inline-start: 400px; inset-block-start: 200px; font-size: 14px; transform: translate(7px, -50%);"
                 >
                   <span
                     class="mock-TeX"
@@ -77,7 +77,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 </span>
                 <span
                   aria-hidden="true"
-                  style="position: absolute; left: 200px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
+                  style="position: absolute; inset-inline-start: 200px; inset-block-start: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
                   <span
                     class="mock-TeX"
@@ -1330,7 +1330,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                 </div>
                 <div
                   class="interactive-graph-hitbox-layer"
-                  style="position: absolute; top: 0px; left: 0px; width: 400px; height: 400px; pointer-events: none;"
+                  style="position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 400px; height: 400px; pointer-events: none;"
                 >
                   <div
                     aria-hidden="true"
@@ -1468,7 +1468,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   style="max-width: 400px; max-height: 400px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -2702,7 +2702,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                 style="display: inline-block;"
               >
                 <button
-                  class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                  class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                   title="Linear"
                   type="button"
                 >
@@ -2712,7 +2712,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_1xlhe29"
+                  class="buttonStyle_zxbos0"
                   title="Absolute_value"
                   type="button"
                 >
@@ -2722,7 +2722,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_1xlhe29"
+                  class="buttonStyle_zxbos0"
                   title="Quadratic"
                   type="button"
                 >
@@ -2732,7 +2732,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_1xlhe29"
+                  class="buttonStyle_zxbos0"
                   title="Exponential"
                   type="button"
                 >
@@ -2742,7 +2742,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_1xlhe29"
+                  class="buttonStyle_zxbos0"
                   title="Logarithm"
                   type="button"
                 >

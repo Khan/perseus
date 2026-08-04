@@ -80,7 +80,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -92,7 +92,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -109,7 +109,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row before"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -121,7 +121,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row after"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -138,7 +138,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row before"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -150,7 +150,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row after"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -167,7 +167,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="removed diff-row before"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         considered: 
                         <span
@@ -181,7 +181,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="added diff-row after"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         considered: 
                         <span
@@ -200,7 +200,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -220,7 +220,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -246,7 +246,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -266,7 +266,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -292,7 +292,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span
@@ -306,7 +306,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span
@@ -399,7 +399,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -411,7 +411,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -428,7 +428,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row before"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -440,7 +440,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row after"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -457,7 +457,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row before"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -469,7 +469,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row after"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -486,7 +486,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="removed diff-row before"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         form: 
                         <span
@@ -500,7 +500,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="added diff-row after"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         form: 
                         <span
@@ -519,7 +519,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -539,7 +539,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -565,7 +565,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -585,7 +585,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -611,7 +611,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span
@@ -625,7 +625,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span
@@ -718,7 +718,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -730,7 +730,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   options: 
                   <span
@@ -747,7 +747,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row before"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -759,7 +759,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                   class="diff-row after"
                 >
                   <div
-                    style="padding-left: 20px;"
+                    style="padding-inline-start: 20px;"
                   >
                     answerForms: 
                     <span
@@ -776,7 +776,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row before"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -788,7 +788,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row after"
                   >
                     <div
-                      style="padding-left: 40px;"
+                      style="padding-inline-start: 40px;"
                     >
                       0: 
                       <span
@@ -805,7 +805,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="removed diff-row before"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         value: 
                         <span
@@ -819,7 +819,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                       class="added diff-row after"
                     >
                       <div
-                        style="padding-left: 60px;"
+                        style="padding-inline-start: 60px;"
                       >
                         value: 
                         <span
@@ -838,7 +838,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed before"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -858,7 +858,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                     class="diff-row collapsed after"
                   >
                     <div
-                      style="padding-left: 60px;"
+                      style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 60px;"
                     >
                       <button
                         aria-disabled="false"
@@ -884,7 +884,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed before"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -904,7 +904,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row collapsed after"
               >
                 <div
-                  style="padding-left: 20px;"
+                  style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 20px;"
                 >
                   <button
                     aria-disabled="false"
@@ -930,7 +930,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row before"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span
@@ -944,7 +944,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
                 class="diff-row after"
               >
                 <div
-                  style="padding-left: 0px;"
+                  style="padding-inline-start: 0;"
                 >
                   static: 
                   <span

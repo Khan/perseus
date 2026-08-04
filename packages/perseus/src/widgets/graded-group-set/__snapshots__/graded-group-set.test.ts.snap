@@ -24,13 +24,13 @@ exports[`graded group set widget should snapshot 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="container_w7zzoh"
+            class="container_mg08ap"
           >
             <div
               class="top_cjo0m2"
             >
               <div
-                class="title_2impyw"
+                class="title_15to8kx"
               >
                 Problem 1a
               </div>
@@ -168,7 +168,7 @@ exports[`graded group set widget should snapshot 1`] = `
                 </span>
               </button>
               <button
-                class="showHintLink_4ow82o"
+                class="showHintLink_1rvdp1e"
                 tabindex="0"
               >
                 Explain
