@@ -504,8 +504,7 @@ review and commit the changes.
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
-- [ ] Convert `categorizer` to a functional component, a la `dropdown`.
-- [ ] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
+- [x] Migrate `categorizer` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `matcher` to `WidgetPropsV2`.
 - [ ] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
