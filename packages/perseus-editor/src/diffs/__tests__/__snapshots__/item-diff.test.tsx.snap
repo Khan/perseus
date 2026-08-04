@@ -116,7 +116,7 @@ exports[`ItemDiff renders a diff view 1`] = `
               class="removed diff-row before"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 calculator: 
                 <span
@@ -130,7 +130,7 @@ exports[`ItemDiff renders a diff view 1`] = `
               class="added diff-row after"
             >
               <div
-                style="padding-left: 0px;"
+                style="padding-inline-start: 0;"
               >
                 calculator: 
                 <span
@@ -149,7 +149,7 @@ exports[`ItemDiff renders a diff view 1`] = `
             class="diff-row collapsed before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 0;"
             >
               <button
                 aria-disabled="false"
@@ -169,7 +169,7 @@ exports[`ItemDiff renders a diff view 1`] = `
             class="diff-row collapsed after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 0;"
             >
               <button
                 aria-disabled="false"
