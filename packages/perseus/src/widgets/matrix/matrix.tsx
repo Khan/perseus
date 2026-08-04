@@ -1,5 +1,4 @@
 import {getMatrixSize} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {border} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -12,7 +11,6 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
 import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
@@ -96,15 +94,6 @@ type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    matrixBoardSize: Props["matrixBoardSize"];
-    prefix: string;
-    suffix: string;
-    apiOptions: Props["apiOptions"];
-    linterContext: Props["linterContext"];
-    userInput: PerseusMatrixUserInput;
-};
-
 type State = {
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
@@ -116,17 +105,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
-
-    static defaultProps: DefaultProps = {
-        matrixBoardSize: [3, 3],
-        prefix: "",
-        suffix: "",
-        apiOptions: ApiOptions.defaults,
-        linterContext: linterContextDefault,
-        userInput: {
-            answers: [[]],
-        },
-    };
 
     state: State = {
         cursorPosition: [0, 0],
