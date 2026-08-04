@@ -71,19 +71,20 @@ class MatrixEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const {matrixBoardSize, prefix, suffix, answers} = this.props;
         const matrixProps: Partial<PropsFor<typeof Matrix>> = {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: this.props.answers},
+            userInput: {answers},
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
             },
             ...this.props,
             options: {
-                matrixBoardSize: this.props.matrixBoardSize,
-                prefix: this.props.prefix,
-                suffix: this.props.suffix,
+                matrixBoardSize,
+                prefix,
+                suffix,
             },
         };
 
