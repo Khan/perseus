@@ -149,7 +149,7 @@ abstract class Expr {
     // could be made more type-safe using overload signatures.
     recurse(method: string, ...passed: any[]): this {
         var args = this.args().map(function (arg) {
-            return _.isString(arg) || _.isNumber(arg)
+            return typeof arg === "string" || typeof arg === "number"
                 ? arg
                 : arg?.[method].apply(arg, passed);
         });
@@ -236,7 +236,7 @@ abstract class Expr {
             "(" +
             this.args()
                 .map(function (arg) {
-                    return _.isString(arg) || _.isNumber(arg)
+                    return typeof arg === "string" || typeof arg === "number"
                         ? arg
                         : arg?.repr();
                 })
@@ -2420,7 +2420,7 @@ export class Trig extends Expr {
     };
 
     isEven() {
-        return _.contains(["cos", "sec"], this.type);
+        return ["cos", "sec"].includes(this.type);
     }
 
     isInverse() {
@@ -2428,7 +2428,7 @@ export class Trig extends Expr {
     }
 
     isBasic() {
-        return _.contains(["sin", "cos"], this.type);
+        return ["sin", "cos"].includes(this.type);
     }
 
     eval(vars: Vars = {}, options?: ParseOptions) {
@@ -2688,7 +2688,7 @@ export class Eq extends Expr {
     normalize() {
         var eq = this.recurse("normalize");
 
-        if (_.contains([">", ">="], eq.type)) {
+        if ([">", ">="].includes(eq.type)) {
             // inequalities should have the smaller side on the left
             return new Eq(eq.right, eq.type.replace(">", "<"), eq.left);
         } else {
@@ -2813,7 +2813,7 @@ export class Eq extends Expr {
     }
 
     isEquality() {
-        return _.contains(["=", "<>"], this.type);
+        return ["=", "<>"].includes(this.type);
     }
 
     compare(other: Eq) {
@@ -2889,7 +2889,7 @@ export class Eq extends Expr {
         }
 
         var hasVar = (term: Expr) => {
-            return term.has(Var) && _.contains(term.getVars(), variable.symbol);
+            return term.has(Var) && term.getVars().includes(variable.symbol);
         };
 
         const termHasVar = hasVar(expr.terms[0]);

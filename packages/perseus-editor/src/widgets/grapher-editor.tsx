@@ -46,7 +46,7 @@ class GrapherEditor extends React.Component<Props> {
 
         // If the currently 'correct' type is removed from the list of types,
         // we need to change it to avoid impossible questions.
-        if (!_.contains(newAvailableTypes, this.props.correct.type)) {
+        if (!newAvailableTypes.includes(this.props.correct.type)) {
             const graph = this.props.graph;
             const newType = chooseType(newAvailableTypes);
             correct = defaultPlotProps(newType, graph);
