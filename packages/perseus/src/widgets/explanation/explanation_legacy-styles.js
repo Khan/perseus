@@ -42,11 +42,11 @@ const styles = {
         textAlign: "left",
         whiteSpace: "normal",
     },
-    transitionCollapsed_mq_prefers_reduced_motion_no_preference: {
+    transitionCollapsed: {
         transition:
             "all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s",
     },
-    transitionExpanded_mq_prefers_reduced_motion_no_preference: {
+    transitionExpanded: {
         transition:
             "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
     },
