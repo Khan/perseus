@@ -10,7 +10,6 @@ import * as React from "react";
 
 import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
 
-import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
 import EditorPage from "./editor-page";
 import {
     testDependencies,
@@ -387,37 +386,6 @@ describe("EditorPage", () => {
         });
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
-        // Arrange, Act
-        const {container} = render(
-            <EditorPage
-                dependencies={testDependenciesV2}
-                question={comprehensiveQuestion} // question with all widgets
-                apiOptions={{editingDisabled: true}} // editing disabled
-                onChange={() => {}}
-                onPreviewDeviceChange={() => {}}
-                previewDevice="desktop"
-                previewURL=""
-                itemId="itemId"
-                developerMode={false}
-                jsonMode={false}
-                widgetsAreOpen={true}
-            />,
-        );
-
-        // Assert
-        // Note: the interactive-graph movable point renders fill/stroke="none"
-        // here because its color now comes from tokenValue(), which reads a CSS
-        // custom property. jsdom doesn't define those variables, so it resolves
-        // to "" and Raphael renders it as "none". The real color resolves in a
-        // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
-        expect(container).toMatchSnapshot();
-    });
-
-    // NOTE: This test must stay after the snapshot test above. Both React's
-    // useId counter and the perseus_dropdown_N counter are global to this file
-    // and are not reset between tests, so rendering ahead of the snapshot test
-    // shifts every generated ID in its snapshot.
     it("converts image markdown to an image widget when the issue CTA is clicked", async () => {
         // Arrange
         const imageUrl = earthMoonImage.url;
@@ -481,3 +449,10 @@ describe("EditorPage", () => {
         );
     });
 });
+
+/**********************************************************/
+/* NOTE: snapshot tests are in found in
+/* packages/perseus-editor/src/editor-page-snapshot.test.tsx
+/*
+/* Please add new snapshot tests there instead of this file!
+/**********************************************************/
