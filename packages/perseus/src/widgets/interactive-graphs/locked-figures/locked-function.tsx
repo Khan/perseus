@@ -6,7 +6,7 @@ import {useState, useEffect} from "react";
 
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {clampDomain, strokeWeights} from "./utils";
+import {clampDomain, dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
@@ -55,6 +55,8 @@ const LockedFunction = (props: LockedFunctionType) => {
             aria-label={hasAria ? props.ariaLabel : undefined}
             aria-hidden={!hasAria}
             role="img"
+            // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
+            style={dashedStrokeStyle(strokeStyle === "dashed", weight)}
         >
             {directionalAxis === "x" && (
                 <Plot.OfX

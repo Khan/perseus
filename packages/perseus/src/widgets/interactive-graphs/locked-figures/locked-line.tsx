@@ -10,7 +10,7 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y} from "../math";
 
-import {strokeWeights} from "./utils";
+import {dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -126,6 +126,8 @@ const LockedLine = (props: Props) => {
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
             role="img"
+            // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
+            style={dashedStrokeStyle(lineStyle === "dashed", weight)}
         >
             {line}
             {showPoint1 && (

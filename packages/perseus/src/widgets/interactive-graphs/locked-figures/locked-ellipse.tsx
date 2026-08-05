@@ -7,7 +7,7 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";
 import * as React from "react";
 
-import {strokeWeights} from "./utils";
+import {dashedStrokeStyle, strokeWeights} from "./utils";
 
 const LockedEllipse = (props: LockedEllipseType) => {
     const {
@@ -29,6 +29,8 @@ const LockedEllipse = (props: LockedEllipseType) => {
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
             role="img"
+            // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
+            style={dashedStrokeStyle(strokeStyle === "dashed", weight)}
         >
             <Ellipse
                 center={center}

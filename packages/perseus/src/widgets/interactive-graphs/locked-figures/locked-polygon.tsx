@@ -8,7 +8,7 @@ import * as React from "react";
 
 import {X, Y} from "../math";
 
-import {strokeWeights} from "./utils";
+import {dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
@@ -23,6 +23,8 @@ const LockedPolygon = (props: LockedPolygonType) => {
             aria-label={hasAria ? props.ariaLabel : undefined}
             aria-hidden={!hasAria}
             role="img"
+            // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
+            style={dashedStrokeStyle(strokeStyle === "dashed", weight)}
         >
             <Polygon
                 points={[...points]}
