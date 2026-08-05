@@ -1,5 +1,52 @@
 # @khanacademy/perseus
 
+## 82.2.0
+
+### Minor Changes
+
+-   [#3875](https://github.com/Khan/perseus/pull/3875) [`64c06a5`](https://github.com/Khan/perseus/commit/64c06a5a6c6b3197ea5705dd8b415591e3489a06) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Renderer] Refactor how the markdown renderer works with paragraphs and widgets to be semantically correct
+
+### Patch Changes
+
+-   [#3972](https://github.com/Khan/perseus/pull/3972) [`95b1447`](https://github.com/Khan/perseus/commit/95b14478fa5450d3ec22cbdbfebfc84851d8a47b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Categorizer widget is now a functional component.
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3982](https://github.com/Khan/perseus/pull/3982) [`30f1260`](https://github.com/Khan/perseus/commit/30f1260e0f5a4591a1a24b0d1d8fff656200d218) Thanks [@Myranae](https://github.com/Myranae)! - Decrease size of graded group answer bar text and icon
+
+-   [#3986](https://github.com/Khan/perseus/pull/3986) [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304) Thanks [@nishasy](https://github.com/nishasy)! - Update dependencies
+
+-   [#3976](https://github.com/Khan/perseus/pull/3976) [`75ee2ce`](https://github.com/Khan/perseus/commit/75ee2ce4925420002cb709cdd204985bd6502fc6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Matcher widget is now a functional component.
+
+-   [#3965](https://github.com/Khan/perseus/pull/3965) [`0c65ab9`](https://github.com/Khan/perseus/commit/0c65ab98e5fdb64e316b7d747293708abbfc2b05) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Numeric Input widget is now a functional component. Its widget
+    instance no longer has a public `blur()` method; `blur()` was never part of the
+    `Widget` interface, and renderers blur the widget through `blurInputPath()`.
+
+-   [#3772](https://github.com/Khan/perseus/pull/3772) [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - PhET widget: remove `URL.canParse` so simulations load on Safari/iOS < 17, and on web browsers without Fullscreen API support (e.g. Safari on iPhone) replace the non-functional fullscreen button with a link that opens the simulation on PhET's site in a new tab
+
+-   [#3968](https://github.com/Khan/perseus/pull/3968) [`7947f2f`](https://github.com/Khan/perseus/commit/7947f2fbefdf37aec838e956782cf71f591ef626) Thanks [@benchristel](https://github.com/benchristel)! - Math uses the appropriate colors for dark mode in more contexts (e.g. Radio widget choices).
+
+-   [#3966](https://github.com/Khan/perseus/pull/3966) [`0446f23`](https://github.com/Khan/perseus/commit/0446f2312fac5fbad1ecf5c4f737f887c924945e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unnecessary types.
+
+-   [#3967](https://github.com/Khan/perseus/pull/3967) [`4c8fd5a`](https://github.com/Khan/perseus/commit/4c8fd5a27c89d180e55dac264b85155683d7e9f2) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Categorizer's unused defaultProps have been removed.
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   [#3978](https://github.com/Khan/perseus/pull/3978) [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba) Thanks [@benchristel](https://github.com/benchristel)! - The unused `cursorPosition` and `static` options of the Matrix widget have been removed, and the `prefix` and `suffix` options are now required. As always, clients should use the parsers to migrate data to the latest schema, and avoid constructing Perseus widget data manually.
+
+-   [#3973](https://github.com/Khan/perseus/pull/3973) [`5c1f672`](https://github.com/Khan/perseus/commit/5c1f6724927a428d7e8c33ae6aa08c68c307862b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the unused defaultProps of the Matcher widget have been removed.
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304), [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05), [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba), [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95)]:
+    -   @khanacademy/perseus-score@8.12.10
+    -   @khanacademy/perseus-core@34.0.0
+    -   @khanacademy/kas@2.2.4
+    -   @khanacademy/math-input@26.6.7
+    -   @khanacademy/keypad-context@3.2.78
+    -   @khanacademy/kmath@2.4.37
+    -   @khanacademy/perseus-linter@5.1.18
+
 ## 82.1.0
 
 ### Minor Changes

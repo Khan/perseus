@@ -536,7 +536,7 @@ class Grapher extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, correct: __, ...rest} = this.props;
+        const {userInput, correct, ...rest} = this.props;
         return {
             ...rest,
             plot: this.props.userInput,

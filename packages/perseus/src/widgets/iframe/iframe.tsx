@@ -64,7 +64,7 @@ class Iframe extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput: _, alignment: __, ...rest} = this.props;
+        const {userInput, alignment, ...rest} = this.props;
         return rest;
     }
 

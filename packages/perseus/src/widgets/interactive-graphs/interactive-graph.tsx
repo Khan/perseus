@@ -1,6 +1,5 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Util from "../../util";
@@ -236,7 +235,7 @@ class InteractiveGraph extends React.Component<Props, State> {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        const {userInput, ...rest} = this.props;
         return {
             ...rest,
             graph: this.props.userInput,

@@ -745,7 +745,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                             if (result === false) {
                                 doMove = false;
                             }
-                            if (_.isArray(result)) {
+                            if (Array.isArray(result)) {
                                 coordX = result[0];
                                 coordY = result[1];
                             }
@@ -774,7 +774,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 coordX,
                                 coordY,
                             );
-                            if (_.isArray(result)) {
+                            if (Array.isArray(result)) {
                                 coordX = result[0];
                                 coordY = result[1];
                                 mouseX =
@@ -1662,7 +1662,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         polygon.points = options.points;
 
         const isPoint = function (coordOrPoint: any) {
-            return !_.isArray(coordOrPoint);
+            return !Array.isArray(coordOrPoint);
         };
 
         polygon.update = function () {
@@ -2036,7 +2036,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                         );
                                         if (onMoveResult === false) {
                                             doMove = false;
-                                        } else if (_.isArray(onMoveResult)) {
+                                        } else if (
+                                            Array.isArray(onMoveResult)
+                                        ) {
                                             dX = onMoveResult[0];
                                             dY = onMoveResult[1];
                                             currentX = startX + dX;
@@ -2561,7 +2563,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             // Normalize rotatePoint into something that always looks
             // like a movablePoint
-            if (_.isArray(rotatePoint)) {
+            if (Array.isArray(rotatePoint)) {
                 rotatePoint = {
                     coord: rotatePoint,
                 };
@@ -3619,7 +3621,7 @@ function MovableAngle(graphie: any, options: any) {
     this.points = _.map(
         options.points,
         function (point) {
-            if (_.isArray(point)) {
+            if (Array.isArray(point)) {
                 return graphie.addMovablePoint({
                     coord: point,
                     visible: false,

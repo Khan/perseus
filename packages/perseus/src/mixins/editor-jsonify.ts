@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import {excludeDenylistKeys} from "./widget-prop-denylist";
 
 /**

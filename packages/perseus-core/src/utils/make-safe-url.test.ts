@@ -4,19 +4,8 @@ const phetOriginForTests = "https://phet.colorado.edu";
 const enLocaleForTests = "en";
 
 describe("makeSafeUrl", () => {
-    beforeEach(() => {
-        // We need to mock URL.canParse() because it is not available
-        // in our testing environment.
-        // eslint-disable-next-line no-restricted-syntax
-        global.URL.canParse = jest.fn(() => true) as jest.Mock;
-    });
-
-    it("should return null if the URL is not valid", () => {
+    it("returns null if the URL is not valid", () => {
         // Arrange
-        // Update the mock to return false for canParse, since we're testing
-        // an invalid URL that should not be parseable.
-        // eslint-disable-next-line no-restricted-syntax
-        global.URL.canParse = jest.fn(() => false) as jest.Mock;
         const invalidUrl = "some-invalid-url";
 
         // Act
