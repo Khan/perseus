@@ -132,8 +132,11 @@ safety net. They should pass before and after the conversion.
       refs keyed by `getRefForPath`, and `useImperativeHandle` exposing `focus`,
       `focusInputPath`, `blurInputPath`, `getInputPaths`, `getDOMNodeForPath`,
       and `getSerializedState`. Drop the unused `headerRefs`.
-- [ ] Get DOM nodes from refs instead of `ReactDOM.findDOMNode`: have
-      `SimpleKeypadInput` cells expose their `<input>` element to the ref map so
-      `getDOMNodeForPath` returns the input in both keypad and non-keypad cases.
 - [ ] Add a changeset (`patch`, `@khanacademy/perseus`) noting the internal
       conversion and that `getDOMNodeForPath` no longer uses `findDOMNode`.
+
+Do the following in a separate commit from the above changes:
+
+- [ ] Get DOM nodes from refs instead of `ReactDOM.findDOMNode`: have
+  `SimpleKeypadInput` cells expose their `<input>` element to the ref map so
+  `getDOMNodeForPath` returns the input in both keypad and non-keypad cases.
