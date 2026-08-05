@@ -114,3 +114,26 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
   not part of the widget options. Leave them on `Props` as they are, or is untangling
   them in scope?
     - Answer: Leave them on props; they are not widget options.
+
+## Checklist
+
+Steps 1–4 characterize the current class behavior, so the rewrite in step 5 has a
+safety net. They should pass before and after the conversion.
+
+- [ ] Test: `focus()` on the widget ref focuses the cell at path `["0", "0"]`.
+- [ ] Test: `focusInputPath(["1", "0"])` focuses that cell, and `blurInputPath`
+      on the same path blurs it.
+- [ ] Test: `getInputPaths()` returns every cell path in row-major order for a
+      2×3 table.
+- [ ] Test: `getDOMNodeForPath(["0", "1"])` returns the `<input>` element for
+      that cell — both with and without `apiOptions.customKeypad`.
+- [ ] Rewrite `Table` as a `forwardRef` function component: destructure props,
+      plain handlers, `usePerseusI18n()` for `strings`, a `useRef` map of cell
+      refs keyed by `getRefForPath`, and `useImperativeHandle` exposing `focus`,
+      `focusInputPath`, `blurInputPath`, `getInputPaths`, `getDOMNodeForPath`,
+      and `getSerializedState`. Drop the unused `headerRefs`.
+- [ ] Get DOM nodes from refs instead of `ReactDOM.findDOMNode`: have
+      `SimpleKeypadInput` cells expose their `<input>` element to the ref map so
+      `getDOMNodeForPath` returns the input in both keypad and non-keypad cases.
+- [ ] Add a changeset (`patch`, `@khanacademy/perseus`) noting the internal
+      conversion and that `getDOMNodeForPath` no longer uses `findDOMNode`.
