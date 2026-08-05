@@ -397,7 +397,12 @@ describe("EditorPage", () => {
         const onChangeMock = jest.fn();
         const question: PerseusRenderer = {
             content: `Which planet is this? ![The Earth](${imageUrl})`,
-            images: {},
+            images: {
+                [earthMoonImage.url]: {
+                    width: earthMoonImage.width,
+                    height: earthMoonImage.height,
+                },
+            },
             widgets: {},
         };
 
