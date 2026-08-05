@@ -7,7 +7,11 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {border, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    border,
+    semanticColor,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import arrowSquareOutIcon from "@phosphor-icons/core/regular/arrow-square-out.svg";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -355,7 +359,7 @@ const styles = StyleSheet.create({
     widgetContainer: {
         borderRadius: border.radius.radius_080,
         borderWidth: border.width.thin,
-        borderColor: "#CCC",
+        borderColor: semanticColor.core.border.neutral.subtle,
         padding: spacing.medium_16,
         paddingBottom: 0,
     },
@@ -392,7 +396,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "auto",
         zIndex: 1000,
-        backgroundColor: "white",
+        backgroundColor: semanticColor.core.background.base.default,
         display: "flex",
         flexDirection: "column",
     },
@@ -409,7 +413,7 @@ const styles = StyleSheet.create({
         zIndex: 1001,
     },
     closeButton: {
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: semanticColor.core.background.base.subtle,
         borderRadius: border.radius.radius_full,
     },
 });
