@@ -52,6 +52,7 @@ import type {
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
     GrapherFunctionType,
+    Interval,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -385,12 +386,12 @@ class Grapher extends React.Component<Props> implements Widget {
         this.props.handleUserInput(plot);
     };
 
-    _getGridConfig(
-        options: Props["options"]["graph"] & {
-            box: NonNullable<Props["options"]["graph"]["box"]>;
-            gridStep: NonNullable<Props["options"]["graph"]["gridStep"]>;
-        },
-    ): ReadonlyArray<GridDimensions> {
+    _getGridConfig(options: {
+        box: [width: number, height: number];
+        step: [x: number, y: number];
+        gridStep: [x: number, y: number];
+        range: [x: Interval, y: Interval];
+    }): ReadonlyArray<GridDimensions> {
         return options.step.map((step, i) => {
             return Util.gridDimensionConfig(
                 step,
