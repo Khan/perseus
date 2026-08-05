@@ -66,14 +66,16 @@ describe("Grapher AI utils", () => {
         };
 
         const widgetData: any = {
-            availableTypes: ["linear"],
-            graph: {
-                range: [0, 10, 0, 10],
-                labels: ["x", "y"],
-                step: 1,
-                gridStep: 1,
-                snapStep: 1,
-                backgroundImage: {url: "http://khanaacademy.org/image.jpg"},
+            options: {
+                availableTypes: ["linear"],
+                graph: {
+                    range: [0, 10, 0, 10],
+                    labels: ["x", "y"],
+                    step: 1,
+                    gridStep: 1,
+                    snapStep: 1,
+                    backgroundImage: {url: "http://khanaacademy.org/image.jpg"},
+                },
             },
             userInput,
         };
@@ -112,14 +114,16 @@ describe("Grapher AI utils", () => {
         };
 
         const widgetData: any = {
-            availableTypes: ["lograithm"],
-            graph: {
-                range: [0, 10, 0, 10],
-                labels: ["x", "y"],
-                step: 1,
-                gridStep: 1,
-                snapStep: 1,
-                backgroundImage: {url: ""},
+            options: {
+                availableTypes: ["lograithm"],
+                graph: {
+                    range: [0, 10, 0, 10],
+                    labels: ["x", "y"],
+                    step: 1,
+                    gridStep: 1,
+                    snapStep: 1,
+                    backgroundImage: {url: ""},
+                },
             },
             userInput,
         };
