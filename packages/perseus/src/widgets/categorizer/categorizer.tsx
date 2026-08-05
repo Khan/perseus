@@ -255,11 +255,7 @@ const styles = StyleSheet.create({
 
     emptyHeaderCell: {
         backgroundColor: "inherit",
-        // Left hardcoded intentionally — matches the shared, un-tokenized
-        // `table th` border-bottom color in perseus-renderer-part-1.css.
-        // Converting one without the other would split the header row's
-        // divider line into two different colors. Tracked for a follow-up
-        // ticket covering shared table styles.
+        // TODO(LEMS-4443): Convert shared table styling to semantic color tokens.
         borderBottom: "2px solid #ccc",
     },
 
