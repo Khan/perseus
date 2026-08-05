@@ -668,7 +668,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const margin = this.props.margin || 0;
         // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
-        const currentIndex = _.indexOf(items, item);
+        const currentIndex = items.indexOf(item);
         let newIndex = 0;
 
         // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?

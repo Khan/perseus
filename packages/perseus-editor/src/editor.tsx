@@ -576,11 +576,11 @@ class Editor extends React.Component<Props, State> {
         // see: LEMS-1845
 
         // List of widgets about to be pasted as [[name, number], ...]
-        const widgets = _.keys(widgetData).map((name) => name.split(" "));
+        const widgets = Object.keys(widgetData).map((name) => name.split(" "));
         const widgetTypes = _.uniq(widgets.map((widget) => widget[0]));
 
         // List of existing widgets as [[name, number], ...]
-        const existingWidgets = _.keys(this.props.widgets).map((name) =>
+        const existingWidgets = Object.keys(this.props.widgets).map((name) =>
             name.split(" "),
         );
 
@@ -778,7 +778,10 @@ class Editor extends React.Component<Props, State> {
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds,
+            Object.keys(this.refs),
+        );
         const warnings = _(widgetIds)
             .chain()
             .map((id) => {
@@ -840,7 +843,10 @@ class Editor extends React.Component<Props, State> {
         // interactive-graph and plotter).
         const widgets: Record<string, any> = {};
         // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds,
+            Object.keys(this.refs),
+        );
         _.each(widgetIds, (id) => {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
