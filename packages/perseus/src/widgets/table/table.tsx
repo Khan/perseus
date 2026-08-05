@@ -68,24 +68,26 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     const cellRefs = useRef(new Map<string, Cell>());
 
+    function getCellForPath(path: FocusPath): Cell | undefined {
+        return cellRefs.current.get(getRefForPath(path));
+    }
+
     useImperativeHandle(ref, () => ({
         focus(): boolean {
-            // FIXME: extract a getCellForPath(path) function; use here
-            // and in the next three methods
-            cellRefs.current.get(getRefForPath(getDefaultPath()))?.focus();
+            getCellForPath(getDefaultPath())?.focus();
             return true;
         },
 
         focusInputPath(path: FocusPath): void {
-            cellRefs.current.get(getRefForPath(path))?.focus();
+            getCellForPath(path)?.focus();
         },
 
         blurInputPath(path: FocusPath): void {
-            cellRefs.current.get(getRefForPath(path))?.blur();
+            getCellForPath(path)?.blur();
         },
 
         getDOMNodeForPath(path: FocusPath): Element | Text | null {
-            const cell = cellRefs.current.get(getRefForPath(path));
+            const cell = getCellForPath(path);
             if (cell instanceof HTMLInputElement) {
                 return cell;
             }
