@@ -129,12 +129,12 @@ safety net. They should pass before and after the conversion.
       that cell — both with and without `apiOptions.customKeypad`.
       (Note: with `customKeypad` the cell is a `SimpleKeypadInput`, which renders
       no `<input>`; the test asserts the element with `role="textbox"` instead.)
-- [ ] Rewrite `Table` as a `forwardRef` function component: destructure props,
+- [x] Rewrite `Table` as a `forwardRef` function component: destructure props,
       plain handlers, `usePerseusI18n()` for `strings`, a `useRef` map of cell
       refs keyed by `getRefForPath`, and `useImperativeHandle` exposing `focus`,
       `focusInputPath`, `blurInputPath`, `getInputPaths`, `getDOMNodeForPath`,
       and `getSerializedState`. Drop the unused `headerRefs`.
-- [ ] Add a changeset (`patch`, `@khanacademy/perseus`) noting the internal
+- [x] Add a changeset (`patch`, `@khanacademy/perseus`) noting the internal
       conversion and that `getDOMNodeForPath` no longer uses `findDOMNode`.
 
 Do the following in a separate commit from the above changes:
