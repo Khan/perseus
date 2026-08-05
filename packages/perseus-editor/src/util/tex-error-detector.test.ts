@@ -94,6 +94,25 @@ describe("detectTexErrors", () => {
         expect(errors).toEqual([]);
     });
 
+    it.each([
+        "$\\gold{A}$", // \gold
+        "$\\inte_0^1 x\\,dx$", // \inte
+        "$x \\in \\RR$", // \RR
+        "$\\cossec(x)$", // \cossec
+        "$\\sen(x)$", // \sen
+        "$\\lcm(4, 6)$", // \lcm
+        "$\\gcf(4, 6)$", // \gcf
+    ])(
+        "returns no errors for %s, which MathJax defines but KaTeX does not",
+        (content) => {
+            // Arrange, Act
+            const errors = detectTexErrors(content);
+
+            // Assert
+            expect(errors).toEqual([]);
+        },
+    );
+
     it("preprocesses TeX by converting align to aligned", () => {
         // Arrange - align should be converted to aligned
         const content = "$$\\begin{align}x = 1\\end{align}$$";
