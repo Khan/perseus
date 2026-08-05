@@ -120,13 +120,15 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 Steps 1–4 characterize the current class behavior, so the rewrite in step 5 has a
 safety net. They should pass before and after the conversion.
 
-- [ ] Test: `focus()` on the widget ref focuses the cell at path `["0", "0"]`.
-- [ ] Test: `focusInputPath(["1", "0"])` focuses that cell, and `blurInputPath`
+- [x] Test: `focus()` on the widget ref focuses the cell at path `["0", "0"]`.
+- [x] Test: `focusInputPath(["1", "0"])` focuses that cell, and `blurInputPath`
       on the same path blurs it.
-- [ ] Test: `getInputPaths()` returns every cell path in row-major order for a
+- [x] Test: `getInputPaths()` returns every cell path in row-major order for a
       2×3 table.
-- [ ] Test: `getDOMNodeForPath(["0", "1"])` returns the `<input>` element for
+- [x] Test: `getDOMNodeForPath(["0", "1"])` returns the `<input>` element for
       that cell — both with and without `apiOptions.customKeypad`.
+      (Note: with `customKeypad` the cell is a `SimpleKeypadInput`, which renders
+      no `<input>`; the test asserts the element with `role="textbox"` instead.)
 - [ ] Rewrite `Table` as a `forwardRef` function component: destructure props,
       plain handlers, `usePerseusI18n()` for `strings`, a `useRef` map of cell
       refs keyed by `getRefForPath`, and `useImperativeHandle` exposing `focus`,
