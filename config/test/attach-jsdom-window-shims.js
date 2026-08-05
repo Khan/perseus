@@ -77,6 +77,18 @@ const attachShims = (targetWindow) => {
 
     // JSDOM doesn't implement scrollTo
     targetWindow.scrollTo = () => {};
+
+    // JSDOM doesn't implement ResizeObserver. Some libraries (e.g. @dnd-kit,
+    // used by our drag-and-drop widgets) reference it as soon as they load, so
+    // provide a no-op stub to keep tests from throwing "ResizeObserver is not
+    // defined". Tests that need to assert on resize behavior can override this.
+    if (!targetWindow.ResizeObserver) {
+        targetWindow.ResizeObserver = class ResizeObserver {
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
+    }
 };
 
 module.exports = attachShims;

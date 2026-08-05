@@ -40,6 +40,7 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
+        "@dnd-kit/react": "0.5.0",
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",

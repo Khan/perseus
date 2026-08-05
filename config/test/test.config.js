@@ -64,9 +64,16 @@ module.exports = {
         // Otherwise, they just show up as undefined, which prevents unit testing.
         "^.+\\.module\\.css$": "jest-css-modules-transform",
     },
-    // Allow transforming files imported from @phosphor-icons/core.
-    // This is required by the .svg transform above.
-    transformIgnorePatterns: ["/node_modules/.pnpm/(?!@phosphor-icons.core@)"],
+    // By default we don't transform anything in node_modules, but a few
+    // dependencies ship ESM-only builds that Jest (CommonJS) can't consume as-is,
+    // so we allow-list them here to be transpiled by the transform above:
+    // - @phosphor-icons/core: required by the .svg transform above.
+    // - @dnd-kit/* and @preact/signals-core: @dnd-kit's state layer pulls in the
+    //   ESM build of @preact/signals-core, which throws "Unexpected token
+    //   'export'" unless transformed.
+    transformIgnorePatterns: [
+        "/node_modules/.pnpm/(?!(@phosphor-icons.core@|@dnd-kit.|@preact.signals-core@))",
+    ],
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",
