@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         // Center marker position based on its maximum size.
         width: MARKER_SIZE,
         height: MARKER_SIZE,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): centers the marker on its absolute image coordinate; must not mirror
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: MARKER_SIZE / -2,
         marginBlockStart: MARKER_SIZE / -2,
 
