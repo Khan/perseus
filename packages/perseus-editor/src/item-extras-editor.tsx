@@ -5,7 +5,7 @@ import {
     isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox, Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -73,7 +73,7 @@ class ItemExtrasEditor extends React.Component<Props> {
     }
 
     render(): React.ReactNode {
-        const {editingDisabled, calculatorVariant} = this.props;
+        const {editingDisabled} = this.props;
         return (
             <div className="perseus-answer-editor">
                 <div className="perseus-answer-options">
@@ -93,44 +93,25 @@ class ItemExtrasEditor extends React.Component<Props> {
                     />
 
                     {isFeatureOn(this.props, "desmos-calculator") &&
-                        calculatorVariant !== undefined && (
-                            <RadioGroup
-                                groupName="calculator-variant"
-                                selectedValue={calculatorVariant}
-                                onChange={(newVariant) => {
-                                    // RadioGroup hands back a plain string, so
-                                    // look the selection back up to recover the
-                                    // CalculatorVariant type.
-                                    const selected = calculatorVariants.find(
-                                        ({variant}) => variant === newVariant,
-                                    );
-                                    if (selected) {
-                                        this.props.onChange({
-                                            calculatorVariant: selected.variant,
-                                        });
-                                    }
+                        this.shouldShowCalculatorVariants() &&
+                        calculatorVariants.map((calcVariant) => (
+                            <ItemExtraCheckbox
+                                key={calcVariant.variant}
+                                label={calcVariant.label}
+                                disabled={editingDisabled}
+                                infoTip={calcVariant.tip}
+                                checked={
+                                    this.props.calculatorVariant ===
+                                    calcVariant.variant
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        calculatorVariant: calcVariant.variant,
+                                    });
                                 }}
-                                style={styles.indented}
-                            >
-                                {calculatorVariants.map((calcVariant) => (
-                                    <Choice
-                                        key={calcVariant.variant}
-                                        value={calcVariant.variant}
-                                        disabled={editingDisabled}
-                                        label={
-                                            <View
-                                                style={{flexDirection: "row"}}
-                                            >
-                                                {calcVariant.label}{" "}
-                                                <InfoTip>
-                                                    {calcVariant.tip}
-                                                </InfoTip>
-                                            </View>
-                                        }
-                                    />
-                                ))}
-                            </RadioGroup>
-                        )}
+                                indent
+                            />
+                        ))}
 
                     <ItemExtraCheckbox
                         label="Show financial calculator"
