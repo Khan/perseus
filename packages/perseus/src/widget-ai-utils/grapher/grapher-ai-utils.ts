@@ -74,13 +74,13 @@ export const getPromptJSON = (
     return {
         type: "grapher",
         options: {
-            availableTypes: widgetData.availableTypes,
-            range: widgetData.graph.range,
-            labels: widgetData.graph.labels,
-            tickStep: widgetData.graph.step,
-            gridStep: widgetData.graph.gridStep,
-            snapStep: widgetData.graph.snapStep,
-            backgroundImageUrl: widgetData.graph.backgroundImage.url,
+            availableTypes: widgetData.options.availableTypes,
+            range: widgetData.options.graph.range,
+            labels: widgetData.options.graph.labels,
+            tickStep: widgetData.options.graph.step,
+            gridStep: widgetData.options.graph.gridStep,
+            snapStep: widgetData.options.graph.snapStep,
+            backgroundImageUrl: widgetData.options.graph.backgroundImage.url,
         },
         userInput: input,
     };
