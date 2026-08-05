@@ -89,6 +89,15 @@ export default StyleSheet.create({
         },
     },
 
+    responsiveRadioInputStatic: {
+        ":checked": {
+            backgroundColor: semanticColor.core.foreground.disabled.strong,
+            boxShadow:
+                `inset 0px 0px 0px 2px white, ` +
+                `0 0px 0px 2px ${semanticColor.core.foreground.disabled.strong}`,
+        },
+    },
+
     responsiveRadioInputActive: {
         backgroundColor: "#fff",
         border: "2px solid #fff",
