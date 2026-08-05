@@ -203,7 +203,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
     _eval: (arg1: any, arg2: any) => number = (expression, variables) => {
         const func = KAScompile(expression, {functions: this.state.functions});
         const compiledVars = _.extend({}, this.state.variables, variables);
-        _.each(_.keys(compiledVars), (name) => {
+        _.each(Object.keys(compiledVars), (name) => {
             if (_.isString(compiledVars[name])) {
                 const func = KAScompile(compiledVars[name], {
                     functions: this.state.functions,

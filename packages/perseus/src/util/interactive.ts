@@ -3343,7 +3343,7 @@ function Ruler(graphie: any, options: any) {
         }
     }
 
-    const tickFrequencies = _.keys(tickHeightMap).sort(function (a, b) {
+    const tickFrequencies = Object.keys(tickHeightMap).sort(function (a, b) {
         // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         return b - a;
     });
