@@ -103,6 +103,16 @@ export const AnsweredMobile: Story = {
     },
 };
 
+export const StaticMobile: Story = {
+    decorators: [categorizerRendererDecorator, mobileDecorator],
+    args: categorizerOptions,
+    parameters: {
+        apiOptions: {isMobile: true},
+        static: true,
+        initialUserInput: answer,
+    },
+};
+
 export const RightToLeft: Story = {
     decorators: [categorizerRendererDecorator, rtlDecorator],
     args: categorizerOptions,

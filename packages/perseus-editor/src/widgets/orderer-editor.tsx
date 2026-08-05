@@ -7,7 +7,6 @@ import {
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 const {InfoTip, TextListEditor} = components;
 
@@ -150,7 +149,9 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.correctOptions, "content")}
+                    options={this.props.correctOptions.map(
+                        (option) => option.content,
+                    )}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "correctOptions")}
                     layout={this.props.layout}
@@ -164,7 +165,9 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.otherOptions, "content")}
+                    options={this.props.otherOptions.map(
+                        (option) => option.content,
+                    )}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "otherOptions")}
                     layout={this.props.layout}

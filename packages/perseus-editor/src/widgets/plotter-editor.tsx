@@ -292,11 +292,10 @@ class PlotterEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const setFromScale = _.contains(
-            ["line", "histogram", "dotplot"],
+        const setFromScale = ["line", "histogram", "dotplot"].includes(
             this.props.type,
         );
-        const canChangeSnaps = !_.contains(["pic", "dotplot"], this.props.type);
+        const canChangeSnaps = !["pic", "dotplot"].includes(this.props.type);
         const plotterProps: any = {
             ...this.props,
             trackInteraction: () => {},
