@@ -142,7 +142,7 @@ const KhanAnswerTypes = {
             // in the list so we don't prematurely complain about not having
             // a percent sign when the user entered the correct answer in a
             // different form (such as a decimal or fraction)
-            if (_.contains(acceptableForms, "percent")) {
+            if (acceptableForms.includes("percent")) {
                 acceptableForms = _.without(acceptableForms, "percent");
                 acceptableForms.push("percent");
             }

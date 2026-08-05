@@ -1,11 +1,9 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
+import invariant from "tiny-invariant";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
-import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
@@ -15,25 +13,14 @@ import type {
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
-const {assert} = InteractiveUtil;
-
 type EditorProps = {
-    editableHeaders: boolean;
+    editableHeaders?: boolean;
     Editor: any;
-    onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
+    onChange: (value: {headers: string[]}) => void;
 };
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
-
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    headers: Props["headers"];
-    editableHeaders: Props["editableHeaders"];
-    rows: Props["rows"];
-    columns: Props["columns"];
-    linterContext: Props["linterContext"];
-};
 
 // A version of FocusPath that's specific to Table
 type Path = [row: string, column: string];
@@ -49,19 +36,23 @@ function getDefaultPath(): Path {
     return getInputPath(0, 0);
 }
 
-function getRowFromPath(path: Path): number {
-    // 'path' should be a (row, column) pair
-    assert(Array.isArray(path) && path.length === 2);
+function getRowFromPath(path: FocusPath): number {
+    invariant(
+        Array.isArray(path) && path.length === 2,
+        "path should be a (row, colum) pair",
+    );
     return +path[0];
 }
 
-function getColumnFromPath(path: Path): number {
-    // 'path' should be a (row, column) pair
-    assert(Array.isArray(path) && path.length === 2);
+function getColumnFromPath(path: FocusPath): number {
+    invariant(
+        Array.isArray(path) && path.length === 2,
+        "path should be a (row, colum) pair",
+    );
     return +path[1];
 }
 
-function getRefForPath(path: Path): string {
+function getRefForPath(path: FocusPath): string {
     const row = getRowFromPath(path);
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
@@ -73,15 +64,6 @@ class Table extends React.Component<Props> implements Widget {
     headerRefs: Record<string, any> = {};
     answerRefs: Record<string, any> = {};
 
-    static defaultProps: DefaultProps = {
-        apiOptions: ApiOptions.defaults,
-        headers: [""],
-        editableHeaders: false,
-        rows: 4,
-        columns: 1,
-        linterContext: linterContextDefault,
-    };
-
     _getRows(): number {
         return this.props.userInput.length;
     }
@@ -91,10 +73,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     _getAnswersClone(): PerseusTableUserInput {
-        // eslint-disable-next-line no-restricted-syntax
-        return JSON.parse(
-            JSON.stringify(this.props.userInput),
-        ) as PerseusTableUserInput;
+        return JSON.parse(JSON.stringify(this.props.userInput));
     }
 
     onValueChange(row: number, column: number, eventOrValue: any): void {
@@ -114,10 +93,9 @@ class Table extends React.Component<Props> implements Widget {
     onHeaderChange(index: number, e: any): void {
         const headers = this.props.headers.slice();
         headers[index] = e.content;
-        // eslint-disable-next-line no-restricted-syntax
         this.props.onChange({
             headers: headers,
-        } as any);
+        });
     }
 
     _handleFocus(inputPath: any): void {
@@ -134,8 +112,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     focusInputPath(path: FocusPath): void {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
+        const inputID = getRefForPath(path);
         const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
             inputComponent.focus();
@@ -146,8 +123,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     blurInputPath(path: FocusPath): void {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
+        const inputID = getRefForPath(path);
         const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
             inputComponent.blur();
@@ -160,8 +136,7 @@ class Table extends React.Component<Props> implements Widget {
     getDOMNodeForPath(
         path: FocusPath,
     ): ReturnType<typeof ReactDOM.findDOMNode> {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
+        const inputID = getRefForPath(path);
         const inputRef = this.answerRefs[inputID];
         return ReactDOM.findDOMNode(inputRef);
     }
