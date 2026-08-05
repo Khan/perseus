@@ -64,48 +64,6 @@ class Table extends React.Component<Props> implements Widget {
     headerRefs: Record<string, any> = {};
     answerRefs: Record<string, any> = {};
 
-    _getRows(): number {
-        return this.props.userInput.length;
-    }
-
-    _getColumns(): number {
-        return this.props.userInput[0].length;
-    }
-
-    _getAnswersClone(): PerseusTableUserInput {
-        return JSON.parse(JSON.stringify(this.props.userInput));
-    }
-
-    onValueChange(row: number, column: number, eventOrValue: any): void {
-        const answers = this._getAnswersClone();
-
-        // If this is coming from an "input", the last argument will be an
-        // event. If it's coming from a SimpleKeypadInput, it'll be the value.
-        answers[row][column] = eventOrValue.target
-            ? eventOrValue.target.value
-            : eventOrValue;
-
-        this.props.handleUserInput(answers);
-        this.props.trackInteraction();
-    }
-
-    // this is for the editing experience
-    onHeaderChange(index: number, e: any): void {
-        const headers = this.props.headers.slice();
-        headers[index] = e.content;
-        this.props.onChange({
-            headers: headers,
-        });
-    }
-
-    _handleFocus(inputPath: any): void {
-        this.props.onFocus(inputPath);
-    }
-
-    _handleBlur(inputPath: any): void {
-        this.props.onBlur(inputPath);
-    }
-
     focus(): boolean {
         this.focusInputPath(getDefaultPath());
         return true;
@@ -164,6 +122,48 @@ class Table extends React.Component<Props> implements Widget {
             ...rest,
             answers: userInput,
         };
+    }
+
+    _getRows(): number {
+        return this.props.userInput.length;
+    }
+
+    _getColumns(): number {
+        return this.props.userInput[0].length;
+    }
+
+    _getAnswersClone(): PerseusTableUserInput {
+        return JSON.parse(JSON.stringify(this.props.userInput));
+    }
+
+    onValueChange(row: number, column: number, eventOrValue: any): void {
+        const answers = this._getAnswersClone();
+
+        // If this is coming from an "input", the last argument will be an
+        // event. If it's coming from a SimpleKeypadInput, it'll be the value.
+        answers[row][column] = eventOrValue.target
+            ? eventOrValue.target.value
+            : eventOrValue;
+
+        this.props.handleUserInput(answers);
+        this.props.trackInteraction();
+    }
+
+    // this is for the editing experience
+    onHeaderChange(index: number, e: any): void {
+        const headers = this.props.headers.slice();
+        headers[index] = e.content;
+        this.props.onChange({
+            headers: headers,
+        });
+    }
+
+    _handleFocus(inputPath: any): void {
+        this.props.onFocus(inputPath);
+    }
+
+    _handleBlur(inputPath: any): void {
+        this.props.onBlur(inputPath);
     }
 
     render(): React.ReactNode {
