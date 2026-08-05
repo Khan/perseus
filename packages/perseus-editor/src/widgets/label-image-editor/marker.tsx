@@ -144,7 +144,7 @@ class Marker extends React.Component<MarkerProps, State> {
                 )}
                 ref={(node) => (this._marker = node)}
                 style={{
-                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
                     left: `${x}%`,
                     insetBlockStart: `${y}%`,
                 }}
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
 
         width: 16,
         height: 16,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): centers the marker on its absolute image coordinate; must not mirror
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: -8,
         marginBlockStart: -8,
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     markerSelected: {
         width: 28,
         height: 28,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): centers the marker on its absolute image coordinate; must not mirror
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: -12,
         marginBlockStart: -12,
 
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
 
     dropdownPositionWithArrow: {
         // Position dropdown to the top right of the marker.
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
         left: 46,
         insetBlockEnd: -12,
 
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
             width: 0,
             height: 0,
-            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): absolute graph/image coordinate; must not mirror in RTL
+            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
             left: -16,
             insetBlockEnd: 8,
 

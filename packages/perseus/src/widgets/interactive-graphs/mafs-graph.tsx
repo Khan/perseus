@@ -351,7 +351,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         style={{
                             position: "absolute",
                             insetBlockEnd: 0,
-                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): graph coordinate-layer origin; must not mirror in RTL
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
                             left: 0,
                         }}
                     >
@@ -497,7 +497,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 style={{
                                     position: "absolute",
                                     insetBlockStart: 0,
-                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): graph coordinate-layer origin; must not mirror in RTL
+                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
                                     left: 0,
                                     width,
                                     height,
