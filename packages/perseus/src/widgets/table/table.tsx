@@ -139,11 +139,9 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     // this is for the editing experience
     function handleHeaderChange(index: number, e: {content: string}): void {
-        const headers = props.options.headers.slice();
+        const headers = [...props.options.headers];
         headers[index] = e.content;
-        props.onChange({
-            headers: headers,
-        });
+        props.onChange({headers});
     }
 
     let InputComponent;
