@@ -1812,6 +1812,132 @@ describe("Interactive Graph", function () {
         });
     });
 
+    describe("dashed locked figures scale the dash pattern with weight", () => {
+        // The dash pattern is applied via the `--mafs-line-stroke-dash-style`
+        // CSS variable set on each figure's wrapping <g>. mafs reads that
+        // variable when rendering the dashed line/polygon/ellipse/plot, so a
+        // weight-proportional value keeps the dashes clearly visible at every
+        // weight instead of collapsing toward solid on thick lines.
+        const dashStyleOf = (element: SVGElement | null): string =>
+            element?.style.getPropertyValue("--mafs-line-stroke-dash-style") ??
+            "";
+
+        it.each([
+            {weight: "thin", expected: "4, 3"},
+            {weight: "medium", expected: "8, 6"},
+            {weight: "thick", expected: "16, 12"},
+        ] satisfies {weight: StrokeWeight; expected: string}[])(
+            "dashed line/ray/polygon/ellipse/function render a $weight dash of $expected",
+            ({weight, expected}) => {
+                // Arrange, Act
+                const {container} = renderQuestion(
+                    generateInteractiveGraphQuestion({
+                        markings: "none",
+                        correct: generateIGSegmentGraph(),
+                        lockedFigures: [
+                            generateIGLockedLine({
+                                kind: "segment",
+                                weight,
+                                lineStyle: "dashed",
+                                points: [
+                                    generateIGLockedPoint({coord: [-5, 0]}),
+                                    generateIGLockedPoint({coord: [0, 5]}),
+                                ],
+                            }),
+                            // Rays apply the dash via a different path (an
+                            // explicit strokeDasharray on the custom Vector),
+                            // so they are covered separately from the segment.
+                            generateIGLockedLine({
+                                kind: "ray",
+                                weight,
+                                lineStyle: "dashed",
+                                points: [
+                                    generateIGLockedPoint({coord: [1, 0]}),
+                                    generateIGLockedPoint({coord: [1, 5]}),
+                                ],
+                            }),
+                            generateIGLockedPolygon({
+                                weight,
+                                strokeStyle: "dashed",
+                            }),
+                            generateIGLockedEllipse({
+                                weight,
+                                strokeStyle: "dashed",
+                            }),
+                            generateIGLockedFunction({
+                                weight,
+                                strokeStyle: "dashed",
+                                equation: "x^2",
+                            }),
+                        ],
+                    }),
+                    blankOptions,
+                );
+
+                // Assert
+                /* eslint-disable testing-library/no-container, testing-library/no-node-access */
+                expect(
+                    dashStyleOf(
+                        container.querySelector<SVGGElement>(".locked-line"),
+                    ),
+                ).toBe(expected);
+                expect(
+                    dashStyleOf(
+                        container.querySelector<SVGGElement>(".locked-ray"),
+                    ),
+                ).toBe(expected);
+                expect(
+                    dashStyleOf(
+                        container.querySelector<SVGGElement>(".locked-polygon"),
+                    ),
+                ).toBe(expected);
+                expect(
+                    dashStyleOf(
+                        container.querySelector<SVGGElement>(".locked-ellipse"),
+                    ),
+                ).toBe(expected);
+                expect(
+                    dashStyleOf(
+                        container.querySelector<SVGGElement>(
+                            ".locked-function",
+                        ),
+                    ),
+                ).toBe(expected);
+                /* eslint-enable testing-library/no-container, testing-library/no-node-access */
+            },
+        );
+
+        it("does not set a dash pattern on solid figures", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateInteractiveGraphQuestion({
+                    markings: "none",
+                    correct: generateIGSegmentGraph(),
+                    lockedFigures: [
+                        generateIGLockedLine({
+                            kind: "segment",
+                            weight: "thick",
+                            lineStyle: "solid",
+                            points: [
+                                generateIGLockedPoint({coord: [-5, 0]}),
+                                generateIGLockedPoint({coord: [0, 5]}),
+                            ],
+                        }),
+                    ],
+                }),
+                blankOptions,
+            );
+
+            // Assert
+            expect(
+                dashStyleOf(
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelector<SVGGElement>(".locked-line"),
+                ),
+            ).toBe("");
+        });
+    });
+
     describe("interactive graph screen reader", () => {
         const limitedGraphQuestionRenderers: {
             [K in PerseusGraphType["type"][number]]: PerseusRenderer;
