@@ -1,11 +1,9 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
@@ -18,22 +16,13 @@ import type {
 const {assert} = InteractiveUtil;
 
 type EditorProps = {
-    editableHeaders: boolean;
+    editableHeaders?: boolean;
     Editor: any;
     onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
 };
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
-
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    headers: Props["headers"];
-    editableHeaders: Props["editableHeaders"];
-    rows: Props["rows"];
-    columns: Props["columns"];
-    linterContext: Props["linterContext"];
-};
 
 // A version of FocusPath that's specific to Table
 type Path = [row: string, column: string];
@@ -72,15 +61,6 @@ class Table extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
     headerRefs: Record<string, any> = {};
     answerRefs: Record<string, any> = {};
-
-    static defaultProps: DefaultProps = {
-        apiOptions: ApiOptions.defaults,
-        headers: [""],
-        editableHeaders: false,
-        rows: 4,
-        columns: 1,
-        linterContext: linterContextDefault,
-    };
 
     _getRows(): number {
         return this.props.userInput.length;
