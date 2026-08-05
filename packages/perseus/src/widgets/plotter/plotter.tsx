@@ -1133,7 +1133,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        const {userInput, ...rest} = this.props;
         return {
             ...rest,
             values: this.props.userInput,

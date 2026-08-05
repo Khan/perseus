@@ -18,8 +18,8 @@ export default function Hairlines(props: Props) {
 
     const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
     const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
-    const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
-    const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
+    const [[, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
+    const [[, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
     return (
         <g

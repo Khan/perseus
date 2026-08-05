@@ -20,6 +20,6 @@ export type NumberLinePublicWidgetOptions = Pick<
 export function getNumberLinePublicWidgetOptions(
     options: PerseusNumberLineWidgetOptions,
 ): NumberLinePublicWidgetOptions {
-    const {correctX: _, correctRel: __, ...publicOptions} = options;
+    const {correctX, correctRel, ...publicOptions} = options;
     return publicOptions;
 }

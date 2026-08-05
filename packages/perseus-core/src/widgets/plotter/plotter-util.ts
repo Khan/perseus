@@ -16,6 +16,6 @@ export type PlotterPublicWidgetOptions = Omit<
 export function getPlotterPublicWidgetOptions(
     options: PerseusPlotterWidgetOptions,
 ): PlotterPublicWidgetOptions {
-    const {correct: _, ...publicOptions} = options;
+    const {correct, ...publicOptions} = options;
     return publicOptions;
 }
