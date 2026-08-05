@@ -7,7 +7,7 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {border, spacing} from "@khanacademy/wonder-blocks-tokens";
 import arrowSquareOutIcon from "@phosphor-icons/core/regular/arrow-square-out.svg";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -353,8 +353,8 @@ export class PhetSimulation
 
 const styles = StyleSheet.create({
     widgetContainer: {
-        borderRadius: 6,
-        borderWidth: 1,
+        borderRadius: border.radius.radius_080,
+        borderWidth: border.width.thin,
         borderColor: "#CCC",
         padding: spacing.medium_16,
         paddingBottom: 0,
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
         paddingTop: "56.25%",
     },
     iframeResponsive: {
-        borderWidth: 0,
+        borderWidth: border.width.none,
         position: "absolute",
         top: 0,
         left: 0,
@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         backgroundColor: "rgba(255, 255, 255, 0.8)",
-        borderRadius: "50%",
+        borderRadius: border.radius.radius_full,
     },
 });
 
