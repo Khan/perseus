@@ -262,9 +262,10 @@ const styles = StyleSheet.create({
     radioSpan: {
         fontSize: sizing.size_280,
         paddingRight: 3,
+        cursor: "pointer",
 
         ":hover": {
-            color: semanticColor.core.border.neutral.default,
+            color: semanticColor.core.foreground.instructive.subtle,
         },
     },
 
