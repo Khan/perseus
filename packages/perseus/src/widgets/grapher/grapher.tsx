@@ -43,7 +43,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
@@ -52,6 +52,7 @@ import type {
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
     GrapherFunctionType,
+    Interval,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -350,7 +351,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput
 > & {dependencies: PerseusDependenciesV2};
@@ -377,7 +378,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
-        const graph = this.props.graph;
+        const {graph} = this.props.options;
         const plot = {
             ...this.props.userInput,
             ...defaultPlotProps(newType, graph),
@@ -385,12 +386,12 @@ class Grapher extends React.Component<Props> implements Widget {
         this.props.handleUserInput(plot);
     };
 
-    _getGridConfig(
-        options: Props["graph"] & {
-            box: NonNullable<Props["graph"]["box"]>;
-            gridStep: NonNullable<Props["graph"]["gridStep"]>;
-        },
-    ): ReadonlyArray<GridDimensions> {
+    _getGridConfig(options: {
+        box: [width: number, height: number];
+        step: [x: number, y: number];
+        gridStep: [x: number, y: number];
+        range: [x: Interval, y: Interval];
+    }): ReadonlyArray<GridDimensions> {
         return options.step.map((step, i) => {
             return Util.gridDimensionConfig(
                 step,
@@ -500,20 +501,21 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
+        const {graph} = this.props.options;
         if (this.props.apiOptions.isMobile) {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
             this.horizHairline.moveTo(
-                [this.props.graph.range[0][0], point[1]],
-                [this.props.graph.range[0][1], point[1]],
+                [graph.range[0][0], point[1]],
+                [graph.range[0][1], point[1]],
             );
 
             this.horizHairline.show();
 
             this.vertHairline.moveTo(
-                [point[0], this.props.graph.range[1][0]],
-                [point[0], this.props.graph.range[1][1]],
+                [point[0], graph.range[1][0]],
+                [point[0], graph.range[1][1]],
             );
 
             this.vertHairline.show();
@@ -536,22 +538,22 @@ class Grapher extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, correct, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
+        const {correct, ...optionsRest} = options;
         return {
+            ...optionsRest,
             ...rest,
             plot: this.props.userInput,
         };
     }
 
     getAvailableTypes(): GrapherFunctionType[] {
+        const {correct, availableTypes} = this.props.options;
         if (this.props.static) {
-            invariant(
-                this.props.correct,
-                "static widgets must have a correct answer",
-            );
-            return [this.props.correct.type];
+            invariant(correct, "static widgets must have a correct answer");
+            return [correct.type];
         }
-        return this.props.availableTypes;
+        return availableTypes;
     }
 
     renderLegacyGrapher() {
@@ -581,13 +583,14 @@ class Grapher extends React.Component<Props> implements Widget {
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
+        const {graph} = this.props.options;
         const options = {
-            ...this.props.graph,
-            ...getGridAndSnapSteps(this.props.graph, box[0]),
+            ...graph,
+            ...getGridAndSnapSteps(graph, box[0]),
             gridConfig: this._getGridConfig({
-                ...this.props.graph,
+                ...graph,
                 box: box,
-                ...getGridAndSnapSteps(this.props.graph, box[0]),
+                ...getGridAndSnapSteps(graph, box[0]),
             }),
         } as const;
 
@@ -611,7 +614,7 @@ class Grapher extends React.Component<Props> implements Widget {
             asymptote: asymptote,
             static: this.props.static,
             isMobile: this.props.apiOptions.isMobile,
-            showTooltips: this.props.graph.showTooltips,
+            showTooltips: graph.showTooltips,
             showHairlines: this.showHairlines,
             hideHairlines: this.hideHairlines,
         } as const;
@@ -626,18 +629,21 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        const interactiveGraphOptions = convertGrapherOptionsToInteractiveGraph(
-            this.props,
-        );
+        const {options, ...universalProps} = this.props;
+        const interactiveGraphOptions =
+            convertGrapherOptionsToInteractiveGraph(options);
         if (interactiveGraphOptions == null) {
             return this.renderLegacyGrapher();
         }
         const interactiveGraphUserInput =
             convertGrapherUserInputToInteractiveGraph(this.props.userInput);
 
+        // TODO(LEMS-4354): delete the comment below.
+        // InteractiveGraph has not yet migrated to nested options, so it takes
+        // the converted options spread across its props.
         return (
             <InteractiveGraph.widget
-                {...this.props}
+                {...universalProps}
                 {...interactiveGraphOptions}
                 userInput={interactiveGraphUserInput}
                 handleUserInput={(interactiveGraphUserInput) =>
@@ -686,12 +692,6 @@ function getCorrectUserInput(
     );
     return options.correct;
 }
-
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusGrapherWidgetOptions,
-    PerseusGrapherUserInput
-> satisfies PropsFor<typeof WrappedGrapher>;
 
 const WrappedGrapher = withDependencies(Grapher);
 

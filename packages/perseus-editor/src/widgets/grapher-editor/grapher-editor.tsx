@@ -73,9 +73,12 @@ class GrapherEditor extends React.Component<Props> {
             const graphProps: Partial<PropsFor<typeof Grapher>> = {
                 apiOptions: this.props.apiOptions,
                 containerSizeClass: sizeClass,
-                graph: this.props.graph,
+                options: {
+                    graph: this.props.graph,
+                    correct: this.props.correct,
+                    availableTypes: [...this.props.availableTypes],
+                },
                 userInput: this.props.correct,
-                correct: this.props.correct,
                 handleUserInput: (userInput) => {
                     let correct = this.props.correct;
                     if (correct.type === userInput?.type) {
@@ -86,7 +89,6 @@ class GrapherEditor extends React.Component<Props> {
                     }
                     this.props.onChange({correct: correct});
                 },
-                availableTypes: [...this.props.availableTypes],
                 trackInteraction: function () {},
                 // Set the "correct answer" graph to static when editing is disabled
                 static: this.props.apiOptions.editingDisabled,
