@@ -776,14 +776,12 @@ export class Add extends Seq {
             return pair[0].normalize().print();
         });
 
-        var collected = _.compact(
-            _.map(grouped, (pairs) => {
-                var expr = pairs[0][0];
-                var sum = new Add(_.zip.apply(_, pairs)[1]);
-                var coefficient = sum.reduce(options);
-                return new Mul(coefficient, expr).collect(options);
-            }),
-        );
+        var collected = _.map(grouped, (pairs) => {
+            var expr = pairs[0][0];
+            var sum = new Add(_.zip.apply(_, pairs)[1]);
+            var coefficient = sum.reduce(options);
+            return new Mul(coefficient, expr).collect(options);
+        }).filter(Boolean);
 
         return new Add(collected).flatten();
     }
@@ -939,25 +937,22 @@ export class Mul extends Seq {
             }
         }
 
-        numbers = _.compact(
-            _.map(numbers, (term) => {
-                var shouldPushDown =
-                    !term.hints.fraction || inverses.length > 0;
-                if (
-                    term instanceof Rational &&
-                    !(term instanceof Int) &&
-                    shouldPushDown
-                ) {
-                    // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
-                    inverses.push(new Pow(new Int(term.d), NumDiv));
-                    var number = new Int(term.n);
-                    number.hints = term.hints;
-                    return _.any(term.hints) ? number : null;
-                } else {
-                    return term;
-                }
-            }),
-        );
+        numbers = _.map(numbers, (term) => {
+            var shouldPushDown = !term.hints.fraction || inverses.length > 0;
+            if (
+                term instanceof Rational &&
+                !(term instanceof Int) &&
+                shouldPushDown
+            ) {
+                // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
+                inverses.push(new Pow(new Int(term.d), NumDiv));
+                var number = new Int(term.n);
+                number.hints = term.hints;
+                return _.any(term.hints) ? number : null;
+            } else {
+                return term;
+            }
+        }).filter((term) => term !== null);
 
         if (numbers.length === 0 && others.length === 1) {
             // e.g. (x+y)/z -> \frac{x+y}{z}
@@ -1144,8 +1139,9 @@ export class Mul extends Seq {
             return pair[0].normalize().print();
         });
 
-        var summed: [base: Expr, exp: Expr][] = _.compact(
-            _.map(grouped, (pairs): [Expr, Expr] | null => {
+        var summed: [base: Expr, exp: Expr][] = _.map(
+            grouped,
+            (pairs): [Expr, Expr] | null => {
                 var base = pairs[0][0];
                 var sum = new Add(_.zip.apply(_, pairs)[1]);
                 var exp = sum.collect(options);
@@ -1155,8 +1151,8 @@ export class Mul extends Seq {
                 } else {
                     return [base, exp];
                 }
-            }),
-        );
+            },
+        ).filter((pair) => pair !== null);
 
         // XXX `pairs` is shadowed four or five times in this function
         const groupedPairs = _.groupBy(summed, (pair) => {
@@ -1291,16 +1287,14 @@ export class Mul extends Seq {
     // factor out a single hinted -1 (assume it is the division hint)
     factorOut() {
         var factored = false;
-        var terms = _.compact(
-            _.map(this.terms, (term) => {
-                if (!factored && term instanceof Num && term.hints.divide) {
-                    factored = true;
-                    return term.n !== -1 ? term.negate() : null;
-                } else {
-                    return term;
-                }
-            }),
-        );
+        var terms = _.map(this.terms, (term) => {
+            if (!factored && term instanceof Num && term.hints.divide) {
+                factored = true;
+                return term.n !== -1 ? term.negate() : null;
+            } else {
+                return term;
+            }
+        }).filter((term) => term !== null);
 
         if (terms.length === 1) {
             return terms[0];
