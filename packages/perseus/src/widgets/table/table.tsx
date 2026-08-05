@@ -58,6 +58,8 @@ function getRefForPath(path: FocusPath): string {
     return "answer" + row + "," + column;
 }
 
+// TODO-NEXT: rewrite Table as a functional component, following the patterns
+//  in dropdown.tsx.
 class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
