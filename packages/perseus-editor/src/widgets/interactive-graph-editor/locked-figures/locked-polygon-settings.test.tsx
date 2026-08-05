@@ -39,7 +39,7 @@ describe("LockedPolygonSettings", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
     });
-    test("renders", () => {
+    it("renders", () => {
         // Arrange
 
         // Act
@@ -52,7 +52,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("summary reflects number of sides", () => {
+    it("summary reflects number of sides", () => {
         // Arrange
 
         // Act
@@ -76,7 +76,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("summary reflects color", () => {
+    it("summary reflects color", () => {
         // Arrange
 
         // Act
@@ -91,7 +91,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("summary reflects stroke style", () => {
+    it("summary reflects stroke style", () => {
         // Arrange
 
         // Act
@@ -109,7 +109,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("summary reflects fill style", () => {
+    it("summary reflects fill style", () => {
         // Arrange
 
         // Act
@@ -124,7 +124,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("shows delete buttons when there are more than 3 points", () => {
+    it("shows delete buttons when there are more than 3 points", () => {
         // Arrange
 
         // Act
@@ -148,7 +148,7 @@ describe("LockedPolygonSettings", () => {
         expect(deleteButtons).toHaveLength(4);
     });
 
-    test("does not show delete buttons when there are 3 points", () => {
+    it("does not show delete buttons when there are 3 points", () => {
         // Arrange
 
         // Act
@@ -162,7 +162,7 @@ describe("LockedPolygonSettings", () => {
         expect(deleteButtons).toHaveLength(0);
     });
 
-    test("calls onToggle when header is clicked", async () => {
+    it("calls onToggle when header is clicked", async () => {
         // Arrange
         const onToggle = jest.fn();
         render(
@@ -182,7 +182,7 @@ describe("LockedPolygonSettings", () => {
         expect(onToggle).toHaveBeenCalled();
     });
 
-    test("calls onChange when the whole polygon is moved up", async () => {
+    it("calls onChange when the whole polygon is moved up", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         const initialLabel: LockedLabelType = {
@@ -225,7 +225,7 @@ describe("LockedPolygonSettings", () => {
         });
     });
 
-    test("calls onChange when the whole polygon is moved down", async () => {
+    it("calls onChange when the whole polygon is moved down", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         const initialLabel: LockedLabelType = {
@@ -268,7 +268,7 @@ describe("LockedPolygonSettings", () => {
         });
     });
 
-    test("calls onChange when the whole polygon is moved left", async () => {
+    it("calls onChange when the whole polygon is moved left", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         const initialLabel: LockedLabelType = {
@@ -311,7 +311,7 @@ describe("LockedPolygonSettings", () => {
         });
     });
 
-    test("calls onChange when the whole polygon is moved right", async () => {
+    it("calls onChange when the whole polygon is moved right", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         const initialLabel: LockedLabelType = {
@@ -354,7 +354,7 @@ describe("LockedPolygonSettings", () => {
         });
     });
 
-    test("calls onChange when the weight is changed", async () => {
+    it("calls onChange when the weight is changed", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         render(
@@ -377,8 +377,31 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
     });
 
+    it("offers a 'none' stroke option (fill-only shading)", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const strokeSelect = screen.getByRole("combobox", {name: "stroke"});
+        await userEvent.click(strokeSelect);
+        const noneOption = screen.getByRole("option", {name: "none"});
+        await userEvent.click(noneOption);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({strokeStyle: "none"});
+    });
+
     describe("Labels", () => {
-        test("Renders a label when a label is provided", () => {
+        it("Renders a label when a label is provided", () => {
             // Arrange
 
             // Act
@@ -400,7 +423,7 @@ describe("LockedPolygonSettings", () => {
             expect(inputField).toHaveValue("label text");
         });
 
-        test.each`
+        it.each`
             movement   | label                   | coord | updatedBy
             ${"up"}    | ${"Move polygon up"}    | ${1}  | ${1}
             ${"down"}  | ${"Move polygon down"}  | ${1}  | ${-1}
@@ -457,7 +480,7 @@ describe("LockedPolygonSettings", () => {
             },
         );
 
-        test("Updates the label color when the polygon color changes", async () => {
+        it("Updates the label color when the polygon color changes", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -493,7 +516,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("Updates the label when the label text changes", async () => {
+        it("Updates the label when the label text changes", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -520,7 +543,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("Removes label when delete button is clicked", async () => {
+        it("Removes label when delete button is clicked", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -549,7 +572,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("Adds a new label when the add label button is clicked", async () => {
+        it("Adds a new label when the add label button is clicked", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -594,7 +617,7 @@ describe("LockedPolygonSettings", () => {
     });
 
     describe("Aria label", () => {
-        test("Renders with aria label", () => {
+        it("Renders with aria label", () => {
             // Arrange
 
             // Act
@@ -612,7 +635,7 @@ describe("LockedPolygonSettings", () => {
             expect(input).toHaveValue("Polygon at (x, y)");
         });
 
-        test("calls onChangeProps when the aria label is updated", async () => {
+        it("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -635,7 +658,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("aria label auto-generates (no labels)", async () => {
+        it("aria label auto-generates (no labels)", async () => {
             // Arrange
             const onChangeProps = jest.fn();
 
@@ -666,7 +689,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("aria label auto-generates (one label)", async () => {
+        it("aria label auto-generates (one label)", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -702,7 +725,7 @@ describe("LockedPolygonSettings", () => {
             });
         });
 
-        test("aria label auto-generates (multiple labels)", async () => {
+        it("aria label auto-generates (multiple labels)", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(

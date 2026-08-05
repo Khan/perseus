@@ -10,12 +10,15 @@ import * as React from "react";
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    LockedFigureStrokeStyle,
 } from "@khanacademy/perseus-core";
 
 type Props = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: "solid" | "dashed";
+    // "none" renders no border (a valid CSS border-style), reflecting a
+    // stroke-less (fill-only) ellipse.
+    strokeStyle: LockedFigureStrokeStyle;
 };
 
 const EllipseSwatch = (props: Props) => {

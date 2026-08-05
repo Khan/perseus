@@ -10,7 +10,7 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y} from "../math";
 
-import {dashedStrokeStyle, strokeWeights} from "./utils";
+import {dashBackingColor, dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -47,18 +47,32 @@ const LockedLine = (props: Props) => {
             range,
         );
         line = (
-            <Vector
-                tail={point1.coord}
-                tip={extendedPoint}
-                color={lockedFigureColors[color]}
-                strokeWidth={strokeWeights[weight]}
-                style={{
-                    strokeDasharray:
-                        lineStyle === "dashed"
-                            ? "var(--mafs-line-stroke-dash-style)"
-                            : undefined,
-                }}
-            />
+            <>
+                {lineStyle === "dashed" && (
+                    // Solid knockout backing under the dashes so they stay
+                    // legible over grid lines and shading behind the ray. A
+                    // plain segment (not a Vector) so it adds no arrowhead.
+                    <Line.Segment
+                        point1={point1.coord}
+                        point2={extendedPoint}
+                        color={dashBackingColor}
+                        weight={strokeWeights[weight]}
+                        style="solid"
+                    />
+                )}
+                <Vector
+                    tail={point1.coord}
+                    tip={extendedPoint}
+                    color={lockedFigureColors[color]}
+                    strokeWidth={strokeWeights[weight]}
+                    style={{
+                        strokeDasharray:
+                            lineStyle === "dashed"
+                                ? "var(--mafs-line-stroke-dash-style)"
+                                : undefined,
+                    }}
+                />
+            </>
         );
     } else {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
@@ -107,6 +121,17 @@ const LockedLine = (props: Props) => {
 
         line = (
             <>
+                {lineStyle === "dashed" && (
+                    // Solid knockout backing under the dashes so they stay
+                    // legible over grid lines and shading behind the line.
+                    <LineType
+                        point1={point1.coord}
+                        point2={point2.coord}
+                        color={dashBackingColor}
+                        weight={strokeWeights[weight]}
+                        style="solid"
+                    />
+                )}
                 {startArrowHead}
                 <LineType
                     point1={point1.coord}
