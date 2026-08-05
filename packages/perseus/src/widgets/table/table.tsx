@@ -66,7 +66,7 @@ type Cell = HTMLInputElement | SimpleKeypadInput;
 const Table = forwardRef<Widget, Props>(function Table(props, ref) {
     const {strings} = usePerseusI18n();
 
-    const cellRefs = useRef(new Map<string, Cell>());
+    const cellRefs = useRef<Record<string, Cell | undefined>>({});
 
     useImperativeHandle(ref, () => ({
         focus(): boolean {
@@ -111,7 +111,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
     }));
 
     function getCellForPath(path: FocusPath): Cell | undefined {
-        return cellRefs.current.get(getRefForPath(path));
+        return cellRefs.current[getRefForPath(path)];
     }
 
     function handleValueChange(
@@ -154,84 +154,61 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
         inputStyle = {};
     }
 
+    const headerRow = (
+        <tr>
+            {props.headers.map((header, i) => {
+                if (props.editableHeaders) {
+                    return (
+                        <th key={i}>
+                            <props.Editor
+                                apiOptions={props.apiOptions}
+                                content={header}
+                                widgetEnabled={false}
+                                onChange={(e) => handleHeaderChange(i, e)}
+                            />
+                        </th>
+                    );
+                }
+                return (
+                    <th key={i}>
+                        <Renderer
+                            content={header}
+                            linterContext={props.linterContext}
+                            strings={strings}
+                        />
+                    </th>
+                );
+            })}
+        </tr>
+    );
+
+    const tableRows = props.userInput.map((rowCells, r) => (
+        <tr key={r}>
+            {rowCells.map((answer, c) => (
+                <td key={c}>
+                    <InputComponent
+                        ref={(cell: Cell | null) => {
+                            const refId = getRefForPath(getInputPath(r, c));
+                            cellRefs.current[refId] = cell ?? undefined;
+                        }}
+                        type="text"
+                        value={answer}
+                        disabled={props.apiOptions.readOnly}
+                        onFocus={() => props.onFocus(getInputPath(r, c))}
+                        onBlur={() => props.onBlur(getInputPath(r, c))}
+                        onChange={(e) => handleValueChange(r, c, e)}
+                        style={inputStyle}
+                        {...extraInputProps}
+                    />
+                </td>
+            ))}
+        </tr>
+    ));
+
     return (
         <table className="perseus-widget-table-of-values non-markdown">
-            <thead>
-                <tr>
-                    {props.headers.map((header, i) => {
-                        if (props.editableHeaders) {
-                            return (
-                                <th key={i}>
-                                    <props.Editor
-                                        apiOptions={props.apiOptions}
-                                        content={header}
-                                        widgetEnabled={false}
-                                        onChange={(e) =>
-                                            handleHeaderChange(i, e)
-                                        }
-                                    />
-                                </th>
-                            );
-                        }
-                        return (
-                            <th key={i}>
-                                <Renderer
-                                    content={header}
-                                    linterContext={props.linterContext}
-                                    strings={strings}
-                                />
-                            </th>
-                        );
-                    })}
-                </tr>
-            </thead>
-            <tbody>
-                {props.userInput.map((rowArr, r) => {
-                    return (
-                        <tr key={r}>
-                            {rowArr.map((answer, c) => {
-                                const refKey = getRefForPath(
-                                    getInputPath(r, c),
-                                );
-                                return (
-                                    <td key={c}>
-                                        <InputComponent
-                                            ref={(cell: Cell | null) => {
-                                                if (cell) {
-                                                    cellRefs.current.set(
-                                                        refKey,
-                                                        cell,
-                                                    );
-                                                } else {
-                                                    cellRefs.current.delete(
-                                                        refKey,
-                                                    );
-                                                }
-                                            }}
-                                            type="text"
-                                            value={answer}
-                                            disabled={props.apiOptions.readOnly}
-                                            onFocus={() =>
-                                                props.onFocus(
-                                                    getInputPath(r, c),
-                                                )
-                                            }
-                                            onBlur={() =>
-                                                props.onBlur(getInputPath(r, c))
-                                            }
-                                            onChange={(e) =>
-                                                handleValueChange(r, c, e)
-                                            }
-                                            style={inputStyle}
-                                            {...extraInputProps}
-                                        />
-                                    </td>
-                                );
-                            })}
-                        </tr>
-                    );
-                })}
-            </tbody>
+            <thead>{headerRow}</thead>
+            <tbody>{tableRows}</tbody>
         </table>
     );
 });
