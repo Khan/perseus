@@ -14,6 +14,17 @@ export const basicBlankQuestion = generateTestPerseusRenderer({
         }),
     },
 });
+export const superscriptQuestion = generateTestPerseusRenderer({
+    content: "Hello my name is [[☃ blank 1]]",
+    widgets: {
+        "blank 1": generateBlankWidget({
+            options: generateBlankOptions({
+                displayType: "superscript",
+                correct: "answer-tile-1",
+            }),
+        }),
+    },
+});
 export const subscriptQuestion = generateTestPerseusRenderer({
     content: "Hello my name is [[☃ blank 1]]",
     widgets: {

@@ -1,3 +1,5 @@
+import validateBlank from "./validate-blank";
+
 import type {
     PerseusBlankRubric,
     PerseusBlankUserInput,
@@ -10,10 +12,11 @@ function scoreBlank(
     userInput: PerseusBlankUserInput | undefined,
     rubric: PerseusBlankRubric,
 ): PerseusScore {
-    if (userInput == null) {
-        return {type: "invalid", message: null};
+    const validationResult = validateBlank(userInput);
+    if (validationResult != null) {
+        return validationResult;
     }
-    const isCorrect = userInput.selected === rubric.correct;
+    const isCorrect = userInput?.selected === rubric.correct;
     return {
         type: "points",
         earned: isCorrect ? 1 : 0,

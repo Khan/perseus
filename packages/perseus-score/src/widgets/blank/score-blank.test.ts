@@ -55,7 +55,7 @@ describe("scoreBlank", () => {
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("does not give points when no tile has been selected", () => {
+    it("returns a score of 'invalid' when no tile has been selected", () => {
         // Arrange
         const rubric: PerseusBlankRubric = {
             correct: "answer-tile-1",
@@ -67,6 +67,6 @@ describe("scoreBlank", () => {
         const score = scoreBlank(userInput, rubric);
 
         // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(score).toHaveInvalidInput();
     });
 });

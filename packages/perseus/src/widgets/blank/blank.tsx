@@ -1,6 +1,5 @@
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
-import _ from "underscore";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/blank/blank-ai-utils";
 
@@ -13,14 +12,9 @@ import type {
     PerseusBlankUserInput,
 } from "@khanacademy/perseus-core";
 
-type WidgetHandle = Pick<Widget, "getPromptJSON">;
+type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
 
-export type BlankProps = WidgetProps<
-    PerseusBlankWidgetOptions,
-    PerseusBlankUserInput
->;
-
-const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
+const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
         useImperativeHandle(ref, () => ({
             getPromptJSON: (): BlankPromptJSON =>
@@ -30,6 +24,7 @@ const BlankWidget = forwardRef<WidgetHandle, BlankProps>(
             .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
             .join(" ");
 
+        //TO-DO: Remove testid once we have a better way to identify a blank-widget
         return <div className={classes} data-testid="blank-widget" />;
     },
 );
