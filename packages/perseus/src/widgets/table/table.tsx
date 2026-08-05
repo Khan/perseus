@@ -68,10 +68,6 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     const cellRefs = useRef(new Map<string, Cell>());
 
-    function getCellForPath(path: FocusPath): Cell | undefined {
-        return cellRefs.current.get(getRefForPath(path));
-    }
-
     useImperativeHandle(ref, () => ({
         focus(): boolean {
             getCellForPath(getDefaultPath())?.focus();
@@ -113,6 +109,10 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
             };
         },
     }));
+
+    function getCellForPath(path: FocusPath): Cell | undefined {
+        return cellRefs.current.get(getRefForPath(path));
+    }
 
     function handleValueChange(
         row: number,
