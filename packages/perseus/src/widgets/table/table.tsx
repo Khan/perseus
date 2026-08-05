@@ -18,7 +18,7 @@ const {assert} = InteractiveUtil;
 type EditorProps = {
     editableHeaders?: boolean;
     Editor: any;
-    onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
+    onChange: (value: {headers: string[]}) => void;
 };
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
@@ -94,10 +94,9 @@ class Table extends React.Component<Props> implements Widget {
     onHeaderChange(index: number, e: any): void {
         const headers = this.props.headers.slice();
         headers[index] = e.content;
-        // eslint-disable-next-line no-restricted-syntax
         this.props.onChange({
             headers: headers,
-        } as any);
+        });
     }
 
     _handleFocus(inputPath: any): void {
