@@ -7,11 +7,7 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {
-    border,
-    semanticColor,
-    spacing,
-} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import arrowSquareOutIcon from "@phosphor-icons/core/regular/arrow-square-out.svg";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -360,7 +356,7 @@ const styles = StyleSheet.create({
         borderRadius: border.radius.radius_080,
         borderWidth: border.width.thin,
         borderColor: semanticColor.core.border.neutral.subtle,
-        padding: spacing.medium_16,
+        padding: sizing.size_160,
         paddingBottom: 0,
     },
     cornerButton: {
@@ -408,8 +404,8 @@ const styles = StyleSheet.create({
     },
     closeButtonContainer: {
         position: "absolute",
-        top: spacing.xSmall_8,
-        right: spacing.xSmall_8,
+        top: sizing.size_080,
+        right: sizing.size_080,
         zIndex: 1001,
     },
     closeButton: {
