@@ -102,10 +102,15 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
   (`<td>` or a span) is the straightforward findDOMNode-free option, but it returns
   the wrapper rather than the input. Is that acceptable to the callers
   (mobile scroll-into-view), or should the keypad case expose its input element?
+    - Answer: expose the input element. This task is refactoring only, no behavior changes.
+
 - Should Table also gain a `perseus:widget:rendered:ti` analytics event on mount
   (as dropdown/matrix/numeric-input have) or stay analytics-free given it's a hidden,
   deprecated widget? Adding it would require wrapping in `withDependencies`, which
   changes the type the editor sees.
+    - Answer: No analytics.
+
 - The `EditorProps` (`Editor`, `editableHeaders`, `onChange`) are editor-only and
   not part of the widget options. Leave them on `Props` as they are, or is untangling
   them in scope?
+    - Answer: Leave them on props; they are not widget options.
