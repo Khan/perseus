@@ -3,21 +3,24 @@ import {mathOnlyParser} from "@khanacademy/perseus";
 import {
     type LockedFigureColor,
     type LockedFigureFillType,
+    type LockedFigureStrokeStyle,
     type LockedLabelType,
-    type LockedLineStyle,
     type StrokeWeight,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
-    strokeStyle: LockedLineStyle = "solid",
+    strokeStyle: LockedFigureStrokeStyle = "solid",
     fill?: LockedFigureFillType,
     weight: StrokeWeight = "medium",
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
     const weightString = weight === "medium" ? "" : ` ${weight}`;
-    const baseAppearance = `. Appearance${weightString} ${strokeStyle} ${convertedColor}`;
+    // A fill-only figure ("none" stroke) has no border color to name.
+    const strokeDescription =
+        strokeStyle === "none" ? "no" : `${strokeStyle} ${convertedColor}`;
+    const baseAppearance = `. Appearance${weightString} ${strokeDescription}`;
 
     switch (fill) {
         case "none":

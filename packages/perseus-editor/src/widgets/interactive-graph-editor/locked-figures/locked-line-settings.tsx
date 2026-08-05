@@ -19,7 +19,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
-import LineStrokeSelect from "./line-stroke-select";
+import LineStrokeSelect, {lineStrokeStyleOptions} from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
@@ -263,6 +263,7 @@ const LockedLineSettings = (props: Props) => {
                 {/* Line style settings */}
                 <LineStrokeSelect
                     selectedValue={lineStyle}
+                    options={lineStrokeStyleOptions}
                     editingDisabled={editingDisabled}
                     onChange={(value) => onChangeProps({lineStyle: value})}
                 />
