@@ -214,7 +214,7 @@ function getPolygonCoords(graph: PerseusGraphType, props: Props): Coord[] {
     ];
     coords = normalizeCoords(coords, ranges);
 
-    const snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
+    const snapToGrid = graph.snapTo !== "angles" && graph.snapTo !== "sides";
     coords = pointsFromNormalized(props, coords, /* noSnap */ !snapToGrid);
 
     return coords;

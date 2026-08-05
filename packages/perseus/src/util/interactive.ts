@@ -740,7 +740,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                         // can be vetoed, providing custom constraints on where
                         // the point can be moved. By returning array [x, y], the
                         // move can be overridden
-                        if (_.isFunction(movablePoint.onMove)) {
+                        if (typeof movablePoint.onMove === "function") {
                             const result = movablePoint.onMove(coordX, coordY);
                             if (result === false) {
                                 doMove = false;
@@ -769,7 +769,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                         $(document).unbind(".point");
                         movablePoint.dragging = false;
                         dragging = false;
-                        if (_.isFunction(movablePoint.onMoveEnd)) {
+                        if (typeof movablePoint.onMoveEnd === "function") {
                             const result = movablePoint.onMoveEnd(
                                 coordX,
                                 coordY,
@@ -902,7 +902,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             this.visibleShape.animateTo([coordX, coordY], time, cb);
             this.mouseTarget.animateTo([coordX, coordY], time, cb);
             this.coord = [coordX, coordY];
-            if (_.isFunction(this.onMove)) {
+            if (typeof this.onMove === "function") {
                 this.onMove(coordX, coordY);
             }
         };
@@ -1537,7 +1537,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                         }
                                     }
 
-                                    if (_.isFunction(lineSegment.onMove)) {
+                                    if (
+                                        typeof lineSegment.onMove === "function"
+                                    ) {
                                         lineSegment.onMove(dX, dY);
                                     }
                                 } else if (event.type === "vmouseup") {
@@ -1561,7 +1563,10 @@ _.extend(GraphUtils.Graphie.prototype, {
                                         );
                                         lineSegment.transform();
                                     }
-                                    if (_.isFunction(lineSegment.onMoveEnd)) {
+                                    if (
+                                        typeof lineSegment.onMoveEnd ===
+                                        "function"
+                                    ) {
                                         lineSegment.onMoveEnd();
                                     }
                                 }
@@ -1677,10 +1682,10 @@ _.extend(GraphUtils.Graphie.prototype, {
             });
 
             // Calculate bounding box
-            polygon.left = _.min(_.pluck(polygon.coords, 0));
-            polygon.right = _.max(_.pluck(polygon.coords, 0));
-            polygon.top = _.max(_.pluck(polygon.coords, 1));
-            polygon.bottom = _.min(_.pluck(polygon.coords, 1));
+            polygon.left = _.min(polygon.coords.map((coord) => coord[0]));
+            polygon.right = _.max(polygon.coords.map((coord) => coord[0]));
+            polygon.top = _.max(polygon.coords.map((coord) => coord[1]));
+            polygon.bottom = _.min(polygon.coords.map((coord) => coord[1]));
 
             let scaledCoords = _.map(polygon.coords, function (coord) {
                 return graphie.scalePoint(coord);
@@ -1903,7 +1908,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 50,
                             );
                             const points = _.filter(polygon.points, isPoint);
-                            if (!_.any(_.pluck(points, "dragging"))) {
+                            if (!_.any(points.map((point) => point.dragging))) {
                                 _.each(points, function (point) {
                                     point.visibleShape.animate(
                                         point.normalStyle,
@@ -2029,7 +2034,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                     let dY = currentY - startY;
 
                                     let doMove = true;
-                                    if (_.isFunction(polygon.onMove)) {
+                                    if (typeof polygon.onMove === "function") {
                                         const onMoveResult = polygon.onMove(
                                             dX,
                                             dY,
@@ -2101,7 +2106,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                             );
                                         });
                                     }
-                                    if (_.isFunction(polygon.onMoveEnd)) {
+                                    if (
+                                        typeof polygon.onMoveEnd === "function"
+                                    ) {
                                         polygon.onMoveEnd(
                                             lastX - startX,
                                             lastY - startY,
@@ -2448,7 +2455,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                     radius,
                                     oldRadius,
                                 );
-                                if (_.isNumber(onResizeResult)) {
+                                if (typeof onResizeResult === "number") {
                                     radius = onResizeResult;
                                 } else if (onResizeResult === false) {
                                     doResize = false;

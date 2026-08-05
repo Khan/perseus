@@ -765,7 +765,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }
 
     getOptions(): SortableOption[] {
-        return _.pluck(this.state.items, "option");
+        return this.state.items.map((item) => item.option);
     }
 
     render(): React.ReactNode {
