@@ -55,7 +55,7 @@ describe("table", () => {
             return renderer.findWidgets("table 1")[0];
         }
 
-        it("focus() focuses the cell at row 0, column 0", () => {
+        it("focuses the cell at row 0, column 0 on focus()", () => {
             const table = renderTable();
 
             act(() => table.focus());
@@ -63,7 +63,7 @@ describe("table", () => {
             expect(screen.getAllByRole("textbox")[0]).toHaveFocus();
         });
 
-        it("focusInputPath and blurInputPath act on the addressed cell", () => {
+        it("focuses and blurs cells by path", () => {
             const table = renderTable();
             // Row 1, column 0 is the fourth cell of a 2x3 table.
             const cell = screen.getAllByRole("textbox")[3];
@@ -75,7 +75,7 @@ describe("table", () => {
             expect(cell).not.toHaveFocus();
         });
 
-        it("getInputPaths returns every cell path in row-major order", () => {
+        it("lists cell paths in row-major order on getInputPaths()", () => {
             const table = renderTable();
 
             expect(table.getInputPaths()).toEqual([
@@ -88,7 +88,7 @@ describe("table", () => {
             ]);
         });
 
-        it("getDOMNodeForPath returns the input element for the cell", () => {
+        it("gets a cell's input element on getDOMNodeForPath()", () => {
             const table = renderTable();
 
             expect(table.getDOMNodeForPath(["0", "1"])).toBe(
@@ -98,7 +98,7 @@ describe("table", () => {
 
         // With a custom keypad the cell is a SimpleKeypadInput rather than an
         // <input>, but callers still get back the element the learner types into.
-        it("getDOMNodeForPath returns the cell's textbox element with a custom keypad", () => {
+        it("gets a cell's input element when customKeypad = true", () => {
             const table = renderTable({customKeypad: true});
 
             expect(table.getDOMNodeForPath(["0", "1"])).toBe(
