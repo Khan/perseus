@@ -8,7 +8,8 @@ const styles = {
         paddingLeft: "0.2rem",
     },
     content: {
-        borderLeft: "0px solid #ccc",
+        borderLeft:
+            "0px solid var(--wb-semanticColor-core-border-neutral-subtle)",
         display: "inline-grid",
         position: "relative",
     },
@@ -41,11 +42,11 @@ const styles = {
         textAlign: "left",
         whiteSpace: "normal",
     },
-    transitionCollapsed: {
+    transitionCollapsed_mq_prefers_reduced_motion_no_preference: {
         transition:
             "all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s",
     },
-    transitionExpanded: {
+    transitionExpanded_mq_prefers_reduced_motion_no_preference: {
         transition:
             "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
     },
