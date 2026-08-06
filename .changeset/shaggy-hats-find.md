@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": major
+"@khanacademy/perseus": minor
 ---
 
-Inclusion of new dnd-kit dependency for upcoming widgets
+Inclusion of new dnd-kit dependency for upcoming widgets.
