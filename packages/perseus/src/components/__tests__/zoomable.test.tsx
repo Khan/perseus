@@ -56,7 +56,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -83,7 +83,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; height: 1px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; height: 1px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -112,7 +112,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -167,7 +167,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567); transform-origin: 0 0; opacity: 1; height: 101px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(0.4993757802746567, 0.4993757802746567); transform-origin: 0 0; opacity: 1; height: 101px; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -203,7 +203,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+                style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -456,7 +456,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out; height: 1001px;"
+                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
                   >
                     <span>
                       Some more zoomable text
@@ -479,7 +479,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out; height: 1001px;"
+                    style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 1001px;"
                   >
                     <span>
                       Some more zoomable text
@@ -508,7 +508,7 @@ describe("Zoomable", () => {
             expect(componentContainer).toMatchInlineSnapshot(`
                 <div>
                   <span
-                    style="display: block; width: 100%; transform: scale(0.1998001998001998, 0.1998001998001998); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out; height: 200px;"
+                    style="display: block; width: 100%; transform: scale(0.1998001998001998, 0.1998001998001998); transform-origin: 0 0; opacity: 1; transition-property: opacity transform; transition-duration: 300ms; transition-timing-function: ease-out; height: 200px;"
                   >
                     <span>
                       Some more zoomable text
