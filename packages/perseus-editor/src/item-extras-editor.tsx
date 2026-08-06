@@ -18,22 +18,18 @@ import type {
 
 const calculatorVariants: Array<{
     label: string;
-    tip: string;
     variant: CalculatorVariant;
 }> = [
     {
         label: "Scientific calculator",
-        tip: "Provides the student with a scientific calculator.",
         variant: "scientific",
     },
     {
         label: "Graphing calculator",
-        tip: "Provides the student with a graphing calculator.",
         variant: "graphing",
     },
     {
         label: "Four-function calculator",
-        tip: "Provides the student with a four-function calculator.",
         variant: "four_function",
     },
 ];
@@ -62,6 +58,17 @@ class ItemExtrasEditor extends React.Component<Props> {
             this.props.financialCalculatorTimeToPayOff
         );
     }
+
+    handleVariantChange = (newVariant: string) => {
+        // Since RadioGroup gives us a string, we need to convert the string to
+        // avoid a type error
+        const selected = calculatorVariants.find(
+            ({variant}) => variant === newVariant,
+        );
+        if (selected) {
+            this.props.onChange({calculatorVariant: selected.variant});
+        }
+    };
 
     serialize(): PerseusAnswerArea {
         const data = {...ItemExtrasEditor.defaultProps};
@@ -97,19 +104,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                             <RadioGroup
                                 groupName="calculator-variant"
                                 selectedValue={calculatorVariant}
-                                onChange={(newVariant) => {
-                                    // RadioGroup hands back a plain string, so
-                                    // look the selection back up to recover the
-                                    // CalculatorVariant type.
-                                    const selected = calculatorVariants.find(
-                                        ({variant}) => variant === newVariant,
-                                    );
-                                    if (selected) {
-                                        this.props.onChange({
-                                            calculatorVariant: selected.variant,
-                                        });
-                                    }
-                                }}
+                                onChange={this.handleVariantChange}
                                 style={styles.indented}
                             >
                                 {calculatorVariants.map(
@@ -118,23 +113,8 @@ class ItemExtrasEditor extends React.Component<Props> {
                                             key={calcVariant.variant}
                                             value={calcVariant.variant}
                                             disabled={editingDisabled}
-                                            style={[
-                                                styles.calculatorChoice,
-                                                index > 0 &&
-                                                    styles.calculatorChoiceGap,
-                                            ]}
-                                            label={
-                                                <View
-                                                    style={{
-                                                        flexDirection: "row",
-                                                    }}
-                                                >
-                                                    {calcVariant.label}{" "}
-                                                    <InfoTip>
-                                                        {calcVariant.tip}
-                                                    </InfoTip>
-                                                </View>
-                                            }
+                                            style={styles.calculatorChoice}
+                                            label={calcVariant.label}
                                         />
                                     ),
                                 )}
@@ -273,10 +253,7 @@ const styles = StyleSheet.create({
         marginInlineStart: spacing.large_24,
     },
     calculatorChoice: {
-        marginBlockEnd: 0,
-    },
-    calculatorChoiceGap: {
-        marginBlockStart: sizing.size_040,
+        marginBlock: sizing.size_010,
     },
 });
 
