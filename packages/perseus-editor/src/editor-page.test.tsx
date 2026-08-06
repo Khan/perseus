@@ -1,14 +1,15 @@
-import {Dependencies} from "@khanacademy/perseus";
+import {Dependencies, Util} from "@khanacademy/perseus";
 import {
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {comprehensiveQuestion} from "./__testdata__/all-widgets.testdata";
+import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
+
 import EditorPage from "./editor-page";
 import {
     testDependencies,
@@ -385,14 +386,31 @@ describe("EditorPage", () => {
         });
     });
 
-    it("should match snapshot for editing disabled for all widgets", () => {
-        // Arrange, Act
-        const {container} = render(
+    it("converts image markdown to an image widget when the issue CTA is clicked", async () => {
+        // Arrange
+        const imageUrl = earthMoonImage.url;
+        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([
+            earthMoonImage.width,
+            earthMoonImage.height,
+        ]);
+
+        const onChangeMock = jest.fn();
+        const question: PerseusRenderer = {
+            content: `Which planet is this? ![The Earth](${imageUrl})`,
+            images: {
+                [earthMoonImage.url]: {
+                    width: earthMoonImage.width,
+                    height: earthMoonImage.height,
+                },
+            },
+            widgets: {},
+        };
+
+        render(
             <EditorPage
                 dependencies={testDependenciesV2}
-                question={comprehensiveQuestion} // question with all widgets
-                apiOptions={{editingDisabled: true}} // editing disabled
-                onChange={() => {}}
+                question={question}
+                onChange={onChangeMock}
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
@@ -403,12 +421,43 @@ describe("EditorPage", () => {
             />,
         );
 
+        // The panel starts collapsed, so open it to reach the issue's CTA.
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {
+                name: "Convert all image markdown to widget",
+            }),
+        );
+
         // Assert
-        // Note: the interactive-graph movable point renders fill/stroke="none"
-        // here because its color now comes from tokenValue(), which reads a CSS
-        // custom property. jsdom doesn't define those variables, so it resolves
-        // to "" and Raphael renders it as "none". The real color resolves in a
-        // browser (covered by Chromatic). See movable-point.tsx / .test.ts.
-        expect(container).toMatchSnapshot();
+        // The conversion awaits the image's dimensions before it reports back.
+        await waitFor(() => expect(onChangeMock).toHaveBeenCalled());
+        expect(onChangeMock.mock.lastCall[0].question).toEqual(
+            expect.objectContaining({
+                content: "Which planet is this? [[☃ image 1]]",
+                widgets: expect.objectContaining({
+                    "image 1": expect.objectContaining({
+                        type: "image",
+                        options: expect.objectContaining({
+                            alt: "The Earth",
+                            backgroundImage: {
+                                url: imageUrl,
+                                width: earthMoonImage.width,
+                                height: earthMoonImage.height,
+                            },
+                        }),
+                    }),
+                }),
+            }),
+        );
     });
 });
+
+/**********************************************************/
+/* NOTE: snapshot tests are in found in
+/* packages/perseus-editor/src/editor-page-snapshot.test.tsx
+/*
+/* Please add new snapshot tests there instead of this file!
+/**********************************************************/
