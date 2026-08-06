@@ -1342,7 +1342,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "200px",
-                insetBlockStart: "200px",
+                top: "200px",
             });
         });
 
@@ -1608,19 +1608,19 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["pink"],
                 fontSize: "var(--wb-font-body-size-small)",
                 left: "80px",
-                insetBlockStart: "160px",
+                top: "160px",
             });
             expect(labels[1]).toHaveStyle({
                 color: lockedFigureColors["blue"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "220px",
-                insetBlockStart: "160px",
+                top: "160px",
             });
             expect(labels[2]).toHaveStyle({
                 color: lockedFigureColors["green"],
                 fontSize: "var(--wb-font-heading-size-medium)",
                 left: "140px",
-                insetBlockStart: "240px",
+                top: "240px",
             });
         });
 
@@ -1643,7 +1643,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "210px",
-                insetBlockStart: "200px",
+                top: "200px",
             });
         });
 
@@ -1665,7 +1665,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "150px",
-                insetBlockStart: "280px",
+                top: "280px",
             });
         });
 
@@ -1729,7 +1729,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "280px",
-                insetBlockStart: "180px",
+                top: "180px",
             });
         });
 
@@ -1752,7 +1752,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "200px",
-                insetBlockStart: "200px",
+                top: "200px",
             });
         });
 
@@ -1775,7 +1775,7 @@ describe("Interactive Graph", function () {
                 color: lockedFigureColors["grayH"],
                 fontSize: "var(--wb-font-body-size-medium)",
                 left: "200px",
-                insetBlockStart: "200px",
+                top: "200px",
             });
         });
 
