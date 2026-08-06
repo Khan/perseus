@@ -560,11 +560,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
         // Fetches a jQuery list of elements for each item
-        const $items = items.map(function (item) {
+        const $items = items.map((item) => {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             return $(ReactDOM.findDOMNode(this.refs[item.key]));
-        }, this);
+        });
 
         const widths: ReadonlyArray<number> = _.invoke($items, "outerWidth");
         const heights: ReadonlyArray<number> = _.invoke($items, "outerHeight");
@@ -710,14 +710,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
         const nextAnimationFrame = requestAnimationFrame(() => {
-            const items = this.state.items.map(function (item) {
+            const items = this.state.items.map((item) => {
                 if (item.key === key) {
                     item.state = ItemState.ANIMATING;
                     const $placeholder = $(
                         // @ts-expect-error - TS2769 - No overload matches this call.
                         ReactDOM.findDOMNode(
                             // eslint-disable-next-line react/no-string-refs
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.refs["placeholder_" + key],
                         ),
                     );

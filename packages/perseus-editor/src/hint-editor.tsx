@@ -405,7 +405,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                     />
                 </fieldset>
             );
-        }, this);
+        });
 
         return (
             <div className="perseus-hints-editor perseus-editor-table">
