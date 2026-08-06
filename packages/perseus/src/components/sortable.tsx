@@ -920,7 +920,7 @@ const styles = StyleSheet.create({
         boxSizing: "border-box",
         background: semanticColor.core.background.base.default,
         border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
-        borderRadius: 4,
+        borderRadius: border.radius.radius_040,
         cursor: "pointer",
         minWidth: 25,
         minHeight: 44,
