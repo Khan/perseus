@@ -91,7 +91,7 @@ export class ServerItemRenderer
      *
      * This is deliberately not React state: assets register themselves in
      * their constructors, while we're still rendering, and a state update
-     * from there isn't visible to us until a later pass — by which point we'd
+     * from there isn't visible to us until a later render pass — by which point we'd
      * already have decided we were done rendering.
      */
     _assetStatuses: {[assetKey: string]: boolean};
