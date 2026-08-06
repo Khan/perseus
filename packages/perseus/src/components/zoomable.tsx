@@ -349,9 +349,7 @@ class Zoomable extends React.Component<Props, State> {
         const transitionStyle = visible
             ? {
                   transitionProperty: property,
-                  transitionDuration: `${
-                      ENTRANCE_TRANSITION_DURATION_MS / 1000
-                  }s`,
+                  transitionDuration: `${ENTRANCE_TRANSITION_DURATION_MS}ms`,
                   transitionTimingFunction: "ease-out",
               }
             : {};
