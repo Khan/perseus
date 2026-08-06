@@ -242,7 +242,6 @@ class HintsRenderer extends React.Component<Props, State> {
                     <button
                         rel="button"
                         className={css(
-                            styles.linkButton,
                             styles.getAnotherHintButton,
                             apiOptions.isMobile &&
                                 styles.mobileHintStylesGetAnotherHintButton,
@@ -279,18 +278,6 @@ class HintsRenderer extends React.Component<Props, State> {
 const hintIndentation = baseUnitPx + hintBorderWidth;
 
 const styles = StyleSheet.create({
-    linkButton: {
-        cursor: "pointer",
-        border: "none",
-        backgroundColor: "transparent",
-        fontSize: "100%",
-        fontFamily: "inherit",
-        fontWeight: "bold",
-        color: kaGreen,
-        padding: 0,
-        position: "relative",
-    },
-
     plusText: {
         fontSize: 20,
         position: "absolute",
@@ -341,6 +328,15 @@ const styles = StyleSheet.create({
 
     getAnotherHintButton: {
         marginTop: 1.5 * baseUnitPx,
+        cursor: "pointer",
+        border: "none",
+        backgroundColor: "transparent",
+        fontSize: "100%",
+        fontFamily: "inherit",
+        fontWeight: "bold",
+        color: kaGreen,
+        padding: 0,
+        position: "relative",
     },
 
     mobileHintStylesGetAnotherHintButton: {
