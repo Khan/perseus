@@ -509,7 +509,7 @@ review and commit the changes.
 - [x] Migrate `matrix` to `WidgetPropsV2` (update its editor preview).
 - [x] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
       `satisfies PropsFor` assertion).
-- [ ] Migrate `table` to `WidgetPropsV2` (update its editor preview).
+- [x] Migrate `table` to `WidgetPropsV2` (update its editor preview).
 - [ ] Migrate `expression` to `WidgetPropsV2` (same `ExternalProps` pattern;
       update its editor preview).
 
