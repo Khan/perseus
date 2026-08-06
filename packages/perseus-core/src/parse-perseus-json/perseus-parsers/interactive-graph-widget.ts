@@ -227,6 +227,9 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
+// Fillable figures (polygons, ellipses) may additionally have no stroke.
+const parseLockedFigureStrokeStyle = enumeration("solid", "dashed", "none");
+
 const parseStrokeWeight = defaulted(
     enumeration("medium", "thin", "thick"),
     () => "medium" as const,
@@ -281,7 +284,7 @@ const parseLockedEllipseType = object({
     angle: number,
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
-    strokeStyle: parseLockedLineStyle,
+    strokeStyle: parseLockedFigureStrokeStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
@@ -293,7 +296,7 @@ const parseLockedPolygonType = object({
     color: parseLockedFigureColor,
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
-    strokeStyle: parseLockedLineStyle,
+    strokeStyle: parseLockedFigureStrokeStyle,
     weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),

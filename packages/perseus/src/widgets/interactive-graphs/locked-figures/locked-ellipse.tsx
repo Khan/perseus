@@ -37,18 +37,22 @@ const LockedEllipse = (props: LockedEllipseType) => {
                 radius={radius}
                 angle={angle}
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
-                strokeStyle={strokeStyle}
+                // mafs only understands "solid"/"dashed"; a "none" stroke is
+                // rendered stroke-less via the svgEllipseProps override below.
+                strokeStyle={strokeStyle === "none" ? "solid" : strokeStyle}
                 color={lockedFigureColors[color]}
                 weight={strokeWeights[weight]}
                 // We need to override the svg props if we want to have a
                 // different fill color than the stroke color (specifically,
-                // in the case where the fillStyle is "white").
+                // in the case where the fillStyle is "white"), or no stroke at
+                // all (strokeStyle "none").
                 svgEllipseProps={{
                     style: {
                         fill:
                             fillStyle === "white"
                                 ? semanticColor.core.background.base.default
                                 : lockedFigureColors[color],
+                        ...(strokeStyle === "none" && {stroke: "none"}),
                     },
                 }}
             />
