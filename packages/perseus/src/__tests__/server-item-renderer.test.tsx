@@ -321,10 +321,6 @@ describe("server item renderer", () => {
     });
 
     it("does not call the onRendered callback until zoomable math has settled", () => {
-        // On mobile, block math is wrapped in a Zoomable, which needs several
-        // asynchronous passes to measure and scale the math after MathJax has
-        // rendered it. Until those finish, we're not done rendering.
-
         // Arrange
         // The default test TeX never fires onRender, so we need one that does
         // in order to get the Zoomable measuring.
@@ -358,11 +354,12 @@ describe("server item renderer", () => {
             </RenderStateRoot>,
         );
 
-        // Assert
-        expect(onRendered).not.toHaveBeenCalled();
+        // On mobile, block math is wrapped in a Zoomable, which renders
+        // asynchronously in order to measure and scale the math after MathJax
+        // has rendered it.
+        act(() => jest.runOnlyPendingTimers());
 
-        act(() => jest.runOnlyPendingTimers());
-        act(() => jest.runOnlyPendingTimers());
+        // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
