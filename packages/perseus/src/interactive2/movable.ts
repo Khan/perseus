@@ -264,8 +264,8 @@ export class Movable<Options extends Record<string, any>> {
             this.draw();
         };
 
-        $(document).bind("vmousemove", moveHandler);
-        $(document).bind("vmouseup", upHandler);
+        $(document).on("vmousemove", moveHandler);
+        $(document).on("vmouseup", upHandler);
     }
 
     _applyConstraints(
