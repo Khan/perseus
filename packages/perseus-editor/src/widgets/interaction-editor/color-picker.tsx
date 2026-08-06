@@ -2,8 +2,6 @@ import {components, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import type {Changeable} from "@khanacademy/perseus";
-
 const {ButtonGroup} = components;
 
 const COLORS = [
@@ -29,7 +27,8 @@ const LIGHT_COLORS = [
 type Props = {
     lightColors?: boolean;
     value?: string;
-} & Changeable.ChangeableProps;
+    onChange: (value: string) => void;
+};
 
 class ColorPicker extends React.Component<Props> {
     static defaultProps: {
