@@ -4,6 +4,7 @@ import classnames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
+import plus from "@phosphor-icons/core/regular/plus.svg";
 
 import {PerseusI18nContext} from "./components/i18n-context";
 import HintRenderer from "./hint-renderer";
@@ -23,6 +24,8 @@ import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "./types";
 import type {Hint} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {Icon} from "@khanacademy/wonder-blocks-icon";
+import Button from "@khanacademy/wonder-blocks-button";
 
 type Props = PropsFor<typeof Renderer> & {
     className?: string;
@@ -239,13 +242,15 @@ class HintsRenderer extends React.Component<Props, State> {
                 )}
                 {hints}
                 {showGetAnotherHint && (
-                    <button
+                    <Button
                         rel="button"
-                        className={css(
-                            styles.getAnotherHintButton,
-                            apiOptions.isMobile &&
-                                styles.mobileHintStylesGetAnotherHintButton,
-                        )}
+                        kind="tertiary"
+                        startIcon={plus}
+                        // className={css(
+                        //     styles.getAnotherHintButton,
+                        //     apiOptions.isMobile &&
+                        //         styles.mobileHintStylesGetAnotherHintButton,
+                        // )}
                         onClick={(evt) => {
                             evt.preventDefault();
                             evt.stopPropagation();
@@ -255,20 +260,8 @@ class HintsRenderer extends React.Component<Props, State> {
                             }
                         }}
                     >
-                        <span
-                            className={css(
-                                styles.plusText,
-                                apiOptions.isMobile &&
-                                    styles.mobileHintStylesPlusText,
-                            )}
-                        >
-                            +
-                        </span>
-                        <span className={css(styles.getAnotherHintText)}>
-                            {this.context.strings.getAnotherHint}{" "}
-                            {hintRatioCopy}
-                        </span>
-                    </button>
+                        {this.context.strings.getAnotherHint + " " + hintRatioCopy}
+                    </Button>
                 )}
             </div>
         );
@@ -285,9 +278,9 @@ const styles = StyleSheet.create({
         left: 0,
     },
 
-    getAnotherHintText: {
-        marginLeft: 16,
-    },
+    // getAnotherHintText: {
+    //     marginLeft: 16,
+    // },
 
     mobileHintStylesHintsRenderer: {
         marginTop: 4 * baseUnitPx,
