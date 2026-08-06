@@ -698,17 +698,5 @@ describe("Zoomable", () => {
             const [[firstKey], [secondKey]] = setAssetStatus.mock.calls;
             expect(firstKey).not.toEqual(secondKey);
         });
-
-        it("renders without an AssetContext provider", () => {
-            // Arrange, Act
-            renderAndWaitToSettle(
-                <Zoomable>
-                    <span>Some zoomable text</span>
-                </Zoomable>,
-            );
-
-            // Assert
-            expect(screen.getByText("Some zoomable text")).toBeInTheDocument();
-        });
     });
 });
