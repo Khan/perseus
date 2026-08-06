@@ -250,7 +250,7 @@ export class PhetSimulation
                             ? this.toggleFullScreen
                             : this.requestIframeFullscreen
                     }
-                    kind="tertiary"
+                    kind="secondary"
                     actionType="neutral"
                     aria-label={this.context.strings.fullscreen}
                     style={styles.cornerButton}
@@ -266,7 +266,7 @@ export class PhetSimulation
                 icon={arrowSquareOutIcon}
                 href={url.toString()}
                 target="_blank"
-                kind="tertiary"
+                kind="secondary"
                 actionType="neutral"
                 aria-label={this.context.strings.openInNewTab}
                 style={styles.cornerButton}
@@ -318,10 +318,9 @@ export class PhetSimulation
                         <IconButton
                             icon={xIcon}
                             onClick={this.toggleFullScreen}
-                            kind="tertiary"
+                            kind="secondary"
                             actionType="neutral"
                             aria-label={this.context.strings.exitFullscreen}
-                            style={styles.closeButton}
                         />
                     </View>
                 )}
@@ -407,10 +406,6 @@ const styles = StyleSheet.create({
         top: sizing.size_080,
         right: sizing.size_080,
         zIndex: 1001,
-    },
-    closeButton: {
-        backgroundColor: semanticColor.core.background.base.subtle,
-        borderRadius: border.radius.radius_full,
     },
 });
 
