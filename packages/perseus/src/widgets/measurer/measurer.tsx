@@ -15,9 +15,6 @@ import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupporte
 
 type Props = WidgetProps<PerseusMeasurerWidgetOptions>;
 
-// TODO-NEXT: Add a Storybook visual regression test for the matcher that
-//  sets `showProtractor: true` and shows the rendered protractor. See the
-//  other *-regression.stories.tsx files for examples.
 class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
