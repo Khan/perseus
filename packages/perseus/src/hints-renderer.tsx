@@ -284,6 +284,7 @@ const styles = StyleSheet.create({
         top: -3,
         left: 0,
     },
+
     getAnotherHintText: {
         marginLeft: 16,
     },
