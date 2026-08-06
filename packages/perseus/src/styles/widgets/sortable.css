@@ -17,7 +17,7 @@
     touch-action: none;
 }
 .draggy-boxy-thing .card.placeholder {
-    background: var(--wb-semanticColor-core-background-disabled-strong);
+    background: var(--wb-semanticColor-core-background-neutral-subtle);
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
@@ -32,7 +32,9 @@
     box-shadow: none;
 }
 .draggy-boxy-thing .card.dragging {
-    background-color: var(--wb-semanticColor-core-background-warning-subtle);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    );
     opacity: 0.8;
     filter: opacity(0.8);
 }
