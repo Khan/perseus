@@ -231,14 +231,14 @@ const pageMargin = 16;
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {
-            minWidth: "auto",
+            minInlineSize: "auto",
         },
     },
 
     fullBleedContainer: {
         [mediaQueries.mdOrSmaller]: {
-            marginLeft: -pageMargin,
-            marginRight: -pageMargin,
+            marginInlineStart: -pageMargin,
+            marginInlineEnd: -pageMargin,
             overflowX: "auto",
         },
     },
