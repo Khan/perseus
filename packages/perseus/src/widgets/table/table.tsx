@@ -8,7 +8,12 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    FocusPath,
+    Widget,
+    WidgetExports,
+    WidgetPropsV2,
+} from "../../types";
 import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
@@ -20,7 +25,7 @@ type EditorProps = {
     onChange: (value: {headers: string[]}) => void;
 };
 
-type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
+type Props = WidgetPropsV2<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
 
 // A version of FocusPath that's specific to Table
@@ -102,8 +107,9 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState() {
-            const {userInput, editableHeaders, ...rest} = props;
+            const {userInput, editableHeaders, options, ...rest} = props;
             return {
+                ...options,
                 ...rest,
                 answers: userInput,
             };
@@ -133,11 +139,9 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     // this is for the editing experience
     function handleHeaderChange(index: number, e: {content: string}): void {
-        const headers = props.headers.slice();
+        const headers = [...props.options.headers];
         headers[index] = e.content;
-        props.onChange({
-            headers: headers,
-        });
+        props.onChange({headers});
     }
 
     let InputComponent;
@@ -156,7 +160,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     const headerRow = (
         <tr>
-            {props.headers.map((header, i) => {
+            {props.options.headers.map((header, i) => {
                 if (props.editableHeaders) {
                     return (
                         <th key={i}>

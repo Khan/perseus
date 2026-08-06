@@ -92,7 +92,12 @@ class TableEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const tableProps: Partial<PropsFor<typeof Table>> = {
-            headers: this.props.headers,
+            options: {
+                headers: this.props.headers,
+                rows: this.props.rows,
+                columns: this.props.columns,
+                answers: this.props.answers,
+            },
             onChange: this.props.onChange,
             userInput: this.props.answers,
             handleUserInput: (userInput) => {
