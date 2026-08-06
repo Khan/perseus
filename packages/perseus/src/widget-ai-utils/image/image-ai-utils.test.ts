@@ -55,11 +55,13 @@ describe("Image AI utils", () => {
 
     it("it returns JSON with the expected format and fields", () => {
         const widgetData: any = {
-            alt: "An image of a textbook",
-            title: "Textbook",
-            caption: "A textbook",
-            backgroundImage: {
-                url: "https://www.khanacademy.org/some-image.png",
+            options: {
+                alt: "An image of a textbook",
+                title: "Textbook",
+                caption: "A textbook",
+                backgroundImage: {
+                    url: "https://www.khanacademy.org/some-image.png",
+                },
             },
         };
 

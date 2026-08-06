@@ -10,7 +10,7 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusInteractionElement,
@@ -95,12 +95,7 @@ const KAScompile = (
     return cached;
 };
 
-type Props = WidgetProps<PerseusInteractionWidgetOptions>;
-
-type DefaultProps = {
-    graph: Props["graph"];
-    elements: Props["elements"];
-};
+type Props = WidgetPropsV2<PerseusInteractionWidgetOptions>;
 
 type State = {
     variables: any;
@@ -108,28 +103,13 @@ type State = {
 };
 
 class Interaction extends React.Component<Props, State> implements Widget {
-    static defaultProps: DefaultProps = {
-        graph: {
-            box: [400, 400],
-            labels: ["x", "y"],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            tickStep: [1, 1],
-            gridStep: [1, 1],
-            markings: "graph",
-        },
-        elements: [],
-    };
-
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
 
     state: State = {
-        variables: _getInitialVariables(this.props.elements),
-        functions: _getInitialFunctions(this.props.elements),
+        variables: _getInitialVariables(this.props.options.elements),
+        functions: _getInitialFunctions(this.props.options.elements),
     };
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -143,10 +123,12 @@ class Interaction extends React.Component<Props, State> implements Widget {
         // fix would be to transform `variables` to the shape of `elements` and
         // call `this.props.onChange({elements})` to preserve user changes using
         // the Perseus state saving mechanism.
-        if (!_.isEqual(this.props.elements, nextProps.elements)) {
+        if (
+            !_.isEqual(this.props.options.elements, nextProps.options.elements)
+        ) {
             this.setState({
-                variables: _getInitialVariables(nextProps.elements),
-                functions: _getInitialFunctions(nextProps.elements),
+                variables: _getInitialVariables(nextProps.options.elements),
+                functions: _getInitialFunctions(nextProps.options.elements),
             });
         }
     }
@@ -154,10 +136,12 @@ class Interaction extends React.Component<Props, State> implements Widget {
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
         graphie.graphInit(
             _.extend({}, options, {
-                grid: ["graph", "grid"].includes(this.props.graph.markings),
-                axes: ["graph"].includes(this.props.graph.markings),
-                ticks: ["graph"].includes(this.props.graph.markings),
-                labels: ["graph"].includes(this.props.graph.markings),
+                grid: ["graph", "grid"].includes(
+                    this.props.options.graph.markings,
+                ),
+                axes: ["graph"].includes(this.props.options.graph.markings),
+                ticks: ["graph"].includes(this.props.options.graph.markings),
+                labels: ["graph"].includes(this.props.options.graph.markings),
                 labelFormat: function (s) {
                     return "\\small{" + s + "}";
                 },
@@ -249,16 +233,16 @@ class Interaction extends React.Component<Props, State> implements Widget {
     }
 
     render(): React.ReactNode {
-        const range = this.props.graph.range;
-        let labels = this.props.graph.labels;
-        if (this.props.graph.markings === "graph") {
+        const range = this.props.options.graph.range;
+        let labels = this.props.options.graph.labels;
+        if (this.props.options.graph.markings === "graph") {
             // Content creators may need to explicitly add the dollar signs so
             // the strings are picked up by our translation tools. However,
             // these math annotations are redundant because we already render
             // all graph labels in math mode. For example, a label value of
             // `$\text{Dollars}$` will be translatable, but we only want to
             // pass the string `\text{Dollars}` to the Graph widget.
-            labels = this.props.graph.labels.map((label) =>
+            labels = this.props.options.graph.labels.map((label) =>
                 label.startsWith("$") && label.endsWith("$")
                     ? label.slice(1, -1)
                     : label,
@@ -266,19 +250,19 @@ class Interaction extends React.Component<Props, State> implements Widget {
         }
         return (
             <Graphie
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
+                box={this.props.options.graph.box}
+                range={this.props.options.graph.range}
+                options={this.props.options.graph}
                 setup={this._setupGraphie}
             >
-                {this.props.graph.markings === "graph" && (
+                {this.props.options.graph.markings === "graph" && (
                     <Label
                         coord={[0, range[1][1]]}
                         text={labels[1]}
                         direction="above"
                     />
                 )}
-                {this.props.graph.markings === "graph" && (
+                {this.props.options.graph.markings === "graph" && (
                     <Label
                         coord={[range[0][1], 0]}
                         text={labels[0]}
@@ -286,7 +270,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     />
                 )}
                 {_.map(
-                    this.props.elements,
+                    this.props.options.elements,
                     function (element, n) {
                         if (element.type === "point") {
                             return (

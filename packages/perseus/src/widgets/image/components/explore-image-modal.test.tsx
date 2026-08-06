@@ -1,3 +1,4 @@
+import {generateImageOptions} from "@khanacademy/perseus-core";
 import {act, render, waitFor, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -19,7 +20,6 @@ import {
 
 import {ExploreImageModal} from "./explore-image-modal";
 
-import type {Interval, Size} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 jest.mock("../utils", () => ({
@@ -44,24 +44,13 @@ function renderModal(props: React.ComponentProps<typeof ExploreImageModal>) {
 }
 
 const defaultProps = {
-    backgroundImage: {},
-    scale: 1,
-    title: "",
-    caption: "",
-    // Images should have alt text, and need alt text to be detectable
-    // by the testing library.
-    alt: "widget alt text",
-    // Explore image modal is only showing up because there is
-    // a long description.
-    longDescription: "widget long description",
-    // Zoom size would not be 0 for a legitimate image
-    zoomSize: [100, 100] satisfies Size,
-    box: [400, 400] satisfies Size,
-    labels: [],
-    range: [
-        [0, 10],
-        [0, 10],
-    ] satisfies [Interval, Interval],
+    options: generateImageOptions({
+        backgroundImage: earthMoonImage,
+        // Images need alt text to be detectable by the testing library.
+        alt: "default alt text - do not assert",
+        // The ExploreImageModal is only shown when there is a long description.
+        longDescription: "default long description - do not assert",
+    }),
     linterContext: {
         contentType: "",
         highlightLint: false,
@@ -131,10 +120,13 @@ describe("ExploreImageModal", () => {
         // Arrange
         const props = {
             ...defaultProps,
-            backgroundImage: {
-                url: undefined,
-                width: 100,
-                height: 100,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: undefined,
+                    width: 100,
+                    height: 100,
+                },
             },
         };
 
@@ -157,10 +149,13 @@ describe("ExploreImageModal", () => {
         // Arrange
         const props = {
             ...defaultProps,
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: undefined,
-                height: 100,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: undefined,
+                    height: 100,
+                },
             },
         };
 
@@ -183,10 +178,13 @@ describe("ExploreImageModal", () => {
         // Arrange
         const props = {
             ...defaultProps,
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 100,
-                height: undefined,
+            options: {
+                ...defaultProps.options,
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: 100,
+                    height: undefined,
+                },
             },
         };
 
@@ -221,7 +219,10 @@ describe("ExploreImageModal", () => {
         // Arrange
 
         // Act
-        renderModal({...defaultProps, title: "widget title"});
+        renderModal({
+            ...defaultProps,
+            options: {...defaultProps.options, title: "widget title"},
+        });
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -235,8 +236,10 @@ describe("ExploreImageModal", () => {
         // Act
         renderModal({
             ...defaultProps,
-            backgroundImage: earthMoonImage,
-            caption: "widget caption",
+            options: {
+                ...defaultProps.options,
+                caption: "widget caption",
+            },
         });
 
         // Assert
@@ -249,22 +252,26 @@ describe("ExploreImageModal", () => {
         // Act
         renderModal({
             ...defaultProps,
-            backgroundImage: earthMoonImage,
-            longDescription: "widget long description",
+            options: {
+                ...defaultProps.options,
+                longDescription: "a lengthy description",
+            },
         });
 
         // Assert
         const descriptionLabel = screen.getByText("Description");
         expect(descriptionLabel).toBeInTheDocument();
-        expect(screen.getByText("widget long description")).toBeInTheDocument();
+        expect(screen.getByText("a lengthy description")).toBeInTheDocument();
     });
 
     it("sets the describedby to short and long description IDs if there is a caption", () => {
         // Arrange, Act
         renderModal({
             ...defaultProps,
-            backgroundImage: earthMoonImage,
-            caption: "widget caption",
+            options: {
+                ...defaultProps.options,
+                caption: "widget caption",
+            },
         });
 
         // Assert
@@ -279,8 +286,10 @@ describe("ExploreImageModal", () => {
         // Arrange, Act
         renderModal({
             ...defaultProps,
-            backgroundImage: earthMoonImage,
-            longDescription: "widget long description",
+            options: {
+                ...defaultProps.options,
+                caption: "",
+            },
         });
 
         // Assert
@@ -305,7 +314,10 @@ describe("ExploreImageModal", () => {
             // Arrange, Act — beforeEach decodes the gif into two frames
             renderModal({
                 ...defaultProps,
-                backgroundImage: animatedGifLandscape,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Assert — wait for the async GIF decode to report frame count
@@ -322,7 +334,10 @@ describe("ExploreImageModal", () => {
             //Act
             renderModal({
                 ...defaultProps,
-                backgroundImage: nonAnimatedGif,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: nonAnimatedGif,
+                },
             });
 
             // Assert
@@ -344,8 +359,10 @@ describe("ExploreImageModal", () => {
             // Arrange, Act
             renderModal({
                 ...defaultProps,
-                backgroundImage: earthMoonImage,
-                apiOptions: ApiOptions.defaults,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: earthMoonImage,
+                },
             });
 
             // Assert
@@ -363,7 +380,10 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: animatedGifLandscape,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — the modal starts paused, so click Play first
@@ -383,7 +403,10 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: animatedGifLandscape,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
                 isGifPlaying: false,
             });
 
@@ -400,7 +423,10 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: animatedGifLandscape,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — modal starts paused, click Play
@@ -419,7 +445,10 @@ describe("ExploreImageModal", () => {
             // Arrange
             renderModal({
                 ...defaultProps,
-                backgroundImage: animatedGifLandscape,
+                options: {
+                    ...defaultProps.options,
+                    backgroundImage: animatedGifLandscape,
+                },
             });
 
             // Act — click Play then Pause
