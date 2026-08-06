@@ -355,7 +355,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         className="matrix-bracket bracket-right"
                         style={{
                             height: bracketHeight,
-                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: matrix bracket offset in authored LTR layout; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
                             left: bracketOffset,
                         }}
                     />

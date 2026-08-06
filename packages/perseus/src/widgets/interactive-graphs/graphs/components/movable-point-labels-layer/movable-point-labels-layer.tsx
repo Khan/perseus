@@ -66,9 +66,10 @@ function MovablePointLabelView({
             aria-hidden={true}
             style={{
                 position: "absolute",
-                // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+                // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                 left: x,
-                insetBlockStart: y,
+                // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
+                top: y,
                 transform: translateOutward(attach),
                 color: semanticColor.core.foreground.neutral.default,
                 fontFamily: 'Symbola, "Times New Roman", serif',

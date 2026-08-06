@@ -351,8 +351,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     <View
                         style={{
                             position: "absolute",
-                            insetBlockEnd: 0,
-                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
+                            bottom: 0,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                             left: 0,
                         }}
                     >
@@ -503,8 +504,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 className="interactive-graph-hitbox-layer"
                                 style={{
                                     position: "absolute",
-                                    insetBlockStart: 0,
-                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
+                                    top: 0,
+                                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                                     left: 0,
                                     width,
                                     height,

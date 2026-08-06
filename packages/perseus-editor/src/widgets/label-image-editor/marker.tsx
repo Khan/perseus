@@ -141,9 +141,10 @@ class Marker extends React.Component<MarkerProps, State> {
                 )}
                 ref={(node) => (this._marker = node)}
                 style={{
-                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
                     left: `${x}%`,
-                    insetBlockStart: `${y}%`,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
+                    top: `${y}%`,
                 }}
                 title={
                     "Click to select marker answers or to delete marker. " +
@@ -199,9 +200,10 @@ const styles = StyleSheet.create({
 
         width: 16,
         height: 16,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: -8,
-        marginBlockStart: -8,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
+        marginTop: -8,
 
         cursor: "pointer",
 
@@ -217,9 +219,10 @@ const styles = StyleSheet.create({
     markerSelected: {
         width: 28,
         height: 28,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: -12,
-        marginBlockStart: -12,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
+        marginTop: -12,
 
         border: "none",
         borderRadius: 28,
@@ -245,9 +248,10 @@ const styles = StyleSheet.create({
 
     dropdownPositionWithArrow: {
         // Position dropdown to the top right of the marker.
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
         left: 46,
-        insetBlockEnd: -12,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
+        bottom: -12,
 
         // With an arrow pointing left towards the marker.
         "::before": {
@@ -257,9 +261,10 @@ const styles = StyleSheet.create({
 
             width: 0,
             height: 0,
-            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
+            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
             left: -16,
-            insetBlockEnd: 8,
+            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
+            bottom: 8,
 
             borderInlineEnd: `solid 16px ${gray98}`,
             borderBlockStart: "solid 16px transparent",
