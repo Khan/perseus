@@ -1,10 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 
+import {withActionScheduler} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
 import AssetContext from "../asset-context";
 import {getCSSZoomFactor} from "../util/css-zoom-utils";
+
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {
+    WithActionSchedulerProps,
+    WithoutActionScheduler,
+} from "@khanacademy/wonder-blocks-timing";
 
 /**
  * Duration of the transition that fades/slides content in once it's visible.
@@ -39,7 +46,7 @@ type Props = {
      * or not.  Defaults to true for synchronous components like tables.
      */
     readyToMeasure: boolean;
-};
+} & WithActionSchedulerProps;
 
 type DefaultProps = {
     animateHeight: Props["animateHeight"];
@@ -125,13 +132,6 @@ class Zoomable extends React.Component<Props, State> {
         if (this._observer) {
             this._observer.disconnect();
         }
-        if (this._settleTimeoutId != null) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            clearTimeout(this._settleTimeoutId);
-            this._settleTimeoutId = null;
-        }
-
         this._isMounted = false;
     }
 
@@ -152,16 +152,13 @@ class Zoomable extends React.Component<Props, State> {
         if (this.props.disableEntranceAnimation) {
             this._hasSettled = true;
             this.context.setAssetStatus(this._assetKey, true);
-            return;
+        } else {
+            this.props.schedule.timeout(() => {
+                this._settleTimeoutId = null;
+                this._hasSettled = true;
+                this.context.setAssetStatus(this._assetKey, true);
+            }, ENTRANCE_TRANSITION_DURATION_MS);
         }
-
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        this._settleTimeoutId = setTimeout(() => {
-            this._settleTimeoutId = null;
-            this._hasSettled = true;
-            this.context.setAssetStatus(this._assetKey, true);
-        }, ENTRANCE_TRANSITION_DURATION_MS);
     }
 
     reset: () => void = (): void => {
@@ -390,4 +387,12 @@ class Zoomable extends React.Component<Props, State> {
     }
 }
 
-export default Zoomable;
+type ExportProps = WithoutActionScheduler<PropsFor<typeof Zoomable>>;
+
+// withActionScheduler loses optionality of props that are provided as default
+// props, so we need to use the `as ...` syntax here to fix that. Fixing this
+// would involve a change to `withActionScheduler`.
+// eslint-disable-next-line no-restricted-syntax
+export default withActionScheduler(
+    Zoomable,
+) as React.ComponentType<ExportProps>;
