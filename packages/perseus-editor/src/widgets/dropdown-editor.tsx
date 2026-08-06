@@ -53,7 +53,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     onCorrectChange: (arg1: number) => void = (choiceIndex) => {
-        const choices = _.map(this.props.choices, function (choice, i) {
+        const choices = this.props.choices.map(function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
             });
