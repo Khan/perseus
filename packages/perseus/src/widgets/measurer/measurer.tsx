@@ -14,8 +14,8 @@ import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
-    protractorX: number;
-    protractorY: number;
+    protractorX?: number;
+    protractorY?: number;
 };
 
 class Measurer extends React.Component<Props> implements Widget {
