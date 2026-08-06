@@ -10,7 +10,9 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {InfoTip, TextListEditor} = components;
+import TextListEditor from "../components/text-list-editor";
+
+const {InfoTip} = components;
 
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";

@@ -10,4 +10,3 @@ export {default as NumberInput} from "./components/number-input";
 export {default as RangeInput} from "./components/range-input";
 export {default as SvgImage} from "./components/svg-image";
 export {default as TextInput} from "./components/text-input";
-export {default as TextListEditor} from "./components/text-list-editor";

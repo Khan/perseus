@@ -1,5 +1,4 @@
 import {
-    components,
     ApiOptions,
     Categorizer as CategorizerWidget,
     Changeable,
@@ -11,10 +10,11 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import TextListEditor from "../components/text-list-editor";
+
 import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
 type Props = any;

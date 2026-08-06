@@ -8,7 +8,9 @@ import {
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const {InfoTip, TextListEditor} = components;
+import TextListEditor from "../components/text-list-editor";
+
+const {InfoTip} = components;
 
 const NORMAL = "normal";
 const AUTO = "auto";
