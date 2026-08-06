@@ -2897,7 +2897,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 redraw(buttonCoord, [coordA, coordZ]);
             };
 
-            $(line).on("move", _.bind(update, button, null, null));
+            $(line).on("move", update.bind(button, null, null));
 
             const $mouseTarget = $(button.mouseTarget.getMouseTarget());
             $mouseTarget.on("vclick", function () {
@@ -3768,33 +3768,25 @@ _.extend(MovableAngle.prototype, {
         });
 
         // Expose only a single move event
-        $(points).on(
-            "move",
-            function () {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.update();
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                $(this).trigger("move");
-            }.bind(this),
-        );
+        $(points).on("move", () => {
+            this.update();
+            $(this).trigger("move");
+        });
     },
 
     addHighlightHandlers: function () {
         const vertex = this.points[1];
 
-        vertex.onHighlight = function () {
+        vertex.onHighlight = () => {
             _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.points,
                 function (point) {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     point.visibleShape.animate(this.highlightStyle, 50);
                 },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
             _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.rays,
                 function (ray) {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -3806,34 +3798,26 @@ _.extend(MovableAngle.prototype, {
                         stroke: this.highlightStyle.stroke,
                     });
                 },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
 
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.angleStyle = _.extend({}, this.angleStyle, {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 color: this.highlightStyle.stroke,
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 stroke: this.highlightStyle.stroke,
             });
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.update();
-        }.bind(this);
+        };
 
-        vertex.onUnhighlight = function () {
+        vertex.onUnhighlight = () => {
             _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.points,
                 function (point) {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     point.visibleShape.animate(this.normalStyle, 50);
                 },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
             _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.rays,
                 function (ray) {
                     ray.visibleLine.animate(ray.normalStyle, 50);
@@ -3842,18 +3826,15 @@ _.extend(MovableAngle.prototype, {
                         stroke: ray.normalStyle.stroke,
                     });
                 },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
 
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.angleStyle = _.extend({}, this.angleStyle, {
                 color: KhanColors.DYNAMIC,
                 stroke: KhanColors.DYNAMIC,
             });
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.update();
-        }.bind(this);
+        };
     },
 
     /**
