@@ -4,4 +4,4 @@
 "@khanacademy/perseus": minor
 ---
 
-[Interactive Graph] Add "none" (fill-only) stroke style and a knockout backing for dashed locked figures
+[Interactive Graph] Add "none" (fill-only) stroke style for locked polygons and ellipses
