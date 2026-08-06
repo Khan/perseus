@@ -1,3 +1,5 @@
+import measurerWidgetLogic from "../../widgets/measurer";
+
 import type {
     MeasurerWidget,
     PerseusMeasurerWidgetOptions,
@@ -6,19 +8,8 @@ import type {
 export function generateMeasurerOptions(
     options?: Partial<PerseusMeasurerWidgetOptions>,
 ): PerseusMeasurerWidgetOptions {
-    const defaultMeasurerOptions: PerseusMeasurerWidgetOptions = {
-        image: {},
-        showProtractor: false,
-        showRuler: false,
-        rulerLabel: "cm",
-        rulerTicks: 10,
-        rulerPixels: 40,
-        rulerLength: 10,
-        box: [400, 400],
-    };
-
     return {
-        ...defaultMeasurerOptions,
+        ...measurerWidgetLogic.defaultWidgetOptions,
         ...options,
     };
 }
@@ -32,7 +23,7 @@ export function generateMeasurerWidget(
         version: {major: 0, minor: 0},
         static: false,
         alignment: "default",
-        options: generateMeasurerOptions({}),
+        options: generateMeasurerOptions(),
         ...measurerWidgetProperties,
     };
 }

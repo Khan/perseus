@@ -23,12 +23,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Verifies that the protractor tool is drawn into the measurer's graphie
-// container. No background image is set, so the protractor renders over the
-// widget's blank background.
-export const WithProtractor: Story = {
+export const WithProtractorAndRuler: Story = {
     decorators: [measurerRendererDecorator],
     args: {
         showProtractor: true,
+        showRuler: true,
     },
 };
