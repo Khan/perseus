@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {components} from "@khanacademy/perseus";
 import {
     sorterLogic,
     type SorterDefaultWidgetOptions,
@@ -10,9 +9,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
 import TextListEditor from "../components/text-list-editor";
-
-const {InfoTip} = components;
 
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";

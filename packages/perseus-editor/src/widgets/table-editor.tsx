@@ -7,11 +7,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
 import Editor from "../editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {InfoTip, NumberInput} = components;
+const {NumberInput} = components;
 const Table = TableWidget.widget;
 
 type Props = any;

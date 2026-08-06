@@ -3,7 +3,6 @@
  */
 
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
@@ -17,12 +16,11 @@ import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+import InfoTip from "../components/info-tip";
 
 import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
-
-const {InfoTip} = components;
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;

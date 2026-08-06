@@ -1,14 +1,12 @@
-import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
+import InfoTip from "../../../components/info-tip";
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {Props as EditorProps} from "../interactive-graph-editor";
 import type {PerseusGraphTypeVector} from "@khanacademy/perseus-core";
-
-const {InfoTip} = components;
 
 interface Props {
     correct: PerseusGraphTypeVector;

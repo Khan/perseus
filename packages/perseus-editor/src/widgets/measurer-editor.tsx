@@ -6,9 +6,11 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
+
 import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
-const {InfoTip, NumberInput, RangeInput} = components;
+const {NumberInput, RangeInput} = components;
 
 const defaultImage = {
     url: null,

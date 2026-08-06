@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+import InfoTip from "../components/info-tip";
 import TextListEditor from "../components/text-list-editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -17,7 +18,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {InfoTip, NumberInput, RangeInput} = components;
+const {NumberInput, RangeInput} = components;
 const Plotter = PlotterWidget.widget;
 
 const STARTING = "starting";

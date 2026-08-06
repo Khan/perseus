@@ -14,13 +14,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import InfoTip from "./info-tip";
+
 import type {
     Coords,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
 
-const {ButtonGroup, InfoTip, RangeInput} = components;
+const {ButtonGroup, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
