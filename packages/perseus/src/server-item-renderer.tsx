@@ -92,7 +92,8 @@ export class ServerItemRenderer
      * This is deliberately not React state: assets register themselves in
      * their constructors, while we're still rendering, and a state update
      * from there isn't visible to us until a later render pass — by which point we'd
-     * already have decided we were done rendering.
+     * already have called `onRendered()` under the assumption
+     * there were no assets to wait for.
      */
     _assetStatuses: {[assetKey: string]: boolean};
     blurTimeoutID: number | null | undefined;
