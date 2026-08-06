@@ -602,10 +602,11 @@ describe("Zoomable", () => {
             const [assetKey] = setAssetStatus.mock.calls[0];
 
             // Act
-            // Enough time for measuring to complete and the content to become
-            // visible, but nowhere near the 300ms entrance animation.
-            act(() => jest.advanceTimersByTime(1));
-            act(() => jest.advanceTimersByTime(1));
+            // Zoomables initial render without an entrance animation takes a
+            // few clock ticks to settle. We want to wait long enough for these
+            // initial passes to complete and the content to become visible, but
+            // nowhere near the 300ms entrance animation.
+            act(() => jest.advanceTimersByTime(10));
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
