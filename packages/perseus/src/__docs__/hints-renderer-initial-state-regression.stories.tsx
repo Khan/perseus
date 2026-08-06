@@ -23,6 +23,7 @@ import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {mobileDecorator} from "../widgets/__testutils__/story-decorators";
 import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 import {earthMoonImage} from "../widgets/image/utils";
 
@@ -62,8 +63,11 @@ export default meta;
 
 type Story = StoryObj<typeof HintsRenderer>;
 
-export const Interactive: Story = {
-    decorators: [bibliotronExerciseDecorator],
+const desktopDecorators = [bibliotronExerciseDecorator];
+const mobileDecorators = [...desktopDecorators, mobileDecorator];
+
+export const MultipleHintsShown: Story = {
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -89,8 +93,13 @@ export const Interactive: Story = {
     },
 };
 
+export const MultipleHintsShownMobile: Story = {
+    ...MultipleHintsShown,
+    decorators: mobileDecorators,
+};
+
 export const WithAllInteractiveGraphs: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         apiOptions: defaultApiOptions,
         dependencies: storybookDependenciesV2,
@@ -159,8 +168,13 @@ export const WithAllInteractiveGraphs: Story = {
     },
 };
 
+export const WithAllInteractiveGraphsMobile: Story = {
+    ...WithAllInteractiveGraphs,
+    decorators: mobileDecorators,
+};
+
 export const ImageWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -183,16 +197,26 @@ export const ImageWidgetInHint: Story = {
     },
 };
 
+export const ImageWidgetInHintMobile: Story = {
+    ...ImageWidgetInHint,
+    decorators: mobileDecorators,
+};
+
 export const ExplanationWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [{...ipsumExample, replace: false}],
     },
 };
 
+export const ExplanationWidgetInHintMobile: Story = {
+    ...ExplanationWidgetInHint,
+    decorators: mobileDecorators,
+};
+
 export const DefinitionWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -213,4 +237,29 @@ export const DefinitionWidgetInHint: Story = {
             },
         ],
     },
+};
+
+export const DefinitionWidgetInHintMobile: Story = {
+    ...DefinitionWidgetInHint,
+    decorators: mobileDecorators,
+};
+
+export const GetAnotherHintButton: Story = {
+    decorators: desktopDecorators,
+    args: {
+        dependencies: storybookDependenciesV2,
+        hints: [
+            generateTestPerseusRenderer({
+                content: "The answer is under the rock by the mailbox.",
+            }),
+            generateTestPerseusRenderer(),
+        ],
+        hintsVisible: 1,
+        apiOptions: {getAnotherHint: () => {}},
+    },
+};
+
+export const GetAnotherHintButtonMobile: Story = {
+    ...GetAnotherHintButton,
+    decorators: mobileDecorators,
 };
