@@ -649,17 +649,18 @@ describe("Zoomable", () => {
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
+            const [assetKey] = setAssetStatus.mock.calls[0];
             act(() => jest.runAllTimers());
 
             // Act
             act(() => window.dispatchEvent(new Event("resize")));
             act(() => jest.runAllTimers());
 
-            // Assert
-            expect(settledKeys(setAssetStatus)).toHaveLength(1);
-            expect(
-                setAssetStatus.mock.calls.filter(([, loaded]) => !loaded),
-            ).toHaveLength(1);
+            // Assert - we went from not-loaded to loaded and stayed that way.
+            expect(setAssetStatus.mock.calls).toEqual([
+                [assetKey, false], // not loaded
+                [assetKey, true], // loaded
+            ]);
         });
 
         it("stays settled after a child mutation forces a re-measure", async () => {
