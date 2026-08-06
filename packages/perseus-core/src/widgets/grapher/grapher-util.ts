@@ -8,6 +8,6 @@ export type GrapherPublicWidgetOptions = Pick<
 export function getGrapherPublicWidgetOptions(
     options: PerseusGrapherWidgetOptions,
 ): GrapherPublicWidgetOptions {
-    const {correct: _, ...publicOptions} = options;
+    const {correct, ...publicOptions} = options;
     return publicOptions;
 }

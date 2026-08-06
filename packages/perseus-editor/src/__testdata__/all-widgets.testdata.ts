@@ -21,6 +21,7 @@ import {
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
+    generateMatrixOptions,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
@@ -154,13 +155,13 @@ export const comprehensiveQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             static: false,
             type: "matrix",
-            options: {
+            options: generateMatrixOptions({
                 matrixBoardSize: [2, 2],
                 answers: [
                     [1, 0],
                     [0, 1],
                 ],
-            },
+            }),
         },
         "definition 1": generateDefinitionWidget({
             options: generateDefinitionOptions({

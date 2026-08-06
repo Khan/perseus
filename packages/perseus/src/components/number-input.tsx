@@ -188,7 +188,7 @@ class NumberInput extends React.Component<any, any> {
 
         if (
             !this.props.useArrowKeys ||
-            !_.contains(["ArrowUp", "ArrowDown"], e.key)
+            !["ArrowUp", "ArrowDown"].includes(e.key)
         ) {
             return;
         }
@@ -226,10 +226,10 @@ class NumberInput extends React.Component<any, any> {
         }
 
         const {
-            onFormatChange: _,
-            checkValidity: __,
-            useArrowKeys: ___,
-            allowPiTruncation: ____,
+            onFormatChange,
+            checkValidity,
+            useArrowKeys,
+            allowPiTruncation,
             ...restProps
         } = this.props;
 

@@ -2,7 +2,6 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef, useId, useImperativeHandle} from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import TextInput from "../../components/text-input";

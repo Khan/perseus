@@ -397,6 +397,29 @@ describe("movePointInFigure", () => {
         ]);
     });
 
+    it("does not allow moving the endpoints of a tangent to the same y location", () => {
+        const state = generateTangentGraphState({
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        });
+
+        // Move point 0 to y=2, which would put both points on the same
+        // horizontal line (zero amplitude / flat curve).
+        const updated = interactiveGraphReducer(
+            state,
+            actions.tangent.movePoint(0, [1, 2]),
+        );
+
+        invariant(updated.type === "tangent");
+        // Assert: the move was canceled
+        expect(updated.coords).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
     it("rejects a tangent move with a destination that clamps onto the other point's x", () => {
         // coords: point 0 at x=8, point 1 at x=10 (at the edge).
         // Moving point 0 to [15, 5] clamps to [10, 5] (range max 10),

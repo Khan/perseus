@@ -308,16 +308,9 @@ code {
 .perseus-hint-editor .perseus-single-editor {
     margin-bottom: 5px;
 }
-.perseus-hint-editor .reorder-hints button {
-    font-size: 16px;
-}
-.perseus-hint-editor .reorder-hints button:hover,
-.perseus-hint-editor .reorder-hints button:active {
-    color: #000;
-    text-decoration: none;
-}
-.perseus-hint-editor .reorder-hints button.hidden {
-    visibility: hidden;
+.perseus-hint-editor .reorder-hints {
+    display: flex;
+    align-items: center;
 }
 .perseus-hint-editor .remove-hint {
     float: right;

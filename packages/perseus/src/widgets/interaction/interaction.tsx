@@ -154,10 +154,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
         graphie.graphInit(
             _.extend({}, options, {
-                grid: _.contains(["graph", "grid"], this.props.graph.markings),
-                axes: _.contains(["graph"], this.props.graph.markings),
-                ticks: _.contains(["graph"], this.props.graph.markings),
-                labels: _.contains(["graph"], this.props.graph.markings),
+                grid: ["graph", "grid"].includes(this.props.graph.markings),
+                axes: ["graph"].includes(this.props.graph.markings),
+                ticks: ["graph"].includes(this.props.graph.markings),
+                labels: ["graph"].includes(this.props.graph.markings),
                 labelFormat: function (s) {
                     return "\\small{" + s + "}";
                 },
@@ -203,8 +203,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
     _eval: (arg1: any, arg2: any) => number = (expression, variables) => {
         const func = KAScompile(expression, {functions: this.state.functions});
         const compiledVars = _.extend({}, this.state.variables, variables);
-        _.each(_.keys(compiledVars), (name) => {
-            if (_.isString(compiledVars[name])) {
+        _.each(Object.keys(compiledVars), (name) => {
+            if (typeof compiledVars[name] === "string") {
                 const func = KAScompile(compiledVars[name], {
                     functions: this.state.functions,
                 });

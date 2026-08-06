@@ -63,6 +63,8 @@ const FUNCTION_ARRAY_OPTIONS = [
 ];
 
 const InteractiveUtil = {
+    // TODO(benchristel): delete `assert` and replace all usages with
+    //  `invariant` from `tiny-invariant`.
     assert: function (isTrue: boolean, message?: string) {
         if (!isTrue) {
             throw new PerseusError(
@@ -76,7 +78,7 @@ const InteractiveUtil = {
      * Create getters for this.state, based on the default state, `defaults`
      */
     createGettersFor: function (Class: any, defaults: Record<any, any>) {
-        _.each(_.keys(defaults), function (key) {
+        _.each(Object.keys(defaults), function (key) {
             if (Class.prototype[key] === undefined) {
                 Class.prototype[key] = function () {
                     return this.state[key];
@@ -107,7 +109,7 @@ const InteractiveUtil = {
         if (funcOrArray == null) {
             return [];
         }
-        if (_.isArray(funcOrArray)) {
+        if (Array.isArray(funcOrArray)) {
             return _.filter(_.flatten(funcOrArray), _.identity);
         }
         return [funcOrArray];

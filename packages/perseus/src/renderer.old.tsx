@@ -48,7 +48,7 @@ import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container";
+import WidgetContainer from "./widget-container.old";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -705,7 +705,7 @@ class Renderer
         id: string,
         focusPath: ReadonlyArray<string> = [],
     ) => {
-        if (!_.isArray(focusPath)) {
+        if (!Array.isArray(focusPath)) {
             throw new PerseusError(
                 "widget props.onFocus focusPath must be an Array, " +
                     "but was" +
@@ -815,7 +815,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;
@@ -899,7 +899,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;

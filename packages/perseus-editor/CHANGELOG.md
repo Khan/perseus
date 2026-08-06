@@ -1,5 +1,48 @@
 # @khanacademy/perseus-editor
 
+## 35.2.1
+
+### Patch Changes
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3986](https://github.com/Khan/perseus/pull/3986) [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304) Thanks [@nishasy](https://github.com/nishasy)! - Update dependencies
+
+-   [#3875](https://github.com/Khan/perseus/pull/3875) [`64c06a5`](https://github.com/Khan/perseus/commit/64c06a5a6c6b3197ea5705dd8b415591e3489a06) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Renderer] Refactor how the markdown renderer works with paragraphs and widgets to be semantically correct
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`95b1447`](https://github.com/Khan/perseus/commit/95b14478fa5450d3ec22cbdbfebfc84851d8a47b), [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`30f1260`](https://github.com/Khan/perseus/commit/30f1260e0f5a4591a1a24b0d1d8fff656200d218), [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304), [`75ee2ce`](https://github.com/Khan/perseus/commit/75ee2ce4925420002cb709cdd204985bd6502fc6), [`64c06a5`](https://github.com/Khan/perseus/commit/64c06a5a6c6b3197ea5705dd8b415591e3489a06), [`0c65ab9`](https://github.com/Khan/perseus/commit/0c65ab98e5fdb64e316b7d747293708abbfc2b05), [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f), [`7947f2f`](https://github.com/Khan/perseus/commit/7947f2fbefdf37aec838e956782cf71f591ef626), [`0446f23`](https://github.com/Khan/perseus/commit/0446f2312fac5fbad1ecf5c4f737f887c924945e), [`4c8fd5a`](https://github.com/Khan/perseus/commit/4c8fd5a27c89d180e55dac264b85155683d7e9f2), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05), [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba), [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95), [`5c1f672`](https://github.com/Khan/perseus/commit/5c1f6724927a428d7e8c33ae6aa08c68c307862b)]:
+    -   @khanacademy/perseus@82.2.0
+    -   @khanacademy/perseus-core@34.0.0
+    -   @khanacademy/kas@2.2.4
+    -   @khanacademy/math-input@26.6.7
+    -   @khanacademy/keypad-context@3.2.78
+    -   @khanacademy/kmath@2.4.37
+    -   @khanacademy/perseus-linter@5.1.18
+
+## 35.2.0
+
+### Minor Changes
+
+-   [#3920](https://github.com/Khan/perseus/pull/3920) [`db0ae65`](https://github.com/Khan/perseus/commit/db0ae654acae519342d3d2f6b125348f9514c552) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Add option in the editor to suppress image dark-mode filter
+
+### Patch Changes
+
+-   [#3889](https://github.com/Khan/perseus/pull/3889) [`d82ecda`](https://github.com/Khan/perseus/commit/d82ecda95e9800219c9092212fee4505b4247f02) Thanks [@catandthemachines](https://github.com/catandthemachines)! - [Interactive Graph] Update screen reader instructions.
+
+-   [#3959](https://github.com/Khan/perseus/pull/3959) [`fe22345`](https://github.com/Khan/perseus/commit/fe223457218ed13405ccfc7a1131fac3b592c50f) Thanks [@nishasy](https://github.com/nishasy)! - Use WB buttons in Hints editor
+
+-   Updated dependencies [[`db0ae65`](https://github.com/Khan/perseus/commit/db0ae654acae519342d3d2f6b125348f9514c552), [`6c054db`](https://github.com/Khan/perseus/commit/6c054db4c26e7866cd9acaa63a156bcd59ee7317), [`1d0db84`](https://github.com/Khan/perseus/commit/1d0db84be71ce1c864be4f948192f28fb3b6f38b), [`1d19cca`](https://github.com/Khan/perseus/commit/1d19cca263c555454d785d5e78cafd3722acc8bc), [`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2), [`a4e51fc`](https://github.com/Khan/perseus/commit/a4e51fc66a1666735869fe8d6e8dc3449729d340), [`d82ecda`](https://github.com/Khan/perseus/commit/d82ecda95e9800219c9092212fee4505b4247f02), [`10a050e`](https://github.com/Khan/perseus/commit/10a050e0184cbe94a6a5ea8f191705b866431af8)]:
+    -   @khanacademy/perseus@82.1.0
+    -   @khanacademy/perseus-core@33.0.1
+    -   @khanacademy/keypad-context@3.2.77
+    -   @khanacademy/kmath@2.4.36
+    -   @khanacademy/math-input@26.6.6
+    -   @khanacademy/perseus-linter@5.1.17
+
 ## 35.1.2
 
 ### Patch Changes

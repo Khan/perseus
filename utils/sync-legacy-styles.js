@@ -28,9 +28,9 @@ const filesToSync = fs
             "_legacy-styles.js",
             ".module.css",
         );
-        const cssPathName = path.join(file["path"], cssFileName);
+        const cssPathName = path.join(file.parentPath, cssFileName);
         const variableName = getVariableName(
-            path.join(file["path"], file.name),
+            path.join(file.parentPath, file.name),
         );
         return {cssPathName, variableName};
     });

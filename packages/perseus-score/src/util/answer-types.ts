@@ -121,7 +121,7 @@ const KhanAnswerTypes = {
             let acceptableForms;
             // this is maintaining backwards compatibility
             // TODO(merlob) fix all places that depend on this, then delete
-            if (!_.isArray(options.forms)) {
+            if (!Array.isArray(options.forms)) {
                 acceptableForms = options.forms.split(/\s*,\s*/);
             } else {
                 acceptableForms = options.forms;
@@ -142,7 +142,7 @@ const KhanAnswerTypes = {
             // in the list so we don't prematurely complain about not having
             // a percent sign when the user entered the correct answer in a
             // different form (such as a decimal or fraction)
-            if (_.contains(acceptableForms, "percent")) {
+            if (acceptableForms.includes("percent")) {
                 acceptableForms = _.without(acceptableForms, "percent");
                 acceptableForms.push("percent");
             }

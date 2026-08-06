@@ -37,7 +37,7 @@ export function getLabelImagePublicWidgetOptions(
 function getLabelImageMarkerPublicData(
     marker: PerseusLabelImageMarker,
 ): LabelImageMarkerPublicData {
-    const {answers: _, ...publicData} = marker;
+    const {answers, ...publicData} = marker;
     return publicData;
 }
 

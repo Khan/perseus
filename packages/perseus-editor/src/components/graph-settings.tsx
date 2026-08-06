@@ -463,7 +463,7 @@ class GraphSettings extends React.Component<Props, State> {
         const {TeX} = Dependencies.getDependencies();
         return (
             <div>
-                {_.contains(this.props.editableSettings, "canvas") && (
+                {this.props.editableSettings.includes("canvas") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <label htmlFor="canvas-size">
@@ -484,7 +484,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "graph") && (
+                {this.props.editableSettings.includes("graph") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
@@ -553,7 +553,7 @@ class GraphSettings extends React.Component<Props, State> {
                                 />
                             </div>
                         </div>
-                        {_.contains(this.props.editableSettings, "snap") && (
+                        {this.props.editableSettings.includes("snap") && (
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     <label htmlFor="snap-step">Snap Step</label>
@@ -593,7 +593,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "image") && (
+                {this.props.editableSettings.includes("image") && (
                     <div className="image-settings">
                         <div>Background image:</div>
                         <div>
@@ -626,7 +626,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "measure") && (
+                {this.props.editableSettings.includes("measure") && (
                     <div className="misc-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">

@@ -8,6 +8,7 @@ import {
 } from "../__testdata__/renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -17,7 +18,7 @@ type Story = StoryObj;
 
 const meta: Meta<PerseusRenderer> = {
     title: "Renderers/Visual Regression Tests",
-    tags: ["!manifest"],
+    tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
             description: {
@@ -31,6 +32,8 @@ export default meta;
 
 const RenderArticleContent = (content: string): (() => React.JSX.Element) => {
     return function Render() {
+        const apiOptions = useStorybookApiOptions();
+
         /*
             These regression tests are focused on how the renderer handles non-widget content.
             Therefore, the "widgets" and "images" properties in the JSON object are empty.
@@ -46,6 +49,7 @@ const RenderArticleContent = (content: string): (() => React.JSX.Element) => {
             <ArticleRenderer
                 json={json}
                 dependencies={storybookDependenciesV2}
+                apiOptions={apiOptions}
             />
         );
     };

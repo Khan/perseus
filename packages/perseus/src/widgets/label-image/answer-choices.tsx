@@ -7,7 +7,6 @@ import {
     OptionItem,
 } from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
-import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";

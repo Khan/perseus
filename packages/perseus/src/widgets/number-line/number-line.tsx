@@ -217,21 +217,6 @@ type CalculatedProps = Props & {
     tickStep: number;
 };
 
-// The Widget-interface methods this component exposes via its ref, plus
-// `movePosition` for programmatic point control.
-type WidgetHandle = Pick<
-    Widget,
-    | "focus"
-    | "focusInputPath"
-    | "blurInputPath"
-    | "getInputPaths"
-    | "getDOMNodeForPath"
-    | "getSerializedState"
-    | "getPromptJSON"
-> & {
-    movePosition: (targetPosition: number) => void;
-};
-
 // Whether the widget's configuration makes a drawable number line. An invalid
 // configuration would send the drawing code into an infinite loop.
 function isValid(props: Props): boolean {
@@ -251,462 +236,456 @@ function isValid(props: Props): boolean {
     );
 }
 
-const NumberLine = forwardRef<WidgetHandle, Props>(
-    function NumberLine(props, ref) {
-        const {strings} = usePerseusI18n();
-        const propsRef = useLatestRef(props);
-        const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
+const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
+    const {strings} = usePerseusI18n();
+    const propsRef = useLatestRef(props);
+    const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
 
-        // Ref to the <Graphie> instance. Its `movables` map is populated by the
-        // string `ref` on <MovablePoint> below (Graphie consumes those children
-        // itself rather than rendering them into the React tree).
-        const graphieRef = useRef<Graphie>(null);
-        // Ref to the tick-count input (a NumberInput or SimpleKeypadInput), used
-        // for focus management.
-        const tickCtrlRef = useRef<NumberInput | SimpleKeypadInput>(null);
+    // Ref to the <Graphie> instance. Its `movables` map is populated by the
+    // string `ref` on <MovablePoint> below (Graphie consumes those children
+    // itself rather than rendering them into the React tree).
+    const graphieRef = useRef<Graphie>(null);
+    // Ref to the tick-count input (a NumberInput or SimpleKeypadInput), used
+    // for focus management.
+    const tickCtrlRef = useRef<NumberInput | SimpleKeypadInput>(null);
 
-        useOnMountEffect(() => {
-            props.dependencies.analytics.onAnalyticsEvent({
-                type: "perseus:widget:rendered:ti",
-                payload: {
-                    widgetSubType: "null",
-                    widgetType: "number-line",
-                    widgetId: props.widgetId,
-                },
-            });
+    useOnMountEffect(() => {
+        props.dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "number-line",
+                widgetId: props.widgetId,
+            },
         });
+    });
 
-        useImperativeHandle(ref, () => ({
-            focus: () => {
-                if (props.isTickCtrl) {
-                    tickCtrlRef.current?.focus();
-                    return true;
-                }
-                return false;
-            },
-
-            focusInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.focus();
-                }
-            },
-
-            blurInputPath: (path) => {
-                if (path?.length === 1) {
-                    tickCtrlRef.current?.blur();
-                }
-            },
-
-            getInputPaths: () => {
-                if (props.isTickCtrl) {
-                    return [["tick-ctrl"]];
-                }
-                return [];
-            },
-
-            getDOMNodeForPath: (inputPath) => {
-                if (inputPath?.length === 1) {
-                    return ReactDOM.findDOMNode(tickCtrlRef.current);
-                }
-                return null;
-            },
-
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: () => ({
-                alignment: props.alignment,
-                static: props.static,
-                range: props.range,
-                labelRange: props.labelRange,
-                labelStyle: props.labelStyle,
-                labelTicks: props.labelTicks,
-                divisionRange: props.divisionRange,
-                snapDivisions: props.snapDivisions,
-                isInequality: props.isInequality,
-                showTooltips: props.showTooltips,
-                isTickCtrl: props.isTickCtrl,
-                numDivisions: props.userInput.numDivisions,
-                numLinePosition: props.userInput.numLinePosition,
-                // this seems like a bug, but I'm maintaining the
-                // existing behavior on a deprecated API. Probably
-                // should be:
-                // rel: userInput.rel,
-                rel: "ge",
-            }),
-
-            getPromptJSON(): NumberLinePromptJSON {
-                return _getPromptJSON(props);
-            },
-
-            movePosition,
-        }));
-
-        // <Graphie> logs an error if the identity of its `setup` prop changes
-        // between renders, so `setupGraphie` must stay stable. It reads the
-        // latest render's props through `propsRef` instead of closing over them.
-        const setupGraphie = useCallback(
-            (graphie: any, options: any) => {
-                const latestProps = propsRef.current;
-
-                // Ensure a sane configuration to avoid infinite loops
-                if (!isValid(latestProps)) {
-                    return;
-                }
-
-                // Position variables
-                const widthInPixels = latestProps.apiOptions.isMobile
-                    ? 288 - horizontalPadding * 2
-                    : 400;
-                const range = options.range;
-                const scale = (range[1] - range[0]) / widthInPixels;
-                const buffer = horizontalPadding * scale;
-
-                // Initiate the graphie without actually drawing anything
-                const left = range[0] - buffer;
-                const right = range[1] + buffer;
-
-                const hasFractionalLabels =
-                    latestProps.labelStyle === "improper" ||
-                    latestProps.labelStyle === "mixed" ||
-                    latestProps.labelStyle === "non-reduced";
-                const bottom = hasFractionalLabels ? -1.5 : -1;
-                const top = 1;
-
-                graphie.init({
-                    range: [
-                        [left, right],
-                        [bottom, top],
-                    ],
-                    scale: [1 / scale, 40],
-                    isMobile: latestProps.apiOptions.isMobile,
-                });
-
-                // Draw the number line
-                const center = (range[0] + range[1]) / 2;
-                graphie.line([center, 0], [right, 0], {arrows: "->"});
-                graphie.line([center, 0], [left, 0], {arrows: "->"});
-            },
-            [propsRef],
-        );
-
-        function snapNumLinePosition(
-            calculatedProps: CalculatedProps,
-            numLinePosition: number,
-        ): number {
-            const left = calculatedProps.range[0];
-            const right = calculatedProps.range[1];
-            const snapX =
-                calculatedProps.tickStep / calculatedProps.snapDivisions;
-
-            let x = bound(numLinePosition, left, right);
-            x = left + knumber.roundTo(x - left, snapX);
-            assert(Number.isFinite(x));
-            return x;
-        }
-
-        function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
-            const width = props.range[1] - props.range[0];
-
-            // Don't allow a fraction for the number of divisions
-            numDivisions = Math.round(numDivisions);
-
-            // Don't allow negative numbers for the number of divisions
-            numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
-
-            // If the number of divisions isn't blank, update the number line
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (numDivisions) {
-                const nextProps = {...props, tickStep: width / numDivisions};
-
-                const newNumLinePosition = snapNumLinePosition(
-                    nextProps,
-                    props.userInput.numLinePosition,
-                );
-
-                setNumDivisionsEmpty(false);
-                props.handleUserInput(
-                    {
-                        ...props.userInput,
-                        numDivisions: numDivisions,
-                        numLinePosition: newNumLinePosition,
-                    },
-                    cb,
-                );
-            } else {
-                setNumDivisionsEmpty(true);
-                cb?.();
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            if (props.isTickCtrl) {
+                tickCtrlRef.current?.focus();
+                return true;
             }
-        }
+            return false;
+        },
 
-        function handleTickCtrlFocus() {
-            props.onFocus(["tick-ctrl"]);
-        }
-
-        function handleTickCtrlBlur() {
-            props.onBlur(["tick-ctrl"]);
-        }
-
-        // Moves the point to the given position and records the interaction.
-        function movePosition(targetPosition: number) {
-            props.handleUserInput({
-                ...props.userInput,
-                numLinePosition: targetPosition,
-            });
-            props.trackInteraction();
-        }
-
-        function handleReverse() {
-            const newRel = reverseRel[props.userInput.rel];
-            props.handleUserInput({
-                ...props.userInput,
-                rel: newRel,
-            });
-        }
-
-        function handleToggleStrict() {
-            const newRel = toggleStrictRel[props.userInput.rel];
-            props.handleUserInput({
-                ...props.userInput,
-                rel: newRel,
-            });
-        }
-
-        function renderNumberLinePoint(calculatedProps: CalculatedProps) {
-            const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
-
-            // In static mode the point's fill and stroke is blue to signify that
-            // it can't be interacted with.
-            let fill;
-            if (isOpen) {
-                fill = KhanColors._BACKGROUND;
-            } else if (calculatedProps.static) {
-                fill = KhanColors.BLUE;
-            } else {
-                fill = KhanColors.GREEN;
+        focusInputPath: (path) => {
+            if (path?.length === 1) {
+                tickCtrlRef.current?.focus();
             }
-            const normalStyle = {
-                fill: fill,
-                stroke: calculatedProps.static
-                    ? KhanColors.BLUE
-                    : KhanColors.GREEN,
-                "stroke-width": isOpen ? 3 : 1,
-            } as const;
-            const highlightStyle = {
-                fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
-                "stroke-width": isOpen ? 3 : 1,
-            } as const;
+        },
 
-            const mobileDotStyle = calculatedProps.isInequality
-                ? {
-                      stroke: KhanColors.GREEN,
-                      "fill-opacity": isOpen ? 0 : 1,
-                  }
-                : {};
+        blurInputPath: (path) => {
+            if (path?.length === 1) {
+                tickCtrlRef.current?.blur();
+            }
+        },
 
-            return (
-                <MovablePoint
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="numberLinePoint"
-                    pointSize={6}
-                    coord={[calculatedProps.userInput.numLinePosition, 0]}
-                    constraints={[
-                        (coord: any, prevCoord) => {
-                            // constrain-y
-                            return [coord[0], prevCoord[1]];
-                        },
-                        (coord: any, prevCoord) => {
-                            // snap X
-                            const x = snapNumLinePosition(
-                                calculatedProps,
-                                coord[0],
-                            );
-                            return [x, coord[1]];
-                        },
-                    ]}
-                    normalStyle={normalStyle}
-                    highlightStyle={highlightStyle}
-                    onMove={(coord) => {
-                        movePosition(coord[0]);
-                    }}
-                    isMobile={calculatedProps.apiOptions.isMobile}
-                    mobileStyleOverride={mobileDotStyle}
-                    showTooltips={calculatedProps.showTooltips ?? false}
-                    xOnlyTooltip={true}
-                />
-            );
-        }
+        getInputPaths: () => {
+            if (props.isTickCtrl) {
+                return [["tick-ctrl"]];
+            }
+            return [];
+        },
 
-        function getInequalityEndpoint(): [number, number] {
-            const isGreater = ["ge", "gt"].includes(props.userInput.rel);
-            const widthInPixels = 400;
-            const range = props.range;
-            const scale = (range[1] - range[0]) / widthInPixels;
-            const buffer = horizontalPadding * scale;
-            const left = range[0] - buffer;
-            const right = range[1] + buffer;
-            const end: [number, number] = isGreater ? [right, 0] : [left, 0];
-            return end;
-        }
-
-        function renderInequality() {
-            if (props.isInequality) {
-                const end = getInequalityEndpoint();
-                const style = {
-                    arrows: "->",
-                    stroke: props.apiOptions.isMobile
-                        ? KhanColors.GREEN
-                        : KhanColors.BLUE,
-                    strokeWidth: 3.5,
-                } as const;
-
-                return (
-                    <Line
-                        // We shift the line to either side of the dot so they don't
-                        // intersect
-                        start={[props.userInput.numLinePosition, 0]}
-                        end={end}
-                        style={style}
-                    />
-                );
+        getDOMNodeForPath: (inputPath) => {
+            if (inputPath?.length === 1) {
+                return ReactDOM.findDOMNode(tickCtrlRef.current);
             }
             return null;
-        }
+        },
 
-        function renderGraphie() {
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: () => ({
+            alignment: props.alignment,
+            static: props.static,
+            range: props.range,
+            labelRange: props.labelRange,
+            labelStyle: props.labelStyle,
+            labelTicks: props.labelTicks,
+            divisionRange: props.divisionRange,
+            snapDivisions: props.snapDivisions,
+            isInequality: props.isInequality,
+            showTooltips: props.showTooltips,
+            isTickCtrl: props.isTickCtrl,
+            numDivisions: props.userInput.numDivisions,
+            numLinePosition: props.userInput.numLinePosition,
+            // this seems like a bug, but I'm maintaining the
+            // existing behavior on a deprecated API. Probably
+            // should be:
+            // rel: userInput.rel,
+            rel: "ge",
+        }),
+
+        getPromptJSON(): NumberLinePromptJSON {
+            return _getPromptJSON(props);
+        },
+
+        movePosition,
+    }));
+
+    // <Graphie> logs an error if the identity of its `setup` prop changes
+    // between renders, so `setupGraphie` must stay stable. It reads the
+    // latest render's props through `propsRef` instead of closing over them.
+    const setupGraphie = useCallback(
+        (graphie: any, options: any) => {
+            const latestProps = propsRef.current;
+
+            // Ensure a sane configuration to avoid infinite loops
+            if (!isValid(latestProps)) {
+                return;
+            }
+
             // Position variables
-            const range = props.range;
-            const width = range[1] - range[0];
+            const widthInPixels = latestProps.apiOptions.isMobile
+                ? 288 - horizontalPadding * 2
+                : 400;
+            const range = options.range;
+            const scale = (range[1] - range[0]) / widthInPixels;
+            const buffer = horizontalPadding * scale;
 
-            const options = {
-                range: props.range,
-                isTickCtrl: props.isTickCtrl,
-            };
+            // Initiate the graphie without actually drawing anything
+            const left = range[0] - buffer;
+            const right = range[1] + buffer;
 
-            const calculatedProps: CalculatedProps = {
-                ...props,
-                tickStep: width / props.userInput.numDivisions,
-            };
+            const hasFractionalLabels =
+                latestProps.labelStyle === "improper" ||
+                latestProps.labelStyle === "mixed" ||
+                latestProps.labelStyle === "non-reduced";
+            const bottom = hasFractionalLabels ? -1.5 : -1;
+            const top = 1;
 
-            return (
-                <Graphie
-                    ref={graphieRef}
-                    // HACK(emily): We key this graphie on the label style because
-                    // when the label style changes we want to resize the graphie,
-                    // which isn't doable without throwing away the graphie and
-                    // making a new one.
-                    key={props.labelStyle}
-                    box={[props.apiOptions.isMobile ? 288 : 460, 80]}
-                    options={options}
-                    onMouseDown={(coord) => {
-                        // `grab` isn't declared on the Movable type; the movable
-                        // is populated via the string ref on <MovablePoint>
-                        // below, and MovablePoint exposes `grab` at runtime.
-                        // eslint-disable-next-line no-restricted-syntax
-                        const point = graphieRef.current?.movables
-                            .numberLinePoint as any;
-                        point?.grab(coord);
-                    }}
-                    setup={setupGraphie}
-                    isMobile={props.apiOptions.isMobile}
-                >
-                    <TickMarks
-                        range={calculatedProps.range}
-                        labelTicks={calculatedProps.labelTicks}
-                        labelStyle={calculatedProps.labelStyle}
-                        labelRange={calculatedProps.labelRange}
-                        tickStep={calculatedProps.tickStep}
-                        numDivisions={calculatedProps.userInput.numDivisions}
-                        isMobile={calculatedProps.apiOptions.isMobile}
-                    />
-                    {renderInequality()}
-                    {renderNumberLinePoint(calculatedProps)}
-                </Graphie>
+            graphie.init({
+                range: [
+                    [left, right],
+                    [bottom, top],
+                ],
+                scale: [1 / scale, 40],
+                isMobile: latestProps.apiOptions.isMobile,
+            });
+
+            // Draw the number line
+            const center = (range[0] + range[1]) / 2;
+            graphie.line([center, 0], [right, 0], {arrows: "->"});
+            graphie.line([center, 0], [left, 0], {arrows: "->"});
+        },
+        [propsRef],
+    );
+
+    function snapNumLinePosition(
+        calculatedProps: CalculatedProps,
+        numLinePosition: number,
+    ): number {
+        const left = calculatedProps.range[0];
+        const right = calculatedProps.range[1];
+        const snapX = calculatedProps.tickStep / calculatedProps.snapDivisions;
+
+        let x = bound(numLinePosition, left, right);
+        x = left + knumber.roundTo(x - left, snapX);
+        assert(Number.isFinite(x));
+        return x;
+    }
+
+    function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
+        const width = props.range[1] - props.range[0];
+
+        // Don't allow a fraction for the number of divisions
+        numDivisions = Math.round(numDivisions);
+
+        // Don't allow negative numbers for the number of divisions
+        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+
+        // If the number of divisions isn't blank, update the number line
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (numDivisions) {
+            const nextProps = {...props, tickStep: width / numDivisions};
+
+            const newNumLinePosition = snapNumLinePosition(
+                nextProps,
+                props.userInput.numLinePosition,
             );
-        }
 
-        const divisionRange = props.divisionRange;
-        const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
-
-        const invalidNumDivisions =
-            props.userInput?.numDivisions < divisionRange[0] ||
-            props.userInput?.numDivisions > divisionRange[1];
-
-        const inequalityControls = (
-            <div>
-                <input
-                    type="button"
-                    className="simple-button"
-                    value={strings.switchDirection}
-                    onClick={handleReverse}
-                />
-                <input
-                    type="button"
-                    className="simple-button"
-                    value={
-                        ["le", "ge"].includes(props.userInput?.rel)
-                            ? strings.circleOpen
-                            : strings.circleFilled
-                    }
-                    onClick={handleToggleStrict}
-                />
-            </div>
-        );
-
-        let tickCtrl;
-        if (props.isTickCtrl) {
-            const Input = props.apiOptions.customKeypad
-                ? SimpleKeypadInput
-                : NumberInput;
-            tickCtrl = (
-                <label>
-                    {strings.numDivisions}{" "}
-                    <Input
-                        ref={tickCtrlRef}
-                        value={
-                            numDivisionsEmpty
-                                ? null
-                                : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                  props.userInput?.numDivisions ||
-                                  divisionRange[0]
-                        }
-                        checkValidity={(val) =>
-                            val >= divisionRange[0] && val <= divisionRange[1]
-                        }
-                        onChange={onNumDivisionsChange}
-                        onFocus={handleTickCtrlFocus}
-                        onBlur={handleTickCtrlBlur}
-                        useArrowKeys={true}
-                        keypadElement={props.keypadElement}
-                    />
-                </label>
+            setNumDivisionsEmpty(false);
+            props.handleUserInput(
+                {
+                    ...props.userInput,
+                    numDivisions: numDivisions,
+                    numLinePosition: newNumLinePosition,
+                },
+                cb,
             );
+        } else {
+            setNumDivisionsEmpty(true);
+            cb?.();
         }
+    }
+
+    function handleTickCtrlFocus() {
+        props.onFocus(["tick-ctrl"]);
+    }
+
+    function handleTickCtrlBlur() {
+        props.onBlur(["tick-ctrl"]);
+    }
+
+    // Moves the point to the given position and records the interaction.
+    function movePosition(targetPosition: number) {
+        props.handleUserInput({
+            ...props.userInput,
+            numLinePosition: targetPosition,
+        });
+        props.trackInteraction();
+    }
+
+    function handleReverse() {
+        const newRel = reverseRel[props.userInput.rel];
+        props.handleUserInput({
+            ...props.userInput,
+            rel: newRel,
+        });
+    }
+
+    function handleToggleStrict() {
+        const newRel = toggleStrictRel[props.userInput.rel];
+        props.handleUserInput({
+            ...props.userInput,
+            rel: newRel,
+        });
+    }
+
+    function renderNumberLinePoint(calculatedProps: CalculatedProps) {
+        const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
+
+        // In static mode the point's fill and stroke is blue to signify that
+        // it can't be interacted with.
+        let fill;
+        if (isOpen) {
+            fill = KhanColors._BACKGROUND;
+        } else if (calculatedProps.static) {
+            fill = KhanColors.BLUE;
+        } else {
+            fill = KhanColors.GREEN;
+        }
+        const normalStyle = {
+            fill: fill,
+            stroke: calculatedProps.static ? KhanColors.BLUE : KhanColors.GREEN,
+            "stroke-width": isOpen ? 3 : 1,
+        } as const;
+        const highlightStyle = {
+            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            "stroke-width": isOpen ? 3 : 1,
+        } as const;
+
+        const mobileDotStyle = calculatedProps.isInequality
+            ? {
+                  stroke: KhanColors.GREEN,
+                  "fill-opacity": isOpen ? 0 : 1,
+              }
+            : {};
 
         return (
-            <div
-                className={
-                    "perseus-widget " + "perseus-widget-interactive-number-line"
-                }
-            >
-                {tickCtrl}
-                {!isValid(props) ? (
-                    <div className="perseus-error">
-                        Invalid number line configuration.
-                    </div>
-                ) : props.isTickCtrl && invalidNumDivisions ? (
-                    <div className="perseus-error">
-                        {strings.divisions({divRangeString: divRangeString})}
-                    </div>
-                ) : (
-                    renderGraphie()
-                )}
-                {!props.static && props.isInequality && inequalityControls}
-            </div>
+            <MovablePoint
+                // eslint-disable-next-line react/no-string-refs
+                ref="numberLinePoint"
+                pointSize={6}
+                coord={[calculatedProps.userInput.numLinePosition, 0]}
+                constraints={[
+                    (coord: any, prevCoord) => {
+                        // constrain-y
+                        return [coord[0], prevCoord[1]];
+                    },
+                    (coord: any, prevCoord) => {
+                        // snap X
+                        const x = snapNumLinePosition(
+                            calculatedProps,
+                            coord[0],
+                        );
+                        return [x, coord[1]];
+                    },
+                ]}
+                normalStyle={normalStyle}
+                highlightStyle={highlightStyle}
+                onMove={(coord) => {
+                    movePosition(coord[0]);
+                }}
+                isMobile={calculatedProps.apiOptions.isMobile}
+                mobileStyleOverride={mobileDotStyle}
+                showTooltips={calculatedProps.showTooltips ?? false}
+                xOnlyTooltip={true}
+            />
         );
-    },
-);
+    }
+
+    function getInequalityEndpoint(): [number, number] {
+        const isGreater = ["ge", "gt"].includes(props.userInput.rel);
+        const widthInPixels = 400;
+        const range = props.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = horizontalPadding * scale;
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+        const end: [number, number] = isGreater ? [right, 0] : [left, 0];
+        return end;
+    }
+
+    function renderInequality() {
+        if (props.isInequality) {
+            const end = getInequalityEndpoint();
+            const style = {
+                arrows: "->",
+                stroke: props.apiOptions.isMobile
+                    ? KhanColors.GREEN
+                    : KhanColors.BLUE,
+                strokeWidth: 3.5,
+            } as const;
+
+            return (
+                <Line
+                    // We shift the line to either side of the dot so they don't
+                    // intersect
+                    start={[props.userInput.numLinePosition, 0]}
+                    end={end}
+                    style={style}
+                />
+            );
+        }
+        return null;
+    }
+
+    function renderGraphie() {
+        // Position variables
+        const range = props.range;
+        const width = range[1] - range[0];
+
+        const options = {
+            range: props.range,
+            isTickCtrl: props.isTickCtrl,
+        };
+
+        const calculatedProps: CalculatedProps = {
+            ...props,
+            tickStep: width / props.userInput.numDivisions,
+        };
+
+        return (
+            <Graphie
+                ref={graphieRef}
+                // HACK(emily): We key this graphie on the label style because
+                // when the label style changes we want to resize the graphie,
+                // which isn't doable without throwing away the graphie and
+                // making a new one.
+                key={props.labelStyle}
+                box={[props.apiOptions.isMobile ? 288 : 460, 80]}
+                options={options}
+                onMouseDown={(coord) => {
+                    // `grab` isn't declared on the Movable type; the movable
+                    // is populated via the string ref on <MovablePoint>
+                    // below, and MovablePoint exposes `grab` at runtime.
+                    // eslint-disable-next-line no-restricted-syntax
+                    const point = graphieRef.current?.movables
+                        .numberLinePoint as any;
+                    point?.grab(coord);
+                }}
+                setup={setupGraphie}
+                isMobile={props.apiOptions.isMobile}
+            >
+                <TickMarks
+                    range={calculatedProps.range}
+                    labelTicks={calculatedProps.labelTicks}
+                    labelStyle={calculatedProps.labelStyle}
+                    labelRange={calculatedProps.labelRange}
+                    tickStep={calculatedProps.tickStep}
+                    numDivisions={calculatedProps.userInput.numDivisions}
+                    isMobile={calculatedProps.apiOptions.isMobile}
+                />
+                {renderInequality()}
+                {renderNumberLinePoint(calculatedProps)}
+            </Graphie>
+        );
+    }
+
+    const divisionRange = props.divisionRange;
+    const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+
+    const invalidNumDivisions =
+        props.userInput?.numDivisions < divisionRange[0] ||
+        props.userInput?.numDivisions > divisionRange[1];
+
+    const inequalityControls = (
+        <div>
+            <input
+                type="button"
+                className="simple-button"
+                value={strings.switchDirection}
+                onClick={handleReverse}
+            />
+            <input
+                type="button"
+                className="simple-button"
+                value={
+                    ["le", "ge"].includes(props.userInput?.rel)
+                        ? strings.circleOpen
+                        : strings.circleFilled
+                }
+                onClick={handleToggleStrict}
+            />
+        </div>
+    );
+
+    let tickCtrl;
+    if (props.isTickCtrl) {
+        const Input = props.apiOptions.customKeypad
+            ? SimpleKeypadInput
+            : NumberInput;
+        tickCtrl = (
+            <label>
+                {strings.numDivisions}{" "}
+                <Input
+                    ref={tickCtrlRef}
+                    value={
+                        numDivisionsEmpty
+                            ? null
+                            : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                              props.userInput?.numDivisions || divisionRange[0]
+                    }
+                    checkValidity={(val) =>
+                        val >= divisionRange[0] && val <= divisionRange[1]
+                    }
+                    onChange={onNumDivisionsChange}
+                    onFocus={handleTickCtrlFocus}
+                    onBlur={handleTickCtrlBlur}
+                    useArrowKeys={true}
+                    keypadElement={props.keypadElement}
+                />
+            </label>
+        );
+    }
+
+    return (
+        <div
+            className={
+                "perseus-widget " + "perseus-widget-interactive-number-line"
+            }
+        >
+            {tickCtrl}
+            {!isValid(props) ? (
+                <div className="perseus-error">
+                    Invalid number line configuration.
+                </div>
+            ) : props.isTickCtrl && invalidNumDivisions ? (
+                <div className="perseus-error">
+                    {strings.divisions({divRangeString: divRangeString})}
+                </div>
+            ) : (
+                renderGraphie()
+            )}
+            {!props.static && props.isInequality && inequalityControls}
+        </div>
+    );
+});
 
 /**
  * @deprecated and likely a very broken API
