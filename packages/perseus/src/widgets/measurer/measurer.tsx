@@ -80,8 +80,8 @@ class Measurer extends React.Component<Props> implements Widget {
         if (this.props.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
             this.protractor = graphie.protractor([
-                this.props.protractorX,
-                this.props.protractorY,
+                this.props.protractorX ?? 7.5,
+                this.props.protractorY ?? 0.5,
             ]);
         }
 
