@@ -11,6 +11,13 @@ const meta: Meta<PerseusPhetSimulationWidgetOptions> = {
     title: "Widgets/PhET Simulation/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the PhET Simulation widget that DO " +
+                    "need interactions to test.",
+            },
+        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
