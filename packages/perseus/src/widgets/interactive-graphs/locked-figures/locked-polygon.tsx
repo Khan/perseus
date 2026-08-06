@@ -8,7 +8,7 @@ import * as React from "react";
 
 import {X, Y} from "../math";
 
-import {dashBackingColor, dashedStrokeStyle, strokeWeights} from "./utils";
+import {dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
@@ -26,18 +26,6 @@ const LockedPolygon = (props: LockedPolygonType) => {
             // Weight-scaled dash pattern for dashed figures (see dashedStrokeStyle).
             style={dashedStrokeStyle(strokeStyle === "dashed", weight)}
         >
-            {strokeStyle === "dashed" && (
-                // Solid knockout backing under the dashes so they stay legible
-                // over grid lines and shading behind the figure. Drawn first so
-                // it sits underneath the dashed outline.
-                <Polygon
-                    points={[...points]}
-                    fillOpacity={0}
-                    strokeStyle="solid"
-                    color={dashBackingColor}
-                    weight={strokeWeights[weight]}
-                />
-            )}
             <Polygon
                 points={[...points]}
                 fillOpacity={lockedFigureFillStyles[fillStyle]}

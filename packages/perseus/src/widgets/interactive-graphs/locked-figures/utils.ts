@@ -1,5 +1,3 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
-
 import type {StrokeWeight} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -8,13 +6,6 @@ export const strokeWeights: Record<StrokeWeight, number> = {
     medium: 2,
     thick: 4,
 } as const;
-
-/**
- * Color for the solid backing stroke drawn beneath a dashed locked figure so the
- * dashes stay legible over grid lines and shading. The Wonder Blocks knockout
- * border token adapts to light/dark modes.
- */
-export const dashBackingColor = semanticColor.core.border.knockout.default;
 
 /**
  * A dashed locked figure's `stroke-dasharray`, scaled to the stroke width so the

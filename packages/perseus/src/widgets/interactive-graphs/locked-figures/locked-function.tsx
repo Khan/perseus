@@ -6,12 +6,7 @@ import {useState, useEffect} from "react";
 
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {
-    clampDomain,
-    dashBackingColor,
-    dashedStrokeStyle,
-    strokeWeights,
-} from "./utils";
+import {clampDomain, dashedStrokeStyle, strokeWeights} from "./utils";
 
 import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
@@ -31,14 +26,6 @@ const LockedFunction = (props: LockedFunctionType) => {
         style: strokeStyle,
         weight: strokeWeights[weight],
     };
-    // Solid knockout backing under a dashed plot so the dashes stay legible
-    // over grid lines and shading behind the curve.
-    const backingPlotProps = {
-        color: dashBackingColor,
-        style: "solid" as const,
-        weight: strokeWeights[weight],
-    };
-    const isDashed = strokeStyle === "dashed";
 
     const hasAria = !!props.ariaLabel;
 
@@ -72,36 +59,18 @@ const LockedFunction = (props: LockedFunctionType) => {
             style={dashedStrokeStyle(strokeStyle === "dashed", weight)}
         >
             {directionalAxis === "x" && (
-                <>
-                    {isDashed && (
-                        <Plot.OfX
-                            y={(x) => equation.eval({x})}
-                            domain={clampedDomain}
-                            {...backingPlotProps}
-                        />
-                    )}
-                    <Plot.OfX
-                        y={(x) => equation.eval({x})}
-                        domain={clampedDomain}
-                        {...plotProps}
-                    />
-                </>
+                <Plot.OfX
+                    y={(x) => equation.eval({x})}
+                    domain={clampedDomain}
+                    {...plotProps}
+                />
             )}
             {directionalAxis === "y" && (
-                <>
-                    {isDashed && (
-                        <Plot.OfY
-                            x={(y) => equation.eval({y})}
-                            domain={clampedDomain}
-                            {...backingPlotProps}
-                        />
-                    )}
-                    <Plot.OfY
-                        x={(y) => equation.eval({y})}
-                        domain={clampedDomain}
-                        {...plotProps}
-                    />
-                </>
+                <Plot.OfY
+                    x={(y) => equation.eval({y})}
+                    domain={clampedDomain}
+                    {...plotProps}
+                />
             )}
         </g>
     );
