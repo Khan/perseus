@@ -279,11 +279,6 @@ class HintsRenderer extends React.Component<Props, State> {
 const hintIndentation = baseUnitPx + hintBorderWidth;
 
 const styles = StyleSheet.create({
-    // eslint-disable-next-line react-native/no-unused-styles
-    rendererMargins: {
-        marginTop: baseUnitPx,
-    },
-
     linkButton: {
         cursor: "pointer",
         border: "none",
