@@ -64,7 +64,21 @@ export default meta;
 type Story = StoryObj<typeof HintsRenderer>;
 
 const desktopDecorators = [bibliotronExerciseDecorator];
-const mobileDecorators = [...desktopDecorators, mobileDecorator];
+const mobileDecorators = [mobileDecorator, ...desktopDecorators];
+
+function mobileVersionOf(story: Story): Story {
+    return {
+        ...story,
+        decorators: mobileDecorators,
+        args: {
+            ...story.args,
+            apiOptions: {
+                ...story.args?.apiOptions,
+                isMobile: true,
+            },
+        },
+    };
+}
 
 export const MultipleHintsShown: Story = {
     decorators: desktopDecorators,
@@ -93,10 +107,8 @@ export const MultipleHintsShown: Story = {
     },
 };
 
-export const MultipleHintsShownMobile: Story = {
-    ...MultipleHintsShown,
-    decorators: mobileDecorators,
-};
+export const MultipleHintsShownMobile: Story =
+    mobileVersionOf(MultipleHintsShown);
 
 export const WithAllInteractiveGraphs: Story = {
     decorators: desktopDecorators,
@@ -168,10 +180,9 @@ export const WithAllInteractiveGraphs: Story = {
     },
 };
 
-export const WithAllInteractiveGraphsMobile: Story = {
-    ...WithAllInteractiveGraphs,
-    decorators: mobileDecorators,
-};
+export const WithAllInteractiveGraphsMobile: Story = mobileVersionOf(
+    WithAllInteractiveGraphs,
+);
 
 export const ImageWidgetInHint: Story = {
     decorators: desktopDecorators,
@@ -197,10 +208,8 @@ export const ImageWidgetInHint: Story = {
     },
 };
 
-export const ImageWidgetInHintMobile: Story = {
-    ...ImageWidgetInHint,
-    decorators: mobileDecorators,
-};
+export const ImageWidgetInHintMobile: Story =
+    mobileVersionOf(ImageWidgetInHint);
 
 export const ExplanationWidgetInHint: Story = {
     decorators: desktopDecorators,
@@ -210,10 +219,9 @@ export const ExplanationWidgetInHint: Story = {
     },
 };
 
-export const ExplanationWidgetInHintMobile: Story = {
-    ...ExplanationWidgetInHint,
-    decorators: mobileDecorators,
-};
+export const ExplanationWidgetInHintMobile: Story = mobileVersionOf(
+    ExplanationWidgetInHint,
+);
 
 export const DefinitionWidgetInHint: Story = {
     decorators: desktopDecorators,
@@ -239,10 +247,9 @@ export const DefinitionWidgetInHint: Story = {
     },
 };
 
-export const DefinitionWidgetInHintMobile: Story = {
-    ...DefinitionWidgetInHint,
-    decorators: mobileDecorators,
-};
+export const DefinitionWidgetInHintMobile: Story = mobileVersionOf(
+    DefinitionWidgetInHint,
+);
 
 export const GetAnotherHintButton: Story = {
     decorators: desktopDecorators,
@@ -259,7 +266,5 @@ export const GetAnotherHintButton: Story = {
     },
 };
 
-export const GetAnotherHintButtonMobile: Story = {
-    ...GetAnotherHintButton,
-    decorators: mobileDecorators,
-};
+export const GetAnotherHintButtonMobile: Story =
+    mobileVersionOf(GetAnotherHintButton);
