@@ -107,17 +107,15 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 onChange={this.handleVariantChange}
                                 style={styles.indented}
                             >
-                                {calculatorVariants.map(
-                                    (calcVariant, index) => (
-                                        <Choice
-                                            key={calcVariant.variant}
-                                            value={calcVariant.variant}
-                                            disabled={editingDisabled}
-                                            style={styles.calculatorChoice}
-                                            label={calcVariant.label}
-                                        />
-                                    ),
-                                )}
+                                {calculatorVariants.map((calcVariant, _) => (
+                                    <Choice
+                                        key={calcVariant.variant}
+                                        value={calcVariant.variant}
+                                        label={calcVariant.label}
+                                        disabled={editingDisabled}
+                                        style={styles.calculatorChoice}
+                                    />
+                                ))}
                             </RadioGroup>
                         )}
 
