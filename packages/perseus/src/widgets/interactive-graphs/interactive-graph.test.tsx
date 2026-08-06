@@ -1063,9 +1063,7 @@ describe("Interactive Graph", function () {
             const circles = container.querySelectorAll("ellipse");
 
             // Assert
-            // The third ellipse is dashed, so a solid knockout backing ellipse
-            // renders beneath it — 4 ellipses total.
-            expect(circles).toHaveLength(4);
+            expect(circles).toHaveLength(3);
             expect(circles[0]).toHaveStyle({
                 "fill-opacity": "0",
                 stroke: lockedFigureColors["grayH"],
@@ -1074,9 +1072,7 @@ describe("Interactive Graph", function () {
                 "fill-opacity": "1",
                 stroke: lockedFigureColors["green"],
             });
-            // Knockout backing under the dashed ellipse (no fill).
-            expect(circles[2]).toHaveStyle({"fill-opacity": "0"});
-            expect(circles[3]).toHaveStyle({
+            expect(circles[2]).toHaveStyle({
                 "fill-opacity": "0.4",
                 stroke: lockedFigureColors["green"],
             });
@@ -1209,20 +1205,16 @@ describe("Interactive Graph", function () {
             );
 
             // Assert
-            // The second polygon is dashed, so a solid knockout backing polygon
-            // renders beneath it — 4 polygons total.
-            expect(polygons).toHaveLength(4);
+            expect(polygons).toHaveLength(3);
             expect(polygons[0]).toHaveStyle({
                 "fill-opacity": "0",
                 stroke: lockedFigureColors["grayH"],
             });
-            // Knockout backing under the dashed polygon (no fill).
-            expect(polygons[1]).toHaveStyle({"fill-opacity": "0"});
-            expect(polygons[2]).toHaveStyle({
+            expect(polygons[1]).toHaveStyle({
                 "fill-opacity": "0.4",
                 stroke: lockedFigureColors["green"],
             });
-            expect(polygons[3]).toHaveStyle({
+            expect(polygons[2]).toHaveStyle({
                 "fill-opacity": "1",
                 stroke: lockedFigureColors["purple"],
             });
@@ -1444,10 +1436,8 @@ describe("Interactive Graph", function () {
                 );
 
                 // Assert
-                // A dashed plot renders a solid knockout backing path beneath
-                // it — [0] is the backing, [1] is the dashed plot itself.
-                expect(functionPlots).toHaveLength(2);
-                expect(functionPlots[1]).toHaveStyle({
+                expect(functionPlots).toHaveLength(1);
+                expect(functionPlots[0]).toHaveStyle({
                     "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
                     stroke: lockedFigureColors["green"],
                 });
@@ -1987,122 +1977,6 @@ describe("Interactive Graph", function () {
                 // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                 container.querySelector(".locked-ellipse ellipse");
             expect(ellipse).toHaveStyle({stroke: "none"});
-        });
-    });
-
-    describe("dashed locked figures get a knockout backing", () => {
-        // A solid knockout-colored stroke is drawn underneath the dashes so they
-        // stay legible over grid lines and shading behind the figure.
-        it("draws a solid knockout backing beneath a dashed polygon", () => {
-            // Arrange, Act
-            const {container} = renderQuestion(
-                generateInteractiveGraphQuestion({
-                    markings: "none",
-                    correct: generateIGSegmentGraph(),
-                    lockedFigures: [
-                        generateIGLockedPolygon({
-                            strokeStyle: "dashed",
-                            color: "green",
-                        }),
-                    ],
-                }),
-                blankOptions,
-            );
-
-            // Assert
-            const polygons =
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelectorAll(".locked-polygon polygon");
-            expect(polygons).toHaveLength(2);
-            // The backing is drawn first (underneath), solid, in the knockout
-            // color, with no fill.
-            expect(polygons[0]).toHaveStyle({
-                stroke: semanticColor.core.border.knockout.default,
-                "fill-opacity": "0",
-            });
-        });
-
-        it("draws a solid knockout backing beneath a dashed line", () => {
-            // Arrange, Act
-            const {container} = renderQuestion(
-                generateInteractiveGraphQuestion({
-                    markings: "none",
-                    correct: generateIGSegmentGraph(),
-                    lockedFigures: [
-                        generateIGLockedLine({
-                            kind: "segment",
-                            lineStyle: "dashed",
-                            points: [
-                                generateIGLockedPoint({coord: [-5, 0]}),
-                                generateIGLockedPoint({coord: [0, 5]}),
-                            ],
-                        }),
-                    ],
-                }),
-                blankOptions,
-            );
-
-            // Assert
-            const lines =
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelectorAll(".locked-line line");
-            expect(lines).toHaveLength(2);
-            // The backing is drawn first (underneath), in the knockout color.
-            expect(lines[0]).toHaveStyle({
-                stroke: semanticColor.core.border.knockout.default,
-            });
-        });
-
-        it("draws a solid knockout backing beneath a dashed ray", () => {
-            // Arrange, Act
-            const {container} = renderQuestion(
-                generateInteractiveGraphQuestion({
-                    markings: "none",
-                    correct: generateIGSegmentGraph(),
-                    lockedFigures: [
-                        generateIGLockedLine({
-                            kind: "ray",
-                            lineStyle: "dashed",
-                            points: [
-                                generateIGLockedPoint({coord: [0, 0]}),
-                                generateIGLockedPoint({coord: [0, 1]}),
-                            ],
-                        }),
-                    ],
-                }),
-                blankOptions,
-            );
-
-            // Assert
-            // The ray's backing is a plain segment (no arrowhead) drawn under
-            // the ray — two <line>s total (backing + ray).
-            const lines =
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelectorAll(".locked-ray line");
-            expect(lines).toHaveLength(2);
-            expect(lines[0]).toHaveStyle({
-                stroke: semanticColor.core.border.knockout.default,
-            });
-        });
-
-        it("draws no backing beneath a solid polygon", () => {
-            // Arrange, Act
-            const {container} = renderQuestion(
-                generateInteractiveGraphQuestion({
-                    markings: "none",
-                    correct: generateIGSegmentGraph(),
-                    lockedFigures: [
-                        generateIGLockedPolygon({strokeStyle: "solid"}),
-                    ],
-                }),
-                blankOptions,
-            );
-
-            // Assert
-            expect(
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                container.querySelectorAll(".locked-polygon polygon"),
-            ).toHaveLength(1);
         });
     });
 
