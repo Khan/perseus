@@ -7,7 +7,12 @@ import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
-export const measurerRendererDecorator = (_, {args}) => {
+import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
+
+export const measurerRendererDecorator = (
+    _: unknown,
+    {args}: {args: Partial<PerseusMeasurerWidgetOptions>},
+) => {
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({
