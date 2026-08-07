@@ -510,7 +510,7 @@ review and commit the changes.
 - [x] Migrate `grapher` to `WidgetPropsV2` (update its editor preview and
       `satisfies PropsFor` assertion).
 - [x] Migrate `table` to `WidgetPropsV2` (update its editor preview).
-- [ ] Migrate `expression` to `WidgetPropsV2` (same `ExternalProps` pattern;
+- [x] Migrate `expression` to `WidgetPropsV2` (same `ExternalProps` pattern;
       update its editor preview).
 
 ### Highest-risk / nested widgets
