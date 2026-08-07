@@ -366,7 +366,11 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             this.props.state === ItemState.DRAGGING ||
             this.props.state === ItemState.ANIMATING
         ) {
-            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
+            Object.assign(
+                style,
+                {position: "absolute"},
+                this.getCurrentPosition(),
+            );
         }
 
         if (this.props.width) {
@@ -574,19 +578,19 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         let syncWidth: number | null = null;
         if (constraints?.width) {
             // Items must be at least as wide as the specified constraint
-            syncWidth = _.max(widths.concat(constraints.width));
+            syncWidth = Math.max(...widths, constraints.width);
         } else if (layout === "vertical") {
             // Sync widths to get a clean column
-            syncWidth = _.max(widths);
+            syncWidth = Math.max(...widths);
         }
 
         let syncHeight: number | null = null;
         if (constraints?.height) {
             // Items must be at least as high as the specified constraint
-            syncHeight = _.max(heights.concat(constraints.height));
+            syncHeight = Math.max(...heights, constraints.height);
         } else if (layout === "horizontal") {
             // Sync widths to get a clean row
-            syncHeight = _.max(heights);
+            syncHeight = Math.max(...heights);
         }
 
         items = items.map(function (item, i) {
@@ -625,7 +629,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             throw new Error(`index ${index} out of bounds`);
         }
 
-        const nextItems = _.clone(items);
+        const nextItems = [...items];
 
         const item = items.filter((item: SortableItem) => {
             return item.option === option;
@@ -639,9 +643,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             return i.key === item.key;
         });
 
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(currentIndex, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems}, () => {
@@ -659,15 +661,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $sortable = $(ReactDOM.findDOMNode(this));
-        const items = _.clone(this.state.items);
-        const item = _.findWhere(this.state.items, {key: key});
+        const items = [...this.state.items];
+        const item = this.state.items.find((item) => item.key === key);
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const margin = this.props.margin || 0;
         // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
         const currentIndex = items.indexOf(item);
         let newIndex = 0;
 
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
         if (this.props.layout === "horizontal") {
@@ -676,7 +677,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             let sumWidth = 0;
             let cardWidth;
 
-            _.each(items, function (item) {
+            items.forEach(function (item) {
                 cardWidth = item.width;
                 if (midWidth > sumWidth + cardWidth / 2) {
                     newIndex += 1;
@@ -689,7 +690,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             let sumHeight = 0;
             let cardHeight;
 
-            _.each(items, function (item) {
+            items.forEach(function (item) {
                 cardHeight = item.height;
                 if (midHeight > sumHeight + cardHeight / 2) {
                     newIndex += 1;
@@ -699,7 +700,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         }
 
         if (newIndex !== currentIndex) {
-            // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+            // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
             items.splice(newIndex, 0, item);
             this.setState({items: items});
         }
