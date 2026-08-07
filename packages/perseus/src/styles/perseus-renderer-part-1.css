@@ -228,7 +228,8 @@ div.graphie {
     text-align: right;
 }
 .framework-perseus:not(.perseus-mobile) table th {
-    border-bottom: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-bottom: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     font-weight: bold;
     padding-bottom: 2px;
 }
@@ -272,7 +273,8 @@ div.graphie {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile table tbody > tr {
-    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 .framework-perseus.perseus-mobile table th,
 .framework-perseus.perseus-mobile table td {
