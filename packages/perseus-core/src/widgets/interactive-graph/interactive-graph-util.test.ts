@@ -28,6 +28,10 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             },
             showAxisTicks: {x: true, y: true},
             showProtractor: false,
+            showTooltips: false,
+            backgroundImage: {url: null},
+            labels: ["x", "y"],
+            labelLocation: "onAxis",
             step: [1, 1],
             lockedFigures: [],
         };
@@ -49,6 +53,10 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             },
             showAxisTicks: {x: true, y: true},
             showProtractor: false,
+            showTooltips: false,
+            backgroundImage: {url: null},
+            labels: ["x", "y"],
+            labelLocation: "onAxis",
             step: [1, 1],
             lockedFigures: [],
         });
