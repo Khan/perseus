@@ -219,8 +219,8 @@ class PlotterEditor extends React.Component<Props, State> {
         this.props.onChange({
             scaleY: newScale,
             maxY: maxY,
-            correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale),
+            correct: this.props.correct.map(scale),
+            starting: this.props.starting.map(scale),
         });
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
@@ -259,8 +259,8 @@ class PlotterEditor extends React.Component<Props, State> {
             categories = _.range(scale, length + scale, scale);
         }
 
-        categories = _.map(categories, (num) => num + min);
-        categories = _.map(categories, formatNumber);
+        categories = categories.map((num) => num + min);
+        categories = categories.map(formatNumber);
 
         this.changeCategories(categories);
 

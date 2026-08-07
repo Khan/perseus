@@ -72,7 +72,7 @@ class MeasurerEditor extends React.Component<Props> {
     ) => ReadonlyArray<React.ReactElement<React.ComponentProps<"option">>> = (
         choices,
     ) => {
-        return _.map(choices, function (nameAndValue) {
+        return choices.map(function (nameAndValue) {
             const [name, value] = nameAndValue;
             return (
                 <option key={value} value={value}>
@@ -210,7 +210,7 @@ class MeasurerEditor extends React.Component<Props> {
                                     }
                                     value={this.props.rulerTicks}
                                 >
-                                    {_.map([1, 2, 4, 8, 10, 16], function (n) {
+                                    {[1, 2, 4, 8, 10, 16].map(function (n) {
                                         return (
                                             <option key={n} value={n}>
                                                 {n}

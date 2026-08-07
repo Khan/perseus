@@ -86,7 +86,7 @@ class TableEditor extends React.Component<Props> {
         const json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone),
+            answers: this.props.answers.map(_.clone),
         });
     };
 

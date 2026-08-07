@@ -353,7 +353,7 @@ describe("parsing", () => {
     test("trig functions", () => {
         const functions = ["sin", "cos", "tan", "csc", "sec", "cot"];
 
-        const inverses = _.map(functions, function (func) {
+        const inverses = functions.map(function (func) {
             return "arc" + func;
         });
 

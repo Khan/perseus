@@ -238,15 +238,15 @@ const constraints = {
             }
 
             // Calculate the bounds for the delta.
-            const deltaBounds = _.map(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.coords(),
-                function (coord: Coord, i: number) {
-                    const max = kvector.subtract(absoluteUpper, coord);
-                    const min = kvector.subtract(absoluteLower, coord);
-                    return [min, max];
-                },
-            );
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            const deltaBounds = this.coords().map(function (
+                coord: Coord,
+                i: number,
+            ) {
+                const max = kvector.subtract(absoluteUpper, coord);
+                const min = kvector.subtract(absoluteLower, coord);
+                return [min, max];
+            });
 
             // bound the delta by the calculated bounds
             const boundedDelta = _.reduce(

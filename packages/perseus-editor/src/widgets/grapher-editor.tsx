@@ -151,7 +151,7 @@ class GrapherEditor extends React.Component<Props> {
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}
-                        buttons={_.map(CoreGrapherUtil.allTypes, typeToButton)}
+                        buttons={CoreGrapherUtil.allTypes.map(typeToButton)}
                         onChange={this.handleAvailableTypesChange}
                     />
                 </div>
