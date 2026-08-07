@@ -303,9 +303,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                         buttonsVisible: "focused",
                         visibleLabel: this.props.visibleLabel,
                         ariaLabel: this.props.ariaLabel,
-                        // answerForms are required but not used by the widget
-                        // component (they are only for scoring).
-                        answerForms: [],
+                        answerForms: this.props.answerForms,
                     },
                     userInput: ans.value,
                     // TODO: UniversalWidgetProps should have a generic type arg
