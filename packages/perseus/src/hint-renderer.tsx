@@ -1,4 +1,5 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
@@ -6,13 +7,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import Renderer from "./renderer";
-import {
-    baseUnitPx,
-    hintBorderWidth,
-    kaGreen,
-    gray97,
-    hintPaddingInlineStart,
-} from "./styles/constants";
+import {hintBorderWidth, hintPaddingInlineStart} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import UserInputManager from "./user-input-manager";
 
@@ -162,9 +157,9 @@ class HintRenderer extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     newHint: {
-        marginBottom: 1.5 * baseUnitPx,
+        marginBottom: sizing.size_240,
 
-        borderInlineStartColor: gray97,
+        borderInlineStartColor: semanticColor.core.background.base.subtle,
         borderInlineStartStyle: "solid",
         borderInlineStartWidth: hintBorderWidth,
 
@@ -186,7 +181,7 @@ const styles = StyleSheet.create({
 
     lastRenderedNewHint: {
         marginBottom: 0,
-        borderInlineStartColor: kaGreen,
+        borderInlineStartColor: semanticColor.core.border.instructive.default,
     },
 });
 
