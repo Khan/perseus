@@ -13,34 +13,62 @@ type TexError = {
 };
 
 /**
- * Macros that our real math renderer (@khanacademy/mathjax-renderer) defines
- * but KaTeX does not.
+ * Macros that our real math renderer (@khanacademy/mathjax-renderer) accepts
+ * but KaTeX rejects.
  *
- * Content is rendered with MathJax, but errors are detected below by
- * re-parsing that same content with KaTeX. Any macro the two engines disagree
- * on surfaces in the Issues panel as an "Undefined control sequence" error for
- * math that renders perfectly in the preview and in production. Defining them
- * here keeps those false positives out.
+ * Content renders with MathJax, but errors are detected below by re-parsing it
+ * with KaTeX. Macros the two engines disagree on surface in the Issues panel as
+ * errors for math that renders perfectly in the preview and in production;
+ * defining them here keeps those false positives out.
  *
- * Keep in sync with `texInputConfig.macros` in mathjax-renderer's
- * src/tex-input-config.ts. Only macros KaTeX lacks belong here — the two
- * engines already agree on the other ~100.
+ * KaTeX's output is discarded — only its errors matter — so an expansion need
+ * not resemble MathJax's. It only has to parse in both math and text mode, take
+ * the same number of arguments, and avoid referring to itself, since these
+ * shadow KaTeX's own definitions (`"\\AA": "\\text{\\AA}"` would recurse until
+ * the stack overflows). Hence the bare `{#1}` expansions.
+ *
+ * Derived from `texInputConfig.macros` in mathjax-renderer's
+ * src/ts/tex-input-config.ts; only macros KaTeX rejects belong here, and the two
+ * engines already agree on the other ~130. That config can't be imported
+ * wholesale: many of its expansions use MathJax-only primitives (\unicode,
+ * \enclose, \centercolon, \overparen) that KaTeX lacks.
  */
 const MATHJAX_ONLY_MACROS: Readonly<Record<string, string>> = {
-    // KaTeX owns the bare color macros \blue, \gray, \green, \orange, \pink,
-    // \purple and \red, but has never defined \gold.
-    // The doubled ## escapes the hex's #, which KaTeX would otherwise read as a
-    // macro parameter; #1 is the argument being colored. mathjax-renderer maps
-    // every gold shade, and \orange, to this one hex.
-    "\\gold": "\\textcolor{##946700}{#1}",
+    // KaTeX defines the other bare color macros (\blue, \orange, ...) and every
+    // lettered shade (\goldD etc.), but never bare \gold.
+    "\\gold": "{#1}",
     "\\inte": "\\int",
     "\\RR": "\\mathbb{R}",
-    // Operator names, several of which are localized function names that
-    // appear in translated content (\sen is sine in Spanish and Portuguese).
+    // Ångström sign; KaTeX defines \AA in text mode only.
+    "\\AA": "A",
+    // Rational exponents: content uses \^ rather than ^ to push the exponent
+    // higher. KaTeX defines \^ only as a text-mode circumflex accent.
+    "\\^": "{#1}",
+    // Localized and alternate operator names from translated content (\sen is
+    // sine in Spanish and Portuguese). \arccos, \arcctg, \arctg, \cosec, \cotg,
+    // \ctg and \tg are absent because KaTeX already defines them.
     "\\cossec": "\\operatorname{cossec}",
     "\\sen": "\\operatorname{sen}",
     "\\lcm": "\\operatorname{lcm}",
     "\\gcf": "\\operatorname{gcf}",
+    // A one-argument no-op in MathJax, undefined in KaTeX. The empty expansion
+    // is deliberate: KaTeX sizes array rows by reading this macro's definition
+    // instead of expanding it in place, so a matching `{#1}` arity makes every
+    // array, matrix and aligned environment eat its own first cell.
+    "\\arraystretch": "",
+    // \1, \2, ... are a translation typo, not real TeX: localizing `\$1` to
+    // another currency sometimes drops the dollar sign but keeps the backslash.
+    // MathJax maps them to the bare digit, so the editor shouldn't flag them.
+    "\\0": "0",
+    "\\1": "1",
+    "\\2": "2",
+    "\\3": "3",
+    "\\4": "4",
+    "\\5": "5",
+    "\\6": "6",
+    "\\7": "7",
+    "\\8": "8",
+    "\\9": "9",
 };
 
 /**
