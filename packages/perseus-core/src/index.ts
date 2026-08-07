@@ -430,6 +430,11 @@ export {
     generatePlotterWidget,
     generatePlotterOptions,
 } from "./utils/generators/plotter-widget-generator";
+/** @hidden */
+export {
+    generatePhetSimulationWidget,
+    generatePhetSimulationOptions,
+} from "./utils/generators/phet-simulation-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {
