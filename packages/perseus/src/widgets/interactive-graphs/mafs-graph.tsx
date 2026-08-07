@@ -46,7 +46,7 @@ import {renderLinearGraph} from "./graphs/linear";
 import {renderLinearSystemGraph} from "./graphs/linear-system";
 import {renderLogarithmGraph} from "./graphs/logarithm";
 import {renderPointGraph} from "./graphs/point";
-import {renderPolygonGraph} from "./graphs/polygon";
+import {hasFocusVisible, renderPolygonGraph} from "./graphs/polygon";
 import {renderQuadraticGraph} from "./graphs/quadratic";
 import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
@@ -766,7 +766,12 @@ function handleFocusEvent(
     if (isUnlimitedGraphState(state)) {
         if (
             event.target.classList.contains("mafs-graph") &&
-            state.interactionMode === "mouse"
+            state.interactionMode === "mouse" &&
+            // Only invite keyboard interaction when the focus is keyboard-driven
+            // (`:focus-visible`). A pointer press on a non-focusable drag hitbox
+            // (e.g. the polygon body) bubbles focus up to `.mafs-graph`; without
+            // this guard that surfaces the invitation overlay mid-drag.
+            hasFocusVisible(event.target)
         ) {
             dispatch(actions.global.changeKeyboardInvitationVisibility(true));
         }
