@@ -51,17 +51,16 @@ export const mapAxeResults = (
 };
 
 export const getIssueMessage = (nodes: axe.NodeResult[]): string => {
-    return nodes
-        .flatMap((node) => {
-            return [...node.all, ...node.any, ...node.none].map(
-                (result) => result.message,
-            );
-        })
-        .filter(
-            (message, index, allMessages) =>
-                allMessages.indexOf(message) === index,
-        )
-        .join(". ");
+    return [
+        // Reduce everything down to the unique set of messages.
+        ...new Set(
+            nodes.flatMap((node) =>
+                [...node.all, ...node.any, ...node.none].map(
+                    (result) => result.message,
+                ),
+            ),
+        ),
+    ].join(". ");
 };
 
 export const convertAxeImpactToIssueImpact = (
