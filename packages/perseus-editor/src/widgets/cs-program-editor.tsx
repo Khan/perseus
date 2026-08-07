@@ -45,10 +45,6 @@ class PairEditor extends React.Component<any> {
         return Changeable.change.apply(this, args);
     };
 
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         return (
             <fieldset className="pair-editor">
@@ -100,10 +96,6 @@ class PairsEditor extends React.Component<any> {
             pairs.push({name: "", value: ""});
         }
         this.change("pairs", pairs);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
