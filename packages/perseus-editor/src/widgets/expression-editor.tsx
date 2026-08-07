@@ -303,8 +303,8 @@ class ExpressionEditor extends React.Component<Props, State> {
                         buttonsVisible: "focused",
                         visibleLabel: this.props.visibleLabel,
                         ariaLabel: this.props.ariaLabel,
-                        // The preview only ever shows one answer form at a
-                        // time, so it doesn't need the list of them.
+                        // answerForms are required but not used by the widget
+                        // component (they are only for scoring).
                         answerForms: [],
                     },
                     userInput: ans.value,
