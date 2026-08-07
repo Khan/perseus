@@ -18,7 +18,7 @@ addons.setConfig({
 // "Theme" toolbar picker -- otherwise it stays light even when syl-dark is
 // selected, since the manager runs separately from the preview iframe and
 // has no visibility into its globals unless we listen for updates here.
-addons.register("perseus/lightTheme", (api) => {
+addons.register("theme", (api) => {
     api.on("globalsUpdated", ({globals}) => {
         addons.setConfig({
             theme: globals.theme === "syl-dark" ? darkTheme : lightTheme,
