@@ -10,7 +10,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 /**
  * This is a temporary example storybook demo of the new dnd-kit-react
  * library, in order to appease knip. We can clean this up
- * after we have real implementations of the library.
+ * after we have real implementations of the dnd-kit library.
  *
  * TODO (LEMS-4369): Clean-up/remove this file
  */
