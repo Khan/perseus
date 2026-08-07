@@ -31,6 +31,13 @@ export type A11yIssue = BaseIssue & {
      * The unique preview-side ID for this issue (for "Show Me" highlighting).
      */
     previewId: string;
+
+    /**
+     * Elements to highlight, resolved in the parent document by
+     * `util/a11y-checker.ts`. Removed once the preview-side highlight path
+     * replaces it.
+     */
+    elements?: Element[];
 };
 
 /**

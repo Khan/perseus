@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus-editor": major
+"@khanacademy/perseus-editor": minor
 ---
 
-Rework the exported `Issue` type into an `A11yIssue | LinterIssue` union and remove its `elements` field — a11y highlight targets now live inside the preview iframe rather than crossing the bridge. Adds exported `A11yIssue`, `LinterIssue`, `BaseIssue`, and `getIssueKey`.
+Rework the exported `Issue` type into an `A11yIssue | LinterIssue` union, adding exported `A11yIssue`, `LinterIssue`, and `getIssueKey`. `A11yIssue` gains a `previewId` for preview-side highlighting.
