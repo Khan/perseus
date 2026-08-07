@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: "#eee",
         fontSize: "1.25em",
-        padding: "4px 10px",
+        paddingBlock: "4px",
+        paddingInline: "10px",
         cursor: "pointer",
         display: "flex",
         flexDirection: "row",
@@ -65,14 +66,16 @@ const styles = StyleSheet.create({
     },
     errorContainer: {
         border: "1px solid #ddd",
-        borderTop: "none",
+        borderBlockStart: "none",
     },
     errorExplanation: {
-        padding: "4px 10px",
+        paddingBlock: "4px",
+        paddingInline: "10px",
         backgroundColor: "pink",
     },
     error: {
-        padding: "4px 10px",
+        paddingBlock: "4px",
+        paddingInline: "10px",
     },
 });
 

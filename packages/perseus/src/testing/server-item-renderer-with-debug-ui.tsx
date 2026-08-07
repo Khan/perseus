@@ -58,7 +58,7 @@ export const ServerItemRendererWithDebugUI = ({
             <TestKeypadContextWrapper hasFooter={true}>
                 <View
                     style={{
-                        paddingBottom: "60px",
+                        paddingBlockEnd: "60px",
                     }}
                 >
                     {/* Title and mobile toggle */}

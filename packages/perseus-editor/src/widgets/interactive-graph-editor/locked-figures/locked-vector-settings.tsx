@@ -183,7 +183,7 @@ const LockedVectorSettings = (props: Props) => {
                 selectedValue={lineColor}
                 editingDisabled={editingDisabled}
                 onChange={handleColorChange}
-                style={{marginBottom: sizing.size_080}}
+                style={{marginBlockEnd: sizing.size_080}}
             />
 
             {/* Line weight settings */}

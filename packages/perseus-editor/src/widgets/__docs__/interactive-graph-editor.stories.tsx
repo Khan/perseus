@@ -303,16 +303,16 @@ const styles = StyleSheet.create({
         border: `1px solid ${semanticColor.status.neutral.foreground}`,
         padding: sizing.size_160,
         flexGrow: 1,
-        marginRight: sizing.size_320,
+        marginInlineEnd: sizing.size_320,
 
         // Sticky so the error messages stay visible while scrolling
         height: "80vh",
         position: "sticky",
-        top: sizing.size_320,
+        insetBlockStart: sizing.size_320,
         overflowY: "auto",
     },
     errorMessage: {
         color: semanticColor.status.critical.foreground,
-        marginBottom: sizing.size_120,
+        marginBlockEnd: sizing.size_120,
     },
 });

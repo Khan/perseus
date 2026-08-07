@@ -59,14 +59,14 @@ const StartCoordsSinusoid = (props: StartCoordsSinusoidProps) => {
 
 const styles = StyleSheet.create({
     equationSection: {
-        marginTop: spacing.small_12,
+        marginBlockStart: spacing.small_12,
     },
     equationBody: {
         backgroundColor: semanticColor.core.background.neutral.subtle,
         border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
-        marginTop: spacing.xSmall_8,
-        paddingLeft: spacing.xSmall_8,
-        paddingRight: spacing.xSmall_8,
+        marginBlockStart: spacing.xSmall_8,
+        paddingInlineStart: spacing.xSmall_8,
+        paddingInlineEnd: spacing.xSmall_8,
         fontSize: font.body.size.xsmall,
     },
 });

@@ -35,7 +35,9 @@ export default function LockedLabel(props: LockedLabelType) {
                 className="locked-label"
                 style={{
                     position: "absolute",
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                     left: x,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                     top: y,
                     color: lockedFigureColors[color],
                     fontSize: labelFontSize[size],

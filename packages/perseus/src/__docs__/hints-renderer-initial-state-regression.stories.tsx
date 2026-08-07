@@ -40,7 +40,7 @@ const meta: Meta<typeof HintsRenderer> = {
     decorators: [
         (Story) => {
             return (
-                <View style={{paddingLeft: 80}}>
+                <View style={{paddingInlineStart: 80}}>
                     <Story />
                 </View>
             );

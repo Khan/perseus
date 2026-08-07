@@ -234,11 +234,11 @@ const padding = 5;
 const border = `var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong)`;
 const styles = StyleSheet.create({
     widget: {
-        paddingTop: padding,
-        maxWidth: "100%",
+        paddingBlockStart: padding,
+        maxInlineSize: "100%",
 
         // Need to override minWidth in CSS :(
-        minWidth: "auto",
+        minInlineSize: "auto",
     },
 
     row: {
@@ -252,12 +252,12 @@ const styles = StyleSheet.create({
     },
 
     columnRight: {
-        borderLeft: border,
+        borderInlineStart: border,
     },
 
     columnLabel: {
         fontWeight: "inherit",
-        borderBottom: border,
+        borderBlockEnd: border,
         padding: `0 ${padding}px ${padding}px ${padding}px`,
         textAlign: "center",
     },

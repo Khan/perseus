@@ -231,14 +231,14 @@ const pageMargin = 16;
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {
-            minWidth: "auto",
+            minInlineSize: "auto",
         },
     },
 
     fullBleedContainer: {
         [mediaQueries.mdOrSmaller]: {
-            marginLeft: -pageMargin,
-            marginRight: -pageMargin,
+            marginInlineStart: -pageMargin,
+            marginInlineEnd: -pageMargin,
             overflowX: "auto",
         },
     },
@@ -258,12 +258,12 @@ const styles = StyleSheet.create({
     emptyHeaderCell: {
         backgroundColor: "inherit",
         // TODO(LEMS-4443): Convert shared table styling to semantic color tokens.
-        borderBottom: "2px solid #ccc",
+        borderBlockEnd: "2px solid #ccc",
     },
 
     radioSpan: {
         fontSize: sizing.size_280,
-        paddingRight: 3,
+        paddingInlineEnd: 3,
         cursor: "pointer",
 
         ":hover": {

@@ -148,8 +148,8 @@ class FixedToResponsive extends React.Component<Props, State> {
             return (
                 <div
                     style={{
-                        marginLeft: negativePhoneMargin,
-                        marginRight: negativePhoneMargin,
+                        marginInlineStart: negativePhoneMargin,
+                        marginInlineEnd: negativePhoneMargin,
                     }}
                 >
                     {container}

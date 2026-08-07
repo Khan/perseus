@@ -19,7 +19,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
             class="default_7zhre1 mafs-graph-container"
           >
             <div
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -1161,7 +1161,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="instructions-:r2: interactive-graph-interactive-elements-description-:r2:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -1601,7 +1601,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="instructions-:rc: interactive-graph-interactive-elements-description-:rc:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -1627,7 +1627,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 400px; height: 400px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -2047,7 +2047,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="instructions-:rl: interactive-graph-interactive-elements-description-:rl: unlimited-graph-keyboard-prompt-:rl:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -2073,7 +2073,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -2179,7 +2179,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-inlineStyles_16y2sco"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-inlineStyles_q3f2gq"
                 data-kind="secondary"
                 id="perseus_mafs_remove_button"
                 tabindex="-1"
@@ -2303,7 +2303,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           >
             <div
               aria-describedby="instructions-:rr: unlimited-graph-keyboard-prompt-:rr:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -2322,7 +2322,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -2441,7 +2441,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-disabled_1y6fils-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1klxl2l-o_O-disabled_1y6fils-o_O-inlineStyles_1sv4gv4"
                 data-kind="secondary"
                 id="perseus_mafs_remove_button"
                 tabindex="-1"
@@ -2455,7 +2455,7 @@ exports[`Interactive Graph question Should render blank predictably: first rende
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba-o_O-disabled_1y6fils-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba-o_O-disabled_1y6fils-o_O-inlineStyles_1sv4gv4"
                 data-kind="secondary"
                 tabindex="-1"
                 type="button"
@@ -2536,7 +2536,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="instructions-:r4: interactive-graph-interactive-elements-description-:r4:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -2949,7 +2949,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="instructions-:re: interactive-graph-interactive-elements-description-:re:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -2975,7 +2975,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 400px; height: 400px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -3395,7 +3395,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="instructions-:rm: interactive-graph-interactive-elements-description-:rm:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -3421,7 +3421,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -3752,7 +3752,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
           >
             <div
               aria-describedby="instructions-:rt: interactive-graph-interactive-elements-description-:rt:"
-              class="default_7zhre1-o_O-inlineStyles_11rziql mafs-graph"
+              class="default_7zhre1-o_O-inlineStyles_yn5mg1 mafs-graph"
               role="figure"
               tabindex="0"
             >
@@ -3778,7 +3778,7 @@ exports[`Interactive Graph question Should render user input predictably: with u
                   style="width: 425px; height: 425px;"
                 >
                   <span
-                    style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
                       class="default_7zhre1-o_O-spinnerContainer_agrn11"

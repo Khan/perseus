@@ -74,14 +74,14 @@ export function V2KeypadWithMathquill() {
     }
 
     return (
-        <div style={{maxWidth: "400px", margin: "2em"}}>
+        <div style={{maxInlineSize: "400px", margin: "2em"}}>
             <Popover
                 content={
                     <PopoverContentCore
                         style={{
                             padding: 0,
-                            paddingBottom: spacing.xxSmall_6,
-                            maxWidth: "initial",
+                            paddingBlockEnd: spacing.xxSmall_6,
+                            maxInlineSize: "initial",
                         }}
                     >
                         <Keypad
@@ -106,7 +106,7 @@ export function V2KeypadWithMathquill() {
                 <div
                     style={{
                         width: "100%",
-                        marginBottom: "1em",
+                        marginBlockEnd: "1em",
                         border: `1px solid ${semanticColor.core.border.neutral.subtle}`,
                     }}
                     ref={mathFieldWrapperRef}

@@ -66,7 +66,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     <span style={styles.tryAgainIcon}>
                         <InlineIcon {...iconTryAgain} />
                     </span>
-                    <span style={{marginLeft: 8}}>{keepTrying}</span>
+                    <span style={{marginInlineStart: 8}}>{keepTrying}</span>
                 </span>
             ) : (
                 <span />
@@ -99,12 +99,12 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                                 .default,
                         }}
                     >
-                        <InlineIcon {...iconStar} style={{marginBottom: 5}} />
+                        <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
                     </span>
                     <span
                         role="alert"
                         aria-label={correctExcited}
-                        style={{marginLeft: 8}}
+                        style={{marginInlineStart: 8}}
                     >
                         {correctExcited}
                     </span>

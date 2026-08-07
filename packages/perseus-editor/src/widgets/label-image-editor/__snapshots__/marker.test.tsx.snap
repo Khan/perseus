@@ -3,13 +3,13 @@
 exports[`Marker component rendering renders an empty marker 1`] = `
 <div>
   <div
-    class="marker_zifd0r-o_O-markerSelected_12bejzq"
+    class="marker_zifd0r-o_O-markerSelected_1iknig6"
     style="left: 50%; top: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
     <div>
       <div
-        class="dropdownBody_4jdi2m-o_O-dropdownPositionWithArrow_ao8k1z"
+        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_qdx4yy"
       >
         <button
           class="notAButton_15oq5w2"
@@ -17,7 +17,7 @@ exports[`Marker component rendering renders an empty marker 1`] = `
           value=""
         >
           <span
-            class="option_1b91svp"
+            class="option_ehjbkx"
           >
             Delete marker
           </span>
@@ -26,17 +26,17 @@ exports[`Marker component rendering renders an empty marker 1`] = `
           class="dividerHorizontal_1035dhn"
         />
         <div
-          class="optionGroup_y3ig8b"
+          class="optionGroup_1lwi6b"
         />
         <div
           class="labelContainer_cyxkvw"
         >
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="width: 100%;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               placeholder="ARIA label (for screen readers)"
               value="Marker 1"
             />
@@ -51,13 +51,13 @@ exports[`Marker component rendering renders an empty marker 1`] = `
 exports[`Marker component rendering renders with answers and choices 1`] = `
 <div>
   <div
-    class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_12bejzq"
+    class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_1iknig6"
     style="left: 50%; top: 50%;"
     title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
   >
     <div>
       <div
-        class="dropdownBody_4jdi2m-o_O-dropdownPositionWithArrow_ao8k1z"
+        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_qdx4yy"
       >
         <button
           class="notAButton_15oq5w2"
@@ -65,7 +65,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           value=""
         >
           <span
-            class="option_1b91svp"
+            class="option_ehjbkx"
           >
             Delete marker
           </span>
@@ -74,7 +74,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           class="dividerHorizontal_1035dhn"
         />
         <div
-          class="optionGroup_y3ig8b"
+          class="optionGroup_1lwi6b"
         >
           <button
             aria-checked="false"
@@ -83,7 +83,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
             value="Choice 1"
           >
             <span
-              class="option_1b91svp"
+              class="option_ehjbkx"
             >
               Choice 1
             </span>
@@ -95,7 +95,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
             value="Choice 2"
           >
             <span
-              class="option_1b91svp"
+              class="option_ehjbkx"
             >
               Choice 2
             </span>
@@ -105,11 +105,11 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           class="labelContainer_cyxkvw"
         >
           <form
-            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
             style="width: 100%;"
           >
             <input
-              class="inputBase_w7cswd"
+              class="inputBase_ca6tue"
               placeholder="ARIA label (for screen readers)"
               value="Marker 1"
             />

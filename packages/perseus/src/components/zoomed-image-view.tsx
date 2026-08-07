@@ -148,8 +148,8 @@ const wbStyles = StyleSheet.create({
     },
     closeButton: {
         position: "absolute",
-        top: border.width.medium,
-        right: border.width.medium,
+        insetBlockStart: border.width.medium,
+        insetInlineEnd: border.width.medium,
         opacity: 0,
         ":hover": {
             opacity: 1,

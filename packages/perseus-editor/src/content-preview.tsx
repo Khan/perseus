@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         containerType: "inline-size",
         containerName: "perseus-root",
     },
-    gutter: {marginRight: lintGutterWidth},
+    gutter: {marginInlineEnd: lintGutterWidth},
 });
 
 export default ContentPreview;
