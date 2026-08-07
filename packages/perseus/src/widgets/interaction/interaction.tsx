@@ -1,5 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import * as KAS from "@khanacademy/kas";
 import {vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
@@ -152,26 +150,25 @@ class Interaction extends React.Component<Props, State> implements Widget {
     }
 
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
-        graphie.graphInit(
-            _.extend({}, options, {
-                grid: ["graph", "grid"].includes(this.props.graph.markings),
-                axes: ["graph"].includes(this.props.graph.markings),
-                ticks: ["graph"].includes(this.props.graph.markings),
-                labels: ["graph"].includes(this.props.graph.markings),
-                labelFormat: function (s) {
-                    return "\\small{" + s + "}";
-                },
-                axisArrows: "<->",
-                unityLabels: false,
-            }),
-        );
+        graphie.graphInit({
+            ...options,
+            grid: ["graph", "grid"].includes(this.props.graph.markings),
+            axes: ["graph"].includes(this.props.graph.markings),
+            ticks: ["graph"].includes(this.props.graph.markings),
+            labels: ["graph"].includes(this.props.graph.markings),
+            labelFormat: function (s) {
+                return "\\small{" + s + "}";
+            },
+            axisArrows: "<->",
+            unityLabels: false,
+        });
     };
 
     _updatePointLocation: (arg1: number, arg2: Coord) => void = (
         subscript,
         coord,
     ) => {
-        const variables = _.clone(this.state.variables);
+        const variables = {...this.state.variables};
         variables["x_" + subscript] = coord[0];
         variables["y_" + subscript] = coord[1];
         this.setState({variables: variables});
@@ -189,7 +186,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
             "(" + options.endY + ")-(" + options.startY + ")",
         );
         const endCoord = kvector.add(startCoord, [xDiff, yDiff]);
-        const variables = _.clone(this.state.variables);
+        const variables = {...this.state.variables};
         variables["x_" + options.startSubscript] = startCoord[0];
         variables["y_" + options.startSubscript] = startCoord[1];
         variables["x_" + options.endSubscript] = endCoord[0];
@@ -200,18 +197,14 @@ class Interaction extends React.Component<Props, State> implements Widget {
 
     _eval: (arg1: any, arg2?: any) => number = (expression, variables) => {
         const func = KAScompile(expression, {functions: this.state.functions});
-        const compiledVars = _.extend({}, this.state.variables, variables);
-        _.each(Object.keys(compiledVars), (name) => {
+        const compiledVars = {...this.state.variables, ...variables};
+        Object.keys(compiledVars).forEach((name) => {
             if (typeof compiledVars[name] === "string") {
                 const func = KAScompile(compiledVars[name], {
                     functions: this.state.functions,
                 });
                 compiledVars[name] = function (x: any) {
-                    return func(
-                        _.extend({}, compiledVars, {
-                            x: x,
-                        }),
-                    );
+                    return func({...compiledVars, x: x});
                 };
             }
         });
@@ -225,7 +218,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
             return [];
         }
         let vars: Array<any> = [];
-        _.each(expr.args(), (arg) => {
+        expr.args().forEach((arg) => {
             if (arg && arg.constructor.name === "Expr") {
                 vars = vars.concat(this._extractVars(arg));
             }
@@ -495,18 +488,14 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         };
                         // find all the variables referenced by this
                         // function
-                        const vars = _.without(
-                            this._extractVars(
-                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                KASparse(element.options.value).expr,
-                            ),
-                            "x",
-                        );
+                        const vars = this._extractVars(
+                            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+                            KASparse(element.options.value).expr,
+                        ).filter((v) => v !== "x");
                         // and find their values, so we redraw if any
                         // change
-                        const varValues = _.object(
-                            vars,
-                            vars.map((v) => this.state.variables[v]),
+                        const varValues = Object.fromEntries(
+                            vars.map((v) => [v, this.state.variables[v]]),
                         );
 
                         const range = [
@@ -546,22 +535,20 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         };
                         // find all the variables referenced by this
                         // function
-                        const vars = _.without(
-                            this._extractVars(
-                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                KASparse(element.options.x).expr,
-                            ).concat(
+                        const vars = this._extractVars(
+                            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+                            KASparse(element.options.x).expr,
+                        )
+                            .concat(
                                 this._extractVars(
                                     // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.y).expr,
                                 ),
-                            ),
-                            "t",
-                        );
+                            )
+                            .filter((v) => v !== "t");
                         // and find their values, so we redraw if any change
-                        const varValues = _.object(
-                            vars,
-                            vars.map((v) => this.state.variables[v]),
+                        const varValues = Object.fromEntries(
+                            vars.map((v) => [v, this.state.variables[v]]),
                         );
 
                         const range = [
@@ -615,14 +602,14 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 key={n + 1}
                                 x={this._eval(element.options.coordX)}
                                 y={this._eval(element.options.coordY)}
-                                width={_.max([
+                                width={Math.max(
                                     this._eval(element.options.width),
                                     0,
-                                ])}
-                                height={_.max([
+                                )}
+                                height={Math.max(
                                     this._eval(element.options.height),
                                     0,
-                                ])}
+                                )}
                                 style={{
                                     stroke: "none",
                                     fill: element.options.color,
@@ -640,72 +627,73 @@ const _getInitialVariables: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => any = (elements) => {
     const variables: Record<string, any> = {};
-    _.each(_.where(elements, {type: "movable-point"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'varSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const subscript = element.options.varSubscript;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startXExpr = KASparse(element.options.startX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startYExpr = KASparse(element.options.startY || "0").expr;
-        let startX = 0;
-        let startY = 0;
-        if (startXExpr) {
-            startX = startXExpr.eval({}) || 0;
-        }
-        if (startYExpr) {
-            startY = startYExpr.eval({}) || 0;
-        }
-        variables["x_" + subscript] = startX;
-        variables["y_" + subscript] = startY;
-    });
-    _.each(_.where(elements, {type: "movable-line"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'startSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startSubscript = element.options.startSubscript;
-        // @ts-expect-error - TS2339 - Property 'endSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endSubscript = element.options.endSubscript;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startXExpr = KASparse(element.options.startX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startYExpr = KASparse(element.options.startY || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endXExpr = KASparse(element.options.endX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endYExpr = KASparse(element.options.endY || "0").expr;
-        let startX = 0;
-        let startY = 0;
-        let endX = 0;
-        let endY = 0;
-        if (startXExpr) {
-            startX = startXExpr.eval({}) || 0;
-        }
-        if (startYExpr) {
-            startY = startYExpr.eval({}) || 0;
-        }
-        if (endXExpr) {
-            endX = endXExpr.eval({}) || 0;
-        }
-        if (endYExpr) {
-            endY = endYExpr.eval({}) || 0;
-        }
-        variables["x_" + startSubscript] = startX;
-        variables["y_" + startSubscript] = startY;
-        variables["x_" + endSubscript] = endX;
-        variables["y_" + endSubscript] = endY;
-    });
-    _.each(_.where(elements, {type: "function"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'. | TS2339 - Property 'value' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        variables[element.options.funcName] = element.options.value;
-    });
+    elements
+        .filter((element) => element.type === "movable-point")
+        .forEach((element) => {
+            const subscript = element.options.varSubscript;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const startXExpr = KASparse(element.options.startX || "0").expr;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const startYExpr = KASparse(element.options.startY || "0").expr;
+            let startX = 0;
+            let startY = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            variables["x_" + subscript] = startX;
+            variables["y_" + subscript] = startY;
+        });
+    elements
+        .filter((element) => element.type === "movable-line")
+        .forEach((element) => {
+            const startSubscript = element.options.startSubscript;
+            const endSubscript = element.options.endSubscript;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const startXExpr = KASparse(element.options.startX || "0").expr;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const startYExpr = KASparse(element.options.startY || "0").expr;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const endXExpr = KASparse(element.options.endX || "0").expr;
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const endYExpr = KASparse(element.options.endY || "0").expr;
+            let startX = 0;
+            let startY = 0;
+            let endX = 0;
+            let endY = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            if (endXExpr) {
+                endX = endXExpr.eval({}) || 0;
+            }
+            if (endYExpr) {
+                endY = endYExpr.eval({}) || 0;
+            }
+            variables["x_" + startSubscript] = startX;
+            variables["y_" + startSubscript] = startY;
+            variables["x_" + endSubscript] = endX;
+            variables["y_" + endSubscript] = endY;
+        });
+    elements
+        .filter((element) => element.type === "function")
+        .forEach((element) => {
+            variables[element.options.funcName] = element.options.value;
+        });
     return variables;
 };
 
 const _getInitialFunctions: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => ReadonlyArray<string> = (elements) => {
-    return _.where(elements, {type: "function"}).map(
-        // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        (element) => element.options.funcName,
-    );
+    return elements
+        .filter((element) => element.type === "function")
+        .map((element) => element.options.funcName);
 };
 
 export default {
