@@ -2494,7 +2494,7 @@ export class Trig extends Expr {
             // e.g. tan(x) -> sin(x)/cos(x)
             // NOTE(kevinb): All non-inverse trig functions have an expand property.
             var expand = trig.functions[trig.type].expand!;
-            return _.bind(expand, trig)();
+            return expand.call(trig);
         } else {
             return trig;
         }

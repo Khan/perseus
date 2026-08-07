@@ -492,9 +492,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 key={element.key}
                                 constraints={constraints}
                                 // eslint-disable-next-line react/jsx-no-bind
-                                onMove={_.bind(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this._updateLineLocation,
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onMove={this._updateLineLocation.bind(
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this,
                                     element.options,
