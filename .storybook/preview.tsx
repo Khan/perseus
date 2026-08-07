@@ -4,6 +4,7 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
     ThemeSwitcher,
+    ThemeSwitcherContext,
 } from "@khanacademy/wonder-blocks-theming";
 import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
 
@@ -86,9 +87,11 @@ const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     }, [theme]);
 
     return (
-        <ThemeSwitcher theme={theme}>
-            <Story />
-        </ThemeSwitcher>
+        <ThemeSwitcherContext.Provider value={theme ?? "default"}>
+            <ThemeSwitcher theme={theme}>
+                <Story />
+            </ThemeSwitcher>
+        </ThemeSwitcherContext.Provider>
     );
 };
 
