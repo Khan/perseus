@@ -10,7 +10,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-export default function InfoTipBase(props: Props) {
+export default function InfoTip(props: Props) {
     return (
         <Tooltip
             content={<BodyText style={styles.body}>{props.children}</BodyText>}
