@@ -135,7 +135,7 @@ describe("getIssueKey", () => {
         help: "help",
         impact: "high",
         message: "message",
-        previewId: "violation-1",
+        instanceId: "violation-color-contrast",
     };
 
     const linterIssue: LinterIssue = {
@@ -147,11 +147,11 @@ describe("getIssueKey", () => {
         message: "message",
     };
 
-    it("returns the previewId for an A11yIssue", () => {
-        expect(getIssueKey(a11yIssue)).toBe("violation-1");
+    it("returns the instanceId when the issue has one", () => {
+        expect(getIssueKey(a11yIssue)).toBe("violation-color-contrast");
     });
 
-    it("returns the id for a LinterIssue", () => {
+    it("falls back to the id when the issue has no instanceId", () => {
         expect(getIssueKey(linterIssue)).toBe("categorizer 1 inaccessible");
     });
 });

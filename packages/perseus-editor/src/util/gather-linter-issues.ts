@@ -1,6 +1,7 @@
 import {PerseusMarkdown} from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 
+import {getIssueKey} from "../components/issues-panel";
 import {WARNINGS} from "../messages";
 
 import {detectTexErrors} from "./tex-error-detector";
@@ -54,6 +55,7 @@ export function gatherLinterIssues(
             (issue) => ({
                 ...issue,
                 id: `hint-${i + 1}-${issue.id}`,
+                instanceId: `hint-${i + 1}-${getIssueKey(issue)}`,
                 message: `Hint ${i + 1}: ${issue.message}`,
             }),
         ),

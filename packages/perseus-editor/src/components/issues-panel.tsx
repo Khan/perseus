@@ -15,7 +15,22 @@ export type IssueImpact = "low" | "medium" | "high";
 
 /** Fields shared by all issue types. */
 interface BaseIssue {
+    /**
+     * Names the problem (for example, this may be the axe-core rule id or a
+     * linter rule name). Shown to the author and used when a fix is offered,
+     * so several issues can share one — nine images missing alt text are nine
+     * `image-alt`s.
+     */
     id: string;
+
+    /**
+     * Distinguishes this issue from every other issue in the same list. Used
+     * when a unique value is needed (such as a React key or by the preview to
+     * look up what to highlight). Optional because issues supplied by the
+     * host may not have one; prefer `getIssueKey` over reading it directly.
+     */
+    instanceId?: string;
+
     description: string;
     helpUrl: string;
     help: string;
@@ -27,11 +42,6 @@ interface BaseIssue {
  * An issue surfaced by the axe-core accessibility scanner.
  */
 export interface A11yIssue extends BaseIssue {
-    /**
-     * The unique preview-side ID for this issue (for "Show Me" highlighting).
-     */
-    previewId: string;
-
     /**
      * Elements to highlight, resolved in the parent document by
      * `util/a11y-checker.ts`. Removed once the preview-side highlight path
@@ -50,11 +60,11 @@ export type Issue = A11yIssue | LinterIssue;
 
 /**
  * A unique identifier for an issue, suitable for use as a React key or a
- * Record key. `A11yIssue.id` is the axe rule id (shared by every violation
- * of that rule) so it's not unique on its own — `previewId` is.
+ * Record key. Falls back to `id`, which names the rule rather than the
+ * occurrence, for issues that arrive without an `instanceId`.
  */
 export function getIssueKey(issue: Issue): string {
-    return "previewId" in issue ? issue.previewId : issue.id;
+    return issue.instanceId ?? issue.id;
 }
 
 type IssuesPanelProps = {

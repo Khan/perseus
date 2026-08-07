@@ -1,3 +1,5 @@
+import {getIssueKey} from "../../components/issues-panel";
+
 import {
     assistanceNeededMessage,
     convertAxeImpactToIssueImpact,
@@ -43,7 +45,7 @@ function axeResult(fields: {
 }
 
 describe("mapAxeResults", () => {
-    it("maps a result to an A11yIssue with previewId, impact, and message", () => {
+    it("maps a result to an A11yIssue with instanceId, impact, and message", () => {
         const {issues} = mapAxeResults(
             [
                 axeResult({
@@ -65,7 +67,7 @@ describe("mapAxeResults", () => {
                 help: "Contrast help",
                 impact: "high",
                 message: "contrast too low",
-                previewId: expect.any(String),
+                instanceId: expect.any(String),
             },
         ]);
     });
@@ -98,7 +100,7 @@ describe("mapAxeResults", () => {
         expect(issues[0].description).toBe(assistanceNeededMessage);
     });
 
-    it("gives each issue a distinct previewId", () => {
+    it("gives each issue a distinct instanceId", () => {
         const {issues} = mapAxeResults(
             [
                 axeResult({id: "color-contrast", nodes: [axeNodeResult({})]}),
@@ -107,11 +109,11 @@ describe("mapAxeResults", () => {
             "Alert",
         );
 
-        const ids = issues.map((issue) => issue.previewId);
+        const ids = issues.map((issue) => issue.instanceId);
         expect(new Set(ids).size).toBe(ids.length);
     });
 
-    it("gives an issue the same previewId when the same result is rescanned", () => {
+    it("gives an issue the same instanceId when the same result is rescanned", () => {
         const results = [
             axeResult({id: "color-contrast", nodes: [axeNodeResult({})]}),
         ];
@@ -119,10 +121,10 @@ describe("mapAxeResults", () => {
         const first = mapAxeResults(results, "Alert");
         const second = mapAxeResults(results, "Alert");
 
-        expect(second.issues[0].previewId).toBe(first.issues[0].previewId);
+        expect(second.issues[0].instanceId).toBe(first.issues[0].instanceId);
     });
 
-    it("gives the same rule distinct previewIds per category", () => {
+    it("gives the same rule distinct instanceIds per category", () => {
         const results = [
             axeResult({id: "color-contrast", nodes: [axeNodeResult({})]}),
         ];
@@ -130,12 +132,12 @@ describe("mapAxeResults", () => {
         const alerts = mapAxeResults(results, "Alert");
         const warnings = mapAxeResults(results, "Warning");
 
-        expect(warnings.issues[0].previewId).not.toBe(
-            alerts.issues[0].previewId,
+        expect(warnings.issues[0].instanceId).not.toBe(
+            alerts.issues[0].instanceId,
         );
     });
 
-    it("maps each issue's previewId to the elements axe reported", () => {
+    it("maps each issue's instanceId to the elements axe reported", () => {
         // Arrange
         const button = document.createElement("button");
 
@@ -151,7 +153,7 @@ describe("mapAxeResults", () => {
         );
 
         // Assert
-        expect(elementMap.get(issues[0].previewId)).toEqual([button]);
+        expect(elementMap.get(getIssueKey(issues[0]))).toEqual([button]);
     });
 });
 

@@ -16,6 +16,7 @@ const SEVERITY_MAP = {
 export const WARNINGS = {
     inaccessibleWidget: (widgetType: string, widgetId: string): Issue => ({
         id: `${widgetId} inaccessible`,
+        instanceId: `inaccessible-widget-${widgetId}`,
         description: `This ${widgetType} widget (${widgetId}) is inaccessible. Consider using an alternative to support all learners. Please check out the following documentation on compliant widget options.`,
         helpUrl:
             "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",

@@ -8,7 +8,7 @@ export const assistanceNeededMessage =
 
 /**
  * Maps a scan's axe results (one category at a time) to both an issues list
- * and a `previewId → elements` map, in a single pass.
+ * and an `instanceId → elements` map, in a single pass.
  */
 export const mapAxeResults = (
     results: axe.Result[],
@@ -26,21 +26,21 @@ export const mapAxeResults = (
             );
 
         // Derived rather than counter-generated so that re-scanning the same
-        // problem yields the same previewId. axe-core reports at most one
+        // problem yields the same instanceId. axe-core reports at most one
         // result per rule per category, so this is unique within the map.
-        const previewId = `${prefix}-${result.id}`;
+        const instanceId = `${prefix}-${result.id}`;
 
         issues.push({
             id: result.id,
             description: isUserFixable ? "" : assistanceNeededMessage,
-            previewId,
+            instanceId,
             helpUrl: result.helpUrl,
             help: result.help,
             impact: convertAxeImpactToIssueImpact(result.impact),
             message: getIssueMessage(result.nodes),
         });
         elementMap.set(
-            previewId,
+            instanceId,
             result.nodes
                 .map((node) => node.element)
                 .filter((element): element is HTMLElement => element != null),
