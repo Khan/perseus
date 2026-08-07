@@ -807,92 +807,70 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const syncHeight =
             this.props.constraints?.height || layout === "horizontal";
 
-        _.each(
-            this.state.items,
-            function (item, i, items) {
-                const isLast = i === items.length - 1;
-                const isStatic =
-                    item.state === ItemState.STATIC ||
-                    item.state === ItemState.DISABLED;
-                let margin;
+        this.state.items.forEach((item, i, items) => {
+            const isLast = i === items.length - 1;
+            const isStatic =
+                item.state === ItemState.STATIC ||
+                item.state === ItemState.DISABLED;
+            let margin;
 
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === "horizontal") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 " + this.props.margin + "px 0 0"; // right
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === "vertical") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 0 " + this.props.margin + "px 0"; // bottom
-                }
+            if (this.props.layout === "horizontal") {
+                margin = "0 " + this.props.margin + "px 0 0"; // right
+            } else if (this.props.layout === "vertical") {
+                margin = "0 0 " + this.props.margin + "px 0"; // bottom
+            }
 
+            cards.push(
+                <Draggable
+                    content={item.option}
+                    key={item.key}
+                    state={item.state}
+                    // @ts-expect-error - TS2769 - No overload matches this call.
+                    ref={item.key}
+                    width={syncWidth ? item.width : undefined}
+                    height={syncHeight ? item.height : undefined}
+                    layout={layout}
+                    includePadding={this.props.padding}
+                    margin={isLast && isStatic ? 0 : margin}
+                    endPosition={item.endPosition}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "sortable",
+                    )}
+                    onRender={this.remeasureItems}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onMouseDown={this.onMouseDown.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onMouseMove={this.onMouseMove.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onMouseUp={this.onMouseUp.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onTouchMove={this.onMouseMove.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onTouchEnd={this.onMouseUp.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onTouchCancel={this.onMouseUp.bind(this, item.key)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onAnimationEnd={this.onAnimationEnd.bind(this, item.key)}
+                />,
+            );
+
+            if (
+                item.state === ItemState.DRAGGING ||
+                item.state === ItemState.ANIMATING
+            ) {
                 cards.push(
-                    <Draggable
-                        content={item.option}
-                        key={item.key}
-                        state={item.state}
-                        // @ts-expect-error - TS2769 - No overload matches this call.
-                        ref={item.key}
-                        width={syncWidth ? item.width : undefined}
-                        height={syncHeight ? item.height : undefined}
+                    <Placeholder
+                        key={"placeholder_" + item.key}
+                        ref={"placeholder_" + item.key}
+                        width={item.width}
+                        height={item.height}
                         layout={layout}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        includePadding={this.props.padding}
-                        margin={isLast && isStatic ? 0 : margin}
-                        endPosition={item.endPosition}
-                        linterContext={PerseusLinter.pushContextStack(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.props.linterContext,
-                            "sortable",
-                        )}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onRender={this.remeasureItems}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseDown={this.onMouseDown.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseUp={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchEnd={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchCancel={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onAnimationEnd={this.onAnimationEnd.bind(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this,
-                            item.key,
-                        )}
+                        margin={isLast ? 0 : margin}
                     />,
                 );
-
-                if (
-                    item.state === ItemState.DRAGGING ||
-                    item.state === ItemState.ANIMATING
-                ) {
-                    cards.push(
-                        <Placeholder
-                            key={"placeholder_" + item.key}
-                            ref={"placeholder_" + item.key}
-                            width={item.width}
-                            height={item.height}
-                            layout={layout}
-                            margin={isLast ? 0 : margin}
-                        />,
-                    );
-                }
-            },
-            this,
-        );
+            }
+        }, this);
 
         return <ul className={className}>{cards}</ul>;
     }
