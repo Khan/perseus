@@ -31,7 +31,6 @@
 
 import type {
     GrapherAnswerTypes,
-    PerseusBlankWidgetOptions,
     PerseusDropdownChoice,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
@@ -141,8 +140,12 @@ export type PerseusBlankUserInput = {
     selected: string | null;
 };
 
-/** Scoring rubric for the Blank widget*/
-export type PerseusBlankRubric = Pick<PerseusBlankWidgetOptions, "correct">;
+export type PerseusBlankRubric = {
+    /**
+     * The ID of the correct answer tile
+     */
+    correct: string;
+};
 
 /** Scoring rubric for the Categorizer widget. */
 export type PerseusCategorizerRubric = {
