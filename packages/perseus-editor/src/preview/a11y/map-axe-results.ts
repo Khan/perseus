@@ -53,9 +53,9 @@ export const mapAxeResults = (
 export const getIssueMessage = (nodes: axe.NodeResult[]): string => {
     return nodes
         .flatMap((node) => {
-            return node.all
-                .concat(node.any, node.none)
-                .map((result) => result.message);
+            return [...node.all, ...node.any, ...node.none].map(
+                (result) => result.message,
+            );
         })
         .filter(
             (message, index, allMessages) =>
