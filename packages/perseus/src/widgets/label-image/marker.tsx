@@ -6,7 +6,11 @@
  */
 
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
-import {boxShadow, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {
+    border,
+    boxShadow,
+    semanticColor,
+} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
         width: MARKER_SIZE,
         height: MARKER_SIZE,
 
-        border: `2px solid ${semanticColor.core.border.neutral.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.border.neutral.default}`,
         borderRadius: MARKER_SIZE,
     },
 
@@ -249,7 +253,7 @@ const styles = StyleSheet.create({
     },
 
     markerActive: {
-        outline: `2px solid ${semanticColor.core.border.instructive.default}`,
+        outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.default}`,
         outlineOffset: 2,
     },
 
@@ -257,7 +261,7 @@ const styles = StyleSheet.create({
     markerSelected: {
         boxShadow: boxShadow.mid,
 
-        border: `solid 4px ${semanticColor.core.border.knockout.default}`,
+        border: `solid ${border.width.thick} ${semanticColor.core.border.knockout.default}`,
         backgroundColor: semanticColor.core.background.instructive.default,
         borderRadius: MARKER_SIZE,
         transform: "rotate(180deg)",
@@ -266,7 +270,7 @@ const styles = StyleSheet.create({
     // The learner has made a selection
     markerFilled: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
-        border: `4px solid ${semanticColor.core.border.instructive.default}`,
+        border: `${border.width.thick} solid ${semanticColor.core.border.instructive.default}`,
     },
 
     markerGraded: {
@@ -275,7 +279,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
         alignItems: "center",
-        border: `2px solid ${semanticColor.core.border.knockout.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.border.knockout.default}`,
     },
 
     markerCorrect: {
