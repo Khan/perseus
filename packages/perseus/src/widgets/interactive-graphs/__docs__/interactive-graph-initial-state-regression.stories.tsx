@@ -5,6 +5,7 @@ import {
     generateIGExponentialGraph,
     generateIGLinearGraph,
     generateIGLinearSystemGraph,
+    generateIGLockedFunction,
     generateIGLockedLine,
     generateIGLockedPoint,
     generateIGLockedPolygon,
@@ -33,7 +34,12 @@ import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 import {interactiveGraphRendererDecorator} from "./interactive-graph-renderer-decorator";
 import {lockedFiguresWithWeight} from "./utils";
 
-import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    LockedFigure,
+    LockedLineStyle,
+    PerseusInteractiveGraphWidgetOptions,
+    StrokeWeight,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusInteractiveGraphWidgetOptions> = {
@@ -368,6 +374,115 @@ export const LockedFiguresWithThickWeight: Story = {
         correct: generateIGNoneGraph(),
         lockedFigures: lockedFiguresWithWeight("thick"),
     },
+};
+
+const systemOfInequalitiesFigures = (
+    lineWeight: StrokeWeight,
+    polygonWeight: StrokeWeight = lineWeight,
+    polygonStrokeStyle: LockedLineStyle = "dashed",
+): LockedFigure[] => [
+    generateIGLockedFunction({
+        color: "blue",
+        strokeStyle: "dashed",
+        weight: lineWeight,
+        equation: "-0.5x",
+        directionalAxis: "x",
+        domain: [-10, 10],
+    }),
+    generateIGLockedFunction({
+        color: "green",
+        strokeStyle: "solid",
+        weight: lineWeight,
+        equation: "0.75x - 2",
+        directionalAxis: "x",
+        domain: [-10, 10],
+    }),
+    generateIGLockedPolygon({
+        points: [
+            [-6, 3],
+            [-6, 6],
+            [6, 6],
+            [6, -3],
+        ],
+        color: "blue",
+        showVertices: false,
+        fillStyle: "translucent",
+        strokeStyle: polygonStrokeStyle,
+        weight: polygonWeight,
+    }),
+    generateIGLockedPolygon({
+        points: [
+            [6, 2.5],
+            [6, -6],
+            [-5.3, -6],
+        ],
+        color: "green",
+        showVertices: false,
+        fillStyle: "translucent",
+        strokeStyle: polygonStrokeStyle,
+        weight: polygonWeight,
+    }),
+];
+
+const systemOfInequalitiesArgs = (
+    lineWeight: StrokeWeight,
+    polygonWeight: StrokeWeight = lineWeight,
+    polygonStrokeStyle: LockedLineStyle = "dashed",
+): Partial<PerseusInteractiveGraphWidgetOptions> => ({
+    correct: generateIGNoneGraph(),
+    range: [
+        [-6, 6],
+        [-6, 6],
+    ],
+    markings: "graph",
+    labels: ["$x$", "$y$"],
+    lockedFigures: systemOfInequalitiesFigures(
+        lineWeight,
+        polygonWeight,
+        polygonStrokeStyle,
+    ),
+});
+
+export const LockedFigureThinWeightSample: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        markings: "graph",
+        labels: ["$x$", "$y$"],
+        lockedFigures: [
+            generateIGLockedFunction({
+                color: "grayH",
+                strokeStyle: "dashed",
+                weight: "thin",
+                equation: "-0.5x",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [1, 1],
+                    [5, 1],
+                    [5, 5],
+                ],
+                color: "gold",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "dashed",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
+export const LockedFigureMediumWeightSample: Story = {
+    args: systemOfInequalitiesArgs("medium", "thin", "solid"),
+};
+
+export const LockedFigureThickWeightSample: Story = {
+    args: systemOfInequalitiesArgs("thick"),
 };
 
 // Verifies points on the graph boundary (corners and edge midpoints) render as

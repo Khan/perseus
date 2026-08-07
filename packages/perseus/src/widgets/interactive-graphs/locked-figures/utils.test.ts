@@ -1,4 +1,4 @@
-import {clampDomain} from "./utils";
+import {clampDomain, getDashArrayForWeight} from "./utils";
 
 describe("clampDomain", () => {
     test.each`
@@ -26,6 +26,24 @@ describe("clampDomain", () => {
         "clampedDomain($domain, $graphXBounds) = $expected",
         ({domain, graphXBounds, expected}) => {
             expect(clampDomain(domain, graphXBounds)).toEqual(expected);
+        },
+    );
+});
+
+describe("getDashArrayForWeight", () => {
+    test.each`
+        weight      | expected
+        ${"thin"}   | ${"4, 3"}
+        ${"medium"} | ${"8, 6"}
+        ${"thick"}  | ${"16, 12"}
+    `(
+        "scales the dash pattern with the $weight stroke width -> $expected",
+        ({weight, expected}) => {
+            // Arrange, Act
+            const dashArray = getDashArrayForWeight(weight);
+
+            // Assert
+            expect(dashArray).toBe(expected);
         },
     );
 });
