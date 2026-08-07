@@ -1,4 +1,3 @@
-import BlankEditor from "./widgets/blank-editor";
 import CategorizerEditor from "./widgets/categorizer-editor";
 import CSProgramEditor from "./widgets/cs-program-editor";
 import DefinitionEditor from "./widgets/definition-editor";
@@ -33,7 +32,6 @@ import TableEditor from "./widgets/table-editor";
 import VideoEditor from "./widgets/video-editor/video-editor";
 
 export default [
-    BlankEditor,
     CategorizerEditor,
     CSProgramEditor,
     DefinitionEditor,
