@@ -49,7 +49,7 @@ class ImageDiffSide extends React.Component<ImageDiffSideProps> {
     render(): React.ReactNode {
         return (
             <div>
-                {_.map(this.props.images, (entry, index) => {
+                {this.props.images.map((entry, index) => {
                     const className = classNames({
                         image: true,
                         "image-unchanged": entry.status === "unchanged",
@@ -122,7 +122,7 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
             afterImages,
         );
 
-        const renderedLines = _.map(lines, (line) => {
+        const renderedLines = lines.map((line) => {
             const contents: ContentDiff = {before: [], after: []};
 
             contents.before = _(line).map(function (entry: Entry, i: number) {
@@ -164,11 +164,11 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
                 <div className="diff-header">{this.props.title}</div>
                 <div className="diff-header">{this.props.title}</div>
                 <div className="diff-body ui-helper-clearfix">
-                    {_.map([BEFORE, AFTER], (side, index) => {
+                    {[BEFORE, AFTER].map((side, index) => {
                         return (
                             <div className={"diff-row " + side} key={index}>
                                 {!this.state.collapsed &&
-                                    _.map(renderedLines, (line, lineNum) => {
+                                    renderedLines.map((line, lineNum) => {
                                         const changed = line[side].length > 1;
                                         const lineClass = classNames({
                                             "diff-line": true,
@@ -191,7 +191,7 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
                         );
                     })}
                 </div>
-                {_.map([BEFORE, AFTER], (side, index) => {
+                {[BEFORE, AFTER].map((side, index) => {
                     return (
                         <div
                             role="button"

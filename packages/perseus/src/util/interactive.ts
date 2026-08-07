@@ -2845,13 +2845,13 @@ _.extend(GraphUtils.Graphie.prototype, {
                 return isHovering;
             };
 
-            const styles = _.map([0, 1], function (isHighlight) {
+            const styles = [0, 1].map(function (isHighlight) {
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 const baseStyle = isHighlight
                     ? options.highlightStyle
                     : options.normalStyle;
 
-                return _.map([0, 1], function (opacity) {
+                return [0, 1].map(function (opacity) {
                     return _.defaults(
                         {
                             "fill-opacity": opacity,
@@ -3648,8 +3648,7 @@ function MovableAngle(graphie: any, options: any) {
     }
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.rays = _.map(
-        [0, 2],
+    this.rays = [0, 2].map(
         function (i) {
             return graphie.addMovableLineSegment({
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.

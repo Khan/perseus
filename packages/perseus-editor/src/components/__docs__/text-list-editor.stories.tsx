@@ -6,7 +6,7 @@ import TextListEditor from "../text-list-editor";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Components/Text List Editor",
+    title: "Editors/Components/Text List Editor",
     component: TextListEditor,
     args: {
         options: ["Test option 1", "Test option 2", "Test option 3"],

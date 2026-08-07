@@ -285,429 +285,408 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         direction="right"
                     />
                 )}
-                {_.map(
-                    this.props.elements,
-                    function (element, n) {
-                        if (element.type === "point") {
-                            return (
-                                <Point
-                                    key={element.key}
-                                    coord={[
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(element.options.coordX),
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(element.options.coordY),
-                                    ]}
-                                    color={element.options.color}
-                                />
-                            );
-                        }
-                        if (element.type === "line") {
-                            const start = [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.startX),
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.startY),
-                            ];
-                            const end = [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.endX),
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.endY),
-                            ];
-                            return (
-                                <Line
-                                    key={element.key}
-                                    start={start}
-                                    end={end}
-                                    style={{
-                                        stroke: element.options.color,
-                                        strokeWidth:
-                                            element.options.strokeWidth,
-                                        strokeDasharray:
-                                            element.options.strokeDasharray,
-                                        arrows: element.options.arrows,
-                                    }}
-                                />
-                            );
-                        }
-                        if (element.type === "movable-point") {
-                            const constraints = [
-                                (coord: any) => {
-                                    const coordX = Math.max(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintXMin,
-                                        ),
-                                        Math.min(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this._eval(
-                                                element.options.constraintXMax,
-                                            ),
-                                            coord[0],
-                                        ),
-                                    );
-                                    const coordY = Math.max(
+                {this.props.elements.map(function (element, n) {
+                    if (element.type === "point") {
+                        return (
+                            <Point
+                                key={element.key}
+                                coord={[
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.coordX),
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.coordY),
+                                ]}
+                                color={element.options.color}
+                            />
+                        );
+                    }
+                    if (element.type === "line") {
+                        const start = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.startX),
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.startY),
+                        ];
+                        const end = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.endX),
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.endY),
+                        ];
+                        return (
+                            <Line
+                                key={element.key}
+                                start={start}
+                                end={end}
+                                style={{
+                                    stroke: element.options.color,
+                                    strokeWidth: element.options.strokeWidth,
+                                    strokeDasharray:
+                                        element.options.strokeDasharray,
+                                    arrows: element.options.arrows,
+                                }}
+                            />
+                        );
+                    }
+                    if (element.type === "movable-point") {
+                        const constraints = [
+                            (coord: any) => {
+                                const coordX = Math.max(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintXMin),
+                                    Math.min(
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
-                                            element.options.constraintYMin,
+                                            element.options.constraintXMax,
                                         ),
-                                        Math.min(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this._eval(
-                                                element.options.constraintYMax,
-                                            ),
-                                            coord[1],
-                                        ),
-                                    );
-                                    return [coordX, coordY];
-                                },
-                            ];
-                            if (element.options.constraint === "snap") {
-                                constraints.push(
-                                    MovablePoint.constraints.snap(
-                                        element.options.snap,
+                                        coord[0],
                                     ),
                                 );
-                            } else if (element.options.constraint === "x") {
-                                constraints.push((coord) => {
-                                    return [
+                                const coordY = Math.max(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintYMin),
+                                    Math.min(
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
-                                            element.options.constraintFn,
-                                            {y: coord[1]},
+                                            element.options.constraintYMax,
                                         ),
                                         coord[1],
-                                    ];
-                                });
-                            } else if (element.options.constraint === "y") {
-                                constraints.push((coord) => {
-                                    return [
-                                        coord[0],
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintFn,
-                                            {x: coord[0]},
-                                        ),
-                                    ];
-                                });
-                            }
-
-                            // NOTE(eater): foo_[xyz] are hacky non-props to
-                            // get the component to update when constraints
-                            // change
-                            return (
-                                <MovablePoint
-                                    key={element.key}
-                                    coord={[
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this.state.variables[
-                                            "x_" + element.options.varSubscript
-                                        ],
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this.state.variables[
-                                            "y_" + element.options.varSubscript
-                                        ],
-                                    ]}
-                                    constraints={constraints}
-                                    foo_x={element.options.constraint}
-                                    foo_y={element.options.constraintFn}
-                                    foo_z={element.options.snap}
-                                    onMove={_.partial(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._updatePointLocation,
-                                        element.options.varSubscript,
-                                    )}
-                                />
-                            );
-                        }
-                        if (element.type === "movable-line") {
-                            const constraints = [
-                                (coord: any) => {
-                                    const coordX = Math.max(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintXMin,
-                                        ),
-                                        Math.min(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this._eval(
-                                                element.options.constraintXMax,
-                                            ),
-                                            coord[0],
-                                        ),
-                                    );
-                                    const coordY = Math.max(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintYMin,
-                                        ),
-                                        Math.min(
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this._eval(
-                                                element.options.constraintYMax,
-                                            ),
-                                            coord[1],
-                                        ),
-                                    );
-                                    return [coordX, coordY];
-                                },
-                            ];
-                            if (element.options.constraint === "snap") {
-                                constraints.push(
-                                    MovablePoint.constraints.snap(
-                                        element.options.snap,
                                     ),
                                 );
-                            } else if (element.options.constraint === "x") {
-                                constraints.push((coord) => {
-                                    return [
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintFn,
-                                            {y: coord[1]},
-                                        ),
-                                        coord[1],
-                                    ];
-                                });
-                            } else if (element.options.constraint === "y") {
-                                constraints.push((coord) => {
-                                    return [
-                                        coord[0],
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(
-                                            element.options.constraintFn,
-                                            {x: coord[0]},
-                                        ),
-                                    ];
-                                });
-                            }
-                            const start = [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.state.variables[
-                                    "x_" + element.options.startSubscript
-                                ],
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.state.variables[
-                                    "y_" + element.options.startSubscript
-                                ],
-                            ];
-                            const end = [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.state.variables[
-                                    "x_" + element.options.endSubscript
-                                ],
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.state.variables[
-                                    "y_" + element.options.endSubscript
-                                ],
-                            ];
-                            return (
-                                <MovableLine
-                                    key={element.key}
-                                    constraints={constraints}
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onMove={this._updateLineLocation.bind(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this,
-                                        element.options,
-                                    )}
-                                    foo_x={element.options.constraint}
-                                    foo_y={element.options.constraintFn}
-                                    foo_z={element.options.snap}
-                                >
-                                    <MovablePoint
-                                        coord={start}
-                                        static={true}
-                                        normalStyle={{
-                                            stroke: "none",
-                                            fill: "none",
-                                        }}
-                                    />
-                                    <MovablePoint
-                                        coord={end}
-                                        static={true}
-                                        normalStyle={{
-                                            stroke: "none",
-                                            fill: "none",
-                                        }}
-                                    />
-                                </MovableLine>
-                            );
-                        }
-                        if (element.type === "function") {
-                            const fn = (x: any) => {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                return this._eval(element.options.value, {
-                                    x: x,
-                                });
-                            };
-                            // find all the variables referenced by this
-                            // function
-                            const vars = _.without(
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._extractVars(
-                                    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                    KASparse(element.options.value).expr,
+                                return [coordX, coordY];
+                            },
+                        ];
+                        if (element.options.constraint === "snap") {
+                            constraints.push(
+                                MovablePoint.constraints.snap(
+                                    element.options.snap,
                                 ),
-                                "x",
                             );
-                            // and find their values, so we redraw if any
-                            // change
-                            const varValues = _.object(
-                                vars,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                _.map(vars, (v) => this.state.variables[v]),
-                            );
-
-                            const range = [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(
-                                    element.options.rangeMin,
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this.state.variables,
-                                ),
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(
-                                    element.options.rangeMax,
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this.state.variables,
-                                ),
-                            ];
-
-                            return (
-                                <Plot
-                                    key={element.key}
-                                    fn={fn}
-                                    foo_fn={element.options.value}
-                                    foo_varvalues={varValues}
-                                    range={range}
-                                    style={{
-                                        stroke: element.options.color,
-                                        strokeWidth:
-                                            element.options.strokeWidth,
-                                        strokeDasharray:
-                                            element.options.strokeDasharray,
-                                        plotPoints: 100,
-                                    }}
-                                />
-                            );
-                        }
-                        if (element.type === "parametric") {
-                            const fn = (t: any) => {
+                        } else if (element.options.constraint === "x") {
+                            constraints.push((coord) => {
                                 return [
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this._eval(element.options.x, {t: t}),
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this._eval(element.options.y, {t: t}),
+                                    this._eval(element.options.constraintFn, {
+                                        y: coord[1],
+                                    }),
+                                    coord[1],
                                 ];
-                            };
-                            // find all the variables referenced by this
-                            // function
-                            const vars = _.without(
+                            });
+                        } else if (element.options.constraint === "y") {
+                            constraints.push((coord) => {
+                                return [
+                                    coord[0],
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintFn, {
+                                        x: coord[0],
+                                    }),
+                                ];
+                            });
+                        }
+
+                        // NOTE(eater): foo_[xyz] are hacky non-props to
+                        // get the component to update when constraints
+                        // change
+                        return (
+                            <MovablePoint
+                                key={element.key}
+                                coord={[
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this.state.variables[
+                                        "x_" + element.options.varSubscript
+                                    ],
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this.state.variables[
+                                        "y_" + element.options.varSubscript
+                                    ],
+                                ]}
+                                constraints={constraints}
+                                foo_x={element.options.constraint}
+                                foo_y={element.options.constraintFn}
+                                foo_z={element.options.snap}
+                                onMove={_.partial(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._updatePointLocation,
+                                    element.options.varSubscript,
+                                )}
+                            />
+                        );
+                    }
+                    if (element.type === "movable-line") {
+                        const constraints = [
+                            (coord: any) => {
+                                const coordX = Math.max(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintXMin),
+                                    Math.min(
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this._eval(
+                                            element.options.constraintXMax,
+                                        ),
+                                        coord[0],
+                                    ),
+                                );
+                                const coordY = Math.max(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintYMin),
+                                    Math.min(
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this._eval(
+                                            element.options.constraintYMax,
+                                        ),
+                                        coord[1],
+                                    ),
+                                );
+                                return [coordX, coordY];
+                            },
+                        ];
+                        if (element.options.constraint === "snap") {
+                            constraints.push(
+                                MovablePoint.constraints.snap(
+                                    element.options.snap,
+                                ),
+                            );
+                        } else if (element.options.constraint === "x") {
+                            constraints.push((coord) => {
+                                return [
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintFn, {
+                                        y: coord[1],
+                                    }),
+                                    coord[1],
+                                ];
+                            });
+                        } else if (element.options.constraint === "y") {
+                            constraints.push((coord) => {
+                                return [
+                                    coord[0],
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this._eval(element.options.constraintFn, {
+                                        x: coord[0],
+                                    }),
+                                ];
+                            });
+                        }
+                        const start = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.state.variables[
+                                "x_" + element.options.startSubscript
+                            ],
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.state.variables[
+                                "y_" + element.options.startSubscript
+                            ],
+                        ];
+                        const end = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.state.variables[
+                                "x_" + element.options.endSubscript
+                            ],
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.state.variables[
+                                "y_" + element.options.endSubscript
+                            ],
+                        ];
+                        return (
+                            <MovableLine
+                                key={element.key}
+                                constraints={constraints}
+                                // eslint-disable-next-line react/jsx-no-bind
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onMove={this._updateLineLocation.bind(
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    this,
+                                    element.options,
+                                )}
+                                foo_x={element.options.constraint}
+                                foo_y={element.options.constraintFn}
+                                foo_z={element.options.snap}
+                            >
+                                <MovablePoint
+                                    coord={start}
+                                    static={true}
+                                    normalStyle={{
+                                        stroke: "none",
+                                        fill: "none",
+                                    }}
+                                />
+                                <MovablePoint
+                                    coord={end}
+                                    static={true}
+                                    normalStyle={{
+                                        stroke: "none",
+                                        fill: "none",
+                                    }}
+                                />
+                            </MovableLine>
+                        );
+                    }
+                    if (element.type === "function") {
+                        const fn = (x: any) => {
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            return this._eval(element.options.value, {
+                                x: x,
+                            });
+                        };
+                        // find all the variables referenced by this
+                        // function
+                        const vars = _.without(
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._extractVars(
+                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+                                KASparse(element.options.value).expr,
+                            ),
+                            "x",
+                        );
+                        // and find their values, so we redraw if any
+                        // change
+                        const varValues = _.object(
+                            vars,
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            vars.map((v) => this.state.variables[v]),
+                        );
+
+                        const range = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(
+                                element.options.rangeMin,
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.state.variables,
+                            ),
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(
+                                element.options.rangeMax,
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.state.variables,
+                            ),
+                        ];
+
+                        return (
+                            <Plot
+                                key={element.key}
+                                fn={fn}
+                                foo_fn={element.options.value}
+                                foo_varvalues={varValues}
+                                range={range}
+                                style={{
+                                    stroke: element.options.color,
+                                    strokeWidth: element.options.strokeWidth,
+                                    strokeDasharray:
+                                        element.options.strokeDasharray,
+                                    plotPoints: 100,
+                                }}
+                            />
+                        );
+                    }
+                    if (element.type === "parametric") {
+                        const fn = (t: any) => {
+                            return [
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this._eval(element.options.x, {t: t}),
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this._eval(element.options.y, {t: t}),
+                            ];
+                        };
+                        // find all the variables referenced by this
+                        // function
+                        const vars = _.without(
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._extractVars(
+                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+                                KASparse(element.options.x).expr,
+                            ).concat(
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._extractVars(
                                     // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                    KASparse(element.options.x).expr,
-                                ).concat(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this._extractVars(
-                                        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                        KASparse(element.options.y).expr,
-                                    ),
+                                    KASparse(element.options.y).expr,
                                 ),
-                                "t",
-                            );
-                            // and find their values, so we redraw if any change
-                            const varValues = _.object(
-                                vars,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                _.map(vars, (v) => this.state.variables[v]),
-                            );
+                            ),
+                            "t",
+                        );
+                        // and find their values, so we redraw if any change
+                        const varValues = _.object(
+                            vars,
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            vars.map((v) => this.state.variables[v]),
+                        );
 
-                            const range = [
+                        const range = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(
+                                element.options.rangeMin,
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(
-                                    element.options.rangeMin,
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this.state.variables,
-                                ),
+                                this.state.variables,
+                            ),
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(
+                                element.options.rangeMax,
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(
-                                    element.options.rangeMax,
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    this.state.variables,
-                                ),
-                            ];
+                                this.state.variables,
+                            ),
+                        ];
 
-                            return (
-                                <PlotParametric
-                                    key={element.key}
-                                    fn={fn}
-                                    foo_fnx={element.options.x}
-                                    foo_fny={element.options.y}
-                                    foo_varvalues={varValues}
-                                    range={range}
-                                    style={{
-                                        stroke: element.options.color,
-                                        strokeWidth:
-                                            element.options.strokeWidth,
-                                        strokeDasharray:
-                                            element.options.strokeDasharray,
-                                        plotPoints: 100,
-                                    }}
-                                />
-                            );
-                        }
-                        if (element.type === "label") {
-                            const coord = [
+                        return (
+                            <PlotParametric
+                                key={element.key}
+                                fn={fn}
+                                foo_fnx={element.options.x}
+                                foo_fny={element.options.y}
+                                foo_varvalues={varValues}
+                                range={range}
+                                style={{
+                                    stroke: element.options.color,
+                                    strokeWidth: element.options.strokeWidth,
+                                    strokeDasharray:
+                                        element.options.strokeDasharray,
+                                    plotPoints: 100,
+                                }}
+                            />
+                        );
+                    }
+                    if (element.type === "label") {
+                        const coord = [
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.coordX),
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this._eval(element.options.coordY),
+                        ];
+                        return (
+                            <Label
+                                key={n + 1}
+                                coord={coord}
+                                text={unescapeMathMode(element.options.label)}
+                                style={{
+                                    color: element.options.color,
+                                }}
+                            />
+                        );
+                    }
+                    if (element.type === "rectangle") {
+                        return (
+                            <Rect
+                                key={n + 1}
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.coordX),
+                                x={this._eval(element.options.coordX)}
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this._eval(element.options.coordY),
-                            ];
-                            return (
-                                <Label
-                                    key={n + 1}
-                                    coord={coord}
-                                    text={unescapeMathMode(
-                                        element.options.label,
-                                    )}
-                                    style={{
-                                        color: element.options.color,
-                                    }}
-                                />
-                            );
-                        }
-                        if (element.type === "rectangle") {
-                            return (
-                                <Rect
-                                    key={n + 1}
+                                y={this._eval(element.options.coordY)}
+                                width={_.max([
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    x={this._eval(element.options.coordX)}
+                                    this._eval(element.options.width),
+                                    0,
+                                ])}
+                                height={_.max([
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    y={this._eval(element.options.coordY)}
-                                    width={_.max([
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(element.options.width),
-                                        0,
-                                    ])}
-                                    height={_.max([
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        this._eval(element.options.height),
-                                        0,
-                                    ])}
-                                    style={{
-                                        stroke: "none",
-                                        fill: element.options.color,
-                                    }}
-                                />
-                            );
-                        }
-                    },
-                    this,
-                )}
+                                    this._eval(element.options.height),
+                                    0,
+                                ])}
+                                style={{
+                                    stroke: "none",
+                                    fill: element.options.color,
+                                }}
+                            />
+                        );
+                    }
+                }, this)}
             </Graphie>
         );
     }
@@ -779,8 +758,7 @@ const _getInitialVariables: (
 const _getInitialFunctions: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => ReadonlyArray<string> = (elements) => {
-    return _.map(
-        _.where(elements, {type: "function"}),
+    return _.where(elements, {type: "function"}).map(
         // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         (element) => element.options.funcName,
     );

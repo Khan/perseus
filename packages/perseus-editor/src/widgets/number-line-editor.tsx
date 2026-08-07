@@ -9,9 +9,11 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
+
 import type {Changeable} from "@khanacademy/perseus";
 
-const {ButtonGroup, InfoTip, NumberInput, RangeInput} = components;
+const {ButtonGroup, NumberInput, RangeInput} = components;
 
 type Range = [number, number];
 

@@ -7,11 +7,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
 import Editor from "../editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {InfoTip, NumberInput} = components;
+const {NumberInput} = components;
 const Table = TableWidget.widget;
 
 type Props = any;
@@ -85,7 +86,7 @@ class TableEditor extends React.Component<Props> {
         const json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone),
+            answers: this.props.answers.map(_.clone),
         });
     };
 
