@@ -107,6 +107,8 @@ function DocsContainerWithTheme({
     // concrete DocsContext always carries the preview's StoryStore at
     // runtime, and it's the only way to read the toolbar's current theme
     // global from here (docs pages aren't tied to a single story/decorator).
+    // TODO(LEMS-4461): Storybook 10.3.5 has proper type support for this
+    // (no cast needed) -- update once we upgrade off 10.3.1.
     const theme = (
         context as unknown as {
             store: {userGlobals: {globals: {theme?: string}}};
