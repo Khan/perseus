@@ -22,9 +22,10 @@ export type BlankPromptJSON = {
      */
     userInput: {
         /**
-         * The ID of the answer tile the learner has selected for the blank.
+         * The ID of the answer tile the learner has selected for the blank,
+         * or null if the learner has not selected a tile.
          */
-        selected?: string;
+        selected: string | null;
     };
 };
 

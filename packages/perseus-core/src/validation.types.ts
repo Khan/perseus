@@ -134,9 +134,10 @@ export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
 export type PerseusBlankUserInput = {
     /**
-     * The user's placed answer tile on the blank
+     * The user's placed answer tile on the blank, or null if the user has not
+     * placed a tile yet.
      */
-    selected?: string;
+    selected: string | null;
 };
 
 export type PerseusBlankRubric = {
