@@ -1,0 +1,17 @@
+import type {PerseusBlankWidgetOptions} from "../../data-schema";
+
+export type BlankPublicWidgetOptions = Omit<
+    PerseusBlankWidgetOptions,
+    "correct"
+>;
+
+/**
+ * Given a PerseusBlankWidgetOptions object, return a new object with only
+ * the public options that should be exposed to the client.
+ */
+export function getBlankPublicWidgetOptions(
+    options: PerseusBlankWidgetOptions,
+): BlankPublicWidgetOptions {
+    const {correct: _, ...publicWidgetOptions} = options;
+    return publicWidgetOptions;
+}
