@@ -12,7 +12,9 @@ describe("validateBlank", () => {
     });
 
     it("is invalid when no tile has been selected", () => {
-        const userInput: PerseusBlankUserInput = {selected: null};
+        const userInput: PerseusBlankUserInput = {
+            selected: null,
+        };
 
         const validationError = validateBlank(userInput);
 

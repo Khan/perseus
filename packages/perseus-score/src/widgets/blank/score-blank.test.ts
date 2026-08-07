@@ -61,7 +61,9 @@ describe("scoreBlank", () => {
             correct: "answer-tile-1",
         };
 
-        const userInput: PerseusBlankUserInput = {selected: null};
+        const userInput: PerseusBlankUserInput = {
+            selected: null,
+        };
 
         // Act
         const score = scoreBlank(userInput, rubric);

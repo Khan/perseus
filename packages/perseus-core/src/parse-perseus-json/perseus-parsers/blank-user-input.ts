@@ -1,5 +1,5 @@
-import {nullable, object, string} from "../general-purpose-parsers";
+import {defaulted, nullable, object, string} from "../general-purpose-parsers";
 
 export const parseBlankUserInput = object({
-    selected: nullable(string),
+    selected: defaulted(nullable(string), () => null),
 });

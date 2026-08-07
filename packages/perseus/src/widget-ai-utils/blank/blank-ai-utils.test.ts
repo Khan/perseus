@@ -32,7 +32,9 @@ describe("Blank getPromptJSON", () => {
 
     it("returns null selected when the learner has not made a selection", () => {
         // Arrange
-        const userInput: PerseusBlankUserInput = {selected: null};
+        const userInput: PerseusBlankUserInput = {
+            selected: null,
+        };
 
         const widgetData: PerseusBlankWidgetOptions = {
             displayType: "normal",
