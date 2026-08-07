@@ -241,7 +241,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 (plotDimensions[1] - (padTop + padBottom)) / c.dimY,
             ];
         } else {
-            c.scale = _.map([c.dimX, c.dimY], function (dim, i) {
+            c.scale = [c.dimX, c.dimY].map(function (dim, i) {
                 return plotDimensions[i] / dim;
             });
         }

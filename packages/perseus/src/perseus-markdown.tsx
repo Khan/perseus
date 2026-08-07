@@ -322,7 +322,7 @@ const inlineParser = (source: string, state: any): any => {
 const getContent = (ast: any) => {
     // Simplify logic by dealing with a single AST node at a time
     if (Array.isArray(ast)) {
-        return _.flatten(_.map(ast, getContent));
+        return _.flatten(ast.map(getContent));
     }
 
     // Base case: This is where we actually extract text content

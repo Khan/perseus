@@ -560,15 +560,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
         // Fetches a jQuery list of elements for each item
-        const $items = _.map(
-            items,
-            function (item) {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                return $(ReactDOM.findDOMNode(this.refs[item.key]));
-            },
-            this,
-        );
+        const $items = items.map((item) => {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2769 - No overload matches this call.
+            return $(ReactDOM.findDOMNode(this.refs[item.key]));
+        });
 
         const widths: ReadonlyArray<number> = _.invoke($items, "outerWidth");
         const heights: ReadonlyArray<number> = _.invoke($items, "outerHeight");
@@ -593,7 +589,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             syncHeight = _.max(heights);
         }
 
-        items = _.map(items, function (item, i) {
+        items = items.map(function (item, i) {
             item.width = syncWidth || widths[i];
             item.height = syncHeight || heights[i];
             return item;
@@ -606,7 +602,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     onMouseDown(key: SortableItem["key"]) {
         // Static -> Dragging
-        const items = _.map(this.state.items, function (item) {
+        const items = this.state.items.map(function (item) {
             if (item.key === key) {
                 item.state = ItemState.DRAGGING;
             }
@@ -714,31 +710,26 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
         const nextAnimationFrame = requestAnimationFrame(() => {
-            const items = _.map(
-                this.state.items,
-                function (item) {
-                    if (item.key === key) {
-                        item.state = ItemState.ANIMATING;
-                        const $placeholder = $(
-                            // @ts-expect-error - TS2769 - No overload matches this call.
-                            ReactDOM.findDOMNode(
-                                // eslint-disable-next-line react/no-string-refs
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.refs["placeholder_" + key],
-                            ),
-                        );
-                        // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
-                        const position = $placeholder.position();
-                        const endPosition = addOffsetParentScroll(
-                            $placeholder,
-                            position,
-                        );
-                        item.endPosition = endPosition;
-                    }
-                    return item;
-                },
-                this,
-            );
+            const items = this.state.items.map((item) => {
+                if (item.key === key) {
+                    item.state = ItemState.ANIMATING;
+                    const $placeholder = $(
+                        // @ts-expect-error - TS2769 - No overload matches this call.
+                        ReactDOM.findDOMNode(
+                            // eslint-disable-next-line react/no-string-refs
+                            this.refs["placeholder_" + key],
+                        ),
+                    );
+                    // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                    const position = $placeholder.position();
+                    const endPosition = addOffsetParentScroll(
+                        $placeholder,
+                        position,
+                    );
+                    item.endPosition = endPosition;
+                }
+                return item;
+            }, this);
 
             this.setState({items: items}, () => {
                 // HACK (LEMS-3224) We need to know *that* the widget changed, but currently it's
@@ -754,7 +745,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     onAnimationEnd(key: SortableItem["key"]) {
         // Animating -> Static
-        const items = _.map(this.state.items, function (item) {
+        const items = this.state.items.map(function (item) {
             if (item.key === key) {
                 item.state = ItemState.STATIC;
             }
