@@ -6,8 +6,8 @@ import {
     ThemeSwitcher,
 } from "@khanacademy/wonder-blocks-theming";
 
-import perseusDarkTheme from "./dark-theme";
-import perseusTheme from "./theme";
+import darkTheme from "./dark-theme";
+import lightTheme from "./lightTheme";
 import {
     setDependencies,
     DependenciesContext,
@@ -117,7 +117,7 @@ function DocsContainerWithTheme({
         <DocsContainer
             context={context}
             {...props}
-            theme={theme === "syl-dark" ? perseusDarkTheme : perseusTheme}
+            theme={theme === "syl-dark" ? darkTheme : lightTheme}
         >
             <ThemeSwitcher theme={theme}>{children}</ThemeSwitcher>
         </DocsContainer>
@@ -201,7 +201,7 @@ const preview: Preview = {
             },
         },
         docs: {
-            theme: perseusTheme,
+            theme: lightTheme,
             container: DocsContainerWithTheme,
             toc: {
                 // Useful for MDX pages
