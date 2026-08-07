@@ -254,6 +254,9 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     };
 }
 
+/**
+ * @public - just to temporarily appeas
+ */
 export function createPreviewA11yReportMessage(
     violations: Issue[],
     needsReview: Issue[],
