@@ -1,6 +1,6 @@
 /* Styles for the InputWithExamples */
 .input-with-examples {
-    border-radius: 0.3rem;
+    border-radius: var(--wb-border-radius-radius_040);
     border-width: var(--wb-border-width-thin);
     /*
       Even in RTL languages, math is LTR.
@@ -9,9 +9,9 @@
     direction: ltr;
     display: inline-block;
     font-family: Symbola, "Times New Roman", serif;
-    font-size: 1.8rem;
+    font-size: var(--wb-font-body-size-medium);
     height: 3.2rem;
-    line-height: 1.8rem;
+    line-height: var(--wb-font-body-lineHeight-small);
     padding: 0.4rem 0.5rem;
     text-align: left;
     width: 8rem;
