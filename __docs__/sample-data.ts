@@ -1,8 +1,9 @@
-import {generateInteractiveGraphOptions, PerseusRenderer} from "@khanacademy/perseus-core";
-import {Renderer, ServerItemRenderer} from "@khanacademy/perseus";
-import {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {mockStrings} from "@khanacademy/perseus/strings";
+import {generateInteractiveGraphOptions} from "@khanacademy/perseus-core";
+
 import {testDependenciesV2} from "../packages/perseus/src/testing/test-dependencies";
+
+import type {ServerItemRenderer} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This lives here because it adds alot of noise to the MDX file if we inline
 // it.
@@ -122,6 +123,6 @@ export const graphExample: PropsFor<typeof ServerItemRenderer> = {
                 },
             },
             images: {},
-        }
-    }
+        },
+    },
 };
