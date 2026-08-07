@@ -22,14 +22,13 @@ const BOX_COLORS = [
 
 /**
  * Renders a tall, scrollable column of colored boxes and overlays every
- * other one — a harness for verifying overlay positioning against real
- * elements. The boxes use inline styles (not Wonder Blocks) so their size
+ * other one, to test overlay positioning. The boxes use inline styles (not Wonder Blocks) so their size
  * is applied synchronously and the overlays measure against settled layout.
  */
 export function EveryOtherBox() {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const boxRefs = React.useRef<Array<HTMLDivElement | null>>([]);
-    const [targets, setTargets] = React.useState<ReadonlyArray<Element>>([]);
+    const [overlayTargets, setOverlayTargets] = React.useState<ReadonlyArray<Element>>([]);
 
     React.useEffect(() => {
         const everyOther = boxRefs.current.filter(
