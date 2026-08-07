@@ -21,21 +21,28 @@ const BOX_COLORS = [
 ];
 
 /**
- * Renders a tall, scrollable column of colored boxes and overlays every
- * other one, to test overlay positioning. The boxes use inline styles (not Wonder Blocks) so their size
- * is applied synchronously and the overlays measure against settled layout.
+ * Renders a tall, scrollable column of colored boxes and overlays every other
+ * one. Overlaying only some of them is the point: it shows that an overlay
+ * tracks the element it targets rather than the container it's drawn in.
+ *
+ * The boxes are styled inline rather than with Wonder Blocks because Wonder
+ * Blocks styles go through Aphrodite, which injects its CSS asynchronously.
+ * A box could still be unsized when the effect below measures it, putting
+ * every overlay in the wrong place.
  */
 export function EveryOtherBox() {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const boxRefs = React.useRef<Array<HTMLDivElement | null>>([]);
-    const [overlayTargets, setOverlayTargets] = React.useState<ReadonlyArray<Element>>([]);
+    const [overlayTargets, setOverlayTargets] = React.useState<
+        ReadonlyArray<Element>
+    >([]);
 
     React.useEffect(() => {
         const everyOther = boxRefs.current.filter(
             (element, index): element is HTMLDivElement =>
                 element != null && index % 2 === 0,
         );
-        setTargets(everyOther);
+        setOverlayTargets(everyOther);
     }, []);
 
     return (
@@ -72,7 +79,10 @@ export function EveryOtherBox() {
                     </div>
                 );
             })}
-            <A11yOverlays container={containerRef.current} targets={targets} />
+            <A11yOverlays
+                container={containerRef.current}
+                targets={overlayTargets}
+            />
         </div>
     );
 }
