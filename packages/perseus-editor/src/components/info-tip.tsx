@@ -1,5 +1,5 @@
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import questionIcon from "@phosphor-icons/core/regular/question.svg";
@@ -27,9 +27,9 @@ export default function InfoTip(props: Props) {
 
 const styles = StyleSheet.create({
     spacingLeft: {
-        marginInlineStart: spacing.xxxSmall_4,
+        marginInlineStart: sizing.size_040,
     },
     body: {
-        padding: spacing.medium_16,
+        padding: sizing.size_160,
     },
 });
