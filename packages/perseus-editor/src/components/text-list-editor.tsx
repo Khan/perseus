@@ -1,16 +1,18 @@
-import $ from "jquery";
 import * as React from "react";
 
-const textWidthCache: Record<string, any> = {};
-function getTextWidth(text: any) {
-    if (!textWidthCache[text]) {
+const textWidthCache = new Map<string, number>();
+function getTextWidth(text: string): number {
+    let width = textWidthCache.get(text);
+    if (width === undefined) {
         // Hacky way to guess the width of an input box
-        const $test = $("<span>").text(text).appendTo("body");
-        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        textWidthCache[text] = $test.width() + 5;
-        $test.remove();
+        const test = document.createElement("span");
+        test.textContent = text;
+        document.body.appendChild(test);
+        width = test.offsetWidth + 5;
+        test.remove();
+        textWidthCache.set(text, width);
     }
-    return textWidthCache[text];
+    return width;
 }
 
 type Props = {
