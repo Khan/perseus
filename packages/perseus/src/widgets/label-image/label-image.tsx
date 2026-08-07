@@ -699,11 +699,11 @@ export class LabelImage
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, options, ...rest} = this.props;
-        const {markers, ...optionsRest} = options;
+        const {userInput, options, ...restOfProps} = this.props;
+        const {markers, ...restOfOptions} = options;
         return {
-            ...optionsRest,
-            ...rest,
+            ...restOfOptions,
+            ...restOfProps,
             markers: markers.map((marker, index) => ({
                 ...marker,
                 selected: userInput.markers[index].selected,
