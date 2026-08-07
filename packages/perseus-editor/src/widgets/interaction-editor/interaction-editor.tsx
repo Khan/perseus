@@ -23,6 +23,19 @@ import RectangleEditor from "./rectangle-editor";
 
 const {unescapeMathMode} = Util;
 
+// The starting options for each element type offered by the "Add an element"
+// dropdown. Element types with no entry here start out with no options.
+const defaultOptionsByElementType: Record<string, Record<string, unknown>> = {
+    point: PointEditor.defaultProps,
+    line: LineEditor.defaultProps,
+    "movable-point": MovablePointEditor.defaultProps,
+    "movable-line": MovableLineEditor.defaultProps,
+    function: FunctionEditor.defaultProps,
+    parametric: ParametricEditor.defaultProps,
+    label: LabelEditor.defaultProps,
+    rectangle: RectangleEditor.defaultProps,
+};
+
 type Graph = {
     box: ReadonlyArray<number>;
     labels: ReadonlyArray<string>;
@@ -116,36 +129,16 @@ class InteractionEditor extends React.Component<Props, State> {
                 "-" +
                 // eslint-disable-next-line no-restricted-properties
                 ((Math.random() * 0xffffff) << 0).toString(16),
-            options:
-                elementType === "point"
-                    ? {...PointEditor.defaultProps}
-                    : elementType === "line"
-                      ? {...LineEditor.defaultProps}
-                      : elementType === "movable-point"
-                        ? {...MovablePointEditor.defaultProps}
-                        : elementType === "movable-line"
-                          ? {...MovableLineEditor.defaultProps}
-                          : elementType === "function"
-                            ? {...FunctionEditor.defaultProps}
-                            : elementType === "parametric"
-                              ? {...ParametricEditor.defaultProps}
-                              : elementType === "label"
-                                ? {...LabelEditor.defaultProps}
-                                : elementType === "rectangle"
-                                  ? {...RectangleEditor.defaultProps}
-                                  : {},
-        } as const;
+            options: {...defaultOptionsByElementType[elementType]},
+        };
 
         let nextSubscript;
         if (elementType === "movable-point") {
             nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
-            // @ts-expect-error - TS2339 - Property 'varSubscript' does not exist on type '{}'.
             newElement.options.varSubscript = nextSubscript;
         } else if (elementType === "movable-line") {
             nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
-            // @ts-expect-error - TS2339 - Property 'startSubscript' does not exist on type '{}'.
             newElement.options.startSubscript = nextSubscript;
-            // @ts-expect-error - TS2339 - Property 'endSubscript' does not exist on type '{}'.
             newElement.options.endSubscript = nextSubscript + 1;
         } else if (elementType === "function") {
             const nextLetter = String.fromCharCode(
@@ -154,7 +147,6 @@ class InteractionEditor extends React.Component<Props, State> {
                     "e".charCodeAt(0),
                 ) + 1,
             );
-            // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type '{}'.
             newElement.options.funcName = nextLetter;
         }
         this.props.onChange({
