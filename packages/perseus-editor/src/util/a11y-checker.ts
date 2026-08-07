@@ -177,19 +177,20 @@ const runAxeCore = (
                 "Alert",
                 isInStorybook ? null : previewWindow,
             );
-            const unsures = mapResultsToIssues(
+            const needsReview = mapResultsToIssues(
                 results.incomplete,
                 "Warning",
                 isInStorybook ? null : previewWindow,
             );
-            const issues = violations.concat(unsures);
+            const issues = violations.concat(needsReview);
             log(`  Issues: `, issues);
             if (
                 violations.length === 0 &&
-                unsures.length === 0 &&
+                needsReview.length === 0 &&
                 results.passes.length === 0
             ) {
-                setTimeout(runAxeCore, 1500, updateIssuesFn, logToConsole); // No valid results indicates that content may not be fully loaded yet
+                // No valid results indicates that content may not be fully loaded yet
+                setTimeout(runAxeCore, 1500, updateIssuesFn, logToConsole);
             } else {
                 updateIssuesFn(issues);
             }

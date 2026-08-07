@@ -30,7 +30,9 @@ export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
 /**
  * Base type for all preview messages
  */
-interface PreviewMessageBase {
+// TODO(LEMS-4402): unexport this when ParentToIframeMessage contains all
+// current message types.
+export interface PreviewMessageBase {
     source: typeof PREVIEW_MESSAGE_SOURCE;
 }
 
@@ -125,15 +127,18 @@ interface PreviewDataMessage extends PreviewMessageBase {
 interface PreviewIframeInitMessage extends PreviewMessageBase {
     type: "iframe-init";
     content: PreviewContent | null;
+    a11yScanningEnabled: boolean;
 }
 
 export function createPreviewIframeInitMessage(
     content: PreviewContent | null,
+    a11yScanningEnabled: boolean,
 ): PreviewIframeInitMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-init",
         content,
+        a11yScanningEnabled,
     };
 }
 
@@ -142,17 +147,17 @@ export function createPreviewIframeInitMessage(
  * accessibility scanning. When enabled, the iframe runs scans and reports back;
  * when disabled, it neither imports nor runs axe-core.
  */
-interface PreviewSetA11yEnabledMessage extends PreviewMessageBase {
-    type: "set-a11y-enabled";
+interface PreviewSetA11yScanningEnabledMessage extends PreviewMessageBase {
+    type: "set-a11y-scanning-enabled";
     enabled: boolean;
 }
 
-export function createPreviewSetA11yEnabledMessage(
+export function createPreviewSetA11yScanningEnabledMessage(
     enabled: boolean,
-): PreviewSetA11yEnabledMessage {
+): PreviewSetA11yScanningEnabledMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
-        type: "set-a11y-enabled",
+        type: "set-a11y-scanning-enabled",
         enabled,
     };
 }
@@ -194,7 +199,7 @@ export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMes
 /**
  * Union of all messages sent from parent to iframe
  *
- * TODO: add PreviewSetA11yEnabledMessage/PreviewHighlightIssuesMessage/
+ * TODO: add PreviewSetA11yScanningEnabledMessage/PreviewHighlightIssuesMessage/
  * PreviewClearHighlightsMessage here once usePreviewPresenter handles them
  * (the exhaustive switch obligates a handler to land in the same change).
  */
@@ -228,21 +233,19 @@ interface PreviewA11yReportMessage extends PreviewMessageBase {
     /** Violations are issues that are confirmed by the a11y scanner. **/
     violations: Issue[];
     /**
-     * Unsures are issues that the scanner cannot definitively say is a
-     * violation or not. Requires manual review. *
+     * NeedsReview are issues that the scanner cannot definitively say is a
+     * violation or not. Requires manual review.
      */
-    unsures: Issue[];
+    needsReview: Issue[];
 }
 
 /**
  * Union of all messages sent from iframe to parent
- *
- * TODO: add PreviewA11yReportMessage here once usePreviewController handles it
- * (the exhaustive switch obligates a handler to land in the same change).
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
-    | PreviewHeightUpdateMessage;
+    | PreviewHeightUpdateMessage
+    | PreviewA11yReportMessage;
 
 export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {
@@ -251,14 +254,17 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     };
 }
 
+/**
+ * @public - just to temporarily appeas
+ */
 export function createPreviewA11yReportMessage(
     violations: Issue[],
-    unsures: Issue[],
+    needsReview: Issue[],
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "a11y-report",
         violations,
-        unsures,
+        needsReview,
     };
 }

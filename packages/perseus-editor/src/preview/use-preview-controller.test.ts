@@ -7,8 +7,18 @@ import {
 import {usePreviewController} from "./use-preview-controller";
 
 import type {PreviewContent} from "./message-types";
+import type {Issue} from "../components/issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
+
+const issue = (id: string): Issue => ({
+    id,
+    description: `description ${id}`,
+    helpUrl: "https://example.com/help",
+    help: "Learn more",
+    impact: "medium",
+    message: `message ${id}`,
+});
 
 describe("usePreviewController", () => {
     let mockIframe: {contentWindow: Window | null; dataset: any};
@@ -83,6 +93,73 @@ describe("usePreviewController", () => {
             expect(removeEventListenerSpy).toHaveBeenCalledWith(
                 "message",
                 expect.any(Function),
+            );
+        });
+    });
+
+    describe("setA11yScanningEnabled", () => {
+        it("posts a set-a11y-scanning-enabled command to the iframe once ready", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            sendIframeReadyMessage();
+
+            act(() => {
+                result.current.setA11yScanningEnabled(true);
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "set-a11y-scanning-enabled",
+                    enabled: true,
+                },
+                "/",
+            );
+        });
+
+        it("does not post immediately if the iframe isn't ready yet", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.setA11yScanningEnabled(true);
+            });
+
+            expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("highlightIssues", () => {
+        it("posts a highlight-issues command to the iframe", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.highlightIssues(["violation-1", "incomplete-2"]);
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "highlight-issues",
+                    previewIds: ["violation-1", "incomplete-2"],
+                },
+                "/",
+            );
+        });
+    });
+
+    describe("clearHighlights", () => {
+        it("posts a clear-highlights command to the iframe", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.clearHighlights();
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "clear-highlights",
+                },
+                "/",
             );
         });
     });
@@ -277,7 +354,7 @@ describe("usePreviewController", () => {
     });
 
     describe("replying to iframe-ready with an iframe-init message", () => {
-        it("sends null content when nothing has been set", () => {
+        it("sends null content and a11yScanningEnabled: false when nothing has been set", () => {
             renderHook(() => usePreviewController(iframeRef));
 
             sendIframeReadyMessage();
@@ -287,6 +364,7 @@ describe("usePreviewController", () => {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "iframe-init",
                     content: null,
+                    a11yScanningEnabled: false,
                 },
                 "/",
             );
@@ -316,12 +394,27 @@ describe("usePreviewController", () => {
             ]);
         });
 
+        it("sends the latest a11yScanningEnabled value set before the iframe was ready", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.setA11yScanningEnabled(false);
+                result.current.setA11yScanningEnabled(true);
+            });
+            sendIframeReadyMessage();
+
+            expect(messagesOfType("iframe-init")).toEqual([
+                expect.objectContaining({a11yScanningEnabled: true}),
+            ]);
+        });
+
         it("resends the full current state again on a second iframe-ready event", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
             act(() => {
                 result.current.sendData(previewData);
+                result.current.setA11yScanningEnabled(true);
             });
             sendIframeReadyMessage();
 
@@ -330,7 +423,40 @@ describe("usePreviewController", () => {
             // Simulate a genuine reload: the iframe announces ready again.
             sendIframeReadyMessage();
 
-            expect(messagesOfType("iframe-init")).toHaveLength(2);
+            expect(messagesOfType("iframe-init")).toEqual([
+                expect.objectContaining({a11yScanningEnabled: true}),
+                expect.objectContaining({a11yScanningEnabled: true}),
+            ]);
+        });
+    });
+
+    describe("receiving a11y-report message", () => {
+        it("surfaces the report from an a11y-report message", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            expect(result.current.a11yReport).toBeNull();
+
+            const violations = [issue("v1")];
+            const needsReview = [issue("i1")];
+
+            act(() => {
+                window.dispatchEvent(
+                    new MessageEvent("message", {
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "a11y-report",
+                            violations,
+                            needsReview,
+                        },
+                        source: mockContentWindow,
+                    }),
+                );
+            });
+
+            expect(result.current.a11yReport).toEqual({
+                violations,
+                needsReview,
+            });
         });
     });
 
