@@ -33,52 +33,35 @@ const Point = Graphie.Point;
 const Rect = Graphie.Rect;
 const {unescapeMathMode} = Util;
 
+type KASOptions = {
+    functions: any;
+};
+
 // Memoize KAS parsing
-const KAShashFunc = (
-    expr: any,
-    options:
-        | undefined
-        | {
-              [".decimal_separator"]: never;
-              [".functions"]: never;
-          }
-        | {
-              functions: any;
-          },
-) => {
-    // @ts-expect-error - TS2322 - Type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | {}' is not assignable to type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | undefined'.
-    options = options || {};
-    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'decimal_separator' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
-    let result = expr + "||" + options.decimal_separator + "||";
-    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'functions' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
-    const functions = options.functions;
+function KAShashFunc(expr: any, options?: KASOptions) {
+    let result = expr + "||";
+    const functions = options?.functions;
     const functionsLength = functions ? functions.length : 0;
     for (let i = 0; i < functionsLength; i++) {
         result += functions[i] + "|";
     }
     return result;
-};
+}
 
 const _parseCache = Object.create(null);
-// TODO: options is never passed, it should be removed
-const KASparse = (expr, options?) => {
-    const hash = KAShashFunc(expr, options);
+function KASparse(expr: any) {
+    const hash = KAShashFunc(expr);
     let cached = _parseCache[hash];
     if (cached) {
         return cached;
     }
-    cached = KAS.parse(expr, options);
+    cached = KAS.parse(expr);
     _parseCache[hash] = cached;
     return cached;
-};
+}
 
 const _compileCache = Object.create(null);
-const KAScompile = (
-    expr: any,
-    options: {
-        functions: any;
-    },
-) => {
+function KAScompile(expr: any, options: KASOptions) {
     const hash = KAShashFunc(expr, options);
     let cached = _compileCache[hash];
     if (cached) {
@@ -92,7 +75,7 @@ const KAScompile = (
           };
     _compileCache[hash] = cached;
     return cached;
-};
+}
 
 type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
