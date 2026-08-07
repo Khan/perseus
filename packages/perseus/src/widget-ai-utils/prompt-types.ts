@@ -1,4 +1,3 @@
-import type {BlankPromptJSON} from "./blank/blank-ai-utils";
 import type {CategorizerPromptJSON} from "./categorizer/categorizer-ai-utils";
 import type {DefinitionPromptJSON} from "./definition/definition-ai-utils";
 import type {DropdownPromptJSON} from "./dropdown/dropdown-ai-utils";
@@ -33,7 +32,6 @@ export type UnsupportedWidget =
     | "video";
 
 export type WidgetPromptJSON =
-    | BlankPromptJSON
     | CategorizerPromptJSON
     | DefinitionPromptJSON
     | DropdownPromptJSON
