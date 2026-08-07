@@ -839,20 +839,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                         "sortable",
                     )}
                     onRender={this.remeasureItems}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onMouseDown={this.onMouseDown.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onMouseMove={this.onMouseMove.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onMouseUp={this.onMouseUp.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onTouchMove={this.onMouseMove.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onTouchEnd={this.onMouseUp.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onTouchCancel={this.onMouseUp.bind(this, item.key)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onAnimationEnd={this.onAnimationEnd.bind(this, item.key)}
+                    onMouseDown={() => this.onMouseDown(item.key)}
+                    onMouseMove={() => this.onMouseMove(item.key)}
+                    onMouseUp={() => this.onMouseUp(item.key)}
+                    onTouchMove={() => this.onMouseMove(item.key)}
+                    onTouchEnd={() => this.onMouseUp(item.key)}
+                    onTouchCancel={() => this.onMouseUp(item.key)}
+                    onAnimationEnd={() => this.onAnimationEnd(item.key)}
                 />,
             );
 

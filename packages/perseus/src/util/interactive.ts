@@ -2860,7 +2860,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 redraw(buttonCoord, [coordA, coordZ]);
             };
 
-            $(line).on("move", update.bind(button, null, null));
+            $(line).on("move", () => update(null, null));
 
             const $mouseTarget = $(button.mouseTarget.getMouseTarget());
             $mouseTarget.on("vclick", function () {

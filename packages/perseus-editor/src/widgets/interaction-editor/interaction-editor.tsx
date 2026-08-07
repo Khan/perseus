@@ -217,20 +217,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <MovablePointEditor
@@ -274,20 +271,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <MovableLineEditor
@@ -323,20 +317,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <PointEditor
@@ -380,20 +371,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <LineEditor
@@ -427,20 +415,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <FunctionEditor
@@ -465,20 +450,17 @@ class InteractionEditor extends React.Component<Props, State> {
                         return (
                             <ElementContainer
                                 title={<span>Parametric</span>}
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <ParametricEditor
@@ -512,20 +494,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>{" "}
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <LabelEditor
@@ -567,20 +546,17 @@ class InteractionEditor extends React.Component<Props, State> {
                                         </TeX>
                                     </span>
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onUp={
                                     n === 0
                                         ? null
-                                        : this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onDown={
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : this._moveElementDown.bind(this, n)
+                                        : () => this._moveElementDown(n)
                                 }
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <RectangleEditor
