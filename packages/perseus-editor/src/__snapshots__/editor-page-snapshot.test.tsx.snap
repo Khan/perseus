@@ -786,7 +786,7 @@ table: [[☃ table 1]]
                         class="categorizer-container "
                       >
                         <table
-                          class="categorizer-table mobileTable_1wmcwov"
+                          class="categorizer-table mobileTable_1ktoh91"
                         >
                           <thead>
                             <tr>
@@ -5120,11 +5120,11 @@ table: [[☃ table 1]]
                             Interactive elements: A line on a coordinate plane. The line has two points, point 1 at 0 comma 0 and point 2 at 1 comma 1.
                           </div>
                           <div
-                            class="default_7zhre1-o_O-inlineStyles_16ttxov"
+                            class="default_7zhre1-o_O-inlineStyles_16155wj"
                           >
                             <span
                               aria-hidden="true"
-                              style="position: absolute; left: 288px; inset-block-start: 144px; font-size: 14px; transform: translate(7px, -50%);"
+                              style="position: absolute; left: 288px; top: 144px; font-size: 14px; transform: translate(7px, -50%);"
                             >
                               <span
                                 class="mock-TeX"
@@ -5134,7 +5134,7 @@ table: [[☃ table 1]]
                             </span>
                             <span
                               aria-hidden="true"
-                              style="position: absolute; left: 144px; inset-block-start: -28px; font-size: 14px; transform: translate(-50%, 0px);"
+                              style="position: absolute; left: 144px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                             >
                               <span
                                 class="mock-TeX"
@@ -6387,7 +6387,7 @@ table: [[☃ table 1]]
                             </div>
                             <div
                               class="interactive-graph-hitbox-layer"
-                              style="position: absolute; inset-block-start: 0; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                              style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
                             >
                               <div
                                 aria-hidden="true"
@@ -9401,11 +9401,11 @@ table: [[☃ table 1]]
                               Interactive elements: A line on a coordinate plane. The line has two points, point 1 at 0 comma 1 and point 2 at 1 comma 3.
                             </div>
                             <div
-                              class="default_7zhre1-o_O-inlineStyles_16ttxov"
+                              class="default_7zhre1-o_O-inlineStyles_16155wj"
                             >
                               <span
                                 aria-hidden="true"
-                                style="position: absolute; left: 288px; inset-block-start: 144px; font-size: 14px; transform: translate(7px, -50%);"
+                                style="position: absolute; left: 288px; top: 144px; font-size: 14px; transform: translate(7px, -50%);"
                               >
                                 <span
                                   class="mock-TeX"
@@ -9415,7 +9415,7 @@ table: [[☃ table 1]]
                               </span>
                               <span
                                 aria-hidden="true"
-                                style="position: absolute; left: 144px; inset-block-start: -28px; font-size: 14px; transform: translate(-50%, 0px);"
+                                style="position: absolute; left: 144px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                               >
                                 <span
                                   class="mock-TeX"
@@ -10680,7 +10680,7 @@ table: [[☃ table 1]]
                               </div>
                               <div
                                 class="interactive-graph-hitbox-layer"
-                                style="position: absolute; inset-block-start: 0; left: 0px; width: 288px; height: 288px; pointer-events: none;"
+                                style="position: absolute; top: 0px; left: 0px; width: 288px; height: 288px; pointer-events: none;"
                               >
                                 <div
                                   aria-hidden="true"
