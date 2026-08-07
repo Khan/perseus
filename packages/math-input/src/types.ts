@@ -6,7 +6,6 @@ import type {
     KeypadKey,
 } from "@khanacademy/perseus-core";
 import type * as React from "react";
-import type ReactDOM from "react-dom";
 
 export enum MathFieldActionType {
     WRITE = "write",
@@ -51,7 +50,7 @@ export interface KeypadAPI {
     configure: (configuration: KeypadConfiguration, cb: () => void) => void;
     setCursor: (cursor: Cursor) => void;
     setKeyHandler: (keyHandler: KeyHandler) => void;
-    getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode>;
+    getDOMNode: () => HTMLElement | null;
 }
 
 export type KeypadContextType = {
