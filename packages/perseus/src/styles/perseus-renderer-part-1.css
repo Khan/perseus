@@ -228,12 +228,13 @@ div.graphie {
     text-align: right;
 }
 .framework-perseus:not(.perseus-mobile) table th {
-    border-bottom: 2px solid #ccc;
+    border-bottom: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     font-weight: bold;
     padding-bottom: 2px;
 }
 .framework-perseus:not(.perseus-mobile) table tr:nth-child(odd) td {
-    background-color: #f7f8fa;
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
 }
 .framework-perseus:not(.perseus-mobile) .perseus-titled-table {
     display: inline-block;
@@ -272,7 +273,8 @@ div.graphie {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile table tbody > tr {
-    border: 1px solid #e5e5e5;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 .framework-perseus.perseus-mobile table th,
 .framework-perseus.perseus-mobile table td {
@@ -288,7 +290,7 @@ div.graphie {
     text-align: right;
 }
 .framework-perseus.perseus-mobile table td {
-    background: #fff;
+    background-color: var(--wb-semanticColor-core-background-base-default);
 }
 .framework-perseus.perseus-mobile table th {
     font-weight: bold;
