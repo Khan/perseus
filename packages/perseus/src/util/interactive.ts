@@ -1308,8 +1308,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         if (lineSegment.vertexLabels.length) {
             lineSegment.labeledVertices = _.map(
                 lineSegment.vertexLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                (label) => {
                     return this.label(
                         [0, 0],
                         "",
@@ -1317,7 +1316,6 @@ _.extend(GraphUtils.Graphie.prototype, {
                         lineSegment.labelStyle,
                     );
                 },
-                this,
             );
         }
 
@@ -1824,36 +1822,21 @@ _.extend(GraphUtils.Graphie.prototype, {
                 polygon.angleLabels.length,
                 polygon.showRightAngleMarkers.length,
             );
-            polygon.labeledAngles = _.times(
-                numLabels,
-                function () {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledAngles = _.times(numLabels, () => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         if (polygon.sideLabels.length) {
-            polygon.labeledSides = _.map(
-                polygon.sideLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledSides = _.map(polygon.sideLabels, (label) => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         if (polygon.vertexLabels.length) {
-            polygon.labeledVertices = _.map(
-                polygon.vertexLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledVertices = _.map(polygon.vertexLabels, (label) => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         polygon.update();
@@ -2546,8 +2529,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 });
         };
 
-        return function (options: any) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        return function (this: any, options: any) {
             const graph = this;
 
             let rotatePoint = options.center;
@@ -2813,8 +2795,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             };
         };
 
-        return function (options: any) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        return function (this: any, options: any) {
             const graphie = this;
 
             const line = options.line;
@@ -2964,22 +2945,16 @@ _.extend(GraphUtils.Graphie.prototype, {
     addPoints: kvector.add,
 });
 
-function Protractor(graph: any, center: any) {
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+function Protractor(this: any, graph: any, center: any) {
     this.set = graph.raphael.set();
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.cx = center[0];
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.cy = center[1];
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const pro = this;
 
     const r = graph.unscaleVector(180.5)[0];
     const imgPos = graph.scalePoint([
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.cx - r,
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.cy + r - graph.unscaleVector(10.5)[1],
     ]);
     const image = graph.mouselayer.image(
@@ -2989,7 +2964,6 @@ function Protractor(graph: any, center: any) {
         360,
         180,
     );
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.set.push(image);
 
     // Prevent the page from scrolling when we grab and drag the image on a
@@ -3058,23 +3032,18 @@ function Protractor(graph: any, center: any) {
         });
 
     // add it to the set so it translates with everything else
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.set.push(arrow);
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.centerPoint = graph.addMovablePoint({
         coord: center,
         visible: false,
     });
 
     // Use a movablePoint for rotation
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle = graph.addMovablePoint({
         bounded: false,
         coord: [
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             Math.sin((275 * Math.PI) / 180) * r + this.cx,
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             Math.cos((275 * Math.PI) / 180) * r + this.cy,
         ],
         onMove: function (x, y) {
@@ -3090,18 +3059,14 @@ function Protractor(graph: any, center: any) {
     });
 
     // Add a constraint so the point moves in a circle
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.constraints.fixedDistance.dist = r;
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
 
     // Remove the default dot added by the movablePoint since we have our
     // double-arrow thing
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.visibleShape.remove();
     // Make the mouse target bigger to encompass the whole area around the
     // double-arrow thing
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.mouseTarget.attr({scale: 2.0});
 
     let isDragging = false;
@@ -3110,7 +3075,6 @@ function Protractor(graph: any, center: any) {
         return isHovering || isDragging;
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const self = this;
     const $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
     $mouseTarget.on("vmousedown", function (event) {
@@ -3143,11 +3107,9 @@ function Protractor(graph: any, center: any) {
         }
     });
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const setNodes = $.map(this.set, function (el) {
         return el.node;
     });
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.makeTranslatable = function makeTranslatable() {
         $(setNodes).css("cursor", "move");
         $mouseTarget.css("cursor", "-webkit-grab");
@@ -3201,10 +3163,8 @@ function Protractor(graph: any, center: any) {
         });
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotation = 0;
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotate = function (offset: any, absolute: any) {
         const center = graph.scalePoint(this.centerPoint.coord);
 
@@ -3218,7 +3178,6 @@ function Protractor(graph: any, center: any) {
         return this;
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.moveTo = function moveTo(x: any, y: any) {
         const start = graph.scalePoint(pro.centerPoint.coord);
         const end = graph.scalePoint([x, y]);
@@ -3252,7 +3211,6 @@ function Protractor(graph: any, center: any) {
         );
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateTo = function rotateTo(angle: any) {
         if (Math.abs(this.rotation - angle) > 180) {
             this.rotation += 360;
@@ -3275,18 +3233,15 @@ function Protractor(graph: any, center: any) {
         );
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.remove = function () {
         this.set.remove();
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.makeTranslatable();
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     return this;
 }
 
-function Ruler(graphie: any, options: any) {
+function Ruler(this: any, graphie: any, options: any) {
     _.defaults(options, {
         center: [0, 0],
         pixelsPerUnit: 40,
@@ -3561,24 +3516,19 @@ function Ruler(graphie: any, options: any) {
     rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
     rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.remove = function () {
         set.remove();
         leftBottomHandle.remove();
         rightBottomHandle.remove();
     };
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     return this;
 }
 
-function MovableAngle(graphie: any, options: any) {
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+function MovableAngle(this: any, graphie: any, options: any) {
     this.graphie = graphie;
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, options);
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.defaults(this, {
         normalStyle: {
             stroke: KhanColors.INTERACTIVE,
@@ -3604,7 +3554,6 @@ function MovableAngle(graphie: any, options: any) {
         // it is not overridden by undefined
     });
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (!this.points || this.points.length !== 3) {
         throw new PerseusError(
             "MovableAngle requires 3 points",
@@ -3613,69 +3562,44 @@ function MovableAngle(graphie: any, options: any) {
     }
 
     // Handle coordinates that are not MovablePoints (i.e. [2, 4])
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.points = _.map(
-        options.points,
-        function (point) {
-            if (Array.isArray(point)) {
-                return graphie.addMovablePoint({
-                    coord: point,
-                    visible: false,
-                    constraints: {
-                        fixed: true,
-                    },
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    normalStyle: this.normalStyle,
-                });
-            }
-            return point;
-        },
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-    );
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this.points = _.map(options.points, (point) => {
+        if (Array.isArray(point)) {
+            return graphie.addMovablePoint({
+                coord: point,
+                visible: false,
+                constraints: {
+                    fixed: true,
+                },
+                normalStyle: this.normalStyle,
+            });
+        }
+        return point;
+    });
     this.coords = _.pluck(this.points, "coord");
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (this.reflex == null) {
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         if (this.allowReflex) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.reflex = this._getClockwiseAngle(this.coords) > 180;
         } else {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.reflex = false;
         }
     }
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.rays = [0, 2].map(
-        function (i) {
-            return graphie.addMovableLineSegment({
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                pointA: this.points[1],
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                pointZ: this.points[i],
-                fixed: true,
-                extendRay: true,
-            });
-        },
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-    );
+    this.rays = [0, 2].map((i) => {
+        return graphie.addMovableLineSegment({
+            pointA: this.points[1],
+            pointZ: this.points[i],
+            fixed: true,
+            extendRay: true,
+        });
+    });
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.temp = [];
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (!this.fixed) {
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.addMoveHandlers();
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.addHighlightHandlers();
     }
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.update();
 }
 
@@ -3777,28 +3701,16 @@ _.extend(MovableAngle.prototype, {
         const vertex = this.points[1];
 
         vertex.onHighlight = () => {
-            _.each(
-                this.points,
-                function (point) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    point.visibleShape.animate(this.highlightStyle, 50);
-                },
-                this,
-            );
-            _.each(
-                this.rays,
-                function (ray) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    ray.visibleLine.animate(this.highlightStyle, 50);
-                    ray.arrowStyle = _.extend({}, ray.arrowStyle, {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        color: this.highlightStyle.stroke,
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        stroke: this.highlightStyle.stroke,
-                    });
-                },
-                this,
-            );
+            _.each(this.points, (point) => {
+                point.visibleShape.animate(this.highlightStyle, 50);
+            });
+            _.each(this.rays, (ray) => {
+                ray.visibleLine.animate(this.highlightStyle, 50);
+                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+                    color: this.highlightStyle.stroke,
+                    stroke: this.highlightStyle.stroke,
+                });
+            });
 
             this.angleStyle = _.extend({}, this.angleStyle, {
                 color: this.highlightStyle.stroke,
@@ -3808,25 +3720,16 @@ _.extend(MovableAngle.prototype, {
         };
 
         vertex.onUnhighlight = () => {
-            _.each(
-                this.points,
-                function (point) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    point.visibleShape.animate(this.normalStyle, 50);
-                },
-                this,
-            );
-            _.each(
-                this.rays,
-                function (ray) {
-                    ray.visibleLine.animate(ray.normalStyle, 50);
-                    ray.arrowStyle = _.extend({}, ray.arrowStyle, {
-                        color: ray.normalStyle.stroke,
-                        stroke: ray.normalStyle.stroke,
-                    });
-                },
-                this,
-            );
+            _.each(this.points, (point) => {
+                point.visibleShape.animate(this.normalStyle, 50);
+            });
+            _.each(this.rays, (ray) => {
+                ray.visibleLine.animate(ray.normalStyle, 50);
+                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+                    color: ray.normalStyle.stroke,
+                    stroke: ray.normalStyle.stroke,
+                });
+            });
 
             this.angleStyle = _.extend({}, this.angleStyle, {
                 color: KhanColors.DYNAMIC,
