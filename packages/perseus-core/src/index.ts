@@ -389,6 +389,11 @@ export {
 } from "./utils/generators/matcher-widget-generator";
 /** @hidden */
 export {
+    generateMeasurerOptions,
+    generateMeasurerWidget,
+} from "./utils/generators/measurer-widget-generator";
+/** @hidden */
+export {
     generateCategorizerOptions,
     generateCategorizerWidget,
 } from "./utils/generators/categorizer-widget-generator";
