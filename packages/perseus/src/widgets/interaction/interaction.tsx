@@ -167,7 +167,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
         );
     };
 
-    _updatePointLocation: (arg1: string, arg2: Coord) => void = (
+    _updatePointLocation: (arg1: number, arg2: Coord) => void = (
         subscript,
         coord,
     ) => {
@@ -182,11 +182,9 @@ class Interaction extends React.Component<Props, State> implements Widget {
         options,
         startCoord,
     ) => {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const xDiff = this._eval(
             "(" + options.endX + ")-(" + options.startX + ")",
         );
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const yDiff = this._eval(
             "(" + options.endY + ")-(" + options.startY + ")",
         );
@@ -200,7 +198,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
-    _eval: (arg1: any, arg2: any) => number = (expression, variables) => {
+    _eval: (arg1: any, arg2?: any) => number = (expression, variables) => {
         const func = KAScompile(expression, {functions: this.state.functions});
         const compiledVars = _.extend({}, this.state.variables, variables);
         _.each(Object.keys(compiledVars), (name) => {
@@ -227,16 +225,11 @@ class Interaction extends React.Component<Props, State> implements Widget {
             return [];
         }
         let vars: Array<any> = [];
-        _.each(
-            expr.args(),
-            function (arg) {
-                if (arg && arg.constructor.name === "Expr") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    vars = vars.concat(this._extractVars(arg));
-                }
-            },
-            this,
-        );
+        _.each(expr.args(), (arg) => {
+            if (arg && arg.constructor.name === "Expr") {
+                vars = vars.concat(this._extractVars(arg));
+            }
+        });
 
         if (expr.name() === "Var") {
             vars.push(expr.prettyPrint());
@@ -285,15 +278,13 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         direction="right"
                     />
                 )}
-                {this.props.elements.map(function (element, n) {
+                {this.props.elements.map((element, n) => {
                     if (element.type === "point") {
                         return (
                             <Point
                                 key={element.key}
                                 coord={[
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.coordX),
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.coordY),
                                 ]}
                                 color={element.options.color}
@@ -302,15 +293,11 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "line") {
                         const start = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.startX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.startY),
                         ];
                         const end = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.endX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.endY),
                         ];
                         return (
@@ -332,10 +319,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         const constraints = [
                             (coord: any) => {
                                 const coordX = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintXMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMax,
                                         ),
@@ -343,10 +328,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                     ),
                                 );
                                 const coordY = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintYMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMax,
                                         ),
@@ -365,7 +348,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         } else if (element.options.constraint === "x") {
                             constraints.push((coord) => {
                                 return [
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         y: coord[1],
                                     }),
@@ -376,7 +358,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             constraints.push((coord) => {
                                 return [
                                     coord[0],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         x: coord[0],
                                     }),
@@ -391,11 +372,9 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             <MovablePoint
                                 key={element.key}
                                 coord={[
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables[
                                         "x_" + element.options.varSubscript
                                     ],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables[
                                         "y_" + element.options.varSubscript
                                     ],
@@ -405,7 +384,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 foo_y={element.options.constraintFn}
                                 foo_z={element.options.snap}
                                 onMove={_.partial(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._updatePointLocation,
                                     element.options.varSubscript,
                                 )}
@@ -416,10 +394,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         const constraints = [
                             (coord: any) => {
                                 const coordX = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintXMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMax,
                                         ),
@@ -427,10 +403,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                     ),
                                 );
                                 const coordY = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintYMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMax,
                                         ),
@@ -449,7 +423,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         } else if (element.options.constraint === "x") {
                             constraints.push((coord) => {
                                 return [
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         y: coord[1],
                                     }),
@@ -460,7 +433,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             constraints.push((coord) => {
                                 return [
                                     coord[0],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         x: coord[0],
                                     }),
@@ -468,21 +440,17 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             });
                         }
                         const start = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "x_" + element.options.startSubscript
                             ],
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "y_" + element.options.startSubscript
                             ],
                         ];
                         const end = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "x_" + element.options.endSubscript
                             ],
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "y_" + element.options.endSubscript
                             ],
@@ -492,9 +460,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 key={element.key}
                                 constraints={constraints}
                                 // eslint-disable-next-line react/jsx-no-bind
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 onMove={this._updateLineLocation.bind(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this,
                                     element.options,
                                 )}
@@ -523,7 +489,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "function") {
                         const fn = (x: any) => {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             return this._eval(element.options.value, {
                                 x: x,
                             });
@@ -531,7 +496,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         // find all the variables referenced by this
                         // function
                         const vars = _.without(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._extractVars(
                                 // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                 KASparse(element.options.value).expr,
@@ -542,21 +506,16 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         // change
                         const varValues = _.object(
                             vars,
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             vars.map((v) => this.state.variables[v]),
                         );
 
                         const range = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMin,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMax,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
                         ];
@@ -581,21 +540,17 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     if (element.type === "parametric") {
                         const fn = (t: any) => {
                             return [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.x, {t: t}),
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.y, {t: t}),
                             ];
                         };
                         // find all the variables referenced by this
                         // function
                         const vars = _.without(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._extractVars(
                                 // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                 KASparse(element.options.x).expr,
                             ).concat(
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._extractVars(
                                     // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.y).expr,
@@ -606,21 +561,16 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         // and find their values, so we redraw if any change
                         const varValues = _.object(
                             vars,
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             vars.map((v) => this.state.variables[v]),
                         );
 
                         const range = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMin,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMax,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
                         ];
@@ -645,9 +595,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "label") {
                         const coord = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.coordX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.coordY),
                         ];
                         return (
@@ -665,17 +613,13 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         return (
                             <Rect
                                 key={n + 1}
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 x={this._eval(element.options.coordX)}
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 y={this._eval(element.options.coordY)}
                                 width={_.max([
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.width),
                                     0,
                                 ])}
                                 height={_.max([
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.height),
                                     0,
                                 ])}
@@ -686,7 +630,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             />
                         );
                     }
-                }, this)}
+                })}
             </Graphie>
         );
     }
