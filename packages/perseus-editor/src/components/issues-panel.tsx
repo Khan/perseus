@@ -14,19 +14,19 @@ import ToggleableCaret from "./toggleable-caret";
 export type IssueImpact = "low" | "medium" | "high";
 
 /** Fields shared by all issue types. */
-type BaseIssue = {
+interface BaseIssue {
     id: string;
     description: string;
     helpUrl: string;
     help: string;
     impact: IssueImpact;
     message: string;
-};
+}
 
 /**
  * An issue surfaced by the axe-core accessibility scanner.
  */
-export type A11yIssue = BaseIssue & {
+export interface A11yIssue extends BaseIssue {
     /**
      * The unique preview-side ID for this issue (for "Show Me" highlighting).
      */
@@ -38,7 +38,7 @@ export type A11yIssue = BaseIssue & {
      * replaces it.
      */
     elements?: Element[];
-};
+}
 
 /**
  * An issue surfaced by the editor-side linter (tex, widget, and content-lint
