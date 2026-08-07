@@ -60,7 +60,8 @@ const KAShashFunc = (
 };
 
 const _parseCache = Object.create(null);
-const KASparse = (expr, options) => {
+// TODO: options is never passed, it should be removed
+const KASparse = (expr, options?) => {
     const hash = KAShashFunc(expr, options);
     let cached = _parseCache[hash];
     if (cached) {
@@ -204,7 +205,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     functions: this.state.functions,
                 });
                 compiledVars[name] = function (x: any) {
-                    return func({...compiledVars, x: x});
+                    return func({...compiledVars, x});
                 };
             }
         });
@@ -489,7 +490,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         // find all the variables referenced by this
                         // function
                         const vars = this._extractVars(
-                            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                             KASparse(element.options.value).expr,
                         ).filter((v) => v !== "x");
                         // and find their values, so we redraw if any
@@ -536,12 +536,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         // find all the variables referenced by this
                         // function
                         const vars = this._extractVars(
-                            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                             KASparse(element.options.x).expr,
                         )
                             .concat(
                                 this._extractVars(
-                                    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.y).expr,
                                 ),
                             )
@@ -631,9 +629,7 @@ const _getInitialVariables: (
         .filter((element) => element.type === "movable-point")
         .forEach((element) => {
             const subscript = element.options.varSubscript;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const startXExpr = KASparse(element.options.startX || "0").expr;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const startYExpr = KASparse(element.options.startY || "0").expr;
             let startX = 0;
             let startY = 0;
@@ -651,13 +647,9 @@ const _getInitialVariables: (
         .forEach((element) => {
             const startSubscript = element.options.startSubscript;
             const endSubscript = element.options.endSubscript;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const startXExpr = KASparse(element.options.startX || "0").expr;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const startYExpr = KASparse(element.options.startY || "0").expr;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const endXExpr = KASparse(element.options.endX || "0").expr;
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const endYExpr = KASparse(element.options.endY || "0").expr;
             let startX = 0;
             let startY = 0;
