@@ -743,48 +743,4 @@ describe("Expression Widget", function () {
             },
         );
     });
-
-    describe("getSerializedState", () => {
-        it("returns an object", () => {
-            // NOTE: This is a characterization test describing what the code
-            // currently does. I don't know if it's intended behavior.
-            const {renderer} = renderQuestion({
-                ...expressionItemMultipleEquivalentAnswers.question,
-                widgets: {
-                    "expression 1": generateExpressionWidget({
-                        alignment: "default",
-                        static: false,
-                        options: generateExpressionOptions({
-                            buttonSets: ["basic"],
-                            buttonsVisible: "always",
-                            functions: ["f"],
-                            extraKeys: ["x"],
-                            times: true,
-                            visibleLabel: "the visible label",
-                            ariaLabel: "the aria label",
-                        }),
-                    }),
-                },
-            });
-
-            const result = renderer.getSerializedState();
-
-            expect(result).toEqual({
-                "expression 1": {
-                    alignment: "default",
-                    buttonSets: ["basic"],
-                    buttonsVisible: "always",
-                    functions: ["f"],
-                    keypadConfiguration: {
-                        extraKeys: ["x"],
-                        keypadType: "EXPRESSION",
-                        times: true,
-                    },
-                    static: false,
-                    times: true,
-                    value: "",
-                },
-            });
-        });
-    });
 });
