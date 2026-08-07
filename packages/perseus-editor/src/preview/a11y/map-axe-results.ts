@@ -6,9 +6,6 @@ import type axe from "axe-core";
 export const assistanceNeededMessage =
     "Developer assistance needed - Please send this exercise and warning info to the LEMS team for review.";
 
-// A monotonic source of opaque, unique previewIds.
-let nextPreviewId = 1;
-
 /**
  * Maps a scan's axe results (one category at a time) to both an issues list
  * and a `previewId → elements` map, in a single pass.
@@ -28,8 +25,10 @@ export const mapAxeResults = (
                 (testId) => testId === result.id,
             );
 
-        const previewId = `${prefix}-${nextPreviewId}`;
-        nextPreviewId += 1;
+        // Derived rather than counter-generated so that re-scanning the same
+        // problem yields the same previewId. axe-core reports at most one
+        // result per rule per category, so this is unique within the map.
+        const previewId = `${prefix}-${result.id}`;
 
         issues.push({
             id: result.id,

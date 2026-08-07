@@ -111,6 +111,30 @@ describe("mapAxeResults", () => {
         expect(new Set(ids).size).toBe(ids.length);
     });
 
+    it("gives an issue the same previewId when the same result is rescanned", () => {
+        const results = [
+            axeResult({id: "color-contrast", nodes: [axeNodeResult({})]}),
+        ];
+
+        const first = mapAxeResults(results, "Alert");
+        const second = mapAxeResults(results, "Alert");
+
+        expect(second.issues[0].previewId).toBe(first.issues[0].previewId);
+    });
+
+    it("gives the same rule distinct previewIds per category", () => {
+        const results = [
+            axeResult({id: "color-contrast", nodes: [axeNodeResult({})]}),
+        ];
+
+        const alerts = mapAxeResults(results, "Alert");
+        const warnings = mapAxeResults(results, "Warning");
+
+        expect(warnings.issues[0].previewId).not.toBe(
+            alerts.issues[0].previewId,
+        );
+    });
+
     it("maps each issue's previewId to the elements axe reported", () => {
         // Arrange
         const button = document.createElement("button");
