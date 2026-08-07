@@ -394,9 +394,12 @@ describe("server item renderer", () => {
         // Measuring finishes and the content becomes visible, but the 300ms
         // entrance animation is still running.
         act(() => jest.advanceTimersByTime(299));
+        expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).not.toHaveBeenCalled();
 
+        // Now wait for the animation to complete
         act(() => jest.runAllTimers());
+        expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
