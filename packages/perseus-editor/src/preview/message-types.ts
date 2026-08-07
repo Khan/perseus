@@ -233,10 +233,10 @@ interface PreviewA11yReportMessage extends PreviewMessageBase {
     /** Violations are issues that are confirmed by the a11y scanner. **/
     violations: Issue[];
     /**
-     * Unsures are issues that the scanner cannot definitively say is a
-     * violation or not. Requires manual review. *
+     * NeedsReview are issues that the scanner cannot definitively say is a
+     * violation or not. Requires manual review.
      */
-    unsures: Issue[];
+    needsReview: Issue[];
 }
 
 /**
@@ -256,12 +256,12 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
 
 export function createPreviewA11yReportMessage(
     violations: Issue[],
-    unsures: Issue[],
+    needsReview: Issue[],
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "a11y-report",
         violations,
-        unsures,
+        needsReview,
     };
 }

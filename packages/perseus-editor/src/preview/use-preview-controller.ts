@@ -20,7 +20,7 @@ import type {Issue} from "../components/issues-panel";
 
 export type A11yReport = {
     violations: Issue[];
-    unsures: Issue[];
+    needsReview: Issue[];
 };
 
 type UsePreviewControllerResult = {
@@ -145,7 +145,7 @@ export function usePreviewController(
                 case "a11y-report":
                     setA11yReport({
                         violations: message.violations,
-                        unsures: message.unsures,
+                        needsReview: message.needsReview,
                     });
                     break;
 

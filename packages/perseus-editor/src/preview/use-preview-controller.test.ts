@@ -437,7 +437,7 @@ describe("usePreviewController", () => {
             expect(result.current.a11yReport).toBeNull();
 
             const violations = [issue("v1")];
-            const unsures = [issue("i1")];
+            const needsReview = [issue("i1")];
 
             act(() => {
                 window.dispatchEvent(
@@ -446,7 +446,7 @@ describe("usePreviewController", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "a11y-report",
                             violations,
-                            unsures,
+                            needsReview,
                         },
                         source: mockContentWindow,
                     }),
@@ -455,7 +455,7 @@ describe("usePreviewController", () => {
 
             expect(result.current.a11yReport).toEqual({
                 violations,
-                unsures,
+                needsReview,
             });
         });
     });
