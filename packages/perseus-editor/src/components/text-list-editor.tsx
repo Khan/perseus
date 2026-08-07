@@ -1,10 +1,5 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
-import _ from "underscore";
 
 const textWidthCache: Record<string, any> = {};
 function getTextWidth(text: any) {
@@ -18,54 +13,69 @@ function getTextWidth(text: any) {
     return textWidthCache[text];
 }
 
-class TextListEditor extends React.Component<any, any> {
-    static propTypes = {
-        options: PropTypes.array,
-        layout: PropTypes.oneOf(["horizontal", "vertical"]),
-        onChange: PropTypes.func.isRequired,
-    };
+type Props = {
+    options?: string[];
+    layout?: "horizontal" | "vertical";
+    onChange: (options: string[]) => void;
+};
 
-    static defaultProps: any = {
-        options: [],
-        layout: "horizontal",
-    };
+/**
+ * A list of text inputs that always keeps one empty input at the end, so there
+ * is somewhere to type the next entry. Enter adds an entry below the current
+ * one and backspace on an empty entry removes it, both moving focus to match.
+ */
+export default function TextListEditor({
+    options = [],
+    layout = "horizontal",
+    onChange,
+}: Props) {
+    const [items, setItems] = React.useState<string[]>(() => [...options, ""]);
 
-    state: any = {
-        items: this.props.options.concat(""),
-    };
-
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
-        this.setState({
-            items: nextProps.options.concat(""),
-        });
+    // Whenever a new `options` array arrives, it replaces whatever is being
+    // edited locally. Editing calls `onChange`, so the incoming value is
+    // normally the parent's echo of an edit we just made.
+    const [syncedOptions, setSyncedOptions] = React.useState(options);
+    if (syncedOptions !== options) {
+        setSyncedOptions(options);
+        setItems([...options, ""]);
     }
 
-    onChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (index, event) => {
-        let items = _.clone(this.state.items);
-        items[index] = event.target.value;
+    const inputRefs = React.useRef<Array<HTMLInputElement | null>>([]);
 
-        if (index === items.length - 1) {
-            items = items.concat("");
+    // Focus can only move to an input once the updated list has been committed
+    // to the DOM, so the handlers below record where focus should land and this
+    // applies it after the render that adds or removes an input.
+    const pendingFocusIndex = React.useRef<number | null>(null);
+    React.useLayoutEffect(() => {
+        if (pendingFocusIndex.current != null) {
+            inputRefs.current[pendingFocusIndex.current]?.focus();
+            pendingFocusIndex.current = null;
+        }
+    });
+
+    const handleChange = (
+        index: number,
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        let nextItems = [...items];
+        nextItems[index] = event.target.value;
+
+        if (index === nextItems.length - 1) {
+            nextItems = nextItems.concat("");
         }
 
-        this.setState({items: items});
-        this.props.onChange(_.compact(items));
+        setItems(nextItems);
+        onChange(nextItems.filter(Boolean));
     };
 
-    onKeyDown: (arg1: number, arg2: React.KeyboardEvent) => void = (
-        index,
-        event,
+    const handleKeyDown = (
+        index: number,
+        event: React.KeyboardEvent<HTMLInputElement>,
     ) => {
-        const which = event.nativeEvent.keyCode;
-
         // Backspace deletes an empty input...
-        if (which === 8 /* backspace */ && this.state.items[index] === "") {
+        if (event.key === "Backspace" && items[index] === "") {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
             const focusIndex = index === 0 ? 0 : index - 1;
 
             if (
@@ -74,87 +84,68 @@ class TextListEditor extends React.Component<any, any> {
             ) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
+                inputRefs.current[focusIndex]?.focus();
             } else {
-                items.splice(index, 1);
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
-                });
+                const nextItems = [...items];
+                nextItems.splice(index, 1);
+                pendingFocusIndex.current = focusIndex;
+                setItems(nextItems);
             }
 
             // Deleting the last character in the second-to-last input
             // removes it
         } else if (
-            which === 8 /* backspace */ &&
-            this.state.items[index].length === 1 &&
-            index === this.state.items.length - 2
+            event.key === "Backspace" &&
+            items[index].length === 1 &&
+            index === items.length - 2
         ) {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
-            items.splice(index, 1);
-            this.setState({items: items});
-            this.props.onChange(_.compact(items));
+            const nextItems = [...items];
+            nextItems.splice(index, 1);
+            setItems(nextItems);
+            onChange(nextItems.filter(Boolean));
 
             // Enter adds an option below the current one...
-        } else if (which === 13 /* enter */) {
+        } else if (event.key === "Enter") {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
             const focusIndex = index + 1;
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
+                inputRefs.current[focusIndex]?.focus();
             } else {
-                items.splice(focusIndex, 0, "");
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
-                });
+                const nextItems = [...items];
+                nextItems.splice(focusIndex, 0, "");
+                pendingFocusIndex.current = focusIndex;
+                setItems(nextItems);
             }
         }
     };
 
-    render(): React.ReactNode {
-        const className = [
-            "perseus-text-list-editor",
-            "perseus-clearfix",
-            "layout-" + this.props.layout,
-        ].join(" ");
+    const className = [
+        "perseus-text-list-editor",
+        "perseus-clearfix",
+        "layout-" + layout,
+    ].join(" ");
 
-        const inputs = this.state.items.map((item, i) => {
-            return (
+    return (
+        <ul className={className}>
+            {items.map((item, i) => (
                 <li key={i}>
                     <input
-                        ref={"input_" + i}
+                        ref={(node) => {
+                            inputRefs.current[i] = node;
+                        }}
                         type="text"
                         value={item}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onChange={this.onChange.bind(this, i)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onKeyDown={this.onKeyDown.bind(this, i)}
+                        onChange={(event) => handleChange(i, event)}
+                        onKeyDown={(event) => handleKeyDown(i, event)}
                         style={{width: getTextWidth(item)}}
                     />
                 </li>
-            );
-        });
-
-        return <ul className={className}>{inputs}</ul>;
-    }
+            ))}
+        </ul>
+    );
 }
-
-export default TextListEditor;

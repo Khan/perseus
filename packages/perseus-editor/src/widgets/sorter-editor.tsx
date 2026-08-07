@@ -63,8 +63,8 @@ class SorterEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.correct}
                     // eslint-disable-next-line react/jsx-no-bind
-                    onChange={function (options, cb) {
-                        editor.props.onChange({correct: options}, cb);
+                    onChange={function (options) {
+                        editor.props.onChange({correct: options});
                     }}
                     layout={this.props.layout}
                 />

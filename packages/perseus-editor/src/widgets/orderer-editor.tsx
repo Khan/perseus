@@ -90,9 +90,8 @@ class OrdererEditor extends React.Component<Props> {
 
     onOptionsChange: (
         arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
+        arg2: string[],
+    ) => any = (whichOptions, options) => {
         const updatedOptions = getUpdatedOptions(
             this.props.correctOptions || [],
             this.props.otherOptions || [],
@@ -100,7 +99,7 @@ class OrdererEditor extends React.Component<Props> {
             options,
         );
 
-        this.props.onChange(updatedOptions, cb);
+        this.props.onChange(updatedOptions);
     };
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (

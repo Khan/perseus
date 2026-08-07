@@ -47,7 +47,7 @@ type Props = {
     apiOptions: APIOptions;
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
-    categories: ReadonlyArray<string | number>;
+    categories: string[];
     scaleY: number;
     maxY: number;
     snapsPerLine: number;
@@ -157,7 +157,6 @@ class PlotterEditor extends React.Component<Props, State> {
         let categories;
         if (type === "histogram") {
             // Switching to histogram, add a label (0) to the left
-            // @ts-expect-error - TS2769
             categories = [formatNumber(0)].concat(this.props.categories);
             this.props.onChange({type: type, categories: categories});
         } else if (this.props.type === "histogram") {
@@ -166,13 +165,6 @@ class PlotterEditor extends React.Component<Props, State> {
             this.props.onChange({type: type, categories: categories});
         } else {
             this.props.onChange({type: type});
-        }
-
-        if (categories) {
-            // eslint-disable-next-line react/no-string-refs
-            const node = ReactDOM.findDOMNode(this.refs.categories);
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-            node.value = categories.join(", ");
         }
     };
 
@@ -263,12 +255,6 @@ class PlotterEditor extends React.Component<Props, State> {
         categories = categories.map(formatNumber);
 
         this.changeCategories(categories);
-
-        // eslint-disable-next-line react/no-string-refs
-        const node = ReactDOM.findDOMNode(this.refs.categories);
-
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        node.value = categories.join(", ");
     };
 
     serialize: () => any = () => {
@@ -429,8 +415,6 @@ class PlotterEditor extends React.Component<Props, State> {
                     <label>
                         Categories:{" "}
                         <TextListEditor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="categories"
                             layout="horizontal"
                             options={this.props.categories}
                             onChange={this.changeCategories}
