@@ -229,7 +229,6 @@ class NumberLineEditor extends React.Component<Props> {
                     <NumberInput
                         value={this.props.correctX}
                         format={this.props.labelStyle}
-                        // eslint-disable-next-line react/jsx-no-bind
                         onChange={this.onNumChange.bind(this, "correctX")}
                         checkValidity={(val) =>
                             val >= range[0] &&
@@ -264,7 +263,6 @@ class NumberLineEditor extends React.Component<Props> {
                             <NumberInput
                                 value={this.props.initialX}
                                 format={this.props.labelStyle}
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onChange={this.onNumChange.bind(
                                     this,
                                     "initialX",
@@ -310,7 +308,6 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            // eslint-disable-next-line react/jsx-no-bind
                             onChange={this.onLabelRangeChange.bind(this, 0)}
                             useArrowKeys={true}
                         />
@@ -322,7 +319,6 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            // eslint-disable-next-line react/jsx-no-bind
                             onChange={this.onLabelRangeChange.bind(this, 1)}
                             useArrowKeys={true}
                         />
@@ -489,7 +485,6 @@ class NumberLineEditor extends React.Component<Props> {
                             value={snapDivisions}
                             checkValidity={(val) => val > 0}
                             format={this.props.labelStyle}
-                            // eslint-disable-next-line react/jsx-no-bind
                             onChange={this.onNumChange.bind(
                                 this,
                                 "snapDivisions",

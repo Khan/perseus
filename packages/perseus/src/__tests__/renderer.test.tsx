@@ -1154,7 +1154,7 @@ describe("renderer", () => {
                 if (el.classList.contains("widget-full-width")) {
                     break;
                 }
-                // eslint-disable-next-line testing-library/no-node-access
+
                 // @ts-expect-error - TS2322 - Type 'HTMLElement | null' is not assignable to type 'HTMLElement'.
                 // eslint-disable-next-line testing-library/no-node-access
                 el = el.parentElement;

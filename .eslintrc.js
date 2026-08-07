@@ -225,6 +225,7 @@ module.exports = {
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],
+    reportUnusedDisableDirectives: true,
     rules: {
         "new-cap": "off",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it

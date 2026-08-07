@@ -104,13 +104,11 @@ class MatcherEditor extends React.Component<Props> {
                     <input
                         type="text"
                         defaultValue={this.props.labels[0]}
-                        // eslint-disable-next-line react/jsx-no-bind
                         onChange={this.onLabelChange.bind(this, 0)}
                     />
                     <input
                         type="text"
                         defaultValue={this.props.labels[1]}
-                        // eslint-disable-next-line react/jsx-no-bind
                         onChange={this.onLabelChange.bind(this, 1)}
                     />
                 </div>

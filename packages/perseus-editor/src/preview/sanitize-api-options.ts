@@ -37,7 +37,6 @@ export type SerializableApiOptions = Omit<
 export function sanitizeApiOptions(
     apiOptions: APIOptions,
 ): SerializableApiOptions {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
         onFocusChange,
         answerableCallback,

@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {
     phetSimulationLogic,

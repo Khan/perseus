@@ -68,7 +68,6 @@ const ShowMe = ({elements}: {elements?: Element[]}) => {
         </div>
     );
 
-    // eslint-disable-next-line
     return Array.isArray(elementOutlines) && elementOutlines.length > 0
         ? showMeToggle
         : showMeUnavailable;

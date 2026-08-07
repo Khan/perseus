@@ -14,7 +14,6 @@ import {mockStrings} from "../../strings";
 import {
     testDependenciesV2,
     testDependencies,
-    // eslint-disable-next-line import/no-relative-packages
 } from "../../testing/test-dependencies";
 import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";

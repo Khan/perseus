@@ -118,7 +118,6 @@ describe("input-number", function () {
 
     describe.each([
         [
-            // eslint-disable-next-line no-restricted-syntax
             {
                 content:
                     "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",

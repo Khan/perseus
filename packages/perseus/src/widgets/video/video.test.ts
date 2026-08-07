@@ -44,7 +44,7 @@ describe("video widget", () => {
         renderQuestion(question1, apiOptions);
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
+
         expect(document.getElementsByTagName("iframe")[0]).toHaveAttribute(
             "allow",
             "autoplay",
@@ -87,7 +87,7 @@ describe("video widget", () => {
         renderQuestion(question2, apiOptions);
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
+
         expect(document.getElementsByTagName("iframe")[0].src).toContain(
             "dnt=1",
         );

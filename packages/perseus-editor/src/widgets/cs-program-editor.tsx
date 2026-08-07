@@ -103,7 +103,6 @@ class PairsEditor extends React.Component<any> {
                     key={i}
                     name={pair.name}
                     value={pair.value}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.handlePairChange.bind(this, i)}
                 />
             );

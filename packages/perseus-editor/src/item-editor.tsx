@@ -12,7 +12,6 @@ import type {PreviewContent} from "./preview/message-types";
 import type {
     APIOptions,
     ImageUploader,
-    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
@@ -71,7 +70,6 @@ class ItemEditor extends React.Component<Props> {
         this.props.onChange(_(props).extend(newProps));
     };
 
-    // eslint-disable-next-line import/no-deprecated
     handleEditorChange: ChangeHandler = (newProps) => {
         const question = _.extend({}, this.props.question, newProps);
         this.updateProps({question});
