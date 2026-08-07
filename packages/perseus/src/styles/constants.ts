@@ -5,11 +5,8 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 export const baseFontFamily = "'Lato', sans-serif";
 // @boldFontFamily:        "Lato-Bold", "Lato", sans-serif;
 export const boldFontFamily = "'Lato-Bold', 'Lato', sans-serif";
-// @kaGreen:               #71b307;
-export const kaGreen = "#71B307";
 
 export const white = "#FFFFFF";
-export const gray97 = "#F6F7F7";
 export const gray76 = "#BABEC2";
 export const gray68 = "#888D93";
 export const gray17 = "#21242c";
@@ -36,9 +33,6 @@ export const phoneMargin = 16;
 export const negativePhoneMargin = -16;
 export const hintBorderWidth = sizing.size_040;
 
-// The 'base unit' -- our new typography and layout styles are defined in
-// terms of multiples of the 'base unit'.
-export const baseUnitPx = 16;
 export const hintPaddingInlineStart = sizing.size_160;
 
 export const interactiveSizes = {
