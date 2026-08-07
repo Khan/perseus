@@ -1,10 +1,13 @@
 import * as React from "react";
+import {DocsContainer} from "@storybook/addon-docs/blocks";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
     ThemeSwitcher,
 } from "@khanacademy/wonder-blocks-theming";
 
+import perseusDarkTheme from "./dark-theme";
+import perseusTheme from "./theme";
 import {
     setDependencies,
     DependenciesContext,
@@ -88,6 +91,39 @@ const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     );
 };
 
+// Docs pages (autodocs, MDX) are rendered by Storybook's own DocsContainer,
+// which is outside the withThemeSwitcher decorator above and has its own
+// Storybook-chrome theme (background, text, code block colors, etc.) that's
+// separate from our Perseus/Wonder Blocks component theme. This swaps that
+// chrome theme to match whenever syl-dark is selected in the Theme toolbar,
+// so the docs page background isn't stuck light while the widget preview
+// inside it goes dark.
+function DocsContainerWithTheme({
+    children,
+    context,
+    ...props
+}: React.ComponentProps<typeof DocsContainer>) {
+    // `context.store` isn't part of the public DocsContextProps type, but the
+    // concrete DocsContext always carries the preview's StoryStore at
+    // runtime, and it's the only way to read the toolbar's current theme
+    // global from here (docs pages aren't tied to a single story/decorator).
+    const theme = (
+        context as unknown as {
+            store: {userGlobals: {globals: {theme?: string}}};
+        }
+    ).store.userGlobals.globals.theme;
+
+    return (
+        <DocsContainer
+            context={context}
+            {...props}
+            theme={theme === "syl-dark" ? perseusDarkTheme : perseusTheme}
+        >
+            <ThemeSwitcher theme={theme}>{children}</ThemeSwitcher>
+        </DocsContainer>
+    );
+}
+
 const supportedThemes = {
     description: "Global theme for components",
     toolbar: {
@@ -165,6 +201,8 @@ const preview: Preview = {
             },
         },
         docs: {
+            theme: perseusTheme,
+            container: DocsContainerWithTheme,
             toc: {
                 // Useful for MDX pages
                 headingSelector: "h2, h3",
