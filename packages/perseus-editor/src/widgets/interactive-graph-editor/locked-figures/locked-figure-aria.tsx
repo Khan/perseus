@@ -1,4 +1,3 @@
-import {components} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
@@ -7,9 +6,9 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
 import * as React from "react";
 
-import styles from "./locked-figure-aria.module.css";
+import InfoTip from "../../../components/info-tip";
 
-const {InfoTip} = components;
+import styles from "./locked-figure-aria.module.css";
 
 interface Props {
     ariaLabel: string | undefined;

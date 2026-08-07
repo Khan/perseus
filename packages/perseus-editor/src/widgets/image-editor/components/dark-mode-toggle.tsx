@@ -1,14 +1,12 @@
-import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
+import InfoTip from "../../../components/info-tip";
 import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./dark-mode-toggle.module.css";
 
 import type {Props as ImageEditorProps} from "../image-editor";
 import type {PerseusImageBackground} from "@khanacademy/perseus-core";
-
-const {InfoTip} = components;
 
 interface Props {
     backgroundImage: PerseusImageBackground;

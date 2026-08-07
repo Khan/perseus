@@ -1,5 +1,4 @@
 import {angles} from "@khanacademy/kmath";
-import {components} from "@khanacademy/perseus";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -10,6 +9,7 @@ import * as React from "react";
 
 import AngleInput from "../../../components/angle-input";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import InfoTip from "../../../components/info-tip";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 
@@ -38,8 +38,6 @@ import type {
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {convertRadiansToDegrees} = angles;
-const {InfoTip} = components;
-
 // Passed to CoordinatePairInput's/View's `style` and LockedLabelSettings'
 // `containerStyle`, which are typed as Wonder Blocks `StyleType` and do not
 // accept a CSS-module className.

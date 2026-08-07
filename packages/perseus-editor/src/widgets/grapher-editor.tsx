@@ -13,6 +13,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
+import InfoTip from "../components/info-tip";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
@@ -22,7 +23,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {InfoTip, MultiButtonGroup} = components;
+const {MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
 const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
@@ -150,7 +151,7 @@ class GrapherEditor extends React.Component<Props> {
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}
-                        buttons={_.map(CoreGrapherUtil.allTypes, typeToButton)}
+                        buttons={CoreGrapherUtil.allTypes.map(typeToButton)}
                         onChange={this.handleAvailableTypesChange}
                     />
                 </div>

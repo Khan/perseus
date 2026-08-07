@@ -1,4 +1,3 @@
-import {components} from "@khanacademy/perseus";
 import {
     ItemExtras,
     getDefaultAnswerArea,
@@ -9,6 +8,8 @@ import {Checkbox, Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
 import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import InfoTip from "./components/info-tip";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -33,8 +34,6 @@ const calculatorVariants: Array<{
         variant: "four_function",
     },
 ];
-
-const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
     apiOptions?: APIOptions;

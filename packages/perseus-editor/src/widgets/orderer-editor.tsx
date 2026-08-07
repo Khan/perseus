@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {components} from "@khanacademy/perseus";
 import {
     ordererLogic,
     type OrdererDefaultWidgetOptions,
@@ -8,7 +7,8 @@ import {
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const {InfoTip, TextListEditor} = components;
+import InfoTip from "../components/info-tip";
+import TextListEditor from "../components/text-list-editor";
 
 const NORMAL = "normal";
 const AUTO = "auto";

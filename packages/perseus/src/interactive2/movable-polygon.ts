@@ -254,7 +254,7 @@ _.extend(MovablePolygon.prototype, {
         const graphie = this.graphie;
         state = state || this.state;
 
-        let coords = _.map(state.points, function (point) {
+        let coords = state.points.map(function (point) {
             return graphie.scalePoint(point.coord());
         });
 
