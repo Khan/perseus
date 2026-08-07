@@ -233,7 +233,7 @@ div.graphie {
     font-weight: bold;
     padding-bottom: 2px;
 }
-.framework-perseus:not(.perseus-mobile) table tr:nth-child(odd) td {
+.framework-perseus table tr:nth-child(odd) td {
     background-color: var(--wb-semanticColor-core-background-base-subtle);
 }
 .framework-perseus:not(.perseus-mobile) .perseus-titled-table {
@@ -289,7 +289,7 @@ div.graphie {
 .framework-perseus.perseus-mobile table td[align="right"] {
     text-align: right;
 }
-.framework-perseus.perseus-mobile table td {
+.framework-perseus.perseus-mobile table tr:nth-child(even) td {
     background-color: var(--wb-semanticColor-core-background-base-default);
 }
 .framework-perseus.perseus-mobile table th {

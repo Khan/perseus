@@ -166,7 +166,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -180,7 +180,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -194,7 +194,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -208,7 +208,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
@@ -251,7 +251,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -265,7 +265,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -279,7 +279,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -293,7 +293,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
@@ -583,7 +583,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -609,7 +609,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -635,7 +635,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -661,7 +661,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
@@ -716,7 +716,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
@@ -742,7 +742,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
@@ -768,7 +768,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
@@ -794,7 +794,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_tuausd"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
