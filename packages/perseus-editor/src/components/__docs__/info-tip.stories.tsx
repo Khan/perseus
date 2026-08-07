@@ -5,7 +5,7 @@ import InfoTip from "../info-tip";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Components/Info Tip",
+    title: "Editors/Components/Info Tip",
     component: InfoTip,
 };
 export default meta;

@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, EditorJsonify} from "@khanacademy/perseus";
+import {EditorJsonify} from "@khanacademy/perseus";
 import {
     dropdownLogic,
     type DropdownDefaultWidgetOptions,
@@ -16,7 +16,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-const {InfoTip} = components;
+import InfoTip from "../components/info-tip";
 
 type Props = any;
 

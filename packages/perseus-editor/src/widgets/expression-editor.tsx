@@ -15,6 +15,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
+
 import styles from "./expression-editor.module.css";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -26,7 +28,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
-const {ButtonGroup, InfoTip} = components;
+const {ButtonGroup} = components;
 
 type Props = {
     widgetId?: string;

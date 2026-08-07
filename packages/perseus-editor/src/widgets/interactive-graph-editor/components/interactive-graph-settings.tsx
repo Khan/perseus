@@ -16,6 +16,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Heading from "../../../components/heading";
+import InfoTip from "../../../components/info-tip";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
@@ -33,7 +34,7 @@ import type {
 
 type ChangeFn = typeof Changeable.change;
 
-const {ButtonGroup, InfoTip, RangeInput} = components;
+const {ButtonGroup, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
