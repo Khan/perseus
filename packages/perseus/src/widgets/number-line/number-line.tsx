@@ -488,7 +488,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
         return (
             <MovablePoint
-                // eslint-disable-next-line react/no-string-refs
                 ref="numberLinePoint"
                 pointSize={6}
                 coord={[calculatedProps.userInput.numLinePosition, 0]}

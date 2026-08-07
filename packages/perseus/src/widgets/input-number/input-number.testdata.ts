@@ -11,7 +11,6 @@ export const question1: PerseusRenderer = {
             },
     },
     widgets: {
-        // eslint-disable-next-line no-restricted-syntax
         "input-number 1": {
             type: "input-number",
             version: {major: 1, minor: 0},

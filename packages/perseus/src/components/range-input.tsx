@@ -41,7 +41,6 @@ class RangeInput extends React.Component<any> {
                     {...this.props}
                     value={value[0]}
                     checkValidity={(val) => checkValidity([val, value[1]])}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
                     allowPiTruncation={this.props.allowPiTruncation}
@@ -50,7 +49,6 @@ class RangeInput extends React.Component<any> {
                     {...this.props}
                     value={value[1]}
                     checkValidity={(val) => checkValidity([value[0], val])}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onChange.bind(this, 1)}
                     placeholder={this.props.placeholder[1]}
                     allowPiTruncation={this.props.allowPiTruncation}

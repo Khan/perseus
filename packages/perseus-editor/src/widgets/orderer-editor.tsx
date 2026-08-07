@@ -152,7 +152,6 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.correctOptions.map(
                         (option) => option.content,
                     )}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "correctOptions")}
                     layout={this.props.layout}
                 />
@@ -168,7 +167,6 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.otherOptions.map(
                         (option) => option.content,
                     )}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "otherOptions")}
                     layout={this.props.layout}
                 />

@@ -10,7 +10,6 @@ function getMatrixSize(
     matrix.forEach((matrixRow, row) => {
         let rowWidth = 0;
         matrixRow.forEach((matrixCol, col) => {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
             }

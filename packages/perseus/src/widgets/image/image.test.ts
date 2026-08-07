@@ -1032,7 +1032,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 // Assert
                 // Need container query to get the image inside the zoom view,
                 // separate from the original image in the content area.
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                // eslint-disable-next-line testing-library/no-node-access
                 const image = document.querySelector(
                     "[role='dialog'] .fixed-to-responsive.svg-image",
                 );
@@ -1088,7 +1088,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 // Assert
                 // Need container query to get the image inside the zoom view,
                 // separate from the original image in the content area.
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                // eslint-disable-next-line testing-library/no-node-access
                 const image = document.querySelector(
                     "[role='dialog'] .fixed-to-responsive.svg-image",
                 );

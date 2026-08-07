@@ -134,7 +134,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
-        // eslint-disable-next-line react/no-string-refs
         const editor = this.refs[`editor${sectionIndex}`];
 
         return {
@@ -300,7 +299,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 {this._renderLinterHUD()}
             </div>
         );
-        /* eslint-enable max-len */
     }
 
     _renderAddSection(
@@ -449,7 +447,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
     serialize(): PerseusArticle {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
                 // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 return this.refs["editor" + i].serialize();
             });
@@ -478,7 +475,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
 
         return this._sections().map((section, i) => {
-            // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             return this.refs["editor" + i].getSaveWarnings();
         });

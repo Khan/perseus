@@ -4,10 +4,7 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import WrappedServerItemRenderer from "../server-item-renderer";
-import {
-    testDependenciesV2,
-    // eslint-disable-next-line import/no-relative-packages
-} from "../testing/test-dependencies";
+import {testDependenciesV2} from "../testing/test-dependencies";
 
 import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";

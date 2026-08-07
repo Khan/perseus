@@ -1,4 +1,3 @@
-/* eslint-disable import/no-commonjs */
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
@@ -331,5 +330,4 @@ const createRollupConfig = async (commandLineArgs) => {
     return results;
 };
 
-// eslint-disable-next-line import/no-default-export
 export default createRollupConfig;

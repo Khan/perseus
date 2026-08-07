@@ -74,11 +74,7 @@ class DragTarget extends React.Component<Props, State> {
 
     render() {
         const opacity = this.state.dragHover ? {opacity: 0.3} : {};
-        const {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            shouldDragHighlight,
-            ...forwardProps
-        } = this.props;
+        const {shouldDragHighlight, ...forwardProps} = this.props;
 
         return (
             <View
