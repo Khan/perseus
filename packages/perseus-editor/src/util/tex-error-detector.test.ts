@@ -94,6 +94,58 @@ describe("detectTexErrors", () => {
         expect(errors).toEqual([]);
     });
 
+    it.each([
+        "$\\gold{A}$", // \gold
+        "$\\inte_0^1 x\\,dx$", // \inte
+        "$x \\in \\RR$", // \RR
+        "$\\lcm(4, 6)$", // \lcm
+        "$\\gcf(4, 6)$", // \gcf
+        "$\\AA$", // \AA, which KaTeX allows in text mode only
+        "$\\^{\\frac12}$", // \^, a rational exponent
+        "$\\arraystretch{1.5}$", // \arraystretch, a no-op MathJax swallows
+    ])(
+        "returns no errors for %s, which MathJax accepts but KaTeX rejects",
+        (content) => {
+            // Arrange, Act
+            const errors = detectTexErrors(content);
+
+            // Assert
+            expect(errors).toEqual([]);
+        },
+    );
+
+    it.each([
+        "$\\orange{7}$", // \orange
+        "$\\goldD{7}$", // \goldD
+    ])(
+        "returns no errors for %s, a color macro KaTeX defines itself",
+        (content) => {
+            // Arrange, Act
+            const errors = detectTexErrors(content);
+
+            // Assert
+            expect(errors).toEqual([]);
+        },
+    );
+
+    // Our overrides shadow macros KaTeX either defines or inspects itself, so
+    // they must not break the constructs KaTeX already handled.
+    it.each([
+        "$\\text{\\^e}$", // \^ as a text-mode circumflex accent
+        "$\\text{5\\AA}$", // \AA in the text mode KaTeX intends it for
+        // \arraystretch's override has to leave row-based environments parsing.
+        "$\\begin{array}{c}a\\\\b\\end{array}$",
+        "$\\begin{matrix}a\\\\b\\end{matrix}$",
+        "$\\begin{aligned}a&=b\\end{aligned}$",
+        "$\\def\\arraystretch{1.5}\\begin{array}{c}a\\end{array}$",
+    ])("returns no errors for %s after overriding the macro", (content) => {
+        // Arrange, Act
+        const errors = detectTexErrors(content);
+
+        // Assert
+        expect(errors).toEqual([]);
+    });
+
     it("preprocesses TeX by converting align to aligned", () => {
         // Arrange - align should be converted to aligned
         const content = "$$\\begin{align}x = 1\\end{align}$$";
