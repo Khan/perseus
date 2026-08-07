@@ -136,28 +136,22 @@ class TextListEditor extends React.Component<any, any> {
             "layout-" + this.props.layout,
         ].join(" ");
 
-        const inputs = _.map(
-            this.state.items,
-            function (item, i) {
-                return (
-                    <li key={i}>
-                        <input
-                            ref={"input_" + i}
-                            type="text"
-                            value={item}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onChange={this.onChange.bind(this, i)}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onKeyDown={this.onKeyDown.bind(this, i)}
-                            style={{width: getTextWidth(item)}}
-                        />
-                    </li>
-                );
-            },
-            this,
-        );
+        const inputs = this.state.items.map((item, i) => {
+            return (
+                <li key={i}>
+                    <input
+                        ref={"input_" + i}
+                        type="text"
+                        value={item}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onChange={this.onChange.bind(this, i)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onKeyDown={this.onKeyDown.bind(this, i)}
+                        style={{width: getTextWidth(item)}}
+                    />
+                </li>
+            );
+        });
 
         return <ul className={className}>{inputs}</ul>;
     }
