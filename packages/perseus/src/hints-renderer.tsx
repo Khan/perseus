@@ -271,17 +271,6 @@ class HintsRenderer extends React.Component<Props, State> {
 const hintIndentation = baseUnitPx + hintBorderWidth;
 
 const styles = StyleSheet.create({
-    plusText: {
-        fontSize: 20,
-        position: "absolute",
-        top: -3,
-        left: 0,
-    },
-
-    // getAnotherHintText: {
-    //     marginLeft: 16,
-    // },
-
     mobileHintStylesHintsRenderer: {
         marginTop: 4 * baseUnitPx,
         border: `solid ${gray85}`,
@@ -341,15 +330,6 @@ const styles = StyleSheet.create({
             // As with the title, on phones, ensure that the button is aligned
             // with the hint body content.
             paddingLeft: hintIndentation,
-        },
-    },
-
-    mobileHintStylesPlusText: {
-        [mediaQueries.lgOrSmaller]: {
-            left: 0,
-        },
-        [mediaQueries.smOrSmaller]: {
-            left: hintIndentation,
         },
     },
 });
