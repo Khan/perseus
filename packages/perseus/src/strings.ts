@@ -55,9 +55,12 @@ export type PerseusStrings = {
     simplifiedImproperExample: string;
     mixedExample: string;
     decimalExample: string;
+    // TODO: is this still needed?
+    // there's not a way to set this in the editor
     percentExample: string;
     piExample: string;
     yourAnswer: string;
+    yourAnswerCanBe: string;
     yourAnswerLabel: string;
     addPoints: string;
     addVertices: string;
@@ -980,16 +983,19 @@ export const strings = {
     INVALID_MESSAGE_PREFIX: "We couldn't grade your answer.",
     DEFAULT_INVALID_MESSAGE_1: "It looks like you left something blank or ",
     DEFAULT_INVALID_MESSAGE_2: "entered in an invalid answer.",
-    integerExample: "an integer, like $6$",
-    properExample: "a *proper* fraction, like $1/2$ or $6/10$",
-    simplifiedProperExample: "a *simplified proper* fraction, like $3/5$",
-    improperExample: "an *improper* fraction, like $10/7$ or $14/8$",
-    simplifiedImproperExample: "a *simplified improper* fraction, like $7/4$",
-    mixedExample: "a mixed number, like $1\\\\ 3/4$",
-    decimalExample: "an *exact* decimal, like $0.75$",
-    percentExample: "a percent, like $12.34\\\\%$",
-    piExample: "a multiple of pi, like $12$ pi or $2/3$ pi",
+    integerExample: "an integer (like $-3$ or $45$)",
+    properExample: "a proper fraction (like $1/3$ or $12/13$)",
+    simplifiedProperExample:
+        "a simplified proper fraction (like $1/2$ or $3/4$)",
+    improperExample: "an improper fraction (like $3/2$ or $17/15$)",
+    simplifiedImproperExample:
+        "a simplified improper fraction (like $5/4$ or $9/8$)",
+    mixedExample: "a mixed number (like $1\\\\ 3/4$ or $2\\\\ 5/6$)",
+    decimalExample: "an exact decimal (like $-0.85$ or $3.14$)",
+    percentExample: "a percent (like $6\\\\%$ or $12.34\\\\%$)",
+    piExample: "a multiple of pi (like $2/3$ pi or $5$ pi)",
     yourAnswer: "**Your answer should be** ",
+    yourAnswerCanBe: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",
@@ -1926,16 +1932,19 @@ export const mockStrings: PerseusStrings = {
     INVALID_MESSAGE_PREFIX: "We couldn't grade your answer.",
     DEFAULT_INVALID_MESSAGE_1: "It looks like you left something blank or ",
     DEFAULT_INVALID_MESSAGE_2: "entered in an invalid answer.",
-    integerExample: "an integer, like $6$",
-    properExample: "a *proper* fraction, like $1/2$ or $6/10$",
-    simplifiedProperExample: "a *simplified proper* fraction, like $3/5$",
-    improperExample: "an *improper* fraction, like $10/7$ or $14/8$",
-    simplifiedImproperExample: "a *simplified improper* fraction, like $7/4$",
-    mixedExample: "a mixed number, like $1\\ 3/4$",
-    decimalExample: "an *exact* decimal, like $0.75$",
-    percentExample: "a percent, like $12.34\\%$",
-    piExample: "a multiple of pi, like $12\\ \\text{pi}$ or $2/3\\ \\text{pi}$",
+    integerExample: "an integer (like $-3$ or $45$)",
+    properExample: "a proper fraction (like $1/3$ or $12/13$)",
+    simplifiedProperExample:
+        "a simplified proper fraction (like $1/2$ or $3/4$)",
+    improperExample: "an improper fraction (like $3/2$ or $17/15$)",
+    simplifiedImproperExample:
+        "a simplified improper fraction (like $5/4$ or $9/8$)",
+    mixedExample: "a mixed number (like $1\\ 3/4$ or $2\\ 5/6$)",
+    decimalExample: "an exact decimal (like $-0.85$ or $3.14$)",
+    percentExample: "a percent (like $6\\%$ or $12.34\\%$)",
+    piExample: "a multiple of pi (like $2/3\\ \\text{pi}$ or $5\\ \\text{pi}$)",
     yourAnswer: "**Your answer should be** ",
+    yourAnswerCanBe: "**Your answer can be** ",
     yourAnswerLabel: "Your answer:",
     addPoints: "Click to add points",
     addVertices: "Click to add vertices",
