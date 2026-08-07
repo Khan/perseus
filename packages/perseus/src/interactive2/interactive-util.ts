@@ -63,6 +63,8 @@ const FUNCTION_ARRAY_OPTIONS = [
 ];
 
 const InteractiveUtil = {
+    // TODO(benchristel): delete `assert` and replace all usages with
+    //  `invariant` from `tiny-invariant`.
     assert: function (isTrue: boolean, message?: string) {
         if (!isTrue) {
             throw new PerseusError(

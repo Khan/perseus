@@ -5,7 +5,6 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {components} from "@khanacademy/perseus";
 import {
     lockedFigureColors,
     type LockedLabelType,
@@ -17,6 +16,7 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import InfoTip from "../../../components/info-tip";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 
@@ -26,8 +26,6 @@ import styles from "./locked-label-settings.module.css";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-const {InfoTip} = components;
 
 // Passed to Wonder Blocks `StyleType`-only props (CoordinatePairInput,
 // ColorSelect) which don't accept a CSS-module className.

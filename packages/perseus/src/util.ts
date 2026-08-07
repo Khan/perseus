@@ -58,7 +58,7 @@ const nestedMap = function <T, M>(
 ): M | ReadonlyArray<M> {
     if (Array.isArray(children)) {
         // @ts-expect-error - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
-        return _.map(children, function (child) {
+        return children.map(function (child) {
             // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
