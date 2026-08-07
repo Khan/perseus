@@ -98,14 +98,10 @@ describe("detectTexErrors", () => {
         "$\\gold{A}$", // \gold
         "$\\inte_0^1 x\\,dx$", // \inte
         "$x \\in \\RR$", // \RR
-        "$\\cossec(x)$", // \cossec
-        "$\\sen(x)$", // \sen
         "$\\lcm(4, 6)$", // \lcm
         "$\\gcf(4, 6)$", // \gcf
         "$\\AA$", // \AA, which KaTeX allows in text mode only
         "$\\^{\\frac12}$", // \^, a rational exponent
-        "$\\1{,}000$", // \1, a translation typo MathJax tolerates
-        "$\\2 + \\3 = \\5$", // the rest of the \0-\9 range
         "$\\arraystretch{1.5}$", // \arraystretch, a no-op MathJax swallows
     ])(
         "returns no errors for %s, which MathJax accepts but KaTeX rejects",
@@ -119,16 +115,10 @@ describe("detectTexErrors", () => {
     );
 
     it.each([
-        "$\\tg(x)$", // \tg
-        "$\\ctg(x)$", // \ctg
-        "$\\arctg(x)$", // \arctg
-        "$\\arcctg(x)$", // \arcctg
-        "$\\cotg(x)$", // \cotg
-        "$\\cosec(x)$", // \cosec
         "$\\orange{7}$", // \orange
         "$\\goldD{7}$", // \goldD
     ])(
-        "returns no errors for %s, a localized or color macro KaTeX defines itself",
+        "returns no errors for %s, a color macro KaTeX defines itself",
         (content) => {
             // Arrange, Act
             const errors = detectTexErrors(content);

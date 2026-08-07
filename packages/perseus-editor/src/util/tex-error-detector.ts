@@ -33,6 +33,11 @@ type TexError = {
  * engines already agree on the other ~130. That config can't be imported
  * wholesale: many of its expansions use MathJax-only primitives (\unicode,
  * \enclose, \centercolon, \overparen) that KaTeX lacks.
+ *
+ * Scoped to English content, which is all our authors write. (Macros that
+ * only appear in translated strings are deliberately absent: \sen and \cossec,
+ * and \0-\9, which is what `\$1` becomes when a translator localizes the
+ * currency and drops the dollar sign but not the backslash.)
  */
 const MATHJAX_ONLY_MACROS: Readonly<Record<string, string>> = {
     // KaTeX defines the other bare color macros (\blue, \orange, ...) and every
@@ -45,11 +50,6 @@ const MATHJAX_ONLY_MACROS: Readonly<Record<string, string>> = {
     // Rational exponents: content uses \^ rather than ^ to push the exponent
     // higher. KaTeX defines \^ only as a text-mode circumflex accent.
     "\\^": "{#1}",
-    // Localized and alternate operator names from translated content (\sen is
-    // sine in Spanish and Portuguese). \arccos, \arcctg, \arctg, \cosec, \cotg,
-    // \ctg and \tg are absent because KaTeX already defines them.
-    "\\cossec": "\\operatorname{cossec}",
-    "\\sen": "\\operatorname{sen}",
     "\\lcm": "\\operatorname{lcm}",
     "\\gcf": "\\operatorname{gcf}",
     // A one-argument no-op in MathJax, undefined in KaTeX. The empty expansion
@@ -57,19 +57,6 @@ const MATHJAX_ONLY_MACROS: Readonly<Record<string, string>> = {
     // instead of expanding it in place, so a matching `{#1}` arity makes every
     // array, matrix and aligned environment eat its own first cell.
     "\\arraystretch": "",
-    // \1, \2, ... are a translation typo, not real TeX: localizing `\$1` to
-    // another currency sometimes drops the dollar sign but keeps the backslash.
-    // MathJax maps them to the bare digit, so the editor shouldn't flag them.
-    "\\0": "0",
-    "\\1": "1",
-    "\\2": "2",
-    "\\3": "3",
-    "\\4": "4",
-    "\\5": "5",
-    "\\6": "6",
-    "\\7": "7",
-    "\\8": "8",
-    "\\9": "9",
 };
 
 /**
