@@ -5,6 +5,7 @@ import {
     THEME_DATA_ATTRIBUTE,
     ThemeSwitcher,
 } from "@khanacademy/wonder-blocks-theming";
+import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
 
 import darkTheme from "./dark-theme";
 import lightTheme from "./lightTheme";
@@ -111,7 +112,9 @@ function DocsContainerWithTheme({
     // (no cast needed) -- update once we upgrade off 10.3.1.
     const theme = (
         context as unknown as {
-            store: {userGlobals: {globals: {theme?: string}}};
+            store: {
+                userGlobals: {globals: {theme?: SupportedThemes}};
+            };
         }
     ).store.userGlobals.globals.theme;
 
@@ -121,7 +124,7 @@ function DocsContainerWithTheme({
             {...props}
             theme={theme === "syl-dark" ? darkTheme : lightTheme}
         >
-            <ThemeSwitcher theme={theme}>{children}</ThemeSwitcher>
+            <ThemeSwitcher theme={theme ?? "default"}>{children}</ThemeSwitcher>
         </DocsContainer>
     );
 }
@@ -153,7 +156,7 @@ const supportedThemes = {
         // Change title based on selected value
         dynamicTitle: true,
     },
-};
+} satisfies NonNullable<Preview["globalTypes"]>["theme"];
 
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
