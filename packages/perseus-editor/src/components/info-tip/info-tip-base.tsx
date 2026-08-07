@@ -10,7 +10,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-const InfoTipBase = (props: Props) => {
+export default function InfoTipBase(props: Props) {
     return (
         <Tooltip
             content={<BodyText style={styles.body}>{props.children}</BodyText>}
@@ -23,7 +23,7 @@ const InfoTipBase = (props: Props) => {
             />
         </Tooltip>
     );
-};
+}
 
 const styles = StyleSheet.create({
     spacingLeft: {
@@ -33,5 +33,3 @@ const styles = StyleSheet.create({
         padding: spacing.medium_16,
     },
 });
-
-export default InfoTipBase;
