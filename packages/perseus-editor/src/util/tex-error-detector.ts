@@ -16,10 +16,11 @@ type TexError = {
  * Macros that our real math renderer (@khanacademy/mathjax-renderer) accepts
  * but KaTeX rejects.
  *
- * Content renders with MathJax, but errors are detected below by re-parsing it
- * with KaTeX. Macros the two engines disagree on surface in the Issues panel as
- * errors for math that renders perfectly in the preview and in production;
- * defining them here keeps those false positives out.
+ * Content renders with MathJax, but errors are detected below by re-parsing
+ * it with KaTeX. If MathJax recognizes a macro but KaTeX does not,
+ * the Issues panel shows an error even though the math renders perfectly
+ * in the preview and in production. Defining the macros here prevents those
+ * false positives.
  *
  * KaTeX's output is discarded — only its errors matter — so an expansion need
  * not resemble MathJax's. It only has to parse in both math and text mode, take
