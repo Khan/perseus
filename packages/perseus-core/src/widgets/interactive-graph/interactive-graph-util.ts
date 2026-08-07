@@ -1,23 +1,8 @@
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 
-export type InteractiveGraphPublicWidgetOptions = Pick<
+export type InteractiveGraphPublicWidgetOptions = Omit<
     PerseusInteractiveGraphWidgetOptions,
-    | "step"
-    | "gridStep"
-    | "snapStep"
-    | "backgroundImage"
-    | "markings"
-    | "labels"
-    | "showProtractor"
-    | "showRuler"
-    | "showTooltips"
-    | "rulerLabel"
-    | "rulerTicks"
-    | "range"
-    | "graph"
-    | "lockedFigures"
-    | "fullGraphAriaLabel"
-    | "fullGraphAriaDescription"
+    "correct"
 >;
 
 export function getInteractiveGraphPublicWidgetOptions(

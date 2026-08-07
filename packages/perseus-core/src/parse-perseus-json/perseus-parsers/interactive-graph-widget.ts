@@ -328,7 +328,8 @@ const parseLockedFunctionType = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFigure = discriminatedUnionOn("type")
+// Exported for testing
+export const parseLockedFigure = discriminatedUnionOn("type")
     .withBranch("point", parseLockedPointType)
     .withBranch("line", parseLockedLineType)
     .withBranch("vector", parseLockedVectorType)
@@ -337,9 +338,12 @@ const parseLockedFigure = discriminatedUnionOn("type")
     .withBranch("function", parseLockedFunctionType)
     .withBranch("label", parseLockedLabelType).parser;
 
-const parseLabelLocation = union(enumeration("onAxis", "alongEdge")).or(
-    // If the labelLocation is an empty string, we default to "onAxis".
-    pipeParsers(constant("")).then(convert(() => "onAxis" as const)).parser,
+// Exported for testing
+export const parseLabelLocation = pipeParsers(
+    enumeration("onAxis", "alongEdge", "", null, undefined),
+).then(
+    // Default nullish/empty values to onAxis.
+    convert((value) => value || "onAxis"),
 ).parser;
 
 export const parseInteractiveGraphWidget = parseWidget(
@@ -352,13 +356,15 @@ export const parseInteractiveGraphWidget = parseWidget(
         // why.
         gridStep: optional(pairOfNumbers),
         snapStep: optional(pairOfNumbers),
-        backgroundImage: optional(parsePerseusImageBackground),
+        backgroundImage: defaulted(parsePerseusImageBackground, () => ({
+            url: null,
+        })),
         markings: enumeration("graph", "grid", "none", "axes"),
-        labels: optional(array(string)),
-        labelLocation: optional(parseLabelLocation),
+        labels: defaulted(array(string), () => ["$x$", "$y$"]),
+        labelLocation: parseLabelLocation,
         showProtractor: boolean,
         showRuler: optional(boolean),
-        showTooltips: optional(boolean),
+        showTooltips: defaulted(boolean, () => false),
         rulerLabel: optional(string),
         rulerTicks: optional(number),
         range: pair(pairOfNumbers, pairOfNumbers),
