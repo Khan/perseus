@@ -65,7 +65,7 @@ export const getIssueMessage = (nodes: axe.NodeResult[]): string => {
 
 export const convertAxeImpactToIssueImpact = (
     impact?: axe.ImpactValue,
-): A11yIssue["impact"] => {
+): IssueImpact => {
     switch (impact) {
         case "critical":
             return "high";
