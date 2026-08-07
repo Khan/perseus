@@ -151,26 +151,23 @@ function getLinearSystemCoords(
     graph: PerseusGraphType,
     props: Props,
 ): [Coord, Coord][] {
+    const defaultCoords: Coord[][] = [
+        [
+            [0.25, 0.75],
+            [0.75, 0.75],
+        ],
+        [
+            [0.25, 0.25],
+            [0.75, 0.25],
+        ],
+    ];
     return (
         // The callers assume that we're return an array of points
         // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         graph.coords ||
-        _.map(
-            // eslint-disable-next-line no-restricted-syntax
-            [
-                [
-                    [0.25, 0.75],
-                    [0.75, 0.75],
-                ],
-                [
-                    [0.25, 0.25],
-                    [0.75, 0.25],
-                ],
-            ] as Coord[][],
-            (coords) => {
-                return pointsFromNormalized(props, coords);
-            },
-        )
+        defaultCoords.map((coords) => {
+            return pointsFromNormalized(props, coords);
+        })
     );
 }
 
@@ -214,7 +211,7 @@ function getPolygonCoords(graph: PerseusGraphType, props: Props): Coord[] {
     ];
     coords = normalizeCoords(coords, ranges);
 
-    const snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
+    const snapToGrid = graph.snapTo !== "angles" && graph.snapTo !== "sides";
     coords = pointsFromNormalized(props, coords, /* noSnap */ !snapToGrid);
 
     return coords;
@@ -309,8 +306,8 @@ function getAngleCoords(
 
 function normalizeCoords(coordsList: Coord[], ranges: [Range, Range]): Coord[] {
     // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
-    return _.map(coordsList, function (coords) {
-        return _.map(coords, function (coord, i) {
+    return coordsList.map(function (coords) {
+        return coords.map(function (coord, i) {
             const extent = ranges[i][1] - ranges[i][0];
             return (coord + ranges[i][1]) / extent;
         });
@@ -323,8 +320,8 @@ function pointsFromNormalized(
     noSnap?: boolean,
 ): Coord[] {
     // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
-    return _.map(coordsList, function (coords) {
-        return _.map(coords, function (coord, i) {
+    return coordsList.map(function (coords) {
+        return coords.map(function (coord, i) {
             const range: Range = props.range[i];
             if (noSnap) {
                 return range[0] + (range[1] - range[0]) * coord;
@@ -558,15 +555,19 @@ function getSegmentEquationString(props: Props): string {
     }
 
     const segments = getSegmentCoords(props.userInput, props);
-    return _.map(segments, function (segment) {
-        return (
-            "[" +
-            _.map(segment, function (coord) {
-                return "(" + coord.join(", ") + ")";
-            }).join(" ") +
-            "]"
-        );
-    }).join(" ");
+    return segments
+        .map(function (segment) {
+            return (
+                "[" +
+                segment
+                    .map(function (coord) {
+                        return "(" + coord.join(", ") + ")";
+                    })
+                    .join(" ") +
+                "]"
+            );
+        })
+        .join(" ");
 }
 
 function getRayEquationString(props: Props): string {
@@ -597,9 +598,11 @@ function getPolygonEquationString(props: Props): string {
         throw makeInvalidTypeError("getPolygonEquationString", "polygon");
     }
     const coords = getPolygonCoords(props.userInput, props);
-    return _.map(coords, function (coord) {
-        return "(" + coord.join(", ") + ")";
-    }).join(" ");
+    return coords
+        .map(function (coord) {
+            return "(" + coord.join(", ") + ")";
+        })
+        .join(" ");
 }
 
 function getAngleEquationString(props: Props): string {

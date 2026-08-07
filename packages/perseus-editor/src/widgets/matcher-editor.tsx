@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-import {components} from "@khanacademy/perseus";
 import {
     matcherLogic,
     type MatcherDefaultWidgetOptions,
@@ -9,7 +8,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {InfoTip, TextListEditor} = components;
+import InfoTip from "../components/info-tip";
+import TextListEditor from "../components/text-list-editor";
 
 type Props = any;
 

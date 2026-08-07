@@ -8,6 +8,8 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+import InfoTip from "../components/info-tip";
+import TextListEditor from "../components/text-list-editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -16,7 +18,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
+const {NumberInput, RangeInput} = components;
 const Plotter = PlotterWidget.widget;
 
 const STARTING = "starting";
@@ -217,8 +219,8 @@ class PlotterEditor extends React.Component<Props, State> {
         this.props.onChange({
             scaleY: newScale,
             maxY: maxY,
-            correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale),
+            correct: this.props.correct.map(scale),
+            starting: this.props.starting.map(scale),
         });
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
@@ -257,8 +259,8 @@ class PlotterEditor extends React.Component<Props, State> {
             categories = _.range(scale, length + scale, scale);
         }
 
-        categories = _.map(categories, (num) => num + min);
-        categories = _.map(categories, formatNumber);
+        categories = categories.map((num) => num + min);
+        categories = categories.map(formatNumber);
 
         this.changeCategories(categories);
 
@@ -292,11 +294,10 @@ class PlotterEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const setFromScale = _.contains(
-            ["line", "histogram", "dotplot"],
+        const setFromScale = ["line", "histogram", "dotplot"].includes(
             this.props.type,
         );
-        const canChangeSnaps = !_.contains(["pic", "dotplot"], this.props.type);
+        const canChangeSnaps = !["pic", "dotplot"].includes(this.props.type);
         const plotterProps: any = {
             ...this.props,
             trackInteraction: () => {},

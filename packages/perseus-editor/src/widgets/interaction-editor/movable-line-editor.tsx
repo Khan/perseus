@@ -1,9 +1,4 @@
-import {
-    components,
-    Changeable,
-    Dependencies,
-    EditorJsonify,
-} from "@khanacademy/perseus";
+import {components, Changeable, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
 import ConstraintEditor from "./constraint-editor";
@@ -54,10 +49,6 @@ class MovableLineEditor extends React.Component<Props> {
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

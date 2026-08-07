@@ -17,6 +17,7 @@
         height: 100%;
         margin: var(--wb-sizing-size_0);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        background-color: var(--wb-semanticColor-core-background-base-default);
     }
 
     body,

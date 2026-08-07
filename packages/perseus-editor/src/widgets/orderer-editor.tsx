@@ -1,15 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {components} from "@khanacademy/perseus";
 import {
     ordererLogic,
     type OrdererDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
-const {InfoTip, TextListEditor} = components;
+import InfoTip from "../components/info-tip";
+import TextListEditor from "../components/text-list-editor";
 
 const NORMAL = "normal";
 const AUTO = "auto";
@@ -150,7 +149,9 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.correctOptions, "content")}
+                    options={this.props.correctOptions.map(
+                        (option) => option.content,
+                    )}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "correctOptions")}
                     layout={this.props.layout}
@@ -164,7 +165,9 @@ class OrdererEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <TextListEditor
-                    options={_.pluck(this.props.otherOptions, "content")}
+                    options={this.props.otherOptions.map(
+                        (option) => option.content,
+                    )}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this.onOptionsChange.bind(this, "otherOptions")}
                     layout={this.props.layout}
