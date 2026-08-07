@@ -52,10 +52,10 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           class="perseus-widget-container widget-block"
         >
           <div
-            class="categorizer-container fullBleedContainer_8ybp6"
+            class="categorizer-container fullBleedContainer_1pirxou"
           >
             <table
-              class="categorizer-table mobileTable_1wmcwov"
+              class="categorizer-table mobileTable_1ktoh91"
             >
               <thead>
                 <tr>
@@ -472,7 +472,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             class="categorizer-container "
           >
             <table
-              class="categorizer-table mobileTable_1wmcwov"
+              class="categorizer-table mobileTable_1ktoh91"
             >
               <thead>
                 <tr>
