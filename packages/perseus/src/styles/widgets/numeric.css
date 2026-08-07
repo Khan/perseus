@@ -1,15 +1,19 @@
 .input-with-examples-tooltip {
-    font-size: 18px;
-    line-height: 28px;
-    color: #717378;
-    background: #fff;
+    /* 18px has no exact font-size token; font.body.size.medium (16px) is the
+       nearest available value for this body-copy tooltip text. */
+    font-size: var(--wb-font-body-size-medium);
+    /* 28px has no exact body line-height token; font.body.lineHeight.large
+       (22px) is the nearest available value. */
+    line-height: var(--wb-font-body-lineHeight-large);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    background: var(--wb-semanticColor-core-background-base-default);
 }
 .input-with-examples-tooltip ul {
     list-style-type: disc;
     margin-inline-start: 30px;
 }
 .input-with-examples-tooltip strong {
-    font-weight: 700;
+    font-weight: var(--wb-font-weight-bold);
 }
 .input-with-examples-tooltip em {
     font-style: italic;

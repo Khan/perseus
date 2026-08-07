@@ -110,3 +110,21 @@ Ran together with the `table` and `label-image` changes in the same session:
 No user action pending — no new interaction stories were added. The `#71b307` → `success.default`
 color pick is a best-guess flagged for a future visual check (per the note in Step 1); it isn't
 blocking on tests, which don't render this stylesheet's visual output.
+
+## Addendum — full widgets/ CSS sweep (same session, follow-up)
+A full sweep of every CSS file under `packages/perseus/src/widgets/` (excluding `plotter`) and
+`packages/perseus/src/styles/widgets/` turned up one more file in this widget's scope:
+`packages/perseus/src/widgets/interactive-graphs/protractor.css`.
+
+- `mafs-styles.css`'s `drop-shadow(...)` filter colors (`#0008`, `rgba(33, 36, 44, 0.16)`) were
+  re-checked and left as-is — the file already carries its own comments explaining these were a
+  deliberate prior decision ("Not using a semantic token here because there's no equivalent that
+  would work for the drop shadow filter"). No new information contradicts that; not re-litigated.
+- `protractor.css`: `.protractor-rotation-handle-arrow-arc { stroke-width: 8; }` — no exact
+  `border.width.*` token; nearest is `thick` (4px), a 50% reduction. Unlike the tooltip-arrow case
+  above (pure decorative shape), this stroke is the hit-affordance for a drag handle — shrinking
+  it changes interactive-control ergonomics, not just appearance. Left hardcoded with an inline
+  comment, applying the same "don't tokenize geometry/affordance, only themed strokes" reasoning
+  the user already established for the tooltip arrow.
+- `--mafs-blue` (used for `stroke`/`fill` throughout both files) was already an alias for
+  `semanticColor.core.foreground.instructive.default` — fully tokenized, no action needed.
