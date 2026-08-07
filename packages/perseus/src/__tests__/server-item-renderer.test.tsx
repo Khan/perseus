@@ -17,6 +17,7 @@ import {
     itemWithTwoMockWidgets,
     itemWithMockWidget,
     itemWithMath,
+    itemWithTable,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -316,6 +317,89 @@ describe("server item renderer", () => {
 
         // Assert
         expect(onRendered).toHaveBeenCalledTimes(1);
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("does not call the onRendered callback until zoomable math has settled", () => {
+        // Arrange
+        // The default test TeX never fires onRender, so we need one that does
+        // in order to get the Zoomable measuring.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // On mobile, block math is wrapped in a Zoomable, which renders
+        // asynchronously in order to measure and scale the math after MathJax
+        // has rendered it.
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("does not call the onRendered callback until a zoomable table has settled", () => {
+        // On mobile, tables are wrapped in a Zoomable too, with the entrance
+        // animation left enabled — so settling takes the measuring passes plus
+        // the length of that animation.
+
+        // Arrange
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithTable}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        // Guard against the content silently not parsing as a table, which
+        // would skip the Zoomable entirely and make this test vacuous.
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // Measuring finishes and the content becomes visible, but the 300ms
+        // entrance animation is still running.
+        act(() => jest.advanceTimersByTime(299));
+        expect(screen.getByRole("table")).toBeVisible();
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // Now wait for the animation to complete
+        act(() => jest.runAllTimers());
+        expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 

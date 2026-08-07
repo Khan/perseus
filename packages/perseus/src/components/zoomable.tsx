@@ -1,12 +1,26 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/**
- * Zooms child to fit with tap-to-zoom behavior.
- */
 
+import {withActionScheduler} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import AssetContext from "../asset-context";
 import {getCSSZoomFactor} from "../util/css-zoom-utils";
+
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {
+    ITimeout,
+    WithActionSchedulerProps,
+    WithoutActionScheduler,
+} from "@khanacademy/wonder-blocks-timing";
+
+/**
+ * Duration of the transition that fades/slides content in once it's visible.
+ * Shared by the CSS transition and the timer that waits for it to finish.
+ */
+const ENTRANCE_TRANSITION_DURATION_MS = 300;
+
+let assetKeyCounter = 0;
 
 type Bounds = {
     width: number;
@@ -33,7 +47,7 @@ type Props = {
      * or not.  Defaults to true for synchronous components like tables.
      */
     readyToMeasure: boolean;
-};
+} & WithActionSchedulerProps;
 
 type DefaultProps = {
     animateHeight: Props["animateHeight"];
@@ -51,7 +65,19 @@ type State = {
     zoomed: boolean;
 };
 
+/**
+ * Zooms child to fit with tap-to-zoom behavior.
+ */
 class Zoomable extends React.Component<Props, State> {
+    static contextType = AssetContext;
+    declare context: React.ContextType<typeof AssetContext>;
+
+    // Zoomable's content isn't at its final size or visible until measuring
+    // completes, so it registers as an unsettled asset.
+    _assetKey: string;
+    _hasSettled: boolean = false;
+    _settleTimeoutId: ITimeout | null = null;
+
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
     // @ts-expect-error - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
@@ -84,6 +110,14 @@ class Zoomable extends React.Component<Props, State> {
         zoomed: true,
     };
 
+    constructor(props: Props, context: React.ContextType<typeof AssetContext>) {
+        super(props, context);
+
+        assetKeyCounter += 1;
+        this._assetKey = `zoomable-${assetKeyCounter}`;
+        context.setAssetStatus(this._assetKey, false);
+    }
+
     componentDidMount() {
         this._isMounted = true;
         this.maybeInitializeMeasuring();
@@ -99,8 +133,33 @@ class Zoomable extends React.Component<Props, State> {
         if (this._observer) {
             this._observer.disconnect();
         }
-
         this._isMounted = false;
+    }
+
+    /**
+     * Reports to the AssetContext that this Zoomable has settled: it's been
+     * measured, scaled, and finished animating in.
+     *
+     * Content becoming visible is the last measurement-driven change, but when
+     * the entrance animation is enabled the content is still moving after
+     * that, so we wait it out. We only ever report settling once; later
+     * re-measurements (from a resize or a child mutation) don't unsettle us.
+     */
+    markSettledWhenVisible() {
+        if (this._hasSettled || this._settleTimeoutId != null) {
+            return;
+        }
+
+        if (this.props.disableEntranceAnimation) {
+            this._hasSettled = true;
+            this.context.setAssetStatus(this._assetKey, true);
+        } else {
+            this._settleTimeoutId = this.props.schedule.timeout(() => {
+                this._settleTimeoutId = null;
+                this._hasSettled = true;
+                this.context.setAssetStatus(this._assetKey, true);
+            }, ENTRANCE_TRANSITION_DURATION_MS);
+        }
     }
 
     reset: () => void = (): void => {
@@ -249,12 +308,14 @@ class Zoomable extends React.Component<Props, State> {
                     this.setState({
                         visible: true,
                     });
+                    this.markSettledWhenVisible();
                 }
             });
         } else {
             this.setState({
                 visible: true,
             });
+            this.markSettledWhenVisible();
         }
     }
 
@@ -286,7 +347,7 @@ class Zoomable extends React.Component<Props, State> {
         const transitionStyle = visible
             ? {
                   transitionProperty: property,
-                  transitionDuration: "0.3s",
+                  transitionDuration: `${ENTRANCE_TRANSITION_DURATION_MS}ms`,
                   transitionTimingFunction: "ease-out",
               }
             : {};
@@ -329,4 +390,12 @@ class Zoomable extends React.Component<Props, State> {
     }
 }
 
-export default Zoomable;
+type ExportProps = WithoutActionScheduler<PropsFor<typeof Zoomable>>;
+
+// withActionScheduler loses optionality of props that are provided as default
+// props, so we need to use the `as ...` syntax here to fix that. Fixing this
+// would involve a change to `withActionScheduler`.
+// eslint-disable-next-line no-restricted-syntax
+export default withActionScheduler(
+    Zoomable,
+) as React.ComponentType<ExportProps>;
