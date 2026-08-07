@@ -482,7 +482,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             {
                 gridStepTextbox: gridStep,
                 // eslint-disable-next-line no-restricted-syntax
-                snapStepTextbox: _.map(gridStep, function (step) {
+                snapStepTextbox: gridStep.map(function (step) {
                     return step / 2;
                 }) as [number, number],
             },

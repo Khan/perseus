@@ -14,7 +14,6 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
@@ -100,7 +99,7 @@ class PairsEditor extends React.Component<any> {
     };
 
     render(): React.ReactNode {
-        const editors = _.map(this.props.pairs, (pair, i) => {
+        const editors = this.props.pairs.map((pair, i) => {
             return (
                 <PairEditor
                     key={i}

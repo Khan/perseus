@@ -1571,17 +1571,14 @@ export function calculateSideSnap(
     const rel = (j): number => {
         return (index + j + coords.length) % coords.length;
     };
-    const sides = _.map(
-        [
-            [coords[rel(-1)], boundedDestinationPoint],
-            [boundedDestinationPoint, coords[rel(1)]],
-            [coords[rel(-1)], coords[rel(1)]],
-        ],
-        function (coords) {
-            // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-            return magnitude(vector(...coords));
-        },
-    );
+    const sides = [
+        [coords[rel(-1)], boundedDestinationPoint],
+        [boundedDestinationPoint, coords[rel(1)]],
+        [coords[rel(-1)], coords[rel(1)]],
+    ].map(function (coords) {
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+        return magnitude(vector(...coords));
+    });
 
     // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {
