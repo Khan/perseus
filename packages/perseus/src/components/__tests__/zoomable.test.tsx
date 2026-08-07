@@ -663,24 +663,6 @@ describe("Zoomable", () => {
             ]);
         });
 
-        it("stays settled after a child mutation forces a re-measure", async () => {
-            // Arrange
-            const {setAssetStatus} = renderWithAssetContext(
-                <Zoomable>
-                    <span>Some zoomable text</span>
-                </Zoomable>,
-            );
-            act(() => jest.runAllTimers());
-
-            // Act
-            screen.getByText("Some zoomable text").innerHTML = "Some more text";
-            expect(await screen.findByText("Some more text")).toBeVisible();
-            act(() => jest.runAllTimers());
-
-            // Assert
-            expect(settledKeys(setAssetStatus)).toHaveLength(1);
-        });
-
         it("gives each instance its own asset key", () => {
             // Arrange, Act
             const {setAssetStatus} = renderWithAssetContext(

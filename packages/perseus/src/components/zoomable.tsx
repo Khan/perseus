@@ -9,6 +9,7 @@ import {getCSSZoomFactor} from "../util/css-zoom-utils";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {
+    ITimeout,
     WithActionSchedulerProps,
     WithoutActionScheduler,
 } from "@khanacademy/wonder-blocks-timing";
@@ -75,7 +76,7 @@ class Zoomable extends React.Component<Props, State> {
     // completes, so it registers as an unsettled asset.
     _assetKey: string;
     _hasSettled: boolean = false;
-    _settleTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    _settleTimeoutId: ITimeout | null = null;
 
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
@@ -153,7 +154,7 @@ class Zoomable extends React.Component<Props, State> {
             this._hasSettled = true;
             this.context.setAssetStatus(this._assetKey, true);
         } else {
-            this.props.schedule.timeout(() => {
+            this._settleTimeoutId = this.props.schedule.timeout(() => {
                 this._settleTimeoutId = null;
                 this._hasSettled = true;
                 this.context.setAssetStatus(this._assetKey, true);
