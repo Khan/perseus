@@ -293,13 +293,20 @@ class ExpressionEditor extends React.Component<Props, State> {
                 const expressionProps: Partial<
                     React.ComponentProps<typeof Expression>
                 > = {
-                    // note we're using
-                    // *this.props*.{times,functions,buttonSets} since each
-                    // answer area has the same settings for those
-                    times: this.props.times,
-                    functions: this.props.functions,
-                    buttonSets: this.props.buttonSets,
-                    buttonsVisible: "focused",
+                    options: {
+                        // note we're using
+                        // *this.props*.{times,functions,buttonSets} since each
+                        // answer area has the same settings for those
+                        times: this.props.times,
+                        functions: this.props.functions,
+                        buttonSets: this.props.buttonSets,
+                        buttonsVisible: "focused",
+                        visibleLabel: this.props.visibleLabel,
+                        ariaLabel: this.props.ariaLabel,
+                        // The preview only ever shows one answer form at a
+                        // time, so it doesn't need the list of them.
+                        answerForms: [],
+                    },
                     userInput: ans.value,
                     // TODO: UniversalWidgetProps should have a generic type arg
                     // to help scope what user input a widget consumes
@@ -307,8 +314,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                         this.changeExpressionWidget(index, input),
                     trackInteraction: () => {},
                     widgetId: this.props.widgetId + "-" + ans.key,
-                    visibleLabel: this.props.visibleLabel,
-                    ariaLabel: this.props.ariaLabel,
                 } as const;
 
                 return (

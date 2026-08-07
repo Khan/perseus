@@ -19,12 +19,16 @@ import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps, FocusPath} from "../../types";
+import type {
+    Widget,
+    WidgetExports,
+    FocusPath,
+    WidgetPropsV2,
+} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     KeypadConfiguration,
     KeypadKey,
-    LegacyButtonSets,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusExpressionWidgetOptions,
@@ -55,24 +59,11 @@ const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
 };
 
-type ExternalProps = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusExpressionWidgetOptions,
     PerseusExpressionUserInput
 >;
 
-type Props = ExternalProps & {
-    buttonSets: NonNullable<ExternalProps["buttonSets"]>;
-    functions: NonNullable<ExternalProps["functions"]>;
-    times: NonNullable<ExternalProps["times"]>;
-};
-
-// Defined outside to preserve the references across renders
-const defaultButtonSets: LegacyButtonSets = [
-    "basic",
-    "trig",
-    "prealgebra",
-    "logarithms",
-];
 const defaultOnFocus = () => {};
 const defaultOnBlur = () => {};
 
@@ -125,19 +116,22 @@ const KeypadInputWithInterface = React.forwardRef<
 export const Expression = forwardRef<Widget, Props>(function Expression(
     {
         apiOptions = ApiOptions.defaults,
-        buttonSets = defaultButtonSets,
-        times = false,
         onFocus = defaultOnFocus,
         onBlur = defaultOnBlur,
         userInput = "",
-        visibleLabel,
-        ariaLabel,
         keypadElement,
-        extraKeys,
         handleUserInput,
         trackInteraction,
         widgetId,
-        answerForms,
+        options: {
+            buttonSets,
+            times,
+            extraKeys,
+            visibleLabel,
+            ariaLabel,
+            buttonsVisible,
+            functions,
+        },
         ...rest
     },
     ref,
@@ -221,102 +215,91 @@ export const Expression = forwardRef<Widget, Props>(function Expression(
     }, [apiOptions.customKeypad]);
 
     // Implement Widget interface
-    useImperativeHandle(
-        ref,
-        () => ({
-            /**
-             * Focus the input element.
-             *
-             * This method handles focus for both mobile (KeypadInput) and desktop
-             * (MathInput) variants. It uses a multi-step approach with fallbacks:
-             * 1. Attempt to focus via the input component's focus() method
-             * 2. Query for the expected focus target element
-             * 3. Fall back to previously identified target or active element
-             *
-             * Edge case: If called immediately after mount, the input component's
-             * internal textarea may not be fully initialized yet. The fallback logic
-             * handles this by attempting to focus whatever element is available.
-             * The ID set in useEffect is only for accessibility (label association)
-             * and doesn't affect focus targeting.
-             *
-             * @returns true if focus is on the input element after the operation
-             */
-            focus: (): boolean => {
-                const targetBefore = getFocusTarget();
+    useImperativeHandle(ref, () => ({
+        /**
+         * Focus the input element.
+         *
+         * This method handles focus for both mobile (KeypadInput) and desktop
+         * (MathInput) variants. It uses a multi-step approach with fallbacks:
+         * 1. Attempt to focus via the input component's focus() method
+         * 2. Query for the expected focus target element
+         * 3. Fall back to previously identified target or active element
+         *
+         * Edge case: If called immediately after mount, the input component's
+         * internal textarea may not be fully initialized yet. The fallback logic
+         * handles this by attempting to focus whatever element is available.
+         * The ID set in useEffect is only for accessibility (label association)
+         * and doesn't affect focus targeting.
+         *
+         * @returns true if focus is on the input element after the operation
+         */
+        focus: (): boolean => {
+            const targetBefore = getFocusTarget();
 
-                // Try direct focus first; this may be a custom KeypadInput or MathInput.
-                inputRef.current?.focus?.(setKeypadActive);
+            // Try direct focus first; this may be a custom KeypadInput or MathInput.
+            inputRef.current?.focus?.(setKeypadActive);
 
-                // Prefer the element we expect to focus; fall back to whatever is active.
-                const targetAfter =
-                    getFocusTarget() ??
-                    targetBefore ??
-                    (document.activeElement instanceof HTMLElement
-                        ? document.activeElement
-                        : null);
+            // Prefer the element we expect to focus; fall back to whatever is active.
+            const targetAfter =
+                getFocusTarget() ??
+                targetBefore ??
+                (document.activeElement instanceof HTMLElement
+                    ? document.activeElement
+                    : null);
 
-                if (!targetAfter) {
-                    return false;
-                }
+            if (!targetAfter) {
+                return false;
+            }
 
-                if (document.activeElement !== targetAfter) {
-                    targetAfter.focus();
-                }
+            if (document.activeElement !== targetAfter) {
+                targetAfter.focus();
+            }
 
-                return document.activeElement === targetAfter;
-            },
+            return document.activeElement === targetAfter;
+        },
 
-            focusInputPath: (path: FocusPath) => {
-                inputRef.current?.focus?.(setKeypadActive);
-            },
+        focusInputPath: (path: FocusPath) => {
+            inputRef.current?.focus?.(setKeypadActive);
+        },
 
-            blurInputPath: (path: FocusPath) => {
-                if (typeof inputRef.current?.blur === "function") {
-                    inputRef.current?.blur();
-                }
-            },
+        blurInputPath: (path: FocusPath) => {
+            if (typeof inputRef.current?.blur === "function") {
+                inputRef.current?.blur();
+            }
+        },
 
-            insert: (keyPressed: KeypadKey) => {
-                inputRef.current?.insert?.(keyPressed);
-            },
+        insert: (keyPressed: KeypadKey) => {
+            inputRef.current?.insert?.(keyPressed);
+        },
 
-            getInputPaths: () => [[]],
+        getInputPaths: () => [[]],
 
-            getUserInput: (): PerseusExpressionUserInput => {
-                return normalizeTex(userInput);
-            },
+        getUserInput: (): PerseusExpressionUserInput => {
+            return normalizeTex(userInput);
+        },
 
-            getKeypadConfiguration,
+        getKeypadConfiguration,
 
-            getPromptJSON: (): ExpressionPromptJSON => {
-                return _getPromptJSON(visibleLabel, normalizeTex(userInput));
-            },
+        getPromptJSON: (): ExpressionPromptJSON => {
+            return _getPromptJSON(visibleLabel, normalizeTex(userInput));
+        },
 
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: () => {
-                return {
-                    ...rest,
-                    value: userInput,
-                    keypadConfiguration: getKeypadConfiguration(),
-                    times,
-                    buttonSets,
-                };
-            },
-        }),
-        [
-            userInput,
-            setKeypadActive,
-            getKeypadConfiguration,
-            getFocusTarget,
-            rest,
-            visibleLabel,
-            buttonSets,
-            times,
-        ],
-    );
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: () => {
+            return {
+                ...rest,
+                value: userInput,
+                keypadConfiguration: getKeypadConfiguration(),
+                times,
+                buttonSets,
+                buttonsVisible,
+                functions,
+            };
+        },
+    }));
 
     const keypadConfiguration = getKeypadConfiguration();
 

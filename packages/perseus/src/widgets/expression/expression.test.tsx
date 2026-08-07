@@ -762,9 +762,9 @@ describe("Expression Widget", function () {
                             times: true,
                             visibleLabel: "the visible label",
                             ariaLabel: "the aria label",
-                        })
-                    })
-                }
+                        }),
+                    }),
+                },
             });
 
             const result = renderer.getSerializedState();
@@ -783,8 +783,8 @@ describe("Expression Widget", function () {
                     static: false,
                     times: true,
                     value: "",
-                }
+                },
             });
-        })
-    })
+        });
+    });
 });
