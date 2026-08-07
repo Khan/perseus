@@ -1,7 +1,7 @@
 // TODO(LEMS-4463): Remove the hardcoded colors in this file.
-// @baseFontFamily:        "Lato", sans-serif;
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
+// @baseFontFamily:        "Lato", sans-serif;
 export const baseFontFamily = "'Lato', sans-serif";
 // @boldFontFamily:        "Lato-Bold", "Lato", sans-serif;
 export const boldFontFamily = "'Lato-Bold', 'Lato', sans-serif";
