@@ -1,5 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import * as KAS from "@khanacademy/kas";
 import {vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
@@ -35,51 +33,35 @@ const Point = Graphie.Point;
 const Rect = Graphie.Rect;
 const {unescapeMathMode} = Util;
 
+type KASOptions = {
+    functions: any;
+};
+
 // Memoize KAS parsing
-const KAShashFunc = (
-    expr: any,
-    options:
-        | undefined
-        | {
-              [".decimal_separator"]: never;
-              [".functions"]: never;
-          }
-        | {
-              functions: any;
-          },
-) => {
-    // @ts-expect-error - TS2322 - Type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | {}' is not assignable to type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | undefined'.
-    options = options || {};
-    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'decimal_separator' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
-    let result = expr + "||" + options.decimal_separator + "||";
-    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'functions' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
-    const functions = options.functions;
+function KAShashFunc(expr: any, options?: KASOptions) {
+    let result = expr + "||";
+    const functions = options?.functions;
     const functionsLength = functions ? functions.length : 0;
     for (let i = 0; i < functionsLength; i++) {
         result += functions[i] + "|";
     }
     return result;
-};
+}
 
 const _parseCache = Object.create(null);
-const KASparse = (expr, options) => {
-    const hash = KAShashFunc(expr, options);
+function KASparse(expr: any) {
+    const hash = KAShashFunc(expr);
     let cached = _parseCache[hash];
     if (cached) {
         return cached;
     }
-    cached = KAS.parse(expr, options);
+    cached = KAS.parse(expr);
     _parseCache[hash] = cached;
     return cached;
-};
+}
 
 const _compileCache = Object.create(null);
-const KAScompile = (
-    expr: any,
-    options: {
-        functions: any;
-    },
-) => {
+function KAScompile(expr: any, options: KASOptions) {
     const hash = KAShashFunc(expr, options);
     let cached = _compileCache[hash];
     if (cached) {
@@ -93,7 +75,7 @@ const KAScompile = (
           };
     _compileCache[hash] = cached;
     return cached;
-};
+}
 
 type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
@@ -152,26 +134,25 @@ class Interaction extends React.Component<Props, State> implements Widget {
     }
 
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
-        graphie.graphInit(
-            _.extend({}, options, {
-                grid: ["graph", "grid"].includes(this.props.graph.markings),
-                axes: ["graph"].includes(this.props.graph.markings),
-                ticks: ["graph"].includes(this.props.graph.markings),
-                labels: ["graph"].includes(this.props.graph.markings),
-                labelFormat: function (s) {
-                    return "\\small{" + s + "}";
-                },
-                axisArrows: "<->",
-                unityLabels: false,
-            }),
-        );
+        graphie.graphInit({
+            ...options,
+            grid: ["graph", "grid"].includes(this.props.graph.markings),
+            axes: ["graph"].includes(this.props.graph.markings),
+            ticks: ["graph"].includes(this.props.graph.markings),
+            labels: ["graph"].includes(this.props.graph.markings),
+            labelFormat: function (s) {
+                return "\\small{" + s + "}";
+            },
+            axisArrows: "<->",
+            unityLabels: false,
+        });
     };
 
-    _updatePointLocation: (arg1: string, arg2: Coord) => void = (
+    _updatePointLocation: (arg1: number, arg2: Coord) => void = (
         subscript,
         coord,
     ) => {
-        const variables = _.clone(this.state.variables);
+        const variables = {...this.state.variables};
         variables["x_" + subscript] = coord[0];
         variables["y_" + subscript] = coord[1];
         this.setState({variables: variables});
@@ -182,16 +163,14 @@ class Interaction extends React.Component<Props, State> implements Widget {
         options,
         startCoord,
     ) => {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const xDiff = this._eval(
             "(" + options.endX + ")-(" + options.startX + ")",
         );
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const yDiff = this._eval(
             "(" + options.endY + ")-(" + options.startY + ")",
         );
         const endCoord = kvector.add(startCoord, [xDiff, yDiff]);
-        const variables = _.clone(this.state.variables);
+        const variables = {...this.state.variables};
         variables["x_" + options.startSubscript] = startCoord[0];
         variables["y_" + options.startSubscript] = startCoord[1];
         variables["x_" + options.endSubscript] = endCoord[0];
@@ -200,20 +179,16 @@ class Interaction extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
-    _eval: (arg1: any, arg2: any) => number = (expression, variables) => {
+    _eval: (arg1: any, arg2?: any) => number = (expression, variables) => {
         const func = KAScompile(expression, {functions: this.state.functions});
-        const compiledVars = _.extend({}, this.state.variables, variables);
-        _.each(Object.keys(compiledVars), (name) => {
+        const compiledVars = {...this.state.variables, ...variables};
+        Object.keys(compiledVars).forEach((name) => {
             if (typeof compiledVars[name] === "string") {
                 const func = KAScompile(compiledVars[name], {
                     functions: this.state.functions,
                 });
                 compiledVars[name] = function (x: any) {
-                    return func(
-                        _.extend({}, compiledVars, {
-                            x: x,
-                        }),
-                    );
+                    return func({...compiledVars, x});
                 };
             }
         });
@@ -227,16 +202,11 @@ class Interaction extends React.Component<Props, State> implements Widget {
             return [];
         }
         let vars: Array<any> = [];
-        _.each(
-            expr.args(),
-            function (arg) {
-                if (arg && arg.constructor.name === "Expr") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    vars = vars.concat(this._extractVars(arg));
-                }
-            },
-            this,
-        );
+        expr.args().forEach((arg) => {
+            if (arg && arg.constructor.name === "Expr") {
+                vars = vars.concat(this._extractVars(arg));
+            }
+        });
 
         if (expr.name() === "Var") {
             vars.push(expr.prettyPrint());
@@ -285,15 +255,13 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         direction="right"
                     />
                 )}
-                {this.props.elements.map(function (element, n) {
+                {this.props.elements.map((element, n) => {
                     if (element.type === "point") {
                         return (
                             <Point
                                 key={element.key}
                                 coord={[
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.coordX),
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.coordY),
                                 ]}
                                 color={element.options.color}
@@ -302,15 +270,11 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "line") {
                         const start = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.startX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.startY),
                         ];
                         const end = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.endX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.endY),
                         ];
                         return (
@@ -332,10 +296,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         const constraints = [
                             (coord: any) => {
                                 const coordX = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintXMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMax,
                                         ),
@@ -343,10 +305,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                     ),
                                 );
                                 const coordY = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintYMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMax,
                                         ),
@@ -365,7 +325,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         } else if (element.options.constraint === "x") {
                             constraints.push((coord) => {
                                 return [
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         y: coord[1],
                                     }),
@@ -376,7 +335,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             constraints.push((coord) => {
                                 return [
                                     coord[0],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         x: coord[0],
                                     }),
@@ -391,11 +349,9 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             <MovablePoint
                                 key={element.key}
                                 coord={[
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables[
                                         "x_" + element.options.varSubscript
                                     ],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables[
                                         "y_" + element.options.varSubscript
                                     ],
@@ -405,7 +361,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 foo_y={element.options.constraintFn}
                                 foo_z={element.options.snap}
                                 onMove={_.partial(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._updatePointLocation,
                                     element.options.varSubscript,
                                 )}
@@ -416,10 +371,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         const constraints = [
                             (coord: any) => {
                                 const coordX = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintXMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMax,
                                         ),
@@ -427,10 +380,8 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                     ),
                                 );
                                 const coordY = Math.max(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintYMin),
                                     Math.min(
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMax,
                                         ),
@@ -449,7 +400,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         } else if (element.options.constraint === "x") {
                             constraints.push((coord) => {
                                 return [
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         y: coord[1],
                                     }),
@@ -460,7 +410,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             constraints.push((coord) => {
                                 return [
                                     coord[0],
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.constraintFn, {
                                         x: coord[0],
                                     }),
@@ -468,21 +417,17 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             });
                         }
                         const start = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "x_" + element.options.startSubscript
                             ],
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "y_" + element.options.startSubscript
                             ],
                         ];
                         const end = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "x_" + element.options.endSubscript
                             ],
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.variables[
                                 "y_" + element.options.endSubscript
                             ],
@@ -492,9 +437,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                                 key={element.key}
                                 constraints={constraints}
                                 // eslint-disable-next-line react/jsx-no-bind
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 onMove={this._updateLineLocation.bind(
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this,
                                     element.options,
                                 )}
@@ -523,40 +466,28 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "function") {
                         const fn = (x: any) => {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             return this._eval(element.options.value, {
                                 x: x,
                             });
                         };
                         // find all the variables referenced by this
                         // function
-                        const vars = _.without(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this._extractVars(
-                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                KASparse(element.options.value).expr,
-                            ),
-                            "x",
-                        );
+                        const vars = this._extractVars(
+                            KASparse(element.options.value).expr,
+                        ).filter((v) => v !== "x");
                         // and find their values, so we redraw if any
                         // change
-                        const varValues = _.object(
-                            vars,
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            vars.map((v) => this.state.variables[v]),
+                        const varValues = Object.fromEntries(
+                            vars.map((v) => [v, this.state.variables[v]]),
                         );
 
                         const range = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMin,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMax,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
                         ];
@@ -581,46 +512,33 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     if (element.type === "parametric") {
                         const fn = (t: any) => {
                             return [
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.x, {t: t}),
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.y, {t: t}),
                             ];
                         };
                         // find all the variables referenced by this
                         // function
-                        const vars = _.without(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this._extractVars(
-                                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-                                KASparse(element.options.x).expr,
-                            ).concat(
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        const vars = this._extractVars(
+                            KASparse(element.options.x).expr,
+                        )
+                            .concat(
                                 this._extractVars(
-                                    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.y).expr,
                                 ),
-                            ),
-                            "t",
-                        );
+                            )
+                            .filter((v) => v !== "t");
                         // and find their values, so we redraw if any change
-                        const varValues = _.object(
-                            vars,
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            vars.map((v) => this.state.variables[v]),
+                        const varValues = Object.fromEntries(
+                            vars.map((v) => [v, this.state.variables[v]]),
                         );
 
                         const range = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMin,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(
                                 element.options.rangeMax,
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables,
                             ),
                         ];
@@ -645,9 +563,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                     }
                     if (element.type === "label") {
                         const coord = [
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.coordX),
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this._eval(element.options.coordY),
                         ];
                         return (
@@ -665,20 +581,16 @@ class Interaction extends React.Component<Props, State> implements Widget {
                         return (
                             <Rect
                                 key={n + 1}
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 x={this._eval(element.options.coordX)}
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 y={this._eval(element.options.coordY)}
-                                width={_.max([
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                width={Math.max(
                                     this._eval(element.options.width),
                                     0,
-                                ])}
-                                height={_.max([
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                )}
+                                height={Math.max(
                                     this._eval(element.options.height),
                                     0,
-                                ])}
+                                )}
                                 style={{
                                     stroke: "none",
                                     fill: element.options.color,
@@ -686,7 +598,7 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             />
                         );
                     }
-                }, this)}
+                })}
             </Graphie>
         );
     }
@@ -696,72 +608,67 @@ const _getInitialVariables: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => any = (elements) => {
     const variables: Record<string, any> = {};
-    _.each(_.where(elements, {type: "movable-point"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'varSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const subscript = element.options.varSubscript;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startXExpr = KASparse(element.options.startX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startYExpr = KASparse(element.options.startY || "0").expr;
-        let startX = 0;
-        let startY = 0;
-        if (startXExpr) {
-            startX = startXExpr.eval({}) || 0;
-        }
-        if (startYExpr) {
-            startY = startYExpr.eval({}) || 0;
-        }
-        variables["x_" + subscript] = startX;
-        variables["y_" + subscript] = startY;
-    });
-    _.each(_.where(elements, {type: "movable-line"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'startSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startSubscript = element.options.startSubscript;
-        // @ts-expect-error - TS2339 - Property 'endSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endSubscript = element.options.endSubscript;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startXExpr = KASparse(element.options.startX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const startYExpr = KASparse(element.options.startY || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endXExpr = KASparse(element.options.endX || "0").expr;
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        const endYExpr = KASparse(element.options.endY || "0").expr;
-        let startX = 0;
-        let startY = 0;
-        let endX = 0;
-        let endY = 0;
-        if (startXExpr) {
-            startX = startXExpr.eval({}) || 0;
-        }
-        if (startYExpr) {
-            startY = startYExpr.eval({}) || 0;
-        }
-        if (endXExpr) {
-            endX = endXExpr.eval({}) || 0;
-        }
-        if (endYExpr) {
-            endY = endYExpr.eval({}) || 0;
-        }
-        variables["x_" + startSubscript] = startX;
-        variables["y_" + startSubscript] = startY;
-        variables["x_" + endSubscript] = endX;
-        variables["y_" + endSubscript] = endY;
-    });
-    _.each(_.where(elements, {type: "function"}), (element) => {
-        // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'. | TS2339 - Property 'value' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        variables[element.options.funcName] = element.options.value;
-    });
+    elements
+        .filter((element) => element.type === "movable-point")
+        .forEach((element) => {
+            const subscript = element.options.varSubscript;
+            const startXExpr = KASparse(element.options.startX || "0").expr;
+            const startYExpr = KASparse(element.options.startY || "0").expr;
+            let startX = 0;
+            let startY = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            variables["x_" + subscript] = startX;
+            variables["y_" + subscript] = startY;
+        });
+    elements
+        .filter((element) => element.type === "movable-line")
+        .forEach((element) => {
+            const startSubscript = element.options.startSubscript;
+            const endSubscript = element.options.endSubscript;
+            const startXExpr = KASparse(element.options.startX || "0").expr;
+            const startYExpr = KASparse(element.options.startY || "0").expr;
+            const endXExpr = KASparse(element.options.endX || "0").expr;
+            const endYExpr = KASparse(element.options.endY || "0").expr;
+            let startX = 0;
+            let startY = 0;
+            let endX = 0;
+            let endY = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            if (endXExpr) {
+                endX = endXExpr.eval({}) || 0;
+            }
+            if (endYExpr) {
+                endY = endYExpr.eval({}) || 0;
+            }
+            variables["x_" + startSubscript] = startX;
+            variables["y_" + startSubscript] = startY;
+            variables["x_" + endSubscript] = endX;
+            variables["y_" + endSubscript] = endY;
+        });
+    elements
+        .filter((element) => element.type === "function")
+        .forEach((element) => {
+            variables[element.options.funcName] = element.options.value;
+        });
     return variables;
 };
 
 const _getInitialFunctions: (
     arg1: ReadonlyArray<PerseusInteractionElement>,
 ) => ReadonlyArray<string> = (elements) => {
-    return _.where(elements, {type: "function"}).map(
-        // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
-        (element) => element.options.funcName,
-    );
+    return elements
+        .filter((element) => element.type === "function")
+        .map((element) => element.options.funcName);
 };
 
 export default {
