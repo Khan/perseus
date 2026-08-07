@@ -1,12 +1,10 @@
-import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import InfoTip from "../../../components/info-tip";
 import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./show-point-labels-toggle.module.css";
-
-const {InfoTip} = components;
 
 interface Props {
     showPointLabels: boolean;

@@ -1484,7 +1484,7 @@ export class Graphie {
 
                     if (localOptions.onMouseMove) {
                         const handler = localOptions.onMouseMove;
-                        $(document).bind("vmousemove.mouseLayer", (e) => {
+                        $(document).on("vmousemove.mouseLayer", (e) => {
                             if (isClickingCanvas) {
                                 e.preventDefault();
                                 handler(this.getMouseCoord(e));
@@ -1492,7 +1492,7 @@ export class Graphie {
                         });
                     }
 
-                    $(document).bind("vmouseup.mouseLayer", (e) => {
+                    $(document).on("vmouseup.mouseLayer", (e) => {
                         $(document).unbind(".mouseLayer");
 
                         // Only register clicks that started on the canvas,

@@ -69,27 +69,22 @@ class InteractionEditor extends React.Component<Props, State> {
     }
 
     _getAllVarSubscripts(elements: ReadonlyArray<any>): ReadonlyArray<any> {
-        return _.map(
-            _.where(elements, {type: "movable-point"}),
-            (element) => element.options.varSubscript,
-        )
+        return _.where(elements, {type: "movable-point"})
+            .map((element) => element.options.varSubscript)
             .concat(
-                _.map(
-                    _.where(elements, {type: "movable-line"}),
+                _.where(elements, {type: "movable-line"}).map(
                     (element) => element.options.startSubscript,
                 ),
             )
             .concat(
-                _.map(
-                    _.where(elements, {type: "movable-line"}),
+                _.where(elements, {type: "movable-line"}).map(
                     (element) => element.options.endSubscript,
                 ),
             );
     }
 
     _getAllFunctionNames(elements: ReadonlyArray<any>): ReadonlyArray<string> {
-        return _.map(
-            _.where(elements, {type: "function"}),
+        return _.where(elements, {type: "function"}).map(
             (element) => element.options.funcName,
         );
     }
@@ -158,7 +153,7 @@ class InteractionEditor extends React.Component<Props, State> {
             const nextLetter = String.fromCharCode(
                 _.max([
                     _.max(
-                        _.map(this.state.usedFunctionNames, function (c) {
+                        this.state.usedFunctionNames.map(function (c) {
                             return c.charCodeAt(0);
                         }),
                     ),
@@ -220,509 +215,475 @@ class InteractionEditor extends React.Component<Props, State> {
                         )}
                     </>
                 </ElementContainer>
-                {_.map(
-                    this.props.elements,
-                    function (element, n) {
-                        if (element.type === "movable-point") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Movable point{" "}
-                                            <TeX>
-                                                {"(x_{" +
-                                                    element.options
-                                                        .varSubscript +
-                                                    "}, y_{" +
-                                                    element.options
-                                                        .varSubscript +
-                                                    "})"}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement.bind(this, n)}
-                                    key={element.key}
-                                >
-                                    <MovablePointEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "movable-line") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Movable line{" "}
-                                            <TeX>
-                                                {"(x_{" +
-                                                    element.options
-                                                        .startSubscript +
-                                                    "}, y_{" +
-                                                    element.options
-                                                        .startSubscript +
-                                                    "})"}
-                                            </TeX>{" "}
-                                            to{" "}
-                                            <TeX>
-                                                {"(x_{" +
-                                                    element.options
-                                                        .endSubscript +
-                                                    "}, y_{" +
-                                                    element.options
-                                                        .endSubscript +
-                                                    "})"}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement.bind(this, n)}
-                                    key={element.key}
-                                >
-                                    <MovableLineEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "point") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Point{" "}
-                                            <TeX>
-                                                {"(" +
-                                                    element.options.coordX +
-                                                    ", " +
-                                                    element.options.coordY +
-                                                    ")"}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement.bind(this, n)}
-                                    key={element.key}
-                                >
-                                    <PointEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "line") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Line{" "}
-                                            <TeX>
-                                                {"(" +
-                                                    element.options.startX +
-                                                    ", " +
-                                                    element.options.startY +
-                                                    ")"}
-                                            </TeX>{" "}
-                                            to{" "}
-                                            <TeX>
-                                                {"(" +
-                                                    element.options.endX +
-                                                    ", " +
-                                                    element.options.endY +
-                                                    ")"}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement.bind(this, n)}
-                                    key={element.key}
-                                >
-                                    <LineEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "function") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Function{" "}
-                                            <TeX>
-                                                {element.options.funcName +
-                                                    "(x) = " +
-                                                    element.options.value}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
+                {this.props.elements.map(function (element, n) {
+                    if (element.type === "movable-point") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Movable point{" "}
+                                        <TeX>
+                                            {"(x_{" +
+                                                element.options.varSubscript +
+                                                "}, y_{" +
+                                                element.options.varSubscript +
+                                                "})"}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement}
-                                    key={element.key}
-                                >
-                                    <FunctionEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "parametric") {
-                            return (
-                                <ElementContainer
-                                    title={<span>Parametric</span>}
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement.bind(this, n)}
+                                key={element.key}
+                            >
+                                <MovablePointEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "movable-line") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Movable line{" "}
+                                        <TeX>
+                                            {"(x_{" +
+                                                element.options.startSubscript +
+                                                "}, y_{" +
+                                                element.options.startSubscript +
+                                                "})"}
+                                        </TeX>{" "}
+                                        to{" "}
+                                        <TeX>
+                                            {"(x_{" +
+                                                element.options.endSubscript +
+                                                "}, y_{" +
+                                                element.options.endSubscript +
+                                                "})"}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement}
-                                    key={element.key}
-                                >
-                                    <ParametricEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "label") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Label{" "}
-                                            <TeX>
-                                                {unescapeMathMode(
-                                                    element.options.label,
-                                                )}
-                                            </TeX>{" "}
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement.bind(this, n)}
+                                key={element.key}
+                            >
+                                <MovableLineEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "point") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Point{" "}
+                                        <TeX>
+                                            {"(" +
+                                                element.options.coordX +
+                                                ", " +
+                                                element.options.coordY +
+                                                ")"}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement}
-                                    key={element.key}
-                                >
-                                    <LabelEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                        if (element.type === "rectangle") {
-                            return (
-                                <ElementContainer
-                                    title={
-                                        <span>
-                                            Rectangle{" "}
-                                            <TeX>
-                                                {"(" +
-                                                    element.options.coordX +
-                                                    ", " +
-                                                    element.options.coordY +
-                                                    ")"}
-                                            </TeX>
-                                            &nbsp;&mdash;&nbsp;
-                                            <TeX>
-                                                {element.options.width +
-                                                    " \\times " +
-                                                    element.options.height}
-                                            </TeX>
-                                        </span>
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onUp={
-                                        n === 0
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementUp.bind(this, n)
-                                    }
-                                    // eslint-disable-next-line react/jsx-no-bind
-                                    onDown={
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement.bind(this, n)}
+                                key={element.key}
+                            >
+                                <PointEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        n === this.props.elements.length - 1
-                                            ? null
-                                            : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this._moveElementDown.bind(
-                                                  // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                  this,
-                                                  n,
-                                              )
-                                    }
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "line") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Line{" "}
+                                        <TeX>
+                                            {"(" +
+                                                element.options.startX +
+                                                ", " +
+                                                element.options.startY +
+                                                ")"}
+                                        </TeX>{" "}
+                                        to{" "}
+                                        <TeX>
+                                            {"(" +
+                                                element.options.endX +
+                                                ", " +
+                                                element.options.endY +
+                                                ")"}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
                                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                    onDelete={this._deleteElement}
-                                    key={element.key}
-                                >
-                                    <RectangleEditor
-                                        {...element.options}
-                                        onChange={(newProps) => {
-                                            const elements = JSON.parse(
-                                                JSON.stringify(
-                                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                    this.props.elements,
-                                                ),
-                                            );
-                                            _.extend(
-                                                elements[n].options,
-                                                newProps,
-                                            );
-                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.props.onChange({
-                                                elements: elements,
-                                            });
-                                        }}
-                                    />
-                                </ElementContainer>
-                            );
-                        }
-                    },
-                    this,
-                )}
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement.bind(this, n)}
+                                key={element.key}
+                            >
+                                <LineEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "function") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Function{" "}
+                                        <TeX>
+                                            {element.options.funcName +
+                                                "(x) = " +
+                                                element.options.value}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement}
+                                key={element.key}
+                            >
+                                <FunctionEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "parametric") {
+                        return (
+                            <ElementContainer
+                                title={<span>Parametric</span>}
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement}
+                                key={element.key}
+                            >
+                                <ParametricEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "label") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Label{" "}
+                                        <TeX>
+                                            {unescapeMathMode(
+                                                element.options.label,
+                                            )}
+                                        </TeX>{" "}
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement}
+                                key={element.key}
+                            >
+                                <LabelEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                    if (element.type === "rectangle") {
+                        return (
+                            <ElementContainer
+                                title={
+                                    <span>
+                                        Rectangle{" "}
+                                        <TeX>
+                                            {"(" +
+                                                element.options.coordX +
+                                                ", " +
+                                                element.options.coordY +
+                                                ")"}
+                                        </TeX>
+                                        &nbsp;&mdash;&nbsp;
+                                        <TeX>
+                                            {element.options.width +
+                                                " \\times " +
+                                                element.options.height}
+                                        </TeX>
+                                    </span>
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onUp={
+                                    n === 0
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementUp.bind(this, n)
+                                }
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onDown={
+                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    n === this.props.elements.length - 1
+                                        ? null
+                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                          this._moveElementDown.bind(
+                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this,
+                                              n,
+                                          )
+                                }
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                onDelete={this._deleteElement}
+                                key={element.key}
+                            >
+                                <RectangleEditor
+                                    {...element.options}
+                                    onChange={(newProps) => {
+                                        const elements = JSON.parse(
+                                            JSON.stringify(
+                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                this.props.elements,
+                                            ),
+                                        );
+                                        _.extend(elements[n].options, newProps);
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        this.props.onChange({
+                                            elements: elements,
+                                        });
+                                    }}
+                                />
+                            </ElementContainer>
+                        );
+                    }
+                }, this)}
                 <div className="perseus-widget-interaction-editor-select-element">
                     {/* @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'. */}
                     <select onChange={this._addNewElement}>

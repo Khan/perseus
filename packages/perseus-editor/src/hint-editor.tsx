@@ -379,37 +379,33 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     render(): React.ReactNode {
         const {itemId, hints} = this.props;
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-        const hintElems = _.map(
-            hints,
-            (hint, i) => {
-                return (
-                    <fieldset disabled={editingDisabled} key={"hintEditor" + i}>
-                        <CombinedHintEditor
-                            ref={"hintEditor" + i}
-                            isFirst={i === 0}
-                            isLast={i + 1 === hints.length}
-                            itemId={itemId}
-                            hint={hint}
-                            pos={i}
-                            imageUploader={this.props.imageUploader}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onChange={this.handleHintChange.bind(this, i)}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onRemove={this.handleHintRemove.bind(this, i)}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onMove={this.handleHintMove.bind(this, i)}
-                            deviceType={this.props.deviceType}
-                            apiOptions={this.props.apiOptions}
-                            highlightLint={this.props.highlightLint}
-                            previewURL={this.props.previewURL}
-                            widgetIsOpen={this.props.widgetIsOpen}
-                        />
-                    </fieldset>
-                );
-            },
-            this,
-        );
+        const hintElems = hints.map((hint, i) => {
+            return (
+                <fieldset disabled={editingDisabled} key={"hintEditor" + i}>
+                    <CombinedHintEditor
+                        ref={"hintEditor" + i}
+                        isFirst={i === 0}
+                        isLast={i + 1 === hints.length}
+                        itemId={itemId}
+                        hint={hint}
+                        pos={i}
+                        imageUploader={this.props.imageUploader}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onChange={this.handleHintChange.bind(this, i)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onRemove={this.handleHintRemove.bind(this, i)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onMove={this.handleHintMove.bind(this, i)}
+                        deviceType={this.props.deviceType}
+                        apiOptions={this.props.apiOptions}
+                        highlightLint={this.props.highlightLint}
+                        previewURL={this.props.previewURL}
+                        widgetIsOpen={this.props.widgetIsOpen}
+                    />
+                </fieldset>
+            );
+        });
 
         return (
             <div className="perseus-hints-editor perseus-editor-table">
