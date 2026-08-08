@@ -198,14 +198,13 @@ export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMes
 
 /**
  * Union of all messages sent from parent to iframe
- *
- * TODO: add PreviewSetA11yScanningEnabledMessage/PreviewHighlightIssuesMessage/
- * PreviewClearHighlightsMessage here once usePreviewPresenter handles them
- * (the exhaustive switch obligates a handler to land in the same change).
  */
 export type ParentToIframeMessage =
     | PreviewDataMessage
-    | PreviewIframeInitMessage;
+    | PreviewIframeInitMessage
+    | PreviewSetA11yScanningEnabledMessage
+    | PreviewHighlightIssuesMessage
+    | PreviewClearHighlightsMessage;
 
 // ---- Iframe → Parent messages ----
 
