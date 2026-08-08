@@ -16,11 +16,11 @@ import type {
     PreviewContent,
     PreviewMessageBase,
 } from "./message-types";
-import type {Issue} from "../components/issues-panel";
+import type {A11yIssue} from "../components/issues-panel";
 
 export type A11yReport = {
-    violations: Issue[];
-    needsReview: Issue[];
+    violations: A11yIssue[];
+    needsReview: A11yIssue[];
 };
 
 type UsePreviewControllerResult = {

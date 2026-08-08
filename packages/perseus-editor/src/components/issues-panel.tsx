@@ -12,15 +12,60 @@ import LabeledSwitch from "./labeled-switch";
 import ToggleableCaret from "./toggleable-caret";
 
 export type IssueImpact = "low" | "medium" | "high";
-export type Issue = {
+
+/** Fields shared by all issue types. */
+interface BaseIssue {
+    /**
+     * Names the problem (for example, this may be the axe-core rule id or a
+     * linter rule name). Shown to the author and used when a fix is offered,
+     * so several issues can share one — nine images missing alt text are nine
+     * `image-alt`s.
+     */
     id: string;
+
+    /**
+     * Distinguishes this issue from every other issue in the same list. Used
+     * when a unique value is needed (such as a React key or by the preview to
+     * look up what to highlight). Optional because issues supplied by the
+     * host may not have one; prefer `getIssueKey` over reading it directly.
+     */
+    instanceId?: string;
+
     description: string;
-    elements?: Element[];
     helpUrl: string;
     help: string;
     impact: IssueImpact;
     message: string;
-};
+}
+
+/**
+ * An issue surfaced by the axe-core accessibility scanner.
+ */
+export interface A11yIssue extends BaseIssue {
+    /**
+     * Elements to highlight, resolved in the parent document by
+     * `util/a11y-checker.ts`. Removed once the preview-side highlight path
+     * replaces it.
+     */
+    elements?: Element[];
+}
+
+/**
+ * An issue surfaced by the editor-side linter (tex, widget, and content-lint
+ * rules).
+ */
+export type LinterIssue = BaseIssue;
+
+export type Issue = A11yIssue | LinterIssue;
+
+/**
+ * A unique identifier for an issue, suitable for use as a React key or a
+ * Record key. Falls back to `id`, which names the rule rather than the
+ * occurrence, for issues that arrive without an `instanceId`.
+ */
+export function getIssueKey(issue: Issue): string {
+    return issue.instanceId ?? issue.id;
+}
 
 type IssuesPanelProps = {
     issues?: Issue[];
@@ -89,7 +134,10 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
                         {sortedIssues.map((issue) => (
-                            <IssueDetails key={issue.id} issue={issue} />
+                            <IssueDetails
+                                key={getIssueKey(issue)}
+                                issue={issue}
+                            />
                         ))}
                         {issues.length === 0 && <div>No issues found</div>}
                         <LabeledSwitch

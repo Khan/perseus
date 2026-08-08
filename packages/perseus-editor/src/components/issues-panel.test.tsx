@@ -2,9 +2,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import IssuesPanel from "../components/issues-panel";
+import IssuesPanel, {getIssueKey} from "./issues-panel";
 
-import type {IssueImpact} from "../components/issues-panel";
+import type {A11yIssue, IssueImpact, LinterIssue} from "./issues-panel";
 
 const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     id,
@@ -124,5 +124,34 @@ describe("IssuesPanel", () => {
 
         // Assert
         expect(cta).toBeInTheDocument();
+    });
+});
+
+describe("getIssueKey", () => {
+    const a11yIssue: A11yIssue = {
+        id: "color-contrast",
+        description: "description",
+        helpUrl: "https://help",
+        help: "help",
+        impact: "high",
+        message: "message",
+        instanceId: "violation-color-contrast",
+    };
+
+    const linterIssue: LinterIssue = {
+        id: "categorizer 1 inaccessible",
+        description: "description",
+        helpUrl: "https://help",
+        help: "help",
+        impact: "medium",
+        message: "message",
+    };
+
+    it("returns the instanceId when the issue has one", () => {
+        expect(getIssueKey(a11yIssue)).toBe("violation-color-contrast");
+    });
+
+    it("falls back to the id when the issue has no instanceId", () => {
+        expect(getIssueKey(linterIssue)).toBe("categorizer 1 inaccessible");
     });
 });
