@@ -254,6 +254,9 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     };
 }
 
+/**
+ * @public just to appease knip until the next PR.
+ */
 export function createPreviewA11yReportMessage(
     violations: A11yIssue[],
     needsReview: A11yIssue[],

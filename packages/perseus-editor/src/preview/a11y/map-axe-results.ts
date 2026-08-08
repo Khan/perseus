@@ -1,6 +1,6 @@
 import issuesList from "../../util/a11y-issues-list";
 
-import type {A11yIssue} from "../../components/issues-panel";
+import type {A11yIssue, IssueImpact} from "../../components/issues-panel";
 import type axe from "axe-core";
 
 export const assistanceNeededMessage =
