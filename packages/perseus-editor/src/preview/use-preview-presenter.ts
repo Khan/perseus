@@ -164,13 +164,75 @@ export function usePreviewPresenter(
         a11yScanningEnabledRef.current = a11yScanningEnabled;
     }, [a11yScanningEnabled]);
 
-    // In-flight scan promise. Non-null means a scan is already running, so a
-    // debounce firing mid-scan is dropped rather than starting a second run.
+    // In-flight scan promise. Non-null means a scan is already running.
     const scanPromiseRef = React.useRef<Promise<void> | null>(null);
+
+    // Set when a scan is asked for while one is already running. axe-core has
+    // no way to cancel a run, so the newer request waits for the current run
+    // to settle instead of being dropped — otherwise an author who stops
+    // editing right then would be left looking at the previous content's
+    // issues forever.
+    const rescanRequestedRef = React.useRef(false);
 
     // The latest scan's previewId -> elements map, used to resolve
     // highlight-issues messages to the elements they refer to.
     const elementMapRef = React.useRef<Map<string, Element[]>>(new Map());
+
+    // Scans the container's current DOM, so a rescan picks up whatever
+    // content has rendered by the time it runs.
+    const startScan = React.useCallback(() => {
+        const container = contentContainerRef?.current;
+        if (!a11yScanningEnabledRef.current || container == null) {
+            return;
+        }
+
+        if (scanPromiseRef.current != null) {
+            rescanRequestedRef.current = true;
+            return;
+        }
+
+        scanPromiseRef.current = (async () => {
+            // Delay-loading axe-core so that we can easily bundle-split it
+            // out and avoid loading it if we aren't using it.
+            const axe = (await import("axe-core")).default;
+            axe.configure({reporter: "v2"});
+            const results = await axe.run(
+                {
+                    include: container,
+                    exclude: [['[target="lint-help-window"]']],
+                },
+                // elementRef populates node.element on each result, which
+                // mapAxeResults needs to resolve "Show Me" highlighting.
+                {elementRef: true},
+            );
+
+            if (!a11yScanningEnabledRef.current) {
+                return;
+            }
+
+            const {issues: violations, elementMap: violationMap} =
+                mapAxeResults(results.violations, "Alert");
+            const {issues: incompletes, elementMap: incompleteMap} =
+                mapAxeResults(results.incomplete, "Warning");
+
+            elementMapRef.current = new Map([
+                ...violationMap,
+                ...incompleteMap,
+            ]);
+
+            window.parent.postMessage(
+                createPreviewA11yReportMessage(violations, incompletes),
+                "/",
+            );
+        })().finally(() => {
+            scanPromiseRef.current = null;
+
+            if (rescanRequestedRef.current) {
+                rescanRequestedRef.current = false;
+                startScan();
+            }
+        });
+    }, [contentContainerRef]);
 
     // Run an axe-core scan (debounced) whenever content changes and
     // scanning is enabled.
@@ -180,51 +242,16 @@ export function usePreviewPresenter(
             return;
         }
 
-        const scheduledScan = schedule.timeout(() => {
-            if (scanPromiseRef.current != null) {
-                return;
-            }
-
-            scanPromiseRef.current = (async () => {
-                // Delay-loading axe-core so that we can easily bundle-split it
-                // out and avoid loading it if we aren't using it.
-                const axe = (await import("axe-core")).default;
-                axe.configure({reporter: "v2"});
-                const results = await axe.run(
-                    {
-                        include: container,
-                        exclude: [['[target="lint-help-window"]']],
-                    },
-                    // elementRef populates node.element on each result, which
-                    // mapAxeResults needs to resolve "Show Me" highlighting.
-                    {elementRef: true},
-                );
-
-                if (!a11yScanningEnabledRef.current) {
-                    return;
-                }
-
-                const {issues: violations, elementMap: violationMap} =
-                    mapAxeResults(results.violations, "Alert");
-                const {issues: incompletes, elementMap: incompleteMap} =
-                    mapAxeResults(results.incomplete, "Warning");
-
-                elementMapRef.current = new Map([
-                    ...violationMap,
-                    ...incompleteMap,
-                ]);
-
-                window.parent.postMessage(
-                    createPreviewA11yReportMessage(violations, incompletes),
-                    "/",
-                );
-            })().finally(() => {
-                scanPromiseRef.current = null;
-            });
-        }, 1500);
+        const scheduledScan = schedule.timeout(startScan, 1500);
 
         return () => scheduledScan.clear();
-    }, [content, a11yScanningEnabled, contentContainerRef, schedule]);
+    }, [
+        content,
+        a11yScanningEnabled,
+        contentContainerRef,
+        schedule,
+        startScan,
+    ]);
 
     // Memoized callback to report height
     const reportHeight = React.useCallback((height: number) => {

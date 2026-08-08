@@ -479,6 +479,65 @@ describe("usePreviewPresenter", () => {
             );
         };
 
+        const questionContent = (text: string): PreviewContent => ({
+            type: "question",
+            data: {
+                question: {content: text, widgets: {}, images: {}},
+                apiOptions: {readOnly: true},
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                },
+            },
+        });
+
+        it("rescans once the in-flight scan settles when content changed mid-scan", async () => {
+            // Arrange: hold the first scan open so the second request lands
+            // while it is still running.
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+            let finishFirstScan: (results: unknown) => void = () => {};
+            mockAxeRun.mockImplementationOnce(
+                () =>
+                    new Promise((resolve) => {
+                        finishFirstScan = resolve;
+                    }),
+            );
+
+            renderHook(() => usePreviewPresenter({contentContainerRef}));
+
+            act(() => {
+                enableA11yScanning();
+                sendContent(questionContent("What is 2+2?"));
+            });
+            act(() => {
+                jest.advanceTimersByTime(1500);
+            });
+            await waitFor(() => {
+                expect(mockAxeRun).toHaveBeenCalledTimes(1);
+            });
+
+            // Act: new content arrives and its debounce fires while the first
+            // scan is still in flight, then the first scan finishes.
+            act(() => {
+                sendContent(questionContent("What is 3+3?"));
+            });
+            act(() => {
+                jest.advanceTimersByTime(1500);
+            });
+            expect(mockAxeRun).toHaveBeenCalledTimes(1);
+
+            await act(async () => {
+                finishFirstScan({violations: [], incomplete: []});
+            });
+
+            // Assert
+            await waitFor(() => {
+                expect(mockAxeRun).toHaveBeenCalledTimes(2);
+            });
+        });
+
         it("posts an a11y-report message 1500ms after content changes while scanning is enabled", async () => {
             // Arrange
             const contentContainerRef = {
