@@ -3,6 +3,7 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {A11yOverlays} from "../../preview/a11y/overlays";
 import {usePreviewPresenter} from "../../preview/use-preview-presenter";
 
 import {PreviewRenderer} from "./preview-renderer";
@@ -12,9 +13,18 @@ import {PreviewRenderer} from "./preview-renderer";
  * only be used to support editor previews in Storybook!
  */
 const ExercisePreviewPage = () => {
-    const {content, isMobile, hasLintGutter, reportHeight} =
-        usePreviewPresenter();
-    const containerRef = React.useRef<HTMLDivElement>(null);
+    const containerRef = React.useRef<HTMLElement | null>(null);
+    const [containerElement, setContainerElement] =
+        React.useState<HTMLElement | null>(null);
+    // Also updates state so <A11yOverlays> re-renders with a non-null
+    // container as soon as it mounts, rather than seeing containerRef.current
+    // as null on the render pass before the ref attaches.
+    const setContainerRefs = React.useCallback((node: HTMLElement | null) => {
+        containerRef.current = node;
+        setContainerElement(node);
+    }, []);
+    const {content, isMobile, hasLintGutter, reportHeight, highlightTargets} =
+        usePreviewPresenter({contentContainerRef: containerRef});
     const lastHeightRef = React.useRef<number | null>(null);
 
     // Set the overflow on the body within the iframe (scroll for
@@ -72,13 +82,17 @@ const ExercisePreviewPage = () => {
     }
 
     return (
-        <div ref={containerRef}>
+        <View ref={setContainerRefs} style={styles.container}>
             <PreviewRenderer
                 content={content}
                 isMobile={isMobile}
                 hasLintGutter={hasLintGutter}
             />
-        </div>
+            <A11yOverlays
+                container={containerElement}
+                targets={highlightTargets}
+            />
+        </View>
     );
 };
 
@@ -86,6 +100,11 @@ const styles = StyleSheet.create({
     loading: {
         padding: spacing.medium_16,
         textAlign: "center",
+    },
+    container: {
+        // A11yOverlays positions its overlay divs `absolute`, measured
+        // against this element's box — it must be a positioned ancestor.
+        position: "relative",
     },
 });
 
