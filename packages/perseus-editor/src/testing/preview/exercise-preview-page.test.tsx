@@ -15,7 +15,7 @@ jest.mock("../../preview/use-preview-presenter", () => ({
         isMobile: false,
         hasLintGutter: false,
         reportHeight: mockReportHeight,
-        a11yEnabled: false,
+        a11yScanningEnabled: false,
         highlightTargets: mockHighlightTargets,
     }),
 }));

@@ -8,7 +8,7 @@ import {clone} from "./testing/object-utils";
 import type {PreviewContent} from "./preview/message-types";
 
 const mockSendData = jest.fn();
-const mockSetA11yEnabled = jest.fn();
+const mockSetA11yScanningEnabled = jest.fn();
 const mockHighlightIssues = jest.fn();
 const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
@@ -21,7 +21,7 @@ jest.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,
-        setA11yEnabled: mockSetA11yEnabled,
+        setA11yScanningEnabled: mockSetA11yScanningEnabled,
         highlightIssues: mockHighlightIssues,
         clearHighlights: mockClearHighlights,
         a11yReport: mockA11yReport,
@@ -47,7 +47,7 @@ describe("PreviewWithIframe", () => {
         mockHeight = null;
         mockA11yReport = null;
         mockSendData.mockClear();
-        mockSetA11yEnabled.mockClear();
+        mockSetA11yScanningEnabled.mockClear();
         mockHighlightIssues.mockClear();
         mockClearHighlights.mockClear();
     });
@@ -207,8 +207,8 @@ describe("PreviewWithIframe", () => {
         expect(container.style.height).toBe("500px");
     });
 
-    describe("a11yEnabled prop", () => {
-        it("calls setA11yEnabled with the prop's value", () => {
+    describe("a11yScanningEnabled prop", () => {
+        it("calls setA11yScanningEnabled with the prop's value", () => {
             // Arrange, Act
             render(
                 <PreviewWithIframe
@@ -216,12 +216,12 @@ describe("PreviewWithIframe", () => {
                     isMobile={false}
                     seamless={false}
                     content={buildArticleContent()}
-                    a11yEnabled={true}
+                    a11yScanningEnabled={true}
                 />,
             );
 
             // Assert
-            expect(mockSetA11yEnabled).toHaveBeenCalledWith(true);
+            expect(mockSetA11yScanningEnabled).toHaveBeenCalledWith(true);
         });
     });
 

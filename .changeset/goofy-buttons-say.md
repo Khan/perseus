@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-`PreviewWithIframe` gains `a11yEnabled`, `highlightPreviewIds`, and `onA11yReport` props, and a new `A11yContext` wires axe-core scan/highlight state through the editor.
+`PreviewWithIframe` gains `a11yScanningEnabled`, `highlightPreviewIds`, and `onA11yReport` props, which drive axe-core scanning and "Show Me" highlighting inside the preview iframe.

@@ -29,7 +29,7 @@ type Props = {
     /**
      * Whether the iframe should run axe-core accessibility scans.
      */
-    a11yEnabled?: boolean;
+    a11yScanningEnabled?: boolean;
     /**
      * previewIds of the issues to draw "Show Me" highlight overlays over in
      * the iframe. Empty clears any highlights.
@@ -64,7 +64,7 @@ function PreviewWithIframe(props: Props) {
     const {
         sendData,
         height,
-        setA11yEnabled,
+        setA11yScanningEnabled,
         highlightIssues,
         clearHighlights,
         a11yReport,
@@ -82,8 +82,8 @@ function PreviewWithIframe(props: Props) {
     }, [sendData, props.content]);
 
     React.useEffect(() => {
-        setA11yEnabled(props.a11yEnabled ?? false);
-    }, [setA11yEnabled, props.a11yEnabled]);
+        setA11yScanningEnabled(props.a11yScanningEnabled ?? false);
+    }, [setA11yScanningEnabled, props.a11yScanningEnabled]);
 
     React.useEffect(() => {
         if (
