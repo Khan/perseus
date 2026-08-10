@@ -15,6 +15,14 @@ const meta: Meta<PerseusOrdererWidgetOptions> = {
     title: "Widgets/Orderer/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {
+        docs: {
+            description: {
+                component:
+                    "Regression tests for the Orderer widget that DO need" +
+                    "some sort of interaction to test, which will be used with " +
+                    "Chromatic. Stories are displayed on their own page.",
+            },
+        },
         chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
@@ -22,7 +30,17 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const DraggingCard: Story = {
+export const CardsOrdered: Story = {
+    decorators: [ordererRendererDecorator],
+    args: {
+        options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
+    },
+    parameters: {
+        initialUserInput: {"orderer 1": {current: ["$\\sqrt{5}$", "2.5"]}},
+    },
+};
+
+export const OrderedCardClicked: Story = {
     decorators: [ordererRendererDecorator],
     args: {
         options: [],
@@ -57,15 +75,5 @@ export const DraggingCard: Story = {
             clientX: rect.right + 40,
             clientY: rect.top,
         });
-    },
-};
-
-export const CardsOrdered: Story = {
-    decorators: [ordererRendererDecorator],
-    args: {
-        options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
-    },
-    parameters: {
-        initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},
     },
 };

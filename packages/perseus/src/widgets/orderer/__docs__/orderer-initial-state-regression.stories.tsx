@@ -27,7 +27,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Two cards already placed in order, two still in the bank
 const defaultArgs = {
     options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
 } satisfies Partial<PerseusOrdererWidgetOptions>;
@@ -47,6 +46,6 @@ export const RightToLeft: Story = {
     decorators: [ordererRendererDecorator, rtlDecorator],
     args: defaultArgs,
     parameters: {
-        initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},
+        initialUserInput: {"orderer 1": {current: ["$\\sqrt{5}$", "2.5"]}},
     },
 };
