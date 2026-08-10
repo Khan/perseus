@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -97,11 +96,6 @@ type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    gradedGroups: Props["gradedGroups"];
-    linterContext: Props["linterContext"];
-};
-
 type State = {
     currentGroup: number;
 };
@@ -109,11 +103,6 @@ type State = {
 class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
-
-    static defaultProps: DefaultProps = {
-        gradedGroups: [],
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         currentGroup: 0,
