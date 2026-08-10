@@ -8,7 +8,7 @@ import ShowMe from "./show-me-issue";
 import type {A11yContextValue} from "./a11y-context";
 
 function renderShowMe(
-    props: {issueId: string; previewId?: string},
+    props: {instanceId?: string},
     contextValue: A11yContextValue | null,
 ) {
     return render(
@@ -19,10 +19,10 @@ function renderShowMe(
 }
 
 describe("ShowMe", () => {
-    it("renders the unavailable message when previewId is not provided", () => {
+    it("renders the unavailable message when there is no instanceId", () => {
         // Arrange, Act
         renderShowMe(
-            {issueId: "issue-1"},
+            {},
             createA11yContextValue({setIssueHighlight: jest.fn()}),
         );
 
@@ -34,7 +34,7 @@ describe("ShowMe", () => {
 
     it("renders the unavailable message when no A11yContext is provided", () => {
         // Arrange, Act
-        renderShowMe({issueId: "issue-1", previewId: "violation-1"}, null);
+        renderShowMe({instanceId: "violation-color-contrast"}, null);
 
         // Assert
         expect(
@@ -42,10 +42,10 @@ describe("ShowMe", () => {
         ).toBeInTheDocument();
     });
 
-    it("renders a Show Me toggle when previewId and context are available", () => {
+    it("renders a Show Me toggle when an instanceId and context are available", () => {
         // Arrange, Act
         renderShowMe(
-            {issueId: "issue-1", previewId: "violation-1"},
+            {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight: jest.fn()}),
         );
 
@@ -53,13 +53,13 @@ describe("ShowMe", () => {
         expect(screen.getByRole("switch")).toBeInTheDocument();
     });
 
-    it("calls setIssueHighlight with the previewId when toggled on", async () => {
+    it("turns the highlight on when toggled on", async () => {
         const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
         const setIssueHighlight = jest.fn();
         renderShowMe(
-            {issueId: "issue-1", previewId: "violation-1"},
+            {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),
         );
 
@@ -68,18 +68,18 @@ describe("ShowMe", () => {
 
         // Assert
         expect(setIssueHighlight).toHaveBeenCalledWith(
-            "issue-1",
-            "violation-1",
+            "violation-color-contrast",
+            true,
         );
     });
 
-    it("calls setIssueHighlight with null when toggled off", async () => {
+    it("turns the highlight off when toggled off", async () => {
         const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
         const setIssueHighlight = jest.fn();
         renderShowMe(
-            {issueId: "issue-1", previewId: "violation-1"},
+            {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),
         );
 
@@ -88,13 +88,16 @@ describe("ShowMe", () => {
         await user.click(screen.getByRole("switch"));
 
         // Assert
-        expect(setIssueHighlight).toHaveBeenLastCalledWith("issue-1", null);
+        expect(setIssueHighlight).toHaveBeenLastCalledWith(
+            "violation-color-contrast",
+            false,
+        );
     });
 
-    it("calls setIssueHighlight with null on unmount", () => {
+    it("turns the highlight off on unmount", () => {
         const setIssueHighlight = jest.fn();
         const {unmount} = renderShowMe(
-            {issueId: "issue-1", previewId: "violation-1"},
+            {instanceId: "violation-color-contrast"},
             createA11yContextValue({setIssueHighlight}),
         );
 
@@ -102,6 +105,9 @@ describe("ShowMe", () => {
         unmount();
 
         // Assert
-        expect(setIssueHighlight).toHaveBeenCalledWith("issue-1", null);
+        expect(setIssueHighlight).toHaveBeenCalledWith(
+            "violation-color-contrast",
+            false,
+        );
     });
 });

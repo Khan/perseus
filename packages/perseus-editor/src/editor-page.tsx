@@ -100,8 +100,8 @@ type State = {
     issues: Issue[];
     axeCoreIssues: A11yIssue[];
     a11yScanningEnabled: boolean;
-    /** Active "Show Me" highlights, keyed by issue id. */
-    highlights: Record<string, string>;
+    /** instanceIds of the issues with an active "Show Me" highlight. */
+    highlightInstanceIds: string[];
 };
 
 class EditorPage extends React.Component<Props, State> {
@@ -130,7 +130,7 @@ class EditorPage extends React.Component<Props, State> {
             issues: [],
             axeCoreIssues: [],
             a11yScanningEnabled: false,
-            highlights: {},
+            highlightInstanceIds: [],
         };
     }
 
@@ -185,18 +185,21 @@ class EditorPage extends React.Component<Props, State> {
         }
     }
 
-    // Activates or clears (previewId === null) an issue's "Show Me"
-    // highlight. Keyed by issueId so multiple issues can be highlighted at
-    // once.
-    setIssueHighlight = (issueId: string, previewId: string | null) => {
+    // Turns one issue's "Show Me" highlight on or off. Several issues can be
+    // highlighted at once, so this holds a list rather than a single id.
+    // Bails out when nothing changes, keeping the array's identity stable for
+    // the preview's resend effect.
+    setIssueHighlight = (instanceId: string, highlighted: boolean) => {
         this.setState((prevState) => {
-            const highlights = {...prevState.highlights};
-            if (previewId == null) {
-                delete highlights[issueId];
-            } else {
-                highlights[issueId] = previewId;
+            const current = prevState.highlightInstanceIds;
+            if (highlighted === current.includes(instanceId)) {
+                return null;
             }
-            return {highlights};
+            return {
+                highlightInstanceIds: highlighted
+                    ? [...current, instanceId]
+                    : current.filter((id) => id !== instanceId),
+            };
         });
     };
 
@@ -366,9 +369,8 @@ class EditorPage extends React.Component<Props, State> {
                             setIssueHighlight: this.setIssueHighlight,
                             a11yScanningEnabled: this.state.a11yScanningEnabled,
                             setA11yScanningEnabled: this.setA11yScanningEnabled,
-                            highlightPreviewIds: Object.values(
-                                this.state.highlights,
-                            ),
+                            highlightPreviewIds:
+                                this.state.highlightInstanceIds,
                             onA11yReport: this.handleA11yReport,
                             axeCoreIssues: this.state.axeCoreIssues,
                         })}

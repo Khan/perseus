@@ -175,7 +175,9 @@ class ItemEditor extends React.Component<Props> {
                                             legacyPerseusLint:
                                                 this.getSaveWarnings() ?? [],
                                         })}
-                                        a11yScanningEnabled={a11yScanningEnabled}
+                                        a11yScanningEnabled={
+                                            a11yScanningEnabled
+                                        }
                                         highlightPreviewIds={
                                             highlightPreviewIds
                                         }

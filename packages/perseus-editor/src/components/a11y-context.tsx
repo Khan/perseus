@@ -4,8 +4,8 @@ import type {A11yIssue} from "./issues-panel";
 import type {A11yReport} from "../preview/use-preview-controller";
 
 export type A11yContextValue = {
-    /** Activate highlight for an issue (null clears it). */
-    setIssueHighlight: (issueId: string, previewId: string | null) => void;
+    /** Turns one issue's highlight on or off. */
+    setIssueHighlight: (instanceId: string, highlighted: boolean) => void;
     /** Whether the preview iframe's axe-core scan is enabled. */
     a11yScanningEnabled: boolean;
     /** Enables/disables the preview iframe's axe-core scan. */

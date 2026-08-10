@@ -5,8 +5,11 @@ import * as React from "react";
 import {A11yContext} from "./a11y-context";
 
 type Props = {
-    issueId: string;
-    previewId?: string;
+    /**
+     * The issue's highlight handle. Absent when the issue has nothing in the
+     * preview to point at, which is what makes the toggle unavailable.
+     */
+    instanceId?: string;
 };
 
 const showMeStyle = {
@@ -15,7 +18,7 @@ const showMeStyle = {
     alignItems: "center",
 };
 
-const ShowMe = ({issueId, previewId}: Props) => {
+const ShowMe = ({instanceId}: Props) => {
     const [showMe, setShowMe] = React.useState(false);
     const context = React.useContext(A11yContext);
 
@@ -23,12 +26,14 @@ const ShowMe = ({issueId, previewId}: Props) => {
     // resolved and disappears from the list) so it doesn't linger.
     React.useEffect(() => {
         return () => {
-            context?.setIssueHighlight(issueId, null);
+            if (instanceId != null) {
+                context?.setIssueHighlight(instanceId, false);
+            }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (previewId == null || context == null) {
+    if (instanceId == null || context == null) {
         return (
             <div>
                 Unable to find the offending element. Please ask a developer for
@@ -39,7 +44,7 @@ const ShowMe = ({issueId, previewId}: Props) => {
 
     const handleChange = (checked: boolean) => {
         setShowMe(checked);
-        context.setIssueHighlight(issueId, checked ? previewId : null);
+        context.setIssueHighlight(instanceId, checked);
     };
 
     return (

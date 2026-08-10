@@ -4,7 +4,6 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import IssueCta from "./issue-cta";
-import {getIssueKey} from "./issues-panel";
 import PerseusEditorAccordion from "./perseus-editor-accordion";
 import ShowMe from "./show-me-issue";
 
@@ -83,8 +82,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             </BodyText>
             <span style={messageStyling}>{issue.message}</span>
             <ShowMe
-                issueId={getIssueKey(issue)}
-                previewId={
+                instanceId={
                     issue.source === "a11y" ? issue.instanceId : undefined
                 }
             />

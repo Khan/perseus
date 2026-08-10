@@ -73,7 +73,9 @@ const IssuesPanel = (props: IssuesPanelProps) => {
     const context = useContext(A11yContext);
     const [showPanel, setShowPanel] = useState(false);
 
-    const axeCoreIssues = context?.a11yScanningEnabled ? context.axeCoreIssues : [];
+    const axeCoreIssues = context?.a11yScanningEnabled
+        ? context.axeCoreIssues
+        : [];
     const allIssues: Issue[] = [...issues, ...axeCoreIssues];
 
     const hasWarnings = allIssues.length > 0;
