@@ -110,7 +110,7 @@ describe("LockedEllipseSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    it("summary reflects center", () => {
+    test("summary reflects center", () => {
         // Arrange
 
         // Act

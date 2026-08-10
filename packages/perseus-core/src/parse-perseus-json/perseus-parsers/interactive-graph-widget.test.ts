@@ -193,6 +193,7 @@ describe("parseInteractiveGraphWidget", () => {
                     step: [1, 1],
                     markings: "grid",
                     showProtractor: false,
+                    showTooltips: false,
                     range: [
                         [-10, 10],
                         [-10, 10],
@@ -204,6 +205,9 @@ describe("parseInteractiveGraphWidget", () => {
                         yMax: true,
                     },
                     showAxisTicks: {x: true, y: true},
+                    labelLocation: "onAxis",
+                    labels: ["$x$", "$y$"],
+                    backgroundImage: {url: null},
                     correct: {
                         type: "linear",
                     },

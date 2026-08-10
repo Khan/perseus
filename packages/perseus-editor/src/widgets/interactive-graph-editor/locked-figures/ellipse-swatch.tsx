@@ -16,8 +16,6 @@ import type {
 type Props = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    // "none" renders no border (a valid CSS border-style), reflecting a
-    // stroke-less (fill-only) ellipse.
     strokeStyle: LockedFigureStrokeStyle;
 };
 

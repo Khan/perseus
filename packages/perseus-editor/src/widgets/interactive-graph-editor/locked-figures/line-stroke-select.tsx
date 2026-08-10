@@ -14,8 +14,7 @@ export const lineStrokeStyleOptions = {
     dashed: "dashed",
 } as const;
 
-// Fillable figures (polygons, ellipses) may additionally have no stroke, so the
-// fill can stand alone (e.g. inequality shading under a dashed boundary line).
+// Fillable figures (polygons, ellipses) may additionally have no stroke.
 export const fillableStrokeStyleOptions = {
     solid: "solid",
     dashed: "dashed",

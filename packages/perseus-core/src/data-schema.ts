@@ -1031,10 +1031,8 @@ export type LockedFigureType = LockedFigure["type"];
 export type LockedLineStyle = "solid" | "dashed";
 
 /**
- * Stroke style for fillable locked figures (polygons, ellipses). In addition to
- * a solid or dashed border, these can have no stroke at all (`"none"`) so the
- * fill stands alone — e.g. inequality shading under a separate dashed boundary
- * line, where a coincident border would obscure the boundary's dashes.
+ * Stroke style for fillable locked figures (polygons, ellipses): a solid or
+ * dashed border, or `"none"` to render the fill with no border at all.
  */
 export type LockedFigureStrokeStyle = LockedLineStyle | "none";
 

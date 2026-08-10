@@ -52,7 +52,7 @@ describe("LockedPolygonSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    it("summary reflects number of sides", () => {
+    test("summary reflects number of sides", () => {
         // Arrange
 
         // Act

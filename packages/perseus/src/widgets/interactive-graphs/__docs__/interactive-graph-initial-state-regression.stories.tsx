@@ -540,6 +540,30 @@ export const LockedFigureFillOnlyShading: Story = {
     },
 };
 
+// The minimal fill-only case: a single polygon with `strokeStyle: "none"` and
+// nothing overlapping it, so a regression in borderless rendering (a stray
+// border reappearing) shows up on its own.
+export const LockedPolygonWithNoBorder: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [-4, -4],
+                    [-4, 4],
+                    [4, 4],
+                    [4, -4],
+                ],
+                color: "blue",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
 // Verifies points on the graph boundary (corners and edge midpoints) render as
 // full circles rather than being clipped in half.
 export const LockedPointsAtGraphEdges: Story = {
