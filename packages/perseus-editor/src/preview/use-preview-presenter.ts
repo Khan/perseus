@@ -87,6 +87,7 @@ export function usePreviewPresenter(
 ): UsePreviewPresenterResult {
     const {contentContainerRef} = options;
     const [content, setContent] = React.useState<PreviewContent | null>(null);
+    const [contentVersion, setContentVersion] = React.useState(0);
     const [a11yScanningEnabled, setA11yScanningEnabled] = React.useState(false);
     const [highlightTargets, setHighlightTargets] = React.useState<Element[]>(
         [],
@@ -117,11 +118,13 @@ export function usePreviewPresenter(
             switch (message.type) {
                 case "content-data":
                     setContent(message.content);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "iframe-init":
                     setContent(message.content);
                     setA11yScanningEnabled(message.a11yScanningEnabled);
+                    setContentVersion(message.contentVersion);
                     break;
 
                 case "set-a11y-scanning-enabled":
@@ -129,6 +132,12 @@ export function usePreviewPresenter(
                     break;
 
                 case "highlight-issues":
+                    // Drop this command if it was computed against stale
+                    // content (its instanceIds belong to a scan whose element
+                    // map is no longer current).
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setHighlightTargets(
                         message.instanceIds.flatMap(
                             (instanceId) =>
@@ -164,6 +173,20 @@ export function usePreviewPresenter(
         a11yScanningEnabledRef.current = a11yScanningEnabled;
     }, [a11yScanningEnabled]);
 
+    // Latest contentVersion, mirrored into a ref so readers holding an older
+    // closure don't act on a stale value.
+    const contentVersionRef = React.useRef(contentVersion);
+    React.useEffect(() => {
+        contentVersionRef.current = contentVersion;
+    }, [contentVersion]);
+
+    // A new content version means any highlight overlays drawn against the
+    // previous version's scan are stale — drop them until a fresh highlight
+    // command arrives.
+    React.useEffect(() => {
+        setHighlightTargets([]);
+    }, [contentVersion]);
+
     // In-flight scan promise. Non-null means a scan is already running.
     const scanPromiseRef = React.useRef<Promise<void> | null>(null);
 
@@ -191,6 +214,13 @@ export function usePreviewPresenter(
             return;
         }
 
+        // Read before awaiting: the report has to name the version this scan
+        // actually looked at. If the content changes mid-scan, these results
+        // describe the older DOM, so they must be tagged with the older
+        // version for the parent to discard — the rescan below then reports
+        // the new one.
+        const scannedVersion = contentVersionRef.current;
+
         scanPromiseRef.current = (async () => {
             // Delay-loading axe-core so that we can easily bundle-split it
             // out and avoid loading it if we aren't using it.
@@ -206,6 +236,7 @@ export function usePreviewPresenter(
                 {elementRef: true},
             );
 
+            // Don't send results if scanning was turned off mid-scan.
             if (!a11yScanningEnabledRef.current) {
                 return;
             }
@@ -221,7 +252,11 @@ export function usePreviewPresenter(
             ]);
 
             window.parent.postMessage(
-                createPreviewA11yReportMessage(violations, incompletes),
+                createPreviewA11yReportMessage(
+                    violations,
+                    incompletes,
+                    scannedVersion,
+                ),
                 "/",
             );
         })().finally(() => {
@@ -247,6 +282,7 @@ export function usePreviewPresenter(
         return () => scheduledScan.clear();
     }, [
         content,
+        contentVersion,
         a11yScanningEnabled,
         contentContainerRef,
         schedule,

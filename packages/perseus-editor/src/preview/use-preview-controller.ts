@@ -105,6 +105,12 @@ export function usePreviewController(
         [iframeRef],
     );
 
+    // Monotonic version of the preview content, bumped on every `sendData`.
+    // Lets us discard scan results and highlights that a newer edit has
+    // already superseded: we stamp each content update with it and the iframe
+    // echoes it back.
+    const contentVersionRef = React.useRef(0);
+
     // Listen for messages from iframe
     React.useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -132,6 +138,7 @@ export function usePreviewController(
                                 ? sanitizePreviewData(currentContentRef.current)
                                 : null,
                             currentA11yScanningEnabledRef.current,
+                            contentVersionRef.current,
                         ),
                     );
                     setIsIframeReady(true);
@@ -143,6 +150,11 @@ export function usePreviewController(
                     break;
 
                 case "a11y-report":
+                    // Discard a report computed against content a newer edit
+                    // has since superseded.
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
                     setA11yReport({
                         violations: message.violations,
                         needsReview: message.needsReview,
@@ -165,6 +177,7 @@ export function usePreviewController(
     const sendData = React.useCallback(
         (data: PreviewContent) => {
             currentContentRef.current = data;
+            contentVersionRef.current += 1;
 
             // We can safely bail here. We'll send a full init message later
             // once the iframe sends it's 'iframe-ready' message.
@@ -176,6 +189,7 @@ export function usePreviewController(
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
                 content: sanitizePreviewData(data),
+                contentVersion: contentVersionRef.current,
             };
 
             postToIframe(message);
@@ -202,7 +216,12 @@ export function usePreviewController(
     // Highlights elements in the iframe by instanceId
     const highlightIssues = React.useCallback(
         (instanceIds: string[]) => {
-            postToIframe(createPreviewHighlightIssuesMessage(instanceIds));
+            postToIframe(
+                createPreviewHighlightIssuesMessage(
+                    instanceIds,
+                    contentVersionRef.current,
+                ),
+            );
         },
         [postToIframe],
     );

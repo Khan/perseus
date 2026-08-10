@@ -18,14 +18,19 @@ jest.mock("axe-core", () => ({
     },
 }));
 
+const scanQuestionContent: PreviewContent = {
+    type: "question",
+    data: {
+        question: {content: "What is 2+2?", widgets: {}, images: {}},
+        apiOptions: {readOnly: true},
+        linterContext: {contentType: "exercise", highlightLint: false},
+    },
+};
+
 describe("usePreviewPresenter", () => {
-    let mockIframeElement: {
-        dataset: {[key: string]: string | undefined};
-    };
-    let mockParentWindow: Window;
+    let mockIframeElement: {dataset: {[key: string]: string | undefined}};
+    let mockParentWindow: typeof window.parent;
     let mockPostMessage: jest.Mock;
-    let originalFrameElement: Element | null;
-    let originalParent: Window;
 
     beforeEach(() => {
         mockAxeRun.mockResolvedValue({violations: [], incomplete: []});
@@ -44,32 +49,54 @@ describe("usePreviewPresenter", () => {
             },
         };
 
-        // Save originals
-        originalFrameElement = window.frameElement;
-        originalParent = window.parent;
-
         // Override window properties
-        Object.defineProperty(window, "frameElement", {
-            configurable: true,
-            value: mockIframeElement,
-        });
-        Object.defineProperty(window, "parent", {
-            configurable: true,
-            value: mockParentWindow,
-        });
+        jest.spyOn(window, "frameElement", "get").mockReturnValue(
+            // eslint-disable-next-line no-restricted-syntax
+            mockIframeElement as unknown as HTMLIFrameElement,
+        );
+        jest.spyOn(window, "parent", "get").mockReturnValue(mockParentWindow);
     });
 
-    afterEach(() => {
-        // Restore originals
-        Object.defineProperty(window, "frameElement", {
-            configurable: true,
-            value: originalFrameElement,
+    function dispatchToPresenter(data: ParentToIframeMessage) {
+        window.dispatchEvent(
+            new MessageEvent("message", {
+                data,
+                source: mockParentWindow,
+            }),
+        );
+    }
+
+    // Enables scanning, sends content at the given version, runs the debounced
+    // scan, and returns the instanceId of the single violation it reports.
+    async function runScanForVersion(contentVersion: number): Promise<string> {
+        act(() => {
+            dispatchToPresenter({
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "set-a11y-scanning-enabled",
+                enabled: true,
+            });
+            dispatchToPresenter({
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: "content-data",
+                content: scanQuestionContent,
+                contentVersion,
+            });
         });
-        Object.defineProperty(window, "parent", {
-            configurable: true,
-            value: originalParent,
+        // Wait for debounce to time out and do axe-core scan
+        act(() => {
+            jest.advanceTimersByTime(1500);
         });
-    });
+        await waitFor(() => {
+            expect(mockPostMessage).toHaveBeenCalledWith(
+                expect.objectContaining({type: "a11y-report"}),
+                "/",
+            );
+        });
+        const reportCall = mockPostMessage.mock.calls.find(
+            (call) => call[0].type === "a11y-report",
+        );
+        return reportCall[0].violations[0].instanceId;
+    }
 
     describe("initialization", () => {
         it("initializes with null content", () => {
@@ -107,10 +134,7 @@ describe("usePreviewPresenter", () => {
         });
 
         it("throws error when not used within an iframe", () => {
-            Object.defineProperty(window, "frameElement", {
-                configurable: true,
-                value: null,
-            });
+            jest.spyOn(window, "frameElement", "get").mockReturnValue(null);
 
             expect(() => {
                 renderHook(() => usePreviewPresenter());
@@ -152,6 +176,7 @@ describe("usePreviewPresenter", () => {
             source: PREVIEW_MESSAGE_SOURCE,
             type: "content-data",
             content,
+            contentVersion: 1,
         });
 
         it("updates data when receiving content-data message", () => {
@@ -298,6 +323,7 @@ describe("usePreviewPresenter", () => {
                     // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
+                contentVersion: 1,
             };
 
             act(() => {
@@ -397,6 +423,7 @@ describe("usePreviewPresenter", () => {
                             type: "iframe-init",
                             content: questionContent,
                             a11yScanningEnabled: true,
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -418,6 +445,7 @@ describe("usePreviewPresenter", () => {
                             type: "iframe-init",
                             content: null,
                             a11yScanningEnabled: false,
+                            contentVersion: 0,
                         },
                         source: mockParentWindow,
                     }),
@@ -466,13 +494,14 @@ describe("usePreviewPresenter", () => {
             );
         };
 
-        const sendContent = (content: PreviewContent) => {
+        const sendContent = (content: PreviewContent, contentVersion = 1) => {
             window.dispatchEvent(
                 new MessageEvent("message", {
                     data: {
                         source: PREVIEW_MESSAGE_SOURCE,
                         type: "content-data",
                         content,
+                        contentVersion,
                     },
                     source: mockParentWindow,
                 }),
@@ -650,6 +679,7 @@ describe("usePreviewPresenter", () => {
                                     },
                                 },
                             },
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -680,6 +710,7 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "highlight-issues",
                             instanceIds: [instanceId],
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -688,6 +719,50 @@ describe("usePreviewPresenter", () => {
 
             // Assert
             expect(result.current.highlightTargets).toEqual([targetElement]);
+        });
+
+        it("ignores a highlight-issues whose contentVersion is stale", async () => {
+            // Arrange
+            const targetElement = document.createElement("button");
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+            mockAxeRun.mockResolvedValue({
+                violations: [
+                    {
+                        id: "button-name",
+                        helpUrl: "https://example.com",
+                        help: "Buttons must have discernible text",
+                        impact: "serious",
+                        nodes: [
+                            {
+                                element: targetElement,
+                                all: [],
+                                any: [],
+                                none: [],
+                            },
+                        ],
+                    },
+                ],
+                incomplete: [],
+            });
+            const {result} = renderHook(() =>
+                usePreviewPresenter({contentContainerRef}),
+            );
+            const instanceId = await runScanForVersion(1);
+
+            // Act: a highlight command stamped with a superseded version.
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "highlight-issues",
+                    instanceIds: [instanceId],
+                    contentVersion: 2,
+                });
+            });
+
+            // Assert
+            expect(result.current.highlightTargets).toEqual([]);
         });
     });
 
@@ -754,6 +829,7 @@ describe("usePreviewPresenter", () => {
                                     },
                                 },
                             },
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -783,6 +859,7 @@ describe("usePreviewPresenter", () => {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "highlight-issues",
                             instanceIds: [instanceId],
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -802,6 +879,61 @@ describe("usePreviewPresenter", () => {
                         source: mockParentWindow,
                     }),
                 );
+            });
+
+            // Assert
+            expect(result.current.highlightTargets).toEqual([]);
+        });
+    });
+
+    describe("clearing highlights on a content-version change", () => {
+        it("clears highlightTargets when the content version changes", async () => {
+            // Arrange
+            const targetElement = document.createElement("button");
+            const contentContainerRef = {
+                current: document.createElement("div"),
+            };
+            mockAxeRun.mockResolvedValue({
+                violations: [
+                    {
+                        id: "button-name",
+                        helpUrl: "https://example.com",
+                        help: "Buttons must have discernible text",
+                        impact: "serious",
+                        nodes: [
+                            {
+                                element: targetElement,
+                                all: [],
+                                any: [],
+                                none: [],
+                            },
+                        ],
+                    },
+                ],
+                incomplete: [],
+            });
+            const {result} = renderHook(() =>
+                usePreviewPresenter({contentContainerRef}),
+            );
+            const instanceId = await runScanForVersion(1);
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "highlight-issues",
+                    instanceIds: [instanceId],
+                    contentVersion: 1,
+                });
+            });
+            expect(result.current.highlightTargets).toEqual([targetElement]);
+
+            // Act: a newer edit arrives.
+            act(() => {
+                dispatchToPresenter({
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "content-data",
+                    content: scanQuestionContent,
+                    contentVersion: 2,
+                });
             });
 
             // Assert
@@ -887,6 +1019,7 @@ describe("usePreviewPresenter", () => {
                     // eslint-disable-next-line no-restricted-syntax
                     data: {} as any,
                 },
+                contentVersion: 1,
             };
 
             act(() => {
@@ -1056,8 +1189,8 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "content-data",
-
                             content,
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -1122,14 +1255,14 @@ describe("usePreviewPresenter", () => {
 
             // Send all updates in quick succession
             act(() => {
-                contents.forEach((content) => {
+                contents.forEach((content, index) => {
                     window.dispatchEvent(
                         new MessageEvent("message", {
                             data: {
                                 source: PREVIEW_MESSAGE_SOURCE,
                                 type: "content-data",
-
                                 content,
+                                contentVersion: index + 1,
                             },
                             source: mockParentWindow,
                         }),

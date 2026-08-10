@@ -37,6 +37,19 @@ export interface PreviewMessageBase {
 }
 
 /**
+ * Base type for messages tied to a specific version of the preview content.
+ *
+ * `contentVersion` is a monotonic counter owned by the parent controller,
+ * stamped onto every content update and echoed back on the scan report and
+ * highlight commands it produces. It lets both sides discard results computed
+ * against content that has since been superseded by a newer edit — see the
+ * gating in `use-preview-controller.ts` / `use-preview-presenter.ts`.
+ */
+interface PreviewMessageVersioned extends PreviewMessageBase {
+    contentVersion: number;
+}
+
+/**
  * Data for the read-only question preview shown while editing an exercise.
  *
  * This carries just the question's `PerseusRenderer` — the content under edit —
@@ -112,7 +125,7 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-interface PreviewDataMessage extends PreviewMessageBase {
+interface PreviewDataMessage extends PreviewMessageVersioned {
     type: "content-data";
     content: PreviewContent;
 }
@@ -124,7 +137,7 @@ interface PreviewDataMessage extends PreviewMessageBase {
  * freshly (re)loaded iframe never has to rely on messages sent before it was
  * listening.
  */
-interface PreviewIframeInitMessage extends PreviewMessageBase {
+interface PreviewIframeInitMessage extends PreviewMessageVersioned {
     type: "iframe-init";
     content: PreviewContent | null;
     a11yScanningEnabled: boolean;
@@ -133,12 +146,14 @@ interface PreviewIframeInitMessage extends PreviewMessageBase {
 export function createPreviewIframeInitMessage(
     content: PreviewContent | null,
     a11yScanningEnabled: boolean,
+    contentVersion: number,
 ): PreviewIframeInitMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-init",
         content,
         a11yScanningEnabled,
+        contentVersion,
     };
 }
 
@@ -166,18 +181,20 @@ export function createPreviewSetA11yScanningEnabledMessage(
  * Command from parent telling the iframe to highlight the elements for the
  * given instanceIds (the "Show Me" overlays drawn inside the iframe).
  */
-interface PreviewHighlightIssuesMessage extends PreviewMessageBase {
+interface PreviewHighlightIssuesMessage extends PreviewMessageVersioned {
     type: "highlight-issues";
     instanceIds: string[];
 }
 
 export function createPreviewHighlightIssuesMessage(
     instanceIds: string[],
+    contentVersion: number,
 ): PreviewHighlightIssuesMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "highlight-issues",
         instanceIds,
+        contentVersion,
     };
 }
 
@@ -227,7 +244,7 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
  * Message from iframe reporting axe-core accessibility scan results back to the
  * parent.
  */
-interface PreviewA11yReportMessage extends PreviewMessageBase {
+interface PreviewA11yReportMessage extends PreviewMessageVersioned {
     type: "a11y-report";
     /** Violations are issues that are confirmed by the a11y scanner. **/
     violations: A11yIssue[];
@@ -259,11 +276,13 @@ export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
 export function createPreviewA11yReportMessage(
     violations: A11yIssue[],
     needsReview: A11yIssue[],
+    contentVersion: number,
 ): PreviewA11yReportMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "a11y-report",
         violations,
         needsReview,
+        contentVersion,
     };
 }
