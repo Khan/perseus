@@ -1,7 +1,10 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
-import {generateCard, ordererRendererDecorator} from "./orderer-renderer-decorator";
+import {
+    generateCard,
+    ordererRendererDecorator,
+} from "./orderer-renderer-decorator";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -32,7 +35,11 @@ const defaultArgs = {
 export const Default: Story = {
     decorators: [ordererRendererDecorator],
     args: {
-        options: [generateCard("$\\sqrt{5}$"), generateCard("2.5"), generateCard("1")],
+        options: [
+            generateCard("$\\sqrt{5}$"),
+            generateCard("2.5"),
+            generateCard("1"),
+        ],
     } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
 
