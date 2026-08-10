@@ -83,6 +83,8 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     // PerseusLabelImageWidgetOptions and from parseLabelImageWidget, so the
     // parser drops it from persisted content — only unparsed callers (e.g.
     // Storybook) ever supply it.
+    // TODO(benchristel): parse preferredPopoverDirection so it has the
+    //  intended effect in production (or remove it if it's not needed).
     preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
@@ -475,9 +477,15 @@ export class LabelImage
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, preferredPopoverDirection, choices, multipleAnswers} =
-            this.props.options;
-        const {userInput} = this.props;
+        const {userInput, options} = this.props;
+        const {
+            choices,
+            imageWidth,
+            imageHeight,
+            markers,
+            multipleAnswers,
+            preferredPopoverDirection,
+        } = options;
         const {markersInteracted, activeMarkerIndex} = this.state;
 
         // Determine whether page is rendered in a narrow browser window.
@@ -486,9 +494,8 @@ export class LabelImage
             window.matchMedia(mediaQueries.xsOrSmaller.replace("@media ", ""))
                 .matches;
 
-        // Determine whether the image is wider than it is tall.
-        const isWideImage =
-            this.props.options.imageWidth / 2 > this.props.options.imageHeight;
+        // Determine whether the image is more than twice as wide as it is tall.
+        const isWideImage = imageWidth / 2 > imageHeight;
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
