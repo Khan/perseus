@@ -72,6 +72,10 @@ type PairsEditorProps = {
  * This is used for editing a set of name/value pairs.
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
+    static defaultProps: {pairs: PerseusCSProgramSetting[]} = {
+        pairs: [],
+    };
+
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -222,7 +226,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                 <label>
                     Settings:
                     <PairsEditor
-                        pairs={this.props.settings ?? []}
+                        pairs={this.props.settings}
                         onChange={this._handleSettingsChange}
                     />
                     <InfoTip>

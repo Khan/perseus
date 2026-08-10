@@ -14,19 +14,16 @@ const {TextInput} = components;
 type Props = ExplanationDefaultWidgetOptions & {
     apiOptions?: APIOptionsWithDefaults;
 } & Changeable.ChangeableProps;
-type State = any;
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
-class ExplanationEditor extends React.Component<Props, State> {
+class ExplanationEditor extends React.Component<Props> {
     static widgetName = "explanation" as const;
 
     static defaultProps: ExplanationDefaultWidgetOptions =
         explanationLogic.defaultWidgetOptions;
-
-    state: State = {};
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
