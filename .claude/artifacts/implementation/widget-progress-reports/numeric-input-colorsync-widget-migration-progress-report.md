@@ -168,3 +168,47 @@ updated snapshot, then pushed to `claude/widget-styles-token-review-hdrmrw`.
 - Flagged (not fixed, out of scope): pre-existing drift between `definition.module.css`/
   `explanation.module.css` and their generated `_legacy-styles.js` files, discovered as a side
   effect of running the repo-wide sync script. Recommend a follow-up ticket.
+
+## Addendum — full widgets/ CSS sweep (same session, follow-up)
+A full sweep of every CSS file under `packages/perseus/src/widgets/` (excluding `plotter`) and
+`packages/perseus/src/styles/widgets/` turned up one more file that belongs to this widget:
+`packages/perseus/src/styles/widgets/numeric.css`. It styles `.input-with-examples-tooltip`,
+confirmed via `grep` to be the classname rendered by `input-with-examples.tsx:139` — this is the
+numeric-input widget's tooltip, not the out-of-scope `input-number` widget. It had never been
+touched by any prior ColorSync pass:
+
+```diff
+ .input-with-examples-tooltip {
+-    font-size: 18px;
+-    line-height: 28px;
+-    color: #717378;
+-    background: #fff;
++    font-size: var(--wb-font-body-size-medium);
++    line-height: var(--wb-font-body-lineHeight-large);
++    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
++    background: var(--wb-semanticColor-core-background-base-default);
+ }
+ ...
+ .input-with-examples-tooltip strong {
+-    font-weight: 700;
++    font-weight: var(--wb-font-weight-bold);
+ }
+```
+
+- `color: #717378` and `font-weight: 700` were exact matches (`foreground.neutral.subtle`,
+  `font.weight.bold`). `background: #fff` exact-matched `background.base.default`.
+- `font-size: 18px` — no exact token; same tied gap as this widget's own `.module.css` file
+  (`body.size.medium` 16px vs. `heading.size.medium` 20px). This is body-copy tooltip text (a
+  list of example answer formats), so the "lean smaller" tie-break and the semantic check agree:
+  `font.body.size.medium`.
+- `line-height: 28px` — no exact `font.body.lineHeight.*` token (body tops out at `large`, 22px).
+  Chose the nearest body-family value, `font.body.lineHeight.large`, rather than the pixel-exact
+  `font.heading.lineHeight.large` (also 28px) — this is body prose, and matching by family over
+  coincidental pixel value follows the same principle used elsewhere in this report.
+
+Also discovered while running the full test suite after this addendum's changes: three snapshot
+tests outside the `numeric-input` filter used to validate the original change
+(`group/group.test.tsx`, `graded-group-set/graded-group-set.test.ts`,
+`graded-group-set/graded-group-set-jipt.test.ts`) render a `numeric-input` widget internally and
+still carried the pre-change Aphrodite class hash. Updated via `jest -u`; a full unfiltered
+`jest` run afterward shows all 531 suites passing.
