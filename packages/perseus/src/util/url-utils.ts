@@ -12,7 +12,6 @@ const location = (): Location => {
      */
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!_cachedClientLocation) {
-        // eslint-disable-next-line no-restricted-syntax
         _cachedClientLocation = window.location;
     }
 

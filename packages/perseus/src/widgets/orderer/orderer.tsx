@@ -1,5 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -391,7 +389,6 @@ class Orderer
     };
 
     onRelease: (arg1: any) => void = (loc) => {
-        // eslint-disable-next-line react/no-string-refs
         const draggable = this.refs.dragging;
         if (draggable == null) {
             return;
@@ -439,19 +436,14 @@ class Orderer
             // one with the same content
             this.props.options.forEach((opt, i) => {
                 if (opt.content === this.state.dragContent) {
-                    const card = ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        this.refs["bank" + i],
-                    );
+                    const card = ReactDOM.findDOMNode(this.refs["bank" + i]);
                     // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
                     finalOffset = $(card).position();
                 }
             });
-            // eslint-disable-next-line react/no-string-refs
         } else if (this.refs.placeholder != null) {
             // Otherwise, go to the position that the placeholder is at
             finalOffset = $(
-                // eslint-disable-next-line react/no-string-refs
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 ReactDOM.findDOMNode(this.refs.placeholder),
                 // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
@@ -475,7 +467,6 @@ class Orderer
     };
 
     onMouseMove: (arg1: any) => void = (loc) => {
-        // eslint-disable-next-line react/no-string-refs
         const draggable = this.refs.dragging;
         if (draggable == null) {
             return;
@@ -500,7 +491,6 @@ class Orderer
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
         const isHorizontal = this.props.layout === "horizontal";
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
         // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
@@ -519,10 +509,7 @@ class Orderer
 
         if (isHorizontal) {
             list.forEach((opt, i) => {
-                const card = ReactDOM.findDOMNode(
-                    // eslint-disable-next-line react/no-string-refs
-                    this.refs["sortable" + i],
-                );
+                const card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
                 const outerWidth = $(card).outerWidth(true);
                 if (midWidth > sumWidth + outerWidth / 2) {
@@ -532,10 +519,7 @@ class Orderer
             });
         } else {
             list.forEach((_, i) => {
-                const card = ReactDOM.findDOMNode(
-                    // eslint-disable-next-line react/no-string-refs
-                    this.refs["sortable" + i],
-                );
+                const card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
                 const outerHeight = $(card).outerHeight(true);
                 if (midHeight > sumHeight + outerHeight / 2) {
@@ -556,7 +540,6 @@ class Orderer
         const isHorizontal = this.props.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $bank = $(ReactDOM.findDOMNode(this.refs.bank));
         // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
@@ -611,7 +594,6 @@ class Orderer
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
             <Card
-                // eslint-disable-next-line react/no-string-refs
                 ref="dragging"
                 floating={true}
                 content={this.state.dragContent}
@@ -663,7 +645,6 @@ class Orderer
         if (this.state.placeholderIndex != null) {
             const placeholder = (
                 <PlaceholderCard
-                    // eslint-disable-next-line react/no-string-refs
                     ref="placeholder"
                     width={this.state.dragWidth}
                     height={this.state.dragHeight}
@@ -681,14 +662,12 @@ class Orderer
         const sortable = (
             <div className="perseus-clearfix draggable-box">
                 {!anySortableCards && <DragHintCard />}
-                {/* eslint-disable-next-line react/no-string-refs */}
                 <div ref="dragList">{sortableCards}</div>
             </div>
         );
 
         // This is the bank of stacks of cards
         const bank = (
-            // eslint-disable-next-line react/no-string-refs
             <div ref="bank" className="bank perseus-clearfix">
                 {this.props.options.map((opt, i) => {
                     return (
@@ -699,7 +678,6 @@ class Orderer
                             stack={true}
                             key={i}
                             linterContext={this.props.linterContext}
-                            // eslint-disable-next-line react/jsx-no-bind
                             onMouseDown={
                                 this.state.animating
                                     ? $.noop
@@ -726,7 +704,6 @@ class Orderer
                     "blank-background " +
                     "perseus-clearfix "
                 }
-                // eslint-disable-next-line react/no-string-refs
                 ref="orderer"
             >
                 {bank}

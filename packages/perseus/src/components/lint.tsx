@@ -77,13 +77,11 @@ class Lint extends React.Component<Props, State> {
 
     componentDidMount() {
         // TODO(somewhatabstract): Use WB timing
-        // eslint-disable-next-line no-restricted-syntax
         this._positionTimeout = window.setTimeout(this.getPosition);
     }
 
     componentWillUnmount() {
         // TODO(somewhatabstract): Use WB timing
-        // eslint-disable-next-line no-restricted-syntax
         window.clearTimeout(this._positionTimeout);
     }
 

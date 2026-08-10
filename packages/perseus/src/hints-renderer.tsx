@@ -36,8 +36,6 @@ type State = {
     isFinalHelpPage: boolean;
 };
 
-// Use of UNSAFE_componentWillReceiveProps:
-// eslint-disable-next-line react/no-unsafe
 class HintsRenderer extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -58,7 +56,6 @@ class HintsRenderer extends React.Component<Props, State> {
         this._cacheHintImages();
     }
 
-    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
         if (nextProps.hintsVisible - this.props.hintsVisible > 1) {
@@ -94,7 +91,6 @@ class HintsRenderer extends React.Component<Props, State> {
             }
 
             try {
-                // eslint-disable-next-line react/no-string-refs
                 const ref = this.refs["hintRenderer" + pos];
 
                 // Ensure the ref exists before trying to find its DOM node
@@ -159,7 +155,6 @@ class HintsRenderer extends React.Component<Props, State> {
      */
     getSerializedState: () => any = () => {
         return _.times(this._hintsVisible(), (i) => {
-            // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
             return this.refs["hintRenderer" + i].getSerializedState();
         });

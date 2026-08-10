@@ -1009,7 +1009,6 @@ describe("MafsGraph", () => {
             // hears how to interact with the graph before the graph
             // description. If this fails, the instructions are rendered after
             // the description.
-            // eslint-disable-next-line testing-library/no-node-access
             expect(description.compareDocumentPosition(instructions)).toBe(
                 Node.DOCUMENT_POSITION_PRECEDING,
             );

@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
+/* eslint-disable @typescript-eslint/no-invalid-this */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -204,7 +204,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.animationFrameRequest) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
             cancelAnimationFrame(this.animationFrameRequest);
         }
 
@@ -254,7 +253,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         const loc = Util.extractPointerLocation(event);
 
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
         // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
         this.animationFrameRequest = requestAnimationFrame(() => {
             // @ts-expect-error - TS2769 - No overload matches this call.
@@ -303,7 +301,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
         if (loc) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
             // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             this.animationFrameRequest = requestAnimationFrame(() => {
                 this.setState(
@@ -547,7 +544,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         ) {
             // Measure on the next frame to allow items size to settle.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {
                 this.measureItems();
             }, 0);
@@ -565,7 +561,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         // Fetches a jQuery list of elements for each item
         const $items = items.map((item) => {
-            // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2769 - No overload matches this call.
             return $(ReactDOM.findDOMNode(this.refs[item.key]));
         });
@@ -656,7 +651,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     onMouseMove(key: SortableItem["key"]) {
         // Dragging: Rearrange items based on draggable's position
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
         // @ts-expect-error - TS2769 - No overload matches this call.
@@ -709,17 +703,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     onMouseUp(key: SortableItem["key"]) {
         // Dragging -> Animating
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
         const nextAnimationFrame = requestAnimationFrame(() => {
             const items = this.state.items.map((item) => {
                 if (item.key === key) {
                     item.state = ItemState.ANIMATING;
                     const $placeholder = $(
                         // @ts-expect-error - TS2769 - No overload matches this call.
-                        ReactDOM.findDOMNode(
-                            // eslint-disable-next-line react/no-string-refs
-                            this.refs["placeholder_" + key],
-                        ),
+                        ReactDOM.findDOMNode(this.refs["placeholder_" + key]),
                     );
                     // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
                     const position = $placeholder.position();

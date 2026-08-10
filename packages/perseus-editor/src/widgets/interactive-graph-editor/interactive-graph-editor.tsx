@@ -247,7 +247,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "fullGraphAriaDescription",
         );
 
-        // eslint-disable-next-line react/no-string-refs
         const graph = this.refs.graph;
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (graph) {

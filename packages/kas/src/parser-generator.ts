@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
-/* eslint-disable prettier/prettier */
 
 const fs = require("fs");
 const path = require("path");

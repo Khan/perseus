@@ -220,7 +220,6 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the correct answer changes
     handleTexInsert: (arg1: string) => void = (str) => {
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.expression.insert(str);
     };
