@@ -61,7 +61,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
                 ref={(el) => (this._editors[i] = el)}
                 {...group}
                 apiOptions={this.props.apiOptions}
-                widgetEnabled={true}
                 onChange={(data) =>
                     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
