@@ -7,7 +7,6 @@
  * learner-facing, but new content cannot be made with Group.
  */
 
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
@@ -35,25 +34,12 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<PerseusGroupWidgetOptions, PerseusGroupUserInput>;
-type DefaultProps = {
-    content: Props["content"];
-    widgets: Props["widgets"];
-    images: Props["images"];
-    linterContext: Props["linterContext"];
-};
 
 class Group extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     rendererRef: Renderer | null | undefined;
-
-    static defaultProps: DefaultProps = {
-        content: "",
-        widgets: {},
-        images: {},
-        linterContext: linterContextDefault,
-    };
 
     componentDidMount() {
         // NOTE(marcia): See comment in render method about our cyclical

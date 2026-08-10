@@ -59,6 +59,13 @@ import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
+import {
+    describedByIds,
+    getLockedFigureClipRuns,
+    handleBlurEvent,
+    handleFocusEvent,
+    handleKeyboardEvent,
+} from "./utils/mafs-graph-utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
@@ -220,15 +227,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
         top: yMax === 0 ? halfStroke : 0,
     };
 
-    // Points are fixed-radius markers, so a point on the boundary would be
-    // sliced in half by the clip — render them unclipped. Other figures are
-    // geometry that should be clipped to the visible range.
-    const lockedPointFigures = props.lockedFigures.filter(
-        (figure) => figure.type === "point",
-    );
-    const clippedLockedFigures = props.lockedFigures.filter(
-        (figure) => figure.type !== "point",
-    );
+    // Group figures into ordered runs so points render unclipped and other
+    // figures clipped, while preserving author (and screen-reader) order.
+    const lockedFigureRuns = getLockedFigureClipRuns(props.lockedFigures);
 
     return (
         <GraphConfigContext.Provider
@@ -434,20 +435,26 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         <AxisArrows />
                                     </>
                                 )}
-                                {/* Locked figures clipped to graph bounds */}
-                                {clippedLockedFigures.length > 0 && (
-                                    <ClipToGraphBounds>
+                                {/* Locked figures in author order: clipped
+                                    runs are wrapped, point runs render
+                                    unclipped so boundary points aren't sliced. */}
+                                {lockedFigureRuns.map((run, index) =>
+                                    run.clipped ? (
+                                        <ClipToGraphBounds
+                                            key={`locked-figure-run-${index}`}
+                                        >
+                                            <GraphLockedLayer
+                                                lockedFigures={run.figures}
+                                                range={state.range}
+                                            />
+                                        </ClipToGraphBounds>
+                                    ) : (
                                         <GraphLockedLayer
-                                            lockedFigures={clippedLockedFigures}
+                                            key={`locked-figure-run-${index}`}
+                                            lockedFigures={run.figures}
                                             range={state.range}
                                         />
-                                    </ClipToGraphBounds>
-                                )}
-                                {lockedPointFigures.length > 0 && (
-                                    <GraphLockedLayer
-                                        lockedFigures={lockedPointFigures}
-                                        range={state.range}
-                                    />
+                                    ),
                                 )}
                             </Mafs>
                         </View>
@@ -758,70 +765,6 @@ const renderGraphControls = (props: {
     }
 };
 
-function handleFocusEvent(
-    event: React.FocusEvent,
-    state: InteractiveGraphState,
-    dispatch: (action: InteractiveGraphAction) => unknown,
-) {
-    if (isUnlimitedGraphState(state)) {
-        if (
-            event.target.classList.contains("mafs-graph") &&
-            state.interactionMode === "mouse"
-        ) {
-            dispatch(actions.global.changeKeyboardInvitationVisibility(true));
-        }
-    }
-}
-
-function handleBlurEvent(
-    _event: React.FocusEvent,
-    state: InteractiveGraphState,
-    dispatch: (action: InteractiveGraphAction) => unknown,
-) {
-    if (isUnlimitedGraphState(state)) {
-        dispatch(actions.global.changeKeyboardInvitationVisibility(false));
-    }
-}
-
-function handleKeyboardEvent(
-    event: React.KeyboardEvent,
-    state: InteractiveGraphState,
-    dispatch: (action: InteractiveGraphAction) => unknown,
-) {
-    if (isUnlimitedGraphState(state)) {
-        if (event.key === "Backspace" || event.key === "Delete") {
-            // NOTE(benchristel): Checking classList here is a hack to prevent
-            // points from being deleted if the user presses the backspace key
-            // while the whole graph is focused. Instead of doing this, we
-            // should move the keyboard event handler to the movable point
-            // handle element.
-            if (
-                document.activeElement?.classList.contains(
-                    "movable-point__focusable-handle",
-                )
-            ) {
-                // Only allow delete if type is point or a polygon that is open.
-                if (
-                    state.type === "point" ||
-                    (state.type === "polygon" && !state.closedPolygon)
-                ) {
-                    dispatch(actions.global.deleteIntent());
-                }
-            }
-
-            // After removing a point blur
-            // It would be nice if this could focus on the graph but doing so
-            // would trigger the message to prompt a learner to enter keyboard mode
-            // eslint-disable-next-line no-restricted-syntax
-            (document.activeElement as HTMLElement).blur();
-        } else if (event.shiftKey && event.key === "Enter") {
-            dispatch(actions.global.changeInteractionMode("keyboard"));
-        } else if (state.interactionMode === "keyboard" && event.key === "a") {
-            dispatch(actions.pointGraph.addPoint([0, 0]));
-        }
-    }
-}
-
 const renderGraphElements = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -870,11 +813,3 @@ const renderGraphElements = (props: {
             throw new UnreachableCaseError(type);
     }
 };
-
-// Returns a space-separated string like "foo bar" given several optional
-// string IDs. If all args are falsy, returns undefined.
-function describedByIds(
-    ...args: Array<string | false | 0 | null | undefined>
-): string | undefined {
-    return args.filter(Boolean).join(" ") || undefined;
-}

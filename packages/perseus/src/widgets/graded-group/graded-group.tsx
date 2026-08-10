@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -74,16 +73,6 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    title: Props["title"];
-    content: Props["content"];
-    widgets: Props["widgets"];
-    images: Props["images"];
-    hint: Props["hint"];
-    hasHint: Props["hasHint"];
-    linterContext: Props["linterContext"];
-};
-
 type State = {
     status: (typeof GRADING_STATUSES)[keyof typeof GRADING_STATUSES];
     showHint: boolean;
@@ -113,16 +102,6 @@ export class GradedGroup
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        title: "",
-        content: "",
-        widgets: {},
-        images: {},
-        hint: null,
-        hasHint: false,
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         status: GRADING_STATUSES.ungraded,

@@ -34,7 +34,6 @@ class TransitionChild extends React.Component<ChildProps, ChildState> {
     // The use of getDerivedStateFromProps here is to avoid an extra call to
     // setState if the component re-enters.  This can happen if TransitionGroup
     // sets `in` from `false` to `true`.
-    // eslint-disable-next-line no-restricted-syntax
     static getDerivedStateFromProps(
         {in: nextIn}: ChildProps,
         prevState: ChildState,
@@ -76,7 +75,6 @@ class TransitionChild extends React.Component<ChildProps, ChildState> {
 
         if (oldState.status !== "mounted" && this.state.status === "mounted") {
             // Remove the node from the DOM
-            // eslint-disable-next-line react/no-did-update-set-state
             this.setState({status: "unmounted"});
         }
     }
